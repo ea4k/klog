@@ -2,6 +2,7 @@
 TESTS to do before releasing:
 - ADIF log Import
 - LoTW log Import
+- Receive QSOs from WSJTX and check if they are properly imported to the log
 
 
 Changelog 2.4
@@ -10,8 +11,10 @@ Changelog 2.4
 - Enhancement: SQLi protection of some queries.
 - Enhancement: Improve how the cty.csv file (countries file) is read.
 - Enhancement: Update the entities table to make UTC real instead of int (e.g. India is -5.5 UTC)
+- Enhancement: Function to import QSOs from WSJTX.
 - BugFix: Fixed the ISO name for Togo.
 - BugFix: Country fix read failed with complex prefixes.
+- Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.
 
 
 Mar 2024 - 2.3.4

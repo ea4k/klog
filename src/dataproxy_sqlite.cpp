@@ -2638,7 +2638,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
      return true;
  }
 
-
+/*
  bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
                       const QString &_mygrid, const QString &_dxgrid,
                       const QString &_rstTX, const QString &_rstRX, const QString &_sRX, const QString &_sTX,
@@ -2647,20 +2647,13 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
                       const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
                       const int _dxcc, const int _logNumber, bool _sendQSL)
 {
-    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: " << _dxcall;
+    //qDebug() << Q_FUNC_INFO << ":  " << _dxcall;
 
     //void MainWindow::slotWSJTXloggedQSO(const int _type, const QString &_dxcall, const quint64 _freq, const QString &_mode,
     //                                              const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
     //                                              const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on)
 
     //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
-/*
-    Mandatory data:
-             "qso_date VARCHAR(10) NOT NULL, "
-             "call VARCHAR(40) NOT NULL, "
-             "bandid INTEGER NOT NULL, "
-             "modeid INTEGER NOT NULL, "
-*/
 
     QString stringFields  = QString();
     QString stringData = QString();
@@ -2675,32 +2668,32 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: call";
+        //qDebug() << Q_FUNC_INFO << ":  Error: call";
         return false;
     }
 
     if (_datetime.isValid())
     {
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " <<  _datetime;
+        //qDebug() << Q_FUNC_INFO << ":  time-on: " <<  _datetime;
         stringFields  = stringFields  + "qso_date, ";
         QDateTime _dateTime;
         //_dateTime.setDate(QDate::currentDate());
         //_dateTime.setTime(QTime::fromString(_time_on, "yyyyMMddhhmmss"));
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " << _datetime;
+        //qDebug() << Q_FUNC_INFO << ":  time-on: " << _datetime;
         //stringData =  stringData + "'" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("yyyy-MM-dd") + "', '" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
         stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime) + "', ";
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: time-on: " << stringData;
+        //qDebug() << Q_FUNC_INFO << ":  time-on: " << stringData;
     }
     else
     {
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: time-on_ " << _datetime;
+        //qDebug() << Q_FUNC_INFO << ":  Error: time-on_ " << _datetime;
         return false;
     }
 
     QString band = getBandNameFromFreq(_freq);
     if (band != _band)
     {
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: FREQ / BAND inconsistency " << _band << "/" << QString::number(_freq);
+        //qDebug() << Q_FUNC_INFO << ":  Error: FREQ / BAND inconsistency " << _band << "/" << QString::number(_freq);
     }
 
     if (band.length()>0)
@@ -2719,7 +2712,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     }
     else
     {
-           //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: band";
+           //qDebug() << Q_FUNC_INFO << ":  Error: band";
 
 
         emit queryError(Q_FUNC_INFO, "Incorrect band: " + _band, "-1000", "No query error");
@@ -2727,8 +2720,8 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     }
 
     int _modeid = getSubModeIdFromSubMode(_mode);
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: mode: " << _mode;
-       //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: modeid: " << QString::number(_modeid);
+       //qDebug() << Q_FUNC_INFO << ":  mode: " << _mode;
+       //qDebug() << Q_FUNC_INFO << ":  modeid: " << QString::number(_modeid);
     if (util->isValidModeId(_modeid))
     {
         stringFields  = stringFields  + "modeid, ";
@@ -2736,7 +2729,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     }
     else
     {
-           //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: mode";
+           //qDebug() << Q_FUNC_INFO << ":  Error: mode";
         emit queryError(Q_FUNC_INFO, "Incorrect mode: " + _mode, "-1000", "No query error");
         return false;
     }
@@ -2858,25 +2851,71 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
     stringData =  stringData + "'" + QString::number(_logNumber) + "'";
 
     stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
-    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Query: " << stringQuery;
+    //qDebug() << Q_FUNC_INFO << ":  Query: " << stringQuery;
 
     bool sqlOK = query.exec(stringQuery);
 
-    //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: LastQuery: " << query.lastQuery();
+    //qDebug() << Q_FUNC_INFO << ":  LastQuery: " << query.lastQuery();
 
     if (sqlOK)
     {
         query.finish();
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: SQL OK";
+        //qDebug() << Q_FUNC_INFO << ":  SQL OK";
         return true;
     }
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-        //qDebug() << "DataProxy_SQLite::addQSOFromWSJTX: Error: SQL ";
+        //qDebug() << Q_FUNC_INFO << ":  Error: SQL ";
         return false;
     }
+}
+*/
+
+bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
+                      const QString &_mygrid, const QString &_dxgrid,
+                      const QString &_rstTX, const QString &_rstRX, const QString &_sRX, const QString &_sTX,
+                      const QString &_comment,
+                      const QString &_stationcallsign, const QString &_name, const QString &_operator,
+                      const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
+                      const int _dxcc, const int _logNumber, bool _sendQSL)
+{
+    //qDebug() << Q_FUNC_INFO << _dxcall;
+
+    //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
+    QSO qso;
+    qso.setCall(_dxcall);
+    qso.setDateTimeOn(_datetime);
+    qso.setBand(_band);
+    qso.setFreq(_freq);
+    qso.setMode(_mode);
+    qso.setDateOff(_datetime_off.date());
+    qso.setTimeOff(_datetime_off.time());
+    qso.setRSTTX(_rstTX);
+    qso.setRSTRX(_rstRX);
+    qso.setStxString(_sTX);
+    qso.setSrxString(_sRX);
+    qso.setComment(_comment);
+    qso.setName(_name);
+    qso.setGridSquare(_dxgrid);
+    qso.setMyGridSquare(_mygrid);
+    qso.setTXPwr(txpower);
+    qso.setOperatorCallsign(_operator);
+    qso.setStationCallsign(_stationcallsign);
+    qso.setDXCC(_dxcc);
+
+    if (_sendQSL)
+    {
+        qso.setQSLVia("B");
+        qso.setLoTWQSL_SENT("Q");
+        qso.setEQSLQSL_SENT("Q");
+        qso.setHRDLogStatus("M");
+        qso.setClubLogStatus("M");
+        qso.setQRZCOMStatus("M");
+    }
+    qso.setLogId(_logNumber);
+    return (qso.toDB()>0);
 }
 
 bool DataProxy_SQLite::deleteQSO(const int _qsoId)

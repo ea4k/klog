@@ -2817,7 +2817,7 @@ int QSO::toDB(int _qsoId)
     if (!isComplete ())
     {
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
-        return false;
+        return -1;
     }
     //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
