@@ -119,12 +119,12 @@ void DXClusterWidget::init()
 {
    //qDebug() << Q_FUNC_INFO;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    dxSpotColor.fromString("slategrey"); //To be replaced by .fromString in Qt6.6
+    dxSpotColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
 #else
     dxSpotColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
 #endif
 
-    //dxSpotColor.fromString("slategrey");
+    //dxSpotColor.setNamedColor("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     showDxMarathon = false;

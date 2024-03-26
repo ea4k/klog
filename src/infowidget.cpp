@@ -304,7 +304,7 @@ void InfoWidget::createUI()
 
 void InfoWidget::clearBandLabels()
 {
-    QString defaultColorName = (awards->getDefaultColor()).name();
+    QString defaultColorName = (awards->getDefaultColor()).name(QColor::HexRgb);
     bandLabel1->setStyleSheet("* { background-color: " + defaultColorName + "; }");
     bandLabel2->setStyleSheet("* { background-color: " + defaultColorName + "; }");
     bandLabel3->setStyleSheet("* { background-color: " + defaultColorName + "; }");
@@ -370,25 +370,27 @@ void InfoWidget::setImperialSystem (const  bool _imp)
 
 QString InfoWidget::getStyleColorToLabelFromBand(const QString &_b, const QString &_q)
 { // Receives band name, Entity number (as a String)
-   //qDebug() << "InfoWidget::getStyleColorToLabelFromBand: " << _b << "/" << _q;
+   qDebug() << Q_FUNC_INFO << ": " << _b << "/" << _q;
    QStringList _qs;
     _qs.clear();
 
     _qs << _q << QString::number(dataProxy->getIdFromBandName(_b)) << QString::number(-1) << QString::number(currentLog);
     //TODO: Check if we can know the mode and replace the -1
-    //qDebug() << "InfoWidget::getStyleColorToLabelFromBand (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name() ;
-    return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name() + "; }";
+    qDebug() << Q_FUNC_INFO << ": (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name(QColor::HexRgb) ;
+    return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name(QColor::HexRgb) + "; }";
 }
 
 
 //void InfoWidget::showInfo(const int _entity, const int _bandid, const int _modeid, const int _log)
 void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
-    //qDebug() << "InfoWidget::showInfo: " << QString::number(_entity);
+    qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
     //QColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
     if (_entity <1)
     {
-      clearBandLabels();
+        qDebug() << Q_FUNC_INFO << ": entity <1";
+        clearBandLabels();
     }
 
     bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));
@@ -403,6 +405,7 @@ void InfoWidget::showInfo(const int _entity)
     bandLabel10->setStyleSheet(getStyleColorToLabelFromBand(bandLabel10->text(), QString::number(_entity)));
     bandLabel11->setStyleSheet(getStyleColorToLabelFromBand(bandLabel11->text(), QString::number(_entity)));
     bandLabel12->setStyleSheet(getStyleColorToLabelFromBand(bandLabel12->text(), QString::number(_entity)));
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void InfoWidget::showEntityInfo(const int _enti, int _cq, int _itu)

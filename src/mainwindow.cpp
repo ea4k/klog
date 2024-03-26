@@ -333,7 +333,7 @@ void MainWindow::checkHomeDir()
 
 void MainWindow::init()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     checkHomeDir();
@@ -341,13 +341,13 @@ void MainWindow::init()
 
     checkDebugFile();
 
-    //qDebug() << Q_FUNC_INFO << " -  00" ;
+      qDebug() << Q_FUNC_INFO << " -  00" ;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-    //qDebug() << Q_FUNC_INFO << " -  000" ;
+      qDebug() << Q_FUNC_INFO << " -  000" ;
     setupDialog->init(softwareVersion, 0, configured);
-     //qDebug() << Q_FUNC_INFO << " -  01" ;
+       qDebug() << Q_FUNC_INFO << " -  01" ;
 
     filemanager->init();
 
@@ -366,7 +366,7 @@ void MainWindow::init()
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW";
-     //qDebug() << Q_FUNC_INFO << " -  00" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  00" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     hamlibActive = false;
     hamlibModeNotADIFSupported = false;
@@ -378,7 +378,7 @@ void MainWindow::init()
 
     setCleaning(false);
 
-     //qDebug() << Q_FUNC_INFO << " -  10" ;
+       qDebug() << Q_FUNC_INFO << " -  10" ;
 
     dxClusterWidget->init();
 
@@ -403,7 +403,7 @@ void MainWindow::init()
     selectedYear = 0;
     defaultMode = 1;
     defaultBand = 1;
-     //qDebug() << Q_FUNC_INFO << " -  20" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  20" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentMode = 1;
     currentModeShown = currentMode;
@@ -418,7 +418,7 @@ void MainWindow::init()
 
     UDPServerStart = false;   // By default the UDP server is started
 
-     //qDebug() << Q_FUNC_INFO << " -  30" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  30" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
@@ -449,7 +449,7 @@ void MainWindow::init()
     dxclusterSendSpotsToMap = false;
 
     keepSatPage = false;
-     //qDebug() << Q_FUNC_INFO << " -  40" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  40" << (QTime::currentTime()).toString("HH:mm:ss") ;
     clublogActive = false;
     clublogRealTime = false;
 
@@ -460,7 +460,7 @@ void MainWindow::init()
 
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     setModifying(false);
-     //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL | Qt::Key_L);
@@ -470,11 +470,11 @@ void MainWindow::init()
 
     clublogAnswer = -1;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-       defaultColor.fromString("slategrey"); //To be replaced by .fromString in Qt6.6
-       neededColor.fromString("yellow");
-       workedColor.fromString("blue");
-       confirmedColor.fromString("red");
-       newOneColor.fromString("green");
+       defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
+       neededColor.setNamedColor("yellow");
+       workedColor.setNamedColor("blue");
+       confirmedColor.setNamedColor("red");
+       newOneColor.setNamedColor("green");
 #else
         defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
         neededColor.setNamedColor("yellow");
@@ -485,23 +485,21 @@ void MainWindow::init()
 
     checkExistingData();
     readSettingsFile();
-     //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
     mapWindow->init();
 
-    //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
-     //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
     awards->setManageModes(manageMode);
-     //qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-         //qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
+           qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
         openSetup(6);
-         //qDebug() << Q_FUNC_INFO << " -  73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
+           qDebug() << Q_FUNC_INFO << " -  73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
-     //qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
-
-     //qDebug() << Q_FUNC_INFO << " -  75" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
@@ -509,37 +507,37 @@ void MainWindow::init()
 
     dxClusterWidget->setCurrentLog(currentLog);
 
-     //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
-     //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
     checkVersions();
 
-     //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-     //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-     //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
     timerInfoBars = new QTimer(this);
 
-    //qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
     createUI();
-    //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    //qDebug() << Q_FUNC_INFO << " - 100";
+      qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      qDebug() << Q_FUNC_INFO << " - 100";
     slotClearButtonClicked(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << " - 110";
+      qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
-    //qDebug() << Q_FUNC_INFO << " - 120";
+      qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     world->readWorld ();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
-    //qDebug() << Q_FUNC_INFO << " - 130";
+      qDebug() << Q_FUNC_INFO << " - 130";
 
     applySettings ();
-    //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -637,7 +635,8 @@ void MainWindow::createActionsCommon(){
 
     //Buttons Actions
 
-    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToQSOTabWidget()));
+    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocu
+                                                                          sToQSOTabWidget()));
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
@@ -1988,25 +1987,27 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    //qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
+    qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
+    qDebug()<< Q_FUNC_INFO << " - 10" ;
     if (_qrz.length()<1)
     {
+        qDebug()<< Q_FUNC_INFO << " - 11" ;
         infoLabel1->clear();
         infoLabel2->clear();
         slotClearButtonClicked(Q_FUNC_INFO);
         logEvent(Q_FUNC_INFO, "END-Empty", Devel);
         return;
     }
-
+    qDebug()<< Q_FUNC_INFO << " - 20" ;
     if (cleaning)
     {
          //qDebug()<< Q_FUNC_INFO << ": Cleaning" ;
         logEvent(Q_FUNC_INFO, "END-Cleaning", Devel);
         return;
     }
-
+    qDebug()<< Q_FUNC_INFO << " - 30" ;
     if (modify)
     {
         logEvent(Q_FUNC_INFO, "END-Modify", Devel);
@@ -2022,7 +2023,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         logEvent(Q_FUNC_INFO, "END-Small QRZ, don't calculate", Devel);
         return;
     }
-
+    qDebug()<< Q_FUNC_INFO << " - 40" ;
     //qDebug()<< Q_FUNC_INFO << ": running ..." ;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
@@ -2038,6 +2039,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //currentEntity = world->getQRZARRLId(pref);
     //validar por que no puedo tirar o usar  el prefijo directamente
     currentEntity = world->getQRZARRLId(_qrz);
+    qDebug()<< Q_FUNC_INFO << " - 50" ;
     /*
     if (pref.length ()>0)
     {
@@ -2055,6 +2057,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     dx_CQz = world->getQRZCqz(_qrz);
     dx_ITUz = world->getQRZItuz(_qrz);
     dxE_ITUz = world->getEntityItuz(currentEntity);
+    qDebug()<< Q_FUNC_INFO << " - 60" ;
      //qDebug()<< Q_FUNC_INFO << ": CQ: " << QString::number(dx_CQz) ;
      //qDebug()<< Q_FUNC_INFO << ": CQe: " << QString::number(dxE_CQz) ;
      //qDebug()<< Q_FUNC_INFO << ": ITU: " << QString::number(dx_ITUz) ;
@@ -2073,7 +2076,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
     _qs.clear();
     _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
-     //qDebug()<< Q_FUNC_INFO << ": currentEntity: " << QString::number(currentEntity) ;
+
+    qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
@@ -2083,44 +2087,47 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         dxLocator = world->getLocator(currentEntity);
     }
 
-     //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
-     //qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
+        qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
+        qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
         if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
         {
-     //qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
+            qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
             previousEntity = currentEntity;
             InValidCharsInPrevCall = false;
-    //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
+
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-     //qDebug()<< Q_FUNC_INFO << ": calling showStatusOfDXCC-03 " ;
+            qDebug()<< Q_FUNC_INFO << ": 70";
             showStatusOfDXCC(_qs);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
         }
-        else if ((dx_CQz == dxE_CQz) || (dx_ITUz = dxE_ITUz))
+        else if ((dx_CQz == dxE_CQz) || (dx_ITUz == dxE_ITUz))
         {
-     //qDebug()<< Q_FUNC_INFO << ": 000" ;
-    //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
+            qDebug()<< Q_FUNC_INFO << ": 101" ;
+            //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
             infoLabel2->setText(world->getEntityName(currentEntity));
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         }
         else
         {
-    //qDebug()<< Q_FUNC_INFO << ": Default: else" ;
+            qDebug()<< Q_FUNC_INFO << ": 110" ;
         }
-
-    qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-     //qDebug()<< Q_FUNC_INFO << ": cursorP at the end : "  ;
+        qDebug()<< Q_FUNC_INFO << ": 120" ;
+        qrzSmallModDontCalculate = false; // If the text has not been modified in this method
+    qDebug()<< Q_FUNC_INFO << ": 150 - cursorP at the end : "  ;
 
   if (completeWithPrevious)
   {
+    qDebug()<< Q_FUNC_INFO << ": 160" ;
     completeWithPreviousQSO(_qrz);
   }
+  qDebug()<< Q_FUNC_INFO << ": 170" ;
 
   if (!modify)
     {
+        qDebug()<< Q_FUNC_INFO << ": 180" ;
         searchWidget->setCallToSearch(_qrz);
          //qDebug() << Q_FUNC_INFO << " qrz.length>2: " << _qrz;
          //qDebug() << Q_FUNC_INFO << " qrzcomActive: " << util->boolToQString (qrzcomActive);
@@ -2128,17 +2135,18 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
         if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
-     //qDebug()<< Q_FUNC_INFO << ": Checking QRZ.com";
+        //qDebug()<< Q_FUNC_INFO << ": 185 Checking QRZ.com";
             elogQRZcom->checkQRZ(_qrz);
         }
         else
         {
-     //qDebug()<< Q_FUNC_INFO << ": NOT checking QRZ.com";
+            //qDebug()<< Q_FUNC_INFO << ": 189 NOT checking QRZ.com";
         }
     }
+    qDebug()<< Q_FUNC_INFO << ": 190" ;
    //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", Debug);
-     //qDebug()<< Q_FUNC_INFO << ": END" ;
+    qDebug()<< Q_FUNC_INFO << ": END" ;
 }
 
 void MainWindow::setCleaning(const bool _c)
@@ -3146,52 +3154,52 @@ void MainWindow::slotSetup(const int _page)
 
 void MainWindow::openSetup(const int _page)
 {
-      //qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  ;
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_page)  ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //int result = -1;
-     //qDebug() << Q_FUNC_INFO << " - 000 - " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 000 - " << (QTime::currentTime()).toString("HH:mm:ss");
     hamlib->stop();
-     //qDebug() << Q_FUNC_INFO << " - 001 - " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 001 - " << (QTime::currentTime()).toString("HH:mm:ss");
     if (!needToEnd)
     {
-         //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "Just before setData", Devel);
-  //qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  ;
+        qDebug() << "MainWindow::openSetup - Just before setupDialog->exec-1"  ;
         if (upAndRunning)
         {
-     //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->setData(softwareVersion, _page, !configured);
-     //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString("HH:mm:ss");
         }
         else
         {
-     //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString("HH:mm:ss");
+            qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->setData(softwareVersion, 0, !configured);
-     //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString("HH:mm:ss");
+            qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString("HH:mm:ss");
         }
         if ( (!configured) || (itIsANewversion) )
         {
-     //qDebug() << Q_FUNC_INFO << " - 015 - " << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 015 - " << (QTime::currentTime()).toString("HH:mm:ss");
             logEvent(Q_FUNC_INFO, "Just before SetupDialog->exec", Devel);
             itIsANewversion = false;
     //setupDialog->exec();
 
             setupDialog->setModal(true);
-     //qDebug() << Q_FUNC_INFO << " - 016 - " << (QTime::currentTime()).toString("HH:mm:ss");
+            qDebug() << Q_FUNC_INFO << " - 016 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->show();
-     //qDebug() << Q_FUNC_INFO << " - 017 - " << (QTime::currentTime()).toString("HH:mm:ss");
+            qDebug() << Q_FUNC_INFO << " - 017 - " << (QTime::currentTime()).toString("HH:mm:ss");
     // move part of this code to slotSetupDialogFinished
             logEvent(Q_FUNC_INFO, "Just after setupDialog->show", Devel);
-      //qDebug() << "MainWindow::openSetup - Just after setupDialog->show" ;
+            qDebug() << "MainWindow::openSetup - Just after setupDialog->show" ;
         }
         else
         {
-     //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString("HH:mm:ss");
+            qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString("HH:mm:ss");
             logEvent(Q_FUNC_INFO, "No setupDialog->exec needed", Devel);
-      //qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  ;
+            qDebug() << "MainWindow::openSetup - No setupDialog->show needed"  ;
         }
     }
-     //qDebug() << Q_FUNC_INFO << " - 050 - " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 050 - " << (QTime::currentTime()).toString("HH:mm:ss");
       //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -3440,7 +3448,8 @@ void MainWindow::slotOpenWiki()
 
 bool MainWindow::applySettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - NewOneColor: " << newOneColor.name(QColor::HexRgb);
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
         useDefaultLogFileName = true;
@@ -3453,10 +3462,10 @@ bool MainWindow::applySettings()
     infoWidget->setImperialSystem(imperialSystem);
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
-    searchWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
-    awards->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
+    searchWidget->setColors(newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
+    awards->setColors (newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
     mapWindow->setColors (workedColor, confirmedColor, defaultColor);
-    dxClusterWidget->setColors (newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
+    dxClusterWidget->setColors (newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
     setMainWindowTitle();
     dxClusterWidget->setMyQRZ(stationCallsign);
@@ -3472,7 +3481,7 @@ bool MainWindow::applySettings()
     searchWidget->setVersion(softwareVersion);
     searchWidget->setCurrentLog(currentLog);
     infoWidget->setCurrentLog(currentLog);
-    infoWidget->setColors(newOneColor.name(), neededColor.name(), workedColor.name(), confirmedColor.name(), defaultColor.name());
+    infoWidget->setColors(newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
 
     satTabWidget->refreshData();
     adifLoTWExportWidget->setLogNumber (currentLog);
@@ -4800,7 +4809,7 @@ void MainWindow::slotMyLocatorTextChanged(const QString &_loc)
 
 void MainWindow::showStatusOfDXCC(const QStringList _qs)
 {
-     //qDebug() << "MainWindow::showStatusOfDXC: Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) ;
+    qDebug() << Q_FUNC_INFO << " - Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << ModeId << lognumber;
@@ -4815,28 +4824,34 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     2 - Worked
     3 - Confirmed
     */
-
+    qDebug() << Q_FUNC_INFO << " - 10";
     if ((_qs.length() != 4) || (_qs.at(1) == "-1")) // is the qs valid?
     {
+        qDebug() << Q_FUNC_INFO << " - 20";
         infoWidget->clear();
         slotShowInfoLabel("--");
         //infoLabel1->setText("--");
         logEvent(Q_FUNC_INFO, "END-1", Debug);
-         //qDebug() << "MainWindow::showStatusOfDXCC -- END" ;
+         qDebug() << Q_FUNC_INFO <<  " - END-1" ;
         return;
     }
+    qDebug() << Q_FUNC_INFO << " - 30";
     // Set the status bar with the appropriate message
     int status = awards->getDXStatus (_qs);
     QString message = QString();
 
-     //qDebug() << "MainWindow::showStatusOfDXC: " << QString::number(status) ;
+    qDebug() << Q_FUNC_INFO << " -  " << QString::number(status) ;
 
     message = awards->getDXStatusString(status);
+    qDebug() << Q_FUNC_INFO << " - 40";
     slotShowInfoLabel(message);
+    qDebug() << Q_FUNC_INFO << " - 10";
     //infoLabel1->setText(message);
     //infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
+    qDebug() << Q_FUNC_INFO << " - 50";
     infoWidget->showInfo((_qs.at(0)).toInt());
-     //qDebug() << "MainWindow::showStatusOfDXC: -END" ;
+    qDebug() << Q_FUNC_INFO << " - 51";
+    qDebug() << Q_FUNC_INFO << " - END-2" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -6428,7 +6443,7 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
 bool MainWindow::loadSettings()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
      //qDebug() << Q_FUNC_INFO << " - 10 - General";
@@ -6492,15 +6507,18 @@ bool MainWindow::loadSettings()
     dxClusterWidget->loadSettings ();
     settings.endGroup ();
 
-     //qDebug() << Q_FUNC_INFO << " - 60 - colors";
+    qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    newOneColor.fromString(settings.value ("NewOneColor", "#FF0000").toString ());
-    neededColor.fromString(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.fromString(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.fromString(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.fromString(settings.value ("DefaultColor", "#00BFFF").toString ());
+    qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
+    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    //newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor-2: " << newOneColor.name(QColor::HexRgb);
+    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
+    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
+    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
+    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
 #else
     newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());

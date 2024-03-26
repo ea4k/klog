@@ -188,26 +188,28 @@ void SetupDialog::connectActions()
 
 void SetupDialog::setData(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)
 {
-       //qDebug() << "SetupDialog::setData: " << _softwareVersion << "/" << QString::number(_page);
+    qDebug() << Q_FUNC_INFO << " - " << _softwareVersion << "/" << QString::number(_page);
     logEvent(Q_FUNC_INFO, "Start", Debug);
     nolog = !(haveAtleastOneLog());
     firstTime = !_alreadyConfigured;
     if (firstTime)
     {
-         //qDebug() << Q_FUNC_INFO << " - Running for the FIRST time";
+        qDebug() << Q_FUNC_INFO << " - Running for the FIRST time";
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " - Running NOT for the FIRST time";
+        qDebug() << Q_FUNC_INFO << " - Running NOT for the FIRST time";
         miscPage->setUseDefaultDBPath(miscPage->getDefaultDBPath());
     }
-
+    qDebug() << Q_FUNC_INFO << " - 10";
     setSoftVersion(_softwareVersion);
+    qDebug() << Q_FUNC_INFO << " - 20";
     slotReadConfigData ();
+    qDebug() << Q_FUNC_INFO << " - 30";
     setPage(_page);
-    //removeBandModeDuplicates();
+    qDebug() << Q_FUNC_INFO << " - 40";
     logEvent(Q_FUNC_INFO, "END", Debug);
-       //qDebug() << "SetupDialog::setData - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupDialog::setSoftVersion(const QString &_softwareVersion)
@@ -336,22 +338,22 @@ void SetupDialog::loadDarkMode()
 
 bool SetupDialog::loadSettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     if (!QFile::exists(util->getCfgFile ()))
     {
-         //qDebug() << Q_FUNC_INFO << " - Nothing to load";
+        qDebug() << Q_FUNC_INFO << " - Nothing to load";
         return false;
     }
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
-     //qDebug() << Q_FUNC_INFO << " - 10 - General";
+    qDebug() << Q_FUNC_INFO << " - 10 - General";
     version = settings.value ("Version").toString();
     //latestBackup = settings.value ("LatestBackup").toString ();
 
-     //qDebug() << Q_FUNC_INFO << " - 20 - user";
+    qDebug() << Q_FUNC_INFO << " - 20 - user";
     userDataPage->loadSettings();
 
-     //qDebug() << Q_FUNC_INFO << " - 30 - bands";
+    qDebug() << Q_FUNC_INFO << " - 30 - bands";
     settings.beginGroup ("BandMode");
 
     QStringList listAux;
@@ -370,23 +372,23 @@ bool SetupDialog::loadSettings()
     bandModePage->setActiveBands (bands);
     settings.endGroup ();
 
-    //qDebug() << Q_FUNC_INFO << " - 40 - logview";
+    qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logViewPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
+     qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     dxClusterPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 60 - colors";
+     qDebug() << Q_FUNC_INFO << " - 60 - colors";
     colorsPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 70 - misc";
+     qDebug() << Q_FUNC_INFO << " - 70 - misc";
     miscPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 80 - logs";
+     qDebug() << Q_FUNC_INFO << " - 80 - logs";
     logsPage->loadSettings();
-     //qDebug() << Q_FUNC_INFO << " - 90 - elog";
+     qDebug() << Q_FUNC_INFO << " - 90 - elog";
     eLogPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 100 - UDP";
+     qDebug() << Q_FUNC_INFO << " - 100 - UDP";
     UDPPage->loadSettings ();
-     //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
+     qDebug() << Q_FUNC_INFO << " - 110 - Sats";
     hamlibPage->loadSettings ();
-    //qDebug() << Q_FUNC_INFO << " - 120 - END";
+    qDebug() << Q_FUNC_INFO << " - 120 - END";
     return true;
 }
 
@@ -463,12 +465,12 @@ void SetupDialog::slotOkButtonClicked()
 
 void SetupDialog::slotReadConfigData()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
     //if (!QFile::exists (util->getCfgFile ()))
     {
-        //qDebug() << Q_FUNC_INFO << " - FirstTime";
+        qDebug() << Q_FUNC_INFO << " - FirstTime";
         setDefaults();
         bands.removeDuplicates();
         modes.removeDuplicates();
@@ -477,8 +479,9 @@ void SetupDialog::slotReadConfigData()
         bandModePage->setActiveBands(bands);
         //logViewPage->setActiveFields(logViewFields);
     }
+    qDebug() << Q_FUNC_INFO << " - 30";
     loadSettings();
-
+    qDebug() << Q_FUNC_INFO << " - 40";
     //dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     //dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
 
@@ -497,7 +500,7 @@ void SetupDialog::slotReadConfigData()
     bandModePage->setActiveBands(bands);
 
     //logViewPage->setActiveFields(logViewFields);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -568,7 +571,7 @@ void SetupDialog::readActiveModes (const QStringList &actives)
 
 bool SetupDialog::isValidBand (const QString &b)
 {
-        //qDebug() << "SetupDialog::isValidBand: "<< b;
+    //qDebug() << "SetupDialog::isValidBand: "<< b;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(b);
     QSqlQuery query(stringQuery);
@@ -589,7 +592,7 @@ bool SetupDialog::isValidMode (const QString &b)
 
 void SetupDialog::setDefaults()
 {
-        //qDebug() << "SetupDialog::setDefaults";
+    qDebug() <<  Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     miscPage->setRealTime("TRUE");
     miscPage->setUTCTime("TRUE");
@@ -633,6 +636,7 @@ void SetupDialog::setDefaults()
         bands << "10M" << "12M" << "15M" << "17M" << "20M" << "40M" << "80M" << "160M";
         bands.removeDuplicates();
     }
+    qDebug() <<  Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

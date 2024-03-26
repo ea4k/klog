@@ -1,3 +1,5 @@
+WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
+WIP: Working in the update of the table awarddxcc in DB class
 
 TESTS to do before releasing:
 - ADIF log Import

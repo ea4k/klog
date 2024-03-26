@@ -754,7 +754,7 @@ bool DataBase::createDataBase()
                  "cqz INTEGER NOT NULL,"
                  "ituz INTEGER NOT NULL,"
                  "UNIQUE (prefix, dxcc), "
-                 "FOREIGN KEY (dxcc) REFERENCES entity(dxcc) )");
+                 "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
     execQuery(Q_FUNC_INFO, stringQuery);
 
     createTableAwardDXCC();
@@ -885,6 +885,12 @@ bool DataBase::createDataBase()
 bool DataBase::recreateTableDXCC()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    QSqlQuery query ("DROP TABLE awarddxcc");
+    if (!query.exec())
+    {
+        qDebug() << Q_FUNC_INFO << ": awarddxcc NOT dropped";
+    }
+
     if (execQuery(Q_FUNC_INFO, "DROP TABLE awarddxcc"))
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
@@ -904,12 +910,14 @@ bool DataBase::createTableAwardDXCC()
                              "confirmed INTEGER, "
                              "qsoid INTEGER NOT NULL, "
                              "lognumber INTEGER, "
+                             "UNIQUE (dxcc, band, mode, lognumber))");
+/*
                              "UNIQUE (dxcc, band, mode, lognumber), "
                              "FOREIGN KEY (dxcc) REFERENCES entity (dxcc), "
                              "FOREIGN KEY (band) REFERENCES band (id), "
                              "FOREIGN KEY (mode) REFERENCES mode (id), "
                              "FOREIGN KEY (qsoid) REFERENCES log (id) )");
-
+*/
     /*
     In awarddxcc confirmed means:
     confirmed = 0     Set as Worked
@@ -3010,8 +3018,6 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
 
 bool DataBase::recreateTableEntity()
 {
-    //QSqlQuery query;
-
     if (execQuery(Q_FUNC_INFO, "DROP TABLE entity"))
     {
         return createTableEntity(false);
@@ -3725,7 +3731,6 @@ bool DataBase::updateModeIdFromSubModeId()
 
     if (sqlOk)
     {
-        //QSqlDatabase::database().commit();
         query.next();
         qsos = (query.value(0)).toInt();
         query.finish();
@@ -4926,14 +4931,11 @@ bool DataBase::updateTheModeTableAndSyncLog()
     //updateModeIdTableAward(1); //DXCC
     //updateModeIdTableAward(2); // WAZ
 
-    //QSqlDatabase::database().commit();
 
     bool sqlOK = execQuery(Q_FUNC_INFO, "DROP TABLE mode");
     if (sqlOK)
     {
-        //QSqlDatabase::database().commit();
              //qDebug() << "DataBase::updateTheModeTableAndSyncLog - OK - mode was dropped" ;
-
         sqlOK = execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
         if (!sqlOK)
         {
@@ -6529,15 +6531,33 @@ bool DataBase::updateTo026()
     return false;
 }
 
+bool DataBase::updateAwardDXCCTable2()
+{
+    //"SELECT dxcc, bandid, modeid, id, lognumber, MAX(confirmed) FROM (SELECT  dxcc, bandid, modeid, id, lognumber, CASE WHEN qsl_rcvd='Y' OR lotw_qsl_rcvd='Y' THEN 1 ELSE 0 END confirmed from log GROUP BY dxcc, bandid, modeid, confirmed) GROUP BY dxcc, bandid, modeid "
+    if (!recreateTableDXCC())
+         return false;
+
+    QString queryString = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) SELECT dxcc, bandid, modeid,  MAX(confirmed), id, lognumber  FROM (SELECT  dxcc, bandid, modeid, id, lognumber, CASE WHEN qsl_rcvd='Y' OR lotw_qsl_rcvd='Y' THEN 1 ELSE 0 END confirmed from log) GROUP BY dxcc, bandid, modeid, lognumber");
+    QSqlQuery query;
+    if (!query.exec(queryString))
+    {
+        qDebug() << Q_FUNC_INFO << ": awarddxcc table NOT updated";
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    query.finish();
+    qDebug() << Q_FUNC_INFO << ": awarddxcc table updated";
+
+    return true;
+}
 
 bool DataBase::updateAwardDXCCTable()
 {
-       //qDebug() << "DataBase::updateAwardDXCCTable" ;
+    //qDebug() << Q_FUNC_INFO;
 
     QList<AwarddxccEntry> dxccStatusList;
-    //QList<AwarddxccEntryCheck> dxccStatusListCheck;
     dxccStatusList.clear();
-    //dxccStatusListCheck.clear();
 
     AwarddxccEntry awardEntry;
     awardEntry.dxcc = QString();
@@ -6547,7 +6567,7 @@ bool DataBase::updateAwardDXCCTable()
     awardEntry.qsoID = QString();
 
     QString stringQuery = QString("SELECT id, bandid, modeid, dxcc, qsl_rcvd, lotw_qsl_rcvd, lognumber FROM log ORDER BY dxcc");
-    QSqlQuery query;//, query2;
+    QSqlQuery query;
 
     bool sqlOK = query.exec(stringQuery);
     QSqlRecord rec = query.record();
@@ -6560,7 +6580,7 @@ bool DataBase::updateAwardDXCCTable()
     }
     else
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable SELECT when OK" ;
+           //qDebug() << Q_FUNC_INFO << ": SELECT when OK" ;
     }
     QStringList dxccStatus = QStringList(); //dxcc, band, mode, confirmed, lognumber, qsoid (per award set)
     QStringList dxccStatusCheck = QStringList(); //dxcc, band, mode, confirmed, lognumber (per award set) just to check
@@ -6568,20 +6588,20 @@ bool DataBase::updateAwardDXCCTable()
 
     QString _aux = QString();
 
-       //qDebug() << "DataBase::updateAwardDXCCTable before the while" ;
+       //qDebug() << Q_FUNC_INFO << ": before the while" ;
     while (query.next())
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable IN the while" ;
+           //qDebug() << Q_FUNC_INFO << ": IN the while" ;
         if (query.isValid())
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable VALID" ;
+               //qDebug() << Q_FUNC_INFO << ": VALID" ;
             awardEntry.dxcc.clear();
             awardEntry.band.clear();
             awardEntry.status.clear();
             awardEntry.logNumber.clear();
             awardEntry.qsoID.clear();
 
-               //qDebug() << "DataBase::updateAwardDXCCTable in the while" ;
+               //qDebug() << Q_FUNC_INFO << ":  in the while" ;
             nameCol = rec.indexOf("qsl_rcvd");
             bool qsl = false;
 
@@ -6606,7 +6626,7 @@ bool DataBase::updateAwardDXCCTable()
                 awardEntry.status = "0";
             }
 
-               //qDebug() << "DataBase::updateAwardDXCCTable - status" << awardEntry.status ;
+               //qDebug() << Q_FUNC_INFO << ": - status" << awardEntry.status ;
             if ((awardEntry.status == "1") || (awardEntry.status == "0") )
             {
                 nameCol = rec.indexOf("dxcc");
@@ -6626,19 +6646,19 @@ bool DataBase::updateAwardDXCCTable()
                     nameCol = rec.indexOf("lognumber");
                     awardEntry.logNumber = (query.value(nameCol)).toString();
 
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID ;
+                       //qDebug() << Q_FUNC_INFO << ":  Adding: " << awardEntry.dxcc <<"/" << awardEntry.band <<"/" << awardEntry.mode <<"/" << awardEntry.status <<"/"  << awardEntry.logNumber <<"/" << awardEntry.qsoID ;
                     dxccStatusList.append(awardEntry);
                 }
             } // END OF IF VALID
         }
     } // END OF  WHILE
 
-       //qDebug() << "DataBase::updateAwardDXCCTable - END OF WHILE" ;
+       //qDebug() << Q_FUNC_INFO << ":  - END OF WHILE" ;
 
     query.finish();
 
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: Log analized... let's clean the table!" ;
+       //qDebug() << Q_FUNC_INFO << ":  Log analized... let's clean the table!" ;
 
     stringQuery = QString("DELETE FROM awarddxcc");
 
@@ -6647,10 +6667,10 @@ bool DataBase::updateAwardDXCCTable()
     {return false;}
     else
     {
-           //qDebug() << "DataBase::updateAwardDXCCTable: awarddxcc table DELETED" ;
+           //qDebug() << Q_FUNC_INFO << ":  awarddxcc table DELETED" ;
     }
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: Now we start writing the table!!" ;
+    //qDebug() << Q_FUNC_INFO << ":  Now we start writing the table!!" ;
 
     //int i = 0;
     _aux.clear();
@@ -6662,7 +6682,7 @@ bool DataBase::updateAwardDXCCTable()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-       //qDebug() << "DataBase::updateAwardDXCCTable: INSERTING: " << QString::number(qsos) << " QSOS..." ;
+       //qDebug() << Q_FUNC_INFO << ":  INSERTING: " << QString::number(qsos) << " QSOS..." ;
 
     for (int j=0;j<dxccStatusList.length();j++)
     {
@@ -6671,17 +6691,17 @@ bool DataBase::updateAwardDXCCTable()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable: Error: " << QString::number(query.lastError().nativeErrorCode()) ;
+               //qDebug() << Q_FUNC_INFO << ":  Error: " << QString::number(query.lastError().nativeErrorCode()) ;
             if ((query.lastError().nativeErrorCode()).toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
                 { // If tne new status is not confirmed, no change. DO NOTHING
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but DO NOTHING as new status is not Confirmed!!!" ;
+                       //qDebug() << Q_FUNC_INFO << ":  Duplicated but DO NOTHING as new status is not Confirmed!!!" ;
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but NOW is confirmed!!!" ;
+                       //qDebug() << Q_FUNC_INFO << ": : Duplicated but NOW is confirmed!!!" ;
                     stringQuery = QString("SELECT confirmed, lognumber, qsoid FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3'").arg(dxccStatusList.at(j).dxcc).arg(dxccStatusList.at(j).band).arg(dxccStatusList.at(j).mode);
                     QSqlQuery query2;//, query2;
 
@@ -6716,16 +6736,16 @@ bool DataBase::updateAwardDXCCTable()
                             }
                             else
                             {
-                                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated but UPDATE NOT NEEDED" ;
+                                   //qDebug() << Q_FUNC_INFO << ":  Duplicated but UPDATE NOT NEEDED" ;
                             }
                         }
                         else
                         {
-                               //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated SELECT query is not Valid" ;
+                               //qDebug() << Q_FUNC_INFO << ":  Duplicated SELECT query is not Valid" ;
                         }
                     }
                 }
-                   //qDebug() << "DataBase::updateAwardDXCCTable: Duplicated!" ;
+                   //qDebug() << Q_FUNC_INFO << ":  Duplicated!" ;
             }
             else
             {
@@ -6737,11 +6757,11 @@ bool DataBase::updateAwardDXCCTable()
         }
         else
         {
-               //qDebug() << "DataBase::updateAwardDXCCTable: INSERT OK: " ;
+            //qDebug() << Q_FUNC_INFO << ":  INSERT OK: " ;
         }
 
         query.finish();
-           //qDebug() << "DataBase::updateAwardDXCCTable: Checking steps " ;
+           //qDebug() << Q_FUNC_INFO << ":  Checking steps " ;
         if (( (j % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
             _aux = QObject::tr("Updating DXCC Award information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
@@ -6750,13 +6770,13 @@ bool DataBase::updateAwardDXCCTable()
         }
         if ( progress.wasCanceled() )
         {
-                  //qDebug() << "DataBase::updateAwardDXCCTable: progress canceled" ;
+            //qDebug() << Q_FUNC_INFO << ":  progress canceled" ;
             return true;
         }
     }
 
     progress.setValue(qsos);
-       //qDebug() << "DataBase::updateAwardDXCCTable: LAST END OK " ;
+       //qDebug() << Q_FUNC_INFO << ":  LAST END OK " ;
 
     return true;
 }
@@ -7008,7 +7028,6 @@ int DataBase::getNumberOfQsos(const int _logNumber)
 
     if (sqlOK)
     {
-        //QSqlDatabase::database().commit();
         query.next();
         qsos = (query.value(0)).toInt();
     }
@@ -7031,7 +7050,6 @@ int DataBase::getLastInsertedQSO()
 
     if (sqlOK)
     {
-        //QSqlDatabase::database().commit();
         query.next();
         id = (query.value(0)).toInt();
     }
@@ -7051,11 +7069,11 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     Q_UNUSED(errorCodeS);
     Q_UNUSED(_nativeError);
     Q_UNUSED(_failedQuery);
-       //qDebug() << "DataBase::queryErrorManagement: constrid - " << QString::number(constrid) ;
-       //qDebug() << "DataBase::queryErrorManagement: Function: " << _functionFailed ;
-       //qDebug() << "DataBase::queryErrorManagement: Native: " << _nativeError ;
-       //qDebug() << "DataBase::queryErrorManagement: Error: " << _functionFailed << errorCodeS ;
-       //qDebug() << "DataBase::queryErrorManagement: Query failed: " << _failedQuery ;
+       qDebug() << Q_FUNC_INFO << ":  constrid   : " << QString::number(constrid) ;
+       qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
+       qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
+       qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
+       qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
 }
 
 /*
@@ -7087,10 +7105,10 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     {
         while (query.isActive())
         {
-               //qDebug() << "DataBase::execQuery: Still active... " ;
+            qDebug() << "DataBase::execQuery: Still active... " ;
             query.finish();
         }
-    //qDebug() << "DataBase::execQuery: No longer active... " ;
+        qDebug() << "DataBase::execQuery: No longer active... " ;
         return true;
     }
     else

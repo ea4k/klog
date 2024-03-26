@@ -35,9 +35,7 @@ Utilities::Utilities(const QString &_parentName)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-Utilities::~Utilities()
-{
-}
+Utilities::~Utilities(){}
 
 void Utilities::init()
 {
@@ -659,8 +657,6 @@ int Utilities::getNormalizedDXCCValue(const int _dxcc)
 #else
         return ((QString::number(_dxcc)).rightRef(3)).toInt();  //To be replaced by .fromString in Qt6.0
 #endif
-
-
     }
     else
     {

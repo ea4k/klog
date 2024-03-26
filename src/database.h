@@ -126,6 +126,7 @@ public:
 
 
     bool updateAwardDXCCTable();
+    bool updateAwardDXCCTable2();
     bool updateAwardWAZTable();
     int getNumberOfQsos(const int _logNumber);
     int getLastInsertedQSO();

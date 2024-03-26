@@ -122,7 +122,7 @@ void SetupPageColors::slotNewOneColorButtonClicked()
 {
        //qDebug()  << "SetupPageColors::slotNewOneColorButtonClicked ";
     QString style = "* { background-color: ";
-    style = style + (giveColor(newOneColorButton->palette().color(QPalette::Button))).name();
+    style = style + (giveColor(newOneColorButton->palette().color(QPalette::Button))).name(QColor::HexRgb);
     style = style + "; }";
     newOneColorButton->setStyleSheet(style);
 }
@@ -131,7 +131,7 @@ void SetupPageColors::slotNeededColorButtonClicked ()
 {
        //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked ";
     QString style = "* { background-color: ";
-    style = style + (giveColor(neededColorButton->palette().color(QPalette::Button))).name();
+    style = style + (giveColor(neededColorButton->palette().color(QPalette::Button))).name(QColor::HexRgb);
     style = style + "; }";
     neededColorButton->setStyleSheet(style);
 }
@@ -140,7 +140,7 @@ void SetupPageColors::slotWorkedColorButtonClicked ()
 {
        //qDebug()  << "SetupPageColors::slotWorkedColorButtonClicked ";
     QString style = "* { background-color: ";
-    style = style + (giveColor(workedColorButton->palette().color(QPalette::Button))).name();
+    style = style + (giveColor(workedColorButton->palette().color(QPalette::Button))).name(QColor::HexRgb);
     style = style + "; }";
     workedColorButton->setStyleSheet(style);
 }
@@ -149,7 +149,7 @@ void SetupPageColors::slotConfirmedColorButtonClicked ()
 {
        //qDebug()  << "SetupPageColors::slotNeededColorButtonClicked ";
     QString style = "* { background-color: ";
-    style = style + (giveColor(confirmedColorButton->palette().color(QPalette::Button))).name();
+    style = style + (giveColor(confirmedColorButton->palette().color(QPalette::Button))).name(QColor::HexRgb);
     style = style + "; }";
     confirmedColorButton->setStyleSheet(style);
 }
@@ -158,7 +158,7 @@ void SetupPageColors::slotDefaultColorButtonClicked()
 {
        //qDebug()  << "SetupPageColors::slotDefaultColorButtonClicked ";
     QString style = "* { background-color: ";
-    style = style + (giveColor(defaultColorButton->palette().color(QPalette::Button))).name();
+    style = style + (giveColor(defaultColorButton->palette().color(QPalette::Button))).name(QColor::HexRgb);
     style = style + "; }";
     defaultColorButton->setStyleSheet(style);
 }
@@ -172,7 +172,7 @@ QColor SetupPageColors::giveColor (QColor c)
   color = QColorDialog::getColor (color, this, tr("Choose a color"));
   if (color.isValid ())
     {
-            //qDebug()  << "SetupPageColors::giveColor valid color: " << color.name();
+            //qDebug()  << "SetupPageColors::giveColor valid color: " << color.name(QColor::HexRgb);
       return color;
     }
   else
@@ -184,28 +184,28 @@ QColor SetupPageColors::giveColor (QColor c)
 
 QString SetupPageColors::getNewOneColor()
 {
-       //qDebug()  << "SetupPageColors::getNewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();
-    return (newOneColorButton->palette().color(QPalette::Button)).name();
+       //qDebug()  << "SetupPageColors::getNewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
+    return (newOneColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
 }
 
 QString SetupPageColors::getNeededColor()
 {
-    return (neededColorButton->palette().color(QPalette::Button)).name();
+    return (neededColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
 }
 
 QString SetupPageColors::getWorkedColor()
 {
-    return (workedColorButton->palette().color(QPalette::Button)).name();
+    return (workedColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
 }
 
 QString SetupPageColors::getConfirmedColor()
 {
-    return (confirmedColorButton->palette().color(QPalette::Button)).name();
+    return (confirmedColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
 }
 
 QString SetupPageColors::getDefaultColor()
 {
-    return (defaultColorButton->palette().color(QPalette::Button)).name();
+    return (defaultColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
 }
 
 void SetupPageColors::setNewOneColor(const QString &_c)
@@ -324,12 +324,12 @@ void SetupPageColors::saveSettings()
     //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
-    //qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name();
-    settings.setValue ("NewOneColor", (newOneColorButton->palette().color(QPalette::Button)).name());
-    settings.setValue ("NeededColor", (neededColorButton->palette().color(QPalette::Button)).name());
-    settings.setValue ("WorkedColor", (workedColorButton->palette().color(QPalette::Button)).name());
-    settings.setValue ("ConfirmedColor", (confirmedColorButton->palette().color(QPalette::Button)).name());
-    settings.setValue ("DefaultColor", (defaultColorButton->palette().color(QPalette::Button)).name());
+    //qDebug() << Q_FUNC_INFO << ": Saving NewOneColor: " << (newOneColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb);
+    settings.setValue ("NewOneColor", (newOneColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb));
+    settings.setValue ("NeededColor", (neededColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb));
+    settings.setValue ("WorkedColor", (workedColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb));
+    settings.setValue ("ConfirmedColor", (confirmedColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb));
+    settings.setValue ("DefaultColor", (defaultColorButton->palette().color(QPalette::Button)).name(QColor::HexRgb));
     settings.setValue ("DarkMode", QVariant(darkMode));
     settings.endGroup ();
 }

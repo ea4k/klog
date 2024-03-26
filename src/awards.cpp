@@ -40,11 +40,11 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
     util = new Utilities(Q_FUNC_INFO);
     //world->create();
 /*
-    newOneColor.fromString("#ff0000");
-    neededColor.fromString("#ff8c00");
-    workedColor.fromString("#ffd700");
-    confirmedColor.fromString("#32cd32");
-    defaultColor.fromString("#00bfff");
+    newOneColor.setNamedColor("#ff0000");
+    neededColor.setNamedColor("#ff8c00");
+    workedColor.setNamedColor("#ffd700");
+    confirmedColor.setNamedColor("#32cd32");
+    defaultColor.setNamedColor("#00bfff");
 */
     //"Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
     //Awards::setColors:  "#ff0000" / "#ff8c00" / "#ffd700" / "#32cd32" / "#00bfff"
@@ -316,7 +316,7 @@ bool Awards::isThisSpotConfirmed(const QStringList &_qs)
 
 int Awards::getDXStatus (const QStringList &_qs)
 {
-    //qDebug() << "Awards::getDXStatus: Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  QT_ENDL;
+    qDebug() << Q_FUNC_INFO<< ": Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  QT_ENDL;
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << << ModeId << lognumber;
 
@@ -356,7 +356,7 @@ int Awards::getDXStatus (const QStringList &_qs)
 */
     if (_qs.length() != 4  )
     {
-        //qDebug() << "Awards::getDXStatus: Length != 4, return -1";
+        qDebug() << Q_FUNC_INFO<< ": Length != 4, return -1";
         return -1;
     }
 
@@ -367,10 +367,10 @@ int Awards::getDXStatus (const QStringList &_qs)
     int _logNumber = _qs.at(3).toInt();
     int dxccEntity = (_qs.at(0)).toInt();
 
-    //qDebug() << "Awards::getDXStatus: dxccEntity: " << QString::number(dxccEntity);
+    qDebug() << Q_FUNC_INFO<< ":  dxccEntity: " << QString::number(dxccEntity);
     if (dxccEntity<=0)
     {
-        //qDebug() << "Awards::getDXStatus: dxccEntity <= 0, return -1";
+        qDebug() << Q_FUNC_INFO<< ":  dxccEntity <= 0, return -1";
         return -1;
     }
 
@@ -378,7 +378,7 @@ int Awards::getDXStatus (const QStringList &_qs)
     if ( (_mode==-1) || (manageModes==false))
     {
         checkingMode = false;
-        //qDebug() << "Awards::getDXStatus: checkingMode = FALSE";
+        qDebug() << Q_FUNC_INFO<< ":  checkingMode = FALSE";
     }
 
     int wb = dxccStatusBand(dxccEntity, _band, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
@@ -394,13 +394,13 @@ int Awards::getDXStatus (const QStringList &_qs)
         checkingMode = false;
     }
 
-    //qDebug() << "Awards::getDXStatus: wb=" << QString::number(wb) << " - wm=" << QString::number(wm);
-    //qDebug() << "Awards::getDXStatus: dxccStatus: " << QString::number(dxccStatus(dxccEntity, _logNumber));
+    qDebug() << Q_FUNC_INFO<< ":  wb=" << QString::number(wb) << " - wm=" << QString::number(wm);
+    qDebug() << Q_FUNC_INFO<< ":  dxccStatus: " << QString::number(dxccStatus(dxccEntity, _logNumber));
 
     switch(dxccStatus(dxccEntity, _logNumber))
     {
     case 0:
-        //qDebug() << "Awards::getDXStatus: return 0";
+        qDebug() << Q_FUNC_INFO<< ":  return 0";
         return 0;                   // ATNO
         //break;
     case 1:                         // Worked, not confirmed
@@ -411,18 +411,18 @@ int Awards::getDXStatus (const QStringList &_qs)
             {
                 if (wm==1)
                 {
-                    //qDebug() << "Awards::getDXStatus: return 4";
+                    qDebug() << Q_FUNC_INFO<< ":  return 4";
                     return 4;
                 }
                 else
                 {
-                    //qDebug() << "Awards::getDXStatus: return 1";
+                    qDebug() << Q_FUNC_INFO<< ":  return 1";
                     return 1;
                 }
             }
             else
             {
-                //qDebug() << "Awards::getDXStatus: return 4 nc";
+                qDebug() << Q_FUNC_INFO<< ":  return 4 nc";
                 return 4;
             }
         case 1:                     // Worked in this band
@@ -430,23 +430,23 @@ int Awards::getDXStatus (const QStringList &_qs)
             {
                 if (wm==1)
                 {
-                    //qDebug() << "Awards::getDXStatus: return 3";
+                    qDebug() << Q_FUNC_INFO<< ":  return 3";
                     return 3;
                 }
                 else
                 {
-                    //qDebug() << "Awards::getDXStatus: return 2";
+                    qDebug() << Q_FUNC_INFO<< ":  return 2";
                     return 2;
                 }
             }
             else
             {
-                //qDebug() << "Awards::getDXStatus: return 3 nc";
+                qDebug() << Q_FUNC_INFO<< ":  return 3 nc";
                 return 3;
             }
 
         default:                    // ERROR
-               //qDebug() << "Awards::getDXStatus: default return -1 - 1";
+               qDebug() << Q_FUNC_INFO<< ":  default return -1 - 1";
             return -1;
         }
     case 2:         // Confirmed
@@ -456,23 +456,23 @@ int Awards::getDXStatus (const QStringList &_qs)
             {
                 if (wm==2)
                 {
-                    //qDebug() << "Awards::getDXStatus: return 13";
+                    qDebug() << Q_FUNC_INFO<< ":  return 13";
                     return 13;
                 }
                 else if (wm==1)
                 {
-                    //qDebug() << "Awards::getDXStatus: return 12";
+                    qDebug() << Q_FUNC_INFO<< ":  return 12";
                     return 12;
                 }
                 else
                 {
-                    //qDebug() << "Awards::getDXStatus: return 11";
+                    qDebug() << Q_FUNC_INFO<< ":  return 11";
                     return 11;
                 }
             }
             else
             {
-                //qDebug() << "Awards::getDXStatus: return 13 nc";
+                qDebug() << Q_FUNC_INFO<< ": return 13 nc";
                 return 13;
             }
         }
@@ -484,12 +484,12 @@ int Awards::getDXStatus (const QStringList &_qs)
                 {
                     if (wm==1)
                     {
-                        //qDebug() << "Awards::getDXStatus: return 8";
+                        qDebug() << Q_FUNC_INFO<< ": return 8";
                         return 8;
                     }
                     else
                     {
-                        //qDebug() << "Awards::getDXStatus: return 6";
+                        qDebug() << Q_FUNC_INFO<< ": return 6";
                         return 6;
                     }
                 }
@@ -497,12 +497,12 @@ int Awards::getDXStatus (const QStringList &_qs)
                 {
                     if (wm==1)
                     {
-                        //qDebug() << "Awards::getDXStatus: return 7";
+                        qDebug() << Q_FUNC_INFO<< ": return 7";
                         return 7;
                     }
                     else
                     {
-                        //qDebug() << "Awards::getDXStatus: return 5";
+                        qDebug() << Q_FUNC_INFO<< ": return 5";
                         return 5;
                     }
                 }
@@ -511,26 +511,26 @@ int Awards::getDXStatus (const QStringList &_qs)
             {
                 if (wb==0)
                 {
-                    //qDebug() << "Awards::getDXStatus: return 7 nc";
+                    qDebug() << Q_FUNC_INFO<< ": return 7 nc";
                     return 7;
                 }
                 else
                 {
-                    //qDebug() << "Awards::getDXStatus: return 8 nc";
+                    qDebug() << Q_FUNC_INFO<< ": return 8 nc";
                     return 8;
                 }
             }
         }
         else
         {
-            //qDebug() << "Awards::getDXStatus: return -1 - 2";
+            qDebug() << Q_FUNC_INFO<< ": return -1 - 2";
             return -1;
         }
     default:
-        //qDebug() << "Awards::getDXStatus: return -1 default2";
+        qDebug() << Q_FUNC_INFO<< ": return -1 default2";
         return -1;
     }   // END OF SWITCH
-    //qDebug() << "Awards::getDXStatus: END, return -1";
+    qDebug() << Q_FUNC_INFO<< ": END, return -1";
     //return -1;
 }
 
@@ -740,10 +740,10 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 {
     //qs << Entity << spotBand << "-1" << QString::number(currentLog) ;
-    //qDebug() << "Awards::getQRZDXStatusColor qs.length: " << QString::number(_qs.length());
+    qDebug() << Q_FUNC_INFO<< ": qs.length: " << QString::number(_qs.length());
 
     //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
-    //qDebug() << "Awards::getQRZDXStatusColor: " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3);
+    qDebug() << Q_FUNC_INFO<< ":  " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3);
     // Receives:  QStringList _qs;
     //_qs << Entity << BandID << ModeId << lognumber;
 
@@ -758,54 +758,69 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 
     int status = getDXStatus(_qs);
 
-    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status) << "/" << getDXStatusString(status);
-    //qDebug() << "Awards::getQRZDXStatusColor: status: " << QString::number(status);
+    qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status) << "/" << getDXStatusString(status);
+    qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status);
 
     switch (status) {
         case 0:
+            qDebug() << Q_FUNC_INFO<< ":  returning newOneColor";
             returnedColor = newOneColor;
         break;
         case 1:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 2:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 3:
+            qDebug() << Q_FUNC_INFO<< ":  returning workedColor";
             returnedColor =  workedColor;
         break;
         case 4:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 5:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 6:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 7:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 8:
+            qDebug() << Q_FUNC_INFO<< ":  returning workedColor";
             returnedColor =  workedColor;
         break;
         case 9:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 10:
+            qDebug() << Q_FUNC_INFO<< ":  returning workedColor";
             returnedColor =  workedColor;
         break;
         case 11:
+            qDebug() << Q_FUNC_INFO<< ":  returning neededColor";
             returnedColor =  neededColor;
         break;
         case 12:
+            qDebug() << Q_FUNC_INFO<< ":  returning workedColor";
             returnedColor =  workedColor;
         break;
         case 13:
+            qDebug() << Q_FUNC_INFO<< ":  returning confirmedColor";
             returnedColor =  confirmedColor;
         break;
         //break;
         default:
+            qDebug() << Q_FUNC_INFO<< ":  returning defaultColor";
             returnedColor =  defaultColor;
         break;
     }
@@ -1133,7 +1148,7 @@ Returns a valid format IOTA if possible and "" in other cases.
 
 void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
 {
-       //qDebug() << "Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
+    qDebug() << Q_FUNC_INFO << ": " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
 
     defaultColor = QColor(_default.toUpper());
     neededColor = QColor(_needed.toUpper());
@@ -1144,7 +1159,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (defaultColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-       defaultColor.fromString(_default.toUpper()); //To be replaced by .fromString in Qt6.6
+       defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
 #else
         defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1153,7 +1168,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (neededColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        neededColor.fromString(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
+        neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
 #else
         neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1162,7 +1177,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (confirmedColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        confirmedColor.fromString(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
+        confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
 #else
         confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1170,7 +1185,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (newOneColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        newOneColor.fromString(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
+        newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
 #else
         newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1178,7 +1193,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (workedColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        workedColor.fromString(_worked.toUpper());
+        workedColor.setNamedColor(_worked.toUpper());
 #else
         workedColor.setNamedColor(_worked.toUpper());
 #endif
@@ -1195,9 +1210,7 @@ void Awards::recalculateAwards()
 /*
   TODO: I need to optimize this function.
     The select & insert of setAwardDXCC are too slow)
-    Should go in a transaction
 */
-
     //qDebug() << Q_FUNC_INFO;
     dataProxy->updateAwardDXCC();
     emit awardDXCCUpdated();

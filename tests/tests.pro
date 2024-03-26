@@ -1,5 +1,7 @@
 TEMPLATE=subdirs
 SUBDIRS=\
+   tst_main \
+   tst_wizard \
    tst_adif \
    tst_utilities \
    tst_mainqsoentrywidget \

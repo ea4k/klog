@@ -720,7 +720,7 @@ bool World::readCTYCSV(const QString &_worldFile)
       // Prefixes information
 
     //qDebug() << Q_FUNC_INFO << " - 50";
-    //QSqlDatabase::database().transaction();
+
     QStringList T9StringList;
     T9StringList.clear();
 
@@ -833,8 +833,6 @@ bool World::readCTYCSV(const QString &_worldFile)
         //qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
     }
     //qDebug() << Q_FUNC_INFO << " - 100";
-    //QSqlDatabase::database().commit();
-    //qDebug() << Q_FUNC_INFO << " - 101";
     progress.setValue(numberOfLines);
     //qDebug() << Q_FUNC_INFO << " - 102";
     if (created)

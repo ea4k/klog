@@ -39,6 +39,7 @@ class MainWindowSatTab : public QWidget
 {
     Q_OBJECT
     friend class tst_MainWindowSatTab;
+    friend class tst_Main;
 
 public:
     explicit MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent = nullptr);

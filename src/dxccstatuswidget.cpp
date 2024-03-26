@@ -509,10 +509,10 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
             bandNames.append(testBand);
             //qDebug() << "DXCCStatusWidget::setBands-4.2: Added: " << bandNames.last()  << " - " << QTime::currentTime().toString("HH:mm:ss");
         }
-        else
-        {
+        //else
+        //{
             //qDebug() << "DXCCStatusWidget::setBands -4.3 Not valid band: " << testBand << QTime::currentTime().toString("HH:mm:ss");
-        }
+        //}
     }
     dxccView->setColumnCount(0);
     numberOfColumns = dxccView->columnCount();
@@ -547,7 +547,6 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
         //qDebug() << "DXCCStatusWidget::setBands: 9.1 !_creating so updating!" << QTime::currentTime().toString("HH:mm:ss");
         update();
     }
-
     //qDebug() << "DXCCStatusWidget::setBands: END" << QTime::currentTime().toString("HH:mm:ss");
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 }
@@ -575,11 +574,11 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 
-      //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked";
+      //qDebug() << Q_FUNC_INFO;
     //TODO: Define a way to show the status of the selected log or all the logs in the DB
     if (dxccView->rowCount()<1)
     {
-          //qDebug() << "DXCCStatusWidget::slotRefreshButtonClicked - rowcount <1";
+          //qDebug() << Q_FUNC_INFO << " - rowcount <1";
         return;
     }
     QStringList _bands = bandNames;
