@@ -44,7 +44,8 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     //db = QSqlDatabase::database();
 
     dbVersion = DBVersionf;
-    createConnection(QString(Q_FUNC_INFO)+"1");
+    if (!createConnection(QString(Q_FUNC_INFO)+"1"))
+        return;
    //qDebug() << "DataBase::DataBase: PLAIN - connection Name: " << dbConnectionName ;
        //qDebug() << "DataBase::DataBase: PLAIN - DB Name: " << db.databaseName() ;
     insertPreparedQueries.clear();
@@ -71,7 +72,8 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 
     if (util->getVersionDouble()>0)
     {
-        createConnection(QString(Q_FUNC_INFO)+"2");
+        if (!createConnection(QString(Q_FUNC_INFO)+"2"))
+            return;
     }
        //qDebug() << "DataBase::DataBase: - connection Name: " << dbConnectionName ;
        //qDebug() << "DataBase::DataBase: - DB Name: " << db.databaseName() ;
@@ -104,7 +106,9 @@ QString DataBase::getSoftVersion()
         if (query.isValid())
         {
             logEvent(Q_FUNC_INFO, "END-1", Debug);
-            return (query.value(0)).toString();
+            QString aux = (query.value(0)).toString();
+            query.finish();
+            return aux;
         }
         else
         {
@@ -136,7 +140,9 @@ QString DataBase::getDBVersion()
         if (query.isValid())
         {
             logEvent(Q_FUNC_INFO, "END-1", Debug);
-            return QString::number((query.value(0)).toDouble(), 'f', 3);
+            QString aux = QString::number((query.value(0)).toDouble(), 'f', 3);
+            query.finish();
+            return aux;
         }
         else
         {
@@ -287,8 +293,8 @@ bool DataBase::createConnection(const QString &function, bool newDB)
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.cache_size=10000;";
                 query.exec(stringQuery);
-                stringQuery ="PRAGMA main.locking_mode=EXCLUSIVE;";
-                query.exec(stringQuery);
+                //stringQuery ="PRAGMA main.locking_mode=EXCLUSIVE;";
+                //query.exec(stringQuery);
                 stringQuery ="PRAGMA main.synchronous=NORMAL;";
                 query.exec(stringQuery);
                 stringQuery ="PRAGMA main.journal_mode=WAL;";
@@ -303,6 +309,7 @@ bool DataBase::createConnection(const QString &function, bool newDB)
                 //query.exec(stringQuery);
                 stringQuery ="PRAGMA case_sensitive_like=OFF;";
                 query.exec(stringQuery);
+                query.finish();
             }
         }
     }
@@ -362,7 +369,7 @@ bool DataBase::isTheDBCreated()
         {
                 //qDebug() << "DataBase::isTheDBCreated - not valid"  ;
                 //qDebug() << "DataBase::isTheDBCreated: ------------------------------------------------- END FALSE-2" ;
-             query.finish();
+            query.finish();
             logEvent(Q_FUNC_INFO, "END-3", Debug);
             return false;
         }
@@ -863,7 +870,7 @@ bool DataBase::createDataBase()
     //TODO: Awards are deprecated
     execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('AJA')");
     execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDX')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (nname) VALUES ('CQDXFIELD')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')");
     execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('DXCC')");
 
     execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
@@ -886,16 +893,18 @@ bool DataBase::recreateTableDXCC()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query ("DROP TABLE awarddxcc");
+
     if (!query.exec())
     {
         qDebug() << Q_FUNC_INFO << ": awarddxcc NOT dropped";
+        qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
+        qDebug() << Q_FUNC_INFO << ": " << query.lastError();
+        query.finish();
+        return false;
     }
+    query.finish();
+    return createTableAwardDXCC();
 
-    if (execQuery(Q_FUNC_INFO, "DROP TABLE awarddxcc"))
-    {
-        logEvent(Q_FUNC_INFO, "END-1", Debug);
-        return createTableAwardDXCC();
-    }
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -1066,7 +1075,9 @@ int DataBase::getModeIdFromName(const QString &b)
             if ( query.isValid() )
             {
                     //qDebug() << "DataBase::getModeIdFromName: OK" << QString::number((query.value(0)).toInt()) ;
-                return (query.value(0)).toInt();
+                int i = (query.value(0)).toInt();
+                query.finish();
+                return i;
             }
             else
             {
@@ -5434,7 +5445,6 @@ bool DataBase::hasTheTableData(const QString &_tableName)
        //qDebug() << "DataBase::hasTheTableData" << _tableName ;
     QSqlQuery query;
 
-
     QString stringQuery = QString("SELECT count(id) FROM %1").arg(_tableName);
     bool sqlOK = query.exec(stringQuery);
 
@@ -5543,7 +5553,7 @@ bool DataBase::updateTo011()
 
     if (!recreateTableDXCC())
     {
-           //qDebug() << "DataBase::updateTo011: - recreateTableDXCC NOK " ;
+        //qDebug() << "DataBase::updateTo011: - recreateTable DXCC NOK " ;
        // emit debugLog(Q_FUNC_INFO, "3", 7);
         return false;
     }
@@ -7076,26 +7086,6 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
        qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
 }
 
-/*
- bool DataBase::beginTransaction()
- {
-        //qDebug() << "DataBase::beginTransaction: " ;
-     QSqlDatabase db = QSqlDatabase::database();
-     db.setDatabaseName(dbName);
-     return execQuery(Q_FUNC_INFO, "BEGIN IMMEDIATE TRANSACTION");
- }
-
-
- bool DataBase::commitTransaction()
-
-
- {
-        //qDebug() << "DataBase::commitTransaction: " ;
-     return db.commit();
- }
-
-*/
-
  bool DataBase::execQuery(const QString &function, const QString &stringQuery)
  {
     //qDebug() << "DataBase::execQuery: " << function << " : " << stringQuery ;
@@ -7108,7 +7098,7 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
             qDebug() << "DataBase::execQuery: Still active... " ;
             query.finish();
         }
-        qDebug() << "DataBase::execQuery: No longer active... " ;
+        qDebug() << "DataBase::execQuery: No longer active... let's continue" ;
         return true;
     }
     else

@@ -537,22 +537,6 @@ QString Utilities::getKLogDBBackupFile()
     return getDBPath() + "/" + QDateTime::currentDateTime().toString("yyyyMMdd-hhmmss") + "-backup-logbook.dat" ;
 }
 
-
-
-/*
-QString Utilities::getKLogDatabaseFile(const QString &_file)
-{
-       //qDebug() << "Utilities::getKLogDatabaseFile:" << _file ;
-    if ( QFile::exists(_file + "/logbook.dat") )
-    {
-           //qDebug() << "Utilities::getKLogDatabaseFile:returning: " <<  _file + "/logbook.dat" ;
-        return _file + "/logbook.dat";
-    }
-         //qDebug() << "Utilities::getKLogDatabaseFile: Does not exist so default: " <<  getKLogDefaultDatabaseFile() ;
-        return getKLogDefaultDatabaseFile();
-}
-*/
-
 QString Utilities::getCfgFile()
 {
 //TODO: To be removed when the defaultDir is saved in the config file
@@ -625,7 +609,6 @@ QString Utilities::getTQSLsFileName()
 QString Utilities::getTQSLsPath()
 {
       //qDebug() << "Utilities::getDefaultProgramsPath " ;
-
 #if defined(Q_OS_WIN64)
          //qDebug() << "WINDOWS DETECTED!: "   ;
     return "C:/Program Files/TrustedQSL/";

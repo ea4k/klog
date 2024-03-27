@@ -79,8 +79,6 @@ void tst_Wizard::cleanupTestCase()
     if (sfile.exists())
         if (sfile.rename(util.getCfgFile()))
             qDebug() << Q_FUNC_INFO << "Restoring the config file";
-
-
 }
 
 void tst_Wizard::test_Constructor()

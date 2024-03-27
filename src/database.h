@@ -65,6 +65,7 @@ struct AwarddxccEntryCheck
 class DataBase : public QObject
 {
     Q_OBJECT
+    friend class tst_DataBase;
 
 public:
     DataBase(const QString &_parentClass, const QString &_DBName);
@@ -128,15 +129,13 @@ public:
     bool updateAwardDXCCTable();
     bool updateAwardDXCCTable2();
     bool updateAwardWAZTable();
-    int getNumberOfQsos(const int _logNumber);
+    int getNumberOfQsos(int _logNumber = -1);
     int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
 private:
-    //bool beginTransaction();
-    //bool commitTransaction();
     bool execQuery(const QString &function, const QString &stringQuery);
     bool updateEntity (const QString &_codeString, const int _code);
     bool createDataBase();

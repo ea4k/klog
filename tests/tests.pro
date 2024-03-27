@@ -8,6 +8,7 @@ SUBDIRS=\
    tst_mainwindowsattab \
    tst_mainwindow \
    tst_dataproxy \
+   tst_database \
    tst_locator \
    tst_mainwindowinputqso \
    tst_qso \

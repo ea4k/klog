@@ -2172,10 +2172,10 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
 
 bool DataProxy_SQLite::updateAwardDXCC()
 {
-       //qDebug() << "DataProxy_SQLite::updateAwardDXCC";
+    qDebug() << Q_FUNC_INFO << " - Start";
     fillEmptyDXCCInTheLog();
     return db->updateAwardDXCCTable2();
-       //qDebug() << "DataProxy_SQLite::updateAwardDXCC-END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool DataProxy_SQLite::updateAwardWAZ()
@@ -6033,6 +6033,7 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
                 sqlOK = updateDXCCAndContinent(_id.toInt(), _dxcc.toInt(), _continent);
                 if (!sqlOK)
                 {
+                    query.finish();
                     return false;
                 }
                 if (( (j % step )== 0) )
@@ -6051,6 +6052,7 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
                 j++;
             }
         }
+        query.finish();
         progress.setValue(qsos);
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);

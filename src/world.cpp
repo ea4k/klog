@@ -675,7 +675,13 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
 
 bool World::readCTYCSV(const QString &_worldFile)
 {
-    //qDebug() << Q_FUNC_INFO << _worldFile;
+#ifdef KLOG_TESTING
+    qDebug() << Q_FUNC_INFO << " - We are testing";
+#endif
+#ifndef KLOG_TESTING
+    qDebug() << Q_FUNC_INFO << " - We are NOT testing";
+#endif
+    qDebug() << Q_FUNC_INFO << _worldFile;
     QString tq;
     tq.clear();
 
@@ -710,10 +716,10 @@ bool World::readCTYCSV(const QString &_worldFile)
     // Starts with main data:
     file.seek(beginingOfFile);
     progressBarPosition = 0;
-    //QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, numberOfLines, this);
+#ifndef KLOG_TESTING
     QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, numberOfLines);
     progress.setWindowModality(Qt::ApplicationModal);
-
+#endif
     numberOfEntities = 0; // Reset this variable to reuse it and assign the "dxcc" to the entities (temp solution)
     //qDebug() << Q_FUNC_INFO << " - 40";
 
@@ -721,18 +727,18 @@ bool World::readCTYCSV(const QString &_worldFile)
 
     //qDebug() << Q_FUNC_INFO << " - 50";
 
-    QStringList T9StringList;
-    T9StringList.clear();
-
     QStringList stringList, stringListPrefixes, stringListProcessedPrefix;
 
     int entN;
     //qDebug() << Q_FUNC_INFO << " - 60";
     while (!file.atEnd()) {
+#ifndef KLOG_TESTING
         progress.setValue(progressBarPosition);
-        progressBarPosition++;
+
         if (progress.wasCanceled())
             break;
+#endif
+        progressBarPosition++;
         stringList.clear();
         stringListPrefixes.clear();
     //
@@ -754,7 +760,6 @@ bool World::readCTYCSV(const QString &_worldFile)
 
         //qDebug() << Q_FUNC_INFO << "  Line stringList-0: " << stringList.at(0);
         //qDebug() << Q_FUNC_INFO << "  Line stringList Length: " << QString::number(stringList.length());
-
 
         // stringList.at(9) contains an space separated list of prefixes for that entity
         QString mPrefix = QString();
@@ -829,11 +834,18 @@ bool World::readCTYCSV(const QString &_worldFile)
                 }
             }
         }
+#ifndef KLOG_TESTING
         progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
+#endif
+#ifdef KLOG_TESTING
+        qDebug() << Q_FUNC_INFO << QString("Reading cty.csv... Now reading %1").arg(mPrefix);
+#endif
         //qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
     }
     //qDebug() << Q_FUNC_INFO << " - 100";
+#ifndef KLOG_TESTING
     progress.setValue(numberOfLines);
+#endif
     //qDebug() << Q_FUNC_INFO << " - 102";
     if (created)
     {

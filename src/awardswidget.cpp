@@ -315,7 +315,7 @@ void AwardsWidget::slotOperatingYearComboBoxChanged()
 
 void AwardsWidget::showAwards()
 { // Updates and show all the award status tab.
-      //qDebug() << "AwardsWidget::showAwards";
+      //qDebug() << Q_FUNC_INFO << " - Start";
 /*
   WAZ
   Local
@@ -358,7 +358,7 @@ void AwardsWidget::showAwards()
 
     showDXMarathon(selectedYear);
     emit debugLog(Q_FUNC_INFO, "END", logLevel);
-       //qDebug() << "AwardsWidget::showAwards - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AwardsWidget::showDXMarathon(const int _year)
