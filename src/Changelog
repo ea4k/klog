@@ -1,7 +1,8 @@
+TODO: Update the DB (modes table) updateToLatest() => updateTo026
 WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 WIP: Working in the update of the table awarddxcc in DB class
 
-TESTS to do before releasing:
+TESTS to do during RC releases:
 - ADIF log Import
 - LoTW log Import
 - Edit QSO. Check how data comes from DB to the UI.
@@ -25,6 +26,8 @@ TBD - 2.4
 - Enhancement: Improve how the cty.csv file (countries file) is read.
 - Enhancement: Update the entities table to make UTC real instead of int (e.g. India is -5.5 UTC)
 - Enhancement: Function to import QSOs from WSJTX.
+- Enhancement: Added all the modes/submodes of ADIF 3.1.4
+- Enhancement: Added many tests to test code before releasing.
 - BugFix: Fixed the ISO name for Togo.
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.

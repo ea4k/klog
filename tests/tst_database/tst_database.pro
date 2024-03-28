@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/database.h \
+    ../../src/global.h \
     ../../src/adif.h \
     ../../src/locator.h \
     ../../src/world.h \

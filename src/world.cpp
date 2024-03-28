@@ -676,12 +676,12 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
 bool World::readCTYCSV(const QString &_worldFile)
 {
 #ifdef KLOG_TESTING
-    qDebug() << Q_FUNC_INFO << " - We are testing";
+    //qDebug() << Q_FUNC_INFO << " - We are testing";
 #endif
 #ifndef KLOG_TESTING
-    qDebug() << Q_FUNC_INFO << " - We are NOT testing";
+    //qDebug() << Q_FUNC_INFO << " - We are NOT testing";
 #endif
-    qDebug() << Q_FUNC_INFO << _worldFile;
+    //qDebug() << Q_FUNC_INFO << _worldFile;
     QString tq;
     tq.clear();
 
@@ -838,7 +838,7 @@ bool World::readCTYCSV(const QString &_worldFile)
         progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
 #endif
 #ifdef KLOG_TESTING
-        qDebug() << Q_FUNC_INFO << QString("Reading cty.csv... Now reading %1").arg(mPrefix);
+        //qDebug() << Q_FUNC_INFO << QString("Reading cty.csv... Now reading %1").arg(mPrefix);
 #endif
         //qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
     }

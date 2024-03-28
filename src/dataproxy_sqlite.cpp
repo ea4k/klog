@@ -208,7 +208,7 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
         return -4;
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
-    return db->getModeIDFromName2(_modeName);
+    return db->getModeIdFromSubMode(_modeName);
 }
 
 int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
@@ -316,13 +316,13 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
         return -4;
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
-    return db->getBandIDFromName2(_bandName);
+    return db->getBandIdFromName(_bandName);
 }
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 {
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    return db->getBandNameFromID2(_id);
+    return db->getBandNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
@@ -334,7 +334,7 @@ QString DataProxy_SQLite::getNameFromModeId (const int _id)
 QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
 {
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
-    return db->getSubModeNameFromID2(_id);
+    return db->getSubModeNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getSubModeFromId (const int _id)
@@ -2174,7 +2174,7 @@ bool DataProxy_SQLite::updateAwardDXCC()
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     fillEmptyDXCCInTheLog();
-    return db->updateAwardDXCCTable2();
+    return db->updateAwardDXCCTable();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

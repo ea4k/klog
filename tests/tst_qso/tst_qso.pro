@@ -9,11 +9,12 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/utilities.h \
+    ../../src/global.h \
     ../../src/klogdefinitions.h \
     #../../src/dataproxy_sqlite.h \
     #../../src/database.h \
     ../../src/locator.h \
-    ../../src/qso.h \
+    ../../src/qso.h \    
     ../../src/adif.h
 
 SOURCES +=  tst_qso.cpp \

@@ -32,10 +32,12 @@
 #include <QTime>
 #include <QObject>
 //#include <QDebug>
+#include "global.h"
 #include "utilities.h"
 #include "klogdefinitions.h"
 #include "adif.h"
 #include "database.h"
+
 
 //#include <functional>
 

@@ -38,6 +38,7 @@
 #include <QInputDialog>
 #include <QProgressDialog>
 #include "utilities.h"
+#include "global.h"
 
 class QSqlRelationalTableModel;
 const float DBVersionf = 0.026f; // This is the latest version of the DB.
@@ -99,13 +100,6 @@ public:
     int getModeIdFromSubMode(const QString &b);
 
     bool createBandModeMaps();
-    int getBandIDFromName2(const QString &b);
-    int getModeIDFromName2(const QString &b);
-    int getSubModeIDFromName2(const QString &b);
-
-    QString getBandNameFromID2(const int _i);
-    QString getModeNameFromID2(const int _i);
-    QString getSubModeNameFromID2(const int _i);
 
     int getBandIdFromFreq(const QString &fr); //Freq should be in MHz
     bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz
@@ -127,7 +121,7 @@ public:
 
 
     bool updateAwardDXCCTable();
-    bool updateAwardDXCCTable2();
+ KLOG_DEPRECATED   bool updateAwardDXCCTable2();
     bool updateAwardWAZTable();
     int getNumberOfQsos(int _logNumber = -1);
     int getLastInsertedQSO();
@@ -188,6 +182,7 @@ private:
 
     bool createTableMode(const bool NoTmp);
     bool populateTableMode(const bool NoTmp);
+    bool populateTableModePSK(bool NoTmp);  //Refactored from populateTableMode
     bool updateTheModeTableAndSyncLog();
 
     bool createTableBand(const bool NoTmp);
