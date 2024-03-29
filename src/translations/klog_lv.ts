@@ -1196,44 +1196,44 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="3251"/>
         <source> - The mode missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Trūkst režīma un šāds izsaukumasignāla: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3255"/>
         <source> - The date missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Trūkst datuma un šāda izsaukuma signāla: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3259"/>
         <source> - The time missing and the following call: </source>
-        <translation type="unfinished"></translation>
+        <translation> - Trūkstošais laiks un šāds izsaukuma signāls: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3261"/>
         <source>Do you want to continue with the current file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai vēlaties turpināt ar pašreizējo failu?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3265"/>
         <source>KLog: Not all required data found!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog: nav atrasti visi nepieciešamie dati!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3290"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka dažiem šī žurnāla QSO (t.i.: %1) trūkst RST-TX informācijas.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3290"/>
         <location filename="../filemanager.cpp" line="3313"/>
         <source>Click on Yes to add a default %1 for mode %2 to all QSOs with a similar problem.</source>
-        <translation type="unfinished"></translation>
+        <translation>Noklikšķiniet uz Jā, lai pievienotu noklusējuma %1 režīmam %2 visiem QSO ar līdzīgu problēmu.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3290"/>
         <location filename="../filemanager.cpp" line="3313"/>
         <source>If you select NO, maybe the QSO will not be imported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja izvēlaties NĒ, iespējams, QSO netiks importēts.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3291"/>
@@ -1243,7 +1243,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="3313"/>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka dažiem šī žurnāla QSO (t.i.: %1) trūkst RST-RX informācijas.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3315"/>
@@ -1254,71 +1254,79 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="3353"/>
         <location filename="../filemanager.cpp" line="3364"/>
         <source>KLog - No Station callsign entered.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klog — nav ievadīts stacijas izsaukuma signāls.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3379"/>
         <source>KLog - Apply to all QSOs in this log?</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — lietot visiem QSO šajā žurnālā?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3421"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ir atradis vienu QSO bez stacijas izsaukuma signāla.
+
+Ievadiet stacijas izsaukuma signālu, kas tika izmantots, lai veiktu šo QSO ar % 1 uz % 2:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3422"/>
         <location filename="../filemanager.cpp" line="3427"/>
         <source>KLog - QSO without Station Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSO bez stacijas izsaukuma signāla</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3428"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
 Enter the Station Callsign that was used to do this QSO on %1:</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog ir atradis vienu QSO bez stacijas izsaukuma signāla.
+
+Ievadiet stacijas izsaukuma signālu, kas tika izmantots, lai veiktu šo QSO uz % 1:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3856"/>
         <source>KLog - Don&apos;t ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — vairs nejautā</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3858"/>
         <source>Do you want to reuse your answer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai vēlaties atkārtoti izmantot savu atbildi?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3859"/>
         <source>KLog will use automatically your previous answer for any other similar ocurrence, if any, without asking you again.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog automātiski izmantos jūsu iepriekšējo atbildi jebkuram citam līdzīgam notikumam, ja tāds ir, nejautājot jums vēlreiz.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3882"/>
         <source>&lt;ul&gt;&lt;li&gt;Date/Time:&lt;/i&gt; %1&lt;/li&gt;&lt;li&gt;Callsign: %2&lt;/li&gt;&lt;li&gt;Band: %3&lt;/li&gt;&lt;li&gt;Mode: %4&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;ul&gt;&lt;li&gt;Datums/laiks:&lt;/i&gt; %1&lt;/li&gt;&lt;li&gt;Izsaukuma signāls: %2&lt;/li&gt;&lt;li&gt;Josla: %3&lt;/li&gt;&lt;li&gt;Režīms: %4&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3886"/>
         <source>KLog - QSO not found</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog&#xa0;— QSO nav atrasts</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3888"/>
         <source>Do you want to add this QSO to the log?:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Vai vēlaties pievienot šo QSO žurnālam?:
+
+</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3889"/>
         <source>We have found a QSO coming from LoTW that is not in your local log.
 
 Do you want KLog to add this QSO to the log?</source>
-        <translation type="unfinished"></translation>
+        <translation>Mēs esam atraduši QSO, kas nāk no LoTW, kas nav jūsu vietējā žurnālā.
+
+Vai vēlaties, lai KLog pievienotu šo QSO žurnālam?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3911"/>
@@ -1328,17 +1336,17 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../filemanager.cpp" line="3917"/>
         <source>An empty callsign has been detected. Do you want to export this QSO anyway (click on Yes) or remove the field from the exported log file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir konstatēts tukšs izsaukuma signāls. Vai tomēr vēlaties eksportēt šo QSO (noklikšķināt uz Jā) vai noņemt lauku no eksportētā žurnālfaila?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3921"/>
         <source>An invalid callsign has been detected %1. Do you want to export this callsign anyway (click on Yes) or remove the call from the exported log file?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir konstatēts nederīgs izsaukuma signāls %1. Vai tomēr vēlaties eksportēt šo izsaukuma signālu (noklikšķināt uz Jā) vai noņemt zvanu no eksportētā žurnālfaila?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="3924"/>
         <source>Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid. You can, however, edit the ADIF file once the export process is finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepareizu zvanu eksportēšana var radīt problēmas lietojumprogrammās, kurās, iespējams, importējat šo žurnālfailu. Tomēr tas var būt labs izsaukuma signāls, ko KLog nepareizi identificē kā nederīgu. Tomēr varat rediģēt ADIF failu, kad eksportēšanas process ir pabeigts.</translation>
     </message>
 </context>
 <context>
