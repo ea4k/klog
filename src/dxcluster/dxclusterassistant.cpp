@@ -42,6 +42,7 @@ DXClusterAssistant::~DXClusterAssistant(){};
 
 bool DXClusterAssistant::init()
 {
+    list.clear();
     return createUI();
 }
 
@@ -64,9 +65,61 @@ bool DXClusterAssistant::createUI()
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(tableWidget, 3, 0, 1, -1);
 
+
     setLayout(mainLayout);
     return true;
 
     //connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
         //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double &_freq, const QSOStatus _status)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    proposedQSOs newArrival;
+    newArrival.call = _call;
+    newArrival.freq = _freq;
+    newArrival.priority = 1;
+    list.append(newArrival);
+
+    QString status;
+    switch (_status) {
+    case unknown:
+        status ="unknown";
+        break;
+    case ATNO:
+        status ="ATNO";
+        break;
+    case needed:
+        status ="needed";
+        break;
+    case worked:
+        status ="worked";
+        break;
+    case confirmed:
+        status ="confirmed";
+        break;
+    default:
+        status ="unknown";
+        break;
+    }
+    qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(status);
+    addCall();
+}
+
+void DXClusterAssistant::addCall()
+{
+    tableWidget->clearContents();
+    tableWidget->setRowCount(0);
+    proposedQSOs aux;
+    foreach(aux, list)
+    {
+        qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
+        QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call);
+        QTableWidgetItem *newItemFreq = new QTableWidgetItem(QString::number(aux.freq));
+        int row = tableWidget->rowCount();
+        tableWidget->setItem(row, 0, newItemCall);
+        tableWidget->setItem(row, 1, newItemFreq);
+        tableWidget->insertRow(tableWidget->rowCount());
+    }
 }

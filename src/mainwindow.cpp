@@ -489,6 +489,7 @@ void MainWindow::init()
        qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
     mapWindow->init();
 
+
       qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
        qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -507,6 +508,7 @@ void MainWindow::init()
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
+    dxClusterAssistant->init();
 
        qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
        qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -4849,11 +4851,10 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     qDebug() << Q_FUNC_INFO << " - 30";
     // Set the status bar with the appropriate message
     int status = awards->getDXStatus (_qs);
-    QString message = QString();
 
     qDebug() << Q_FUNC_INFO << " -  " << QString::number(status) ;
 
-    message = awards->getDXStatusString(status);
+    QString message = awards->getDXStatusString(status);
     qDebug() << Q_FUNC_INFO << " - 40";
     slotShowInfoLabel(message);
     qDebug() << Q_FUNC_INFO << " - 10";
@@ -5293,7 +5294,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     {
         _mode = "-1";
     }
-
+    double freq = ql.at(1).toDouble()/1000;
     if (ql.length()==3)
     {
         if ((ql.at(2)) == "double")
@@ -5302,16 +5303,14 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
         }
         else if ((ql.at(2)) == "selected")
         {
-    //slotShowInfoLabel(world->getEntityName(_entity), 2);
             infoLabel2->setText(world->getEntityName(_entity));
             infoWidget->showEntityInfo( _entity );
 
-    // Becareful, he Frecuency arrives in KHz instead of bandid!!
-    // db.getBandFromFreq expects a MHz!
-    //(ql.at(1)).toDouble()
-
-            qls << QString::number(_entity) << QString::number(dataProxy->getBandIdFromFreq((ql.at(1).toDouble()/1000))) << _mode <<  QString::number(currentLog);
-    // We use a mode = -1 because we don't know the mode info from the DXCluster spot
+            // Becareful, he Frecuency arrives in KHz instead of bandid!!
+            // db.getBandFromFreq expects a MHz!
+            //(ql.at(1)).toDouble()
+            qls << QString::number(_entity) << QString::number(dataProxy->getBandIdFromFreq((freq))) << _mode <<  QString::number(currentLog);
+            // We use a mode = -1 because we don't know the mode info from the DXCluster spot
 
     // TODO: Check if we can know the mode and replace the "-1" in previous sentence
 
@@ -5319,6 +5318,14 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
             showStatusOfDXCC(qls);
         }
     }
+
+    //_qs << Entity << BandId << ModeId << lognumber;
+    int statusI = awards->getDXStatus (qls);
+
+
+    dxClusterAssistant->newDXClusterSpot(ql.at(0), freq, awards->getQSOStatus(statusI));
+
+
     //else
     //{ // Signal was not properly emited
     //}
@@ -5330,6 +5337,9 @@ void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _
      //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
     (void)_dxCall;
     (void)_freq;
+
+    dxClusterAssistant->newDXClusterSpot(_dxCall, _freq, ATNO);
+
     if (!dxclusterSendSpotsToMap)
     {
         return;

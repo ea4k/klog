@@ -36,6 +36,13 @@ email                : jaime@robles.es
 
 #include <QtWidgets>
 #include "../global.h"
+#include "../klogdefinitions.h"
+
+struct proposedQSOs { // Used to pass a list of data from Awards to dxccstatuswidget
+    QString call;
+    double freq;
+    int priority;
+};
 
 class DXClusterAssistant : public QWidget
 {
@@ -44,13 +51,16 @@ public:
     explicit DXClusterAssistant(const QString &_parentFunction, QWidget *parent = nullptr);
     ~DXClusterAssistant();
     bool init();
+    void newDXClusterSpot(const QString &_call, const double &_freq, const QSOStatus _status);
+
 signals:
 
 private:
     bool createUI();
-
+    void addCall();
     QTableWidget *tableWidget;
     QHeaderView *hv, *hh;
+    QList<proposedQSOs> list;
 };
 
 

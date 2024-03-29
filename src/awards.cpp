@@ -830,6 +830,58 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
     return returnedColor;
 }
 
+QSOStatus Awards::getQSOStatus(const int &_status)
+{
+    switch (_status) {
+    case 0:
+        return ATNO;
+        break;
+    case 1:
+        return needed;
+        break;
+    case 2:
+        return needed;
+        break;
+    case 3:
+        return worked;
+        break;
+    case 4:
+        return needed;
+        break;
+    case 5:
+        return needed;
+        break;
+    case 6:
+        return needed;
+        break;
+    case 7:
+        return needed;
+        break;
+    case 8:
+        return worked;
+        break;
+    case 9:
+        return needed;
+        break;
+    case 10:
+        return worked;
+        break;
+    case 11:
+        return needed;
+        break;
+    case 12:
+        return worked;
+        break;
+    case 13:
+        return confirmed;
+        break;
+    //break;
+    default:
+        return unknown;
+        break;
+    }
+}
+
 QString Awards::getDXStatusString (const int &_status)
 {
        //qDebug() << "Awards::getDXStatusString: " << QString::number(_status);

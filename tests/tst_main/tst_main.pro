@@ -138,7 +138,8 @@ SOURCES += tst_main.cpp \
     ../../src/database.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/downloadcty.cpp \
-    ../../src/dxcluster.cpp \
+    ../../src/dxcluster/dxcluster.cpp \
+    ../../src/dxcluster/dxclusterassistant.cpp \
     ../../src/dxccstatuswidget.cpp \
     ../../src/elogqrzlog.cpp \
     ../../src/eqslutilities.cpp \

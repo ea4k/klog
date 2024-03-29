@@ -26,7 +26,7 @@ email                : jaime@robles.es
 *                                                                           *
 *****************************************************************************/
 
-#include <QWidget>
+#include <QSettings>
 //#include <QtWidgets>
 #include <QtWidgets>
 #include <QTcpSocket>

@@ -114,7 +114,8 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/filemanager.cpp \
     ../../src/fileawardmanager.cpp \
     ../../src/locator.cpp \
-    ../../src/dxcluster.cpp \
+    ../../src/dxcluster/dxcluster.cpp \
+    ../../src/dxcluster/dxclusterassistant.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \
