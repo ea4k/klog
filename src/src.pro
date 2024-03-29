@@ -93,9 +93,10 @@ HEADERS += setupdialog.h \
     charts/statssentconfirmedpiechartwidget.h \
     database.h \
     dataproxy_sqlite.h \
-    downloadcty.h \
-    dxcluster.h \
+    downloadcty.h \    
     dxccstatuswidget.h \
+    dxcluster/dxcluster.h \
+    dxcluster/dxclusterassistant.h \
     elogqrzlog.h \
     eqslutilities.h \
     global.h \
@@ -169,6 +170,8 @@ SOURCES += main.cpp \
     adif.cpp \
     awardswidget.cpp \
     charts/statsfieldperbandwidget.cpp \
+    dxcluster/dxcluster.cpp \
+    dxcluster/dxclusterassistant.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     lotwutilities.cpp \
@@ -204,8 +207,7 @@ SOURCES += main.cpp \
     fileawardmanager.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
-    downloadcty.cpp \
-    dxcluster.cpp \
+    downloadcty.cpp \    
     locator.cpp \
     qso.cpp \
     awards.cpp \

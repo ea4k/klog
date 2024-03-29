@@ -1921,7 +1921,6 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
         return QStringList();
     }
 
-
     sqlOk = query.exec(queryString);
     dataC << QString::number(_qsoId);
     //qDebug() << "DataProxy_SQLite::getClubLogRealTimeFromId: lastQuery: " << query.lastQuery();
@@ -2082,7 +2081,6 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     {
         bandString = QString("bandid <> ''");
     }
-
 
     QString modeString = QString();
     int modeId = getIdFromModeName(_mode);
