@@ -43,7 +43,8 @@ HEADERS += ../../src/setupdialog.h \
     ../../src/database.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/downloadcty.h \
-    ../../src/dxcluster.h \
+    ../../src/dxcluster/dxcluster.h \
+    ../../src/dxcluster/dxclusterassistant.h \
     ../../src/dxccstatuswidget.h \
     ../../src/elogqrzlog.h \
     ../../src/eqslutilities.h \

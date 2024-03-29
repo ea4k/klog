@@ -201,6 +201,7 @@ MainWindow::MainWindow(const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     //dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
     dxClusterWidget = new DXClusterWidget(dataProxy, this);
+    dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
 
      //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -888,6 +889,10 @@ void MainWindow::slotShowMap()
     //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
+void MainWindow::slotShowDXClusterAssistant()
+{
+    dxClusterAssistant->show();
+}
 void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
@@ -2574,7 +2579,13 @@ void MainWindow::createMenusCommon()
     connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
     showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-     //qDebug() << "MainWindow::createMenusCommon before" ;
+    dxClusterAssistantAct = new QAction (tr("DXCluster Assistant"), this);
+    toolMenu->addAction(dxClusterAssistantAct);
+    connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
+    dxClusterAssistantAct->setToolTip(tr("Show the statistics of your radio activity."));
+
+
+    //qDebug() << "MainWindow::createMenusCommon before" ;
     //toolMenu->addSeparator();
     //showRotatorAct = new QAction (tr("Rotator"), this);
     //toolMenu->addAction(showRotatorAct);

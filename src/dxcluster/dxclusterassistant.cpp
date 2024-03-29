@@ -25,6 +25,48 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include "dxclusterassistant.h"
 
-DXClusterAssistant::DXClusterAssistant(QWidget *parent)
+DXClusterAssistant::DXClusterAssistant(const QString &_parentFunction, QWidget *parent)
     : QWidget{parent}
-{}
+{
+#ifdef QT_DEBUG
+    //qDebug() << ": " << _parentFunction;
+#else
+#endif
+    (void)_parentFunction;
+    //qDebug() << Q_FUNC_INFO << " - Start: " + _parentFunction;
+
+    tableWidget = new QTableWidget;
+}
+
+DXClusterAssistant::~DXClusterAssistant(){};
+
+bool DXClusterAssistant::init()
+{
+    return createUI();
+}
+
+bool DXClusterAssistant::createUI()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    tableWidget->setSortingEnabled (true);
+
+    hv = tableWidget->verticalHeader();
+    hv->hide();
+    hv->setStretchLastSection(true);
+    hh = tableWidget->horizontalHeader();
+
+    QStringList header;
+    header.clear();
+    header << tr("DX") << tr("Freq") << tr("Priority"); // tr("Mode");
+    tableWidget->setColumnCount(header.length());
+    tableWidget->setHorizontalHeaderLabels(header);
+
+    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->addWidget(tableWidget, 3, 0, 1, -1);
+
+    setLayout(mainLayout);
+    return true;
+
+    //connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
+        //qDebug() << Q_FUNC_INFO << " - END";
+}

@@ -42,7 +42,8 @@ HEADERS += \
     ../../src/filemanager.h \
     ../../src/fileawardmanager.h \
     ../../src/locator.h \
-    ../../src/dxcluster.h \
+    ../../src/dxcluster/dxcluster.h \
+    ../../src/dxcluster/dxclusterassistant.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
     ../../src/inputwidgets/mainwindowsattab.h \
