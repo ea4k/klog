@@ -660,7 +660,7 @@ void MainWindow::createActionsCommon(){
 
     //CLUSTER
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
-    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, QString, double) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, double) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -5322,8 +5322,8 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     //_qs << Entity << BandId << ModeId << lognumber;
     int statusI = awards->getDXStatus (qls);
 
-
-    dxClusterAssistant->newDXClusterSpot(ql.at(0), freq, awards->getQSOStatus(statusI));
+    if (util->isValidCall(ql.at(0), true))
+        dxClusterAssistant->newDXClusterSpot(ql.at(0), freq, awards->getQSOStatus(statusI));
 
 
     //else
@@ -5332,23 +5332,36 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq)
+void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _freq)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
-    (void)_dxCall;
-    (void)_freq;
+    qDebug() << Q_FUNC_INFO << ": " << _dxCall;
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_freq);
+    //(void)_dxCall;
+    //(void)_freq;
 
-    dxClusterAssistant->newDXClusterSpot(_dxCall, _freq, ATNO);
+    if (util->isValidCall(_dxCall, true))
+    {
+        qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
+        qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << QString::number(_freq);
+        dxClusterAssistant->newDXClusterSpot(_dxCall, _freq, ATNO);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << _dxCall;
+    }
+
 
     if (!dxclusterSendSpotsToMap)
     {
         return;
     }
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    Coordinate coord = locator->getLocatorCoordinate (_dxGrid);
+    QString dxGrid = world->getQRZLocator (_dxCall);
+
+    Coordinate coord = locator->getLocatorCoordinate (dxGrid);
      //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(_dxCall).arg(_dxGrid).arg(coord.lat).arg(coord.lon);
      //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
-    mapWindow->addMarker(coord, _dxGrid);
+    mapWindow->addMarker(coord, dxGrid);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

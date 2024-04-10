@@ -58,7 +58,7 @@ bool DXClusterAssistant::createUI()
 
     QStringList header;
     header.clear();
-    header << tr("DX") << tr("Freq") << tr("Priority"); // tr("Mode");
+    header << tr("DX") << tr("Freq") << tr("Status"); // tr("Mode");
     tableWidget->setColumnCount(header.length());
     tableWidget->setHorizontalHeaderLabels(header);
 
@@ -73,15 +73,26 @@ bool DXClusterAssistant::createUI()
         //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double &_freq, const QSOStatus _status)
+void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double _freq, const QSOStatus _status)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
+    Utilities util(Q_FUNC_INFO);
+    //if (!util.isValidCall(_call, true))
+    //{
+    //    qDebug() << Q_FUNC_INFO << " - Not Valid Call: " << _call;
+    //    return;
+    //}
+
+    qDebug() << Q_FUNC_INFO << ": Call: " << _call;
+    qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(_freq);
+    //qDebug() << Q_FUNC_INFO << ": Status: " << ;
     proposedQSOs newArrival;
     newArrival.call = _call;
     newArrival.freq = _freq;
+    newArrival.status = _status;
     newArrival.priority = 1;
     list.append(newArrival);
-
+    qDebug() << Q_FUNC_INFO << " - 50";
     QString status;
     switch (_status) {
     case unknown:
@@ -103,23 +114,41 @@ void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double &_f
         status ="unknown";
         break;
     }
+    qDebug() << Q_FUNC_INFO << " - 60";
     qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(status);
-    addCall();
+    addCall(newArrival);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void DXClusterAssistant::addCall()
+void DXClusterAssistant::addCall(proposedQSOs _propQSO)
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     tableWidget->clearContents();
     tableWidget->setRowCount(0);
+    qDebug() << Q_FUNC_INFO << ": Lenght of list: " << QString::number(list.count());
     proposedQSOs aux;
     foreach(aux, list)
     {
         qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
         QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call);
         QTableWidgetItem *newItemFreq = new QTableWidgetItem(QString::number(aux.freq));
-        int row = tableWidget->rowCount();
-        tableWidget->setItem(row, 0, newItemCall);
-        tableWidget->setItem(row, 1, newItemFreq);
+        QTableWidgetItem *newItemStatus = new QTableWidgetItem(aux.status);
+
+
         tableWidget->insertRow(tableWidget->rowCount());
+        int row = tableWidget->rowCount();
+        tableWidget->setItem(row-1, 0, newItemCall);
+        tableWidget->setItem(row-1, 1, newItemFreq);
+        tableWidget->setItem(row-1, 2, newItemStatus);
+
     }
+    qDebug() << Q_FUNC_INFO << " - END";
 }
+
+/*
+     QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(
+         (row+1)*(column+1)));
+     tableWidget->setItem(row, column, newItem);
+
+
+*/

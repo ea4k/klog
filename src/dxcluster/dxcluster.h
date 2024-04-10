@@ -79,7 +79,7 @@ private slots:
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
-    void dxspotArrived(const QString &_call, const QString &_text, const double _freq);
+    void dxspotArrived(const QString &_call, const double _freq);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
