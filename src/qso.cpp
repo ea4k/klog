@@ -2823,18 +2823,21 @@ int QSO::toDB(int _qsoId)
     {
         //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
        //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
+        if (_qsoId>0)
+            return _qsoId;
         return 1;//db->getLastInsertedQSO();
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
         //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
-        //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().databaseText();
+        //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().baseText();
         //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().nativeErrorCode();
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return -2;
     }
     query.finish();
+    return 1;
 }
 
 QString QSO::getAddQueryString()

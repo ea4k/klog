@@ -266,7 +266,7 @@ macx: {
 
 win32: {
     message(windows)
-    RC_ICONS = klog.ico
+    #RC_ICONS = klog.ico
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
@@ -278,8 +278,8 @@ win32: {
         INCLUDEPATH += "$$PWD/../../libs/win32/hamlib/include/"
     } else {
         message("64-bit")
-        LIBS += -L"$$PWD/../../libs/win64/hamlib/lib/gcc" -lhamlib
-        LIBS += -L"$$PWD/../../libs/win64/hamlib/bin"
-        INCLUDEPATH += "$$PWD/../../libs/win64/hamlib/include/"
+        LIBS += -L"$$PWD/../../../libs/win64/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../../libs/win64/hamlib/bin"
+        INCLUDEPATH += "$$PWD/../../../libs/win64/hamlib/include/"
     }
 }
