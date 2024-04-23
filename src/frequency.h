@@ -32,7 +32,6 @@
 
 #include <QObject>
 #include "klogdefinitions.h"
-#include "dataproxy_sqlite.h"
 
 class Frequency: public QObject {
     Q_OBJECT
