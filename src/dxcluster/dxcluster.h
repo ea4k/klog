@@ -34,7 +34,7 @@ email                : jaime@robles.es
 #include "../awards.h"
 #include "../world.h"
 #include "../utilities.h"
-
+#include "../frequency.h"
 #include "../dataproxy_sqlite.h"
 
 class QWidget;

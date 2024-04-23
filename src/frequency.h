@@ -37,17 +37,17 @@ class Frequency: public QObject {
     Q_OBJECT
 public:
     Frequency();
-    Frequency(double _f);
+    //Frequency(double _f);
     ~Frequency();
     void clear();
     bool fromDouble(const double _f, FreqUnits _u = MHz);
     bool fromQString(const QString &_f, FreqUnits _u = MHz);
-    bool fromBand(const QString &_bandName);
+    //bool fromBand(const QString &_bandName);
     double toDouble(FreqUnits _u = MHz);                        // Returns in MHz
     QString toQString(int _decimals = 3, FreqUnits _u = MHz);   // Returns in MHz with decimals
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
-    QString band();                                             // Returns the band
-    int bandId();                                               // Returns the bandId
+    //QString band();                                             // Returns the band
+    //int bandId();                                               // Returns the bandId
     bool isValid();
 
 

@@ -25,13 +25,12 @@
  *****************************************************************************/
 #include "frequency.h"
 
-
 Frequency::Frequency(){}
 
-Frequency::Frequency(double _f)
-{
-    freq = _f;
-}
+//Frequency::Frequency(double _f)
+//{
+//    freq = _f;
+//}
 
 Frequency::~Frequency(){}
 

@@ -25,7 +25,7 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include <QFont>
 #include "dxcluster.h"
-#include "../frequency.h"
+
 /*
 DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
           : QWidget(parent)
