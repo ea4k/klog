@@ -59,12 +59,11 @@ signals:
 
 private:
     bool createUI();
-    void addCall(proposedQSOs _propQSO);
+    void addCall();
+    QString getStringFromStatus(QSOStatus _s);
     QTableWidget *tableWidget;
     QHeaderView *hv, *hh;
     QList<proposedQSOs> list;
 };
-
-
 
 #endif // DXCLUSTERASSISTANT_H

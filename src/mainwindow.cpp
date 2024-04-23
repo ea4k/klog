@@ -471,11 +471,11 @@ void MainWindow::init()
 
     clublogAnswer = -1;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-       defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
-       neededColor.setNamedColor("yellow");
-       workedColor.setNamedColor("blue");
-       confirmedColor.setNamedColor("red");
-       newOneColor.setNamedColor("green");
+       defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
+       neededColor.fromString(QAnyStringView("yellow"));
+       workedColor.fromString(QAnyStringView("blue"));
+       confirmedColor.fromString(QAnyStringView("red"));
+       newOneColor.fromString(QAnyStringView("green"));
 #else
         defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
         neededColor.setNamedColor("yellow");
@@ -5344,6 +5344,7 @@ void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _f
         qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
         qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << QString::number(_freq);
         dxClusterAssistant->newDXClusterSpot(_dxCall, _freq, ATNO);
+
     }
     else
     {
@@ -6546,13 +6547,13 @@ bool MainWindow::loadSettings()
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
     qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
-    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    newOneColor.fromString(QAnyStringView((settings.value ("NewOneColor", "#FF0000").toString ())));
     //newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor-2: " << newOneColor.name(QColor::HexRgb);
-    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+    neededColor.fromString(QAnyStringView((settings.value ("NeededColor","#FF8C00").toString ())));
+    workedColor.fromString(QAnyStringView((settings.value ("WorkedColor", "#FFD700").toString ())));
+    confirmedColor.fromString(QAnyStringView((settings.value ("ConfirmedColor", "#32CD32").toString ())));
+    defaultColor.fromString(QAnyStringView((settings.value ("DefaultColor", "#00BFFF").toString ())));
 #else
     newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());

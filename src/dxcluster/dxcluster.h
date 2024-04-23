@@ -34,6 +34,7 @@ email                : jaime@robles.es
 #include "../awards.h"
 #include "../world.h"
 #include "../utilities.h"
+
 #include "../dataproxy_sqlite.h"
 
 class QWidget;
@@ -91,6 +92,7 @@ private:
     bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
     void saveSpot (const QString &_spot);
     bool openFile();
+    QString cleanSpotter(const QString _call);
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 
 

@@ -75,16 +75,16 @@ bool DXClusterAssistant::createUI()
 
 void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double _freq, const QSOStatus _status)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
     //if (!util.isValidCall(_call, true))
     //{
-    //    qDebug() << Q_FUNC_INFO << " - Not Valid Call: " << _call;
+    //    //qDebug() << Q_FUNC_INFO << " - Not Valid Call: " << _call;
     //    return;
     //}
 
-    qDebug() << Q_FUNC_INFO << ": Call: " << _call;
-    qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(_freq);
+    //qDebug() << Q_FUNC_INFO << ": Call: " << _call;
+    //qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(_freq);
     //qDebug() << Q_FUNC_INFO << ": Status: " << ;
     proposedQSOs newArrival;
     newArrival.call = _call;
@@ -92,48 +92,51 @@ void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double _fr
     newArrival.status = _status;
     newArrival.priority = 1;
     list.append(newArrival);
-    qDebug() << Q_FUNC_INFO << " - 50";
-    QString status;
-    switch (_status) {
-    case unknown:
-        status ="unknown";
-        break;
-    case ATNO:
-        status ="ATNO";
-        break;
-    case needed:
-        status ="needed";
-        break;
-    case worked:
-        status ="worked";
-        break;
-    case confirmed:
-        status ="confirmed";
-        break;
-    default:
-        status ="unknown";
-        break;
-    }
-    qDebug() << Q_FUNC_INFO << " - 60";
-    qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(status);
-    addCall(newArrival);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - 50";
+
+    //qDebug() << Q_FUNC_INFO << " - 60";
+    //qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(getStringFromStatus(_status));
+    addCall();
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void DXClusterAssistant::addCall(proposedQSOs _propQSO)
+QString DXClusterAssistant::getStringFromStatus(QSOStatus _s)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    switch (_s) {
+    case unknown:
+        return "unknown";
+        break;
+    case ATNO:
+        return "ATNO";
+        break;
+    case needed:
+        return "needed";
+        break;
+    case worked:
+        return "worked";
+        break;
+    case confirmed:
+        return "confirmed";
+        break;
+    default:
+        return "unknown";
+        break;
+    }
+}
+
+void DXClusterAssistant::addCall()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
     tableWidget->clearContents();
     tableWidget->setRowCount(0);
-    qDebug() << Q_FUNC_INFO << ": Lenght of list: " << QString::number(list.count());
+    //qDebug() << Q_FUNC_INFO << ": Lenght of list: " << QString::number(list.count());
     proposedQSOs aux;
     foreach(aux, list)
     {
-        qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
-        QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call);
-        QTableWidgetItem *newItemFreq = new QTableWidgetItem(QString::number(aux.freq));
-        QTableWidgetItem *newItemStatus = new QTableWidgetItem(aux.status);
-
+        //qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
+        QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call, QTableWidgetItem::Type);
+        QTableWidgetItem *newItemFreq = new QTableWidgetItem(QString::number(aux.freq), QTableWidgetItem::Type);
+        QTableWidgetItem *newItemStatus = new QTableWidgetItem(getStringFromStatus(aux.status), QTableWidgetItem::Type);
 
         tableWidget->insertRow(tableWidget->rowCount());
         int row = tableWidget->rowCount();
@@ -142,7 +145,7 @@ void DXClusterAssistant::addCall(proposedQSOs _propQSO)
         tableWidget->setItem(row-1, 2, newItemStatus);
 
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 /*
