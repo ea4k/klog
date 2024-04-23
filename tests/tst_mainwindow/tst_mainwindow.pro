@@ -42,7 +42,8 @@ HEADERS += \
     ../../src/filemanager.h \
     ../../src/fileawardmanager.h \
     ../../src/locator.h \
-    ../../src/dxcluster.h \
+    ../../src/dxcluster/dxcluster.h \
+    ../../src/dxcluster/dxclusterassistant.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
     ../../src/inputwidgets/mainwindowsattab.h \
@@ -113,7 +114,8 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/filemanager.cpp \
     ../../src/fileawardmanager.cpp \
     ../../src/locator.cpp \
-    ../../src/dxcluster.cpp \
+    ../../src/dxcluster/dxcluster.cpp \
+    ../../src/dxcluster/dxclusterassistant.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \

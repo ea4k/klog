@@ -8,33 +8,34 @@ copyright            : (C) 2011 by Jaime Robles
 email                : jaime@robles.es
 ***************************************************************************/
 
-/*****************************************************************************
-* This file is part of KLog.                                             *
+/****************************************************************************
+* This file is part of KLog.                                                *
 *                                                                           *
-*    KLog is free software: you can redistribute it and/or modify        *
+*    KLog is free software: you can redistribute it and/or modify           *
 *    it under the terms of the GNU General Public License as published by   *
 *    the Free Software Foundation, either version 3 of the License, or      *
 *    (at your option) any later version.                                    *
 *                                                                           *
-*    KLog is distributed in the hope that it will be useful,             *
+*    KLog is distributed in the hope that it will be useful,                *
 *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
 *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
 *    GNU General Public License for more details.                           *
 *                                                                           *
 *    You should have received a copy of the GNU General Public License      *
-*    along with KLog.  If not, see <https://www.gnu.org/licenses/>.       *
+*    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 *                                                                           *
 *****************************************************************************/
 
-#include <QWidget>
+#include <QSettings>
 //#include <QtWidgets>
 #include <QtWidgets>
 #include <QTcpSocket>
 #include <QObject>
-#include "awards.h"
-#include "world.h"
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
+#include "../awards.h"
+#include "../world.h"
+#include "../utilities.h"
+
+#include "../dataproxy_sqlite.h"
 
 class QWidget;
 class QTcpSocket;
@@ -79,7 +80,7 @@ private slots:
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
-    void dxspotArrived(const QString &_call, const QString &_text, const double _freq);
+    void dxspotArrived(const QString &_call, const double _freq);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
@@ -91,6 +92,7 @@ private:
     bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
     void saveSpot (const QString &_spot);
     bool openFile();
+    QString cleanSpotter(const QString _call);
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 
 

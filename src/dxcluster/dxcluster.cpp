@@ -25,6 +25,7 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include <QFont>
 #include "dxcluster.h"
+#include "../frequency.h"
 /*
 DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
           : QWidget(parent)
@@ -119,7 +120,7 @@ void DXClusterWidget::init()
 {
    //qDebug() << Q_FUNC_INFO;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    dxSpotColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
+   dxSpotColor.fromString(QAnyStringView(("slategrey"))); //To be replaced by .fromString in Qt6.6
 #else
     dxSpotColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
 #endif
@@ -218,7 +219,7 @@ void DXClusterWidget::connectToDXCluster()
 
     connect(tcpSocket, SIGNAL(connected()), SLOT(slotClusterSocketConnected()) );
     connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(slotClusterDataArrived() ));
-    connect(tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotClusterDisplayError(QAbstractSocket::SocketError)));
+    connect(tcpSocket, SIGNAL(errorOcurred(QAbstractSocket::SocketError)), this, SLOT(slotClusterDisplayError(QAbstractSocket::SocketError)));
     connect(tcpSocket, SIGNAL(disconnected()), SLOT(slotClusterSocketConnectionClosed()) );
     connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
@@ -345,18 +346,24 @@ void DXClusterWidget::setCurrentLog(const int _log)
 
 void DXClusterWidget::slotClusterDataArrived()
 {
-   //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     QStringList qs;
     QString dxClusterString;
     QString dxCall;
-    QString dxFrequency;
     QString spotBand;
+    Frequency freq;
+    bool dxSpot = false;
     spotBand = "-1";
     //bool isADXSpot = false;
     int dxEntity = -1;
+    QString spotter;
 
     while ( tcpSocket->canReadLine() )
     {
+        spotter.clear();
+        dxCall.clear();
+        dxEntity = -1;
+
         dxClusterString =  tcpSocket->readLine();
         dxClusterString = dxClusterString.trimmed();
         // Remove BELL-string if exists
@@ -365,62 +372,56 @@ void DXClusterWidget::slotClusterDataArrived()
 
         QStringList tokens = dxClusterString.split(" ", QT_SKIP);
         if (tokens.size()<2){
+            qDebug() << Q_FUNC_INFO << " - Tokens < 2";
             return;
         }
         // It is a "DX de SP0TTER FREC DXCALL"
         //0 = DX, 1 = de, 2 = spotter, 3 = Freq, 4 = dxcall, 5 = comment
-          //qDebug() << "DXClusterWidget::slotClusterDataArrived: " << "DXCLUSTER->" << dxClusterString << "\nTOKENS: " << tokens;
+        qDebug() << Q_FUNC_INFO << " - DXCLUSTER->" << dxClusterString << "\nTOKENS: " << tokens;
+
+
 
         if ((tokens[0] == "DX") && (tokens[1] == "de"))
-        {
-              //qDebug() << "******************** DXClusterWidget::slotClusterDataArrived: DX DE";
-            //isADXSpot = true;
-            QString spotter = tokens[2];
+        { // Dx de EA0AA EA0XX
+            qDebug() << Q_FUNC_INFO << "  - Identified: DX de";
+            dxSpot = true;
+            spotter = tokens[2];
             spotter.truncate(spotter.size() - 1);
-            dxFrequency = tokens[3];
-            // Convert KHz to MHz...
-            //dxFrequency = QString::number(abs (dxFrequency.toFloat())/1000);
-            dxFrequency = QString::number( (dxFrequency.toDouble())/1000);
+            bool freqOK = freq.fromQString(tokens[3], KHz)   ;
+            if (!freqOK)
+            {
+                qDebug() << Q_FUNC_INFO << " - freqOK false";
+                return;
+            }
+
+            qDebug() << Q_FUNC_INFO << ": FREQ(if): " << freq.toQString();
             dxCall = tokens[4];
             dxEntity = world->getQRZARRLId(dxCall);
-            //
-            spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
-
-            qs.clear();
-            //spotBand = QString::number(world->getBandIdFromFreq(  dxFrequency  ) );
-            qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
-               //qDebug() << "DXClusterWidget::slotClusterDataArrived: Calling-2: " << QString::number(dxEntity);
-            dxSpotColor = awards->getQRZDXStatusColor(qs);
-            if  (showDxMarathon)
-            {
-                if (awards->isDXMarathonNeed(dxEntity, world->getQRZCqz(dxCall), QDateTime::currentDateTime().date().year(), currentLog))
-                {
-                    dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
-                }
-            }
-              //qDebug() << "DX de ->" << "Spotter: " << spotter << "Freq: "<< dxFrequency << "DX: " << dxCall;
+            spotBand = QString::number(dataProxy->getBandIdFromFreq(freq.toDouble()) );
         }
-        else if ((tokens[0] == "To") && (tokens[1] == "ALL"))
+        else if(freq.fromQString(tokens[0], KHz))
+        {// 18.000 EA0XX
+            qDebug() << Q_FUNC_INFO << "  - Identified: Freq Call";
+            dxSpot = true;
+            dxCall = tokens[1];
+            spotter = cleanSpotter(tokens.last());
+        }
+        else
         {
-              //qDebug() << "DXClusterWidget::slotClusterDataArrived: TO ALL";
+            qDebug() << Q_FUNC_INFO << "  - Identified: Not a DXSpot";
+            dxSpot = false;
             dxSpotColor = awards->getDefaultColor();
         }
-        //else if ( (dxClusterString.length()>=5) && (world->checkQRZValidFormat(tokens[1])) && (tokens[0]!="login:"))
-        else if ( (dxClusterString.length()>=5) && (util->isValidCall(tokens[1])) && (tokens[0]!="login:"))
-        { // Freq / DXCall / Date // time
-           //_qs << QRZ << Freq in MHz << lognumber;
-             //qDebug() << "DXClusterWidget::slotClusterDataArrived: LENGTH >= 5";
-             //qDebug() << "DXClusterWidget::slotClusterDataArrived: token0=" << tokens[0] << " / token1=" << tokens[1];
-            //isADXSpot = true;
-            dxCall = tokens[1];
-            dxFrequency = tokens[0];
-            dxFrequency = QString::number( (dxFrequency.toDouble())/1000);
 
+        if (dxSpot)
+        {
             qs.clear();
-            spotBand = QString::number(dataProxy->getBandIdFromFreq(  dxFrequency.toDouble()  ) );
-            dxEntity = world->getQRZARRLId(dxCall);
-               //qDebug() << "DXClusterWidget::slotClusterDataArrived: Calling-1: " << QString::number(dxEntity);
             qs << QString::number(dxEntity) << spotBand << "-1" << QString::number(currentLog) ;
+            qDebug() << Q_FUNC_INFO << " - DX_Entity:  " << QString::number(dxEntity);
+            qDebug() << Q_FUNC_INFO << " - DX Spotter: " << spotter ;
+            qDebug() << Q_FUNC_INFO << " - Freq:       " << freq.toQString();
+            qDebug() << Q_FUNC_INFO << " - DX:         " << dxCall;
+
             dxSpotColor = awards->getQRZDXStatusColor(qs);
             if (showDxMarathon)
             {
@@ -430,15 +431,11 @@ void DXClusterWidget::slotClusterDataArrived()
                 }
             }
         }
-        else
-        {
-               //qDebug() << "DXClusterWidget::slotClusterDataArrived: DEFAULT";
-            dxSpotColor = awards->getDefaultColor();
-        }
+
          //TODO: Change the "-1" by the mode
         if (!checkIfNeedsToBePrinted(QString::number(dxEntity), spotBand.toInt(), -1))
         {
-              //qDebug() << "DXClusterWidget::slotClusterDataArrived - Not to be printed!: " << dxCall;
+            qDebug() << Q_FUNC_INFO << "  - Not to be printed!: " << dxCall;
             return;
         }
 
@@ -446,17 +443,26 @@ void DXClusterWidget::slotClusterDataArrived()
         item->setForeground(QBrush(dxSpotColor));
         item->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
         item->setText(dxClusterString);
-
         dxClusterListWidget->insertItem(0,item);
-        if (util->isValidCall (dxCall))
-        {
-            //void dxspotArrived(const QString &_call, const QString &_text, const double _freq);
-            QString locator = world->getLocator (dxEntity);
-            emit dxspotArrived(dxCall, locator, dxFrequency.toDouble());
-        }
+
+        if (!dxSpot)
+            return;
+
+        qDebug() << Q_FUNC_INFO << " - Freq-string:       " << freq.toQString();
+        qDebug() << Q_FUNC_INFO << " - Freq-double:       " << QString::number(freq.toDouble());
+        qDebug() << Q_FUNC_INFO << " - Everything OK emitting...";
+        emit dxspotArrived(dxCall, freq.toDouble());
     }
-       //qDebug() << "--------------------- DXClusterWidget::slotClusterDataArrived: " << dxClusterString;
-      //qDebug() << "DXClusterWidget::slotClusterDataArrived: " << dxClusterString;
+
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+
+QString DXClusterWidget::cleanSpotter(const QString _call)
+{
+    QString spotter = _call;
+    spotter.chop(1);        // Remove the last char '>'
+    spotter.remove(0,1);
+    return spotter;
 }
 
 void DXClusterWidget::slotClusterSocketConnected()
