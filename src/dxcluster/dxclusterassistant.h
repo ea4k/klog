@@ -25,15 +25,45 @@ email                : jaime@robles.es
 *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 *                                                                           *
 *****************************************************************************/
-#include <QWidget>
+
+
+
+// This widget will show the DX-Cluster assistant
+// The class shows an ordered list of available spots that are available now and the
+// associated freq/mode.
+// Info is coming from the cluster and ordered taking into account dxcc status:
+// confirmed/worked/needed/ATNO or even other factors TBD.
+
+#include <QtWidgets>
+#include "../global.h"
+#include "../klogdefinitions.h"
+#include "../utilities.h"
+
+struct proposedQSOs { // Used to pass a list of data from Awards to dxccstatuswidget
+    QString call;
+    double freq;
+    int priority;
+    QSOStatus status;
+};
 
 class DXClusterAssistant : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXClusterAssistant(QWidget *parent = nullptr);
+    explicit DXClusterAssistant(const QString &_parentFunction, QWidget *parent = nullptr);
+    ~DXClusterAssistant();
+    bool init();
+    void newDXClusterSpot(const QString &_call, const double _freq, const QSOStatus _status);
 
 signals:
+
+private:
+    bool createUI();
+    void addCall();
+    QString getStringFromStatus(QSOStatus _s);
+    QTableWidget *tableWidget;
+    QHeaderView *hv, *hh;
+    QList<proposedQSOs> list;
 };
 
 #endif // DXCLUSTERASSISTANT_H

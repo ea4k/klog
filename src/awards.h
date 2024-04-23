@@ -85,6 +85,7 @@ public:
     int getQSOIdofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
 
     int getDXStatus (const QStringList &_qs);
+    QSOStatus getQSOStatus(const int &_status); // Needs to be called with the output of getDXStatus)
     QString getDXStatusString (const int &_status); // Needs to be called with the output of getDXStatus
     QString getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
     QString getDXCCStatusBand(const int _dxcc, const int _band); // Returns -, W or C (Not worked, worked, Confirmed)

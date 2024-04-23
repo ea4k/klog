@@ -26,15 +26,16 @@ email                : jaime@robles.es
 *                                                                           *
 *****************************************************************************/
 
-#include <QWidget>
+#include <QSettings>
 //#include <QtWidgets>
 #include <QtWidgets>
 #include <QTcpSocket>
 #include <QObject>
-#include "awards.h"
-#include "world.h"
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
+#include "../awards.h"
+#include "../world.h"
+#include "../utilities.h"
+
+#include "../dataproxy_sqlite.h"
 
 class QWidget;
 class QTcpSocket;
@@ -79,7 +80,7 @@ private slots:
 
 signals:
     void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
-    void dxspotArrived(const QString &_call, const QString &_text, const double _freq);
+    void dxspotArrived(const QString &_call, const double _freq);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
@@ -91,6 +92,7 @@ private:
     bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
     void saveSpot (const QString &_spot);
     bool openFile();
+    QString cleanSpotter(const QString _call);
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 
 

@@ -93,6 +93,7 @@ public:
     int getBandIdFromFreq(const double _n);
     QString getBandNameFromFreq(const double _n);
 
+
     double getLowLimitBandFromBandName(const QString &_sm);
     double getLowLimitBandFromBandId(const int _sm);
     double getUpperLimitBandFromBandName(const QString &_sm);

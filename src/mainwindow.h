@@ -43,7 +43,8 @@
 #include "fileawardmanager.h"
 #include "dataproxy_sqlite.h"
 #include "locator.h"
-#include "dxcluster.h"
+#include "dxcluster/dxcluster.h"
+#include "dxcluster/dxclusterassistant.h"
 #include "awards.h"
 #include "inputwidgets/mainwindowsattab.h"
 #include "inputwidgets/mainwindowmydatatab.h"
@@ -260,7 +261,7 @@ private slots:
 
     // CLUSTER
     void slotAnalyzeDxClusterSignal(const QStringList _qs);
-    void slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq);
+    void slotDXClusterSpotArrived(const QString _dxCall, const double _freq);
 
     // CLUSTER
     //CLUBLOG
@@ -302,6 +303,9 @@ private slots:
     //DXCCWIDGET
     //void slotShowQSOFromDXCCWidget(const int _q);
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
+
+    // DXCLUSTER ASSISTANT
+    void slotShowDXClusterAssistant();
 
     //UDP Server (WXJT-x)
     void slotWSJXstatusFromUDPServer(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
@@ -563,6 +567,7 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
     QAction *showMapAct;
+    QAction *dxClusterAssistantAct;
 
     QStringList bands;
     QStringList modes;
@@ -610,6 +615,8 @@ private:
     DXClusterWidget *dxClusterWidget;
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     // </CLUSTER>
+
+    DXClusterAssistant *dxClusterAssistant;
 
     // </UI>
     int infoTimeout; // timeout that temporary info will stay in the infobars

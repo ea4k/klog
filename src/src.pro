@@ -93,7 +93,8 @@ HEADERS += setupdialog.h \
     charts/statssentconfirmedpiechartwidget.h \
     database.h \
     dataproxy_sqlite.h \
-    downloadcty.h \    
+    downloadcty.h \     \
+    frequency.h \
     dxccstatuswidget.h \
     dxcluster/dxcluster.h \
     dxcluster/dxclusterassistant.h \
@@ -174,6 +175,7 @@ SOURCES += main.cpp \
     dxcluster/dxclusterassistant.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
+    frequency.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \

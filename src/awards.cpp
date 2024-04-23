@@ -830,6 +830,58 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
     return returnedColor;
 }
 
+QSOStatus Awards::getQSOStatus(const int &_status)
+{
+    switch (_status) {
+    case 0:
+        return ATNO;
+        break;
+    case 1:
+        return needed;
+        break;
+    case 2:
+        return needed;
+        break;
+    case 3:
+        return worked;
+        break;
+    case 4:
+        return needed;
+        break;
+    case 5:
+        return needed;
+        break;
+    case 6:
+        return needed;
+        break;
+    case 7:
+        return needed;
+        break;
+    case 8:
+        return worked;
+        break;
+    case 9:
+        return needed;
+        break;
+    case 10:
+        return worked;
+        break;
+    case 11:
+        return needed;
+        break;
+    case 12:
+        return worked;
+        break;
+    case 13:
+        return confirmed;
+        break;
+    //break;
+    default:
+        return unknown;
+        break;
+    }
+}
+
 QString Awards::getDXStatusString (const int &_status)
 {
        //qDebug() << "Awards::getDXStatusString: " << QString::number(_status);
@@ -1162,7 +1214,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (defaultColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-       defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
+        defaultColor.fromString(QAnyStringView((_default.toUpper()))); //To be replaced by .fromString in Qt6.6
 #else
         defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1171,7 +1223,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (neededColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
+        neededColor.fromString(QAnyStringView((_needed.toUpper()))); //To be replaced by .fromString in Qt6.6
 #else
         neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1180,7 +1232,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (confirmedColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
+        confirmedColor.fromString(QAnyStringView((_confirmed.toUpper()))); //To be replaced by .fromString in Qt6.6
 #else
         confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1188,7 +1240,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (newOneColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
+        newOneColor.fromString(QAnyStringView((_newOne.toUpper()))); //To be replaced by .fromString in Qt6.6
 #else
         newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
 #endif
@@ -1196,7 +1248,7 @@ void Awards::setColors (const QString &_newOne, const QString &_needed, const QS
     if (workedColor.isValid())
     {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        workedColor.setNamedColor(_worked.toUpper());
+        workedColor.fromString(QAnyStringView((_worked.toUpper())));
 #else
         workedColor.setNamedColor(_worked.toUpper());
 #endif

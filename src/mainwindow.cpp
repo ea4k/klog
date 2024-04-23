@@ -201,6 +201,7 @@ MainWindow::MainWindow(const QString &tversion)
     //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     //dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
     dxClusterWidget = new DXClusterWidget(dataProxy, this);
+    dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
 
      //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -470,11 +471,11 @@ void MainWindow::init()
 
     clublogAnswer = -1;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-       defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
-       neededColor.setNamedColor("yellow");
-       workedColor.setNamedColor("blue");
-       confirmedColor.setNamedColor("red");
-       newOneColor.setNamedColor("green");
+       defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
+       neededColor.fromString(QAnyStringView("yellow"));
+       workedColor.fromString(QAnyStringView("blue"));
+       confirmedColor.fromString(QAnyStringView("red"));
+       newOneColor.fromString(QAnyStringView("green"));
 #else
         defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
         neededColor.setNamedColor("yellow");
@@ -487,6 +488,7 @@ void MainWindow::init()
     readSettingsFile();
        qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
     mapWindow->init();
+
 
       qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
@@ -506,6 +508,7 @@ void MainWindow::init()
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
+    dxClusterAssistant->init();
 
        qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
        qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -657,7 +660,7 @@ void MainWindow::createActionsCommon(){
 
     //CLUSTER
     connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
-    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, QString, double) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, double) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -888,6 +891,10 @@ void MainWindow::slotShowMap()
     //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
+void MainWindow::slotShowDXClusterAssistant()
+{
+    dxClusterAssistant->show();
+}
 void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
@@ -2574,7 +2581,13 @@ void MainWindow::createMenusCommon()
     connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
     showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-     //qDebug() << "MainWindow::createMenusCommon before" ;
+    dxClusterAssistantAct = new QAction (tr("DXCluster Assistant"), this);
+    toolMenu->addAction(dxClusterAssistantAct);
+    connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
+    dxClusterAssistantAct->setToolTip(tr("Show the statistics of your radio activity."));
+
+
+    //qDebug() << "MainWindow::createMenusCommon before" ;
     //toolMenu->addSeparator();
     //showRotatorAct = new QAction (tr("Rotator"), this);
     //toolMenu->addAction(showRotatorAct);
@@ -4838,11 +4851,10 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     qDebug() << Q_FUNC_INFO << " - 30";
     // Set the status bar with the appropriate message
     int status = awards->getDXStatus (_qs);
-    QString message = QString();
 
     qDebug() << Q_FUNC_INFO << " -  " << QString::number(status) ;
 
-    message = awards->getDXStatusString(status);
+    QString message = awards->getDXStatusString(status);
     qDebug() << Q_FUNC_INFO << " - 40";
     slotShowInfoLabel(message);
     qDebug() << Q_FUNC_INFO << " - 10";
@@ -5282,7 +5294,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
     {
         _mode = "-1";
     }
-
+    double freq = ql.at(1).toDouble()/1000;
     if (ql.length()==3)
     {
         if ((ql.at(2)) == "double")
@@ -5291,16 +5303,14 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
         }
         else if ((ql.at(2)) == "selected")
         {
-    //slotShowInfoLabel(world->getEntityName(_entity), 2);
             infoLabel2->setText(world->getEntityName(_entity));
             infoWidget->showEntityInfo( _entity );
 
-    // Becareful, he Frecuency arrives in KHz instead of bandid!!
-    // db.getBandFromFreq expects a MHz!
-    //(ql.at(1)).toDouble()
-
-            qls << QString::number(_entity) << QString::number(dataProxy->getBandIdFromFreq((ql.at(1).toDouble()/1000))) << _mode <<  QString::number(currentLog);
-    // We use a mode = -1 because we don't know the mode info from the DXCluster spot
+            // Becareful, he Frecuency arrives in KHz instead of bandid!!
+            // db.getBandFromFreq expects a MHz!
+            //(ql.at(1)).toDouble()
+            qls << QString::number(_entity) << QString::number(dataProxy->getBandIdFromFreq((freq))) << _mode <<  QString::number(currentLog);
+            // We use a mode = -1 because we don't know the mode info from the DXCluster spot
 
     // TODO: Check if we can know the mode and replace the "-1" in previous sentence
 
@@ -5308,26 +5318,51 @@ void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
             showStatusOfDXCC(qls);
         }
     }
+
+    //_qs << Entity << BandId << ModeId << lognumber;
+    int statusI = awards->getDXStatus (qls);
+
+    if (util->isValidCall(ql.at(0), true))
+        dxClusterAssistant->newDXClusterSpot(ql.at(0), freq, awards->getQSOStatus(statusI));
+
+
     //else
     //{ // Signal was not properly emited
     //}
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const QString _dxGrid, const double _freq)
+void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _freq)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
-    (void)_dxCall;
-    (void)_freq;
+    qDebug() << Q_FUNC_INFO << ": " << _dxCall;
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_freq);
+    //(void)_dxCall;
+    //(void)_freq;
+
+    if (util->isValidCall(_dxCall, true))
+    {
+        qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
+        qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << QString::number(_freq);
+        dxClusterAssistant->newDXClusterSpot(_dxCall, _freq, ATNO);
+
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << _dxCall;
+    }
+
+
     if (!dxclusterSendSpotsToMap)
     {
         return;
     }
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    Coordinate coord = locator->getLocatorCoordinate (_dxGrid);
+    QString dxGrid = world->getQRZLocator (_dxCall);
+
+    Coordinate coord = locator->getLocatorCoordinate (dxGrid);
      //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(_dxCall).arg(_dxGrid).arg(coord.lat).arg(coord.lon);
      //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
-    mapWindow->addMarker(coord, _dxGrid);
+    mapWindow->addMarker(coord, dxGrid);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -6512,13 +6547,13 @@ bool MainWindow::loadSettings()
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
     qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
-    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
+    newOneColor.fromString(QAnyStringView((settings.value ("NewOneColor", "#FF0000").toString ())));
     //newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor-2: " << newOneColor.name(QColor::HexRgb);
-    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
+    neededColor.fromString(QAnyStringView((settings.value ("NeededColor","#FF8C00").toString ())));
+    workedColor.fromString(QAnyStringView((settings.value ("WorkedColor", "#FFD700").toString ())));
+    confirmedColor.fromString(QAnyStringView((settings.value ("ConfirmedColor", "#32CD32").toString ())));
+    defaultColor.fromString(QAnyStringView((settings.value ("DefaultColor", "#00BFFF").toString ())));
 #else
     newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());

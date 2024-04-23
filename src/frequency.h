@@ -1,11 +1,11 @@
-#ifndef KLOG_KLOGDEFINITIONS_H
-#define KLOG_KLOGDEFINITIONS_H
+#ifndef FREQUENCY_H
+#define FREQUENCY_H
 /***************************************************************************
-                          klogdefinitions.h  -  description
+                          frequency.h  -  description
                              -------------------
-    begin                : oct 2020
-    copyright            : (C) 2020 by Jaime Robles
-    user                : jaime@robles.es
+    begin                : Apr 2024
+    copyright            : (C) 2024 by Jaime Robles
+    email                : jaime@robles.es
  ***************************************************************************/
 
 /*****************************************************************************
@@ -25,47 +25,38 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
+/*
+    This class implements Frequency
+    This classs hould not need to query the DB neither the DataProxy Class
+*/
 
-#include <QString>
+#include <QObject>
+#include "klogdefinitions.h"
 
-//using namespace std;
+class Frequency: public QObject {
+    Q_OBJECT
+public:
+    Frequency();
+    Frequency(double _f);
+    ~Frequency();
+    void clear();
+    bool fromDouble(const double _f, FreqUnits _u = MHz);
+    bool fromQString(const QString &_f, FreqUnits _u = MHz);
+    bool fromBand(const QString &_bandName);
+    double toDouble(FreqUnits _u = MHz);                        // Returns in MHz
+    QString toQString(int _decimals = 3, FreqUnits _u = MHz);   // Returns in MHz with decimals
+    void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
+    QString band();                                             // Returns the band
+    int bandId();                                               // Returns the bandId
+    bool isValid();
 
-enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
-enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
-enum OnlineErrorCode {Ok, Fail};
-enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
-enum DebugLogLevel {None, Info, Debug, Devel};
-enum ValidFieldsForStats {DXCC, GridSquare};
-enum FilesToDownload {CTY, Sats};
-enum QSOStatus {unknown, ATNO, needed, worked, confirmed};
-enum FreqUnits {Hz, KHz, MHz, GHz, THz};
 
-struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
-  int dxcc;
-  QString mainprefix;
-  QString name;
-  QString isoname;
+private:
+    double normalize(const double _f, const FreqUnits _u = MHz);
+    double freq;        // This must be in MHz
+    QString bandInMHz;  //
+    double tolerance;   // This must be in Hz
+
 };
 
-struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstatuswidget
-  int dxcc;
-  int bandid;
-  bool confirmed;
-};
-
-struct Coordinate {
-    double lat;
-    double lon;
-};
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
-#define QT_SKIP Qt::SkipEmptyParts
-#define QT_ENDL Qt::endl
-#define QT_RETURNBYVALUE Qt::ReturnByValue
-#else
-#define QT_SKIP QString::SkipEmptyParts
-#define QT_ENDL endl
-#define QT_RETURNBYVALUE
-#endif
-
-#endif // KLOGDEFINITIONS_H
+#endif // FREQUENCY_H
