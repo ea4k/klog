@@ -24,13 +24,17 @@
  *                                                                           *
  *****************************************************************************/
 #include "frequency.h"
+#include <QDebug>
 
 Frequency::Frequency(){}
 
-//Frequency::Frequency(double _f)
-//{
-//    freq = _f;
-//}
+Frequency::Frequency(const Frequency &_f)
+{
+    if(this != &_f)
+    {
+        *this = _f;
+    }
+}
 
 Frequency::~Frequency(){}
 
@@ -55,6 +59,7 @@ bool Frequency::fromQString(const QString &_f, FreqUnits _u)
     freq = normalize(freq, _u);
     return isValid();
 }
+
 /*
 bool Frequency::fromBand(const QString &_bandName)
 {
@@ -83,6 +88,9 @@ double Frequency::toDouble(FreqUnits _u)
 QString Frequency::toQString(int _decimals, FreqUnits _u)
 {
     double d = toDouble(_u);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(toDouble());
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(fmod(toDouble(), 1.0));
+
     return  QString("%1").arg(d, 0, 'f', _decimals);
 }
 
@@ -131,7 +139,13 @@ int Frequency::bandId()
     return dataProxy.getBandIdFromFreq(toDouble());
 }
 */
+
 bool Frequency::isValid()
 {
     return (freq>=0);
+}
+
+void Frequency::operator=(Frequency const &_f2)
+{
+    freq = _f2.freq;
 }

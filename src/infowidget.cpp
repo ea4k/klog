@@ -368,16 +368,18 @@ void InfoWidget::setImperialSystem (const  bool _imp)
     }
 }
 
-QString InfoWidget::getStyleColorToLabelFromBand(const QString &_b, const QString &_q)
+QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _entityId)
 { // Receives band name, Entity number (as a String)
    //qDebug() << Q_FUNC_INFO << ": " << _b << "/" << _q;
-   QStringList _qs;
-    _qs.clear();
+    EntityStatus _entityStatus;
+    _entityStatus.entityId  = _entityId;
+    _entityStatus.bandId    = _bandId;
+    _entityStatus.modeId    = -1;
+    _entityStatus.log       = currentLog;
 
-    _qs << _q << QString::number(dataProxy->getIdFromBandName(_b)) << QString::number(-1) << QString::number(currentLog);
     //TODO: Check if we can know the mode and replace the -1
     //qDebug() << Q_FUNC_INFO << ": (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name(QColor::HexRgb) ;
-    return "* { background-color: " + (awards->getQRZDXStatusColor(_qs)).name(QColor::HexRgb) + "; }";
+    return "* { background-color: " + (awards->getQRZDXStatusColor(_entityStatus)).name(QColor::HexRgb) + "; }";
 }
 
 
@@ -393,18 +395,18 @@ void InfoWidget::showInfo(const int _entity)
         clearBandLabels();
     }
 
-    bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(bandLabel1->text(), QString::number(_entity)));
-    bandLabel2->setStyleSheet(getStyleColorToLabelFromBand(bandLabel2->text(), QString::number(_entity)));
-    bandLabel3->setStyleSheet(getStyleColorToLabelFromBand(bandLabel3->text(), QString::number(_entity)));
-    bandLabel4->setStyleSheet(getStyleColorToLabelFromBand(bandLabel4->text(), QString::number(_entity)));
-    bandLabel5->setStyleSheet(getStyleColorToLabelFromBand(bandLabel5->text(), QString::number(_entity)));
-    bandLabel6->setStyleSheet(getStyleColorToLabelFromBand(bandLabel6->text(), QString::number(_entity)));
-    bandLabel7->setStyleSheet(getStyleColorToLabelFromBand(bandLabel7->text(), QString::number(_entity)));
-    bandLabel8->setStyleSheet(getStyleColorToLabelFromBand(bandLabel8->text(), QString::number(_entity)));
-    bandLabel9->setStyleSheet(getStyleColorToLabelFromBand(bandLabel9->text(), QString::number(_entity)));
-    bandLabel10->setStyleSheet(getStyleColorToLabelFromBand(bandLabel10->text(), QString::number(_entity)));
-    bandLabel11->setStyleSheet(getStyleColorToLabelFromBand(bandLabel11->text(), QString::number(_entity)));
-    bandLabel12->setStyleSheet(getStyleColorToLabelFromBand(bandLabel12->text(), QString::number(_entity)));
+    bandLabel1->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel1->text()), _entity));
+    bandLabel2->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel2->text()), _entity));
+    bandLabel3->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel3->text()), _entity));
+    bandLabel4->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel4->text()), _entity));
+    bandLabel5->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel5->text()), _entity));
+    bandLabel6->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel6->text()), _entity));
+    bandLabel7->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel7->text()), _entity));
+    bandLabel8->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel8->text()), _entity));
+    bandLabel9->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel9->text()), _entity));
+    bandLabel10->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel10->text()), _entity));
+    bandLabel11->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel11->text()), _entity));
+    bandLabel12->setStyleSheet(getStyleColorToLabelFromBand(dataProxy->getIdFromBandName(bandLabel12->text()), _entity));
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

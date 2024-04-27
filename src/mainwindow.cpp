@@ -638,8 +638,7 @@ void MainWindow::createActionsCommon(){
 
     //Buttons Actions
 
-    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocu
-                                                                          sToQSOTabWidget()));
+    connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToQSOTabWidget()));
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
@@ -659,8 +658,8 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     //CLUSTER
-    connect(dxClusterWidget, SIGNAL(dxspotclicked(QStringList)), this, SLOT(slotAnalyzeDxClusterSignal(QStringList) ) );
-    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, double) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, Frequency)), this, SLOT(slotDXClusterSpotArrived(QString, Frequency) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -1011,15 +1010,15 @@ void MainWindow::slotBandChanged (const QString &_b)
     }
      //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  ;
 
-
-    QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
-    _qs.clear();
-    _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
-
+    EntityStatus _entityStatus;
+    _entityStatus.entityId  = currentEntity;
+    _entityStatus.bandId    = currentBandShown;
+    _entityStatus.modeId    = currentModeShown;
+    _entityStatus.log       = currentLog;
       //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " ;
     if (currentEntity>0)
     {
-    showStatusOfDXCC(_qs);
+        showStatusOfDXCC(_entityStatus);
     }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -1041,11 +1040,13 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
-    QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
-    _qs.clear();
-     //qDebug() << "MainWindow:: - calling showStatusOfDXCC-01 " ;
-    _qs << QString::number(currentEntity) << QString::number(currentBandShown) << QString::number(currentModeShown) << QString::number(currentLog);
-    showStatusOfDXCC(_qs);
+    EntityStatus _entityStatus;
+    _entityStatus.entityId  = currentEntity;
+    _entityStatus.bandId    = currentBandShown;
+    _entityStatus.modeId    = currentModeShown;
+    _entityStatus.log       = currentLog;
+
+    showStatusOfDXCC(_entityStatus);
     if (!modify)
     {
         QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
@@ -2080,9 +2081,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         dx_ITUz = dxE_ITUz;
     }
 
-    QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
-    _qs.clear();
-    _qs << QString::number(currentEntity) << QString::number(currentBand) << QString::number(currentMode) << QString::number(currentLog);
+    EntityStatus _entityStatus;
+    _entityStatus.entityId  = currentEntity;
+    _entityStatus.bandId    = currentBandShown;
+    _entityStatus.modeId    = currentModeShown;
+    _entityStatus.log       = currentLog;
 
     qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
@@ -2106,7 +2109,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
             infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
             infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
             qDebug()<< Q_FUNC_INFO << ": 70";
-            showStatusOfDXCC(_qs);
+
+            showStatusOfDXCC(_entityStatus);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
         }
@@ -4763,16 +4767,15 @@ void MainWindow::qsoToEdit (const int _qso)
     othersTabWidget->setEntity(currentEntity);
 
     //qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
-
-    QStringList _qs; //for the showStatusOfDXCC(const QStringList _qs)
-    _qs.clear();
-    //TODO: The band sometimes fails here. Check
-
-    _qs << QString::number(currentEntity) << QString::number(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand())) << QString::number(dataProxy->getIdFromBandName(mainQSOEntryWidget->getMode()))  << QString::number(currentLog);
+    EntityStatus _entityStatus;
+    _entityStatus.entityId  = currentEntity;
+    _entityStatus.bandId    = currentBandShown;
+    _entityStatus.modeId    = currentModeShown;
+    _entityStatus.log       = currentLog;
 
     //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
     //qDebug() << Q_FUNC_INFO << " - calling showStatusOfDXCC-05 " ;
-    showStatusOfDXCC(_qs);
+    showStatusOfDXCC(_entityStatus);
 
     //qDebug() << Q_FUNC_INFO << " - in default - END"  ;
     readingTheUI = false;
@@ -4820,9 +4823,9 @@ void MainWindow::slotMyLocatorTextChanged(const QString &_loc)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::showStatusOfDXCC(const QStringList _qs)
+void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
 {
-    qDebug() << Q_FUNC_INFO << " - Entity: " << _qs.at(0) << "/ Bandid :" << _qs.at(1) << "/Modeid: " << _qs.at(2) ;
+    //qDebug() << Q_FUNC_INFO << " - Entity: " << _entityStatus.en << "/ Bandid :" << _entityStatus.at(1) << "/Modeid: " << _entityStatus.at(2) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << ModeId << lognumber;
@@ -4838,7 +4841,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     3 - Confirmed
     */
     qDebug() << Q_FUNC_INFO << " - 10";
-    if ((_qs.length() != 4) || (_qs.at(1) == "-1")) // is the qs valid?
+    if (_entityStatus.bandId <= 0) // is the status valid?
     {
         qDebug() << Q_FUNC_INFO << " - 20";
         infoWidget->clear();
@@ -4850,7 +4853,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     }
     qDebug() << Q_FUNC_INFO << " - 30";
     // Set the status bar with the appropriate message
-    int status = awards->getDXStatus (_qs);
+    int status = awards->getDXStatus (_entityStatus);
 
     qDebug() << Q_FUNC_INFO << " -  " << QString::number(status) ;
 
@@ -4861,7 +4864,7 @@ void MainWindow::showStatusOfDXCC(const QStringList _qs)
     //infoLabel1->setText(message);
     //infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
     qDebug() << Q_FUNC_INFO << " - 50";
-    infoWidget->showInfo((_qs.at(0)).toInt());
+    infoWidget->showInfo(_entityStatus.entityId);
     qDebug() << Q_FUNC_INFO << " - 51";
     qDebug() << Q_FUNC_INFO << " - END-2" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5282,68 +5285,71 @@ void MainWindow::slotFilePrint()
 
 //DX-CLUSTER - DXCLUSTER
 
-void MainWindow::slotAnalyzeDxClusterSignal(QStringList ql)
+void MainWindow::slotAnalyzeDxClusterSignal(DXSpot _spot)
 {
         //qDebug() << "MainWindow::slotAnalyzeDxClusterSignal: 1: " << ql.at(0) <<"/1: " << ql.at(1) << "/2: " << ql.at(2) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    QStringList qls;
-    int _entity = world->getQRZARRLId(ql.at(0));
-    qls.clear();
-    QString _mode = "-1";
+
+    EntityStatus _entityStatus;
+    _entityStatus.entityId = world->getQRZARRLId(_spot.dxcall);
+
     if (!manageMode)
     {
-        _mode = "-1";
+        _entityStatus.modeId = -1;
     }
-    double freq = ql.at(1).toDouble()/1000;
-    if (ql.length()==3)
+
+    if (_spot.clickStatus == SingleClick)
     {
-        if ((ql.at(2)) == "double")
-        {
-            clusterSpotToLog(ql.at(0), ql.at(1));
-        }
-        else if ((ql.at(2)) == "selected")
-        {
-            infoLabel2->setText(world->getEntityName(_entity));
-            infoWidget->showEntityInfo( _entity );
+        infoLabel2->setText(world->getEntityName(_entityStatus.entityId));
+        infoWidget->showEntityInfo(_entityStatus.entityId );
 
-            // Becareful, he Frecuency arrives in KHz instead of bandid!!
-            // db.getBandFromFreq expects a MHz!
-            //(ql.at(1)).toDouble()
-            qls << QString::number(_entity) << QString::number(dataProxy->getBandIdFromFreq((freq))) << _mode <<  QString::number(currentLog);
-            // We use a mode = -1 because we don't know the mode info from the DXCluster spot
+        // Becareful, he Frecuency arrives in KHz instead of bandid!!
+        // db.getBandFromFreq expects a MHz!
+        //(ql.at(1)).toDouble()
+        _entityStatus.bandId = dataProxy->getBandIdFromFreq((_spot.freq.toDouble()));
+        //qls << QRZ << BandId << ModeId << lognumber;
+        showStatusOfDXCC(_entityStatus);
+    }
+    else if (_spot.clickStatus == DoubleClick)
+    {
+        clusterSpotToLog(_spot.dxcall, _spot.freq.toQString());
 
-    // TODO: Check if we can know the mode and replace the "-1" in previous sentence
-
-    //qls << QRZ << BandId << ModeId << lognumber;
-            showStatusOfDXCC(qls);
-        }
     }
 
-    //_qs << Entity << BandId << ModeId << lognumber;
-    int statusI = awards->getDXStatus (qls);
+    int statusI = awards->getDXStatus (_entityStatus);
 
-    if (util->isValidCall(ql.at(0), true))
-        dxClusterAssistant->newDXClusterSpot(ql.at(0), freq, awards->getQSOStatus(statusI));
+    proposedQSOs pQSO;
 
 
-    //else
-    //{ // Signal was not properly emited
-    //}
+    pQSO.status = awards->getQSOStatus(statusI);
+
+    if (util->isValidCall(_spot.dxcall, true))
+    {
+        pQSO.call = _spot.dxcall;
+        dxClusterAssistant->newDXClusterSpot(pQSO);
+    }
+
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _freq)
+void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, Frequency _freq)
 {
     qDebug() << Q_FUNC_INFO << ": " << _dxCall;
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_freq);
+    qDebug() << Q_FUNC_INFO << ": " << _freq.toQString();
     //(void)_dxCall;
     //(void)_freq;
 
+
     if (util->isValidCall(_dxCall, true))
     {
+        proposedQSOs pQSO;
+        pQSO.call = _dxCall;
+        pQSO.status = ATNO;
+        pQSO.freq = _freq;
+        dxClusterAssistant->newDXClusterSpot(pQSO);
         qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
-        qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << QString::number(_freq);
-        dxClusterAssistant->newDXClusterSpot(_dxCall, _freq, ATNO);
+        qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << _freq.toQString();
+        //dxClusterAssistant->newDXClusterSpot(_dxCall, ATNO, _freq.toDouble());
 
     }
     else

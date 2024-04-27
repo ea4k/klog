@@ -45,6 +45,7 @@
 #include "locator.h"
 #include "dxcluster/dxcluster.h"
 #include "dxcluster/dxclusterassistant.h"
+#include "frequency.h"
 #include "awards.h"
 #include "inputwidgets/mainwindowsattab.h"
 #include "inputwidgets/mainwindowmydatatab.h"
@@ -260,8 +261,8 @@ private slots:
     //SEARCH
 
     // CLUSTER
-    void slotAnalyzeDxClusterSignal(const QStringList _qs);
-    void slotDXClusterSpotArrived(const QString _dxCall, const double _freq);
+    void slotAnalyzeDxClusterSignal(DXSpot _spot);
+    void slotDXClusterSpotArrived(const QString _dxCall, Frequency _freq);
 
     // CLUSTER
     //CLUBLOG
@@ -403,7 +404,7 @@ private:
 
     //void checkIfWorkedB4(const QString &_qrz);
     //bool checkContest();
-    void showStatusOfDXCC(const QStringList _qs);
+    void showStatusOfDXCC(EntityStatus _entityStatus);
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
 
     bool createConnection();

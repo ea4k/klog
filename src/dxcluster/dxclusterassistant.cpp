@@ -73,10 +73,20 @@ bool DXClusterAssistant::createUI()
         //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double _freq, const QSOStatus _status)
+void DXClusterAssistant::newDXClusterSpot(proposedQSOs _q)
+{
+    list.append(_q);
+    //qDebug() << Q_FUNC_INFO << " - 50";
+    //qDebug() << Q_FUNC_INFO << " - 60";
+    //qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(getStringFromStatus(_status));
+    addCall();
+}
+
+/*
+void DXClusterAssistant::newDXClusterSpot(const QString &_call, const QSOStatus _status, double _freq)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    Utilities util(Q_FUNC_INFO);
+    //Utilities util(Q_FUNC_INFO);
     //if (!util.isValidCall(_call, true))
     //{
     //    //qDebug() << Q_FUNC_INFO << " - Not Valid Call: " << _call;
@@ -88,7 +98,7 @@ void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double _fr
     //qDebug() << Q_FUNC_INFO << ": Status: " << ;
     proposedQSOs newArrival;
     newArrival.call = _call;
-    newArrival.freq = _freq;
+    newArrival.freq().fromDouble(_freq);
     newArrival.status = _status;
     newArrival.priority = 1;
     list.append(newArrival);
@@ -99,6 +109,7 @@ void DXClusterAssistant::newDXClusterSpot(const QString &_call, const double _fr
     addCall();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
+*/
 
 QString DXClusterAssistant::getStringFromStatus(QSOStatus _s)
 {
@@ -135,13 +146,13 @@ void DXClusterAssistant::addCall()
     {
         //qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
         QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call, QTableWidgetItem::Type);
-        QTableWidgetItem *newItemFreq = new QTableWidgetItem(QString::number(aux.freq), QTableWidgetItem::Type);
+        //QTableWidgetItem *newItemFreq = new QTableWidgetItem(aux.freq().toQString(), QTableWidgetItem::Type);
         QTableWidgetItem *newItemStatus = new QTableWidgetItem(getStringFromStatus(aux.status), QTableWidgetItem::Type);
 
         tableWidget->insertRow(tableWidget->rowCount());
         int row = tableWidget->rowCount();
         tableWidget->setItem(row-1, 0, newItemCall);
-        tableWidget->setItem(row-1, 1, newItemFreq);
+        //tableWidget->setItem(row-1, 1, newItemFreq);
         tableWidget->setItem(row-1, 2, newItemStatus);
 
     }

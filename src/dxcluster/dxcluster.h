@@ -34,11 +34,23 @@ email                : jaime@robles.es
 #include "../awards.h"
 #include "../world.h"
 #include "../utilities.h"
-#include "../frequency.h"
 #include "../dataproxy_sqlite.h"
+#include "../frequency.h"
+#include "../klogdefinitions.h"
 
 class QWidget;
 class QTcpSocket;
+
+
+struct DXSpot { // Used to pass a list of data from Awards to dxccstatuswidget
+    QString dxcall = QString();
+    Frequency freq = Frequency();
+    QString spotter = QString();
+    QString comment = QString();
+    QDateTime dateTime = QDateTime();
+    MouseClicks clickStatus = SingleClick;
+    bool valid = false;
+};
 
 class DXClusterWidget : public QWidget
 {
@@ -60,7 +72,7 @@ class DXClusterWidget : public QWidget
     void loadSettings();
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
 
-    void rightButtonFromLogMenu(const QStringList _ql);
+    void rightButtonFromLogMenu(DXSpot _spot);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 private slots:
@@ -75,12 +87,12 @@ private slots:
     void slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item );
     void slotClusterDXClusterWidgetItemEntered( QListWidgetItem * item);
     void slotClusterDXClusterWidgetItemSelected();
-    void slotRighButton (const QPoint& pos);
+    void slotRightButton (const QPoint& pos);
     void slotCheckQRZCom();
 
 signals:
-    void dxspotclicked(const QStringList &_qs); // DXSpotCall, DX-Freq, doubleClicked
-    void dxspotArrived(const QString &_call, const double _freq);
+    void dxspotclicked(DXSpot _dxSpot); // DXSpotCall, DX-Freq, doubleClicked
+    void dxspotArrived(const QString &_call, Frequency _freq);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
@@ -88,13 +100,13 @@ private:
 
     void createActions();
     void connectToDXCluster();
-    QStringList readItem(QListWidgetItem * item);
-    bool checkIfNeedsToBePrinted(const QString &_DXEntity, const int _band, const int _mode);
+    //QStringList readItem(QListWidgetItem * _stringSpot);
+    DXSpot readItem (const QString _stringSpot);
+    bool checkIfNeedsToBePrinted(EntityStatus _entityStatus);
     void saveSpot (const QString &_spot);
     bool openFile();
     QString cleanSpotter(const QString _call);
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
-
 
     QTcpSocket *tcpSocket;
     QListWidget *dxClusterListWidget;

@@ -44,6 +44,7 @@ HEADERS += \
     ../../src/locator.h \
     ../../src/dxcluster/dxcluster.h \
     ../../src/dxcluster/dxclusterassistant.h \
+    ../../src/frequency.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
     ../../src/inputwidgets/mainwindowsattab.h \
@@ -116,6 +117,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/locator.cpp \
     ../../src/dxcluster/dxcluster.cpp \
     ../../src/dxcluster/dxclusterassistant.cpp \
+    ../../src/frequency.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \

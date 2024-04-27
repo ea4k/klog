@@ -26,8 +26,7 @@
  *                                                                           *
  *****************************************************************************/
 /*
-    This class implements Frequency
-    This classs hould not need to query the DB neither the DataProxy Class
+    This class implements Frequency.
 */
 
 #include <QObject>
@@ -37,7 +36,7 @@ class Frequency: public QObject {
     Q_OBJECT
 public:
     Frequency();
-    //Frequency(double _f);
+    Frequency(const Frequency &_f);
     ~Frequency();
     void clear();
     bool fromDouble(const double _f, FreqUnits _u = MHz);
@@ -49,6 +48,7 @@ public:
     //QString band();                                             // Returns the band
     //int bandId();                                               // Returns the bandId
     bool isValid();
+    void operator=(Frequency const &_f2);       // Redefinition of =
 
 
 private:
@@ -56,7 +56,6 @@ private:
     double freq;        // This must be in MHz
     QString bandInMHz;  //
     double tolerance;   // This must be in Hz
-
 };
 
 #endif // FREQUENCY_H

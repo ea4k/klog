@@ -42,6 +42,7 @@
 #include "../../src/locator.h"
 #include "../../src/dxcluster/dxcluster.h"
 #include "../../src/dxcluster/dxclusterassistant.h"
+#include "../../src/frequency.h"
 #include "../../src/awards.h"
 #include "../../src/awarddxmarathon.h"
 #include "../../src/inputwidgets/mainwindowsattab.h"

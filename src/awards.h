@@ -47,6 +47,12 @@
 
 class QProgressDialog;
 
+struct EntityStatus { // Used to pass the Data of the status of an Entity
+    int entityId = -1;
+    int bandId = -1;
+    int modeId = -1;
+    int log = -1;
+};
 
 class Awards : public QObject {
      Q_OBJECT
@@ -76,7 +82,7 @@ public:
     int getQSOsInLog(const int _logNumber);
 
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
-    bool isThisSpotConfirmed(const QStringList &_qs);
+    bool isThisSpotConfirmed(EntityStatus _entityStatus);
 
     QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 
@@ -84,14 +90,14 @@ public:
     QString getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
     int getQSOIdofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
 
-    int getDXStatus (const QStringList &_qs);
+    int getDXStatus (EntityStatus _entitystatus);
     QSOStatus getQSOStatus(const int &_status); // Needs to be called with the output of getDXStatus)
     QString getDXStatusString (const int &_status); // Needs to be called with the output of getDXStatus
     QString getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
     QString getDXCCStatusBand(const int _dxcc, const int _band); // Returns -, W or C (Not worked, worked, Confirmed)
 
     void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
-    QColor getQRZDXStatusColor(const QStringList &_qs); // Receives Entity, band, mode & log
+    QColor getQRZDXStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
     QColor getDefaultColor();
 
     int getDXMarathonQSO(const int _year, const int _logNumber);

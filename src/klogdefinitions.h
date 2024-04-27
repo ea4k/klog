@@ -39,6 +39,7 @@ enum ValidFieldsForStats {DXCC, GridSquare};
 enum FilesToDownload {CTY, Sats};
 enum QSOStatus {unknown, ATNO, needed, worked, confirmed};
 enum FreqUnits {Hz, KHz, MHz, GHz, THz};
+enum MouseClicks {NoClick, RightClick, SingleClick, DoubleClick};
 
 struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
   int dxcc;

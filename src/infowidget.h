@@ -63,7 +63,7 @@ public:
 private:
     void clearBandLabels();
     void clearInfoFromLocators();
-    QString getStyleColorToLabelFromBand(const QString &_b, const QString &_q);
+    QString getStyleColorToLabelFromBand(const int _bandId, const int _entityId);
 
     QLabel *bandLabel1, *bandLabel2, *bandLabel3, *bandLabel4;
     QLabel *bandLabel5, *bandLabel6, *bandLabel7, *bandLabel8;

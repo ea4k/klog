@@ -45,6 +45,7 @@ HEADERS += ../../src/setupdialog.h \
     ../../src/downloadcty.h \
     ../../src/dxcluster/dxcluster.h \
     ../../src/dxcluster/dxclusterassistant.h \
+    ../../src/frequency.h \
     ../../src/dxccstatuswidget.h \
     ../../src/elogqrzlog.h \
     ../../src/eqslutilities.h \
@@ -141,6 +142,7 @@ SOURCES += tst_main.cpp \
     ../../src/dxcluster/dxcluster.cpp \
     ../../src/dxcluster/dxclusterassistant.cpp \
     ../../src/dxccstatuswidget.cpp \
+    ../../src/frequency.cpp \
     ../../src/elogqrzlog.cpp \
     ../../src/eqslutilities.cpp \
     ../../src/hamlibclass.cpp \

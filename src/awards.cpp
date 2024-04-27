@@ -312,12 +312,12 @@ int Awards::getWAZConfirmed(const int _logNumber)
     }
 }
 
-bool Awards::isThisSpotConfirmed(const QStringList &_qs)
+bool Awards::isThisSpotConfirmed(EntityStatus _entityStatus)
 {
-    return (getDXStatus(_qs) == 13);
+    return (getDXStatus(_entityStatus) == 13);
 }
 
-int Awards::getDXStatus (const QStringList &_qs)
+int Awards::getDXStatus (EntityStatus _entityStatus)
 {
     //qDebug() << Q_FUNC_INFO<< ": Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  QT_ENDL;
     // Receives:  QStringList _qs;
@@ -357,38 +357,28 @@ int Awards::getDXStatus (const QStringList &_qs)
 2   -   Worked      -   Worked in this band but not confirmed       -   YELLOW
 3   -   Confirmed   -   Confirmed in this band                      -   GREEN
 */
-    if (_qs.length() != 4  )
-    {
-        //qDebug() << Q_FUNC_INFO<< ": Length != 4, return -1";
-        return -1;
-    }
 
-    //int errorCode = 0;
 
-    int _band = _qs.at(1).toInt();
-    int _mode = _qs.at(2).toInt();
-    int _logNumber = _qs.at(3).toInt();
-    int dxccEntity = (_qs.at(0)).toInt();
 
     //qDebug() << Q_FUNC_INFO<< ":  dxccEntity: " << QString::number(dxccEntity);
-    if (dxccEntity<=0)
+    if (_entityStatus.entityId<=0)
     {
         //qDebug() << Q_FUNC_INFO<< ":  dxccEntity <= 0, return -1";
         return -1;
     }
 
     bool checkingMode = true;
-    if ( (_mode==-1) || (manageModes==false))
+    if ( (_entityStatus.modeId==-1) || (manageModes==false))
     {
         checkingMode = false;
         //qDebug() << Q_FUNC_INFO<< ":  checkingMode = FALSE";
     }
 
-    int wb = dxccStatusBand(dxccEntity, _band, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    int wb = dxccStatusBand(_entityStatus.entityId, _entityStatus.bandId, _entityStatus.log); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     int wm = -1;
     if (checkingMode)
     {
-        wm = dxccStatusMode(dxccEntity, _mode, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+        wm = dxccStatusMode(_entityStatus.entityId, _entityStatus.modeId, _entityStatus.log); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     }
    // int wm = dxccStatusMode(dxccEntity, _mode, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
@@ -400,7 +390,7 @@ int Awards::getDXStatus (const QStringList &_qs)
     //qDebug() << Q_FUNC_INFO<< ":  wb=" << QString::number(wb) << " - wm=" << QString::number(wm);
     //qDebug() << Q_FUNC_INFO<< ":  dxccStatus: " << QString::number(dxccStatus(dxccEntity, _logNumber));
 
-    switch(dxccStatus(dxccEntity, _logNumber))
+    switch(dxccStatus(_entityStatus.entityId, _entityStatus.log))
     {
     case 0:
         //qDebug() << Q_FUNC_INFO<< ":  return 0";
@@ -740,15 +730,9 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 }
 */
 
-QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
+QColor Awards::getQRZDXStatusColor(EntityStatus _entitystatus)
 {
-    //qs << Entity << spotBand << "-1" << QString::number(currentLog) ;
-    //qDebug() << Q_FUNC_INFO<< ": qs.length: " << QString::number(_qs.length());
-
-    //From Search QSO to QSL: q << _call << bandid << _mode << QString::number(currentLog);
-    //qDebug() << Q_FUNC_INFO<< ":  " << _qs.at(0) << "/" << _qs.at(1) << "/" << _qs.at(2) << _qs.at(3);
-    // Receives:  QStringList _qs;
-    //_qs << Entity << BandID << ModeId << lognumber;
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     /*
     0 - New One
@@ -759,7 +743,7 @@ QColor Awards::getQRZDXStatusColor(const QStringList &_qs)
 
     QColor returnedColor;
 
-    int status = getDXStatus(_qs);
+    int status = getDXStatus(_entitystatus);
 
     //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status) << "/" << getDXStatusString(status);
     //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status);
