@@ -54,15 +54,6 @@ struct AwarddxccEntry
     QString qsoID;
 };
 
-struct AwarddxccEntryCheck
-{ // Information to update the awarddxcc table; For other Award tables, the DXCC is just the ID of the award element
-    QString dxcc;
-    QString band;
-    QString mode;
-    QString status;
-    QString logNumber;
-};
-
 class DataBase : public QObject
 {
     Q_OBJECT

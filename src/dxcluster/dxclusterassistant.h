@@ -40,11 +40,14 @@ email                : jaime@robles.es
 #include "../utilities.h"
 #include "../frequency.h"
 
-struct proposedQSOs { // Used to pass a list of data from Awards to dxccstatuswidget
-    QString call = QString();
-    Frequency freq;
-    int priority = -1;
-    QSOStatus status = unknown;
+class Frequency;
+
+struct proposedQSOs
+{ // Used to pass a list of data from Awards to dxccstatuswidget
+    QString call;
+    //Frequency freq;
+    int priority;
+    QSOStatus status;
 };
 
 class DXClusterAssistant : public QWidget

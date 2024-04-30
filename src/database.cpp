@@ -6649,9 +6649,7 @@ bool DataBase::updateAwardWAZTable()
 {
        //qDebug() << "DataBase::updateAwardWAZTable" ;
     QList<AwarddxccEntry> dxccStatusList;
-    //QList<AwarddxccEntryCheck> dxccStatusListCheck;
     dxccStatusList.clear();
-    //dxccStatusListCheck.clear();
 
     AwarddxccEntry awardEntry;
     awardEntry.dxcc = QString();

@@ -3,6 +3,7 @@ SUBDIRS=\
    tst_main \
    tst_wizard \
    tst_adif \
+   tst_frequency \
    tst_utilities \
    tst_mainqsoentrywidget \
    tst_mainwindowsattab \

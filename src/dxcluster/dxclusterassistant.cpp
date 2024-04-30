@@ -154,15 +154,6 @@ void DXClusterAssistant::addCall()
         tableWidget->setItem(row-1, 0, newItemCall);
         //tableWidget->setItem(row-1, 1, newItemFreq);
         tableWidget->setItem(row-1, 2, newItemStatus);
-
     }
     //qDebug() << Q_FUNC_INFO << " - END";
 }
-
-/*
-     QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(
-         (row+1)*(column+1)));
-     tableWidget->setItem(row, column, newItem);
-
-
-*/

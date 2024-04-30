@@ -184,14 +184,13 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetIt
 {
    //qDebug() << Q_FUNC_INFO << item->text();
 
-    DXSpot spot;
     QStringList ql;
     ql.clear();
 
     if (!item)
         return;
 
-    spot = readItem(((item->data(0)).toString()).simplified());
+     DXSpot spot = readItem(((item->data(0)).toString()).simplified());
     if (!spot.valid)
         return;
 
@@ -339,7 +338,7 @@ void DXClusterWidget::slotClusterDataArrived()
     QString dxCall;
     QString spotBand;
     Frequency freq;
-    DXSpot spot;
+
 
     spotBand = "-1";
 
@@ -355,14 +354,17 @@ void DXClusterWidget::slotClusterDataArrived()
         dxClusterString = dxClusterString.trimmed();
         // Remove BELL-string if exists
         dxClusterString = dxClusterString.remove("\a");
+        qDebug() << Q_FUNC_INFO << ": Line: " << dxClusterString;
+
         saveSpot(dxClusterString);
-        spot = readItem(dxClusterString);
+        DXSpot spot = readItem(dxClusterString);
 
         if (spot.valid)
         {
+            qDebug() << Q_FUNC_INFO << " - Spot IS valid";
             _entityStatus.entityId = world->getQRZARRLId(dxCall);
-
             spotBand = QString::number(dataProxy->getBandIdFromFreq(freq.toDouble()) );
+
             dxSpotColor = awards->getQRZDXStatusColor(_entityStatus);
             if (showDxMarathon)
             {
@@ -374,6 +376,7 @@ void DXClusterWidget::slotClusterDataArrived()
         }
         else
         {
+            qDebug() << Q_FUNC_INFO << " - Spot IS NOT valid";
             dxSpotColor = awards->getDefaultColor();
         }
 
@@ -396,10 +399,12 @@ void DXClusterWidget::slotClusterDataArrived()
         if (!spot.valid)
             return;
 
+        qDebug() << Q_FUNC_INFO << " - DXCall:       " << spot.dxcall;
         qDebug() << Q_FUNC_INFO << " - Freq-string:       " << freq.toQString();
         qDebug() << Q_FUNC_INFO << " - Freq-double:       " << QString::number(freq.toDouble());
         qDebug() << Q_FUNC_INFO << " - Everything OK emitting...";
-        emit dxspotArrived(spot.dxcall, freq);
+
+        emit dxspotArrived(spot.dxcall, freq.toDouble());
     }
 
     qDebug() << Q_FUNC_INFO << " - END";
@@ -553,16 +558,10 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemSelected()
 {
    //qDebug() << Q_FUNC_INFO;
     QListWidgetItem * item = dxClusterListWidget->currentItem();
-    DXSpot spot;
-    QStringList ql;
-    ql.clear();
 
-    spot = readItem(((item->data(0)).toString()).simplified());
-    if (ql.length()==2)
-    {
-        ql << "selected";
+    DXSpot spot = readItem(((item->data(0)).toString()).simplified());
+    if (spot.valid)
         emit dxspotclicked(spot);
-    }
 }
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemEntered( QListWidgetItem * item )
@@ -571,13 +570,13 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemEntered( QListWidgetItem * i
 /*
     This code comes from slotClusterDXClusterWidgetItemDoubleClicked
 */
-    DXSpot spot;
+
     QString tip;
     tip.clear();
 
     if (item)
     {
-        spot = readItem(((item->data(0)).toString()).simplified());
+        DXSpot spot = readItem(((item->data(0)).toString()).simplified());
         if (spot.valid)
         {
             tip = world->getQRZEntityName(spot.dxcall);
@@ -595,9 +594,11 @@ bool DXClusterWidget::isConnected()
 
 DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 {
-   //qDebug() << Q_FUNC_INFO;
-    // Returns: dxSpot
-    DXSpot spot;
+    qDebug() << Q_FUNC_INFO;
+
+    DXSpot spot = DXSpot();
+    spot.valid = false;
+
     if (_stringSpot.length()<5)
        return spot;
     Frequency _fr;
@@ -612,6 +613,12 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     if ( (fields.at(0) == "DX" ) && (fields.at(1) == "de" ) )
     { // DX de EA0XXX: 21200.1 EA0K The comment 1550
         qDebug() << Q_FUNC_INFO << ": Identified: DX de";
+        qDebug() << Q_FUNC_INFO << ": 0: " << fields.at(0);
+        qDebug() << Q_FUNC_INFO << ": 1: " << fields.at(1);
+        qDebug() << Q_FUNC_INFO << ": 2: " << fields.at(2);
+        qDebug() << Q_FUNC_INFO << ": 3: " << fields.at(3);
+        qDebug() << Q_FUNC_INFO << ": 4: " << fields.at(4);
+        qDebug() << Q_FUNC_INFO << ": 5: " << fields.at(5);
         spot.spotter = fields.at(2);
         spot.freq.fromQString((fields.at(3)), KHz);
         spot.dxcall = fields.at(4);
@@ -637,70 +644,6 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     }
 
     return spot;
-
- /*
-    /////// NEW CODE
-    //int currentEntity;
-    QString dxCallsign, dxFreq;
-
-
-    if (!item)
-        return spot;
-
-    fields.clear();
-    dxClusterString = ((item->data(0)).toString()).simplified();
-    fields << dxClusterString.split(" ");
-
-    if ( (fields.at(0) == "DX" ) && (fields.at(1) == "de" ) )
-    { // DX de EA0XXX: 21200.1 EA0K The comment 1550
-        if ( world->getQRZARRLId(fields.at(4))> 0 )
-        {
-    spot.dxcall = (fields.at(4)).toUpper();
-                spot.freq().fromQString(fields.at(3), KHz);
-                if (spot.freq().isValid())
-                { // The frecuency is valid                   
-                    return spot;
-                }
-                else
-                { // the frecuency is not a number!
-                    dxCallsign.clear();
-                    dxFreq.clear();
-                    fields.clear();
-                }
-            }
-            else
-            { // The callsign is not from a valid country
-              // TODO: if it is from a new entity/prefix it would not work.
-                   //qDebug() << Q_FUNC_INFO << " Entity not valid" ;
-                spot.dxcall  = QString();
-                spot.spotter = QString();
-                spot.comment = QString();
-                spot.freq().clear();
-            }
-        }
-        //else if (( isAFrecuency(fields.at(0) ) ) && ( isACall(fields.at(1)) ) )
-        else if ( (((fields.at(0)).toDouble()) > 0.0 )&& ( world->getQRZARRLId(fields.at(1))> 0 ) )
-        { // 14205.0 EA0K   5-Mar-2012 1500Z    <EA0XXX>
-            dxCallsign = (fields.at(1)).toUpper();
-            dxFreq = fields.at(0);
-            fields.clear();
-            fields << dxCallsign << dxFreq;
-            spot.dxcall = dxCallsign;
-            spot.freq().fromQString(dxFreq, KHz);
-            return spot;
-        }
-        else
-        {
-            spot.dxcall  = QString();
-            spot.spotter = QString();
-            spot.comment = QString();
-            spot.freq().clear();
-            spot.clickStatus = NoClick;
-            spot.dateTime = QDateTime();
-        }
-
-    return spot;
-        */
 }
 
 void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
@@ -758,16 +701,15 @@ void DXClusterWidget::slotRightButton(const QPoint& pos)
     //int row = (dxClusterListWidget->indexAt(pos)).row();
     //qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
     QListWidgetItem * item = dxClusterListWidget->currentItem();
-    DXSpot spot;
 
-    spot = readItem(((item->data(0)).toString()).simplified());
+    DXSpot spot = readItem(((item->data(0)).toString()).simplified());
     if ((spot.valid) && (spot.clickStatus == RightClick) )
     {
         rightButtonFromLogMenu(spot);
     }
 }
 
-void DXClusterWidget::rightButtonFromLogMenu(DXSpot _spot)
+void DXClusterWidget::rightButtonFromLogMenu(const DXSpot &_spot)
 {
     // This function creates the context menu
    //qDebug() << Q_FUNC_INFO;

@@ -32,11 +32,18 @@
 #include <QObject>
 #include "klogdefinitions.h"
 
-class Frequency: public QObject {
+
+class Frequency: public QObject
+{
     Q_OBJECT
+    friend class tst_Frequency;
+
 public:
     Frequency();
-    Frequency(const Frequency &_f);
+    Frequency(Frequency *f);
+    Frequency(const double _f, FreqUnits _u = MHz);
+    //Frequency(const QString &_parentName);
+    //Frequency(const QString &_parentName, const Frequency &_f);
     ~Frequency();
     void clear();
     bool fromDouble(const double _f, FreqUnits _u = MHz);
@@ -45,14 +52,16 @@ public:
     double toDouble(FreqUnits _u = MHz);                        // Returns in MHz
     QString toQString(int _decimals = 3, FreqUnits _u = MHz);   // Returns in MHz with decimals
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
-    //QString band();                                             // Returns the band
-    //int bandId();                                               // Returns the bandId
+    //QString band();                                           // Returns the band
+    //int bandId();                                             // Returns the bandId
     bool isValid();
-    void operator=(Frequency const &_f2);       // Redefinition of =
+    void operator=(Frequency const &_f2);                       // Redefinition of =
 
 
 private:
     double normalize(const double _f, const FreqUnits _u = MHz);
+    double deNormalize(const double _f, const FreqUnits _u = MHz);
+    int getDecimals(const FreqUnits _u = MHz);
     double freq;        // This must be in MHz
     QString bandInMHz;  //
     double tolerance;   // This must be in Hz

@@ -41,15 +41,26 @@ email                : jaime@robles.es
 class QWidget;
 class QTcpSocket;
 
+class Frequency;
 
 struct DXSpot { // Used to pass a list of data from Awards to dxccstatuswidget
-    QString dxcall = QString();
-    Frequency freq = Frequency();
-    QString spotter = QString();
-    QString comment = QString();
-    QDateTime dateTime = QDateTime();
-    MouseClicks clickStatus = SingleClick;
-    bool valid = false;
+    QString dxcall;
+    Frequency freq;
+    QString spotter;
+    QString comment;
+    QDateTime dateTime;
+    MouseClicks clickStatus;
+    bool valid;
+    DXSpot() {valid = false;}
+    DXSpot(const DXSpot& other) {
+        dxcall = other.dxcall;
+        freq = other.freq; // Might need a copy constructor for Frequency as well
+        spotter = other.spotter;
+        comment = other.comment;
+        dateTime = other.dateTime;
+        clickStatus = other.clickStatus;
+        valid = other.valid;
+    }
 };
 
 class DXClusterWidget : public QWidget
@@ -72,7 +83,7 @@ class DXClusterWidget : public QWidget
     void loadSettings();
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
 
-    void rightButtonFromLogMenu(DXSpot _spot);
+    void rightButtonFromLogMenu(const DXSpot &_spot);
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 private slots:
@@ -91,8 +102,8 @@ private slots:
     void slotCheckQRZCom();
 
 signals:
-    void dxspotclicked(DXSpot _dxSpot); // DXSpotCall, DX-Freq, doubleClicked
-    void dxspotArrived(const QString &_call, Frequency _freq);
+    void dxspotclicked(const DXSpot &_dxSpot); // DXSpotCall, DX-Freq, doubleClicked
+    void dxspotArrived(const QString &_call, double _f);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
@@ -101,7 +112,7 @@ private:
     void createActions();
     void connectToDXCluster();
     //QStringList readItem(QListWidgetItem * _stringSpot);
-    DXSpot readItem (const QString _stringSpot);
+    DXSpot readItem(const QString _stringSpot);
     bool checkIfNeedsToBePrinted(EntityStatus _entityStatus);
     void saveSpot (const QString &_spot);
     bool openFile();

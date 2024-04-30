@@ -45,7 +45,6 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     rxFreqSpinBox = new QDoubleSpinBox;
     splitCheckBox = new QCheckBox;
     rxPowerSpinBox = new QDoubleSpinBox;
-
     dataProxy = dp;
 
     createUI();

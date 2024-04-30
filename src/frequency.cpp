@@ -28,14 +28,25 @@
 
 Frequency::Frequency(){}
 
-Frequency::Frequency(const Frequency &_f)
+Frequency::Frequency(Frequency *f){
+    freq = f->freq;
+}
+
+Frequency::Frequency(const double _f, FreqUnits _u)
+{
+    freq = normalize(_f, _u);
+}
+//Frequency::Frequency(const QString &_parentName){}
+
+/*
+ Frequency::Frequency(const QString &_parentName, const Frequency &_f)
 {
     if(this != &_f)
     {
         *this = _f;
     }
 }
-
+*/
 Frequency::~Frequency(){}
 
 void Frequency::clear()
@@ -72,26 +83,17 @@ bool Frequency::fromBand(const QString &_bandName)
 
 double Frequency::toDouble(FreqUnits _u)
 {
-    switch (_u) {
-    case Hz:
-        return freq * 1000000;
-        break;
-    case KHz:
-        return freq * 1000;
-        break;
-    default:
-        return freq;
-        break;
-    }
+    return deNormalize(freq, _u);
 }
 
 QString Frequency::toQString(int _decimals, FreqUnits _u)
 {
     double d = toDouble(_u);
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(toDouble());
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(fmod(toDouble(), 1.0));
+    int dec = getDecimals(_u);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(toDouble());
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(fmod(toDouble(), 1.0));
 
-    return  QString("%1").arg(d, 0, 'f', _decimals);
+    return  QString("%1").arg(d, 0, 'f', dec);
 }
 
 double Frequency::normalize(const double _f, const FreqUnits _u)
@@ -103,8 +105,59 @@ double Frequency::normalize(const double _f, const FreqUnits _u)
     case KHz:
         return _f / 1000;
         break;
-    default:
+    case GHz:
+        return _f * 1000;
+        break;
+    case THz:
+        return _f * 1000000;
+        break;
+    default:                // Default is in MHz
         return _f;
+        break;
+    }
+}
+
+double Frequency::deNormalize(const double _f, const FreqUnits _u)
+{ // Convert MHz to other unit
+    switch (_u) {
+    case Hz:
+        return _f * 1000000;
+        break;
+    case KHz:
+        return _f * 1000;
+        break;
+    case GHz:
+        return _f / 1000;
+        break;
+    case THz:
+        return _f / 1000000;
+        break;
+    default:                // Default is in MHz
+        return _f;
+        break;
+    }
+}
+
+int Frequency::getDecimals(const FreqUnits _u)
+{ // Get the right number of decimals to display
+    switch (_u) {
+    case Hz:
+        return 0;
+        break;
+    case KHz:
+        return 3;
+        break;
+    case MHz:
+        return 6;
+        break;
+    case GHz:
+        return 9;
+        break;
+    case THz:
+        return 12;
+        break;
+    default:                // Default is in MHz
+        return 6;
         break;
     }
 }
