@@ -86,12 +86,20 @@ double Frequency::toDouble(FreqUnits _u)
     return deNormalize(freq, _u);
 }
 
-QString Frequency::toQString(int _decimals, FreqUnits _u)
+QString Frequency::toQString(FreqUnits _u)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(freq);
+    //qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
+
     double d = toDouble(_u);
+    //qDebug() << Q_FUNC_INFO << ":d: " << QString::number(freq);
+
     int dec = getDecimals(_u);
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(toDouble());
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(fmod(toDouble(), 1.0));
+    //qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
+
+
+    //qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(toDouble());
+    //qDebug() << Q_FUNC_INFO << ":  dec: " << QString::number(dec);
 
     return  QString("%1").arg(d, 0, 'f', dec);
 }
@@ -145,16 +153,16 @@ int Frequency::getDecimals(const FreqUnits _u)
         return 0;
         break;
     case KHz:
-        return 3;
+        return 0;
         break;
     case MHz:
-        return 6;
+        return 3;
         break;
     case GHz:
-        return 9;
+        return 6;
         break;
     case THz:
-        return 12;
+        return 9;
         break;
     default:                // Default is in MHz
         return 6;

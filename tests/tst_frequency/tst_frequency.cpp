@@ -47,6 +47,7 @@ private slots:
     void test_Basic();
     void test_toDouble();
     void test_toQString();
+    void test_fromQString();
 
 
 private:
@@ -60,11 +61,16 @@ tst_Frequency::tst_Frequency()
     freq2 = new Frequency();
 }
 
-tst_Frequency::~tst_Frequency(){}
+tst_Frequency::~tst_Frequency()
+{
+    delete(freq);
+    delete(freq2);
+}
 
 void tst_Frequency::initTestCase()
 {
-    //qDebug("Called before everything else.");
+    freq->clear();
+    freq2->clear();
 }
 
 void tst_Frequency::cleanupTestCase()
@@ -85,20 +91,20 @@ void tst_Frequency::test_Constructors()
 void tst_Frequency::test_Basic()
 { //num FreqUnits {Hz, KHz, MHz, GHz, THz};
     freq->clear();
-    QVERIFY2(qFuzzyCompare(freq->toDouble(Hz),(double)0.0), "Freq cleared");
+    QVERIFY2(qFuzzyCompare(freq->toDouble(Hz),(double)0.0), "Freq failed to be cleared");
 
     freq->fromDouble(28.495);
     freq2->clear();
     freq2 = freq;
     QVERIFY2(qFuzzyCompare(freq->toDouble(),freq2->toDouble()), "Freq assignment (=) not working");
     QVERIFY2(freq2->isValid(), "Freq isValid not working");
-
-
-
 }
 
 void tst_Frequency::test_toDouble()
 {
+    freq->clear();
+    QVERIFY2(qFuzzyCompare(freq->toDouble(Hz),(double)0.0), "Freq failed to be cleared");
+
     QVERIFY2(freq->fromDouble(14.195, MHz) == true, "Could not import the double from MHz");
     QVERIFY2(qFuzzyCompare(freq->toDouble(THz), (double)0.000014195), "Freq 14.195 in THz");
     QVERIFY2(qFuzzyCompare(freq->toDouble(GHz), (double)0.014195), "Freq 14.195 in GHz");
@@ -118,13 +124,35 @@ void tst_Frequency::test_toDouble()
 void tst_Frequency::test_toQString()
 {
     Frequency freq1(21.295);
-    qDebug() << Q_FUNC_INFO << ": " << freq1.toQString();
+    //*freq = freq1;
+    //qDebug() << Q_FUNC_INFO << ": Hz: " << freq1.toQString(Hz);
+    QVERIFY2(freq1.toQString(Hz) == QString("21295000"), "toQString(Hz) failed");
+    QVERIFY2(freq1.toQString(KHz) == QString("21295"), "toQString(KHz) failed");
+    QVERIFY2(freq1.toQString() == QString("21.295"), "toQString() failed");
+    QVERIFY2(freq1.toQString(MHz) == QString("21.295"), "toQString(MHz) failed");
+    QVERIFY2(freq1.toQString(GHz) == QString("0.021295"), "toQString(GHz) failed");
+    QVERIFY2(freq1.toQString(THz) == QString("0.000021295"), "toQString(THz) failed");
+}
 
+void tst_Frequency::test_fromQString()
+{
+    freq->clear();
+    QVERIFY2(qFuzzyCompare(freq->toDouble(Hz),(double)0.0), "Freq failed to be cleared");
+
+    freq->fromQString("14195000", Hz);
+    QVERIFY2(qFuzzyCompare(freq->toDouble(),(double)14.195), "Freq 14.195 in MHz");
+
+    freq->fromQString("14195.000", KHz);
+    QVERIFY2(qFuzzyCompare(freq->toDouble(),(double)14.195), "Freq 14.195 in MHz");
+
+    freq->fromQString("14.195", MHz);
+    QVERIFY2(qFuzzyCompare(freq->toDouble(),(double)14.195), "Freq 14.195 in MHz");
+
+    freq->fromQString("1.296", GHz);
+    QVERIFY2(qFuzzyCompare(freq->toDouble(),(double)1296.0), "Freq 1296 in MHz");
 }
 /*
 
-    bool fromQString(const QString &_f, FreqUnits _u = MHz);
-    QString toQString(int _decimals = 3, FreqUnits _u = MHz);   // Returns in MHz with decimals
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
 */
 
