@@ -1383,7 +1383,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="31"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Ports</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="33"/>
@@ -1403,22 +1403,22 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 biti</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>6 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>6 biti</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>7 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 biti</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>8 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 biti</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="52"/>
@@ -1498,7 +1498,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
         <source>1.5 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>1.5 biti</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
