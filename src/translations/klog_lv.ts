@@ -4408,7 +4408,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="132"/>
         <source>All bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Visas diapazonos</translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="133"/>
@@ -4436,12 +4436,12 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="42"/>
         <source>The server returned the following error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveris atgrieza šādu kļūdu: %1</translation>
     </message>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="176"/>
         <source>Not identified</source>
-        <translation type="unfinished"></translation>
+        <translation>Nav identificēts</translation>
     </message>
 </context>
 <context>
