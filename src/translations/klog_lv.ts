@@ -85,7 +85,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="56"/>
         <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (GNU/Linux, macOS and Windows) and to support new functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopš 0.6.2 KLog ir pilnībā pārrakstīts, lai nodrošinātu starpplatformu lietojumprogrammu, kas darbojas visās lielākajās operētājsistēmās (Linux, macOS un Windows), un atbalstītu jaunas funkcionalitātes.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="91"/>
@@ -175,7 +175,7 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="107"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>My Locator</source>
-        <translation type="unfinished"></translation>
+        <translation>Mans lokators</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="110"/>
@@ -227,12 +227,12 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="211"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="262"/>
         <source>ALL</source>
-        <translation type="unfinished"></translation>
+        <translation>VISI</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="396"/>
         <source>QSOs: %1/%2</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs: %1/%2</translation>
     </message>
     <message>
         <source>All</source>
@@ -475,12 +475,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka DXCC statuss jūsu datu bāzē nav atjaunināts un KLog nevar atrast nekādu informāciju par dxcc. Varat mēģināt to novērst, atjauninot žurnālu.</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
         <source>Do you want to update your DXCC status?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vai vēlaties atjaunināt savu DXCC statusu?</translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="539"/>
@@ -542,12 +542,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster.cpp" line="110"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Pārbaudiet QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="112"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Apskatiet šo izsaukuma signālu vietnē QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="139"/>
@@ -668,7 +668,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="4889"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lidmašīnu izkliede</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4893"/>
@@ -822,7 +822,8 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="5657"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>padomat  kā rakstīt Manager</translatorcomment>
+        <translation>Pārvaldnieks</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="6528"/>
@@ -936,23 +937,23 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="184"/>
         <source>The selected log does not exist, please check it again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atlasītais žurnāls neeksistē, pārbaudiet to vēlreiz.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="175"/>
         <location filename="../filemanager.cpp" line="436"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atlasītais izsaukuma signāls (%1) nav derīgs. Lūdzu, pārbaudiet to vēlreiz, lai eksportētu žurnālu.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="257"/>
         <source>The file %1 can&apos;t be opened.</source>
-        <translation type="unfinished"></translation>
+        <translation>Failu %1 nevar atvērt.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="329"/>
         <source>There are no QSOs pending to be exported with that station callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ar šo stacijas izsaukuma signālu nav gaidīts neviens QSO, kas jāeksportē.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="340"/>
@@ -960,7 +961,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="633"/>
         <location filename="../filemanager.cpp" line="831"/>
         <source>Writing ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Notiek ADIF faila rakstīšana...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="340"/>
@@ -973,7 +974,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="344"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eksportēt</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="388"/>
