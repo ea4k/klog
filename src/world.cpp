@@ -591,13 +591,13 @@ bool World::addEntity(const QString &_name, const int _cq, const int _itu, const
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO entity (name, cqz, ituz, cont, latitude, longitude, utc, dxcc, mainprefix) "
+    query.prepare("INSERT INTO entity (name, cqz, ituz, continent, latitude, longitude, utc, dxcc, mainprefix) "
                   "VALUES (:name, :cqz, :ituz, :cont, :lat, :lon, :utc, :dxcc, :mainpref)");
 
     query.bindValue(":name", _name); // name
     query.bindValue(":cqz", _cq); // CQ
     query.bindValue(":ituz", _itu); // ITU
-    query.bindValue(":cont", _contId); // Cont
+    query.bindValue(":continent", _contId); // Cont
     query.bindValue(":lat", _lat); // Lat
     query.bindValue(":lon", _lon); // Lon
     query.bindValue(":utc", _utc); // UTC

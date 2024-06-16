@@ -309,16 +309,23 @@ void tst_DataBase::test_checks()
 
 void tst_DataBase::test_CreateDB()
 {
+    qDebug() << Q_FUNC_INFO << "000";
     Utilities util(Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << "001";
     QFile file(util.getCTYFile());
+    qDebug() << Q_FUNC_INFO << "003";
     QCOMPARE( file.exists(), true); // Check if the CTYDAT file is available
-
+    qDebug() << Q_FUNC_INFO << "003";
     DataProxy_SQLite dataProxy(Q_FUNC_INFO, version);
-    //qDebug() << Q_FUNC_INFO << "003";
+    qDebug() << Q_FUNC_INFO << "004";
     World world(&dataProxy, Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << "005";
     QCOMPARE(world.create(util.getCTYFile()), true); // Read the CTY.CSV file into the DB
+    qDebug() << Q_FUNC_INFO << "006";
     QCOMPARE(db->hasTheTableData("entity"), true);
+    qDebug() << Q_FUNC_INFO << "007";
     QCOMPARE(db->hasTheTableData("prefixesofentity"), true);
+    qDebug() << Q_FUNC_INFO << "999";
 }
 
 
@@ -383,10 +390,15 @@ void tst_DataBase::cleanup()
 
 void tst_DataBase::test_Constructor()
 {
+    qDebug() << Q_FUNC_INFO << "- Start";
     QString _version = QString ("99.9");
+    qDebug() << Q_FUNC_INFO << "- 001";
     util = new Utilities(Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << "- 002";
     db = new DataBase(Q_FUNC_INFO, _version, util->getKLogDBFile());
+    qDebug() << Q_FUNC_INFO << "- 003";
     QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 QTEST_APPLESS_MAIN(tst_DataBase)

@@ -94,6 +94,7 @@ HEADERS += setupdialog.h \
     database.h \
     dataproxy_sqlite.h \
     downloadcty.h \     \
+    dxcluster/dxspot.h \
     frequency.h \
     dxccstatuswidget.h \
     dxcluster/dxcluster.h \
@@ -173,6 +174,7 @@ SOURCES += main.cpp \
     charts/statsfieldperbandwidget.cpp \
     dxcluster/dxcluster.cpp \
     dxcluster/dxclusterassistant.cpp \
+    dxcluster/dxspot.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     frequency.cpp \

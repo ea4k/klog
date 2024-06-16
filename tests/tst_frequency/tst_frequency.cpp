@@ -1,8 +1,8 @@
 /***************************************************************************
-                          tst_Frequency.h  -  description
+                          tst_frequency.h  -  description
                              -------------------
-    begin                : Jan 2021
-    copyright            : (C) 2021 by Jaime Robles
+    begin                : Apr 2024
+    copyright            : (C) 2024 by Jaime Robles
     email                : jaime@robles.es
  ***************************************************************************/
 

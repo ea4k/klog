@@ -284,7 +284,7 @@ int main(int argc, char *argv[])
         wizard->exec();
     }
     else
-    {
+    {   
         //qDebug() << Q_FUNC_INFO << " -  Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss");
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
         //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";

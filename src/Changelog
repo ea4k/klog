@@ -1,6 +1,7 @@
 TODO: Update the DB (modes table) updateToLatest() => updateTo026
 WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 WIP: Working in the update of the table awarddxcc in DB class
+WIP: - Bugfix: DB in alternative locations was not always found. (WIP #706)
 
 TESTS to do during RC releases:
 - ADIF log Import
@@ -32,6 +33,7 @@ TBD - 2.4
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.
 - Bugfix: ClubLog date was not properly managed.
+
 
 Mar 2024 - 2.3.4
 - BugFix: After Editing a QSO, lotw_qsl_rcvd is emptied (Closes #656, #659) (TNX N6PAZ, EA5WA)

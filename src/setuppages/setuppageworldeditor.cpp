@@ -153,7 +153,7 @@ void SetupPageWorldEditor::createWorldPanel()
     worldView->setColumnHidden(columns, false);
     columns = rec.indexOf("dxcc");
     worldView->setColumnHidden(columns, false);
-    columns = rec.indexOf("cont");
+    columns = rec.indexOf("continent");
     worldView->setColumnHidden(columns, false);
     columns = rec.indexOf("cqz");
     worldView->setColumnHidden(columns, false);
@@ -210,7 +210,7 @@ void SetupPageWorldEditor::createWorldModel()
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Entity"));
     nameCol = rec.indexOf("dxcc");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ARRL ID"));
-    nameCol = rec.indexOf("cont");
+    nameCol = rec.indexOf("continent");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Continent"));
     nameCol = rec.indexOf("cqz");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("CQ Zone"));

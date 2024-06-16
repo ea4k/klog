@@ -334,7 +334,7 @@ void MainWindow::checkHomeDir()
 
 void MainWindow::init()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     checkHomeDir();
@@ -342,13 +342,13 @@ void MainWindow::init()
 
     checkDebugFile();
 
-      qDebug() << Q_FUNC_INFO << " -  00" ;
+      //qDebug() << Q_FUNC_INFO << " -  00" ;
     util->setLongPrefixes(dataProxy->getLongPrefixes());
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
-      qDebug() << Q_FUNC_INFO << " -  000" ;
+      //qDebug() << Q_FUNC_INFO << " -  000" ;
     setupDialog->init(softwareVersion, 0, configured);
-       qDebug() << Q_FUNC_INFO << " -  01" ;
+       //qDebug() << Q_FUNC_INFO << " -  01" ;
 
     filemanager->init();
 
@@ -367,7 +367,7 @@ void MainWindow::init()
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW";
-       qDebug() << Q_FUNC_INFO << " -  00" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  00" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     hamlibActive = false;
     hamlibModeNotADIFSupported = false;
@@ -379,7 +379,7 @@ void MainWindow::init()
 
     setCleaning(false);
 
-       qDebug() << Q_FUNC_INFO << " -  10" ;
+       //qDebug() << Q_FUNC_INFO << " -  10" ;
 
     dxClusterWidget->init();
 
@@ -404,7 +404,7 @@ void MainWindow::init()
     selectedYear = 0;
     defaultMode = 1;
     defaultBand = 1;
-       qDebug() << Q_FUNC_INFO << " -  20" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  20" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentMode = 1;
     currentModeShown = currentMode;
@@ -419,7 +419,7 @@ void MainWindow::init()
 
     UDPServerStart = false;   // By default the UDP server is started
 
-       qDebug() << Q_FUNC_INFO << " -  30" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  30" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentEntity = -1; // To optimize the calls to different world methods if the entity does not change. Used in slotQRZTextChanged
     previousEntity = -1;// To optimize the calls to different world methods if the entity does not change.
@@ -450,7 +450,7 @@ void MainWindow::init()
     dxclusterSendSpotsToMap = false;
 
     keepSatPage = false;
-       qDebug() << Q_FUNC_INFO << " -  40" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  40" << (QTime::currentTime()).toString("HH:mm:ss") ;
     clublogActive = false;
     clublogRealTime = false;
 
@@ -461,7 +461,7 @@ void MainWindow::init()
 
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
     setModifying(false);
-       qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL | Qt::Key_L);
@@ -486,22 +486,22 @@ void MainWindow::init()
 
     checkExistingData();
     readSettingsFile();
-       qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
     mapWindow->init();
 
 
-      qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
-       qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
     awards->setManageModes(manageMode);
-       qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-           qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
+           //qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
         openSetup(6);
-           qDebug() << Q_FUNC_INFO << " -  73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
+           //qDebug() << Q_FUNC_INFO << " -  73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
-       qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
@@ -510,37 +510,37 @@ void MainWindow::init()
     dxClusterWidget->setCurrentLog(currentLog);
     dxClusterAssistant->init();
 
-       qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
-       qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
     checkVersions();
 
-       qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-       qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-       qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
     timerInfoBars = new QTimer(this);
 
-      qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
     createUI();
-      qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
-      qDebug() << Q_FUNC_INFO << " - 100";
+      //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 100";
     slotClearButtonClicked(Q_FUNC_INFO);
-      qDebug() << Q_FUNC_INFO << " - 110";
+      //qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
-      qDebug() << Q_FUNC_INFO << " - 120";
+      //qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
     world->readWorld ();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
-      qDebug() << Q_FUNC_INFO << " - 130";
+      //qDebug() << Q_FUNC_INFO << " - 130";
 
     applySettings ();
-      qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5334,7 +5334,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(DXSpot _spot)
 
 void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _freq)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _dxCall;
+    //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
     //qDebug() << Q_FUNC_INFO << ": " << _freq.toQString();
     //(void)_dxCall;
     //(void)_freq;
@@ -5347,14 +5347,13 @@ void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _f
         pQSO.status = ATNO;
         //pQSO.freq = _freq;
         dxClusterAssistant->newDXClusterSpot(pQSO);
-        qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
+        //qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
         //qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << _freq.toQString();
         //dxClusterAssistant->newDXClusterSpot(_dxCall, ATNO, _freq.toDouble());
-
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << _dxCall;
+        //qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << _dxCall;
     }
 
 
@@ -6484,7 +6483,7 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
 bool MainWindow::loadSettings()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
      //qDebug() << Q_FUNC_INFO << " - 10 - General";
@@ -6548,14 +6547,14 @@ bool MainWindow::loadSettings()
     dxClusterWidget->loadSettings ();
     settings.endGroup ();
 
-    qDebug() << Q_FUNC_INFO << " - 60 - colors";
+    //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
+    //qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
     newOneColor.fromString(QAnyStringView((settings.value ("NewOneColor", "#FF0000").toString ())));
     //newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
-    qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor-2: " << newOneColor.name(QColor::HexRgb);
+    //qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor-2: " << newOneColor.name(QColor::HexRgb);
     neededColor.fromString(QAnyStringView((settings.value ("NeededColor","#FF8C00").toString ())));
     workedColor.fromString(QAnyStringView((settings.value ("WorkedColor", "#FFD700").toString ())));
     confirmedColor.fromString(QAnyStringView((settings.value ("ConfirmedColor", "#32CD32").toString ())));

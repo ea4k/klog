@@ -358,7 +358,7 @@ void AwardsWidget::showAwards()
 
     showDXMarathon(selectedYear);
     emit debugLog(Q_FUNC_INFO, "END", logLevel);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AwardsWidget::showDXMarathon(const int _year)

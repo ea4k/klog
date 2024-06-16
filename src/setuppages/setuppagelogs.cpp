@@ -429,7 +429,7 @@ void SetupPageLogs::showEvent(QShowEvent *event)
 
 void SetupPageLogs::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("Logs");
@@ -439,31 +439,31 @@ void SetupPageLogs::saveSettings()
 
 void SetupPageLogs::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << " - 00";
+    //qDebug() << Q_FUNC_INFO << " - 00";
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
-    qDebug() << Q_FUNC_INFO << " - 01";
+    //qDebug() << Q_FUNC_INFO << " - 01";
     int i = settings.value("SelectedLog").toInt();
-    qDebug() << Q_FUNC_INFO << " - 02";
+    //qDebug() << Q_FUNC_INFO << " - 02";
     if (!dataProxy->doesThisLogExist(i))
     {
-        qDebug() << Q_FUNC_INFO << " - 10";
+        //qDebug() << Q_FUNC_INFO << " - 10";
         i = 0;
         while((!dataProxy->doesThisLogExist(i)) && (i <500))
         {//TODO If a user has more than 500 logs it may fail...
             i++;
             //qDebug() << Q_FUNC_INFO << " - Log: " << QString::number(i);
         }
-        qDebug() << Q_FUNC_INFO << " - 49";
+        //qDebug() << Q_FUNC_INFO << " - 49";
     }
-    qDebug() << Q_FUNC_INFO << " - 50";
+    //qDebug() << Q_FUNC_INFO << " - 50";
     selectedLog = i;
-    qDebug() << Q_FUNC_INFO << " - 51";
+    //qDebug() << Q_FUNC_INFO << " - 51";
     logsView->selectRow(1);
-    qDebug() << Q_FUNC_INFO << " - 52";
+    //qDebug() << Q_FUNC_INFO << " - 52";
     QModelIndex index = logsModel->index(selectedLog, 0);
-    qDebug() << Q_FUNC_INFO << " - 53";
+    //qDebug() << Q_FUNC_INFO << " - 53";
     logsView->setCurrentIndex(index);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }

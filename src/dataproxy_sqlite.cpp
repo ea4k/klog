@@ -31,38 +31,36 @@
 DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
 {
     #ifdef QT_DEBUG
-      //qDebug() << Q_FUNC_INFO << _softVersion << _parentFunction;
+      qDebug() << Q_FUNC_INFO << _softVersion << _parentFunction;
     #else
-      //qDebug() << Q_FUNC_INFO << "Running a release build";
+      qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
     (void)_parentFunction;
-    //qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
+    qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
     logLevel = None;
-    //qDebug() << Q_FUNC_INFO << " - 45";
+    qDebug() << Q_FUNC_INFO << " - 45";
     util = new Utilities(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << " - 46";
+    qDebug() << Q_FUNC_INFO << " - 46";
     util->setVersion(_softVersion);
-    //qDebug() << Q_FUNC_INFO << " - 47";
+    qDebug() << Q_FUNC_INFO << " - 47";
     util->setCallValidation(false);
-     //qDebug() << Q_FUNC_INFO << " - 48";
+    qDebug() << Q_FUNC_INFO << " - 48: " << util->getKLogDBFile();
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << " - 49";
+    qDebug() << Q_FUNC_INFO << " - 49";
 
     dbCreated = db->createConnection(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << " - 50";
+    qDebug() << Q_FUNC_INFO << " - 50";
     util->setLongPrefixes(getLongPrefixes());
-     //qDebug() << Q_FUNC_INFO << " - 51";
+     qDebug() << Q_FUNC_INFO << " - 51";
     util->setSpecialCalls(getSpecialCallsigns());
-     //qDebug() << Q_FUNC_INFO << " - 52";
+     qDebug() << Q_FUNC_INFO << " - 52";
     qso = new QSO;
-    //qDebug() << Q_FUNC_INFO << " - 53";
-
-    //qDebug() << Q_FUNC_INFO << " - 54";
+    qDebug() << Q_FUNC_INFO << " - 53";
 
     searching = false;
     executionN = 0;
     connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -2170,7 +2168,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
 
 bool DataProxy_SQLite::updateAwardDXCC()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     fillEmptyDXCCInTheLog();
     return db->updateAwardDXCCTable();
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -6218,7 +6216,7 @@ int DataProxy_SQLite::getQSOsWithContinent(const QString &_cont, const int _logN
     bool sqlOK;
     if (_logNumber < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where cont = '%1'").arg(_cont);
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where continent = '%1'").arg(_cont);
     }
     else
     {
@@ -6546,34 +6544,39 @@ bool DataProxy_SQLite::addNewLog (const QStringList _qs)
 
 bool DataProxy_SQLite::doesThisLogExist(const int _log)
 {
-    qDebug() << "DataProxy_SQLite::doesThisLogExist: " << QString::number(_log);
-    qDebug() << "DataProxy_SQLite::doesThisLogExist - Name:" << db->getDBName();
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist: " << QString::number(_log);
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist - Name:" << db->getDBName();
     QSqlQuery query;
+    //SELECT COUNT (*) FROM log WHERE lognumber='3'
+    //SELECT COUNT (*) FROM logs WHERE id='1'
 
-    QString queryString = QString("SELECT id FROM logs WHERE id='%1'").arg(_log);
+    QString queryString = QString("SELECT COUNT (*) FROM logs WHERE id='%1'").arg(_log);
     bool sqlOK = query.exec(queryString);
 
-    qDebug() << Q_FUNC_INFO << " query: " << query.lastQuery() ;
+    //qDebug() << Q_FUNC_INFO << " query: " << query.lastQuery() ;
 
     if (!sqlOK)
     {
-        qDebug() << Q_FUNC_INFO << " - END False 1";
+        //qDebug() << Q_FUNC_INFO << " - END False 1";
         return false;
     }
 
     if (!query.next())
     {
-        qDebug() << Q_FUNC_INFO << " - END False 2";
+        //qDebug() << Q_FUNC_INFO << " - END False 2";
         return false;
     }
     if (!query.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - END False 3";
+        //qDebug() << Q_FUNC_INFO << " - END False 3";
         return false;
     }
-    int i = query.value(0).toInt();
-    qDebug() << Q_FUNC_INFO << " - Value: " << QString::number(i);
-    qDebug() << Q_FUNC_INFO << " - END TRUE";
+    return (query.value(0).toInt() >0);
+
+    /*
+    //int i = query.value(0).toInt();
+    //qDebug() << Q_FUNC_INFO << " - Value: " << QString::number(i);
+    //qDebug() << Q_FUNC_INFO << " - END TRUE";
     return true;
 
     if (sqlOK)
@@ -6583,20 +6586,20 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
             if (query.isValid())
             {
                 query.finish();
-                qDebug() << "DataProxy_SQLite::doesThisLogExist: END TRUE" ;
+                //qDebug() << "DataProxy_SQLite::doesThisLogExist: END TRUE" ;
                 return true;
             }
             else
             {
                 query.finish();
-                qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 1" ;
+                //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 1" ;
                 return false;
             }
         }
         else
         {
             query.finish();
-             qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 2" ;
+             //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 2" ;
             return false;
         }
     }
@@ -6604,11 +6607,12 @@ bool DataProxy_SQLite::doesThisLogExist(const int _log)
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         query.finish();
-        qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 3" ;
+        //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 3" ;
         return false;
     }
-    qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 4" ;
+    //qDebug() << "DataProxy_SQLite::doesThisLogExist: END FALSE 4" ;
     return false;
+    */
 }
 
 int DataProxy_SQLite::getContinentIdFromContinentShortName(const QString &_n)
@@ -6649,8 +6653,8 @@ QString DataProxy_SQLite::getContinentShortNameFromEntity(const int _n)
     // SELECT DISTINCT dxcc, bandid, modeid, id, lognumber from log WHERE qsl_rcvd='Y' OR lotw_qsl_rcvd='Y' GROUP BY dxcc, bandid, modeid
     QSqlQuery query;
 
-    QString queryString= QString("SELECT cont FROM entity WHERE dxcc='%1'").arg(_n);
-    //QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.cont=continent.shortname WHERE dxcc='%1'").arg(_n);
+    QString queryString= QString("SELECT continent FROM entity WHERE dxcc='%1'").arg(_n);
+    //QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)

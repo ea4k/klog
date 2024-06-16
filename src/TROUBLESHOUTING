@@ -1,0 +1,7 @@
+Linux - Raspbian
+
+Error message in the console when KLog start:
+	qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""
+
+Solution: install qt6-wayland package
+	sudo apt install qt6-wayland

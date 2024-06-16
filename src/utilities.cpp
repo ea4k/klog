@@ -529,7 +529,33 @@ QString Utilities::getDBPath()
 
 QString Utilities::getKLogDBFile()
 {   // Returns the full path to the main DB
-    return getDBPath() + "/logbook.dat";
+    qDebug() << Q_FUNC_INFO << " - Start";
+    QSettings settings(getCfgFile (), QSettings::IniFormat);
+    qDebug() << Q_FUNC_INFO << " - CFG: " << getCfgFile();
+    QString dbFile;
+    QString filename = "/logbook.dat";
+
+    if (!QFile::exists(getCfgFile ()))
+        return getDBPath() + filename;
+    //qDebug() << Q_FUNC_INFO << " - Config file DOES NOT Exist";
+    //CRITICAL ERROR TO BE MANAGED, KLOG SHOULD STOP
+
+    settings.beginGroup ("Misc");
+
+    if (!settings.contains("DBPath"))
+    {
+        //qDebug() << Q_FUNC_INFO << " - DBPath DOES NOT Exist, returning default";
+        return getDBPath() + filename;
+    }
+
+    dbFile = settings.value("DBPath").toString () + filename;
+    qDebug() << Q_FUNC_INFO << "DBPath: " << dbFile;
+
+    if (QFile::exists(dbFile))
+        return dbFile;
+
+    qDebug() << Q_FUNC_INFO << " - DBPath file DOES NOT Exist, returning default";
+    return getDBPath() + filename;
 }
 
 QString Utilities::getKLogDBBackupFile()

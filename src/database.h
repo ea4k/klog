@@ -61,7 +61,6 @@ class DataBase : public QObject
 
 public:
     DataBase(const QString &_parentClass, const QString &_DBName);
-    //DataBase(const QString &_softVersion, bool  inmemoryonly = false);
     DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName);
     //virtual ~DataBase();
     ~DataBase();
@@ -164,9 +163,8 @@ private:
     bool recreateTableLog();
     bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
     bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
-    bool recreateTableEntity();
     bool createTableEntity(const bool NoTmp);
-    bool updateTableEntity();
+    bool recreateTableEntity();
 
     bool createTableClubLogStatus();
     bool populateTableClubLogStatus();

@@ -36,17 +36,7 @@ Frequency::Frequency(const double _f, FreqUnits _u)
 {
     freq = normalize(_f, _u);
 }
-//Frequency::Frequency(const QString &_parentName){}
 
-/*
- Frequency::Frequency(const QString &_parentName, const Frequency &_f)
-{
-    if(this != &_f)
-    {
-        *this = _f;
-    }
-}
-*/
 Frequency::~Frequency(){}
 
 void Frequency::clear()

@@ -222,7 +222,6 @@ void DXClusterWidget::connectToDXCluster()
     dxClusterListWidget->addItem (new dxClusterSpotItem(dxClusterListWidget, tr("Trying to connect to the server") + "\n", awards->getDefaultColor()));
 }
 
-
 void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socketError)
 {
    //qDebug() << Q_FUNC_INFO;
@@ -354,6 +353,8 @@ void DXClusterWidget::slotClusterDataArrived()
         if (spot.valid)
         {
             qDebug() << Q_FUNC_INFO << " - Spot IS valid";
+            qDebug() << Q_FUNC_INFO << " - Spot Freq: " << spot.freq.toQString();
+
             _entityStatus.entityId = world->getQRZARRLId(spot.dxcall);
             spotBand = QString::number(dataProxy->getBandIdFromFreq(spot.freq.toDouble()) );
 
@@ -585,14 +586,14 @@ bool DXClusterWidget::isConnected()
 
 DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
 
     DXSpot spot = DXSpot();
     spot.valid = false;
 
     if (_stringSpot.length()<5)
        return spot;
-    Frequency _fr;
+    //Frequency _fr;
 
     //dxClusterString = ((item->data(0)).toString()).simplified();
 
@@ -614,6 +615,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
         spot.freq.fromQString((fields.at(3)), KHz);
         spot.dxcall = fields.at(4);
         spot.valid = true;
+        qDebug() << Q_FUNC_INFO << ": Identified: Freq1: " << spot.freq.toQString();
     }
     else if (fields.last().endsWith(">"))
     { // 14250.0 EA0XXX      12-Apr-2020 2140Z Comment      <EA0XX>
@@ -622,6 +624,8 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
         spot.freq.fromQString((fields.at(0)), KHz);
         spot.dxcall = fields.at(1);
         spot.valid = true;
+
+        qDebug() << Q_FUNC_INFO << ": Identified: Freq2: " << spot.freq.toQString();
     }
     else if ((fields.at(0) == "To" ) && (fields.at(1) == "ALL" ))
     { // To ALL Comment
