@@ -6508,7 +6508,8 @@ bool MainWindow::loadSettings()
     {
         mainQRZ = value;
     }
-    selectTheLog(currentLog);   // We Select the log after the mainQRZ is defined
+    // We Select the log after the mainQRZ is defined to prevent call conflicts
+    selectTheLog(currentLog);
 
     value = settings.value ("StationLocator").toString ();
     if ( locator->isValidLocator(value) )
