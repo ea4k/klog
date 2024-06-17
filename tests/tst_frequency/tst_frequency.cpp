@@ -80,7 +80,7 @@ void tst_Frequency::cleanupTestCase()
 
 void tst_Frequency::test_Constructors()
 {
-    Frequency freq3(freq);
+    Frequency freq3(*freq);
     QVERIFY2(qFuzzyCompare(freq->toDouble(),freq3.toDouble()), "Freq assignment (freq) not working");
     Frequency freq4(7.090,MHz);
     QVERIFY2(qFuzzyCompare(freq4.toDouble(),(double)7.090), "Freq assignment (double,unit) not working");

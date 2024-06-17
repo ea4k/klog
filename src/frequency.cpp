@@ -28,8 +28,8 @@
 
 Frequency::Frequency(){}
 
-Frequency::Frequency(Frequency *f){
-    freq = f->freq;
+Frequency::Frequency(const Frequency &f){
+    freq = f.freq;
 }
 
 Frequency::Frequency(const double _f, FreqUnits _u)
@@ -53,11 +53,15 @@ bool Frequency::fromDouble(const double _f, FreqUnits _u)
 
 bool Frequency::fromQString(const QString &_f, FreqUnits _u)
 {
+    qDebug() << Q_FUNC_INFO << ": " << _f;
     bool ok;
     freq =_f.toDouble(&ok);
+    qDebug() << Q_FUNC_INFO << " - freq: " << _f;
     if (!ok)
         return false;
+    qDebug() << Q_FUNC_INFO << " - Trying to normalize...";
     freq = normalize(freq, _u);
+    qDebug() << Q_FUNC_INFO << " - freqNormalized: " << _f;
     return isValid();
 }
 

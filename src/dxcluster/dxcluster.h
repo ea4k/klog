@@ -32,6 +32,7 @@ email                : jaime@robles.es
 #include <QTcpSocket>
 #include <QObject>
 #include "../awards.h"
+#include "dxspot.h"
 #include "../world.h"
 #include "../utilities.h"
 #include "../dataproxy_sqlite.h"
@@ -40,28 +41,8 @@ email                : jaime@robles.es
 
 class QWidget;
 class QTcpSocket;
-
 class Frequency;
 
-struct DXSpot { // Used to pass a list of data from Awards to dxccstatuswidget
-    QString dxcall;
-    Frequency freq;
-    QString spotter;
-    QString comment;
-    QDateTime dateTime;
-    MouseClicks clickStatus;
-    bool valid;
-    DXSpot() {valid = false;}
-    DXSpot(const DXSpot& other) {
-        dxcall = other.dxcall;
-        freq = other.freq; // Might need a copy constructor for Frequency as well
-        spotter = other.spotter;
-        comment = other.comment;
-        dateTime = other.dateTime;
-        clickStatus = other.clickStatus;
-        valid = other.valid;
-    }
-};
 
 class DXClusterWidget : public QWidget
 {
@@ -103,7 +84,9 @@ private slots:
 
 signals:
     void dxspotclicked(const DXSpot &_dxSpot); // DXSpotCall, DX-Freq, doubleClicked
-    void dxspotArrived(const QString &_call, double _f);
+    //void dxspotArrived(const QString &_call, double _f);
+    void dxspotArrived(const QString &_call, const Frequency &_f);
+    void dxspotArrived(const DXSpot &_sp);
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
@@ -119,7 +102,7 @@ private:
     QString cleanSpotter(const QString _call);
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
 
-    QTcpSocket *tcpSocket;
+    QTcpSocket *tcpSocket = nullptr;
     QListWidget *dxClusterListWidget;
     QLineEdit *inputCommand;
     QPushButton *sendButton;

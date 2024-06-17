@@ -44,6 +44,7 @@
 #include "dataproxy_sqlite.h"
 #include "locator.h"
 #include "dxcluster/dxcluster.h"
+#include "dxcluster/dxspot.h"
 #include "dxcluster/dxclusterassistant.h"
 #include "frequency.h"
 #include "awards.h"
@@ -261,8 +262,8 @@ private slots:
     //SEARCH
 
     // CLUSTER
-    void slotAnalyzeDxClusterSignal(DXSpot _spot);
-    void slotDXClusterSpotArrived(const QString _dxCall, const double _freq);
+    void slotAnalyzeDxClusterSignal(const DXSpot &_spot);
+    void slotDXClusterSpotArrived(const DXSpot &_spot);
 
     // CLUSTER
     //CLUBLOG
@@ -414,7 +415,8 @@ private:
     bool loadSettings();
     bool applySettings();
     void selectTheLog(const int _i);    // Receives a log number from loadSettings and setups all about the logN
-    void defineStationCallsign(const QString &_call);
+    void defineStationCallsign();
+    QString findStationCallsignToUse(); // Used to select the station Callsign used
     QString selectStationCallsign();
 
     void checkIfNewBandOrMode();

@@ -29,17 +29,20 @@ DXSpot::DXSpot()
 {
     valid = false;
 }
-
+/*
 DXSpot::DXSpot(DXSpot *_other)
 {
     dxcall = _other->dxcall;
     spotter = _other->spotter;
-    freq = _other->freq; // Might need a copy constructor for Frequency as well
+    if (_other->freq.isValid())
+        freq = _other->freq; // Might need a copy constructor for Frequency as well
     comment = _other->comment;
-    dateTime = _other->dateTime;
+    if (_other->dateTime.isValid())
+        dateTime = _other->dateTime;
     clickStatus = _other->clickStatus;
     valid = _other->valid;
 }
+*/
 
 DXSpot::~DXSpot(){}
 
@@ -59,7 +62,8 @@ void DXSpot::operator=(DXSpot const &_other)
     freq = _other.freq; // Might need a copy constructor for Frequency as well
     spotter = _other.spotter;
     comment = _other.comment;
-    dateTime = _other.dateTime;
+    if (_other.dateTime.isValid())
+        dateTime = _other.dateTime;
     clickStatus = _other.clickStatus;
     valid = _other.valid;
 }
@@ -68,7 +72,7 @@ void DXSpot::setValid(const bool _v){valid = _v;}
 bool DXSpot::isValid(){return valid;}
 
 void DXSpot::setDXCall(const QString &_c){dxcall = _c;}
-QString DXSpot::getDxCall(){return dxcall;}
+QString DXSpot::getDxCall() {return dxcall;}
 
 void DXSpot::setSpotter(const QString &_c){spotter = _c;}
 QString DXSpot::getSpotter(){return spotter;}
@@ -80,14 +84,16 @@ void DXSpot::setDateTime(const QDateTime &d){if (d.isValid()) dateTime = d;}
 QDateTime DXSpot::getDateTime(){ return dateTime;}
 
 void DXSpot::setClickStatus(const MouseClicks &_s ){clickStatus = _s;}
-bool DXSpot::getClickStatus(){return clickStatus;}
+MouseClicks DXSpot::getClickStatus(){return clickStatus;}
 
 void DXSpot::setFrequency(Frequency f)
 {
     if (f.isValid())
         freq = f;
 }
+
 Frequency DXSpot::getFrequency()
 {
-    return &freq;
+    // Return the frequency stored in the object
+    return freq;
 }

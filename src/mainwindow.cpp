@@ -659,7 +659,7 @@ void MainWindow::createActionsCommon(){
 
     //CLUSTER
     connect(dxClusterWidget, SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
-    connect(dxClusterWidget, SIGNAL(dxspotArrived(QString, double)), this, SLOT(slotDXClusterSpotArrived(QString, Frequency) ) );
+    connect(dxClusterWidget, SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -898,7 +898,7 @@ void MainWindow::setMainWindowTitle()
 {
     QString aux = dataProxy->getCommentsFromLog(currentLog);
     int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
-       //qDebug() << Q_FUNC_INFO << " - (comment): " << aux ;
+    //qDebug() << Q_FUNC_INFO << " - (comment): " << aux ;
     QString msg;
 
     if (mainQRZ == stationCallsign)
@@ -3246,7 +3246,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logWindow->createlogPanel(currentLog);
          //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", Debug);
-        defineStationCallsign(stationCallsign);
+        //defineStationCallsign(stationCallsign);
          //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
   //qDebug() << "MainWindow::openSetup: before db->reConnect" ;
@@ -5285,20 +5285,21 @@ void MainWindow::slotFilePrint()
 
 //DX-CLUSTER - DXCLUSTER
 
-void MainWindow::slotAnalyzeDxClusterSignal(DXSpot _spot)
+void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 {
-        //qDebug() << "MainWindow::slotAnalyzeDxClusterSignal: 1: " << ql.at(0) <<"/1: " << ql.at(1) << "/2: " << ql.at(2) ;
+    qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
+    DXSpot sp = _spot;
     EntityStatus _entityStatus;
-    _entityStatus.entityId = world->getQRZARRLId(_spot.dxcall);
+    _entityStatus.entityId = world->getQRZARRLId(sp.getDxCall());
 
     if (!manageMode)
     {
         _entityStatus.modeId = -1;
     }
 
-    if (_spot.clickStatus == SingleClick)
+    if (sp.getClickStatus() == SingleClick)
     {
         infoLabel2->setText(world->getEntityName(_entityStatus.entityId));
         infoWidget->showEntityInfo(_entityStatus.entityId );
@@ -5306,13 +5307,13 @@ void MainWindow::slotAnalyzeDxClusterSignal(DXSpot _spot)
         // Becareful, he Frecuency arrives in KHz instead of bandid!!
         // db.getBandFromFreq expects a MHz!
         //(ql.at(1)).toDouble()
-        _entityStatus.bandId = dataProxy->getBandIdFromFreq((_spot.freq.toDouble()));
+        _entityStatus.bandId = dataProxy->getBandIdFromFreq((sp.getFrequency().toDouble()));
         //qls << QRZ << BandId << ModeId << lognumber;
         showStatusOfDXCC(_entityStatus);
     }
-    else if (_spot.clickStatus == DoubleClick)
+    else if (sp.getClickStatus() == DoubleClick)
     {
-        clusterSpotToLog(_spot.dxcall, _spot.freq.toQString());
+        clusterSpotToLog(sp.getDxCall(), sp.getFrequency().toQString());
 
     }
 
@@ -5323,29 +5324,31 @@ void MainWindow::slotAnalyzeDxClusterSignal(DXSpot _spot)
 
     pQSO.status = awards->getQSOStatus(statusI);
 
-    if (util->isValidCall(_spot.dxcall, true))
+    if (util->isValidCall(sp.getDxCall(), true))
     {
-        pQSO.call = _spot.dxcall;
+        pQSO.call = sp.getDxCall();
         dxClusterAssistant->newDXClusterSpot(pQSO);
     }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _freq)
+void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _dxCall;
-    //qDebug() << Q_FUNC_INFO << ": " << _freq.toQString();
+    qDebug() << Q_FUNC_INFO;
     //(void)_dxCall;
     //(void)_freq;
 
+    DXSpot sp = _spot;
+    if (!sp.isValid())
+        return;
 
-    if (util->isValidCall(_dxCall, true))
+    if (util->isValidCall(sp.getDxCall(), true))
     {
         proposedQSOs pQSO;
-        pQSO.call = _dxCall;
+        pQSO.call = sp.getDxCall();
         pQSO.status = ATNO;
-        //pQSO.freq = _freq;
+        pQSO.freq = sp.getFrequency();
         dxClusterAssistant->newDXClusterSpot(pQSO);
         //qDebug() << Q_FUNC_INFO << ": Calling assistant with DXCall Valid: " << _dxCall;
         //qDebug() << Q_FUNC_INFO << ": Calling assistant with Freq: " << _freq.toQString();
@@ -5362,7 +5365,7 @@ void MainWindow::slotDXClusterSpotArrived(const QString _dxCall, const double _f
         return;
     }
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    QString dxGrid = world->getQRZLocator (_dxCall);
+    QString dxGrid = world->getQRZLocator (sp.getDxCall());
 
     Coordinate coord = locator->getLocatorCoordinate (dxGrid);
      //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(_dxCall).arg(_dxGrid).arg(coord.lat).arg(coord.lon);
@@ -5445,33 +5448,31 @@ void MainWindow::updateQSLRecAndSent()
     //qDebug() << "MainWindow::updateQSLRecAndSent - END"  ;
 }
 
-
-
-void MainWindow::defineStationCallsign(const QString &_call)
+QString MainWindow::findStationCallsignToUse()
 {
-     //qDebug() << "MainWindow::defineStationCallsign (currentLog): " << QString::number(currentLog) ;
+    QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
+    if (util->isValidCall(foundCall))
+        return foundCall;
+
+    return mainQRZ;
+}
+
+void MainWindow::defineStationCallsign()
+{
+
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (util->isValidCall (_call))
+    QString logQRZ = findStationCallsignToUse();
+    qDebug() << Q_FUNC_INFO << ": StationCallsign: " << logQRZ;
+    if (!util->isValidCall (logQRZ))
     {
-        stationCallsign = _call;
+        return;
     }
-    else
-    { // If no call is detected, qwe try to find it from the log
-        QString logQRZ;
-        logQRZ = dataProxy->getStationCallSignFromLog(currentLog);
-         //qDebug() << "MainWindow::defineStationCallsign (logQrz): " << logQRZ ;
+    stationCallsign = logQRZ;
 
-        if (util->isValidCall(logQRZ))
-        {
-     //qDebug() << "MainWindow::defineStationCallsign TRUE "  ;
-            stationCallsign = logQRZ;
-        }
-    }
-
-      //qDebug() << "MainWindow::defineStationCallsign: " << stationCallsign  ;
+    qDebug() << Q_FUNC_INFO << ": " << stationCallsign  ;
 
     filemanager->setStationCallSign(stationCallsign);
-     //qDebug() << "MainWindow::defineStationCallsign: AFTER"  ;
+     //qDebug() << Q_FUNC_INFO << ": AFTER"  ;
     myDataTabWidget->setData(stationCallsign, operatorQRZ, myDataTabWidget->getMyLocator());
     dxccStatusWidget->setMyLocator(myDataTabWidget->getMyLocator());
     searchWidget->setStationCallsign(stationCallsign);
@@ -5479,10 +5480,11 @@ void MainWindow::defineStationCallsign(const QString &_call)
     {
         lotwUtilities->setStationCallSign(stationCallsign);
     }
+    dxClusterWidget->setMyQRZ(stationCallsign);
     adifLoTWExportWidget->setDefaultStationCallsign(stationCallsign);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "MainWindow::defineStationCallsign: " << stationCallsign << " - END" ;
+      //qDebug() << Q_FUNC_INFO << ": " << stationCallsign << " - END" ;
 }
 
 void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
@@ -6494,16 +6496,20 @@ bool MainWindow::loadSettings()
         //qDebug() << Q_FUNC_INFO << QString("softwareversion: %1 / version: %2").arg(softwareVersion).arg(value);
         itIsANewversion = true;
     }
-    selectTheLog(currentLog = settings.value ("SelectedLog").toInt());
+    currentLog = settings.value ("SelectedLog").toInt();
+
     setWindowSize (settings.value ("MainWindowSize").toSize ());
 
      //qDebug() << Q_FUNC_INFO << " - 20 - user";
     settings.beginGroup ("UserData");
-    value = settings.value ("CallSign").toString ();
+    value = settings.value ("Callsign").toString ();
+    qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
     if (util->isValidCall(value))
     {
         mainQRZ = value;
     }
+    selectTheLog(currentLog);   // We Select the log after the mainQRZ is defined
+
     value = settings.value ("StationLocator").toString ();
     if ( locator->isValidLocator(value) )
     {
@@ -6708,8 +6714,8 @@ void MainWindow::selectTheLog(const int _i)
             }
         }
     }
-    stationCallsign = dataProxy->getStationCallSignFromLog (currentLog);
-    defineStationCallsign (stationCallsign);
+
+    defineStationCallsign ();
     dxClusterWidget->setCurrentLog(currentLog);
     dxccStatusWidget->setCurrentLog(currentLog);
 }

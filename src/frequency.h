@@ -39,8 +39,9 @@ class Frequency: public QObject
     friend class tst_Frequency;
 
 public:
+    //Frequency() : freq(0.0), bandInMHz(""), tolerance(0.0) {};
     Frequency();
-    Frequency(Frequency *f);
+    Frequency(const Frequency &f);
     Frequency(const double _f, FreqUnits _u = MHz);
     //Frequency(const QString &_parentName);
     //Frequency(const QString &_parentName, const Frequency &_f);

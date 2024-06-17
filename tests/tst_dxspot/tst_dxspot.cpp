@@ -80,7 +80,7 @@ void tst_DXSpot::test_Constructors()
     DXSpot spot1;
     QVERIFY2(!spot1.isValid(), "Constructor-1 not working");
     spot1.setValid(true);
-    DXSpot spot2(&spot1);
+    DXSpot spot2(spot1);
     QVERIFY2(spot2.isValid(), "Constructor-2 not working");
 }
 

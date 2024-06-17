@@ -40,16 +40,18 @@ class DXSpot : public QObject
 
 public:
     DXSpot();
-    DXSpot(DXSpot *_other);
+    //DXSpot(DXSpot *_other);
+    DXSpot(const DXSpot& other) : dxcall(other.dxcall), freq(other.freq), spotter(other.spotter), comment(other.comment), dateTime(other.dateTime), clickStatus(other.clickStatus), valid(other.valid) {};
+
     ~DXSpot();
     void operator=(DXSpot const &_other);
     void clear();
 
     void setValid(const bool _v);
-    bool isValid();
+    bool isValid ();
 
     void setDXCall(const QString &c);
-    QString getDxCall();
+    QString getDxCall ();
     void setSpotter(const QString &c);
     QString getSpotter();
 
@@ -60,7 +62,7 @@ public:
     QDateTime getDateTime();
 
     void setClickStatus(const MouseClicks &_s );
-    bool getClickStatus();
+    MouseClicks getClickStatus();
 
     void setFrequency(Frequency f);
     Frequency getFrequency();

@@ -70,7 +70,7 @@ bool DXClusterAssistant::createUI()
     return true;
 
     //connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
-        //qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void DXClusterAssistant::newDXClusterSpot(proposedQSOs _q)
@@ -140,19 +140,20 @@ void DXClusterAssistant::addCall()
     //qDebug() << Q_FUNC_INFO << " - Start";
     tableWidget->clearContents();
     tableWidget->setRowCount(0);
-    //qDebug() << Q_FUNC_INFO << ": Lenght of list: " << QString::number(list.count());
+
     proposedQSOs aux;
+
     foreach(aux, list)
     {
         //qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
         QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call, QTableWidgetItem::Type);
-        //QTableWidgetItem *newItemFreq = new QTableWidgetItem(aux.freq().toQString(), QTableWidgetItem::Type);
+        QTableWidgetItem *newItemFreq = new QTableWidgetItem(aux.freq.toQString(), QTableWidgetItem::Type);
         QTableWidgetItem *newItemStatus = new QTableWidgetItem(getStringFromStatus(aux.status), QTableWidgetItem::Type);
 
         tableWidget->insertRow(tableWidget->rowCount());
         int row = tableWidget->rowCount();
         tableWidget->setItem(row-1, 0, newItemCall);
-        //tableWidget->setItem(row-1, 1, newItemFreq);
+        tableWidget->setItem(row-1, 1, newItemFreq);
         tableWidget->setItem(row-1, 2, newItemStatus);
     }
     //qDebug() << Q_FUNC_INFO << " - END";

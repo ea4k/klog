@@ -45,7 +45,7 @@ class Frequency;
 struct proposedQSOs
 { // Used to pass a list of data from Awards to dxccstatuswidget
     QString call;
-    //Frequency freq;
+    Frequency freq;
     int priority;
     QSOStatus status;
 };
