@@ -92,6 +92,8 @@ HEADERS += setupdialog.h \
     charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h \
     database.h \
+    database/db_adif_primary_subdvisions_data.h \
+    database/queryexecutor.h \
     dataproxy_sqlite.h \
     downloadcty.h \     \
     dxcluster/dxspot.h \
@@ -172,6 +174,8 @@ SOURCES += main.cpp \
     adif.cpp \
     awardswidget.cpp \
     charts/statsfieldperbandwidget.cpp \
+    database/db_adif_primary_subdvisions_data.cpp \
+    database/queryexecutor.cpp \
     dxcluster/dxcluster.cpp \
     dxcluster/dxclusterassistant.cpp \
     dxcluster/dxspot.cpp \

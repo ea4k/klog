@@ -38,6 +38,26 @@
 #include "mainwindow.h"
 #include "utilities.h"
 
+
+int showNoDB()
+{
+    QMessageBox msgBox;
+    Utilities util(Q_FUNC_INFO);
+    QString msg = QString("There is no DB in the KLog folder and could not create it. KLog can't continue like this.\n") +
+                  QString("Please remove or rename the %1 file and restart KLog.").arg(util.getCfgFile());
+
+    msgBox.setWindowTitle("KLog");
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText(msg);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+    return -1;
+}
+
+
+
 int main(int argc, char *argv[])
 {
     //qDebug() << Q_FUNC_INFO << " -  Start! ";
@@ -46,14 +66,10 @@ int main(int argc, char *argv[])
     //qDebug() << QT_VERSION_STR;
 
     QDir d1 = QDir();
-    //QCoreApplication::setApplicationVersion(QString(APP_VERSION));
     //qDebug() << Q_FUNC_INFO << " - STARTED: ";
     Utilities util(Q_FUNC_INFO);
     QStringList arguments;
     QTextStream cout(stdout);
-    //QCoreApplication::setOrganizationName("EA4K");
-    //QCoreApplication::setOrganizationDomain("klog.xyz");
-    //QCoreApplication::setApplicationName("KLog");
     QApplication app(argc, argv);
 
     QString iconSt;
@@ -66,6 +82,7 @@ int main(int argc, char *argv[])
     app.setApplicationVersion(QString(APP_VERSION));
     QString version = QCoreApplication::applicationVersion();
     //qDebug() << Q_FUNC_INFO << " -  -10 ";
+
     // Now we check if the user is executing from the command line
     arguments.clear();
     arguments << app.arguments();
@@ -88,6 +105,7 @@ int main(int argc, char *argv[])
         app.quit();
         return 0;
     }
+
     //qDebug() << Q_FUNC_INFO << " -  Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss");
     //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
     // Translations begin
@@ -170,28 +188,28 @@ int main(int argc, char *argv[])
     #endif
     //qDebug() << Q_FUNC_INFO << " -  -40 ";
     if (missingTranslation)
-        {
-            //qDebug() << Q_FUNC_INFO << " -  Translation missing! ";
-            QMessageBox msgBox;
-            QString urlTranslate = QString();
-            urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
+    {
+        //qDebug() << Q_FUNC_INFO << " -  Translation missing! ";
+        QMessageBox msgBox;
+        QString urlTranslate = QString();
+        urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
 
-            QString msg = QString();
+        QString msg = QString();
 
-            msgBox.setWindowTitle("KLog");
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setTextFormat(Qt::RichText);
-            QString language = (QLocale::system().name()).left(2); /* Flawfinder: ignore */
+        msgBox.setWindowTitle("KLog");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setTextFormat(Qt::RichText);
+        QString language = (QLocale::system().name()).left(2); /* Flawfinder: ignore */
 
-            msg = QString("No translation files for your language have been found so KLog will be shown in English.") + "<p>" +
-                  QString("If you have the klog_%1.qm file for your language, you can copy it into the %2/translations/ folder and restart KLog.</p><p>If you want to help to translate KLog into your language, please contact the author.").arg(language).arg(QCoreApplication::applicationDirPath()) +
-                  "</p>" + urlTranslate;
+        msg = QString("No translation files for your language have been found so KLog will be shown in English.") + "<p>" +
+              QString("If you have the klog_%1.qm file for your language, you can copy it into the %2/translations/ folder and restart KLog.</p><p>If you want to help to translate KLog into your language, please contact the author.").arg(language).arg(QCoreApplication::applicationDirPath()) +
+              "</p>" + urlTranslate;
 
-            msgBox.setText(msg);
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
-        }
+        msgBox.setText(msg);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
 
     //qDebug() << Q_FUNC_INFO << " - 1" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
@@ -202,6 +220,7 @@ int main(int argc, char *argv[])
     /* Application Singleton
      *
      * We want to run only one instance of KLog application
+     *
      */
     QSystemSemaphore semaphore("klogapp", 1);  // create semaphore with unique ID klogapp
     semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
@@ -252,11 +271,10 @@ int main(int argc, char *argv[])
     // END OF Application Singleton
 
     QString klogDir = util.getHomeDir();
-    //configFileName = util.getCfgFile();
 
     //qDebug() << Q_FUNC_INFO << " - 10";
-
     //qDebug() << Q_FUNC_INFO << " - Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< QT_ENDL;;
+    // First step when running KLog, if the KLog folder does not exist, KLog creates it
     if (!QDir::setCurrent (klogDir) )
     {
         //qDebug() << Q_FUNC_INFO << " - KLogDir does not exist.... creating ";
@@ -275,7 +293,7 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " - 51" << (QTime::currentTime()).toString("HH:mm:ss");
     QSplashScreen splash(pixmap);
 
-
+    // If the KLog configuration file does not exist, we launch the wizard.
     if (!((QFile::exists(util.getCfgFile ()))))
     {
         //qDebug() << Q_FUNC_INFO << " -  Starting wizard... ";
@@ -284,14 +302,15 @@ int main(int argc, char *argv[])
         wizard->exec();
     }
     else
-    {   
+    {   // KLog configuration file exists, let's look for the DB
         //qDebug() << Q_FUNC_INFO << " -  Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss");
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
         //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
         if (!db->createConnection(Q_FUNC_INFO))
         {
             //qDebug() << Q_FUNC_INFO << " - Conection not created";
-            return -1; // Exits with an error; no DB has been created
+            return showNoDB();
+            //return -1; // Exits with an error; no DB has been created
         }
         else
         {
@@ -329,11 +348,8 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " - 111 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.finish(&mw);
     //qDebug() << Q_FUNC_INFO << " - 112 " << (QTime::currentTime()).toString("HH:mm:ss");
-    mw.showNotWar();
+    //mw.showNotWar();
     //qDebug() << Q_FUNC_INFO << " - 113 " << (QTime::currentTime()).toString("HH:mm:ss");
     //qDebug() << Q_FUNC_INFO << " - END";
     return app.exec();
 }
-
-
-

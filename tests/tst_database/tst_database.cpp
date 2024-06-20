@@ -31,6 +31,9 @@
 #include "../../src/world.h"
 #include "../../src/qso.h"
 #include "../../src/dataproxy_sqlite.h"
+#include "../../src/database/db_adif_primary_subdvisions_data.h"
+#include "../../src/database/queryexecutor.h"
+
 /*
     initTestCase() will be called before the first test function is executed.
     initTestCase_data() will be called to create a global test data table.

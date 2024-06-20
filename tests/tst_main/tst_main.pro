@@ -41,6 +41,8 @@ HEADERS += ../../src/setupdialog.h \
     ../../src/charts/statsgridsonsatswidget.h \
     ../../src/charts/statssentconfirmedpiechartwidget.h \
     ../../src/database.h \
+    ../../src/database/queryexecutor.h \
+    ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/downloadcty.h \
     ../../src/dxcluster/dxcluster.h \
@@ -138,6 +140,8 @@ SOURCES += tst_main.cpp \
     ../../src/charts/statsgridsonsatswidget.cpp \
     ../../src/charts/statssentconfirmedpiechartwidget.cpp \
     ../../src/database.cpp \
+    ../../src/database/queryexecutor.cpp \
+    ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/downloadcty.cpp \
     ../../src/dxcluster/dxcluster.cpp \

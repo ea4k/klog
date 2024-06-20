@@ -37,6 +37,8 @@
 #include <QDateTime>
 #include <QInputDialog>
 #include <QProgressDialog>
+//#include "database/queryexecutor.h"
+#include "database/db_adif_primary_subdvisions_data.h"
 #include "utilities.h"
 #include "global.h"
 
@@ -66,7 +68,7 @@ public:
     ~DataBase();
 
     QString getSoftVersion();
-    QString getDBVersion();
+    float getDBVersion();
     QString getDBName();
 
     bool createConnection(const QString &function, bool newDB=false);    // If true that means that we are creating the DB,
@@ -123,6 +125,7 @@ private:
     bool execQuery(const QString &function, const QString &stringQuery);
     bool updateEntity (const QString &_codeString, const int _code);
     bool createDataBase();
+    bool setPragma();       // Defines the PRAGMA for the DB
     bool isTheDBCreated();
     bool isTheTableExisting(const QString &_tableName);
     bool hasTheTableData(const QString &_tableName);
@@ -237,6 +240,7 @@ private:
     QMap<QString, int> modeQMap;
 
     Utilities *util;
+    QueryExecutor *exe;
 
     QSqlDatabase db;
     QString dbDir, dbName;

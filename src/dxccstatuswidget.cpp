@@ -126,7 +126,7 @@ void DXCCStatusWidget::createUI()
 void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    //qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss");
+    qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss");
     int entities = dataProxy->getMaxEntityID(false);
     if (!awards->updateDXCCBandsStatus (-1)) // We update all
     {
@@ -469,7 +469,7 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
 
 void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &_ent, const bool _creating)
 {// Receives the list of band names and defines the columns
-    //qDebug() << Q_FUNC_INFO << "(" << _callingFunc << ")" << QTime::currentTime().toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << "(" << _callingFunc << ")" << QTime::currentTime().toString("HH:mm:ss");
     Q_UNUSED(_callingFunc);
     //foreach(QString aux, _ent)
     //{
@@ -478,12 +478,12 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
     QStringList qs;
     qs.clear();
-    //qDebug() << "DXCCStatusWidget::setBands - 01" << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 01" << QTime::currentTime().toString("HH:mm:ss");
     qs << dataProxy->sortBandNamesBottonUp(_ent);
-    //qDebug() << "DXCCStatusWidget::setBands - 02: Lenght qs: " << QString::number(qs.size()) << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 02: Lenght qs: " << QString::number(qs.size()) << QTime::currentTime().toString("HH:mm:ss");
     if (qs.length()<0)
     {
-        //qDebug() << "DXCCStatusWidget::setBands no bands received here " << QTime::currentTime().toString("HH:mm:ss") << QTime::currentTime().toString("HH:mm:ss");
+        //qDebug() << Q_FUNC_INFO << " no bands received here " << QTime::currentTime().toString("HH:mm:ss") << QTime::currentTime().toString("HH:mm:ss");
         return;
     }
 
@@ -491,26 +491,26 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
     testBand.clear();
 
     bandNames.clear();
-    //qDebug() << "DXCCStatusWidget::setBands - 03 " << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 03 " << QTime::currentTime().toString("HH:mm:ss");
     validBands.clear();
     validBands = dataProxy->getBandNames();
-    //qDebug() << "DXCCStatusWidget::setBands - 04 " << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 04 " << QTime::currentTime().toString("HH:mm:ss");
     dxccView->clearSelection();
     dxccView->clear();
 
     for (int i = 0; i<qs.length(); i++)
     {
-        //qDebug() << "DXCCStatusWidget::setBands-4.1: " << qs.at(i) <<" - " << QTime::currentTime().toString("HH:mm:ss");
+        //qDebug() << Q_FUNC_INFO << "-4.1: " << qs.at(i) <<" - " << QTime::currentTime().toString("HH:mm:ss");
         testBand = qs.at(i);
 
         if (validBands.contains(qs.at(i)))
         {
             bandNames.append(testBand);
-            //qDebug() << "DXCCStatusWidget::setBands-4.2: Added: " << bandNames.last()  << " - " << QTime::currentTime().toString("HH:mm:ss");
+            //qDebug() << Q_FUNC_INFO << "-4.2: Added: " << bandNames.last()  << " - " << QTime::currentTime().toString("HH:mm:ss");
         }
         //else
         //{
-            //qDebug() << "DXCCStatusWidget::setBands -4.3 Not valid band: " << testBand << QTime::currentTime().toString("HH:mm:ss");
+            //qDebug() << Q_FUNC_INFO << " -4.3 Not valid band: " << testBand << QTime::currentTime().toString("HH:mm:ss");
         //}
     }
     dxccView->setColumnCount(0);
@@ -518,35 +518,35 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
 
     while(dxccView->columnCount()>0)
     {
-        //qDebug() << "DXCCStatusWidget::setBands: Still pending: " << QString::number(dxccView->columnCount()) << QTime::currentTime().toString("HH:mm:ss");
+        //qDebug() << Q_FUNC_INFO << ": Still pending: " << QString::number(dxccView->columnCount()) << QTime::currentTime().toString("HH:mm:ss");
         dxccView->removeColumn(0);
     }
     numberOfColumns = dxccView->columnCount();
-    //qDebug() << "DXCCStatusWidget::setBands: -6 All removed: " << QString::number(numberOfColumns) << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << ": -6 All removed: " << QString::number(numberOfColumns) << QTime::currentTime().toString("HH:mm:ss");
     numberOfColumns = 2 + bandNames.length(); //Prefix, Entity Name
-    //qDebug() << "DXCCStatusWidget::setBands - 7.1 - columnCount: " << QString::number(dxccView->columnCount()) << QTime::currentTime().toString("HH:mm:ss");
-    //qDebug() << "DXCCStatusWidget::setBands - 7.1 - numberOfColumns: " << QString::number(numberOfColumns) << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 7.1 - columnCount: " << QString::number(dxccView->columnCount()) << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 7.1 - numberOfColumns: " << QString::number(numberOfColumns) << QTime::currentTime().toString("HH:mm:ss");
     dxccView->setColumnCount(numberOfColumns);
-   //qDebug() << "DXCCStatusWidget::setBands - 7.2 " << QTime::currentTime().toString("HH:mm:ss");
+   //qDebug() << Q_FUNC_INFO << " - 7.2 " << QTime::currentTime().toString("HH:mm:ss");
     dxccView->setRowCount(0);
-    //qDebug() << "DXCCStatusWidget::setBands - 7.3 " << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 7.3 " << QTime::currentTime().toString("HH:mm:ss");
 
     QStringList headerqs;
-      //qDebug() << "DXCCStatusWidget::setBands - 7.4 " << QTime::currentTime()).toString("HH:mm:ss");
+      //qDebug() << Q_FUNC_INFO << " - 7.4 " << QTime::currentTime()).toString("HH:mm:ss");
     headerqs.clear();
-    //qDebug() << "DXCCStatusWidget::setBands - 7.5 " << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 7.5 " << QTime::currentTime().toString("HH:mm:ss");
     headerqs << tr("Prefix") << tr("Entity") << bandNames;
-    //qDebug() << "DXCCStatusWidget::setBands - 8 " << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 8 " << QTime::currentTime().toString("HH:mm:ss");
     dxccView->setHorizontalHeaderLabels(headerqs);
 
-    //qDebug() << "DXCCStatusWidget::setBands - 9 PRE-END" << QTime::currentTime().toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 9 PRE-END" << QTime::currentTime().toString("HH:mm:ss");
 
     if (_creating)
     {
-        //qDebug() << "DXCCStatusWidget::setBands: 9.1 !_creating so updating!" << QTime::currentTime().toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << ": 9.1 !_creating so updating!" << QTime::currentTime().toString("HH:mm:ss");
         update();
     }
-    //qDebug() << "DXCCStatusWidget::setBands: END" << QTime::currentTime().toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << ": END" << QTime::currentTime().toString("HH:mm:ss");
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 }
 

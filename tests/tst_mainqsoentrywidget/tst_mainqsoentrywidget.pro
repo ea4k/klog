@@ -17,7 +17,9 @@ HEADERS += \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
     ../../src/database.h \
-    ../../src/adif.h
+    ../../src/database/queryexecutor.h \
+    ../../src/database/db_adif_primary_subdvisions_data.h \
+      ../../src/adif.h
 
 SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/mainqsoentrywidget.cpp \
@@ -26,6 +28,8 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/qso.cpp \
     ../../src/locator.cpp \
     ../../src/database.cpp \
+    ../../src/database/queryexecutor.cpp \
+    ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/adif.cpp
 
 

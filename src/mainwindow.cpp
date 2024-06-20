@@ -290,80 +290,14 @@ void MainWindow::setWindowSize(const QSize &_size)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::checkDebugFile()
+void MainWindow::init_variables()
 {
-    QFile debugFile(util->getDebugLogFile());
-    if (!debugFile.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("KLog - File not open"));
-        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
-        msgBox.setText(aux);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-    }
-    else
-    {
-        debugFile.close();
-        logEvent(Q_FUNC_INFO, "KLog started!", Debug);
-    }
-}
-
-void MainWindow::checkHomeDir()
-{
-    if (!QDir::setCurrent ( util->getHomeDir () )){
-        QDir d1(util->getHomeDir ());
-        if (d1.mkdir(util->getHomeDir ()))
-        {
-            if (!QDir::setCurrent ( util->getHomeDir () ))
-            {
-                QMessageBox msgBox;
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
-                QString aux = tr("It was not possible to define the KLog folder. Some functions may not work properly!");
-                msgBox.setText(aux);
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.setDefaultButton(QMessageBox::Ok);
-                msgBox.exec();
-            }
-        }
-    }
-}
-
-void MainWindow::init()
-{
-    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
-    logLevel = Debug;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    checkHomeDir();
-
-
-    checkDebugFile();
-
-      //qDebug() << Q_FUNC_INFO << " -  00" ;
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-
-      //qDebug() << Q_FUNC_INFO << " -  000" ;
-    setupDialog->init(softwareVersion, 0, configured);
-       //qDebug() << Q_FUNC_INFO << " -  01" ;
-
-    filemanager->init();
-
-    manualMode = false;
-    qrzAutoChanging = false;
-
+    qDebug() << Q_FUNC_INFO << " - Start";
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
+    manualMode = false;
+    qrzAutoChanging = false;
     logEvents = true;
-    hamlib->initClass();
-    util->setCallValidation (true);
-    infoLabel1T = QString();
-    infoLabel2T = QString();
-    qso->clear();
-
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     modes << "SSB" << "CW";
@@ -376,13 +310,8 @@ void MainWindow::init()
 
     readingTheUI = false;
     itIsANewversion = false;
-
-    setCleaning(false);
-
-       //qDebug() << Q_FUNC_INFO << " -  10" ;
-
-    dxClusterWidget->init();
-
+    infoLabel1T = QString();
+    infoLabel2T = QString();
     infoTimeout = 2000; // default timeout
 
     defaultADIFLogFile = "klog.adi";
@@ -460,9 +389,6 @@ void MainWindow::init()
     qrzcomSubscriber = false;
 
     callingUpdate = false; // to control whether the update is mannually launched or at the begining
-    setModifying(false);
-       //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
-
     selectedYear = (dateTime->currentDateTime()).date().year();
     loggWinAct->setShortcut(Qt::CTRL | Qt::Key_L);
 
@@ -483,13 +409,88 @@ void MainWindow::init()
         confirmedColor.setNamedColor("red");
         newOneColor.setNamedColor("green");
 #endif
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void MainWindow::checkDebugFile()
+{
+    QFile debugFile(util->getDebugLogFile());
+    if (!debugFile.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("KLog - File not open"));
+        QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
+        msgBox.setText(aux);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    else
+    {
+        debugFile.close();
+        logEvent(Q_FUNC_INFO, "KLog started!", Debug);
+    }
+}
+
+void MainWindow::checkHomeDir()
+{
+     if (!QDir::setCurrent ( util->getHomeDir () )){
+        QDir d1(util->getHomeDir ());
+        if (d1.mkdir(util->getHomeDir ()))
+        {
+            if (!QDir::setCurrent ( util->getHomeDir () ))
+            {
+                QMessageBox msgBox;
+                msgBox.setIcon(QMessageBox::Warning);
+                msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
+                QString aux = tr("It was not possible to define the KLog folder. Some functions may not work properly!");
+                msgBox.setText(aux);
+                msgBox.setStandardButtons(QMessageBox::Ok);
+                msgBox.setDefaultButton(QMessageBox::Ok);
+                msgBox.exec();
+            }
+        }
+    }
+}
+
+void MainWindow::init()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    logLevel = Debug;
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    checkHomeDir();
+    checkDebugFile();
+
+    //qDebug() << Q_FUNC_INFO << " -  00" ;
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+
+      //qDebug() << Q_FUNC_INFO << " -  000" ;
+    setupDialog->init(softwareVersion, 0, configured);
+    //qDebug() << Q_FUNC_INFO << " -  01" ;
+
+    filemanager->init();
+    init_variables();
+
+    hamlib->initClass();
+    util->setCallValidation (true);
+    qso->clear();
+
+    setCleaning(false);
+
+    //qDebug() << Q_FUNC_INFO << " -  10" ;
+
+    dxClusterWidget->init();
+
+    setModifying(false);
+       //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     checkExistingData();
     readSettingsFile();
-       //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
+
+    //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
     mapWindow->init();
-
-
       //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
        //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -510,15 +511,15 @@ void MainWindow::init()
     dxClusterWidget->setCurrentLog(currentLog);
     dxClusterAssistant->init();
 
-       //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
-       //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
     checkVersions();
 
-       //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-       //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-       //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentBand = currentBandShown;
     currentMode = currentModeShown;
@@ -546,19 +547,36 @@ void MainWindow::init()
 
 void MainWindow::checkExistingData()
 {
-    //qDebug() << Q_FUNC_INFO << " - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    qDebug() << Q_FUNC_INFO << " - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << " -  1" ;
+    qDebug() << Q_FUNC_INFO << " -  1" ;
     ctyDatFile = util->getCTYFile();
-    //qDebug() << Q_FUNC_INFO << " -  2" ;
-    if (!existingData)
+    qDebug() << Q_FUNC_INFO << " -  2" ;
+    if (existingData)
     {
-        //qDebug() << Q_FUNC_INFO << " -  3" ;
-       world->create(ctyDatFile);
-        //qDebug() << Q_FUNC_INFO << " -  4" ;
+        qDebug() << Q_FUNC_INFO << " -  existingData TRUE" ;
     }
-    else if (!world->hasSpecialEntities())
+    else
     {
+        qDebug() << Q_FUNC_INFO << " -  existingData FALSE" ;
+    }
+    if (world->hasSpecialEntities())
+    {
+        qDebug() << Q_FUNC_INFO << " -  Special Entities TRUE" ;
+    }
+    else
+    {
+         qDebug() << Q_FUNC_INFO << " -  Special Entities FALSE" ;
+    }
+
+    if ((!existingData) || (!world->hasSpecialEntities()))
+    {
+        qDebug() << Q_FUNC_INFO << " -  Recreating world" ;
+        world->recreate(ctyDatFile);
+        qDebug() << Q_FUNC_INFO << " -  3" ;
+        //world->create(ctyDatFile);
+        qDebug() << Q_FUNC_INFO << " -  4" ;
+
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Question);
 
@@ -578,8 +596,9 @@ void MainWindow::checkExistingData()
        default:
            break;
        }
-        //qDebug() << Q_FUNC_INFO << " -  7" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       qDebug() << Q_FUNC_INFO << " -  7" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
+    qDebug() << Q_FUNC_INFO << " -  END" ;
 }
 
 void MainWindow::readSettingsFile()
@@ -3527,7 +3546,7 @@ void MainWindow::startServices()
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-    //qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") ;
+    qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString currentBand = mainQSOEntryWidget->getBand();
     QString currentMode = mainQSOEntryWidget->getMode();
@@ -3562,11 +3581,11 @@ void MainWindow::checkIfNewBandOrMode()
     mapWindow->setModes(modes);
 
 
-     //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") ;
+    qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
     dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
 
-     //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
+    qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
     if (bands.contains(currentBand))
     {
         mainQSOEntryWidget->setBand(currentBand);
@@ -5588,11 +5607,11 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
     mapWindow->setBands(_b);
-    //qDebug() << Q_FUNC_INFO << " - END" ;
+    qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

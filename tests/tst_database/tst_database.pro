@@ -11,6 +11,8 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/database.h \
+    ../../src/database/queryexecutor.h \
+    ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/global.h \
     ../../src/adif.h \
     ../../src/locator.h \
@@ -27,6 +29,8 @@ SOURCES +=  tst_database.cpp \
         ../../src/world.cpp \
         ../../src/dataproxy_sqlite.cpp \
         ../../src/qso.cpp \
+        ../../src/database/queryexecutor.cpp \
+        ../../src/database/db_adif_primary_subdvisions_data.cpp \
         ../../src/database.cpp
 
 isEmpty(QMAKE_LRELEASE) {

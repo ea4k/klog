@@ -529,9 +529,9 @@ QString Utilities::getDBPath()
 
 QString Utilities::getKLogDBFile()
 {   // Returns the full path to the main DB
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(getCfgFile (), QSettings::IniFormat);
-    qDebug() << Q_FUNC_INFO << " - CFG: " << getCfgFile();
+    //qDebug() << Q_FUNC_INFO << " - CFG: " << getCfgFile();
     QString dbFile;
     QString filename = "/logbook.dat";
 
@@ -549,12 +549,12 @@ QString Utilities::getKLogDBFile()
     }
 
     dbFile = settings.value("DBPath").toString () + filename;
-    qDebug() << Q_FUNC_INFO << "DBPath: " << dbFile;
+    //qDebug() << Q_FUNC_INFO << "DBPath: " << dbFile;
 
     if (QFile::exists(dbFile))
         return dbFile;
 
-    qDebug() << Q_FUNC_INFO << " - DBPath file DOES NOT Exist, returning default";
+    //qDebug() << Q_FUNC_INFO << " - DBPath file DOES NOT Exist, returning default";
     return getDBPath() + filename;
 }
 

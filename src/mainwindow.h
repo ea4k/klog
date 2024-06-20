@@ -329,6 +329,7 @@ private slots:
 
 private:
     //void setWidgetsOrder();
+    void init_variables();      // Refactored from init()
     void checkDebugFile();      // Refactored from init()
     void checkExistingData();   // Refactored from init()
     void readSettingsFile();    // Refactored from init()
