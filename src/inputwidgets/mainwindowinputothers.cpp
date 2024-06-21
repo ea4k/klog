@@ -78,6 +78,10 @@ void MainWindowInputOthers::createUI()
     sota_ref = QString();
     distance = 0;
     age = 0;
+    pota_ref = QString();
+    sig = QString();
+    sig_info= QString();
+    wwff_ref = QString();
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
@@ -172,6 +176,11 @@ void MainWindowInputOthers::clear(bool _full)
     sota_ref = QString();
     distance = 0.0;
     age = 0;
+
+    pota_ref = QString();
+    sig = QString();
+    sig_info = QString();
+    wwff_ref = QString();
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
@@ -499,6 +508,87 @@ bool MainWindowInputOthers::getKeep()
     return keepPropCheckBox->isChecked ();
 }
 
+bool MainWindowInputOthers::setPOTA_REF(const QString &_op)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    Adif adif(Q_FUNC_INFO);
+    if (!adif.isValidPOTA(_op))
+        return false;
+    pota_ref = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
+QString MainWindowInputOthers::getPOTA_REF()
+{
+    //qDebug() << Q_FUNC_INFO;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    return pota_ref;
+}
+
+bool MainWindowInputOthers::setSIG(const QString &_op)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    Adif adif(Q_FUNC_INFO);
+    if (_op.length()<=0)
+        return false;
+    sig = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
+QString MainWindowInputOthers::getSIG()
+{
+    //qDebug() << Q_FUNC_INFO;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    return sig;
+}
+
+bool MainWindowInputOthers::setSIG_INFO(const QString &_op)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    Adif adif(Q_FUNC_INFO);
+    if (_op.length()<=0)
+        return false;
+    sig_info = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
+QString MainWindowInputOthers::getSIG_INFO()
+{
+    //qDebug() << Q_FUNC_INFO;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    return sig_info;
+}
+
+
+bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    Adif adif(Q_FUNC_INFO);
+    if (!adif.isValidWWFF_Ref(_op))
+        return false;
+    wwff_ref = _op;
+    slotUSerDefinedADIFComboBoxChanged();
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
+QString MainWindowInputOthers::getWWFF_Ref()
+{
+    //qDebug() << Q_FUNC_INFO;
+    logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    return wwff_ref;
+}
+
 bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -509,6 +599,22 @@ bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
     else if (_value == "AGE")
     {
         userDefinedADIFComboBox->setCurrentIndex (1);
+    }
+    else if (_value == "SIG")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (2);
+    }
+    else if (_value == "SIG_INFO")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (3);
+    }
+    else if (_value == "POTA_REF")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (4);
+    }
+    else if (_value == "WWFF_REF")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (5);
     }
     else
     {
@@ -539,6 +645,18 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
     case 4:
         logEvent (Q_FUNC_INFO, "END-4", Debug);
         return "DISTANCE";
+    case 5:
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
+        return "POTA_REF";
+    case 6:
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
+        return "SIG";
+    case 7:
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
+        return "SIG_INFO";
+    case 8:
+        logEvent (Q_FUNC_INFO, "END-4", Debug);
+        return "WWFF_REF";
     default:
         logEvent (Q_FUNC_INFO, "END", Debug);
         return QString();
@@ -592,6 +710,22 @@ void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
     else if (currentTag == "DISTANCE")
     {
         userDefinedADIFValueLineEdit->setText (QString::number(distance));
+    }
+    else if (currentTag == "POTA_REF")
+    {
+        userDefinedADIFValueLineEdit->setText (pota_ref);
+    }
+    else if (currentTag == "SIG")
+    {
+        userDefinedADIFValueLineEdit->setText (sig);
+    }
+    else if (currentTag == "SIG_INFO")
+    {
+        userDefinedADIFValueLineEdit->setText (sig_info);
+    }
+    else if (currentTag == "WWFF_REF")
+    {
+        userDefinedADIFValueLineEdit->setText (wwff_ref);
     }
 }
 
@@ -728,7 +862,25 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     else if (currentTag == "DISTANCE")
     {
         distance = userDefinedADIFValueLineEdit->text().toDouble();
-        //userDefinedADIFValueLineEdit->setText (QString::number(distance));
+    }
+    if (currentTag == "POTA_REF")
+    {
+        setPOTA_REF(userDefinedADIFValueLineEdit->text());
+        //pota_ref = userDefinedADIFValueLineEdit->text();
+    }
+    if (currentTag == "SIG")
+    {
+        setSIG(userDefinedADIFValueLineEdit->text());
+        //sig = userDefinedADIFValueLineEdit->text();
+    }
+    if (currentTag == "SIG_INFO")
+    {
+        sig = userDefinedADIFValueLineEdit->text();
+    }
+    if (currentTag == "WWFF_REF")
+    {
+        //wwff_ref = userDefinedADIFValueLineEdit->text();
+        setWWFF_Ref(userDefinedADIFValueLineEdit->text());
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
 }

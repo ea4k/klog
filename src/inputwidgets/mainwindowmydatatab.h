@@ -35,6 +35,7 @@
 #include "../klogdefinitions.h"
 #include "../locator.h"
 #include "../utilities.h"
+#include "../adif.h"
 #include "../dataproxy_sqlite.h"
 //#include "dataproxy_sqlite.h"
 
@@ -79,6 +80,14 @@ public:
     bool setMyVUCCGrids(const QString &_op);
     QString getMyVUCCGrids(); // Returns the VUCC list in LOC1, LOC2 or LOC1,LOC2, LOC3, LOC4 format
 
+    bool setMyPota_ref(const QString &_op);
+    QString getMyPota_ref();
+    bool setMySig(const QString &_op);
+    QString getMySig();
+    bool setMySig_info(const QString &_op);
+    QString getMySig_info();
+    bool setMyWWFF_Ref(const QString &_op);
+    QString getMyWWFF_Ref();
 
     bool setUserADIFTypeComboBox(const QString &_value);
     QString getUserADIFTypeComboBox();
@@ -126,7 +135,7 @@ private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
     bool modify;
-    QString my_rig, my_sota, my_antenna, my_vucc_grids;
+    QString my_rig, my_sota, my_antenna, my_vucc_grids, my_pota_ref, my_sig, my_sig_info, my_wwff_ref;
     DebugLogLevel logLevel;
     bool getDarkMode();
 };

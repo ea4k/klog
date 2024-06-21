@@ -31,36 +31,36 @@
 DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
 {
     #ifdef QT_DEBUG
-      qDebug() << Q_FUNC_INFO << _softVersion << _parentFunction;
+      //qDebug() << Q_FUNC_INFO << _softVersion << _parentFunction;
     #else
-      qDebug() << Q_FUNC_INFO << "Running a release build";
+      //qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
     (void)_parentFunction;
-    qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
+    //qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
     logLevel = None;
-    qDebug() << Q_FUNC_INFO << " - 45";
+    //qDebug() << Q_FUNC_INFO << " - 45";
     util = new Utilities(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << " - 46";
+    //qDebug() << Q_FUNC_INFO << " - 46";
     util->setVersion(_softVersion);
-    qDebug() << Q_FUNC_INFO << " - 47";
+    //qDebug() << Q_FUNC_INFO << " - 47";
     util->setCallValidation(false);
-    qDebug() << Q_FUNC_INFO << " - 48: " << util->getKLogDBFile();
+    //qDebug() << Q_FUNC_INFO << " - 48: " << util->getKLogDBFile();
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
-    qDebug() << Q_FUNC_INFO << " - 49";
+    //qDebug() << Q_FUNC_INFO << " - 49";
 
     dbCreated = db->createConnection(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << " - 50";
+    //qDebug() << Q_FUNC_INFO << " - 50";
     util->setLongPrefixes(getLongPrefixes());
-     qDebug() << Q_FUNC_INFO << " - 51";
+     //qDebug() << Q_FUNC_INFO << " - 51";
     util->setSpecialCalls(getSpecialCallsigns());
-     qDebug() << Q_FUNC_INFO << " - 52";
+     //qDebug() << Q_FUNC_INFO << " - 52";
     qso = new QSO;
-    qDebug() << Q_FUNC_INFO << " - 53";
+    //qDebug() << Q_FUNC_INFO << " - 53";
 
     searching = false;
     executionN = 0;
     connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -413,7 +413,7 @@ int DataProxy_SQLite::getBandIdFromFreq(const double _n)
 {
     //Freq should be in MHz
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_n);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_n);
     bool sqlOk = false;
     QString queryString = QString("SELECT id FROM band WHERE lower <= :freq and upper >= :freq");
 
@@ -8120,9 +8120,9 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setSatMode(getADIFValueFromRec(rec, "sat_mode"));
 
     qso.setSFI(getADIFValueFromRec(rec, "sfi").toInt());
-    qso.setSig(getADIFValueFromRec(rec, "sig"));
+    qso.setSIG(getADIFValueFromRec(rec, "sig"));
 
-    qso.setSigInfo(getADIFValueFromRec(rec, "sig_info"));
+    qso.setSIG_INFO(getADIFValueFromRec(rec, "sig_info"));
     qso.setSilentKey(util->QStringToBool(getADIFValueFromRec(rec, "silent_key")));
 
     qso.setSkcc(getADIFValueFromRec(rec, "skcc"));

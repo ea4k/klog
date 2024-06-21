@@ -178,7 +178,12 @@ void MainWindowMyDataTab::clear(bool _full)
         my_rig = QString();
         my_sota = QString();
         my_antenna = QString();
+        my_pota_ref = QString();
+        my_sig = QString();
+        my_sig_info = QString();
+        my_wwff_ref = QString();
         my_vucc_grids = QString();
+
         myUserADIFComboBox->setCurrentIndex(0);
         myUserADIFLineEdit->clear();
         keepThisDataForNextQSOQCheckbox->setChecked (false);
@@ -495,19 +500,36 @@ bool MainWindowMyDataTab::setUserADIFTypeComboBox(const QString &_value)
     {
         myUserADIFComboBox->setCurrentIndex (1);
     }
-    else if (_value == "MY_SOTA_REF")
+    else if (_value == "MY_POTA_REF")
     {
         myUserADIFComboBox->setCurrentIndex (2);
     }
-    else if (_value == "MY_VUCC_GRIDS")
+    else if (_value == "MY_SIG")
     {
         myUserADIFComboBox->setCurrentIndex (3);
+    }
+    else if (_value == "MY_SIG_INFO")
+    {
+        myUserADIFComboBox->setCurrentIndex (4);
+    }
+    else if (_value == "MY_SOTA_REF")
+    {
+        myUserADIFComboBox->setCurrentIndex (5);
+    }
+    else if (_value == "MY_VUCC_GRIDS")
+    {
+        myUserADIFComboBox->setCurrentIndex (6);
+    }
+    else if (_value == "MY_WWFF_REF")
+    {
+        myUserADIFComboBox->setCurrentIndex (7);
     }
     else
     {
         myUserADIFComboBox->setCurrentIndex (0);
         return false;
     }
+
     return true;
 }
 
@@ -523,9 +545,17 @@ QString MainWindowMyDataTab::getUserADIFTypeComboBox()
     case 2:
         return "MY_ANTENNA";
     case 3:
-        return "MY_SOTA_REF";
+        return "MY_POTA_REF";
     case 4:
+        return "MY_SIG";
+    case 5:
+        return "MY_SIG_INFO";
+    case 6:
+        return "MY_SOTA_REF";
+    case 7:
         return "MY_VUCC_GRIDS";
+    case 8:
+        return "MY_WWFF_REF";
     default:
         return QString();
     }
@@ -636,6 +666,64 @@ QString MainWindowMyDataTab::getMyVUCCGrids()
     }
 }
 
+bool MainWindowMyDataTab::setMyPota_ref(const QString &_op)
+{
+    Adif adif(Q_FUNC_INFO);
+    if (!adif.isValidPOTA(_op))
+        return false;
+    my_pota_ref = _op;
+    slotMyUserADIFComboBoxChanged();
+    return true;
+}
+
+QString MainWindowMyDataTab::getMyPota_ref()
+{
+    return my_pota_ref;
+}
+
+bool MainWindowMyDataTab::setMySig(const QString &_op)
+{
+    if (_op.length()<=0)
+        return false;
+    my_sig = _op;
+    slotMyUserADIFComboBoxChanged();
+    return true;
+}
+
+QString MainWindowMyDataTab::getMySig()
+{
+    return my_sig;
+}
+
+bool MainWindowMyDataTab::setMySig_info(const QString &_op)
+{
+    if (_op.length()<=0)
+        return false;
+    my_sig = _op;
+    slotMyUserADIFComboBoxChanged();
+    return true;
+}
+
+QString MainWindowMyDataTab::getMySig_info()
+{
+    return my_sig_info;
+}
+
+bool MainWindowMyDataTab::setMyWWFF_Ref(const QString &_op)
+{
+    Adif adif(Q_FUNC_INFO);
+    if (!adif.isValidWWFF_Ref(_op))
+        return false;
+    my_pota_ref = _op;
+    slotMyUserADIFComboBoxChanged();
+    return true;
+}
+
+QString MainWindowMyDataTab::getMyWWFF_Ref()
+{
+    return my_wwff_ref;
+}
+
 void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -665,6 +753,18 @@ void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
     {
         myUserADIFLineEdit->setText (my_antenna);
     }
+    else if (currentTag == "MY_POTA_REF")
+    {
+        myUserADIFLineEdit->setText (my_pota_ref);
+    }
+    else if (currentTag == "MY_SIG")
+    {
+        myUserADIFLineEdit->setText (my_sig);
+    }
+    else if (currentTag == "MY_SIG_INFO")
+    {
+        myUserADIFLineEdit->setText (my_sig_info);
+    }
     else if (currentTag == "MY_SOTA_REF")
     {
         myUserADIFLineEdit->setText (my_sota);
@@ -672,6 +772,10 @@ void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
     else if (currentTag == "MY_VUCC_GRIDS")
     {
         myUserADIFLineEdit->setText (my_vucc_grids);
+    }
+    else if (currentTag == "MY_WWFF_REF")
+    {
+        myUserADIFLineEdit->setText (my_wwff_ref);
     }
 }
 
@@ -690,6 +794,18 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     {
         my_antenna = myUserADIFLineEdit->text();
     }
+    else if (currentTag == "MY_POTA_REF")
+    {
+        setMyPota_ref(myUserADIFLineEdit->text());
+    }
+    else if (currentTag == "MY_SIG")
+    {
+        my_sig = myUserADIFLineEdit->text();
+    }
+    else if (currentTag == "MY_SIG_INFO")
+    {
+        my_sig_info = myUserADIFLineEdit->text();
+    }
     else if (currentTag == "MY_SOTA_REF")
     {
         my_sota = myUserADIFLineEdit->text();
@@ -701,6 +817,10 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
 
         my_vucc_grids = myUserADIFLineEdit->text().toUpper();
         myUserADIFLineEdit->setText (my_vucc_grids);
+    }
+    else if (currentTag == "MY_WWFF_REF")
+    {
+        setMyWWFF_Ref(myUserADIFLineEdit->text());
     }
     myUserADIFLineEdit->setCursorPosition (currentPos);
 }

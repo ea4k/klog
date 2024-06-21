@@ -182,6 +182,16 @@ public:
     bool setVUCCGrids(const QString &_c);
     QString getVUCCGrids();
 
+    bool setPOTA_Ref(const QString &_c);
+    QString getPOTA_Ref();
+    bool setWWFF_Ref(const QString &_c);
+    QString getWWFF_Ref();
+    bool setSIG(const QString &_c);
+    QString getSIG();
+    bool setSIG_INFO(const QString &_c);
+    QString getSIG_INFO();
+
+
 
     // My data Tab
     bool setTXPwr(double _f);
@@ -194,6 +204,7 @@ public:
     QString getMyGridSquare();
     bool setKeepMyData(bool _k);
     bool getKeepMyData();
+
     bool setMySOTA_REF(const QString &_c);
     QString getMySOTA_REF();
     bool setMyRig(const QString &_c);
@@ -204,6 +215,14 @@ public:
     QString getMyArrlSect();
     bool setMyVUCCGrids(const QString &_c);
     QString getMyVUCCGrids();
+
+    bool setMyPOTA_Ref(const QString &_c);
+    QString getMyPOTA_Ref();
+    bool setMyWWFF_Ref(const QString &_c);
+    QString getMyWWFF_Ref();
+
+
+
     // Satellite Tab
     bool setSatName(const QString &_c);
     QString getSatName();
@@ -346,10 +365,7 @@ public:
     int getTenTen();
     bool setSFI(const int _i);
     int getSFI();
-    bool setSig(const QString &_c);
-    QString getSig();
-    bool setSigInfo(const QString &_c);
-    QString getSigInfo();
+
     bool setSilentKey(bool _k);
     bool getSilentKey();
     bool setSkcc(const QString &_c);
@@ -377,10 +393,7 @@ public:
     QString getVeProv();
     bool setWeb(const QString &_c);
     QString getWeb();
-    bool setWwffRef(const QString &_c);
-    QString getWwffRef();
-    bool setMyWwffRef(const QString &_c);
-    QString getMyWwffRef();
+
     int toDB(int _qsoId = 0);
     bool fromDB(int _qsoId);
     //bool add();
@@ -415,6 +428,7 @@ private:
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_arrl_sect, vucc_grids, my_vucc_grids;
+    QString pota_ref,  my_pota_ref;
     QString clublog_status, hrdlog_status, QRZCom_status;
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
     QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contacted_owner, contest_id;

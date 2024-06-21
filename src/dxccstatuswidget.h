@@ -47,7 +47,7 @@ public:
 
     void update();
     //void awardsUpdated();
-    void setBands(const QString &_callingFunc, const QStringList &_listOfBands, const bool _creating = false); // Receives the list of bandIDs
+    void setBands(const QString &_callingFunc, const QStringList &_listOfNewBands, const bool _creating = false); // Receives the list of bandIDs
     void setCurrentLog(const int _logN);
     void setMyLocator(const QString &_loc);
     void refresh();
@@ -90,7 +90,7 @@ private:
     //QCheckBox *showAllLogsButton;
 
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
-    QStringList bandNames, validBands;
+    QStringList bandNames;//, validBands;
     int logNumber, tempLog; // log in use in the log / log to be used in the widget
     QString loc; // The locator of the user.
 

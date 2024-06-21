@@ -61,7 +61,7 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentF
     refreshButton = new QPushButton;
 
     bandNames.clear();
-    validBands.clear();
+    //validBands.clear();
       //qDebug() << "DXCCStatusWidget::DXCCStatusWidget-4";
     //setDefaultBands();
       //qDebug() << "DXCCStatusWidget::DXCCStatusWidget-5";
@@ -126,7 +126,7 @@ void DXCCStatusWidget::createUI()
 void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss");
     int entities = dataProxy->getMaxEntityID(false);
     if (!awards->updateDXCCBandsStatus (-1)) // We update all
     {
@@ -467,21 +467,25 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
 
-void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &_listOfBands, const bool _creating)
+void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &_listOfNewBands, const bool _creating)
 {// Receives the list of band names and defines the columns
-    qDebug() << Q_FUNC_INFO << "(" << _callingFunc << ")" << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << "(" << _callingFunc << ")" << QTime::currentTime().toString("HH:mm:ss");
     Q_UNUSED(_callingFunc);
-    //foreach(QString aux, _listOfBands)
+    //foreach(QString aux, _listOfNewBands)
     //{
     //    //qDebug << Q_FUNC_INFO << ": " << aux;
     //}
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    QStringList qs;
-    qs.clear();
+    // If the list if empty, we have nothing to do, so we exit.
+    if (_listOfNewBands.length()<=0)
+        return;
+
+    QStringList _bandsReceived;
+    _bandsReceived.clear();
     //qDebug() << Q_FUNC_INFO << " - 01" << QTime::currentTime().toString("HH:mm:ss");
-    qs << dataProxy->sortBandNamesBottonUp(_listOfBands);
+    _bandsReceived << dataProxy->sortBandNamesBottonUp(_listOfNewBands);
     //qDebug() << Q_FUNC_INFO << " - 02: Lenght qs: " << QString::number(qs.size()) << QTime::currentTime().toString("HH:mm:ss");
-    if (qs.length()<0)
+    if (_bandsReceived.length()<0)
     {
         //qDebug() << Q_FUNC_INFO << " no bands received here " << QTime::currentTime().toString("HH:mm:ss") << QTime::currentTime().toString("HH:mm:ss");
         return;
@@ -489,26 +493,37 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
 
     // Let's compare if we are changing something or not
     Utilities util(Q_FUNC_INFO);
-    if (util.areThoseListsTheSame(_listOfBands, _listOfBands))
+    if (util.areThoseListsTheSame(bandNames, _listOfNewBands))
+    {   return;
         qDebug() << Q_FUNC_INFO << " - Bands are the same";
+    }
+    qDebug() << Q_FUNC_INFO << " - Bands are NOT the same";
 
-    QString testBand;
-    testBand.clear();
+
+
 
     bandNames.clear();
     //qDebug() << Q_FUNC_INFO << " - 03 " << QTime::currentTime().toString("HH:mm:ss");
-    validBands.clear();
-    validBands = dataProxy->getBandNames();
+    QStringList allValidBands;
+    allValidBands.clear();
+    allValidBands = dataProxy->getBandNames();
     //qDebug() << Q_FUNC_INFO << " - 04 " << QTime::currentTime().toString("HH:mm:ss");
     dxccView->clearSelection();
     dxccView->clear();
 
+    QString testBand;   // This is just an asstant to run the list of bands vs valid bands
+    testBand.clear();
+    foreach (testBand, _bandsReceived) {
+        if (allValidBands.contains(testBand))
+            bandNames.append(testBand);
+    }
+    /*
     for (int i = 0; i<qs.length(); i++)
     {
         //qDebug() << Q_FUNC_INFO << "-4.1: " << qs.at(i) <<" - " << QTime::currentTime().toString("HH:mm:ss");
         testBand = qs.at(i);
 
-        if (validBands.contains(qs.at(i)))
+        if (allValidBands.contains(qs.at(i)))
         {
             bandNames.append(testBand);
             //qDebug() << Q_FUNC_INFO << "-4.2: Added: " << bandNames.last()  << " - " << QTime::currentTime().toString("HH:mm:ss");
@@ -518,6 +533,7 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
             //qDebug() << Q_FUNC_INFO << " -4.3 Not valid band: " << testBand << QTime::currentTime().toString("HH:mm:ss");
         //}
     }
+    */
     dxccView->setColumnCount(0);
     numberOfColumns = dxccView->columnCount();
 
@@ -544,15 +560,14 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
     //qDebug() << Q_FUNC_INFO << " - 8 " << QTime::currentTime().toString("HH:mm:ss");
     dxccView->setHorizontalHeaderLabels(headerqs);
 
-    qDebug() << Q_FUNC_INFO << " - 9 PRE-END" << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 9 PRE-END" << QTime::currentTime().toString("HH:mm:ss");
 
     if (_creating)
-        //Pasa por aqui en cada inicio y pide revisar todo el log... arggghh!
     {
-        qDebug() << Q_FUNC_INFO << ": 9.1 !_creating so updating!" << QTime::currentTime().toString("HH:mm:ss");
+        //qDebug() << Q_FUNC_INFO << ": 9.1 !_creating so updating!" << QTime::currentTime().toString("HH:mm:ss");
         update();
     }
-    qDebug() << Q_FUNC_INFO << ": END" << QTime::currentTime().toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << ": END" << QTime::currentTime().toString("HH:mm:ss");
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 }
 

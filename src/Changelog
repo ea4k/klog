@@ -19,6 +19,11 @@ TESTS to do during RC releases:
     - check if they are properly imported to the log.
     - Test a dupe QSO, a message should be shown
 
+TEST
+WIP:  #396, #507, #508 (User selectable fields: my_pota_ref, my_sig, my_sig_info, my_wwff_ref)
+WIP:  #396, #507, #508 (User selectable fields: pota_ref, sig, sig_info, wwff_ref)
+
+
 
 TBD - 2.4
 - Enhancement: Ported from Qt5 to Qt6.
@@ -33,6 +38,8 @@ TBD - 2.4
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.
 - Bugfix: ClubLog date was not properly managed.
+- Removed the message against the Russian invasion of Ukraine. No specific reason for this removal.
+  Just I don't feel that it is useful.
 
 
 Mar 2024 - 2.3.4

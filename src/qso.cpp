@@ -1242,6 +1242,35 @@ QString QSO::getMyArrlSect()
     return my_arrl_sect;
 }
 
+bool QSO::setPOTA_Ref(const QString &_c)
+{
+    if (!adif->isValidPOTA(_c))
+        return false;
+    pota_ref = _c;
+    return true;
+}
+
+QString QSO::getPOTA_Ref()
+{
+    return pota_ref;
+}
+
+
+bool QSO::setMyPOTA_Ref(const QString &_c)
+{
+    if (!adif->isValidPOTA(_c))
+        return false;
+    my_pota_ref = _c;
+    return true;
+}
+
+QString QSO::getMyPOTA_Ref()
+{
+    return my_pota_ref;
+}
+
+
+
 bool QSO::setAge(const double _c)
 {
     if ((0 <= _c) && (_c <= 120))
@@ -2335,24 +2364,24 @@ int QSO::getSFI()
     return sfi;
 }
 
-bool QSO::setSig(const QString &_c)
+bool QSO::setSIG(const QString &_c)
 {
     sig = _c;
     return true;
 }
 
-QString QSO::getSig()
+QString QSO::getSIG()
 {
     return sig;
 }
 
-bool QSO::setSigInfo(const QString &_c)
+bool QSO::setSIG_INFO(const QString &_c)
 {
     sig_info = _c;
     return true;
 }
 
-QString QSO::getSigInfo()
+QString QSO::getSIG_INFO()
 {
     return sig_info;
 }
@@ -2526,24 +2555,28 @@ QString QSO::getWeb()
     return web;
 }
 
-bool QSO::setWwffRef(const QString &_c)
+bool QSO::setWWFF_Ref(const QString &_c)
 {
+    if (!adif->isValidWWFF_Ref(_c))
+        return false;
     wwff_ref = _c;
     return true;
 }
 
-QString QSO::getWwffRef()
+QString QSO::getWWFF_Ref()
 {
     return wwff_ref;
 }
 
-bool QSO::setMyWwffRef(const QString &_c)
+bool QSO::setMyWWFF_Ref(const QString &_c)
 {
+    if (!adif->isValidWWFF_Ref(_c))
+        return false;
     my_wwff_ref = _c;
     return true;
 }
 
-QString QSO::getMyWwffRef()
+QString QSO::getMyWWFF_Ref()
 {
     return my_wwff_ref;
 }
@@ -2687,6 +2720,7 @@ void QSO::InitializeHash() {
         {"MY_LON", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyLongitude)},
         {"MY_NAME", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyName)},
         {"MY_POSTAL_CODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyPostalCode)},
+        {"MY_POTA_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyPOTA_Ref)},
         {"MY_RIG", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyRig)},
         {"MY_SIG", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMySig)},
         {"MY_SIG_INFO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMySigInfo)},
@@ -2695,7 +2729,7 @@ void QSO::InitializeHash() {
         {"MY_STREET", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyStreet)},
         {"MY_USACA_COUNTIES", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyUsacaCounties)},
         {"MY_VUCC_GRIDS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyVUCCGrids)},
-        {"MY_WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyWwffRef)},
+        {"MY_WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyWWFF_Ref)},
         {"NAME", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setName)},
         {"NOTES", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setNotes)},
         {"NR_BURSTS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setNrBursts)},
@@ -2703,6 +2737,7 @@ void QSO::InitializeHash() {
         {"OPERATOR", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setOperatorCallsign)},
         {"OWNER_CALLSIGN", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setOwnerCallsign)},
         {"PFX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setPrefix)},
+        {"POTA_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setPOTA_Ref)},
         {"PRECEDENCE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setPrecedence)},
         {"PROP_MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setPropMode)},
         {"PUBLIC_KEY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setPublicKey)},
@@ -2729,8 +2764,8 @@ void QSO::InitializeHash() {
         {"SAT_MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSatMode)},
         {"SAT_NAME", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSatName)},
         {"SFI", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSFI)},
-        {"SIG", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSig)},
-        {"SIG_INFO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSigInfo)},
+        {"SIG", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSIG)},
+        {"SIG_INFO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSIG_INFO)},
         {"SILENT_KEY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSilentKey)},
         {"SKCC", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSkcc)},
         {"SOTA_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setSOTA_REF)},
@@ -2751,7 +2786,7 @@ void QSO::InitializeHash() {
         {"VE_PROV", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setVeProv)},
         {"VUCC_GRIDS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setVUCCGrids)},
         {"WEB", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWeb)},
-        {"WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWwffRef)},
+        {"WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWWFF_Ref)},
         {"APP_LOTW_RXQSL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLRDate2)},
         {"APP_LOTW_RXQSO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate1)},
         {"APP_LOTW_QSO_TIMESTAMP", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate2)}
@@ -3211,8 +3246,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":sat_mode", getSatMode());
     query.bindValue(":sat_name",getSatName());
     query.bindValue(":sfi", getSFI());
-    query.bindValue(":sig", getSig());
-    query.bindValue(":sig_info", getSigInfo ());
+    query.bindValue(":sig", getSIG());
+    query.bindValue(":sig_info", getSIG_INFO ());
     query.bindValue(":silent_key", util->boolToCharToSQLite (getSilentKey ()));
     query.bindValue(":skcc", getSkcc ());
 
@@ -3700,8 +3735,8 @@ bool QSO::fromDB(int _qsoId)
     setSatMode((query.value(rec.indexOf("sat_mode"))).toString());
 
     setSFI((query.value(rec.indexOf("sfi"))).toInt());
-    setSig((query.value(rec.indexOf("sig"))).toString());
-    setSigInfo((query.value(rec.indexOf("sig_info"))).toString());
+    setSIG((query.value(rec.indexOf("sig"))).toString());
+    setSIG_INFO((query.value(rec.indexOf("sig_info"))).toString());
 
     setSilentKey(util->QStringToBool((query.value(rec.indexOf("silent_key"))).toString()));
     setSkcc((query.value(rec.indexOf("skcc"))).toString());

@@ -368,6 +368,20 @@ bool Adif::isValidQSO_COMPLETE(const QString &_s)
     return ((_s == "Y") || (_s == "N") || (_s == "NIL") || (_s == "?"));
 }
 
+bool Adif::Adif::isValidPOTA(const QString &_s)
+{
+    if (_s.length()<1)
+        return false;
+    return true;
+}
+
+bool isValidWWFF_Ref(const QString &_s)
+{
+    if (_s.length()<1)
+        return false;
+    return true;
+}
+
 /*
 bool Utilities::isValidComment(const QString &_b)
 {

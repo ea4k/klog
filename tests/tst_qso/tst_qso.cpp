@@ -403,10 +403,10 @@ void tst_QSO::test_AdifCreation()
     int getTenTen();
     bool setSFI(const int _i);
     int getSFI();
-    bool setSig(const QString &_c);
-    QString getSig();
-    bool setSigInfo(const QString &_c);
-    QString getSigInfo();
+    bool setSIG(const QString &_c);
+    QString getSIG();
+    bool setSIG_INFO(const QString &_c);
+    QString getSIG_INFO();
     bool setSilentKey(bool _k);
     bool getSilentKey();
     bool setSkcc(const QString &_c);
@@ -434,8 +434,8 @@ void tst_QSO::test_AdifCreation()
     QString getVeProv();
     bool setWeb(const QString &_c);
     QString getWeb();
-    bool setWwffRef(const QString &_c);
-    QString getWwffRef();
+    bool setWWFFRef(const QString &_c);
+    QString getWWFFRef();
     bool setMyWwffRef(const QString &_c);
 
 

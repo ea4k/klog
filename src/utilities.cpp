@@ -1481,7 +1481,7 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
 
 bool Utilities::areThoseListsTheSame(const QStringList &_list1, const QStringList &_list2)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     // If the lists don't have the same number of items are not the same.
     if (_list1.size() != _list2.size())
@@ -1499,11 +1499,11 @@ bool Utilities::areThoseListsTheSame(const QStringList &_list1, const QStringLis
 
     for (int i=0;i<_first.count();i++)
     {
-        qDebug() << Q_FUNC_INFO << ": " << _first.at(i) << "/" << _second.at(i);
+        //qDebug() << Q_FUNC_INFO << ": " << _first.at(i) << "/" << _second.at(i);
         if (_first.at(i) != _second.at(i))
             return false;
     }
-    qDebug() << Q_FUNC_INFO << " - END true";
+    //qDebug() << Q_FUNC_INFO << " - END true";
     return true;
 }
 

@@ -33,6 +33,7 @@
 #include "../dataproxy_sqlite.h"
 #include "../utilities.h"
 #include "../klogdefinitions.h"
+#include "../adif.h"
 
 class MainWindowInputOthers : public QWidget
 {
@@ -65,6 +66,14 @@ public:
     double getDistance();
     bool setVUCCGrids(const QString &_op);
     QString getVUCCGrids();
+    bool setPOTA_REF(const QString &_op);
+    QString getPOTA_REF();
+    bool setSIG(const QString &_op);
+    QString getSIG();
+    bool setSIG_INFO(const QString &_op);
+    QString getSIG_INFO();
+    bool setWWFF_Ref(const QString &_op);
+    QString getWWFF_Ref();
 
     void setIOTA(const QString &_qs);
     QString getIOTA();
@@ -113,7 +122,7 @@ private:
     QLineEdit *userDefinedADIFValueLineEdit;
     QStringList adifValidTypes;
 
-    QString sota_ref, vucc_grids;
+    QString sota_ref, vucc_grids, pota_ref, sig, sig_info, wwff_ref;
     double age, distance;
     DebugLogLevel logLevel;
 };

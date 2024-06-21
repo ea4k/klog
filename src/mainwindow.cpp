@@ -292,7 +292,7 @@ void MainWindow::setWindowSize(const QSize &_size)
 
 void MainWindow::init_variables()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     manualMode = false;
@@ -409,7 +409,7 @@ void MainWindow::init_variables()
         confirmedColor.setNamedColor("red");
         newOneColor.setNamedColor("green");
 #endif
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::checkDebugFile()
@@ -547,35 +547,35 @@ void MainWindow::init()
 
 void MainWindow::checkExistingData()
 {
-    qDebug() << Q_FUNC_INFO << " - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    //qDebug() << Q_FUNC_INFO << " - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     bool existingData = QFile::exists(util->getKLogDBFile());
-    qDebug() << Q_FUNC_INFO << " -  1" ;
+    //qDebug() << Q_FUNC_INFO << " -  1" ;
     ctyDatFile = util->getCTYFile();
-    qDebug() << Q_FUNC_INFO << " -  2" ;
+    //qDebug() << Q_FUNC_INFO << " -  2" ;
     if (existingData)
     {
-        qDebug() << Q_FUNC_INFO << " -  existingData TRUE" ;
+        //qDebug() << Q_FUNC_INFO << " -  existingData TRUE" ;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " -  existingData FALSE" ;
+        //qDebug() << Q_FUNC_INFO << " -  existingData FALSE" ;
     }
     if (world->hasSpecialEntities())
     {
-        qDebug() << Q_FUNC_INFO << " -  Special Entities TRUE" ;
+        //qDebug() << Q_FUNC_INFO << " -  Special Entities TRUE" ;
     }
     else
     {
-         qDebug() << Q_FUNC_INFO << " -  Special Entities FALSE" ;
+         //qDebug() << Q_FUNC_INFO << " -  Special Entities FALSE" ;
     }
 
     if ((!existingData) || (!world->hasSpecialEntities()))
     {
-        qDebug() << Q_FUNC_INFO << " -  Recreating world" ;
+        //qDebug() << Q_FUNC_INFO << " -  Recreating world" ;
         world->recreate(ctyDatFile);
-        qDebug() << Q_FUNC_INFO << " -  3" ;
+        //qDebug() << Q_FUNC_INFO << " -  3" ;
         //world->create(ctyDatFile);
-        qDebug() << Q_FUNC_INFO << " -  4" ;
+        //qDebug() << Q_FUNC_INFO << " -  4" ;
 
        QMessageBox msgBox;
        msgBox.setIcon(QMessageBox::Question);
@@ -596,9 +596,9 @@ void MainWindow::checkExistingData()
        default:
            break;
        }
-       qDebug() << Q_FUNC_INFO << " -  7" << (QTime::currentTime()).toString("HH:mm:ss") ;
+       //qDebug() << Q_FUNC_INFO << " -  7" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
-    qDebug() << Q_FUNC_INFO << " -  END" ;
+    //qDebug() << Q_FUNC_INFO << " -  END" ;
 }
 
 void MainWindow::readSettingsFile()
@@ -1300,6 +1300,10 @@ bool MainWindow::readQSOFromUI()
     qso->setMyAntenna (myDataTabWidget->getMyAntenna());
     qso->setMySOTA_REF (myDataTabWidget->getMySOTA());
     qso->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
+    qso->setMyPOTA_Ref(myDataTabWidget->getMyPota_ref());
+    qso->setMySig(myDataTabWidget->getMySig());
+    qso->setMySigInfo(myDataTabWidget->getMySig_info());
+    qso->setMyWWFF_Ref(myDataTabWidget->getMyWWFF_Ref());
 
     qso->setComment (commentTabWidget->getComment());
     qso->setQSLMsg (QSLTabWidget->getQSLMsg());
@@ -1316,6 +1320,10 @@ bool MainWindow::readQSOFromUI()
     qso->setAge (othersTabWidget->getAge());
     qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
     qso->setIOTA (othersTabWidget->getIOTA());
+    qso->setPOTA_Ref(othersTabWidget->getPOTA_REF());
+    qso->setSIG(othersTabWidget->getSIG());
+    qso->setSIG_INFO(othersTabWidget->getSIG_INFO());
+    qso->setWWFF_Ref(othersTabWidget->getWWFF_Ref());
 
     qso->setSatName (satTabWidget->getSatName());
     qso->setSatMode (satTabWidget->getSatMode());
@@ -3546,7 +3554,7 @@ void MainWindow::startServices()
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-    qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") ;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString currentBand = mainQSOEntryWidget->getBand();
     QString currentMode = mainQSOEntryWidget->getMode();
@@ -3581,11 +3589,11 @@ void MainWindow::checkIfNewBandOrMode()
     mapWindow->setModes(modes);
 
 
-    qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") ;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
     dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
 
-    qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
+    //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
     if (bands.contains(currentBand))
     {
         mainQSOEntryWidget->setBand(currentBand);
@@ -4711,6 +4719,11 @@ void MainWindow::qsoToEdit (const int _qso)
     myDataTabWidget->setMyRig (qsoE.getMyRig());
     myDataTabWidget->setMyAntenna (qsoE.getMyAntenna());
     myDataTabWidget->setMySOTA (qsoE.getMySOTA_REF());
+    myDataTabWidget->setMyPota_ref(qsoE.getMyPOTA_Ref());
+    myDataTabWidget->setMySig(qsoE.getMySig());
+    myDataTabWidget->setMySig_info(qsoE.getMySigInfo());
+    myDataTabWidget->setMyWWFF_Ref(qsoE.getMyWWFF_Ref());
+
     myDataTabWidget->setMyPower(qsoE.getTXPwr());
 
     QSOTabWidget->setRXPwr(qsoE.getRXPwr());
@@ -4760,7 +4773,11 @@ void MainWindow::qsoToEdit (const int _qso)
     othersTabWidget->setAge (qsoE.getAge());
     othersTabWidget->setDistance(qsoE.getDistance());
     othersTabWidget->setVUCCGrids (qsoE.getVUCCGrids());
-    othersTabWidget->setIOTA(qsoE.getIOTA());
+    othersTabWidget->setIOTA(qsoE.getIOTA());  
+    othersTabWidget->setPOTA_REF(qsoE.getPOTA_Ref());
+    othersTabWidget->setSIG(qsoE.getSIG());
+    othersTabWidget->setSIG_INFO(qsoE.getSIG_INFO());
+    othersTabWidget->setWWFF_Ref(qsoE.getWWFF_Ref());
 
     //qDebug() << Q_FUNC_INFO << " - in default - 100: " << QString::number(currentEntity)  ;
     //qDebug() << Q_FUNC_INFO << " - Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) ;
@@ -5306,7 +5323,7 @@ void MainWindow::slotFilePrint()
 
 void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     DXSpot sp = _spot;
@@ -5354,7 +5371,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 
 void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     //(void)_dxCall;
     //(void)_freq;
 
@@ -5481,14 +5498,14 @@ void MainWindow::defineStationCallsign()
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString logQRZ = findStationCallsignToUse();
-    qDebug() << Q_FUNC_INFO << ": StationCallsign: " << logQRZ;
+    //qDebug() << Q_FUNC_INFO << ": StationCallsign: " << logQRZ;
     if (!util->isValidCall (logQRZ))
     {
         return;
     }
     stationCallsign = logQRZ;
 
-    qDebug() << Q_FUNC_INFO << ": " << stationCallsign  ;
+    //qDebug() << Q_FUNC_INFO << ": " << stationCallsign  ;
 
     filemanager->setStationCallSign(stationCallsign);
      //qDebug() << Q_FUNC_INFO << ": AFTER"  ;
@@ -5607,11 +5624,11 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
     satTabWidget->addBands(_b);
     mapWindow->setBands(_b);
-    qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -6329,6 +6346,11 @@ void MainWindow::backupCurrentQSO()
     logEvent(Q_FUNC_INFO, "- 066", Devel);
     backupQSO->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
     logEvent(Q_FUNC_INFO, "- 067", Devel);
+    backupQSO->setMyPOTA_Ref(myDataTabWidget->getMyPota_ref());
+    backupQSO->setMySig(myDataTabWidget->getMySig());
+    backupQSO->setMySigInfo(myDataTabWidget->getMySig_info());
+    backupQSO->setMyWWFF_Ref(myDataTabWidget->getMyWWFF_Ref());
+
     backupQSO->setMyGridSquare (myDataTabWidget->getMyLocator ());
     logEvent(Q_FUNC_INFO, "- 068", Devel);
     backupQSO->setKeepMyData (myDataTabWidget->getKeep ());
@@ -6411,6 +6433,11 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     othersTabWidget->setAge(backupQSO->getAge ());
     othersTabWidget->setDistance(backupQSO->getDistance());
 
+    othersTabWidget->setPOTA_REF(backupQSO->getPOTA_Ref());
+    othersTabWidget->setSIG(backupQSO->getSIG());
+    othersTabWidget->setSIG_INFO(backupQSO->getSIG_INFO());
+    othersTabWidget->setWWFF_Ref(backupQSO->getWWFF_Ref());
+
     othersTabWidget->setEntity (backupQSO->getDXCC ());
     othersTabWidget->setIOTA (backupQSO->getIOTA ());
     //qDebug() << Q_FUNC_INFO << ": Restoring propMode";
@@ -6437,6 +6464,11 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     myDataTabWidget->setMyAntenna (backupQSO->getMyAntenna ());
     myDataTabWidget->setMySOTA (backupQSO->getMySOTA_REF ());
     myDataTabWidget->setMyVUCCGrids (backupQSO->getMyVUCCGrids ());
+    myDataTabWidget->setMyPota_ref(backupQSO->getMyPOTA_Ref());
+    myDataTabWidget->setMySig(backupQSO->getMySig());
+    myDataTabWidget->setMySig_info(backupQSO->getMySigInfo());
+    myDataTabWidget->setMyWWFF_Ref(backupQSO->getMyWWFF_Ref());
+
         //MainWindowSatTab
     satTabWidget->setSatName (backupQSO->getSatName ());
     satTabWidget->setSatMode (backupQSO->getSatMode ());
@@ -6522,7 +6554,7 @@ bool MainWindow::loadSettings()
      //qDebug() << Q_FUNC_INFO << " - 20 - user";
     settings.beginGroup ("UserData");
     value = settings.value ("Callsign").toString ();
-    qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
+    //qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
     if (util->isValidCall(value))
     {
         mainQRZ = value;
