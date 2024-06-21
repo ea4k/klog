@@ -1479,6 +1479,34 @@ QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
     return result;
 }
 
+bool Utilities::areThoseListsTheSame(const QStringList &_list1, const QStringList &_list2)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+
+    // If the lists don't have the same number of items are not the same.
+    if (_list1.size() != _list2.size())
+        return false;
+
+    // Let's order the lists and compare their elements
+    QStringList _first, _second;
+    _first.clear();
+    _first << _list1;
+    _first.sort(Qt::CaseInsensitive);
+
+    _second.clear();
+    _second << _list2;
+    _second.sort(Qt::CaseInsensitive);
+
+    for (int i=0;i<_first.count();i++)
+    {
+        qDebug() << Q_FUNC_INFO << ": " << _first.at(i) << "/" << _second.at(i);
+        if (_first.at(i) != _second.at(i))
+            return false;
+    }
+    qDebug() << Q_FUNC_INFO << " - END true";
+    return true;
+}
+
 QString Utilities::getAValidCall (const QString &_wrongCall)
 {
     //qDebug() << "Utilities::getAValidCall: " << _wrongCall ;

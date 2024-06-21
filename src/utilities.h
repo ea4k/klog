@@ -129,6 +129,7 @@ public:
     bool isValidPropMode(const QString &_s);
     bool isValidEmail(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
+    bool areThoseListsTheSame(const QStringList &_list1, const QStringList &_list2);
     //QString getADIFField(const QString &_fieldName, const QString &_data);
 
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K

@@ -467,11 +467,11 @@ void DXCCStatusWidget::addEntity2(const QStringList &_ent)
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
 
-void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &_ent, const bool _creating)
+void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &_listOfBands, const bool _creating)
 {// Receives the list of band names and defines the columns
     qDebug() << Q_FUNC_INFO << "(" << _callingFunc << ")" << QTime::currentTime().toString("HH:mm:ss");
     Q_UNUSED(_callingFunc);
-    //foreach(QString aux, _ent)
+    //foreach(QString aux, _listOfBands)
     //{
     //    //qDebug << Q_FUNC_INFO << ": " << aux;
     //}
@@ -479,13 +479,18 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
     QStringList qs;
     qs.clear();
     //qDebug() << Q_FUNC_INFO << " - 01" << QTime::currentTime().toString("HH:mm:ss");
-    qs << dataProxy->sortBandNamesBottonUp(_ent);
+    qs << dataProxy->sortBandNamesBottonUp(_listOfBands);
     //qDebug() << Q_FUNC_INFO << " - 02: Lenght qs: " << QString::number(qs.size()) << QTime::currentTime().toString("HH:mm:ss");
     if (qs.length()<0)
     {
         //qDebug() << Q_FUNC_INFO << " no bands received here " << QTime::currentTime().toString("HH:mm:ss") << QTime::currentTime().toString("HH:mm:ss");
         return;
     }
+
+    // Let's compare if we are changing something or not
+    Utilities util(Q_FUNC_INFO);
+    if (util.areThoseListsTheSame(_listOfBands, _listOfBands))
+        qDebug() << Q_FUNC_INFO << " - Bands are the same";
 
     QString testBand;
     testBand.clear();
@@ -542,6 +547,7 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
     qDebug() << Q_FUNC_INFO << " - 9 PRE-END" << QTime::currentTime().toString("HH:mm:ss");
 
     if (_creating)
+        //Pasa por aqui en cada inicio y pide revisar todo el log... arggghh!
     {
         qDebug() << Q_FUNC_INFO << ": 9.1 !_creating so updating!" << QTime::currentTime().toString("HH:mm:ss");
         update();
