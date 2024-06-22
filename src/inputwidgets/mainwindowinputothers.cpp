@@ -174,9 +174,10 @@ void MainWindowInputOthers::clear(bool _full)
     userDefinedADIFComboBox->setCurrentIndex (0);
     userDefinedADIFValueLineEdit->clear ();
     sota_ref = QString();
+
     distance = 0.0;
     age = 0;
-
+    vucc_grids = QString();
     pota_ref = QString();
     sig = QString();
     sig_info = QString();
@@ -335,16 +336,7 @@ void MainWindowInputOthers::clearIOTA()
 bool MainWindowInputOthers::isIOTAModified()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if ((iotaContinentComboBox->currentIndex()>0) || (iotaNumberLineEdit->text()).toInt()>0)
-    {
-        logEvent (Q_FUNC_INFO, "END-True", Debug);
-        return true;
-    }
-    else
-    {
-        logEvent (Q_FUNC_INFO, "END-False", Debug);
-        return false;
-    }
+    return ((iotaContinentComboBox->currentIndex()>0) || (iotaNumberLineEdit->text()).toInt()>0);
 }
 
 void MainWindowInputOthers::setIOTA(const QString &_qs)
@@ -600,21 +592,29 @@ bool MainWindowInputOthers::setUserADIFTypeComboBox(const QString &_value)
     {
         userDefinedADIFComboBox->setCurrentIndex (1);
     }
-    else if (_value == "SIG")
+    else if (_value == "DISTANCE")
     {
         userDefinedADIFComboBox->setCurrentIndex (2);
     }
-    else if (_value == "SIG_INFO")
+    else if (_value == "POTA_REF")
     {
         userDefinedADIFComboBox->setCurrentIndex (3);
     }
-    else if (_value == "POTA_REF")
+    else if (_value == "SIG")
     {
         userDefinedADIFComboBox->setCurrentIndex (4);
     }
-    else if (_value == "WWFF_REF")
+    else if (_value == "SIG_INFO")
     {
         userDefinedADIFComboBox->setCurrentIndex (5);
+    }
+    else if (_value == "VUCC_GRIDS")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (6);
+    }
+    else if (_value == "WWFF_REF")
+    {
+        userDefinedADIFComboBox->setCurrentIndex (7);
     }
     else
     {
@@ -641,21 +641,21 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
         return "AGE";
     case 3:
         logEvent (Q_FUNC_INFO, "END-3", Debug);
-        return "VUCC_GRIDS";
+        return "DISTANCE";
     case 4:
         logEvent (Q_FUNC_INFO, "END-4", Debug);
-        return "DISTANCE";
-    case 5:
-        logEvent (Q_FUNC_INFO, "END-4", Debug);
         return "POTA_REF";
-    case 6:
-        logEvent (Q_FUNC_INFO, "END-4", Debug);
+    case 5:
+        logEvent (Q_FUNC_INFO, "END-5", Debug);
         return "SIG";
-    case 7:
-        logEvent (Q_FUNC_INFO, "END-4", Debug);
+    case 6:
+        logEvent (Q_FUNC_INFO, "END-6", Debug);
         return "SIG_INFO";
+    case 7:
+        logEvent (Q_FUNC_INFO, "END-7", Debug);
+        return "VUCC_GRIDS";
     case 8:
-        logEvent (Q_FUNC_INFO, "END-4", Debug);
+        logEvent (Q_FUNC_INFO, "END-8", Debug);
         return "WWFF_REF";
     default:
         logEvent (Q_FUNC_INFO, "END", Debug);
@@ -679,8 +679,11 @@ QString MainWindowInputOthers::getUserADIFValue()
 bool MainWindowInputOthers::setInitialADIFValues()
 {
     logEvent (Q_FUNC_INFO, "END-", Debug);
-    adifValidTypes << "01-" + tr("SOTA Ref") << "02-" + tr ("Age") << "03-" + tr ("VUCC grids")
-                   << "04-" + tr("Distance");
+    adifValidTypes<< "01-" + tr("SOTA Ref") << "02-" + tr ("Age")
+                   << "03-" + tr("Distance") << "04-" + tr("POTA Ref")
+                   << "05-" + tr("SIG") << "06-" + tr("SIG Info")
+                   << "07-" + tr ("VUCC grids") << "08-" + tr("WWFF Ref");
+
     userDefinedADIFComboBox->clear ();
     userDefinedADIFComboBox->addItems (adifValidTypes);
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -864,23 +867,24 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
         distance = userDefinedADIFValueLineEdit->text().toDouble();
     }
     if (currentTag == "POTA_REF")
-    {
-        setPOTA_REF(userDefinedADIFValueLineEdit->text());
-        //pota_ref = userDefinedADIFValueLineEdit->text();
+    {    
+        pota_ref = userDefinedADIFValueLineEdit->text();
     }
     if (currentTag == "SIG")
     {
-        setSIG(userDefinedADIFValueLineEdit->text());
+        sig = userDefinedADIFValueLineEdit->text();
+        //setSIG(userDefinedADIFValueLineEdit->text());
         //sig = userDefinedADIFValueLineEdit->text();
     }
     if (currentTag == "SIG_INFO")
     {
-        sig = userDefinedADIFValueLineEdit->text();
+        sig_info = userDefinedADIFValueLineEdit->text();
     }
     if (currentTag == "WWFF_REF")
     {
         //wwff_ref = userDefinedADIFValueLineEdit->text();
-        setWWFF_Ref(userDefinedADIFValueLineEdit->text());
+        wwff_ref = userDefinedADIFValueLineEdit->text();
+        //setWWFF_Ref(userDefinedADIFValueLineEdit->text());
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
 }

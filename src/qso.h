@@ -233,6 +233,8 @@ public:
 
     bool setAddress(const QString &_c);
     QString getAddress();
+    bool setAltitude(const double _c);
+    double getAltitude();
     bool setA_Index(const int _i);
     int getA_Index();
     bool setAnt_az(const double _c);
@@ -315,6 +317,8 @@ public:
     QString getMsShower();
     bool setQSORandom(bool _k);
     bool getQSORandom();
+    bool setMyAltitude(const double _c);
+    double getMyAltitude();
     bool setMyCity(const QString &_c);
     QString getMyCity();
     bool setMyCounty(const QString &_c);
@@ -394,6 +398,8 @@ public:
     bool setWeb(const QString &_c);
     QString getWeb();
 
+
+
     int toDB(int _qsoId = 0);
     bool fromDB(int _qsoId);
     //bool add();
@@ -423,7 +429,7 @@ private:
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, distance;
+    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, distance, altitude, my_altitude;
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
@@ -458,6 +464,7 @@ private:
 
     //Overloaded helper functions to accept string data for nonstring functions
     bool setAge(const QString &data);
+    bool setAltitude(const QString &data);
     bool setA_Index(const QString &data);
     bool setAnt_az(const QString &data);
     bool setAnt_el(const QString &data);
@@ -471,6 +478,7 @@ private:
     bool setItuZone(const QString &data);
     bool setK_Index(const QString &data);
     bool setMaxBursts(const QString &data);
+    bool setMyAltitude(const QString &data);
     bool setMyCQZone(const QString &data);
     bool setMyDXCC(const QString &data);
     bool setMyIotaID(const QString &data);

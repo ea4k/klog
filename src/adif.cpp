@@ -212,7 +212,7 @@ void Adif::setARRLSect()
         "ME", "MB", "MAR", "MDC", "MI", "MN", "MS", "MO", "MT",
         "NE", "NV", "NH", "NM", "NLI", "NL", "NC", "ND", "NTX",
         "NFL", "NNJ", "NNY", "NT", "NWT", "OH", "OK", "ON",
-        "ONE", "ONN", "ONS", "ORG", "OR", "PAC", "PR", "QC",
+        "ONE", "ONN", "ONS", "ORG", "OR", "PAC", "PE", "PR", "QC",
         "RI", "SV", "SDG", "SF", "SJV", "SB", "SCV", "SK", "SC", "SD",
         "STX", "SFL", "SNJ", "TN", "VI", "UT", "VT", "VA",
         "WCF", "WTX", "WV", "WMA", "WNY", "WPA", "WWA", "WI", "WY"};
@@ -368,14 +368,14 @@ bool Adif::isValidQSO_COMPLETE(const QString &_s)
     return ((_s == "Y") || (_s == "N") || (_s == "NIL") || (_s == "?"));
 }
 
-bool Adif::Adif::isValidPOTA(const QString &_s)
+bool Adif::isValidPOTA(const QString &_s)
 {
     if (_s.length()<1)
         return false;
     return true;
 }
 
-bool isValidWWFF_Ref(const QString &_s)
+bool Adif::isValidWWFF_Ref(const QString &_s)
 {
     if (_s.length()<1)
         return false;

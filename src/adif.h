@@ -56,10 +56,10 @@ public:
     bool isValidITUz(const QString &_b);            // 1-90
     bool isValidDXCC(const QString &_b);            // 0-522
     bool isValidAge(const QString &_b);             // 0-120
+    bool isValidDistance(const QString &_b);        //>0.0
     bool isValidAnt_EL(const QString &_b);          //>=0-360
     bool isValidAnt_AZ(const QString &_b);          //>=-90-90
     bool isValidA_Index(const QString &_b);         //0-400
-    bool isValidDistance(const QString &_b);        //>0
     bool isValidIOTA_islandID(const QString &_b);   //1-99999999
     bool isValidNRBursts(const QString &_b);        //>0
     bool isValidPings(const QString &_b);            //>0

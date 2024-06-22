@@ -154,9 +154,9 @@ private:
     bool updateTo023(); // Fixes the cabrillo fields in the table band
     bool updateTo024(); // Fixes the entity table fixinf the DL id
     bool updateTo025(); // Adds modes from ADIF 3.1.3
-    bool updateTo026(); // Recreates entity to make UTC a real
+    bool updateTo026(); // KLog-2.4: Recreates entity to make UTC a real & add new ADIF fields
 
-    bool updateTableLog(const int _v);
+    bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
 
     bool createTheBandQuickReference();

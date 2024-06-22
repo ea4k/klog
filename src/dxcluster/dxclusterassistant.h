@@ -1,5 +1,5 @@
-#ifndef DXCLUSTERASSISTANT_H
-#define DXCLUSTERASSISTANT_H
+#ifndef KLOG_CLUSTER_DXCLUSTERASSISTANT_H
+#define KLOG_CLUSTER_DXCLUSTERASSISTANT_H
 /***************************************************************************
     dxclusterassistant.h  -  description
        -------------------
@@ -71,4 +71,4 @@ private:
     QList<proposedQSOs> list;
 };
 
-#endif // DXCLUSTERASSISTANT_H
+#endif // KLOG_CLUSTER_DXCLUSTERASSISTANT_H

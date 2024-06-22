@@ -86,6 +86,7 @@ void QSO::clear()
     // VARIABLES for ADIF //////////
     address = QString();
     age = 0;
+    altitude = 0.0;
     a_index = 0;
     ant_az = 0.0;
     ant_el = 0.0;
@@ -141,6 +142,7 @@ void QSO::clear()
     max_bursts = 0;
     mode = QString();
     ms_shower = QString();
+    my_altitude = 0.0;
     my_antenna = QString();
     my_arrl_sect = QString();
     my_city = QString();
@@ -1286,6 +1288,17 @@ double QSO::getAge()
     return age;
 }
 
+bool QSO::setAltitude(const double _c)
+{
+    altitude = _c;
+    return true;
+}
+
+double QSO::getAltitude()
+{
+    return altitude;
+}
+
 bool QSO::setIOTA(const QString &_c)
 {
     if (_c.length()>0)
@@ -2038,6 +2051,16 @@ bool QSO::getQSORandom()
     return qso_random;
 }
 
+bool QSO::setMyAltitude(const double _c)
+{
+    my_altitude = _c;
+}
+
+double QSO::getMyAltitude()
+{
+    return my_altitude;
+}
+
 bool QSO::setMyCity(const QString &_c)
 {
     my_city = _c;
@@ -2584,6 +2607,7 @@ QString QSO::getMyWWFF_Ref()
 
 // helper functions for hash, returns original function but takes string data as imput
 bool QSO::setAge(const QString &data) { return setAge(data.toDouble()); }
+bool QSO::setAltitude(const QString &data) { return setAltitude(data.toDouble()); };
 bool QSO::setA_Index(const QString& data) { return setA_Index(data.toInt()); }
 bool QSO::setAnt_az(const QString& data) { return setAnt_az(data.toDouble()); }
 bool QSO::setAnt_el(const QString& data) { return setAnt_el(data.toDouble()); }
@@ -2597,6 +2621,7 @@ bool QSO::setIotaID(const QString& data) { return setIotaID(data.toInt()); }
 bool QSO::setItuZone(const QString& data) { return setItuZone(data.toInt()); }
 bool QSO::setK_Index(const QString& data) { return setK_Index(data.toInt()); }
 bool QSO::setMaxBursts(const QString& data) { return setMaxBursts(data.toInt()); }
+bool QSO::setMyAltitude(const QString &data) { return setMyAltitude(data.toDouble()); };
 bool QSO::setMyCQZone(const QString& data) { return setMyCQZone(data.toInt()); }
 bool QSO::setMyDXCC(const QString& data) { return setMyDXCC(data.toInt()); }
 bool QSO::setMyIotaID(const QString& data) { return setMyIotaID(data.toInt()); }
@@ -2651,6 +2676,7 @@ void QSO::InitializeHash() {
     SetDataHash = {
         {"ADDRESS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAddress)},
         {"AGE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAge)},
+        {"ALTITUDE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAltitude)},
         {"A_INDEX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setA_Index)},
         {"ANT_AZ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAnt_az)},
         {"ANT_EL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAnt_el)},
@@ -2704,6 +2730,7 @@ void QSO::InitializeHash() {
         {"MAX_BURSTS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMaxBursts)},
         {"MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMode)},
         {"MS_SHOWER", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMsShower)},
+        {"MY_ALTITUDE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyAltitude)},
         {"MY_ANTENNA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyAntenna)},
         {"MY_ARRL_SECT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyArrlSect)},
         {"MY_CITY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyCity)},
@@ -2879,13 +2906,13 @@ QString QSO::getAddQueryString()
 {   // submode is not used, keep it empty.
     // mode field is populated with the submode
     return QString( "INSERT INTO log ("
-        "qso_date, call, rst_sent, rst_rcvd, bandid, modeid, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, "
+        "qso_date, call, rst_sent, rst_rcvd, bandid, modeid, cqz, ituz, dxcc, address, age, altitude, cnty, comment, a_index, ant_az, ant_el, "
         "ant_path, arrl_sect, award_submitted, award_granted, band_rx, checkcontest, class, clublog_qso_upload_date, "
         "clublog_qso_upload_status, cont, contacted_op, contest_id, country, credit_submitted, credit_granted, darc_dok, "
         "distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, fists, fists_cc, "
         "force_init, freq, freq_rx, gridsquare, hrdlog_qso_upload_date, hrdlog_qso_upload_status, "
         "iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, "
-        "my_antenna, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_iota, my_iota_island_id,"
+        "my_antenna, my_altitude, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_iota, my_iota_island_id,"
         " my_itu_zone, my_lat, "
         "my_lon, my_name, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, "
         "my_usaca_counties, my_vucc_grids, name, "
@@ -2894,13 +2921,13 @@ QString QSO::getAddQueryString()
         "qth, region, rig, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, silent_key, skcc, sota_ref, srx_string, srx, stx_string, stx, state, "
         "station_callsign, swl, uksmg, usaca_counties, ve_prov, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
         "VALUES ("
-        ":qso_date, :call, :rst_sent, :rst_rcvd, :bandid, :modeid, :cqz, :ituz, :dxcc, :address, :age, :cnty, :comment, :a_index, :ant_az, :ant_el, "
+        ":qso_date, :call, :rst_sent, :rst_rcvd, :bandid, :modeid, :cqz, :ituz, :dxcc, :address, :age, :altitude, :cnty, :comment, :a_index, :ant_az, :ant_el, "
         ":ant_path, :arrl_sect, :award_submitted, :award_granted, :band_rx, :checkcontest, :class, :clublog_qso_upload_date, :clublog_qso_upload_status, :cont, "
         ":contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :darc_dok, :distance, :email, :eq_call, :eqsl_qslrdate, :eqsl_qslsdate, "
         ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq_tx, :freq_rx, :gridsquare, :hrdlog_qso_upload_date, "
         ":hrdlog_qso_upload_status, "
         ":iota, :iota_island_id, :k_index, :lat, :lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :max_bursts, :ms_shower, "
-        ":my_antenna, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
+        ":my_antenna, :my_altitude, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
         ":my_lon, :my_name, :my_postal_code, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :my_street, :my_usaca_counties, :my_vucc_grids, :name, "
         ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
         ":qrzcom_qso_upload_status, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, "
@@ -2914,7 +2941,7 @@ QString QSO::getModifyQueryString()
   // mode field is populated with the submode
     return QString("UPDATE log SET call = :call, qso_date = :qso_date, rst_sent = :rst_sent, rst_rcvd = :rst_rcvd, "
                    "bandid = :bandid, modeid = :modeid, cqz = :cqz, ituz = :ituz, dxcc = :dxcc, address = :address, "
-                   "age = :age, cnty = :cnty, comment = :comment, a_index = :a_index, ant_az = :ant_az, ant_el = :ant_el, "
+                   "age = :age, altitude = :altitude, cnty = :cnty, comment = :comment, a_index = :a_index, ant_az = :ant_az, ant_el = :ant_el, "
                    "ant_path = :ant_path, arrl_sect = :arrl_sect, award_submitted = :award_submitted, "
                    "award_granted = :award_granted, band_rx = :band_rx, checkcontest = :checkcontest, class = :class, "
                    "clublog_qso_upload_date = :clublog_qso_upload_date, clublog_qso_upload_status = :clublog_qso_upload_status, "
@@ -2927,7 +2954,7 @@ QString QSO::getModifyQueryString()
                    "hrdlog_qso_upload_status = :hrdlog_qso_upload_status, iota = :iota, iota_island_id = :iota_island_id, "
                    "k_index = :k_index, lat = :lat, lon = :lon, lotw_qslrdate = :lotw_qslrdate, lotw_qslsdate = :lotw_qslsdate, "
                    "lotw_qsl_rcvd = :lotw_qsl_rcvd, lotw_qsl_sent = :lotw_qsl_sent, max_bursts = :max_bursts, "
-                   "ms_shower = :ms_shower, my_antenna = :my_antenna, my_city = :my_city, my_cnty = :my_cnty, "
+                   "ms_shower = :ms_shower, my_antenna = :my_antenna, my_altitude = :my_altitude, my_city = :my_city, my_cnty = :my_cnty, "
                    "my_country = :my_country, my_cq_zone = :my_cq_zone, my_dxcc = :my_dxcc, my_fists = :my_fists, "
                    "my_gridsquare = :my_gridsquare, my_iota = :my_iota, my_iota_island_id = :my_iota_island_id, "
                    "my_itu_zone = :my_itu_zone, my_lat = :my_lat, my_lon = :my_lon, my_name = :my_name, "
@@ -3135,6 +3162,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":dxcc", getDXCC());
     query.bindValue(":address", getAddress());
     query.bindValue(":age", getAge());
+    query.bindValue(":altitude", getAltitude());
     query.bindValue(":cnty", getCounty());
     query.bindValue(":comment", getComment());
     query.bindValue(":a_index", getA_Index());
@@ -3187,6 +3215,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":lotw_qsl_sent", getLoTWQSL_SENT());
     query.bindValue(":max_bursts", getMaxBursts());
     query.bindValue(":ms_shower", getMsShower());
+    query.bindValue(":my_altitude", getMyAltitude());
     query.bindValue(":my_antenna", getMyAntenna());
     query.bindValue(":my_city", getMyCity());
 
@@ -3309,6 +3338,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
     adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
+    adifStr.append(adif->getADIFField ("ALTITUDE",  QString::number(getAltitude())));
     adifStr.append(adif->getADIFField ("CNTY",  county));
     adifStr.append(adif->getADIFField ("COMMENT",  comment));
     if ((adif->isValidA_Index(QString::number(a_index))) && (a_index>0))
@@ -3386,6 +3416,7 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("max_bursts", QString::number(getMaxBursts()) ));
 
     adifStr.append(adif->getADIFField ("ms_shower",  ms_shower));
+    adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
     adifStr.append(adif->getADIFField ("my_antenna", my_antenna));
     adifStr.append(adif->getADIFField ("my_city", my_city));
 
@@ -3600,6 +3631,7 @@ bool QSO::fromDB(int _qsoId)
 
     setAddress((query.value(rec.indexOf("address"))).toString());
     setAge((query.value(rec.indexOf("age"))).toDouble());
+    setAltitude((query.value(rec.indexOf("altitude"))).toDouble());
     setCounty((query.value(rec.indexOf("cnty"))).toString());
 
     setA_Index((query.value(rec.indexOf("a_index"))).toInt());
@@ -3671,6 +3703,7 @@ bool QSO::fromDB(int _qsoId)
 
     setMaxBursts((query.value(rec.indexOf("max_bursts"))).toInt());
     setMsShower((query.value(rec.indexOf("ms_shower"))).toString());
+    setMyAltitude((query.value(rec.indexOf("my_altitude"))).toDouble());
     setMyCity((query.value(rec.indexOf("my_city"))).toString());
     setMyCounty((query.value(rec.indexOf("my_cnty"))).toString());
     setMyCountry((query.value(rec.indexOf("my_country"))).toString());

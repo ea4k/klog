@@ -1,5 +1,5 @@
-#ifndef DXSPOT_H
-#define DXSPOT_H
+#ifndef KLOG_CLUSTER_DXSPOT_H
+#define KLOG_CLUSTER_DXSPOT_H
 /***************************************************************************
                           dxspot.h  -  description
                              -------------------
@@ -79,4 +79,4 @@ private:
     bool valid;
 };
 
-#endif // DXSPOT_H
+#endif // KLOG_CLUSTER_DXSPOT_H

@@ -482,7 +482,12 @@ bool MainWindowMyDataTab::setInitialADIFValues()
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     adifValidTypes.clear ();
-    adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna") << "03-" + tr("My SOTA_Ref")<< "04-" + tr("My VUCC_GRIDS");
+    adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna")
+                   << "03-" + tr("My POTA Ref") << "04-" + tr("My SIG")
+                   << "05-" + tr("My SIG Info") << "06-" + tr("My SOTA Ref")
+                   << "07-" + tr("My VUCC_GRIDS")
+                   << "08-" + tr("My WWFF Ref");
+
     myUserADIFComboBox->clear ();
     myUserADIFComboBox->addItems (adifValidTypes);
     return true;
@@ -712,9 +717,10 @@ QString MainWindowMyDataTab::getMySig_info()
 bool MainWindowMyDataTab::setMyWWFF_Ref(const QString &_op)
 {
     Adif adif(Q_FUNC_INFO);
+
     if (!adif.isValidWWFF_Ref(_op))
         return false;
-    my_pota_ref = _op;
+    my_wwff_ref = _op;
     slotMyUserADIFComboBoxChanged();
     return true;
 }
@@ -796,7 +802,8 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     }
     else if (currentTag == "MY_POTA_REF")
     {
-        setMyPota_ref(myUserADIFLineEdit->text());
+        my_pota_ref = myUserADIFLineEdit->text();
+        //setMyPota_ref(myUserADIFLineEdit->text());
     }
     else if (currentTag == "MY_SIG")
     {
@@ -812,15 +819,13 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
     }
     else if (currentTag == "MY_VUCC_GRIDS")
     {
-        //if (checkMyVUCC_GRIDS(myUserADIFLineEdit->text()))
-        //{}
-
         my_vucc_grids = myUserADIFLineEdit->text().toUpper();
         myUserADIFLineEdit->setText (my_vucc_grids);
     }
     else if (currentTag == "MY_WWFF_REF")
     {
-        setMyWWFF_Ref(myUserADIFLineEdit->text());
+        my_wwff_ref = myUserADIFLineEdit->text();
+        //setMyWWFF_Ref(myUserADIFLineEdit->text());
     }
     myUserADIFLineEdit->setCursorPosition (currentPos);
 }
@@ -836,14 +841,7 @@ void MainWindowMyDataTab::setModify(const bool _modify)
 bool MainWindowMyDataTab::getDarkMode()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (operatorLineEdit->palette().color (QPalette::Base) == "#646464")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return  (operatorLineEdit->palette().color (QPalette::Base) == "#646464");
 }
 
 void MainWindowMyDataTab::setLogLevel (const DebugLogLevel _b)

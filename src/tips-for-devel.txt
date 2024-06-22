@@ -10,3 +10,28 @@ select count (distinct dxcc) from log
 DELETED ENTITIES:
 http://www.ng3k.com/Dxcc/dxccde.html
 
+PROCESS to add a new ADIF field:
+1.- Add it to: bool DataBase::createTableLog(bool temp)
+2.- Ensure the bool DataBase::updateIfNeeded() runs to update the log table
+3.- class QSO (.h)
+     - Add the variable:    altitude
+     - Add the set & get:
+                bool setAltitude(const double _c);
+                double getAltitude();setAltitude / getAltitude
+     - Add the helper:
+                bool setAltitude(const QString &data);
+
+3.- class QSO (.cpp)
+    - Implement the setters/getter
+    - clear() (add the variable)
+    - Add it to:
+        - void QSO::InitializeHash()
+        - QString QSO::getAddQueryString()
+        - QString QSO::getModifyQueryString()
+        - QSqlQuery QSO::getPreparedQuery(const QString &_s)
+        - QString QSO::getADIF()
+        - bool QSO::fromDB(int _qsoId)
+
+4.- class ADIF (.cpp)
+        Add it to:
+            - void Adif::InitializeHash()

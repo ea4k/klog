@@ -455,14 +455,17 @@ bool DataBase::createTableLog(bool temp)
              "ituz INTEGER, "
              "dxcc INTEGER, "
              "address VARCHAR, "
+             "address_intl VARCHAR, "
              "age INTEGER, "
              "cnty VARCHAR, "
              "comment VARCHAR, "
+             "comment_intl VARCHAR, "
              "a_index INTEGER, "
+             "altitude REAL, "
              "ant_az INTEGER, "
              "ant_el INTEGER, "
              "ant_path INTEGER, "
-             "arrl_sect INTEGER, "
+             "arrl_sect VARCHAR(3), "
              "award_submitted VARCHAR, "
              "award_granted VARCHAR, "
              "band_rx INTEGER, "
@@ -474,6 +477,7 @@ bool DataBase::createTableLog(bool temp)
              "contacted_op VARCHAR(40), "
              "contest_id VARCHAR, "
              "country VARCHAR, "
+             "country_intl VARCHAR, "
              "credit_submitted VARCHAR, "
              "credit_granted VARCHAR, "
              "darc_dok VARCHAR,"
@@ -490,6 +494,11 @@ bool DataBase::createTableLog(bool temp)
              "freq VARCHAR, "
              "freq_rx VARCHAR, "
              "gridsquare VARCHAR, "
+             "gridsquare_ext VARCHAR, "
+             "hamlogeu_qso_upload_date DATETIME, "
+             "hamlogeu_qso_upload_status VARCHAR(1), "
+             "hamqth_qso_upload_date DATETIME, "
+             "hamqth_qso_upload_status VARCHAR(1), "
              "hrdlog_qso_upload_date DATETIME, "
              "hrdlog_qso_upload_status  VARCHAR(1), "
              "iota VARCHAR(6), "
@@ -503,42 +512,58 @@ bool DataBase::createTableLog(bool temp)
              "lotw_qsl_sent VARCHAR(1), "
              "max_bursts INTEGER, "
              "ms_shower VARCHAR, "
-             "my_antenna VARCHAR,"
+             "my_altitude REAL, "
+             "my_antenna VARCHAR, "
+             "my_antenna_intl VARCHAR, "
+             "arrl_sect VARCHAR(3), "
              "my_city VARCHAR, "
+             "my_city_intl VARCHAR, "
              "my_cnty VARCHAR, "
              "my_country INTEGER, "
+             "my_country_intl INTEGER, "
              "my_cq_zone INTEGER, "
              "my_dxcc INTEGER, "
              "my_fists INTEGER, "
              "my_gridsquare VARCHAR, "
+             "my_gridsquare_ext VARCHAR, "
              "my_iota VARCHAR(6), "
              "my_iota_island_id VARCHAR, "
              "my_itu_zone INTEGER ,"
              "my_lat VARCHAR(11), "
              "my_lon VARCHAR(11), "
              "my_name VARCHAR, "
+             "my_name_intl VARCHAR, "
+             "my_pota_ref VARCHAR, "
              "my_postal_code VARCHAR ,"
+             "my_postal_code_intl VARCHAR ,"
              "my_rig VARCHAR, "
+             "my_rig_intl VARCHAR, "
              "my_sig VARCHAR, "
+             "my_sig_intl VARCHAR, "
              "my_sig_info VARCHAR, "
+             "my_sig_info_intl VARCHAR, "
              "my_sota_ref VARCHAR, "
              "my_state VARCHAR, "
              "my_street VARCHAR, "
              "my_usaca_counties VARCHAR, "
              "my_vucc_grids VARCHAR, "
+             "my_wwff_ref VARCHAR(11), "
              "name VARCHAR, "
              "notes VARCHAR, "
+             "notes_intl VARCHAR, "
              "nr_bursts INTEGER, "
              "nr_pings INTEGER, "
              "operator VARCHAR, "
              "owner_callsign VARCHAR, "
              "pfx VARCHAR, "
+             "pota_ref VARCHAR, "
              "precedence VARCHAR, "
              "prop_mode VARCHAR, "
              "public_key VARCHAR, "
              "qrzcom_qso_upload_date DATETIME, "
              "qrzcom_qso_upload_status VARCHAR(1), "
              "qslmsg VARCHAR, "
+             "qslmsg_intl VARCHAR, "
              "qslrdate DATETIME, "
              "qslsdate DATETIME, "
              "qsl_rcvd VARCHAR(1), "
@@ -549,14 +574,18 @@ bool DataBase::createTableLog(bool temp)
              "qso_complete VARCHAR(1), "
              "qso_random INTEGER, "
              "qth VARCHAR, "
+             "qth_intl VARCHAR, "
              "region VARCHAR, "
              "rig VARCHAR, "
+             "rig_intl VARCHAR, "
              "rx_pwr REAL, "
              "sat_mode VARCHAR, "
              "sat_name VARCHAR, "
              "sfi INTEGER, "
              "sig VARCHAR, "
+             "sig_intl VARCHAR, "
              "sig_info VARCHAR, "
+             "sig_info_intl VARCHAR, "
              "silent_key VARCHAR(1), "
              "skcc VARCHAR, "
              "sota_ref VARCHAR, "
@@ -575,6 +604,7 @@ bool DataBase::createTableLog(bool temp)
              "ten_ten INTEGER, "
              "tx_pwr REAL, "
              "web VARCHAR, "
+             "wwff_ref VARCHAR(11), "
              "qso_date_off DATETIME, " //2020-01-01
              "marked VARCHAR(1), "
              "lognumber INTEGER NOT NULL, "
@@ -2964,6 +2994,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 
     //To add a band, just create another line:
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('0', '0', '0', 'Light')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('SUBMM', '300000', '7500000', 'SUBMM')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('1mm', '241000', '250000', '241G')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2mm', '142000', '149000', '142G')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2.5mm', '119980', '120020', '119G')").arg(tableName));
@@ -3187,16 +3218,39 @@ bool DataBase::updateTo006()
     return updateDBVersion(softVersion, "0.006");
 }
 
-bool DataBase::updateTableLog(const int _v)
+bool DataBase::updateTableLog(const int _version)
 {
     //qDebug() << Q_FUNC_INFO;
-    if (_v!=6)
+    // _version helps to identify which update we need to run
+    if ((_version!=6) && (_version!=7))
         return false;
+
+    QString queryString;
+    QString oldFields;  // This variable holds the list of fields BEFORE the update.
+                        // Updates are usually done to add ADIF fields to the DB.
+    // We need to move all the table except the new values that are included in this release:
+    switch (_version)
+    {
+        case 6:
+            oldFields = "qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber";
+        break;
+        case 7:
+            oldFields = "qso_date, call, rst_sent, rst_rcvd, bandid, modeid, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, award_submitted, award_granted, band_rx, checkcontest, class, clublog_qso_upload_date, clublog_qso_upload_status,cont,contacted_op, contest_id, country, credit_submitted, credit_granted, darc_dok,distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd,eqsl_qsl_sent,fists, fists_cc, force_init, freq, freq_rx, gridsquare, hrdlog_qso_upload_date, hrdlog_qso_upload_status, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd,lotw_qsl_sent,max_bursts, ms_shower, my_antenna,my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_iota, my_iota_island_id, my_itu_zone my_lat, my_lon, my_name, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, my_usaca_counties, my_vucc_grids, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qrzcom_qso_upload_date, qrzcom_qso_upload_status,qslmsg, qslrdate, qslsdate, qsl_rcvd,qsl_sent,qsl_rcvd_via,qsl_sent_via,qsl_via, qso_complete,qso_random, qth, region, rig, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, silent_key,skcc, sota_ref, srx_string, srx, stx_string, stx, state, station_callsign, submode,swl, uksmg, usaca_counties, ve_prov, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber";
+        break;
+        default:
+        // We should never reach this value but if we reach it, weexit the function
+            return false;
+        break;
+    }
+    queryString = QString ("INSERT INTO logtemp (%1) SELECT %2 FROM log").arg(oldFields).arg(oldFields);
+    // Everything is ready, we can:
+    //  - create the temp table for log,
+    //  - move the data from the old table to the new one, taking into account the version
+    //  - rename drop the old table
+    //  - rename the new table temp as the regular log table
 
     if (createTableLog(false))
         return false;
-
-    QString queryString = QString ("INSERT INTO logtemp (qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) SELECT qso_date, call, rst_sent, rst_rcvd, bandid, modeid, srx, stx, cqz, ituz, dxcc, address, age, cnty, comment, a_index, ant_az, ant_el, ant_path, arrl_sect, band_rx, checkcontest, class, contacted_op, contest_id, country, credit_submitted, credit_granted, distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, force_init, freq, freq_rx, gridsquare, iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, my_city, my_cnty, my_country, my_cq_zone, my_gridsquare, my_iota, my_iota_island_id, my_lat, my_lon, my_name, my_rig, my_sig, my_sig_info, my_state, my_street, name, notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, qth, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, srx_string, stx_string, state, station_callsign, swl, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber FROM log");
 
     if (!execQuery(Q_FUNC_INFO, queryString))
         return false;
@@ -4201,7 +4255,6 @@ bool DataBase::updateTo007()
     }
     return IAmIn007;
 }
-
 
 
 bool DataBase::updateTo008()
@@ -5958,6 +6011,9 @@ bool DataBase::updateTo026()
     if (!updateTheModeTableAndSyncLog())
         return false;
     //qDebug() << Q_FUNC_INFO << " - 40" ;
+    if (!updateTableLog(7))
+        return false;
+    //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.026");
 }
 

@@ -1284,7 +1284,10 @@ bool MainWindow::readQSOFromUI()
 
     qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
     qso->setName (QSOTabWidget->getName());
-    qso->setDistance (infoWidget->getDistance ());
+    if (othersTabWidget->getDistance()>0.0)
+        qso->setDistance(othersTabWidget->getDistance());
+    else
+        qso->setDistance (infoWidget->getDistance ());
     qso->setGridSquare (QSOTabWidget->getDXLocator());
     qso->setMyGridSquare (myDataTabWidget->getMyLocator());
 
