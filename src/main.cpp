@@ -56,6 +56,23 @@ int showNoDB()
     return -1;
 }
 
+int showErrorUpdatingTheDB()
+{
+    QMessageBox msgBox;
+    Utilities util(Q_FUNC_INFO);
+    QString msg = QString("KLog could not update the DB and it is a critical step for this release. KLog can't continue like this.\n") +
+                  QString("Please use the previews version of KLog to export your log to ADIF. Then do a clean installation of the new KLog version and import the ADIF file. If that doesn't work, please contact the KLog development team.");
+
+    msgBox.setWindowTitle("KLog");
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText(msg);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+    return -1;
+}
+
 
 
 int main(int argc, char *argv[])
@@ -290,7 +307,7 @@ int main(int argc, char *argv[])
 
     //qDebug() << Q_FUNC_INFO << " -  Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss") ;
     QPixmap pixmap(":img/klog_512x512.png");
-    //qDebug() << Q_FUNC_INFO << " - 51" << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 51" << (QTime::currentTime()).toString("HH:mm:ss");
     QSplashScreen splash(pixmap);
 
     // If the KLog configuration file does not exist, we launch the wizard.
@@ -303,27 +320,30 @@ int main(int argc, char *argv[])
     }
     else
     {   // KLog configuration file exists, let's look for the DB
-        //qDebug() << Q_FUNC_INFO << " -  Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " -  Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss");
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-        //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
+        qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
         if (!db->createConnection(Q_FUNC_INFO))
         {
-            //qDebug() << Q_FUNC_INFO << " - Conection not created";
+            qDebug() << Q_FUNC_INFO << " - Conection not created";
             return showNoDB();
             //return -1; // Exits with an error; no DB has been created
         }
         else
         {
-            //qDebug() << Q_FUNC_INFO << " - DB to be updated";
-            db->updateIfNeeded(); // Check if we need to update the DB
-            //qDebug() << Q_FUNC_INFO << " - DB Updated";
+            qDebug() << Q_FUNC_INFO << " - DB to be updated";
+            if (!db->updateIfNeeded()) // Check if we need to update the DB
+            {
+                qDebug() << Q_FUNC_INFO << " - DB NOT Updated";
+            }
+
+            qDebug() << Q_FUNC_INFO << " - DB Updated";
         }
-        //qDebug() << Q_FUNC_INFO << " - DB Updated";
-        //qDebug() << Q_FUNC_INFO << " - 98" << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 98" << (QTime::currentTime()).toString("HH:mm:ss");
         db->~DataBase();
-        //qDebug() << Q_FUNC_INFO << " - 99" << (QTime::currentTime()).toString("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 99" << (QTime::currentTime()).toString("HH:mm:ss");
     }
-    //qDebug() << Q_FUNC_INFO << " - 100 " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 100 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.show();
     //qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.showMessage ("Creating window...");
