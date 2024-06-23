@@ -261,6 +261,13 @@ public:
     QDate getHRDUpdateDate();
     bool setHRDLogStatus(const QString &_c);
     QString getHRDLogStatus();
+
+    bool setHamLogEUStatus(const QString &_c);
+    QString getHamLogEUStatus();
+    bool setHamQTHStatus(const QString &_c);
+    QString getHamQTHStatus();
+
+
     bool setK_Index(const int _i);
     int getK_Index();
     bool setDateOff(const QDate &_c);
@@ -436,6 +443,8 @@ private:
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_arrl_sect, vucc_grids, my_vucc_grids;
     QString pota_ref,  my_pota_ref;
     QString clublog_status, hrdlog_status, QRZCom_status;
+    QString hamlogeu_status, hamqth_status;
+
     QString eqsl_qsl_sent, eqsl_qsl_rcvd;
     QString comment, address, ant_path, arrl_sect, continent, rig, country, award_granted, award_submitted, county, contacted_op, contacted_owner, contest_id;
     QString credit_granted, credit_submitted,darc_dok, email, qso_complete, usaca_counties, ve_prov, web, wwff_ref;

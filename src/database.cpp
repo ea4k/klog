@@ -6015,9 +6015,9 @@ bool DataBase::updateTo026()
     if (!recreateTableEntity())
         return false;
 
-    //qDebug() << Q_FUNC_INFO << " - 30" ;
-    //if (!updateTheModeTableAndSyncLog())
-    //    return false;
+    qDebug() << Q_FUNC_INFO << " - 30" ;
+    if (!updateTheModeTableAndSyncLog())
+        return false;
     qDebug() << Q_FUNC_INFO << " - 40" ;
     if (!updateTableLog(7))
         return false;

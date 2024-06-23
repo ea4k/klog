@@ -129,6 +129,8 @@ void QSO::clear()
     operatorCall = QString();
     hrdlogUploadDate = QDate();
     hrdlog_status = QString();
+    hamlogeu_status = QString();
+    hamqth_status = QString();
     iota = QString();
     iota_ID = 0;
     itu_zone = 0;
@@ -1692,6 +1694,42 @@ QString QSO::getHRDLogStatus()
     return hrdlog_status;
 }
 
+bool QSO::setHamLogEUStatus(const QString &_c)
+{
+    if (util->isValidUpload_Status (_c))
+    {
+        hamlogeu_status = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getHamLogEUStatus()
+{
+    return hamlogeu_status;
+}
+
+bool QSO::setHamQTHStatus(const QString &_c)
+{
+    if (util->isValidUpload_Status (_c))
+    {
+        hamqth_status = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getHamQTHStatus()
+{
+    return hamqth_status;
+}
+
 bool QSO::setK_Index(const int _i)
 {
     if ((_i>=0) && (_i<=400))
@@ -2717,6 +2755,10 @@ void QSO::InitializeHash() {
         {"GRIDSQUARE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setGridSquare)},
         {"HRDLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDUpdateDate)},
         {"HRDLOG_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDLogStatus)},
+        {"HAMLOGEU_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHamLogEUStatus)},
+        {"HAMQTH_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHamQTHStatus)},
+
+
         {"IOTA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setIOTA)},
         {"IOTA_ISLAND_ID", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setIotaID)},
         {"ITUZ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setItuZone)},
@@ -2910,10 +2952,10 @@ QString QSO::getAddQueryString()
         "ant_path, arrl_sect, award_submitted, award_granted, band_rx, checkcontest, class, clublog_qso_upload_date, "
         "clublog_qso_upload_status, cont, contacted_op, contest_id, country, credit_submitted, credit_granted, darc_dok, "
         "distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, fists, fists_cc, "
-        "force_init, freq, freq_rx, gridsquare, hrdlog_qso_upload_date, hrdlog_qso_upload_status, "
+        "force_init, freq, freq_rx, gridsquare, hrdlog_qso_upload_date, hrdlog_qso_upload_status, hamlogeu_qso_upload_status, hamqth_qso_upload_status, "
         "iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, "
-        "my_antenna, my_altitude, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_iota, my_iota_island_id,"
-        " my_itu_zone, my_lat, "
+        "my_antenna, my_altitude, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_iota, my_iota_island_id, "
+        "my_itu_zone, my_lat, "
         "my_lon, my_name, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, "
         "my_usaca_counties, my_vucc_grids, name, "
         "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
@@ -2925,7 +2967,7 @@ QString QSO::getAddQueryString()
         ":ant_path, :arrl_sect, :award_submitted, :award_granted, :band_rx, :checkcontest, :class, :clublog_qso_upload_date, :clublog_qso_upload_status, :cont, "
         ":contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :darc_dok, :distance, :email, :eq_call, :eqsl_qslrdate, :eqsl_qslsdate, "
         ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq_tx, :freq_rx, :gridsquare, :hrdlog_qso_upload_date, "
-        ":hrdlog_qso_upload_status, "
+        ":hrdlog_qso_upload_status, :hamlogeu_qso_upload_status, :hamqth_qso_upload_status, "
         ":iota, :iota_island_id, :k_index, :lat, :lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :max_bursts, :ms_shower, "
         ":my_antenna, :my_altitude, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
         ":my_lon, :my_name, :my_postal_code, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :my_street, :my_usaca_counties, :my_vucc_grids, :name, "
@@ -2951,7 +2993,9 @@ QString QSO::getModifyQueryString()
                    "eqsl_qslsdate = :eqsl_qslsdate, eqsl_qsl_rcvd = :eqsl_qsl_rcvd, eqsl_qsl_sent = :eqsl_qsl_sent, "
                    "fists = :fists, fists_cc = :fists_cc, force_init = :force_init, freq = :freq_tx, freq_rx = :freq_rx, "
                    "gridsquare = :gridsquare, hrdlog_qso_upload_date = :hrdlog_qso_upload_date, "
-                   "hrdlog_qso_upload_status = :hrdlog_qso_upload_status, iota = :iota, iota_island_id = :iota_island_id, "
+                   "hrdlog_qso_upload_status = :hrdlog_qso_upload_status, "
+                   "hamlogeu_qso_upload_status = :hamlogeu_qso_upload_status, hamqth_qso_upload_status = :hamqth_qso_upload_status, "
+                   "iota = :iota, iota_island_id = :iota_island_id, "
                    "k_index = :k_index, lat = :lat, lon = :lon, lotw_qslrdate = :lotw_qslrdate, lotw_qslsdate = :lotw_qslsdate, "
                    "lotw_qsl_rcvd = :lotw_qsl_rcvd, lotw_qsl_sent = :lotw_qsl_sent, max_bursts = :max_bursts, "
                    "ms_shower = :ms_shower, my_antenna = :my_antenna, my_altitude = :my_altitude, my_city = :my_city, my_cnty = :my_cnty, "
@@ -3204,6 +3248,10 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":hrdlog_qso_upload_date", getHRDUpdateDate ());
     query.bindValue(":hrdlog_qso_upload_status", getHRDLogStatus ());
 
+    query.bindValue(":hamlogeu_qso_upload_status", getHamLogEUStatus());
+    query.bindValue(":hamqth_qso_upload_status", getHamQTHStatus());
+
+
     query.bindValue(":iota", getIOTA());
     query.bindValue(":iota_island_id", getIotaID());
     query.bindValue(":k_index", getK_Index());
@@ -3398,6 +3446,10 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
     adifStr.append(adif->getADIFField ("hrdlog_qso_upload_date",  util->getADIFDateFromQDate(hrdlogUploadDate)));
     adifStr.append(adif->getADIFField ("hrdlog_qso_upload_status", hrdlog_status ));
+    adifStr.append(adif->getADIFField ("hamlogeu_qso_upload_status", hamlogeu_status ));
+    adifStr.append(adif->getADIFField ("hamqth_qso_upload_status", hamqth_status ));
+
+
     adifStr.append(adif->getADIFField ("iota", iota));
 
     if (iota_ID>0)
@@ -3683,6 +3735,11 @@ bool QSO::fromDB(int _qsoId)
 
     //qDebug() << Q_FUNC_INFO << "  - 60";
     setHRDLogStatus((query.value(rec.indexOf("hrdlog_qso_upload_status"))).toString());
+
+    setHamLogEUStatus((query.value(rec.indexOf("hamlogeu_qso_upload_status"))).toString());
+    setHamQTHStatus((query.value(rec.indexOf("hamqth_qso_upload_status"))).toString());
+
+
     //qDebug() << Q_FUNC_INFO << "  - 61";
     setIOTA((query.value(rec.indexOf("iota"))).toString());
     //qDebug() << Q_FUNC_INFO << "  - 62";

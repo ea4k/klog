@@ -1,11 +1,11 @@
-added: altitude
-added: my_altitude
+DONE: altitude
+DONE: my_altitude
 gridsquare_ext
 my_gridsquare_ext
 hamlogeu_qso_upload_date
-hamlogeu_qso_upload_status
+WIP: hamlogeu_qso_upload_status
 hamqth_qso_upload_date
-hamqth_qso_upload_status
+WIP: hamqth_qso_upload_status
 my_arrl_sect
 my_pota_ref
 my_wwff_ref
