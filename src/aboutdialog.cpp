@@ -100,6 +100,8 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     QString translator_de = QString("<tr><td>German</td>") + QString("<td>Burhard Lück</td>") + QString("<td><a href=\"mailto://kde-i18n-de@kde.org\">KDE German translation team</a></td></tr>");
     QString translator_it = QString("<tr><td>Italian</td>")  + QString("<td>Simona Pisano</td>") + QString("<td><a href=\"https://www.qrz.com/db/iu5hiu\">IU5HIU</a></td></tr>");
     QString translator_ja = QString("<tr><td>Japanese</td>")  + QString("<td>Nick and Akihiro Koda</td>") + QString("<td><a href=\"https://www.qrz.com/db/jj1tgt\">JJ1TGT</a> and <a href=\"https://www.qrz.com/db/jl3oxr\">JL3OXR</a></td></tr>");
+    QString translator_nl = QString("<tr><td>Dutch</td>")  + QString("<td>F Holtrop</td>") + QString("<td><a href=\"https://www.qrz.com/db/pa3fnt\">PA3FNT/a></td></tr>");
+
     QString translator_pl = QString("<tr><td>Polish</td>")  + QString("<td>Piotr Ludwig</td>") + QString("<td><a href=\"https://www.qrz.com/db/la7rra\">LA7RRA</a></td></tr>");
     QString translator_es = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td></tr>");
     QString translator_uk = QString("<tr><td>Ukrainian</td>") + QString("<td>Mykola Papirovsky and Volodymyr Karpenko</td>") + QString("<td><a href=\"https://www.qrz.com/db/ur6qv\">UR6QV</a> and <a href=\"https://www.qrz.com/db/ur3qjw\">UR3QJW</a></td></tr>");
@@ -108,8 +110,8 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
 
     QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, you are welcome to contact us through the <a href=\"https://groups.io/g/klog\">KLog mailing list</a>!");
     QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>"
-            + translator_ca + translator_hr + translator_cs + translator_fi + translator_fr + translator_da
-            + translator_lv + translator_de + translator_it + translator_ja + translator_pl + translator_es
+            + translator_ca + translator_cs + translator_da  + translator_de + translator_es + translator_fi + translator_fr + translator_hr
+            + translator_it + translator_ja+ translator_lv + translator_nl + translator_pl
             + translator_uk + translator_ru
             + "</table>";
 

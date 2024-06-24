@@ -21,6 +21,7 @@ TESTS to do during RC releases:
     - check if they are properly imported to the log.
     - Test a dupe QSO, a message should be shown
 
+TEST
 Close:  #396, #507, #508
 
 
@@ -39,6 +40,8 @@ TBD - 2.4
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.
 - Bugfix: ClubLog date was not properly managed.
+- Translations: Dutch (TNX PA3FNT), Spanish (EA4K)
+
 - Removed the message against the Russian invasion of Ukraine. No specific reason for this removal.
   Just I don't feel that it is useful.
 
