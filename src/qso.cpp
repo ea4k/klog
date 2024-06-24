@@ -126,11 +126,14 @@ void QSO::clear()
     freq_tx = 0;
     freq_rx = 0;
     gridsquare = QString();
+    gridsquare_ext = QString();
     operatorCall = QString();
     hrdlogUploadDate = QDate();
     hrdlog_status = QString();
     hamlogeu_status = QString();
+    hamlogeuUpdateDate = QDate();
     hamqth_status = QString();
+    hamqthUpdateDate = QDate();
     iota = QString();
     iota_ID = 0;
     itu_zone = 0;
@@ -154,12 +157,14 @@ void QSO::clear()
     my_dxcc = 0;
     my_fists = 0;
     my_gridsquare = QString();
+    my_gridsquare_ext = QString();
     my_iota = QString();
     my_iota_ID = 0;
     my_itu_zone = 0;
     my_latitude = QString();
     my_longitude = QString();
     my_name = QString();
+    my_pota_ref = QString();
     my_postal_code = QString();
     my_rig = QString();
     my_sig = QString();
@@ -178,6 +183,7 @@ void QSO::clear()
     ownerCall = QString();
     contacted_owner = QString();
     prefix = QString();
+    pota_ref = QString();
     precedence = QString();
     propMode = QString();
     public_key = QString();
@@ -1002,6 +1008,26 @@ QString QSO::getGridSquare()
     return gridsquare;
 }
 
+bool QSO::setGridSquare_ext(const QString &_c)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    if (util->isValidGrid_ext(_c))
+    {
+        gridsquare_ext = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getGridSquare_ext()
+{
+    //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
+    return gridsquare_ext;
+}
+
 bool QSO::setQTH(const QString &_c)
 {
     if (!_c.isEmpty ())
@@ -1228,7 +1254,7 @@ QString QSO::getMyAntenna()
     return my_antenna;
 }
 
-bool QSO::setMyArrlSect(const QString &_c)
+bool QSO::setMyARRL_Sect(const QString &_c)
 {
     if (!util->isValidARRLSect (_c))
     {
@@ -1241,7 +1267,7 @@ bool QSO::setMyArrlSect(const QString &_c)
     }
 }
 
-QString QSO::getMyArrlSect()
+QString QSO::getMyARRL_Sect()
 {
     return my_arrl_sect;
 }
@@ -1258,22 +1284,6 @@ QString QSO::getPOTA_Ref()
 {
     return pota_ref;
 }
-
-
-bool QSO::setMyPOTA_Ref(const QString &_c)
-{
-    if (!adif->isValidPOTA(_c))
-        return false;
-    my_pota_ref = _c;
-    return true;
-}
-
-QString QSO::getMyPOTA_Ref()
-{
-    return my_pota_ref;
-}
-
-
 
 bool QSO::setAge(const double _c)
 {
@@ -1425,6 +1435,26 @@ bool QSO::setMyGridSquare(const QString &_c)
 QString QSO::getMyGridSquare()
 {
     return my_gridsquare;
+}
+
+bool QSO::setMyGridSquare_ext(const QString &_c)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    if (util->isValidGrid_ext(_c))
+    {
+        my_gridsquare_ext = _c;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+QString QSO::getMyGridSquare_ext()
+{
+    //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
+    return my_gridsquare_ext;
 }
 
 bool QSO::setKeepMyData(bool _k)
@@ -1676,6 +1706,7 @@ QDate QSO::getHRDUpdateDate()
     return hrdlogUploadDate;
 }
 
+
 bool QSO::setHRDLogStatus(const QString &_c)
 {
     if (util->isValidUpload_Status (_c))
@@ -1712,6 +1743,25 @@ QString QSO::getHamLogEUStatus()
     return hamlogeu_status;
 }
 
+bool QSO::setHamLogEUUpdateDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        hamlogeuUpdateDate = _c;
+        return true;
+    }
+    else
+    {
+        hamlogeuUpdateDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getHamLogEUUpdateDate()
+{
+    return hamlogeuUpdateDate;
+}
+
 bool QSO::setHamQTHStatus(const QString &_c)
 {
     if (util->isValidUpload_Status (_c))
@@ -1728,6 +1778,25 @@ bool QSO::setHamQTHStatus(const QString &_c)
 QString QSO::getHamQTHStatus()
 {
     return hamqth_status;
+}
+
+bool QSO::setHamQTHUpdateDate(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+        hamqthUpdateDate = _c;
+        return true;
+    }
+    else
+    {
+        hamqthUpdateDate = QDate();
+        return false;
+    }
+}
+
+QDate QSO::getHamQTHUpdateDate()
+{
+    return hamqthUpdateDate;
 }
 
 bool QSO::setK_Index(const int _i)
@@ -2068,7 +2137,9 @@ bool QSO::setQSOComplete(const QString &_c)
 { // Y, N, I, ? are the valid chars.
   // Here we store the short version just for the DB
   // If we need to export it to ADIF, we need to call util->getADIFQSO_CompleteFromDB()
-    qso_complete = util->getQSO_CompleteFromADIF(_c);
+    Adif adif(Q_FUNC_INFO);
+    qso_complete = adif.getQSO_COMPLETEFromDB(_c);
+    //qso_complete = util->getQSO_CompleteFromADIF(_c);
     //qDebug() << Q_FUNC_INFO << ": " << qso_complete;
     return true;
 }
@@ -2092,6 +2163,7 @@ bool QSO::getQSORandom()
 bool QSO::setMyAltitude(const double _c)
 {
     my_altitude = _c;
+    return true;
 }
 
 double QSO::getMyAltitude()
@@ -2266,6 +2338,19 @@ bool QSO::setMyName(const QString &_c)
 QString QSO::getMyName()
 {
     return my_name;
+}
+
+bool QSO::setMyPOTA_Ref(const QString &_c)
+{
+    if (!adif->isValidPOTA(_c))
+        return false;
+    my_pota_ref = _c;
+    return true;
+}
+
+QString QSO::getMyPOTA_Ref()
+{
+    return my_pota_ref;
 }
 
 bool QSO::setMyPostalCode(const QString &_c)
@@ -2682,6 +2767,8 @@ bool QSO::setEQSLQSLRDate(const QString& data) { return setEQSLQSLRDate(util->ge
 bool QSO::setEQSLQSLSDate(const QString& data) { return setEQSLQSLSDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setForceInit(const QString& data) { return setForceInit(util->QStringToBool(data)); }
 bool QSO::setHRDUpdateDate(const QString& data) { return setHRDUpdateDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setHamLogEUUpdateDate(const QString& data) { return setHamLogEUUpdateDate(util->getDateFromADIFDateString(data)); }
+bool QSO::setHamQTHUpdateDate(const QString& data) { return setHamQTHUpdateDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setLoTWQSLRDate(const QString& data) { return setLoTWQSLRDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setLoTWQSLSDate(const QString& data) { return setLoTWQSLSDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setQRZCOMDate(const QString& data) { return setQRZCOMDate(util->getDateFromADIFDateString(data)); }
@@ -2753,13 +2840,12 @@ void QSO::InitializeHash() {
         {"FREQ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreq)},
         {"FREQ_RX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setFreqRX)},
         {"GRIDSQUARE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setGridSquare)},
+        {"GRIDSQUARE_EXT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setGridSquare_ext)},
         {"HRDLOG_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDUpdateDate)},
         {"HRDLOG_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHRDLogStatus)},
-        {"HAMLOGEU_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHamLogEUStatus)},
+        {"HAMLOGEU_QSO_UPLOAD_DATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHamLogEUUpdateDate)},
         {"HAMQTH_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHamQTHStatus)},
-
-
-        {"IOTA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setIOTA)},
+        {"HAMLOGEU_QSO_UPLOAD_STATUS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setHamLogEUStatus)},
         {"IOTA_ISLAND_ID", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setIotaID)},
         {"ITUZ", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setItuZone)},
         {"K_INDEX", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setK_Index)},
@@ -2774,7 +2860,7 @@ void QSO::InitializeHash() {
         {"MS_SHOWER", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMsShower)},
         {"MY_ALTITUDE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyAltitude)},
         {"MY_ANTENNA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyAntenna)},
-        {"MY_ARRL_SECT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyArrlSect)},
+        {"MY_ARRL_SECT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyARRL_Sect)},
         {"MY_CITY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyCity)},
         {"MY_CNTY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyCounty)},
         {"MY_COUNTRY", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyCountry)},
@@ -2782,6 +2868,7 @@ void QSO::InitializeHash() {
         {"MY_DXCC", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyDXCC)},
         {"MY_FISTS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyFists)},
         {"MY_GRIDSQUARE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyGridSquare)},
+        {"MY_GRIDSQUARE_EXT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyGridSquare_ext)},
         {"MY_IOTA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyIOTA)},
         {"MY_IOTA_ISLAND_ID", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyIotaID)},
         {"MY_ITU_ZONE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyITUZone)},
@@ -2897,50 +2984,53 @@ bool QSO::setData(const QString &_adifPair)
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-    //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
+    qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
     if (!isComplete ())
     {
-        //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
+        qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
-    //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
+    qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     queryString.clear();
     if (_qsoId<=0)
     {
-        //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
+        qDebug() << Q_FUNC_INFO << " - qsoID <=0";
         queryString = getAddQueryString();
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - qsoID>0";
+        qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }
+    qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
     QSqlQuery query = getPreparedQuery(queryString);
     if (_qsoId>0)
     {
-        //qDebug() << Q_FUNC_INFO << " - binding ID";
+        qDebug() << Q_FUNC_INFO << " - binding ID";
         query.bindValue (":id", _qsoId);
     }
-    //qDebug() << Q_FUNC_INFO << " - executing query";
+    qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
-        //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
-       //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
+        qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
+        qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
         if (_qsoId>0)
             return _qsoId;
         return 1;//db->getLastInsertedQSO();
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
-        //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
-        //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().baseText();
-        //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().nativeErrorCode();
+         qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
+         qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
+         qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().databaseText();
+         qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().text();
+         qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().nativeErrorCode();
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return -2;
     }
     query.finish();
+    qDebug() << Q_FUNC_INFO << " - END";
     return 1;
 }
 
@@ -2952,29 +3042,30 @@ QString QSO::getAddQueryString()
         "ant_path, arrl_sect, award_submitted, award_granted, band_rx, checkcontest, class, clublog_qso_upload_date, "
         "clublog_qso_upload_status, cont, contacted_op, contest_id, country, credit_submitted, credit_granted, darc_dok, "
         "distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, fists, fists_cc, "
-        "force_init, freq, freq_rx, gridsquare, hrdlog_qso_upload_date, hrdlog_qso_upload_status, hamlogeu_qso_upload_status, hamqth_qso_upload_status, "
+        "force_init, freq, freq_rx, gridsquare, gridsquare_ext, hrdlog_qso_upload_date, hrdlog_qso_upload_status, "
+        "hamlogeu_qso_upload_date, hamlogeu_qso_upload_status, hamqth_qso_upload_date, hamqth_qso_upload_status, "
         "iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, "
-        "my_antenna, my_altitude, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_iota, my_iota_island_id, "
+        "my_antenna, my_altitude, my_arrl_sect, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_gridsquare_ext, my_iota, my_iota_island_id, "
         "my_itu_zone, my_lat, "
-        "my_lon, my_name, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, "
-        "my_usaca_counties, my_vucc_grids, name, "
-        "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
+        "my_lon, my_name, my_pota_ref, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, "
+        "my_usaca_counties, my_wwff_ref, my_vucc_grids, name, "
+        "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, pota_ref, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
         "qrzcom_qso_upload_status, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, "
         "qth, region, rig, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, silent_key, skcc, sota_ref, srx_string, srx, stx_string, stx, state, "
-        "station_callsign, swl, uksmg, usaca_counties, ve_prov, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
+        "station_callsign, swl, uksmg, usaca_counties, ve_prov, wwff_ref, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
         "VALUES ("
         ":qso_date, :call, :rst_sent, :rst_rcvd, :bandid, :modeid, :cqz, :ituz, :dxcc, :address, :age, :altitude, :cnty, :comment, :a_index, :ant_az, :ant_el, "
         ":ant_path, :arrl_sect, :award_submitted, :award_granted, :band_rx, :checkcontest, :class, :clublog_qso_upload_date, :clublog_qso_upload_status, :cont, "
         ":contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :darc_dok, :distance, :email, :eq_call, :eqsl_qslrdate, :eqsl_qslsdate, "
-        ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq_tx, :freq_rx, :gridsquare, :hrdlog_qso_upload_date, "
-        ":hrdlog_qso_upload_status, :hamlogeu_qso_upload_status, :hamqth_qso_upload_status, "
+        ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq_tx, :freq_rx, :gridsquare, :gridsquare_ext, :hrdlog_qso_upload_date, "
+        ":hrdlog_qso_upload_status, :hamlogeu_qso_upload_date, :hamlogeu_qso_upload_status, :hamqth_qso_upload_date, :hamqth_qso_upload_status, "
         ":iota, :iota_island_id, :k_index, :lat, :lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :max_bursts, :ms_shower, "
-        ":my_antenna, :my_altitude, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
-        ":my_lon, :my_name, :my_postal_code, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :my_street, :my_usaca_counties, :my_vucc_grids, :name, "
-        ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
+        ":my_antenna, :my_altitude, :my_arrl_sect, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_gridsquare_ext, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
+        ":my_lon, :my_name, :my_pota_ref, :my_postal_code, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :my_street, :my_usaca_counties, :my_wwff_ref, :my_vucc_grids, :name, "
+        ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :pota_ref, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
         ":qrzcom_qso_upload_status, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, "
-        ":qth, :region, :rig, :rx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sig_info, :silent_key, :skcc, :sota_ref, :srx_string, :srx, :stx_string, :stx, :state,"
-        ":station_callsign, :swl, :uksmg, :usaca_counties, :ve_prov, :vucc_grids, :ten_ten, :tx_pwr, :web, :qso_date_off, "
+        ":qth, :region, :rig, :rx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sig_info, :silent_key, :skcc, :sota_ref, :srx_string, :srx, :stx_string, :stx, :state, "
+        ":station_callsign, :swl, :uksmg, :usaca_counties, :ve_prov, :wwff_ref, :vucc_grids, :ten_ten, :tx_pwr, :web, :qso_date_off, "
         ":marked, :lognumber)" );
 }
 
@@ -2992,21 +3083,22 @@ QString QSO::getModifyQueryString()
                    "distance = :distance, email = :email, eq_call = :eq_call, eqsl_qslrdate = :eqsl_qslrdate, "
                    "eqsl_qslsdate = :eqsl_qslsdate, eqsl_qsl_rcvd = :eqsl_qsl_rcvd, eqsl_qsl_sent = :eqsl_qsl_sent, "
                    "fists = :fists, fists_cc = :fists_cc, force_init = :force_init, freq = :freq_tx, freq_rx = :freq_rx, "
-                   "gridsquare = :gridsquare, hrdlog_qso_upload_date = :hrdlog_qso_upload_date, "
+                   "gridsquare = :gridsquare, gridsquare_ext = :gridsquare_ext, hrdlog_qso_upload_date = :hrdlog_qso_upload_date, "
                    "hrdlog_qso_upload_status = :hrdlog_qso_upload_status, "
-                   "hamlogeu_qso_upload_status = :hamlogeu_qso_upload_status, hamqth_qso_upload_status = :hamqth_qso_upload_status, "
+                   "hamlogeu_qso_upload_date = :hamlogeu_qso_upload_date, hamlogeu_qso_upload_status = :hamlogeu_qso_upload_status, "
+                   "hamqth_qso_upload_date = :hamqth_qso_upload_date, hamqth_qso_upload_status = :hamqth_qso_upload_status, "
                    "iota = :iota, iota_island_id = :iota_island_id, "
                    "k_index = :k_index, lat = :lat, lon = :lon, lotw_qslrdate = :lotw_qslrdate, lotw_qslsdate = :lotw_qslsdate, "
                    "lotw_qsl_rcvd = :lotw_qsl_rcvd, lotw_qsl_sent = :lotw_qsl_sent, max_bursts = :max_bursts, "
-                   "ms_shower = :ms_shower, my_antenna = :my_antenna, my_altitude = :my_altitude, my_city = :my_city, my_cnty = :my_cnty, "
+                   "ms_shower = :ms_shower, my_antenna = :my_antenna, my_altitude = :my_altitude, my_arrl_sect = :my_arrl_sect, my_city = :my_city, my_cnty = :my_cnty, "
                    "my_country = :my_country, my_cq_zone = :my_cq_zone, my_dxcc = :my_dxcc, my_fists = :my_fists, "
-                   "my_gridsquare = :my_gridsquare, my_iota = :my_iota, my_iota_island_id = :my_iota_island_id, "
+                   "my_gridsquare = :my_gridsquare, my_gridsquare_ext = :my_gridsquare_ext, my_iota = :my_iota, my_iota_island_id = :my_iota_island_id, "
                    "my_itu_zone = :my_itu_zone, my_lat = :my_lat, my_lon = :my_lon, my_name = :my_name, "
-                   "my_postal_code = :my_postal_code, my_rig = :my_rig, my_sig = :my_sig, my_sig_info = :my_sig_info, "
+                   "mypota_ref = :my_pota_ref, my_postal_code = :my_postal_code, my_rig = :my_rig, my_sig = :my_sig, my_sig_info = :my_sig_info, "
                    "my_sota_ref = :my_sota_ref, my_state = :my_state, my_street = :my_street, "
-                   "my_usaca_counties = :my_usaca_counties, my_vucc_grids = :my_vucc_grids, name = :name, notes = :notes, "
+                   "my_usaca_counties = :my_usaca_counties, my_wwff_ref = :my_wwff_ref, my_vucc_grids = :my_vucc_grids, name = :name, notes = :notes, "
                    "nr_bursts = :nr_bursts, nr_pings = :nr_pings, operator = :operator, owner_callsign = :owner_callsign, "
-                   "pfx = :pfx, precedence = :precedence, prop_mode = :prop_mode, "
+                   "pfx = :pfx, pota_ref = :pota_ref, precedence = :precedence, prop_mode = :prop_mode, "
                    "public_key = :public_key, qrzcom_qso_upload_date = :qrzcom_qso_upload_date, "
                    "qrzcom_qso_upload_status = :qrzcom_qso_upload_status, qslmsg = :qslmsg, qslrdate = :qslrdate, "
                    "qslsdate = :qslsdate, qsl_rcvd = :qsl_rcvd, qsl_sent = :qsl_sent, qsl_rcvd_via = :qsl_rcvd_via, "
@@ -3015,7 +3107,7 @@ QString QSO::getModifyQueryString()
                    "sfi = :sfi, sig = :sig, sig_info = :sig_info, silent_key = :silent_key, skcc = :skcc, "
                    "sota_ref = :sota_ref, srx_string = :srx_string, srx = :srx, stx_string = :stx_string, stx = :stx, "
                    "state = :state, station_callsign = :station_callsign, swl = :swl, uksmg = :uksmg, "
-                   "usaca_counties = :usaca_counties, ve_prov = :ve_prov, vucc_grids = :vucc_grids, ten_ten = :ten_ten, "
+                   "usaca_counties = :usaca_counties, ve_prov = :ve_prov, wwff_ref = :wwff_ref, vucc_grids = :vucc_grids, ten_ten = :ten_ten, "
                    "tx_pwr = :tx_pwr, web = :web, qso_date_off = :qso_date_off, marked = :marked, lognumber = :lognumber "
                    "WHERE id = :id");
 }
@@ -3146,7 +3238,7 @@ int QSO::getModeIdFromModeName()
 
 QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
     QSqlQuery query;
     bool ok;
     if (_submode)
@@ -3160,8 +3252,8 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 
     if (!ok)
     {
+        qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
         return QString();
-        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
     }
     query.bindValue (":id", _modeId);
 
@@ -3176,7 +3268,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
     if (!query.isValid())
         return QString();
 
-    //qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
 
@@ -3184,17 +3276,17 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 {
     QSqlQuery query;
 
-    //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
-    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode ();
+    qDebug() << Q_FUNC_INFO << " - Start ";
+    qDebug() << Q_FUNC_INFO << " - queryString: " << _s;
 
     query.clear ();
     if (!query.prepare (_s))
     {
-       //qDebug() << Q_FUNC_INFO << "Query not prepared";
+       qDebug() << Q_FUNC_INFO << " - Query not prepared";
        query.clear ();
        return query;
     }
-
+    qDebug() << Q_FUNC_INFO << " - Starting to bind values...";
     query.bindValue(":qso_date", util->getDateTimeSQLiteStringFromDateTime (getDateTimeOn ()));
     query.bindValue(":call", getCall());
     query.bindValue(":rst_sent", getRSTTX());
@@ -3207,8 +3299,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":address", getAddress());
     query.bindValue(":age", getAge());
     query.bindValue(":altitude", getAltitude());
-    query.bindValue(":cnty", getCounty());
-    query.bindValue(":comment", getComment());
+
     query.bindValue(":a_index", getA_Index());
     query.bindValue(":ant_az", getAnt_az());
     query.bindValue(":ant_el", getAnt_el());
@@ -3222,7 +3313,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":class", getClass());
     query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClubLogDate()));
     query.bindValue(":clublog_qso_upload_status", getClubLogStatus());
-
+    query.bindValue(":cnty", getCounty());
+    query.bindValue(":comment", getComment());
     query.bindValue(":cont", getContinent ());
     query.bindValue(":contacted_op", getContactedOperator());
     query.bindValue(":contest_id", getContestID());
@@ -3245,10 +3337,13 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":freq_tx", getFreqTX());
     query.bindValue(":freq_rx", getFreqRX());
     query.bindValue(":gridsquare", getGridSquare());
+    query.bindValue(":gridsquare_ext", getGridSquare_ext());
     query.bindValue(":hrdlog_qso_upload_date", getHRDUpdateDate ());
     query.bindValue(":hrdlog_qso_upload_status", getHRDLogStatus ());
 
+    query.bindValue(":hamlogeu_qso_upload_date", getHamLogEUUpdateDate());
     query.bindValue(":hamlogeu_qso_upload_status", getHamLogEUStatus());
+    query.bindValue(":hamqth_qso_upload_date", getHamQTHUpdateDate());
     query.bindValue(":hamqth_qso_upload_status", getHamQTHStatus());
 
 
@@ -3265,6 +3360,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":ms_shower", getMsShower());
     query.bindValue(":my_altitude", getMyAltitude());
     query.bindValue(":my_antenna", getMyAntenna());
+    query.bindValue(":my_arrl_sect", getMyARRL_Sect());
     query.bindValue(":my_city", getMyCity());
 
     query.bindValue(":my_cnty", getMyCounty());
@@ -3273,12 +3369,15 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":my_dxcc", getMyDXCC ());
     query.bindValue(":my_fists", getMyFists ());
     query.bindValue(":my_gridsquare", getMyGridSquare());
+    query.bindValue(":my_gridsquare_ext", getMyGridSquare_ext());
     query.bindValue(":my_iota", getMyIOTA());
     query.bindValue(":my_iota_island_id", getMyIotaID());
     query.bindValue(":my_itu_zone", getMyITUZone ());
     query.bindValue(":my_lat", getMyLatitude());
     query.bindValue(":my_lon", getMyLongitude());
     query.bindValue(":my_name", getMyName());
+    query.bindValue(":my_pota_ref", getMyPOTA_Ref());
+
     query.bindValue(":my_postal_code", getMyPostalCode ());
     query.bindValue(":my_rig", getMyRig());
 
@@ -3288,7 +3387,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":my_state", getMyState());
     query.bindValue(":my_street", getMyStreet());
     query.bindValue(":my_usaca_counties", getMyUsacaCounties ());
-
+    query.bindValue(":my_wwff_ref", getMyWWFF_Ref());
     query.bindValue(":my_vucc_grids", getMyVUCCGrids());
     query.bindValue(":name", getName());
     query.bindValue(":notes", getNotes());
@@ -3298,6 +3397,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":owner_callsign", getOwnerCallsign());
     query.bindValue(":pfx", getPrefix());
 
+    query.bindValue(":pota_ref", getPOTA_Ref());
     query.bindValue(":precedence", getPrecedence());
     query.bindValue(":prop_mode", getPropMode());
     query.bindValue(":public_key", getPublicKey());
@@ -3342,6 +3442,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":uksmg", getUksmg ());
     query.bindValue(":usaca_counties", getUsacaCounties ());
     query.bindValue(":ve_prov", getVeProv ());
+    query.bindValue(":wwff_ref", getWWFF_Ref());
     query.bindValue(":vucc_grids", getVUCCGrids());
     query.bindValue(":ten_ten", getTenTen());
     query.bindValue(":tx_pwr", getTXPwr());
@@ -3349,6 +3450,11 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":qso_date_off", util->getDateSQLiteStringFromDate(getDateOff()));
     query.bindValue(":lognumber", getLogId());
 
+    QVariantList list = query.boundValues();
+    for (int i = 0; i < list.size(); ++i)
+        qDebug() << Q_FUNC_INFO << QString(": %1").arg(i) << "/ " << list.at(i).toString().toUtf8().data() << "\n";
+
+    qDebug() << Q_FUNC_INFO << " - END";
     return query;
 }
 
@@ -3442,12 +3548,16 @@ QString QSO::getADIF()
     //qDebug() << Q_FUNC_INFO << ": Printing FREQ_RX";
     if ((adif->isValidFreq(QString::number(freq_rx))) && (freq_tx != freq_rx))
         adifStr.append(adif->getADIFField ("freq_rx", QString::number(freq_rx) ));
-
-    adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
+    if (util->isValidGrid_ext(gridsquare))
+        adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
+    if (util->isValidGrid_ext(gridsquare_ext))
+        adifStr.append(adif->getADIFField ("gridsquare_ext",  gridsquare_ext));
     adifStr.append(adif->getADIFField ("hrdlog_qso_upload_date",  util->getADIFDateFromQDate(hrdlogUploadDate)));
     adifStr.append(adif->getADIFField ("hrdlog_qso_upload_status", hrdlog_status ));
     adifStr.append(adif->getADIFField ("hamlogeu_qso_upload_status", hamlogeu_status ));
+    adifStr.append(adif->getADIFField ("hamlogeu_qso_upload_date",  util->getADIFDateFromQDate(hamlogeuUpdateDate)));
     adifStr.append(adif->getADIFField ("hamqth_qso_upload_status", hamqth_status ));
+    adifStr.append(adif->getADIFField ("hamqth_qso_upload_date",  util->getADIFDateFromQDate(hamqthUpdateDate)));
 
 
     adifStr.append(adif->getADIFField ("iota", iota));
@@ -3470,6 +3580,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("ms_shower",  ms_shower));
     adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
     adifStr.append(adif->getADIFField ("my_antenna", my_antenna));
+    adifStr.append(adif->getADIFField ("my_arrl_sect", my_arrl_sect ));
     adifStr.append(adif->getADIFField ("my_city", my_city));
 
     adifStr.append(adif->getADIFField ("my_cnty", my_county));
@@ -3483,7 +3594,10 @@ QString QSO::getADIF()
 
     if (adif->isValidFISTS(QString::number(my_fists)))
         adifStr.append(adif->getADIFField ("my_fists", QString::number(my_fists) ));
-    adifStr.append(adif->getADIFField ("my_gridsquare", my_gridsquare ));
+    if (util->isValidGrid_ext(my_gridsquare))
+        adifStr.append(adif->getADIFField ("my_gridsquare", my_gridsquare ));
+    if (util->isValidGrid_ext(my_gridsquare_ext))
+        adifStr.append(adif->getADIFField ("my_gridsquare_ext", my_gridsquare_ext));
     adifStr.append(adif->getADIFField ("my_iota", my_iota));
     if (adif->isValidIOTA_islandID(QString::number(getMyIotaID())))
         adifStr.append(adif->getADIFField ("my_iota_island_id", QString::number(getMyIotaID())));
@@ -3494,7 +3608,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("my_lat", my_latitude));
     adifStr.append(adif->getADIFField ("my_lon", my_longitude));
     adifStr.append(adif->getADIFField ("my_name", my_name));
-
+    adifStr.append(adif->getADIFField ("my_pota_ref", my_pota_ref));
     adifStr.append(adif->getADIFField ("my_postal_code", my_postal_code));
     adifStr.append(adif->getADIFField ("my_rig", my_rig));
     adifStr.append(adif->getADIFField ("my_sig", my_sig));
@@ -3504,7 +3618,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("my_state", my_state));
     adifStr.append(adif->getADIFField ("my_street", my_street));
     adifStr.append(adif->getADIFField ("my_usaca_counties", my_usaca_counties));
-
+    adifStr.append(adif->getADIFField ("my_wwff_ref", my_wwff_ref));
     adifStr.append(adif->getADIFField ("my_vucc_grids", my_vucc_grids));
     adifStr.append(adif->getADIFField ("name", name));
     adifStr.append(adif->getADIFField ("notes", notes));
@@ -3515,7 +3629,7 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("operator", operatorCall));
     adifStr.append(adif->getADIFField ("owner_callsign", ownerCall));
     adifStr.append(adif->getADIFField ("pfx", prefix));
-
+    adifStr.append(adif->getADIFField ("pota_ref", pota_ref));
     adifStr.append(adif->getADIFField ("precedence", precedence));
     adifStr.append(adif->getADIFField ("prop_mode", propMode));
     adifStr.append(adif->getADIFField ("public_key", public_key));
@@ -3579,6 +3693,7 @@ QString QSO::getADIF()
 
     adifStr.append(adif->getADIFField ("usaca_counties", usaca_counties));
     adifStr.append(adif->getADIFField ("ve_prov", ve_prov));
+    adifStr.append(adif->getADIFField ("wwff_ref", wwff_ref));
     adifStr.append(adif->getADIFField ("vucc_grids", vucc_grids));
 
     if (adif->isValidTenTen(QString::number(ten_ten)))
@@ -3730,13 +3845,19 @@ bool QSO::fromDB(int _qsoId)
     setFreq((query.value(rec.indexOf("freq"))).toDouble());
     setFreqRX((query.value(rec.indexOf("freq_rx"))).toDouble());
     setGridSquare((query.value(rec.indexOf("gridsquare"))).toString());
+    setGridSquare_ext((query.value(rec.indexOf("gridsquare_ext"))).toString());
     data = (query.value(rec.indexOf("hrdlog_qso_upload_date"))).toString();
     setHRDUpdateDate(util->getDateTimeFromSQLiteString(data).date());
 
     //qDebug() << Q_FUNC_INFO << "  - 60";
     setHRDLogStatus((query.value(rec.indexOf("hrdlog_qso_upload_status"))).toString());
 
+    data = (query.value(rec.indexOf("hamlogeu_qso_upload_date"))).toString();
+    setHamLogEUUpdateDate(util->getDateTimeFromSQLiteString(data).date());
     setHamLogEUStatus((query.value(rec.indexOf("hamlogeu_qso_upload_status"))).toString());
+
+    data = (query.value(rec.indexOf("hamqth_qso_upload_date"))).toString();
+    setHamQTHUpdateDate(util->getDateTimeFromSQLiteString(data).date());
     setHamQTHStatus((query.value(rec.indexOf("hamqth_qso_upload_status"))).toString());
 
 
@@ -3761,6 +3882,8 @@ bool QSO::fromDB(int _qsoId)
     setMaxBursts((query.value(rec.indexOf("max_bursts"))).toInt());
     setMsShower((query.value(rec.indexOf("ms_shower"))).toString());
     setMyAltitude((query.value(rec.indexOf("my_altitude"))).toDouble());
+    setMyAntenna((query.value(rec.indexOf("my_antenna"))).toString());
+    setMyARRL_Sect((query.value(rec.indexOf("my_arrl_sect"))).toString());
     setMyCity((query.value(rec.indexOf("my_city"))).toString());
     setMyCounty((query.value(rec.indexOf("my_cnty"))).toString());
     setMyCountry((query.value(rec.indexOf("my_country"))).toString());
@@ -3769,12 +3892,14 @@ bool QSO::fromDB(int _qsoId)
     setMyDXCC((query.value(rec.indexOf("my_dxcc"))).toInt());
     setMyFists((query.value(rec.indexOf("my_fists"))).toInt());
     setMyGridSquare((query.value(rec.indexOf("my_gridsquare"))).toString());
+    setMyGridSquare_ext((query.value(rec.indexOf("my_gridsquare_ext"))).toString());
     setMyIOTA((query.value(rec.indexOf("my_iota"))).toString());
     //qDebug() << Q_FUNC_INFO << "  - 80";
     setMyLatitude((query.value(rec.indexOf("my_lat"))).toString());
     setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
 
     setMyName((query.value(rec.indexOf("my_name"))).toString());
+    setMyPOTA_Ref((query.value(rec.indexOf("my_pota_ref"))).toString());
     setMyPostalCode((query.value(rec.indexOf("my_postal_code"))).toString());
     setMyRig((query.value(rec.indexOf("my_rig"))).toString());
     setMySig((query.value(rec.indexOf("my_sig"))).toString());
@@ -3783,6 +3908,7 @@ bool QSO::fromDB(int _qsoId)
     setMyState((query.value(rec.indexOf("my_state"))).toString());
     setMyStreet((query.value(rec.indexOf("my_street"))).toString());
     setMyUsacaCounties((query.value(rec.indexOf("my_usaca_counties"))).toString());
+    setMyWWFF_Ref((query.value(rec.indexOf("my_wwff_ref"))).toString());
     setMyVUCCGrids((query.value(rec.indexOf("my_vucc_grids"))).toString());
     //qDebug() << Q_FUNC_INFO << "  - 90";
     setName((query.value(rec.indexOf("name"))).toString());
@@ -3793,6 +3919,7 @@ bool QSO::fromDB(int _qsoId)
     setOperatorCallsign((query.value(rec.indexOf("operator"))).toString());
     setOwnerCallsign((query.value(rec.indexOf("owner_callsign"))).toString());
     setPrefix((query.value(rec.indexOf("pfx"))).toString());
+    setPOTA_Ref((query.value(rec.indexOf("pota_ref"))).toString());
     setPrecedence((query.value(rec.indexOf("precedence"))).toString());
     setPropMode((query.value(rec.indexOf("prop_mode"))).toString());
     setPublicKey((query.value(rec.indexOf("public_key"))).toString());
@@ -3845,6 +3972,7 @@ bool QSO::fromDB(int _qsoId)
     setUsacaCounties((query.value(rec.indexOf("usaca_counties"))).toString());
     setVeProv((query.value(rec.indexOf("ve_prov"))).toString());
     setVUCCGrids((query.value(rec.indexOf("vucc_grids"))).toString());
+    setWWFF_Ref((query.value(rec.indexOf("wwff_ref"))).toString());
     setTenTen((query.value(rec.indexOf("ten_ten"))).toInt());
     setTXPwr((query.value(rec.indexOf("tx_pwr"))).toDouble());
     //qDebug() << Q_FUNC_INFO << "  - 140";

@@ -101,6 +101,8 @@ public:
     QString getQTH();
     bool setGridSquare(const QString &_c);
     QString getGridSquare();
+    bool setGridSquare_ext(const QString &_c);
+    QString getGridSquare_ext();
     bool setName(const QString &_c);
     QString getName();
     bool setRXPwr(const double _f);
@@ -202,6 +204,8 @@ public:
     QString getStationCallsign();
     bool setMyGridSquare(const QString &_c);
     QString getMyGridSquare();
+    bool setMyGridSquare_ext(const QString &_c);
+    QString getMyGridSquare_ext();
     bool setKeepMyData(bool _k);
     bool getKeepMyData();
 
@@ -211,8 +215,6 @@ public:
     QString getMyRig();
     bool setMyAntenna(const QString &_c);
     QString getMyAntenna();
-    bool setMyArrlSect(const QString &_c);
-    QString getMyArrlSect();
     bool setMyVUCCGrids(const QString &_c);
     QString getMyVUCCGrids();
 
@@ -264,8 +266,12 @@ public:
 
     bool setHamLogEUStatus(const QString &_c);
     QString getHamLogEUStatus();
+    bool setHamLogEUUpdateDate(const QDate &_c);
+    QDate getHamLogEUUpdateDate();
     bool setHamQTHStatus(const QString &_c);
     QString getHamQTHStatus();
+    bool setHamQTHUpdateDate(const QDate &_c);
+    QDate getHamQTHUpdateDate();
 
 
     bool setK_Index(const int _i);
@@ -326,6 +332,8 @@ public:
     bool getQSORandom();
     bool setMyAltitude(const double _c);
     double getMyAltitude();
+    bool setMyARRL_Sect(const QString &_c);
+    QString getMyARRL_Sect();
     bool setMyCity(const QString &_c);
     QString getMyCity();
     bool setMyCounty(const QString &_c);
@@ -438,7 +446,7 @@ private:
     int ten_ten, sfi;
     double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, distance, altitude, my_altitude;
 
-    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, qth, name, RST_tx, RST_rx;
+    QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, gridsquare_ext, my_gridsquare_ext, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;
     QString lotw_qsl_sent, lotw_qsl_rcvd, sota_ref, my_sota_ref, my_rig, my_antenna, my_arrl_sect, vucc_grids, my_vucc_grids;
     QString pota_ref,  my_pota_ref;
@@ -456,6 +464,8 @@ private:
 
     QDate QSLRDate, QSLSDate, QSLLoTWRDate, QSLLoTWSDate, qso_date_off;
     QDate eQSLRDate, eQSLSDate, clublogQSOUpdateDate, hrdlogUploadDate;
+    QDate hamlogeuUpdateDate, hamqthUpdateDate;
+
     QDate QRZComDate;
 
     bool backup, lotwUpdating, realTime, manualMode, silent_key;
@@ -509,6 +519,8 @@ private:
     bool setEQSLQSLSDate(const QString& data);
     bool setForceInit(const QString& data);
     bool setHRDUpdateDate(const QString& data);
+    bool setHamLogEUUpdateDate(const QString& data);
+    bool setHamQTHUpdateDate(const QString& data);
     bool setLoTWQSLRDate(const QString& data);
     bool setLoTWQSLSDate(const QString& data);
     bool setQRZCOMDate(const QString& data);

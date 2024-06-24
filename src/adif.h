@@ -37,6 +37,7 @@
 #include <QString>
 #include <QtDebug>
 #include <QStringList>
+
 //#include "locator.h"
 #include "klogdefinitions.h"
 
@@ -71,7 +72,8 @@ public:
     bool isValidTenTen(const QString &_b);            //>0
     bool isValidLogId(const QString &_b);            //>0
     bool isValidAntPath(const QString &_s);
-    bool isValidQSO_COMPLETE(const QString &_s);    // "Y", "N", "NIL", "?"
+    bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
+    QString getQSO_COMPLETEFromDB(const QString &_s);    // Translates the DB value into an ADIF value
     bool isValidPOTA(const QString &_s);            // TODO
     bool isValidWWFF_Ref(const QString &_s);        // TODO
 

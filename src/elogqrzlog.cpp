@@ -639,7 +639,12 @@ int eLogQrzLog::sendQSO(const int _qsoID)
     // Received an ID, obtains the ADIF fo QRZ.com from dataProxy and sends it t QRZ.com
     //qDebug() << "eLogQrzLog::sendQSO: "  << QString::number(_qsoID);
     showDebugLog (Q_FUNC_INFO, "Start: " + QString::number(_qsoID));
-    QString adifQSO = dataProxy->getADIFQSO(_qsoID, ModeEQSL);
+    QSO qso;
+    qso.fromDB(_qsoID);
+    if (!qso.isComplete())
+        return -1;
+    //QString adifQSO = dataProxy->getADIFQSO(_qsoID, ModeEQSL);
+    QString adifQSO =  qso.getADIF();
 
     //qDebug()<< "eLogQrzLog::sendQSO: (ADIF) :" << adifQSO;
     //qDebug()<< "eLogQrzLog::sendQSO: (KEY) :" << logbookkey;

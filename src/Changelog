@@ -1,41 +1,3 @@
-DONE: altitude
-DONE: my_altitude
-gridsquare_ext
-my_gridsquare_ext
-hamlogeu_qso_upload_date
-WIP: hamlogeu_qso_upload_status
-hamqth_qso_upload_date
-WIP: hamqth_qso_upload_status
-my_arrl_sect
-my_pota_ref
-my_wwff_ref
-pota_ref
-wwff_ref
-
-
-
-ADDRESS_INTL
-COMMENT_INTL
-COUNTRY_INTL
-MY_ANTENNA_INTL
-MY_CITY_INTL
-MY_COUNTRY_INTL
-MY_NAME_INTL
-MY_POSTAL_CODE_INTL
-MY_RIG_INTL
-MY_SIG_INTL
-MY_SIG_INFO_INTL
-MY_STREET_INTL
-NAME_INTL
-NOTES_INTL
-QSLMSG_INTL
-QTH_INTL
-RIG_INTL
-SIG_INTL
-SIG_INFO_INTL
-
-
-BUG: Detect the need to update the DB https://github.com/ea4k/klog/issues/721
 BUG: When entering/modifying a QSO thre is an error related to awarddxcc table not existing
 
 TODO: Update the DB (modes table) updateToLatest() => updateTo026
@@ -59,10 +21,7 @@ TESTS to do during RC releases:
     - check if they are properly imported to the log.
     - Test a dupe QSO, a message should be shown
 
-TEST
-WIP:  #396, #507, #508 (User selectable fields: my_pota_ref, my_sig, my_sig_info, my_wwff_ref)
-WIP:  #396, #507, #508 (User selectable fields: pota_ref, sig, sig_info, wwff_ref)
-
+Close:  #396, #507, #508
 
 
 TBD - 2.4
@@ -75,6 +34,7 @@ TBD - 2.4
 - Enhancement: Added all the modes/submodes of ADIF 3.1.4
 - Enhancement: Added many tests to test code before releasing.
 - Enhancement: ADIF Added SUBMM band.
+- Enhancement: Added several ADIF fields (Closes #396, #507, #508, #719)
 - BugFix: Fixed the ISO name for Togo.
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.

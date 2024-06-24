@@ -1,3 +1,5 @@
+#ifndef KLOG_LOCATOR_H
+#define KLOG_LOCATOR_H
 /***************************************************************************
                           locator.h  -  description
                              -------------------
@@ -24,8 +26,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#ifndef KLOG_LOCATOR_H
-#define KLOG_LOCATOR_H
+
 #include <math.h>
 #include <QString>
 #include <QRegularExpression>

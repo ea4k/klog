@@ -310,7 +310,7 @@ public:
     bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);
 
     //void getFoundInLog(const QString &_txt, const int _log=-1);
-    QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
+    KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
     QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // To refactor the getADIFFromQSOQuery function
     QString getADIFFromQSOQuery(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
     //QString getADIFFromQSOQuery2(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);

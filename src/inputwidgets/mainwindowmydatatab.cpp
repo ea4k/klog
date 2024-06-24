@@ -704,7 +704,7 @@ bool MainWindowMyDataTab::setMySig_info(const QString &_op)
 {
     if (_op.length()<=0)
         return false;
-    my_sig = _op;
+    my_sig_info = _op;
     slotMyUserADIFComboBoxChanged();
     return true;
 }
