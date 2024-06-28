@@ -136,9 +136,9 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(iotaContinentComboBox, 3, 1);
     tabLayout->addWidget(iotaNumberLineEdit, 3, 2);
     tabLayout->addWidget(propModeLabel, 4, 0);
+    tabLayout->addWidget(propModeComboBox, 4, 1, 1, 2);
     tabLayout->addLayout(keepLayout, 4, 1, 1, 2);
-    tabLayout->addWidget(entityPrimLabel, 1, 0);
-    tabLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
+
     tabLayout->addWidget(userSelectLabel, 5, 0);
     tabLayout->addWidget(userDefinedADIFComboBox, 5, 1);
     tabLayout->addWidget(userDefinedADIFValueLineEdit, 5, 2);
@@ -710,11 +710,10 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n)
     {
         QString subdivision = ps.shortName + "-" + ps.name;
         listOfSubdivisions.append(subdivision);
-        qDebug() << Q_FUNC_INFO << ": " << subdivision;
+        qDebug() << Q_FUNC_INFO << ": Subdivision added: " << subdivision;
     }
     if (listOfSubdivisions.count()<1)
         return;
-
     entityPrimDivComboBox->clear();
     entityPrimDivComboBox->addItems(listOfSubdivisions);
     qDebug() << Q_FUNC_INFO << " - END";

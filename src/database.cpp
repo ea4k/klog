@@ -433,17 +433,17 @@ bool DataBase::recreateTableLog()
 bool DataBase::createTableLog(bool temp)
 { //Creates a temporal table or the normal one.
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start" ;
+    //qDebug() << Q_FUNC_INFO << " - Start" ;
     QString stringQuery = QString();
     if (temp)
     {
         stringQuery = "CREATE TABLE log" ;
-        qDebug() << Q_FUNC_INFO << ": log" ;
+        //qDebug() << Q_FUNC_INFO << ": log" ;
     }
     else
     {
         stringQuery = "CREATE TABLE logtemp" ;
-        qDebug() << Q_FUNC_INFO << ": logtemp" ;
+        //qDebug() << Q_FUNC_INFO << ": logtemp" ;
     }
              stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
              "qso_date DATETIME NOT NULL, " // 2020-01-01 10:12:01
@@ -617,17 +617,17 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (dxcc) REFERENCES entity (dxcc), "
              "FOREIGN KEY (bandid) REFERENCES band (id))");
 
-    qDebug() << Q_FUNC_INFO << ": " << stringQuery;
+    //qDebug() << Q_FUNC_INFO << ": " << stringQuery;
 
     if (execQuery(Q_FUNC_INFO, stringQuery))
     {
-        qDebug() << Q_FUNC_INFO << ": Query OK";
+        //qDebug() << Q_FUNC_INFO << ": Query OK";
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return true;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": Query NOK";
+        //qDebug() << Q_FUNC_INFO << ": Query NOK";
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
@@ -1035,7 +1035,7 @@ bool DataBase::populateTablePrimarySubdivisions(const bool NoTmp)
 
 bool DataBase::recreateTablePrimarySubdivisions()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QSqlQuery query;
 
     if (isTheTableExisting("primary_subdivisions"))
@@ -1471,7 +1471,7 @@ bool DataBase::unMarkAllQSO()
 
 bool DataBase::updateIfNeeded()
 {
-    qDebug() <<Q_FUNC_INFO << "  - Version: " << QString::number(dbVersion) ;
+    //qDebug() <<Q_FUNC_INFO << "  - Version: " << QString::number(dbVersion) ;
 
     /**************************************************************************************
      *
@@ -1481,21 +1481,21 @@ bool DataBase::updateIfNeeded()
 
 
     latestReaded = getDBVersion();
-    qDebug() << Q_FUNC_INFO << QString("latestReaded: %1 / dBversion: %2").arg(latestReaded).arg(dbVersion);
+    //qDebug() << Q_FUNC_INFO << QString("latestReaded: %1 / dBversion: %2").arg(latestReaded).arg(dbVersion);
 
     if (latestReaded<0.0)
         return false;
 
-    qDebug() << Q_FUNC_INFO << "  - LatestReaded: >= 1.0 we can continue" ;
+    //qDebug() << Q_FUNC_INFO << "  - LatestReaded: >= 1.0 we can continue" ;
 
     if (latestReaded >= dbVersion)
     { // DB is updated, no update is needed
-        qDebug() << Q_FUNC_INFO << "  - DB updated (no need to update anything!) " ;
+        //qDebug() << Q_FUNC_INFO << "  - DB updated (no need to update anything!) " ;
         return true;
     }
     else
     { // DB is outdated. We need to update!!
-        qDebug() << Q_FUNC_INFO << "  - DB outdated... upgrade starts now! " ;
+        //qDebug() << Q_FUNC_INFO << "  - DB outdated... upgrade starts now! " ;
         QMessageBox msgBox;
         msgBox.setWindowTitle("KLog");
         msgBox.setText( QObject::tr("KLog DB needs to be upgraded."));
@@ -1533,7 +1533,7 @@ bool DataBase::updateIfNeeded()
 
 void DataBase::backupB4Update()
 {
-    qDebug() << Q_FUNC_INFO << " - Start" ;
+    //qDebug() << Q_FUNC_INFO << " - Start" ;
     QMessageBox msgBox;
     msgBox.setWindowTitle("KLog backup");
     msgBox.setText( QObject::tr("Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea."));
@@ -1563,7 +1563,7 @@ void DataBase::backupB4Update()
 
 void DataBase::logBackup()
 {
-    qDebug() << Q_FUNC_INFO << " - Start" ;
+    //qDebug() << Q_FUNC_INFO << " - Start" ;
 
     QFile DBFile(util->getKLogDBFile());
     QString newFile = util->getKLogDBBackupFile();
@@ -1577,7 +1577,7 @@ void DataBase::logBackup()
 
     if (copied)
     {
-        qDebug() << Q_FUNC_INFO << " - DB backup was OK"  ;
+        //qDebug() << Q_FUNC_INFO << " - DB backup was OK"  ;
         msgBox.setText( QObject::tr("The backup finished successfully."));
         msgBox.setInformativeText( QObject::tr("You can find the backup in this file: %1").arg(newFile) );
         msgBox.setIcon(QMessageBox::Information);
@@ -1838,10 +1838,10 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  *
  */
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     if (requiresManualUpgrade())
     {
-        qDebug() << Q_FUNC_INFO << " requires" ;
+        //qDebug() << Q_FUNC_INFO << " requires" ;
         exit(1);
         //return false;
     }
@@ -2313,18 +2313,18 @@ bool DataBase::createTableLogs(const bool real)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(real);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(real);
 
     QString stringQuery = QString();
     //QSqlQuery query;
     if (real)
     {
-        qDebug() << Q_FUNC_INFO << " - logs" ;
+        //qDebug() << Q_FUNC_INFO << " - logs" ;
         stringQuery = "CREATE TABLE logs" ;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << "  - logstemp" ;
+        //qDebug() << Q_FUNC_INFO << "  - logstemp" ;
         stringQuery = "CREATE TABLE logstemp" ;
     }
 
@@ -2340,7 +2340,7 @@ bool DataBase::createTableLogs(const bool real)
 
 
 
-        qDebug() << Q_FUNC_INFO << "  - END" ;
+        //qDebug() << Q_FUNC_INFO << "  - END" ;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
 }
@@ -3251,7 +3251,7 @@ bool DataBase::updateTo006()
 
 bool DataBase::updateTableLog(const int _version)
 {
-    qDebug() << Q_FUNC_INFO << QString::number(_version);
+    //qDebug() << Q_FUNC_INFO << QString::number(_version);
     // _version helps to identify which update we need to run
     if ((_version!=6) && (_version!=7))
         return false;
@@ -3280,19 +3280,19 @@ bool DataBase::updateTableLog(const int _version)
     //  - rename drop the old table
     //  - rename the new table temp as the regular log table
 
-    qDebug() << Q_FUNC_INFO << " - Creating the table logtemp";
+    //qDebug() << Q_FUNC_INFO << " - Creating the table logtemp";
     if (!createTableLog(false))
         return false;
 
-    qDebug() << Q_FUNC_INFO << " - Creation went OK, lets move the data to the logtemp table";
+    //qDebug() << Q_FUNC_INFO << " - Creation went OK, lets move the data to the logtemp table";
     if (!execQuery(Q_FUNC_INFO, queryString))
         return false;
 
-    qDebug() << Q_FUNC_INFO << " - Data movement went OK, lets drop old log table";
+    //qDebug() << Q_FUNC_INFO << " - Data movement went OK, lets drop old log table";
     if (!execQuery(Q_FUNC_INFO, "DROP TABLE log"))
         return false;
 
-    qDebug() << Q_FUNC_INFO << " - Deletion of the table went OK, lets move the logtemp to log";
+    //qDebug() << Q_FUNC_INFO << " - Deletion of the table went OK, lets move the logtemp to log";
     queryString = "ALTER TABLE logtemp RENAME TO log" ;
     return execQuery(Q_FUNC_INFO, queryString);
 }
@@ -6044,28 +6044,28 @@ bool DataBase::updateTo026()
     // Updates the DB to 0.026:
     // Recreates entity table to make UTC a real value
     // Adds many Modes & Submodes from ADIF 3.1.4
-    qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
     latestReaded = getDBVersion();
     if (latestReaded >= 0.026f)
     {
-        qDebug() << Q_FUNC_INFO << " - I am in 026" ;
+        //qDebug() << Q_FUNC_INFO << " - I am in 026" ;
         return true;
     }
-    qDebug() << Q_FUNC_INFO << " - 10" ;
+    //qDebug() << Q_FUNC_INFO << " - 10" ;
     if (!updateTo025())
         return false;
 
-    qDebug() << Q_FUNC_INFO << " - 20" ;
+    //qDebug() << Q_FUNC_INFO << " - 20" ;
     if (!recreateTableEntity())
         return false;
 
-    qDebug() << Q_FUNC_INFO << " - 30" ;
+    //qDebug() << Q_FUNC_INFO << " - 30" ;
     if (!updateTheModeTableAndSyncLog())
         return false;
-    qDebug() << Q_FUNC_INFO << " - 40" ;
+    //qDebug() << Q_FUNC_INFO << " - 40" ;
     if (!updateTableLog(7))
         return false;
-    qDebug() << Q_FUNC_INFO << " - 50" ;
+    //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.026");
 }
 
@@ -6605,26 +6605,26 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     Q_UNUSED(errorCodeS);
     Q_UNUSED(_nativeError);
     Q_UNUSED(_failedQuery);
-    qDebug() << Q_FUNC_INFO << ": constrid    : " << QString::number(constrid) ;
-    qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
-    qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
-    qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
-    qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
+    //qDebug() << Q_FUNC_INFO << ": constrid    : " << QString::number(constrid) ;
+    //qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
+    //qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
+    //qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
+    //qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
 }
 
  bool DataBase::execQuery(const QString &function, const QString &stringQuery)
  {
-    qDebug() << Q_FUNC_INFO << ": " << function << " : " << stringQuery ;
+    //qDebug() << Q_FUNC_INFO << ": " << function << " : " << stringQuery ;
     QSqlQuery query;
     query.prepare(stringQuery);
     bool ok = query.exec(stringQuery);
     query.finish();
     if (!ok)
     {
-        qDebug() << Q_FUNC_INFO << ": NOK";
+        //qDebug() << Q_FUNC_INFO << ": NOK";
         queryErrorManagement(function, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
     }
-    qDebug() << Q_FUNC_INFO << ": OK";
+    //qDebug() << Q_FUNC_INFO << ": OK";
     return ok;
  }
 
