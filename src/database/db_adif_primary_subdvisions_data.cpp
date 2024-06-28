@@ -249,7 +249,7 @@ bool DB_ADIF_Primary_Subdvisions_data::add_EA_281()
         << "'281', 'A Coruña', 'C', 'EA1', '14', '37', 'Galicia', '-1', '', '', 'N'"
         << "'281', 'Leon', 'LE', 'EA1', '14', '37', 'Castilla y León', '-1', '', '', 'N'"
         << "'281', 'La Rioja', 'LO', 'EA1', '14', '37', 'La Rioja', '-1', '', '', 'N'"
-        << "'281', 'Lugo', LU', 'EA1', '14', '37', 'Galicia', '-1', '', '', 'N'"
+        << "'281', 'Lugo', 'LU', 'EA1', '14', '37', 'Galicia', '-1', '', '', 'N'"
         << "'281', 'Asturias', 'O', 'EA1', '14', '37', 'Asturias', '-1', '', '', 'N'"
         << "'281', 'Ourense', 'OU', 'EA1', '14', '37', 'Galicia', '-1', '', '', 'N'"
         << "'281', 'Palencia', 'P', 'EA1', '14', '37', 'Castilla y León', '-1', '', '', 'N'"
