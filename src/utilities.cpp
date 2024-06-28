@@ -1228,6 +1228,8 @@ bool Utilities::isValidGrid(const QString &_b)
     return locator.isValidLocator(_b);
 }
 
+
+
 bool Utilities::isValidGrid_ext(const QString &_b)
 {// TODO: Implement the checks
  // https://www.adif.org/314/ADIF_314.htm#QSO_Field_GRIDSQUARE_EXT

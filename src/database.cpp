@@ -707,8 +707,7 @@ bool DataBase::createDataBase()
         return false;
     }
 
-
-    if (!createTableSubdivision(true))
+    if (!createTablePrimarySubdivisions(true))
         return false;
 
 
@@ -968,8 +967,7 @@ bool DataBase::createTableAwardWAZ()
 }
 
 
-
-bool DataBase::createTableSubdivision(const bool NoTmp)
+bool DataBase::createTablePrimarySubdivisions(const bool NoTmp)
 {
     // NoTmp = false => TMP data table to operate and be deleted afterwards
     //qDebug() << Q_FUNC_INFO ;
@@ -1027,6 +1025,53 @@ bool DataBase::createTableSubdivision(const bool NoTmp)
     //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
+bool DataBase::populateTablePrimarySubdivisions(const bool NoTmp)
+{
+    if (!doesEntityTablehaveData())
+        return false;
+    DB_ADIF_Primary_Subdvisions_data primarySubDivisions(Q_FUNC_INFO);
+    return primarySubDivisions.addData();
+}
+
+bool DataBase::recreateTablePrimarySubdivisions()
+{
+    qDebug() << Q_FUNC_INFO ;
+    QSqlQuery query;
+
+    if (isTheTableExisting("primary_subdivisions"))
+    {
+        if (execQuery(Q_FUNC_INFO, "DROP TABLE primary_subdivisions"))
+        {
+            if (createTablePrimarySubdivisions(true))
+            {
+                    //qDebug() << Q_FUNC_INFO << ": primary_subdivisions table created"  ;
+                return populateTablePrimarySubdivisions(true);
+            }
+            else
+            {
+                     //qDebug() << Q_FUNC_INFO << ": primary_subdivisions table NOT created"  ;
+            }
+        }
+        else
+        {
+               return false;//qDebug() << Q_FUNC_INFO << ": execQuery FAILED"  ;
+        }
+    }
+    else
+    {
+        if (createTablePrimarySubdivisions(true))
+        {
+                //qDebug() << Q_FUNC_INFO << ": primary_subdivisions table created"  ;
+            return populateTablePrimarySubdivisions(true);
+        }
+        else
+        {
+                 //qDebug() << Q_FUNC_INFO << ": primary_subdivisions table NOT created"  ;
+        }
+    }
+       //qDebug() << Q_FUNC_INFO << ": END FALSE"  ;
+    return false;
+}
 
 int DataBase::getBandIdFromName(const QString &b)
 {
@@ -2093,33 +2138,32 @@ bool DataBase::recreateSatelliteData()
         {
             if (createTableSatellites(true))
             {
-                    //qDebug() << "DataBase::recreateSatelliteData SAT table created"  ;
+                    //qDebug() << Q_FUNC_INFO << ": SAT table created"  ;
                 return populateTableSatellites(true);
             }
             else
             {
-                     //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  ;
+                     //qDebug() << Q_FUNC_INFO << ": SAT table NOT created"  ;
             }
         }
         else
         {
-               //qDebug() << "DataBase::recreateSatelliteData execQuery FAILED"  ;
+               //qDebug() << Q_FUNC_INFO << ": execQuery FAILED"  ;
         }
     }
     else
     {
         if (createTableSatellites(true))
         {
-                //qDebug() << "DataBase::recreateSatelliteData SAT table created"  ;
+                //qDebug() << Q_FUNC_INFO << ": SAT table created"  ;
             return populateTableSatellites(true);
         }
         else
         {
-                 //qDebug() << "DataBase::recreateSatelliteData SAT table NOT created"  ;
+                 //qDebug() << Q_FUNC_INFO << ": SAT table NOT created"  ;
         }
     }
-
-       //qDebug() << "DataBase::recreateSatelliteData END FALSE"  ;
+       //qDebug() << Q_FUNC_INFO << ": END FALSE"  ;
     return false;
 }
 
@@ -2269,18 +2313,18 @@ bool DataBase::createTableLogs(const bool real)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-        //qDebug() << "DataBase::createTableLogs" ;
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(real);
 
     QString stringQuery = QString();
     //QSqlQuery query;
     if (real)
     {
-            //qDebug() << "DataBase::createTableLogs - logs" ;
+        qDebug() << Q_FUNC_INFO << " - logs" ;
         stringQuery = "CREATE TABLE logs" ;
     }
     else
     {
-            //qDebug() << "DataBase::createTableLogs - logstemp" ;
+        qDebug() << Q_FUNC_INFO << "  - logstemp" ;
         stringQuery = "CREATE TABLE logstemp" ;
     }
 
@@ -2296,7 +2340,7 @@ bool DataBase::createTableLogs(const bool real)
 
 
 
-            //qDebug() << "DataBase::createTableLogs - END" ;
+        qDebug() << Q_FUNC_INFO << "  - END" ;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
 }
@@ -4973,6 +5017,21 @@ bool DataBase::updateEntity (const QString &_codeString, const int _code)
     return execQuery(Q_FUNC_INFO, sq);
 }
 
+bool DataBase::doesEntityTablehaveData()
+{
+
+    QString sq = QString("SELECT COUNT(id) FROM entity");
+    QSqlQuery query;
+    if (!query.exec(sq))
+        return false;
+    else if(!query.next())
+        return false;
+    else if (!query.isValid())
+        return false;
+
+    return ((query.value(0)).toInt() > 0);
+}
+
 bool DataBase::isTheTableExisting(const QString &_tableName)
 {
     QSqlQuery query;
@@ -5709,7 +5768,9 @@ bool DataBase::updateTo018()
 
     // Now I am in the previous version and I can update the DB.
 
-    if (!createTableSubdivision(true))
+    //if (recreateTablePrimarySubdivisions())
+    //    return false;
+    if (!createTablePrimarySubdivisions(true))
         return false;
     DB_ADIF_Primary_Subdvisions_data primarySubDivisions(Q_FUNC_INFO);
     if (!primarySubDivisions.addData())

@@ -118,12 +118,14 @@ public:
     int getNumberOfQsos(int _logNumber = -1);
     int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
+    bool populateTablePrimarySubdivisions(const bool NoTmp);
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
 private:
     bool execQuery(const QString &function, const QString &stringQuery);
     bool updateEntity (const QString &_codeString, const int _code);
+    bool doesEntityTablehaveData();
     bool createDataBase();
     bool setPragma();       // Defines the PRAGMA for the DB
     bool isTheDBCreated();
@@ -187,7 +189,9 @@ private:
     bool recreateTableWAZ();
     bool createTableAwardWAZ();
 
-    bool createTableSubdivision(const bool NoTmp);
+    bool createTablePrimarySubdivisions(const bool NoTmp);
+
+    bool recreateTablePrimarySubdivisions();
 
     bool recreateSatelliteData();
     bool createTableSatellites(const bool NoTmp);

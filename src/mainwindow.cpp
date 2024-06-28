@@ -915,6 +915,7 @@ void MainWindow::slotShowDXClusterAssistant()
 }
 void MainWindow::setMainWindowTitle()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QString aux = dataProxy->getCommentsFromLog(currentLog);
     int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
     //qDebug() << Q_FUNC_INFO << " - (comment): " << aux ;
@@ -2143,6 +2144,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
             showStatusOfDXCC(_entityStatus);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
             othersTabWidget->setIOTAContinentFromEntity(currentEntity);
+
+            // we need to update the list of Primary Subdivisions
+
         }
         else if ((dx_CQz == dxE_CQz) || (dx_ITUz == dxE_ITUz))
         {
@@ -3781,7 +3785,6 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
     dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
-    //othersTabWidget->setEntitiesList(world->getEntitiesNames());
     othersTabWidget->setEntitiesList(dataProxy->getEntitiesNames());
     dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
 
@@ -5110,7 +5113,7 @@ void MainWindow::slotFillEmptyDXCCInTheLog()
 
 void MainWindow::slotUpdateCTYDAT()
 {
-        //qDebug() << "MainWindow::slotUpdateCTYDAT" ;
+    qDebug() << "MainWindow::slotUpdateCTYDAT" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     downloadcty->download();
     logEvent(Q_FUNC_INFO, "END", Debug);

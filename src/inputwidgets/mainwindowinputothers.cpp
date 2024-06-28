@@ -114,7 +114,7 @@ void MainWindowInputOthers::createUI()
     userDefinedADIFComboBox->setToolTip(tr("Select the appropriate ADIF field for this QSO."));
     userDefinedADIFValueLineEdit->setToolTip (tr("Value for the selected ADIF field."));
 
-    entityPrimDivComboBox->setEnabled(false);
+    entityPrimDivComboBox->setEnabled(true);
     entitySecDivComboBox->setEnabled(false);
     entityNameComboBox->setEnabled(true);
     propModeComboBox->setEnabled(true);
@@ -235,6 +235,7 @@ void MainWindowInputOthers::setEntity(const int _ent)
     //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC);
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
+    updatePrimarySubDivisions(_ent);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -688,6 +689,35 @@ bool MainWindowInputOthers::setInitialADIFValues()
     userDefinedADIFComboBox->addItems (adifValidTypes);
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
+}
+
+void MainWindowInputOthers::updatePrimarySubDivisions(const int _n)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    if (_n<1)
+        return;
+    QList<PrimarySubdivision> subdivisions;
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(_n));
+
+    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
+    if (subdivisions.count()<1)
+        return;
+
+    QStringList listOfSubdivisions;
+    listOfSubdivisions.clear();
+    foreach (PrimarySubdivision ps, subdivisions)
+    {
+        QString subdivision = ps.shortName + "-" + ps.name;
+        listOfSubdivisions.append(subdivision);
+        qDebug() << Q_FUNC_INFO << ": " << subdivision;
+    }
+    if (listOfSubdivisions.count()<1)
+        return;
+
+    entityPrimDivComboBox->clear();
+    entityPrimDivComboBox->addItems(listOfSubdivisions);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()

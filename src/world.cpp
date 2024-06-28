@@ -143,6 +143,7 @@ bool World::create(const QString &_worldFile)
         created = false;
        //qDebug() << Q_FUNC_INFO << " - FALSE" ;
     }
+
    //qDebug() << Q_FUNC_INFO << " - 30" ;
     if (created)
     {
@@ -163,6 +164,10 @@ bool World::create(const QString &_worldFile)
            //qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
         }
        //qDebug() << Q_FUNC_INFO << " - 80" ;
+    }
+    if (created)
+    { // Let's add the Primary Subdivisions to the DB
+        created = dataProxy->addPrimarySubdivisions();
     }
    //qDebug() << Q_FUNC_INFO << " - 90" ;
     readWorld ();

@@ -29,11 +29,43 @@ bool DB_ADIF_Primary_Subdvisions_data::addData()
         "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
 */
 
+    qDebug() << Q_FUNC_INFO <<  " - Checking if DB exists";
     if (!isDBCreated())
         return false;
-    if (!add_EA6_21())
+
+    qDebug() << Q_FUNC_INFO <<  " - Adding 6";
+    if (!add_USA_6())       // Adds the data for Alaska
         return false;
-    return add_EA_281();
+    qDebug() << Q_FUNC_INFO <<  " - Adding 21";
+    if (!add_EA6_21())      // Adds the data for Balearic Is
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 29";
+    if (!add_EA8_29())      // Adds the data for Canary Is
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 32";
+    if (!add_EA9_32())      // Adds the data for Ceuta y Melilla
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 110";
+    if (!add_USA_110())     // Adds the data for Hawaii
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 149";
+    if (!add_CT_149())     // Adds the data for Azores
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 256";
+    if (!add_CT_256())      // Adds the data for Madeira
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 272";
+    if (!add_CT_272())      // Adds the data for Portugal
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 281";
+    if (!add_EA_281())     // Adds the data for Spain
+        return false;
+    qDebug() << Q_FUNC_INFO <<  " - Adding 291";
+    if (!add_USA_291())     // Adds the data for United States of America
+        return false;
+
+
+    return true;
 }
 
 bool DB_ADIF_Primary_Subdvisions_data::isDBCreated()
@@ -52,7 +84,7 @@ bool DB_ADIF_Primary_Subdvisions_data::addValues(const QString &rows, const QStr
 
     foreach (aux, values)
     {
-        oneValue = QString("%1 (%2))").arg(sq).arg(aux);
+        oneValue = QString("%1 (%2)").arg(sq).arg(aux);
         if (!exe.execQuery(Q_FUNC_INFO, oneValue))
             return false;
     }
@@ -88,7 +120,7 @@ bool DB_ADIF_Primary_Subdvisions_data::add_EA6_21()
     return addValues(rows, values);
 }
 
-bool DB_ADIF_Primary_Subdvisions_data::add_EA6_29()
+bool DB_ADIF_Primary_Subdvisions_data::add_EA8_29()
 {
     // This function contains the Primary Subdivision data for Canary island
     // Source of data is https://www.adif.org (version 3.1.4)
@@ -105,7 +137,7 @@ bool DB_ADIF_Primary_Subdvisions_data::add_EA6_29()
     return addValues(rows, values);
 }
 
-bool DB_ADIF_Primary_Subdvisions_data::add_EA6_32()
+bool DB_ADIF_Primary_Subdvisions_data::add_EA9_32()
 {
     // This function contains the Primary Subdivision data for Ceuta & Melilla
     // Source of data is https://www.adif.org (version 3.1.4)

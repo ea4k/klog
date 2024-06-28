@@ -54,8 +54,8 @@ private:
     bool addValues(const QString &rows, const QStringList &values);
     bool add_USA_6();       // Adds the data for Alaska
     bool add_EA6_21();      // Adds the data for Balearic Is
-    bool add_EA6_29();      // Adds the data for Canary Is
-    bool add_EA6_32();      // Adds the data for Ceuta y Melilla
+    bool add_EA8_29();      // Adds the data for Canary Is
+    bool add_EA9_32();      // Adds the data for Ceuta y Melilla
     bool add_EA_281();      // Adds the data for Spain
     bool add_USA_110();     // Adds the data for Hawaii
     bool add_CT_149();      // Adds the data for Azores

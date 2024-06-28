@@ -128,6 +128,7 @@ void SetupPageLogs::slotEditButtonClicked()
       //qDebug() << "SetupPageLogs::slotEditButtonClicked";
     newLog->setStationCallSign(dataProxy->getStationCallSignFromLog(selectedLog));
     newLog->setOperators(dataProxy->getOperatorsFromLog(selectedLog));
+    qDebug() << Q_FUNC_INFO ;
     newLog->setComment(dataProxy->getCommentsFromLog(selectedLog));
     newLog->setDateString(dataProxy->getLogDateFromLog(selectedLog));
     //newLog->setTypeN(dataProxy->getLogTypeNFromLog(selectedLog).toInt());

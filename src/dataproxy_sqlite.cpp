@@ -5595,8 +5595,52 @@ bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QStr
         query.finish();
         return false;
     }
-    //qDebug() << "DataProxy_SQLite::addDXCCEntitySubdivision: END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
     return true;
+}
+
+
+QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _entity)
+{ // Returns the Primary Subdivision for an Entity
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) ;
+    QList<PrimarySubdivision> list;
+    list.clear();
+    if (_entity<=0)
+        return list;
+
+
+    QString queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc");
+
+    QSqlQuery query;
+    query.prepare(queryString);
+    query.bindValue(":dxcc", _entity);
+    bool sqlOK = query.exec();
+
+    if (sqlOK)
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                PrimarySubdivision ps;
+                ps.name = (query.value(0)).toString();
+                ps.shortName = (query.value(1)).toString();
+                ps.cqz = (query.value(2)).toInt();
+                ps.ituz = (query.value(3)).toInt();
+                list.append(ps);
+                qDebug() << Q_FUNC_INFO << " : " << ps.name ;
+            }
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        list.clear();
+    }
+    query.finish();
+
+    qDebug() << Q_FUNC_INFO << " - END" ;
+    return list;
 }
 
 int DataProxy_SQLite::getNumberOfManagedLogs()
@@ -5868,7 +5912,7 @@ QString DataProxy_SQLite::getOperatorsFromLog(const int _log)
 
 QString DataProxy_SQLite::getCommentsFromLog(const int _log)
 {
-       //qDebug() << "DataProxy_SQLite::getLogDateFromLog: " << QString::number(_log)<< QT_ENDL;
+  qDebug() << Q_FUNC_INFO << ": " << QString::number(_log);
   QSqlQuery query;
   QString queryString = QString("SELECT comment FROM logs WHERE id='%1'").arg(_log);
   bool sqlOK = query.exec(queryString);
@@ -5878,14 +5922,14 @@ QString DataProxy_SQLite::getCommentsFromLog(const int _log)
       query.next();
       if (query.isValid())
       {
-               //qDebug() << "DataProxy_SQLite::getCommentsFromLog: " <<  (query.value(0)).toString();
-          QString v = (query.value(0)).toString();
-          query.finish();
-          return v;
+        qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+        QString v = (query.value(0)).toString();
+        query.finish();
+        return v;
       }
       else
       {
-               //qDebug() << "DataProxy_SQLite::getCommentsFromLog: Not valid";
+            qDebug() << Q_FUNC_INFO << ": Not valid";
           query.finish();
           return QString();
       }
@@ -5893,12 +5937,10 @@ QString DataProxy_SQLite::getCommentsFromLog(const int _log)
   else
   {
       emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-           //qDebug() << "DataProxy_SQLite::getLogDateFromLog: query failed";
+        qDebug() << Q_FUNC_INFO << ":  query failed";
       query.finish();
       return QString();
   }
-       //qDebug() << "DataProxy_SQLite::getCommentsFromLog: END";
-  //return QString();
 }
 
 QString DataProxy_SQLite::getLogDateFromLog(const int _log)
@@ -7767,6 +7809,12 @@ QString DataProxy_SQLite::getISOName(const int _n)
         }
     }
 }
+
+ bool DataProxy_SQLite::addPrimarySubdivisions()
+ {
+     qDebug() << Q_FUNC_INFO;
+     return db->populateTablePrimarySubdivisions(true);
+ }
 
 int DataProxy_SQLite::getPrefixId(const QString &_qrz)
 {

@@ -12,11 +12,10 @@ void QueryExecutor::queryErrorManagement(const QString &_functionFailed, const Q
     Q_UNUSED(errorCodeS);
     Q_UNUSED(_nativeError);
     Q_UNUSED(_failedQuery);
-    //qDebug() << Q_FUNC_INFO << ": constrid    : " << QString::number(constrid) ;
-    //qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
-    //qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
-    //qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
-    //qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
+    qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
+    qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
+    qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
+    qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
 }
 
 bool QueryExecutor::execQuery(const QString &function, const QString &stringQuery)

@@ -59,6 +59,13 @@ struct Coordinate {
     double lon;
 };
 
+struct PrimarySubdivision { // Used to return data to MainWindow for each prefix
+    QString name;
+    QString shortName;
+    int cqz;
+    int ituz;
+};
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
 #define QT_SKIP Qt::SkipEmptyParts
 #define QT_ENDL Qt::endl

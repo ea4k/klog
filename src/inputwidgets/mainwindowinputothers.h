@@ -103,6 +103,7 @@ private:
     void setColorsForUserDefinedADIFValueLineEdit();
     bool checkVUCC_GRIDS(const QString &_string);
     bool setInitialADIFValues();
+    void updatePrimarySubDivisions(const int _n);
     bool getDarkMode();
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
