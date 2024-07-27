@@ -2073,7 +2073,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
      //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
-    //QString pref = util->getPrefixFromCall(_qrz);
+    QString pref = util->getPrefixFromCall(_qrz);
     //logEvent(Q_FUNC_INFO, QString("Call/Prefix: %1/%2").arg(_qrz).arg(pref), Devel);
     //currentEntity = world->getQRZARRLId(pref);
     //validar por que no puedo tirar o usar  el prefijo directamente
@@ -2091,7 +2091,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     */
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
-    othersTabWidget->setEntity(currentEntity);
+    othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, true));
+    //othersTabWidget->setEntity(currentEntity);
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
     dx_ITUz = world->getQRZItuz(_qrz);

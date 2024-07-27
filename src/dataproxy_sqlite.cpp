@@ -5600,20 +5600,31 @@ bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QStr
 }
 
 
-QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _entity)
+QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _entity, const QString &_pref)
 { // Returns the Primary Subdivision for an Entity
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) ;
+  // If _pref is empty, and entity >=0 we look for all the subdivisions of the Entity,
+  // If _pref is not empty, we look for the subdivisions with that entity, if none, we look for the number.
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
     QList<PrimarySubdivision> list;
     list.clear();
-    if (_entity<=0)
-        return list;
-
-
-    QString queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc");
 
     QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":dxcc", _entity);
+    QString queryString;
+    if (!_pref.isEmpty())
+    {
+        queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix");
+        query.prepare(queryString);
+        query.bindValue(":prefix", _pref);
+    }
+    else
+    {
+        if (_entity<=0)
+            return list;
+        queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc");
+        query.prepare(queryString);
+        query.bindValue(":dxcc", _entity);
+    }
+
     bool sqlOK = query.exec();
 
     if (sqlOK)
@@ -5642,6 +5653,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
     qDebug() << Q_FUNC_INFO << " - END" ;
     return list;
 }
+
 
 int DataProxy_SQLite::getNumberOfManagedLogs()
 {

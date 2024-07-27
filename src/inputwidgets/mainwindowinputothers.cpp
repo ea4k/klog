@@ -235,7 +235,7 @@ void MainWindowInputOthers::setEntity(const int _ent)
     //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC);
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
-    updatePrimarySubDivisions(_ent);
+    updatePrimarySubDivisions(_ent, QString());
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -691,31 +691,62 @@ bool MainWindowInputOthers::setInitialADIFValues()
     return true;
 }
 
-void MainWindowInputOthers::updatePrimarySubDivisions(const int _n)
+void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdivision> _subdivisions)
+{
+    //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(_subdivisions.count());
+    if (_subdivisions.count()<1)
+        return;
+
+    QStringList listOfSubdivisions;
+    listOfSubdivisions.clear();
+    foreach (PrimarySubdivision ps, _subdivisions)
+    {
+        QString subdivision = ps.shortName + "-" + ps.name;
+        listOfSubdivisions.append(subdivision);
+        //qDebug() << Q_FUNC_INFO << ": Subdivision added: " << subdivision;
+    }
+    if (listOfSubdivisions.count()<1)
+        return;
+    entityPrimDivComboBox->clear();
+    entityPrimDivComboBox->addItems(listOfSubdivisions);
+    //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+/*
+ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     if (_n<1)
         return;
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(_n));
+    subdivisions.append(dataProxy->getPrimarySubDivisions(_n, QString()));
 
     qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
     if (subdivisions.count()<1)
         return;
+    updatePrimarySubdivisionsComboBox(subdivisions);
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+*/
 
-    QStringList listOfSubdivisions;
-    listOfSubdivisions.clear();
-    foreach (PrimarySubdivision ps, subdivisions)
-    {
-        QString subdivision = ps.shortName + "-" + ps.name;
-        listOfSubdivisions.append(subdivision);
-        qDebug() << Q_FUNC_INFO << ": Subdivision added: " << subdivision;
-    }
-    if (listOfSubdivisions.count()<1)
+void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_pref)
+{
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _pref;
+    if (_n<1)
         return;
-    entityPrimDivComboBox->clear();
-    entityPrimDivComboBox->addItems(listOfSubdivisions);
+
+    QList<PrimarySubdivision> subdivisions;
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(_n, _pref));
+    if (subdivisions.isEmpty())
+        subdivisions.append(dataProxy->getPrimarySubDivisions(_n, QString()));
+
+
+    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
+    if (subdivisions.count()<1)
+        return;
+    updatePrimarySubdivisionsComboBox(subdivisions);
     qDebug() << Q_FUNC_INFO << " - END";
 }
 

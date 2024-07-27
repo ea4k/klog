@@ -309,7 +309,8 @@ public:
 
     //bool addRegionalAward(RegionalAward _regionalAward);
     bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);
-    QList<PrimarySubdivision> getPrimarySubDivisions(const int _entity);      // Get the Primary subdivisions for an entity
+    QList<PrimarySubdivision> getPrimarySubDivisions(const int _entity, const QString &_pref);      // Get the Primary subdivisions for an entity
+
     //void getFoundInLog(const QString &_txt, const int _log=-1);
     KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
     QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // To refactor the getADIFFromQSOQuery function

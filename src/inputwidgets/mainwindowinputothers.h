@@ -49,6 +49,10 @@ public:
     int getEntity();
     QString getEntityPrefix();
 
+    void updatePrimarySubDivisions(const int _n, const QString &_pref);   // Receives the entity & prefix of the call to check if
+                                                                 // It is possible to focus the primary
+                                                                // subdivision
+
     void setPropMode(const QString &_qs, bool _keep);
     QString getPropModeFromComboBox();
     bool isSATPropagation();
@@ -103,7 +107,8 @@ private:
     void setColorsForUserDefinedADIFValueLineEdit();
     bool checkVUCC_GRIDS(const QString &_string);
     bool setInitialADIFValues();
-    void updatePrimarySubDivisions(const int _n);
+
+    void updatePrimarySubdivisionsComboBox(QList<PrimarySubdivision> _subdivisions);
     bool getDarkMode();
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
