@@ -235,7 +235,7 @@ void MainWindowInputOthers::setEntity(const int _ent)
     //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC);
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
-    updatePrimarySubDivisions(_ent, QString());
+    //updatePrimarySubDivisions(_ent, QString());
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -712,36 +712,19 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-/*
- void MainWindowInputOthers::updatePrimarySubDivisions(const int _n)
-{
-    qDebug() << Q_FUNC_INFO << " - Start";
-    if (_n<1)
-        return;
-    QList<PrimarySubdivision> subdivisions;
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(_n, QString()));
-
-    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
-    if (subdivisions.count()<1)
-        return;
-    updatePrimarySubdivisionsComboBox(subdivisions);
-    qDebug() << Q_FUNC_INFO << " - END";
-}
-*/
-
 void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_pref)
 {
     qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _pref;
     if (_n<1)
         return;
-
+    setEntity(_n);
+    if (_pref.isEmpty())
+        return;
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(_n, _pref));
     if (subdivisions.isEmpty())
         subdivisions.append(dataProxy->getPrimarySubDivisions(_n, QString()));
-
 
     qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
     if (subdivisions.count()<1)

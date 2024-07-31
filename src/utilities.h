@@ -200,6 +200,9 @@ private:
     bool isAKnownPrefix(const QString &_c);
     bool isAKnownCall(const QString &_c);
     bool isValidSimpleCall(const QString &_c);
+    //QStringList getPrefixRunningTheCall(const QString &_c, bool withAreaNumber = false);
+                    //Goes char by char identifying the prefix and area Number
+
     //QPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
