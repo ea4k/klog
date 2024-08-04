@@ -6,6 +6,7 @@ project (KLog
 set (PROJECT_DESCRIPTION "KLog - The free hamradio logging program")
 set (CMAKE_PROJECT_DESCRIPTION ${PROJECT_DESCRIPTION})
 
+#Some code of this cmakelists.txt has been copied from WSJTX, thank you!
 set (PROJECT_ARCHITECTURE "${CMAKE_SYSTEM_PROCESSOR}")
 if (NOT PROJECT_ARCHITECTURE)
   # This is supposed to happen already on Windows
