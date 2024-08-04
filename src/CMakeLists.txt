@@ -421,8 +421,12 @@ find_library (
         message ("Lib: MacOS")
     endif
     if (WIN32)
-        HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../../libs/win64/hamlib/bin" # where to look
+        HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../../libs/win32/hamlib/bin" # where to look
         message ("Lib: Win32")
+    endif
+    if (AMD64)
+        HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../../libs/win64/hamlib/bin" # where to look
+        message ("Lib: AMD64")
     endif
 
     NO_DEFAULT_PATH # do not search system default paths
