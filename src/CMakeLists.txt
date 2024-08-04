@@ -360,7 +360,11 @@ qt_add_resources(klog "klog"
         ${klog_resource_files}
 )
 
+include(CMakePrintHelpers)
+cmake_print_variables(PROJECT_SOURCE_DIR)
+
 if(UNIX AND NOT APPLE)
+    message (Unix and not Apple)
     target_compile_definitions(klog PRIVATE
         APP_LINUX
     )
@@ -370,9 +374,10 @@ if(UNIX AND NOT APPLE)
     )
 endif()
 
-if(MACOS)
+if(APPLE)
+    message ("MacOS")
     target_include_directories(klog PRIVATE
-        /usr/local/include
+        /usr/local/include/
     )
 
     target_link_libraries(klog PRIVATE
@@ -382,6 +387,7 @@ if(MACOS)
 endif()
 
 if((TEST_architecture_arch STREQUAL "i386") AND WIN32)
+    message (Win32 i386)
     target_include_directories(klog PRIVATE
         ../../libs/win32/hamlib/include
     )
@@ -394,6 +400,7 @@ if((TEST_architecture_arch STREQUAL "i386") AND WIN32)
 endif()
 
 if(WIN32 AND NOT (TEST_architecture_arch STREQUAL "i386"))
+    message (Win32 not i386)
     target_include_directories(klog PRIVATE
         ../../libs/win64/hamlib/include
     )
