@@ -1025,7 +1025,7 @@ bool DataBase::createTablePrimarySubdivisions(const bool NoTmp)
     //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
-bool DataBase::populateTablePrimarySubdivisions(const bool NoTmp)
+bool DataBase::populateTablePrimarySubdivisions()
 {
     if (!doesEntityTablehaveData())
         return false;
@@ -1045,7 +1045,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
             if (createTablePrimarySubdivisions(true))
             {
                     //qDebug() << Q_FUNC_INFO << ": primary_subdivisions table created"  ;
-                return populateTablePrimarySubdivisions(true);
+                return populateTablePrimarySubdivisions();
             }
             else
             {
@@ -1062,7 +1062,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
         if (createTablePrimarySubdivisions(true))
         {
                 //qDebug() << Q_FUNC_INFO << ": primary_subdivisions table created"  ;
-            return populateTablePrimarySubdivisions(true);
+            return populateTablePrimarySubdivisions();
         }
         else
         {

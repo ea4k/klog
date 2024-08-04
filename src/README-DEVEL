@@ -58,10 +58,7 @@ add new features (mainly contests and awards support).
 
 2.1 IMPORTANT THINGS TO HAVE IN MIND
 
-DEPRECATED - KLog version number is using the following system:
-   Release versions: The Decimal part of the version number will always use even numbers like 0, 1.2, 2.20, ...
-   while the decimal part of the development or Release Candidate versions will always be an odd number ie 0.1, 1.3, ...
-   The release number is defined in the "main.cpp" file.
+- KLog release number is defined in the "main.cpp" file.
 
 - KLog should manage several logs. The "log" table of the DB has a column called "lognumber".
    ALL QSO has a lognumber id that identifies the log it belongs to.
@@ -74,25 +71,11 @@ DEPRECATED - KLog version number is using the following system:
   Marked column should not be saved.
 
 - Any change to the DB architecture must be communicated and agreed with the development team before
-  commiting to the SVN and following the 2.4 DB UPDATES area in this document.
+  commiting to the git and following the 2.4 DB UPDATES area in this document.
 
+- If a function becomes deprecated, it should be marked as deprecated like in:
+        KLOG_DEPRECATED   bool updateAwardDXCCTable2();
 
-
-2.2 CONTEST SUPPORT
-
-The "Contest" class (in contest.h) is a base class and all the contest should inherit it.
-The "Contest" class has several virtual functions that should re-implemented in all derived classes.
-
-2.2.1 ADDING A NEW CONTEST
-
-To add a new contest, a new class, inheriting the "Contest" class should be created.
-
-The new contest file should be named: "contest_nameofthecontest.h" and "contest_nameofthecontest.cpp"
-and should be included in the mainwindow.h
-
-All the calls to the contest class should be implemented in the virtual class.
-
-A new contest must include the implementation of all the functions of the virtual class.
 
 
 2.3 AWARD SUPPORT
@@ -120,7 +103,7 @@ To update the DB structure there are several things to have in mind:
 
 3 - BEFORE CODING
 
-Update your sources from the SVN: Remember that other developer may has done a commit.
+Update your sources from the GitHub: Remember that other developer may has done a commit.
 
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -153,7 +136,7 @@ KLog should not export any ADIF header that comming from other application witho
 4.3 SHORTCUTS
 
 Before adding or modifying any shortcut:
- - It should be agreed in the devel mailing list.
+ - It should be agreed in the devel mailing list or Telegram group
  - It should be as standard as possible, reuse the same shortcuts of main/popular contest software.
  - It should be checked and added to a list below.
 

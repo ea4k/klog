@@ -7825,7 +7825,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
  bool DataProxy_SQLite::addPrimarySubdivisions()
  {
      qDebug() << Q_FUNC_INFO;
-     return db->populateTablePrimarySubdivisions(true);
+     return db->populateTablePrimarySubdivisions();
  }
 
 int DataProxy_SQLite::getPrefixId(const QString &_qrz)

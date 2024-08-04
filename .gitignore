@@ -28,3 +28,4 @@ tests/tst_mainwindow/moc_*.cpp
 *.exe
 *.idx
 .qtc_clangd/compile_commands.json
+*.txt~
