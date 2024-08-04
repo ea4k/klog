@@ -1,39 +1,44 @@
 qt_add_executable(klog WIN32 MACOSX_BUNDLE
     aboutdialog.cpp aboutdialog.h
     adif.cpp adif.h
-    awarddxmarathon.h
-    awards.h
+    awarddxmarathon.cpp awarddxmarathon.h
+    awards.cpp awards.h
     awardswidget.cpp awardswidget.h
-    charts/statscqzperyearbarchartwidget.h
-    charts/statsdxccsonsatswidget.h
-    charts/statsentitiesperyearbarchartwidget.h
+    charts/statscqzperyearbarchartwidget.cpp charts/statscqzperyearbarchartwidget.h
+    charts/statsdxccsonsatswidget.cpp charts/statsdxccsonsatswidget.h
+    charts/statsentitiesperyearbarchartwidget.cpp charts/statsentitiesperyearbarchartwidget.h
     charts/statsfieldperbandwidget.cpp charts/statsfieldperbandwidget.h
-    charts/statsgeneralchartwidget.h
-    charts/statsgridsonsatswidget.h
-    charts/statsqsosperbandbarchartwidget.h
-    charts/statsqsospercontinentbarchartwidget.h
-    charts/statsqsosperdxccbarchartwidget.h
-    charts/statsqsosperhourbarchartwidget.h
-    charts/statsqsospermodebarchartwidget.h
-    charts/statsqsospermonthbarchartwidget.h
-    charts/statsqsosperyearbarchartwidget.h
-    charts/statssentconfirmedpiechartwidget.h
-    charts/statsworkedconfirmedpiechartwidget.h
-    charts/statsworkedsentpiechartwidget.h
-    database.h
+    charts/statsgeneralchartwidget.cpp charts/statsgeneralchartwidget.h
+    charts/statsgridsonsatswidget.cpp charts/statsgridsonsatswidget.h
+    charts/statsqsosperbandbarchartwidget.cpp charts/statsqsosperbandbarchartwidget.h
+    charts/statsqsospercontinentbarchartwidget.cpp charts/statsqsospercontinentbarchartwidget.h
+    charts/statsqsosperdxccbarchartwidget.cpp charts/statsqsosperdxccbarchartwidget.h
+    charts/statsqsosperhourbarchartwidget.cpp charts/statsqsosperhourbarchartwidget.h
+    charts/statsqsosperhourbarchartwidget.cpp charts/statsqsosperhourbarchartwidget.h
+    charts/statsqsospermodebarchartwidget.cpp charts/statsqsospermodebarchartwidget.h
+    charts/statsqsospermonthbarchartwidget.cpp charts/statsqsospermonthbarchartwidget.h
+    charts/statsqsosperyearbarchartwidget.cpp charts/statsqsosperyearbarchartwidget.h
+    charts/statssentconfirmedpiechartwidget.cpp charts/statssentconfirmedpiechartwidget.h
+    charts/statsworkedconfirmedpiechartwidget.cpp charts/statsworkedconfirmedpiechartwidget.h
+    charts/statsworkedsentpiechartwidget.cpp charts/statsworkedsentpiechartwidget.h
+    database.cpp database.h
     database/db_adif_primary_subdvisions_data.cpp database/db_adif_primary_subdvisions_data.h
     database/queryexecutor.cpp database/queryexecutor.h
-    dataproxy_sqlite.h
-    downloadcty.h
-    dxccstatuswidget.h
+    dataproxy_sqlite.cpp dataproxy_sqlite.h
+    downloadcty.cpp downloadcty.h
+    dxccstatuswidget.cpp dxccstatuswidget.h
     dxcluster/dxcluster.cpp dxcluster/dxcluster.h
     dxcluster/dxclusterassistant.cpp dxcluster/dxclusterassistant.h
     dxcluster/dxspot.cpp dxcluster/dxspot.h
+    elogclublog.cpp elogclublog.h
     elogqrzlog.cpp elogqrzlog.h
     eqslutilities.cpp eqslutilities.h
+    fileawardmanager.cpp fileawardmanager.h
+    filemanager.cpp filemanager.h
     frequency.cpp frequency.h
     global.h
-    hamlibclass.h
+    hamlibclass.cpp hamlibclass.h
+    infowidget.cpp infowidget.h
     inputwidgets/mainwindowinputcomment.cpp inputwidgets/mainwindowinputcomment.h
     inputwidgets/mainwindowinputeqsl.cpp inputwidgets/mainwindowinputeqsl.h
     inputwidgets/mainwindowinputothers.cpp inputwidgets/mainwindowinputothers.h
@@ -42,21 +47,54 @@ qt_add_executable(klog WIN32 MACOSX_BUNDLE
     inputwidgets/mainwindowmydatatab.cpp inputwidgets/mainwindowmydatatab.h
     inputwidgets/mainwindowsattab.cpp inputwidgets/mainwindowsattab.h
     klogdefinitions.h
+    locator.cpp locator.h
+    logmodel.cpp logmodel.h
+    logwindow.cpp logwindow.h
     lotwutilities.cpp lotwutilities.h
     main.cpp
     mainqsoentrywidget.cpp mainqsoentrywidget.h
     mainwindow.cpp mainwindow.h
-    qso.h
+    qso.cpp qso.h
     searchmodel.cpp searchmodel.h
+    searchwidget.cpp searchwidget.h
     searchwindow.cpp searchwindow.h
     setupdialog.cpp setupdialog.h
-    setuppages/hamlibnetworkconfigwidget.cpp
-    setuppages/hamlibserialconfigwidget.cpp
-    setuppages/setuppageelog.cpp
-    setuppages/setuppagelogview.cpp
-    setuppages/setuppagesubdivisionnew.cpp
-    setuppages/setuppagesubdivisions.cpp
-    widgets/adiflotwexportwidget.cpp
+    setuppages/hamlibnetworkconfigwidget.cpp setuppages/hamlibnetworkconfigwidget.h
+    setuppages/hamlibserialconfigwidget.cpp setuppages/hamlibserialconfigwidget.h
+    setuppages/setupentitydialog.cpp setuppages/setupentitydialog.h
+    setuppages/setuppagebandmode.cpp setuppages/setuppagebandmode.h
+    setuppages/setuppagedxcluster.cpp setuppages/setuppagedxcluster.h
+    setuppages/setuppagecolors.cpp setuppages/setuppagecolors.h
+    setuppages/setuppageelog.cpp setuppages/setuppageelog.h
+    setuppages/setuppagehamlib.cpp setuppages/setuppagehamlib.h
+    setuppages/setuppagelogs.cpp setuppages/setuppagelogs.h
+    setuppages/setuppagelogsnew.cpp setuppages/setuppagelogsnew.h
+    setuppages/setuppagelogview.cpp setuppages/setuppagelogview.h
+    setuppages/setuppagemisc.cpp setuppages/setuppagemisc.h
+    setuppages/setuppagesats.cpp setuppages/setuppagesats.h
+    setuppages/setuppagesatsnew.cpp setuppages/setuppagesatsnew.h
+    setuppages/setuppagesubdivisionnew.cpp setuppages/setuppagesubdivisionnew.h
+    setuppages/setuppagesubdivisions.cpp setuppages/setuppagesubdivisions.h
+    setuppages/setuppageudp.cpp setuppages/setuppageudp.h
+    setuppages/setuppageuserdata.cpp setuppages/setuppageuserdata.h
+    setuppages/setuppageworldeditor.cpp setuppages/setuppageworldeditor.h
+    showerrordialog.cpp showerrordialog.h
+    softwareupdate.cpp softwareupdate.h
+    softwareupdatedialog.cpp softwareupdatedialog.h
+    startwizard.cpp startwizard.h
+    statisticswidget.cpp statisticswidget.h
+    updatesatsdata.cpp updatesatsdata.h
+    updatesettings.cpp updatesettings.h
+    udpserver.cpp udpserver.h
+    utilities.cpp utilities.h
+    tipsdialog.cpp tipsdialog.h
+    widgets/adiflotwexportwidget.cpp widgets/adiflotwexportwidget.h
+    widgets/onlinemessagewidget.cpp widgets/onlinemessagewidget.h
+    widgets/showadifimportwidget.cpp widgets/showadifimportwidget.h
+    widgets/showkloglogwidget.cpp widgets/showkloglogwidget.h
+    widgets/map/mapwidget.cpp widgets/map/mapwidget.h
+    widgets/map/mapwindowwidget.cpp widgets/map/mapwindowwidget.h
+    world.cpp world.h
 )
 target_compile_definitions(klog PRIVATE
     APP_NAME="KLog"
@@ -374,20 +412,44 @@ if(UNIX AND NOT APPLE)
     )
 endif()
 
+find_library (
+    HAMLIB_LIB
+    NAMES hamlib libhamlib libhamlib++ # what to look for
+    #HINTS "${CMAKE_SOURCE_DIR}/lib" # where to look
+    if (APPLE)
+        HINTS "/usr/local/lib" # where to look
+        message ("Lib: MacOS")
+    endif
+    NO_DEFAULT_PATH # do not search system default paths
+)
+
+# check if we found the library
+message(STATUS "HAMLIB_LIB: [${HAMLIB_LIB}]")
+
+if (NOT HAMLIB_LIB)
+    message(SEND_ERROR "Did not find lib hamlib")
+endif()
+
+#target_link_libraries(klog PRIVATE
+#    ${HAMLIB_LIB}
+#)
+
 if(APPLE)
     message ("MacOS")
+
     target_include_directories(klog PRIVATE
         /usr/local/include/
     )
 
-    target_link_libraries(klog PRIVATE
+    target_link_libraries(klog PUBLIC
         # Remove: L"/usr/local/lib"
-        hamlib
+        ${HAMLIB_LIB}
+        #hamlib
     )
 endif()
 
 if((TEST_architecture_arch STREQUAL "i386") AND WIN32)
-    message (Win32 i386)
+    message ("Win32 i386")
     target_include_directories(klog PRIVATE
         ../../libs/win32/hamlib/include
     )
@@ -400,7 +462,7 @@ if((TEST_architecture_arch STREQUAL "i386") AND WIN32)
 endif()
 
 if(WIN32 AND NOT (TEST_architecture_arch STREQUAL "i386"))
-    message (Win32 not i386)
+    message ("Win32 not i386")
     target_include_directories(klog PRIVATE
         ../../libs/win64/hamlib/include
     )
