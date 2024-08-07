@@ -442,6 +442,13 @@ endif()
 #target_link_libraries(klog PRIVATE
 #    ${HAMLIB_LIB}
 #)
+if (APPLE)
+    message ("E-MacOS")
+elseif(WIN32)
+    message ("E-Win32")
+elseif (UNIX)
+    message ("E-Unix")
+endif()
 
 if(APPLE)
     message ("MacOS")
