@@ -5604,7 +5604,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
 { // Returns the Primary Subdivision for an Entity
   // If _pref is empty, and entity >=0 we look for all the subdivisions of the Entity,
   // If _pref is not empty, we look for the subdivisions with that entity, if none, we look for the number.
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
     QList<PrimarySubdivision> list;
     list.clear();
 
@@ -5612,18 +5612,18 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
     QString queryString;
     if ((_pref.length()>0))
     {
-        qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
+       //qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
         queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix");
         query.prepare(queryString);
         query.bindValue(":prefix", _pref);
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Running with a pref, delivering just for the prefix";
-        qDebug() << Q_FUNC_INFO << QString("If the entity is <=0 The list will be empty. Entity: %1").arg(_entity);
+       //qDebug() << Q_FUNC_INFO << " - Running with a pref, delivering just for the prefix";
+       //qDebug() << Q_FUNC_INFO << QString("If the entity is <=0 The list will be empty. Entity: %1").arg(_entity);
         if (_entity<=0)
         {
-            qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
+           //qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
             return list;
         }
         queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc");
@@ -5635,7 +5635,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
 
     if (sqlOK)
     {
-        qDebug() << Q_FUNC_INFO << ": sqlOK true";
+       //qDebug() << Q_FUNC_INFO << ": sqlOK true";
 
         while (query.next())
         {
@@ -5647,24 +5647,24 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
                 ps.cqz = (query.value(2)).toInt();
                 ps.ituz = (query.value(3)).toInt();
                 list.append(ps);
-                qDebug() << Q_FUNC_INFO << " : " << ps.name ;
+               //qDebug() << Q_FUNC_INFO << " : " << ps.name ;
             }
             else
             {
-                qDebug() << Q_FUNC_INFO << ": query not valid";
+               //qDebug() << Q_FUNC_INFO << ": query not valid";
             }
         }
-        qDebug() << Q_FUNC_INFO << ": query not next";
+       //qDebug() << Q_FUNC_INFO << ": query not next";
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << ": sqlOK FALSE";
+       //qDebug() << Q_FUNC_INFO << ": sqlOK FALSE";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         list.clear();
     }
     query.finish();
 
-    qDebug() << Q_FUNC_INFO << " - END" ;
+   //qDebug() << Q_FUNC_INFO << " - END" ;
     return list;
 }
 
@@ -5938,7 +5938,7 @@ QString DataProxy_SQLite::getOperatorsFromLog(const int _log)
 
 QString DataProxy_SQLite::getCommentsFromLog(const int _log)
 {
-  qDebug() << Q_FUNC_INFO << ": " << QString::number(_log);
+ //qDebug() << Q_FUNC_INFO << ": " << QString::number(_log);
   QSqlQuery query;
   QString queryString = QString("SELECT comment FROM logs WHERE id='%1'").arg(_log);
   bool sqlOK = query.exec(queryString);
@@ -5948,14 +5948,14 @@ QString DataProxy_SQLite::getCommentsFromLog(const int _log)
       query.next();
       if (query.isValid())
       {
-        qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+       //qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
         QString v = (query.value(0)).toString();
         query.finish();
         return v;
       }
       else
       {
-            qDebug() << Q_FUNC_INFO << ": Not valid";
+           //qDebug() << Q_FUNC_INFO << ": Not valid";
           query.finish();
           return QString();
       }
@@ -5963,7 +5963,7 @@ QString DataProxy_SQLite::getCommentsFromLog(const int _log)
   else
   {
       emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        qDebug() << Q_FUNC_INFO << ":  query failed";
+       //qDebug() << Q_FUNC_INFO << ":  query failed";
       query.finish();
       return QString();
   }
@@ -7838,7 +7838,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
 
  bool DataProxy_SQLite::addPrimarySubdivisions()
  {
-     qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
      return db->populateTablePrimarySubdivisions(true);
  }
 
