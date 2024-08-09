@@ -826,7 +826,7 @@ bool Utilities::isAPrefix (const QString &_c)
 
 void Utilities::setLongPrefixes (const QStringList &_p)
 {
-    //qDebug() << Q_FUNC_INFO << ": Start count: " << QString::number(_p.count());
+    qDebug() << Q_FUNC_INFO << ": Start count: " << QString::number(_p.count());
     longPrefixes.clear();
     longPrefixes.append(_p);
     //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(longPrefixes.count());
@@ -842,18 +842,18 @@ void Utilities::setSpecialCalls (const QStringList &_p)
 
 bool Utilities::isAKnownPrefix(const QString &_c)
 {// TODO: Complete with https://rsgb.org/main/operating/licensing-novs-visitors/international-prefixes/
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    qDebug() << Q_FUNC_INFO << ": " << _c;
     QString aux;
     if (_c.isNull() )
     {
-        //qDebug() << Q_FUNC_INFO << ": END - 1";
+        qDebug() << Q_FUNC_INFO << ": END - 1";
         return false;
     }
     if (longPrefixes.count()<100)
     {
-        //qDebug() << Q_FUNC_INFO << ": ********** END - FAIL";
+        qDebug() << Q_FUNC_INFO << ": ********** END - FAIL";
     }
-    //qDebug() << Q_FUNC_INFO << QString(": END - 2 - %1 - %2").arg(_c).arg(boolToQString(longPrefixes.contains(_c)));
+    qDebug() << Q_FUNC_INFO << QString(": END - 2 - %1 - %2").arg(_c).arg(boolToQString(longPrefixes.contains(_c)));
     return longPrefixes.contains(_c);
 }
 
@@ -1104,7 +1104,7 @@ bool Utilities::isValidCall(const QString &_c, bool _force)
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
+    qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
     if (_c.isNull())
     {
         return QString();
@@ -1125,49 +1125,49 @@ QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
             return QString();
         }
     }
-    //qDebug() << Q_FUNC_INFO << " - Going to calculate - length = " << QString::number(length);
+    qDebug() << Q_FUNC_INFO << " - Going to calculate - length = " << QString::number(length);
     if (length>2)
     {
-        //qDebug() << Q_FUNC_INFO << " - Going to Look for a known call" ;
+        qDebug() << Q_FUNC_INFO << " - Going to Look for a known call" ;
         if (isAKnownCall(_c))
         {
-            //qDebug() << Q_FUNC_INFO << " - Known CALL found!";
+            qDebug() << Q_FUNC_INFO << " - Known CALL found!";
             return _c;
         }
-        //qDebug() << Q_FUNC_INFO << " - Call not found!" ;
+        qDebug() << Q_FUNC_INFO << " - Call not found!" ;
     }
 
-    //qDebug() << Q_FUNC_INFO << " - 010";
+    qDebug() << Q_FUNC_INFO << " - 010";
     call = getMainCallFromComplexCall(call);
-    //qDebug() << Q_FUNC_INFO << " - 011: " << call;
+    qDebug() << Q_FUNC_INFO << " - 011: " << call;
 
     QString call2 = call;
     QString call3 = call;
     int i = length;
     while (i>0)
     {
-        //qDebug() << Q_FUNC_INFO << QString(" While (i=%1) = ").arg(i) << call;
+        qDebug() << Q_FUNC_INFO << QString(" While (i=%1) = ").arg(i) << call;
         if (isAKnownPrefix(call))
         {// EA, EA6, VK9N, VP2E, K, K1, KN1, 4U1I
-            //qDebug() << Q_FUNC_INFO << QString("- Known prefix found: %1").arg(call);
+            qDebug() << Q_FUNC_INFO << QString("- Known prefix found: %1").arg(call);
             if (withAreaNumber)
             {
-                //qDebug() << Q_FUNC_INFO << QString("- With Area number");
+                qDebug() << Q_FUNC_INFO << QString("- With Area number");
                 if ( (call2.back()).isDigit() )
                 {
-                    //qDebug() << Q_FUNC_INFO << QString("- With Area number -call2- & last is a digit");
+                    qDebug() << Q_FUNC_INFO << QString("- With Area number -call2- & last is a digit");
                     return call2;
                 }
                 else if((call3.back()).isDigit())
                 {
-                    //qDebug() << Q_FUNC_INFO << QString("- With Area number -call3- & last is a digit");
+                    qDebug() << Q_FUNC_INFO << QString("- With Area number -call3- & last is a digit");
                     return call3;
                 }
             }
-            //qDebug() << Q_FUNC_INFO << QString("- With NO Area number");
+            qDebug() << Q_FUNC_INFO << QString("- With NO Area number");
             return call;
         }
-        //qDebug() << Q_FUNC_INFO << QString("- Known prefix NOT found: %1").arg(call);
+        qDebug() << Q_FUNC_INFO << QString("- Known prefix NOT found: %1").arg(call);
         call3 = call2;
         call2 = call;
         call.chop(1);

@@ -759,6 +759,7 @@ void MainWindow::createActionsCommon(){
 
     connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
+
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
     connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
@@ -915,7 +916,7 @@ void MainWindow::slotShowDXClusterAssistant()
 }
 void MainWindow::setMainWindowTitle()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QString aux = dataProxy->getCommentsFromLog(currentLog);
     int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
     //qDebug() << Q_FUNC_INFO << " - (comment): " << aux ;
@@ -1328,6 +1329,7 @@ bool MainWindow::readQSOFromUI()
     qso->setSIG(othersTabWidget->getSIG());
     qso->setSIG_INFO(othersTabWidget->getSIG_INFO());
     qso->setWWFF_Ref(othersTabWidget->getWWFF_Ref());
+    qso->setState(othersTabWidget->getState());
 
     qso->setSatName (satTabWidget->getSatName());
     qso->setSatMode (satTabWidget->getSatMode());
@@ -2090,8 +2092,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     */
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
-
-    othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, true));
+    othersTabWidget->updatePrimarySubDivisions(currentEntity, _qrz);
+    //othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, !othersTabWidget->getShowAll()));
+    //othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, true));
     //othersTabWidget->setEntity(currentEntity);
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
@@ -4785,6 +4788,10 @@ void MainWindow::qsoToEdit (const int _qso)
     othersTabWidget->setSIG(qsoE.getSIG());
     othersTabWidget->setSIG_INFO(qsoE.getSIG_INFO());
     othersTabWidget->setWWFF_Ref(qsoE.getWWFF_Ref());
+        // Next two lines must be together. First we need to define the list of state for the call
+        // second step is to select the state.
+    othersTabWidget->updatePrimarySubDivisions(qsoE.getDXCC(), qsoE.getCall());
+    othersTabWidget->setState(qsoE.getState());
 
     //qDebug() << Q_FUNC_INFO << " - in default - 100: " << QString::number(currentEntity)  ;
     //qDebug() << Q_FUNC_INFO << " - Checking DXCC: " << aux1 << " - " << world->getEntityName(aux1.toInt()) ;
@@ -5114,7 +5121,7 @@ void MainWindow::slotFillEmptyDXCCInTheLog()
 
 void MainWindow::slotUpdateCTYDAT()
 {
-    qDebug() << "MainWindow::slotUpdateCTYDAT" ;
+   //qDebug() << "MainWindow::slotUpdateCTYDAT" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     downloadcty->download();
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5551,7 +5558,6 @@ void MainWindow::slotSetPropModeFromOther(const QString &_p)
         satTabWidget->setNoSat();
     }
 }
-
 
 void MainWindow::clearIfNotCompleted()
 {

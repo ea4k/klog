@@ -49,7 +49,7 @@ public:
     int getEntity();
     QString getEntityPrefix();
 
-    void updatePrimarySubDivisions(const int _n, const QString &_pref);   // Receives the entity & prefix of the call to check if
+    void updatePrimarySubDivisions(const int _n, const QString &_qrz);   // Receives the entity & prefix of the call to check if
                                                                  // It is possible to focus the primary
                                                                 // subdivision
 
@@ -88,6 +88,9 @@ public:
     void setKeep(const bool _b);
     bool getKeep();
 
+    bool setState(const QString &_op);      // Sets a subdivision / State
+    QString getState();                     // Reads the subdivision / State
+
     void createUI();
     void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
     void setLogLevel (const DebugLogLevel _l);
@@ -95,22 +98,28 @@ public:
 signals:
     void setPropMode(const QString _p);
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
+    //void showAll(bool _showAll);
 
 private slots:
     //void slotSetPropMode(const QString &_p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
     void slotPropModeComboBoxChanged();
     void slotUSerDefinedADIFComboBoxChanged();
-    void slotSetCurrentUSerData();
+    void slotSetCurrentUserData();
+    void slotPrimarySubdivisionsComboBoxChanged();
+    void slotShowAllChecBoxChanged();
+
 
 private:
     QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the Awards class. I should use only one!
     void setColorsForUserDefinedADIFValueLineEdit();
     bool checkVUCC_GRIDS(const QString &_string);
     bool setInitialADIFValues();
+    void updateShowAll();
 
     void updatePrimarySubdivisionsComboBox(QList<PrimarySubdivision> _subdivisions);
     bool getDarkMode();
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
+
 
     Utilities *util;
     DataProxy_SQLite *dataProxy;
@@ -119,7 +128,7 @@ private:
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QLineEdit *iotaNumberLineEdit;
-    QCheckBox *keepPropCheckBox;
+    QCheckBox *keepPropCheckBox, *showAllCheckBox;
 
     QPalette palRed, palBlack, palWhite;
     bool autoUpdating;
@@ -127,6 +136,9 @@ private:
     QComboBox *userDefinedADIFComboBox;
     QLineEdit *userDefinedADIFValueLineEdit;
     QStringList adifValidTypes;
+
+    QString currentPref;    // Just a cache to be able to rewrite the subdivisions combobox
+    int currentInt;         // if the showAllCheckBox is toggled
 
     QString sota_ref, vucc_grids, pota_ref, sig, sig_info, wwff_ref;
     double age, distance;

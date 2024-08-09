@@ -35,6 +35,8 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     dataProxy = dp;
 
     util = new Utilities(Q_FUNC_INFO);
+    util->setLongPrefixes(dataProxy->getLongPrefixes());
+    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox = new QComboBox();
@@ -44,6 +46,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     propModeComboBox = new QComboBox();
     iotaNumberLineEdit = new QLineEdit();
     keepPropCheckBox = new QCheckBox();
+    showAllCheckBox = new QCheckBox();
     userDefinedADIFComboBox = new QComboBox();
     userDefinedADIFValueLineEdit = new QLineEdit();
 
@@ -52,7 +55,9 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
     connect(propModeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
     connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
-    connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUSerData() ) );
+    connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUserData() ) );
+    connect(entityPrimDivComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPrimarySubdivisionsComboBoxChanged()) )  ;
+    connect(showAllCheckBox, SIGNAL(stateChanged(int)), this, SLOT(slotShowAllChecBoxChanged() ) ) ;
 
     createUI();
     setInitialADIFValues ();
@@ -78,6 +83,8 @@ void MainWindowInputOthers::createUI()
     sota_ref = QString();
     distance = 0;
     age = 0;
+    currentInt = 0;
+    currentPref = QString();
     pota_ref = QString();
     sig = QString();
     sig_info= QString();
@@ -102,6 +109,7 @@ void MainWindowInputOthers::createUI()
     userSelectLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
 
     keepPropCheckBox->setText(tr("Keep propagation mode"));
+    showAllCheckBox->setText(tr("Show All"));
 
     entityPrimDivComboBox->setToolTip(tr("Select the primary division for this QSO."));
     entitySecDivComboBox->setToolTip(tr("Select the secondary division for this QSO."));
@@ -110,6 +118,7 @@ void MainWindowInputOthers::createUI()
     iotaContinentComboBox->setToolTip(tr("Select the IOTA continent for this QSO."));
     iotaNumberLineEdit->setToolTip(tr("Select the IOTA reference number for this QSO."));
     keepPropCheckBox->setToolTip(tr("Keeps the same propagation mode for next QSO."));
+    showAllCheckBox->setToolTip(tr("Show all subdivisions for the current DXCC Entity."));
 
     userDefinedADIFComboBox->setToolTip(tr("Select the appropriate ADIF field for this QSO."));
     userDefinedADIFValueLineEdit->setToolTip (tr("Value for the selected ADIF field."));
@@ -119,17 +128,20 @@ void MainWindowInputOthers::createUI()
     entityNameComboBox->setEnabled(true);
     propModeComboBox->setEnabled(true);
     keepPropCheckBox->setEnabled(true);
+    showAllCheckBox->setEnabled(true);
 
     QHBoxLayout *keepLayout = new QHBoxLayout;
     keepLayout->addWidget(propModeComboBox);
     //keepLayout->addWidget(keepPropCheckBox);
     keepLayout->setSizeConstraint(QLayout::SetFixedSize);
 
+
     QGridLayout *tabLayout = new QGridLayout;
     tabLayout->addWidget(entityNameLabel, 0, 0);
     tabLayout->addWidget(entityNameComboBox, 0, 1, 1, 2);
     tabLayout->addWidget(entityPrimLabel, 1, 0);
     tabLayout->addWidget(entityPrimDivComboBox, 1, 1, 1, 2);
+    tabLayout->addWidget(showAllCheckBox, 1, 3);
     tabLayout->addWidget(entitySecLabel, 2, 0);
     tabLayout->addWidget(entitySecDivComboBox, 2, 1, 1, 2);
     tabLayout->addWidget(iotaAwardLabel, 3, 0);
@@ -172,8 +184,13 @@ void MainWindowInputOthers::clear(bool _full)
     logEvent (Q_FUNC_INFO, "Start", Debug);
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
+    entityPrimDivComboBox->clear();
+    entityPrimDivComboBox->addItem("00-" + tr("None Identified") + " (000)");
+
     userDefinedADIFValueLineEdit->clear ();
     sota_ref = QString();
+    currentPref = QString();
+    currentInt = 0;
 
     distance = 0.0;
     age = 0;
@@ -691,9 +708,37 @@ bool MainWindowInputOthers::setInitialADIFValues()
     return true;
 }
 
+bool MainWindowInputOthers::setState(const QString &_op)
+{ // Sets a subdivision/State
+    qDebug() << Q_FUNC_INFO << ": " << _op;
+    if (_op.length()<1)
+        return false;
+
+    int indexC = entityPrimDivComboBox->findText(QString("%1-").arg(_op), Qt::MatchStartsWith);
+
+    qDebug() << Q_FUNC_INFO << _op << "/" << QString::number(indexC) << " / (6): "  << entityPrimDivComboBox->itemText(6);
+    if (indexC<0)
+        return false;
+
+    entityPrimDivComboBox->setCurrentIndex(indexC);
+    return true;
+}
+
+QString MainWindowInputOthers::getState()
+{// Reads the subdivision. It return just the shortname/code for the subdivision/State
+    qDebug() << Q_FUNC_INFO << ": " << ((entityPrimDivComboBox->currentText()).split("-")).at(0);
+
+    QString aux = entityPrimDivComboBox->currentText();
+    if ((aux.startsWith("00-")) && (aux.endsWith("(000)")) )
+        return QString();
+
+    return ((entityPrimDivComboBox->currentText()).split("-")).at(0);
+}
+
 void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdivision> _subdivisions)
 {
     //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(_subdivisions.count());
+    entityPrimDivComboBox->clear();
     if (_subdivisions.count()<1)
         return;
 
@@ -707,30 +752,40 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
     }
     if (listOfSubdivisions.count()<1)
         return;
-    entityPrimDivComboBox->clear();
+
+    listOfSubdivisions.prepend("00-" + tr("Not selected") + " (000)");
+
     entityPrimDivComboBox->addItems(listOfSubdivisions);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_pref)
+void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _pref;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
+    currentPref = _qrz;
+    QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
+    qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
     if (_n<1)
         return;
+    currentInt = _n;
     setEntity(_n);
-    if (_pref.isEmpty())
+    if (currentPrefTMP.isEmpty())
         return;
+
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(_n, _pref));
+    subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, currentPrefTMP));
     if (subdivisions.isEmpty())
-        subdivisions.append(dataProxy->getPrimarySubDivisions(_n, QString()));
+    {
+        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
+        subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
+    }
 
-    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
+   //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
     if (subdivisions.count()<1)
         return;
     updatePrimarySubdivisionsComboBox(subdivisions);
-    qDebug() << Q_FUNC_INFO << " - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
@@ -887,7 +942,7 @@ double MainWindowInputOthers::getDistance()
     return distance;
 }
 
-void MainWindowInputOthers::slotSetCurrentUSerData()
+void MainWindowInputOthers::slotSetCurrentUserData()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     QString currentTag = getUserADIFTypeComboBox ();
@@ -931,6 +986,27 @@ void MainWindowInputOthers::slotSetCurrentUSerData()
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
+
+
+void MainWindowInputOthers::slotPrimarySubdivisionsComboBoxChanged()
+{
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+   //qDebug() << Q_FUNC_INFO << entityPrimDivComboBox->currentText();
+
+    logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindowInputOthers::slotShowAllChecBoxChanged()
+{
+    updatePrimarySubDivisions(currentInt, currentPref);
+    //if (showAllCheckBox->isChecked())
+    //    updatePrimarySubDivisions(currentInt, QString());
+    //else
+    //    updatePrimarySubDivisions(currentInt, currentPref);
+    //emit showAll(showAllCheckBox->isChecked());
+}
+
+
 
 bool MainWindowInputOthers::getDarkMode()
 {

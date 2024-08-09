@@ -2620,6 +2620,7 @@ bool QSO::setState(const QString &_c)
 
 QString QSO::getState()
 {
+    qDebug() << Q_FUNC_INFO << ": " << state;
     return state;
 }
 
@@ -3083,8 +3084,8 @@ QString QSO::getModifyQueryString()
                    "distance = :distance, email = :email, eq_call = :eq_call, eqsl_qslrdate = :eqsl_qslrdate, "
                    "eqsl_qslsdate = :eqsl_qslsdate, eqsl_qsl_rcvd = :eqsl_qsl_rcvd, eqsl_qsl_sent = :eqsl_qsl_sent, "
                    "fists = :fists, fists_cc = :fists_cc, force_init = :force_init, freq = :freq_tx, freq_rx = :freq_rx, "
-                   "gridsquare = :gridsquare, gridsquare_ext = :gridsquare_ext, hrdlog_qso_upload_date = :hrdlog_qso_upload_date, "
-                   "hrdlog_qso_upload_status = :hrdlog_qso_upload_status, "
+                   "gridsquare = :gridsquare, gridsquare_ext = :gridsquare_ext, "
+                   "hrdlog_qso_upload_date = :hrdlog_qso_upload_date, hrdlog_qso_upload_status = :hrdlog_qso_upload_status, "
                    "hamlogeu_qso_upload_date = :hamlogeu_qso_upload_date, hamlogeu_qso_upload_status = :hamlogeu_qso_upload_status, "
                    "hamqth_qso_upload_date = :hamqth_qso_upload_date, hamqth_qso_upload_status = :hamqth_qso_upload_status, "
                    "iota = :iota, iota_island_id = :iota_island_id, "
@@ -3094,7 +3095,7 @@ QString QSO::getModifyQueryString()
                    "my_country = :my_country, my_cq_zone = :my_cq_zone, my_dxcc = :my_dxcc, my_fists = :my_fists, "
                    "my_gridsquare = :my_gridsquare, my_gridsquare_ext = :my_gridsquare_ext, my_iota = :my_iota, my_iota_island_id = :my_iota_island_id, "
                    "my_itu_zone = :my_itu_zone, my_lat = :my_lat, my_lon = :my_lon, my_name = :my_name, "
-                   "mypota_ref = :my_pota_ref, my_postal_code = :my_postal_code, my_rig = :my_rig, my_sig = :my_sig, my_sig_info = :my_sig_info, "
+                   "my_pota_ref = :my_pota_ref, my_postal_code = :my_postal_code, my_rig = :my_rig, my_sig = :my_sig, my_sig_info = :my_sig_info, "
                    "my_sota_ref = :my_sota_ref, my_state = :my_state, my_street = :my_street, "
                    "my_usaca_counties = :my_usaca_counties, my_wwff_ref = :my_wwff_ref, my_vucc_grids = :my_vucc_grids, name = :name, notes = :notes, "
                    "nr_bursts = :nr_bursts, nr_pings = :nr_pings, operator = :operator, owner_callsign = :owner_callsign, "
@@ -3119,7 +3120,7 @@ int QSO::getBandIdFromBandName(bool _rxBand)
     bool ok = query.prepare ("SELECT band.id FROM band WHERE band.name=:bandname");
     if (!ok)
     {
-        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3122";
     }
     if (_rxBand){
         query.bindValue (":bandname", getBandRX());
@@ -3164,7 +3165,7 @@ QString QSO::getBandNameFromBandId(int bandId)
     if (!ok)
     {
         return QString();
-        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3167";
     }
     query.bindValue (":id", bandId);
 
@@ -3252,7 +3253,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 
     if (!ok)
     {
-        qDebug() << Q_FUNC_INFO << " - Query NOT prepared";
+        qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3255";
         return QString();
     }
     query.bindValue (":id", _modeId);
@@ -3282,7 +3283,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.clear ();
     if (!query.prepare (_s))
     {
-       qDebug() << Q_FUNC_INFO << " - Query not prepared";
+       qDebug() << Q_FUNC_INFO << " - Query not prepared-3285";
        query.clear ();
        return query;
     }
