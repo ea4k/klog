@@ -84,7 +84,7 @@ bool DB_ADIF_Primary_Subdvisions_data::addValues(const QString &rows, const QStr
 
     foreach (aux, values)
     {
-        oneValue = QString("%1 (%2)").arg(sq).arg(aux);
+        oneValue = QString("%1 (%2)").arg(sq, aux);
         if (!exe.execQuery(Q_FUNC_INFO, oneValue))
             return false;
     }
@@ -228,7 +228,7 @@ bool DB_ADIF_Primary_Subdvisions_data::add_CT_272()
         << "'272', 'Viana do Castelo', 'VC', 'CT', '14', '37', '', '-1', '', '', 'N'"
         << "'272', 'Vila Real', 'VR', 'CT', '14', '37', '', '-1', '', '', 'N'"
         << "'272', 'Viseu', 'VS', 'CT', '14', '37', '', '-1', '', '', 'N'"
-           ;
+        ;
 
     return addValues(rows, values);
 }

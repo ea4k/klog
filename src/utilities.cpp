@@ -843,7 +843,7 @@ void Utilities::setSpecialCalls (const QStringList &_p)
 bool Utilities::isAKnownPrefix(const QString &_c)
 {// TODO: Complete with https://rsgb.org/main/operating/licensing-novs-visitors/international-prefixes/
     qDebug() << Q_FUNC_INFO << ": " << _c;
-    QString aux;
+   // QString aux;
     if (_c.isNull() )
     {
         qDebug() << Q_FUNC_INFO << ": END - 1";
@@ -860,7 +860,7 @@ bool Utilities::isAKnownPrefix(const QString &_c)
 bool Utilities::isAKnownCall(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _c;
-    QString aux;
+    //QString aux;
     if (_c.isNull() )
     {
         //qDebug() << Q_FUNC_INFO << ": END - 1";

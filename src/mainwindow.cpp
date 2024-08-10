@@ -2075,7 +2075,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
      //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
-    QString pref = util->getPrefixFromCall(_qrz);
+    //QString pref = util->getPrefixFromCall(_qrz);
     //logEvent(Q_FUNC_INFO, QString("Call/Prefix: %1/%2").arg(_qrz).arg(pref), Devel);
     //currentEntity = world->getQRZARRLId(pref);
     //validar por que no puedo tirar o usar  el prefijo directamente

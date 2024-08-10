@@ -6065,6 +6065,8 @@ bool DataBase::updateTo026()
     //qDebug() << Q_FUNC_INFO << " - 40" ;
     if (!updateTableLog(7))
         return false;
+    if (!recreateTablePrimarySubdivisions())
+        return false;
     //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.026");
 }
