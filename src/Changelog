@@ -1,5 +1,5 @@
 BUG: When entering/modifying a QSO thre is an error related to awarddxcc table not existing
-TODO: Include the primary subdivisions table in the update of the DB, not just in creation
+TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions
 
 TODO: Update the DB (modes table) updateToLatest() => updateTo026
 WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
