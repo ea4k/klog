@@ -727,6 +727,7 @@ void MainWindow::createActionsCommon(){
     connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
     connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString) ) );
     connect(UDPLogServer, SIGNAL(clearSignal(QString)), this, SLOT(slotClearButtonClicked(QString) ) );
+    connect(UDPLogServer, SIGNAL( logged(QSO)), this, SLOT(slotQSOReceived(QSO) ) );
 
     connect(this, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -5741,6 +5742,73 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     slotShowSearchWidget();
     searchWidget->showQSOs(_qsos);
     logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+
+void MainWindow::slotQSOReceived(const QSO &_qso)
+{
+    qDebug() <<  Q_FUNC_INFO << " - Start";
+    //logEvent(Q_FUNC_INFO, "Start", Debug);
+    if (!askToAddQSOReceived(_qso))
+        return;
+    QSO q(_qso);
+
+    int addedQSO = q.toDB();
+    if (addedQSO>0)
+       qDebug() <<  Q_FUNC_INFO << " - QSO added";
+    else
+        qDebug() <<  Q_FUNC_INFO << " - QSO NOT added";
+
+    qDebug() <<  Q_FUNC_INFO << " - END";
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+bool MainWindow::askToAddQSOReceived(const QSO &_qso)
+{
+    qDebug() <<  Q_FUNC_INFO << " - Start";
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setWindowTitle(tr("KLog - QSO received - NEW"));
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
+    msgBox.setDefaultButton(QMessageBox::Yes);
+
+    QString aux  = QString(tr("ASK-The following QSO data has been received from to be logged:\n\n"
+                           "<UL>"
+                           "<LI><b>Callsign:</b>%1</LI>"
+                           "<LI><b>Freq:</b>%2</LI>"
+                           "<LI><b>Mode:</b>%3</LI>"
+                           "<LI><b>Time On:</b>%4</LI>"
+                           "<LI><b>Time Off:</b>%5</LI>"
+                           "<LI><b>RST TX:</b>%6</LI>"
+                           "<LI><b>RST RX:</b>%7</LI>"
+                           "<LI><b>Comment:</b>%8</LI>"
+                           "<LI><b>DX-Grid:</b>%9</LI>"
+                           "<LI><b>Local-Grid:</b>%10</LI>"
+                           "<LI><b>Station Callsign:</b>%11</LI>"
+                             "<LI><b>Operator Callsign:</b>%12</LI>")).arg(qso->getCall(), QString::number(qso->getFreqTX()), qso->getMode(),
+                            util->getADIFTimeFromQTime(qso->getTimeOn()), util->getADIFTimeFromQTime(qso->getTimeOff()), qso->getRSTTX(), qso->getRSTRX(),
+                            qso->getComment(), qso->getGridSquare(), qso->getMyGridSquare(),
+                            qso->getStationCallsign(), qso->getOperatorCallsign());
+
+
+
+    msgBox.setText(aux);
+    int ret = msgBox.exec();
+    switch (ret)
+    {
+    //case QMessageBox::Yes:
+    //break;
+    case QMessageBox::No:
+        //logTheQso = false;
+        return false;
+        break;
+    default:
+        // should never be reached
+        //logTheQso = false;
+        return true;
+        break;
+    }
 }
 
 void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,

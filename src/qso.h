@@ -48,6 +48,7 @@ class QSO : public QObject
 
 public:
     QSO();
+    QSO(const QSO& other);
     ~QSO();
     void setLogLevel (const DebugLogLevel _b);
     void setRealTime(const bool _rt);   // Not QSO info but KLog status

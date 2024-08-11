@@ -31,6 +31,8 @@
 #include <QObject>
 #include <QHostAddress>
 #include <QDataStream>
+#include "qso.h"
+//#include "frequency.h"
 #include "utilities.h"
 
 enum Type
@@ -107,7 +109,7 @@ signals:
     //void logged_qso (const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
     //                 const QString &_dx_grid, const QString &_time_off, const QString &_report_sent, const QString &_report_rec,
     //                 const QString &_tx_power, const QString &_comments, const QString &_name, const QString &_time_on, const QString &_de_call, const QString &_de_grid);
-
+    void logged(const QSO &qso);
     void logged_qso (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
                      const QString &_mygrid, const QString &_dxgrid, const QString &rstTX, const QString &rstRX,
                      const QString &comment, const QString &stationcallsign, const QString &name,

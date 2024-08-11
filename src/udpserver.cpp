@@ -32,7 +32,7 @@
 UDPServer::UDPServer(QObject *parent) :
     QObject(parent)
 {
-       //qDebug() << "UDPServer::UDPServer" ;
+       //qDebug() << Q_FUNC_INFO << " - Start";
        //address = QString("127.0.0.1");
        port = 2237;
        haveNetworkInterface = false;
@@ -54,6 +54,7 @@ UDPServer::UDPServer(QObject *parent) :
         logging = false;
         realtime = false;
         connect(socketServer,SIGNAL(readyRead()),this,SLOT(slotReadPendingDatagrams()));
+       //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 UDPServer::~UDPServer()
@@ -63,45 +64,46 @@ UDPServer::~UDPServer()
 
 void UDPServer::slotReadPendingDatagrams()
 {
-    //qDebug() << "UDPServer::slotReadPendingDatagrams" ;
+   //qDebug() << Q_FUNC_INFO << " - Start";
     while (socketServer->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(socketServer->pendingDatagramSize());
         QHostAddress sender;
         quint16 senderPort;
-        //qDebug() << "UDPServer::slotReadPendingDatagrams: length = " << QString::number(socketServer->pendingDatagramSize());
+       //qDebug() << Q_FUNC_INFO << " : length = " << QString::number(socketServer->pendingDatagramSize());
         socketServer->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
         parse (datagram);
-        //qDebug() << "UDPServer::slotReadPendingDatagrams: = " << datagram;
+       //qDebug() << Q_FUNC_INFO << "  = " << datagram;
     }
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool UDPServer::start()
 {
-    //qDebug() << "UDPServer::start ";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if ( (port>0) && (port<65535) )
     {
-        //qDebug() << "UDPServer::start: calling startNow ";
+        //qDebug() << Q_FUNC_INFO << ": calling startNow ";
         return startNow(port, groupAddress);
     }
     else
     {
-        //qDebug() << "UDPServer::start FALSE";
+        //qDebug() << Q_FUNC_INFO << ": FALSE";
         return false;
     }
 }
 
 bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_address)
 {
-    //qDebug() << "UDPServer::startNow ";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     //if ((_port != port) || (_multicast_group_address != groupAddress))
     if (1)
     {
-        //qDebug() << "UDPServer::startNow starting...";
+        //qDebug() << Q_FUNC_INFO << ": starting...";
         leaveMultiCastGroup();
         if (socketServer->state() == QAbstractSocket::BoundState)
         {
-            //qDebug() << "UDPServer::startNow: closing socket";
+            //qDebug() << Q_FUNC_INFO << ": closing socket";
             socketServer->close();
         }
         groupAddress = _multicast_group_address;
@@ -115,21 +117,21 @@ bool UDPServer::startNow(quint16 _port, QHostAddress const& _multicast_group_add
         }
         else
         {
-            //qDebug() << "UDPServer::startNow port = 0";
+            //qDebug() << Q_FUNC_INFO << "  port = 0";
             port = 0;
         }
     }
     else
     {
-       //qDebug() << "UDPServer::startNow exiting with an error... ";
+       //qDebug() << Q_FUNC_INFO << "  exiting with an error... ";
     }
-    //qDebug() << "UDPServer::startNow finalizing... ";
+    //qDebug() << Q_FUNC_INFO << "  finalizing... ";
     return  socketServer->isValid();
 }
 
 void UDPServer::joinMultiCastGroup()
 {
-    //qDebug() << "UDPServer::joinMultiCastGroup: ";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (!haveNetworkInterface)
     {
         return;
@@ -144,22 +146,10 @@ void UDPServer::joinMultiCastGroup()
             socketServer->bind(QHostAddress::AnyIPv4, port, QAbstractSocket::ShareAddress | QAbstractSocket::ReuseAddressHint);
             if (socketServer->isValid())
             {
-               //qDebug() << "UDPServer::joinMultiCastGroup socket valid";
+               //qDebug() << Q_FUNC_INFO << ": socket valid";
             }
         }
         bool joined {false};
-
-        /*
-        QList<QNetworkInterface> interfaces;
-        interfaces.clear();
-        interfaces.append(QNetworkInterface::allInterfaces());
-
-        for (int i = 0; i < interfaces.size(); ++i)
-        {
-            socketServer->setMulticastInterface(interfaces.at(i));
-            joined |= socketServer->joinMulticastGroup(groupAddress, interfaces.at(i));
-        }
-        */
 
         socketServer->setMulticastInterface(networkInterface);
         joined |= socketServer->joinMulticastGroup(groupAddress, networkInterface);
@@ -170,12 +160,12 @@ void UDPServer::joinMultiCastGroup()
         }
         socketServer->setMulticastInterface(mcast_interface);
     }
-    //qDebug() << "UDPServer::joinMultiCastGroup - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void UDPServer::leaveMultiCastGroup()
 {
-    //qDebug() << "UDPServer::leaveMultiCastGroup";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (groupAddress.isNull() && socketServer->state() && groupAddress.isMulticast())
     {
         QList<QNetworkInterface> interfaces;
@@ -186,17 +176,18 @@ void UDPServer::leaveMultiCastGroup()
             socketServer->leaveMulticastGroup(groupAddress, interfaces.at(i));
         }
     }
-    //qDebug() << "UDPServer::leaveMultiCastGroup - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
  bool UDPServer::isStarted()
  {
+   //qDebug() << Q_FUNC_INFO << " - Start";
      return  socketServer->isValid();
  }
 
 void UDPServer::parse(const QByteArray &msg)
 {
-    //qDebug() << "UDPServer::parse: " << msg;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << msg;
     //qDebug() << "UDPServer::parse: " << QString::fromStdString(msg.toStdString());
     //in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
     //        tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
@@ -268,26 +259,26 @@ void UDPServer::parse(const QByteArray &msg)
     //in.readRawData(type, size)
        //qDebug() << "UDPServer::parse: -  Magic = " << QString::number(magic);
        //qDebug() << "UDPServer::parse: - schema = " << QString::number(schema);
-       //qDebug() << "UDPServer::parse: -   type = " << QString::number(type);
-       //qDebug() << "UDPServer::parse: -   id = " << id;
+       //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type);
+       //qDebug() << Q_FUNC_INFO << ": id = " << id;
 
 
     //if ((magic != 2914831322) || (id != "WSJT-X"))
     if (magic != 2914831322)
     {
-        //qDebug() << "UDPServer::parse: - Magic BAD FORMAT = " << QString::number(magic);
+        //qDebug() << Q_FUNC_INFO << ": Magic BAD FORMAT = " << QString::number(magic);
         return;
     }
 
-    //qDebug() << "UDPServer::parse: TYPE: " << QString::number(type);
+    //qDebug() << Q_FUNC_INFO << ": TYPE: " << QString::number(type);
 
     switch (type)
     {
         case Heartbeat:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT/IN - Heartbeat";
+            //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - OUT/IN - Heartbeat";
         break;
         case Status:
-            //qDebug() << "UDPServer::parse: -   type" << QString::number(type) << " - OUT - Status";
+            //qDebug() << Q_FUNC_INFO << ": type" << QString::number(type) << " - OUT - Status";
             // unpack message
             //in >> ch;
 
@@ -300,98 +291,109 @@ void UDPServer::parse(const QByteArray &msg)
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
                //if (!util->isValidCall(dx_call))
                // {
-               //     //qDebug() << "UDPServer::parse: Status : Call not valid: -" << dx_call << "-";
+               //     //qDebug() << Q_FUNC_INFO << ": Status : Call not valid: -" << dx_call << "-";
                //     return;
                //}
-               //qDebug() << "UDPServer::parse: Status - Freq double = " << QString::number(frequencyDouble) ;
-               //qDebug() << "UDPServer::parse: Status - Mode = " << mode;
-               //qDebug() << "UDPServer::parse: Status - DXCall = " << dx_call;
-               //qDebug() << "UDPServer::parse: Status - Report = " << report;
-               //qDebug() << "UDPServer::parse: Status - Rx DF = " << rx_df;
-               //qDebug() << "UDPServer::parse: Status - Tx DF = " << tx_df;
-               //qDebug() << "UDPServer::parse: Status - De_Call = " << de_call;
-               //qDebug() << "UDPServer::parse: Status - De_Grid = " << de_grid;
-               //qDebug() << "UDPServer::parse: Status - SubMode = " << sub_mode;
-               //qDebug() << "UDPServer::parse: Status - SpecialOp = " << QString::number(specialOpMode);
-               //qDebug() << "UDPServer::parse: Status - Freq Tol = " << QString::number(freqTolerance);
-               //qDebug() << "UDPServer::parse: Status - T/R Period = " << QString::number(TRPeriod);
-               //qDebug() << "UDPServer::parse: Status - Conf Name = " << confName;
+               //qDebug() << Q_FUNC_INFO << ": Status - Freq double = " << QString::number(frequencyDouble) ;
+               //qDebug() << Q_FUNC_INFO << ": Status - Mode = " << mode;
+               //qDebug() << Q_FUNC_INFO << ": Status - DXCall = " << dx_call;
+               //qDebug() << Q_FUNC_INFO << ": Status - Report = " << report;
+               //qDebug() << Q_FUNC_INFO << ": Status - Rx DF = " << rx_df;
+               //qDebug() << Q_FUNC_INFO << ": Status - Tx DF = " << tx_df;
+               //qDebug() << Q_FUNC_INFO << ": Status - De_Call = " << de_call;
+               //qDebug() << Q_FUNC_INFO << ": Status - De_Grid = " << de_grid;
+               //qDebug() << Q_FUNC_INFO << ": Status - SubMode = " << sub_mode;
+               //qDebug() << Q_FUNC_INFO << ": Status - SpecialOp = " << QString::number(specialOpMode);
+               //qDebug() << Q_FUNC_INFO << ": Status - Freq Tol = " << QString::number(freqTolerance);
+               //qDebug() << Q_FUNC_INFO << ": Status - T/R Period = " << QString::number(TRPeriod);
+               //qDebug() << Q_FUNC_INFO << ": Status - Conf Name = " << confName;
 
                 emit status_update (type, dx_call, frequencyDouble, mode, report, de_call, de_grid, dx_grid, sub_mode);
             }
             else
             {
-                //qDebug() << "UDPServer::parse: realtime = FALSE";
+                //qDebug() << Q_FUNC_INFO << ": realtime = FALSE";
             }
         break;
         case Decode:
-            //() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Decode";
+            //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - OUT - Decode";
             in >> newDecode >> time >> snr >> deltaTime >> drift >> mode >> message >> lowConfidence >> offAir;
 
 
             if (lowConfidence)
             {
-                //qDebug() << "UDPServer::parse: Decode -   Low Confidence";
+                //qDebug() << Q_FUNC_INFO << ": Decode:    Low Confidence";
             }
             else
             {
-                //qDebug() << "UDPServer::parse: Decode -   Time = " << time.toString("hhmmss");
-                //qDebug() << "UDPServer::parse: Decode -   SNR = " << QString::number(snr);
-                //qDebug() << "UDPServer::parse: Decode -   Delta = " << QString::number(deltaTime);
-                //qDebug() << "UDPServer::parse: Decode -   Drift = " << QString::number(drift);
-                //qDebug() << "UDPServer::parse: Decode -   Mode = " << mode;
-                //qDebug() << "UDPServer::parse: Decode -   Msg = " << message;
+                //qDebug() << Q_FUNC_INFO << ": Decode:    Time = " << time.toString("hhmmss");
+                //qDebug() << Q_FUNC_INFO << ": Decode:    SNR = " << QString::number(snr);
+                //qDebug() << Q_FUNC_INFO << ": Decode:    Delta = " << QString::number(deltaTime);
+                //qDebug() << Q_FUNC_INFO << ": Decode:    Drift = " << QString::number(drift);
+                //qDebug() << Q_FUNC_INFO << ": Decode:    Mode = " << mode;
+                //qDebug() << Q_FUNC_INFO << ": Decode:    Msg = " << message;
             }
 
         break;
         case Clear:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Clear";
+            //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - OUT - Clear";
             emit clearSignal(Q_FUNC_INFO);
         break;
         case Reply:
-            //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay ";
+            //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - IN - Replay ";
         break;
         case QSOLogged:
-            //qDebug() << "UDPServer::parse: -   type = QSOLogged " ;
+            //qDebug() << Q_FUNC_INFO << ": type = QSOLogged " ;
 
 
         in >> time_off >> dx_call >> dx_grid >> frequency >> mode >> report_sent >> report_received >>
                     tx_power >> comments >> name >> time_on >> operatorCall >> de_call >> de_grid >>
                     exchange_sent >> exchange_received;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Time_off = " << time_off.toString("yyyyMMdd-hhmmss");
-            //qDebug() << "UDPServer::parse: QSOLogged -   DXCall = " << dx_call;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Grid = " << dx_grid;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Freq = " << QString::number(frequency);
-            //qDebug() << "UDPServer::parse: QSOLogged -   Mode = " << mode;
-            //qDebug() << "UDPServer::parse: QSOLogged -   ReportSent = " << report_sent;
-            //qDebug() << "UDPServer::parse: QSOLogged -   ReportReceived = " << report_received;
-            //qDebug() << "UDPServer::parse: QSOLogged -   TX_PWR = " << tx_power;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Comments = " << comments;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Name = " << name;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Time = " << time_on.toString("yyyyMMdd-hhmmss");
-            //qDebug() << "UDPServer::parse: QSOLogged -   DeCall = " << de_call;
-            //qDebug() << "UDPServer::parse: QSOLogged -   DeGrid = " << de_grid;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Exch Sent = " << exchange_sent;
-            //qDebug() << "UDPServer::parse: QSOLogged -   Exch Recv = " << exchange_received;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Time_off = " << time_off.toString("yyyyMMdd-hhmmss");
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    DXCall = " << dx_call;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Grid = " << dx_grid;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Freq = " << QString::number(frequency);
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Mode = " << mode;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    ReportSent = " << report_sent;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    ReportReceived = " << report_received;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    TX_PWR = " << tx_power;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Comments = " << comments;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Name = " << name;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Time = " << time_on.toString("yyyyMMdd-hhmmss");
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    DeCall = " << de_call;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    DeGrid = " << de_grid;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Exch Sent = " << exchange_sent;
+            //qDebug() << Q_FUNC_INFO << ": QSOLogged:    Exch Recv = " << exchange_received;
 
             if (logging)
             {
-                //qDebug() << "UDPServer::parse: logging = true ";
+                //qDebug() << Q_FUNC_INFO << ": logging = true ";
 
 
-                //qDebug() << "UDPServer::parse: QSO to be logged: Time_on: " << time_on;
-                //qDebug() << "UDPServer::parse: QSO to be logged: Time_off: " << time_off;
+                //qDebug() << Q_FUNC_INFO << ": QSO to be logged: Time_on: " << time_on;
+                //qDebug() << Q_FUNC_INFO << ": QSO to be logged: Time_off: " << time_off;
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
 
-                //qDebug() << "UDPServer::parse: Data to be logged: Comment: " << comments;
-
-                //dateTime.setDate(QDate::currentDate());
-                //dateTime.setTime(QTime::fromString(time_on, "hhmmss"));
-
-                //dateTimeOff.setDate(QDate::currentDate());
-                //dateTimeOff.setTime(QTime::fromString(time_off, "hhmmss"));
-
+                //qDebug() << Q_FUNC_INFO << ": Data to be logged: Comment: " << comments;
+                QSO qso;
+                qso.setCall(dx_call);
+                qso.setMode(mode);
+                qso.setFreq(frequencyDouble);
+                qso.setGridSquare(dx_grid);
+                qso.setMyGridSquare(de_grid);
+                qso.setRSTRX(report_received);
+                qso.setRSTTX(report_sent);
+                qso.setComment(comments);
+                qso.setStationCallsign(de_call);
+                qso.setName(name);
+                qso.setOperatorCallsign(operatorCall);
+                qso.setDateTimeOn(time_on);
+                qso.setTimeOff(time_off.time());
+                qso.setSrxString(exchange_received);
+                qso.setStxString(exchange_sent);
+                qso.setTXPwr(tx_power.toDouble());
+                emit logged(qso);
                 emit logged_qso(dx_call, mode, QString(), frequencyDouble,
                                 de_grid, dx_grid, report_sent, report_received,
                                 comments, de_call, name, operatorCall, time_on, time_off,
@@ -399,72 +401,72 @@ void UDPServer::parse(const QByteArray &msg)
             }
             else
             {
-                //qDebug() << "UDPServer::parse: logging = false";
+                //qDebug() << Q_FUNC_INFO << ": logging = false";
             }
 
         break;
         case Close:
-            //qDebug() << "UDPServer::parse: -   type = Close" ;
+            //qDebug() << Q_FUNC_INFO << ": type = Close" ;
             socketServer->close();
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - OUT - Close ";
+               //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - OUT - Close ";
         break;
         case Replay:
-            //qDebug() << "UDPServer::parse: -   type = Reply" ;
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Replay";
+            //qDebug() << Q_FUNC_INFO << ": type = Reply" ;
+               //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - IN - Replay";
         break;
         case HaltTx:
-            //qDebug() << "UDPServer::parse: -   type = HaltTx" ;
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Halt TX";
+            //qDebug() << Q_FUNC_INFO << ": type = HaltTx" ;
+               //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - IN - Halt TX";
         break;
         case FreeText:
-            //qDebug() << "UDPServer::parse: -   type = FreeText" ;
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - IN - Free Text";
+            //qDebug() << Q_FUNC_INFO << ": type = FreeText" ;
+               //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - IN - Free Text";
         break;
         case WSPRDecode:
-            //qDebug() << "UDPServer::parse: -   type = WSPRDecode" ;
+            //qDebug() << Q_FUNC_INFO << ": type = WSPRDecode" ;
             in >> newDecode >> time >> snr >> deltaTime >> frequency >> drift >> decodedCall >> decodedGrid >> power >> offAir;
 
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Time = " << time.toString("yyyyMMdd-hhmmss");
-            //qDebug() << "UDPServer::parse: WSPRDecode -   SNR = " << QString::number(snr);
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Delta = " << QString::number(deltaTime);
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Frec = " << QString::number(frequency);
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Drift = " << QString::number(drift);
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Call = " << decodedCall;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Grid = " << decodedGrid;
-            //qDebug() << "UDPServer::parse: WSPRDecode -   Power = " << QString::number(power);
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Time = " << time.toString("yyyyMMdd-hhmmss");
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    SNR = " << QString::number(snr);
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Delta = " << QString::number(deltaTime);
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Frec = " << QString::number(frequency);
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Drift = " << QString::number(drift);
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Call = " << decodedCall;
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Grid = " << decodedGrid;
+            //qDebug() << Q_FUNC_INFO << ": WSPRDecode:    Power = " << QString::number(power);
 
         break;
         case Location:
-            //qDebug() << "UDPServer::parse: -   type = Location" ;
+            //qDebug() << Q_FUNC_INFO << ": type = Location" ;
         break;
         case LoggedADIF:
-           //qDebug() << "UDPServer::parse: -   type = LoggedADIF" ;
-           //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ADIF";
+           //qDebug() << Q_FUNC_INFO << ": type = LoggedADIF" ;
+           //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - ADIF";
            //in >> adifReceived;
            //adifParse(adifReceived);
             //qDebug() << "UDPServer::parse: ADIF: " << adifReceived;
            // Q_SIGNAL void logged_ADIF (QString const& id, QByteArray const& ADIF);
         break;
         case HighlightCallsign:
-            //qDebug() << "UDPServer::parse: -   type = HighlightCallsign" ;
+            //qDebug() << Q_FUNC_INFO << ": type = HighlightCallsign" ;
         break;
         case SwitchConfiguration:
-            //qDebug() << "UDPServer::parse: -   type = SwitchConfiguration" ;
+            //qDebug() << Q_FUNC_INFO << ": type = SwitchConfiguration" ;
         break;
         case Configure:
-            //qDebug() << "UDPServer::parse: -   type = Configure" ;
+            //qDebug() << Q_FUNC_INFO << ": type = Configure" ;
         break;
         default: //NO
-               //qDebug() << "UDPServer::parse: -   type = " << QString::number(type) << " - ERROR on Type";
+               //qDebug() << Q_FUNC_INFO << ": type = " << QString::number(type) << " - ERROR on Type";
         break;
     }
-       //qDebug() << "UDPServer::parse: - Magic: = " << QString::number(magic);
+       //qDebug() << Q_FUNC_INFO << ": Magic: = " << QString::number(magic);
 }
 
 
 bool UDPServer::stop()
 {
-    //qDebug() << "UDPServer::stop";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     socketServer->close();
     if (socketServer->isValid())
     {
@@ -478,7 +480,7 @@ bool UDPServer::stop()
 
 void UDPServer::setPort(const int _port)
 {
-       //qDebug() << "UDPServer::setPort: " << QString::number(_port);
+   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_port);
     if ((_port >= 0) && (_port<=65535))
     {
         port = _port;
@@ -487,7 +489,7 @@ void UDPServer::setPort(const int _port)
 
 void UDPServer::setNetworkInterface(const QString &_t)
 {
-    //qDebug() << "UDPServer::setNetworkInterface: " << _t;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _t;
     QString testInterface;
     testInterface.clear();
     QList<QNetworkInterface> ifaces;
@@ -498,7 +500,7 @@ void UDPServer::setNetworkInterface(const QString &_t)
         testInterface = i.humanReadableName() + "-" + i.hardwareAddress();
         if (testInterface.contains(_t))
         {
-            //qDebug() << "UDPServer::setNetworkInterface: FOUND! " << testInterface ;
+           //qDebug() << Q_FUNC_INFO << ": FOUND! :" << testInterface ;
             if ((i.flags().testFlag(QNetworkInterface::IsUp)) )
             {
                 networkInterface = i;
@@ -511,7 +513,8 @@ void UDPServer::setNetworkInterface(const QString &_t)
 
 void UDPServer::adifParse(QByteArray &msg)
 {
-    //qDebug() << "UDPServer::adifParse: " << msg <<  QT_ENDL;
+    qDebug() << Q_FUNC_INFO << " - Start: " << msg;
+
     QString dx_call = QString();
     QString mode = QString();
     QString band = QString();
@@ -530,111 +533,129 @@ void UDPServer::adifParse(QByteArray &msg)
     QDateTime datetime, datetime_off;
     QDate _date_on, _date_off;
     QTime _time_on, _time_off;
+
+    QSO qso;
+
     QStringList adifLine;
     adifLine.clear();
     QString line = QString(msg);
 
 
     adifLine << line.split('<');
-    //qDebug() << "UDPServer::adifParse: before the while"  <<  QT_ENDL;
+    //qDebug() << Q_FUNC_INFO << ": before the while"  <<  QT_ENDL;
     for (int i = 0; i < adifLine.length() ;i++)
     {
-        //qDebug() << "UDPServer::adifParse: While-1"  <<  QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": While-1"  <<  QT_ENDL;
         QString type, data;
         QStringList field;
         field.clear();
-        //qDebug() << "UDPServer::adifParse: While-2"  <<  QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": While-2"  <<  QT_ENDL;
         QString aux = "<" + adifLine.at(i);
-        //qDebug() << "UDPServer::adifParse: While-3"  <<  QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": While-3"  <<  QT_ENDL;
         field.clear();
         field << util->getValidADIFFieldAndData(aux);
         if (field.length()==2)
         {
-            //qDebug() << "UDPServer::adifParse: While-4"  <<  QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": While-4"  <<  QT_ENDL;
             type = (field.at(0)).toUpper();
-            //qDebug() << "UDPServer::adifParse: While-5"  <<  QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": While-5"  <<  QT_ENDL;
             data = field.at(1);
-            //qDebug() << "UDPServer::adifParse: While-6"  <<  QT_ENDL;
+            //qDebug() << Q_FUNC_INFO << ": While-6"  <<  QT_ENDL;
             if (type == "CALL")
             {
                dx_call = data;
             }
             else if (type == "GRIDSQUARE")
             {
-                //qDebug() << "UDPServer::adifParse: Rec Grid: " << data <<  QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": Rec Grid: " << data <<  QT_ENDL;
                 if (util->isValidGrid(data))
                 {
+                    qso.setGridSquare(data);
                     dxgrid = data;
-                    //qDebug() << "UDPServer::adifParse: Rec Grid to export: " << dxgrid <<  QT_ENDL;
+                    //qDebug() << Q_FUNC_INFO << ": Rec Grid to export: " << dxgrid <<  QT_ENDL;
                 }
                 else {
-                    //qDebug() << "UDPServer::adifParse: INVALID GRID: " << dxgrid <<  QT_ENDL;
+                    //qDebug() << Q_FUNC_INFO << ": INVALID GRID: " << dxgrid <<  QT_ENDL;
                 }
             }
             else if (type == "MY_GRIDSQUARE")
             {
-                //qDebug() << "UDPServer::adifParse: Rec mGrid: " << data <<  QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": Rec mGrid: " << data <<  QT_ENDL;
                 if (util->isValidGrid(data))
                 {
+                     qso.setMyGridSquare(data);
                     mygrid = data;
-                    //qDebug() << "UDPServer::adifParse: Rec mGrid to export: " << mygrid <<  QT_ENDL;
+                    //qDebug() << Q_FUNC_INFO << ": Rec mGrid to export: " << mygrid <<  QT_ENDL;
                 }
                 else
                 {
-                    //qDebug() << "UDPServer::adifParse: INVALID mGRID: " << mygrid <<  QT_ENDL;
+                    //qDebug() << Q_FUNC_INFO << ": INVALID mGRID: " << mygrid <<  QT_ENDL;
                 }
             }
             else if (type == "MODE")
             {
+                qso.setMode(data);
                mode = data;
             }
             else if (type == "RST_SENT")
             {
+               qso.setRSTRX(data);
                rstRX = data;
             }
             else if (type == "RST_RCVD")
             {
+               qso.setRSTTX(data);
                rstTX = data;
             }
             else if (type == "QSO_DATE")
             {
+               qso.setDate(util->getDateFromADIFDateString(data));
                _date_on = util->getDateFromADIFDateString(data);
             }
             else if (type == "TIME_ON")
             {
+               qso.setTimeOn(util->getTimeFromADIFTimeString(data));
               _time_on  = util->getTimeFromADIFTimeString(data);
             }
             else if (type == "QSO_DATE_OFF")
             {
+              qso.setDateOff(util->getDateFromADIFDateString(data));
               _date_off  = util->getDateFromADIFDateString(data);
             }
             else if (type == "TIME_OFF")
             {
+              qso.setTimeOff(util->getTimeFromADIFTimeString(data));
               _time_off = util->getTimeFromADIFTimeString(data);
             }
             else if (type == "COMMENT")
             {
+              qso.setComment(data);
               _comment = data;
             }
             else if (type == "BAND")
             {
+              qso.setBand(data);
               band  = data;
             }
             else if (type == "OPERATOR")
             {
+              qso.setOperatorCallsign(data);
               operatorCall  = data;
             }
             else if (type == "FREQ")
             {
+              qso.setFreq(data.toDouble());
               freq = data.toDouble();
             }
             else if (type == "STATION_CALLSIGN")
             {
+              qso.setStationCallsign(data);
               stationcallsign = data;
             }
             else if (type == "NAME")
             {
-              stationcallsign = data;
+              qso.setName(data);
+              _name = data;
             }
             else if (type == "EOR")
             {
@@ -656,11 +677,12 @@ void UDPServer::adifParse(QByteArray &msg)
                 {
                     datetime_off = QDateTime();
                 }
-                //qDebug() << "UDPServer::adifParse: Emitting"  <<  QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": Emitting"  <<  QT_ENDL;
                 if ((freq < 0.1) && (band.length ()<2))
                 {
                     return;
                 }
+                emit logged(qso);
                 emit logged_qso (dx_call, mode, band, freq,
                                  mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign, _name,
                                  operatorCall, datetime, datetime_off, _exchangeTX, _exchangeRX, _myPWR);
@@ -668,16 +690,16 @@ void UDPServer::adifParse(QByteArray &msg)
             }
             else
             {
-                //qDebug() << "UDPServer::adifParse: NON captured ADIF type: " << type <<  QT_ENDL;
-                //qDebug() << "UDPServer::adifParse: NON captured ADIF data: " << data <<  QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": NON captured ADIF type: " << type <<  QT_ENDL;
+                //qDebug() << Q_FUNC_INFO << ": NON captured ADIF data: " << data <<  QT_ENDL;
             }
         }
         else
         {
-        //qDebug() << "UDPServer::adifParse: Not a valid ADIF pair " << aux <<  QT_ENDL;
+        //qDebug() << Q_FUNC_INFO << ": Not a valid ADIF pair " << aux <<  QT_ENDL;
         }
     }
-    //qDebug() << "UDPServer::adifParse: - END" <<  QT_ENDL;
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void UDPServer::loadSettings()
@@ -692,13 +714,5 @@ void UDPServer::loadSettings()
     realtime = settings.value ("RealTimeFromWSJTX", false).toBool ();
     settings.endGroup ();
 
-    /*
-    UDPServerStart = settings.value ("UDPServer", false).toBool ();
-
-    UDPLogServer->setRealTimeUpdate();
-
-    infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();
-    wsjtxAutoLog = settings.value ("LogAutoFromWSJTX", false).toBool ();
-*/
-    //qDebug() << Q_FUNC_INFO << " - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
 }

@@ -1,22 +1,28 @@
+Complete the copy constructor of QSO
+Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
+Check the bug that makes WSJTX not logging automatically
+TODO: After refactor, remove/comment out
+void UDPServer::adifParse(QByteArray &msg)
+udpserver signal logged_qso
+void MainWindow::slotWSJTXloggedQSO
+
 BUG: When entering/modifying a QSO thre is an error related to awarddxcc table not existing
 TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions
 
-TODO: Update the DB (modes table) updateToLatest() => updateTo026
 WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 WIP: Working in the update of the table awarddxcc in DB class
 WIP: - Bugfix: DB in alternative locations was not always found. (WIP #706)
+
+TODO: IOTA number is on red on editing.
+TODO: When completing with previous data the QSL is in red
+
 
 TESTS to do during RC releases:
 - ADIF log Import
 - LoTW log Import
 - Edit QSO. Check how data comes from DB to the UI.
     - Attention to name
-- CompleteWithPreviousQSO: Test that the following fields are reused:
-    - name
-    - QTH
-    - GridSquare
-    - IOTA
-    - QSLVia
+
 
 - Receive QSOs from WSJTX:
     - check if they are properly imported to the log.

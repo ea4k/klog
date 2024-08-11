@@ -314,6 +314,7 @@ private slots:
                                  const QString &_report, const QString &_de_call, const QString &_de_grid,
                                  const QString &_dx_grid, const QString &_sub_mode);
 
+    void slotQSOReceived(const QSO &_qso);
     void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
                      const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX,
                      const QString &_comment, const QString &_stationcallsign, const QString &_name,
@@ -347,6 +348,7 @@ private:
     void setCleaning(const bool _c);
     bool setHamlib(const bool _b);
     bool setUDPServer(const bool _b);
+    bool askToAddQSOReceived(const QSO &_qso);  // Shows a message with the data of the QSO
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     void setLogLevel(const DebugLogLevel _sev);
     //void fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
