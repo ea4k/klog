@@ -40,8 +40,8 @@ QSO::QSO(const QSO& other)
     haveBand = other.haveBand;
     haveMode = other.haveMode;
     haveSubMode = other.haveSubMode;
-    haveDateTime = other.haveDateTime
-                       haveCall = other.haveCall;
+    haveDateTime = other.haveDateTime;
+    haveCall = other.haveCall;
 
     qsoId = other.qsoId;
     logId = other.logId;
@@ -99,7 +99,7 @@ QSO::QSO(const QSO& other)
     freq_tx = other.freq_tx;
     freq_rx = other.freq_rx;
     gridsquare = other.gridsquare;
-    gridsquare_ext = other.gridsquare_ext
+    gridsquare_ext = other.gridsquare_ext;
     operatorCall = QString();
     hrdlogUploadDate = QDate();
     hrdlog_status = QString();
@@ -178,7 +178,7 @@ QSO::QSO(const QSO& other)
     region = QString();
     rig = QString();
     RST_rx = other.RST_rx;
-    RST_tx = other.RST_tx
+    RST_tx = other.RST_tx;
     pwr_rx = 0.0;
     satMode = QString();
     satName = QString();
@@ -196,8 +196,8 @@ QSO::QSO(const QSO& other)
     submode = QString();
     swl = false;
     ten_ten = 0;
-    qso_time_off = other.qso_time_off
-                       pwr_tx = other.pwr_tx;
+    qso_time_off = other.qso_time_off;
+    pwr_tx = other.pwr_tx;
     uksmg = 0;
     usaca_counties = QString();
     ve_prov = QString();
