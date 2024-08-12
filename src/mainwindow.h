@@ -81,6 +81,8 @@
 #include "updatesettings.h"
 #include "klogdefinitions.h"
 
+#include <memory>
+
 class QTimer;
 class QDateTime;
 
@@ -627,7 +629,7 @@ private:
     // </UI>
     int infoTimeout; // timeout that temporary info will stay in the infobars
     QTimer *timer, *timerInfoBars;
-    QDateTime *dateTime, *dateTimeTemp;
+    std::unique_ptr<QDateTime> dateTime;
     bool yearChangedDuringModification;
     QString infoLabel1T, infoLabel2T;
 
