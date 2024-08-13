@@ -192,7 +192,8 @@ MainWindow::MainWindow(const QString &tversion)
     mainWidget = new QWidget(this);
     //qDebug() << Q_FUNC_INFO << ": 60 " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    dateTime = std::make_unique<QDateTime>();
+    dateTime = new QDateTime();
+    dateTimeTemp = new QDateTime();
     // UI DX
     infoLabel2 = new QLabel(tr("DX Entity"));
     loggWinAct = new QAction(tr("&Log Window"), this);
@@ -250,7 +251,8 @@ MainWindow::~MainWindow()
     delete(locator);
     delete(qso);
     delete(backupQSO);
-    dateTime.reset();
+    delete(dateTime);
+    delete(dateTimeTemp);
     delete(awards);
     delete(softUpdate);
     delete(filemanager);
@@ -2217,6 +2219,7 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
     setModifying(false);
 
     currentEntity = -1;
+    dateTimeTemp = dateTime;
     modifyingQSO = -1;
 
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
@@ -4683,6 +4686,8 @@ void MainWindow::qsoToEdit (const int _qso)
     currentEntity = world->getQRZARRLId(currentQrz);
 
     mainQSOEntryWidget->setDateTime(qsoE.getDateTimeOn());
+
+    dateTimeTemp->setDate(qsoE.getDate());
 
     mainQSOEntryWidget->setBand(qsoE.getBand());
 
