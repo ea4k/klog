@@ -52,16 +52,21 @@ private:
     QueryExecutor *exe;
     bool isDBCreated();     // This function checks if the DB is created.
     bool addValues(const QString &rows, const QStringList &values);
+    bool add_Canada_1();    // Adds the data for Canada
     bool add_USA_6();       // Adds the data for Alaska
     bool add_EA6_21();      // Adds the data for Balearic Is
     bool add_EA8_29();      // Adds the data for Canary Is
     bool add_EA9_32();      // Adds the data for Ceuta y Melilla
+    bool add_Mexico_50();   // Adds the data for Mexico
+    bool add_Argentina_100();// Adds the data for Argentina
+    bool add_Brazil_108();  // Adds the data for Brazil
     bool add_EA_281();      // Adds the data for Spain
     bool add_USA_110();     // Adds the data for Hawaii
     bool add_CT_149();      // Adds the data for Azores
     bool add_CT_256();      // Adds the data for Madeira
     bool add_CT_272();      // Adds the data for Portugal
     bool add_USA_291();     // Adds the data for United States of America
+    bool add_Japan_339();   // Adds the data for Japan
 
 
 };
