@@ -5772,6 +5772,7 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
     msgBox.setTextFormat(Qt::RichText);
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
     msgBox.setDefaultButton(QMessageBox::Yes);
+    QSO qsoM(_qso);
 
     QString aux  = QString(tr("ASK-The following QSO data has been received from to be logged:\n\n"
                            "<UL>"
@@ -5786,10 +5787,10 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
                            "<LI><b>DX-Grid:</b>%9</LI>"
                            "<LI><b>Local-Grid:</b>%10</LI>"
                            "<LI><b>Station Callsign:</b>%11</LI>"
-                             "<LI><b>Operator Callsign:</b>%12</LI>")).arg(qso->getCall(), QString::number(qso->getFreqTX()), qso->getMode(),
-                            util->getADIFTimeFromQTime(qso->getTimeOn()), util->getADIFTimeFromQTime(qso->getTimeOff()), qso->getRSTTX(), qso->getRSTRX(),
-                            qso->getComment(), qso->getGridSquare(), qso->getMyGridSquare(),
-                            qso->getStationCallsign(), qso->getOperatorCallsign());
+                             "<LI><b>Operator Callsign:</b>%12</LI>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
+                            util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
+                            qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
+                            qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
 
 
 

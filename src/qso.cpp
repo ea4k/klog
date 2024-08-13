@@ -37,11 +37,14 @@ QSO::QSO()
 
 QSO::QSO(const QSO& other)
 {
+    util = new Utilities(Q_FUNC_INFO);
+    util->setCallValidation(false);
+    logLevel = other.logLevel;
     haveBand = other.haveBand;
     haveMode = other.haveMode;
     haveSubMode = other.haveSubMode;
-    haveDateTime = other.haveDateTime
-                       haveCall = other.haveCall;
+    haveDateTime = other.haveDateTime;
+    haveCall = other.haveCall;
 
     qsoId = other.qsoId;
     logId = other.logId;
@@ -58,152 +61,152 @@ QSO::QSO(const QSO& other)
 
     // VARIABLES for ADIF //////////
     address = other.address;
-    age = 0;
-    altitude = 0.0;
-    a_index = 0;
-    ant_az = 0.0;
-    ant_el = 0.0;
-    ant_path = QString();
-    arrl_sect = QString();
-    award_submitted = QString();
-    award_granted = QString();
+    age = other.age;
+    altitude = other.altitude;
+    a_index = other.a_index;
+    ant_az = other.ant_az;
+    ant_el = other.ant_el;
+    ant_path = other.ant_path;
+    arrl_sect = other.arrl_sect;
+    award_submitted = other.award_submitted;
+    award_granted = other.award_granted;
     band = other.band;
     band_rx = other.band_rx;
     callsign = other.callsign;
-    check = QString();
-    clase = QString();
-    clublogQSOUpdateDate = QDate();
-    clublog_status = QString();
-    county = QString();
+    check = other.check;
+    clase = other.clase;
+    clublogQSOUpdateDate = other.clublogQSOUpdateDate;
+    clublog_status = other.clublog_status;
+    county = other.county;
     comment = other.comment;
-    continent = QString();
+    continent = other.continent;
     contacted_op = other.contacted_op;
-    contest_id = QString();
-    country = QString();
-    cqz = 0;
-    credit_granted = QString();
-    credit_submitted = QString();
-    darc_dok = QString();
-    distance = 0;
+    contest_id = other.contest_id;
+    country = other.country;
+    cqz = other.cqz;
+    credit_granted = other.credit_granted;
+    credit_submitted = other.credit_submitted;
+    darc_dok = other.darc_dok;
+    distance = other.distance;
     dxcc = other.dxcc;
-    email = QString();
-    ownerCall = QString();
-    contacted_owner = QString();
-    eQSLRDate = QDate();
-    eQSLSDate = QDate();
-    eqsl_qsl_rcvd = QString();
-    eqsl_qsl_sent = QString();
-    fists = 0;
-    fists_cc = 0;
-    forceInit = false;
+    email = other.email;
+    ownerCall = other.ownerCall;
+    contacted_owner = other.contacted_owner;
+    eQSLRDate = other.eQSLRDate;
+    eQSLSDate = other.eQSLSDate;
+    eqsl_qsl_rcvd = other.eqsl_qsl_rcvd;
+    eqsl_qsl_sent = other.eqsl_qsl_sent;
+    fists = other.fists;
+    fists_cc = other.fists_cc;
+    forceInit = other.forceInit;
     freq_tx = other.freq_tx;
     freq_rx = other.freq_rx;
     gridsquare = other.gridsquare;
-    gridsquare_ext = other.gridsquare_ext
-    operatorCall = QString();
-    hrdlogUploadDate = QDate();
-    hrdlog_status = QString();
-    hamlogeu_status = QString();
-    hamlogeuUpdateDate = QDate();
-    hamqth_status = QString();
-    hamqthUpdateDate = QDate();
-    iota = QString();
-    iota_ID = 0;
-    itu_zone = 0;
-    k_index = 0;
-    latitude = QString();
-    longitude = QString();
-    QSLLoTWRDate = QDate();
-    QSLLoTWSDate = QDate();
-    lotw_qsl_rcvd = QString();
-    lotw_qsl_sent = QString();
-    max_bursts = 0;
-    mode = QString();
-    ms_shower = QString();
-    my_altitude = 0.0;
-    my_antenna = QString();
-    my_arrl_sect = QString();
-    my_city = QString();
-    my_county = QString();
-    my_country = QString();
-    my_cqz = 0;
-    my_dxcc = 0;
-    my_fists = 0;
+    gridsquare_ext = other.gridsquare_ext;
+    operatorCall = other.operatorCall;
+    hrdlogUploadDate = other.hrdlogUploadDate;
+    hrdlog_status = other.hrdlog_status;
+    hamlogeu_status = other.hamlogeu_status;
+    hamlogeuUpdateDate = other.hamlogeuUpdateDate;
+    hamqth_status = other.hamqth_status;
+    hamqthUpdateDate = other.hamqthUpdateDate;
+    iota = other.iota;
+    iota_ID = other.iota_ID;
+    itu_zone = other.itu_zone;
+    k_index = other.k_index;
+    latitude = other.latitude;
+    longitude = other.longitude;
+    QSLLoTWRDate = other.QSLLoTWRDate;
+    QSLLoTWSDate = other.QSLLoTWSDate;
+    lotw_qsl_rcvd = other.lotw_qsl_rcvd;
+    lotw_qsl_sent = other.lotw_qsl_sent;
+    max_bursts = other.max_bursts;
+    mode = other.mode;
+    ms_shower = other.ms_shower;
+    my_altitude = other.my_altitude;
+    my_antenna = other.my_antenna;
+    my_arrl_sect = other.my_arrl_sect;
+    my_city = other.my_city;
+    my_county = other.my_county;
+    my_country = other.my_country;
+    my_cqz = other.my_cqz;
+    my_dxcc = other.my_dxcc;
+    my_fists = other.my_fists;
     my_gridsquare = other.my_gridsquare;
     my_gridsquare_ext = other.my_gridsquare_ext;
-    my_iota = QString();
-    my_iota_ID = 0;
-    my_itu_zone = 0;
-    my_latitude = QString();
-    my_longitude = QString();
-    my_name = QString();
-    my_pota_ref = QString();
-    my_postal_code = QString();
-    my_rig = QString();
-    my_sig = QString();
-    my_sig_info = QString();
-    my_sota_ref = QString();
-    my_state = QString();
-    my_street = QString();
-    my_usaca_counties = QString();
-    my_vucc_grids= QString();
-    my_wwff_ref = QString();
+    my_iota = other.my_iota;
+    my_iota_ID = other.my_iota_ID;
+    my_itu_zone = other.my_itu_zone;
+    my_latitude = other.my_latitude;
+    my_longitude = other.my_longitude;
+    my_name = other.my_name;
+    my_pota_ref = other.my_pota_ref;
+    my_postal_code = other.my_postal_code;
+    my_rig = other.my_rig;
+    my_sig = other.my_sig;
+    my_sig_info = other.my_sig_info;
+    my_sota_ref = other.my_sota_ref;
+    my_state = other.my_state;
+    my_street = other.my_street;
+    my_usaca_counties = other.my_usaca_counties;
+    my_vucc_grids= other.my_vucc_grids;
+    my_wwff_ref = other.my_wwff_ref;
     name = other.name;
-    notes = QString();
-    nr_bursts = 0;
-    nr_pings = 0;
+    notes = other.notes;
+    nr_bursts = other.nr_bursts;
+    nr_pings = other.nr_pings;
     operatorCall = other.operatorCall;
-    ownerCall = QString();
-    contacted_owner = QString();
-    prefix = QString();
-    pota_ref = QString();
-    precedence = QString();
-    propMode = QString();
-    public_key = QString();
-    QRZComDate = QDate();
-    QRZCom_status = QString();
-    qslmsg = QString();
-    QSLRDate = QDate();
-    QSLSDate = QDate();
-    qsl_rcvd = QString();
-    qsl_sent = QString();
-    qslSenVia = QString();
-    qslRecVia = QString();
+    ownerCall = other.ownerCall;
+    contacted_owner = other.contacted_owner;
+    prefix = other.prefix;
+    pota_ref = other.pota_ref;
+    precedence = other.precedence;
+    propMode = other.propMode;
+    public_key = other.public_key;
+    QRZComDate = other.QRZComDate;
+    QRZCom_status = other.QRZCom_status;
+    qslmsg = other.qslmsg;
+    QSLRDate = other.QSLRDate;
+    QSLSDate = other.QSLSDate;
+    qsl_rcvd = other.qsl_rcvd;
+    qsl_sent = other.qsl_sent;
+    qslSenVia = other.qslSenVia;
+    qslRecVia = other.qslRecVia;
     qslVia = other.qslVia;
     qso_complete = other.qso_complete;
     qso_dateTime = other.qso_dateTime;
     qso_date_off = other.qso_date_off;
-    qso_random = true;
-    qth = QString();
-    region = QString();
-    rig = QString();
+    qso_random = other.qso_random;
+    qth = other.qth;
+    region = other.region;
+    rig = other.rig;
     RST_rx = other.RST_rx;
-    RST_tx = other.RST_tx
-    pwr_rx = 0.0;
-    satMode = QString();
-    satName = QString();
-    sfi = 0;
-    sig = QString();
-    sig_info = QString();
-    silent_key = false;
-    skcc = QString();
-    sota_ref = QString();
-    srx = 0;
+    RST_tx = other.RST_tx;
+    pwr_rx = other.pwr_rx;
+    satMode = other.satMode;
+    satName = other.satName;
+    sfi =other.sfi;
+    sig = other.sig;
+    sig_info = other.sig_info;
+    silent_key = other.silent_key;
+    skcc = other.skcc;
+    sota_ref = other.sota_ref;
+    srx = other.srx;
     srx_string = other.srx_string;
-    state = QString();
-    stx = 0;
+    state = other.state;
+    stx = other.stx;
     stx_string = other.stx_string;
-    submode = QString();
-    swl = false;
-    ten_ten = 0;
-    qso_time_off = other.qso_time_off
-                       pwr_tx = other.pwr_tx;
-    uksmg = 0;
-    usaca_counties = QString();
-    ve_prov = QString();
-    vucc_grids = QString();
-    web = QString();
-    wwff_ref = QString();
+    submode = other.submode;
+    swl = other.swl;
+    ten_ten = other.ten_ten;
+    qso_time_off = other.qso_time_off;
+    pwr_tx = other.pwr_tx;
+    uksmg = other.uksmg;
+    usaca_counties = other.usaca_counties;
+    ve_prov = other.ve_prov;
+    vucc_grids = other.vucc_grids;
+    web = other.web;
+    wwff_ref = other.wwff_ref;
 }
 
 QSO::~QSO()
@@ -786,7 +789,7 @@ bool QSO::setClubLogDate(const QDate &_c)
 
 QDate QSO::getClubLogDate()
 {
-    return clublogQSOUpdateDate ;
+    return clublogQSOUpdateDate;
 }
 
 bool QSO::setQRZCOMStatus(const QString &_c)
@@ -943,7 +946,7 @@ QDate QSO::getLoTWQSLSDate()
 
 bool QSO::setLoTWQSL_RCVD(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c ;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (util->isValidQSL_Rcvd(_c))
     {
         //qDebug() << Q_FUNC_INFO << ": VALID ";
@@ -3156,7 +3159,7 @@ bool QSO::setData(const QString &_adifPair)
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-    qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId) ;
+    qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
     if (!isComplete ())
     {
         qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
