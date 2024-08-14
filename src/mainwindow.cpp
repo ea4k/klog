@@ -192,8 +192,7 @@ MainWindow::MainWindow(const QString &tversion)
     mainWidget = new QWidget(this);
     //qDebug() << Q_FUNC_INFO << ": 60 " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    dateTime = new QDateTime();
-    dateTimeTemp = new QDateTime();
+    dateTime = std::make_unique<QDateTime>();
     // UI DX
     infoLabel2 = new QLabel(tr("DX Entity"));
     loggWinAct = new QAction(tr("&Log Window"), this);
@@ -251,8 +250,9 @@ MainWindow::~MainWindow()
     delete(locator);
     delete(qso);
     delete(backupQSO);
-    delete(dateTime);
-    delete(dateTimeTemp);
+    dateTime.reset();
+    //delete(dateTime);
+    //delete(dateTimeTemp);
     delete(awards);
     delete(softUpdate);
     delete(filemanager);
@@ -2076,22 +2076,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     cleanQRZCOMreceivedDataFromUI();
      //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
-    //QString pref = util->getPrefixFromCall(_qrz);
-    //logEvent(Q_FUNC_INFO, QString("Call/Prefix: %1/%2").arg(_qrz).arg(pref), Devel);
-    //currentEntity = world->getQRZARRLId(pref);
-    //validar por que no puedo tirar o usar  el prefijo directamente
     currentEntity = world->getQRZARRLId(_qrz);
     //qDebug()<< Q_FUNC_INFO << " - 50" ;
-    /*
-    if (pref.length ()>0)
-    {
-        currentEntity = world->getQRZARRLId(pref);
-    }
-    else
-    {
-        currentEntity = world->getQRZARRLId(_qrz);
-    }
-    */
+
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
     othersTabWidget->updatePrimarySubDivisions(currentEntity, _qrz);
     //othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, !othersTabWidget->getShowAll()));
@@ -2219,7 +2206,7 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
     setModifying(false);
 
     currentEntity = -1;
-    dateTimeTemp = dateTime;
+    //dateTimeTemp = dateTime;
     modifyingQSO = -1;
 
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
@@ -4687,7 +4674,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     mainQSOEntryWidget->setDateTime(qsoE.getDateTimeOn());
 
-    dateTimeTemp->setDate(qsoE.getDate());
+    //dateTimeTemp->setDate(qsoE.getDate());
 
     mainQSOEntryWidget->setBand(qsoE.getBand());
 
