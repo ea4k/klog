@@ -5754,14 +5754,33 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
 {
     qDebug() <<  Q_FUNC_INFO << " - Start";
     QMessageBox msgBox;
-    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog - QSO received - NEW"));
     msgBox.setTextFormat(Qt::RichText);
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
     msgBox.setDefaultButton(QMessageBox::Yes);
     QSO qsoM(_qso);
 
-    QString aux  = QString(tr("ASK-The following QSO data has been received from to be logged:\n\n"
+    QString aux  = QString(tr("<HTML><body>ASK-The following QSO data has been received from to be logged:\n\n"
+                           "<table>"
+                           "<tr><TH>Callsign:</TH><TD>%1</TD></TR>"
+                           "<TR><TH>Freq:</TH><TD>%2</TD></TR>"
+                           "<TR><TH>Mode:</TH><TD>%3</TD></TR>"
+                           "<TR><TH>Time On:</TH><TD>%4</TD></TR>"
+                           "<TR><TH>Time Off:</TH><TD>%5</TD></TR>"
+                           "<TR><TH>RST TX:</TH><TD>%6</TD></TR>"
+                           "<TR><TH>RST RX:</TH><TD>%7</TD></TR>"
+                           "<TR><TH>Comment:</TH><TD>%8</TD></TR>"
+                           "<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
+                           "<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
+                           "<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
+                             "<TR><TH>Operator Callsign:</TH>º<TD>%12</TD></TR></table></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
+                            util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
+                            qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
+                            qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
+
+/*
+
                            "<UL>"
                            "<LI><b>Callsign:</b>%1</LI>"
                            "<LI><b>Freq:</b>%2</LI>"
@@ -5774,12 +5793,12 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
                            "<LI><b>DX-Grid:</b>%9</LI>"
                            "<LI><b>Local-Grid:</b>%10</LI>"
                            "<LI><b>Station Callsign:</b>%11</LI>"
-                             "<LI><b>Operator Callsign:</b>%12</LI>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
+                             "<LI><b>Operator Callsign:</b>%12</LI></UL></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
                             util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
                             qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
                             qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
 
-
+*/
 
     msgBox.setText(aux);
     int ret = msgBox.exec();
