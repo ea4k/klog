@@ -744,10 +744,16 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
     QStringList listOfSubdivisions;
     listOfSubdivisions.clear();
+    QStringList names;
+    names.clear();
+
+
     foreach (PrimarySubdivision ps, _subdivisions)
     {
+
         QString subdivision = ps.shortName + "-" + ps.name;
-        listOfSubdivisions.append(subdivision);
+        if (!listOfSubdivisions.contains(subdivision))
+            listOfSubdivisions.append(subdivision);
         //qDebug() << Q_FUNC_INFO << ": Subdivision added: " << subdivision;
     }
     if (listOfSubdivisions.count()<1)
