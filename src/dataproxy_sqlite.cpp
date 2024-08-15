@@ -2770,56 +2770,6 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
     }
 }
 
-/*
-QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs)
-//QList<int> DataProxy_SQLite::isThisQSODuplicated(const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << _callingFunc;
-    (void)_callingFunc;
-    QSqlQuery query;
-    QString queryString;
-    QList<int> dupeQsos;
-    dupeQsos.clear();
-    int validityPeriod = _secs * 60;
-    QString initTime = util->getDateTimeSQLiteStringFromDateTime(_dateTime.addSecs(-validityPeriod));
-    QString endTime = util->getDateTimeSQLiteStringFromDateTime(_dateTime.addSecs(validityPeriod));
-
-    //yyyy-MM-dd hh:mm:ss
-    // We will match +-15min
-
-
-    queryString = QString("SELECT id, qso_date FROM log WHERE call='%1' AND bandid='%2' AND modeid='%3' AND qso_date>='%4' AND qso_date<='%5'").arg(_qrz).arg(_band).arg(_mode).arg(initTime).arg(endTime);
-
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                int dupeQSO = (query.value(0)).toInt();
-                if (dupeQSO>0)
-                {
-                    dupeQsos.append(dupeQSO);
-                }
-            }
-            else
-            {
-                   //qDebug() << "DataProxy_SQLite::isThisQSODuplicated - not valid" ;
-            }
-        }
-        return dupeQsos;
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        query.finish();
-        return dupeQsos;
-    }
-}
-*/
-
 int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
 {
     //qDebug() << Q_FUNC_INFO;
