@@ -523,7 +523,7 @@ bool QSO::setCall(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
     QString aux;
-    aux = _c;
+    aux = _c.toUpper();
     if (aux.isNull())
     {
         logEvent(Q_FUNC_INFO, "END - False-1", Debug);

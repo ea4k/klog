@@ -318,11 +318,6 @@ private slots:
                                  const QString &_dx_grid, const QString &_sub_mode);
 
     void slotQSOReceived(const QSO &_qso);
-    void slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                     const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX,
-                     const QString &_comment, const QString &_stationcallsign, const QString &_name,
-                     const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
-                     const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr);
 
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level);
     //void slotTakeOverFocus(int _id);
@@ -339,7 +334,7 @@ private:
     void readSettingsFile();    // Refactored from init()
     void checkVersions();       // Refactored from init()
     void checkHomeDir();        // Refactored from init()
-    void showWSJTXDuplicatedMSG();  //Refactored from slotWSJTXloggedQSO()
+    bool showWSJTXDuplicatedMSG(const QSO &_qso);  //Shows an error if the QSO received from WSJTX is dupe.
     void startServices();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);

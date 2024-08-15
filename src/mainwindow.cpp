@@ -725,9 +725,9 @@ void MainWindow::createActionsCommon(){
 
     // UDPLogServer - WSJT-x
     connect(UDPLogServer, SIGNAL(status_update(int, QString, double, QString, QString, QString, QString, QString, QString)), this, SLOT(slotWSJXstatusFromUDPServer(int, QString, double, QString, QString, QString, QString, QString, QString) ) );
-    connect(UDPLogServer, SIGNAL( logged_qso(QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString)), this, SLOT(slotWSJTXloggedQSO (QString, QString, QString, double, QString, QString, QString, QString, QString, QString, QString, QString, QDateTime, QDateTime, QString, QString, QString) ) );
+
     connect(UDPLogServer, SIGNAL(clearSignal(QString)), this, SLOT(slotClearButtonClicked(QString) ) );
-    connect(UDPLogServer, SIGNAL( logged(QSO)), this, SLOT(slotQSOReceived(QSO) ) );
+    connect(UDPLogServer, SIGNAL(logged(QSO)), this, SLOT(slotQSOReceived(QSO) ) );
 
     connect(this, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -5736,15 +5736,31 @@ void MainWindow::slotQSOReceived(const QSO &_qso)
 {
     qDebug() <<  Q_FUNC_INFO << " - Start";
     //logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (!askToAddQSOReceived(_qso))
-        return;
+
+    if (!wsjtxAutoLog)
+        if (!askToAddQSOReceived(_qso))
+            return;
     QSO q(_qso);
+
+    int dxcc = world->getQRZARRLId(q.getCall());
+    dxcc = util->getNormalizedDXCCValue (dxcc);
+    q.setDXCC(dxcc);
+
+    if (!showWSJTXDuplicatedMSG(q))
+        return;
+
 
     int addedQSO = q.toDB();
     if (addedQSO>0)
+    {
        qDebug() <<  Q_FUNC_INFO << " - QSO added";
-    else
-        qDebug() <<  Q_FUNC_INFO << " - QSO NOT added";
+
+        //qDebug() << Q_FUNC_INFO << " Logged QSO OK: " << _dxcall ;
+        actionsJustAfterAddingOneQSO();
+        slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
+        infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getMode());
+        slotClearButtonClicked(Q_FUNC_INFO);
+    }
 
     qDebug() <<  Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5774,31 +5790,10 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
                            "<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
                            "<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
                            "<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
-                             "<TR><TH>Operator Callsign:</TH>º<TD>%12</TD></TR></table></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
+                             "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
                             util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
                             qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
                             qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
-
-/*
-
-                           "<UL>"
-                           "<LI><b>Callsign:</b>%1</LI>"
-                           "<LI><b>Freq:</b>%2</LI>"
-                           "<LI><b>Mode:</b>%3</LI>"
-                           "<LI><b>Time On:</b>%4</LI>"
-                           "<LI><b>Time Off:</b>%5</LI>"
-                           "<LI><b>RST TX:</b>%6</LI>"
-                           "<LI><b>RST RX:</b>%7</LI>"
-                           "<LI><b>Comment:</b>%8</LI>"
-                           "<LI><b>DX-Grid:</b>%9</LI>"
-                           "<LI><b>Local-Grid:</b>%10</LI>"
-                           "<LI><b>Station Callsign:</b>%11</LI>"
-                             "<LI><b>Operator Callsign:</b>%12</LI></UL></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
-                            util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
-                            qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
-                            qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
-
-*/
 
     msgBox.setText(aux);
     int ret = msgBox.exec();
@@ -5818,141 +5813,11 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
     }
 }
 
-void MainWindow::slotWSJTXloggedQSO (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                 const QString &_mygrid, const QString &_dxgrid, const QString &_rstTX, const QString &_rstRX,
-                 const QString &_comment, const QString &_stationcallsign, const QString &_name,
-                 const QString &_opCall, const QDateTime &_datetime, const QDateTime &_datetime_off,
-                 const QString &_exchangeTX, const QString &_exchangeRX, const QString &_mypwr)
+bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
 {
-     //qDebug() << "MainWindow::slotWSJTX-loggedQSO" ;
-    //logEvent(Q_FUNC_INFO, "Start", Debug);
+    if (!((dataProxy->isThisQSODuplicated(_qso, dupeSlotInSeconds)).length()>0))
+        return true;
 
-
-    if (!_datetime.isValid() || !_datetime_off.isValid())
-    {
-   //qDebug() << Q_FUNC_INFO << " DATES NOT VALID " ;
-        return ;
-    }
-
-    QString opCall = stationCallsign;
-    if (util->isValidCall(_opCall))
-    {
-        opCall = _opCall.toUpper();
-    }
-    double pwr = _mypwr.toDouble();
-    if (pwr<=0.0)
-    {
-        pwr = myDataTabWidget->getMyPower ();
-    }
-
-     //qDebug() << Q_FUNC_INFO << " dxcall: " << _dxcall ;
-     //qDebug() << Q_FUNC_INFO << " freq: " << QString::number(_freq/1000000) ;
-     //qDebug() << Q_FUNC_INFO << " freq no div: " << QString::number(_freq) ;
-     //qDebug() << Q_FUNC_INFO << " mode: " << _mode ;
-     //qDebug() << Q_FUNC_INFO << " band: " << _band ;
-     //qDebug() << Q_FUNC_INFO << " my_grid: " << _mygrid ;
-     //qDebug() << Q_FUNC_INFO << " dx_grid: " << _dxgrid ;
-     //qDebug() << Q_FUNC_INFO << " comment: " << _comment ;
-     //qDebug() << Q_FUNC_INFO << " StationCall: " << _stationcallsign ;
-     //qDebug() << Q_FUNC_INFO << " _opCall: " << _opCall ;
-     //qDebug() << Q_FUNC_INFO << " opCall: " << opCall ;
-     //qDebug() << Q_FUNC_INFO << " time_on: " << util->getDateTimeSQLiteStringFromDateTime(_datetime) ;
-     //qDebug() << Q_FUNC_INFO << " time_off: " << util->getDateTimeSQLiteStringFromDateTime(_datetime_off) ;
-     //qDebug() << Q_FUNC_INFO << " report_sent: " << _rstTX ;
-     //qDebug() << Q_FUNC_INFO << " report_rec: " << _rstRX ;
-     //qDebug() << Q_FUNC_INFO << " exchange_sent: " << _exchangeTX ;
-     //qDebug() << Q_FUNC_INFO << " exchange_rec: " << _exchangeRX ;
-     //qDebug() << Q_FUNC_INFO << " MY_PWR: " << _mypwr ;
-
-    if (wsjtxAutoLog)
-    { // Log automatically, without confirmation
-        //logTheQso = true;
-   //qDebug() << Q_FUNC_INFO << " LogTheQSO = true"  ;
-    }
-    else
-    { // Ask for confirmation before logging
-            //qDebug() << Q_FUNC_INFO << " LogTheQSO = false - we ask for confirmation"  ;
-            QMessageBox msgBox;
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog - QSO received"));
-            msgBox.setTextFormat(Qt::RichText);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-            msgBox.setDefaultButton(QMessageBox::Yes);
-            QString aux  = QString("The following QSO data has been received from WSJT-X to be logged:\n\n"
-                                   "<UL>"
-                                   "<LI><b>Callsign:</b>%1</LI>"
-                                   "<LI><b>Freq:</b>%2</LI>"
-                                   "<LI><b>Mode:</b>%3</LI>"
-                                   "<LI><b>Time On:</b>%4</LI>"
-                                   "<LI><b>Time Off:</b>%5</LI>"
-                                   "<LI><b>RST TX:</b>%6</LI>"
-                                   "<LI><b>RST RX:</b>%7</LI>"
-                                   "<LI><b>Comment:</b>%8</LI>"
-                                   "<LI><b>DX-Grid:</b>%9</LI>"
-                                   "<LI><b>Local-Grid:</b>%10</LI>"
-                                   "<LI><b>Station Callsign:</b>%11</LI>"
-                                   "<LI><b>Operator Callsign:</b>%12</LI>").arg(_dxcall.toUpper())
-                    .arg(QString::number(_freq)).arg(_mode.toUpper()).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime))
-                    .arg(util->getDateTimeSQLiteStringFromDateTime(_datetime_off))
-                    .arg(_rstTX).arg(_rstRX)
-                    .arg(_comment).arg(_dxgrid.toUpper()).arg(_mygrid.toUpper())
-                    .arg(_stationcallsign.toUpper()).arg(opCall.toUpper());
-
-            msgBox.setText(aux);
-            int ret = msgBox.exec();
-            switch (ret)
-            {
-                //case QMessageBox::Yes:
-                //break;
-                case QMessageBox::No:
-                    //logTheQso = false;
-                    return;
-                    break;
-                default:
-        // should never be reached
-                //logTheQso = false;
-                    return;
-                break;
-            }
-        }
-
-       //qDebug() << Q_FUNC_INFO << " QSO must be logged" ;
-
-        int dxcc = world->getQRZARRLId(_dxcall);
-        dxcc = util->getNormalizedDXCCValue (dxcc);
-        QString _myLoc = _mygrid;
-
-        if (!(locator->isValidLocator(_myLoc)))
-        {
-            _myLoc = myDataTabWidget->getMyLocator();
-        }
-
-        if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, _dxcall, _datetime,  dataProxy->getBandIdFromFreq(_freq),  dataProxy->getIdFromModeName(_mode), dupeSlotInSeconds)).length()>1)
-        {
-            showWSJTXDuplicatedMSG();
-        }
-
-        bool qsoLogged = dataProxy->addQSOFromWSJTX(_dxcall, _mode, _band,  _freq,
-                                                _myLoc, _dxgrid, _rstTX, _rstRX,
-                                                _exchangeRX, _exchangeTX, _comment,
-                                                _stationcallsign, _name, opCall,
-                                                _datetime, _datetime_off, pwr, dxcc, currentLog, sendQSLByDefault);
-
-        if (qsoLogged)
-        {
-            //qDebug() << Q_FUNC_INFO << " Logged QSO OK: " << _dxcall ;
-            actionsJustAfterAddingOneQSO();
-            slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
-            infoLabel2->setText(_dxcall + " - " + dataProxy->getBandNameFromFreq(_freq) + "/" + _mode);
-            slotClearButtonClicked(Q_FUNC_INFO);
-    }
-
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    //qDebug() << Q_FUNC_INFO << " - END" ;
-}
-
-void MainWindow::showWSJTXDuplicatedMSG()
-{
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - WSJTX Dupe QSO"));
 
@@ -5968,16 +5833,17 @@ void MainWindow::showWSJTXDuplicatedMSG()
     {
         case QMessageBox::Save:
             logEvent(Q_FUNC_INFO, "END-1", Debug);
+            return true;
 
         break;
         case QMessageBox::Discard:
             logEvent(Q_FUNC_INFO, "END-1", Debug);
-            return; //No more error shown
+            return false; //No more error shown
             //  break;
         default:
             // should never be reached
             logEvent(Q_FUNC_INFO, "END-3", Debug);
-        return;   // The user wants to keepseeing errors
+        return false;   // The user wants to keepseeing errors
     //break;
     }
 }
@@ -6125,8 +5991,11 @@ void MainWindow::slotClearNoMorErrorShown()
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
 {
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Function: " << functionFailed ;
-    //qDebug() << "MainWindow::slotQueryErrorManagement: Error: " << functionFailed << " - " << errorCodeS;
+    qDebug() << Q_FUNC_INFO << " -  Function: " << functionFailed ;
+    qDebug() << Q_FUNC_INFO << " -  Error: - " << errorCodeS;
+    qDebug() << Q_FUNC_INFO << " -  Native: - " << nativeError;
+    qDebug() << Q_FUNC_INFO << " -  QueryFailed: - " << queryFailed;
+
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (noMoreErrorShown)

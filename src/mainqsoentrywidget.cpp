@@ -1061,8 +1061,12 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     QDateTime _dateTime;
     _dateTime.setDate(dateEdit->date());
     _dateTime.setTime(timeEdit->time());
-
-    if ((dataProxy->isThisQSODuplicated(Q_FUNC_INFO, qrzLineEdit->text(), _dateTime, dataProxy->getIdFromBandName(bandComboBox->currentText()), dataProxy->getIdFromModeName(modeComboBox->currentText()), duplicatedQSOSlotInSecs).length()<2) || modify)
+    QSO q;
+    q.setCall(qrzLineEdit->text());
+    q.setDateTimeOn(_dateTime);
+    q.setBand(bandComboBox->currentText());
+    q.setMode(modeComboBox->currentText());
+    if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs).length()<2) || modify)
     {
          //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
          //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify);
