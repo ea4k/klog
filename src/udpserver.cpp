@@ -394,10 +394,7 @@ void UDPServer::parse(const QByteArray &msg)
                 qso.setStxString(exchange_sent);
                 qso.setTXPwr(tx_power.toDouble());
                 emit logged(qso);
-                emit logged_qso(dx_call, mode, QString(), frequencyDouble,
-                                de_grid, dx_grid, report_sent, report_received,
-                                comments, de_call, name, operatorCall, time_on, time_off,
-                                exchange_sent, exchange_received, tx_power);
+
             }
             else
             {
@@ -510,29 +507,10 @@ void UDPServer::setNetworkInterface(const QString &_t)
     }
 }
 
-
+/*
 void UDPServer::adifParse(QByteArray &msg)
 {
     qDebug() << Q_FUNC_INFO << " - Start: " << msg;
-
-    QString dx_call = QString();
-    QString mode = QString();
-    QString band = QString();
-    QString mygrid = QString();
-    QString dxgrid = QString();
-    QString rstTX = QString();
-    QString rstRX = QString();
-    QString _comment = QString();
-    QString _name = QString();
-    QString _exchangeTX = QString();
-    QString _exchangeRX = QString();
-    QString _myPWR = QString();
-    QString operatorCall = QString();
-    QString stationcallsign = QString();
-    double freq = 0.0;
-    QDateTime datetime, datetime_off;
-    QDate _date_on, _date_off;
-    QTime _time_on, _time_off;
 
     QSO qso;
 
@@ -563,7 +541,7 @@ void UDPServer::adifParse(QByteArray &msg)
             //qDebug() << Q_FUNC_INFO << ": While-6"  <<  QT_ENDL;
             if (type == "CALL")
             {
-               dx_call = data;
+                qso.setCall(data);
             }
             else if (type == "GRIDSQUARE")
             {
@@ -571,11 +549,7 @@ void UDPServer::adifParse(QByteArray &msg)
                 if (util->isValidGrid(data))
                 {
                     qso.setGridSquare(data);
-                    dxgrid = data;
                     //qDebug() << Q_FUNC_INFO << ": Rec Grid to export: " << dxgrid <<  QT_ENDL;
-                }
-                else {
-                    //qDebug() << Q_FUNC_INFO << ": INVALID GRID: " << dxgrid <<  QT_ENDL;
                 }
             }
             else if (type == "MY_GRIDSQUARE")
@@ -584,123 +558,76 @@ void UDPServer::adifParse(QByteArray &msg)
                 if (util->isValidGrid(data))
                 {
                      qso.setMyGridSquare(data);
-                    mygrid = data;
                     //qDebug() << Q_FUNC_INFO << ": Rec mGrid to export: " << mygrid <<  QT_ENDL;
-                }
-                else
-                {
-                    //qDebug() << Q_FUNC_INFO << ": INVALID mGRID: " << mygrid <<  QT_ENDL;
                 }
             }
             else if (type == "MODE")
             {
                 qso.setMode(data);
-               mode = data;
             }
             else if (type == "RST_SENT")
             {
                qso.setRSTRX(data);
-               rstRX = data;
             }
             else if (type == "RST_RCVD")
             {
                qso.setRSTTX(data);
-               rstTX = data;
             }
             else if (type == "QSO_DATE")
             {
                qso.setDate(util->getDateFromADIFDateString(data));
-               _date_on = util->getDateFromADIFDateString(data);
             }
             else if (type == "TIME_ON")
             {
                qso.setTimeOn(util->getTimeFromADIFTimeString(data));
-              _time_on  = util->getTimeFromADIFTimeString(data);
             }
             else if (type == "QSO_DATE_OFF")
             {
               qso.setDateOff(util->getDateFromADIFDateString(data));
-              _date_off  = util->getDateFromADIFDateString(data);
             }
             else if (type == "TIME_OFF")
             {
               qso.setTimeOff(util->getTimeFromADIFTimeString(data));
-              _time_off = util->getTimeFromADIFTimeString(data);
             }
             else if (type == "COMMENT")
             {
               qso.setComment(data);
-              _comment = data;
             }
             else if (type == "BAND")
             {
               qso.setBand(data);
-              band  = data;
             }
             else if (type == "OPERATOR")
             {
               qso.setOperatorCallsign(data);
-              operatorCall  = data;
             }
             else if (type == "FREQ")
             {
               qso.setFreq(data.toDouble());
-              freq = data.toDouble();
             }
             else if (type == "STATION_CALLSIGN")
             {
               qso.setStationCallsign(data);
-              stationcallsign = data;
             }
             else if (type == "NAME")
             {
               qso.setName(data);
-              _name = data;
             }
             else if (type == "EOR")
             {
-                if (_date_on.isValid() && _time_on.isValid())
-                {
-                    datetime.setDate(_date_on);
-                    datetime.setTime(_time_on);
-                }
-                else
-                {
-                    datetime = QDateTime();
-                }
-                if (_date_off.isValid() && _time_off.isValid())
-                {
-                    datetime_off.setDate(_date_off);
-                    datetime_off.setTime(_time_off);
-                }
-                else
-                {
-                    datetime_off = QDateTime();
-                }
-                //qDebug() << Q_FUNC_INFO << ": Emitting"  <<  QT_ENDL;
-                if ((freq < 0.1) && (band.length ()<2))
-                {
+                if (!qso.isValid())
                     return;
-                }
-                emit logged(qso);
-                emit logged_qso (dx_call, mode, band, freq,
-                                 mygrid, dxgrid, rstTX, rstRX, _comment, stationcallsign, _name,
-                                 operatorCall, datetime, datetime_off, _exchangeTX, _exchangeRX, _myPWR);
+                 if (!qso.isComplete())
+                    return;
+
+                emit logged(qso);       
                 return;
             }
-            else
-            {
-                //qDebug() << Q_FUNC_INFO << ": NON captured ADIF type: " << type <<  QT_ENDL;
-                //qDebug() << Q_FUNC_INFO << ": NON captured ADIF data: " << data <<  QT_ENDL;
-            }
-        }
-        else
-        {
-        //qDebug() << Q_FUNC_INFO << ": Not a valid ADIF pair " << aux <<  QT_ENDL;
         }
     }
    //qDebug() << Q_FUNC_INFO << " - END";
 }
+*/
 
 void UDPServer::loadSettings()
 {

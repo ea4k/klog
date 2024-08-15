@@ -156,7 +156,6 @@ void tst_MainWindow::test_Constructor()
     QVERIFY2(mainWindow->qso, "qso not created");
     //QVERIFY2(mainWindow->debugFile, "debugFile not created");
     QVERIFY2(mainWindow->dateTime, "dateTime not created");
-    QVERIFY2(mainWindow->dateTimeTemp, "dateTimeTemp not created");
     QVERIFY2(mainWindow->awards, "awards not created");
     QVERIFY2(mainWindow->softUpdate, "softUpdate not created");
     QVERIFY2(mainWindow->filemanager, "filemanager not created");

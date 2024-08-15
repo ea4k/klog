@@ -1,10 +1,8 @@
-Complete the copy constructor of QSO
+TODO-Test: Add tests to test the subsivisions
+TODO-Test: the copy constructor of QSO
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 Check the bug that makes WSJTX not logging automatically
-TODO: After refactor, remove/comment out
-void UDPServer::adifParse(QByteArray &msg)
-udpserver signal logged_qso
-void MainWindow::slotWSJTXloggedQSO
+
 
 BUG: When entering/modifying a QSO thre is an error related to awarddxcc table not existing
 TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions
