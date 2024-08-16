@@ -81,14 +81,14 @@ int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _log
 
     if (_logn < 0)
     {
-        queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE prop_mode=:prop_mode";
+        queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE prop_mode= :prop_mode";
         if (!query.prepare(queryString))
         {return 0;}
         query.bindValue(":prop_mode", _p);
     }
     else
     {
-        queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE lognumber=:lognumber AND prop_mode=:prop_mode";
+        queryString = "SELECT COUNT(DISTINCT id) FROM log WHERE lognumber= :lognumber AND prop_mode= :prop_mode";
         if (!query.prepare(queryString))
         {return 0;}
         query.bindValue(":lognumber", _logn);
@@ -498,7 +498,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
         return -1.0;
     }
 
-    QString queryString = QString("SELECT lower FROM band WHERE name=:sm OR name=:name");
+    QString queryString = QString("SELECT lower FROM band WHERE name= :sm OR name= :name");
     QSqlQuery query;
     query.prepare(queryString);
     query.bindValue(":sm", _sm);
@@ -547,7 +547,7 @@ double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 double DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
 {
          //qDebug() << Q_FUNC_INFO << " - Start";
-    QString queryString = QString("SELECT lower FROM band WHERE id=:sm");
+    QString queryString = QString("SELECT lower FROM band WHERE id= :sm");
     QSqlQuery query;
     query.prepare(queryString);
     query.bindValue(":sm", _sm);
@@ -699,6 +699,7 @@ QStringList DataProxy_SQLite::getBandNames()
 QStringList DataProxy_SQLite::getModes()
 {
     QStringList modes = QStringList();
+
     QSqlQuery query("SELECT submode FROM mode ORDER BY submode");
 
     while (query.next()) {
@@ -6443,11 +6444,11 @@ int DataProxy_SQLite::getDXCCInBand(const int _bandid, const bool _confirmed, co
     QSqlQuery query;
     if (_log < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT dxcc) from log where band.id=:bandid AND (qsl_rcvd=:confirmed OR lotw_qsl_rcvd=:confirmed)");
+        queryString = QString("SELECT COUNT (DISTINCT dxcc) from log where band.id= :bandid AND (qsl_rcvd= :confirmed OR lotw_qsl_rcvd= :confirmed)");
     }
     else
     {
-        queryString = QString("SELECT COUNT (DISTINCT dxcc) from log where band.id=:bandid AND log.id=:log AND (qsl_rcvd=:confirmed OR lotw_qsl_rcvd=:confirmed)");
+        queryString = QString("SELECT COUNT (DISTINCT dxcc) from log where band.id= :bandid AND log.id= :log AND (qsl_rcvd= :confirmed OR lotw_qsl_rcvd= :confirmed)");
     }
     if (!query.prepare (queryString))
     {

@@ -377,6 +377,7 @@ void UDPServer::parse(const QByteArray &msg)
 
                 //qDebug() << Q_FUNC_INFO << ": Data to be logged: Comment: " << comments;
                 QSO qso;
+                qso.clear();
                 qso.setCall(dx_call);
                 qso.setMode(mode);
                 qso.setFreq(frequencyDouble);
@@ -510,7 +511,7 @@ void UDPServer::setNetworkInterface(const QString &_t)
 /*
 void UDPServer::adifParse(QByteArray &msg)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << msg;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << msg;
 
     QSO qso;
 

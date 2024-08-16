@@ -72,6 +72,7 @@ public:
     bool isValidTenTen(const QString &_b);            //>0
     bool isValidLogId(const QString &_b);            //>0
     bool isValidAntPath(const QString &_s);
+    bool isValidMode (const QString &_s);
     bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
     QString getQSO_COMPLETEFromDB(const QString &_s);    // Translates the DB value into an ADIF value
     bool isValidPOTA(const QString &_s);            // TODO
@@ -80,6 +81,7 @@ public:
     void setLogLevel(DebugLogLevel _l);
     QString getADIFField(const QString &_fieldName, const QString &_data);
     QString getADIFBoolFromBool(const bool _b);             // Will produce the ADIF format if a bool is received
+    void setModes(const QStringList &_modes);            //TODO: Do not depend on external source to fill
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -91,13 +93,14 @@ private:
     void setContinents();
     void setSponsorsList();
 
+
     bool isValidCall(const QString &_c);
 
     QString parentName;
     DebugLogLevel logLevel;
     QHash<QString, QString> ADIFHash; // Name, type
 
-    QStringList ARRL_sects, continents, sponsorsList;
+    QStringList ARRL_sects, continents, sponsorsList, modes;
 };
 
 #endif // ADIF_H

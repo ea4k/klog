@@ -1078,7 +1078,7 @@ int DataBase::getBandIdFromName(const QString &b)
     //qDebug() << Q_FUNC_INFO << ": " << b ;
     QString band = b.toUpper();
 
-    QString queryString = QString("SELECT id FROM band WHERE name=:band");
+    QString queryString = QString("SELECT id FROM band WHERE name= :band");
     QSqlQuery query;
     query.prepare(queryString);
     query.bindValue(":band", b);
@@ -1104,7 +1104,7 @@ int DataBase::getModeIdFromName(const QString &b)
     //qDebug() << Q_FUNC_INFO << ": " << b ;
     QString band = b.toUpper();
 
-    QString queryString = QString("SELECT id FROM mode WHERE name=:mode");
+    QString queryString = QString("SELECT id FROM mode WHERE name= :mode");
     QSqlQuery query;
     query.prepare(queryString);
     query.bindValue(":mode", b);
@@ -1129,7 +1129,7 @@ int DataBase::getModeIdFromSubMode(const QString &b)
     //qDebug() << Q_FUNC_INFO << ": " << b ;
     QString band = b.toUpper();
 
-    QString queryString = QString("SELECT id FROM mode WHERE submode=:submode");
+    QString queryString = QString("SELECT id FROM mode WHERE submode= :submode");
     QSqlQuery query;
     query.prepare(queryString);
     query.bindValue(":submode", b);
@@ -1355,7 +1355,7 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
 
     if (!_tmp)
         return (getModeIdFromSubMode(b)>0);
-    QString stringQuery = QString("SELECT id FROM modetemp WHERE submode=:submode");
+    QString stringQuery = QString("SELECT id FROM modetemp WHERE submode= :submode");
     QSqlQuery query;
     query.bindValue(":submode", b);
     query.prepare(stringQuery);
@@ -2582,10 +2582,10 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FREEDV', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('M17', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA HF', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA SATELLITE', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 1200', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 9600', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA HF', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA SATELLITE', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 1200', 'DYNAMIC', 'NO', '0')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 9600', 'DYNAMIC', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '1')").arg(tableName));

@@ -423,7 +423,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 //    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Connected to server"), awards->getDefaultColor());
     dxClusterConnected = true;
     inputCommand->setFocus(Qt::OtherFocusReason);
-    qDebug() << Q_FUNC_INFO << " - myQRZ: " << myQrz;
+   //qDebug() << Q_FUNC_INFO << " - myQRZ: " << myQrz;
     if (( dxClusterConnected ) && (!dxClusterAlreadyConnected) ){
         bool ok;
         QString callsignText;

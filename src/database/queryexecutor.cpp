@@ -3,7 +3,7 @@
 QueryExecutor::QueryExecutor(const QString &_parentClass)
 {
     Q_UNUSED(_parentClass);
-    qDebug() << Q_FUNC_INFO << _parentClass ;
+   //qDebug() << Q_FUNC_INFO << _parentClass ;
 }
 
 void QueryExecutor::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)
@@ -12,15 +12,15 @@ void QueryExecutor::queryErrorManagement(const QString &_functionFailed, const Q
     Q_UNUSED(errorCodeS);
     Q_UNUSED(_nativeError);
     Q_UNUSED(_failedQuery);
-    qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
-    qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
-    qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
-    qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
+   //qDebug() << Q_FUNC_INFO << ": Function    : " << _functionFailed ;
+   //qDebug() << Q_FUNC_INFO << ": Native      : " << _nativeError ;
+   //qDebug() << Q_FUNC_INFO << ": Error       : " << _functionFailed << errorCodeS ;
+   //qDebug() << Q_FUNC_INFO << ": Query failed: " << _failedQuery ;
 }
 
 bool QueryExecutor::execQuery(const QString &function, const QString &stringQuery)
 {
-    qDebug() << Q_FUNC_INFO << " " << function << " : " << stringQuery ;
+   //qDebug() << Q_FUNC_INFO << " " << function << " : " << stringQuery ;
     QSqlQuery query;
     query.prepare(stringQuery);
     bool ok = query.exec(stringQuery);

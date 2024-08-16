@@ -29,52 +29,52 @@ bool DB_ADIF_Primary_Subdvisions_data::addData()
         "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
 */
 
-    qDebug() << Q_FUNC_INFO <<  " - Checking if DB exists";
+   //qDebug() << Q_FUNC_INFO <<  " - Checking if DB exists";
     if (!isDBCreated())
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 1";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 1";
     if (!add_Canada_1())       // Adds the data for Canada
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 6";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 6";
     if (!add_USA_6())       // Adds the data for Alaska
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 21";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 21";
     if (!add_EA6_21())      // Adds the data for Balearic Is
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 29";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 29";
     if (!add_EA8_29())      // Adds the data for Canary Is
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 32";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 32";
     if (!add_EA9_32())      // Adds the data for Ceuta y Melilla
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 50";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 50";
     if (!add_Mexico_50())      // Adds the data for Mexico
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 100";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 100";
     if (!add_Argentina_100())      // Adds the data for Argentina
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 108";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 108";
     if (!add_Brazil_108())      // Adds the data for Brazil
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 110";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 110";
     if (!add_USA_110())     // Adds the data for Hawaii
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 149";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 149";
     if (!add_CT_149())     // Adds the data for Azores
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 256";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 256";
     if (!add_CT_256())      // Adds the data for Madeira
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 272";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 272";
     if (!add_CT_272())      // Adds the data for Portugal
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 281";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 281";
     if (!add_EA_281())     // Adds the data for Spain
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 291";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 291";
     if (!add_USA_291())     // Adds the data for United States of America
         return false;
-    qDebug() << Q_FUNC_INFO <<  " - Adding 339";
+   //qDebug() << Q_FUNC_INFO <<  " - Adding 339";
     if (!add_Japan_339())     // Adds the data for Japan
         return false;
 

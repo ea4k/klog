@@ -231,6 +231,18 @@ void Adif::setSponsorsList()
     sponsorsList = psponsorsList;
 }
 
+bool Adif::isValidMode (const QString &_s)
+{
+    return modes.contains(_s);
+}
+
+void Adif::setModes(const QStringList &_modes)
+{ // TODO: Add here the list/table of modes to feed DB creation and/or to prevent depending on external sources
+  // from this class
+    modes.clear();
+    modes << _modes;
+}
+
 bool Adif::isValidFreq(const QString &_b)
 {
     //qDebug() << Q_FUNC_INFO << ": freq: " << _b;

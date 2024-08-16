@@ -90,42 +90,42 @@ tst_DataBase::~tst_DataBase()
 
 void tst_DataBase::initTestCase()
 {
-    qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
     QFile file(util.getKLogDBFile() + "-test");
 
     if (file.exists())
     {
-        qDebug() << Q_FUNC_INFO << QString("DB-test exists: %1").arg(util.getKLogDBFile() + "-test");
+       //qDebug() << Q_FUNC_INFO << QString("DB-test exists: %1").arg(util.getKLogDBFile() + "-test");
         if (file.remove())
         {
-            qDebug() << Q_FUNC_INFO << "DB-test deleted";
+           //qDebug() << Q_FUNC_INFO << "DB-test deleted";
             QCOMPARE(file.exists(), false);
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << "DB-test NOT deleted";
+           //qDebug() << Q_FUNC_INFO << "DB-test NOT deleted";
         }
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << QString("DB-test DOES NOT exists: %1").arg(util.getKLogDBFile() + "-test");
+       //qDebug() << Q_FUNC_INFO << QString("DB-test DOES NOT exists: %1").arg(util.getKLogDBFile() + "-test");
     }
 
 
-    file.setFileName(util.getKLogDBFile());
-    if (file.exists())
-        if (file.rename(util.getKLogDBFile() + "-test"))
-            qDebug() << Q_FUNC_INFO << "DB renamed";
+    //file.setFileName(util.getKLogDBFile());
+    //if (file.exists())
+    //    if (file.rename(util.getKLogDBFile() + "-test"))
+           //qDebug() << Q_FUNC_INFO << "DB renamed";
 
 
 
-    qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
+   //qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
 
-    file.setFileName(util.getCfgFile());
-    if (file.exists())
-        if (file.rename(util.getCfgFile() +  "-test"))
-            qDebug() << Q_FUNC_INFO << "Restoring the config file";
+    //file.setFileName(util.getCfgFile());
+    //if (file.exists())
+    //    if (file.rename(util.getCfgFile() +  "-test"))
+           //qDebug() << Q_FUNC_INFO << "Restoring the config file";
 }
 
 void tst_DataBase::test_ExistingTables()
@@ -242,7 +242,7 @@ void tst_DataBase::test_subModes()
     QString aux;
     QStringList _submodes = {"CHIP64", "CHIP128", "PCW", "C4FM", "DMR", "DSTAR", "FREEDV",
         "M17", "DOM-M", "DOM4", "DOM5", "DOM8", "DOM11", "DOM16", "DOM22", "DOM44", "DOM88",
-        "DOMINOEX", "DOMINOF", "VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600",
+        "DOMINOEX", "DOMINOF", "VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600",
         "FMHELL", "FSKHELL", "HELL80", "HELLX5", "HELLX9", "HFSK", "PSKHELL", "SLOWHELL",
         "ISCAT-A", "ISCAT-B", "JT4A", "JT4B", "JT4C", "JT4D", "JT4E", "JT4F", "JT4G", "JT9-1",
         "JT9-2", "JT9-5", "JT9-10", "JT9-30", "JT9A", "JT9B", "JT9C", "JT9D", "JT9E",
@@ -312,30 +312,30 @@ void tst_DataBase::test_checks()
 
 void tst_DataBase::test_CreateDB()
 {
-    qDebug() << Q_FUNC_INFO << "000";
+   //qDebug() << Q_FUNC_INFO << "000";
     Utilities util(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << "001";
+   //qDebug() << Q_FUNC_INFO << "001";
     QFile file(util.getCTYFile());
-    qDebug() << Q_FUNC_INFO << "003";
+   //qDebug() << Q_FUNC_INFO << "003";
     QCOMPARE( file.exists(), true); // Check if the CTYDAT file is available
-    qDebug() << Q_FUNC_INFO << "003";
+   //qDebug() << Q_FUNC_INFO << "003";
     DataProxy_SQLite dataProxy(Q_FUNC_INFO, version);
-    qDebug() << Q_FUNC_INFO << "004";
+   //qDebug() << Q_FUNC_INFO << "004";
     World world(&dataProxy, Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << "005";
+   //qDebug() << Q_FUNC_INFO << "005";
     QCOMPARE(world.create(util.getCTYFile()), true); // Read the CTY.CSV file into the DB
-    qDebug() << Q_FUNC_INFO << "006";
+   //qDebug() << Q_FUNC_INFO << "006";
     QCOMPARE(db->hasTheTableData("entity"), true);
-    qDebug() << Q_FUNC_INFO << "007";
+   //qDebug() << Q_FUNC_INFO << "007";
     QCOMPARE(db->hasTheTableData("prefixesofentity"), true);
-    qDebug() << Q_FUNC_INFO << "999";
+   //qDebug() << Q_FUNC_INFO << "999";
 }
 
 
 void tst_DataBase::test_addQSOs()
 {
     int i = db->getNumberOfQsos();
-    qDebug() << "Number of QSOs: " << QString::number(i);
+   //qDebug() << "Number of QSOs: " << QString::number(i);
     QSO qso;
     qso.clear();
     qso.setCall("EA4K");
@@ -344,34 +344,34 @@ void tst_DataBase::test_addQSOs()
     qso.setBand("10M");
     qso.setMode("SSB");
     qso.toDB();
-    qDebug() << "Number of QSOs: " << QString::number(i);
+   //qDebug() << "Number of QSOs: " << QString::number(i);
     QCOMPARE(db->getNumberOfQsos(), i+1);
 }
 
 void tst_DataBase::cleanupTestCase()
 {
-    qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
-    QFile file(util.getKLogDBFile());
-    if (file.exists())
-        if (file.rename(util.getKLogDBFile() + "-test-db"))
-            qDebug() << Q_FUNC_INFO << "DB deleted";
-    qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
+    //QFile file(util.getKLogDBFile());
+    //if (file.exists())
+    //    if (file.rename(util.getKLogDBFile() + "-test-db"))
+           //qDebug() << Q_FUNC_INFO << "DB deleted";
+   //qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
 
-    file.setFileName(util.getCfgFile());
-    if (file.exists())
-        if (file.rename(util.getCfgFile() +  "-test-db"))
-            qDebug() << Q_FUNC_INFO << "Restoring the config file";
+    //file.setFileName(util.getCfgFile());
+    //if (file.exists())
+    //    if (file.rename(util.getCfgFile() +  "-test-db"))
+           //qDebug() << Q_FUNC_INFO << "Restoring the config file";
 
 
-    file.setFileName(util.getKLogDBFile() + "-test");
-    if (file.exists())
-        if (file.rename(util.getKLogDBFile()))
-            qDebug() << Q_FUNC_INFO << "DB deleted";
-    file.setFileName(util.getCfgFile() +  "-test");
-    if (file.exists())
-        if (file.rename(util.getCfgFile()))
-            qDebug() << Q_FUNC_INFO << "Restoring the config file";
+    //file.setFileName(util.getKLogDBFile() + "-test");
+    //if (file.exists())
+    //    if (file.rename(util.getKLogDBFile()))
+           //qDebug() << Q_FUNC_INFO << "DB deleted";
+    //file.setFileName(util.getCfgFile() +  "-test");
+    //if (file.exists())
+    //    if (file.rename(util.getCfgFile()))
+           //qDebug() << Q_FUNC_INFO << "Restoring the config file";
 }
 
 /*
@@ -393,15 +393,15 @@ void tst_DataBase::cleanup()
 
 void tst_DataBase::test_Constructor()
 {
-    qDebug() << Q_FUNC_INFO << "- Start";
+   //qDebug() << Q_FUNC_INFO << "- Start";
     QString _version = QString ("99.9");
-    qDebug() << Q_FUNC_INFO << "- 001";
+   //qDebug() << Q_FUNC_INFO << "- 001";
     util = new Utilities(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << "- 002";
+   //qDebug() << Q_FUNC_INFO << "- 002";
     db = new DataBase(Q_FUNC_INFO, _version, util->getKLogDBFile());
-    qDebug() << Q_FUNC_INFO << "- 003";
+   //qDebug() << Q_FUNC_INFO << "- 003";
     QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
-    qDebug() << Q_FUNC_INFO << " - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 QTEST_APPLESS_MAIN(tst_DataBase)

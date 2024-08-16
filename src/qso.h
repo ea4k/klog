@@ -51,6 +51,7 @@ public:
     QSO();
     QSO(const QSO& other);
     ~QSO();
+    bool copy(const QSO& other);
     void setLogLevel (const DebugLogLevel _b);
     void setRealTime(const bool _rt);   // Not QSO info but KLog status
     bool getRealTime();

@@ -71,7 +71,7 @@ public:
     void setCallValidation(const bool _v);
     QStringList getFields();
     KLOG_DEPRECATED QStringList getBands();
-    QStringList getModes();
+    QStringList getModes(); // Returns the list of submodes
     QStringList sortBandNamesBottonUp(const QStringList _qs);
     QStringList getBandIDs();
     QStringList getModesIDs();

@@ -710,13 +710,13 @@ bool MainWindowInputOthers::setInitialADIFValues()
 
 bool MainWindowInputOthers::setState(const QString &_op)
 { // Sets a subdivision/State
-    qDebug() << Q_FUNC_INFO << ": " << _op;
+   //qDebug() << Q_FUNC_INFO << ": " << _op;
     if (_op.length()<1)
         return false;
 
     int indexC = entityPrimDivComboBox->findText(QString("%1-").arg(_op), Qt::MatchStartsWith);
 
-    qDebug() << Q_FUNC_INFO << _op << "/" << QString::number(indexC) << " / (6): "  << entityPrimDivComboBox->itemText(6);
+   //qDebug() << Q_FUNC_INFO << _op << "/" << QString::number(indexC) << " / (6): "  << entityPrimDivComboBox->itemText(6);
     if (indexC<0)
         return false;
 
@@ -726,7 +726,7 @@ bool MainWindowInputOthers::setState(const QString &_op)
 
 QString MainWindowInputOthers::getState()
 {// Reads the subdivision. It return just the shortname/code for the subdivision/State
-    qDebug() << Q_FUNC_INFO << ": " << ((entityPrimDivComboBox->currentText()).split("-")).at(0);
+   //qDebug() << Q_FUNC_INFO << ": " << ((entityPrimDivComboBox->currentText()).split("-")).at(0);
 
     QString aux = entityPrimDivComboBox->currentText();
     if ((aux.startsWith("00-")) && (aux.endsWith("(000)")) )
@@ -770,7 +770,7 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
     currentPref = _qrz;
     QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
-    qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
+   //qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
     if (_n<1)
         return;
     currentInt = _n;
@@ -783,7 +783,7 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, currentPrefTMP));
     if (subdivisions.isEmpty())
     {
-        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
+       //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
         subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
     }
 

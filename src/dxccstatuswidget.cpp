@@ -495,9 +495,9 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, QStringList const &
     Utilities util(Q_FUNC_INFO);
     if (util.areThoseListsTheSame(bandNames, _listOfNewBands))
     {   return;
-        qDebug() << Q_FUNC_INFO << " - Bands are the same";
+       //qDebug() << Q_FUNC_INFO << " - Bands are the same";
     }
-    qDebug() << Q_FUNC_INFO << " - Bands are NOT the same";
+   //qDebug() << Q_FUNC_INFO << " - Bands are NOT the same";
 
 
 
