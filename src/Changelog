@@ -1,3 +1,7 @@
+warning: base class ‘class QObject’ should be explicitly initialized in the copy constructor
+TODO-BUg: Query fails due to "continent" row not existing in entity table - dataproxy::getContinentShortNameFromEntity
+    Make sure the table entity is updated or checked.
+
 TODO-Bug: Add QSOs from wsjtx does not work. Failure close to int QSO::toDB(int _qsoId)
 WIP: Subdivisions only works with the main prefix. It is needed to find the prefix (EB, EC for EA and so on)
 TODO-Test: Add tests to test the subsivisions

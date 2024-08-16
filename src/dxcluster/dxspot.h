@@ -33,15 +33,14 @@
 #include "../klogdefinitions.h"
 #include "../frequency.h"
 
-class DXSpot : public QObject
+class DXSpot
 {
-    Q_OBJECT
     friend class tst_DXSpot;
 
 public:
     DXSpot();
     //DXSpot(DXSpot *_other);
-    DXSpot(const DXSpot& other) : dxcall(other.dxcall), freq(other.freq), spotter(other.spotter), comment(other.comment), dateTime(other.dateTime), clickStatus(other.clickStatus), valid(other.valid) {};
+    DXSpot(const DXSpot& other);
 
     ~DXSpot();
     void operator=(DXSpot const &_other);

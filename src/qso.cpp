@@ -25,6 +25,7 @@
  *****************************************************************************/
 #include "qso.h"
 #include "QtSql/qsqlerror.h"
+#include "qsqlrecord.h"
 
 QSO::QSO()
 {

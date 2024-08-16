@@ -46,6 +46,17 @@ DXSpot::DXSpot(DXSpot *_other)
 
 DXSpot::~DXSpot(){}
 
+DXSpot::DXSpot(const DXSpot& other)
+{
+    dxcall = other.dxcall;
+    freq = other.freq;
+    spotter = other.spotter;
+    comment = other.comment;
+    dateTime = other.dateTime;
+    clickStatus = other.clickStatus;
+    valid = other.valid;
+}
+
 void DXSpot::clear()
 {
     dxcall.clear();
