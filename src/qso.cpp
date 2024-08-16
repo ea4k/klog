@@ -1054,7 +1054,7 @@ QString QSO::getEQSLQSL_SENT()
 {
     return eqsl_qsl_sent;
 }
-algo pasa con el modo al añadir un qso desde wsjtx
+
 bool QSO::setEQSLQSLRDate(const QDate &_c)
 {
     if (_c.isValid())
