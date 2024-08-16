@@ -136,6 +136,7 @@ public:
     QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
+    int getAreaNumberFromCall(const QString &_c);
     bool isAOneLetterPrefix(const QChar &_c);
 
     // Write DATE/TIME to DB

@@ -1102,6 +1102,22 @@ bool Utilities::isValidCall(const QString &_c, bool _force)
     return isValidSimpleCall(call);
 }
 
+int Utilities::getAreaNumberFromCall(const QString &_c)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _c;
+    QString withAreaNumberPref = getPrefixFromCall(_c, true);
+    QString withOutAreaNumberPref = getPrefixFromCall(_c, false);
+
+    qDebug() << Q_FUNC_INFO << ":    With Area: " << withAreaNumberPref;
+    qDebug() << Q_FUNC_INFO << ": WithOut Area: " << withOutAreaNumberPref;
+
+    QString areaString = withAreaNumberPref.remove(withOutAreaNumberPref);
+    qDebug() << Q_FUNC_INFO << ":  Area Number: " << areaString;
+    int areaNumber = -1;
+
+    return areaNumber;
+}
+
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);

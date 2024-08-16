@@ -37,7 +37,7 @@
 #include "utilities.h"
 #include "klogdefinitions.h"
 #include "adif.h"
-#include "database.h"
+//#include "database.h"
 
 
 //#include <functional>
@@ -442,7 +442,7 @@ private:
     int getModeIdFromModeName();                // It really returns submode
     QString getModeNameFromModeId(int _modeId, bool _submode=true);
     void setBandFromFreq(const double _fr, bool TX = true);
-    DataBase *db;
+    //DataBase *db;
 
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
@@ -540,6 +540,8 @@ private:
     bool setLoTWQSLRDate2(const QString& data);
     bool setLoTWQSLSDate1(const QString& data);
     bool setLoTWQSLSDate2(const QString& data);
+
+    int getLastInsertedQSO();   // just a query to get the latest inserted QSO
 };
 
 #endif // QSO_H

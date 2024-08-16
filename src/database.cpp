@@ -6597,7 +6597,6 @@ int DataBase::getLastInsertedQSO()
     }
     query.finish();
     return id;
-
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

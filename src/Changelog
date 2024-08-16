@@ -1,3 +1,5 @@
+TODO-Bug: Add QSOs from wsjtx does not work. Failure close to int QSO::toDB(int _qsoId)
+WIP: Subdivisions only works with the main prefix. It is needed to find the prefix (EB, EC for EA and so on)
 TODO-Test: Add tests to test the subsivisions
 TODO-Test: the copy constructor of QSO
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO

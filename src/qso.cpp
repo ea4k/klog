@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "qso.h"
+#include "QtSql/qsqlerror.h"
 
 QSO::QSO()
 {
@@ -3385,7 +3386,7 @@ int QSO::toDB(int _qsoId)
         return -1;
     }
     qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
-    qDebug() << Q_FUNC_INFO << "Mode: " << getSubmode();
+    qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
    //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     queryString.clear();
@@ -3400,20 +3401,23 @@ int QSO::toDB(int _qsoId)
         queryString = getModifyQueryString();
     }
    //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
+
     QSqlQuery query = getPreparedQuery(queryString);
+    qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
     if (_qsoId>0)
     {
        //qDebug() << Q_FUNC_INFO << " - binding ID";
         query.bindValue (":id", _qsoId);
     }
-   //qDebug() << Q_FUNC_INFO << " - executing query";
+    qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
        //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
        //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
         if (_qsoId>0)
             return _qsoId;
-        return 1;//db->getLastInsertedQSO();
+        //db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
+        return getLastInsertedQSO();
     }
     else
     {
@@ -3588,11 +3592,13 @@ int QSO::getModeIdFromModeName()
     //
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
     // SELECT mode.id FROM mode WHERE mode.name="MFSK"
-    bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode= :submode");
+    bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode= ':submode'");
     if (!ok)
     {
+        qDebug() << Q_FUNC_INFO << " - Failed to prepare";
         return -1;
     }
+    qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
     query.bindValue (":submode", getMode ());
     //if (haveSubMode)
     //{
@@ -3613,6 +3619,7 @@ int QSO::getModeIdFromModeName()
         {
             if (query.isValid ())
             {
+                qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
                 return query.value (0).toInt ();
             }
             else
@@ -4380,4 +4387,27 @@ bool QSO::fromDB(int _qsoId)
     //qDebug() << Q_FUNC_INFO << "  - 150";
     logEvent (Q_FUNC_INFO, "END", Debug);
     return false;
+}
+
+int QSO::getLastInsertedQSO()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    QString stringQuery = QString("SELECT last_insert_rowid()");
+
+    QSqlQuery query;
+    bool sqlOK = query.exec(stringQuery);
+    int id = -1;
+
+    if (sqlOK)
+    {
+        query.next();
+        id = (query.value(0)).toInt();
+    }
+    else
+    {
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    }
+    query.finish();
+    return id;
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
