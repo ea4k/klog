@@ -767,28 +767,44 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
 void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_qrz)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
-    currentPref = _qrz;
-    QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
-    QString mainPref = dataProxy->getEntityMainPrefix(_n);
-   //qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
-    int a = util->getAreaNumberFromCall(_qrz);
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
     if (_n<1)
         return;
     currentInt = _n;
-    setEntity(_n);
+
+    currentPref = _qrz;
+    QString mainPref = dataProxy->getEntityMainPrefix(_n);
+    int areaNumber = util->getAreaNumberFromCall(_qrz);
+    qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
+    if (areaNumber>=0)
+    {
+        mainPref.append(QString::number(areaNumber));
+       // mainPref = mainPref + QString::number(areaNumber);
+        qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPref;
+    }
+
+    QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
+
+    qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
+    qDebug() << Q_FUNC_INFO << " - mainPref: " << QString::number(_n) << "/" << mainPref;
+
+
+    setEntity(currentInt);
     if ((currentPrefTMP.isEmpty()) && (mainPref.isEmpty()))
         return;
 
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, currentPrefTMP));
-    if (subdivisions.isEmpty())
+    if (subdivisions.length()<1)
     {
+        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running for the main prefix";
         subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainPref));
-        if (subdivisions.isEmpty())
-       //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
+        if (subdivisions.length()<1)
+        {
+            qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
             subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
+        }
     }
 
    //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());

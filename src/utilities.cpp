@@ -1113,9 +1113,11 @@ int Utilities::getAreaNumberFromCall(const QString &_c)
 
     QString areaString = withAreaNumberPref.remove(withOutAreaNumberPref);
     qDebug() << Q_FUNC_INFO << ":  Area Number: " << areaString;
-    int areaNumber = -1;
-
-    return areaNumber;
+    bool ok = false;
+    int areaNumber = areaString.toInt(&ok, 10);
+    if (ok)
+        return areaNumber;
+    return -1;
 }
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
@@ -1164,7 +1166,7 @@ QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
     {
        //qDebug() << Q_FUNC_INFO << QString(" While (i=%1) = ").arg(i) << call;
         if (isAKnownPrefix(call))
-        {// EA, EA6, VK9N, VP2E, K, K1, KN1, 4U1I
+        {// EA, EA6, VK9N, VP2E, K, K1, KN1, 4U1I, W6 (W6 and other normal prefix are also a known prefix due to the specific CQ/ITU)
            //qDebug() << Q_FUNC_INFO << QString("- Known prefix found: %1").arg(call);
             if (withAreaNumber)
             {
@@ -1179,9 +1181,18 @@ QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
                    //qDebug() << Q_FUNC_INFO << QString("- With Area number -call3- & last is a digit");
                     return call3;
                 }
+                return call;
+            }
+            else
+            { // Here I am receiving known prefixes and I need to remove the area number
+                if ( !((call.back()).isDigit()) )
+                {
+                    qDebug() << Q_FUNC_INFO << QString("- Without Area number -call- & last is NOT a digit: %1").arg(call);
+                    return call;
+                }
             }
            //qDebug() << Q_FUNC_INFO << QString("- With NO Area number");
-            return call;
+
         }
        //qDebug() << Q_FUNC_INFO << QString("- Known prefix NOT found: %1").arg(call);
         call3 = call2;
