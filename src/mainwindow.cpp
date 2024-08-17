@@ -2077,7 +2077,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
      //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
     currentEntity = world->getQRZARRLId(_qrz);
-    //qDebug()<< Q_FUNC_INFO << " - 50" ;
+    //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
     othersTabWidget->updatePrimarySubDivisions(currentEntity, _qrz);
@@ -5734,37 +5734,37 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 void MainWindow::slotQSOReceived(const QSO &_qso)
 {
-    qDebug() <<  Q_FUNC_INFO << " - Start";
+    //qDebug() <<  Q_FUNC_INFO << " - Start";
     //logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (!wsjtxAutoLog)
         if (!askToAddQSOReceived(_qso))
             return;
-    qDebug() << Q_FUNC_INFO << "010";
+    //qDebug() << Q_FUNC_INFO << "010";
     QSO q;
-    qDebug() << Q_FUNC_INFO << "020";
+    //qDebug() << Q_FUNC_INFO << "020";
     q.copy(_qso);
-    qDebug() << Q_FUNC_INFO << "030";
+    //qDebug() << Q_FUNC_INFO << "030";
 
-    qDebug() << Q_FUNC_INFO << "Mode: " << q.getMode();
+    //qDebug() << Q_FUNC_INFO << "Mode: " << q.getMode();
 
     int dxcc = world->getQRZARRLId(q.getCall());
-    qDebug() << Q_FUNC_INFO << "040";
+    //qDebug() << Q_FUNC_INFO << "040";
     dxcc = util->getNormalizedDXCCValue (dxcc);
-    qDebug() << Q_FUNC_INFO << "050";
+    //qDebug() << Q_FUNC_INFO << "050";
     q.setDXCC(dxcc);
-    qDebug() << Q_FUNC_INFO << "060";
+    //qDebug() << Q_FUNC_INFO << "060";
 
     if (!showWSJTXDuplicatedMSG(q))
         return;
 
-    qDebug() << Q_FUNC_INFO << "070";
+    //qDebug() << Q_FUNC_INFO << "070";
     int addedQSO = q.toDB();
-    qDebug() << Q_FUNC_INFO << "080";
+    //qDebug() << Q_FUNC_INFO << "080";
     if (addedQSO>0)
     {
-        qDebug() << Q_FUNC_INFO << "090";
-        qDebug() <<  Q_FUNC_INFO << " - QSO added: " << QString::number(addedQSO);
+        //qDebug() << Q_FUNC_INFO << "090";
+        //qDebug() <<  Q_FUNC_INFO << " - QSO added: " << QString::number(addedQSO);
         actionsJustAfterAddingOneQSO();
         slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
         infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getMode());
@@ -5772,10 +5772,10 @@ void MainWindow::slotQSOReceived(const QSO &_qso)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << "100";
+        //qDebug() << Q_FUNC_INFO << "100";
     }
 
-    qDebug() <<  Q_FUNC_INFO << " - END";
+    //qDebug() <<  Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

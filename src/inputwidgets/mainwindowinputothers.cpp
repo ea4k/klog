@@ -767,7 +767,7 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
 void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
     if (_n<1)
         return;
     currentInt = _n;
@@ -776,18 +776,18 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     QString mainPref = dataProxy->getEntityMainPrefix(_n);
     QString mainPrefWithArea = mainPref;
     int areaNumber = util->getAreaNumberFromCall(_qrz);
-    qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
+    //qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
     if (areaNumber>=0)
     {
         mainPrefWithArea.append(QString::number(areaNumber));
        // mainPref = mainPref + QString::number(areaNumber);
-        qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPrefWithArea;
+        //qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPrefWithArea;
     }
 
     QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
 
-    qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
-    qDebug() << Q_FUNC_INFO << " - mainPref: " << QString::number(_n) << "/" << mainPref;
+    //qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
+    //qDebug() << Q_FUNC_INFO << " - mainPref: " << QString::number(_n) << "/" << mainPref;
 
 
     setEntity(currentInt);
@@ -812,11 +812,11 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, prefUsed));
     if (subdivisions.length()<1)
     {
-        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running for the main prefix";
+        //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running for the main prefix";
         subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainToUse));
         if (subdivisions.length()<1)
         {
-            qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
+            //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
             subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
         }
     }

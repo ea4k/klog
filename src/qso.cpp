@@ -290,11 +290,11 @@ bool QSO::copy(const QSO& other)
     setLoTWQSL_SENT(other.lotw_qsl_sent);
 
     setMaxBursts(other.max_bursts);
-    qDebug() <<Q_FUNC_INFO << " - 010 " ;
+    //qDebug() <<Q_FUNC_INFO << " - 010 " ;
     setMode(other.mode);
-    qDebug() <<Q_FUNC_INFO << " - 011" ;
-    qDebug() <<Q_FUNC_INFO << ": " << getMode();
-    qDebug() <<Q_FUNC_INFO << " - 012 " ;
+    //qDebug() <<Q_FUNC_INFO << " - 011" ;
+    //qDebug() <<Q_FUNC_INFO << ": " << getMode();
+    //qDebug() <<Q_FUNC_INFO << " - 012 " ;
     setMsShower(other.ms_shower);
     setMyAltitude(other.my_altitude);
     setMyAntenna(other.my_antenna);
@@ -793,7 +793,7 @@ QString QSO::getBandRX()
 bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     QString aux = _c;
 
     if (aux.isNull())
@@ -3386,8 +3386,8 @@ int QSO::toDB(int _qsoId)
        //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
-    qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
-    qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
+    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
+    //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
    //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     queryString.clear();
@@ -3404,13 +3404,13 @@ int QSO::toDB(int _qsoId)
    //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
 
     QSqlQuery query = getPreparedQuery(queryString);
-    qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
     if (_qsoId>0)
     {
        //qDebug() << Q_FUNC_INFO << " - binding ID";
         query.bindValue (":id", _qsoId);
     }
-    qDebug() << Q_FUNC_INFO << " - executing query";
+    //qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
        //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
@@ -3588,7 +3588,7 @@ int QSO::getModeIdFromModeName()
 {
     // We need to save always the submode id
     // If submode is no present, then we will store the mode id
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QSqlQuery query;
     //
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
@@ -3596,10 +3596,10 @@ int QSO::getModeIdFromModeName()
     bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode= ':submode'");
     if (!ok)
     {
-        qDebug() << Q_FUNC_INFO << " - Failed to prepare";
+        //qDebug() << Q_FUNC_INFO << " - Failed to prepare";
         return -1;
     }
-    qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
+    //qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
     query.bindValue (":submode", getMode ());
     //if (haveSubMode)
     //{
@@ -3620,7 +3620,7 @@ int QSO::getModeIdFromModeName()
         {
             if (query.isValid ())
             {
-                qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
+                //qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
                 return query.value (0).toInt ();
             }
             else
