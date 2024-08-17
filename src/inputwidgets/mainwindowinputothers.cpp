@@ -72,7 +72,7 @@ MainWindowInputOthers::~MainWindowInputOthers()
 
 void MainWindowInputOthers::createUI()
 {
-      //qDebug() << Q_FUNC_INFO ;
+   //qDebug() << Q_FUNC_INFO ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     entitiesList.clear();
@@ -157,18 +157,22 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(keepPropCheckBox, 6, 2);
     //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
-
+    entitiesList.clear();
+    entitiesList.append( dataProxy->getEntitiesNames());
     if (entitiesList.size()>1)
     {
         entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
         entityNameComboBox->addItems(entitiesList);
     }
+   //qDebug() << Q_FUNC_INFO << ": Trying to add PropModes";
     propModeList = dataProxy->getPropModeList();
     if (propModeList.size()>1)
     {
+       //qDebug() << Q_FUNC_INFO << ": Adding PropModes";
         propModeList.prepend("00 - " + tr("Not - Not Identified"));
         propModeComboBox->addItems(propModeList);
     }
+
 
     iotaContinentComboBox->addItems(dataProxy->getContinentShortNames());
     iotaNumberLineEdit->setInputMask("000");
@@ -232,7 +236,7 @@ void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
-       //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent);
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_ent<=0)
     {
@@ -249,7 +253,6 @@ void MainWindowInputOthers::setEntity(const int _ent)
 
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
 
-    //qDebug() << "MainWindow::selectCorrectEntity: " << pref << "/" << QString::number(indexC);
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinentFromEntity(_ent);
     //updatePrimarySubDivisions(_ent, QString());
@@ -284,18 +287,18 @@ QString MainWindowInputOthers::getEntityPrefix()
 
 void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _qs << "/ Keep: " << util->boolToQString(_keep);
+   //qDebug() << Q_FUNC_INFO << ": " << _qs << "/ Keep: " << util->boolToQString(_keep);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
-        //qDebug() << Q_FUNC_INFO << " PropMode found" ;
+       //qDebug() << Q_FUNC_INFO << " PropMode found" ;
         propModeComboBox->setCurrentIndex( propModeComboBox->findText(_qs+" -", Qt::MatchContains));
         keepPropCheckBox->setChecked(_keep);
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
+       //qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
         propModeComboBox->setCurrentIndex(0);
         keepPropCheckBox->setChecked(false);
     }
@@ -307,22 +310,21 @@ QString MainWindowInputOthers::getPropModeFromComboBox()
 {
     //logEvent (Q_FUNC_INFO, "Start", Debug);
 
-    //qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
+   //qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
     QString _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
-    //qDebug() << Q_FUNC_INFO << ": - 10" ;
+   //qDebug() << Q_FUNC_INFO << ": - 10" ;
     QString _n = (((propModeComboBox->currentText()).split('-')).at(0)).simplified();
-    //qDebug() << Q_FUNC_INFO << ": - 11: " << _n ;
+   //qDebug() << Q_FUNC_INFO << ": - 11: " << _n ;
 
     if (_n == "00")
     {
-        //qDebug() << Q_FUNC_INFO << ": - 12" ;
+       //qDebug() << Q_FUNC_INFO << ": - 12" ;
         logEvent (Q_FUNC_INFO, "END-1", Debug);
-        //qDebug() << Q_FUNC_INFO << ": - 13" ;
         return QString();
     }
-    //qDebug() << Q_FUNC_INFO << ": - 14" ;
+   //qDebug() << Q_FUNC_INFO << ": - 14" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _pm ;
+   //qDebug() << Q_FUNC_INFO << ": " << _pm ;
     return _pm;
 }
 
@@ -767,7 +769,7 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
 void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QString &_qrz)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
     if (_n<1)
         return;
     currentInt = _n;
@@ -776,18 +778,18 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     QString mainPref = dataProxy->getEntityMainPrefix(_n);
     QString mainPrefWithArea = mainPref;
     int areaNumber = util->getAreaNumberFromCall(_qrz);
-    //qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
+   //qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
     if (areaNumber>=0)
     {
         mainPrefWithArea.append(QString::number(areaNumber));
        // mainPref = mainPref + QString::number(areaNumber);
-        //qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPrefWithArea;
+       //qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPrefWithArea;
     }
 
     QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
 
-    //qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
-    //qDebug() << Q_FUNC_INFO << " - mainPref: " << QString::number(_n) << "/" << mainPref;
+   //qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
+   //qDebug() << Q_FUNC_INFO << " - mainPref: " << QString::number(_n) << "/" << mainPref;
 
 
     setEntity(currentInt);
@@ -812,11 +814,11 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, prefUsed));
     if (subdivisions.length()<1)
     {
-        //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running for the main prefix";
+       //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running for the main prefix";
         subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainToUse));
         if (subdivisions.length()<1)
         {
-            //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
+           //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
             subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
         }
     }
@@ -825,7 +827,7 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     if (subdivisions.count()<1)
         return;
     updatePrimarySubdivisionsComboBox(subdivisions);
-   //qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()

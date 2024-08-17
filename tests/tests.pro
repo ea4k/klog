@@ -13,6 +13,7 @@ SUBDIRS=\
    tst_database \
    tst_locator \
    tst_mainwindowinputqso \
+   tst_mainwindowinputothers \
    tst_qso \
    tst_setuphamlibnetworkwidget \
    tst_setuphamlibserialwidget \

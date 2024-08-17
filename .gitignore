@@ -192,3 +192,13 @@ tests/tst_world/rcc_wrapper.sh
 tests/tst_world/target_wrapper.sh
 tests/tst_world/tst_world
 tests/tst_world/uic_wrapper.sh
+tests/tst_mainwindowinputothers/moc_adif.cpp
+tests/tst_mainwindowinputothers/moc_database.cpp
+tests/tst_mainwindowinputothers/moc_dataproxy_sqlite.cpp
+tests/tst_mainwindowinputothers/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_mainwindowinputothers/moc_mainwindowinputothers.cpp
+tests/tst_mainwindowinputothers/moc_predefs.h
+tests/tst_mainwindowinputothers/moc_qso.cpp
+tests/tst_mainwindowinputothers/moc_queryexecutor.cpp
+tests/tst_mainwindowinputothers/moc_utilities.cpp
+tests/tst_mainwindowinputothers/target_wrapper.sh

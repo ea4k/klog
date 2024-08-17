@@ -5607,7 +5607,6 @@ bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QStr
     return true;
 }
 
-
 QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _entity, const QString &_pref)
 { // Returns the Primary Subdivision for an Entity
   // If _pref is empty, and entity >=0 we look for all the subdivisions of the Entity,

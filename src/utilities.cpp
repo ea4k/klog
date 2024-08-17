@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "utilities.h"
+#include "dataproxy_sqlite.h"
 
 //bool c;
 Utilities::Utilities(const QString &_parentName)

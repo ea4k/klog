@@ -3777,7 +3777,7 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
     dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
-    othersTabWidget->setEntitiesList(dataProxy->getEntitiesNames());
+   // othersTabWidget->setEntitiesList(dataProxy->getEntitiesNames());
     dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
 
     dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));

@@ -139,6 +139,7 @@ public:
     int getAreaNumberFromCall(const QString &_c);
     bool isAOneLetterPrefix(const QChar &_c);
 
+
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);
     QString getDateSQLiteStringFromDate(const QDate &_d);
