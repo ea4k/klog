@@ -771,16 +771,17 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
     if (_n<1)
         return;
     currentInt = _n;
-
     currentPref = _qrz;
+
     QString mainPref = dataProxy->getEntityMainPrefix(_n);
+    QString mainPrefWithArea = mainPref;
     int areaNumber = util->getAreaNumberFromCall(_qrz);
     qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
     if (areaNumber>=0)
     {
-        mainPref.append(QString::number(areaNumber));
+        mainPrefWithArea.append(QString::number(areaNumber));
        // mainPref = mainPref + QString::number(areaNumber);
-        qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPref;
+        qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPrefWithArea;
     }
 
     QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
@@ -790,16 +791,29 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
 
 
     setEntity(currentInt);
-    if ((currentPrefTMP.isEmpty()) && (mainPref.isEmpty()))
+    QString mainToUse, prefUsed;
+    if (showAllCheckBox->isChecked())
+    {
+        mainToUse = mainPref;
+        prefUsed = currentPrefTMP;
+    }
+    else
+    {
+        mainToUse = mainPrefWithArea;
+        prefUsed = currentPrefTMP;
+    }
+
+
+    if ((currentPrefTMP.isEmpty()) && (mainToUse.isEmpty()))
         return;
 
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, currentPrefTMP));
+    subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, prefUsed));
     if (subdivisions.length()<1)
     {
         qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running for the main prefix";
-        subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainPref));
+        subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainToUse));
         if (subdivisions.length()<1)
         {
             qDebug() << Q_FUNC_INFO << " - Subdivisions is empty, running just with the entity";
