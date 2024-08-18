@@ -5620,7 +5620,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
     if ((_pref.length()>0))
     {
        //qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
-        queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix");
+        queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix ORDER BY shortname");
         query.prepare(queryString);
         query.bindValue(":prefix", _pref);
     }
@@ -5633,7 +5633,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
            //qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
             return list;
         }
-        queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc");
+        queryString = QString("SELECT name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc ORDER BY shortname");
         query.prepare(queryString);
         query.bindValue(":dxcc", _entity);
     }

@@ -202,3 +202,6 @@ tests/tst_mainwindowinputothers/moc_qso.cpp
 tests/tst_mainwindowinputothers/moc_queryexecutor.cpp
 tests/tst_mainwindowinputothers/moc_utilities.cpp
 tests/tst_mainwindowinputothers/target_wrapper.sh
+tests/tst_dataproxy/moc_predefs.h
+tests/tst_mainwindowinputothers/tst_mainwindowinputothers
+tests/tst_mainwindowinputothers/tst_mainwindowinputothers

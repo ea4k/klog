@@ -179,7 +179,6 @@ void tst_MainWindowInputOthers::test_Subdivisions()
 
 
     //QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXPwr(), 1.1), "Wrong RX Pwr");
-
 }
 
 

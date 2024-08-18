@@ -54,6 +54,7 @@ private slots:
     void test_modes();
     void test_bands();
     void test_continents();
+    void test_primarySubdivisions();
 
     //void test_getProgresStepForDialog();
 
@@ -191,6 +192,66 @@ void tst_DataProxy::test_continents()
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (13) == "AN", "Continent for Antartica (dxcc=13) failed");
 }
 
+void tst_DataProxy::test_primarySubdivisions()
+{
+    //ps.name = (query.value(0)).toString();
+    //ps.shortName = (query.value(1)).toString();
+    //ps.cqz = (query.value(2)).toInt();
+    //ps.ituz = (query.value(3)).toInt();
+
+    QList<PrimarySubdivision> subdivisions;
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(281, "EA4"));
+
+    QVERIFY2(subdivisions.first().name == "Badajoz", "Primary Subdivision first name failed (EA4)");
+    QVERIFY2(subdivisions.first().shortName == "BA", "Primary Subdivision first shortname failed (EA4)");
+    QVERIFY2(subdivisions.first().cqz == 14, "Primary Subdivision first cqz failed (EA4)");
+    QVERIFY2(subdivisions.first().ituz == 37, "Primary Subdivision first ituz failed (EA4)");
+
+    QVERIFY2(subdivisions.last().name == "Toledo", "Primary Subdivision last name failed (EA4)");
+    QVERIFY2(subdivisions.last().shortName == "TO", "Primary Subdivision last shortname failed (EA4)");
+    QVERIFY2(subdivisions.last().cqz == 14, "Primary Subdivision last cqz failed (EA4)");
+    QVERIFY2(subdivisions.last().ituz == 37, "Primary Subdivision last  ituz failed (EA4)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(281, QString()));
+    QVERIFY2(subdivisions.count() == 47, "Primary Subdivision number failed (281 - Spain)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(1, QString()));
+    QVERIFY2(subdivisions.count() == 20, "Primary Subdivision number failed (1 - Canada)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(50, QString()));
+    QVERIFY2(subdivisions.count() == 32, "Primary Subdivision number failed (50 - Mexico)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(100, QString()));
+    QVERIFY2(subdivisions.count() == 24, "Primary Subdivision number failed (100 - Argentina)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(108, QString()));
+    QVERIFY2(subdivisions.count() == 27, "Primary Subdivision number failed (108 - Brazil)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(272, QString()));
+    QVERIFY2(subdivisions.count() == 18, "Primary Subdivision number failed (272 - Portugal)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(291, QString()));
+    QVERIFY2(subdivisions.count() == 61, "Primary Subdivision number failed (291 - United States)");
+
+    subdivisions.clear();
+    subdivisions.append(dataProxy->getPrimarySubDivisions(339, QString()));
+    QVERIFY2(subdivisions.count() == 47, "Primary Subdivision number failed (339 - Japan)");
+
+    //PrimarySubdivision subdivision;
+    //foreach(subdivision, subdivisions)
+    //{
+    //    qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
+    //}
+   //getPrimarySubDivisions(currentInt, prefUsed)
+}
 QTEST_APPLESS_MAIN(tst_DataProxy)
 
 #include "tst_dataproxy.moc"
