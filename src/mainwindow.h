@@ -159,7 +159,7 @@ private slots:
     //void slotSRXTextChanged();
     //void slotSTXTextChanged();
     void slotUpdateLocator(QString _loc);
-    void slotLocatorTextChanged(const QString &_loc);
+    KLOG_DEPRECATED void slotLocatorTextChanged(const QString &_loc);
     //void slotMyLocatorTextChanged();
     void slotFreqTXChanged(const double _fr);
     void slotFreqRXChanged(const double _fr);

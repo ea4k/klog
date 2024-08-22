@@ -5671,7 +5671,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
     }
     query.finish();
 
-   //qDebug() << Q_FUNC_INFO << " - END" ;
+    qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
     return list;
 }
 
@@ -6729,8 +6729,8 @@ QString DataProxy_SQLite::getContinentShortNameFromEntity(const int _n)
     // SELECT DISTINCT dxcc, bandid, modeid, id, lognumber from log WHERE qsl_rcvd='Y' OR lotw_qsl_rcvd='Y' GROUP BY dxcc, bandid, modeid
     QSqlQuery query;
 
-    QString queryString= QString("SELECT continent FROM entity WHERE dxcc='%1'").arg(_n);
-    //QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE dxcc='%1'").arg(_n);
+    //QString queryString= QString("SELECT continent FROM entity WHERE dxcc='%1'").arg(_n);
+    QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.id WHERE entity.dxcc='%1'").arg(_n);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)

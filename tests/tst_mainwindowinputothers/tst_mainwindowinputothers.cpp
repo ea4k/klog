@@ -172,6 +172,7 @@ void tst_MainWindowInputOthers::test_Subdivisions()
     int currentEntity = 281; // 281 = EA
 
 
+
     mainWindowInputOthers->setIOTAContinentFromEntity(currentEntity);
 
    //qDebug() << Q_FUNC_INFO << ": IOTACont: " << mainWindowInputOthers->iotaContinentComboBox->currentText();

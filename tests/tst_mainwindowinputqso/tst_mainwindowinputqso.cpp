@@ -167,26 +167,37 @@ void tst_MainWindowInputQSO::test_RST2Modes ()
 void tst_MainWindowInputQSO::test_GridLineEdit()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QPalette palRed = mainWindowInputQSO->palRed;
-    QPalette palBlack = mainWindowInputQSO->palBlack;
-    QPalette palWhite = mainWindowInputQSO->palWhite;
+    //QPalette palRed = mainWindowInputQSO->palRed;
+    //QPalette palBlack = mainWindowInputQSO->palBlack;
+    //QPalette palWhite = mainWindowInputQSO->palWhite;
 
-    mainWindowInputQSO->locatorLineEdit->setText ("IN");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN80");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN80de");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN,IN");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN80,IN80");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80,IN80");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN80de,IN80de");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de,IN80de");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN,IN80");
-    mainWindowInputQSO->locatorLineEdit->setText ("IN80de,IN");
-    QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de,IN");
+    QPalette palRed; palRed.setColor(QPalette::Text, Qt::red);
+    QPalette palBlack; palBlack.setColor(QPalette::Text, Qt::black);
+    QPalette palWhite; palWhite.setColor(QPalette::Text, Qt::white);
+    //bool darkMode = mainWindowInputQSO->getDarkMode();
+    //qDebug() << Q_FUNC_INFO << "Color: " <<  mainWindowInputQSO->locatorLineEdit->palette().color().name()
+
+
+        qDebug() << Q_FUNC_INFO << " - DarkMode NOT detected";
+        mainWindowInputQSO->locatorLineEdit->setText ("IN");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN80");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN80de");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN,IN");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN,IN");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN80,IN80");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80,IN80");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN80de,IN80de");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de,IN80de");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN,IN80");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN,IN80");
+        mainWindowInputQSO->locatorLineEdit->setText ("IN80de,IN");
+        QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN80de,IN");
+
+
+
     mainWindowInputQSO->locatorLineEdit->setText ("I");
     QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palRed, "Red Error in grids I");
     mainWindowInputQSO->locatorLineEdit->setText ("IN,");

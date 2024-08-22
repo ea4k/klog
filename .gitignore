@@ -205,3 +205,5 @@ tests/tst_mainwindowinputothers/target_wrapper.sh
 tests/tst_dataproxy/moc_predefs.h
 tests/tst_mainwindowinputothers/tst_mainwindowinputothers
 tests/tst_mainwindowinputothers/tst_mainwindowinputothers
+tests/tst_mainwindowinputqso/moc_predefs.h
+tests/tst_utilities/moc_predefs.h

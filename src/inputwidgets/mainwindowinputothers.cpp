@@ -761,6 +761,8 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
     if (listOfSubdivisions.count()<1)
         return;
 
+    listOfSubdivisions.sort();
+    listOfSubdivisions.removeDuplicates();
     listOfSubdivisions.prepend("00-" + tr("Not selected") + " (000)");
 
     entityPrimDivComboBox->addItems(listOfSubdivisions);

@@ -364,11 +364,12 @@ void tst_Utilities::test_getPrefixFromCall()
 
     QVERIFY2(util->getPrefixFromCall("K1AA", true) == "K1", "K1AA-True" );
     QVERIFY2(util->getPrefixFromCall("K1A", true) == "K1", "K1A-True");
+    //qDebug() << Q_FUNC_INFO << ": TESTING: " << util->getPrefixFromCall("G1", true);
     QVERIFY2(util->getPrefixFromCall("G1", true) == "G1", "G1-True");
     QVERIFY2(util->getPrefixFromCall("I100", true) == "I1", "I100-True");
     QVERIFY2(util->getPrefixFromCall("K100A", true) == "K1", "K1-True");
     QVERIFY2(util->getPrefixFromCall("I100KK", true) == "I1", "I100KK-True");
-    //qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
+    qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
     QVERIFY2(util->getPrefixFromCall("FB1K", true) == "FB1", "FB1K-True");
     QVERIFY2(util->getPrefixFromCall("E", true) == QString(), "E-True");
     QVERIFY2(util->getPrefixFromCall("EA", true) == "EA", "EA-True");
@@ -386,6 +387,19 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("VK9AA", true) == "VK9AA", "VK9AA-True");
     QVERIFY2(util->getPrefixFromCall("VK9MA", true) == "VK9M", "VK9MA-True");
     QVERIFY2(util->getPrefixFromCall("4U2STAYHOME", true) == "4U2STAYHOME", "4U2STAYHOME-True");
+
+    QVERIFY2(util->getAreaNumberFromCall("EA") == -1, "Area call: EA");
+    QVERIFY2(util->getAreaNumberFromCall("EA4K") == 4, "Area call: EA4K");
+    QVERIFY2(util->getAreaNumberFromCall("EA8K") == 8, "Area call: EA8K");
+    QVERIFY2(util->getAreaNumberFromCall("A41A") == 1, "Area call: A41A");
+    QVERIFY2(util->getAreaNumberFromCall("2Q0VIM") == 0, "Area call: 2Q0VIM");
+    QVERIFY2(util->getAreaNumberFromCall("KL7AA") == 7, "Area call: KL7AA");
+    //QVERIFY2(util->getAreaNumberFromCall("EA4K/3") == 3, "Area call: EA4K/3");
+    //QVERIFY2(util->getAreaNumberFromCall("I100KK") == 100, "Area call: I100KK");
+    //QVERIFY2(util->getAreaNumberFromCall("RP67ST") == 67, "Area call: RP67ST");
+
+
+
 }
 
 void tst_Utilities::test_logLevels()
@@ -477,6 +491,7 @@ void tst_Utilities::test_getMainCallFromComplexCall()
     QVERIFY2(util->getMainCallFromComplexCall("EA4K/F")=="F", "EA4K/F");
     QVERIFY2(util->getMainCallFromComplexCall("EA4K/1")=="EA4K", "EA4K/1");
     QVERIFY2(util->getMainCallFromComplexCall("VK9/EA4K")=="VK9", "VK9/EA4K");
+    //QVERIFY2(util->getMainCallFromComplexCall("5B/LY1DF/LGT")=="LY1DF", "5B/LY1DF/LGT");
 }
 
 void tst_Utilities::test_isValidEmail()
