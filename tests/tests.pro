@@ -3,6 +3,7 @@ SUBDIRS=\
    tst_main \
    tst_wizard \
    tst_adif \
+   tst_callsign \
    tst_dxspot \
    tst_frequency \
    tst_utilities \

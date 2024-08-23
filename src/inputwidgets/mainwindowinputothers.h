@@ -32,6 +32,7 @@
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
 #include "../utilities.h"
+#include "../callsign.h"
 #include "../klogdefinitions.h"
 #include "../adif.h"
 

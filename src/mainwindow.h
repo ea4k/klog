@@ -80,6 +80,7 @@
 #include "qso.h"
 #include "updatesettings.h"
 #include "klogdefinitions.h"
+#include "callsign.h"
 #include <memory>
 
 #include <memory>

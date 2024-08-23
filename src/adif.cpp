@@ -1,5 +1,5 @@
 /***************************************************************************
-                          utilities.cpp  -  description
+                          adif.cpp  -  description
                              -------------------
     begin                : jun 2015
     copyright            : (C) 2015 by Jaime Robles

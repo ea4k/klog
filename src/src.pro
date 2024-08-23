@@ -75,6 +75,7 @@ HEADERS += setupdialog.h \
     awarddxmarathon.h \
     awards.h \
     awardswidget.h \
+    callsign.h \
     charts/statsfieldperbandwidget.h \
     charts/statsgeneralchartwidget.h \
     charts/statsdxccsonsatswidget.h \
@@ -173,6 +174,7 @@ SOURCES += main.cpp \
     aboutdialog.cpp \
     adif.cpp \
     awardswidget.cpp \
+    callsign.cpp \
     charts/statsfieldperbandwidget.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \

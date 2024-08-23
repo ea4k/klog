@@ -2033,6 +2033,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
     //qDebug()<< Q_FUNC_INFO << " - 10" ;
+    Callsign callsign("EA4K");
     if (_qrz.length()<1)
     {
         //qDebug()<< Q_FUNC_INFO << " - 11" ;
