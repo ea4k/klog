@@ -24,6 +24,7 @@ HEADERS += ../../src/setupdialog.h \
     ../../src/awarddxmarathon.h \
     ../../src/awards.h \
     ../../src/awardswidget.h \
+    ../../src/callsign.h \
     ../../src/charts/statsfieldperbandwidget.h \
     ../../src/charts/statsgeneralchartwidget.h \
     ../../src/charts/statsdxccsonsatswidget.h \
@@ -123,6 +124,7 @@ SOURCES += tst_main.cpp \
     ../../src/awarddxmarathon.cpp \
     ../../src/awards.cpp \
     ../../src/awardswidget.cpp \
+    ../../src/callsign.cpp \
     ../../src/charts/statsfieldperbandwidget.cpp \
     ../../src/charts/statsgeneralchartwidget.cpp \
     ../../src/charts/statsdxccsonsatswidget.cpp \

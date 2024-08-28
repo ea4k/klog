@@ -62,8 +62,10 @@ struct Coordinate {
 struct PrimarySubdivision { // Used to return data to MainWindow for each prefix
     QString name;
     QString shortName;
+    QString prefix;
     int cqz;
     int ituz;
+    int dxcc;
 };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))

@@ -38,6 +38,7 @@ HEADERS += \
     ../../src/setuppages/setuppageuserdata.h \
     ../../src/setuppages/setuppageworldeditor.h \
     ../../src/aboutdialog.h \
+    ../../src/callsign.h \
     ../../src/tipsdialog.h \
     ../../src/filemanager.h \
     ../../src/fileawardmanager.h \
@@ -114,6 +115,7 @@ HEADERS += \
 SOURCES +=  tst_mainwindow.cpp \
     ../../src/setupdialog.cpp \
     ../../src/aboutdialog.cpp \
+    ../../src/callsign.cpp \
     ../../src/tipsdialog.cpp \
     ../../src/filemanager.cpp \
     ../../src/fileawardmanager.cpp \

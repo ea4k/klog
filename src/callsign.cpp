@@ -71,7 +71,9 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
     }
 }
 
-;QRegularExpression Callsign::callsignRegEx()
+Callsign::~Callsign(){}
+
+QRegularExpression Callsign::callsignRegEx()
 {
     return QRegularExpression(callsignRegExString(), QRegularExpression::CaseInsensitiveOption);
 }
@@ -89,6 +91,7 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
 ;QString Callsign::prefixRegExString()
 {
     qDebug() << Q_FUNC_INFO;
+    // Matches prefix: "^([A-Z0-9]+[\/])?([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+)([A-Z]+)([\/][A-Z0-9]+)?"
     // E73 prefix is not correctly matched, it is matched as EA400 so simple prefix is not OK
 
     return QString("^((([A-Z])|([A-Z]{1,2})|([0-9][A-Z])|([A-Z][0-9]))([0-9]*))$");
@@ -112,7 +115,7 @@ int Callsign::getAreaNumber()
         return -1;
 }
 
-QString Callsign::getSimplePrefix()
+QString Callsign::getHostPrefixWithoutNumber()
 {
     if (prefValid)
         return hostPrefixWithoutAreaNumber;

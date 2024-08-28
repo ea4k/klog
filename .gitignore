@@ -211,3 +211,4 @@ tests/tst_callsign/moc_callsign.cpp
 tests/tst_callsign/moc_predefs.h
 tests/tst_callsign/target_wrapper.sh
 tests/tst_callsign/tst_callsign
+tests/tst_adif/moc_predefs.h

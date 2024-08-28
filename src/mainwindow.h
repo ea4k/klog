@@ -78,9 +78,7 @@
 #include "widgets/map/mapwindowwidget.h"
 #include "widgets/showkloglogwidget.h"
 #include "qso.h"
-#include "updatesettings.h"
 #include "klogdefinitions.h"
-#include "callsign.h"
 #include <memory>
 
 #include <memory>

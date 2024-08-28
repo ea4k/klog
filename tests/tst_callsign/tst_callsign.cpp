@@ -102,7 +102,7 @@ void tst_Callsign::test_prefixes()
 
     QCOMPARE(pref.isValidPrefix(), true);
     QCOMPARE(pref.getHostPrefix(), fullprefix);
-    QCOMPARE(pref.getSimplePrefix(), prefix);
+    QCOMPARE(pref.getHostPrefixWithoutNumber(), prefix);
     QCOMPARE(pref.getAreaNumber(), areanumber);
 }
 

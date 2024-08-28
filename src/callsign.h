@@ -43,7 +43,7 @@ class Callsign : public QObject
 public:
     Callsign(const QString &callsign,
                       QObject *parent = nullptr);
-
+    ~Callsign();
     static QStringList secondarySpecialSuffixes;
 
     QString getCallsign();
@@ -55,7 +55,7 @@ public:
     QString getSuffix();
     QString getSuffixWithDelimiter();
     QString getWPXPrefix();
-    QString getSimplePrefix();              // The prefix without the area number
+    QString getHostPrefixWithoutNumber();              // The prefix without the area number
     int getAreaNumber();                    // Just the prefix area number
 
     bool isValid();                         // True if it is a full callsign

@@ -55,7 +55,10 @@ private slots:
     void test_bands();
     void test_EntityAndPrefixes();  // getEntityMainPrefix
     void test_continents();
+
+    void test_subdivisions_data();
     void test_primarySubdivisions();
+
 
     //void test_getProgresStepForDialog();
 
@@ -119,6 +122,27 @@ void tst_DataProxy::test_modes()
     QVERIFY2(dataProxy->getSubModeFromId (dataProxy->getIdFromModeName ("FT8")) == "FT8", "Submode from Id failed");
 }
 */
+
+void tst_DataProxy::test_subdivisions_data()
+{
+    //struct PrimarySubdivision is defined in klogdefinitions.h
+    // Data is in database/db_adif_primary_subdvisions_data.cpp
+
+    /*
+    QTest::addColumn<QString>("string");
+    QTest::addColumn<int>("dxcc");
+    QTest::addColumn<QString>("prefix");
+    QTest::addColumn<QString>("name");
+    QTest::addColumn<QString>("shortname");
+    QTest::addColumn<int>("cqz");
+    QTest::addColumn<int>("ituz");
+
+
+    QTest::newRow("EA8-GC") << 29 << "EA8" << "Las Palmas" << "GC" << "33" << "36";
+    QTest::newRow("EA8-TF") << 29 << "EA8" << "Tenerife" << "TF" << "33" << "36";
+    QTest::newRow("EA6-IB") << 21 << "EA6" << "Baleares" << "IB" << "14" << "37";
+    */
+}
 
 void tst_DataProxy::test_modes_data()
 {
@@ -216,11 +240,6 @@ void tst_DataProxy::test_continents()
 
 void tst_DataProxy::test_primarySubdivisions()
 {
-    //ps.name = (query.value(0)).toString();
-    //ps.shortName = (query.value(1)).toString();
-    //ps.cqz = (query.value(2)).toInt();
-    //ps.ituz = (query.value(3)).toInt();
-
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
     // Testing that the functions are working

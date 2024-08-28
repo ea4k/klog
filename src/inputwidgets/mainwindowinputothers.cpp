@@ -26,6 +26,8 @@
 
 
 #include "mainwindowinputothers.h"
+#include "../adif.h"
+#include "../callsign.h"
 
 MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
@@ -774,41 +776,21 @@ void MainWindowInputOthers::updatePrimarySubDivisions(const int _n, const QStrin
    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
     if (_n<1)
         return;
+    Callsign callsign(_qrz);
     currentInt = _n;
-    currentPref = _qrz;
 
     QString mainPref = dataProxy->getEntityMainPrefix(_n);
-    QString mainPrefWithArea = mainPref;
-    int areaNumber = util->getAreaNumberFromCall(_qrz);
-   //qDebug() << Q_FUNC_INFO << " - AreaNumber: " << QString::number(areaNumber);
-    if (areaNumber>=0)
-    {
-        mainPrefWithArea.append(QString::number(areaNumber));
-       // mainPref = mainPref + QString::number(areaNumber);
-       //qDebug() << Q_FUNC_INFO << " - NEW mainPref: " << mainPrefWithArea;
-    }
+    QString mainToUse = mainPref + QString::number(callsign.getAreaNumber());  // The default is that showAll is not checked
+    QString prefUsed = callsign.getHostPrefix();                                // The default is that showAll is not checked
 
-    QString currentPrefTMP = util->getPrefixFromCall(_qrz, !showAllCheckBox->isChecked());
-
-   //qDebug() << Q_FUNC_INFO << " - currentPref: " << QString::number(_n) << "/" << currentPrefTMP;
-   //qDebug() << Q_FUNC_INFO << " - mainPref: " << QString::number(_n) << "/" << mainPref;
-
-
-    setEntity(currentInt);
-    QString mainToUse, prefUsed;
     if (showAllCheckBox->isChecked())
     {
         mainToUse = mainPref;
-        prefUsed = currentPrefTMP;
-    }
-    else
-    {
-        mainToUse = mainPrefWithArea;
-        prefUsed = currentPrefTMP;
+        prefUsed = callsign.getHostPrefixWithoutNumber();
     }
 
 
-    if ((currentPrefTMP.isEmpty()) && (mainToUse.isEmpty()))
+    if ((mainToUse.isEmpty()) && (prefUsed.isEmpty()))
         return;
 
     QList<PrimarySubdivision> subdivisions;
