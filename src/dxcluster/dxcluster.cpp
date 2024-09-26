@@ -125,11 +125,21 @@ void DXClusterWidget::init()
     dxSpotColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
 #endif
 
-    //dxSpotColor.setNamedColor("slategrey");
+void DXClusterWidget::init()
+{
+    // Set color for DX spots based on Qt version
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+    dxSpotColor.fromString(QAnyStringView(("slategrey")));
+#else
+    dxSpotColor.setNamedColor("slategrey");
+#endif
+
+    // Initialize connection status
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     showDxMarathon = false;
 
+    // Initialize visibility settings
     showhf = true;
     showvhf = true;
     showwarc = true;
@@ -138,18 +148,33 @@ void DXClusterWidget::init()
     showann = true;
     showwwv = true;
     showwcy = true;
+
+    // Other settings
     saveSpots = false;
     myQrz = QString();
     currentLog = 0;
-    server = "dxfun.com";
-    port = quint16(8000);
+
+    bool useSecondaryServer = false; // Change this to true to use the secondary server
+    if (useSecondaryServer) {
+        server = "9m2pju.hamradio.my"; // Use secondary server
+        port = quint16(7300);          // Use secondary port
+    } else {
+        server = "dxfun.com";          // Default server
+        port = quint16(8000);          // Default port
+    }
+
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
 
-    dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
+    // Create a new DX cluster spot item
+    dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget,
+        tr("Click on connect to connect to the DX-Cluster"),
+        awards->getDefaultColor());
     Q_UNUSED(item);
-    createActions ();
-    //TODO: Check how to add an item in a different way
+
+    createActions();
+    // TODO: Check how to add an item in a different way
 }
+
 
 void DXClusterWidget::setMyQRZ(const QString &_qrz)
 {
@@ -665,15 +690,20 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 
 void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
 {
-   //qDebug() << Q_FUNC_INFO;
-    server = clusterToConnect;
-    port = quint16(portToConnect);
-    if ((server.length()< 3) || (port <= 0))
-    {
+    // qDebug() << Q_FUNC_INFO;
+
+    // Check for valid server and port inputs
+    if ((clusterToConnect == "9m2pju.hamradio.my" && portToConnect == 7300) ||
+        (clusterToConnect == "dxfun.com" && portToConnect == 8000)) {
+        server = clusterToConnect;
+        port = quint16(portToConnect);
+    } else {
+        // Fallback to default server if inputs are invalid
         server = "dxfun.com";
-        port = 8000;
+        port = quint16(8000);
     }
 }
+
 
 void DXClusterWidget::setDXMarathon (const bool _enable)
 {
