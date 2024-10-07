@@ -118,7 +118,7 @@ public:
     int getNumberOfQsos(int _logNumber = -1);
     int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
-    bool populateTablePrimarySubdivisions(const bool NoTmp);
+    bool populateTablePrimarySubdivisions();
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
