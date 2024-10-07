@@ -29,7 +29,6 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-
 PKGVERSION = 2.4.0
 VERSION = 2.4.0
 
@@ -343,12 +342,16 @@ DISTFILES += Changelog COPYING \
 unix:!mac {
     message(unix:!mac)
     DEFINES += APP_LINUX
-    CONFIG  += c++11
+    #CONFIG  += c++11
+    CONFIG  += c++20
+
     #QMAKE_CXXFLAGS += --coverage
     #LIBS += -lgcov
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
 #    QT += dbus
+    #CXXFLAGS += -Wall -Werror -Wno-error=template-id-cdtor
+    #CXXFLAGS += -Wtemplate-id-cdtor
     isEmpty(PREFIX):PREFIX = /usr
     BINDIR = $$PREFIX/bin
     DATADIR = $$PREFIX/share

@@ -2082,9 +2082,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
-    othersTabWidget->updatePrimarySubDivisions(currentEntity, _qrz);
-    //othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, !othersTabWidget->getShowAll()));
-    //othersTabWidget->updatePrimarySubDivisions(currentEntity, util->getPrefixFromCall(_qrz, true));
+
+    //othersTabWidget->setEntityAndPrefix(currentEntity, util->getPrefixFromCall(_qrz, !othersTabWidget->getShowAll()));
+    //othersTabWidget->setEntityAndPrefix(currentEntity, util->getPrefixFromCall(_qrz, true));
     //othersTabWidget->setEntity(currentEntity);
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
@@ -2137,7 +2137,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
             showStatusOfDXCC(_entityStatus);
             showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
-            othersTabWidget->setIOTAContinentFromEntity(currentEntity);
+            //othersTabWidget->setEntity(currentEntity);
+            othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
             // we need to update the list of Primary Subdivisions
 
@@ -4780,7 +4781,7 @@ void MainWindow::qsoToEdit (const int _qso)
     othersTabWidget->setWWFF_Ref(qsoE.getWWFF_Ref());
         // Next two lines must be together. First we need to define the list of state for the call
         // second step is to select the state.
-    othersTabWidget->updatePrimarySubDivisions(qsoE.getDXCC(), qsoE.getCall());
+    othersTabWidget->setEntityAndPrefix(qsoE.getDXCC(), qsoE.getCall());
     othersTabWidget->setState(qsoE.getState());
 
     //qDebug() << Q_FUNC_INFO << " - in default - 100: " << QString::number(currentEntity)  ;
@@ -4805,6 +4806,7 @@ void MainWindow::qsoToEdit (const int _qso)
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
     othersTabWidget->setEntity(currentEntity);
+
 
     //qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
     EntityStatus _entityStatus;

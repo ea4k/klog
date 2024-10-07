@@ -28,7 +28,7 @@
 Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
     fullCallsign(callsign.toUpper()), areaNumber(0), valid(false), prefValid(false)
 {
-    qDebug() << Q_FUNC_INFO << ": " << callsign;
+    //qDebug() << Q_FUNC_INFO << ": " << callsign;
 
     QRegularExpression callsignRE = callsignRegEx();
     QRegularExpressionMatch match = callsignRE.match(fullCallsign);
@@ -53,13 +53,13 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
     {
         prefValid = true;
 
-        qDebug() << Q_FUNC_INFO << " -  match1: " << matchPrefix.captured(1);
-        qDebug() << Q_FUNC_INFO << " -  match2: " << matchPrefix.captured(2);
-        qDebug() << Q_FUNC_INFO << " -  match3: " << matchPrefix.captured(3);
-        qDebug() << Q_FUNC_INFO << " -  match4: " << matchPrefix.captured(4);
-        qDebug() << Q_FUNC_INFO << " -  match5: " << matchPrefix.captured(5);
-        qDebug() << Q_FUNC_INFO << " -  match6: " << matchPrefix.captured(6);
-        qDebug() << Q_FUNC_INFO << " -  match7: " << matchPrefix.captured(7);
+        //qDebug() << Q_FUNC_INFO << " -  match1: " << matchPrefix.captured(1);
+        //qDebug() << Q_FUNC_INFO << " -  match2: " << matchPrefix.captured(2);
+        //qDebug() << Q_FUNC_INFO << " -  match3: " << matchPrefix.captured(3);
+        //qDebug() << Q_FUNC_INFO << " -  match4: " << matchPrefix.captured(4);
+        //qDebug() << Q_FUNC_INFO << " -  match5: " << matchPrefix.captured(5);
+        //qDebug() << Q_FUNC_INFO << " -  match6: " << matchPrefix.captured(6);
+        //qDebug() << Q_FUNC_INFO << " -  match7: " << matchPrefix.captured(7);
         hostPrefix                  = matchPrefix.captured(1);      // Full prefix
         hostPrefixWithoutAreaNumber = matchPrefix.captured(4);      // The prefix without the area number
         areaNumber                  = matchPrefix.captured(7).toInt();      // Just the area number (optional)
@@ -90,7 +90,7 @@ QRegularExpression Callsign::callsignRegEx()
 
 ;QString Callsign::prefixRegExString()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     // Matches prefix: "^([A-Z0-9]+[\/])?([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+)([A-Z]+)([\/][A-Z0-9]+)?"
     // E73 prefix is not correctly matched, it is matched as EA400 so simple prefix is not OK
 

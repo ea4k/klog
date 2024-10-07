@@ -137,7 +137,7 @@ void tst_MainWindowInputOthers::test_Setters()
     //QVERIFY2(mainWindowInputOthers->getPropModeFromComboBox() == "SAT", "Wrong wrong PROP_MODE (SAT)");
 /*
 
-    othersTabWidget->updatePrimarySubDivisions(qsoE.getDXCC(), qsoE.getCall());
+    othersTabWidget->setEntityAndPrefix(qsoE.getDXCC(), qsoE.getCall());
     othersTabWidget->setState(qsoE.getState());
 
 */
@@ -171,9 +171,6 @@ void tst_MainWindowInputOthers::test_Subdivisions()
     mainWindowInputOthers->clear(true);
     int currentEntity = 281; // 281 = EA
 
-
-
-    mainWindowInputOthers->setIOTAContinentFromEntity(currentEntity);
 
    //qDebug() << Q_FUNC_INFO << ": IOTACont: " << mainWindowInputOthers->iotaContinentComboBox->currentText();
    //qDebug() << Q_FUNC_INFO << ": " << mainWindowInputOthers->getEntityPrefix();

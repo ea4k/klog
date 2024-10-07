@@ -1,4 +1,4 @@
-
+ODO: Working in void MainWindowInputOthers::setEntityAndPrefix
 TODO-Bug: EA8, EA9 fails for subdivisions, it is detected as EA
 TODO-Bug: CT9 is detected as Portugal but subdivision is properly detected
 

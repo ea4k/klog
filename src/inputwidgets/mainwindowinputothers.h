@@ -44,13 +44,12 @@ public:
     ~MainWindowInputOthers();
 
     void setEntitiesList(const QStringList _qs);
-    void setEntity(const int _n);
+    void setEntity(const int _n);               // Move the external call to setEntityAndPrefix
     int getEntity();
     QString getEntityPrefix();
-
-    void updatePrimarySubDivisions(const int _n, const QString &_qrz);   // Receives the entity & prefix of the call to check if
-                                                                 // It is possible to focus the primary
-                                                                // subdivision
+    void setEntityAndPrefix(const int _entity, const QString &_qrz); // Receives the entity & prefix of the call to check if
+                                                                // It is possible to focus the primary
+                                                                // subdivision. Updates also the IOTA continent
 
     void setPropMode(const QString &_qs, bool _keep);
     QString getPropModeFromComboBox();
@@ -80,7 +79,7 @@ public:
 
     void setIOTA(const QString &_qs);
     QString getIOTA();
-    void setIOTAContinentFromEntity(const int _n);
+
     void setIOTAContinent(const QString &_qs);
     bool isIOTAModified();
     void clearIOTA();
@@ -136,7 +135,7 @@ private:
     QLineEdit *userDefinedADIFValueLineEdit;
     QStringList adifValidTypes;
 
-    QString currentPref;    // Just a cache to be able to rewrite the subdivisions combobox
+    KLOG_DEPRECATED QString currentPref;    // Just a cache to be able to rewrite the subdivisions combobox
     int currentInt;         // if the showAllCheckBox is toggled
 
     QString sota_ref, vucc_grids, pota_ref, sig, sig_info, wwff_ref;
