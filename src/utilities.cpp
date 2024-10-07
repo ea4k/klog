@@ -24,8 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "utilities.h"
-#include "dataproxy_sqlite.h"
-
+#include <QRegularExpression>
 //bool c;
 Utilities::Utilities(const QString &_parentName)
 {
@@ -1343,7 +1342,15 @@ bool Utilities::isValidGrid(const QString &_b)
 bool Utilities::isValidGrid_ext(const QString &_b)
 {// TODO: Implement the checks
  // https://www.adif.org/314/ADIF_314.htm#QSO_Field_GRIDSQUARE_EXT
-    return true;
+    QString testLocator = _b.toUpper();
+    QRegularExpression rx;
+    rx.setPattern("^([A-X][A-X])([0-9][0-9])?$");
+    if (rx.match(testLocator).hasMatch())
+    {
+        //qDebug() << Q_FUNC_INFO << ": " << testLocator;
+        return true;
+    }
+    return false;
 }
 
 bool Utilities::isValidVUCCGrids(const QString &_b)

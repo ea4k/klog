@@ -41,7 +41,8 @@ class Frequency: public QObject
 public:
     //Frequency() : freq(0.0), bandInMHz(""), tolerance(0.0) {};
     Frequency();
-    Frequency(const Frequency &f);
+    //Frequency(const Frequency &f);
+    Frequency(const Frequency &f) : QObject(), freq(f.freq) {}
     Frequency(const double _f, FreqUnits _u = MHz);
     //Frequency(const QString &_parentName);
     //Frequency(const QString &_parentName, const Frequency &_f);

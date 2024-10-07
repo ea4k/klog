@@ -28,9 +28,9 @@
 
 Frequency::Frequency(){}
 
-Frequency::Frequency(const Frequency &f){
-    freq = f.freq;
-}
+//Frequency::Frequency(const Frequency &f) {
+//    freq = f.freq;
+//}
 
 Frequency::Frequency(const double _f, FreqUnits _u)
 {
