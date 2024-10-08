@@ -287,6 +287,10 @@ OTHER_FILES += \
 
 message (More...)
 RESOURCES += klog.qrc
+#DESTDIR = .
+#OBJECTS_DIR = .
+#MOC_DIR = .
+#RCC_DIR = .
 DESTDIR = build/target/
 OBJECTS_DIR = build/obj/
 MOC_DIR = build/moc/
