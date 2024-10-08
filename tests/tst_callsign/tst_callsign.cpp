@@ -109,6 +109,9 @@ void tst_Callsign::test_prefixes()
 
 void tst_Callsign::test_prefixes2()
 {
+
+    Callsign call("EA4K");
+    QVERIFY2(call.getCallsign() == "EA4K", "Wrong call received");
     //qDebug() << Q_FUNC_INFO;
     /*
     QString aux;

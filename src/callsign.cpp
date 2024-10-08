@@ -123,22 +123,22 @@ QString Callsign::getHostPrefixWithoutNumber()
         return QString();
 }
 
-;QString Callsign::getHostPrefixWithDelimiter()
+QString Callsign::getHostPrefixWithDelimiter()
 {
     return hostPrefixWithDelimiter;
 }
 
-;QString Callsign::getBase()
+QString Callsign::getBase()
 {
     return base;
 }
 
-;QString Callsign::getBasePrefix()
+QString Callsign::getBasePrefix()
 {
     return basePrefix;
 }
 
-;QString Callsign::getBasePrefixNumber()
+QString Callsign::getBasePrefixNumber()
 {
     return basePrefixNumber;
 }
@@ -153,7 +153,7 @@ QString Callsign::getHostPrefixWithoutNumber()
     return suffixWithDelimiter;
 }
 
-;QString Callsign::getWPXPrefix()
+QString Callsign::getWPXPrefix()
 {
     if ( !isValid() )
         return QString();
@@ -255,7 +255,7 @@ bool Callsign::isValidPrefix()
 
 // Based on wiki information
 // https://en.wikipedia.org/wiki/Amateur_radio_call_signs
-;QStringList Callsign::secondarySpecialSuffixes =
+QStringList Callsign::secondarySpecialSuffixes =
     {
         "A",   // operator at a secondary location registered with the licensing authorities
         "AM",  // aeronautical mobile

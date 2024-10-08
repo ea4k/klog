@@ -1,3 +1,6 @@
+#QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage -O0
+#LIBS += -lgcov
+
 TEMPLATE=subdirs
 SUBDIRS=\
    tst_main \

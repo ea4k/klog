@@ -346,6 +346,7 @@ unix:!mac {
     CONFIG  += c++20
 
     #QMAKE_CXXFLAGS += --coverage
+    #QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage -O0
     #LIBS += -lgcov
 # Translations should be copied in /usr/share/klog/translations
 # https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard

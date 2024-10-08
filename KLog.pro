@@ -31,7 +31,7 @@ SUBDIRS += src \
 message (Compiling)
 CONFIG += no_testcase_installs
 unix:!mac {
-    QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage -O0 -g
-    QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage -O0 -g
-    LIBS += -lgcov
+   # QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage -O0 -g
+   # QMAKE_LDFLAGS += -fprofile-arcs -ftest-coverage -O0 -g
+   # LIBS += -lgcov
 }

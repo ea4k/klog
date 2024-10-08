@@ -65,7 +65,8 @@ private slots:
     void test_getPrefixFromCall();
     void test_getMainCallFromComplexCall();
     void test_isValidEmail();
-
+    void test_QSL();
+    
 private:
   Utilities *util;
   DataProxy_SQLite *dataProxy;
@@ -504,6 +505,18 @@ void tst_Utilities::test_isValidEmail()
     QVERIFY2(util->isValidEmail("test@gmail.") == false, "test@gmail.");
     QVERIFY2(util->isValidEmail("test@co") == false, "test@co");
     QVERIFY2(util->isValidEmail("gmail") == false, "gmail");
+}
+
+void tst_Utilities::test_QSL()
+{
+  QVERIFY2(util->isValidQSL_Rcvd("Y"), "Y is a valid QSL RCVD");
+  QVERIFY2(util->isValidQSL_Rcvd("N"), "N is a valid QSL RCVD");
+  QVERIFY2(util->isValidQSL_Rcvd("R"), "R is a valid QSL RCVD");
+  QVERIFY2(util->isValidQSL_Rcvd("I"), "I is a valid QSL RCVD");
+  QVERIFY2(util->isValidQSL_Rcvd("V"), "V is a valid QSL RCVD");
+  QVERIFY2(util->isValidQSL_Rcvd("I"), "Y is a valid QSL RCVD");
+  QVERIFY2(!util->isValidQSL_Rcvd("H"), "H is not a valid QSL RCVD");
+  QVERIFY2(!util->isValidQSL_Rcvd("K"), "K is not a valid QSL RCVD");
 }
 
 QTEST_APPLESS_MAIN(tst_Utilities)
