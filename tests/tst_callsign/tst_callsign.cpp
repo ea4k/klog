@@ -46,6 +46,9 @@ private slots:
     void test_prefixes_data();
     void test_prefixes();
     void test_prefixes2();
+    void test_validCallsign_data();
+    void test_validCallsign();
+
 
 private:
     //Callsign *callsign;
@@ -134,6 +137,36 @@ void tst_Callsign::test_prefixes2()
     }
     */
 }
+
+
+void tst_Callsign::test_validCallsign_data()
+{
+    QTest::addColumn<QString>("callsign");
+    QTest::addColumn<bool>("isValid");
+
+    //Add valid callsigns with different formats
+    QTest::newRow("Basic") << "EA4K" << true;
+    QTest::newRow("With Prefix") << "EA/EA4K" << true;
+    QTest::newRow("With Suffix") << "EA4K/P" << true;
+    QTest::newRow("With Numbers") << "EA42K" << true;
+
+    // Add invalid callsigns
+    QTest::newRow("With Numbers at the end") << "EA42K11111" << false;
+    QTest::newRow("With only numbers") << "21243434" << false;
+    QTest::newRow("With only letters") << "KDSHDAUD" << false;
+    QTest::newRow("With strange characters end") << "EA4K%" << false;
+    QTest::newRow("With strange characters begining") << "%EA4K" << false;
+    QTest::newRow("With strange characters middle") << "EA%4K" << false;
+}
+
+void  tst_Callsign::test_validCallsign()
+{
+    QFETCH(QString, callsign);
+    QFETCH(bool, isValid);
+    Callsign c(callsign);
+    QCOMPARE(c.isValid(), isValid);
+}
+
 
 QTEST_APPLESS_MAIN(tst_Callsign)
 

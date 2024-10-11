@@ -78,17 +78,18 @@ QRegularExpression Callsign::callsignRegEx()
     return QRegularExpression(callsignRegExString(), QRegularExpression::CaseInsensitiveOption);
 }
 
-;QRegularExpression Callsign::prefixRegEx()
+QRegularExpression Callsign::prefixRegEx()
 {
     return QRegularExpression(prefixRegExString(), QRegularExpression::CaseInsensitiveOption);
 }
 
-;QString Callsign::callsignRegExString()
-{
-    return QString("^(([A-Z0-9]+)[\\/])?(([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+)([A-Z]+))([\\/]([A-Z0-9]+))?");
+QString Callsign::callsignRegExString()
+{   // The REGEX can still get more group names
+    //   ^(?<fullcall>(?<pref>[A-Z0-9]{1,2}[0-9]?\/)?(?<fullhomepref>(?<homepref>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<areanumber>[0-9]|[0-9]+))(?<suffix>[A-Z]+))([\/](?<additionalsuffix>[A-Z0-9]+))?
+    return QString("^(([A-Z0-9]{1,2}[0-9]?\\/)?(([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+))([A-Z]+))([\\/]([A-Z0-9]+))?");
 }
 
-;QString Callsign::prefixRegExString()
+QString Callsign::prefixRegExString()
 {
     //qDebug() << Q_FUNC_INFO;
     // Matches prefix: "^([A-Z0-9]+[\/])?([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+)([A-Z]+)([\/][A-Z0-9]+)?"
@@ -97,12 +98,12 @@ QRegularExpression Callsign::callsignRegEx()
     return QString("^((([A-Z])|([A-Z]{1,2})|([0-9][A-Z])|([A-Z][0-9]))([0-9]*))$");
 }
 
-;QString Callsign::getCallsign()
+QString Callsign::getCallsign()
 {
     return fullCallsign;
 }
 
-;QString Callsign::getHostPrefix()
+QString Callsign::getHostPrefix()
 {
     return hostPrefix;
 }
@@ -143,12 +144,12 @@ QString Callsign::getBasePrefixNumber()
     return basePrefixNumber;
 }
 
-;QString Callsign::getSuffix()
+QString Callsign::getSuffix()
 {
     return suffix;
 }
 
-;QString Callsign::getSuffixWithDelimiter()
+QString Callsign::getSuffixWithDelimiter()
 {
     return suffixWithDelimiter;
 }
