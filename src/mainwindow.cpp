@@ -1090,26 +1090,31 @@ void MainWindow::slotModeChanged (const QString &_m)
      //qDebug() << Q_FUNC_INFO << " - " << mainQSOEntryWidget->getMode() ;
 }
 
+void MainWindow::slotOKButtonClicked(){
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    slotQRZReturnPressed();
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
 
 void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - Start"  ;
+    qDebug() << Q_FUNC_INFO << " - Start"  ;
     if (mainQSOEntryWidget->getQrz().length()<=0)
     {
-    //qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;
+        qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;
         return;
     }
     readingTheUI = true;
 
     if (!readQSOFromUI ())
     {return;}
-    //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
+    qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
     int addedOK = qso->toDB (modifyingQSO);
-    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+    qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
-        //qDebug() << Q_FUNC_INFO << ": Locator: " << lastLocator;
+        qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
         mapWindow->addLocator(qso->getGridSquare(), workedColor);
         qso->clear();
         actionsJustAfterAddingOneQSO();
@@ -1119,14 +1124,14 @@ void MainWindow::slotQRZReturnPressed()
     yearChangedDuringModification = false;
     readingTheUI = false;
 
-    //qDebug() << Q_FUNC_INFO << "Just before cleaning";
+    qDebug() << Q_FUNC_INFO << "Just before cleaning";
     slotClearButtonClicked(Q_FUNC_INFO);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-       //qDebug() << Q_FUNC_INFO << " - Start" ;
+    qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     int lastId = -1;
     needToSave = true;
@@ -1189,7 +1194,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     searchWidget->refresh();
     awardsWidget->showAwards ();
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << Q_FUNC_INFO << " - END" ;
+    qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 bool MainWindow::readQSOFromUI()
@@ -1371,11 +1376,7 @@ bool MainWindow::readQSOFromUI()
     return true;
 }
 
-void MainWindow::slotOKButtonClicked(){
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    slotQRZReturnPressed();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
+
 
 void MainWindow::slotQSOsExportToADIF(QList<int> _id)
 {
