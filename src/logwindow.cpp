@@ -29,58 +29,57 @@
 
 LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << "LogWindow::LogWindow: " ;
+    qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = dp;
-    //sortingThroughProxyModel = false;
     logModel = new LogModel(dataProxy, this);
     util = new Utilities(Q_FUNC_INFO);
     connect(logModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logView = new QTableView;
     columns.clear();
 
-    //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
-    //elogClublog = new eLogClubLog();
     currentLog = -1;
-    //proxyModel = new LogViewSortFilterProxyModel(this);
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     createUI();
     createActions();
     setDefaultData();
-    //qDebug() << "LogWindow::LogWindow: - END" ;
+    qDebug() << "LogWindow::LogWindow: - END" ;
 }
 
 LogWindow::~LogWindow()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     delete(util);
     delete(awards);
-//    emit clearError();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::setColumns(const QStringList &_columns)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start";
     columns.clear();
-    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+     qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::sortColumn(const int _c)
 {
-    //proxyModel->sort(_c);
+    qDebug() << Q_FUNC_INFO << " - Start";
     logModel->sort(_c, Qt::AscendingOrder);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::clear()
 {
-      //qDebug() << "LogWindow::clear " ;
+    qDebug() << Q_FUNC_INFO << " - Start/END";
 }
 
 void LogWindow::createUI()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start";
 
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
@@ -95,20 +94,22 @@ void LogWindow::createUI()
 
 void LogWindow::setDefaultData()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start";
     columns.clear();
-    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+    qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(util->getDefaultLogFields());
-       //qDebug() << "LogWindow::setDefaultData" ;
+    qDebug() << "LogWindow::setDefaultData" ;
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-    //qDebug() << "LogWindow::createlogPanel: " << QString::number(_currentLog);
+    qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
     currentLog = _currentLog;
-    logModel->createlogModel(currentLog);
-    //proxyModel->setSourceModel(logModel);
+    if (!logModel->createlogModel(currentLog))
+        qDebug() << Q_FUNC_INFO << " - ERROR creating model";
+
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
 
@@ -120,11 +121,12 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
     logView->sortByColumn(1, Qt::DescendingOrder);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::setColumnsOfLog(const QStringList &_columns)
 {
-    //qDebug() << Q_FUNC_INFO << ": Length: " << QString::number(_columns.length());
+     qDebug() << Q_FUNC_INFO << " - Start: Length: " << QString::number(_columns.length());
 
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
@@ -146,32 +148,34 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
     QString aux;
     foreach(aux, columns)
     {
-        //qDebug() << Q_FUNC_INFO << ": columns-1: " << aux;
+         qDebug() << Q_FUNC_INFO << ": columns-1: " << aux;
     }
     foreach(aux, _columns)
     {
-        //qDebug() << Q_FUNC_INFO << ": _columns-1: " << aux;
+         qDebug() << Q_FUNC_INFO << ": _columns-1: " << aux;
     }
     QStringList temPColumns;
     temPColumns.clear();
     temPColumns << _columns;
     columns.clear();
-    //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+    qDebug() << Q_FUNC_INFO << "calling filterValidFields";
     columns <<  dataProxy->filterValidFields(temPColumns);
     foreach(aux, columns)
     {
-        //qDebug() << Q_FUNC_INFO << ":-2:  " << aux;
+        qDebug() << Q_FUNC_INFO << ":-2:  " << aux;
     }
 
     foreach(aux, columns)
     {
-        //qDebug() << Q_FUNC_INFO << ": " << aux;
+        qDebug() << Q_FUNC_INFO << ": " << aux;
         showColumn(aux);
     }
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::showColumn(const QString &_columnName)
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
     QSqlQuery query;
@@ -188,28 +192,33 @@ void LogWindow::showColumn(const QString &_columnName)
 
 void LogWindow::refresh()
 {
-    //qDebug() << "LogWindow::refresh" ;
-    logModel->select();
+    qDebug() << Q_FUNC_INFO << " - Start";
+    if (!logModel->select())
+        qDebug() << Q_FUNC_INFO << " - ERROR on select()";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::createActions()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start";
     createActionsCommon();
     showMenuRightButtonFromLogCreateActions();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::createActionsCommon()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     //LOG VIEW
 
-        connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
-        connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
+    connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
+    connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start";
     int row = (logView->indexAt(pos)).row();
     QItemSelectionModel *select = logView->selectionModel();
     QModelIndexList list = select->selectedRows();
@@ -222,12 +231,13 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
     {
         rightButtonFromLogMenu(row);
     }
+    qDebug() << Q_FUNC_INFO << " - END";
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 }
 
 void LogWindow::rightButtonMultipleFromLogMenu()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start";
 
     QMenu menu(this);
     menu.addAction(multipleDelQSOsFromLogAct);
@@ -257,14 +267,15 @@ void LogWindow::rightButtonMultipleFromLogMenu()
     menu.addAction(multipleSelectAll);
     menu.addAction(multipleDeselectAll);
     menu.exec(QCursor::pos());
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::rightButtonFromLogMenu(const int trow)
 {
-    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  " << QString::number(trow);
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(trow);
+     qDebug() << Q_FUNC_INFO;
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
-    //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID);
+     qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID);
     bool qslReceived = isQSLReceived(_qsoID);
     bool qslSent = isQSLSent(_qsoID);
     QMenu menu(this);
@@ -301,18 +312,19 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
         menu.addAction(multipleSelectAll);
         menu.addAction(multipleDeselectAll);
     menu.exec(QCursor::pos());
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 {
-       //qDebug() << "LogWindow::slotDoubleClickLog: Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column());
+    qDebug() << Q_FUNC_INFO << " - Start Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column());
 
     int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
 
-       //qDebug() << "LogWindow::slotDoubleClickLog: n: " << QString::number (logModel->data(index, Qt::DisplayRole).toInt());
-       //qDebug() << "LogWindow::slotDoubleClickLog: emitted: " << QString::number (((logModel->index(row, Qt::DisplayRole)).data(0)).toInt());
+        qDebug() << "LogWindow::slotDoubleClickLog: n: " << QString::number (logModel->data(index, Qt::DisplayRole).toInt());
+        qDebug() << "LogWindow::slotDoubleClickLog: emitted: " << QString::number (((logModel->index(row, Qt::DisplayRole)).data(0)).toInt());
 
     emit actionQSODoubleClicked(qsoID);
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
@@ -320,25 +332,27 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 
     logModel->select();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool LogWindow::isQSLReceived(const int _qsoId)
 {
-       //qDebug() << "LogWindow::isQSLReceived: " << QString::number(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - Start " << QString::number(_qsoId);
     return dataProxy->isQSOConfirmed(_qsoId, true, false); // We check just paper QSL
     //return dataProxy->isQSLReceived(_qsoId);
 }
 
 bool LogWindow::isQSLSent(const int _qsoId)
 {
-       //qDebug() << "LogWindow::isQSLSent: " << QString::number(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
 
     return dataProxy->isQSLSent(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::showMenuRightButtonFromLogCreateActions()
 {
-   //qDebug() << "LogWindow::showMenuRightButtonFromLogCreateActions";
+    qDebug() << Q_FUNC_INFO << " - Start";
 
     delQSOFromLogAct = new QAction(tr("&Delete"), this);
     delQSOFromLogAct->setShortcut(Qt::CTRL | Qt::Key_D);
@@ -429,45 +443,53 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
    multipleSelectAll = new QAction(tr("Select all"), this);
    multipleSelectAll->setStatusTip(tr("Select all the QSOs"));
    connect(multipleSelectAll, SIGNAL(triggered()), this, SLOT( slotQSOsSelectAll() ));
+   qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSOsSelectAll()
 {
+   qDebug() << Q_FUNC_INFO << " - Start";
     logView->selectAll();
+   qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSOsDeselectAll()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     logView->selectionModel()->clearSelection();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSLSentViaBureauFromLog()
 {
-      //qDebug() << "LogWindow::slotQSLSentViaBureauFromLog: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
+    qDebug() << Q_FUNC_INFO << " - Start: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
     int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSLSentViaDirectFromLog()
 {
-       //qDebug() << "LogWindow::slotQSLSentViaDirectFromLog: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
+    qDebug() << Q_FUNC_INFO << " - Start: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
      int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
     dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
+     qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSLRecViaBureauFromLog()
 {
-      //qDebug() << "LogWindow::slotQSLRecViaBureauFromLog: ";
+    qDebug() << Q_FUNC_INFO << " - Start";
 
     int _qsoId = ((logModel->index( ( (qslRecViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaBureau(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - END";
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 }
 
 void LogWindow::slotQSLRecViaDirectFromLog()
 {
-       //qDebug() << "LogWindow::slotQSLRecViaDirectFromLog: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
+    qDebug() << Q_FUNC_INFO << " - Start: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
     int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaDirect(_qsoId);
     // Mark Sent, Bureau, date, update log.
@@ -476,7 +498,7 @@ void LogWindow::slotQSLRecViaDirectFromLog()
 
 void LogWindow::slotQSOToEditFromLog()
 {
-       //qDebug() << "slotQSOToEditFromLog: " << (qsoToEditFromLogAct->data()).toString();
+    qDebug() << Q_FUNC_INFO << " - Start: " << (qsoToEditFromLogAct->data()).toString();
 
     //qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
     int QSOid = ((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
@@ -489,6 +511,7 @@ void LogWindow::slotQSOToEditFromLog()
     //int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     emit actionQSODoubleClicked(QSOid);
+    qDebug() << Q_FUNC_INFO << " - END";
 
 
 
@@ -497,14 +520,15 @@ void LogWindow::slotQSOToEditFromLog()
 
 void LogWindow::deleteQSO(const int _qsoId)
 {
-   //qDebug() << "LogWindow::deleteQSO " << QString::number(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     emit actionDeleteQSO(_qsoId);
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 /*
 void LogWindow::deleteQSO(const int _qsoID)
 {
-       //qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID);
+        qDebug() << "LogWindow::deleteQSO: " << QString::number(_qsoID);
 
 
 
@@ -524,16 +548,16 @@ void LogWindow::deleteQSO(const int _qsoID)
 */
 void LogWindow::slotQsoDeleteFromLog()
 {
-      //qDebug() << "LogWindow::slotQsoDeleteFromLog: " << (delQSOFromLogAct->data()).toString();
+    qDebug() << Q_FUNC_INFO << " - Start: " << (delQSOFromLogAct->data()).toString();
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 
     int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
     deleteQSO(QSOid);
-      //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid);
+       qDebug() << "LogWindow::slotQsoDeleteFromLog (id): " << QString::number(QSOid);
     /*
     switch (ret) {
       case QMessageBox::Yes:
-          //qDebug() << "LogWindow::slotQsoDeleteFromLog (id): -1";
+           qDebug() << "LogWindow::slotQsoDeleteFromLog (id): -1";
         deleteQSO(QSOid);
 
           break;
@@ -545,11 +569,12 @@ void LogWindow::slotQsoDeleteFromLog()
           break;
     }
     */
+       qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSOsDeleteFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsDeleteFromLog";
+    qDebug() << Q_FUNC_INFO << " - Start";
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -559,19 +584,20 @@ void LogWindow::slotQSOsDeleteFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.row()) ;
-            //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.data(0).toInt()) ;
+             qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.row()) ;
+             qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.data(0).toInt()) ;
         }
     }
     if (qsos.length()>0)
     {
         emit deleteTheseQSOs(qsos);
     }
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSOsExportFromLog()
 {
-   //qDebug() << "LogWindow::slotQSOsExportFromLog";
+    qDebug() << Q_FUNC_INFO << " - Start";
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -581,31 +607,31 @@ void LogWindow::slotQSOsExportFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row()) ;
-           //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt()) ;
+            qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.row()) ;
+            qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt()) ;
         }
     }
     if (qsos.length()>0)
     {
         emit exportToADIFTheseQSOs(qsos);
     }
-   //qDebug() << "LogWindow::slotQSOsExportFromLog - END - " << QString::number(qsos.length());
+    qDebug() << "LogWindow::slotQSOsExportFromLog - END - " << QString::number(qsos.length());
 }
 
 
 void LogWindow::slotQSOsUploadToLoTWFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsUploadToLoTWFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotQSOsUploadToClubLogFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsUploadToClubLogFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotQSOsQRZUploadFromLog()
 {
-   //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -615,67 +641,70 @@ void LogWindow::slotQSOsQRZUploadFromLog()
         foreach (QModelIndex index, list)
         {
             qsos.append(index.data(0).toInt());
-            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.row()) ;
-            //qDebug() << "LogWindow::slotQSOsQRZUploadFromLog: " << QString::number(index.data(0).toInt()) ;
+            qDebug() << Q_FUNC_INFO << " : " << QString::number(index.row()) ;
+            qDebug() << Q_FUNC_INFO << " : " << QString::number(index.data(0).toInt()) ;
         }
     }
     if (qsos.length()>0)
     {
         emit uploadToQRZcomTheseQSOs(qsos);
     }
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSOsUploadToEQSLFromLog()
 {
-    //qDebug() << "LogWindow::slotQSOsUploadToEQSLFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLSentViaBureauFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLSentViaBureauFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLSentViaDirectFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLSentViaDirectFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLRecViaBureauFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLRecViaBureauFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLRecViaDirectFromLog()
 {
-    //qDebug() << "LogWindow::slotMultipleQSLRecViaDirectFromLog - TO BE IMPLEMENTED";
+    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 
 void LogWindow::qslSentViaBureau(const int _qsoId)
 {
-       //qDebug() << "LogWindow::qslSentViaBureau: " << QString::number(_qsoId)yyyy-MM-dd
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
 }
 
 void LogWindow::qslRecViaBureau(const int _qsoId)
 {
-   //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd");
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
     awards->setAwards(_qsoId);   //Update the Award status
 
     refresh();
     emit updateAwards();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 void LogWindow::qslRecViaDirect(const int _qsoId)
 {
-       //qDebug() << "LogWindow::qslRecViaDirect: " << QString::number(_qsoId)yyyy-MM-dd
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), false);
     awards->setAwards(_qsoId);
 
     refresh();
     emit updateAwards();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
@@ -686,22 +715,26 @@ void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCo
 
 void LogWindow::slotCheckQRZCom()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
-      //qDebug() << "LogWindow::sloTCheckQRZCom: " << _qrz;
+    qDebug() << Q_FUNC_INFO << " : " << _qrz;
     util->openQrzcom (_qrz);
     //QString url = "https://www.qrz.com/db/" + _qrz;
     //QDesktopServices::openUrl(QUrl(url));
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotCheckDXHeatCom()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
-      //qDebug() << "LogWindow::slotCheckDXHeatCom(): " << _qrz;
+    qDebug() << Q_FUNC_INFO << " : " << _qrz;
     QString url = "https://www.dxheat.com/db/" + _qrz;
     QDesktopServices::openUrl(QUrl(url));
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 

@@ -790,8 +790,8 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
         prefUsed = callsign.getHostPrefixWithoutNumber();
     }
 
-    qDebug() << Q_FUNC_INFO << "mainPref: " << mainPref;
-    qDebug() << Q_FUNC_INFO << "prefUsed: " << prefUsed;
+    //qDebug() << Q_FUNC_INFO << "mainPref: " << mainPref;
+    //qDebug() << Q_FUNC_INFO << "prefUsed: " << prefUsed;
 
     if ((mainToUse.isEmpty()) && (prefUsed.isEmpty()))
         return;
@@ -801,11 +801,11 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, prefUsed));
     if (subdivisions.length()<1)
     {
-       qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with prefUSed, running for the main prefix";
+       //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with prefUSed, running for the main prefix";
         subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainToUse));
         if (subdivisions.length()<1)
         {
-            qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with mainpref, running just with the entity";
+            //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with mainpref, running just with the entity";
             subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
         }
     }

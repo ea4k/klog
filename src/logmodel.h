@@ -39,8 +39,8 @@ class LogModel : public QSqlRelationalTableModel
     Q_OBJECT
 public:
     LogModel(DataProxy_SQLite *dp, QObject *parent);
-    void createlogModel(const int _i);
-    void setColumns(const QStringList &_columns);
+    bool createlogModel(const int _i);
+    bool setColumns(const QStringList &_columns);
 private:
     //void showColumn(const QString &_columnName);
 

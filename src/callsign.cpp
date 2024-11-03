@@ -35,14 +35,24 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
 
     QRegularExpression prefnRE = prefixRegEx();
     QRegularExpressionMatch matchPrefix = prefnRE.match(fullCallsign);
+/*
 
+ QRegularExpression re("^(?<date>\\d\\d)/(?<month>\\d\\d)/(?<year>\\d\\d\\d\\d)$");
+ QRegularExpressionMatch match = re.match("08/12/1985");
+ if (match.hasMatch()) {
+     QString date = match.captured("date"); // date == "08"
+     QString month = match.captured("month"); // month == "12"
+     QString year = match.captured("year"); // year == 1985
+ }
+
+*/
 
     if ( match.hasMatch() )
     {
         //it is a valid callsign
         valid = true;
-        hostPrefixWithDelimiter = match.captured(1);
-        hostPrefix              = match.captured(2);
+        hostPrefixWithDelimiter = match.captured("pref");
+        hostPrefix              = match.captured("hostprefix");
         base                    = match.captured(3);
         basePrefix              = match.captured(4);
         basePrefixNumber        = match.captured(5);
@@ -84,9 +94,13 @@ QRegularExpression Callsign::prefixRegEx()
 }
 
 QString Callsign::callsignRegExString()
-{   // The REGEX can still get more group names
-    //   ^(?<fullcall>(?<pref>[A-Z0-9]{1,2}[0-9]?\/)?(?<fullhomepref>(?<homepref>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<areanumber>[0-9]|[0-9]+))(?<suffix>[A-Z]+))([\/](?<additionalsuffix>[A-Z0-9]+))?
-    return QString("^(([A-Z0-9]{1,2}[0-9]?\\/)?(([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+))([A-Z]+))([\\/]([A-Z0-9]+))?");
+{
+    // Base callsign
+    // ^(?<basecall>(?<baseprefixwithnumber>(?<baseprefix>[A-Z][0-9]|[A-Z]|[A-Z]{1,2}|[0-9][A-Z]|E)(?<areanumber>[0-9]+))(?<basesuffix>[A-Z]+))
+
+    // Host prefix /must end in /
+
+    return QString("^(?<fullcall>(?<pref>[A-Z0-9]{1,2}[0-9]?\\/)?(?<fullhomepref>(?<hostpref>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<areanumber>[0-9]|[0-9]+))(?<suffix>[A-Z]+))([\/](?<additionalsuffix>[A-Z0-9]+))?");
 }
 
 QString Callsign::prefixRegExString()
