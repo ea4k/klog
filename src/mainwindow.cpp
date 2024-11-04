@@ -3491,8 +3491,6 @@ void MainWindow::slotOpenWiki()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-
-
 bool MainWindow::applySettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -4958,7 +4956,7 @@ void MainWindow::fillQSOData()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return;
     }
 
@@ -5221,7 +5219,7 @@ void MainWindow::slotFilePrint()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             logEvent(Q_FUNC_INFO, "END-1", Debug);
             return;
     //TODO: Print a message showing an error and exit.
@@ -5477,7 +5475,7 @@ void MainWindow::updateQSLRecAndSent()
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
 
     queryString = QString("UPDATE log SET qsl_sent='N' WHERE qsl_sent ='' AND lognumber='%1'").arg(currentLog);
@@ -5485,7 +5483,7 @@ void MainWindow::updateQSLRecAndSent()
     sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << "MainWindow::updateQSLRecAndSent - END"  ;
@@ -5833,7 +5831,9 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
 
 bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
 {
-    if (!((dataProxy->isThisQSODuplicated(_qso, dupeSlotInSeconds)).length()>0))
+    QSO q = _qso;
+    qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
+    if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)).length()>0))
         return true;
 
     QMessageBox msgBox;
@@ -6009,10 +6009,10 @@ void MainWindow::slotClearNoMorErrorShown()
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
 {
-   //qDebug() << Q_FUNC_INFO << " -  Function: " << functionFailed ;
-   //qDebug() << Q_FUNC_INFO << " -  Error: - " << errorCodeS;
-   //qDebug() << Q_FUNC_INFO << " -  Native: - " << nativeError;
-   //qDebug() << Q_FUNC_INFO << " -  QueryFailed: - " << queryFailed;
+   qDebug() << Q_FUNC_INFO << " -  Function: " << functionFailed ;
+   qDebug() << Q_FUNC_INFO << " -  Error: - " << errorCodeS;
+   qDebug() << Q_FUNC_INFO << " -  Native: - " << nativeError;
+   qDebug() << Q_FUNC_INFO << " -  QueryFailed: - " << queryFailed;
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
 

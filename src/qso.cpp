@@ -405,7 +405,15 @@ void QSO::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _le
 
 bool QSO::isComplete()
 {
-    return (haveBand && (haveMode || haveSubMode) && haveDateTime && haveCall);
+    if (!haveCall)
+        return false;
+    if (!haveDateTime)
+        return false;
+    if (!haveBand)
+        return false;
+    return (haveMode || haveSubMode);
+
+    //return (haveBand && (haveMode || haveSubMode) && haveDateTime && haveCall);
 }
 
 void QSO::clear()
@@ -691,16 +699,18 @@ double QSO::getFreqRX()
 bool QSO::isValid()
 {// Add more controls: Call, Date, Time, Band, Mode?
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if ( (callsign.length()>0))
-    {
-       logEvent (Q_FUNC_INFO, "END-true", Debug);
-        return true;
-    }
-    else
-    {
-       logEvent (Q_FUNC_INFO, "END-false", Debug);
-        return false;
-    }
+    return isComplete();
+    //if ( (callsign.length()>0))
+    //{
+    //   logEvent (Q_FUNC_INFO, "END-true", Debug);
+    //    return true;
+    //}
+    //else
+    //{
+    //   logEvent (Q_FUNC_INFO, "END-false", Debug);
+    //    return false;
+    //}
+
 }
 
 bool QSO::setCall(const QString &_c)
@@ -708,7 +718,7 @@ bool QSO::setCall(const QString &_c)
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
     QString aux;
     aux = _c.toUpper();
-    if (aux.isNull())
+    if ((aux.isNull()) || (aux.length()<3))
     {
         logEvent(Q_FUNC_INFO, "END - False-1", Debug);
         return false;
@@ -3426,8 +3436,8 @@ int QSO::toDB(int _qsoId)
         //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
         //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().databaseText();
         //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().text();
-        //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().nativeErrorCode();
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        //qDebug() << Q_FUNC_INFO << ": Error: " << query.lastError().text();
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return -2;
     }
     query.finish();
@@ -3550,7 +3560,7 @@ int QSO::getBandIdFromBandName(bool _rxBand)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return -1;
     }
     return -1;
@@ -3571,7 +3581,7 @@ QString QSO::getBandNameFromBandId(int bandId)
 
     if (!query.exec())
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return QString();
     }
 
@@ -3593,7 +3603,7 @@ int QSO::getModeIdFromModeName()
     //
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
     // SELECT mode.id FROM mode WHERE mode.name="MFSK"
-    bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode= ':submode'");
+    bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode=:submode");
     if (!ok)
     {
         //qDebug() << Q_FUNC_INFO << " - Failed to prepare";
@@ -3635,7 +3645,7 @@ int QSO::getModeIdFromModeName()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return -2;
     }
     return -3;
@@ -3664,7 +3674,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 
     if (!query.exec())
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return QString();
     }
 
@@ -4140,7 +4150,7 @@ QString QSO::getBandNameFromFreq(const double _n)
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
@@ -4157,14 +4167,14 @@ bool QSO::fromDB(int _qsoId)
 
     if (!query.exec())
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
     if (!query.next())
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-2", Debug);
         return false;
@@ -4406,7 +4416,7 @@ int QSO::getLastInsertedQSO()
     }
     else
     {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     query.finish();
     return id;

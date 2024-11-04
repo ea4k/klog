@@ -184,7 +184,7 @@ void SetupPageSats::slotEditButtonClicked()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     */
 }
@@ -232,7 +232,7 @@ void SetupPageSats::slotRemoveButtonClicked()
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                     showError(tr("Sat has not been removed. (#3)"));
                        //qDebug() << "SetupPageSats::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedSat) << ")";
                 }
@@ -245,7 +245,7 @@ void SetupPageSats::slotRemoveButtonClicked()
         }
         else
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             showError(tr("Sat has not been removed. (#1)"));
                //qDebug() << "SetupPageSats::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedSat) << ")";
         }
@@ -482,7 +482,7 @@ QStringList SetupPageSats::readSats()
      }
      else
      {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
          return _sats;
      }
 }
@@ -613,7 +613,7 @@ void SetupPageSats::slotExportButtonClicked()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     QDateTime *dateTime = new QDateTime();
     //dateTime->currentDateTime();
@@ -666,7 +666,7 @@ void SetupPageSats::slotExportButtonClicked()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
      //qDebug() << "SetupPageSats::slotExportButtonClicked END";
 }

@@ -814,7 +814,7 @@ void SearchWidget::slotSearchExportButtonClicked()
         if (!sqlOK)
         {
             //qDebug() << "SearchWidget::slotSearchExportButtonClicked: query executed-error: " << query.lastError();
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         }
          //qDebug() << "SearchWidget::slotSearchExportButtonClicked: query executed: " << query.lastQuery();
         itemsSelected = true;

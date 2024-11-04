@@ -44,6 +44,7 @@ private slots:
     void cleanupTestCase();
     void test_Constructor();
     void test_dataEntry();
+    void test_isValid();
     void test_AdifCreation();
 
 private:
@@ -320,6 +321,17 @@ void tst_QSO::test_dataEntry()
     qso->setModifying(false);
     QVERIFY2(!qso->getModifying(), "Error while reading Modifying false");
 }
+
+void tst_QSO::test_isValid()
+{
+    QSO qt;
+    QVERIFY2(!qt.isValid(), "Empty QSO Should not be valid");
+    qt.setCall("EA4K");
+    QVERIFY2(!qt.isValid(), "QSOs with just a call should not be valid");
+    qt.setBand("10M");
+    QVERIFY2(!qt.isValid(), "QSOs with just a call and band should not be valid");
+    qt.setMode("SSB");
+    QVERIFY2(!qt.isValid(), "QSOs with just a call, band and mode should not be valid");}
 
 void tst_QSO::test_AdifCreation()
 {

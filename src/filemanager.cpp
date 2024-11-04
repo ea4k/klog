@@ -310,7 +310,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     if (!sqlOK)
     {
         //qDebug() << Q_FUNC_INFO << ":  Query Error" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return qsos;
     }
     else
@@ -354,7 +354,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     if (!sqlOK)
     {
          //qDebug() << Q_FUNC_INFO << ":  Query Error" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return qsos;
     }
 
@@ -508,7 +508,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     if (!sqlOK)
     {
     //qDebug() << "FileManager::adifQSOsExport: query error: " << query.lastQuery();
-     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
    //qDebug() << "FileManager::adifQSOsExport: query: " << query.lastQuery();
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQSOs, this);
@@ -630,7 +630,7 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     if (!sqlOK)
     {
         //qDebug() << Q_FUNC_INFO << " -query error: " << query.lastQuery();
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     //qDebug() << Q_FUNC_INFO << " - query: " << query.lastQuery();
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQSOs, this);
@@ -757,7 +757,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         bool sqlOK = query.exec(queryString);
         if (!sqlOK)
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         }
 
         if (query.next())
@@ -830,7 +830,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     //qDebug() << Q_FUNC_INFO << " - 41";
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);

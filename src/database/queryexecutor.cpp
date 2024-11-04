@@ -27,7 +27,7 @@ bool QueryExecutor::execQuery(const QString &function, const QString &stringQuer
     query.finish();
     if (!ok)
     {
-        queryErrorManagement(function, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(function, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     return ok;
 }

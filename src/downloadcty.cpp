@@ -87,7 +87,7 @@ DownLoadCTY::~DownLoadCTY()
        //        qPrintable(reply->errorString()));
 
 
-       //errorCode = query.lastError().nativeErrorCode();
+       //errorCode = query.lastError().text();
 
        msgBox.setIcon(QMessageBox::Warning);
        aux = tr("Download of cty.csv failed with the following error code: ");

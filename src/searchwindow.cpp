@@ -172,7 +172,7 @@ void SearchWindow::setColumnsToDX()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
 
     //qDebug() << "SearchWindow::setColumnsToDX - Query: "  << query.lastQuery();

@@ -1066,6 +1066,9 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     q.setDateTimeOn(_dateTime);
     q.setBand(bandComboBox->currentText());
     q.setMode(modeComboBox->currentText());
+    if (!q.isValid())
+        return;
+    qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
     if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs).length()<2) || modify)
     {
          //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";

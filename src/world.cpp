@@ -111,14 +111,14 @@ bool World::recreate(const QString &_worldFile)
         else
         {//TODO: Manage the query error
              //qDebug() << Q_FUNC_INFO << ": FAILED TO EMPTY prefixesofentity - END-2" ;
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             return false;
         }
     }
     else
     {//TODO: Manage the query error
         //qDebug() << Q_FUNC_INFO << ": FAILED TO EMPTY entity - END-3" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return false;
     }
      //qDebug() << Q_FUNC_INFO << " - END-4";
@@ -645,21 +645,21 @@ bool World::addEntity(const QString &_name, const int _cq, const int _itu, const
          //qDebug() << Q_FUNC_INFO << "  Entity data added OK: " <<  _name ;
         return true;
     }
-    //else if (query.lastError().nativeErrorCode() == QString::number(19))
+    //else if (query.lastError().text() == QString::number(19))
     //{
          //qDebug() << Q_FUNC_INFO << "  Entity data NOT added: error19:  " <<  _name ;
     //}
     //else
     //{
          //qDebug() << Q_FUNC_INFO << "  Entity data NOT added: error else:  " <<  _name ;
-        //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
          //qDebug() << Q_FUNC_INFO << " Entity data NOT added" ;
          //qDebug() << Q_FUNC_INFO << " LastQuery: " << query.lastQuery() ;
          //qDebug() << Q_FUNC_INFO << " LastError-data: " << query.lastError().databaseText() ;
          //qDebug() << Q_FUNC_INFO << " LastError-driver: " << query.lastError().driverText() ;
-         //qDebug() << Q_FUNC_INFO << " LastError-n: " << query.lastError().nativeErrorCode();
+         //qDebug() << Q_FUNC_INFO << " LastError-n: " << query.lastError().text();
     //}
-    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     return false;
 }
 
@@ -683,7 +683,7 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
          //qDebug() << Q_FUNC_INFO << "  query: " <<  query.lastQuery();
         return true;
     }
-    else if (query.lastError().nativeErrorCode() == QString::number(19))
+    else if (query.lastError().text() == QString::number(19))
     {
          //qDebug() << Q_FUNC_INFO << "  :Prefix data NOT added: error19:  " <<  _pref ;
     }
@@ -693,9 +693,9 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
          //qDebug() << Q_FUNC_INFO << " LastQuery: " << query.lastQuery() ;
          //qDebug() << Q_FUNC_INFO << " LastError-data: " << query.lastError().databaseText() ;
          //qDebug() << Q_FUNC_INFO << " LastError-driver: " << query.lastError().driverText() ;
-         //qDebug() << Q_FUNC_INFO << " LastError-n: " << query.lastError().nativeErrorCode();
+         //qDebug() << Q_FUNC_INFO << " LastError-n: " << query.lastError().text();
     }
-    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     return false;
 }
 
@@ -959,7 +959,7 @@ bool World::hasSpecialEntities()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     query.finish();
     return false;

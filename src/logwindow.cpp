@@ -134,7 +134,7 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     QSqlRecord rec;
     rec = query.record(); // Number of columns
@@ -182,7 +182,7 @@ void LogWindow::showColumn(const QString &_columnName)
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     QSqlRecord rec;
     rec = query.record(); // Number of columns

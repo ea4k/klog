@@ -180,7 +180,10 @@ void tst_Utilities::test_isValidCall()
     // followed  by  a  group  of  not  more  than  four  characters,
     // the last of which shall be a letter,
     // We will check all formats shown here: https://en.wikipedia.org/wiki/Amateur_radio_call_signs
+    util->setCallValidation(false);
+    QVERIFY2(util->isValidCall(""), "Empty call-1");
     util->setCallValidation(true);
+    QVERIFY2(util->isValidCall(""), "Empty call-2");
     //qDebug() << Q_FUNC_INFO << " 1 Letter" ;
     QVERIFY2(util->isValidCall("B1A"), "B1A");
     QVERIFY2(util->isValidCall("B1AA"), "B1AA");

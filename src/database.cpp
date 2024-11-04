@@ -122,7 +122,7 @@ QString DataBase::getSoftVersion()
     }
     else
     { //ERROR in Query execution
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent(Q_FUNC_INFO, "END-3", Debug);
         return QString();
@@ -158,7 +158,7 @@ float DataBase::getDBVersion()
     }
     else
     { //ERROR in Query execution
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent(Q_FUNC_INFO, "END-3", Debug);
         return -1.0;
@@ -203,7 +203,7 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
 
     query.finish();
@@ -357,7 +357,7 @@ bool DataBase::isTheDBCreated()
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return false;
@@ -1182,7 +1182,7 @@ QString DataBase::getBandNameFromNumber(const int _n)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     query.finish();
     return QString();
@@ -1210,7 +1210,7 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
     }
     query.next();
@@ -1295,7 +1295,7 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             //qDebug() << "DataBase::getSubModeNameFromNumber: SQL FALSE - END" ;
         query.finish();
         return QString();
@@ -1335,7 +1335,7 @@ bool DataBase::isValidBand (const QString &b)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
     }
    //emit debugLog(Q_FUNC_INFO, "3", 7);
@@ -1364,7 +1364,7 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
 
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
     }
     query.next();
@@ -1416,7 +1416,7 @@ int DataBase::getBandIdFromFreq(const QString &fr)
     {
            //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" ;
            //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() ;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().nativeErrorCode() ;
+           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() ;
         if (query.lastError().isValid())
         {
                //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" ;
@@ -1425,8 +1425,8 @@ int DataBase::getBandIdFromFreq(const QString &fr)
         {
                //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error NOT-VALID" ;
         }
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().text(), query.lastQuery());
         query.finish();
        return -2;
     }
@@ -1623,7 +1623,7 @@ bool DataBase::createTheBandQuickReference()
 
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
@@ -1688,7 +1688,7 @@ bool DataBase::createTheModeQuickReference()
 
         if (!sqlOK)
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             query.finish();
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
@@ -1788,7 +1788,7 @@ int DataBase::getLogTypeNumber(const QString &_logType)
 
      if(!sqlOK)
      {
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
          query.finish();
      }
      query.next();
@@ -1814,7 +1814,7 @@ QString DataBase::getLogTypeName(const int _logType)
 
      if(!sqlOK)
      {
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
          query.finish();
      }
      query.next();
@@ -2044,7 +2044,7 @@ bool DataBase::updateTo005()
                    sqlOk = createTableLogs(true);
                     if (!sqlOk)
                     {
-                        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                             //qDebug() << "DataBase::updateTo005 - logs table do not created" ;
                     }
 
@@ -2060,7 +2060,7 @@ bool DataBase::updateTo005()
 
                         if (!execQuery(Q_FUNC_INFO, "UPDATE log SET lognumber='1' WHERE lognumber='0'"))
                         {
-                          queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                          queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                             //showError(QObject::tr("QSOs not updated to main log"));
                                  //qDebug() << "DataBase::updateTo005 - QSOs not updated to main log" ;
                         }
@@ -2090,7 +2090,7 @@ bool DataBase::updateTo005()
 
                         if (!sqlOk)
                         {
-                            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                             //showError(QObject::tr("New Log not created"));
                                  //qDebug() << "DataBase::updateTo005 - New Log not created" ;
                                  //qDebug() << "DataBase::clearLog: Log deleted FAILED" ;
@@ -2219,7 +2219,7 @@ bool DataBase::recreateSupportedContest()
         }
         else
         {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         }
     }
     else
@@ -2276,7 +2276,7 @@ bool DataBase::recreatePropModes()
         }
         else
         {
-            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                  //qDebug() << "DataBase::recreatePropModes - prop_mode_enumeration table has not been dropped"  ;
                  //qDebug() << "DataBase::recreatePropModes : Table creation FAILED" ;
         }
@@ -2555,9 +2555,9 @@ bool DataBase::populateTableMode(const bool NoTmp)
     //int errorCode = -1;
     if (!sqlOK)
     {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
              //qDebug() << "DataBase::populateTableMode: Mode table population FAILED" ;
-        //errorCode = query.lastError().nativeErrorCode();
+        //errorCode = query.lastError().text();
     }
     else
     {
@@ -2962,7 +2962,7 @@ bool DataBase::syncLogQSOsOnBandTableChange()
 
     if (!query.exec(stringQuery))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return false;
     }
@@ -3189,7 +3189,7 @@ bool DataBase::howManyQSOsInLog(const int i)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
             //qDebug() << "DataBase::howManyQSOsInLog END-2" ;
         return false;
@@ -3405,7 +3405,7 @@ bool DataBase::updateModeIdFromSubModeId()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
              //qDebug() << Q_FUNC_INFO << ": FALSE END"  ;
         return false;
@@ -3537,7 +3537,7 @@ bool DataBase::updateModeIdFromSubModeId()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             //qDebug() << Q_FUNC_INFO << ": FALSE END 3"  ;
         query.finish();
         return false;
@@ -3575,7 +3575,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  ;
         query.finish();
         return false;
@@ -3701,7 +3701,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
             //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  ;
         return false;
@@ -3761,7 +3761,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
             //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-2"  ;
         return false;
@@ -3890,7 +3890,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             //qDebug() << "DataBase::updateBandIdTableAward: FALSE END-4"  ;
         query.finish();
         return false;
@@ -3954,7 +3954,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-2"   ;
         query.finish();
         return false;
@@ -3973,7 +3973,7 @@ bool DataBase::updateModeIdTableAward(const int _db)
 
     if (!query.exec(sq))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         //qDebug() << "DataBase::updateModeIdTableAward: FALSE END-4"   ;
         query.finish();
         return false;
@@ -4512,7 +4512,7 @@ bool DataBase::updateTo010()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
              //qDebug() << "DataBase::updateTo010: - Band update NOK" ;
     }
 
@@ -4572,7 +4572,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             //qDebug() << "DataBase::updateTheModeTableAndSyncLog - ERROR - modetemp not dropped" ;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
@@ -4597,7 +4597,7 @@ bool DataBase::recreateTableBand()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             //qDebug() << "DataBase::recreateTableBand - ERROR - bandtemp not dropped" ;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
@@ -5061,7 +5061,7 @@ bool DataBase::hasTheTableData(const QString &_tableName)
     QString stringQuery = QString("SELECT count(id) FROM %1").arg(_tableName);
     if (!query.exec(stringQuery))
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return false;
     }
 
@@ -6082,7 +6082,7 @@ bool DataBase::updateAwardDXCCTable()
     if (!query.exec(queryString))
     {
         //qDebug() << Q_FUNC_INFO << ": awarddxcc table NOT updated";
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return false;
     }
@@ -6113,7 +6113,7 @@ bool DataBase::updateAwardDXCCTable2()
     QSqlRecord rec = query.record();
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
@@ -6231,8 +6231,8 @@ bool DataBase::updateAwardDXCCTable2()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-               //qDebug() << Q_FUNC_INFO << ":  Error: " << QString::number(query.lastError().nativeErrorCode()) ;
-            if ((query.lastError().nativeErrorCode()).toInt() == 19)
+               //qDebug() << Q_FUNC_INFO << ":  Error: " << QString::number(query.lastError().text()) ;
+            if ((query.lastError().text()).toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
@@ -6289,7 +6289,7 @@ bool DataBase::updateAwardDXCCTable2()
             }
             else
             {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                 query.finish();
                // emit debugLog(Q_FUNC_INFO, "4", 7);
                 return false;
@@ -6341,7 +6341,7 @@ bool DataBase::updateAwardWAZTable()
     QSqlRecord rec = query.record();
     if (!sqlOK)
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
@@ -6459,8 +6459,8 @@ bool DataBase::updateAwardWAZTable()
         sqlOK = query.exec(stringQuery);
         if (!sqlOK)
         {
-               //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().nativeErrorCode()) ;
-            if (query.lastError().nativeErrorCode().toInt() == 19)
+               //qDebug() << "DataBase::updateAwardWAZTable: Error: " << QString::number(query.lastError().text()) ;
+            if (query.lastError().text().toInt() == 19)
             { // DUPLICATED RECORD: Means that there is already a record in the award... so this set is worked. QSL can be Y or N in the award but inthe log may be other options
               // We should only take into account if N or Y
                 if (dxccStatusList.at(j).status!="1")
@@ -6517,7 +6517,7 @@ bool DataBase::updateAwardWAZTable()
             }
             else
             {
-                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                 query.finish();
                // emit debugLog(Q_FUNC_INFO, "5", 7);
                 return false;
@@ -6571,7 +6571,7 @@ int DataBase::getNumberOfQsos(const int _logNumber)
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     query.finish();
     return qsos;
@@ -6593,7 +6593,7 @@ int DataBase::getLastInsertedQSO()
     }
     else
     {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     query.finish();
     return id;
@@ -6623,7 +6623,7 @@ void DataBase::queryErrorManagement(const QString &_functionFailed, const QStrin
     if (!ok)
     {
         //qDebug() << Q_FUNC_INFO << ": NOK";
-        queryErrorManagement(function, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        queryErrorManagement(function, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     //qDebug() << Q_FUNC_INFO << ": OK";
     return ok;

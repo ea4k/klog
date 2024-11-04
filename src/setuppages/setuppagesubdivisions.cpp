@@ -154,7 +154,7 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
                 }
                 else
                 {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                     showError(tr("Log has not been removed. (#3)"));
                        //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")";
                 }
@@ -167,7 +167,7 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
         }
         else
         {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             showError(tr("Log has not been removed. (#1)"));
                //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (NOT REMOVED: " << QString::number(selectedLog) << ")";
         }
@@ -296,7 +296,7 @@ QStringList SetupPageSubdivisions::readLogs()
     }
     else
     {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return _logs;
     }
 }
