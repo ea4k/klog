@@ -1110,6 +1110,7 @@ void MainWindow::slotQRZReturnPressed()
     if (!readQSOFromUI ())
     {return;}
     qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
+
     int addedOK = qso->toDB (modifyingQSO);
     qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
@@ -6023,7 +6024,8 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     }
     QString aux;
     bool showDebug = true;
-    if (nativeError.toInt() == 19)
+
+    if (nativeError.toInt() == 2067)
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
@@ -6041,6 +6043,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
             msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
         }
         msgBox.exec();
+        return;
     }
     if (showDebug)
     {

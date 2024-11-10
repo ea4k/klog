@@ -683,8 +683,10 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
          //qDebug() << Q_FUNC_INFO << "  query: " <<  query.lastQuery();
         return true;
     }
-    else if (query.lastError().text() == QString::number(19))
+    else if ((query.lastError().nativeErrorCode()).toInt() == 2067)
+    //else if (query.lastError().text() == QString::number(19))
     {
+        //#pragma "ERROR code 19 should be 2067 to indicate duplicate"
          //qDebug() << Q_FUNC_INFO << "  :Prefix data NOT added: error19:  " <<  _pref ;
     }
     else

@@ -5416,7 +5416,9 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
             }
             else
             {
-                if(query.lastError().text()!=QString::number(19))
+                //#pragma "ERROR code 19 should be 2067 to indicate duplicate"
+                if ((query.lastError().nativeErrorCode()).toInt() == 2067)
+                //if(query.lastError().text()!=QString::number(19))
                 {
                     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                     query.finish();
@@ -5561,7 +5563,9 @@ bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
             }
             else
             {
-                if(query.lastError().text()!=QString::number(19))
+                //#pragma "ERROR code 19 should be 2067 to indicate duplicate"
+                if ((query.lastError().nativeErrorCode()).toInt() == 2067)
+                //if(query.lastError().text()!=QString::number(19))
                 {
                     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                     query.finish();

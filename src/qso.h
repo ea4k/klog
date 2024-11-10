@@ -442,6 +442,7 @@ private:
     int getModeIdFromModeName();                // It really returns submode
     QString getModeNameFromModeId(int _modeId, bool _submode=true);
     void setBandFromFreq(const double _fr, bool TX = true);
+    //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
     //DataBase *db;
 
 
