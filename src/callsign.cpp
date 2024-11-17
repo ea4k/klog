@@ -26,15 +26,17 @@
 #include "callsign.h"
 
 Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
-    fullCallsign(callsign.toUpper()), areaNumber(0), valid(false), prefValid(false)
+    fullCall(callsign.toUpper()), homeAreaNumber(0), valid(false), prefValid(false)
 {
     //qDebug() << Q_FUNC_INFO << ": " << callsign;
+    hostAreaNumberExist = false;
+    homeAreaNumberExist = false;
 
     QRegularExpression callsignRE = callsignRegEx();
-    QRegularExpressionMatch match = callsignRE.match(fullCallsign);
+    QRegularExpressionMatch match = callsignRE.match(fullCall);
 
     QRegularExpression prefnRE = prefixRegEx();
-    QRegularExpressionMatch matchPrefix = prefnRE.match(fullCallsign);
+    QRegularExpressionMatch matchPrefix = prefnRE.match(fullCall);
 /*
 
  QRegularExpression re("^(?<date>\\d\\d)/(?<month>\\d\\d)/(?<year>\\d\\d\\d\\d)$");
@@ -46,38 +48,53 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
  }
 
 */
+//QTest::newRow("fullcall") << "fullcall" << "hostfullcall" << "hostfullpref" << "hostpref" << "hostareanumber" << "homefullcall" << "homefullpref" << "homepref" << "homeareanumber" << "homesuffix" << "additionalsuffix" << true;
+/*
+    QString fullCall;           // KB1/EA4K/QRP
+    QString hostFullCall;       // KB1/EA4K
+    QString hostFullPref;       // KB1
+    QString hostPref;           // KB
+    int hostAreaNumber;         // 1
 
+    QString homeFullCall;       // EA4K
+    QString homeFullPref;       // EA4
+    QString homePref;           // EA
+    int homeAreaNumber;         // 4
+    QString homeSuffix;         // K
+
+    QString additionalSuffix;   // QRP
+
+    bool valid;         // The entered strig is a correct callsign
+*/
     if ( match.hasMatch() )
     {
         //it is a valid callsign
         valid = true;
-        hostPrefixWithDelimiter = match.captured("pref");
-        hostPrefix              = match.captured("hostprefix");
-        base                    = match.captured(3);
-        basePrefix              = match.captured(4);
-        basePrefixNumber        = match.captured(5);
-        suffixWithDelimiter     = match.captured(7);
-        suffix                  = match.captured(8);
+        fullCall                = match.captured ("fullcall");
+        hostFullCall            = match.captured("hostfullcall");
+        hostFullPref            = match.captured("hostfullpref");
+        hostPref                = match.captured("hostpref");
+        hostAreaNumber          = match.captured("hostareanumber").toInt(&hostAreaNumberExist);
+
+        homeFullCall            = match.captured("homefullcall");
+        homeFullPref            = match.captured("homefullpref");
+        homePref                = match.captured("homepref");
+        homeAreaNumber          = match.captured("homeareanumber").toInt(&homeAreaNumberExist);
+        homeSuffix              = match.captured("homesuffix");
+
+        additionalSuffix        = match.captured("additionalsuffix");
     }
     else if (matchPrefix.hasMatch())
     {
         prefValid = true;
-
-        //qDebug() << Q_FUNC_INFO << " -  match1: " << matchPrefix.captured(1);
-        //qDebug() << Q_FUNC_INFO << " -  match2: " << matchPrefix.captured(2);
-        //qDebug() << Q_FUNC_INFO << " -  match3: " << matchPrefix.captured(3);
-        //qDebug() << Q_FUNC_INFO << " -  match4: " << matchPrefix.captured(4);
-        //qDebug() << Q_FUNC_INFO << " -  match5: " << matchPrefix.captured(5);
-        //qDebug() << Q_FUNC_INFO << " -  match6: " << matchPrefix.captured(6);
-        //qDebug() << Q_FUNC_INFO << " -  match7: " << matchPrefix.captured(7);
-        hostPrefix                  = matchPrefix.captured(1);      // Full prefix
-        hostPrefixWithoutAreaNumber = matchPrefix.captured(4);      // The prefix without the area number
-        areaNumber                  = matchPrefix.captured(7).toInt();      // Just the area number (optional)
+        hostPref                    = matchPrefix.captured("homeprefix");
+        hostFullPref                = matchPrefix.captured("homefullprefix");      // The prefix without the area number
+        homeAreaNumber              = matchPrefix.captured("homeareanumber").toInt(&homeAreaNumberExist);      // Just the area number (optional)
     }
     else
     {
         //it is an invalid callsign
-        fullCallsign = QString();
+        fullCall = QString();
     }
 }
 
@@ -90,173 +107,62 @@ QRegularExpression Callsign::callsignRegEx()
 
 QRegularExpression Callsign::prefixRegEx()
 {
+    // Returns a REGEX that matches a hamradio prefix
     return QRegularExpression(prefixRegExString(), QRegularExpression::CaseInsensitiveOption);
 }
 
 QString Callsign::callsignRegExString()
-{
+{   // This suffix regex matches QRP, MM... but also prefixes for remote operations.
+    // Suffix: ((?<suffix>QRP|MM)|((?<prefix>[A-Z0-9]{1,2})(?<areanumber>[0-9]+)?))
+
     // Base callsign
     // ^(?<basecall>(?<baseprefixwithnumber>(?<baseprefix>[A-Z][0-9]|[A-Z]|[A-Z]{1,2}|[0-9][A-Z]|E)(?<areanumber>[0-9]+))(?<basesuffix>[A-Z]+))
 
     // Host prefix /must end in /
-
-    return QString("^(?<fullcall>(?<pref>[A-Z0-9]{1,2}[0-9]?\\/)?(?<fullhomepref>(?<hostpref>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<areanumber>[0-9]|[0-9]+))(?<suffix>[A-Z]+))([\/](?<additionalsuffix>[A-Z0-9]+))?");
+    //^(?<fullcall>(?<hostfullcall>((?<hostpref>[A-Z0-9]{1,2}(?<hostareanumber>[0-9]|[0-9]+)?)\/)?(?<fullhomepref>(?<homepref>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]|[0-9]+))(?<basesuffix>[A-Z]+))(\/(?<additionalsuffix>[A-Z0-9]+))?)
+    return QString("^(?<fullcall>((?<hostfullcall>(?<hostfullpref>(?<hostpref>[A-Z0-9]{1,2})(?<hostareanumber>[0-9]|[0-9]+)?)\\/)?(?<homefullcall>(?<homefullpref>(?<homepref>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]|[0-9]+))(?<homesuffix>[A-Z]+)))(\\/(?<additionalsuffix>[A-Z0-9]+))?)");
 }
 
 QString Callsign::prefixRegExString()
 {
     //qDebug() << Q_FUNC_INFO;
-    // Matches prefix: "^([A-Z0-9]+[\/])?([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+)([A-Z]+)([\/][A-Z0-9]+)?"
-    // E73 prefix is not correctly matched, it is matched as EA400 so simple prefix is not OK
 
-    return QString("^((([A-Z])|([A-Z]{1,2})|([0-9][A-Z])|([A-Z][0-9]))([0-9]*))$");
+    // Matches prefix: ^(?<homefullpref>(?<homepref>[A-Z]{1,2}|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[0-9][A-Z]|)(?<homeareanumber>[0-9]+)?)
+
+    return QString("^(?<homefullpref>(?<homepref>[A-Z]{1,2}|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[0-9][A-Z]|)(?<homeareanumber>[0-9]+)?)");
 }
 
 QString Callsign::getCallsign()
 {
-    return fullCallsign;
+    return fullCall;
 }
 
-QString Callsign::getHostPrefix()
+
+QString Callsign::getHostFullPrefix(){return hostFullPref;}
+int Callsign::getHostAreaNuber(){return hostAreaNumber;}
+
+QString Callsign::getHomePrefix(){return homePref;}
+QString Callsign::getHomeFullPrefix(){return homeFullPref;}
+QString Callsign::getHomeSuffix(){return homeSuffix;}
+int Callsign::getHomeAreaNuber(){return homeAreaNumber;}
+
+QString Callsign::getAdditionalSuffix(){ return additionalSuffix;}
+QString Callsign::getHostPrefix(){return hostPref;}
 {
-    return hostPrefix;
+    return hostPref;
 }
 
-int Callsign::getAreaNumber()
+int Callsign::getAreaNuber()
 {
-    if (prefValid)
-        return areaNumber;
+    if (hostAreaNumberExist)
+        return hostAreaNumber;
+    if (homeAreaNumberExist)
+        return homeAreaNumber;
     else
         return -1;
 }
 
-QString Callsign::getHostPrefixWithoutNumber()
-{
-    if (prefValid)
-        return hostPrefixWithoutAreaNumber;
-    else
-        return QString();
-}
 
-QString Callsign::getHostPrefixWithDelimiter()
-{
-    return hostPrefixWithDelimiter;
-}
-
-QString Callsign::getBase()
-{
-    return base;
-}
-
-QString Callsign::getBasePrefix()
-{
-    return basePrefix;
-}
-
-QString Callsign::getBasePrefixNumber()
-{
-    return basePrefixNumber;
-}
-
-QString Callsign::getSuffix()
-{
-    return suffix;
-}
-
-QString Callsign::getSuffixWithDelimiter()
-{
-    return suffixWithDelimiter;
-}
-
-QString Callsign::getWPXPrefix()
-{
-    if ( !isValid() )
-        return QString();
-
-    // defined here
-    // https://www.cqwpx.com/rules.htm
-
-    // inspired here
-    // https://git.fkurz.net/dj1yfk/yfklog/src/branch/develop/yfksubs.pl#L605
-
-
-    /*********************
-     * ONLY BASE CALLSIGN
-     *********************/
-    if ( getBase() != QString()
-        && getHostPrefix() == QString()
-        && getSuffix() == QString() )
-    {
-        // only callsign
-        // return callsign prefix + prefix number
-        // OL80ABC -> OL80
-        // OK1ABC -> OK1
-        return getBasePrefix() + getBasePrefixNumber();
-    }
-
-    /*********************
-     * HOST PREFIX PRESENT
-     *********************/
-    if ( getHostPrefix() != QString() )
-    {
-        // callsign has a Host prefix SP/OK1XXX
-        // we do not look at the suffix and assign automatically HostPrefix + '0'
-
-        if ( getHostPrefix().back().isDigit() )
-            return getHostPrefix();
-
-        return getHostPrefix() + QString("0");
-    }
-
-    /****************
-     * SUFFIX PRESENT
-     ****************/
-    if ( getSuffix().length() == 1) // some countries add single numbers as suffix to designate a call area, e.g. /4
-    {
-        bool isNumber = false;
-        (void)suffix.toInt(&isNumber);
-        if ( isNumber )
-        {
-            // callsign suffix is a number
-            // VE7ABC/2 -> VE2
-            return getBasePrefix() + getSuffix();
-        }
-
-        // callsign suffix is not a number
-        // OK1ABC/P -> OK1
-        return getBasePrefix() + getBasePrefixNumber();
-    }
-
-    /***************************
-     * SUFFIX PRESENT LENGTH > 1
-     ***************************/
-    if ( secondarySpecialSuffixes.contains(getSuffix()) )
-    {
-        // QRP, MM etc.
-        // OK1ABC/AM -> OK1
-        return getBasePrefix() + getBasePrefixNumber();
-    }
-
-    // valid prefix should contain a number in the last position - check it
-    // and prefix is not just a number
-    // N8ABC/KH9 -> KH9
-
-    bool isNumber = false;
-    (void)getSuffix().toInt(&isNumber);
-
-    if ( isNumber )
-    {
-        // suffix contains 2 and more numbers - ignore it
-        return getBasePrefix() + getBasePrefixNumber();
-    }
-
-    // suffix is combination letters and digits and last position is a number
-    if ( getSuffix().back().isDigit() )
-        return getSuffix();
-
-    // prefix does not contain a number - add "0"
-    return getSuffix() + QString("0");
-}
 
 bool Callsign::isValid()
 {

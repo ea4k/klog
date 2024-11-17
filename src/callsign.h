@@ -47,16 +47,18 @@ public:
     static QStringList secondarySpecialSuffixes;
 
     QString getCallsign();
-    QString getHostPrefix();                // The complete prefix (simple + area number if exists)
-    QString getHostPrefixWithDelimiter();
-    QString getBase();
-    QString getBasePrefix();
-    QString getBasePrefixNumber();
-    QString getSuffix();
-    QString getSuffixWithDelimiter();
-    QString getWPXPrefix();
-    QString getHostPrefixWithoutNumber();              // The prefix without the area number
-    int getAreaNumber();                    // Just the prefix area number
+    int getAreaNuber();                     // Get host area number (host if exists or home if host does note xist)
+
+    QString getHostPrefix();                // The Host prefix without area number
+    QString getHostFullPrefix();            // The complete host prefix (simple + area number if exists)
+    int getHostAreaNuber();                 // Get host area number
+
+    QString getHomePrefix();                // The Home prefix without area number
+    QString getHomeFullPrefix();            // The complete home prefix (simple + area number if exists)
+    QString getHomeSuffix();                // The suffix of the base call
+    int getHomeAreaNuber();                 // Get the home area number
+
+    QString getAdditionalSuffix();           // Additional suffixes like /P, /QRP, /MM, ...
 
     bool isValid();                         // True if it is a full callsign
     bool isValidPrefix();                   // True if it is a prefix, but not a call
@@ -67,16 +69,23 @@ private:
     static QString prefixRegExString();
     static QRegularExpression prefixRegEx();
 
-    QString fullCallsign;
-    QString hostPrefix;
-    QString hostPrefixWithoutAreaNumber;
-    QString hostPrefixWithDelimiter;
-    QString base;
-    QString basePrefix;
-    QString basePrefixNumber;
-    QString suffix;
-    QString suffixWithDelimiter;
-    int areaNumber;
+    // KB1/EA4K/QRP
+    QString fullCall;           // KB1/EA4K/QRP
+    QString hostFullCall;       // KB1/EA4K
+    QString hostFullPref;       // KB1
+    QString hostPref;           // KB
+    int hostAreaNumber;         // 1
+    bool hostAreaNumberExist;
+
+    QString homeFullCall;       // EA4K
+    QString homeFullPref;       // EA4
+    QString homePref;           // EA
+    int homeAreaNumber;         // 4
+    bool homeAreaNumberExist;
+    QString homeSuffix;         // K
+
+    QString additionalSuffix;   // QRP
+
     bool valid;         // The entered strig is a correct callsign
     bool prefValid;     // The entered strig is a correct prefix
 };
