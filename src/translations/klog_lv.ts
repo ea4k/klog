@@ -974,7 +974,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="344"/>
         <source>Export</source>
-        <translation type="unfinished">Eksportēt</translation>
+        <translation>Eksportēt</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="388"/>
@@ -991,7 +991,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1596"/>
         <location filename="../filemanager.cpp" line="2107"/>
         <source>KLog - User cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog — lietotājs atcelts</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="398"/>
@@ -1038,7 +1038,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="949"/>
         <location filename="../filemanager.cpp" line="1157"/>
         <source>It was not possible to open the file %1 for reading.</source>
-        <translation type="unfinished">Nevarēja atvērt failu %1 lasīšanai.</translation>
+        <translation>Nevarēja atvērt failu %1 lasīšanai.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="950"/>
@@ -1097,12 +1097,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1206"/>
         <location filename="../filemanager.cpp" line="1806"/>
         <source>Abort reading</source>
-        <translation type="unfinished">Pārtraukt lasīšanu</translation>
+        <translation>Pārtraukt lasīšanu</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1585"/>
         <source>Importing LoTW ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Notiek LoTW ADIF faila importēšana...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1585"/>
@@ -1345,7 +1345,7 @@ Do you want KLog to add this QSO to the log?</source>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="15"/>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="21"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ievadiet radio resursdatora nosaukumu vai adresi.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="16"/>
@@ -1360,7 +1360,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="25"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Ports</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="27"/>
@@ -1493,7 +1493,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
         <source>1 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>1 bits</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
@@ -1503,7 +1503,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
         <source>2 bits</source>
-        <translation type="unfinished"></translation>
+        <translation>2.biti</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="84"/>
