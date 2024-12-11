@@ -59,7 +59,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
     connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUserData() ) );
     connect(entityPrimDivComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPrimarySubdivisionsComboBoxChanged()) )  ;
-    connect(showAllCheckBox, SIGNAL(stateChanged(int)), this, SLOT(slotShowAllChecBoxChanged() ) ) ;
+    connect(showAllCheckBox, SIGNAL(stateChanged(int)), this, SLOT(slotShowAllCheckBoxChanged() ) ) ;
 
     createUI();
     setInitialADIFValues ();
@@ -743,78 +743,95 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
 void MainWindowInputOthers::setEntity(const int _ent)
 {// Select the appropriate entity in the ComboBox
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent);
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    qDebug() << Q_FUNC_INFO << " - 10" ;
     if (_ent<=0)
     {
+        qDebug() << Q_FUNC_INFO << " - 11" ;
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
+    qDebug() << Q_FUNC_INFO << " - 20" ;
     currentInt = _ent;
     QString aux = QString();
     aux = QString::number(_ent);
     if (_ent > 1000)
     {
+        qDebug() << Q_FUNC_INFO << " - 30" ;
         aux = (QString::number(_ent)).right(3);
     }
+    qDebug() << Q_FUNC_INFO << " - 40" ;
 
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
 
     entityNameComboBox->setCurrentIndex(indexC);
     setIOTAContinent(dataProxy->getContinentShortNameFromEntity(_ent)) ;
+    qDebug() << Q_FUNC_INFO << " - 100" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString &_qrz)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_n) << "/" << _qrz;
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
     if (_entity<=0)
     {
+        qDebug() << Q_FUNC_INFO << " -  10";
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
+    qDebug() << Q_FUNC_INFO << " - 15";
     setEntity(_entity);
 
     Callsign callsign(_qrz);
 
-    QString mainPref = dataProxy->getEntityMainPrefix(_entity);                 // The main prefix of the entity.
-    QString mainToUse = mainPref + QString::number(callsign.getAreaNumber());   // The default is that showAll is not checked. Main prefix+ the area
-    QString prefUsed = callsign.getHostPrefix();                                // The default is that showAll is not checked
+    QString mainPref    = dataProxy->getEntityMainPrefix(_entity);                 // The main prefix of the entity.
+    QString mainToUse   = callsign.getHostFullPrefix();                           // The default is that showAll is not checked. Main prefix+ the area
+    QString prefUsed    = callsign.getHostPrefix();                                // The default is that showAll is not checked
 
+    qDebug() << Q_FUNC_INFO << " -  20";
     if (showAllCheckBox->isChecked())
     { // The prefix without the number should be used.
-      // be careful with prefixes like EA8/EA or E73 / E7
-        mainToUse = mainPref;
-        prefUsed = callsign.getHostPrefixWithoutNumber();
+      // be careful with prefixes like EA8/EA/EA6 or E73 / E7
+        qDebug() << Q_FUNC_INFO << " -  21";
+        mainToUse   = mainPref;
+        prefUsed    = callsign.getHostPrefix();
     }
+    qDebug() << Q_FUNC_INFO << " -  30";
 
-    //qDebug() << Q_FUNC_INFO << "mainPref: " << mainPref;
-    //qDebug() << Q_FUNC_INFO << "prefUsed: " << prefUsed;
+    qDebug() << Q_FUNC_INFO << "mainToUse: " << mainToUse;
+    qDebug() << Q_FUNC_INFO << "mainPref: " << mainPref;
+    qDebug() << Q_FUNC_INFO << "prefUsed: " << prefUsed;
 
     if ((mainToUse.isEmpty()) && (prefUsed.isEmpty()))
         return;
-
+    qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, prefUsed));
     if (subdivisions.length()<1)
     {
-       //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with prefUSed, running for the main prefix";
+        qDebug() << Q_FUNC_INFO << " -  50";
+        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with prefUSed, running for the main prefix";
         subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainToUse));
         if (subdivisions.length()<1)
         {
-            //qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with mainpref, running just with the entity";
+            qDebug() << Q_FUNC_INFO << " -  55";
+            qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with mainpref, running just with the entity";
             subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
         }
+        qDebug() << Q_FUNC_INFO << " -  59";
     }
+    qDebug() << Q_FUNC_INFO << " - 60";
 
-   //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
+    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(subdivisions.count());
     if (subdivisions.count()<1)
         return;
+    qDebug() << Q_FUNC_INFO << " - 70 ";
     updatePrimarySubdivisionsComboBox(subdivisions);
-  //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
@@ -1025,7 +1042,7 @@ void MainWindowInputOthers::slotPrimarySubdivisionsComboBoxChanged()
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindowInputOthers::slotShowAllChecBoxChanged()
+void MainWindowInputOthers::slotShowAllCheckBoxChanged()
 {
     setEntityAndPrefix(currentInt, currentPref);
 }

@@ -104,7 +104,7 @@ private slots:
     void slotUSerDefinedADIFComboBoxChanged();
     void slotSetCurrentUserData();
     void slotPrimarySubdivisionsComboBoxChanged();
-    void slotShowAllChecBoxChanged();
+    void slotShowAllCheckBoxChanged();
 
 
 private:
