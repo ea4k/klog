@@ -28,7 +28,7 @@
 Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
     fullCall(callsign.toUpper()), homeAreaNumber(0), valid(false), prefValid(false)
 {
-    qDebug() << Q_FUNC_INFO << ": " << callsign;
+    //qDebug() << Q_FUNC_INFO << ": " << callsign;
     hostAreaNumberExist = false;
     homeAreaNumberExist = false;
 
@@ -37,64 +37,65 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
 
     QRegularExpression prefnRE = prefixRegEx();
     QRegularExpressionMatch matchPrefix = prefnRE.match(fullCall);
-    bool hasHost = false;
+    //bool hasHost = false;
     clear();
     if ( match.hasMatch() )
     {
-        qDebug() << Q_FUNC_INFO << " - 10";
+        //qDebug() << Q_FUNC_INFO << " - 10";
         //it is a valid callsign
-        valid = true;
-        fullCall                = match.captured("fullcall");
-        qDebug() << Q_FUNC_INFO << " - fullcall: " << fullCall;
+        valid       = true;
+        prefValid   = true;
+        fullCall    = match.captured("fullcall");
+        //qDebug() << Q_FUNC_INFO << " - fullcall: " << fullCall;
         if (match.captured("hostprefix").length()>0)
         {
-            qDebug() << Q_FUNC_INFO << " - 20";
-            hostFullPref            = match.captured("hostprefix") + match.captured("hostareanumber");
-            hostPref                = match.captured("hostprefix");
-            hostAreaNumber          = match.captured("hostareanumber").toInt(&hostAreaNumberExist);
-            qDebug() << Q_FUNC_INFO << " - hostFullPref   : " << hostFullPref;
-            qDebug() << Q_FUNC_INFO << " - hostPref       : " << hostPref;
-            qDebug() << Q_FUNC_INFO << " - hostAreaNumner : " << QString::number(hostAreaNumber);
-            hasHost = true;
+            //qDebug() << Q_FUNC_INFO << " - 20";
+            hostFullPref    = match.captured("hostprefix") + match.captured("hostareanumber");
+            hostPref        = match.captured("hostprefix");
+            hostAreaNumber  = match.captured("hostareanumber").toInt(&hostAreaNumberExist);
+            //qDebug() << Q_FUNC_INFO << " - hostFullPref   : " << hostFullPref;
+            //qDebug() << Q_FUNC_INFO << " - hostPref       : " << hostPref;
+            //qDebug() << Q_FUNC_INFO << " - hostAreaNumner : " << QString::number(hostAreaNumber);
+            //hasHost = true;
         }
         else if (match.captured("").length()>0)
         {
-            qDebug() << Q_FUNC_INFO << " - 30";
-            hostFullPref            = match.captured("suffixprefix") + match.captured("suffixareanumber");
-            hostPref                = match.captured("suffixprefix");
-            hostAreaNumber          = match.captured("suffixareanumber").toInt(&hostAreaNumberExist);
+            //qDebug() << Q_FUNC_INFO << " - 30";
+            hostFullPref    = match.captured("suffixprefix") + match.captured("suffixareanumber");
+            hostPref        = match.captured("suffixprefix");
+            hostAreaNumber  = match.captured("suffixareanumber").toInt(&hostAreaNumberExist);
 
-            qDebug() << Q_FUNC_INFO << " - hostFullPref   : " << hostFullPref;
-            qDebug() << Q_FUNC_INFO << " - hostPref       : " << hostPref;
-            qDebug() << Q_FUNC_INFO << " - hostAreaNumner : " << QString::number(hostAreaNumber);
+            //qDebug() << Q_FUNC_INFO << " - hostFullPref   : " << hostFullPref;
+            //qDebug() << Q_FUNC_INFO << " - hostPref       : " << hostPref;
+            //qDebug() << Q_FUNC_INFO << " - hostAreaNumner : " << QString::number(hostAreaNumber);
 
         }
-        qDebug() << Q_FUNC_INFO << " - 40";
-        homeFullCall            = match.captured("homeprefix")+match.captured("homeareanumber")+match.captured("homesuffix");
-        homeFullPref            = match.captured("homeprefix")+match.captured("homeareanumber");
-        homePref                = match.captured("homeprefix");
-        homeAreaNumber          = match.captured("homeareanumber").toInt(&homeAreaNumberExist);
-        homeSuffix              = match.captured("homesuffix");
-        if (!hasHost)
-        {
-            hostPref        = homePref;
-            hostFullPref    = homeFullPref;
-            hostAreaNumber  = homeAreaNumber;
-        }
+        //qDebug() << Q_FUNC_INFO << " - 40";
+        homeFullCall        = match.captured("homeprefix")+match.captured("homeareanumber")+match.captured("homesuffix");
+        homeFullPref        = match.captured("homeprefix")+match.captured("homeareanumber");
+        homePref            = match.captured("homeprefix");
+        homeAreaNumber      = match.captured("homeareanumber").toInt(&homeAreaNumberExist);
+        homeSuffix          = match.captured("homesuffix");
+        //if (!hasHost)
+        //{
+        //    hostPref        = homePref;
+        //    hostFullPref    = homeFullPref;
+        //    hostAreaNumber  = homeAreaNumber;
+        //}
 
         additionalSuffix        = match.captured("suffix");
 
-        qDebug() << Q_FUNC_INFO << " - homeFullCall     : " << homeFullCall;
-        qDebug() << Q_FUNC_INFO << " - homeFullPref     : " << homeFullPref;
-        qDebug() << Q_FUNC_INFO << " - homePref         : " << homePref;
-        qDebug() << Q_FUNC_INFO << " - homeAreaNumner   : " << QString::number(homeAreaNumber);
-        qDebug() << Q_FUNC_INFO << " - homeSuffix       : " << homeSuffix;
-        qDebug() << Q_FUNC_INFO << " - AdditionalSuffix : " << additionalSuffix;
+        //qDebug() << Q_FUNC_INFO << " - homeFullCall     : " << homeFullCall;
+        //qDebug() << Q_FUNC_INFO << " - homeFullPref     : " << homeFullPref;
+        //qDebug() << Q_FUNC_INFO << " - homePref         : " << homePref;
+        //qDebug() << Q_FUNC_INFO << " - homeAreaNumner   : " << QString::number(homeAreaNumber);
+        //qDebug() << Q_FUNC_INFO << " - homeSuffix       : " << homeSuffix;
+        //qDebug() << Q_FUNC_INFO << " - AdditionalSuffix : " << additionalSuffix;
 
     }
     else if (matchPrefix.hasMatch())
     {
-        qDebug() << Q_FUNC_INFO << " - 50";
+        //qDebug() << Q_FUNC_INFO << " - 50";
         prefValid = true;
         hostPref                    = matchPrefix.captured("homeprefix");
         hostFullPref                = matchPrefix.captured("homefullprefix");      // The prefix without the area number
@@ -102,20 +103,20 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
         homeFullPref                = hostFullPref;
         homeAreaNumber              = matchPrefix.captured("homeareanumber").toInt(&homeAreaNumberExist);      // Just the area number (optional)
 
-        qDebug() << Q_FUNC_INFO << " - hostFullPref     : " << hostFullPref;
-        qDebug() << Q_FUNC_INFO << " - hostPref         : " << hostPref;
-        qDebug() << Q_FUNC_INFO << " - homeFullPref     : " << homeFullPref;
-        qDebug() << Q_FUNC_INFO << " - homePref         : " << homePref;
-        qDebug() << Q_FUNC_INFO << " - homeAreaNumner   : " << QString::number(homeAreaNumber);
+        //qDebug() << Q_FUNC_INFO << " - hostFullPref     : " << hostFullPref;
+        //qDebug() << Q_FUNC_INFO << " - hostPref         : " << hostPref;
+        //qDebug() << Q_FUNC_INFO << " - homeFullPref     : " << homeFullPref;
+        //qDebug() << Q_FUNC_INFO << " - homePref         : " << homePref;
+        //qDebug() << Q_FUNC_INFO << " - homeAreaNumner   : " << QString::number(homeAreaNumber);
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - 60";
+        //qDebug() << Q_FUNC_INFO << " - 60";
         //it is an invalid callsign
         fullCall = QString();
     }
 
-    qDebug() << Q_FUNC_INFO << " - 100";
+    //qDebug() << Q_FUNC_INFO << " - 100";
 }
 
 Callsign::~Callsign(){}
@@ -157,7 +158,7 @@ QString Callsign::getCallsign(){return fullCall;}
 
 QString Callsign::getHostFullPrefix(){return hostFullPref;}
 QString Callsign::getHostPrefix(){return hostPref;}
-int Callsign::getHostAreaNuber(){return hostAreaNumber;}
+int Callsign::getHostAreaNumber(){return hostAreaNumber;}
 
 
 QString Callsign::getHomeFullPrefix(){return homeFullPref;}
@@ -201,14 +202,14 @@ void Callsign::clear()
     homeFullCall.clear();       // EA4K
     homeFullPref.clear();       // EA4
     homePref.clear();           // EA
-    homeAreaNumber = -1;         // 4
+    homeAreaNumber      = -1;         // 4
     homeAreaNumberExist = false;
     homeSuffix.clear();
 
     additionalSuffix.clear();
 
-    valid = false;         // The entered string is a correct callsign
-    prefValid = false;     // The entered string is a correct prefix
+    valid       = false;         // The entered string is a correct callsign
+    prefValid   = false;     // The entered string is a correct prefix
 }
 
 // Based on wiki information

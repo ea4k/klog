@@ -52,7 +52,7 @@ public:
 
     QString getHostPrefix();                // The Host prefix without area number
     QString getHostFullPrefix();            // The complete host prefix (simple + area number if exists)
-    int getHostAreaNuber();                 // Get host area number
+    int getHostAreaNumber();                 // Get host area number
 
     QString getHomePrefix();                // The Home prefix without area number
     QString getHomeFullPrefix();            // The complete home prefix (simple + area number if exists)

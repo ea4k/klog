@@ -95,25 +95,31 @@ void tst_Callsign::test_prefixes_data()
     //KB1/EA4K/QRP
     QTest::addColumn<QString>("fullcall");              // KB1/EA4K/QRP
     QTest::addColumn<QString>("hostfullcall");          // KB1/EA4K
-    QTest::addColumn<QString>("hostfullpref");          // KB1
-    QTest::addColumn<QString>("hostpref");              // KB
-    QTest::addColumn<QString>("hostareanumber");        // 1
+    QTest::addColumn<QString>("hostfullprefix");        // KB1
+    QTest::addColumn<QString>("hostprefix");            // KB
+    QTest::addColumn<int>("hostareanumber");            // 1
 
     QTest::addColumn<QString>("homefullcall");          // EA4K
-    QTest::addColumn<QString>("homefullpref");          // EA4
-    QTest::addColumn<QString>("homepref");              // EA
-    QTest::addColumn<QString>("homeareanumber");        // 4
+    QTest::addColumn<QString>("homefullprefix");        // EA4
+    QTest::addColumn<QString>("homeprefix");            // EA
+    QTest::addColumn<int>("homeareanumber");            // 4
     QTest::addColumn<QString>("homesuffix");            // K
 
     QTest::addColumn<QString>("additionalsuffix");      // QRP
 
+    QTest::addColumn<bool>("isValidPrefix");            // true
     QTest::addColumn<bool>("isValid");                  // true
 
-    //QTest::newRow("fullcall") << "fullcall" << "hostfullcall" << "hostfullpref" << "hostpref" << "hostareanumber" << "homefullcall" << "homefullpref" << "homepref" << "homeareanumber" << "homesuffix" << "additionalsuffix" << true;
-    QTest::newRow("KB1/EA4K/QRP") << "KB1/EA4K/QRP" << "KB1/EA4K" << "KB1" << "KB" << "1" << "EA4K" << "EA4" << "EA" << "4" << "K" << "QRP" << true;
-    QTest::newRow("EA4K") << "EA4K" << "" << "" << "" << "" << "EA4K" << "EA4" << "EA" << "4" << "K" << "" << true;
-    QTest::newRow("EA4K/P") << "EA4K/P" << "" << "" << "" << "" << "EA4K" << "EA4" << "EA" << "4" << "K" << "P" << true;
-    QTest::newRow("2E4K") << "2E4K" << "" << "" << "" << "" << "2E4K" << "2E4" << "2E" << "4" << "K" << "" << true;
+
+    // REGEX to test
+        //^(?<fullcall>((?<hostfullcall>(?<hostfullprefix>(?<hostprefix>[A-Z0-9]{1,2})(?<hostareanumber>[0-9]|[0-9]+)?)\\/)?(?<homefullcall>(?<homefullprefix>
+        //(?<homeprefix>[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]|[0-9]+))(?<homesuffix>[A-Z]+)))(\\/(?<additionalsuffix>[A-Z0-9]+))?)
+    //                                                                                                                                                          isprefixValid   isValid
+    QTest::newRow("KB1/EA4K/QRP")   << "KB1/EA4K/QRP"   << "KB1/EA4K"   << "KB1"    << "KB" << 1    << "EA4K"   << "EA4"    << "EA" << 4    << "K"  << "QRP"    << true     << true;
+    QTest::newRow("EA4K")           << "EA4K"           << ""           << ""       << ""   << -1   << "EA4K"   << "EA4"    << "EA" << 4    << "K"  << ""       << true     << true;
+    QTest::newRow("EA4K/P")         << "EA4K/P"         << ""           << ""       << ""   << -1   << "EA4K"   << "EA4"    << "EA" << 4    << "K"  << "P"      << true     << true;
+    QTest::newRow("2E4K")           << "2E4K"           << ""           << ""       << ""   << -1   << "2E4K"   << "2E4"    << "2E" << 4    << "K"  << ""       << true     << true;
+    QTest::newRow("AM100")          << ""               << ""           << ""       << ""   << -1   << ""       << "AM100"  << "AM" << 100  << ""   << ""        << true    << false;
 
     //QTest::newRow("AM100") << "AM100" << "AM100" << "AM" << 100;    // AM100
     //QTest::newRow("K1") << "K1" << "K1" << "K" << 1;                // K1
@@ -124,14 +130,38 @@ void tst_Callsign::test_prefixes_data()
 
 void tst_Callsign::test_prefixes()
 {
-    QFETCH(QString, string);
-    QFETCH(QString, fullprefix);
-    QFETCH(QString, prefix);
-    QFETCH(int, areanumber);
-    Callsign pref(string);
+    QFETCH(QString, fullcall);
+    QFETCH(QString, hostfullprefix);
+    QFETCH(QString, hostprefix);
+    QFETCH(QString, homefullprefix);
+    QFETCH(QString, homeprefix);
+    QFETCH(int, hostareanumber);
+    QFETCH(bool, isValidPrefix);
+    QFETCH(bool, isValid);
 
-    QCOMPARE(pref.isValidPrefix(), true);
-    QCOMPARE(pref.getHostPrefix(), fullprefix);
+    Callsign testCall(fullcall);
+    qDebug() << Q_FUNC_INFO << " -         fullcall       : "  << fullcall;
+    qDebug() << Q_FUNC_INFO << " -         hostfullprefix : "  << hostfullprefix;
+    qDebug() << Q_FUNC_INFO << " -         hostprefix     : "  << hostprefix;
+    qDebug() << Q_FUNC_INFO << " -         hostareanumber : "  << QString::number(hostareanumber);
+    qDebug() << Q_FUNC_INFO << " - isValidPrefix";
+    QCOMPARE(testCall.isValidPrefix(), isValidPrefix);
+    qDebug() << Q_FUNC_INFO << " - isValid";
+    QCOMPARE(testCall.isValid(), isValid);
+    qDebug() << Q_FUNC_INFO << " - fullcall      : "      << testCall.getCallsign() << "/" << fullcall;
+    QCOMPARE(testCall.getCallsign(), fullcall);
+    qDebug() << Q_FUNC_INFO << " - hostfullprefix:"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
+    QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
+    qDebug() << Q_FUNC_INFO << " - hostprefix    :"      << testCall.getHostPrefix() << "/" << hostprefix;
+    QCOMPARE(testCall.getHostPrefix(), hostprefix);
+    qDebug() << Q_FUNC_INFO << " - hostareanumber:"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
+    QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
+    qDebug() << Q_FUNC_INFO << " - homefullprefix    :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
+    QCOMPARE(testCall.getHomeFullPrefix(), homefullprefix);
+    qDebug() << Q_FUNC_INFO << " - homeprefix    :"      << testCall.getHomePrefix() << "/" << homeprefix;
+    QCOMPARE(testCall.getHomePrefix(), homeprefix);
+
+
     //QCOMPARE(pref.getHostPrefixWithoutNumber(), prefix);
     //QCOMPARE(pref.getAreaNumber(), areanumber);
 }
