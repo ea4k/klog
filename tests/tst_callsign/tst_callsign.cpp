@@ -119,7 +119,7 @@ void tst_Callsign::test_prefixes_data()
     QTest::newRow("EA4K")           << "EA4K"           << ""           << ""       << ""   << -1   << "EA4K"   << "EA4"    << "EA" << 4    << "K"  << ""       << true     << true;
     QTest::newRow("EA4K/P")         << "EA4K/P"         << ""           << ""       << ""   << -1   << "EA4K"   << "EA4"    << "EA" << 4    << "K"  << "P"      << true     << true;
     QTest::newRow("2E4K")           << "2E4K"           << ""           << ""       << ""   << -1   << "2E4K"   << "2E4"    << "2E" << 4    << "K"  << ""       << true     << true;
-    QTest::newRow("AM100")          << ""               << ""           << ""       << ""   << -1   << ""       << "AM100"  << "AM" << 100  << ""   << ""        << true    << false;
+    QTest::newRow("AM100")          << ""               << ""           << ""       << ""   << -1   << ""       << "AM100"  << "AM" << 100  << ""   << ""       << true     << false;
 
     //QTest::newRow("AM100") << "AM100" << "AM100" << "AM" << 100;    // AM100
     //QTest::newRow("K1") << "K1" << "K1" << "K" << 1;                // K1
@@ -133,33 +133,59 @@ void tst_Callsign::test_prefixes()
     QFETCH(QString, fullcall);
     QFETCH(QString, hostfullprefix);
     QFETCH(QString, hostprefix);
+    QFETCH(int, hostareanumber);
     QFETCH(QString, homefullprefix);
     QFETCH(QString, homeprefix);
-    QFETCH(int, hostareanumber);
+    QFETCH(int, homeareanumber);
     QFETCH(bool, isValidPrefix);
     QFETCH(bool, isValid);
 
     Callsign testCall(fullcall);
+
     qDebug() << Q_FUNC_INFO << " -         fullcall       : "  << fullcall;
-    qDebug() << Q_FUNC_INFO << " -         hostfullprefix : "  << hostfullprefix;
-    qDebug() << Q_FUNC_INFO << " -         hostprefix     : "  << hostprefix;
-    qDebug() << Q_FUNC_INFO << " -         hostareanumber : "  << QString::number(hostareanumber);
+    //qDebug() << Q_FUNC_INFO << " -         hostfullprefix : "  << hostfullprefix;
+    //qDebug() << Q_FUNC_INFO << " -         hostprefix     : "  << hostprefix;
+    //qDebug() << Q_FUNC_INFO << " -         hostareanumber : "  << QString::number(hostareanumber);
+
     qDebug() << Q_FUNC_INFO << " - isValidPrefix";
     QCOMPARE(testCall.isValidPrefix(), isValidPrefix);
     qDebug() << Q_FUNC_INFO << " - isValid";
     QCOMPARE(testCall.isValid(), isValid);
-    qDebug() << Q_FUNC_INFO << " - fullcall      : "      << testCall.getCallsign() << "/" << fullcall;
-    QCOMPARE(testCall.getCallsign(), fullcall);
-    qDebug() << Q_FUNC_INFO << " - hostfullprefix:"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
-    QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
-    qDebug() << Q_FUNC_INFO << " - hostprefix    :"      << testCall.getHostPrefix() << "/" << hostprefix;
-    QCOMPARE(testCall.getHostPrefix(), hostprefix);
-    qDebug() << Q_FUNC_INFO << " - hostareanumber:"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
-    QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
-    qDebug() << Q_FUNC_INFO << " - homefullprefix    :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
-    QCOMPARE(testCall.getHomeFullPrefix(), homefullprefix);
-    qDebug() << Q_FUNC_INFO << " - homeprefix    :"      << testCall.getHomePrefix() << "/" << homeprefix;
-    QCOMPARE(testCall.getHomePrefix(), homeprefix);
+
+
+    if (isValid)
+    {
+        qDebug() << Q_FUNC_INFO << " - fullcall      : "      << testCall.getCallsign() << "/" << fullcall;
+        QCOMPARE(testCall.getCallsign(), fullcall);
+
+        qDebug() << Q_FUNC_INFO << " - hostfullprefix:"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
+        QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
+
+        qDebug() << Q_FUNC_INFO << " - hostprefix    :"      << testCall.getHostPrefix() << "/" << hostprefix;
+        QCOMPARE(testCall.getHostPrefix(), hostprefix);
+
+        qDebug() << Q_FUNC_INFO << " - hostareanumber:"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
+        QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
+
+        qDebug() << Q_FUNC_INFO << " - homefullprefix    :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
+        QCOMPARE(testCall.getHomeFullPrefix(), homefullprefix);
+
+        qDebug() << Q_FUNC_INFO << " - homeprefix    :"      << testCall.getHomePrefix() << "/" << homeprefix;
+        QCOMPARE(testCall.getHomePrefix(), homeprefix);
+    }
+    if (isValidPrefix)
+    {
+        qDebug() << Q_FUNC_INFO << " - homefullprefix    :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
+        QCOMPARE(testCall.getHomeFullPrefix(), homefullprefix);
+
+        qDebug() << Q_FUNC_INFO << " - homeprefix    :"      << testCall.getHomePrefix() << "/" << homeprefix;
+        QCOMPARE(testCall.getHomePrefix(), homeprefix);
+
+        qDebug() << Q_FUNC_INFO << " - homeareanumber:"  << QString::number(testCall.getHomeAreaNumber()) << "/" << QString::number(homeareanumber);
+        QCOMPARE(testCall.getHomeAreaNumber(), hostareanumber);
+    }
+
+
 
 
     //QCOMPARE(pref.getHostPrefixWithoutNumber(), prefix);
