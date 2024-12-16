@@ -74,15 +74,16 @@ private:
 
     // KB1/EA4K/QRP
     QString fullCall;           // KB1/EA4K/QRP
-    //QString hostFullCall;       // KB1/EA4K
-    QString hostFullPref;       // KB1
-    QString hostPref;           // KB
+    //QString hostFullCall;     // KB1/EA4K
+    QString hostFullPrefix;     // KB1
+    QString hostPrefix;        // KB
     int hostAreaNumber;         // 1
     bool hostAreaNumberExist;
 
     QString homeFullCall;       // EA4K
-    QString homeFullPref;       // EA4
-    QString homePref;           // EA
+    QString homeFullPrefix;     // EA4
+    QString homeSpecialPrefix;  // 3D2
+    QString homePrefix;         // EA
     int homeAreaNumber;         // 4
     bool homeAreaNumberExist;
     QString homeSuffix;         // K
