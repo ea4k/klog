@@ -116,17 +116,23 @@ void tst_Callsign::test_callsigns_data()
     //                              testString          fullcall            hostfullpre hostpre hostarea  homecal     fullhomep homep      homeAr  homesuf  suff                                                                                                   isprefixValid   isValid
 
     QTest::newRow("KB1/EA4K/QRP")   << "KB1/EA4K/QRP"   << "KB1/EA4K/QRP"   << "KB1"    << "KB" << 1    << "EA4K"   << "EA4"    << "EA"     << 4    << "K"  << "QRP"    << true     << true;
+    QTest::newRow("FR/F6KDF/T")     << "FR/F6KDF/T"     << "FR/F6KDF/T"     << "FR"     << "FR" << -1   << "F6KDF"  << "F6"     << "F"      << 6    << "KDF"<< "T"      << true     << true;
     QTest::newRow("EA4K")           << "EA4K"           << "EA4K"           << ""       << ""   << -1   << "EA4K"   << "EA4"    << "EA"     << 4    << "K"  << ""       << true     << true;
     QTest::newRow("EA4K/P")         << "EA4K/P"         << "EA4K/P"         << ""       << ""   << -1   << "EA4K"   << "EA4"    << "EA"     << 4    << "K"  << "P"      << true     << true;
+    QTest::newRow("EA4K/6")         << "EA4K/6"         << "EA4K/6"         << "EA6"    << "EA" << 6    << "EA4K"   << "EA4"    << "EA"     << 4    << "K"  << ""       << true     << true;
     QTest::newRow("9M6/EA0AA")      << "9M6/EA0AA"      << "9M6/EA0AA"      << "9M6"    << "9M" << 6    << "EA0AA"  << "EA0"    << "EA"     << 0    << "AA" << ""       << true     << true;
     QTest::newRow("M6/EA0AA")       << "M6/EA0AA"       << "M6/EA0AA"       << "M6"     << "M"  << 6    << "EA0AA"  << "EA0"    << "EA"     << 0    << "AA" << ""       << true     << true;
     QTest::newRow("M/EA0AA")        << "M/EA0AA"        << "M/EA0AA"        << "M"      << "M"  << -1   << "EA0AA"  << "EA0"    << "EA"     << 0    << "AA" << ""       << true     << true;
     QTest::newRow("3D2/EA0AA")      << "3D2/EA0AA"      << "3D2/EA0AA"      << "3D2"    << "3D2"<< -1   << "EA0AA"  << "EA0"    << "EA"     << 0    << "AA" << ""       << true     << true;
-    QTest::newRow("3D20/EA0AA")     << "3D20/EA0AA"     << "3D20/EA0AA"     << "3D20"   << "3D2"<< 0    << "EA0AA"  << "EA0"    << "EA"     << 0    << "AA" << ""       << true     << true;
+    QTest::newRow("VP8/UT1KY")      << "VP8/UT1KY"      << "VP8/UT1KY"      << "VP8"    << "VP" << 8    << "UT1KY"  << "UT1"    << "UT"     << 1    << "KY" << ""       << true     << true;
     QTest::newRow("2E4K")           << "2E4K"           << "2E4K"           << ""       << ""   << -1   << "2E4K"   << "2E4"    << "2E"     << 4    << "K"  << ""       << true     << true;
     QTest::newRow("3D20CR")         << "3D20CR"         << "3D20CR"         << ""       << ""   << -1   << "3D20CR" << "3D20"   << "3D2"    << 0    << "CR" << ""       << true     << true;
     QTest::newRow("3D2A")           << "3D2A"           << "3D2A"           << ""       << ""   << -1   << "3D2A"   << "3D2"    << "3D2"    << -1   << "A"  << ""       << true     << true;
     QTest::newRow("S50K")           << "S50K"           << "S50K"           << ""       << ""   << -1   << "S50K"   << "S50"    << "S5"     << 0    << "K"  << ""       << true     << true;
+    QTest::newRow("B7D")            << "B7D"            << "B7D"            << ""       << ""   << -1   << "B7D"    << "B7"     << "B"      << 7    << "D"  << ""       << true     << true;
+    QTest::newRow("5Z4RT/Y2K")      << "5Z4RT/Y2K"      << "5Z4RT/Y2K"      << ""       << ""   << -1   << "5Z4RT"  << "5Z4"    << "5Z"     << 4    << "RT" << "Y2K"    << true     << true;
+    //QTest::newRow("VP6UU/VP6D")     << "VP6UU/VP6D"     << "VP6UU/VP6D"     << "VP6D"   << "VP6D"<< -1  << "VP6UU"  << "VP6"    << "VP6"    << -1   << "RT" << "Y2K"    << true     << true;
+    QTest::newRow("CO7WT/6Y")       << "CO7WT/6Y"       << "CO7WT/6Y"       << "6Y"     << "6Y" << -1   << "CO7WT"  << "CO7"    << "CO"     << 7    << "WT" << ""       << true     << true;
     QTest::newRow("AM100")          << "AM100"          << ""               << ""       << ""   << -1   << ""       << "AM100"  << "AM"     << 100  << ""   << ""       << true     << false;
     QTest::newRow("K1")             << "K1"             << ""               << ""       << ""   << -1   << ""       << "K1"     << "K"      << 1    << ""   << ""       << true     << false;
     QTest::newRow("KB1")            << "KB1"            << ""               << ""       << ""   << -1   << ""       << "KB1"    << "KB"     << 1    << ""   << ""       << true     << false;
@@ -134,24 +140,32 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("2E3")            << "2E3"            << ""               << ""       << ""   << -1   << ""       << "2E3"    << "2E"     << 3    << ""   << ""       << true     << false;
     QTest::newRow("E74")            << "E74"            << ""               << ""       << ""   << -1   << ""       << "E74"    << "E7"     << 4    << ""   << ""       << true     << false;
     QTest::newRow("A2")             << "A2"             << ""               << ""       << ""   << -1   << ""       << "A2"     << "A2"     << -1   << ""   << ""       << true     << false;
-    //QTest::newRow("3D2")            << "3D2"            << ""               << ""       << ""   << -1   << ""       << "3D2"    << "3D2" << ""    << -1   << ""   << ""       << true     << false;
+    QTest::newRow("3D2")            << "3D2"            << ""               << ""       << ""   << -1   << ""       << "3D2"    << "3D2"    << -1   << ""   << ""       << true     << false;
+    QTest::newRow("3D20")           << "3D20"           << ""               << ""       << ""   << -1   << ""       << "3D20"   << "3D2"    << 0    << ""   << ""       << true     << false;
 
+    // Now wrong callsigns
+    // FAIL: E/EA0K, , KKK1J
+    //QTest::newRow("E0J")            << "E0J"            << "E0J"            << ""       << ""   << -1   << "E0J"    << "E0"     << "J"      << 0    << "J"  << ""       << true     << false;
+
+
+
+    // TO BE ADDED
     // 3D20CR, 3D2C, 3D2NV/P, 3D3HY/R, 3V8ST/J, 4J75T/FF, UF/UA6GG/FF
-    // 5Z4RT/Y2K, CO7WT/6Y
-    // BY1BJ/1DX
-    // VE3FY/BY1TTY (China), BG1LLB/0, B7D
+    // ,
+    //
+    // VE3FY/BY1TTY (China), BG1LLB/0,
     // XR9A/8
-    // XR96IARU, R1AND/A, VP7/UT1KY, VU2JBK/AT10
+    // XR96IARU, R1AND/A, , VU2JBK/AT10
     // CY2NJ/ND, CS5E/LH, CX2ANP/D
     // EA4K/6
     // AO150ITU/8
     // FR/F6KDF/T
     // M2001Y/71B, 2IONGM/NHS
     // W0S, N6J
-    // VP6UU/VP6D (VP6/d)
+
     // mount Athos SV2A
 
-    // FAIL: E/EA0K, E0J, KKK1J
+
 }
 
 void tst_Callsign::test_callsigns()
@@ -171,41 +185,41 @@ void tst_Callsign::test_callsigns()
 
     Callsign testCall(testString);
 
-    qDebug() << Q_FUNC_INFO << " -         fullcall       : "  << fullcallsign;
+    //qDebug() << Q_FUNC_INFO << " -         fullcall       : "  << fullcallsign;
 
-    qDebug() << Q_FUNC_INFO << " - isValid";
-    QCOMPARE(testCall.isValid(), isValid);
+    //qDebug() << Q_FUNC_INFO << " - isValid";
+    //QCOMPARE(testCall.isValid(), isValid);
 
     if (isValid)
     {
-        qDebug() << Q_FUNC_INFO << " - fullcallsign     : "      << testCall.getCallsign() << "/" << fullcallsign;
+        //qDebug() << Q_FUNC_INFO << " - fullcallsign     : "      << testCall.getCallsign() << "/" << fullcallsign;
         QCOMPARE(testCall.getCallsign(), testString);
 
-        qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
+        //qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
         QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
 
-        qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;
+        //qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;
         QCOMPARE(testCall.getHostPrefix(), hostprefix);
 
-        qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
+        //qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
         QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
 
-        qDebug() << Q_FUNC_INFO << " - homecall         :"      << testCall.getHomeCallsign() << "/" << homecallsign;
+        //qDebug() << Q_FUNC_INFO << " - homecall         :"      << testCall.getHomeCallsign() << "/" << homecallsign;
         QCOMPARE(testCall.getHomeCallsign(), homecallsign);
 
-        qDebug() << Q_FUNC_INFO << " - homefullprefix   :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
+        //qDebug() << Q_FUNC_INFO << " - homefullprefix   :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
         QCOMPARE(testCall.getHomeFullPrefix(), homefullprefix);
 
-        qDebug() << Q_FUNC_INFO << " - homeprefix       :"      << testCall.getHomePrefix() << "/" << homeprefix;
+        //qDebug() << Q_FUNC_INFO << " - homeprefix       :"      << testCall.getHomePrefix() << "/" << homeprefix;
         QCOMPARE(testCall.getHomePrefix(), homeprefix);
 
-        qDebug() << Q_FUNC_INFO << " - homeareanumber   :"  << QString::number(testCall.getHomeAreaNumber()) << "/" << QString::number(homeareanumber);
+        //qDebug() << Q_FUNC_INFO << " - homeareanumber   :"  << QString::number(testCall.getHomeAreaNumber()) << "/" << QString::number(homeareanumber);
         QCOMPARE(testCall.getHomeAreaNumber(), homeareanumber);
 
-        qDebug() << Q_FUNC_INFO << " - homesuffix       :"      << testCall.getHomeSuffix() << "/" << homesuffix;
+        //qDebug() << Q_FUNC_INFO << " - homesuffix       :"      << testCall.getHomeSuffix() << "/" << homesuffix;
         QCOMPARE(testCall.getHomeSuffix(), homesuffix);
 
-        qDebug() << Q_FUNC_INFO << " - suffix           :"      << testCall.getSuffix() << "/" << suffix;
+        //qDebug() << Q_FUNC_INFO << " - suffix           :"      << testCall.getSuffix() << "/" << suffix;
         QCOMPARE(testCall.getSuffix(), suffix);
     }
 }
