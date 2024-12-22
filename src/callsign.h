@@ -82,36 +82,18 @@ private:
     static QRegularExpression prefixRegEx(); 
 
     QString fullCall;
-    // KB1/EA4K/QRP
-    QString hostFullPrefix1;        // KB1
-    QString hostNormalPrefix1;      // KB
-    int hostAreaNumber1;            // 1
-    QString hostSpecialPrefix1;     // 3D2 (in 3D2/EA4K)
-    int hostSpecialNumber1;         // 0 (in 3D20/EA4K)(not sure if this usecase will exist!)
 
-    bool hostAreaNumberExist1;      // Helper to check if the value exists or not
-    bool hostSpecialNumberExist1;   // Helper to check if the value exists or not
-    bool homeAreaNumberExist;       // Helper to check if the value exists or not
-    bool hostAreaNumberExist2;      // Helper to check if the value exists or not
-    bool hostSpecialNumberExist2;   // Helper to check if the value exists or not
 
 
     QString homeCallsign;       // EA4K in EA4K or KB1/EA4K/QRP
     QString homePrefix;         // EA4  in EA4K
-    QString homeNormalPrefix;   // EA   in EA4K
-    QString homeSpecialPrefix;  // 3D2  in 3D2A
+
     QString homeSuffix;         // K    in EA4K
     int homeAreaNumber;         // 4    in EA4K
-    int homeSpecialAreaNumber;  // 0    in 3D20A
 
 
-    QString suffix;             // String containing Suffixes like QRP in EA4K/QRP but also 3D2 in EA4K/3D2
+
     QString generalSuffix;      // QRP in EA4K/QRP
-    QString hostFullPrefix2;    // VU2 in EA4K/VU2
-    QString hostNormalPrefix2;  // VU in EA4K/VU2
-    int hostAreaNumber2;        // 2 in EA4K/VU2
-    QString hostSpecialPrefix2; // 3D2 (in EA4K/3D2)
-    int hostSpecialNumber2;     // 0 (in EA4K/3D20)(not sure if this usecase will exist!)
 
 
     bool valid;         // The entered string is a correct callsign

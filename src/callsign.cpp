@@ -29,15 +29,30 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
     fullCall(callsign.toUpper()), homeAreaNumber(0), valid(false), prefValid(false)
 {
     qDebug() << Q_FUNC_INFO << ": " << callsign;
-    hostAreaNumberExist1 = false;
-    hostSpecialNumberExist1 = false;
 
-    homeAreaNumberExist = false;
+    bool hostAreaNumberExist1       = false;   // Helper to check if the value exists or not
+    bool hostSpecialNumberExist1    = false;   // Helper to check if the value exists or not
+    bool homeAreaNumberExist        = false;   // Helper to check if the value exists or not
+    bool hostAreaNumberExist2       = false;   // Helper to check if the value exists or not
+    bool hostSpecialNumberExist2    = false;   // Helper to check if the value exists or not
+    bool homeSpecialAreaNumberExist = false;   // Helper to check if the value exists or not
 
-    hostAreaNumberExist2 = false;
-    hostSpecialNumberExist2 = false;
+    // KB1/EA4K/QRP
+    QString hostFullPrefix1;                    // KB1
+    QString hostNormalPrefix1;                  // KB
+    int hostAreaNumber1;                        // 1
+    QString hostSpecialPrefix1;                 // 3D2 (in 3D2/EA4K)
+    int hostSpecialNumber1;                     // 0 (in 3D20/EA4K)(not sure if this usecase will exist!)
 
-    bool homeSpecialAreaNumberExist = false;
+    QString hostFullPrefix2;                    // VU2 in EA4K/VU2
+    QString hostNormalPrefix2;                  // VU in EA4K/VU2
+    int hostAreaNumber2;                        // 2 in EA4K/VU2
+    QString hostSpecialPrefix2;                 // 3D2 (in EA4K/3D2)
+    int hostSpecialNumber2;                     // 0 (in EA4K/3D20)(not sure if this usecase will exist!)
+    QString homeNormalPrefix;                   // EA   in EA4K
+    QString homeSpecialPrefix;                  // 3D2  in 3D2A
+    int homeSpecialAreaNumber;                  // 0    in 3D20A
+    QString suffix;                             // String containing Suffixes like QRP in EA4K/QRP but also 3D2 in EA4K/3D2
 
     if (fullCall.contains('\\'))
          fullCall.replace('\\', '/');
@@ -65,30 +80,33 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
         valid       = true;
         prefValid   = true;
 
-        /*
-    QString homeCall;           // EA4K in EA4K or KB1/EA4K/QRP
-    QString homePrefix;         // EA4  in EA4K
-    QString homeNormalPrefix;   // EA   in EA4K
-    QString homeSpecialPrefix;  // 3D2  in 3D2A
-    QString homeSuffix;         // K    in EA4K
-    int homeAreaNumber;         // 4    in EA4K
-    int homeSpecialAreaNumber;  // 0    in 3D20A
 
 
-    QString suffix;             // String containing Suffixes like QRP in EA4K/QRP but also 3D2 in EA4K/3D2
-    QString generalSuffix;      // QRP in EA4K/QRP
-    QString hostFullPrefix2;    // VU2 in EA4K/VU2
-    QString hostNormalPrefix2;  // VU in EA4K/VU2
-    int hostAreaNumber2;        // 2 in EA4K/VU2
-    QString hostSpecialPrefix2; // 3D2 (in EA4K/3D2)
-    int hostSpecialNumber2;     // 0 (in EA4K/3D20)(not sure if this usecase will exist!)
-    */
+    //-hostfullprefix1
+    //-hostspecialprefix1 / hostspecialareanumber1
+
+    //hostnormalprefix1 / hostareanumber1
+
+    //homecall
+    //homeprefix
+    //homespecialprefix
+    //homespecialareanumber
+    //homenormalprefix
+    //homeareanumber
+    //homesuffix
+
+    //suffix
+    //hostfullprefix2
+    //hostspecialprefix2 / hostspecialareanumber2
+    //hostfullprefix2 / hostnormalprefix2 / hostareanumber2
+
+    //generalsuffix>
 
         hostFullPrefix1         = match.captured("hostfullprefix1");
         hostNormalPrefix1       = match.captured("hostnormalprefix1");
         hostAreaNumber1         = match.captured("hostareanumber1").toInt(&hostAreaNumberExist1);
         hostSpecialPrefix1      = match.captured("hostspecialprefix1");
-        hostSpecialNumber1      = match.captured("hostSpecialnumber1").toInt(&hostSpecialNumberExist1);
+        hostSpecialNumber1      = match.captured("hostspecialareanumber1").toInt(&hostSpecialNumberExist1);
 
         qDebug() << Q_FUNC_INFO << " - 40";
         homeCallsign            = match.captured("homecall");
@@ -108,47 +126,101 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
         hostNormalPrefix2   = match.captured("hostnormalprefix2");
         hostAreaNumber2     = match.captured("hostareanumber2").toInt(&hostAreaNumberExist2);
         hostSpecialPrefix2  = match.captured("hostspecialprefix2");
-        hostSpecialNumber2  = match.captured("hostSpecialnumber2").toInt(&hostSpecialNumberExist2);
+        hostSpecialNumber2  = match.captured("hostspecialareanumber2").toInt(&hostSpecialNumberExist2);
 
         generalSuffix       = match.captured("generalsuffix");
 
         // Now we have all raw data, let's select what is valid
 
         if (hostFullPrefix1.length()>0)
+        {
+            qDebug() << Q_FUNC_INFO << " - 100";
             hostFullPrefix = hostFullPrefix1;
+            if (hostNormalPrefix1.length()>0)
+            {
+                qDebug() << Q_FUNC_INFO << " - 110";
+                hostPrefix = hostNormalPrefix1;
+                if (hostAreaNumberExist1)
+                {
+                    qDebug() << Q_FUNC_INFO << " - 120";
+                    hostAreaNumber = hostAreaNumber1;
+                }
+                else
+                {
+                    hostAreaNumber = -1;
+                }
+            }
+            else if (hostSpecialPrefix1.length()>0)
+            {
+                qDebug() << Q_FUNC_INFO << " - 130";
+                hostPrefix = hostSpecialPrefix1;
+                if (hostSpecialNumberExist1)
+                {
+                    qDebug() << Q_FUNC_INFO << " - 140";
+                    hostAreaNumber = hostSpecialNumber1;
+                }
+                else
+                {
+                    hostAreaNumber = -1;
+                }
+            }
+        }
         else if (hostFullPrefix2.length()>0)
+        {
+            qDebug() << Q_FUNC_INFO << " - 200";
             hostFullPrefix = hostFullPrefix2;
-
-        if (hostNormalPrefix1.length()>0)
-            hostPrefix = hostNormalPrefix1;
-        else if (hostSpecialPrefix1.length()>0)
-            hostPrefix = hostSpecialPrefix1;
-        else if (hostNormalPrefix2.length()>0)
-            hostPrefix = hostNormalPrefix2;
-        else if (hostSpecialPrefix2.length()>0)
-            hostPrefix = hostSpecialPrefix2;
-
-        if (hostAreaNumberExist1)
-            hostAreaNumber = hostAreaNumber1;
-        else if (hostAreaNumberExist2)
-            hostAreaNumber = hostAreaNumber2;
-        else if (hostSpecialNumberExist1)
-            hostAreaNumber = hostSpecialNumber1 ;
-        else if (hostSpecialNumberExist2)
-            hostAreaNumber = hostSpecialNumber2 ;
+            if (hostNormalPrefix1.length()>0)
+            {
+                qDebug() << Q_FUNC_INFO << " - 210";
+                hostPrefix = hostNormalPrefix2;
+                if (hostAreaNumberExist2)
+                {
+                    qDebug() << Q_FUNC_INFO << " - 220";
+                    hostAreaNumber = hostAreaNumber2;
+                }
+                else
+                {
+                    hostAreaNumber = -1;
+                }
+            }
+            else if (hostSpecialPrefix2.length()>0)
+            {
+                qDebug() << Q_FUNC_INFO << " - 230";
+                hostPrefix = hostSpecialPrefix2;
+                if (hostSpecialNumberExist2)
+                {
+                    qDebug() << Q_FUNC_INFO << " - 240";
+                    hostAreaNumber = hostSpecialNumber2;
+                }
+                else
+                {
+                    hostAreaNumber = -1;
+                }
+            }
+        }
         else
+        {
+            qDebug() << Q_FUNC_INFO << " - 250";
             hostAreaNumber = -1;
+        }
 
-        if (homeNormalPrefix.length()>0)
+
+        if (homeSpecialPrefix.length()<=0)          // There is no special prefix
+        {
             homePrefix = homeNormalPrefix;
-        else if (homeSpecialPrefix.length()>0)
+        }
+        else
+        {
             homePrefix = homeSpecialPrefix;
-
-        if (homeSpecialAreaNumberExist)
-            homeAreaNumber = homeSpecialAreaNumber;
-        else if (!homeAreaNumberExist)
-            homeAreaNumber = -1;
-
+            if (homeSpecialAreaNumberExist)         // Not all Special prefixes have area number
+            {                                       // 3D2A vs 3D20A
+                homeAreaNumber = homeSpecialAreaNumber;
+            }
+            else
+            {
+                homeAreaNumber = -1;
+            }
+        }
 
 
         // Needed fields for a call are:
@@ -222,7 +294,7 @@ QRegularExpression Callsign::prefixRegEx()
 QString Callsign::callsignRegExString()
 {
     // This REGEX matches full callsigns including prefixes and suffixes
-    return QString("^((?<hostfullprefix1>((?<hostspecialprefix1>3D2|3D6|3D2C|3D2R|SV2A)(?<hostspecialareanumber1>[0-9]*))|(?<hostnormalprefix1>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber1>[0-9]*))\\/)?(?<homecall>(?<homeprefix>(?<homespecialprefix>3D2|3D6|3D2C|3D2R|SV2A)(?<homespecialareanumber>[0-9]*)|(?<homenormalprefix>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]+))(?<homesuffix>[A-Z]+))(\\/(?<suffix>(?<hostspecialprefix2>3D2|3D6|3D2C|3D2R|SV2A)(?<hostspecialareanumber2>[0-9]*)|(?<hostfullprefix2>(?<hostnormalprefix2>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber2>[0-9]*))|(?<generalsuffix>[A-Z0-9]*)))?$");
+    return QString("^((?<hostfullprefix1>((?<hostspecialprefix1>3D2|3D6|3D2C|3D2R|SV2A)(?<hostspecialareanumber1>[0-9]*))|(?<hostnormalprefix1>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber1>[0-9]*))\\/)?(?<homecall>(?<homeprefix>(?<homespecialprefix>3D2|3D6|3D2C|3D2R|SV2A)(?<homespecialareanumber>[0-9]*)|(?<homenormalprefix>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]+))(?<homesuffix>[A-Z]+))(\\/(?<suffix>(?<hostfullprefix2>(?<hostspecialprefix2>3D2|3D6|3D2C|3D2R|SV2A)(?<hostspecialareanumber2>[0-9]*)|(?<hostnormalprefix2>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber2>[0-9]*))|(?<generalsuffix>[A-Z0-9]*)))?$");
 }
 
 QString Callsign::prefixRegExString()
@@ -267,12 +339,6 @@ void Callsign::clear()
     homeCallsign.clear();           // EA4K
     homeFullPrefix.clear();         // EA4
     homePrefix.clear();             // EA
-
-    hostAreaNumberExist1    = false;
-    hostSpecialNumberExist1 = false;
-    homeAreaNumberExist     = false;
-    hostAreaNumberExist2    = false;
-    hostSpecialNumberExist2 = false;
 
     hostAreaNumber          = -1;
     homeAreaNumber          = -1;       // 4

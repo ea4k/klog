@@ -149,6 +149,7 @@ void tst_Callsign::test_callsigns_data()
     // M2001Y/71B, 2IONGM/NHS
     // W0S, N6J
     // VP6UU/VP6D (VP6/d)
+    // mount Athos SV2A
 
     // FAIL: E/EA0K, E0J, KKK1J
 }
