@@ -58,10 +58,11 @@ public:
     // - homeSuffix     (QString)
     // - suffix         (QString)
 
-    QString getCallsign();                  // Returns the FULL callsign                                            (fullCall)
-    QString getHostFullPrefix();            // The complete host prefix (simple + area number if exists)            (hostFullPrefix)
-    QString getHostPrefix();                // The host prefix (simple without area number if exists)               (hostPrefix)
-    int     getHostAreaNumber();            // Get host area number                                                 (hostAreaNumber)
+    QString getCallsign();                                  // Returns the FULL callsign                                            (fullCall)
+    QString getHostFullPrefix(bool getHomeIfEmpty=false);   // The complete host prefix (simple + area number if exists)            (hostFullPrefix)
+    QString getHostPrefix(bool getHomeIfEmpty=false);       // The host prefix (simple without area number if exists)               (hostPrefix)
+    int     getHostAreaNumber(bool getHomeIfEmpty=false);   // Get host area number                                                 (hostAreaNumber)
+                                                            // if getHomeIfEmpty is true and no hostprefix is identified, it will return homePrefix
 
 
     QString getHomeCallsign();              // Returns the base / home callsign like EA4K in K1/EA4K, or EA4K/QRP   (fullCall)

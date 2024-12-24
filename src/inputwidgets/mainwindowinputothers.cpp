@@ -787,9 +787,9 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
 
     Callsign callsign(_qrz);
 
-    QString mainPref    = dataProxy->getEntityMainPrefix(_entity);                 // The main prefix of the entity.
-    QString mainToUse   = callsign.getHostFullPrefix();                           // The default is that showAll is not checked. Main prefix+ the area
-    QString prefUsed    = callsign.getHostPrefix();                                // The default is that showAll is not checked
+    QString mainPref    = dataProxy->getEntityMainPrefix(_entity);                  // The main prefix of the entity.
+    QString mainToUse   = callsign.getHostFullPrefix();                             // The default is that showAll is not checked. Main prefix+ the area
+    QString prefUsed    = callsign.getHostPrefix();                                 // The default is that showAll is not checked
 
     qDebug() << Q_FUNC_INFO << " -  20";
     if (showAllCheckBox->isChecked())
