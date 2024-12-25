@@ -196,13 +196,13 @@ void tst_Callsign::test_callsigns()
         QCOMPARE(testCall.getCallsign(), testString);
 
         //qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
-        QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
+        QCOMPARE(testCall.getHostFullPrefix(false), hostfullprefix);
 
         //qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;
-        QCOMPARE(testCall.getHostPrefix(), hostprefix);
+        QCOMPARE(testCall.getHostPrefix(false), hostprefix);
 
         //qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
-        QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
+        QCOMPARE(testCall.getHostAreaNumber(false), hostareanumber);
 
         //qDebug() << Q_FUNC_INFO << " - homecall         :"      << testCall.getHomeCallsign() << "/" << homecallsign;
         QCOMPARE(testCall.getHomeCallsign(), homecallsign);
