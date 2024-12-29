@@ -77,10 +77,10 @@ public:
     void clear();
 
 private:
-    static QString callsignRegExString();
-    static QRegularExpression callsignRegEx();
-    static QString prefixRegExString();
-    static QRegularExpression prefixRegEx(); 
+    static QString              callsignRegExString();
+    static QRegularExpression   callsignRegEx();
+    static QString              prefixRegExString();
+    static QRegularExpression   prefixRegEx();
 
     QString fullCall;           // K1/EA4K/QRP
     QString hostFullPrefix;     // K1

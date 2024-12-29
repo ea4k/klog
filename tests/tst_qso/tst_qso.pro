@@ -9,6 +9,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/utilities.h \
+    ../../src/callsign.h \
     ../../src/global.h \
     ../../src/klogdefinitions.h \
     #../../src/dataproxy_sqlite.h \
@@ -19,6 +20,7 @@ HEADERS += \
 
 SOURCES +=  tst_qso.cpp \
     ../../src/utilities.cpp \
+    ../../src/callsign.cpp \
     #../../src/dataproxy_sqlite.cpp \
     #../../src/database.cpp \
     ../../src/locator.cpp \

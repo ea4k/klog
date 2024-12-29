@@ -28,6 +28,7 @@
 #include <QtTest>
 
 #include "../../src/qso.h"
+#include "../../src/callsign.h"
 #include "../../src/klogdefinitions.h"
 
 

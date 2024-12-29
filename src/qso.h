@@ -35,6 +35,7 @@
 //#include <QDebug>
 #include "global.h"
 #include "utilities.h"
+#include "callsign.h"
 #include "klogdefinitions.h"
 #include "adif.h"
 //#include "database.h"

@@ -26,6 +26,7 @@
 #include "qso.h"
 #include "QtSql/qsqlerror.h"
 #include "qsqlrecord.h"
+#include "callsign.h"
 
 QSO::QSO()
 {
@@ -716,17 +717,13 @@ bool QSO::isValid()
 bool QSO::setCall(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
-    QString aux;
-    aux = _c.toUpper();
-    if ((aux.isNull()) || (aux.length()<3))
-    {
-        logEvent(Q_FUNC_INFO, "END - False-1", Debug);
-        return false;
-    }
-    if (util->isValidCall(aux))
+
+    Callsign _callsign (_c);
+    if (_callsign.isValid())
+    //if (util->isValidCall(aux))
     {
         logEvent (Q_FUNC_INFO, QString("END - true"), Debug);
-        callsign = aux;
+        callsign = _callsign.getCallsign();
         haveCall = true;
         return true;
     }
@@ -1751,14 +1748,12 @@ bool QSO::setOperatorCallsign(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
     //logEvent(Q_FUNC_INFO, "Start", Debug);
-    QString aux = _c;
-    if (aux.length()<3)
-        return false;
 
-
-    if (util->isValidCall(aux))
+    Callsign _callsign (_c);
+    if (_callsign.isValid())
+    //if (util->isValidCall(aux))
     {
-       operatorCall = aux;
+       operatorCall = _callsign.getCallsign();
        //qDebug() << Q_FUNC_INFO << "END - true";
        logEvent(Q_FUNC_INFO, "END-true", Debug);
        return true;
@@ -1779,18 +1774,14 @@ QString QSO::getOperatorCallsign()
 bool QSO::setStationCallsign(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
-    QString aux = _c;
-    if ((aux.length()<3) || (aux.isNull()))
-    {
-        //qDebug() << Q_FUNC_INFO << " - 009";
-        return false;
-    }
 
+    Callsign _callsign (_c);
+    if (_callsign.isValid())
     //qDebug() << Q_FUNC_INFO << " - 010";
-    if (util->isValidCall(aux))
+    //if (util->isValidCall(aux))
     {
         //qDebug() << Q_FUNC_INFO << " - True";
-        stationCallsign = aux;
+        stationCallsign = _callsign.getCallsign();
         return true;
     }
     else
@@ -2046,7 +2037,9 @@ double QSO::getDistance()
 
 bool QSO::setOwnerCallsign(const QString &_c)
 {
-    if (util->isValidCall(_c))
+    Callsign _callsign (_c);
+    if (_callsign.isValid())
+    //if (util->isValidCall(_c))
     {
        ownerCall = _c;
        return true;
@@ -2063,7 +2056,9 @@ QString QSO::getOwnerCallsign()
 
 bool QSO::setEQ_Call(const QString &_c)
 {
-    if (util->isValidCall(_c))
+    Callsign _callsign (_c);
+    if (_callsign.isValid())
+    //if (util->isValidCall(_c))
     {
         contacted_owner = _c;
         return true;
@@ -2263,7 +2258,9 @@ QString QSO::getCounty()
 
 bool QSO::setContactedOperator(const QString &_c)
 {
-    if (util->isValidCall(_c))
+    Callsign _callsign (_c);
+    if (_callsign.isValid())
+    //if (util->isValidCall(_c))
     {
        contacted_op = _c;
        return true;
