@@ -28,6 +28,7 @@
 DXSpot::DXSpot()
 {
     valid = false;
+    clickStatus = NoClick;
 }
 /*
 DXSpot::DXSpot(DXSpot *_other)

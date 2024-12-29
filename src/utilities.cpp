@@ -916,7 +916,8 @@ QString Utilities::getCheckedComplexCall(const QString &_c)
 }
 
 QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
-{ // Return the part of the call that provides entity and prefix information:
+{   //TODO: To be replaced by  QString Callsign::getHostFullPrefix(bool getHomeIfEmpty=true);
+  // Return the part of the call that provides entity and prefix information:
   // EA4K/F => F
   // VK9/EA4K => VK9
   // EA4K/MM => EA4K

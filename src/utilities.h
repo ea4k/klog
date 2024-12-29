@@ -40,6 +40,7 @@
 #include <QtWidgets>
 #include <QPalette>
 #include <QtDebug>
+#include "global.h"                     // Remove when all deprecated functions are removed
 #include "locator.h"
 #include "klogdefinitions.h"
 #include "adif.h"
@@ -101,7 +102,7 @@ public:
     // Validations
     bool isValidDate(const QDate _d);
     bool isValidDateTime(const QString &_d);
-    bool isValidCall(const QString &_c, bool _force=false);
+    KLOG_DEPRECATED bool isValidCall(const QString &_c, bool _force=false);             // To be replaced by Callsign::isValid
 
     bool isSameFreq(const double fr1, const double fr2);
     bool isValidBandId(const int _b);
@@ -133,7 +134,7 @@ public:
     bool areThoseListsTheSame(const QStringList &_list1, const QStringList &_list2);
     //QString getADIFField(const QString &_fieldName, const QString &_data);
 
-    QString getMainCallFromComplexCall(const QString &_complexCall); // F from F/EA4K/p, EA4K from EA4K/p or EA4K from EA4K
+     KLOG_DEPRECATED QString getMainCallFromComplexCall(const QString &_complexCall); //TODO: To be replaced by  QString Callsign::getHostFullPrefix(bool getHomeIfEmpty=true);
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
     int getAreaNumberFromCall(const QString &_c);

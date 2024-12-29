@@ -786,40 +786,48 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     setEntity(_entity);
 
     Callsign callsign(_qrz);
+    QString prefixFromEntityNumber  = dataProxy->getEntityMainPrefix(_entity);    // The main prefix of the entity.
 
-    QString mainPref    = dataProxy->getEntityMainPrefix(_entity);                  // The main prefix of the entity.
-    QString mainToUse   = callsign.getHostFullPrefix();                             // The default is that showAll is not checked. Main prefix+ the area
-    QString prefUsed    = callsign.getHostPrefix();                                 // The default is that showAll is not checked
+    Callsign entityCall(prefixFromEntityNumber);    // To check if the prefixFromEntity is the main or not (EA->main, AM-> nor main, it should be EA)
+    QString prefixForSubdivision = prefixFromEntityNumber;
+
+    // TODO: This function must be improved and find what shoudl be used to identify the right data
+
+
+
+    QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
+    QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
 
     qDebug() << Q_FUNC_INFO << " -  20";
     if (showAllCheckBox->isChecked())
     { // The prefix without the number should be used.
       // be careful with prefixes like EA8/EA/EA6 or E73 / E7
         qDebug() << Q_FUNC_INFO << " -  21";
-        mainToUse   = mainPref;
-        prefUsed    = callsign.getHostPrefix();
+        hostFullPrefix  = prefixFromEntityNumber;
+        hostPrefix      = callsign.getHostPrefix();
     }
     qDebug() << Q_FUNC_INFO << " -  30";
 
-    qDebug() << Q_FUNC_INFO << "mainToUse: " << mainToUse;
-    qDebug() << Q_FUNC_INFO << "mainPref: " << mainPref;
-    qDebug() << Q_FUNC_INFO << "prefUsed: " << prefUsed;
+    qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
+    qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
+    qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
 
-    if ((mainToUse.isEmpty()) && (prefUsed.isEmpty()))
+    if ((hostFullPrefix.isEmpty()) && (hostPrefix.isEmpty()))
         return;
+
     qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, prefUsed));
+    subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostPrefix));
     if (subdivisions.length()<1)
     {
         qDebug() << Q_FUNC_INFO << " -  50";
-        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with prefUSed, running for the main prefix";
-        subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, mainToUse));
+        qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with hostPrefix, running for the main prefix";
+        subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostFullPrefix));
         if (subdivisions.length()<1)
         {
             qDebug() << Q_FUNC_INFO << " -  55";
-            qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with mainpref, running just with the entity";
+            qDebug() << Q_FUNC_INFO << " - Subdivisions is empty with mainprefix, running just with the entity";
             subdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
         }
         qDebug() << Q_FUNC_INFO << " -  59";

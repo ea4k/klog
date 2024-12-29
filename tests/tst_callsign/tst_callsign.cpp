@@ -135,7 +135,7 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("CO7WT/6Y")       << "CO7WT/6Y"       << "CO7WT/6Y"       << "6Y"     << "6Y" << -1   << "CO7WT"  << "CO7"    << "CO"     << 7    << "WT" << ""       << true     << true;
     QTest::newRow("AM100")          << "AM100"          << ""               << ""       << ""   << -1   << ""       << "AM100"  << "AM"     << 100  << ""   << ""       << true     << false;
     QTest::newRow("K1")             << "K1"             << ""               << ""       << ""   << -1   << ""       << "K1"     << "K"      << 1    << ""   << ""       << true     << false;
-    QTest::newRow("KB1")            << "KB1"            << ""               << ""       << ""   << -1   << ""       << "KB1"    << "KB"     << 1    << ""   << ""       << true     << false;
+    QTest::newRow("KB1")            << "KB1"            << ""               << ""       << ""   << -1   << ""       << "KB1"    << "KB"     << 1    << ""   << ""       << true     << false;    
     QTest::newRow("EA")             << "EA"             << ""               << ""       << ""   << -1   << ""       << "EA"     << "EA"     << -1   << ""   << ""       << true     << false;
     QTest::newRow("2E3")            << "2E3"            << ""               << ""       << ""   << -1   << ""       << "2E3"    << "2E"     << 3    << ""   << ""       << true     << false;
     QTest::newRow("E74")            << "E74"            << ""               << ""       << ""   << -1   << ""       << "E74"    << "E7"     << 4    << ""   << ""       << true     << false;

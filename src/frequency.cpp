@@ -35,6 +35,7 @@ Frequency::Frequency(){}
 Frequency::Frequency(const double _f, FreqUnits _u)
 {
     freq = normalize(_f, _u);
+    setTolerance(1, _u);
 }
 
 Frequency::~Frequency(){}

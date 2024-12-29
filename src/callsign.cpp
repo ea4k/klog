@@ -233,7 +233,7 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
         //qDebug() << Q_FUNC_INFO << " - 50";
 
         prefValid = true;
-        homePrefix          = matchPrefix.captured("prefix");
+        homeFullPrefix      = matchPrefix.captured("prefix");
         homeSpecialPrefix   = matchPrefix.captured("specialprefix");
         hostSpecialNumber1  = match.captured("specialareanumber").toInt(&hostSpecialNumberExist1);
         homeNormalPrefix    = match.captured("normalprefix");
@@ -242,13 +242,19 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
         // Now we have the data, let's select the good one
 
         if (hostSpecialNumberExist1)
+        {
+            homePrefix = homeSpecialPrefix;
             homeAreaNumber = hostSpecialNumber1;
+        }
         else if (!homeAreaNumberExist)
-            homeAreaNumber = -1;
+        {
+            homeAreaNumber = 0;
+        }
 
-        //qDebug() << Q_FUNC_INFO << " - @ homeFullPrefix     : " << homeFullPrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ homePrefix         : " << homePrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ homeAreaNumber     : " << QString::number(homeAreaNumber);
+
+        qDebug() << Q_FUNC_INFO << " - @ homeFullPrefix     : " << homeFullPrefix;
+        qDebug() << Q_FUNC_INFO << " - @ homePrefix         : " << homePrefix;
+        qDebug() << Q_FUNC_INFO << " - @ homeAreaNumber     : " << QString::number(homeAreaNumber);
     }
     else
     {
