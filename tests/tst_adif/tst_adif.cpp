@@ -27,7 +27,7 @@
 
 #include <QtTest>
 #include "../../src/adif.h"
-
+#include "../../src/callsign.h"
 
 class tst_Adif : public QObject
 {

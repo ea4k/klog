@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "searchwidget.h"
+#include "callsign.h"
 
 SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
@@ -143,9 +144,11 @@ void SearchWidget::showQSOs(QList<int> qsoIdList)
 
 void SearchWidget::setStationCallsign(const QString &_st)
 {
-    if (util->isValidCall(_st))
+    Callsign _callsign(_st);
+    if (_callsign.isValid())
+    //if (util->isValidCall(_st))
     {
-        mainStationCallsign = _st;
+        mainStationCallsign = _callsign.getCallsign();
         selectStationCallSign();
     }
 }

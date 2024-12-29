@@ -17,6 +17,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/adif.h \
+    ../../src/callsign.h \
     ../../src/downloadcty.h \
     ../../src/locator.h \
     ../../src/utilities.h \
@@ -25,6 +26,7 @@ HEADERS += \
 
 SOURCES +=  tst_wizard.cpp \
     ../../src/adif.cpp \
+    ../../src/callsign.cpp \
     ../../src/downloadcty.cpp \
     ../../src/locator.cpp \
     ../../src/utilities.cpp \

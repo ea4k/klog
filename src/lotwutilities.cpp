@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "lotwutilities.h"
+#include "callsign.h"
 #include <QCoreApplication>
 #include <QUrl>
 #include <QNetworkRequest>
@@ -146,7 +147,9 @@ bool LoTWUtilities::selectQuery(const int _queryId)
 bool LoTWUtilities::setStationCallSign(const QString &_call)
 {
     //qDebug() << "LoTWUtilities::setStationCallSign: " << _call;
-    if (!util->isValidCall(_call))
+    Callsign _callsign(_call);
+    if (!_callsign.isValid())
+    //if (!util->isValidCall(_call))
     {
         //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 1" ;
         return false;

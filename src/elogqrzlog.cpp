@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "elogqrzlog.h"
+#include "callsign.h"
 #include <QCoreApplication>
 #include <QUrl>
 #include <QNetworkRequest>
@@ -579,7 +580,9 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
 {
     //qDebug() << Q_FUNC_INFO << ": " + _qrz;
     showDebugLog (Q_FUNC_INFO, "Start: " + _qrz);
-    if (!util->isValidCall(_qrz))
+    Callsign _callsign(_qrz);
+    if (!_callsign.isValid())
+    //if (!util->isValidCall(_qrz))
     {
         //qDebug()<< "eLogQrzLog::checkQRZ: CALL not valid" ;
         showDebugLog (Q_FUNC_INFO, "CALL not valid");

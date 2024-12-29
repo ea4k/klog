@@ -25,6 +25,7 @@
  *****************************************************************************/
 //#include "global.h"
 #include "adif.h"
+#include "callsign.h"
 
 Adif::Adif(const QString &_parentName)
 {
@@ -695,9 +696,11 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 
 bool Adif::isValidCall(const QString &_c)
 {
-    if (_c.length ()>=3)
-        return true;
-    return false;
+    Callsign _callsign(_c);
+    return _callsign.isValid();
+    //if (_c.length ()>=3)
+    //    return true;
+    //return false;
 }
 
 void Adif::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)

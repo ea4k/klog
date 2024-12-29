@@ -26,6 +26,7 @@
  *****************************************************************************/
 //https://github.com/ea4k/klog/commit/1ac02c7b779922a8e5907ebee088fa64654cbdf5
 #include "mainqsoentrywidget.h"
+#include "callsign.h"
 
 MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
@@ -300,7 +301,9 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
      //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 ";
-    if (!util->isValidCall(qrzLineEdit->text()))
+    Callsign _callsign(qrzLineEdit->text());
+    if (!_callsign.isValid())
+    //if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));

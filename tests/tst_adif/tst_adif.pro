@@ -11,10 +11,12 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/adif.h \
+    ../../src/callsign.h \
     ../../src/klogdefinitions.h
 
 SOURCES +=  tst_adif.cpp \
-    ../../src/adif.cpp \
+    ../../src/callsign.cpp \
+    ../../src/adif.cpp
 
 
 
