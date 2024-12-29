@@ -17,12 +17,14 @@ HEADERS += \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/qso.h \
+    ../../src/callsign.h \
     ../../src/adif.h
 
 SOURCES +=  tst_world.cpp \
     ../../src/world.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/qso.cpp \
+        ../../src/callsign.cpp \
     ../../src/utilities.cpp \
     ../../src/database.cpp \
     ../../src/database/queryexecutor.cpp \

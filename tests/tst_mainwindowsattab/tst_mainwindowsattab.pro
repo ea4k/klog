@@ -21,6 +21,7 @@ HEADERS += \
     ../../src/inputwidgets/mainwindowsattab.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/qso.h \
+    ../../src/callsign.h \
     ../../src/utilities.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
@@ -33,6 +34,7 @@ SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/qso.cpp \
+    ../../src/callsign.cpp \
     ../../src/utilities.cpp \
     ../../src/locator.cpp \
     ../../src/database.cpp \

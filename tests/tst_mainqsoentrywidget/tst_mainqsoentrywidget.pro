@@ -14,6 +14,7 @@ HEADERS += \
     ../../src/dataproxy_sqlite.h \
     ../../src/utilities.h \
     ../../src/qso.h \
+    ../../src/callsign.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
     ../../src/database.h \
@@ -26,6 +27,7 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
+        ../../src/callsign.cpp \
     ../../src/locator.cpp \
     ../../src/database.cpp \
     ../../src/database/queryexecutor.cpp \

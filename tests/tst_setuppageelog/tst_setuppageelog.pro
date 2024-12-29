@@ -17,6 +17,7 @@ HEADERS += \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/qso.h \
+    ../../src/callsign.h \
     ../../src/locator.h \
     ../../src/setuppages/setuppageelog.h \
     ../../src/adif.h
@@ -29,6 +30,7 @@ SOURCES +=  tst_setuppageelog.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/qso.cpp \
+    ../../src/callsign.cpp \
     ../../src/locator.cpp \
     ../../src/setuppages/setuppageelog.cpp \
     ../../src/adif.cpp
