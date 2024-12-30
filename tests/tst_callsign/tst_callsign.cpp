@@ -46,6 +46,7 @@ private slots:
     void test_Constructors();
     void test_callsigns();
     void test_callsigns_data();     // Data function
+    void test_callsign_operator();
 
 private:
     //Callsign *callsign;
@@ -98,7 +99,7 @@ void tst_Callsign::test_callsigns_data()
 
     //KB1/EA4K/QRP
     QTest::addColumn<QString>("testString");            // KB1/EA4K/QRP
-    QTest::addColumn<QString>("fullcallsign");              // KB1/EA4K/QRP
+    QTest::addColumn<QString>("fullcallsign");          // KB1/EA4K/QRP
     QTest::addColumn<QString>("hostfullprefix");        // KB1
     QTest::addColumn<QString>("hostprefix");            // KB
     QTest::addColumn<int>("hostareanumber");            // 1
@@ -142,12 +143,9 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("A2")             << "A2"             << ""               << ""       << ""   << -1   << ""       << "A2"     << "A2"     << -1   << ""   << ""       << true     << false;
     QTest::newRow("3D2")            << "3D2"            << ""               << ""       << ""   << -1   << ""       << "3D2"    << "3D2"    << -1   << ""   << ""       << true     << false;
     QTest::newRow("3D20")           << "3D20"           << ""               << ""       << ""   << -1   << ""       << "3D20"   << "3D2"    << 0    << ""   << ""       << true     << false;
-
     // Now wrong callsigns
     // FAIL: E/EA0K, , KKK1J
     //QTest::newRow("E0J")            << "E0J"            << "E0J"            << ""       << ""   << -1   << "E0J"    << "E0"     << "J"      << 0    << "J"  << ""       << true     << false;
-
-
 
     // TO BE ADDED
     // 3D20CR, 3D2C, 3D2NV/P, 3D3HY/R, 3V8ST/J, 4J75T/FF, UF/UA6GG/FF
@@ -162,10 +160,7 @@ void tst_Callsign::test_callsigns_data()
     // FR/F6KDF/T
     // M2001Y/71B, 2IONGM/NHS
     // W0S, N6J
-
     // mount Athos SV2A
-
-
 }
 
 void tst_Callsign::test_callsigns()
@@ -224,7 +219,21 @@ void tst_Callsign::test_callsigns()
     }
 }
 
+void tst_Callsign::test_callsign_operator()
+{
 
+    Callsign testCall("EA0K");
+    //qDebug() << Q_FUNC_INFO << " - getCallsign-1     : "      << testCall.getCallsign();
+    QVERIFY2("EA0K" == testCall.getCallsign(), "Constructor is failing - EA0K");
+    testCall("EA0L");
+    //qDebug() << Q_FUNC_INFO << " - getCallsign-2     : "      << testCall.getCallsign();
+    QVERIFY2("EA0L" == testCall.getCallsign(), "Operator is failing - EA0L");
+    testCall("KB1/EA0K/QRP");
+    QCOMPARE(testCall.getHomeSuffix(), "K");
+    QCOMPARE(testCall.getHomeCallsign(), "EA0K");
+    QCOMPARE(testCall.getSuffix(), "QRP");
+    QCOMPARE(testCall.getHostFullPrefix(), "KB1");
+}
 
 QTEST_APPLESS_MAIN(tst_Callsign)
 

@@ -41,9 +41,10 @@ class Callsign : public QObject
 {
     Q_OBJECT
 public:
-    Callsign(const QString &callsign,
-                      QObject *parent = nullptr);
+    Callsign(const QString &callsign, QObject *parent = nullptr);
     ~Callsign();
+    void operator()(const QString &newCallsign);
+
     //static QStringList secondarySpecialSuffixes;
 
     // K1/EA4K/QRP
@@ -74,13 +75,17 @@ public:
 
     bool isValid();                         // True if it is a full callsign
     bool isValidPrefix();                   // True if it is a prefix, but not a call
+    bool isSimple();                        // True if it has no / nor \ characters, no prefix nor suffix
     void clear();
 
 private:
+
     static QString              callsignRegExString();
     static QRegularExpression   callsignRegEx();
     static QString              prefixRegExString();
     static QRegularExpression   prefixRegEx();
+
+    void    initialize(const QString &callsign);    // A helper to perform the initialization and prevent code duplication
 
     QString fullCall;           // K1/EA4K/QRP
     QString hostFullPrefix;     // K1

@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "utilities.h"
+#include "callsign.h"
 #include <QRegularExpression>
 //bool c;
 Utilities::Utilities(const QString &_parentName)
@@ -1028,79 +1029,22 @@ bool Utilities::isValidCall(const QString &_c, bool _force)
 
     //qDebug() << Q_FUNC_INFO << " - Long prefixes: " << QString::number(longPrefixes.count());
     if (longPrefixes.count()<100)
-    {
+    {   // Reporting a problem with the DB
+        //TODO: This should be managed differently, maybe issuing a signal and show a message stating a
+        //      potential error with the DB
         //qDebug() << Q_FUNC_INFO << "Long prefixes < 100 " << _c;
         return false;
     }
-    QString call = _c;
     //qDebug() << Q_FUNC_INFO << "000 " << _c;
-    if (isAKnownCall(call))
+    if (isAKnownCall(_c))
     {
         //qDebug() << Q_FUNC_INFO << "001 - Known call: " << _c;
         return true;
     }
     //qDebug() << Q_FUNC_INFO << "- 002 " << call;
-    if (call.length()<3)
-    {
-        //qDebug() << Q_FUNC_INFO << "- 003 " << call;
-        //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010 - False"), Debug);
-        return false;
-    }
-    //call = getMainCallFromComplexCall(call);
-    //qDebug() << Q_FUNC_INFO << "- 004 :" << call;
 
-    //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 010"), Devel);
-    if (call.count('\\')>0)
-    {
-        call.replace('\\', '/');
-    }
-    //qDebug() << Q_FUNC_INFO << " -005";
-
-    if (call.count('/')>2)
-    {
-        //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 015 - false"), Debug);
-        //qDebug() << Q_FUNC_INFO << " -005.5";
-        return false;
-    }
-    //qDebug() << Q_FUNC_INFO << " -006";
-    //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 020"), Devel);
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - 020";
-    if (call.count('/') == 2)
-    { //Things like F/EA4K/P will become F/EA4K
-        //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Two /; Ignoring the last part: %1").arg(call), Devel);
-        QStringList parts;
-        parts.clear();
-        parts << call.split('/');
-        call = parts.at(0) + "/" + parts.at(1);
-    }
-    //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString(" - 025: %1").arg(call), Devel);
-    //qDebug() << Q_FUNC_INFO << " -025";
-
-    if (call.count('/') == 1)
-    { // Complex calls (like F/EA4K or EA4K/F OR /p OR /qrp
-      // We are just checking the call format not if it belongs to a country or whatever.
-      // It may return true for wrong calls like "ABC/EA4K"
-      // TODO: Add a check just for prefixes to fix the previous
-        //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString(" - Call with one /: %1").arg(call), Devel);
-        QStringList parts;
-        parts.clear();
-        parts << call.split ('/');
-        //EA4K/P
-
-        bool result1 = ((isAPrefix (parts.at (0))) || (isValidSimpleCall (parts.at(0))));
-        //qDebug() << Q_FUNC_INFO << " -027";
-        bool result2 = ((isAPrefix (parts.at (1))) || (isValidSimpleCall (parts.at(1))) || isAValidOperatingSuffix(parts.at(1)) );
-        //qDebug() << Q_FUNC_INFO << parts.at(0) << "/" << parts.at(1);
-        //qDebug() << Q_FUNC_INFO << QString("Result1=%1").arg(boolToQString(result1));
-        //qDebug() << Q_FUNC_INFO << QString("Result2=%1").arg(boolToQString(result2));
-        //qDebug() << Q_FUNC_INFO << QString("Detailed=%1/%2/%3").arg(boolToQString((isAPrefix (parts.at (1))) )).arg(boolToQString((isValidSimpleCall (parts.at(1))))).arg(boolToQString(isAValidOperatingSuffix(parts.at(1))));
-        //qDebug() << Q_FUNC_INFO << "END1";
-        return (result1 && result2);
-    }
-    //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - %1").arg(isValidSimpleCall(call)), Debug);
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - END";
-
-    return isValidSimpleCall(call);
+    Callsign callsign(_c);
+    return callsign.isValid();
 }
 
 int Utilities::getAreaNumberFromCall(const QString &_c)
