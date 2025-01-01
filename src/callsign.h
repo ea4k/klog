@@ -59,10 +59,10 @@ public:
     // - homeSuffix     (QString)   K
     // - suffix         (QString)   QRP
 
-    QString getCallsign();                                  // Returns the FULL callsign                                            (fullCall)
-    QString getHostFullPrefix(bool getHomeIfEmpty=true);    // The complete host prefix (simple + area number if exists)            (hostFullPrefix)
-    QString getHostPrefix(bool getHomeIfEmpty=true);        // The host prefix (simple without area number if exists)               (hostPrefix)
-    int     getHostAreaNumber(bool getHomeIfEmpty=true);    // Get host area number                                                 (hostAreaNumber)
+    QString getCallsign();                                  // Returns the FULL callsign                                                                        (fullCall)
+    QString getHostFullPrefix();    // The complete host prefix (simple + area number if exists)  , if only prefix it should be false   (hostFullPrefix)
+    QString getHostPrefix();        // The host prefix (simple without area number if exists), if only prefix it should be false        (hostPrefix)
+    int     getHostAreaNumber();    // Get host area number, if only prefix it should be false                                          (hostAreaNumber)
                                                             // if getHomeIfEmpty is true and no hostprefix is identified, it will return homePrefix
 
 

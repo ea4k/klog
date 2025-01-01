@@ -742,27 +742,27 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
 void MainWindowInputOthers::setEntity(const int _entity)
 {// Select the appropriate entity in the ComboBox
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - 10" ;
+    //qDebug() << Q_FUNC_INFO << " - 10" ;
 
     if (_entity<=0)
     {
-        qDebug() << Q_FUNC_INFO << " - 11" ;
+        //qDebug() << Q_FUNC_INFO << " - 11" ;
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
 
-    qDebug() << Q_FUNC_INFO << " - 20" ;
+    //qDebug() << Q_FUNC_INFO << " - 20" ;
     currentInt = _entity;
     QString aux = QString::number(_entity);
     if (_entity > 1000)
     {
-        qDebug() << Q_FUNC_INFO << " - 30" ;
+        //qDebug() << Q_FUNC_INFO << " - 30" ;
         aux = (QString::number(_entity)).right(3);
     }
-    qDebug() << Q_FUNC_INFO << " - 40" ;
+    //qDebug() << Q_FUNC_INFO << " - 40" ;
 
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
     if (indexC != -1)
@@ -771,86 +771,91 @@ void MainWindowInputOthers::setEntity(const int _entity)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Unable to find entity in the ComboBox";
+        //qDebug() << Q_FUNC_INFO << " - Unable to find entity in the ComboBox";
     }
 
 
     setIOTAContinent(dataProxy->getContinentShortNameFromEntity(_entity)) ;
-    qDebug() << Q_FUNC_INFO << " - 100" ;
+    //qDebug() << Q_FUNC_INFO << " - 100" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
     if (_entity<=0)
     {
-        qDebug() << Q_FUNC_INFO << " -  10";
+        //qDebug() << Q_FUNC_INFO << " -  10";
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
 
-    qDebug() << Q_FUNC_INFO << " - 15";
+    //qDebug() << Q_FUNC_INFO << " - 15";
     setEntity(_entity);
 
     Callsign callsign(_qrz);
     QString prefixFromEntityNumber  = dataProxy->getEntityMainPrefix(_entity);    // The main prefix of the entity.
 
     Callsign entityCall(prefixFromEntityNumber);    // To check if the prefixFromEntity is the main or not (EA->main, AM-> nor main, it should be EA)
-    QString prefixForSubdivision = prefixFromEntityNumber;
+    QString prefixForSubdivision = prefixFromEntityNumber;    
 
     // TODO: This function must be improved and find what shoudl be used to identify the right data
 
-    QString hostFullPrefix          = callsign.getHostFullPrefix(true);               // The default is that showAll is not checked. Main prefix+ the area
-    QString hostPrefix              = callsign.getHostPrefix(true);                   // The default is that showAll is not checked
-    qDebug() << Q_FUNC_INFO << " -  20";
-    qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
-    qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
+    QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
+    QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
+
+    if (hostPrefix != prefixFromEntityNumber)
+    {
+        hostFullPrefix = prefixFromEntityNumber + QString::number(callsign.getHostAreaNumber());
+    }
 
 
+    //qDebug() << Q_FUNC_INFO << " -  20";
+    //qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
+    //qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
 
     if (showAllCheckBox->isChecked())
     { // The prefix without the number should be used.
       // be careful with prefixes like EA8/EA/EA6 or E73 / E7
-        qDebug() << Q_FUNC_INFO << " -  21";
+        //qDebug() << Q_FUNC_INFO << " -  21";
         hostFullPrefix  = prefixFromEntityNumber;
         hostPrefix      = callsign.getHostPrefix();
     }
-    qDebug() << Q_FUNC_INFO << " -  30";
-    qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
-    qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
-    qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
+    //qDebug() << Q_FUNC_INFO << " -  30";
+    //qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
+    //qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
+    //qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
 
     if ((hostFullPrefix.isEmpty()) && (hostPrefix.isEmpty()))
         return;
 
-    qDebug() << Q_FUNC_INFO << " -  40";
+    //qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> primarySubdivisions;
     primarySubdivisions.clear();
     primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostPrefix));
 
     if (primarySubdivisions.isEmpty())
     {
-        qDebug() << Q_FUNC_INFO << " -  50";
-        qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
+        //qDebug() << Q_FUNC_INFO << " -  50";
+        //qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
         primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostFullPrefix));
         if (primarySubdivisions.isEmpty())
         {
-            qDebug() << Q_FUNC_INFO << " -  55";
-            qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with mainprefix, running just with the entity";
+            //qDebug() << Q_FUNC_INFO << " -  55";
+            //qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with mainprefix, running just with the entity";
             primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
         }
-        qDebug() << Q_FUNC_INFO << " -  59";
+        //qDebug() << Q_FUNC_INFO << " -  59";
     }
-    qDebug() << Q_FUNC_INFO << " - 60";
+    //qDebug() << Q_FUNC_INFO << " - 60";
 
-    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(primarySubdivisions.count());
+    //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(primarySubdivisions.count());
     if (primarySubdivisions.isEmpty())
         return;
-    qDebug() << Q_FUNC_INFO << " - 70 ";
+    //qDebug() << Q_FUNC_INFO << " - 70 ";
     updatePrimarySubdivisionsComboBox(primarySubdivisions);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()

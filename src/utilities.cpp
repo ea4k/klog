@@ -925,9 +925,9 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
   // MM/EA4K => MM
     Callsign calls(_complexCall);
     if (calls.isValid())
-        return calls.getHostFullPrefix(true);
+        return calls.getHostFullPrefix();
     if (calls.isValidPrefix())
-        return calls.getHostFullPrefix(true);
+        return calls.getHostFullPrefix();
     return QString();
 
     QString call = _complexCall;
