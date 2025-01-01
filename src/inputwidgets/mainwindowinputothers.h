@@ -44,7 +44,7 @@ public:
     ~MainWindowInputOthers();
 
     void setEntitiesList(const QStringList _qs);
-    void setEntity(const int _n);               // Move the external call to setEntityAndPrefix
+    void setEntity(const int _entity);               // Move the external call to setEntityAndPrefix
     int getEntity();
     QString getEntityPrefix();
     void setEntityAndPrefix(const int _entity, const QString &_qrz); // Receives the entity & prefix of the call to check if
