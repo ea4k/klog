@@ -127,8 +127,7 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
     // Translations begin
     QTranslator qtTranslator;
-    bool translatorLoad = qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::path(QLibraryInfo::TranslationsPath)); /* Flawfinder: ignore */
-    if (translatorLoad)
+    if (qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
         app.installTranslator(&qtTranslator);
 
     QTranslator myappTranslator;
@@ -142,14 +141,11 @@ int main(int argc, char *argv[])
 
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-            translatorLoad = myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
-        if (!translatorLoad)
+        if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
             missingTranslation = true;
-        }
         else if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") ) /* Flawfinder: ignore */
         {
-           translatorLoad = myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name())); /* Flawfinder: ignore */
-            if (!translatorLoad)
+            if (myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name())))
                 missingTranslation = true;
         }
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
@@ -165,8 +161,7 @@ int main(int argc, char *argv[])
         //qDebug() << Q_FUNC_INFO << " -  OSX: " << QLocale::system().name();
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" +  (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-            translatorLoad = myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"); /* Flawfinder: ignore */
-            if (!translatorLoad)
+        if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
                 missingTranslation = true;
         }
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
@@ -180,17 +175,20 @@ int main(int argc, char *argv[])
             //qDebug() << Q_FUNC_INFO << " - OTHER OS: " << (QLocale::system()).name();
         if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-            myappTranslator.load("klog_" + (QLocale::system().name()).left(2)); /* Flawfinder: ignore */
+            if (myappTranslator.load("klog_" + (QLocale::system().name()).left(2))) /* Flawfinder: ignore */
+                missingTranslation = true;
         }
         else if (QFile::exists("/usr/share/klog/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
                //qDebug() << Q_FUNC_INFO << " - OTHER -2: " << "/usr/share/klog/klog_" + (QLocale::system().name()).left(2); /* Flawfinder: ignore */
-            myappTranslator.load("/usr/share/klog/translations/klog_" + (QLocale::system().name()));  /* Flawfinder: ignore */
+            if (myappTranslator.load("/usr/share/klog/translations/klog_" + (QLocale::system().name())))  /* Flawfinder: ignore */
+               missingTranslation = true;
         }
         else if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm")) /* Flawfinder: ignore */
         {
             //qDebug() << Q_FUNC_INFO << " - OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2);
-            myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name())); /* Flawfinder: ignore */
+            if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name())))
+                missingTranslation = true;
         }
 
         else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
