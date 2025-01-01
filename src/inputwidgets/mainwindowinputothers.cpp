@@ -737,6 +737,8 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
     listOfSubdivisions.prepend("00-" + tr("Not selected") + " (000)");
 
     entityPrimDivComboBox->addItems(listOfSubdivisions);
+    if (listOfSubdivisions.length() == 2)
+        entityPrimDivComboBox->setCurrentIndex(1);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

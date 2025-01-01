@@ -1,11 +1,7 @@
-TODO: Working in void MainWindowInputOthers::setEntityAndPrefix
-TODo: Test MainWindowInputOthers::setEntityAndPrefix
-TODO-Bug: EA8, EA9 fails for subdivisions, it is detected as EA
+
 TODO-Bug: CT9 is detected as Portugal but subdivision is properly detected
 TODO-Bug: XE Mexico subdivisions are not properly detected
 
-
-TODO: Improve the REGEX in callsign.cpp
 TODO: Review the KLog first start. Reading cty.dat is terribly slow.
 
 
