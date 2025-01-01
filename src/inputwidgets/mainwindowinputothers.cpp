@@ -802,10 +802,14 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
 
     // TODO: This function must be improved and find what shoudl be used to identify the right data
 
-    QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
-    QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
-
+    QString hostFullPrefix          = callsign.getHostFullPrefix(true);               // The default is that showAll is not checked. Main prefix+ the area
+    QString hostPrefix              = callsign.getHostPrefix(true);                   // The default is that showAll is not checked
     qDebug() << Q_FUNC_INFO << " -  20";
+    qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
+    qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
+
+
+
     if (showAllCheckBox->isChecked())
     { // The prefix without the number should be used.
       // be careful with prefixes like EA8/EA/EA6 or E73 / E7
