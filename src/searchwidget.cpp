@@ -144,11 +144,9 @@ void SearchWidget::showQSOs(QList<int> qsoIdList)
 
 void SearchWidget::setStationCallsign(const QString &_st)
 {
-    Callsign _callsign(_st);
-    if (_callsign.isValid())
-    //if (util->isValidCall(_st))
+    if (util->isValidCall(_st))
     {
-        mainStationCallsign = _callsign.getCallsign();
+        mainStationCallsign = _st;
         selectStationCallSign();
     }
 }

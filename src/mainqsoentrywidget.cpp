@@ -301,9 +301,8 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
      //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 ";
-    Callsign _callsign(qrzLineEdit->text());
-    if (!_callsign.isValid())
-    //if (!util->isValidCall(qrzLineEdit->text()))
+
+    if (!util->isValidCall(qrzLineEdit->text()))
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));

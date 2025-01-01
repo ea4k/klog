@@ -33,7 +33,7 @@
 #include "updatesettings.h"
 //#include "database.h"
 #include "mainwindow.h"
-#include "callsign.h"
+
 
 void MainWindow::showNotWar()
 {
@@ -1204,11 +1204,8 @@ bool MainWindow::readQSOFromUI()
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     qso->clear ();
-    //QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
-    Callsign _callsign(mainQSOEntryWidget->getQrz());
-    if (!_callsign.isValid())
-
-    //if (!util->isValidCall(tqrz))
+    QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
+    if (!util->isValidCall(tqrz))
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
@@ -1232,7 +1229,7 @@ bool MainWindow::readQSOFromUI()
             break;
         }
     }
-    qso->setCall (_callsign.getCallsign());
+    qso->setCall (tqrz);
     qso->setBand(mainQSOEntryWidget->getBand());
     qso->setMode(dataProxy->getNameFromSubMode (mainQSOEntryWidget->getMode()));
     qso->setSubmode (mainQSOEntryWidget->getMode());
@@ -1245,7 +1242,7 @@ bool MainWindow::readQSOFromUI()
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
 
-    int dxcc = world->getQRZARRLId(_callsign.getCallsign());
+    int dxcc = world->getQRZARRLId(tqrz);
     //qDebug() << Q_FUNC_INFO + QString(": %1 - %2").arg(_callsign.getCallsign()).arg(dxcc);
 
     //int dxcc2 = getDXCCFromComboBox();
@@ -2962,13 +2959,11 @@ QString MainWindow::selectStationCallsign()
         stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
                                              msg, stationCallSigns, 0, false, &ok);
 
-        Callsign _callsign(stationCallToUse);
-        //if (_callsign.isValid())
-        if (ok && _callsign.isValid())
+        if (ok && util->isValidCall(stationCallToUse))
         //if (ok && !stationCallToUse.isEmpty())
         {
             logEvent(Q_FUNC_INFO, "END-1", Debug);
-            return _callsign.getCallsign();
+            return stationCallToUse;
         }
         else
         {
@@ -2977,13 +2972,10 @@ QString MainWindow::selectStationCallsign()
                                                      "", &ok)).toUpper();
              if (ok)
              {
-        //callsignTyped = true;
-                 Callsign _callsign2(stationCallToUse);
-                 if (_callsign2.isValid())
-                 //if (util->isValidCall(stationCallToUse))
+                if (util->isValidCall(stationCallToUse))
                  {
                     logEvent(Q_FUNC_INFO, "END-2", Debug);
-                    return _callsign2.getCallsign();
+                    return stationCallToUse;
                  }
              }
              else
@@ -3068,9 +3060,7 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
    //qDebug() << Q_FUNC_INFO << " - NO valid qso list received - length: " << QString::number(_qs.length()) ;
         return;
     }
-    Callsign _callsign(_qs.at(0));
-    if (!_callsign.isValid())
-    //if (!util->isValidCall(_qs.at(0)))
+    if (!util->isValidCall(_qs.at(0)))
     {
    //qDebug() << Q_FUNC_INFO << " - NO valid QRZ received - " << _qs.at(0) ;
         return;
@@ -4039,10 +4029,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
     }
 
     QMessageBox msgBox;
-    Callsign _callsign(_call);
-    if (!_callsign.isValid())
-
-    //if (!util->isValidCall(_call))
+    if (!util->isValidCall(_call))
     {
    //qDebug() << Q_FUNC_INFO << " - no valid call" ;
         if (_call == "ALL")
@@ -4127,9 +4114,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 {
     //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
     QMessageBox msgBox;
-    Callsign _callsign(_call);
-    if (!_callsign.isValid())
-  //if (!util->isValidCall(_call))
+    if (!util->isValidCall(_call))
     {
        //qDebug() << Q_FUNC_INFO << " - no valid call" ;
       if (_call == "ALL")
@@ -5375,11 +5360,9 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 
 
     pQSO.status = awards->getQSOStatus(statusI);
-    Callsign _callsign(sp.getDxCall());
-    if (_callsign.isValid())
-    //if (util->isValidCall(sp.getDxCall(), true))
+    if (util->isValidCall(sp.getDxCall(), true))
     {
-        pQSO.call = _callsign.getCallsign();
+        pQSO.call = sp.getDxCall();
         dxClusterAssistant->newDXClusterSpot(pQSO);
     }
 
@@ -5395,12 +5378,10 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     DXSpot sp = _spot;
     if (!sp.isValid())
         return;
-    Callsign _callsign(sp.getDxCall());
-    if (_callsign.isValid())
-    //if (util->isValidCall(sp.getDxCall(), true))
+    if (util->isValidCall(sp.getDxCall(), true))
     {
         proposedQSOs pQSO;
-        pQSO.call = _callsign.getCallsign();
+        pQSO.call = sp.getDxCall();
         pQSO.status = ATNO;
         pQSO.freq = sp.getFrequency();
         dxClusterAssistant->newDXClusterSpot(pQSO);
@@ -5505,10 +5486,9 @@ void MainWindow::updateQSLRecAndSent()
 QString MainWindow::findStationCallsignToUse()
 {
     //QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
-    Callsign _callsign(dataProxy->getStationCallSignFromLog (currentLog));
-    if (_callsign.isValid())
-    //if (util->isValidCall(foundCall))
-        return _callsign.getCallsign();
+    QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
+    if (util->isValidCall(foundCall))
+        return foundCall;
 
     return mainQRZ;
 }
@@ -5519,13 +5499,12 @@ void MainWindow::defineStationCallsign()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //QString logQRZ = findStationCallsignToUse();
     //qDebug() << Q_FUNC_INFO << ": StationCallsign: " << logQRZ;
-    Callsign _callsign(findStationCallsignToUse());
-    if (!_callsign.isValid())
-    //if (!util->isValidCall (logQRZ))
+    QString logQRZ = findStationCallsignToUse();
+    if (!util->isValidCall (logQRZ))
     {
         return;
     }
-    stationCallsign = _callsign.getCallsign();
+    stationCallsign = logQRZ;
 
     //qDebug() << Q_FUNC_INFO << ": " << stationCallsign  ;
 
@@ -6549,11 +6528,9 @@ bool MainWindow::loadSettings()
     settings.beginGroup ("UserData");
     value = settings.value ("Callsign").toString ();
     //qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
-    Callsign _callsign(value);
-    if (_callsign.isValid())
-    //if (util->isValidCall(value))
+    if (util->isValidCall(value))
     {
-        mainQRZ = _callsign.getCallsign();
+        mainQRZ = value;
     }
     // We Select the log after the mainQRZ is defined to prevent call conflicts
     selectTheLog(currentLog);

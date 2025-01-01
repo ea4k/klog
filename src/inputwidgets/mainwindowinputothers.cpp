@@ -794,7 +794,6 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     // TODO: This function must be improved and find what shoudl be used to identify the right data
 
 
-
     QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
     QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
 

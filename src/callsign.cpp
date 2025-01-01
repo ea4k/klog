@@ -25,6 +25,7 @@
  *****************************************************************************/
 #include "callsign.h"
 
+//TODO: Add support for FK/c, FO/a, FO/m, FT/g, FT/j, ... calls
 
 Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent}
 {
@@ -42,7 +43,7 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent}
 Callsign::~Callsign(){}
 
 void Callsign::operator()(const QString &newCallsign)
-{
+{// Comment
     initialize(newCallsign);
 }
 
@@ -303,16 +304,22 @@ QRegularExpression Callsign::prefixRegEx()
 QString Callsign::callsignRegExString()
 {
     // This REGEX matches full callsigns including prefixes and suffixes
-    return QString("^((?<hostfullprefix1>((?<hostspecialprefix1>3D2|3D6|3D2C|3D2R|SV2A)(?<hostspecialareanumber1>[0-9]*))|(?<hostnormalprefix1>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber1>[0-9]*))\\/)?(?<homecall>(?<homefullprefix>(?<homespecialprefix>3D2|3D6|3D2C|3D2R|SV2A)(?<homespecialareanumber>[0-9]*)|(?<homenormalprefix>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]+))(?<homesuffix>[A-Z]+))(\\/(?<suffix>(?<hostfullprefix2>(?<hostspecialprefix2>3D2|3D6|3D2C|3D2R|SV2A)(?<hostspecialareanumber2>[0-9]*)|(?<hostnormalprefix2>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber2>[0-9]*))|(?<generalsuffix>[A-Z0-9]*)))?$");
+    QString aux = getSpecialPrefixes();
+    return QString("^((?<hostfullprefix1>((?<hostspecialprefix1>%1)(?<hostspecialareanumber1>[0-9]*))|(?<hostnormalprefix1>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber1>[0-9]*))\\/)?(?<homecall>(?<homefullprefix>(?<homespecialprefix>%2)(?<homespecialareanumber>[0-9]*)|(?<homenormalprefix>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<homeareanumber>[0-9]+))(?<homesuffix>[A-Z]+))(\\/(?<suffix>(?<hostfullprefix2>(?<hostspecialprefix2>%3)(?<hostspecialareanumber2>[0-9]*)|(?<hostnormalprefix2>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{2}|[0-9][A-Z])(?<hostareanumber2>[0-9]*))|(?<generalsuffix>[A-Z0-9]*)))?$").arg(aux).arg(aux).arg(aux);
 }
 
 QString Callsign::prefixRegExString()
 {
     //qDebug() << Q_FUNC_INFO;
     // Returns a REGEX string that matches a hamradio prefix like F in F/EA4K/QRP or EA6 in EA6/EA4K
-    return QString("^(?<prefix>(?<specialprefix>3D2|3D6|3D2C|3D2R|SV2A)(?<specialareanumber>[0-9]*)|(?<normalprefix>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<areanumber>[0-9]*))$");
+    QString aux = getSpecialPrefixes();
+    return QString("^(?<prefix>(?<specialprefix>%1)(?<specialareanumber>[0-9]*)|(?<normalprefix>B|F|G|I|K|M|N|R|U|W|[A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])(?<areanumber>[0-9]*))$").arg(aux);
 }
 
+QString Callsign::getSpecialPrefixes()
+{
+    return QString("3D2|3D6|3D2C|3D2R|3DA|4U1I|4U1U|4U1V|KH7K|PY0F|PY0S|PY0T|R1FJ|SV2A|VK0H|VK0M|VK9C|VK9L|VK9M|VK9N|VK9W|VK9X|VP2E|VP2M|VP2V");
+}
     // if getHomeIfEmpty is true and no hostprefix is identified, it will return homePrefix
 QString Callsign::getCallsign()                             {return fullCall;}
 QString Callsign::getHostFullPrefix(bool getHomeIfEmpty)    {if (getHomeIfEmpty && (hostFullPrefix.length()<=0)) return homeFullPrefix; else return hostFullPrefix;}

@@ -717,13 +717,10 @@ bool QSO::isValid()
 bool QSO::setCall(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
-
-    Callsign _callsign (_c);
-    if (_callsign.isValid())
-    //if (util->isValidCall(aux))
+    if (util->isValidCall(_c))
     {
         logEvent (Q_FUNC_INFO, QString("END - true"), Debug);
-        callsign = _callsign.getCallsign();
+        callsign = _c;
         haveCall = true;
         return true;
     }
@@ -1749,11 +1746,9 @@ bool QSO::setOperatorCallsign(const QString &_c)
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
     //logEvent(Q_FUNC_INFO, "Start", Debug);
 
-    Callsign _callsign (_c);
-    if (_callsign.isValid())
-    //if (util->isValidCall(aux))
+    if (util->isValidCall(_c))
     {
-       operatorCall = _callsign.getCallsign();
+       operatorCall = _c;
        //qDebug() << Q_FUNC_INFO << "END - true";
        logEvent(Q_FUNC_INFO, "END-true", Debug);
        return true;
@@ -1775,13 +1770,12 @@ bool QSO::setStationCallsign(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
 
-    Callsign _callsign (_c);
-    if (_callsign.isValid())
+    if (util->isValidCall(_c))
     //qDebug() << Q_FUNC_INFO << " - 010";
     //if (util->isValidCall(aux))
     {
         //qDebug() << Q_FUNC_INFO << " - True";
-        stationCallsign = _callsign.getCallsign();
+        stationCallsign = _c;
         return true;
     }
     else
@@ -2036,10 +2030,8 @@ double QSO::getDistance()
 }
 
 bool QSO::setOwnerCallsign(const QString &_c)
-{
-    Callsign _callsign (_c);
-    if (_callsign.isValid())
-    //if (util->isValidCall(_c))
+{    
+    if (util->isValidCall(_c))
     {
        ownerCall = _c;
        return true;
@@ -2056,9 +2048,7 @@ QString QSO::getOwnerCallsign()
 
 bool QSO::setEQ_Call(const QString &_c)
 {
-    Callsign _callsign (_c);
-    if (_callsign.isValid())
-    //if (util->isValidCall(_c))
+    if (util->isValidCall(_c))
     {
         contacted_owner = _c;
         return true;
@@ -2258,9 +2248,7 @@ QString QSO::getCounty()
 
 bool QSO::setContactedOperator(const QString &_c)
 {
-    Callsign _callsign (_c);
-    if (_callsign.isValid())
-    //if (util->isValidCall(_c))
+    if (util->isValidCall(_c))
     {
        contacted_op = _c;
        return true;

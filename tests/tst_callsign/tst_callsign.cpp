@@ -143,6 +143,9 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("A2")             << "A2"             << ""               << ""       << ""   << -1   << ""       << "A2"     << "A2"     << -1   << ""   << ""       << true     << false;
     QTest::newRow("3D2")            << "3D2"            << ""               << ""       << ""   << -1   << ""       << "3D2"    << "3D2"    << -1   << ""   << ""       << true     << false;
     QTest::newRow("3D20")           << "3D20"           << ""               << ""       << ""   << -1   << ""       << "3D20"   << "3D2"    << 0    << ""   << ""       << true     << false;
+    // TEST T30, T31.. calls
+    // test VK0M calls
+
     // Now wrong callsigns
     // FAIL: E/EA0K, , KKK1J
     //QTest::newRow("E0J")            << "E0J"            << "E0J"            << ""       << ""   << -1   << "E0J"    << "E0"     << "J"      << 0    << "J"  << ""       << true     << false;
@@ -221,7 +224,6 @@ void tst_Callsign::test_callsigns()
 
 void tst_Callsign::test_callsign_operator()
 {
-
     Callsign testCall("EA0K");
     //qDebug() << Q_FUNC_INFO << " - getCallsign-1     : "      << testCall.getCallsign();
     QVERIFY2("EA0K" == testCall.getCallsign(), "Constructor is failing - EA0K");

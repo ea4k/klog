@@ -24,7 +24,6 @@
  *                                                                           *
  *****************************************************************************/
 #include "filemanager.h"
-#include "callsign.h"
 //#include <QDebug>
 
 
@@ -171,9 +170,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
-    Callsign _call(_callsign);
 
-    if ((!_call.isValid()) && (_callsign != "ALL") && (_callsign !="NOT"))
+    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
     {
          showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
          return qsos;
@@ -436,8 +434,8 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
-    Callsign _call(_callsign);
-    if ((!_call.isValid()) && (_callsign != "ALL") && (_callsign !="NOT"))
+
+    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
     {
          showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
          return qsos;
@@ -975,8 +973,8 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
         if (line.contains("OWNCALL:"))
         {
             stationCallSign = (line.section(": ", 1, 1)).simplified();
-            Callsign _call(stationCallSign);
-            if (!_call.isValid())
+
+            if (!util->isValidCall(stationCallSign))
             {
                 stationCallSign = QString();
             }
@@ -1056,9 +1054,9 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
             {
                 //qDebug() << Q_FUNC_INFO << QString(": EOR detected, QSO added");
                 qso.setLogId (logN);
-                Callsign _call1(_stationCallsign);
-                Callsign _call2(qso.getStationCallsign());
-                if (_call1.isValid() && (!_call2.isValid()) )
+
+                if ((util->isValidCall(_stationCallsign)) && (!util->isValidCall(qso.getStationCallsign())))
+
                 {
                     qso.setStationCallsign(_stationCallsign);
                 }
@@ -1299,11 +1297,10 @@ bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate 
     {
         _date = ", on "+  util->getDateSQLiteStringFromDate(_dt) ;
     }
-    Callsign _callsign(_qrzDX);
-    if (_callsign.isValid())
-    //if (util->isValidCall(_qrzDX))
+
+    if (util->isValidCall(_qrzDX))
     {
-        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_callsign.getCallsign()).arg(_date);
+        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_qrzDX).arg(_date);
         text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
                                             aux, QLineEdit::Normal, "", &ok);
     }
@@ -1313,8 +1310,8 @@ bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate 
                                                    tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO on %1:").arg(_date), QLineEdit::Normal,
                                                    "", &ok);
     }
-    Callsign call2(text);
-    if (ok && call2.isValid())
+
+    if (ok && util->isValidCall(text))
     {
         defaultStationCallsign = text.toUpper();
         return true;
@@ -1719,11 +1716,11 @@ bool FileManager::writeBackupDate()
 void FileManager::setStationCallSign(const QString& _st)
 {
       //qDebug() << "FileManager::setStationCallSign: " << _st;
-    Callsign _callsign(_st);
-    if (_callsign.isValid())
+
+    if (util->isValidCall(_st, true))
     {
           //qDebug() << "FileManager::setStationCallSign: True";
-        defaultStationCallsign = _callsign.getCallsign();
+        defaultStationCallsign = _st;
           //qDebug() << "FileManager::setStationCallSign: " << defaultStationCallsign;
     }
     else

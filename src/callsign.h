@@ -79,13 +79,14 @@ public:
     void clear();
 
 private:
-
+    static QString              getSpecialPrefixes();
     static QString              callsignRegExString();
     static QRegularExpression   callsignRegEx();
     static QString              prefixRegExString();
     static QRegularExpression   prefixRegEx();
 
     void    initialize(const QString &callsign);    // A helper to perform the initialization and prevent code duplication
+                       //Returns the list of special prefixes for the REGEX
 
     QString fullCall;           // K1/EA4K/QRP
     QString hostFullPrefix;     // K1
@@ -97,6 +98,7 @@ private:
     QString homeSuffix;         // K
     int     homeAreaNumber;     // 4
     QString generalSuffix;      // QRP
+
 
     bool valid;         // The entered string is a correct callsign
     bool prefValid;     // The entered string is a correct prefix

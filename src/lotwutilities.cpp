@@ -147,9 +147,7 @@ bool LoTWUtilities::selectQuery(const int _queryId)
 bool LoTWUtilities::setStationCallSign(const QString &_call)
 {
     //qDebug() << "LoTWUtilities::setStationCallSign: " << _call;
-    Callsign _callsign(_call);
-    if (!_callsign.isValid())
-    //if (!util->isValidCall(_call))
+    if (!util->isValidCall(_call))
     {
         //qDebug() << "LoTWUtilities::setStationCallSign: FALSE 1" ;
         return false;
