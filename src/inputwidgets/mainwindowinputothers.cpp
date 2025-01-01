@@ -41,25 +41,25 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
-    iotaContinentComboBox = new QComboBox();
-    entityPrimDivComboBox = new QComboBox();
-    entitySecDivComboBox = new QComboBox();
-    entityNameComboBox = new QComboBox();
-    propModeComboBox = new QComboBox();
-    iotaNumberLineEdit = new QLineEdit();
-    keepPropCheckBox = new QCheckBox();
-    showAllCheckBox = new QCheckBox();
-    userDefinedADIFComboBox = new QComboBox();
-    userDefinedADIFValueLineEdit = new QLineEdit();
+    iotaContinentComboBox           = new QComboBox();
+    entityPrimDivComboBox           = new QComboBox();
+    entitySecDivComboBox            = new QComboBox();
+    entityNameComboBox              = new QComboBox();
+    propModeComboBox                = new QComboBox();
+    iotaNumberLineEdit              = new QLineEdit();
+    keepPropCheckBox                = new QCheckBox();
+    showAllCheckBox                 = new QCheckBox();
+    userDefinedADIFComboBox         = new QComboBox();
+    userDefinedADIFValueLineEdit    = new QLineEdit();
 
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
-    connect(propModeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPropModeComboBoxChanged() ) ) ;
-    connect(userDefinedADIFComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
-    connect(userDefinedADIFValueLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentUserData() ) );
-    connect(entityPrimDivComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPrimarySubdivisionsComboBoxChanged()) )  ;
-    connect(showAllCheckBox, SIGNAL(stateChanged(int)), this, SLOT(slotShowAllCheckBoxChanged() ) ) ;
+    connect(propModeComboBox,               SIGNAL(currentIndexChanged(int)),   this, SLOT(slotPropModeComboBoxChanged() ) ) ;
+    connect(userDefinedADIFComboBox,        SIGNAL(currentIndexChanged(int)),   this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
+    connect(userDefinedADIFValueLineEdit,   SIGNAL(textChanged(QString)),       this, SLOT(slotSetCurrentUserData() ) );
+    connect(entityPrimDivComboBox,          SIGNAL(currentIndexChanged(int)),   this, SLOT(slotPrimarySubdivisionsComboBoxChanged()) )  ;
+    connect(showAllCheckBox,                SIGNAL(stateChanged(int)),          this, SLOT(slotShowAllCheckBoxChanged() ) ) ;
 
     createUI();
     setInitialADIFValues ();
@@ -82,25 +82,25 @@ void MainWindowInputOthers::createUI()
     adifValidTypes.clear();
     autoUpdating = false;
 
-    sota_ref = QString();
-    distance = 0;
-    age = 0;
-    currentInt = 0;
+    sota_ref    = QString();
+    distance    = 0;
+    age         = 0;
+    currentInt  = 0;
     currentPref = QString();
-    pota_ref = QString();
-    sig = QString();
-    sig_info= QString();
-    wwff_ref = QString();
+    pota_ref    = QString();
+    sig         = QString();
+    sig_info    = QString();
+    wwff_ref    = QString();
 
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
     palWhite.setColor(QPalette::Text, Qt::white);
 
     QLabel *entityPrimLabel = new QLabel(tr("Primary Div"));
-    QLabel *entitySecLabel = new QLabel(tr("Secondary Div"));
-    QLabel *iotaAwardLabel = new QLabel(tr("IOTA"));
+    QLabel *entitySecLabel  = new QLabel(tr("Secondary Div"));
+    QLabel *iotaAwardLabel  = new QLabel(tr("IOTA"));
     QLabel *entityNameLabel = new QLabel(tr("Entity"));
-    QLabel *propModeLabel = new QLabel(tr("Propagation mode"));
+    QLabel *propModeLabel   = new QLabel(tr("Propagation mode"));
     QLabel *userSelectLabel = new QLabel(tr("Others"));
 
     entityPrimLabel->setAlignment(Qt::AlignVCenter| Qt::AlignRight);
@@ -194,18 +194,17 @@ void MainWindowInputOthers::clear(bool _full)
     entityPrimDivComboBox->addItem("00-" + tr("None Identified") + " (000)");
 
     userDefinedADIFValueLineEdit->clear ();
-    sota_ref = QString();
+
+    sota_ref    = QString();
     currentPref = QString();
-    currentInt = 0;
-
-
-    distance = 0.0;
-    age = 0;
-    vucc_grids = QString();
-    pota_ref = QString();
-    sig = QString();
-    sig_info = QString();
-    wwff_ref = QString();
+    currentInt  = 0;
+    distance    = 0.0;
+    age         = 0;
+    vucc_grids  = QString();
+    pota_ref    = QString();
+    sig         = QString();
+    sig_info    = QString();
+    wwff_ref    = QString();
 
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
