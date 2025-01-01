@@ -266,9 +266,9 @@ void Callsign::initialize(const QString &callsign)
         }
 
 
-        qDebug() << Q_FUNC_INFO << " - @ homeFullPrefix     : " << homeFullPrefix;
-        qDebug() << Q_FUNC_INFO << " - @ homePrefix         : " << homePrefix;
-        qDebug() << Q_FUNC_INFO << " - @ homeAreaNumber     : " << QString::number(homeAreaNumber);
+        //qDebug() << Q_FUNC_INFO << " - @ homeFullPrefix     : " << homeFullPrefix;
+        //qDebug() << Q_FUNC_INFO << " - @ homePrefix         : " << homePrefix;
+        //qDebug() << Q_FUNC_INFO << " - @ homeAreaNumber     : " << QString::number(homeAreaNumber);
     }
     else
     {

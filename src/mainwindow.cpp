@@ -2122,41 +2122,45 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     {
         dxLocator = world->getLocator(currentEntity);
     }
+    //TODO: Look for a way to prevent updating when not needed. i.e. if the prefix is already defined and only suffix is being sent
+    //      Maybe a wat could be to send the hostprefix and not the callsign?
+    othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
         //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
         //qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
-        if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
-        {
-            //qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
-            previousEntity = currentEntity;
-            InValidCharsInPrevCall = false;
+    if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
+    {
+        //qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
+        previousEntity = currentEntity;
+        InValidCharsInPrevCall = false;
 
-            infoLabel2->setText(world->getEntityName(currentEntity));
-            infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
-            infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-            //qDebug()<< Q_FUNC_INFO << ": 70";
+        infoLabel2->setText(world->getEntityName(currentEntity));
+        infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
+        infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
+        //qDebug()<< Q_FUNC_INFO << ": 70";
 
-            showStatusOfDXCC(_entityStatus);
-            showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
-            //othersTabWidget->setEntity(currentEntity);
-            othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
+        showStatusOfDXCC(_entityStatus);
+        showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
+        //othersTabWidget->setEntity(currentEntity);
 
-            // we need to update the list of Primary Subdivisions
 
-        }
-        else if ((dx_CQz == dxE_CQz) || (dx_ITUz == dxE_ITUz))
-        {
-            //qDebug()<< Q_FUNC_INFO << ": 101" ;
-            //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
-            infoLabel2->setText(world->getEntityName(currentEntity));
-            infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
-        }
-        else
-        {
+        // we need to update the list of Primary Subdivisions
+
+    }
+    else if ((dx_CQz == dxE_CQz) || (dx_ITUz == dxE_ITUz))
+    {
+        //qDebug()<< Q_FUNC_INFO << ": 101" ;
+        //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
+        infoLabel2->setText(world->getEntityName(currentEntity));
+        infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
+    }
+    else
+    {
             //qDebug()<< Q_FUNC_INFO << ": 110" ;
-        }
+
+    }
         //qDebug()<< Q_FUNC_INFO << ": 120" ;
-        qrzSmallModDontCalculate = false; // If the text has not been modified in this method
+    qrzSmallModDontCalculate = false; // If the text has not been modified in this method
     //qDebug()<< Q_FUNC_INFO << ": 150 - cursorP at the end : "  ;
 
   if (completeWithPrevious)

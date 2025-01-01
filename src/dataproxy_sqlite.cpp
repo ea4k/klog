@@ -2717,11 +2717,11 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
     QList<int> dupeQsos;
     dupeQsos.clear();
     QSO q(_qso);
-    qDebug() << Q_FUNC_INFO << " - Call: " << q.getCall();
+    //qDebug() << Q_FUNC_INFO << " - Call: " << q.getCall();
 
     if (!q.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - END Empty 3" ;
+        //qDebug() << Q_FUNC_INFO << " - END Empty 3" ;
         return dupeQsos;
     }
 
@@ -2738,7 +2738,7 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
     QSqlQuery query;
     if (!query.prepare(queryString))
     {
-        qDebug() << Q_FUNC_INFO << ": ERROR preparing the Query";
+        //qDebug() << Q_FUNC_INFO << ": ERROR preparing the Query";
         return dupeQsos;
     }
     query.bindValue(":call", q.getCall());   
@@ -2747,11 +2747,11 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
     query.bindValue(":initTime", initTime);   
     query.bindValue(":endTime", endTime);
 
-    qDebug() << Q_FUNC_INFO << " QUERY:   " << q.getCall();
-    qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromBandName(q.getBand());
-    qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromModeName(q.getMode());
-    qDebug() << Q_FUNC_INFO << " QUERY:   " << initTime;
-    qDebug() << Q_FUNC_INFO << " QUERY:   " << endTime;
+    //qDebug() << Q_FUNC_INFO << " QUERY:   " << q.getCall();
+    //qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromBandName(q.getBand());
+    //qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromModeName(q.getMode());
+    //qDebug() << Q_FUNC_INFO << " QUERY:   " << initTime;
+    //qDebug() << Q_FUNC_INFO << " QUERY:   " << endTime;
 
     bool sqlOK = query.exec(queryString);
 
@@ -2777,9 +2777,9 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " : Native Error1 " << query.lastError().text();
-        qDebug() << Q_FUNC_INFO << " : Native Error2 " << query.lastError();
-        qDebug() << Q_FUNC_INFO << " : Native Error3 " << query.lastError().text();
+        //qDebug() << Q_FUNC_INFO << " : Native Error1 " << query.lastError().text();
+        //qDebug() << Q_FUNC_INFO << " : Native Error2 " << query.lastError();
+        //qDebug() << Q_FUNC_INFO << " : Native Error3 " << query.lastError().text();
 
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
@@ -5695,7 +5695,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
     }
     query.finish();
 
-    qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
+    //qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
     return list;
 }
 

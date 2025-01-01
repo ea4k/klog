@@ -28,16 +28,16 @@
 
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
-     qDebug() << Q_FUNC_INFO ;
+     //qDebug() << Q_FUNC_INFO ;
     //logModel = new QSqlRelationalTableModel(this);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
-     qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+     //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns = dataProxy->filterValidFields(util->getDefaultLogFields());
     setTable("log");
 
     setEditStrategy(QSqlTableModel::OnFieldChange);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool LogModel::createlogModel(const int _i)
@@ -65,37 +65,37 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
     //QSqlQuery query(stringQuery);
     setFilter(stringQuery);
     if (!setColumns(columns))
     {
-        qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
+        //qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
         return false;
     }
 
     if (!select())
     {
-        qDebug() << Q_FUNC_INFO << " - ERROR on select()";
+        //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
 bool LogModel::setColumns(const QStringList &_columns)
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QString auxt;
     foreach(auxt, _columns)
     {
-        qDebug() << Q_FUNC_INFO << ": " << auxt;
+        //qDebug() << Q_FUNC_INFO << ": " << auxt;
     }
     columns.clear();
-     qDebug() << Q_FUNC_INFO << " - calling filterValidFields";
+     //qDebug() << Q_FUNC_INFO << " - calling filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
 
      QSqlQuery q;
@@ -114,7 +114,7 @@ bool LogModel::setColumns(const QStringList &_columns)
         return false;
      rec = q.record(); // Number of columns
 
-     qDebug() <<Q_FUNC_INFO << ": - columns: " << QString::number(rec.count());
+     //qDebug() <<Q_FUNC_INFO << ": - columns: " << QString::number(rec.count());
 
      if (_columns.contains("bandid"))
      {
@@ -155,12 +155,12 @@ bool LogModel::setColumns(const QStringList &_columns)
          nameCol = rec.indexOf(aux);
          if (!setHeaderData(nameCol, Qt::Horizontal, util->getLogColumnName(aux)))
          {
-             qDebug() << Q_FUNC_INFO << ": - ERROR when adding the following column to the log view model: " << aux;
+             //qDebug() << Q_FUNC_INFO << ": - ERROR when adding the following column to the log view model: " << aux;
              return false;
          }
-         qDebug() << Q_FUNC_INFO << ": - " << aux;
+         //qDebug() << Q_FUNC_INFO << ": - " << aux;
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
      return true;
  }
 /*
