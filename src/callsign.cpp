@@ -32,18 +32,10 @@ Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent}
     initialize(callsign);
 }
 
-
-//Callsign::Callsign(const QString &callsign, QObject *parent) : QObject{parent},
-//    fullCall(callsign.toUpper()), homeAreaNumber(0), valid(false), prefValid(false)
-//{
-//    //qDebug() << Q_FUNC_INFO << ": " << callsign;
-//    initialize(callsign);
-//}
-
 Callsign::~Callsign(){}
 
 void Callsign::operator()(const QString &newCallsign)
-{// Comment
+{
     initialize(newCallsign);
 }
 
@@ -120,9 +112,7 @@ void Callsign::initialize(const QString &callsign)
         int homeSpecialAreaNumber   = match.captured("homespecialareanumber").toInt(&homeSpecialAreaNumberExist);
         homeAreaNumber              = match.captured("homeareanumber").toInt(&homeAreaNumberExist);
 
-
         homeSuffix                  = match.captured("homesuffix");
-
         suffix                      = match.captured("suffix");
 
         hostFullPrefix2             = match.captured("hostfullprefix2");
