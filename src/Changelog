@@ -1,6 +1,5 @@
 
 TODO-Bug: CT9 is detected as Portugal but subdivision is properly detected
-TODO-Bug: XE Mexico subdivisions are not properly detected
 
 TODO: Review the KLog first start. Reading cty.dat is terribly slow.
 

@@ -2077,10 +2077,10 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
-     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
+     qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
     currentEntity = world->getQRZARRLId(_qrz);
-    //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
+    qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
@@ -2113,7 +2113,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.log       = currentLog;
 
-    //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
+    qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
@@ -2124,6 +2124,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     //TODO: Look for a way to prevent updating when not needed. i.e. if the prefix is already defined and only suffix is being sent
     //      Maybe a wat could be to send the hostprefix and not the callsign?
+    qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
+    qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
     othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
         //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;

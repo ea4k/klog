@@ -230,16 +230,23 @@ void Callsign::initialize(const QString &callsign)
             //qDebug() << Q_FUNC_INFO << " - 399";
         }
 
-        //qDebug() << Q_FUNC_INFO << " - @ hostFullPrefix     : " << hostFullPrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ hostPrefix         : " << hostPrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ hostAreaNumber     : " << QString::number(hostAreaNumber);
-        //qDebug() << Q_FUNC_INFO << " - @ homeCallsign       : " << homeCallsign;
-        //qDebug() << Q_FUNC_INFO << " - @ homeFullPrefix     : " << homeFullPrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ homePrefix         : " << homePrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ homeNormalPrefix   : " << homeNormalPrefix;
-        //qDebug() << Q_FUNC_INFO << " - @ homeAreaNumber     : " << QString::number(homeAreaNumber);
-        //qDebug() << Q_FUNC_INFO << " - @ homeSuffix         : " << homeSuffix;
-        //qDebug() << Q_FUNC_INFO << " - @ suffix             : " << generalSuffix;
+        if (hostFullPrefix.isEmpty() && (homeFullPrefix.length()>=0))
+        {
+            hostFullPrefix  = homeFullPrefix;
+            hostPrefix      = homePrefix;
+            hostAreaNumber  = homeAreaNumber;
+        }
+
+        qDebug() << Q_FUNC_INFO << " - @ hostFullPrefix     : " << hostFullPrefix;
+        qDebug() << Q_FUNC_INFO << " - @ hostPrefix         : " << hostPrefix;
+        qDebug() << Q_FUNC_INFO << " - @ hostAreaNumber     : " << QString::number(hostAreaNumber);
+        qDebug() << Q_FUNC_INFO << " - @ homeCallsign       : " << homeCallsign;
+        qDebug() << Q_FUNC_INFO << " - @ homeFullPrefix     : " << homeFullPrefix;
+        qDebug() << Q_FUNC_INFO << " - @ homePrefix         : " << homePrefix;
+        qDebug() << Q_FUNC_INFO << " - @ homeNormalPrefix   : " << homeNormalPrefix;
+        qDebug() << Q_FUNC_INFO << " - @ homeAreaNumber     : " << QString::number(homeAreaNumber);
+        qDebug() << Q_FUNC_INFO << " - @ homeSuffix         : " << homeSuffix;
+        qDebug() << Q_FUNC_INFO << " - @ suffix             : " << generalSuffix;
 
     }
     else if ( matchPrefix.hasMatch() )
