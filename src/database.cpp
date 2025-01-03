@@ -2906,25 +2906,44 @@ bool DataBase::createTableEntity(const bool NoTmp)
     QString table = "entity";
     if (!NoTmp)
         table = "entitytemp";
+     //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
+    QString stringQuery = QStringLiteral(
+        "CREATE TABLE %1 ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "name VARCHAR(40) NOT NULL,"
+        "cqz INTEGER NOT NULL, "
+        "ituz INTEGER NOT NULL, "
+        "continent INTEGER NOT NULL, "
+        "latitude REAL NOT NULL, "
+        "longitude REAL NOT NULL, "
+        "utc REAL NOT NULL, "
+        "dxcc INTEGER NOT NULL, "
+        "mainprefix VARCHAR(15) NOT NULL, "
+        "deleted INTEGER, "
+        "sincedate VARCHAR(10), "
+        "todate VARCHAR(10), "
+        "isoname VARCHAR(10), "
+        "UNIQUE (dxcc, mainprefix), "
+        "FOREIGN KEY (continent) REFERENCES continent(id) )").arg(table);
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return false;
+    }
+    QStringList indexQueries = {
+            QStringLiteral("CREATE INDEX idx_%1_mainprefix ON %1 (mainprefix)").arg(table),
+            QStringLiteral("CREATE INDEX idx_%1_cqz ON %1 (cqz)").arg(table),
+            QStringLiteral("CREATE INDEX idx_%1_ituz ON %1 (ituz)").arg(table),
+            QStringLiteral("CREATE INDEX idx_%1_continent ON %1 (continent)").arg(table)
+    };
 
-    QString stringQuery = QString("CREATE TABLE %1 (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                             "name VARCHAR(40) NOT NULL,"
-                                             "cqz INTEGER NOT NULL, "
-                                             "ituz INTEGER NOT NULL, "
-                                             "continent INTEGER NOT NULL, "
-                                             "latitude REAL NOT NULL, "
-                                             "longitude REAL NOT NULL, "
-                                             "utc REAL NOT NULL, "
-                                             "dxcc INTEGER NOT NULL, "
-                                             "mainprefix VARCHAR(15) NOT NULL, "
-                                             "deleted INTEGER, "
-                                             "sincedate VARCHAR(10), "
-                                             "todate VARCHAR(10), "
-                                             "isoname VARCHAR(10), "
-                                             "UNIQUE (dxcc, mainprefix), "
-                                             "FOREIGN KEY (continent) REFERENCES continent(id) )").arg(table);
-    return execQuery(Q_FUNC_INFO, stringQuery);
-    //TODO: To add some columns in this the table to mark if worked/confirmed/band/Mode
+    for (const QString &indexQuery : indexQueries)
+    {
+        if (!execQuery(Q_FUNC_INFO, indexQuery))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 

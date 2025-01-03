@@ -704,30 +704,33 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
 bool World::readCTYCSV(const QString &_worldFile)
 {
 #ifdef KLOG_TESTING
-     //qDebug() << Q_FUNC_INFO << " - We are testing";
+     qDebug() << Q_FUNC_INFO << " - We are testing";
 #endif
 #ifndef KLOG_TESTING
-     //qDebug() << Q_FUNC_INFO << " - We are NOT testing";
+       qDebug() << Q_FUNC_INFO << " - We are NOT testing";
 #endif
-     //qDebug() << Q_FUNC_INFO << _worldFile;
+       qDebug() << Q_FUNC_INFO << _worldFile;
+
+    QFile file( _worldFile );
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
+    {
+        qDebug() << Q_FUNC_INFO << ":  File not found: END FALSE" << _worldFile;
+        return false;
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "  File found: " << _worldFile;
+    }
+
     QString tq;
     tq.clear();
 
     qint64 beginingOfFile;
     int numberOfLines = 0;
 
-     //qDebug() << Q_FUNC_INFO << " - 10";
-    QFile file( _worldFile );
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))  /* Flawfinder: ignore */
-    {
-         //qDebug() << Q_FUNC_INFO << ":  File not found: END FALSE" << _worldFile;
-        return false;
-    }
-    else
-    {
-         //qDebug() << Q_FUNC_INFO << "  File found: " << _worldFile;
-    }
-     //qDebug() << Q_FUNC_INFO << " - 20";
+       qDebug() << Q_FUNC_INFO << " - 10";
+
+       qDebug() << Q_FUNC_INFO << " - 20";
     beginingOfFile = file.pos();
 
     while (!file.atEnd()) {
@@ -737,8 +740,8 @@ bool World::readCTYCSV(const QString &_worldFile)
         }
         numberOfLines++;
     }
-     //qDebug() << Q_FUNC_INFO << " - 30";
-     //qDebug() << Q_FUNC_INFO << "  - numberOfEntities: " << QString::number(numberOfEntities);
+       qDebug() << Q_FUNC_INFO << " - 30";
+       qDebug() << Q_FUNC_INFO << "  - numberOfEntities: " << QString::number(numberOfEntities);
     // The file is readed twice: 1: Main entity data; 2: prefixes.
 
     // Starts with main data:
@@ -749,16 +752,16 @@ bool World::readCTYCSV(const QString &_worldFile)
     progress.setWindowModality(Qt::ApplicationModal);
 #endif
     numberOfEntities = 0; // Reset this variable to reuse it and assign the "dxcc" to the entities (temp solution)
-     //qDebug() << Q_FUNC_INFO << " - 40";
+       qDebug() << Q_FUNC_INFO << " - 40";
 
       // Prefixes information
 
-     //qDebug() << Q_FUNC_INFO << " - 50";
+       qDebug() << Q_FUNC_INFO << " - 50";
 
     QStringList stringList, stringListPrefixes, stringListProcessedPrefix;
 
     int entN;
-     //qDebug() << Q_FUNC_INFO << " - 60";
+       qDebug() << Q_FUNC_INFO << " - 60";
     while (!file.atEnd()) {
 #ifndef KLOG_TESTING
         progress.setValue(progressBarPosition);
@@ -776,18 +779,18 @@ bool World::readCTYCSV(const QString &_worldFile)
     //    0        1      2      3      4    5     6     7      8       9
 
         tq = file.readLine();
-         //qDebug() << Q_FUNC_INFO << "  Line: " << tq;
+           qDebug() << Q_FUNC_INFO << "  Line: " << tq;
         tq = tq.simplified();
-         //qDebug() << Q_FUNC_INFO << "  Line simplified: " << tq;
+           qDebug() << Q_FUNC_INFO << "  Line simplified: " << tq;
         tq = tq.trimmed();
-         //qDebug() << Q_FUNC_INFO << "  Line trimmed: " << tq;
+           qDebug() << Q_FUNC_INFO << "  Line trimmed: " << tq;
         tq.remove(QChar(';'), Qt::CaseInsensitive);
-         //qDebug() << Q_FUNC_INFO << "  Line without ;: " << tq;
+           qDebug() << Q_FUNC_INFO << "  Line without ;: " << tq;
 
         stringList << tq.split(',');
 
-         //qDebug() << Q_FUNC_INFO << "  Line stringList-0: " << stringList.at(0);
-         //qDebug() << Q_FUNC_INFO << "  Line stringList Length: " << QString::number(stringList.length());
+           qDebug() << Q_FUNC_INFO << "  Line stringList-0: " << stringList.at(0);
+           qDebug() << Q_FUNC_INFO << "  Line stringList Length: " << QString::number(stringList.length());
 
         // stringList.at(9) contains an space separated list of prefixes for that entity
         QString mPrefix = QString();
@@ -802,8 +805,8 @@ bool World::readCTYCSV(const QString &_worldFile)
 
                 while ( (dataProxy->getEntityMainPrefix(entN)).size()>0  )
                 {
-                     //qDebug() << Q_FUNC_INFO << "  entN: " << QString::number(entN);
-                     //qDebug() << Q_FUNC_INFO << "  dataProxy->getEntityMainPrefix: " << QString::number(entN);
+                       qDebug() << Q_FUNC_INFO << "  entN: " << QString::number(entN);
+                       qDebug() << Q_FUNC_INFO << "  dataProxy->getEntityMainPrefix: " << QString::number(entN);
                     entN = entN + 1000;
                 }
                 entityNumber = entN;
@@ -826,38 +829,38 @@ bool World::readCTYCSV(const QString &_worldFile)
             bool entityAdded = addEntity(entName, cqz, ituz, contId, lat, lon, utc, entityNumber, mPrefix);
             if (entityAdded)
             {
-                 //qDebug() << Q_FUNC_INFO << "  Entity added: " << entName;
+                   qDebug() << Q_FUNC_INFO << "  Entity added: " << entName;
             }
             else
             {
-                 //qDebug() << Q_FUNC_INFO << "  Entity Not added: " << entName;
+                   qDebug() << Q_FUNC_INFO << "  Entity Not added: " << entName;
             }
             if (entityAdded)
             {
-                 //qDebug() << Q_FUNC_INFO << "  Let's going for the prefixes: ... if entity is not added, we should not go to the prefixes!" ;
+                   qDebug() << Q_FUNC_INFO << "  Let's going for the prefixes: ... if entity is not added, we should not go to the prefixes!" ;
                 QString listOfPrefixesString = stringList.at(9);
                 stringListPrefixes << listOfPrefixesString.split(' ');
                 QString prefAux = QString();
                 for (int i = 0; i < stringListPrefixes.size(); ++i)
                 {
-                     //qDebug() << Q_FUNC_INFO << " - 100 - " << stringListPrefixes.at(i);
+                       qDebug() << Q_FUNC_INFO << " - 100 - " << stringListPrefixes.at(i);
                     prefAux = stringListPrefixes.at(i);
-                     //qDebug() << Q_FUNC_INFO << " - 101 - " << prefAux;
+                       qDebug() << Q_FUNC_INFO << " - 101 - " << prefAux;
                     QStringList stringListProcessedPrefix;
                     stringListProcessedPrefix.clear();
-                     //qDebug() << Q_FUNC_INFO << " - 102 - " ;
+                       qDebug() << Q_FUNC_INFO << " - 102 - " ;
                     stringListProcessedPrefix << readZones (prefAux, cqz, ituz);
-                     //qDebug() << Q_FUNC_INFO << " - 103 - " ;
+                       qDebug() << Q_FUNC_INFO << " - 103 - " ;
                     //Returns a QStringList: prefix, CQz, ITUz
 
                     bool prefixAdded = addPrefix(stringListProcessedPrefix.at(0), entityNumber, stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt());
                     if (prefixAdded)
                     {
-                        //qDebug() << Q_FUNC_INFO << ": Prefix added: " << stringListProcessedPrefix.at(0);
+                          qDebug() << Q_FUNC_INFO << ": Prefix added: " << stringListProcessedPrefix.at(0);
                     }
                     else
                     {
-                        //qDebug() << Q_FUNC_INFO << ": Prefix NOT added: " << stringListProcessedPrefix.at(0);
+                          qDebug() << Q_FUNC_INFO << ": Prefix NOT added: " << stringListProcessedPrefix.at(0);
                     }
                 }
             }
@@ -866,21 +869,21 @@ bool World::readCTYCSV(const QString &_worldFile)
         progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
 #endif
 #ifdef KLOG_TESTING
-         //qDebug() << Q_FUNC_INFO << QString("Reading cty.csv... Now reading %1").arg(mPrefix);
+           qDebug() << Q_FUNC_INFO << QString("Reading cty.csv... Now reading %1").arg(mPrefix);
 #endif
-         //qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
+           qDebug() << Q_FUNC_INFO << " - progressBarPosition: " << QString::number(progressBarPosition);
     }
-     //qDebug() << Q_FUNC_INFO << " - 100";
+       qDebug() << Q_FUNC_INFO << " - 100";
 #ifndef KLOG_TESTING
     progress.setValue(numberOfLines);
 #endif
-     //qDebug() << Q_FUNC_INFO << " - 102";
+       qDebug() << Q_FUNC_INFO << " - 102";
     if (created)
     {
-         //qDebug() << Q_FUNC_INFO << " - 110";
+           qDebug() << Q_FUNC_INFO << " - 110";
         dataProxy->updateISONames();
     }
-     //qDebug() << Q_FUNC_INFO << " END TRUE " ;
+       qDebug() << Q_FUNC_INFO << " END TRUE " ;
     return true;
 }
 
