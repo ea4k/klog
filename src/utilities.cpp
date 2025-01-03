@@ -843,18 +843,18 @@ void Utilities::setSpecialCalls (const QStringList &_p)
 
 bool Utilities::isAKnownPrefix(const QString &_c)
 {// TODO: Complete with https://rsgb.org/main/operating/licensing-novs-visitors/international-prefixes/
-   //qDebug() << Q_FUNC_INFO << ": " << _c;
+    qDebug() << Q_FUNC_INFO << ": " << _c;
    // QString aux;
     if (_c.isNull() )
     {
-       //qDebug() << Q_FUNC_INFO << ": END - 1";
+        qDebug() << Q_FUNC_INFO << ": END - 1";
         return false;
     }
     if (longPrefixes.count()<100)
     {
-       //qDebug() << Q_FUNC_INFO << ": ********** END - FAIL";
+        qDebug() << Q_FUNC_INFO << ": ********** END - FAIL";
     }
-   //qDebug() << Q_FUNC_INFO << QString(": END - 2 - %1 - %2").arg(_c).arg(boolToQString(longPrefixes.contains(_c)));
+    qDebug() << Q_FUNC_INFO << QString(": END - 2 - %1 - %2").arg(_c).arg(boolToQString(longPrefixes.contains(_c)));
     return longPrefixes.contains(_c);
 }
 
@@ -1074,52 +1074,52 @@ int Utilities::getAreaNumberFromCall(const QString &_c)
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
 {
-  //qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
+    qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
     if (_c.isNull())
     {
-      //qDebug() << Q_FUNC_INFO << " - END null";
+        qDebug() << Q_FUNC_INFO << " - END null";
         return QString();
     }
-  //qDebug() << Q_FUNC_INFO << " - 010";
+    qDebug() << Q_FUNC_INFO << " - 010";
     Callsign _callsign(_c);
     if (!_callsign.isValid() && !_callsign.isValidPrefix())
     {
-      //qDebug() << Q_FUNC_INFO << " - 020";
+        qDebug() << Q_FUNC_INFO << " - 020";
         return QString();
     }
     QString pref;
 
     int areaNumber = _callsign.getHostAreaNumber();
 
-  //qDebug() << Q_FUNC_INFO << " - 030" << " - AreaNumber: " << QString::number(areaNumber);
+    qDebug() << Q_FUNC_INFO << " - 030" << " - AreaNumber: " << QString::number(areaNumber);
     if (areaNumber>=0)
     {
         pref = _callsign.getHostFullPrefix();
-      //qDebug() << Q_FUNC_INFO << " - 040" << " - pref: " << pref;
+        qDebug() << Q_FUNC_INFO << " - 040" << " - pref: " << pref;
     }
     else
     {
         pref = _callsign.getHostPrefix();
-      //qDebug() << Q_FUNC_INFO << " - 050" << " - pref: " << pref;
+        qDebug() << Q_FUNC_INFO << " - 050" << " - pref: " << pref;
     }
     if (isAKnownPrefix(pref))
     {
-      //qDebug() << Q_FUNC_INFO << " - 060";
+        qDebug() << Q_FUNC_INFO << " - 060";
         return pref;
     }
     else
     {
-      //qDebug() << Q_FUNC_INFO << " - 070";
+        qDebug() << Q_FUNC_INFO << " - 070";
         pref = _callsign.getHostPrefix();
-      //qDebug() << Q_FUNC_INFO << " - 071" << " - pref: " << pref;
+        qDebug() << Q_FUNC_INFO << " - 071" << " - pref: " << pref;
         if (isAKnownPrefix(pref))
         {
-          //qDebug() << Q_FUNC_INFO << " - 075";
+          qDebug() << Q_FUNC_INFO << " - 075";
             return pref;
         }
     }
-  //qDebug() << Q_FUNC_INFO << " - 0100";
-    return QString();
+    qDebug() << Q_FUNC_INFO << " - 0100 - " << pref;
+    return pref;
 
 
 

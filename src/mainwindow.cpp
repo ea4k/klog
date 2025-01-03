@@ -2032,44 +2032,44 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    //qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
+      qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
-    //qDebug()<< Q_FUNC_INFO << " - 10" ;
+      qDebug()<< Q_FUNC_INFO << " - 10" ;
     if (_qrz.length()<1)
     {
-        //qDebug()<< Q_FUNC_INFO << " - 11" ;
+          qDebug()<< Q_FUNC_INFO << " - 11" ;
         infoLabel1->clear();
         infoLabel2->clear();
         slotClearButtonClicked(Q_FUNC_INFO);
         logEvent(Q_FUNC_INFO, "END-Empty", Devel);
         return;
     }
-    //qDebug()<< Q_FUNC_INFO << " - 20" ;
+      qDebug()<< Q_FUNC_INFO << " - 20" ;
     if (cleaning)
     {
-         //qDebug()<< Q_FUNC_INFO << ": Cleaning" ;
+           qDebug()<< Q_FUNC_INFO << ": Cleaning" ;
         logEvent(Q_FUNC_INFO, "END-Cleaning", Devel);
         return;
     }
-    //qDebug()<< Q_FUNC_INFO << " - 30" ;
+      qDebug()<< Q_FUNC_INFO << " - 30" ;
     if (modify)
     {
         logEvent(Q_FUNC_INFO, "END-Modify", Devel);
         return;
     }
 
-     //qDebug()<< Q_FUNC_INFO << ": checking for modify or length<1" ;
+       qDebug()<< Q_FUNC_INFO << ": checking for modify or length<1" ;
     if (qrzSmallModDontCalculate)
     //if ((modify) || ((qrzLineEdit->text()).length() < 1) || (qrzSmallModDontCalculate))
     {
-        //qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" ;
+          qDebug()<< Q_FUNC_INFO << ": MODIFY or Lenght < 1" ;
         qrzSmallModDontCalculate=false;
         logEvent(Q_FUNC_INFO, "END-Small QRZ, don't calculate", Devel);
         return;
     }
-    //qDebug()<< Q_FUNC_INFO << " - 40" ;
-    //qDebug()<< Q_FUNC_INFO << ": running ..." ;
+      qDebug()<< Q_FUNC_INFO << " - 40" ;
+      qDebug()<< Q_FUNC_INFO << ": running ..." ;
     qrzSmallModDontCalculate = true; // A kind of flag to prevent multiple calls to this method.
     //int i;
     int dx_CQz = -1;
@@ -2077,10 +2077,10 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
-   //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
+     qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
     currentEntity = world->getQRZARRLId(_qrz);
-  //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
+    qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
@@ -2091,11 +2091,11 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     dx_CQz = world->getQRZCqz(_qrz);
     dx_ITUz = world->getQRZItuz(_qrz);
     dxE_ITUz = world->getEntityItuz(currentEntity);
-    //qDebug()<< Q_FUNC_INFO << " - 60" ;
-     //qDebug()<< Q_FUNC_INFO << ": CQ: " << QString::number(dx_CQz) ;
-     //qDebug()<< Q_FUNC_INFO << ": CQe: " << QString::number(dxE_CQz) ;
-     //qDebug()<< Q_FUNC_INFO << ": ITU: " << QString::number(dx_ITUz) ;
-     //qDebug()<< Q_FUNC_INFO << ": ITUe: " << QString::number(dxE_ITUz) ;
+      qDebug()<< Q_FUNC_INFO << " - 60" ;
+       qDebug()<< Q_FUNC_INFO << ": CQ: " << QString::number(dx_CQz) ;
+       qDebug()<< Q_FUNC_INFO << ": CQe: " << QString::number(dxE_CQz) ;
+       qDebug()<< Q_FUNC_INFO << ": ITU: " << QString::number(dx_ITUz) ;
+       qDebug()<< Q_FUNC_INFO << ": ITUe: " << QString::number(dxE_ITUz) ;
 
     if (dx_CQz == dxE_CQz)
     {
@@ -2113,7 +2113,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.log       = currentLog;
 
-  //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
+    qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
@@ -2124,22 +2124,22 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     //TODO: Look for a way to prevent updating when not needed. i.e. if the prefix is already defined and only suffix is being sent
     //      Maybe a wat could be to send the hostprefix and not the callsign?
-  //qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
-  //qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
+    qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
+    qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
     othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
-        //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
-        //qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
+          qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
+          qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
     if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
     {
-        //qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
+          qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
         previousEntity = currentEntity;
         InValidCharsInPrevCall = false;
 
         infoLabel2->setText(world->getEntityName(currentEntity));
         infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-        //qDebug()<< Q_FUNC_INFO << ": 70";
+          qDebug()<< Q_FUNC_INFO << ": 70";
 
         showStatusOfDXCC(_entityStatus);
         showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
@@ -2151,49 +2151,49 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     else if ((dx_CQz == dxE_CQz) || (dx_ITUz == dxE_ITUz))
     {
-        //qDebug()<< Q_FUNC_INFO << ": 101" ;
+          qDebug()<< Q_FUNC_INFO << ": 101" ;
         //slotShowInfoLabel(world->getEntityName(currentEntity), 2);
         infoLabel2->setText(world->getEntityName(currentEntity));
         infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
     }
     else
     {
-            //qDebug()<< Q_FUNC_INFO << ": 110" ;
+              qDebug()<< Q_FUNC_INFO << ": 110" ;
 
     }
-        //qDebug()<< Q_FUNC_INFO << ": 120" ;
+          qDebug()<< Q_FUNC_INFO << ": 120" ;
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-    //qDebug()<< Q_FUNC_INFO << ": 150 - cursorP at the end : "  ;
+      qDebug()<< Q_FUNC_INFO << ": 150 - cursorP at the end : "  ;
 
   if (completeWithPrevious)
   {
-    //qDebug()<< Q_FUNC_INFO << ": 160" ;
+      qDebug()<< Q_FUNC_INFO << ": 160" ;
     completeWithPreviousQSO(_qrz);
   }
-  //qDebug()<< Q_FUNC_INFO << ": 170" ;
+    qDebug()<< Q_FUNC_INFO << ": 170" ;
 
   if (!modify)
     {
-        //qDebug()<< Q_FUNC_INFO << ": 180" ;
+          qDebug()<< Q_FUNC_INFO << ": 180" ;
         searchWidget->setCallToSearch(_qrz);
-         //qDebug() << Q_FUNC_INFO << " qrz.length>2: " << _qrz;
-         //qDebug() << Q_FUNC_INFO << " qrzcomActive: " << util->boolToQString (qrzcomActive);
-         //qDebug() << Q_FUNC_INFO << " QRZCOMAutoCheckAct: " << util->boolToQString (QRZCOMAutoCheckAct->isChecked());
+           qDebug() << Q_FUNC_INFO << " qrz.length>2: " << _qrz;
+           qDebug() << Q_FUNC_INFO << " qrzcomActive: " << util->boolToQString (qrzcomActive);
+           qDebug() << Q_FUNC_INFO << " QRZCOMAutoCheckAct: " << util->boolToQString (QRZCOMAutoCheckAct->isChecked());
 
         if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
         {
-        //qDebug()<< Q_FUNC_INFO << ": 185 Checking QRZ.com";
+          qDebug()<< Q_FUNC_INFO << ": 185 Checking QRZ.com";
             elogQRZcom->checkQRZ(_qrz);
         }
         else
         {
-            //qDebug()<< Q_FUNC_INFO << ": 189 NOT checking QRZ.com";
+              qDebug()<< Q_FUNC_INFO << ": 189 NOT checking QRZ.com";
         }
     }
-    //qDebug()<< Q_FUNC_INFO << ": 190" ;
+      qDebug()<< Q_FUNC_INFO << ": 190" ;
    //qrzAutoChanging = false;
     logEvent(Q_FUNC_INFO, "END", Debug);
-    //qDebug()<< Q_FUNC_INFO << ": END" ;
+      qDebug()<< Q_FUNC_INFO << ": END" ;
 }
 
 void MainWindow::setCleaning(const bool _c)

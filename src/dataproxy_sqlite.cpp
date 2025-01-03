@@ -7074,7 +7074,7 @@ int DataProxy_SQLite::getITUzFromEntity(const int _n)
 
 QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 {
-    //qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n);
+    qDebug() << "DataProxy_SQLite::getEntityNameFromId: " << QString::number(_n);
 
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(_n);
@@ -7549,6 +7549,7 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
 
 QStringList DataProxy_SQLite::getSpecialCallsigns()
 {
+
     //qDebug() << Q_FUNC_INFO;
     QString aux = QString();
     QStringList qs;
