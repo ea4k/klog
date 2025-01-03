@@ -393,7 +393,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 int World::getPrefixId(const QString &_prefix)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _prefix << "/" << QString::number(worldPrefixes.value(_prefix, -2));
+  //qDebug() << Q_FUNC_INFO << " - Start: " << _prefix << "/" << QString::number(worldPrefixes.value(_prefix, -2));
     //This function receives the final prefix.
 
     if (_prefix.length() < 1)
@@ -468,13 +468,13 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return -1;
     }
     QString pref = util->getPrefixFromCall(_qrz);
-    qDebug() << Q_FUNC_INFO << ": prefix: " << pref;
+  //qDebug() << Q_FUNC_INFO << ": prefix: " << pref;
     return getPrefixId(pref);
 }
 

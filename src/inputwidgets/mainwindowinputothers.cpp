@@ -744,26 +744,26 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
 
 void MainWindowInputOthers::setEntity(const int _entity)
 {// Select the appropriate entity in the ComboBox
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
+  //qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - 10" ;
+  //qDebug() << Q_FUNC_INFO << " - 10" ;
 
     if (_entity<=0)
     {
-        qDebug() << Q_FUNC_INFO << " - 11" ;
+      //qDebug() << Q_FUNC_INFO << " - 11" ;
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-    qDebug() << Q_FUNC_INFO << " - 20" ;
+  //qDebug() << Q_FUNC_INFO << " - 20" ;
     currentInt = _entity;
     QString aux = QString::number(_entity);
     if (_entity > 1000)
     {
-        qDebug() << Q_FUNC_INFO << " - 30" ;
+      //qDebug() << Q_FUNC_INFO << " - 30" ;
         aux = (QString::number(_entity)).right(3);
     }
-    qDebug() << Q_FUNC_INFO << " - 40" ;
+  //qDebug() << Q_FUNC_INFO << " - 40" ;
 
     int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
     if (indexC != -1)
@@ -772,7 +772,7 @@ void MainWindowInputOthers::setEntity(const int _entity)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Unable to find entity in the ComboBox";
+      //qDebug() << Q_FUNC_INFO << " - Unable to find entity in the ComboBox";
     }
 
 
@@ -783,16 +783,16 @@ void MainWindowInputOthers::setEntity(const int _entity)
 
 void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
+  //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
     if (_entity<=0)
     {
-        qDebug() << Q_FUNC_INFO << " -  10";
+      //qDebug() << Q_FUNC_INFO << " -  10";
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
 
-    qDebug() << Q_FUNC_INFO << " - 15";
+  //qDebug() << Q_FUNC_INFO << " - 15";
     setEntity(_entity);
 
     Callsign callsign(_qrz);
@@ -810,16 +810,16 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
         hostFullPrefix = prefixFromEntityNumber + QString::number(callsign.getHostAreaNumber());
     }
 
-    qDebug() << Q_FUNC_INFO << " -  20";
-    qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
-    qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
-    qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
+  //qDebug() << Q_FUNC_INFO << " -  20";
+  //qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
+  //qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
+  //qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
 
 
     if ((hostFullPrefix.isEmpty()) && (hostPrefix.isEmpty()))
         return;
 
-    qDebug() << Q_FUNC_INFO << " -  40";
+  //qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> primarySubdivisions;
     primarySubdivisions.clear();
 

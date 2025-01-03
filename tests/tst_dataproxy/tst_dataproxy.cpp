@@ -298,7 +298,7 @@ void tst_DataProxy::test_primarySubdivisions()
     //PrimarySubdivision subdivision;
     //foreach(subdivision, subdivisions)
     //{
-    //    qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
+    //  //qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
     //}
    //getPrimarySubDivisions(currentInt, prefUsed)
 }

@@ -3419,12 +3419,12 @@ int QSO::toDB(int _qsoId)
     else
     {
 
-        qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
+      //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
         //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
-        qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
-        qDebug() << Q_FUNC_INFO << ": Error: text: " << query.lastError().text();
-        qDebug() << Q_FUNC_INFO << ": Error: driverText: " << query.lastError().driverText();
-        qDebug() << Q_FUNC_INFO << ": Error: nativeErrorCode: " << query.lastError().nativeErrorCode();
+      //qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
+      //qDebug() << Q_FUNC_INFO << ": Error: text: " << query.lastError().text();
+      //qDebug() << Q_FUNC_INFO << ": Error: driverText: " << query.lastError().driverText();
+      //qDebug() << Q_FUNC_INFO << ": Error: nativeErrorCode: " << query.lastError().nativeErrorCode();
         //void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return -2;

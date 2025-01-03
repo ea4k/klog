@@ -196,7 +196,7 @@ void tst_Callsign::test_callsigns()
         //qDebug() << Q_FUNC_INFO << " - fullcallsign     : "      << testCall.getCallsign() << "/" << fullcallsign;
         QCOMPARE(testCall.getCallsign(), testString);
 
-        qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
+      //qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
         QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
 
         //qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;

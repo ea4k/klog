@@ -1099,23 +1099,23 @@ void MainWindow::slotOKButtonClicked(){
 void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start"  ;
+  //qDebug() << Q_FUNC_INFO << " - Start"  ;
     if (mainQSOEntryWidget->getQrz().length()<=0)
     {
-        qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;
+      //qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;
         return;
     }
     readingTheUI = true;
 
     if (!readQSOFromUI ())
     {return;}
-    qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
+  //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
 
     int addedOK = qso->toDB (modifyingQSO);
-    qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+  //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
-        qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
+      //qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
         mapWindow->addLocator(qso->getGridSquare(), workedColor);
         qso->clear();
         actionsJustAfterAddingOneQSO();
@@ -1125,14 +1125,14 @@ void MainWindow::slotQRZReturnPressed()
     yearChangedDuringModification = false;
     readingTheUI = false;
 
-    qDebug() << Q_FUNC_INFO << "Just before cleaning";
+  //qDebug() << Q_FUNC_INFO << "Just before cleaning";
     slotClearButtonClicked(Q_FUNC_INFO);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::actionsJustAfterAddingOneQSO()
 {
-    qDebug() << Q_FUNC_INFO << " - Start" ;
+  //qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     int lastId = -1;
     needToSave = true;
@@ -1195,7 +1195,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     searchWidget->refresh();
     awardsWidget->showAwards ();
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << " - END" ;
+  //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 bool MainWindow::readQSOFromUI()
@@ -2077,10 +2077,10 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     int dx_ITUz = -1;
     int dxE_ITUz = -1;
     cleanQRZCOMreceivedDataFromUI();
-     qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
+   //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
     currentEntity = world->getQRZARRLId(_qrz);
-    qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
+  //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
@@ -2113,7 +2113,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.log       = currentLog;
 
-    qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
+  //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
@@ -2124,8 +2124,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     //TODO: Look for a way to prevent updating when not needed. i.e. if the prefix is already defined and only suffix is being sent
     //      Maybe a wat could be to send the hostprefix and not the callsign?
-    qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
-    qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
+  //qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
+  //qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
     othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
         //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
@@ -5834,7 +5834,7 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
 bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
 {
     QSO q = _qso;
-    qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
+  //qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
     if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)).length()>0))
         return true;
 
@@ -6011,10 +6011,10 @@ void MainWindow::slotClearNoMorErrorShown()
 
 void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
 {
-   qDebug() << Q_FUNC_INFO << " -  Function: " << functionFailed ;
-   qDebug() << Q_FUNC_INFO << " -  Error: - " << errorCodeS;
-   qDebug() << Q_FUNC_INFO << " -  Native: - " << nativeError;
-   qDebug() << Q_FUNC_INFO << " -  QueryFailed: - " << queryFailed;
+ //qDebug() << Q_FUNC_INFO << " -  Function: " << functionFailed ;
+ //qDebug() << Q_FUNC_INFO << " -  Error: - " << errorCodeS;
+ //qDebug() << Q_FUNC_INFO << " -  Native: - " << nativeError;
+ //qDebug() << Q_FUNC_INFO << " -  QueryFailed: - " << queryFailed;
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
 

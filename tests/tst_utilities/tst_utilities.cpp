@@ -373,7 +373,7 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("I100", true) == "I1", "I100-True");
     QVERIFY2(util->getPrefixFromCall("K100A", true) == "K1", "K1-True");
     QVERIFY2(util->getPrefixFromCall("I100KK", true) == "I1", "I100KK-True");
-    qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
+  //qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
     QVERIFY2(util->getPrefixFromCall("FB1K", true) == "FB1", "FB1K-True");
     QVERIFY2(util->getPrefixFromCall("E", true) == QString(), "E-True");
     QVERIFY2(util->getPrefixFromCall("EA", true) == "EA", "EA-True");

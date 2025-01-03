@@ -178,7 +178,7 @@ void tst_MainWindowInputQSO::test_GridLineEdit()
     //qDebug() << Q_FUNC_INFO << "Color: " <<  mainWindowInputQSO->locatorLineEdit->palette().color().name()
 /*
 
-        qDebug() << Q_FUNC_INFO << " - DarkMode NOT detected";
+      //qDebug() << Q_FUNC_INFO << " - DarkMode NOT detected";
         mainWindowInputQSO->locatorLineEdit->setText ("IN");
         QVERIFY2(mainWindowInputQSO->locatorLineEdit->palette () == palBlack, "Error in grids IN");
         mainWindowInputQSO->locatorLineEdit->setText ("IN80");
