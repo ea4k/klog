@@ -233,19 +233,19 @@ int World::getPrefixId(const QString &_prefix)
 
 QString World::getQRZEntityName(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return QString();
     }
     int prefixIDNumber = getQRZARRLId(_qrz);
-    qDebug() << Q_FUNC_INFO << " - " << prefixIDNumber;
+  //qDebug() << Q_FUNC_INFO << " - " << prefixIDNumber;
     return getEntityName(prefixIDNumber);
 }
 
 QString World::getEntityName(const int _entityN)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _entityN;
+  //qDebug() << Q_FUNC_INFO << ": " << _entityN;
     int prefixIDNumber = _entityN;
     if (prefixIDNumber<=0)
     {
@@ -298,13 +298,13 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return -1;
     }
     QString pref = util->getPrefixFromCall(_qrz);
-    qDebug() << Q_FUNC_INFO << ": prefix: " << pref;
+  //qDebug() << Q_FUNC_INFO << ": prefix: " << pref;
     return getPrefixId(pref);
 }
 
@@ -518,11 +518,11 @@ bool World::readCTYCSV(const QString &_worldFile)
     QFile file(_worldFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        qDebug() << Q_FUNC_INFO << ": File not found: END FALSE" << _worldFile;
+      //qDebug() << Q_FUNC_INFO << ": File not found: END FALSE" << _worldFile;
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << "File found:" << _worldFile;
+  //qDebug() << Q_FUNC_INFO << "File found:" << _worldFile;
 
     QTextStream in(&file);
     int numberOfLines = 0;
@@ -533,7 +533,7 @@ bool World::readCTYCSV(const QString &_worldFile)
         numberOfLines++;
     }
 
-    qDebug() << Q_FUNC_INFO << "Number of lines:" << numberOfLines;
+  //qDebug() << Q_FUNC_INFO << "Number of lines:" << numberOfLines;
 
     // Reset the file position
     file.seek(0);
@@ -578,17 +578,17 @@ bool World::readCTYCSV(const QString &_worldFile)
         double utc = stringList.at(8).toDouble();
 
         if (addEntity(entName, cqz, ituz, contId, lat, lon, utc, entityNumber, mPrefix)) {
-            qDebug() << Q_FUNC_INFO << "Entity added:" << entName;
+          //qDebug() << Q_FUNC_INFO << "Entity added:" << entName;
             // stringList.at(9) contains an space separated list of prefixes for that entity
-            addPrefixes(stringList.at(9), entityNumber, cqz, ituz);
+            addPrefixes(stringList.at(9), entityNumber, cqz, ituz);             //TODO: Handle the error
         } else {
-            qDebug() << Q_FUNC_INFO << "Entity not added:" << entName;
+          //qDebug() << Q_FUNC_INFO << "Entity not added:" << entName;
         }
 
 #ifndef KLOG_TESTING
         progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
 #endif
-        qDebug() << Q_FUNC_INFO << "Progress bar position:" << progressBarPosition;
+      //qDebug() << Q_FUNC_INFO << "Progress bar position:" << progressBarPosition;
     }
 
 #ifndef KLOG_TESTING
@@ -620,14 +620,17 @@ bool World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int 
             //Returns a QStringList: prefix, CQz, ITUz
             pairPrefixes.append(qMakePair(stringListProcessedPrefix.at(0), qMakePair(entityNumber, qMakePair(stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt()))));
             //if (addPrefix(stringListProcessedPrefix.at(0), entityNumber, stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt())) {
-            //    qDebug() << Q_FUNC_INFO << "Prefix added:" << stringListProcessedPrefix.at(0);
+            //  //qDebug() << Q_FUNC_INFO << "Prefix added:" << stringListProcessedPrefix.at(0);
             //} else {
-            //    qDebug() << Q_FUNC_INFO << "Prefix not added:" << stringListProcessedPrefix.at(0);
+            //  //qDebug() << Q_FUNC_INFO << "Prefix not added:" << stringListProcessedPrefix.at(0);
             //}
         }
     }
+    return insertPrefixes(pairPrefixes);
+}
 
-
+bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>>>> &pairPrefixes)
+{
     QSqlQuery query;
     query.prepare(
         "INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) "
@@ -663,9 +666,9 @@ void World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int 
         QStringList stringListProcessedPrefix = readZones(prefix, cqz, ituz);
         if (stringListProcessedPrefix.size() == 3) {
             if (addPrefix(stringListProcessedPrefix.at(0), entityNumber, stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt())) {
-                qDebug() << Q_FUNC_INFO << "Prefix added:" << stringListProcessedPrefix.at(0);
+              //qDebug() << Q_FUNC_INFO << "Prefix added:" << stringListProcessedPrefix.at(0);
             } else {
-                qDebug() << Q_FUNC_INFO << "Prefix not added:" << stringListProcessedPrefix.at(0);
+              //qDebug() << Q_FUNC_INFO << "Prefix not added:" << stringListProcessedPrefix.at(0);
             }
         }
     }
