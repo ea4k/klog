@@ -26,20 +26,7 @@ email                : jaime@robles.es
 #include <QFont>
 #include "dxcluster.h"
 
-/*
-DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
-          : QWidget(parent)
-{
-       //qDebug() << "DXClusterWidget::DXClusterWidget";
-    dataProxy = dp;
-    constrid = 1;
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
-    util = new Utilities(Q_FUNC_INFO);
-    saveSpotsFile = new QFile();
-    //initClass();
-       //qDebug() << "DXClusterWidget::DXClusterWidget - END";
-}
-*/
+
 DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
           : QWidget(parent)
 //DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
@@ -224,27 +211,28 @@ void DXClusterWidget::connectToDXCluster()
 void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socketError)
 {
    //qDebug() << Q_FUNC_INFO;
+    QString errorMessage;
      switch (socketError) {
      case QAbstractSocket::RemoteHostClosedError:
          break;
      case QAbstractSocket::HostNotFoundError:
-         QMessageBox::warning(this, tr("KLog DXCluster"),
-                                  tr("The host was not found. Please check:") + "\n\n" +
+         errorMessage = tr("The host was not found. Please check:") + "\n\n" +
                                      tr ("- your network connection;\n"
-                                     "- the host name and port settings."));
+                                     "- the host name and port settings.");
          break;
      case QAbstractSocket::ConnectionRefusedError:
-         QMessageBox::warning(this, tr("KLog DXCluster"),
-                                  tr("The connection was refused by the peer. "
+         errorMessage = tr("The connection was refused by the peer. "
                                      "Make sure the DXCluster server is running, "
                                      "and check that the host name and port "
-                                     "settings are correct."));
+                                     "settings are correct.");
          break;
      default:
-         QMessageBox::warning(this, tr("KLog DXCluster"),
-                                  tr("The following error occurred: %1.")
-                                  .arg(tcpSocket->errorString()));
+         errorMessage =  tr("The following error occurred: %1.")
+                                  .arg(tcpSocket->errorString());
      }
+
+     qDebug() << Q_FUNC_INFO << errorMessage;
+     QMessageBox::warning(this, tr("KLog DXCluster"), errorMessage);
  }
 
 bool DXClusterWidget::checkIfNeedsToBePrinted(EntityStatus _entityStatus)
