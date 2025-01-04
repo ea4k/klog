@@ -1185,58 +1185,15 @@ Returns a valid format IOTA if possible and "" in other cases.
 */
 }
 
-void Awards::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
+void Awards::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
 
-    defaultColor = QColor(_default.toUpper());
-    neededColor = QColor(_needed.toUpper());
-    workedColor = QColor(_worked.toUpper());
-    confirmedColor = QColor(_confirmed.toUpper());
-    newOneColor = QColor(_newOne.toUpper());
-
-    if (defaultColor.isValid())
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        defaultColor.fromString(QAnyStringView((_default.toUpper()))); //To be replaced by .fromString in Qt6.6
-#else
-        defaultColor.setNamedColor(_default.toUpper()); //To be replaced by .fromString in Qt6.6
-#endif
-    }
-
-    if (neededColor.isValid())
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        neededColor.fromString(QAnyStringView((_needed.toUpper()))); //To be replaced by .fromString in Qt6.6
-#else
-        neededColor.setNamedColor(_needed.toUpper()); //To be replaced by .fromString in Qt6.6
-#endif
-    }
-
-    if (confirmedColor.isValid())
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        confirmedColor.fromString(QAnyStringView((_confirmed.toUpper()))); //To be replaced by .fromString in Qt6.6
-#else
-        confirmedColor.setNamedColor(_confirmed.toUpper()); //To be replaced by .fromString in Qt6.6
-#endif
-    }
-    if (newOneColor.isValid())
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        newOneColor.fromString(QAnyStringView((_newOne.toUpper()))); //To be replaced by .fromString in Qt6.6
-#else
-        newOneColor.setNamedColor(_newOne.toUpper()); //To be replaced by .fromString in Qt6.6
-#endif
-    }
-    if (workedColor.isValid())
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-        workedColor.fromString(QAnyStringView((_worked.toUpper())));
-#else
-        workedColor.setNamedColor(_worked.toUpper());
-#endif
-    }
+    defaultColor = _default;
+    neededColor = _needed;
+    workedColor = _worked;
+    confirmedColor = _confirmed;
+    newOneColor = _newOne;
 }
 
 QColor Awards::getDefaultColor()

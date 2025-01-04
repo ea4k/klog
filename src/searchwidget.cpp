@@ -858,7 +858,7 @@ void SearchWidget::slotToolSearchNeededQSLRequested()
     searchWindow->slotToolSearchQSL(3);
 }
 
-void SearchWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
+void SearchWidget::setColors(const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
     // Just to pass the colors to the awards class

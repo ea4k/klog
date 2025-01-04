@@ -53,7 +53,8 @@ class DXClusterWidget : public QWidget
     //DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
     void init();
     ~DXClusterWidget();
-    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+
+    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy );
     //void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     void setCurrentLog(const int _log);
@@ -91,7 +92,7 @@ signals:
 
 private:
     //void TESTADDSPOT(); // Just a test spot
-
+    void addItemToClusterList(const QString &text, const QColor &color); // Adds a message to the list
     void createActions();
     void connectToDXCluster();
     //QStringList readItem(QListWidgetItem * _stringSpot);

@@ -398,6 +398,7 @@ void MainWindow::init_variables()
     palBlack.setColor(QPalette::Text, Qt::black);
 
     clublogAnswer = -1;
+    qDebug() << Q_FUNC_INFO << " - Changing colors to default";
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
        defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
        neededColor.fromString(QAnyStringView("yellow"));
@@ -411,7 +412,7 @@ void MainWindow::init_variables()
         confirmedColor.setNamedColor("red");
         newOneColor.setNamedColor("green");
 #endif
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::checkDebugFile()
@@ -3495,11 +3496,22 @@ void MainWindow::slotOpenWiki()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+{
+    qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) <<
+                                " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
+                                " / Default: " << _default.name(QColor::HexRgb);
+    searchWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
+    awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
+    mapWindow->setColors (_worked, _confirmed, _default);
+    dxClusterWidget->setColors (_newOne, _needed, _worked, _confirmed, _default);
+    infoWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
+}
 
 bool MainWindow::applySettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    //qDebug() << Q_FUNC_INFO << " - NewOneColor: " << newOneColor.name(QColor::HexRgb);
+
     if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
     {
         useDefaultLogFileName = true;
@@ -3508,14 +3520,11 @@ bool MainWindow::applySettings()
     {
         useDefaultLogFileName = false;
     }
+
     checkIfNewBandOrMode ();
     infoWidget->setImperialSystem(imperialSystem);
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
-    searchWidget->setColors(newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
-    awards->setColors (newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
-    mapWindow->setColors (workedColor, confirmedColor, defaultColor);
-    dxClusterWidget->setColors (newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
     dxClusterWidget->setDXClusterSpotConfig(dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY );
     setMainWindowTitle();
     dxClusterWidget->setMyQRZ(stationCallsign);
@@ -3531,7 +3540,7 @@ bool MainWindow::applySettings()
     searchWidget->setVersion(softwareVersion);
     searchWidget->setCurrentLog(currentLog);
     infoWidget->setCurrentLog(currentLog);
-    infoWidget->setColors(newOneColor.name(QColor::HexRgb), neededColor.name(QColor::HexRgb), workedColor.name(QColor::HexRgb), confirmedColor.name(QColor::HexRgb), defaultColor.name(QColor::HexRgb));
+
 
     satTabWidget->refreshData();
     adifLoTWExportWidget->setLogNumber (currentLog);
@@ -6566,7 +6575,7 @@ bool MainWindow::loadSettings()
     readActiveBands (settings.value("Bands", listAux).toStringList ());
     settings.endGroup ();
 
-  //qDebug() << Q_FUNC_INFO << " - 40 - logview";
+  //qDebug() << Q_FUNC_INFO << " - 40 - logview";setColors
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
   //qDebug() << Q_FUNC_INFO << " - 41 - logs";
 
@@ -6589,25 +6598,33 @@ bool MainWindow::loadSettings()
     //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    //qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)    
+    qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
+    if (QColor::isValidColor(settings.value("NewOneColor").toString()))
+    {
+        qDebug() << Q_FUNC_INFO << " - Color is valid: ";
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - Color is NOT valid: ";
+    }
     newOneColor.fromString(QAnyStringView((settings.value ("NewOneColor", "#FF0000").toString ())));
-    //newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
-    //qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor-2: " << newOneColor.name(QColor::HexRgb);
+    qDebug() << Q_FUNC_INFO << " - 62 - NewOneColor: " << settings.value("NewOneColor").toString();
     neededColor.fromString(QAnyStringView((settings.value ("NeededColor","#FF8C00").toString ())));
     workedColor.fromString(QAnyStringView((settings.value ("WorkedColor", "#FFD700").toString ())));
     confirmedColor.fromString(QAnyStringView((settings.value ("ConfirmedColor", "#32CD32").toString ())));
     defaultColor.fromString(QAnyStringView((settings.value ("DefaultColor", "#00BFFF").toString ())));
 #else
+    qDebug() << Q_FUNC_INFO << " - 61-2 - NewOneColor: " << settings.value("NewOneColor").toString();
     newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
     neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
     workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
     confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
     defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
-#endif
-
-
+#endif   
     settings.endGroup ();
+    setColors(newOneColor, neededColor, workedColor, confirmedColor, defaultColor);
+
     setupDialog->loadDarkMode ();
 
      //qDebug() << Q_FUNC_INFO << " - 70 - misc";

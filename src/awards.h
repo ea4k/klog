@@ -96,7 +96,7 @@ public:
     QString getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
     QString getDXCCStatusBand(const int _dxcc, const int _band); // Returns -, W or C (Not worked, worked, Confirmed)
 
-    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     QColor getQRZDXStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
     QColor getDefaultColor();
 

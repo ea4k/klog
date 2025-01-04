@@ -339,7 +339,7 @@ void InfoWidget::clear()
     clearInfoFromLocators();
 }
 
-void InfoWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
+void InfoWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
     clearBandLabels();

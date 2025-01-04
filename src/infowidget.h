@@ -49,7 +49,7 @@ public:
     void createUI();
     void clear();
     void setCurrentLog(const int _log);
-    void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
+    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void setImperialSystem (const  bool _imp);
     void showInfo(const int _entity);
     void showDistanceAndBearing(const QString &_locLocal, const QString &_loc2);

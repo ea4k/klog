@@ -316,6 +316,14 @@ void DXClusterWidget::setCurrentLog(const int _log)
     }
 }
 
+void DXClusterWidget::addItemToClusterList(const QString &text, const QColor &color)
+{
+    QListWidgetItem *item = new QListWidgetItem();
+    item->setForeground(QBrush(color));
+    item->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    item->setText(text);
+    dxClusterListWidget->insertItem(0, item);
+}
 
 void DXClusterWidget::slotClusterDataArrived()
 {
@@ -379,13 +387,10 @@ void DXClusterWidget::slotClusterDataArrived()
         dxSpotColor = awards->getDefaultColor();
     }
 
-  //qDebug() << Q_FUNC_INFO << " - While 70";
+    qDebug() << Q_FUNC_INFO << " - While 70 - Color: " << dxSpotColor.name(QColor::HexRgb);
 
-    QListWidgetItem *item = new QListWidgetItem();
-    item->setForeground(QBrush(dxSpotColor));
-    item->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    item->setText(dxClusterString);
-    dxClusterListWidget->insertItem(0,item);
+    addItemToClusterList(dxClusterString, dxSpotColor);
+
 
   //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -403,10 +408,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 {
    //qDebug() << Q_FUNC_INFO;
 
-    QListWidgetItem *item = new QListWidgetItem();
-    item->setForeground(QBrush(awards->getDefaultColor()));
-    item->setText(tr("Connected to server"));
-    dxClusterListWidget->insertItem(0,item);
+    addItemToClusterList(tr("Connected to server"), awards->getDefaultColor());
 
 //    dxClusterSpotItem * item = new dxClusterSpotItem(dxclusterListWidget, i18n("Connected to server"), awards->getDefaultColor());
     dxClusterConnected = true;
@@ -453,11 +455,9 @@ void DXClusterWidget::slotClusterSocketConnected()
 
 void DXClusterWidget::slotClusterSocketConnectionClosed()
 {
-   //qDebug() << Q_FUNC_INFO;
-    QListWidgetItem *item = new QListWidgetItem();
-    item->setForeground(QBrush(awards->getDefaultColor()));
-    item->setText(tr("Connection closed by the server"));
-    dxClusterListWidget->insertItem(0,item);
+   //qDebug() << Q_FUNC_INFO;  
+    addItemToClusterList(tr("Connection closed by the server"), awards->getDefaultColor());
+
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     sendButton->setText(tr("Connect"));
@@ -515,9 +515,9 @@ void DXClusterWidget::slotClusterInputTextChanged()
     }
 }
 
-void DXClusterWidget::setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default)
+void DXClusterWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
+    qDebug() << Q_FUNC_INFO << ": " << _newOne.name(QColor::HexRgb) << "/" << _needed.name(QColor::HexRgb) << "/" << _worked.name(QColor::HexRgb) << "/" << _confirmed.name(QColor::HexRgb) << "/" << _default.name(QColor::HexRgb);
     // Just to pass the colors to the awards class
     awards->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
 }
@@ -767,6 +767,9 @@ void DXClusterWidget::loadSettings()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+
+
+
     QString aux = settings.value("DXClusterServerToUse").toString ();
 
     if (aux.contains(':'))
