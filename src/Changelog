@@ -2,7 +2,7 @@
 
 TODO-Bug: Add QSOs from wsjtx does not work. Failure close to int QSO::toDB(int _qsoId) Maybe related to QSO dupe (it was already fixed)
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
-Check the bug that makes WSJTX not logging automatically
+
 
 TODO-Test: Add tests to test the subsivisions
 TODO-Test: the copy constructor of QSO

@@ -226,7 +226,7 @@ void SetupPageUDP::setUDPServer(const bool _t)
 void SetupPageUDP::setUDPServerPort(const int _t)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number (_t);
-    if (  (_t>=0) && (_t<=65535))
+    if (  (_t>0) && (_t<65535))
     {
         UDPServerPortSpinBox->setValue(_t);
     }
