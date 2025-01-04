@@ -1,12 +1,11 @@
-TODO: Review the KLog first start. Reading cty.dat is terribly slow.
 
 
 TODO-Bug: Add QSOs from wsjtx does not work. Failure close to int QSO::toDB(int _qsoId) Maybe related to QSO dupe (it was already fixed)
-WIP: Subdivisions only works with the main prefix. It is needed to find the prefix (EB, EC for EA and so on)
-TODO-Test: Add tests to test the subsivisions
-TODO-Test: the copy constructor of QSO
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 Check the bug that makes WSJTX not logging automatically
+
+TODO-Test: Add tests to test the subsivisions
+TODO-Test: the copy constructor of QSO
 
 
 BUG: When entering/modifying a QSO there is an error related to awarddxcc table not existing

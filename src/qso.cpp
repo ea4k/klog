@@ -3375,10 +3375,10 @@ bool QSO::setData(const QString &_adifPair)
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
   // if _qsoID is >0 it should be an existing QSO in the DB.
-   //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
+  //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
     if (!isComplete ())
     {
-       //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
+      //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
 
@@ -3389,38 +3389,38 @@ int QSO::toDB(int _qsoId)
     queryString.clear();
     if (_qsoId<=0)
     {
-       //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
+     //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
         queryString = getAddQueryString();
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - qsoID>0";
+     //qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }
-   //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
+ //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
 
     QSqlQuery query = getPreparedQuery(queryString);
-    //qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
+  //qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
     if (_qsoId>0)
     {
-       //qDebug() << Q_FUNC_INFO << " - binding ID";
+     //qDebug() << Q_FUNC_INFO << " - binding ID";
         query.bindValue (":id", _qsoId);
     }
-    //qDebug() << Q_FUNC_INFO << " - executing query";
+  //qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
-       //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
-       //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
+     //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
+     //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
         if (_qsoId>0)
             return _qsoId;
-        //db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
+
         return getLastInsertedQSO();
     }
     else
     {
 
       //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
-        //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
+      //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
       //qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
       //qDebug() << Q_FUNC_INFO << ": Error: text: " << query.lastError().text();
       //qDebug() << Q_FUNC_INFO << ": Error: driverText: " << query.lastError().driverText();
@@ -3430,7 +3430,7 @@ int QSO::toDB(int _qsoId)
         return -2;
     }
     query.finish();
-   //qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
     return 1;
 }
 

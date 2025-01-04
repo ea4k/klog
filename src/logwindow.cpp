@@ -57,12 +57,12 @@ LogWindow::~LogWindow()
 
 void LogWindow::setColumns(const QStringList &_columns)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+  //qDebug() << Q_FUNC_INFO << " - Start";
     columns.clear();
-     //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
+  //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
-    //qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::sortColumn(const int _c)
@@ -105,10 +105,12 @@ void LogWindow::setDefaultData()
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
+  //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
     currentLog = _currentLog;
     if (!logModel->createlogModel(currentLog))
-        //qDebug() << Q_FUNC_INFO << " - ERROR creating model";
+    {
+      //qDebug() << Q_FUNC_INFO << " - ERROR creating model";
+    }
 
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
@@ -192,10 +194,11 @@ void LogWindow::showColumn(const QString &_columnName)
 
 void LogWindow::refresh()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+  //qDebug() << Q_FUNC_INFO << " - Start";
     if (!logModel->select())
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
+      //qDebug() << Q_FUNC_INFO << " - Error refreshing log:" << logModel->lastError().text();
         QMessageBox msgBox;
         msgBox.setText(tr("There was a problem with the log, please restart KLog and contact the development team if the error persist."));
         msgBox.setIcon(QMessageBox::Critical);
@@ -203,8 +206,7 @@ void LogWindow::refresh()
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.exec();
     }
-
-    //qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::createActions()

@@ -65,24 +65,24 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-    //qDebug() << Q_FUNC_INFO ;
+  //qDebug() << Q_FUNC_INFO ;
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
     //QSqlQuery query(stringQuery);
     setFilter(stringQuery);
     if (!setColumns(columns))
     {
-        //qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
+      //qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
         return false;
     }
 
     if (!select())
     {
-        //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
+      //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
         return false;
     }
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 

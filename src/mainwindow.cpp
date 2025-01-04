@@ -3495,6 +3495,7 @@ void MainWindow::slotOpenWiki()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+
 bool MainWindow::applySettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -5737,21 +5738,22 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 }
 
 
-void MainWindow::slotQSOReceived(const QSO &_qso)
-{
-    //qDebug() <<  Q_FUNC_INFO << " - Start";
+    void MainWindow::slotQSOReceived(const QSO &_qso)
+{    
+   //qDebug() <<  Q_FUNC_INFO << " - Start";
     //logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (!wsjtxAutoLog)
         if (!askToAddQSOReceived(_qso))
             return;
-    //qDebug() << Q_FUNC_INFO << "010";
+  //qDebug() << Q_FUNC_INFO << "010";
     QSO q;
-    //qDebug() << Q_FUNC_INFO << "020";
+  //qDebug() << Q_FUNC_INFO << "020";
     q.copy(_qso);
-    //qDebug() << Q_FUNC_INFO << "030";
-
-    //qDebug() << Q_FUNC_INFO << "Mode: " << q.getMode();
+    q.setLogId(currentLog);
+  //qDebug() << Q_FUNC_INFO << "030";
+  //qDebug() << Q_FUNC_INFO << "Call: " << q.getCall();
+  //qDebug() << Q_FUNC_INFO << "Mode: " << q.getMode();
 
     int dxcc = world->getQRZARRLId(q.getCall());
     //qDebug() << Q_FUNC_INFO << "040";
@@ -5765,7 +5767,7 @@ void MainWindow::slotQSOReceived(const QSO &_qso)
 
     //qDebug() << Q_FUNC_INFO << "070";
     int addedQSO = q.toDB();
-    //qDebug() << Q_FUNC_INFO << "080";
+  //qDebug() << Q_FUNC_INFO << "addedQSO: " << addedQSO;
     if (addedQSO>0)
     {
         //qDebug() << Q_FUNC_INFO << "090";
@@ -5786,7 +5788,7 @@ void MainWindow::slotQSOReceived(const QSO &_qso)
 
 bool MainWindow::askToAddQSOReceived(const QSO &_qso)
 {
-   //qDebug() <<  Q_FUNC_INFO << " - Start";
+  //qDebug() <<  Q_FUNC_INFO << " - Start";
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog - QSO received - NEW"));
@@ -5834,7 +5836,7 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
 bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
 {
     QSO q = _qso;
-  //qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
+ //qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
     if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)).length()>0))
         return true;
 
@@ -6564,9 +6566,9 @@ bool MainWindow::loadSettings()
     readActiveBands (settings.value("Bands", listAux).toStringList ());
     settings.endGroup ();
 
-     //qDebug() << Q_FUNC_INFO << " - 40 - logview";
+  //qDebug() << Q_FUNC_INFO << " - 40 - logview";
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
-     //qDebug() << Q_FUNC_INFO << " - 41 - logs";
+  //qDebug() << Q_FUNC_INFO << " - 41 - logs";
 
 
      //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
