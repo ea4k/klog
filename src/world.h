@@ -118,7 +118,8 @@ private:
 
     //void createWorldModel();
     QStringList readZones(const QString &pref, const int _cq, const int _itu);
-    void addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz);
+    bool addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz);
+    //bool addPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>>>> &prefixes);
     int extractEntityNumber(const QStringList &stringList);
     //int progressBarPosition;
 

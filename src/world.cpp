@@ -602,20 +602,60 @@ bool World::readCTYCSV(const QString &_worldFile)
     return true;
 }
 
-int World::extractEntityNumber(const QStringList &stringList)
+
+bool World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz)
 {
-    int entityNumber;
-    if (stringList.at(0).contains(QChar('*'), Qt::CaseInsensitive)) {
-        entityNumber = stringList.at(2).toInt() + 1000;
-        while (!dataProxy->getEntityMainPrefix(entityNumber).isEmpty()) {
-            entityNumber += 1000;
+    QStringList stringListPrefixes = prefixes.split(' ');
+
+    QList<QPair<QString, QPair<int, QPair<int, int>>>> pairPrefixes;
+    //pairPrefixes.append(qMakePair(QString("EA"), qMakePair(130, qMakePair(10, 20))));
+
+
+    for (const QString &prefix : stringListPrefixes) {
+        QStringList stringListProcessedPrefix = readZones(prefix, cqz, ituz);
+        if (stringListProcessedPrefix.size() == 3)
+        {
+            //TODO: Add some checks to ensure we are adding a prefix and 3 numbers
+
+            //Returns a QStringList: prefix, CQz, ITUz
+            pairPrefixes.append(qMakePair(stringListProcessedPrefix.at(0), qMakePair(entityNumber, qMakePair(stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt()))));
+            //if (addPrefix(stringListProcessedPrefix.at(0), entityNumber, stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt())) {
+            //    qDebug() << Q_FUNC_INFO << "Prefix added:" << stringListProcessedPrefix.at(0);
+            //} else {
+            //    qDebug() << Q_FUNC_INFO << "Prefix not added:" << stringListProcessedPrefix.at(0);
+            //}
         }
-    } else {
-        entityNumber = stringList.at(2).toInt();
     }
-    return entityNumber;
+
+
+    QSqlQuery query;
+    query.prepare(
+        "INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) "
+        "VALUES (:pref, :dxcc, :cqz, :ituz)");
+
+    QSqlDatabase::database().transaction();  // Start the transaction
+
+    foreach (const auto &prefix, pairPrefixes)
+    {
+        query.bindValue(":pref", prefix.first);
+        query.bindValue(":dxcc", prefix.second.first);
+        query.bindValue(":cqz", prefix.second.second.first);
+        query.bindValue(":ituz", prefix.second.second.second);
+
+        if (!query.exec())
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+            QSqlDatabase::database().rollback();  // Rollback transaction on error
+            return false;
+        }
+    }
+
+    QSqlDatabase::database().commit();  // Commit the transaction
+    return true;
 }
 
+
+/*
 void World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz)
 {
     QStringList stringListPrefixes = prefixes.split(' ');
@@ -630,7 +670,21 @@ void World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int 
         }
     }
 }
+*/
 
+int World::extractEntityNumber(const QStringList &stringList)
+{
+    int entityNumber;
+    if (stringList.at(0).contains(QChar('*'), Qt::CaseInsensitive)) {
+        entityNumber = stringList.at(2).toInt() + 1000;
+        while (!dataProxy->getEntityMainPrefix(entityNumber).isEmpty()) {
+            entityNumber += 1000;
+        }
+    } else {
+        entityNumber = stringList.at(2).toInt();
+    }
+    return entityNumber;
+}
 
 int World::getHowManyEntities()
 {
