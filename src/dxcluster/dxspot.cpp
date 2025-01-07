@@ -24,26 +24,13 @@
  *                                                                           *
  *****************************************************************************/
 #include "dxspot.h"
+#include "../callsign.h"
 
 DXSpot::DXSpot()
 {
-    valid = false;
-    clickStatus = NoClick;
+    clear();
 }
-/*
-DXSpot::DXSpot(DXSpot *_other)
-{
-    dxcall = _other->dxcall;
-    spotter = _other->spotter;
-    if (_other->freq.isValid())
-        freq = _other->freq; // Might need a copy constructor for Frequency as well
-    comment = _other->comment;
-    if (_other->dateTime.isValid())
-        dateTime = _other->dateTime;
-    clickStatus = _other->clickStatus;
-    valid = _other->valid;
-}
-*/
+
 
 DXSpot::~DXSpot(){}
 
@@ -55,7 +42,6 @@ DXSpot::DXSpot(const DXSpot& other)
     comment = other.comment;
     dateTime = other.dateTime;
     clickStatus = other.clickStatus;
-    valid = other.valid;
 }
 
 void DXSpot::clear()
@@ -64,7 +50,6 @@ void DXSpot::clear()
     freq.clear();
     spotter.clear();
     dateTime.currentDateTimeUtc();
-    valid = false;
     clickStatus = NoClick;
 }
 
@@ -77,23 +62,54 @@ void DXSpot::operator=(DXSpot const &_other)
     if (_other.dateTime.isValid())
         dateTime = _other.dateTime;
     clickStatus = _other.clickStatus;
-    valid = _other.valid;
+
 }
 
-void DXSpot::setValid(const bool _v){valid = _v;}
-bool DXSpot::isValid(){return valid;}
+bool DXSpot::isValid()
+{
+  //qDebug() << Q_FUNC_INFO << " - 010";
+    Callsign dxc(dxcall);
+    if (!dxc.isValid())
+        return false;
 
-void DXSpot::setDXCall(const QString &_c){dxcall = _c;}
+  //qDebug() << Q_FUNC_INFO << " - 020";
+    Callsign spo(spotter);
+    if (!spo.isValid())
+        return false;
+
+  //qDebug() << Q_FUNC_INFO << " - 030";
+    if (!freq.isValid())
+        return false;
+
+  //qDebug() << Q_FUNC_INFO << " - 040";
+
+    if (!dateTime.isValid())
+        return false;
+
+  //qDebug() << Q_FUNC_INFO << " - 050";
+    return true;
+}
+
+void DXSpot::setDXCall(const QString &_c)
+{
+    Callsign callsing(_c);
+    if (callsing.isValid())
+        dxcall = _c;
+}
 QString DXSpot::getDxCall() {return dxcall;}
 
-void DXSpot::setSpotter(const QString &_c){spotter = _c;}
+void DXSpot::setSpotter(const QString &_c){
+    Callsign callsing(_c);
+    if (callsing.isValid())
+        spotter = _c;
+}
 QString DXSpot::getSpotter(){return spotter;}
 
 void DXSpot::setComment(const QString &c){comment = c;}
 QString DXSpot::getComment(){return comment;}
 
-void DXSpot::setDateTime(const QDateTime &d){if (d.isValid()) dateTime = d;}
-QDateTime DXSpot::getDateTime(){ return dateTime;}
+void DXSpot::setDateTime(const QDateTime &d){if (d.isValid()) dateTime = d; }
+QDateTime DXSpot::getDateTime(){  return dateTime;}
 
 void DXSpot::setClickStatus(const MouseClicks &_s ){clickStatus = _s;}
 MouseClicks DXSpot::getClickStatus(){return clickStatus;}
@@ -102,6 +118,7 @@ void DXSpot::setFrequency(Frequency f)
 {
     if (f.isValid())
         freq = f;
+    qDebug() << Q_FUNC_INFO << ": " << freq.toQString(MHz);
 }
 
 Frequency DXSpot::getFrequency()

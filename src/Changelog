@@ -1,4 +1,6 @@
-
+On first start, Locator is not identified
+BUG: When adding EA KLog finds Spain, if EA4 is added, it fails to find the DXCC.
+Find ONE single master place to do that calculation. Maybe World()??
 
 TODO-Bug: Add QSOs from wsjtx does not work. Failure close to int QSO::toDB(int _qsoId) Maybe related to QSO dupe (it was already fixed)
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO

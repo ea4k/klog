@@ -32,16 +32,9 @@
 #include <QDate>
 #include <QTime>
 #include <QObject>
-//#include <QDebug>
-#include "global.h"
 #include "utilities.h"
-#include "callsign.h"
 #include "klogdefinitions.h"
 #include "adif.h"
-//#include "database.h"
-
-
-//#include <functional>
 
 class QSO : public QObject
 {
@@ -49,9 +42,10 @@ class QSO : public QObject
     friend class tst_QSO;
 
 public:
-    QSO();
+    QSO(QObject *parent = nullptr);
     QSO(const QSO& other);
     ~QSO();
+    //QSO& operator=(const QSO &other);
     bool copy(const QSO& other);
     void setLogLevel (const DebugLogLevel _b);
     void setRealTime(const bool _rt);   // Not QSO info but KLog status

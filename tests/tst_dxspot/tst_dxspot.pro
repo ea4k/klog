@@ -11,12 +11,15 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/frequency.h \
+    ../../src/callsign.h \
     ../../src/dxcluster/dxspot.h \
     ../../src/klogdefinitions.h
 
-SOURCES +=  tst_dxspot.cpp \
+SOURCES += \
+    ../../src/frequency.cpp \
+    ../../src/callsign.cpp \
     ../../src/dxcluster/dxspot.cpp \
-    ../../src/frequency.cpp
+    tst_dxspot.cpp
 
 
 

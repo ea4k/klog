@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "filemanager.h"
+#include "callsign.h"
 //#include <QDebug>
 
 
@@ -31,7 +32,7 @@
 FileManager::FileManager(DataProxy_SQLite *dp)
 //FileManager::FileManager(const QString &_klogDir, const QString &_softVersion, DataBase _db)
 {
-     //qDebug() << "FileManager::FileManager()-3: Dir(2)" << _klogDir;
+     //qDebug() << Q_FUNC_INFO << " -3: Dir(2)" << _klogDir;
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     util->setLongPrefixes(dataProxy->getLongPrefixes());
@@ -40,7 +41,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
-    //qDebug() << "FileManager::FileManager()-3: Dir(2) - END" ;
+    //qDebug() << Q_FUNC_INFO << " -3: Dir(2) - END" ;
 }
 
 FileManager::~FileManager()
@@ -94,8 +95,8 @@ bool FileManager::checkADIFValidFormat(const QStringList &_qs)
     QString q0 = qs.at(0);
     QString q1 = qs.at(1);
 
-      //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(0);
-      //qDebug() << "FileManager::checkADIFValidFormat: " << qs.at(1);
+      //qDebug() << Q_FUNC_INFO << qs.at(0);
+      //qDebug() << Q_FUNC_INFO <<  qs.at(1);
 
     int len = 0;
     int i = (qs.at(0)).count(":");
@@ -110,7 +111,7 @@ bool FileManager::checkADIFValidFormat(const QStringList &_qs)
     }
     else
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-1 ";
+           //qDebug() << Q_FUNC_INFO << " -1 ";
         return false;
     }
 
@@ -124,24 +125,24 @@ bool FileManager::checkADIFValidFormat(const QStringList &_qs)
 
     if ( (q1).length() != len )
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-2: " << (qs.at(1)) << " - " << QString::number((qs.at(1)).length()) << "/" << QString::number(len);
+           //qDebug() << Q_FUNC_INFO << " -2: " << (qs.at(1)) << " - " << QString::number((qs.at(1)).length()) << "/" << QString::number(len);
         return false;
     }
 
     if (len <= 0)
     {
-           //qDebug() << "FileManager::checkADIFValidFormat-3 ";
+           //qDebug() << Q_FUNC_INFO << " -3 ";
         return false;
     }
 
-       //qDebug() << "FileManager::checkADIFValidFormat-4 (true)";
+       //qDebug() << Q_FUNC_INFO << " -4 (true)";
 
     return true;
 }
 
 bool FileManager::adifLogExport(const QString& _fileName, const int _logN)
 {
-    //qDebug() << "FileManager::adifLogExport" << _fileName;
+    //qDebug() << Q_FUNC_INFO  << _fileName;
 
     return adifLogExportToFile(_fileName, _logN, false, false, false);
 }
@@ -170,8 +171,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
-
-    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
+    Callsign call(_callsign);
+    if ((!call.isValid()) && (_callsign != "ALL") && (_callsign !="NOT"))
     {
          showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
          return qsos;
@@ -434,8 +435,9 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
+    Callsign call(_callsign);
 
-    if ((!util->isValidCall(_callsign)) && (_callsign != "ALL") && (_callsign !="NOT"))
+    if ((!call.isValid()) && (_callsign != "ALL") && (_callsign !="NOT"))
     {
          showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
          return qsos;
@@ -473,7 +475,7 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
 
 bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 {
-   //qDebug() << "FileManager::adifQSOsExport: " << _fileName;
+   //qDebug() << Q_FUNC_INFO << _fileName;
     int numberOfQSOs = _qsos.length();
     if (numberOfQSOs<1)
     {
@@ -481,19 +483,19 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
        //qDebug() << "FileManager::adifQSOsExport: No QSOs received to be exported";
     }
     noMoreQso = false;
-   //qDebug() << "FileManager::adifQSOsExport - 01";
+   //qDebug() << Q_FUNC_INFO << "  - 01";
     QFile file(_fileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
         return false;
-   //qDebug() << "FileManager::adifQSOsExport - 02";
+   //qDebug() << Q_FUNC_INFO << "  - 02";
     QTextStream out(&file);
 
     QSqlQuery query;
-    //qDebug() << "FileManager::adifQSOsExport - 10";
+    //qDebug() << Q_FUNC_INFO << "  - 10";
     QString numbers = QString();
     foreach (int i, _qsos)
     {
-        //qDebug() << "FileManager::adifQSOsExport - query: " << QString("id = '%1'").arg(i) ;
+        //qDebug() << Q_FUNC_INFO << "  - query: " << QString("id = '%1'").arg(i) ;
         numbers = numbers + QString::number(i) ;
         if (i != _qsos.last())
         {
@@ -502,14 +504,14 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     }
 
     QString queryString = QString("SELECT * FROM log WHERE id IN (%1)").arg(numbers);
-    //qDebug() << "FileManager::adifQSOsExport: writing the header";
+    //qDebug() << Q_FUNC_INFO << " - writing the header";
     writeADIFHeader(out, ModeADIF, _qsos.length());
-   //qDebug() << "FileManager::adifQSOsExport: writing the body";
+   //qDebug() << Q_FUNC_INFO << " - writing the body";
 
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
-    //qDebug() << "FileManager::adifQSOsExport: query error: " << query.lastQuery();
+    //qDebug() << Q_FUNC_INFO << " - query error: " << query.lastQuery();
      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
    //qDebug() << "FileManager::adifQSOsExport: query: " << query.lastQuery();
@@ -973,8 +975,8 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
         if (line.contains("OWNCALL:"))
         {
             stationCallSign = (line.section(": ", 1, 1)).simplified();
-
-            if (!util->isValidCall(stationCallSign))
+            Callsign callsign(stationCallSign);
+            if (!callsign.isValid())
             {
                 stationCallSign = QString();
             }
@@ -1054,9 +1056,9 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
             {
                 //qDebug() << Q_FUNC_INFO << QString(": EOR detected, QSO added");
                 qso.setLogId (logN);
-
-                if ((util->isValidCall(_stationCallsign)) && (!util->isValidCall(qso.getStationCallsign())))
-
+                Callsign call1(_stationCallsign);
+                Callsign call2(qso.getStationCallsign());
+                if ((call1.isValid()) && (!call2.isValid()))
                 {
                     qso.setStationCallsign(_stationCallsign);
                 }
@@ -1297,8 +1299,8 @@ bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate 
     {
         _date = ", on "+  util->getDateSQLiteStringFromDate(_dt) ;
     }
-
-    if (util->isValidCall(_qrzDX))
+    Callsign callsign(_qrzDX);
+    if (callsign.isValid())
     {
         aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_qrzDX).arg(_date);
         text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
@@ -1310,8 +1312,8 @@ bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate 
                                                    tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO on %1:").arg(_date), QLineEdit::Normal,
                                                    "", &ok);
     }
-
-    if (ok && util->isValidCall(text))
+    callsign(text);
+    if (ok && callsign.isValid())
     {
         defaultStationCallsign = text.toUpper();
         return true;
@@ -1715,26 +1717,26 @@ bool FileManager::writeBackupDate()
 
 void FileManager::setStationCallSign(const QString& _st)
 {
-      //qDebug() << "FileManager::setStationCallSign: " << _st;
-
-    if (util->isValidCall(_st, true))
+      //qDebug() << Q_FUNC_INFO << " - " << _st;
+    Callsign callsign(_st);
+    if (callsign.isValid())
     {
-          //qDebug() << "FileManager::setStationCallSign: True";
+          //qDebug() << Q_FUNC_INFO << " - True";
         defaultStationCallsign = _st;
-          //qDebug() << "FileManager::setStationCallSign: " << defaultStationCallsign;
+          //qDebug() << Q_FUNC_INFO << " - " << defaultStationCallsign;
     }
     else
     {
-          //qDebug() << "FileManager::setStationCallSign: FALSE";
+          //qDebug() << Q_FUNC_INFO << " - FALSE";
     }
 
-   //qDebug() << "FileManager::setStationCallSign: -" << defaultStationCallsign << "-END";
+   //qDebug() << Q_FUNC_INFO << " - -" << defaultStationCallsign << "-END";
 }
 
 
 bool FileManager::askUserToUseAlwaysSameAnswer()
 {
-    //qDebug() << "FileManager::askUserToUseAlwaysSameAnswer: " ;
+    //qDebug() << Q_FUNC_INFO << " - Start " ;
 
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
@@ -1757,13 +1759,13 @@ bool FileManager::askUserToUseAlwaysSameAnswer()
         return false;
     }
 
-    //qDebug() << "FileManager::askUserToUseAlwaysSameAnswer: - END";
+    //qDebug() << Q_FUNC_INFO << " - - END";
 }
 
 bool FileManager::askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq)
 {
     Q_UNUSED(_freq);
-    //qDebug() << "FileManager::askUserToAddThisQSOToLog: " << _call;
+    //qDebug() << Q_FUNC_INFO << " - " << _call;
     QString qsoData = QString(tr("<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: %3</li><li>Mode: %4</li></ul>")).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime)).arg(_call).arg(_band).arg(_mode);
     QMessageBox msgBox;
     msgBox.setTextFormat(Qt::RichText);
@@ -1787,7 +1789,7 @@ bool FileManager::askUserToAddThisQSOToLog(const QString &_call, const QDateTime
         return false;
     }
 
-    //qDebug() << "FileManager::askUserToAddThisQSOToLog: - END";
+    //qDebug() << Q_FUNC_INFO << " - - END";
 }
 
 bool FileManager::showInvalidCallMessage(const QString &_call){

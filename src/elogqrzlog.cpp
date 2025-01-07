@@ -29,6 +29,7 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
+#include "callsign.h"
 //#include <QDebug>
 
 eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)
@@ -579,7 +580,8 @@ void eLogQrzLog::checkQRZ(const QString &_qrz)
 {
     //qDebug() << Q_FUNC_INFO << ": " + _qrz;
     showDebugLog (Q_FUNC_INFO, "Start: " + _qrz);
-    if (!util->isValidCall(_qrz))
+    Callsign callsign(_qrz);
+    if (!callsign.isValid())
     {
         //qDebug()<< "eLogQrzLog::checkQRZ: CALL not valid" ;
         showDebugLog (Q_FUNC_INFO, "CALL not valid");

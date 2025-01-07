@@ -95,10 +95,10 @@ HEADERS += setupdialog.h \
     database/db_adif_primary_subdvisions_data.h \
     database/queryexecutor.h \
     dataproxy_sqlite.h \
-    downloadcty.h \     \
-    dxcluster/dxspot.h \
+    downloadcty.h \     \    
     frequency.h \
     dxccstatuswidget.h \
+    dxcluster/dxspot.h \
     dxcluster/dxcluster.h \
     dxcluster/dxclusterassistant.h \
     elogqrzlog.h \
@@ -177,9 +177,9 @@ SOURCES += main.cpp \
     charts/statsfieldperbandwidget.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \
+    dxcluster/dxspot.cpp \
     dxcluster/dxcluster.cpp \
     dxcluster/dxclusterassistant.cpp \
-    dxcluster/dxspot.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     frequency.cpp \

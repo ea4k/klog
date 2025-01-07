@@ -796,6 +796,9 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     setEntity(_entity);
 
     Callsign callsign(_qrz);
+    if (callsign.isValid() || callsign.isValidPrefix())
+        currentPref = callsign.getHostFullPrefix();
+
     QString prefixFromEntityNumber  = dataProxy->getEntityMainPrefix(_entity);    // The main prefix of the entity.
     QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
     QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
@@ -830,17 +833,19 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     else
     {
         primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostFullPrefix));
-
+        currentPref = hostFullPrefix;
         if (primarySubdivisions.isEmpty())
         {
             //qDebug() << Q_FUNC_INFO << " -  50";
             //qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
             primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostPrefix));
+            currentPref = hostPrefix;
             if (primarySubdivisions.isEmpty())
             {
                 //qDebug() << Q_FUNC_INFO << " -  55";
                 //qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with mainprefix, running just with the entity";
                 primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
+                currentPref = QString();
             }
             //qDebug() << Q_FUNC_INFO << " -  59";
         }
@@ -959,7 +964,6 @@ void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
-
 
 bool MainWindowInputOthers::setSOTA(const QString &_op)
 {

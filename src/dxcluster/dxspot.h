@@ -46,7 +46,6 @@ public:
     void operator=(DXSpot const &_other);
     void clear();
 
-    void setValid(const bool _v);
     bool isValid ();
 
     void setDXCall(const QString &c);
@@ -74,8 +73,7 @@ private:
     QString spotter;
     QString comment;
     QDateTime dateTime;
-    MouseClicks clickStatus;
-    bool valid;
+    MouseClicks clickStatus;    
 };
 
 #endif // KLOG_CLUSTER_DXSPOT_H

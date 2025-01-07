@@ -30,6 +30,7 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
+#include "callsign.h"
 #include "updatesettings.h"
 //#include "database.h"
 #include "mainwindow.h"
@@ -398,7 +399,7 @@ void MainWindow::init_variables()
     palBlack.setColor(QPalette::Text, Qt::black);
 
     clublogAnswer = -1;
-    qDebug() << Q_FUNC_INFO << " - Changing colors to default";
+  //qDebug() << Q_FUNC_INFO << " - Changing colors to default";
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
        defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
        neededColor.fromString(QAnyStringView("yellow"));
@@ -412,7 +413,7 @@ void MainWindow::init_variables()
         confirmedColor.setNamedColor("red");
         newOneColor.setNamedColor("green");
 #endif
-    qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::checkDebugFile()
@@ -538,7 +539,7 @@ void MainWindow::init()
     infoWidget->showInfo(-1);
       //qDebug() << Q_FUNC_INFO << " - 120";
     //lotwTQSLpath = util->getTQSLsPath() + util->getTQSLsFileName();
-    world->readWorld ();
+    //world->readWorld ();
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
       //qDebug() << Q_FUNC_INFO << " - 130";
@@ -1206,7 +1207,8 @@ bool MainWindow::readQSOFromUI()
 
     qso->clear ();
     QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
-    if (!util->isValidCall(tqrz))
+    Callsign callsign(tqrz);
+    if (!callsign.isValid())
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Question);
@@ -2085,8 +2087,6 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
-    //othersTabWidget->setEntityAndPrefix(currentEntity, util->getPrefixFromCall(_qrz, !othersTabWidget->getShowAll()));
-    //othersTabWidget->setEntityAndPrefix(currentEntity, util->getPrefixFromCall(_qrz, true));
     //othersTabWidget->setEntity(currentEntity);
     dxE_CQz = world->getEntityCqz(currentEntity);
     dx_CQz = world->getQRZCqz(_qrz);
@@ -2965,8 +2965,9 @@ QString MainWindow::selectStationCallsign()
         bool ok;
         stationCallToUse = QInputDialog::getItem(this, tr("Station Callsign:"),
                                              msg, stationCallSigns, 0, false, &ok);
+        Callsign callsign(stationCallToUse);
 
-        if (ok && util->isValidCall(stationCallToUse))
+        if (ok && callsign.isValid())
         //if (ok && !stationCallToUse.isEmpty())
         {
             logEvent(Q_FUNC_INFO, "END-1", Debug);
@@ -2979,7 +2980,8 @@ QString MainWindow::selectStationCallsign()
                                                      "", &ok)).toUpper();
              if (ok)
              {
-                if (util->isValidCall(stationCallToUse))
+                callsign(stationCallToUse);
+                if (callsign.isValid())
                  {
                     logEvent(Q_FUNC_INFO, "END-2", Debug);
                     return stationCallToUse;
@@ -3498,14 +3500,15 @@ void MainWindow::slotOpenWiki()
 
 void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-    qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) <<
-                                " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
-                                " / Default: " << _default.name(QColor::HexRgb);
+  //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb)" <<
+    //                             " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
+    //                            " / Default: " << _default.name(QColor::HexRgb);
     searchWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
     mapWindow->setColors (_worked, _confirmed, _default);
     dxClusterWidget->setColors (_newOne, _needed, _worked, _confirmed, _default);
     infoWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
+    dxccStatusWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
 }
 
 bool MainWindow::applySettings()
@@ -5343,16 +5346,25 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
-    DXSpot sp = _spot;
+    DXSpot spot = _spot;
+    if (spot.isValid())
+        qDebug() << Q_FUNC_INFO << " - Spot is Valid";
+    else
+        qDebug() << Q_FUNC_INFO << " - Spot is NOT Valid";
+    qDebug() << Q_FUNC_INFO << ": spot-dxCall       : " << spot.getDxCall();
+    qDebug() << Q_FUNC_INFO << ": spot-Spotter      : " << spot.getSpotter();
+    qDebug() << Q_FUNC_INFO << ": spot-Freq         : " << spot.getFrequency().toQString();
+    qDebug() << Q_FUNC_INFO << ": spot-Comment      : " << spot.getComment();
+
     EntityStatus _entityStatus;
-    _entityStatus.entityId = world->getQRZARRLId(sp.getDxCall());
+    _entityStatus.entityId = world->getQRZARRLId(spot.getDxCall());
 
     if (!manageMode)
     {
         _entityStatus.modeId = -1;
     }
 
-    if (sp.getClickStatus() == SingleClick)
+    if (spot.getClickStatus() == SingleClick)
     {
         infoLabel2->setText(world->getEntityName(_entityStatus.entityId));
         infoWidget->showEntityInfo(_entityStatus.entityId );
@@ -5360,14 +5372,13 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
         // Becareful, he Frecuency arrives in KHz instead of bandid!!
         // db.getBandFromFreq expects a MHz!
         //(ql.at(1)).toDouble()
-        _entityStatus.bandId = dataProxy->getBandIdFromFreq((sp.getFrequency().toDouble()));
+        _entityStatus.bandId = dataProxy->getBandIdFromFreq((spot.getFrequency().toDouble()));
         //qls << QRZ << BandId << ModeId << lognumber;
         showStatusOfDXCC(_entityStatus);
     }
-    else if (sp.getClickStatus() == DoubleClick)
+    else if (spot.getClickStatus() == DoubleClick)
     {
-        clusterSpotToLog(sp.getDxCall(), sp.getFrequency().toQString());
-
+        clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     }
 
     int statusI = awards->getDXStatus (_entityStatus);
@@ -5376,9 +5387,9 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 
 
     pQSO.status = awards->getQSOStatus(statusI);
-    if (util->isValidCall(sp.getDxCall(), true))
+    if (util->isValidCall(spot.getDxCall(), true))
     {
-        pQSO.call = sp.getDxCall();
+        pQSO.call = spot.getDxCall();
         dxClusterAssistant->newDXClusterSpot(pQSO);
     }
 
@@ -5425,29 +5436,29 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-//void MainWindow::clusterSpotToLog(const QStringList _qs)
-void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
+void MainWindow::clusterSpotToLog(const QString &_call, Frequency _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QString _aux;
-    double _freqN = (_freq.toDouble()) / 1000;
+    double _freqN = _fr.toDouble(MHz);
     //qDebug() << Q_FUNC_INFO << " - calling setQRZ-2" ;
     mainQSOEntryWidget->setQRZ(_call);
     QSOTabWidget->setTXFreq (_freqN);
+    QSOTabWidget->setRXFreq(_freqN);
 
     //freqQLCDNumber->display(_freqN);
 
-    _aux = QString::number(_freqN);
+    //_aux = QString::number(_freqN);
 
-         //qDebug() << "MainWindow::clusterSpotToLog - Freq: " << _aux ;
+         //qDebug() << Q_FUNC_INFO << " - Freq: " << _aux ;
 
-    int _bandi = dataProxy->getBandIdFromFreq(_aux.toDouble());
-         //qDebug() << "MainWindow::clusterSpotToLog - Bandi: " << QString::number(_bandi) ;
+    int _bandi = dataProxy->getBandIdFromFreq(_freqN);
+         //qDebug() << Q_FUNC_INFO << " - Bandi: " << QString::number(_bandi) ;
     _aux = QString::number(_bandi);
     _aux = QString("SELECT name FROM band WHERE id ='%1'").arg(_aux);
 
-         //qDebug() << "MainWindow::clusterSpotToLog - Band: " << _aux ;
+         //qDebug() << Q_FUNC_INFO << " - Band: " << _aux ;
 
     QSqlQuery query(_aux);
     query.next();
@@ -5463,7 +5474,7 @@ void MainWindow::clusterSpotToLog(const QString &_call, const QString &_freq)
         //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
         //bandComboBox->setCurrentIndex(defaultBand);
     }
-     //qDebug() << "MainWindow::clusterSpotToLog - END "  ;
+     //qDebug() << Q_FUNC_INFO << " - END "  ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 //DX-CLUSTER - DXCLUSTER
@@ -6575,7 +6586,6 @@ bool MainWindow::loadSettings()
     readActiveBands (settings.value("Bands", listAux).toStringList ());
     settings.endGroup ();
 
-  //qDebug() << Q_FUNC_INFO << " - 40 - logview";setColors
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
   //qDebug() << Q_FUNC_INFO << " - 41 - logs";
 
@@ -6597,31 +6607,19 @@ bool MainWindow::loadSettings()
 
     //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
+    newOneColor = settings.value("NewOneColor").value<QColor>();
+    neededColor = settings.value("NeededColor").value<QColor>();
+    workedColor = settings.value("WorkedColor").value<QColor>();
+    confirmedColor = settings.value("ConfirmedColor").value<QColor>();
+    defaultColor = settings.value("DefaultColor").value<QColor>();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)    
-    qDebug() << Q_FUNC_INFO << " - 61 - NewOneColor: " << settings.value("NewOneColor").toString();
-    if (QColor::isValidColor(settings.value("NewOneColor").toString()))
-    {
-        qDebug() << Q_FUNC_INFO << " - Color is valid: ";
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << " - Color is NOT valid: ";
-    }
-    newOneColor.fromString(QAnyStringView((settings.value ("NewOneColor", "#FF0000").toString ())));
-    qDebug() << Q_FUNC_INFO << " - 62 - NewOneColor: " << settings.value("NewOneColor").toString();
-    neededColor.fromString(QAnyStringView((settings.value ("NeededColor","#FF8C00").toString ())));
-    workedColor.fromString(QAnyStringView((settings.value ("WorkedColor", "#FFD700").toString ())));
-    confirmedColor.fromString(QAnyStringView((settings.value ("ConfirmedColor", "#32CD32").toString ())));
-    defaultColor.fromString(QAnyStringView((settings.value ("DefaultColor", "#00BFFF").toString ())));
-#else
-    qDebug() << Q_FUNC_INFO << " - 61-2 - NewOneColor: " << settings.value("NewOneColor").toString();
-    newOneColor.setNamedColor(settings.value ("NewOneColor", "#FF0000").toString ());
-    neededColor.setNamedColor(settings.value ("NeededColor","#FF8C00").toString ());
-    workedColor.setNamedColor(settings.value ("WorkedColor", "#FFD700").toString ());
-    confirmedColor.setNamedColor(settings.value ("ConfirmedColor", "#32CD32").toString ());
-    defaultColor.setNamedColor(settings.value ("DefaultColor", "#00BFFF").toString ());
-#endif   
+  //qDebug() << Q_FUNC_INFO << " - NewOneColor:    " << newOneColor.name(QColor::HexRgb);
+  //qDebug() << Q_FUNC_INFO << " - NewOneColor:    " << newOneColor.name();
+  //qDebug() << Q_FUNC_INFO << " - NeededColor:    " << neededColor.name(QColor::HexRgb);
+  //qDebug() << Q_FUNC_INFO << " - WorkedColor:    " << workedColor.name(QColor::HexRgb);
+  //qDebug() << Q_FUNC_INFO << " - ConfirmedColor: " << confirmedColor.name(QColor::HexRgb);
+  //qDebug() << Q_FUNC_INFO << " - DefaultColor:   " << defaultColor.name(QColor::HexRgb);
+
     settings.endGroup ();
     setColors(newOneColor, neededColor, workedColor, confirmedColor, defaultColor);
 

@@ -28,7 +28,8 @@
 #include "qsqlrecord.h"
 #include "callsign.h"
 
-QSO::QSO()
+QSO::QSO(QObject *parent)
+    : QObject(parent)
 {
     logLevel = None;
     qsoId = -1;
@@ -38,7 +39,8 @@ QSO::QSO()
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 }
 
-QSO::QSO(const QSO& other)
+QSO::QSO(const QSO &other)
+    : QObject(other.parent())
 {
     util = new Utilities(Q_FUNC_INFO);
     util->setCallValidation(false);
@@ -717,7 +719,8 @@ bool QSO::isValid()
 bool QSO::setCall(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
-    if (util->isValidCall(_c))
+    Callsign call(_c);
+    if (call.isValid())
     {
         logEvent (Q_FUNC_INFO, QString("END - true"), Debug);
         callsign = _c;
@@ -1745,8 +1748,8 @@ bool QSO::setOperatorCallsign(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
     //logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    if (util->isValidCall(_c))
+    Callsign call(_c);
+    if (call.isValid())
     {
        operatorCall = _c;
        //qDebug() << Q_FUNC_INFO << "END - true";
@@ -1770,9 +1773,9 @@ bool QSO::setStationCallsign(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
 
-    if (util->isValidCall(_c))
+    Callsign call(_c);
+    if (call.isValid())
     //qDebug() << Q_FUNC_INFO << " - 010";
-    //if (util->isValidCall(aux))
     {
         //qDebug() << Q_FUNC_INFO << " - True";
         stationCallsign = _c;
@@ -2030,8 +2033,9 @@ double QSO::getDistance()
 }
 
 bool QSO::setOwnerCallsign(const QString &_c)
-{    
-    if (util->isValidCall(_c))
+{
+    Callsign call(_c);
+    if (call.isValid())
     {
        ownerCall = _c;
        return true;
@@ -2048,7 +2052,8 @@ QString QSO::getOwnerCallsign()
 
 bool QSO::setEQ_Call(const QString &_c)
 {
-    if (util->isValidCall(_c))
+    Callsign call(_c);
+    if (call.isValid())
     {
         contacted_owner = _c;
         return true;
@@ -2248,7 +2253,8 @@ QString QSO::getCounty()
 
 bool QSO::setContactedOperator(const QString &_c)
 {
-    if (util->isValidCall(_c))
+    Callsign call(_c);
+    if (call.isValid())
     {
        contacted_op = _c;
        return true;

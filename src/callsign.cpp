@@ -370,7 +370,7 @@ bool Callsign::isSimple()
         return false;
     if (fullCall.contains('\\'))
         return false;
-    return true;
+    return valid;
 }
 
 void Callsign::clear()
@@ -390,6 +390,14 @@ void Callsign::clear()
     prefValid               = false;            // The entered string is a correct prefix
 }
 
+bool Callsign::isAOneLetterHostPrefix()
+{
+    QList<QChar> validFirstLettersOnly = {'B', 'F', 'G', 'I', 'K', 'M', 'N', 'R', 'U', 'W'};
+    if (hostPrefix.length() == 1)
+        return validFirstLettersOnly.contains (hostPrefix);
+    return false;
+}
+
 // Based on wiki information
 // https://en.wikipedia.org/wiki/Amateur_radio_call_signs
 /*
@@ -404,6 +412,16 @@ QStringList Callsign::secondarySpecialSuffixes =
         "R",    // repeaters
         "B",    // beacon
         "LGT"   // 'LIGHTHOUSE' or 'LIGHTSHIP'  - unofficial
+        "LH"    // LightHouse
+
+bool Utilities::isAValidOperatingSuffix (const QString &_c)
+{
+    //TODO: This list should be moved to Callsign
+    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << _c;
+    QStringList validSuffixes = {"A", "P", "Q", "AM", "M", "MM", "LH", "R", "J", "FF", "QRP", "QRPP", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
+    return validSuffixes.contains (_c);
+}
+
 };
 */
 // https:// cqwpx.com/rules.htm

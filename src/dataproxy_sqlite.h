@@ -70,7 +70,7 @@ public:
     int getModeIdFromSubModeId(const int _sm);
     void setCallValidation(const bool _v);
     QStringList getFields();
-    KLOG_DEPRECATED QStringList getBands();
+    //KLOG_DEPRECATED QStringList getBands();
     QStringList getModes(); // Returns the list of submodes
     QStringList sortBandNamesBottonUp(const QStringList _qs);
     QStringList getBandIDs();
@@ -209,7 +209,7 @@ public:
     bool isNewEntity(int _e);
     double getLongitudeFromEntity(const int _e);
     double getLatitudeFromEntity(const int _e);
-    int getDXCCFromPrefix(const QString &_p);
+    KLOG_DEPRECATED int getDXCCFromPrefix(const QString &_p);           // TODO: Replace by int World::getPrefixId(const QString &_prefix)
     QString getEntityPrefixes(const int _enti);
     QStringList getLongPrefixes();
     QStringList getSpecialCallsigns();
@@ -333,13 +333,13 @@ private:
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
-    double getFreqFromRange(QString _fr, int _pair = 0);        //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
+    double getFreqFromRange(QString _fr, int _pair = 0);            //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString &_tableName);
-    QString getStringQueryStationCallSign (const QString &_a);   // Creates part of a query regarding the station_call field
-    QString getStringQueryMyGrid (const QString &_a);           // Creates part of a query regarding the my_gridsquare field
-    QString getStringQueryLogNumber (const int _a);             // Creates part of a query regarding the lognumber field
-    int getPrefixId(const QString &_qrz);
-    int getHowManyEmptyDXCCorCont();                            // Refactored from fillEmptyDXCCInTheLog
+    QString getStringQueryStationCallSign (const QString &_a);      // Creates part of a query regarding the station_call field
+    QString getStringQueryMyGrid (const QString &_a);               // Creates part of a query regarding the my_gridsquare field
+    QString getStringQueryLogNumber (const int _a);                 // Creates part of a query regarding the lognumber field
+    KLOG_DEPRECATED int getPrefixId(const QString &_qrz);           // TODO: Replace by int World::getPrefixId(const QString &_prefix)
+    int getHowManyEmptyDXCCorCont();                                // Refactored from fillEmptyDXCCInTheLog
     bool updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont); // Refactored from fillEmptyDXCCInTheLog
     //QString changeSlashAndFindPrefix(const QString &_qrz);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);

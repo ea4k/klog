@@ -42,7 +42,6 @@
 #include "world.h"
 #include "awarddxmarathon.h"
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
 #include "klogdefinitions.h"
 
 class QProgressDialog;
@@ -159,7 +158,6 @@ private:
     World *world;
     DataProxy_SQLite *dataProxy;
     DXMarathon *dxMarathon;
-    Utilities *util;
 
     typedef QMultiHash<int, int> DXStatus;
 

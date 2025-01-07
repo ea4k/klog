@@ -99,6 +99,8 @@ public:
     bool isNewEntity(const int _entityN);
     //int getBandIdFromFreq(const QString fr);
     QString getEntityPrefixes(const int _enti);
+    bool isAKnownCall(const QString &_callsign);
+    bool isAKnownPrefix(const QString &_prefix);
 
     //QStringList getEntitiesNames();
     int getHowManyEntities();
@@ -123,7 +125,7 @@ private:
     int extractEntityNumber(const QStringList &stringList);
     //int progressBarPosition;
 
-    bool created;
+    bool created, read;
     //QString klogVersion;
     int cqz, ituz;//, numberOfEntities;
     QString entityName;
@@ -143,6 +145,8 @@ private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
     QHash<QString, int> worldPrefixes;
+    QStringList specialCalls, longPrefixes;
+
 
     //int constrid; // Just an id for the constructor to check who is being executed at one specific time
     //Awards *awards;

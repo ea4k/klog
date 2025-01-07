@@ -134,11 +134,11 @@ public:
     bool areThoseListsTheSame(const QStringList &_list1, const QStringList &_list2);
     //QString getADIFField(const QString &_fieldName, const QString &_data);
 
-     KLOG_DEPRECATED QString getMainCallFromComplexCall(const QString &_complexCall); //TODO: To be replaced by  QString Callsign::getHostFullPrefix(bool getHomeIfEmpty=true);
+    KLOG_DEPRECATED QString getMainCallFromComplexCall(const QString &_complexCall); //TODO: To be replaced by  QString Callsign::getHostFullPrefix(bool getHomeIfEmpty=true);
     QString getAValidCall (const QString &_wrongCall);
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
     int getAreaNumberFromCall(const QString &_c);
-    bool isAOneLetterPrefix(const QChar &_c);
+
 
 
     // Write DATE/TIME to DB
@@ -198,11 +198,9 @@ private:
     void setLogColumnNames(); // Creates the map of column Names (should be called from init() )
     QString getKLogDefaultDatabaseFile();
     //bool isCountrySuffix (const QString &_c);
-    bool isAValidOperatingSuffix (const QString &_c);
-    bool isAPrefix(const QString &_c); // Returns true if it is the country prefix or it includes the area number
-    bool isAKnownPrefix(const QString &_c);
+
     bool isAKnownCall(const QString &_c);
-    bool isValidSimpleCall(const QString &_c);
+
     //QStringList getPrefixRunningTheCall(const QString &_c, bool withAreaNumber = false);
                     //Goes char by char identifying the prefix and area Number
 
@@ -211,7 +209,7 @@ private:
     void setARRLSect();
     void setContinent();
     void setSponsorsList();
-    QString getCheckedComplexCall(const QString &_c);
+    //QString getCheckedComplexCall(const QString &_c);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     //bool darkMode;
     QString getDBPath();
@@ -221,7 +219,7 @@ private:
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;
-    QStringList longPrefixes, specialCalls;
+    KLOG_DEPRECATED QStringList longPrefixes, specialCalls;     // To be moved to World classl
     QMap<QString, QString> columnNames;
     bool validateCalls;
     QHash<QString, QString> ADIFHash; // Name, type

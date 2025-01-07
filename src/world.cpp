@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "world.h"
+#include "callsign.h"
 /*
  QHash<QString, int> worldPrefixes;
 To insert a (key, value) pair into the hash, you can use operator[]():
@@ -36,11 +37,6 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     Q_UNUSED(_parentFunction);
-     //qDebug() << Q_FUNC_INFO << " - Start";
-    //worldModel = new QSqlRelationalTableModel(this);
-     //qDebug() << Q_FUNC_INFO << " - Start";
-    //numberOfEntities = 0;
-    //progressBarPosition = 0;
     worldPrefixes.clear();
     cqz = -1;
     ituz = -1;
@@ -51,21 +47,9 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     utc = 0.0;
     locator = new Locator();
     created = false;
+    read = readWorld();
     dataProxy = dp;
-    util = new Utilities(Q_FUNC_INFO);
-
-
-  /*
-     if (readWorld())
-    {
-         //qDebug() << Q_FUNC_INFO << " - World TRUE";
-    }
-    else
-    {
-         //qDebug() << Q_FUNC_INFO << " - World FALSE";
-    }
-   //qDebug() << Q_FUNC_INFO << " - END";
-    */
+    util = new Utilities(Q_FUNC_INFO);    
 }
 
 World::~World()
@@ -77,18 +61,23 @@ World::~World()
 
 bool World::readWorld()
 { // Used to link a prefix with an Entity quickly, without quering the DB.
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
+    specialCalls.clear();
+    longPrefixes.clear();
     worldPrefixes.clear();
+
     worldPrefixes = dataProxy->getWorldData();
-    if (worldPrefixes.size()>100)
-    {
-       //qDebug() << Q_FUNC_INFO << " - END true";
-        util->setLongPrefixes(dataProxy->getLongPrefixes());
-        util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-        return true;
-    }
-   //qDebug() << Q_FUNC_INFO << " - END false";
-    return false;
+    specialCalls << dataProxy->getSpecialCallsigns();
+    longPrefixes << dataProxy->getLongPrefixes();
+    qDebug() << Q_FUNC_INFO << " - worldPrefixes: " << worldPrefixes.count();
+    qDebug() << Q_FUNC_INFO << " - specialCalls : " << specialCalls.count();
+    qDebug() << Q_FUNC_INFO << " - longPrefixes : " << longPrefixes.count();
+
+    if (worldPrefixes.isEmpty())
+        return false;
+    if (specialCalls.isEmpty())
+        return false;
+    return !longPrefixes.isEmpty();
 }
 
 bool World::recreate(const QString &_worldFile)
@@ -102,11 +91,6 @@ bool World::recreate(const QString &_worldFile)
         {
              //qDebug() << Q_FUNC_INFO << ": EMPTY prefixesofentity - END-1" ;
             return create(_worldFile);
-
-            //if (create(_worldFile))
-            // {
-            //     return insertSpecialEntities ();
-            // }
         }
         else
         {//TODO: Manage the query error
@@ -129,20 +113,7 @@ bool World::create(const QString &_worldFile)
 {
    //qDebug() << Q_FUNC_INFO << "  " << _worldFile;
 
-    if (readCTYCSV(_worldFile))
-    {
-       //qDebug() << Q_FUNC_INFO << " - 10" ;
-        util->setLongPrefixes(dataProxy->getLongPrefixes());
-        util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-        created = true;
-       //qDebug() << Q_FUNC_INFO << " - TRUE" ;
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " - 20" ;
-        created = false;
-       //qDebug() << Q_FUNC_INFO << " - FALSE" ;
-    }
+    created = readCTYCSV(_worldFile);
 
    //qDebug() << Q_FUNC_INFO << " - 30" ;
     if (created)
@@ -170,7 +141,7 @@ bool World::create(const QString &_worldFile)
         created = dataProxy->addPrimarySubdivisions();
     }
    //qDebug() << Q_FUNC_INFO << " - 90" ;
-    readWorld ();
+    read = readWorld ();
    //qDebug() << Q_FUNC_INFO << " - END" ;
     return created;
 }
@@ -219,17 +190,7 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
     return result;
 }
 
-int World::getPrefixId(const QString &_prefix)
-{
-  //qDebug() << Q_FUNC_INFO << " - Start: " << _prefix << "/" << QString::number(worldPrefixes.value(_prefix, -2));
-    //This function receives the final prefix.
 
-    if (_prefix.length() < 1)
-    {
-        return -1;
-    }
-    return worldPrefixes.value(_prefix, -2);
-}
 
 QString World::getQRZEntityName(const QString &_qrz)
 {
@@ -298,14 +259,24 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
-    if (_qrz.length() < 1 )
-    {
+    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+
+    Callsign callsign(_qrz);
+    if ((!callsign.isValid()) && (!callsign.isValidPrefix()))
         return -1;
+
+    QString prefix = callsign.getHostFullPrefix();
+    int entID = worldPrefixes.value(prefix, -2);
+    while ((prefix.length()>1) && (entID<=0))
+    {
+        qDebug() << Q_FUNC_INFO << " - " << QString("Pref: %1 / EntID: %2").arg(prefix).arg(entID);
+        if (entID<=0)
+            prefix.chop(1);
+        entID = worldPrefixes.value(prefix, -2);
+        qDebug() << Q_FUNC_INFO << " - " << QString("New Pref: %1 / New EntID: %2").arg(prefix).arg(entID);
     }
-    QString pref = util->getPrefixFromCall(_qrz);
-  //qDebug() << Q_FUNC_INFO << ": prefix: " << pref;
-    return getPrefixId(pref);
+    qDebug() << Q_FUNC_INFO << " - " << QString("Callsign: %1 / Final EntID: %2").arg(_qrz).arg(entID);
+    return entID;
 }
 
 QString World::getQRZEntityMainPrefix(const QString &_qrz)
@@ -316,6 +287,7 @@ QString World::getQRZEntityMainPrefix(const QString &_qrz)
         return "";
     }
     int i = getQRZARRLId(_qrz);
+
     return getEntityMainPrefix(i);
 }
 
@@ -404,14 +376,14 @@ double World::getLatitude(const int _enti)
 
 QString World::getQRZLocator(const QString &_qrz)
 {
-     //qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
+    qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
     if (_qrz.length() < 1)
     {
         return "";
     }
-    int i = getQRZARRLId (_qrz);
-     //qDebug() << Q_FUNC_INFO << " - 2";
-    return locator->getLocator(getLongitude(i), getLatitude (i));
+    int entity = getQRZARRLId (_qrz);
+    qDebug() << Q_FUNC_INFO << " - Entity: " << entity;
+    return locator->getLocator(getLongitude(entity), getLatitude (entity));
 }
 
 QString World::getLocator(const int _entityN)
@@ -765,4 +737,14 @@ bool World::hasSpecialEntities()
     return false;
 }
 
+bool World::isAKnownCall(const QString &_callsign)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _callsign;
+    return specialCalls.contains(_callsign);
+}
 
+bool World::isAKnownPrefix(const QString &_prefix)
+{
+    //qDebug() << Q_FUNC_INFO << ": " << _prefix;
+    return longPrefixes.contains(_prefix);
+}

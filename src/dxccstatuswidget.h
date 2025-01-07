@@ -48,6 +48,7 @@ public:
     void update();
     //void awardsUpdated();
     void setBands(const QString &_callingFunc, const QStringList &_listOfNewBands, const bool _creating = false); // Receives the list of bandIDs
+    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void setCurrentLog(const int _logN);
     void setMyLocator(const QString &_loc);
     void refresh();

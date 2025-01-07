@@ -29,7 +29,7 @@
 Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     Q_UNUSED(_parentFunction);
-    //qDebug() << "Awards::Awards- from: " << _parentFunction;
+  //qDebug() << "Awards::Awards- from: " << _parentFunction;
     dataProxy = dp;
     //QSqlDatabase db = QSqlDatabase::database("QSQLITE");
     world = new World(dataProxy, Q_FUNC_INFO);
@@ -37,7 +37,9 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
        //qDebug() << "Awards::Awards - Before DXMarathon" ;
     dxMarathon = new DXMarathon(dataProxy);
        //qDebug() << "Awards::Awards - After DXMarathon" ;
-    util = new Utilities(Q_FUNC_INFO);
+
+
+
     //world->create();
 /*
     newOneColor.setNamedColor("#ff0000");
@@ -60,14 +62,13 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
     wazWorked.clear();
     wazConfirmed.clear();
     manageModes = false;
-       //qDebug() << "Awards::Awards - END" ;
+  //qDebug() << "Awards::Awards - END" ;
 }
 
 Awards::~Awards()
 {
     delete(world);
     delete(dxMarathon);
-    delete(util);
 }
 
 void Awards::setAwardDXCC(const int _qsoId)
@@ -323,6 +324,7 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
     // Receives:  QStringList _qs;
     //_qs << Entity << BandId << << ModeId << lognumber;
 
+    // TODO: Maybe a status per band/mode... check how WSJTX is doing it
 /*                                                                                                                  Not mode
     -1 - Error.                                                                                     - ERROR     - ERROR
  0  -   New one                                                                                 - New One       - New One       -   0
@@ -360,10 +362,10 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
 
 
 
-    //qDebug() << Q_FUNC_INFO<< ":  dxccEntity: " << QString::number(dxccEntity);
+  //qDebug() << Q_FUNC_INFO<< ":  dxccEntity: " << QString::number(_entityStatus.entityId);
     if (_entityStatus.entityId<=0)
     {
-        //qDebug() << Q_FUNC_INFO<< ":  dxccEntity <= 0, return -1";
+      //qDebug() << Q_FUNC_INFO<< ":  dxccEntity <= 0, return -1";
         return -1;
     }
 
@@ -371,7 +373,7 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
     if ( (_entityStatus.modeId==-1) || (manageModes==false))
     {
         checkingMode = false;
-        //qDebug() << Q_FUNC_INFO<< ":  checkingMode = FALSE";
+      //qDebug() << Q_FUNC_INFO<< ":  checkingMode = FALSE";
     }
 
     int wb = dxccStatusBand(_entityStatus.entityId, _entityStatus.bandId, _entityStatus.log); //-1 error / 0 Not worked / 1 worked / 2 confirmed
@@ -541,7 +543,7 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
     else
     {
            //qDebug() << "Awards::dxccStatusBandMode: Checking Mode FALSE";
-        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
+        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
     }
 
     int status = 0;
@@ -732,7 +734,13 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
 QColor Awards::getQRZDXStatusColor(EntityStatus _entitystatus)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+
+  //qDebug() << Q_FUNC_INFO << " - Start: " ;
+  //qDebug() << Q_FUNC_INFO << " - Entityd: " << _entitystatus.entityId;
+  //qDebug() << Q_FUNC_INFO << " - BandId:  " << _entitystatus.bandId;
+  //qDebug() << Q_FUNC_INFO << " - ModeId:  " << _entitystatus.modeId;
+  //qDebug() << Q_FUNC_INFO << " - Log:     " << _entitystatus.log;
+
 
     /*
     0 - New One
@@ -745,8 +753,8 @@ QColor Awards::getQRZDXStatusColor(EntityStatus _entitystatus)
 
     int status = getDXStatus(_entitystatus);
 
-    //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status) << "/" << getDXStatusString(status);
-    //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status);
+  //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status) << "/" << getDXStatusString(status);
+  //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status);
 
     switch (status) {
         case 0:
@@ -1196,10 +1204,8 @@ void Awards::setColors (const QColor &_newOne, const QColor &_needed, const QCol
     newOneColor = _newOne;
 }
 
-QColor Awards::getDefaultColor()
-{
-    return defaultColor;
-}
+QColor Awards::getDefaultColor(){return defaultColor;}
+
 
 void Awards::recalculateAwards()
 {

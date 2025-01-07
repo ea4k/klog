@@ -27,7 +27,7 @@
  *****************************************************************************/
 /*
     This class implements the object callsign to centralize all about callsigns
-    This code is mainly coming from QLog: https://github.com/foldynl/QLog/blob/master/core/Callsign.h
+    The inspiration and part of the code is coming from QLog: https://github.com/foldynl/QLog/blob/master/core/Callsign.h
     Thank you Lada, OK1MLG.
 
     Important: https://cqwpx.com/rules.htm
@@ -73,9 +73,10 @@ public:
     QString getHomeSuffix();                // The suffix of the home call                                          (homeSuffix)
     QString getSuffix();                    // Additional suffixes like /P, /QRP, /MM, ...                          (generalSuffix)
 
-    bool isValid();                         // True if it is a full callsign
-    bool isValidPrefix();                   // True if it is a prefix, but not a call
-    bool isSimple();                        // True if it has no / nor \ characters, no prefix nor suffix
+    bool isValid();                             // True if it is a full callsign
+    bool isValidPrefix();                       // True if it is a prefix, but not a call
+    bool isSimple();                            // True if it has no / nor \ characters, no prefix nor suffix
+    bool isAOneLetterHostPrefix();   // True if is the prefix starts by B|F|G|I|K|M|N|R|U|W and is valid
     void clear();
 
 private:

@@ -79,17 +79,10 @@ void tst_DXSpot::test_Constructors()
 {
     DXSpot spot1;
     QVERIFY2(!spot1.isValid(), "Constructor-1 not working");
-    spot1.setValid(true);
-    DXSpot spot2(spot1);
-    QVERIFY2(spot2.isValid(), "Constructor-2 not working");
 }
 
 void tst_DXSpot::test_Basic()
 {
-    spot->clear();
-    QVERIFY2(!spot->isValid(), "Clear not working");
-    spot->setValid(true);
-    QVERIFY2(spot->isValid(), "setValid not working");
 
     spot->setDXCall("EA0XX");
     QVERIFY2(spot->getDxCall() == "EA0XX", "dxCall not working");

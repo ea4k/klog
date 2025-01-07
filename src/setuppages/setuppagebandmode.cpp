@@ -46,7 +46,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     modesLabel->setText(tr("Modes"));
     modesLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
 
-    addBands(dataProxy->getBands());
+    addBands(dataProxy->getBandNames());
     addModes(dataProxy->getModes());
 
     bLayout->addWidget(bandsLabel);

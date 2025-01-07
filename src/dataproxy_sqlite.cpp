@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "dataproxy_sqlite.h"
+#include "callsign.h"
 
 //#include <QDebug>
 
@@ -652,11 +653,11 @@ QStringList DataProxy_SQLite::getFields()
     return fields;
 }
 
-QStringList DataProxy_SQLite::getBands()
-{
+//QStringList DataProxy_SQLite::getBands()
+//{
     //qDebug() << "DataProxy_SQLite::getBands - DEPRECATED please use getBandNames - TODO: Remove this function and change the calls";
-    return getBandNames();
-}
+//    return getBandNames();
+//}
 
 QStringList DataProxy_SQLite::getBandNames()
 {
@@ -7345,7 +7346,7 @@ int DataProxy_SQLite::getEntityIdFromMainPrefix(const QString &_e)
 
 int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 {
-    //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix - " << Q_FUNC_INFO << "-" << _p << "-";
+    //qDebug() << Q_FUNC_INFO << " - " << _p << "-";
 
     QSqlQuery query;
     QString queryString = QString("SELECT dxcc FROM prefixesofentity WHERE prefix='%1'").arg(_p);
@@ -7353,39 +7354,38 @@ int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 
     if (sqlOK)
     {
-          //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: query OK: query: " << queryString;
+          //qDebug() << Q_FUNC_INFO << ": query OK: query: " << queryString;
         if (query.next())
         {
             if (query.isValid())
             {
                 int v = (query.value(0)).toInt();
                 query.finish();
-                  //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return 0: " << QString::number(v) ;
+                  //qDebug() << Q_FUNC_INFO << ": return 0: " << QString::number(v) ;
                 return v;
             }
             else
             {
                 query.finish();
-                  //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return -1: ";
+                  //qDebug() << Q_FUNC_INFO << ": return -1: ";
                 return -1;
             }
         }
         else
         {
             query.finish();
-              //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return -2: ";
+              //qDebug() << Q_FUNC_INFO << ": return -2: ";
             return -2;
         }
     }
     else
     {
-          //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: query NOK: query: " << queryString;
+          //qDebug() << Q_FUNC_INFO << ": query NOK: query: " << queryString;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-          //qDebug() << "DataProxy_SQLite::getDXCCFromPrefix: return -3: ";
+          //qDebug() << Q_FUNC_INFO << ": return -3: ";
         return -3;
     }
-    //return -4;
 }
 
 bool DataProxy_SQLite::isNewCQz(int _c)
@@ -7876,31 +7876,30 @@ QString DataProxy_SQLite::getISOName(const int _n)
 
 int DataProxy_SQLite::getPrefixId(const QString &_qrz)
 {
-       //qDebug() << "DataProxy_SQLite::getPrefixId: -" << _qrz <<"-";
+    //qDebug() << Q_FUNC_INFO << ": -" << _qrz <<"-";
     //TODO: Instead of going from long to short, identify prefixes from the begining:
     // character(may be number) + number
-    QString aux = util->getMainCallFromComplexCall((_qrz).toUpper());
-    if (!util->isValidCall(aux))
-    //if (_qrz.length() < 1)
-    {
+
+    Callsign callsign(_qrz);
+    if (!callsign.isValid())
         return -1;
-    }
+    if (!callsign.isValidPrefix())
+        return -2;
+
+    QString aux = callsign.getHostFullPrefix();
     int entityID = 0;
-
-
-    //QString aux = changeSlashAndFindPrefix((_qrz).toUpper());
 
     while ((entityID <= 0) && (aux.length()>=1) )
     {
         entityID = getDXCCFromPrefix(aux);
 
-            //qDebug() << "DataProxy_SQLite::getPrefixId: in the while" << aux << " = " <<  QString::number(entityID);
+            //qDebug() << Q_FUNC_INFO << ": in the while" << aux << " = " <<  QString::number(entityID);
          if (entityID<=0)
          {
              aux.chop(1);
          }
     }
-    //qDebug() << "DataProxy_SQLite::getPrefixId: " <<  _qrz << QString::number(entityID);
+    //qDebug() << Q_FUNC_INFO << ": " <<  _qrz << QString::number(entityID);
     return entityID;
 }
 

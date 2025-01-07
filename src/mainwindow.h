@@ -441,7 +441,7 @@ private:
 
 
     // CLUSTER
-    void clusterSpotToLog(const QString &_call, const QString &_freq);
+    void clusterSpotToLog(const QString &_call, Frequency _fr);
     QStringList dxclusterServersList;
     //QString dxclusterServerToConnect;
     //int dxclusterServerPort;

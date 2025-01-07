@@ -47,6 +47,7 @@ DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentF
     locator = new Locator();
     awards = new Awards(dataProxy, Q_FUNC_INFO);
       //qDebug() << "DXCCStatusWidget::DXCCStatusWidget-1";
+
     world = new World(dataProxy,Q_FUNC_INFO);
       //qDebug() << "DXCCStatusWidget::DXCCStatusWidget-2";
 
@@ -814,6 +815,15 @@ void DXCCStatusWidget::setMyLocator(const QString &_loc)
         loc = l.toUpper();
     }
 }
+
+
+void DXCCStatusWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+{
+  //qDebug() << Q_FUNC_INFO << ": " << _newOne.name(QColor::HexRgb) << "/" << _needed.name(QColor::HexRgb) << "/" << _worked.name(QColor::HexRgb) << "/" << _confirmed.name(QColor::HexRgb) << "/" << _default.name(QColor::HexRgb);
+    // Just to pass the colors to the awards class
+    awards->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
+}
+
 /*
 void DXCCStatusWidget::slotRightButton(const QPoint& pos)
 {

@@ -82,35 +82,6 @@ void DXClusterAssistant::newDXClusterSpot(proposedQSOs _q)
     addCall();
 }
 
-/*
-void DXClusterAssistant::newDXClusterSpot(const QString &_call, const QSOStatus _status, double _freq)
-{
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    //Utilities util(Q_FUNC_INFO);
-    //if (!util.isValidCall(_call, true))
-    //{
-    //    //qDebug() << Q_FUNC_INFO << " - Not Valid Call: " << _call;
-    //    return;
-    //}
-
-    //qDebug() << Q_FUNC_INFO << ": Call: " << _call;
-    //qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(_freq);
-    //qDebug() << Q_FUNC_INFO << ": Status: " << ;
-    proposedQSOs newArrival;
-    newArrival.call = _call;
-    newArrival.freq().fromDouble(_freq);
-    newArrival.status = _status;
-    newArrival.priority = 1;
-    list.append(newArrival);
-    //qDebug() << Q_FUNC_INFO << " - 50";
-
-    //qDebug() << Q_FUNC_INFO << " - 60";
-    //qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(getStringFromStatus(_status));
-    addCall();
-    //qDebug() << Q_FUNC_INFO << " - END";
-}
-*/
-
 QString DXClusterAssistant::getStringFromStatus(QSOStatus _s)
 {
     switch (_s) {

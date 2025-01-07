@@ -135,7 +135,7 @@ private:
     QLineEdit *userDefinedADIFValueLineEdit;
     QStringList adifValidTypes;
 
-    KLOG_DEPRECATED QString currentPref;    // Just a cache to be able to rewrite the subdivisions combobox
+    QString currentPref;
     int currentInt;         // if the showAllCheckBox is toggled
 
     QString sota_ref, vucc_grids, pota_ref, sig, sig_info, wwff_ref;

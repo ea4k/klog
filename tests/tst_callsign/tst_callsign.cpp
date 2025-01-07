@@ -133,6 +133,10 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("S50K")           << "S50K"           << "S50K"           << "S50"    << "S5" << 0   << "S50K"   << "S50"    << "S5"     << 0    << "K"  << ""       << true     << true;
     QTest::newRow("B7D")            << "B7D"            << "B7D"            << "B7"     << "B"  << 7   << "B7D"    << "B7"     << "B"      << 7    << "D"  << ""       << true     << true;
     QTest::newRow("5Z4RT/Y2K")      << "5Z4RT/Y2K"      << "5Z4RT/Y2K"      << "5Z4"    << "5Z" << 4   << "5Z4RT"  << "5Z4"    << "5Z"     << 4    << "RT" << "Y2K"    << true     << true;
+    QTest::newRow("3A/4Z5KJ/LH")    << "3A/4Z5KJ/LH"    << "3A/4Z5KJ/LH"    << "3A"     << "3A" << 0   << "4Z5KJ"  << "4Z5"    << "4Z"     << 5    << "KJ" << "LH"    << true     << true;
+
+
+
     //QTest::newRow("VP6UU/VP6D")     << "VP6UU/VP6D"     << "VP6UU/VP6D"     << "VP6D"   << "VP6D"<< -1  << "VP6UU"  << "VP6"    << "VP6"    << -1   << "RT" << "Y2K"    << true     << true;
     QTest::newRow("CO7WT/6Y")       << "CO7WT/6Y"       << "CO7WT/6Y"       << "6Y"     << "6Y"     << -1   << "CO7WT"  << "CO7"    << "CO"     << 7    << "WT" << ""       << true     << true;
     QTest::newRow("AM100")          << "AM100"          << ""               << "AM100"  << "AM"     << 100  << ""       << ""       << ""       << -1   << ""   << ""       << true     << false;
