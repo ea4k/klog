@@ -180,12 +180,6 @@ void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void MainQSOEntryWidget::setCallValidation (const bool _b)
-{
-    util->setCallValidation(_b);
-    dataProxy->setCallValidation(_b);
-}
-
 void MainQSOEntryWidget::slotCheckBoxClicked()
 {
    logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -301,8 +295,8 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     //TODO: This validCharactersInCall may be removed?
     InValidCharsInPrevCall = validCharactersInCall(qrzLineEdit->text());
      //qDebug()<< "MainQSOEntryWidget::slotQRZTextChanged: checking for invalid chars 00 ";
-
-    if (!util->isValidCall(qrzLineEdit->text()))
+    Callsign callsign(qrzLineEdit->text());
+    if (!callsign.isValid())
     {
         qrzLineEdit->setPalette(palRed);
         //emit showInfoLabel(tr("Callsign not valid"));
@@ -481,9 +475,6 @@ void MainQSOEntryWidget::setInitialData()
     InValidCharsInPrevCall = false;
     qrzSmallModDontCalculate=false;
     previousQRZ = QString();
-
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
     bands.clear();
     modes.clear();

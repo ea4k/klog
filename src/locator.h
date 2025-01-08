@@ -44,6 +44,7 @@ class Locator
 {
 public:
     Locator();
+    //Locator(const QString &tlocator, QObject *parent = nullptr);
     ~Locator();
 
     bool isValidLocator(const QString& tlocator);

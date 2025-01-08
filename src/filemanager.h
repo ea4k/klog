@@ -89,7 +89,6 @@ public:
     void setStationCallSign(const QString& _st);
     void setDuplicatedQSOSlot (const int _secs);
     void setSendQSLByDefault (const bool _send);
-    void setCallValidation (const bool _b);
 
 private:
     bool adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested, bool _lotw);

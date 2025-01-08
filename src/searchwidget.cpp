@@ -38,8 +38,8 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
     awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities(Q_FUNC_INFO);
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     filemanager = new FileManager(dataProxy);
     filemanager->init();
 
@@ -144,7 +144,8 @@ void SearchWidget::showQSOs(QList<int> qsoIdList)
 
 void SearchWidget::setStationCallsign(const QString &_st)
 {
-    if (util->isValidCall(_st))
+    Callsign callsign(_st);
+    if (callsign.isValid())
     {
         mainStationCallsign = _st;
         selectStationCallSign();

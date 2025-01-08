@@ -289,11 +289,7 @@ void UDPServer::parse(const QByteArray &msg)
                    >> fast_mode >> specialOpMode >> freqTolerance >> TRPeriod >> confName;
                 frequencyDouble = (double)frequency;
                 frequencyDouble = frequencyDouble/1000000; // Change to MHz
-               //if (!util->isValidCall(dx_call))
-               // {
-               //     //qDebug() << Q_FUNC_INFO << ": Status : Call not valid: -" << dx_call << "-";
-               //     return;
-               //}
+
                //qDebug() << Q_FUNC_INFO << ": Status - Freq double = " << QString::number(frequencyDouble) ;
                //qDebug() << Q_FUNC_INFO << ": Status - Mode = " << mode;
                //qDebug() << Q_FUNC_INFO << ": Status - DXCall = " << dx_call;

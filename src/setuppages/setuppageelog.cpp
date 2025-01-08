@@ -27,13 +27,13 @@
 //#include <QDebug>
 
 #include "setuppageelog.h"
-
+#include "../callsign.h"
 
 SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 {
      //qDebug() << "SetupPageELog::SetupPageELog";
     util = new Utilities(Q_FUNC_INFO);
-    util->setCallValidation(false);
+
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
 
@@ -264,7 +264,8 @@ void SetupPageELog::slotQRZCallTextChanged()
     QString aux = util->getClearSQLi (QRZCOMUserLineEdit->text());
     //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2";
 
-    if (util->isValidCall(aux))
+    Callsign callsign(aux);
+    if (callsign.isValid())
     {
         //qDebug() << "SetupPageELog::slotQRZCallTextChanged-2.1";
         QRZCOMUserLineEdit->setPalette(palBlack);
@@ -290,7 +291,8 @@ void SetupPageELog::sloteQSLCallTextChanged()
 
     QString aux = util->getClearSQLi (eQSLUserLineEdit->text());
 
-    if (util->isValidCall(aux))
+    Callsign callsign(aux);
+    if (callsign.isValid())
     {
         eQSLUserLineEdit->setPalette(palBlack);
     }
@@ -318,8 +320,8 @@ void SetupPageELog::slotLoTWEmailDefineColor()
     //qDebug() << Q_FUNC_INFO << ": " << lotwUserLineEdit->text();
     int cursor = lotwUserLineEdit->cursorPosition();
     QString aux = lotwUserLineEdit->text();
-
-    if (util->isValidCall(aux))
+    Callsign callsign(aux);
+    if (callsign.isValid())
     {
         lotwUserLineEdit->setPalette(palBlack);
     }

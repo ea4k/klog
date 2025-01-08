@@ -34,7 +34,7 @@ QSO::QSO(QObject *parent)
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
-    util->setCallValidation(false);
+
     //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 }
@@ -42,8 +42,7 @@ QSO::QSO(QObject *parent)
 QSO::QSO(const QSO &other)
     : QObject(other.parent())
 {
-    util = new Utilities(Q_FUNC_INFO);
-    util->setCallValidation(false);
+    util = new Utilities(Q_FUNC_INFO);    
     logLevel = other.logLevel;
     haveBand = other.haveBand;
     haveMode = other.haveMode;

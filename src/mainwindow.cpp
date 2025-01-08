@@ -400,19 +400,12 @@ void MainWindow::init_variables()
 
     clublogAnswer = -1;
   //qDebug() << Q_FUNC_INFO << " - Changing colors to default";
-#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
        defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
        neededColor.fromString(QAnyStringView("yellow"));
        workedColor.fromString(QAnyStringView("blue"));
        confirmedColor.fromString(QAnyStringView("red"));
        newOneColor.fromString(QAnyStringView("green"));
-#else
-        defaultColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
-        neededColor.setNamedColor("yellow");
-        workedColor.setNamedColor("blue");
-        confirmedColor.setNamedColor("red");
-        newOneColor.setNamedColor("green");
-#endif
+
   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -467,8 +460,9 @@ void MainWindow::init()
     checkDebugFile();
 
     //qDebug() << Q_FUNC_INFO << " -  00" ;
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    world->readWorld();
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
       //qDebug() << Q_FUNC_INFO << " -  000" ;
     setupDialog->init(softwareVersion, 0, configured);
@@ -478,7 +472,6 @@ void MainWindow::init()
     init_variables();
 
     hamlib->initClass();
-    util->setCallValidation (true);
     qso->clear();
 
     setCleaning(false);
@@ -3069,7 +3062,8 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
    //qDebug() << Q_FUNC_INFO << " - NO valid qso list received - length: " << QString::number(_qs.length()) ;
         return;
     }
-    if (!util->isValidCall(_qs.at(0)))
+    Callsign callsign(_qs.at(0));
+    if (!callsign.isValid())
     {
    //qDebug() << Q_FUNC_INFO << " - NO valid QRZ received - " << _qs.at(0) ;
         return;
@@ -3945,98 +3939,7 @@ void MainWindow::slotADIFExportAll()
     //filemanager->adifLogExport(fileName, 0);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
-/*
-void MainWindow::fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
-{
-     //qDebug() << "MainWindow::fileExportLoTW  - Start: " << _st << "/" << _grid <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
 
-    QMessageBox msgBox;
-
-    if (!util->isValidCall(_st))
-    {
-   //qDebug() << "MainWindow::fileExportLoTW - no valid call" ;
-        if (_st == "ALL")
-        {
-            msgBox.setWindowTitle(tr("KLog - LoTW"));
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("You need to select one station callsign to be able to send your log to LoTW."));
-            msgBox.setStandardButtons(QMessageBox::Ok );
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
-        }
-        return;
-    }
-    if ((!_startDate.isValid()) || (!_endDate.isValid()))
-    {
-   //qDebug() << "MainWindow::fileExportLoTW - no valid date" ;
-        return;
-    }
-
-    //QString fileName = "klog-lotw-upload.adi";
-    QString fileName = util->getLoTWAdifFile();
-
-
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeLotW);
-
-    if (qsos.count() <= 0)
-    { // TODO: Check if errors should be managed.
-   //qDebug() << "MainWindow::fileExportLoTW NO QSOs" ;
-        return;
-    }
-       //qDebug() << "MainWindow::fileExportLoTW - 50" ;
-    bool uploadedToLoTW = callTQSL(fileName, _st);
-    //bool uploadedToLoTW = true;
-       //qDebug() << "MainWindow::fileExportLoTW - 51" ;
-
-    int i ;
-    if (uploadedToLoTW)
-    {
-        msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(tr("KLog - LoTW"));
-        msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        int i = msgBox.exec();
-        if (i == QMessageBox::Yes)
-        {
-           uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
-           slotLogRefresh();
-
-           if (!uploadedToLoTW)
-           {
-               QMessageBox msgBox;
-               msgBox.setWindowTitle(tr("KLog - LoTW"));
-               msgBox.setIcon(QMessageBox::Warning);
-               msgBox.setText(tr("There was an error while updating to Yes the LoTW QSL sent information."));
-               msgBox.setStandardButtons(QMessageBox::Ok );
-               msgBox.setDefaultButton(QMessageBox::Ok);
-               msgBox.exec();
-           }
-        }
-    }
-    if (!deleteAlwaysAdiFile){
-    msgBox.setIcon(QMessageBox::Question);
-    msgBox.setWindowTitle(tr("KLog - LoTW"));
-    msgBox.setText(tr("The LoTW upload process has finished and KLog created a file (%1) in your KLog folder.\n\nDo you want KLog to remove that file?").arg(fileName));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    i = msgBox.exec();
-    if (i == QMessageBox::Yes)
-    {
-        if (QFile::remove(fileName))
-        {
-            msgBox.setIcon(QMessageBox::Information);
-            msgBox.setWindowTitle(tr("KLog - LoTW"));
-            msgBox.setText(tr("The file has been removed."));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.setDefaultButton(QMessageBox::Ok);
-        }
-    }
-    }else{
-         QFile::remove(fileName);
-    }
-}
-*/
 
 void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 {
@@ -4048,7 +3951,8 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
     }
 
     QMessageBox msgBox;
-    if (!util->isValidCall(_call))
+    Callsign callsign(_call);
+    if (!callsign.isValid())
     {
    //qDebug() << Q_FUNC_INFO << " - no valid call" ;
         if (_call == "ALL")
@@ -4133,7 +4037,8 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 {
     //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
     QMessageBox msgBox;
-    if (!util->isValidCall(_call))
+    Callsign callsign(_call);
+    if (!callsign.isValid())
     {
        //qDebug() << Q_FUNC_INFO << " - no valid call" ;
       if (_call == "ALL")
@@ -4186,111 +4091,6 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
     //qDebug() << Q_FUNC_INFO << " - END " ;
 }
 
-/*
-void MainWindow::fileExportClubLog(const QString &_st, const QDate &_startDate, const QDate &_endDate)
-{
-    //qDebug() << Q_FUNC_INFO << "- Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
-    QMessageBox msgBox;
-
-    if (!util->isValidCall(_st))
-    {
-   //qDebug() << Q_FUNC_INFO << " - no valid call" ;
-        if (_st == "ALL")
-        {
-            msgBox.setWindowTitle(tr("KLog - ClubLog"));
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("You need to select one station callsign to be able to send your log to ClubLog."));
-            msgBox.setStandardButtons(QMessageBox::Ok );
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
-        }
-        return;
-    }
-    if ((!_startDate.isValid()) || (!_endDate.isValid()))
-    {
-   //qDebug() << Q_FUNC_INFO << " - no valid date" ;
-        return;
-    }
-
-    //QString fileName = "klog-clublog-upload.adi";
-    QString fileName = util->getClubLogFile();
-
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, QString(), _startDate, _endDate, currentLog, ModeClubLog);
-
-    if (qsos.count() <= 0)
-    { // TODO: Check if errors should be managed.
-   //qDebug() << Q_FUNC_INFO << " NO QSOs" ;
-        return;
-    }
-
-    msgBox.setWindowTitle(tr("KLog - ClubLog"));
-    msgBox.setIcon(QMessageBox::Warning);
-    msgBox.setText(tr("Do you want to add this QSOs to your ClubLog existing log?"));
-    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::No);
-    msgBox.setDetailedText(tr("If you don't agree, this upload will overwrite your current ClubLog existing log."));
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    int ret = msgBox.exec();
-    bool overwrite = false;
-    switch (ret)
-    {
-    case QMessageBox::Ok:         // General ADIF
-            overwrite = false;
-        break;
-    case QMessageBox::No:         // ClubLog
-            overwrite = true;
-        break;
-    }
-       //qDebug() << Q_FUNC_INFO << " - 50" ;
-    elogClublog->sendLogFile(fileName, qsos, overwrite);
-    logWindow->refresh();
-       //qDebug() << Q_FUNC_INFO << " -END " ;
-}
-*/
-
-/*
-void MainWindow::fileExportEQSL(const QString &_st, const QDate &_startDate, const QDate &_endDate)
-{
-      //qDebug() << Q_FUNC_INFO << " - Start: " << _st << "/" <<_startDate.toString("yyyyMMdd") <<"/" << _endDate.toString("yyyyMMdd") ;
-
-    QMessageBox msgBox;
-
-    if (!util->isValidCall(_st))
-    {
-   //qDebug() << Q_FUNC_INFO << "- no valid call" ;
-        if (_st == "ALL")
-        {
-            msgBox.setWindowTitle(tr("KLog - eQSL"));
-            msgBox.setIcon(QMessageBox::Warning);
-            msgBox.setText(tr("You need to select one station callsign to be able to send your log to eQSL.cc."));
-            msgBox.setStandardButtons(QMessageBox::Ok );
-            msgBox.setDefaultButton(QMessageBox::Ok);
-            msgBox.exec();
-        }
-        return;
-    }
-    if ((!_startDate.isValid()) || (!_endDate.isValid()))
-    {
-   //qDebug() << Q_FUNC_INFO << "- no valid date" ;
-        return;
-    }
-
-    //QString fileName = "klog-eqsl-upload.adi";
-    QString fileName = util->getEQSLFile();
-
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, QString(), _startDate, _endDate, currentLog, ModeEQSL);
-
-    if (qsos.count() <= 0)
-    { // TODO: Check if errors should be managed.
-   //qDebug() << Q_FUNC_INFO << "NO QSOs" ;
-        return;
-    }
-
-    eqslUtilities->sendLogFile(fileName, qsos);
-    logWindow->refresh();
-
-       //qDebug() << Q_FUNC_INFO << "-END " ;
-}
-*/
 
 void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
 {
@@ -5387,7 +5187,8 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 
 
     pQSO.status = awards->getQSOStatus(statusI);
-    if (util->isValidCall(spot.getDxCall(), true))
+    Callsign callsign(spot.getDxCall());
+    if (callsign.isValid())
     {
         pQSO.call = spot.getDxCall();
         dxClusterAssistant->newDXClusterSpot(pQSO);
@@ -5405,7 +5206,8 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     DXSpot sp = _spot;
     if (!sp.isValid())
         return;
-    if (util->isValidCall(sp.getDxCall(), true))
+    Callsign callsign(sp.getDxCall());
+    if (callsign.isValid())
     {
         proposedQSOs pQSO;
         pQSO.call = sp.getDxCall();
@@ -5514,7 +5316,8 @@ QString MainWindow::findStationCallsignToUse()
 {
     //QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
     QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
-    if (util->isValidCall(foundCall))
+    Callsign callsign(foundCall);
+    if (callsign.isValid())
         return foundCall;
 
     return mainQRZ;
@@ -5527,7 +5330,8 @@ void MainWindow::defineStationCallsign()
     //QString logQRZ = findStationCallsignToUse();
     //qDebug() << Q_FUNC_INFO << ": StationCallsign: " << logQRZ;
     QString logQRZ = findStationCallsignToUse();
-    if (!util->isValidCall (logQRZ))
+    Callsign callsign(logQRZ);
+    if (!callsign.isValid())
     {
         return;
     }
@@ -6556,7 +6360,8 @@ bool MainWindow::loadSettings()
     settings.beginGroup ("UserData");
     value = settings.value ("Callsign").toString ();
     //qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
-    if (util->isValidCall(value))
+    Callsign callsign(value);
+    if (callsign.isValid())
     {
         mainQRZ = value;
     }
@@ -6648,10 +6453,12 @@ bool MainWindow::loadSettings()
     completeWithPrevious = settings.value ("CompleteWithPrevious", true).toBool ();
     defaultADIFLogFile = settings.value ("DefaultADIFFile").toString ();
     deleteAlwaysAdiFile = settings.value ("DeleteAlwaysAdiFile", true).toBool ();
-    util->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
-    mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
-    filemanager->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
-    adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+
+
+    //util->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+    //mainQSOEntryWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+    //filemanager->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
+    //adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
     settings.endGroup ();
 
      //qDebug() << Q_FUNC_INFO << " - 90 - elog";

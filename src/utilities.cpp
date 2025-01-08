@@ -43,8 +43,7 @@ void Utilities::init()
     //qDebug() << Q_FUNC_INFO << " - Start";
     validateCalls = false;
     softwareVersion = "0.0";
-    longPrefixes.clear();
-    specialCalls.clear();
+
     //darkMode = false;
     logLevel = None;
 
@@ -708,50 +707,6 @@ bool Utilities::isValidDateTime(const QString &_d)
     return false;
 }
 
-
-
-
-void Utilities::setLongPrefixes (const QStringList &_p)
-{
-  //qDebug() << Q_FUNC_INFO << ": Start count: " << QString::number(_p.count());
-  //qDebug() << Q_FUNC_INFO << ": Called from: " << parentName;
-    //TODO: The list of known prefixes may be in thge World class
-    longPrefixes.clear();
-    longPrefixes.append(_p);
-  //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(longPrefixes.count());
-}
-
-void Utilities::setSpecialCalls (const QStringList &_p)
-{//TODO: The list of known Special Calls may be in thge World class
-  //qDebug() << Q_FUNC_INFO << ": Start count: " << QString::number(_p.count());
-    specialCalls.clear();
-    specialCalls.append(_p);
-  //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(specialCalls.count());
-}
-
-
-bool Utilities::isAKnownCall(const QString &_c)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
-    //QString aux;
-    if (_c.isNull() )
-    {
-        //qDebug() << Q_FUNC_INFO << ": END - 1";
-        return false;
-    }
-    if (specialCalls.count()<100)
-    {
-        //qDebug() << Q_FUNC_INFO << ": ********** END - FAIL";
-    }
-    return specialCalls.contains(_c);
-}
-
-void Utilities::setCallValidation(const bool _b)
-{
-    //g_callsignCheck = _b;
-    validateCalls = _b;
-}
-
 /*
 
 QString Utilities::getCheckedComplexCall(const QString &_c)
@@ -805,23 +760,6 @@ QString Utilities::getMainCallFromComplexCall(const QString &_complexCall)
         return calls.getHostFullPrefix();
     return QString();
 
-}
-
-bool Utilities::isValidCall(const QString &_c, bool _force)
-{// https://life.itu.int/radioclub/rr/art19.pdf
-    //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("Start = %1").arg(_c), Debug);
-    //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << "Start: " << _c;
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
-
-    if ((!validateCalls) && (!_force))
-    {
-        //qDebug() << Q_FUNC_INFO << "001 - Not validating calls: " << _c;
-        //logEvent (QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName), QString("END - 001 - true"), Debug);
-        return true;
-    }
-
-    Callsign callsign(_c);
-    return callsign.isValid();
 }
 
 int Utilities::getAreaNumberFromCall(const QString &_c)
@@ -1206,32 +1144,27 @@ QString Utilities::getAValidCall (const QString &_wrongCall)
 {
     //qDebug() << "Utilities::getAValidCall: " << _wrongCall ;
     QString _confirmedCall;
-    _confirmedCall.clear();
 
+    // Check if the provided call is empty or invalid
+    if (_wrongCall.isEmpty()) {
+        _confirmedCall = QObject::tr("An empty callsign has been detected. If it is possible, please enter the right call.");
+    } else {
+        _confirmedCall = QObject::tr("A wrong callsign has been found: %1. Please enter a new callsign or confirm that the current one is a good callsign.").arg(_wrongCall);
+    }
+    // Prompt the user to enter a valid callsign
     bool ok;
-    if (_wrongCall.length() > 0)
-    {
-        //qDebug() << "Utilities::getAValidCall (Don't have VALID CALL): " << _wrongCall ;
-        _confirmedCall = QString(QObject::tr("A wrong callsign has been found: %1. Please enter a new callsign or confirm that the current one is a good callsign.")).arg(_wrongCall);
-    }
-    else
-    {
-        //qDebug() << "Utilities::getAValidCall (Don't have ANY CALL): " << _wrongCall ;
-        _confirmedCall = QString(QObject::tr("An empty callsign has been detected. If it is possible, please enter the right call."));
+    QString text = QInputDialog::getText(nullptr, QObject::tr("KLog - Not valid callsign found"), _confirmedCall, QLineEdit::Normal, _wrongCall, &ok);
+
+    // Validate the entered callsign
+    Callsign callsign(text);
+    if (ok && callsign.isValid()) {
+        _confirmedCall = text;
+    } else {
+        _confirmedCall.clear();
     }
 
-    QString text = QInputDialog::getText(nullptr, QObject::tr("KLog - Not valid callsign found"),
-                                               _confirmedCall, QLineEdit::Normal, _wrongCall, &ok);
-    if (!(ok && isValidCall(text)))
-    {
-        _confirmedCall = text;
-    }
-    else
-    {
-        _confirmedCall = QString();
-    }
-    //qDebug() << "Utilities::getAValidCall: " << _confirmedCall ;
     return _confirmedCall;
+
 }
 
 QString Utilities::getDateTimeSQLiteStringFromDateTime(const QDateTime &_d)

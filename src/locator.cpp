@@ -28,6 +28,8 @@
 #include <QtDebug>
 
 Locator::Locator(){}
+//Locator::Locator(const QString &tlocator, QObject *parent) : QObject{parent}{}
+
 
 Locator::~Locator(){}
 

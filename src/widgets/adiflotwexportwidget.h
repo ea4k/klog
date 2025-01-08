@@ -27,7 +27,7 @@
  *****************************************************************************/
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
-#include "../utilities.h"
+//#include "../utilities.h"
 
 
 
@@ -42,7 +42,6 @@ public:
     void setLogNumber(const int _logN);
     void setDefaultStationCallsign(const QString &_st);
     void setDefaultMyGrid(const QString &_st);
-    void setCallValidation(const bool _v);
 
 protected:
     void closeEvent(QCloseEvent *event);

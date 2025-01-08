@@ -37,8 +37,8 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     dataProxy = dp;
 
     util = new Utilities(Q_FUNC_INFO);
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     iotaContinentComboBox           = new QComboBox();

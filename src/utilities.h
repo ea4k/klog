@@ -30,8 +30,7 @@
     Anything that is not directly related with a class itself and could be used from different
     classes should be here.
 
-    This classs hould not need to query the DB neither the DataProxy Class
-
+    This class should not need to query the DB neither the DataProxy Class
 */
 #include <iostream>
 #include <QObject>
@@ -55,9 +54,9 @@ public:
     ~Utilities();
     //void setDarkMode(const QString &_dm);
     //bool isDarkMode();
-    void setCallValidation(const bool _b);
-    void setLongPrefixes (const QStringList &_p);
-    void setSpecialCalls (const QStringList &_p);
+
+
+    //void setSpecialCalls (const QStringList &_p);
 
     int getProgresStepForDialog(int totalSteps);
     bool trueOrFalse(const QString &_s); // reads a String and return true if s.upper()== TRUE :-)
@@ -102,7 +101,7 @@ public:
     // Validations
     bool isValidDate(const QDate _d);
     bool isValidDateTime(const QString &_d);
-    bool isValidCall(const QString &_c, bool _force=false);             // To be replaced by Callsign::isValid
+    //bool isValidCall(const QString &_c, bool _force=false);             // To be replaced by Callsign::isValid
 
     bool isSameFreq(const double fr1, const double fr2);
     bool isValidBandId(const int _b);
@@ -199,7 +198,7 @@ private:
     QString getKLogDefaultDatabaseFile();
     //bool isCountrySuffix (const QString &_c);
 
-    bool isAKnownCall(const QString &_c);
+    //bool isAKnownCall(const QString &_c);
 
     //QStringList getPrefixRunningTheCall(const QString &_c, bool withAreaNumber = false);
                     //Goes char by char identifying the prefix and area Number
@@ -219,7 +218,7 @@ private:
 
     QStringList ARRL_sects, continent, sponsorsList, logLevels;
     DebugLogLevel logLevel;
-    KLOG_DEPRECATED QStringList longPrefixes, specialCalls;     // To be moved to World classl
+    //KLOG_DEPRECATED QStringList specialCalls;     // To be moved to World class
     QMap<QString, QString> columnNames;
     bool validateCalls;
     QHash<QString, QString> ADIFHash; // Name, type

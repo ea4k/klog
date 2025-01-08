@@ -159,7 +159,7 @@ private:
     World *world;
     DataProxy_SQLite *dataProxy;
 
-    bool operatorsOK;
+    //bool operatorsOK;
     bool mainCallOK;
     bool slotQRZRunning;
     Utilities *util;

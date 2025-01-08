@@ -54,7 +54,6 @@ private slots:
     void test_getGlobalAgent();
     void test_getHomeDir();
     void test_getNormalizedDXCCValue();
-    void test_isValidCall();
     void test_isValidFreq();
     void test_isValidGrid();
     void test_isValidVUCC();
@@ -75,8 +74,6 @@ tst_Utilities::tst_Utilities()
     //util->init();
     QString version = "1.5";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     util->setLogLevel(Devel);
 }
 
@@ -151,105 +148,6 @@ void tst_Utilities::test_getNormalizedDXCCValue()
     QVERIFY(util->getNormalizedDXCCValue(1234) == 234);
 }
 
-void tst_Utilities::test_isValidCall()
-{
-    //Amateur and experimental stations19.68
-    //1) –one  character
-    // (provided  that  it  is  the  letter  B,  F,  G,  I,  K,  M,  N,  R  or  W)
-    // and  a  single  digit,
-    // followed  by  a  group  of  not  more  than  four  characters,
-    // the last of which shall be a letter,
-    // We will check all formats shown here: https://en.wikipedia.org/wiki/Amateur_radio_call_signs
-    util->setCallValidation(false);
-    QVERIFY2(util->isValidCall(""), "Empty call-1");
-    util->setCallValidation(true);
-    QVERIFY2(util->isValidCall(""), "Empty call-2");
-    //qDebug() << Q_FUNC_INFO << " 1 Letter" ;
-    QVERIFY2(util->isValidCall("B1A"), "B1A");
-    QVERIFY2(util->isValidCall("B1AA"), "B1AA");
-    QVERIFY2(util->isValidCall("B1AAA"), "B1AAA");
-    QVERIFY2(util->isValidCall("B1AAAA"), "B1AAAA");
-    QVERIFY2(!util->isValidCall("B11"), "B11");
-
-    //2) or–two characters and a single digit,
-    // followed by a group of not more than four characters, the last of which shall be a letter.
-    //qDebug() << Q_FUNC_INFO << " 2 Letters";
-
-    QVERIFY2(util->isValidCall("EA4K"), "EA4K");
-    QVERIFY2(util->isValidCall("EA4KK"), "EA4KK");
-    QVERIFY2(util->isValidCall("EA4KKK"), "EA4KKK");
-    QVERIFY2(util->isValidCall("EA4KKKK"), "EA4KKKK");
-    QVERIFY2(util->isValidCall("AM500MMM"), "AM500MMM");
-    QVERIFY2(util->isValidCall("2E1A"), "2E1A");
-    QVERIFY2(util->isValidCall("2E1AA"), "2E1AA" );
-    QVERIFY2(util->isValidCall("E33E"), "E33E");
-    QVERIFY2(util->isValidCall("E73E"), "E73E");
-    QVERIFY2(util->isValidCall("EA5666K"), "EA5666K");
-    QVERIFY2(util->isValidCall("VK0M/ZL4DB/P"), "VK0M/ZL4DB/P");
-    QVERIFY2(util->isValidCall("EA5/DL4EA"), "EA5/DL4EA");
-    QVERIFY2(util->isValidCall("DL4EA/EA5"), "DL4EA/EA5");
-
-    QVERIFY2(util->isValidCall("K4X"), "K4X");
-    QVERIFY2(util->isValidCall("B2AA"), "B2AA");
-    QVERIFY2(util->isValidCall("N2ASD"), "N2ASD");
-    QVERIFY2(util->isValidCall("A22A"), "A22A");
-    QVERIFY2(util->isValidCall("I20000X"), "I20000X");
-    QVERIFY2(util->isValidCall("4X4AAA"), "4X4AAA");
-    QVERIFY2(util->isValidCall("3DA0RS"), "3DA0RS");
-    QVERIFY2(util->isValidCall("VP2EE"), "VP2EE");
-    QVERIFY2(util->isValidCall("EA6A"), "EA6A");
-
-    QVERIFY2(util->isValidCall("AM200A"), "AM200A");
-    QVERIFY2(util->isValidCall("VK9AA"), "VK9AA"); // This is a full special call
-    QVERIFY2(util->isValidCall("VK9MA"), "VK9MA");
-    QVERIFY2(util->isValidCall("4U2STAYHOME") , "4U2STAYHOME");
-    QVERIFY2(util->isValidCall("4U1A") , "4U1A");
-    // 5(WRC-03)19.68A1A)   On special occasions, for temporary use, administrations may authorize
-    // use of call signs with more than the four characters referred to in No. 19.68.(WRC-03
-
-    //qDebug() << Q_FUNC_INFO << " Complex";
-    QVERIFY2(util->isValidCall("EA4K/P"), "EA4K/P");
-    //qDebug() << Q_FUNC_INFO << " Complex-1";
-    QVERIFY2(util->isValidCall("K/EA4K/P"), "EA4K/K");
-    //qDebug() << Q_FUNC_INFO << " Complex-2";
-    QVERIFY2(util->isValidCall("EA4K/F"), "EA4K/F");
-    //qDebug() << Q_FUNC_INFO << " Complex-3";
-    QVERIFY2(util->isValidCall("EA4K/1"), "EA4K/1");
-    QVERIFY2(util->isValidCall("EA4K/K1"), "EA4K/K1");
-    QVERIFY2(util->isValidCall("K1/EA4K"), "K1/EA4K");
-    //qDebug() << Q_FUNC_INFO << " Complex-6";
-    QVERIFY2(util->isValidCall("K/EA4K"), "K/EA4K");
-    //qDebug() << Q_FUNC_INFO << " Complex-7";
-    // TODO: FIX the isValidCall to cover this case
-    //QVERIFY(util->isValidCall("1/EA4K") == false);
-
-    //qDebug() << Q_FUNC_INFO << " Wrong calls";
-    QVERIFY2(!util->isValidCall("G1"), "G1");
-    QVERIFY2(!util->isValidCall("I100"), "I100");
-    QVERIFY2(util->isValidCall("K100A"), "K1");
-    QVERIFY2(util->isValidCall("I100KK"), "I100KK");
-    QVERIFY2(util->isValidCall("FB1K") , "FB1K");
-    QVERIFY2(!util->isValidCall("E"), "E");
-    QVERIFY2(!util->isValidCall("EA"), "EA");
-    QVERIFY2(!util->isValidCall("EA4"), "EA4-EA");
-
-    QVERIFY2(!util->isValidCall("-"), "-");
-    QVERIFY2(!util->isValidCall("EAK4"), "EAK4");
-    QVERIFY2(!util->isValidCall("QQQ/EA4K"), "QQQ/EA4K");
-    QVERIFY2(!util->isValidCall("EA/"), "EA/");
-
-    QVERIFY2(!util->isValidCall("DL4EA/"), "DL4EA/");
-    //QVERIFY2(util->isValidCall("RM1O"), "Should be true: RM1O");
-
-    util->setCallValidation (false);
-    QVERIFY2(util->isValidCall("EA"), "Should be true: EA");
-    QVERIFY2(util->isValidCall("EA4"), "Should be true: EA4");
-    QVERIFY2(util->isValidCall("-"), "Should be true: EAK4");
-    QVERIFY2(util->isValidCall("QQQ/EA4K"), "Should be true: QQQ/EA4K");
-    QVERIFY2(util->isValidCall("EA4K", true), "EA4K forced");
-    QVERIFY2(!util->isValidCall("EAK", true), "EAK forced");
-    util->setCallValidation (true);
-}
 
 void tst_Utilities::test_isValidFreq()
 {

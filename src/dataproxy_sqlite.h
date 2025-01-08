@@ -68,7 +68,7 @@ public:
     int getIdFromBandName(const QString& _bandName);
     int getSubModeIdFromSubMode(const QString &_subModeName);
     int getModeIdFromSubModeId(const int _sm);
-    void setCallValidation(const bool _v);
+
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
     QStringList getModes(); // Returns the list of submodes

@@ -35,9 +35,7 @@ FileManager::FileManager(DataProxy_SQLite *dp)
      //qDebug() << Q_FUNC_INFO << " -3: Dir(2)" << _klogDir;
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-    util->setCallValidation(false);
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
     world = new World(dataProxy, Q_FUNC_INFO);
     awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -695,13 +693,6 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     return true;
 }
 
-
-void FileManager::setCallValidation (const bool _b)
-{
-    //util->setCallValidation(_b);
-    util->setCallValidation(_b);
-    dataProxy->setCallValidation(_b);
-}
 
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)
 {

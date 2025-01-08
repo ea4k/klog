@@ -24,6 +24,8 @@
  *                                                                           *
  *****************************************************************************/
 #include "adiflotwexportwidget.h"
+#include "../callsign.h"
+#include "../locator.h"
 
 
 AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
@@ -36,9 +38,9 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     //qDebug() << Q_FUNC_INFO << " - Start: " + _parentFunction;
     dataProxy = dp;
     starting = true;
-    util = new Utilities(Q_FUNC_INFO);
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util = new Utilities(Q_FUNC_INFO);
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     stationCallsignComboBox = new QComboBox;
     myGridSquareComboBox = new QComboBox;
     startDate = new QDateEdit;
@@ -52,8 +54,6 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
     defaultStationCallsign = QString();
     defaultMyGrid = QString();
     numOfQSOsInThisLog = 0;
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     createUI();
     starting = false;
     qsos.clear ();
@@ -61,13 +61,14 @@ AdifLoTWExportWidget::AdifLoTWExportWidget(DataProxy_SQLite *dp, const QString &
 }
 AdifLoTWExportWidget::~AdifLoTWExportWidget()
 {
-    delete(util) ;
+    //delete(util) ;
 }
 
 void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    if (util->isValidCall(_st))
+    Callsign callsign(_st);
+    if (callsign.isValid())
     {
         defaultStationCallsign = _st;
     }
@@ -77,7 +78,8 @@ void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
 void AdifLoTWExportWidget::setDefaultMyGrid(const QString &_st)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    if (util->isValidGrid(_st))
+    Locator locator;
+    if (locator.isValidLocator(_st))
     {
         defaultMyGrid = _st;
     }
@@ -157,7 +159,8 @@ void AdifLoTWExportWidget::setDefaultStationComboBox()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     //stationCallsignComboBox->blockSignals(true);
-    if (!util->isValidCall(defaultStationCallsign))
+    Callsign callsign(defaultStationCallsign);
+    if (!callsign.isValid())
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
         //stationCallsignComboBox->blockSignals(false);
@@ -174,7 +177,8 @@ void AdifLoTWExportWidget::setDefaultStationComboBox()
 void AdifLoTWExportWidget::setDefaultMyGridComboBox()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    if (!util->isValidGrid(defaultMyGrid))
+    Locator locator;
+    if (!locator.isValidLocator(defaultMyGrid))
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
@@ -240,7 +244,8 @@ void AdifLoTWExportWidget::fillStationMyGridComboBox()
     QStringList grids;
     grids.clear ();
 
-    if (util->isValidCall(stationCallsignComboBox->currentText()))
+    Callsign callsign(stationCallsignComboBox->currentText());
+    if (callsign.isValid())
     {
        //qDebug() << Q_FUNC_INFO << " - ValidCall: " << stationCallsignComboBox->currentText();
         grids.append (dataProxy->getGridsToBeSent (stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), currentExportMode, true, logNumber));
@@ -282,7 +287,8 @@ void AdifLoTWExportWidget::fillDates()
     //startDate->blockSignals(true);
     //endDate->blockSignals(true);
 
-    if (util->isValidCall(stationCallsignComboBox->currentText()))
+    Callsign callsign(stationCallsignComboBox->currentText());
+    if (callsign.isValid())
     {
         //qDebug() << Q_FUNC_INFO << " - Not valid Call";
         startDate->setDate(dataProxy->getFirstQSODateFromCall(stationCallsignComboBox->currentText()));
@@ -668,8 +674,3 @@ void AdifLoTWExportWidget::setLogNumber(const int _logN)
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void AdifLoTWExportWidget::setCallValidation(const bool _v)
-{
-    util->setCallValidation(_v);
-    dataProxy->setCallValidation(_v);
-}

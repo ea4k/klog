@@ -35,7 +35,6 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *pare
    dataProxy = dp;
    world = new World(dataProxy, Q_FUNC_INFO);
    mainCallOK = false;
-   operatorsOK = false;
    tabWidget = new QTabWidget;
    QWidget *personalTab = new QWidget;
    QWidget *stationTab = new QWidget;
@@ -253,8 +252,8 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
 
 void SetupPageUserDataPage::setPrefixes()
 {
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     //world->readWorld ();
 }
 
@@ -278,14 +277,14 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     if (slotQRZRunning)
     {
-        //qDebug() << Q_FUNC_INFO << " - END-1";
+        qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
     slotQRZRunning = true;
-      //qDebug() << Q_FUNC_INFO << " - " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
+    qDebug() << Q_FUNC_INFO << " - " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
 
     int i = maincallsignLineEdit->cursorPosition();
 
@@ -336,11 +335,10 @@ int SetupPageUserDataPage::getITUz()
 
 bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
-    if (_qrz.length ()<3)
-    {
+    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    Callsign callsign(_qrz);
+    if (!callsign.isValid())
         return false;
-    }
     maincallsignLineEdit->setText((_qrz).toUpper());
     return true;
 }
@@ -632,19 +630,7 @@ void SetupPageUserDataPage::slotOperatorsChanged()
     operatorsLineEdit->setText(util->getClearSQLi (_a).simplified().toUpper());
     _a = operatorsLineEdit->text();
 
-    QStringList operators = _a.split(",", QT_SKIP);
-
-       //qDebug() << Q_FUNC_INFO << " -02";
-       //qDebug() << Q_FUNC_INFO << " -02.5 Size: " << QString::number(operators.size());
-
-    for (int ii = 0; ii < operators.size(); ++ii)
-    {
-           //qDebug() << Q_FUNC_INFO << " -03 - " << QString::number(ii);
-        operatorsOK = util->isValidCall(operators.at(ii));
-        //operatorsOK = world->checkQRZValidFormat(operators.at(ii));
-    }
-       //qDebug() << Q_FUNC_INFO << " -04";
-    if (operatorsOK)
+    if (checkOperatorsLineQString(_a))
     {
         //qDebug() << Q_FUNC_INFO << "  VALID FORMAT";
         operatorsLineEdit->setPalette(*defaultPalette);
@@ -652,9 +638,10 @@ void SetupPageUserDataPage::slotOperatorsChanged()
     }
     else
     {
-         operatorsLineEdit->setPalette(*wrongPalette);
-           //qDebug() << Q_FUNC_INFO << "  NOT VALID FORMAT";
+        operatorsLineEdit->setPalette(*wrongPalette);
+            //qDebug() << Q_FUNC_INFO << "  NOT VALID FORMAT";
     }
+
        //qDebug() << Q_FUNC_INFO << " -05";
     operatorsLineEdit->setCursorPosition(i);
        //qDebug() << Q_FUNC_INFO << " -END";
@@ -662,7 +649,7 @@ void SetupPageUserDataPage::slotOperatorsChanged()
 
 QString SetupPageUserDataPage::getOperators()
 {
-    if (operatorsOK)
+    if (checkOperatorsLineQString(operatorsLineEdit->text()))
     {
         return operatorsLineEdit->text();
     }
@@ -685,14 +672,14 @@ bool SetupPageUserDataPage::setOperators(const QString &_aux)
 bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 {
     QStringList _aux = _auxLine.split(',');
+    bool auxBool = false;
     for (int ii = 0; ii < _aux.size(); ++ii)
     {
-        operatorsOK = util->isValidCall(_aux.at(ii));
-        //operatorsOK = world->checkQRZValidFormat(_aux.at(ii));
-        if (!operatorsOK)
-            return operatorsOK;
+        Callsign callsign(_aux.at(ii));
+        if (callsign.isValid())
+            auxBool = true;
     }
-    return true;
+    return auxBool;
 }
 
 void SetupPageUserDataPage::setStationFocus()

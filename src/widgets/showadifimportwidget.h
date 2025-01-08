@@ -27,7 +27,7 @@
  *****************************************************************************/
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
-#include "../utilities.h"
+//#include "../utilities.h"
 
 
 class ShowAdifImportWidget : public QWidget
@@ -60,7 +60,7 @@ private:
 
     QList<QStringList> qsosList;
     DataProxy_SQLite *dataProxy;
-    Utilities *util;
+    //Utilities *util;
     QPushButton *okButton;//, *cancelButton;
 
     QTableWidget *tableWidget;

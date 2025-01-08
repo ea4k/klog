@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "mainwindowmydatatab.h"
+#include "../callsign.h"
 
 MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
@@ -56,8 +57,8 @@ MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) 
     setInitialADIFValues();
     myPower = 0;
     lastPower = 0;
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
        //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"  ;
 }
 
@@ -136,7 +137,8 @@ void MainWindowMyDataTab::clear(bool _full)
     {
         //qDebug() << "MainWindowMyDataTab::clear: NOT checked" ;
         myPowerSpinBox->setValue(myPower);
-        if (util->isValidCall(operatorQRZ))
+        Callsign callsign(operatorQRZ);
+        if (callsign.isValid())
         {
             //qDebug() << Q_FUNC_INFO << ": " << operatorQRZ;
             operatorLineEdit->setText(operatorQRZ);
@@ -145,7 +147,8 @@ void MainWindowMyDataTab::clear(bool _full)
         {
             operatorLineEdit->clear();
         }
-        if (util->isValidCall(stationCallsign))
+        callsign(stationCallsign);
+        if (callsign.isValid())
         {
             stationCallSignLineEdit->setText(stationCallsign);
         }
@@ -257,19 +260,6 @@ void MainWindowMyDataTab::slotReturnPressed()
 }
 
 
-/*
-void MainWindowMyDataTab::setSetupStationQRZ(const QString &_op)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << _op ;
-    if (!util->isValidCall (_op))
-    {
-        return;
-    }
-    stationQRZ = _op.toUpper();
-    stationCallSignLineEdit->setText(stationQRZ);
-}
-*/
-
 void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO;
@@ -329,7 +319,8 @@ void MainWindowMyDataTab::setStationCallsign(const QString &_op)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (util->isValidCall (_op))
+    Callsign callsign(_op);
+    if (callsign.isValid())
     {
         stationCallSignLineEdit->setText(_op);
     }
@@ -368,8 +359,8 @@ void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
-
-    if (util->isValidCall (_stationCallsign))
+    Callsign callsign(_stationCallsign);
+    if (callsign.isValid())
     {
         stationCallsign = _stationCallsign;
     }
@@ -379,7 +370,7 @@ void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString
     }
     //qDebug() << Q_FUNC_INFO << ": Setting station Callsign: " << stationCallsign;
     setStationCallsign (stationCallsign);
-
+    callsign(_operator);
     if (_operator.length()>0)
     {
         setOperator (_operator);
@@ -408,7 +399,9 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
     int cursorP = operatorLineEdit->cursorPosition();
 
     operatorLineEdit->setText(util->getClearSQLi(operatorLineEdit->text()).toUpper());
-    if (util->isValidCall(operatorLineEdit->text()))
+
+    Callsign callsign(operatorLineEdit->text());
+    if (callsign.isValid())
     {
         if (getDarkMode())
         {
@@ -445,7 +438,9 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
     int cursorP = stationCallSignLineEdit->cursorPosition();
 
     stationCallSignLineEdit->setText(util->getClearSQLi(stationCallSignLineEdit->text()).toUpper());
-    if (util->isValidCall(stationCallSignLineEdit->text()))
+
+    Callsign callsign(stationCallSignLineEdit->text());
+    if (callsign.isValid())
     {
         if (getDarkMode())
         {
@@ -877,7 +872,9 @@ void MainWindowMyDataTab::loadSettings()
     }
 
     //qDebug() << Q_FUNC_INFO << " - 11";
-    if (util->isValidCall (aux))
+
+    Callsign callsign(aux);                 // Only the first operator is selected. TODO: To save this in a QStringList so the user can select.
+    if (callsign.isValid())
     {
         //qDebug() << Q_FUNC_INFO << " - 12";
         operatorQRZ = aux.toUpper();

@@ -146,6 +146,7 @@ bool World::create(const QString &_worldFile)
     return created;
 }
 
+
 QStringList World::readZones (const QString &pref, const int _cq, const int _itu)
 {
     //Returns a QStringList: prefix, CQz, ITUz
@@ -262,17 +263,18 @@ int World::getQRZARRLId(const QString &_qrz)
     qDebug() << Q_FUNC_INFO << ": " << _qrz;
 
     Callsign callsign(_qrz);
-    if ((!callsign.isValid()) && (!callsign.isValidPrefix()))
+    if (!callsign.isValidPrefix())
         return -1;
 
     QString prefix = callsign.getHostFullPrefix();
+    qDebug() << Q_FUNC_INFO << " - prefix: " << prefix;
     int entID = worldPrefixes.value(prefix, -2);
     while ((prefix.length()>1) && (entID<=0))
     {
         qDebug() << Q_FUNC_INFO << " - " << QString("Pref: %1 / EntID: %2").arg(prefix).arg(entID);
         if (entID<=0)
             prefix.chop(1);
-        entID = worldPrefixes.value(prefix, -2);
+        entID = worldPrefixes.value(prefix, -3);
         qDebug() << Q_FUNC_INFO << " - " << QString("New Pref: %1 / New EntID: %2").arg(prefix).arg(entID);
     }
     qDebug() << Q_FUNC_INFO << " - " << QString("Callsign: %1 / Final EntID: %2").arg(_qrz).arg(entID);
@@ -377,10 +379,10 @@ double World::getLatitude(const int _enti)
 QString World::getQRZLocator(const QString &_qrz)
 {
     qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
-    if (_qrz.length() < 1)
-    {
-        return "";
-    }
+    Callsign callsign(_qrz);
+    if (!callsign.isValidPrefix())
+        return QString();
+
     int entity = getQRZARRLId (_qrz);
     qDebug() << Q_FUNC_INFO << " - Entity: " << entity;
     return locator->getLocator(getLongitude(entity), getLatitude (entity));

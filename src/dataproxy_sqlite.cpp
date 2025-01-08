@@ -43,17 +43,15 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     util = new Utilities(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " - 46";
     util->setVersion(_softVersion);
-    //qDebug() << Q_FUNC_INFO << " - 47";
-    util->setCallValidation(false);
     //qDebug() << Q_FUNC_INFO << " - 48: " << util->getKLogDBFile();
     db = new DataBase(Q_FUNC_INFO, _softVersion, util->getKLogDBFile());
     //qDebug() << Q_FUNC_INFO << " - 49";
 
     dbCreated = db->createConnection(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " - 50";
-    util->setLongPrefixes(getLongPrefixes());
+
      //qDebug() << Q_FUNC_INFO << " - 51";
-    util->setSpecialCalls(getSpecialCallsigns());
+    //util->setSpecialCalls(getSpecialCallsigns());
      //qDebug() << Q_FUNC_INFO << " - 52";
     qso = new QSO;
     //qDebug() << Q_FUNC_INFO << " - 53";
@@ -253,11 +251,6 @@ int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
 {
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return getIdFromModeName(getNameFromSubMode(getSubModeFromId(_sm)));
-}
-
-void DataProxy_SQLite::setCallValidation(const bool _v)
-{
-    util->setCallValidation(_v);
 }
 
 bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
@@ -964,7 +957,8 @@ QDate DataProxy_SQLite::getFirstQSODateFromCall (const QString &_call)
     QSqlQuery query;
     QString stringQuery;
     QDate _date;
-    if (util->isValidCall(_call, true))
+    Callsign callsign(_call);
+    if (callsign.isValid())
     {
         stringQuery = QString("SELECT qso_date from log where station_callsign='%1' ORDER BY qso_date ASC LIMIT 1").arg(_call);
     }
@@ -1022,7 +1016,8 @@ QDate DataProxy_SQLite::getLastQSODateFromCall (const QString &_call)
     QSqlQuery query;
     QString stringQuery;
     QDate _date;
-    if (util->isValidCall(_call, true))
+    Callsign callsign(_call);
+    if (callsign.isValid())
     {
         stringQuery = QString("SELECT qso_date from log where station_callsign='%1' ORDER BY qso_date DESC LIMIT 1").arg(_call);
     }
@@ -2023,7 +2018,8 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
                 nameCol = rec.indexOf("station_callsign");
                 QString aux2 = (query.value(nameCol)).toString();
 
-                if (util->isValidCall(aux2))
+                Callsign callsign(aux2);
+                if (callsign.isValid())
                 {
                     dataC <<  aux2;
                 }
@@ -2376,237 +2372,7 @@ bool DataProxy_SQLite::clublogModifyFullLog(const int _currentLog)
      return true;
  }
 
-/*
- bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
-                      const QString &_mygrid, const QString &_dxgrid,
-                      const QString &_rstTX, const QString &_rstRX, const QString &_sRX, const QString &_sTX,
-                      const QString &_comment,
-                      const QString &_stationcallsign, const QString &_name, const QString &_operator,
-                      const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
-                      const int _dxcc, const int _logNumber, bool _sendQSL)
-{
-    //qDebug() << Q_FUNC_INFO << ":  " << _dxcall;
 
-
-    //_qso format: Date/TimeOn/call/bandid/modeid/freq/dxgrid/timeOff/rsttx/rstrx/txpower/comments/name
-
-    QString stringFields  = QString();
-    QString stringData = QString();
-    QString stringQuery = QString();
-
-    QSqlQuery query;
-
-    if (util->isValidCall(_dxcall))
-    {
-        stringFields   = "call, ";
-        stringData =  "'" + _dxcall + "', ";
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << ":  Error: call";
-        return false;
-    }
-
-    if (_datetime.isValid())
-    {
-        //qDebug() << Q_FUNC_INFO << ":  time-on: " <<  _datetime;
-        stringFields  = stringFields  + "qso_date, ";
-        QDateTime _dateTime;
-        //_dateTime.setDate(QDate::currentDate());
-        //_dateTime.setTime(QTime::fromString(_time_on, "yyyyMMddhhmmss"));
-        //qDebug() << Q_FUNC_INFO << ":  time-on: " << _datetime;
-        //stringData =  stringData + "'" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("yyyy-MM-dd") + "', '" + QDateTime::fromString(_time_on, "yyyyMMddhhmmss").toString("hh:mm:ss") + "', ";
-        stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime) + "', ";
-        //qDebug() << Q_FUNC_INFO << ":  time-on: " << stringData;
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << ":  Error: time-on_ " << _datetime;
-        return false;
-    }
-
-    QString band = getBandNameFromFreq(_freq);
-    if (band != _band)
-    {
-        //qDebug() << Q_FUNC_INFO << ":  Error: FREQ / BAND inconsistency " << _band << "/" << QString::number(_freq);
-    }
-
-    if (band.length()>0)
-    {
-            stringFields  = stringFields  + "bandid, " ;
-            stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
-
-            stringFields  = stringFields  + "band_rx, " ;
-            stringData =  stringData + "'" + QString::number(getBandIdFromFreq(_freq)) + "', ";
-
-            stringFields  = stringFields  + "freq, " ;
-            stringData =  stringData + "'" + QString::number(_freq) + "', ";
-            // EA5WA fix to add the freq RX into the log
-            stringFields  = stringFields  + "freq_rx, " ;
-            stringData =  stringData + "'" + QString::number(_freq) + "', ";
-    }
-    else
-    {
-           //qDebug() << Q_FUNC_INFO << ":  Error: band";
-
-
-        emit queryError(Q_FUNC_INFO, "Incorrect band: " + _band, "-1000", "No query error");
-        return false;
-    }
-
-    int _modeid = getSubModeIdFromSubMode(_mode);
-       //qDebug() << Q_FUNC_INFO << ":  mode: " << _mode;
-       //qDebug() << Q_FUNC_INFO << ":  modeid: " << QString::number(_modeid);
-    if (util->isValidModeId(_modeid))
-    {
-        stringFields  = stringFields  + "modeid, ";
-        stringData =  stringData + "'" +  QString::number(_modeid) + "', ";
-    }
-    else
-    {
-           //qDebug() << Q_FUNC_INFO << ":  Error: mode";
-        emit queryError(Q_FUNC_INFO, "Incorrect mode: " + _mode, "-1000", "No query error");
-        return false;
-    }
-
-    if (_datetime_off.isValid())
-    {
-        stringFields  = stringFields  + "qso_date_off, ";
-        stringData =  stringData + "'" + util->getDateTimeSQLiteStringFromDateTime(_datetime_off) + "', ";
-    }
-
-    if (util->isValidRST(_rstTX))
-    {
-        stringFields  = stringFields  + "rst_sent, ";
-        stringData =  stringData + "'" + _rstTX + "', ";
-    }
-
-    if (util->isValidRST(_rstRX))
-    {
-        stringFields   = stringFields   + "rst_rcvd, ";
-        stringData =  stringData + "'" + _rstRX + "', ";
-    }
-
-    if (_sTX.length()>0)
-    {
-        stringFields  = stringFields  + "stx_string, ";
-        stringData =  stringData + "'" + _sTX + "', ";
-    }
-
-    if (_sRX.length()>0)
-    {
-        stringFields  = stringFields  + "srx_string, ";
-        stringData =  stringData + "'" + _sRX + "', ";
-    }
-
-    if (_comment.length()>0)
-    {
-        stringFields   = stringFields   + "comment, ";
-        stringData =  stringData + "'" + _comment + "', ";
-    }
-
-    if (_name.length()>0)
-    {
-        stringFields   = stringFields   + "name, ";
-        stringData =  stringData + "'" + _name + "', ";
-    }
-
-    if (util->isValidGrid(_dxgrid))
-    {
-        stringFields   = stringFields   + "gridsquare, ";
-        stringData =  stringData + "'" + _dxgrid + "', ";
-    }
-
-    if (util->isValidGrid(_mygrid))
-    {
-        stringFields   = stringFields   + "my_gridsquare, ";
-        stringData =  stringData + "'" + _mygrid + "', ";
-    }
-
-
-    if (util->isValidPower(QString::number(txpower)))
-    {
-        stringFields  = stringFields  + "tx_pwr, ";
-        stringData =  stringData + "'" + QString::number(txpower) + "', ";
-    }
-
-    if (util->isValidCall(_operator))
-    {
-        stringFields  = stringFields  + "operator, ";
-        stringData =  stringData + "'" + _operator + "', ";
-    }
-
-    if (util->isValidCall(_stationcallsign))
-    {
-            stringFields  = stringFields  + "station_callsign, ";
-            stringData =  stringData + "'" + _stationcallsign + "', ";
-    }
-    if (_dxcc>0)
-    {
-        stringFields  = stringFields  + "dxcc, ";
-        stringData =  stringData + "'" + QString::number(_dxcc) + "', ";
-
-        int _cqz, _ituz;
-        _cqz = getCQzFromEntity(_dxcc);
-        _ituz = getITUzFromEntity(_dxcc);
-        if (_cqz >0)
-        {
-            stringFields  = stringFields  + "cqz, ";
-            stringData =  stringData + "'" + QString::number(_cqz) + "', ";
-        }
-        if (_ituz >0)
-        {
-            stringFields  = stringFields  + "ituz, ";
-            stringData =  stringData + "'" + QString::number(_ituz) + "', ";
-        }
-    }
-
-    if (_sendQSL)
-    {
-    stringFields  = stringFields  + "qsl_via, ";
-    stringData =  stringData + "'B', ";
-
-    stringFields  = stringFields  + "lotw_qsl_sent, ";
-    stringData =  stringData + "'Q', ";
-
-    stringFields  = stringFields  + "eqsl_qsl_sent, ";
-    stringData =  stringData + "'Q', ";
-
-    stringFields  = stringFields  + "hrdlog_qso_upload_status, ";
-    stringData =  stringData + "'M', ";
-
-    stringFields  = stringFields  + "clublog_qso_upload_status, ";
-    stringData =  stringData + "'M', ";
-
-    stringFields  = stringFields  + "qrzcom_qso_upload_status, ";
-    stringData =  stringData + "'M', ";
-    }
-
-    stringFields  = stringFields  + "lognumber";
-    stringData =  stringData + "'" + QString::number(_logNumber) + "'";
-
-    stringQuery = "INSERT INTO log (" + stringFields  + ") values (" + stringData +")" ;
-    //qDebug() << Q_FUNC_INFO << ":  Query: " << stringQuery;
-
-    bool sqlOK = query.exec(stringQuery);
-
-    //qDebug() << Q_FUNC_INFO << ":  LastQuery: " << query.lastQuery();
-
-    if (sqlOK)
-    {
-        query.finish();
-        //qDebug() << Q_FUNC_INFO << ":  SQL OK";
-        return true;
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        //qDebug() << Q_FUNC_INFO << ":  Error: SQL ";
-        return false;
-    }
-}
-*/
 
 bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_mode, const QString &_band, const double _freq,
                       const QString &_mygrid, const QString &_dxgrid,
@@ -3225,7 +2991,8 @@ QString DataProxy_SQLite::getStringQueryStationCallSign (const QString &_a)
     // DataProxy_SQLite::getQSOsListQRZCOMToSent
     // DataProxy_SQLite::getQSOsListToBeExported
     // DataProxy_SQLite::getQSOsListeQSLNotSent
-    if (util->isValidCall(_a, true))
+    Callsign callsign(_a);
+    if (callsign.isValid())
     {
         return QString("station_callsign='%1'").arg(_a);
     }

@@ -25,6 +25,8 @@
  *****************************************************************************/
 
 #include "setupdialog.h"
+#include "callsign.h"
+
 //#include <QDebug>
 
 /*
@@ -120,8 +122,8 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
     version = QString();
     pageRequested = 0;
     //qDebug() << Q_FUNC_INFO << "00";
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     userDataPage->setPrefixes ();
     //qDebug() << Q_FUNC_INFO << "000";
     firstTime = !_alreadyConfigured;
@@ -425,8 +427,10 @@ void SetupDialog::slotOkButtonClicked()
         emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return;
     }
+    Callsign callsign(userDataPage->getMainCallsign());
 
-    if (!util->isValidCall(userDataPage->getMainCallsign())){ //
+        if (!callsign.isValid())
+    {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid callsign."));

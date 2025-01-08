@@ -25,26 +25,28 @@
  *****************************************************************************/
 
 #include "showadifimportwidget.h"
+#include "../callsign.h"
+#include "../utilities.h"
 
 
 ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
 {
     Q_UNUSED(_parentFunction);
     dataProxy = dp;
-    util = new Utilities(Q_FUNC_INFO);
+    //util = new Utilities(Q_FUNC_INFO);
     okButton = new QPushButton;
     //cancelButton = new QPushButton;
     tableWidget = new QTableWidget;
     qsosList.clear();
     setWindowTitle("ShowAdif");
     createUI();
-    util->setLongPrefixes(dataProxy->getLongPrefixes());
-    util->setSpecialCalls(dataProxy->getSpecialCallsigns());
+    //util->setLongPrefixes(dataProxy->getLongPrefixes());
+    //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 }
 
 ShowAdifImportWidget::~ShowAdifImportWidget()
 {
-    delete(util);
+    delete(dataProxy);
 }
 
 void ShowAdifImportWidget::createUI()
@@ -166,7 +168,8 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
         //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received";
         return;
     }
-    if (!util->isValidCall(_qso.at(0)))
+    Callsign callsign(_qso.at(0));
+    if (!callsign.isValid())
     {
         //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received";
         return;
@@ -182,7 +185,8 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
         return;
     }
 
-    QDateTime _dateTime = util->getDateTimeFromSQLiteString(_qso.at(1));
+    Utilities util(Q_FUNC_INFO);
+    QDateTime _dateTime = util.getDateTimeFromSQLiteString(_qso.at(1));
     if (!_dateTime.isValid())
     {
         //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received";
@@ -192,7 +196,7 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
     QStringList _newQSO;
     _newQSO.clear();
 
-    _newQSO << _qso.at(0) << util->getDateTimeSQLiteStringFromDateTime(_dateTime) << _qso.at(2) << _qso.at(3);
+    _newQSO << _qso.at(0) << util.getDateTimeSQLiteStringFromDateTime(_dateTime) << _qso.at(2) << _qso.at(3);
     qsosList << _newQSO;
     //qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END";
 }
