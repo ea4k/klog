@@ -7365,7 +7365,7 @@ QHash<QString, int> DataProxy_SQLite::getWorldData()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-        //qDebug() << Q_FUNC_INFO << "END-FAIL1";
+       //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
         return world;
     }
     else
@@ -7374,7 +7374,7 @@ QHash<QString, int> DataProxy_SQLite::getWorldData()
         {
             if (query.isValid())
             {
-                //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
+               //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
                 pref = (query.value(0)).toString();
                 if (pref.startsWith('='))
                 {
@@ -7386,14 +7386,14 @@ QHash<QString, int> DataProxy_SQLite::getWorldData()
             {
                 query.finish();
                 world.clear();
-                //qDebug() << Q_FUNC_INFO << "END-FAIL";
+               //qDebug() << Q_FUNC_INFO << "END-FAIL - Query not valid";
                 return world;
             }
         }
     }
     query.finish();
     //qDebug() << Q_FUNC_INFO << "END";
-    //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(world.count());
+   //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(world.count());
     return world;
 }
 

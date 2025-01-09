@@ -91,7 +91,7 @@ void MainWindow::showNotWar()
 
 MainWindow::MainWindow(const QString &tversion)
 {
-    //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
@@ -112,13 +112,14 @@ MainWindow::MainWindow(const QString &tversion)
     QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
      //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() ;
-
-
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
+    world = new World(dataProxy, Q_FUNC_INFO);
+    world->create(util->getCTYFile());
     //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
     hamlib = new HamLibClass();
     //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
+
     //qDebug() << Q_FUNC_INFO << ": AFTER dataproxy ";
     lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
     //qDebug() << Q_FUNC_INFO << ": AFTER lotwUtilities";
@@ -134,25 +135,25 @@ MainWindow::MainWindow(const QString &tversion)
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
 
-    //qDebug() << Q_FUNC_INFO << ": 00083: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 00083: " << QTime::currentTime().toString("hh:mm:ss") ;
     updateSatsData = new UpdateSatsData(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 00084: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 00084: " << QTime::currentTime().toString("hh:mm:ss") ;
     statsWidget = new StatisticsWidget(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 00085: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 00085: " << QTime::currentTime().toString("hh:mm:ss") ;
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
-    //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") ;
     logWindow = new LogWindow(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 00087: " << QTime::currentTime().toString("hh:mm:ss") ;
 
     searchWidget = new SearchWidget(dataProxy, this);
     //qDebug() << Q_FUNC_INFO << ": 00087.1: " << QTime::currentTime().toString("hh:mm:ss") ;
     //advancedSearchWidget = new AdvancedSearchWidget(dataProxy, this);
-     //qDebug() << "MainWindow::MainWindow: 00087.2" << QTime::currentTime().toString("hh:mm:ss") ;
+    //qDebug() << "MainWindow::MainWindow: 00087.2" << QTime::currentTime().toString("hh:mm:ss") ;
     infoWidget = new InfoWidget(dataProxy, this);
 
-    //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
     awardsWidget = new AwardsWidget(dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -164,19 +165,19 @@ MainWindow::MainWindow(const QString &tversion)
 
     statusBarMessage = tr("Starting KLog");
 
-    //qDebug() << Q_FUNC_INFO << ": 40: " << QTime::currentTime().toString("hh:mm:ss") ;
-    world = new World(dataProxy, Q_FUNC_INFO);
+   //qDebug() << Q_FUNC_INFO << ": 40: " << QTime::currentTime().toString("hh:mm:ss") ;
+
 
      //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") ;
     setupDialog = new SetupDialog(dataProxy, this);
 
    //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
     satTabWidget = new MainWindowSatTab(dataProxy);
-   //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") ;
+  //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") ;
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 53: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 53: " << QTime::currentTime().toString("hh:mm:ss") ;
     myDataTabWidget = new MainWindowMyDataTab(dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 54: " << QTime::currentTime().toString("hh:mm:ss") ;
     commentTabWidget = new MainWindowInputComment();
@@ -186,14 +187,14 @@ MainWindow::MainWindow(const QString &tversion)
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 57: " << QTime::currentTime().toString("hh:mm:ss") ;
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
-    //qDebug() << Q_FUNC_INFO << ": 58: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 58: " << QTime::currentTime().toString("hh:mm:ss") ;
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
 
-    //qDebug() << Q_FUNC_INFO << ": locator to be created 59" << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": locator to be created 59" << QTime::currentTime().toString("hh:mm:ss") ;
     locator = new Locator();
 
     mainWidget = new QWidget(this);
-    //qDebug() << Q_FUNC_INFO << ": 60 " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": 60 " << QTime::currentTime().toString("hh:mm:ss") ;
 
     dateTime = std::make_unique<QDateTime>();
     // UI DX
@@ -205,7 +206,7 @@ MainWindow::MainWindow(const QString &tversion)
     dxClusterWidget = new DXClusterWidget(dataProxy, this);
     dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
 
-     //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     awards = new Awards(dataProxy, Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") ;
     // </UI>
@@ -215,7 +216,7 @@ MainWindow::MainWindow(const QString &tversion)
        exit(0);
     }
 
-     //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": Software update to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     softUpdate = new SoftwareUpdate(softwareVersion);
       //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
 
@@ -231,7 +232,7 @@ MainWindow::MainWindow(const QString &tversion)
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-     //qDebug() << Q_FUNC_INFO << ": END " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << ": END " << QTime::currentTime().toString("hh:mm:ss") ;
 }
 
 MainWindow::~MainWindow()
@@ -453,14 +454,15 @@ void MainWindow::checkHomeDir()
 
 void MainWindow::init()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     checkHomeDir();
     checkDebugFile();
 
     //qDebug() << Q_FUNC_INFO << " -  00" ;
-    world->readWorld();
+    //world->readWorld();
+    //world->create(util->getCTYFile());
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
 
@@ -538,7 +540,7 @@ void MainWindow::init()
       //qDebug() << Q_FUNC_INFO << " - 130";
 
     applySettings ();
-      //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5147,14 +5149,14 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     DXSpot spot = _spot;
-    if (spot.isValid())
-        qDebug() << Q_FUNC_INFO << " - Spot is Valid";
-    else
-        qDebug() << Q_FUNC_INFO << " - Spot is NOT Valid";
-    qDebug() << Q_FUNC_INFO << ": spot-dxCall       : " << spot.getDxCall();
-    qDebug() << Q_FUNC_INFO << ": spot-Spotter      : " << spot.getSpotter();
-    qDebug() << Q_FUNC_INFO << ": spot-Freq         : " << spot.getFrequency().toQString();
-    qDebug() << Q_FUNC_INFO << ": spot-Comment      : " << spot.getComment();
+    //if (spot.isValid())
+       //qDebug() << Q_FUNC_INFO << " - Spot is Valid";
+    //else
+       //qDebug() << Q_FUNC_INFO << " - Spot is NOT Valid";
+   //qDebug() << Q_FUNC_INFO << ": spot-dxCall       : " << spot.getDxCall();
+   //qDebug() << Q_FUNC_INFO << ": spot-Spotter      : " << spot.getSpotter();
+   //qDebug() << Q_FUNC_INFO << ": spot-Freq         : " << spot.getFrequency().toQString();
+   //qDebug() << Q_FUNC_INFO << ": spot-Comment      : " << spot.getComment();
 
     EntityStatus _entityStatus;
     _entityStatus.entityId = world->getQRZARRLId(spot.getDxCall());

@@ -118,7 +118,7 @@ void DXSpot::setFrequency(Frequency f)
 {
     if (f.isValid())
         freq = f;
-    qDebug() << Q_FUNC_INFO << ": " << freq.toQString(MHz);
+   //qDebug() << Q_FUNC_INFO << ": " << freq.toQString(MHz);
 }
 
 Frequency DXSpot::getFrequency()

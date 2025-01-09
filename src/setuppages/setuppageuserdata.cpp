@@ -27,8 +27,9 @@
 #include "setuppageuserdata.h"
 #include "../callsign.h"
 
+
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
-   qDebug() << Q_FUNC_INFO << " - Start";
+  //qDebug() << Q_FUNC_INFO << " - Start";
    slotQRZRunning = false;
    locator = new Locator();
    util = new Utilities(Q_FUNC_INFO);
@@ -244,7 +245,7 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
     //qDebug() << Q_FUNC_INFO << " - Start";
     delete(locator);
     delete(util);
-    delete(world);
+    //delete(world);
     delete(defaultPalette);
     delete(wrongPalette);
     delete(dataProxy);
@@ -277,14 +278,14 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (slotQRZRunning)
     {
-        qDebug() << Q_FUNC_INFO << " - END-1";
+       //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
     slotQRZRunning = true;
-    qDebug() << Q_FUNC_INFO << " - " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
+   //qDebug() << Q_FUNC_INFO << " - " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
 
     int i = maincallsignLineEdit->cursorPosition();
 
@@ -335,7 +336,7 @@ int SetupPageUserDataPage::getITUz()
 
 bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     Callsign callsign(_qrz);
     if (!callsign.isValid())
         return false;

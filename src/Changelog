@@ -1,15 +1,14 @@
-On first start, Locator is not identified
-BUG: When adding EA KLog finds Spain, if EA4 is added, it fails to find the DXCC.
-Find ONE single master place to do that calculation. Maybe World()??
+TODO: When adding a QSO the DXCC list is not updated
 
-TODO-Bug: Add QSOs from wsjtx does not work. Failure close to int QSO::toDB(int _qsoId) Maybe related to QSO dupe (it was already fixed)
+
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 
+TODO: Remove, if possible the QSO instance from the DataProxy_SQLite constructor
 
 TODO-Test: Add tests to test the subsivisions
 TODO-Test: the copy constructor of QSO
 
-
+TODO: Reuse the bool World::insertPrefixes to read QSOs from a file so we can insert the whole log at once of in 500 or 1000 QSO blocks
 BUG: When entering/modifying a QSO there is an error related to awarddxcc table not existing
 TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions
 TODO-Bug: Review void tst_MainWindowInputQSO::test_GridLineEdit()

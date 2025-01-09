@@ -169,7 +169,7 @@ void DXClusterWidget::addData()
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
-    qDebug() << Q_FUNC_INFO << item->text();
+   //qDebug() << Q_FUNC_INFO << item->text();
 
     QStringList ql;
     ql.clear();
@@ -380,7 +380,7 @@ void DXClusterWidget::slotClusterDataArrived()
 
 
         dxSpotColor = awards->getQRZDXStatusColor(_entityStatus);
-        qDebug() << Q_FUNC_INFO << " - Color Status-1 " << dxSpotColor.name();
+       //qDebug() << Q_FUNC_INFO << " - Color Status-1 " << dxSpotColor.name();
         if (showDxMarathon)
         {
             if (awards->isDXMarathonNeed(_entityStatus.entityId, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog))

@@ -37,6 +37,7 @@ To insert a (key, value) pair into the hash, you can use operator[]():
 World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
 {
     Q_UNUSED(_parentFunction);
+   //qDebug() << Q_FUNC_INFO << " - Start from: " << _parentFunction;
     worldPrefixes.clear();
     cqz = -1;
     ituz = -1;
@@ -46,22 +47,23 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     lon = 0.0;
     utc = 0.0;
     locator = new Locator();
-    created = false;
-    read = readWorld();
+    created = false;    
     dataProxy = dp;
-    util = new Utilities(Q_FUNC_INFO);    
+    read = readWorld();
+    util = new Utilities(Q_FUNC_INFO);
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 World::~World()
 {
-   //qDebug() << "World::~World";
+   //qDebug() << Q_FUNC_INFO;
     delete(locator);
     delete(util);
 }
 
 bool World::readWorld()
 { // Used to link a prefix with an Entity quickly, without quering the DB.
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     specialCalls.clear();
     longPrefixes.clear();
     worldPrefixes.clear();
@@ -69,9 +71,9 @@ bool World::readWorld()
     worldPrefixes = dataProxy->getWorldData();
     specialCalls << dataProxy->getSpecialCallsigns();
     longPrefixes << dataProxy->getLongPrefixes();
-    qDebug() << Q_FUNC_INFO << " - worldPrefixes: " << worldPrefixes.count();
-    qDebug() << Q_FUNC_INFO << " - specialCalls : " << specialCalls.count();
-    qDebug() << Q_FUNC_INFO << " - longPrefixes : " << longPrefixes.count();
+   //qDebug() << Q_FUNC_INFO << " - worldPrefixes: " << worldPrefixes.count();
+   //qDebug() << Q_FUNC_INFO << " - specialCalls : " << specialCalls.count();
+   //qDebug() << Q_FUNC_INFO << " - longPrefixes : " << longPrefixes.count();
 
     if (worldPrefixes.isEmpty())
         return false;
@@ -82,7 +84,7 @@ bool World::readWorld()
 
 bool World::recreate(const QString &_worldFile)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _worldFile;
+   //qDebug() << Q_FUNC_INFO << ": " << _worldFile;
     QSqlQuery query;
     if (query.exec("DELETE FROM entity"))
     {
@@ -150,7 +152,7 @@ bool World::create(const QString &_worldFile)
 QStringList World::readZones (const QString &pref, const int _cq, const int _itu)
 {
     //Returns a QStringList: prefix, CQz, ITUz
-     //qDebug() << Q_FUNC_INFO << ":  (" << pref << "/" << QString::number(_cq) <<"/" << QString::number(_itu)<< ")";
+   //qDebug() << Q_FUNC_INFO << ":  (" << pref << "/" << QString::number(_cq) <<"/" << QString::number(_itu)<< ")";
     QStringList result;
     int cq = _cq;
     int itu = _itu;
@@ -195,19 +197,19 @@ QStringList World::readZones (const QString &pref, const int _cq, const int _itu
 
 QString World::getQRZEntityName(const QString &_qrz)
 {
-  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return QString();
     }
     int prefixIDNumber = getQRZARRLId(_qrz);
-  //qDebug() << Q_FUNC_INFO << " - " << prefixIDNumber;
+    //qDebug() << Q_FUNC_INFO << " - " << prefixIDNumber;
     return getEntityName(prefixIDNumber);
 }
 
 QString World::getEntityName(const int _entityN)
 {
-  //qDebug() << Q_FUNC_INFO << ": " << _entityN;
+   //qDebug() << Q_FUNC_INFO << ": " << _entityN;
     int prefixIDNumber = _entityN;
     if (prefixIDNumber<=0)
     {
@@ -218,7 +220,7 @@ QString World::getEntityName(const int _entityN)
 
 int World::getQRZCqz(const QString &_qrz)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
      if (_qrz.length() < 1 )
      {
          return -1;
@@ -230,7 +232,7 @@ int World::getQRZCqz(const QString &_qrz)
 
 int World::getQRZItuz(const QString &_qrz)
 {
-        //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return -1;
@@ -242,6 +244,7 @@ int World::getQRZItuz(const QString &_qrz)
 
 int World::getEntityCqz(const int _enti)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _enti;
     if (_enti < 1 )
     {
         return -1;
@@ -251,6 +254,7 @@ int World::getEntityCqz(const int _enti)
 
 int World::getEntityItuz(const int _enti)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _enti;
     if (_enti < 1 )
     {
         return -1;
@@ -260,30 +264,30 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
-
-    Callsign callsign(_qrz);
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    QString  call = _qrz.toUpper();
+    Callsign callsign(call);
     if (!callsign.isValidPrefix())
         return -1;
 
     QString prefix = callsign.getHostFullPrefix();
-    qDebug() << Q_FUNC_INFO << " - prefix: " << prefix;
+   //qDebug() << Q_FUNC_INFO << " - prefix: " << prefix;
     int entID = worldPrefixes.value(prefix, -2);
     while ((prefix.length()>1) && (entID<=0))
     {
-        qDebug() << Q_FUNC_INFO << " - " << QString("Pref: %1 / EntID: %2").arg(prefix).arg(entID);
+       //qDebug() << Q_FUNC_INFO << " - " << QString("Pref: %1 / EntID: %2").arg(prefix).arg(entID);
         if (entID<=0)
             prefix.chop(1);
         entID = worldPrefixes.value(prefix, -3);
-        qDebug() << Q_FUNC_INFO << " - " << QString("New Pref: %1 / New EntID: %2").arg(prefix).arg(entID);
+       //qDebug() << Q_FUNC_INFO << " - " << QString("New Pref: %1 / New EntID: %2").arg(prefix).arg(entID);
     }
-    qDebug() << Q_FUNC_INFO << " - " << QString("Callsign: %1 / Final EntID: %2").arg(_qrz).arg(entID);
+   //qDebug() << Q_FUNC_INFO << " - " << QString("Callsign: %1 / Final EntID: %2").arg(_qrz).arg(entID);
     return entID;
 }
 
 QString World::getQRZEntityMainPrefix(const QString &_qrz)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     if (_qrz.length() < 1 )
     {
         return "";
@@ -295,6 +299,7 @@ QString World::getQRZEntityMainPrefix(const QString &_qrz)
 
 QString World::getEntityMainPrefix(const int _entityN)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _entityN;
     if (_entityN <= 0 )
     {
         return QString();
@@ -305,11 +310,13 @@ QString World::getEntityMainPrefix(const int _entityN)
 
 bool World::isNewCQz(const int _cqz)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _cqz;
     return dataProxy->isNewCQz(_cqz);
 }
 
 bool World::isNewEntity(const int _entityN)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _entityN;
     if (_entityN <= 0)
     {
         return false;
@@ -319,13 +326,13 @@ bool World::isNewEntity(const int _entityN)
 
 QString World::getQRZContinentShortName(const QString &_qrz)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     return getContinentShortName (getQRZARRLId(_qrz));
 }
 
 QString World::getContinentShortName(const int _enti)
 {
-        //qDebug() << "World::getQRZContinentShortName: " << QString::number(_enti);
+   //qDebug() << Q_FUNC_INFO << ": " <<  _enti;
     if ( _enti < 0 )
     {
         return "--";
@@ -343,14 +350,14 @@ QString World::getContinentShortName(const int _enti)
 
 QString World::getQRZContinentNumber(const QString &_qrz)
 {
-     //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     int i = getQRZARRLId(_qrz);
     return QString::number(getContinentNumber(i));
 }
 
 int World::getContinentNumber(const int _enti)
 {
-        //qDebug() << "World::getQRZContinentNumber: " << QString::number(_enti);
+   //qDebug() << Q_FUNC_INFO << ": " <<  _enti;
     if (_enti <= 0)
     {
         return -1;
@@ -360,6 +367,7 @@ int World::getContinentNumber(const int _enti)
 
 double World::getLongitude(const int _enti)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _enti;
     if (_enti <= 0)
     {
         return 0.0;
@@ -369,6 +377,7 @@ double World::getLongitude(const int _enti)
 
 double World::getLatitude(const int _enti)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _enti;
     if (_enti <= 0)
     {
         return 0.0;
@@ -378,18 +387,19 @@ double World::getLatitude(const int _enti)
 
 QString World::getQRZLocator(const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qrz;
     Callsign callsign(_qrz);
     if (!callsign.isValidPrefix())
         return QString();
 
     int entity = getQRZARRLId (_qrz);
-    qDebug() << Q_FUNC_INFO << " - Entity: " << entity;
+   //qDebug() << Q_FUNC_INFO << " - Entity: " << entity;
     return locator->getLocator(getLongitude(entity), getLatitude (entity));
 }
 
 QString World::getLocator(const int _entityN)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _entityN;
     if (_entityN <= 0)
     {
         return "";
@@ -451,7 +461,7 @@ bool World::addEntity(const QString &_name, const int _cq, const int _itu, const
 
 bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, const int _ituz)
 {
-     //qDebug() << Q_FUNC_INFO << ": _pref: " << _pref;
+   //qDebug() << Q_FUNC_INFO << ": _pref: " << _pref;
      //qDebug() << Q_FUNC_INFO << ": _dxcc: " << QString::number(_dxcc);
      //qDebug() << Q_FUNC_INFO << ": _cqz: " << QString::number(_cqz);
      //qDebug() << Q_FUNC_INFO << ": _ituz: " << QString::number(_ituz);
@@ -489,6 +499,7 @@ bool World::addPrefix(const QString &_pref, const int _dxcc, const int _cqz, con
 
 bool World::readCTYCSV(const QString &_worldFile)
 {
+   //qDebug() << Q_FUNC_INFO << ": " <<  _worldFile;
     QFile file(_worldFile);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -579,6 +590,7 @@ bool World::readCTYCSV(const QString &_worldFile)
 
 bool World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz)
 {
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QStringList stringListPrefixes = prefixes.split(' ');
 
     QList<QPair<QString, QPair<int, QPair<int, int>>>> pairPrefixes;
@@ -605,6 +617,7 @@ bool World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int 
 
 bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>>>> &pairPrefixes)
 {
+   //qDebug() << Q_FUNC_INFO << " - Start ";
     QSqlQuery query;
     query.prepare(
         "INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) "
@@ -632,25 +645,9 @@ bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>
 }
 
 
-/*
-void World::addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz)
-{
-    QStringList stringListPrefixes = prefixes.split(' ');
-    for (const QString &prefix : stringListPrefixes) {
-        QStringList stringListProcessedPrefix = readZones(prefix, cqz, ituz);
-        if (stringListProcessedPrefix.size() == 3) {
-            if (addPrefix(stringListProcessedPrefix.at(0), entityNumber, stringListProcessedPrefix.at(1).toInt(), stringListProcessedPrefix.at(2).toInt())) {
-              //qDebug() << Q_FUNC_INFO << "Prefix added:" << stringListProcessedPrefix.at(0);
-            } else {
-              //qDebug() << Q_FUNC_INFO << "Prefix not added:" << stringListProcessedPrefix.at(0);
-            }
-        }
-    }
-}
-*/
-
 int World::extractEntityNumber(const QStringList &stringList)
 {
+   //qDebug() << Q_FUNC_INFO << " - Start ";
     int entityNumber;
     if (stringList.at(0).contains(QChar('*'), Qt::CaseInsensitive)) {
         entityNumber = stringList.at(2).toInt() + 1000;
@@ -665,12 +662,13 @@ int World::extractEntityNumber(const QStringList &stringList)
 
 int World::getHowManyEntities()
 {
+   //qDebug() << Q_FUNC_INFO << " - Start ";
     return dataProxy->getHowManyEntities();
 }
 
 bool World::insertSpecialEntities()
 { //https://en.wikipedia.org/wiki/Non-ITU_prefix
-     //qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO << " - Start ";
     // T9 to E7
     // 4N & YZ to 4O
     int entityID = dataProxy->getEntityIdFromMainPrefix("E7");
@@ -714,7 +712,7 @@ bool World::insertSpecialEntities()
 
 bool World::hasSpecialEntities()
 { // Checks if T9 is added to the list of prefixes to validate if special prefixes have been added.
-     //qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO << " - Start ";
     QString queryString = QString("SELECT dxcc from prefixesofentity WHERE prefix='T9'");
     QSqlQuery query;
     bool sqlOK = query.exec(queryString);
@@ -741,12 +739,12 @@ bool World::hasSpecialEntities()
 
 bool World::isAKnownCall(const QString &_callsign)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _callsign;
+   //qDebug() << Q_FUNC_INFO << ": " << _callsign;
     return specialCalls.contains(_callsign);
 }
 
 bool World::isAKnownPrefix(const QString &_prefix)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _prefix;
+   //qDebug() << Q_FUNC_INFO << ": " << _prefix;
     return longPrefixes.contains(_prefix);
 }
