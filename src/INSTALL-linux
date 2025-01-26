@@ -56,7 +56,6 @@ If Qt is not at least Qt6, check your instalallation as one of the previous pack
 
 3.- Generate the Makefile
 
-    cd src
     qmake6 PREFIX=/usr/local src.pro
 
 4. Make everything.
