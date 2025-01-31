@@ -236,3 +236,8 @@ tests/tst_dataproxy/moc_callsign.cpp
 tests/tst_database/moc_predefs.h
 tests/tst_database/moc_callsign.cpp
 tests/tst_adif/moc_callsign.cpp
+tests/tst_callsign/moc_wrapper.sh
+tests/tst_callsign/rcc_wrapper.sh
+tests/tst_mainwindowinputothers/moc_wrapper.sh
+tests/tst_mainwindowinputothers/rcc_wrapper.sh
+tests/tst_mainwindowinputothers/uic_wrapper.sh

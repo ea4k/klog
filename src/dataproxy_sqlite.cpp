@@ -6946,6 +6946,35 @@ int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
   }
 }
 
+QMap<EntityData, int> DataProxy_SQLite::getAllEntiNameISOAndPrefix()
+{
+    QMap<EntityData, int> entities;
+    entities.clear();
+
+    QString queryString("SELECT dxcc, name, isoname, mainprefix FROM entity");
+    QSqlQuery query;
+    bool sqlOK = query.exec(queryString);
+    if (!sqlOK)
+    {
+      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+      query.finish ();
+      return entities;
+    }
+    while (query.next())
+    {
+      if (!query.isValid())
+          continue;
+      int dxcc = (query.value(0)).toInt();
+      EntityData entity;
+      entity.dxcc       = dxcc;
+      entity.name       = (query.value(1)).toString();
+      entity.isoname    = (query.value(2)).toString();
+      entity.mainprefix = (query.value(3)).toString();
+      entities.insert(entity, dxcc);
+    }
+    return entities;
+}
+
 QStringList DataProxy_SQLite::getEntiNameISOAndPrefixFromId(const int _dxcc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);

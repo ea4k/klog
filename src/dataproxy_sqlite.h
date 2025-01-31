@@ -203,6 +203,7 @@ public:
     QString getEntityNameFromId(const int _n);
     int getEntityIdFromName(const QString &_e);
     QString getEntityMainPrefix(const int _entityN);
+    QMap<EntityData, int> getAllEntiNameISOAndPrefix();
     QStringList getEntiNameISOAndPrefixFromId(const int _dxcc);
     int getEntityIdFromMainPrefix(const QString &_e);
     bool isNewCQz(int _c);

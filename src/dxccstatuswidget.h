@@ -73,6 +73,8 @@ private slots:
 
 private:
     void createUI();
+    void readEntities();                        // Read all the entities and fill entities QMap
+    EntityData getEntity(const int _dxcc);      // Returns one EntityData from the entities QMap
     void handleDXCCStatusUpdateFailure();       // Shows a message when there is a problem in update()
     void processEntities(int _entities);        // Processes th Entities in update();
     QList<int> getBandIds();                    // Return the list of bands
@@ -87,6 +89,8 @@ private:
     World *world;
     DataProxy_SQLite *dataProxy;
     Locator *locator;
+
+    QMap<EntityData, int> entities;
 
     QHeaderView *hv, *hh;
     //QLineEdit *searchLineEdit;

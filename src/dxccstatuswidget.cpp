@@ -80,7 +80,7 @@ void DXCCStatusWidget::createUI()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
       //qDebug() << "DXCCStatusWidget::createUI ";
-
+    readEntities();                     // We fill the entities
     // We remove the vertical header
     hv = dxccView->verticalHeader();
     hv->hide();
@@ -152,7 +152,7 @@ void DXCCStatusWidget::processEntities(int entities)
 
     if (dxccView->columnCount() > 0) {
         dxccView->clearContents();
-        qDebug() << Q_FUNC_INFO << "pre FOR" << QTime::currentTime().toString("HH:mm:ss");
+        //qDebug() << Q_FUNC_INFO << "pre FOR" << QTime::currentTime().toString("HH:mm:ss");
         for (int i = 1; i <= entities; i++) {
             QList<int> list = { i };
             list.append(bandIds);
@@ -211,6 +211,12 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
 
     //qDebug() << Q_FUNC_INFO << "  ent = " << _ent << QTime::currentTime().toString("HH:mm:ss");
     int _dxcc = _ent.at(0);
+
+
+
+
+
+
     QStringList data;
     data.clear();
     data << dataProxy->getEntiNameISOAndPrefixFromId(_dxcc);
@@ -318,6 +324,30 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     dxccView->setItem(dxccView->rowCount()-1, 1, newItemName);
     //qDebug() << Q_FUNC_INFO << "  END" << QTime::currentTime().toString("HH:mm:ss");
     emit debugLog (Q_FUNC_INFO, "END", Debug);
+}
+
+void DXCCStatusWidget::readEntities()
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    entities = dataProxy->getAllEntiNameISOAndPrefix();
+
+    QMapIterator<EntityData, int> i(entities);  // Just test, to see if we are doing ok
+    while (i.hasNext()) {
+        i.next();
+        qDebug() << " - " << i.key().name;
+    }
+
+
+    qDebug() << Q_FUNC_INFO << " - END" ;
+}
+
+EntityData DXCCStatusWidget::getEntity(const int _dxcc)
+{
+    EntityData entityAux;
+    int items = entities.count();
+    int i = 0;
+
+
 }
 
 void DXCCStatusWidget::addEntity2(const QStringList &_ent)
