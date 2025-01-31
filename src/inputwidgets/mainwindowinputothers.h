@@ -33,6 +33,7 @@
 #include "../dataproxy_sqlite.h"
 #include "../utilities.h"
 #include "../klogdefinitions.h"
+#include "../world.h"
 
 class MainWindowInputOthers : public QWidget
 {
@@ -121,6 +122,7 @@ private:
 
     Utilities *util;
     DataProxy_SQLite *dataProxy;
+    World *world;
 
     QStringList entitiesList, propModeList;
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;

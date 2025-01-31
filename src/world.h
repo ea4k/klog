@@ -115,6 +115,7 @@ private:
     bool insertSpecialEntities();
     bool readEntities();                        // Read all the entities and fill entities QMap
     int getPrefixId(const QString &_prefix);
+
     //bool readCTYDAT();
     bool readCTYCSV(const QString &_worldFile);
     bool addEntity(const QString &_name, const int _cq, const int _itu, const int _contId, const double _lat, const double _lon, const double _utc, const int _dxcc, const QString &_mainpref);

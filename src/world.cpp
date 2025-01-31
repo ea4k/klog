@@ -63,7 +63,7 @@ World::~World()
 
 bool World::readEntities()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     entities = dataProxy->getAllEntiNameISOAndPrefix();
     if (entities.count()<1)
         return false;
@@ -73,7 +73,7 @@ bool World::readEntities()
     //    i.next();
     //    qDebug() << " - " << i.key().name;
     //}
-    qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
     return true;
 }
 
@@ -89,6 +89,16 @@ EntityData World::getEntityDataFromDXCC(const int _dxcc) const
 
     // If not found, return a default EntityData object
     return EntityData();
+}
+
+
+QString World::getEntityMainPrefix(const int _dxcc)
+{
+    EntityData entity = getEntityDataFromDXCC(_dxcc);
+    Callsign prefix(entity.mainprefix);
+    if (prefix.isValidPrefix())
+        return entity.mainprefix;
+    return QString();
 }
 
 bool World::readWorld()
@@ -318,17 +328,6 @@ QString World::getQRZEntityMainPrefix(const QString &_qrz)
     int i = getQRZARRLId(_qrz);
 
     return getEntityMainPrefix(i);
-}
-
-QString World::getEntityMainPrefix(const int _entityN)
-{
-   //qDebug() << Q_FUNC_INFO << ": " <<  _entityN;
-    if (_entityN <= 0 )
-    {
-        return QString();
-        //return tr("NONE");
-    }
-    return dataProxy->getEntityMainPrefix(_entityN);
 }
 
 bool World::isNewCQz(const int _cqz)
@@ -674,7 +673,7 @@ int World::extractEntityNumber(const QStringList &stringList)
     int entityNumber;
     if (stringList.at(0).contains(QChar('*'), Qt::CaseInsensitive)) {
         entityNumber = stringList.at(2).toInt() + 1000;
-        while (!dataProxy->getEntityMainPrefix(entityNumber).isEmpty()) {
+        while ( !(getEntityMainPrefix((entityNumber)).isEmpty())) {
             entityNumber += 1000;
         }
     } else {

@@ -501,7 +501,7 @@ void DXCCStatusWidget::refresh()
         if ((column == 0) || (column == 1))
         {
             //tip = tr("Pref: ") + (dxccView->item(row, 1))->text() + " - ";
-            tip = tr("Pref: ") + dataProxy->getEntityMainPrefix(entiID) + " - ";
+            tip = tr("Pref: ") + world->getEntityMainPrefix(entiID) + " - ";
             tip = tip + tr("CQ: ") + QString::number(dataProxy->getCQzFromEntity(entiID)) + " - ";
             tip = tip + tr("ITU: ") + QString::number(dataProxy->getITUzFromEntity(entiID)) + " - ";
             QString dxLoc = locator->getLocator(dataProxy->getLongitudeFromEntity(entiID), dataProxy->getLatitudeFromEntity(entiID)) ;

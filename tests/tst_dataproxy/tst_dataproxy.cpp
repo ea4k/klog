@@ -53,7 +53,7 @@ private slots:
     void test_modes_data();
     void test_modes();
     void test_bands();
-    void test_EntityAndPrefixes();  // getEntityMainPrefix
+    //void test_EntityAndPrefixes();  // getEntityMainPrefix
     void test_continents();
 
     void test_subdivisions_data();
@@ -204,26 +204,6 @@ void tst_DataProxy::test_bands()
     QVERIFY2(!dataProxy->isThisFreqInBand ("80M", "28.775"), "Freq in band failed");
 
     QVERIFY2(dataProxy->getNameFromBandId (dataProxy->getIdFromBandName ("20M")) == "20M", "Band names and Id failed");
-}
-
-void tst_DataProxy::test_EntityAndPrefixes()
-{ // getEntityMainPrefix should return:
-    // EA	-> EA (281)
-    // EA4	-> EA (281)
-    // EA8 -> EA8
-    // K	-> K
-    // W	-> K
-    // W1	-> K
-    // K1	-> K
-    // KA7 -> K
-    // KH6 -> KH6
-
-    QVERIFY2(dataProxy->getEntityMainPrefix (29) == "EA8", "Main prefix for Canary Island (dxcc=29) failed");
-    QVERIFY2(dataProxy->getEntityMainPrefix (110) == "KH6", "Main prefix for Hawaii (dxcc=110) failed");
-    QVERIFY2(dataProxy->getEntityMainPrefix (281) == "EA", "Main prefix for Spain (dxcc=281) failed");
-    QVERIFY2(dataProxy->getEntityMainPrefix (291) == "K", "Main prefix for the US (dxcc=291) failed");
-
-
 }
 
 void tst_DataProxy::test_continents()

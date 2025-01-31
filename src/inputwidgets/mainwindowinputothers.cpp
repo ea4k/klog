@@ -35,6 +35,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
        //qDebug() << Q_FUNC_INFO;
     logLevel = None;
     dataProxy = dp;
+    world = new World(dataProxy,Q_FUNC_INFO);
 
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
@@ -799,7 +800,7 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     if (callsign.isValid() || callsign.isValidPrefix())
         currentPref = callsign.getHostFullPrefix();
 
-    QString prefixFromEntityNumber  = dataProxy->getEntityMainPrefix(_entity);    // The main prefix of the entity.
+    QString prefixFromEntityNumber  = world->getEntityMainPrefix(_entity);        // The main prefix of the entity.
     QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
     QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
 

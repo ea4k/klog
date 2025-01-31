@@ -205,7 +205,6 @@ public:
     QString getEntityMainPrefix(const int _entityN);
     QMap<EntityData, int> getAllEntiNameISOAndPrefix();
 
-    KLOG_DEPRECATED QStringList getEntiNameISOAndPrefixFromIdBAK(const int _dxcc);
     int getEntityIdFromMainPrefix(const QString &_e);
     bool isNewCQz(int _c);
     bool isNewEntity(int _e);
