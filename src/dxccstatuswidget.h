@@ -58,7 +58,7 @@ signals:
     void showQsos(QList<int> _qsos);
     void fillInQSOSignal();
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    //void updateAwards();
+    void updateAwards();
 
 public slots:
     //void slotSearchLineEditTextChanged();
@@ -73,6 +73,9 @@ private slots:
 
 private:
     void createUI();
+    void handleDXCCStatusUpdateFailure();       // Shows a message when there is a problem in update()
+    void processEntities(int _entities);        // Processes th Entities in update();
+    QList<int> getBandIds();                    // Return the list of bands
     void setDefaultBands();
     void addEntity(const QList<int> &_ent); // DXCC id, bandid, bandid, ...
     void addEntity2(const QStringList &_ent); // DXCC id, bandid, bandid, ...
