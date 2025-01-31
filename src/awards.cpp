@@ -1803,14 +1803,12 @@ void Awards::setManageModes(const bool _manageModes)
 bool Awards::updateDXCCBandsStatus(const int _logNumber)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_logNumber);
-    //QList<EntityBandStatus> dxccStatus;
     QSqlQuery query;
     QString stringQuery = QString();
     bool sqlOK = false;
     //QString answer;
     if (_logNumber>0)
     {
-        //stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc>0 AND lognumber='%1'ORDER BY dxcc").arg(_logNumber);
         stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd, id FROM log lognumber='%1'ORDER BY dxcc").arg(_logNumber);
     }
     else
