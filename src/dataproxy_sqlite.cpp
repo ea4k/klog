@@ -6975,7 +6975,7 @@ QMap<EntityData, int> DataProxy_SQLite::getAllEntiNameISOAndPrefix()
     return entities;
 }
 
-QStringList DataProxy_SQLite::getEntiNameISOAndPrefixFromId(const int _dxcc)
+QStringList DataProxy_SQLite::getEntiNameISOAndPrefixFromIdBAK(const int _dxcc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
 

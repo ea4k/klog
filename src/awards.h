@@ -129,6 +129,10 @@ private:
     int dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     int dxccStatus(const int _ent, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
+    bool executeQuery(QSqlQuery &query, const QString &stringQuery);    //Executes queries
+    bool processQueryRow(QSqlQuery &query);                             // Processes the query in updateDXCCBandsStatus
+    int processQueryResults(QSqlQuery &query);
+
     /*
     _confirmed = 0     Set as Worked
     _cConfirmed = 1     Set as Confirmed

@@ -80,7 +80,6 @@ void DXCCStatusWidget::createUI()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
       //qDebug() << "DXCCStatusWidget::createUI ";
-    readEntities();                     // We fill the entities
     // We remove the vertical header
     hv = dxccView->verticalHeader();
     hv->hide();
@@ -193,6 +192,7 @@ void DXCCStatusWidget::update()
     qDebug() << "DXCCStatusWidget::update END" << QTime::currentTime().toString("HH:mm:ss");
 }
 
+
 void DXCCStatusWidget::addEntity(const QList<int> &_ent)
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
@@ -212,55 +212,25 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     //qDebug() << Q_FUNC_INFO << "  ent = " << _ent << QTime::currentTime().toString("HH:mm:ss");
     int _dxcc = _ent.at(0);
 
-
-
-
-
-
-    QStringList data;
-    data.clear();
-    data << dataProxy->getEntiNameISOAndPrefixFromId(_dxcc);
-
-    if (data.length ()!=3)
-    {
-        //qDebug() << Q_FUNC_INFO << "  Wrong Entity Name and Prefix - END" << QTime::currentTime().toString("HH:mm:ss");
-        return;
-    }
-
-    QString prefix = data.at(0);
-    QString entName = data.at(1);
-    QString isoName = data.at(2);
-
-    if ((entName.length()<2) || (prefix.length ()<1) || (isoName.length ()<2))
-    {
-        //qDebug() << Q_FUNC_INFO << "  ERROR: entname too short!" << QTime::currentTime().toString("HH:mm:ss");
-        return;
-    }
+    EntityData entity = world->getEntityDataFromDXCC(_dxcc);
 
     QString flagSt;
     flagSt.clear();
-
-    if (isoName.length()>1)
+    if (entity.isoname.length()>1)
     {
         //flagSt = ":/" + isoName + ".png";
-        flagSt = ":/flags/" + isoName + ".png";
+        flagSt = ":/flags/" + entity.isoname + ".png";
     }
     else
     {
         flagSt.clear();
     }
 
-    //flagSt = ":/flags/" + isoName + ".png";
     QIcon flagIcon(flagSt);
 
-    //qDebug() << Q_FUNC_INFO << "  Name: " << entName << QTime::currentTime().toString("HH:mm:ss");
-    //qDebug() << Q_FUNC_INFO << "  Prefix: " << prefix << QTime::currentTime().toString("HH:mm:ss");
-    //qDebug() << Q_FUNC_INFO << "  Flag: " << flagSt << QTime::currentTime().toString("HH:mm:ss");
-
     dxccView->insertRow(dxccView->rowCount());
-    //qDebug() << Q_FUNC_INFO << "  rowCount:  " << QString::number(dxccView->rowCount()) << QTime::currentTime().toString("HH:mm:ss");
 
-    QTableWidgetItem *newItemID = new QTableWidgetItem(prefix);
+    QTableWidgetItem *newItemID = new QTableWidgetItem(entity.mainprefix);
     newItemID->setTextAlignment(Qt::AlignCenter);
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
@@ -295,175 +265,11 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
         //qDebug() << Q_FUNC_INFO << "  rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << QTime::currentTime().toString("HH:mm:ss");
     }
 
-    QTableWidgetItem *newItemPref = new QTableWidgetItem(prefix);
+    QTableWidgetItem *newItemPref = new QTableWidgetItem(entity.mainprefix);
     newItemPref->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
     newItemPref->setFlags(Qt::ItemIsEnabled);
 
-    QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
-    newItemName->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-
-    newItemName->setFlags(Qt::ItemIsEnabled);
-    //newItemName->setFlags(Qt::ItemIsUserCheckable);
-    newItemName->setIcon(flagIcon);
-    if (status == 1)
-    {
-        newItemName->setForeground (QBrush(Qt::blue));
-        newItemName->setBackground(QBrush(Qt::green));
-    }
-    else if (status == 0)
-    {
-        newItemName->setForeground(QBrush(Qt::darkRed));
-        newItemPref->setForeground(QBrush(Qt::darkRed));
-    }
-    else
-    {
-        newItemName->setForeground(QBrush(Qt::red));
-        newItemPref->setForeground(QBrush(Qt::red));
-    }
-    dxccView->setItem(dxccView->rowCount()-1, 0, newItemPref);
-    dxccView->setItem(dxccView->rowCount()-1, 1, newItemName);
-    //qDebug() << Q_FUNC_INFO << "  END" << QTime::currentTime().toString("HH:mm:ss");
-    emit debugLog (Q_FUNC_INFO, "END", Debug);
-}
-
-void DXCCStatusWidget::readEntities()
-{
-    qDebug() << Q_FUNC_INFO << " - Start";
-    entities = dataProxy->getAllEntiNameISOAndPrefix();
-
-    QMapIterator<EntityData, int> i(entities);  // Just test, to see if we are doing ok
-    while (i.hasNext()) {
-        i.next();
-        qDebug() << " - " << i.key().name;
-    }
-
-
-    qDebug() << Q_FUNC_INFO << " - END" ;
-}
-
-EntityData DXCCStatusWidget::getEntity(const int _dxcc)
-{
-    EntityData entityAux;
-    int items = entities.count();
-    int i = 0;
-
-
-}
-
-void DXCCStatusWidget::addEntity2(const QStringList &_ent)
-{
-    emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    // _ent.at(0) = dxcc column of Entity Table (considering big numbers, like 2248 for IT9!)
-    // _ent.at(1) until number of Columns are just the bandnames
-
-    qDebug() << Q_FUNC_INFO;
-    // DXCC id, Entity Name, bandName1, bandName2, ...
-
-    //QString au = "New Line ";
-    //foreach (QString a, _ent)
-    //{
-    //   au = au + " - " + a;
-    //}
-    //qDebug() << Q_FUNC_INFO << ": " << au << " - " << QTime::currentTime().toString("HH:mm:ss");;
-
-    if (_ent.length() != numberOfColumns-1)
-    {
-        //qDebug() << Q_FUNC_INFO << "  ERROR: in number of columns" << QString::number(_ent.length()) << "/" << QString::number(numberOfColumns) << QTime::currentTime().toString("HH:mm:ss");
-        return;
-    }
-
-    int status = -1;
-
-    //qDebug() << Q_FUNC_INFO << "  ent = " << _ent << QTime::currentTime().toString("HH:mm:ss");
-    int _dxcc = _ent.at(0).toInt();
-    QStringList data;
-    data.clear();
-    data << dataProxy->getEntiNameISOAndPrefixFromId(_dxcc);
-
-    if (data.length ()!=3)
-    {
-        //qDebug() << Q_FUNC_INFO << "  Wrong Entity Name and Prefix - END" << QTime::currentTime().toString("HH:mm:ss");
-        return;
-    }
-    //au = "data: ";
-    //foreach (QString a, data)
-    //{
-    //    au = au + " - " + a;
-    //}
-    //qDebug() << Q_FUNC_INFO << ": " << au;
-    QString prefix = data.at(0);
-    QString entName = data.at(1);
-    QString isoName = data.at(2);
-
-    if ((entName.length()<2) || (prefix.length ()<1) || (isoName.length ()<2))
-    {
-        //qDebug() << Q_FUNC_INFO << "  ERROR: entname too short!" << QTime::currentTime().toString("HH:mm:ss");
-        return;
-    }
-
-    QString flagSt;
-    flagSt.clear();
-
-    if (isoName.length()>1)
-    {
-        flagSt = ":/" + isoName + ".png";
-    }
-    else
-    {
-        flagSt.clear();
-    }
-
-    flagSt = ":/flags/" + isoName + ".png";
-    QIcon flagIcon(flagSt);
-
-    //qDebug() << Q_FUNC_INFO << "  Name: " << entName << QTime::currentTime().toString("HH:mm:ss");
-    //qDebug() << Q_FUNC_INFO << "  Prefix: " << prefix << QTime::currentTime().toString("HH:mm:ss");
-    //qDebug() << Q_FUNC_INFO << "  Flag: " << flagSt << QTime::currentTime().toString("HH:mm:ss");
-
-    dxccView->insertRow(dxccView->rowCount());
-    //qDebug() << Q_FUNC_INFO << "  rowCount:  " << QString::number(dxccView->rowCount()) << QTime::currentTime().toString("HH:mm:ss");
-
-    QTableWidgetItem *newItemID = new QTableWidgetItem(prefix);
-    newItemID->setTextAlignment(Qt::AlignCenter);
-    newItemID->setFlags(Qt::NoItemFlags);
-    dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
-    awards->updateDXCCBandsStatus (tempLog);
-    for (int i=1; i < _ent.length(); i++)
-    {
-        //qDebug << Q_FUNC_INFO << ": " << prefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
-        int bandid = dataProxy->getIdFromBandName(_ent.at(i));
-        QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(_dxcc, bandid));
-        //QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand2(_dxcc, bandid, tempLog));
-        newItem->setTextAlignment(Qt::AlignCenter);
-        newItem->setFlags(Qt::ItemIsEnabled);
-
-        if (newItem->text()=="C")
-        {
-            newItem->setForeground (QBrush(Qt::blue));
-                    //newItem->setTextColor(Qt::blue);
-            newItem->setBackground(QBrush(Qt::green));
-            status = 1;
-        }
-        else if (newItem->text()=="W")
-        {
-            if (status < 0)
-            {
-                status = 0;
-            }
-
-            newItem->setForeground (QBrush(Qt::red));
-            newItem->setBackground(QBrush(Qt::yellow));
-        }
-
-        dxccView->setItem(dxccView->rowCount()-1, i+1, newItem);
-        //qDebug() << Q_FUNC_INFO << "  rowCount-2:  " << QString::number(dxccView->rowCount()) << "/" << QString::number(i) << " / " << newItem->text() << QTime::currentTime().toString("HH:mm:ss");
-    }
-
-    QTableWidgetItem *newItemPref = new QTableWidgetItem(prefix);
-    newItemPref->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    newItemPref->setFlags(Qt::ItemIsEnabled);
-
-    QTableWidgetItem *newItemName = new QTableWidgetItem(entName);
+    QTableWidgetItem *newItemName = new QTableWidgetItem(entity.name);
     newItemName->setTextAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
     newItemName->setFlags(Qt::ItemIsEnabled);

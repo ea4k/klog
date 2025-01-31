@@ -41,11 +41,26 @@ enum QSOStatus {unknown, ATNO, needed, worked, confirmed};
 enum FreqUnits {Hz, KHz, MHz, GHz, THz};
 enum MouseClicks {NoClick, RightClick, SingleClick, DoubleClick};
 
+//struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
+//  int dxcc;
+//  QString mainprefix;
+//  QString name;
+//  QString isoname;
+//};
+
 struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
-  int dxcc;
-  QString mainprefix;
-  QString name;
-  QString isoname;
+    int dxcc;
+    QString mainprefix;
+    QString name;
+    QString isoname;
+
+    bool operator<(const EntityData &other) const {
+        return std::tie(dxcc, mainprefix, name, isoname) < std::tie(other.dxcc, other.mainprefix, other.name, other.isoname);
+    }
+
+    bool operator==(const EntityData &other) const {
+        return std::tie(dxcc, mainprefix, name, isoname) == std::tie(other.dxcc, other.mainprefix, other.name, other.isoname);
+    }
 };
 
 struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstatuswidget

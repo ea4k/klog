@@ -1816,7 +1816,17 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
         stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd, id FROM log ORDER BY dxcc");
     }
 
-    int qsos = 0;
+    if (!executeQuery(query, stringQuery)) {
+            return false;
+    }
+    dxccStatusList.clear();
+    int qsos = processQueryResults(query);
+
+    query.finish();
+    return !(dxccStatusList.isEmpty() && qsos > 0);
+
+    // TODO REMOVE ALL BELOW THIS LINE
+    //int qsos = 0;
     sqlOK = query.exec(stringQuery);
     if (sqlOK)
     {
@@ -1876,5 +1886,48 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
 
     //qDebug() << Q_FUNC_INFO << ": dxccStatusList length: " << QString::number(dxccStatusList.length ()) ;
     //qDebug() << Q_FUNC_INFO << ": QSOs: " << QString::number(qsos) ;
+    return true;
+}
+
+bool Awards::processQueryRow(QSqlQuery &query)
+{
+    EntityBandStatus ent;
+    int dxcc = query.value(0).toInt();
+    if (dxcc == 0) {
+        return false;
+    }
+
+    ent.dxcc = dxcc;
+    ent.bandid = query.value(1).toInt();
+    ent.confirmed = (query.value(2).toString() == "Y" || query.value(3).toString() == "Y");
+    dxccStatusList.append(ent);
+    return true;
+}
+
+int Awards::processQueryResults(QSqlQuery &query)
+{
+    int qsos = 0;
+    while (query.next()) {
+        if (!query.isValid()) {
+            query.finish();
+            return -1;
+        }
+
+        qsos++;
+        if (!processQueryRow(query)) {
+            query.finish();
+            return -1;
+        }
+    }
+    return qsos;
+}
+
+bool Awards::executeQuery(QSqlQuery &query, const QString &stringQuery)
+{
+    if (!query.exec(stringQuery)) {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+        return false;
+    }
     return true;
 }

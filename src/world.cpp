@@ -61,6 +61,36 @@ World::~World()
     delete(util);
 }
 
+bool World::readEntities()
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    entities = dataProxy->getAllEntiNameISOAndPrefix();
+    if (entities.count()<1)
+        return false;
+
+    //QMapIterator<EntityData, int> i(entities);  // Just test, to see if we are doing ok
+    //while (i.hasNext()) {
+    //    i.next();
+    //    qDebug() << " - " << i.key().name;
+    //}
+    qDebug() << Q_FUNC_INFO << " - END" ;
+    return true;
+}
+
+// Function to get EntityData based on dxcc ID
+EntityData World::getEntityDataFromDXCC(const int _dxcc) const
+{
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
+    for (auto it = entities.constBegin(); it != entities.constEnd(); ++it) {
+        if (it.value() == _dxcc) {
+            return it.key();
+        }
+    }
+
+    // If not found, return a default EntityData object
+    return EntityData();
+}
+
 bool World::readWorld()
 { // Used to link a prefix with an Entity quickly, without quering the DB.
    //qDebug() << Q_FUNC_INFO << " - Start";
@@ -74,7 +104,8 @@ bool World::readWorld()
    //qDebug() << Q_FUNC_INFO << " - worldPrefixes: " << worldPrefixes.count();
    //qDebug() << Q_FUNC_INFO << " - specialCalls : " << specialCalls.count();
    //qDebug() << Q_FUNC_INFO << " - longPrefixes : " << longPrefixes.count();
-
+    if (!readEntities())
+        return false;
     if (worldPrefixes.isEmpty())
         return false;
     if (specialCalls.isEmpty())
@@ -86,29 +117,21 @@ bool World::recreate(const QString &_worldFile)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _worldFile;
     QSqlQuery query;
-    if (query.exec("DELETE FROM entity"))
-    {
-         //qDebug() << Q_FUNC_INFO << ":  EMPTY entity" ;
-        if (query.exec("DELETE FROM prefixesofentity"))
-        {
-             //qDebug() << Q_FUNC_INFO << ": EMPTY prefixesofentity - END-1" ;
-            return create(_worldFile);
-        }
-        else
-        {//TODO: Manage the query error
-             //qDebug() << Q_FUNC_INFO << ": FAILED TO EMPTY prefixesofentity - END-2" ;
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            return false;
-        }
-    }
-    else
-    {//TODO: Manage the query error
-        //qDebug() << Q_FUNC_INFO << ": FAILED TO EMPTY entity - END-3" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+      // Delete from entity table
+      if (!executeQuery(query, "DELETE FROM entity")) {
+        emitQueryError(query);
         return false;
-    }
-     //qDebug() << Q_FUNC_INFO << " - END-4";
-    return false;
+      }
+
+      // Delete from prefixesofentity table
+      if (!executeQuery(query, "DELETE FROM prefixesofentity")) {
+        emitQueryError(query);
+        return false;
+      }
+
+    // Create the world file
+    //qDebug() << Q_FUNC_INFO << " - END-4";
+    return create(_worldFile);
 }
 
 bool World::create(const QString &_worldFile)
@@ -747,4 +770,17 @@ bool World::isAKnownPrefix(const QString &_prefix)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _prefix;
     return longPrefixes.contains(_prefix);
+}
+
+bool World::executeQuery(QSqlQuery &query, const QString &queryString) const
+{
+    if (!query.exec(queryString)) {
+        return false;
+    }
+    return true;
+}
+
+void World::emitQueryError(const QSqlQuery &query) const
+{
+    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
 }

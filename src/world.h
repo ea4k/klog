@@ -105,6 +105,7 @@ public:
     //QStringList getEntitiesNames();
     int getHowManyEntities();
     bool hasSpecialEntities();
+    EntityData getEntityDataFromDXCC(const int _dxcc) const;    // Returns the data of one DXCC entity
 
 private slots:
 
@@ -112,6 +113,7 @@ private slots:
 private:
     //void identifyOS();
     bool insertSpecialEntities();
+    bool readEntities();                        // Read all the entities and fill entities QMap
     int getPrefixId(const QString &_prefix);
     //bool readCTYDAT();
     bool readCTYCSV(const QString &_worldFile);
@@ -123,6 +125,9 @@ private:
     bool addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz);
     bool insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>>>> &pairPrefixes);
     int extractEntityNumber(const QStringList &stringList);
+
+    void emitQueryError(const QSqlQuery &query) const;
+    bool executeQuery(QSqlQuery &query, const QString &queryString) const;
     //int progressBarPosition;
 
     bool created, read;
@@ -147,15 +152,12 @@ private:
     QHash<QString, int> worldPrefixes;
     QStringList specialCalls, longPrefixes;
 
+    QMap<EntityData, int> entities;         // Static data to speed up queries
 
-    //int constrid; // Just an id for the constructor to check who is being executed at one specific time
-    //Awards *awards;
-    //FLAGS
-    //QString flagsDir;
-    //FLAGS-END
 signals:
     //void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
-    void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    //void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
+    void queryError(const char *funcInfo, const QString &databaseText, const QString &text, const QString &query) const;
 };
 
 
