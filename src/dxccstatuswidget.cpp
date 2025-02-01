@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "dxccstatuswidget.h"
+#include <type_traits>  // Include this header to use std::as_const
 //#include <QDebug>
 
 /*
@@ -163,7 +164,8 @@ void DXCCStatusWidget::processEntities(int entities)
 QList<int> DXCCStatusWidget::getBandIds()
 {
     QList<int> bandIds;
-    for (const QString &bandName : qAsConst(bandNames)) {
+    //for (const QString &bandName : qAsConst(bandNames)) {
+    for (const QString &bandName : std::as_const(bandNames)) {
         bandIds.append(dataProxy->getIdFromBandName(bandName));
     }
     return bandIds;
