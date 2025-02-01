@@ -656,7 +656,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     QString spotter;
     QString comment;
     QDateTime dateTime;
-    MouseClicks clickStatus;
+    //MouseClicks clickStatus;
   //qDebug() << Q_FUNC_INFO << " - END";
 
   //qDebug() << Q_FUNC_INFO << ": Spot-dxCall       : " << spot.getDxCall();

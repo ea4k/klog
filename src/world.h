@@ -59,7 +59,7 @@ class World : public QObject
     Q_OBJECT
     friend class tst_World;
 
-public:
+public:            
     World(DataProxy_SQLite *dp, const QString &_parentFunction);
     //World(DataProxy_SQLite *dp, const QString &_klogDir, const QString &_parentFunction);
     //World(DataProxy_SQLite *dp, const QString &_klogVer, const QString &_parentFunction);
@@ -73,7 +73,8 @@ public:
     QString getEntityName(const int _entityN);
 
     QString getQRZEntityMainPrefix(const QString &_qrz);
-    QString getEntityMainPrefix(const int _entityN);
+    QString getEntityMainPrefix(int _dxcc);
+    EntityData getEntityDataFromDXCC(const int _dxcc);    // Returns the data of one DXCC entity
 
     QString getQRZContinentNumber(const QString &_qrz); // Returns the continent id number
     int getContinentNumber(const int _enti); // Returns the continent id number
@@ -105,7 +106,7 @@ public:
     //QStringList getEntitiesNames();
     int getHowManyEntities();
     bool hasSpecialEntities();
-    EntityData getEntityDataFromDXCC(const int _dxcc) const;    // Returns the data of one DXCC entity
+
 
 private slots:
 

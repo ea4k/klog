@@ -693,7 +693,8 @@ void MainWindow::createActionsCommon(){
     connect (elogQRZcom, SIGNAL (signalLogUploaded(QNetworkReply::NetworkError, QList<int>)), this, SLOT (slotElogQRZCOMLogUploaded(QNetworkReply::NetworkError, QList<int>)));
     //connect (elogQRZcom, SIGNAL (disableQRZAction(bool)), this, SLOT (slotElogQRZCOMDisable(bool)));
 
-    connect(world, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect(world, &World::queryError, this, &MainWindow::slotQueryErrorManagement);
+    //connect(world, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     // QSL TAB
     connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );

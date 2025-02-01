@@ -44,8 +44,6 @@ private slots:
     void test_Constructor();
     void test_Setters();
     void test_PropModes();
-    void test_Subdivisions();
-
 
 /*
 
@@ -162,21 +160,6 @@ void tst_MainWindowInputOthers::test_PropModes()
         QVERIFY2(mainWindowInputOthers->getPropModeFromComboBox() == field, "Wrong propMode in list");
     }
 }
-
-void tst_MainWindowInputOthers::test_Subdivisions()
-{
-   //qDebug() << Q_FUNC_INFO << " - Start";
-    mainWindowInputOthers->clear(true);
-    int currentEntity = 281; // 281 = EA
-
-
-   //qDebug() << Q_FUNC_INFO << ": IOTACont: " << mainWindowInputOthers->iotaContinentComboBox->currentText();
-   //qDebug() << Q_FUNC_INFO << ": " << mainWindowInputOthers->getEntityPrefix();
-
-
-    //QVERIFY2( util->isSameFreq (mainWindowInputQSO->getRXPwr(), 1.1), "Wrong RX Pwr");
-}
-
 
 
 QTEST_MAIN(tst_MainWindowInputOthers)

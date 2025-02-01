@@ -134,7 +134,7 @@ void DXCCStatusWidget::handleDXCCStatusUpdateFailure()
 
     switch (ret) {
         case QMessageBox::Yes:
-            qDebug() << Q_FUNC_INFO << " - emitting fillInQSOSignal()";
+          //qDebug() << Q_FUNC_INFO << " - emitting fillInQSOSignal()";
             emit fillInQSOSignal();
             break;
         case QMessageBox::No:
@@ -147,7 +147,7 @@ void DXCCStatusWidget::handleDXCCStatusUpdateFailure()
 void DXCCStatusWidget::processEntities(int entities)
 {
     QList<int> bandIds = getBandIds();
-    qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCBandsStatus returned";
+  //qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCBandsStatus returned";
 
     if (dxccView->columnCount() > 0) {
         dxccView->clearContents();
@@ -172,7 +172,7 @@ QList<int> DXCCStatusWidget::getBandIds()
 void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss");
+  //qDebug()  << Q_FUNC_INFO << ": " << QTime::currentTime().toString("HH:mm:ss");
     int entities = dataProxy->getMaxEntityID(false);
     if (!awards->updateDXCCBandsStatus (-1)) // We update all
     {
@@ -182,14 +182,14 @@ void DXCCStatusWidget::update()
         handleDXCCStatusUpdateFailure();
         return;
     }
-    qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned TRUE";
+  //qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned TRUE";
 
     processEntities(entities);
 
-    qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCBandsStatus returned";
+  //qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCBandsStatus returned";
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
-    qDebug() << "DXCCStatusWidget::update END" << QTime::currentTime().toString("HH:mm:ss");
+  //qDebug() << "DXCCStatusWidget::update END" << QTime::currentTime().toString("HH:mm:ss");
 }
 
 
@@ -423,11 +423,11 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
 
-    qDebug() << Q_FUNC_INFO;
+  //qDebug() << Q_FUNC_INFO;
     //TODO: Define a way to show the status of the selected log or all the logs in the DB
     if (dxccView->rowCount()<1)
     {
-        qDebug() << Q_FUNC_INFO << " - rowcount <1";
+      //qDebug() << Q_FUNC_INFO << " - rowcount <1";
         return;
     }
     QStringList _bands = bandNames;
@@ -435,7 +435,7 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
 
     //emit updateAwards();
     //update();
-    qDebug() << Q_FUNC_INFO << " - END";
+  //qDebug() << Q_FUNC_INFO << " - END";
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
 

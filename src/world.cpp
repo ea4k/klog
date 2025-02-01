@@ -71,14 +71,14 @@ bool World::readEntities()
     //QMapIterator<EntityData, int> i(entities);  // Just test, to see if we are doing ok
     //while (i.hasNext()) {
     //    i.next();
-    //    qDebug() << " - " << i.key().name;
+    //  //qDebug() << " - " << i.key().name;
     //}
     //qDebug() << Q_FUNC_INFO << " - END" ;
     return true;
 }
 
 // Function to get EntityData based on dxcc ID
-EntityData World::getEntityDataFromDXCC(const int _dxcc) const
+EntityData World::getEntityDataFromDXCC(const int _dxcc)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
     for (auto it = entities.constBegin(); it != entities.constEnd(); ++it) {
@@ -86,19 +86,18 @@ EntityData World::getEntityDataFromDXCC(const int _dxcc) const
             return it.key();
         }
     }
-
     // If not found, return a default EntityData object
     return EntityData();
 }
 
-
-QString World::getEntityMainPrefix(const int _dxcc)
+QString World::getEntityMainPrefix(int _dxcc)
 {
     EntityData entity = getEntityDataFromDXCC(_dxcc);
     Callsign prefix(entity.mainprefix);
+    QString aux = QString();
     if (prefix.isValidPrefix())
-        return entity.mainprefix;
-    return QString();
+        aux = entity.mainprefix;
+    return aux;
 }
 
 bool World::readWorld()

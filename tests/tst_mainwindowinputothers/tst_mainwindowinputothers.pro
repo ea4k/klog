@@ -19,6 +19,7 @@ HEADERS += \
     ../../src/qso.h \
     ../../src/utilities.h \
     ../../src/locator.h \
+    ../../src/world.h \
     ../../src/adif.h
 
 SOURCES +=  tst_mainwindowinputothers.cpp \
@@ -31,6 +32,7 @@ SOURCES +=  tst_mainwindowinputothers.cpp \
     ../../src/qso.cpp \
     ../../src/utilities.cpp \
     ../../src/locator.cpp \
+    ../../src/world.cpp \
     ../../src/adif.cpp
 
 isEmpty(QMAKE_LRELEASE) {
