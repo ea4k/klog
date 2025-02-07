@@ -77,6 +77,7 @@ private:
     void handleDXCCStatusUpdateFailure();       // Shows a message when there is a problem in update()
     void processEntities(int _entities);        // Processes th Entities in update();
     QList<int> getBandIds();                    // Return the list of bands
+    QIcon getFlagIcon(const QString _isoName);  // Returns the flag icon
     void setDefaultBands();
     void addEntity(const QList<int> &_ent); // DXCC id, bandid, bandid, ...
 //    void showMenuRightButtonFromLogCreateActions();

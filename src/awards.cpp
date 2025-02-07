@@ -959,6 +959,17 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
             if (aux.bandid == _band)
             {
                 //qDebug() << Q_FUNC_INFO << " Band found: " << QString::number(_band);
+                if (aux.status == confirmed )
+                {
+                    qDebug() << Q_FUNC_INFO << " Confirmed " ;
+                    return "C";
+                }
+                else if (aux.status == worked)
+                {
+                    qDebug() << Q_FUNC_INFO << " Worked " ;
+                    return "W";
+                }
+                else {return "-";}
                 if (aux.confirmed)
                 {
                     //qDebug() << Q_FUNC_INFO << " Confirmed " ;
@@ -1838,23 +1849,29 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
             {
                 qsos++;
                 EntityBandStatus ent;
-                if (query.value(0).toInt()==0)
+                ent.status = unknown;
+
+                QSqlRecord rec = query.record();
+                int nameCol = rec.indexOf("dxcc");
+                if (query.value(nameCol).toInt()==0)
                 {
                     //qDebug() << Q_FUNC_INFO << " - Returning false for: QSOid" << QString::number(query.value(4).toInt());
                     query.finish();
                     return false;
                 }
-                ent.dxcc = query.value(0).toInt();
-
-                ent.bandid = query.value(1).toInt();
-                if ((query.value(2).toString () == "Y") || (query.value(3).toString () == "Y"))
+                ent.dxcc = query.value(nameCol).toInt();
+                nameCol = rec.indexOf("bandid");
+                ent.bandid = query.value(nameCol).toInt();
+                if ((query.value(rec.indexOf("qsl_rcvd")).toString () == "Y") || (query.value(rec.indexOf("lotw_qsl_rcvd")).toString () == "Y"))
                 {
-                    ent.confirmed = true;
+                    ent.status = confirmed;
+                    //ent.confirmed = true;
                 }
                 else
                 {
-                    ent.confirmed = false;
+                    ent.status = worked;
                 }
+                ent.qsoId = query.value(rec.indexOf("id")).toInt();
                 dxccStatusList.append (ent);
             }
             else
@@ -1873,17 +1890,18 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
     }
     query.finish();
 
-    if ((dxccStatusList.length ()<1) && (qsos>0))
+    if (dxccStatusList.length ()<1)
     {
         //qDebug() << Q_FUNC_INFO << " RETURN FALSE" ;
         // It may be the case that there are not dxcc
         return false;
     }
-    else if (dxccStatusList.length ()<1)
+    if (qsos>0)
     {
-        //qDebug() << Q_FUNC_INFO << ": dxccStatusList length <1 ";
+        //qDebug() << Q_FUNC_INFO << " RETURN FALSE" ;
+        // It may be the case that there are not dxcc
+        return false;
     }
-
     //qDebug() << Q_FUNC_INFO << ": dxccStatusList length: " << QString::number(dxccStatusList.length ()) ;
     //qDebug() << Q_FUNC_INFO << ": QSOs: " << QString::number(qsos) ;
     return true;

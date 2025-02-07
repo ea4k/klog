@@ -167,6 +167,7 @@ QList<int> DXCCStatusWidget::getBandIds()
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     QList<int> bandIds;
+    bandIds.clear();
     //for (const QString &bandName : qAsConst(bandNames)) {
     for (const QString &bandName : std::as_const(bandNames)) {
         bandIds.append(dataProxy->getIdFromBandName(bandName));
@@ -197,6 +198,23 @@ void DXCCStatusWidget::update()
   //qDebug() << "DXCCStatusWidget::update END" << QTime::currentTime().toString("HH:mm:ss");
 }
 
+QIcon DXCCStatusWidget::getFlagIcon(const QString _isoName)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    QString flagSt;
+    flagSt.clear();
+    if (_isoName.length()>1)
+    {
+        flagSt = ":/flags/" + _isoName + ".png";
+    }
+    else
+    {
+        flagSt.clear();
+    }
+    return QIcon(flagSt);
+    //QIcon flagIcon(flagSt);
+    //return flagIcon;
+}
 
 void DXCCStatusWidget::addEntity(const QList<int> &_ent)
 {
@@ -222,20 +240,6 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     EntityData entity = world->getEntityDataFromDXCC(_dxcc);
     if (entity.name.length()<3)
         return;
-
-    QString flagSt;
-    flagSt.clear();
-    if (entity.isoname.length()>1)
-    {
-        //flagSt = ":/" + isoName + ".png";
-        flagSt = ":/flags/" + entity.isoname + ".png";
-    }
-    else
-    {
-        flagSt.clear();
-    }
-
-    QIcon flagIcon(flagSt);
 
     dxccView->insertRow(dxccView->rowCount());
 
@@ -283,7 +287,8 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
 
     newItemName->setFlags(Qt::ItemIsEnabled);
     //newItemName->setFlags(Qt::ItemIsUserCheckable);
-    newItemName->setIcon(flagIcon);
+    newItemName->setIcon(getFlagIcon(entity.isoname));
+
     if (status == 1)
     {
         newItemName->setForeground (QBrush(Qt::blue));
@@ -310,7 +315,6 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, const QStringList &
     qDebug() << Q_FUNC_INFO << " - Start";
     Q_UNUSED(_callingFunc);
     emit debugLog(Q_FUNC_INFO, "Start", Debug);
-Posiblemente haya que repensar esta funcion que debería tocar solo las bandas... pero borra y pone bandas
 
     if (_listOfNewBands.isEmpty())
     {

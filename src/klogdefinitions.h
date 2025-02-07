@@ -64,9 +64,11 @@ struct EntityData { // Used to pass a list of data from World to dxccstatuswidge
 };
 
 struct EntityBandStatus { // Used to pass a list of data from Awards to dxccstatuswidget
-  int dxcc;
-  int bandid;
-  bool confirmed;
+    int dxcc;
+    int bandid;
+    bool confirmed;
+    QSOStatus status;   // status of this Entity in this band
+    int qsoId;          // QSOid that provides this status
 };
 
 struct Coordinate {
