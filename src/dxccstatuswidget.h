@@ -73,7 +73,7 @@ private slots:
 
 private:
     void createUI();
-
+    void resetDXCCView();                       // deletes the entities and bands from the table
     void handleDXCCStatusUpdateFailure();       // Shows a message when there is a problem in update()
     void processEntities(int _entities);        // Processes th Entities in update();
     QList<int> getBandIds();                    // Return the list of bands
