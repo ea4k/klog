@@ -46,13 +46,6 @@
 
 class QProgressDialog;
 
-struct EntityStatus { // Used to pass the Data of the status of an Entity
-    int entityId = -1;
-    int bandId = -1;
-    int modeId = -1;
-    int log = -1;
-};
-
 class Awards : public QObject {
      Q_OBJECT
     //friend class World;
@@ -76,6 +69,7 @@ public:
     int getWAZWorked(const int _logNumber);
     int getWAZConfirmed(const int _logNumber);
     bool updateDXCCBandsStatus(const int _logNumber=0);
+    QList<EntityStatus> findEntityStatusByDXCC(int dxcc) const;
 
 
     int getQSOsInLog(const int _logNumber);
@@ -130,8 +124,10 @@ private:
     int dxccStatus(const int _ent, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
     bool executeQuery(QSqlQuery &query, const QString &stringQuery);    //Executes queries
-    bool processQueryRow(QSqlQuery &query);                             // Processes the query in updateDXCCBandsStatus
+
     int processQueryResults(QSqlQuery &query);
+    QSOStatus getStatus(const QSqlQuery &query, const QSqlRecord &rec);  // Gets the status
+    void populateDXCCStatusMap();
 
     /*
     _confirmed = 0     Set as Worked
@@ -168,7 +164,8 @@ private:
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
     bool manageModes;
 
-    QList<EntityBandStatus> dxccStatusList;
+    QList<EntityStatus> dxccStatusList;             // DXCC status
+    QMultiHash<int, EntityStatus> dxccStatusMap;    // Multi-hash map for quick lookup
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution

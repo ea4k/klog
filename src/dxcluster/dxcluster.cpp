@@ -355,10 +355,8 @@ void DXClusterWidget::slotClusterDataArrived()
     DXSpot spot = readItem(dxClusterString);
   //qDebug() << Q_FUNC_INFO << " - While 11";
 
-
-
-    _entityStatus.entityId = -1;
-    _entityStatus.log = currentLog;
+    _entityStatus.dxcc = -1;
+    _entityStatus.logId = currentLog;
 
     if (spot.isValid())
     {
@@ -369,21 +367,19 @@ void DXClusterWidget::slotClusterDataArrived()
       //qDebug() << Q_FUNC_INFO << ": spot-Comment      : " << spot.getComment();
 
 
-        _entityStatus.entityId = world->getQRZARRLId(spot.getDxCall());
+        _entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
 
       //qDebug() << Q_FUNC_INFO << ": ARRL-ID:         : " << world->getQRZARRLId(spot.getDxCall());
-      //qDebug() << Q_FUNC_INFO << ": ARRL-ID2:        : " << _entityStatus.entityId;
+      //qDebug() << Q_FUNC_INFO << ": ARRL-ID2:        : " << _entityStatus.dxcc;
 
         spotBand = QString::number(dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble()) );
         _entityStatus.bandId = spotBand.toInt();
-
-
 
         dxSpotColor = awards->getQRZDXStatusColor(_entityStatus);
        //qDebug() << Q_FUNC_INFO << " - Color Status-1 " << dxSpotColor.name();
         if (showDxMarathon)
         {
-            if (awards->isDXMarathonNeed(_entityStatus.entityId, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog))
+            if (awards->isDXMarathonNeed(_entityStatus.dxcc, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog))
             {
                 dxClusterString = dxClusterString + "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
             }

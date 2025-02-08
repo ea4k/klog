@@ -372,10 +372,10 @@ QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _e
 { // Receives band name, Entity number (as a String)
    //qDebug() << Q_FUNC_INFO << ": " << _b << "/" << _q;
     EntityStatus _entityStatus;
-    _entityStatus.entityId  = _entityId;
+    _entityStatus.dxcc  = _entityId;
     _entityStatus.bandId    = _bandId;
     _entityStatus.modeId    = -1;
-    _entityStatus.log       = currentLog;
+    _entityStatus.logId       = currentLog;
 
     //TODO: Check if we can know the mode and replace the -1
     //qDebug() << Q_FUNC_INFO << ": (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name(QColor::HexRgb) ;

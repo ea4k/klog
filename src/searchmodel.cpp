@@ -200,10 +200,10 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
          if ( index.column() == 2 )
          {
              EntityStatus _entityStatus;
-            _entityStatus.entityId  = index.siblingAtColumn(dxcc).data().toInt();
+            _entityStatus.dxcc  = index.siblingAtColumn(dxcc).data().toInt();
             _entityStatus.bandId    = index.siblingAtColumn(bandid).data().toInt();
             _entityStatus.modeId    = index.siblingAtColumn(modeid).data().toInt();
-            _entityStatus.log       = index.siblingAtColumn(logn).data().toInt();
+            _entityStatus.logId       = index.siblingAtColumn(logn).data().toInt();
 
             return QVariant( award->getQRZDXStatusColor(_entityStatus) );
             // return QVariant( QColor( Qt::red ) );

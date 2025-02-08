@@ -315,7 +315,7 @@ int Awards::getWAZConfirmed(const int _logNumber)
 
 bool Awards::isThisSpotConfirmed(EntityStatus _entityStatus)
 {
-    return (getDXStatus(_entityStatus) == 13);
+    return (_entityStatus.status == confirmed);
 }
 
 int Awards::getDXStatus (EntityStatus _entityStatus)
@@ -362,8 +362,8 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
 
 
 
-  //qDebug() << Q_FUNC_INFO<< ":  dxccEntity: " << QString::number(_entityStatus.entityId);
-    if (_entityStatus.entityId<=0)
+  //qDebug() << Q_FUNC_INFO<< ":  dxccEntity: " << QString::number(_entityStatus.dxcc);
+    if (_entityStatus.dxcc<=0)
     {
       //qDebug() << Q_FUNC_INFO<< ":  dxccEntity <= 0, return -1";
         return -1;
@@ -376,11 +376,11 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
       //qDebug() << Q_FUNC_INFO<< ":  checkingMode = FALSE";
     }
 
-    int wb = dxccStatusBand(_entityStatus.entityId, _entityStatus.bandId, _entityStatus.log); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    int wb = dxccStatusBand(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.logId); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     int wm = -1;
     if (checkingMode)
     {
-        wm = dxccStatusMode(_entityStatus.entityId, _entityStatus.modeId, _entityStatus.log); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+        wm = dxccStatusMode(_entityStatus.dxcc, _entityStatus.modeId, _entityStatus.logId); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     }
    // int wm = dxccStatusMode(dxccEntity, _mode, _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
@@ -392,7 +392,7 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
     //qDebug() << Q_FUNC_INFO<< ":  wb=" << QString::number(wb) << " - wm=" << QString::number(wm);
     //qDebug() << Q_FUNC_INFO<< ":  dxccStatus: " << QString::number(dxccStatus(dxccEntity, _logNumber));
 
-    switch(dxccStatus(_entityStatus.entityId, _entityStatus.log))
+    switch(dxccStatus(_entityStatus.dxcc, _entityStatus.logId))
     {
     case 0:
         //qDebug() << Q_FUNC_INFO<< ":  return 0";
@@ -531,18 +531,18 @@ int Awards::getDXStatus (EntityStatus _entityStatus)
 
 int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode);
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
 
     if (_checkingMode)
     {
-           //qDebug() << "Awards::dxccStatusBandMode: Checking Mode TRUE";
+           //qDebug() << Q_FUNC_INFO << ": Checking Mode TRUE";
         queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND modeid='%3' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
     }
     else
     {
-           //qDebug() << "Awards::dxccStatusBandMode: Checking Mode FALSE";
+           //qDebug() << Q_FUNC_INFO << ": Checking Mode FALSE";
         queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3'").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
     }
 
@@ -556,7 +556,7 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
             {
                 if((query.value(0).toString() == "Y") || (query.value(1).toString() == "Y"))
                 {
-                       //qDebug() << "Awards::dxccStatusBandMode: return - 2";
+                       //qDebug() << Q_FUNC_INFO << ": return - 2";
                     query.finish();
                     return 2;
                 }
@@ -567,76 +567,18 @@ int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode,
     }
     else
     { // The query fails...
-           //qDebug() << "Awards::dxccStatusBandMode: return - -1";
+           //qDebug() << Q_FUNC_INFO << ": return - -1";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return -1;
     }
-           //qDebug() << "Awards::dxccStatusBandMode: return - 0-4";
+           //qDebug() << Q_FUNC_INFO << ": return - 0-4";
     return status;
 }
-
-/*
-int Awards::dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode)
-{//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatusBandMode: " << QString::number(_ent) << "/" << QString::number(_band) << "/" << QString::number(_mode);
-    QSqlQuery query = QSqlQuery();
-    QString queryString = QString();
-
-    if (_checkingMode)
-    {
-           //qDebug() << "Awards::dxccStatusBandMode: Checking Mode TRUE";
-        queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND mode='%3' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
-    }
-    else
-    {
-           //qDebug() << "Awards::dxccStatusBandMode: Checking Mode FALSE";
-        queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
-    }
-
-    int status = 0;
-
-    if (query.exec(queryString))
-    {
-        while (query.next())
-        {
-            if ( query.isValid() )
-            {
-                if(query.value(0).toString() == "1")
-                {
-                       //qDebug() << "Awards::dxccStatusBandMode: return - 2";
-                    query.finish();
-                    return 2;
-                }
-                else if(query.value(0).toString() == "0")
-                {
-                       //qDebug() << "Awards::dxccStatusBandMode: return - 1";
-                   if (status < 1)
-                   {
-                       status = 1;
-                   }
-                }
-            }
-        }
-        query.finish();
-
-    }
-    else
-    { // The query fails...
-           //qDebug() << "Awards::dxccStatusBandMode: return - -1";
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return -1;
-    }
-           //qDebug() << "Awards::dxccStatusBandMode: return - 0-4";
-    return status;
-}
-
-*/
 
 int Awards::dxccStatus(const int _ent, const int _logNumber)
 {//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatus: " << QString::number(_ent);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent);
     QSqlQuery query = QSqlQuery();
     QString queryString = QString();
     int worked = 0;
@@ -645,101 +587,46 @@ int Awards::dxccStatus(const int _ent, const int _logNumber)
 
     if (query.exec(queryString))
     {
-           //qDebug() << "Awards::dxccStatus: query exec OK: " << query.lastQuery();
+           //qDebug() << Q_FUNC_INFO << ": query exec OK: " << query.lastQuery();
         while (query.next())
         {
-               //qDebug() << "Awards::dxccStatus: query VALUE: " << (query.value(0)).toString();
+               //qDebug() << Q_FUNC_INFO << ": query VALUE: " << (query.value(0)).toString();
             if ( query.isValid() )
             {
-                   //qDebug() << "Awards::dxccStatus: query valid OK";
+                   //qDebug() << Q_FUNC_INFO << ": query valid OK";
                 if(((query.value(0)).toString() == "Y") || ((query.value(1)).toString() == "Y"))
                 {
-                       //qDebug() << "Awards::dxccStatus: value = 1 - return 2";
+                       //qDebug() << Q_FUNC_INFO << ": value = 1 - return 2";
                     query.finish();
                     return 2;
                 }
                 worked = 1;
             }
         }
-           //qDebug() << "Awards::dxccStatus: return "<< QString::number(worked) ;
+           //qDebug() << Q_FUNC_INFO << ": return "<< QString::number(worked) ;
         query.finish();
-           //qDebug() << "Awards::dxccStatus: END: " << QString::number(worked);
+           //qDebug() << Q_FUNC_INFO << ": END: " << QString::number(worked);
         return worked;
     }
     else
     { // The query fails...
-           //qDebug() << "Awards::dxccStatus: return -1" ;
+           //qDebug() << Q_FUNC_INFO << ": return -1" ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return -1;
     }
-       //qDebug() << "Awards::dxccStatus: return 0" ;
+       //qDebug() << Q_FUNC_INFO << ": return 0" ;
     //return worked;
 }
-
-/*
-int Awards::dxccStatus(const int _ent, const int _logNumber)
-{//-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatus: " << QString::number(_ent);
-    QSqlQuery query = QSqlQuery();
-    QString queryString = QString();
-    int worked = 0;
-
-    queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND lognumber='%2' ").arg(QString::number(_ent)).arg(QString::number(_logNumber));
-
-    if (query.exec(queryString))
-    {
-           //qDebug() << "Awards::dxccStatus: query exec OK: " << query.lastQuery();
-        while (query.next())
-        {
-               //qDebug() << "Awards::dxccStatus: query VALUE: " << (query.value(0)).toString();
-            if ( query.isValid() )
-            {
-                   //qDebug() << "Awards::dxccStatus: query valid OK";
-                if((query.value(0)).toString() == "1")
-                {
-
-                       //qDebug() << "Awards::dxccStatus: value = 1 - return 2";
-                    query.finish();
-                    return 2;
-                }
-                else if((query.value(0)).toString() == "0")
-                {
-
-                       //qDebug() << "Awards::dxccStatus: value = 0 - worked 1";
-                    if (worked <1)
-                    {
-                        worked = 1;
-                    }
-                }
-            }
-        }
-           //qDebug() << "Awards::dxccStatus: return "<< QString::number(worked) ;
-        query.finish();
-           //qDebug() << "Awards::dxccStatus: END: " << QString::number(worked);
-        return worked;
-
-    }
-    else
-    { // The query fails...
-           //qDebug() << "Awards::dxccStatus: return -1" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return -1;
-    }
-       //qDebug() << "Awards::dxccStatus: return 0" ;
-    //return worked;
-}
-*/
 
 QColor Awards::getQRZDXStatusColor(EntityStatus _entitystatus)
 {
 
   //qDebug() << Q_FUNC_INFO << " - Start: " ;
-  //qDebug() << Q_FUNC_INFO << " - Entityd: " << _entitystatus.entityId;
+  //qDebug() << Q_FUNC_INFO << " - Entityd: " << _entitystatus.dxcc;
   //qDebug() << Q_FUNC_INFO << " - BandId:  " << _entitystatus.bandId;
   //qDebug() << Q_FUNC_INFO << " - ModeId:  " << _entitystatus.modeId;
-  //qDebug() << Q_FUNC_INFO << " - Log:     " << _entitystatus.log;
+  //qDebug() << Q_FUNC_INFO << " - Log:     " << _entitystatus.logId;
 
 
     /*
@@ -752,6 +639,7 @@ QColor Awards::getQRZDXStatusColor(EntityStatus _entitystatus)
     QColor returnedColor;
 
     int status = getDXStatus(_entitystatus);
+
 
   //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status) << "/" << getDXStatusString(status);
   //qDebug() << Q_FUNC_INFO<< ":  status: " << QString::number(status);
@@ -939,13 +827,13 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
     //qDebug() << Q_FUNC_INFO << "DXCC/Band: " << QString::number(_dxcc) << "/" << QString::number(_band);
     //qDebug() << Q_FUNC_INFO << "dxccStatusList: " << QString::number(dxccStatusList.length ());
 
-    EntityBandStatus aux;
+    EntityStatus aux;
 
     foreach (aux, dxccStatusList)
     {
          //qDebug() << Q_FUNC_INFO << " DXCC: " << QString::number(aux.dxcc);
          //qDebug() << Q_FUNC_INFO << " Band: " << QString::number(aux.bandid);
-         if (aux.confirmed)
+         if (aux.status == confirmed)
          {
              //qDebug() << Q_FUNC_INFO << "Confirmed";
          }
@@ -956,7 +844,7 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
         if (aux.dxcc == _dxcc)
         {
             //qDebug() << Q_FUNC_INFO << " DXCC found: " << QString::number(_dxcc);
-            if (aux.bandid == _band)
+            if (aux.bandId == _band)
             {
                 //qDebug() << Q_FUNC_INFO << " Band found: " << QString::number(_band);
                 if (aux.status == confirmed )
@@ -1027,56 +915,6 @@ QString Awards::getDXCCStatusBand2(const int _dxcc, const int _band, const int _
     query.finish();
     return status;
 }
-
-/*
-  QString Awards::getDXCCStatusBand(const int _dxcc, const int _band, const int _logNumber)
-{
-    // Returns -, W or C (Not worked, worked, Confirmed)
-       //qDebug() << "Awards::getDXCCStatusBand: log received: " << QString::number(_logNumber);
-    QString stringQuery;
-    if (_logNumber<0)
-    {
-        stringQuery = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND band='%2'").arg(_dxcc).arg(_band);
-    }
-    else
-    {
-        stringQuery = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%3'").arg(_dxcc).arg(_band).arg(_logNumber);
-    }
-    QString status = "-";
-
-    QSqlQuery query;
-    bool sqlOk = query.exec(stringQuery);
-    if (sqlOk)
-    {
-        while (query.next()) {
-            if (query.isValid())
-            {
-                if ((query.value(0)).toString() == "1")
-                {
-                    query.finish();
-                    return "C";
-                }
-                else if ((query.value(0)).toString() == "0")
-                {
-                    if (status == "-")
-                    {
-                        status = "W";
-                    }
-                }
-            }
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return "-";
-    }
-    query.finish();
-    return status;
-}
-
-*/
 
 QString Awards::checkIfValidIOTA(const QString &_tiota)
 {
@@ -1294,259 +1132,10 @@ void Awards::setAwards(const int _qsoId)
     dataProxy->setDXCCAwardStatus(_qsoId);
     dataProxy->setWAZAwardStatus(_qsoId);
 }
-/*
-int Awards::setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
-{
-       //qDebug() << "Awards::setAwardDXCCst-0: " << QString::number(_dxcc) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId);
-    int nameCol=-1;
-    QString _refid = QString();
-
-    // _confirmedQSO == false QSO is just worked
-    // _confirmedQSO == true QSO is confirmed
-
-    //TODO: Fix the way we check for data validity for this function
-    if (!( (_dxcc>=0) && (_band >=0) && (_mode>=0) && (_logNumber>=0) && (_qsoId >=0) ))
-    {
-            //qDebug() << "Awards::setAwardDXCCst: Not valid data received!";
-        return -1;
-    }
-    int _iconfirmed;
-
-    if (_confirmed)
-    {
-        _iconfirmed = 1;
-    }
-    else
-    {
-        _iconfirmed = 0;
-    }
-
-       //qDebug() << "Awards::setAwardDXCCst: _qsoId: " << QString::number(_qsoId) << "/" << QString::number(_iconfirmed);
-    QString stringQuery = QString();
-    QSqlQuery query;
-    bool sqlOK = false;
-    int errorCode = -1;
-
-    stringQuery = QString("SELECT id, confirmed FROM awarddxcc where dxcc='%1' AND band='%2' AND mode='%3' AND lognumber='%4'").arg(_dxcc).arg(_band).arg(_mode).arg(_logNumber);
-
-
-    sqlOK = query.exec(stringQuery);
-    if (sqlOK)
-    {
-           //qDebug() << "Awards::setAwardDXCCst-1:";
-
-        query.next();
-        QSqlRecord rec = query.record();
-
-        if (query.isValid())
-        {// We have some data, we need to UPDATE - We are only confirming!
-               //qDebug() << "Awards::setAwardDXCCst: We have some data, we neer to update";
-            nameCol = rec.indexOf("id");
-            _refid = query.value(nameCol).toString();
-            stringQuery = QString("UPDATE awarddxcc SET confirmed='1', qsoid='%1' WHERE id='%2'").arg(_qsoId).arg(_refid);
-               //qDebug() << "Awards::setAwardDXCCst: (UPDATE): " << stringQuery;
-            if (sqlOK)
-            { // Set of data updated
-                   //qDebug() << "Awards::setAwardDXCCst: Data updated!";
-                query.finish();
-                return 1;
-            }
-            else
-            { // Something failed. Trace it!
-                errorCode = query.lastError().text();
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                query.finish();
-                return -1;
-
-            }
-
-        }
-        else
-        { // We don't have this set, we need to INSERT
-            stringQuery = QString("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_dxcc).arg(_band).arg(_mode).arg(_iconfirmed).arg(_logNumber).arg(_qsoId);
-            sqlOK = query.exec(stringQuery);
-               //qDebug() << "Awards::setAwardDXCCst: We don't have data... so we INSERT";
-               //qDebug() << "Awards::setAwardDXCCst: (INSERT): " << stringQuery;
-            if (sqlOK)
-            { // Set of data included
-                query.finish();
-                   //qDebug() << "Awards::setAwardDXCCst: Data inserted!";
-            }
-            else
-            { // Something failed. Trace it!
-                emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                errorCode = query.lastError().text();
-                query.finish();
-                return -1;
-
-            }
-
-        }
-
-    }
-    else
-    { // Trace the error... what may be happening???
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        errorCode = query.lastError().text();
-        query.finish();
-        return -1;
-
-    }
-
-    return -1;
-
-}
-
-*/
-
-/*
-int Awards::setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId)
-{
-      //qDebug() << "Awards::setAwardWAZst(CQZ/BAND/MODE/WORKED/log/qsoid): " << QString::number(_cqz) << "/" << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_logNumber) << "/" << QString::number(_qsoId);
-
-
-    // _confirmed == false QSO is just worked
-    // _confirmed == true QSO is confirmed
-
-
-
-   //TODO: Fix the way we check for data validity for this function
-    if (!( (_cqz>=0) && (_band >=0) && (_mode>=0) && (_logNumber>=0) && (_qsoId >=0) ))
-    {
-           //qDebug() << "Awards::setAwardWAZst: some data was NOK";
-        return -1;
-    }
-        int _iconfirmed;
-
-        if (_confirmed)
-        {
-            _iconfirmed = 1;
-
-        }
-        else
-        {
-            _iconfirmed = 0;
-        }
-
-
-        QString stringQuery;
-        QSqlQuery query;
-        bool sqlOK;
-        //int errorCode = -1;
-
-        stringQuery = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, lognumber, qsoid) values('%1','%2','%3','%4','%5','%6')").arg(_cqz).arg(_band).arg(_mode).arg(_iconfirmed).arg(_logNumber).arg(_qsoId);
-
-        sqlOK = query.exec(stringQuery);
-
-        if ((sqlOK) && (!_confirmed)) // First time a DXCC/Band/mode is worked
-        {
-               //qDebug() << "Awards::setAwardWAZst: _qsoId: " << QString::number(_qsoId) << "- 1" ;
-            query.finish();
-            return 1;
-        }
-        else if ((sqlOK) && (_confirmed)) // First time a CQZ/Band/Mode is confirmed
-        {
-               //qDebug() << "Awards::setAwardWAZst: _qsoId: " << QString::number(_qsoId) << "- 2" ;
-            query.finish();
-            return 2;
-        }
-        else
-        {
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-               //qDebug() << "Awards::setAwardWAZst: _qsoId: " << QString::number(_qsoId) << "- sqlOK ERROR: " ;
-            //errorCode = query.lastError().text();
-            query.finish();
-               //qDebug() << "Awards::setAwardWAZst: LastQuery: " << query.lastQuery() ;
-               //qDebug() << "Awards::setAwardWAZst: LastError-data: " << query.lastError().databaseText() ;
-               //qDebug() << "Awards::setAwardWAZst: LastError-driver: " << query.lastError().driverText() ;
-               //qDebug() << "Awards::setAwardWAZst: LastError-n: " << QString::number(query.lastError().text() );
-
-
-        }
-        return -1;
-}
-
-*/
-
-/*
-int Awards::setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid) // Changes the status of a DXCC from worked to confirmed
-{
-       //qDebug() << "Awards::setAwardDXCCConfirmed: " << QString::number(_band) << "/" << QString::number(_mode) << "/" << QString::number(_dxcc)<< "/" << QString::number(_newQSOid)<< QT_ENDL;
-
-
-    QString stringQuery;
-    QSqlQuery query = QSqlQuery();
-    bool sqlOK = false;
-    int errorCode = -1;
-    int nameCol = -1;
-    QString aux = QString();
-
-    stringQuery = QString("SELECT qsoid FROM awarddxcc WHERE band='%1' AND mode='%2' AND dxcc='%3'").arg(_band).arg(_mode).arg(_dxcc);
-    sqlOK = query.exec(stringQuery);
-    if (sqlOK)
-    {
-        QSqlRecord rec = query.record();
-        if (query.next())
-        {
-            if (query.isValid())
-            {
-                nameCol = rec.indexOf("qsoid");
-                aux = (query.value(nameCol)).toString();
-                query.finish();
-                stringQuery = QString("UPDATE awarddxcc SET confirmed='1', qsoid='%1' WHERE qsoid='%2'").arg(_newQSOid).arg(aux);
-                sqlOK = query.exec(stringQuery);
-                if (sqlOK)
-                {
-                    query.finish();
-                    return _newQSOid;
-                }
-                else
-                { // UPDATE failed
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                    errorCode = query.lastError().text();
-                    query.finish();
-                       //qDebug() << "Awards::setAwardDXCCConfirmed-Update: LastQuery: " << query.lastQuery() ;
-                       //qDebug() << "Awards::setAwardDXCCConfirmed-Update: LastError-data: " << query.lastError().databaseText() ;
-                       //qDebug() << "Awards::setAwardDXCCConfirmed-Update: LastError-driver: " << query.lastError().driverText() ;
-                       //qDebug() << "Awards::setAwardDXCCConfirmed-Update: LastError-n: " << QString::number(query.lastError().text() );
-                    return errorCode;
-                }
-
-            }
-            else
-            {
-                // Not valid record
-                   //qDebug() << "Awards::setAwardDXCCConfirmed: Not valid record";
-                return -3;
-            }
-        }
-        else
-        {
-            // Not next record
-               //qDebug() << "Awards::setAwardDXCCConfirmed: Not next record";
-            return -2;
-        }
-    }
-    else
-    { //
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        errorCode = query.lastError().text();
-        query.finish();
-           //qDebug() << "Awards::setAwardDXCCConfirmed: LastQuery: " << query.lastQuery() ;
-           //qDebug() << "Awards::setAwardDXCCConfirmed: LastError-data: " << query.lastError().databaseText() ;
-           //qDebug() << "Awards::setAwardDXCCConfirmed: LastError-driver: " << query.lastError().driverText() ;
-           //qDebug() << "Awards::setAwardDXCCConfirmed: LastError-n: " << QString::number(query.lastError().text() );
-        return errorCode;
-    }
-
-    return 1;
-}
-
-*/
 
 int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC in a QSO
 {
-       //qDebug() << "Awards::setDXCCToQSO: " << QString::number(_dxcc) << "/" << QString::number(_qsoid);
+       //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc) << "/" << QString::number(_qsoid);
     //int errorCode = -1;
     QString queryString = QString("UPDATE log SET dxcc='%1' WHERE id='%2'").arg(_dxcc).arg(_qsoid);
     QSqlQuery query = QSqlQuery();
@@ -1559,20 +1148,20 @@ int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC 
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-           //qDebug() << "Awards::setDXCCToQSO: DXCC Updated in Log but failed....";
+           //qDebug() << Q_FUNC_INFO << ": DXCC Updated in Log but failed....";
        int errorCode = query.lastError().text().toInt();
         query.finish();
-           //qDebug() << "Awards::setDXCCToQSO: LastQuery: " << query.lastQuery() ;
-           //qDebug() << "Awards::setDXCCToQSO: LastError-data: " << query.lastError().databaseText() ;
-           //qDebug() << "Awards::setDXCCToQSO: LastError-driver: " << query.lastError().driverText() ;
-           //qDebug() << "Awards::setDXCCToQSO: LastError-n: " << QString::number(query.lastError().text() );
+           //qDebug() << Q_FUNC_INFO << ": LastQuery: " << query.lastQuery() ;
+           //qDebug() << Q_FUNC_INFO << ": LastError-data: " << query.lastError().databaseText() ;
+           //qDebug() << Q_FUNC_INFO << ": LastError-driver: " << query.lastError().driverText() ;
+           //qDebug() << Q_FUNC_INFO << ": LastError-n: " << QString::number(query.lastError().text() );
         return errorCode;
     }
 }
 
 int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a QSO
 {
-       //qDebug() << "Awards::setCQToQSO: " << QString::number(_cqz) << "/" << QString::number(_qsoid);
+       //qDebug() << Q_FUNC_INFO << ": " << QString::number(_cqz) << "/" << QString::number(_qsoid);
     //int errorCode = -1;
     QString queryString = QString("UPDATE log SET cqz='%1' WHERE id='%2'").arg(_cqz).arg(_qsoid);
     QSqlQuery query = QSqlQuery();
@@ -1585,13 +1174,13 @@ int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a 
     else
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-           //qDebug() << "Awards::setCQToQSO: DXCC Updated in Log but failed....";
+           //qDebug() << Q_FUNC_INFO << ": DXCC Updated in Log but failed....";
         int errorCode = query.lastError().text().toInt();
         query.finish();
-           //qDebug() << "Awards::setCQToQSO: LastQuery: " << query.lastQuery() ;
-           //qDebug() << "Awards::setCQToQSO: LastError-data: " << query.lastError().databaseText() ;
-           //qDebug() << "Awards::setCQToQSO: LastError-driver: " << query.lastError().driverText() ;
-           //qDebug() << "Awards::setCQToQSO: LastError-n: " << QString::number(query.lastError().text() );
+           //qDebug() << Q_FUNC_INFO << ": LastQuery: " << query.lastQuery() ;
+           //qDebug() << Q_FUNC_INFO << ": LastError-data: " << query.lastError().databaseText() ;
+           //qDebug() << Q_FUNC_INFO << ": LastError-driver: " << query.lastError().driverText() ;
+           //qDebug() << Q_FUNC_INFO << ": LastError-n: " << QString::number(query.lastError().text() );
         return errorCode;
     }
 }
@@ -1618,13 +1207,13 @@ int Awards::getDXMarathonDXCC(const int _year, const int _logNumber)
 
 int Awards::getDXMarathonCQ(const int _year, const int _logNumber)
 {
-       //qDebug() << "Awards::getDXMarathonCQ: " << QString::number(_year);
+       //qDebug() << Q_FUNC_INFO << ":  " << QString::number(_year);
     return dxMarathon->getDXMarathonCQ(_year, _logNumber);
 }
 
 int Awards::getDXMarathonScore(const int _year, const int _logNumber)
 {
-       //qDebug() << "Awards::getDXMarathonScore: " << QString::number(_year);
+       //qDebug() << Q_FUNC_INFO << ":  " << QString::number(_year);
     return dxMarathon->getDXMarathonScore(_year, _logNumber);
 }
 
@@ -1636,12 +1225,12 @@ bool Awards::isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, c
 int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 {
     //-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent) << "/" << QString::number(_band);
 
         QSqlQuery query = QSqlQuery();
         QString queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
         int status = 0;
- //qDebug() << "Awards::dxccStatusBand: " << queryString;
+ //qDebug() << Q_FUNC_INFO << ": " << queryString;
         if (query.exec(queryString))
         {
             while (query.next())
@@ -1665,62 +1254,15 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
               query.finish();
               return -1;
         }
-       //qDebug() << "Awards::dxccStatusBand: return - 0.3";
+       //qDebug() << Q_FUNC_INFO << ": return - 0.3";
         return status;                                       // if arrives to here decision => not worked
 }
 
-/*
-int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
-{
-    //-1 error / 0 Not worked / 1 worked / 2 confirmed
-    //qDebug() << "Awards::dxccStatusBand: " << QString::number(_ent) << "/" << QString::number(_band);
-
-        QSqlQuery query = QSqlQuery();
-        QString queryString = QString();
-
-        queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND band='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
-        int status = 0;
-
-        if (query.exec(queryString))
-        {
-            while (query.next())
-            {
-                if ( query.isValid() )
-                {
-                    if(query.value(0).toString() == "1")         // Confirmed
-                    {
-                        query.finish();
-                        return 2;
-                    }
-                    else if(query.value(0).toString() == "0")    // Worked
-                    {
-                        if (status < 1)
-                        {
-                            status = 1;
-                        }
-                    }
-                }                                           // Not present => Not worked
-            }
-            query.finish();
-        }
-        else
-        {
-            //TODO: Manage the query error
-              emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-              query.finish();
-              return -1;
-        }
-
-       //qDebug() << "Awards::dxccStatusBand: return - 0.3";
-        return status;                                       // if arrives to here decision => not worked
-}
-
-*/
 
 int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
 {
     //-1 error / 0 Not worked / 1 worked / 2 confirmed
-         //qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode);
+         //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent) << "/" << QString::number(_mode);
 
         QSqlQuery query = QSqlQuery();
         QString queryString = QString();
@@ -1758,54 +1300,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         return status;                                       // if arrives to here decision => not worked
 }
 
-/*
-int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber) //-1 error / 0 Not worked / 1 worked / 2 confirmed
-{
-    //-1 error / 0 Not worked / 1 worked / 2 confirmed
-         //qDebug() << "Awards::dxccStatusMode: " << QString::number(_ent) << "/" << QString::number(_mode);
 
-        QSqlQuery query = QSqlQuery();
-        QString queryString = QString();
-        if (_mode == -1)
-        {
-            return -1;
-        }
-        int status = 0;
-        queryString = QString("SELECT confirmed FROM awarddxcc WHERE dxcc='%1' AND mode='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
-
-
-        if (query.exec(queryString))
-        {
-            while (query.next())
-            {
-                if ( query.isValid() )
-                {
-                    if(query.value(0).toString() == "1")         // Confirmed
-                    {
-                        query.finish();
-                        return 2;
-                    }
-                    else if(query.value(0).toString() == "0")    // Worked
-                    {
-                        if (status < 1)
-                        {
-                            status = 1;
-                        }
-                    }
-                }                                           // Not present => Not worked
-            }
-            query.finish();
-        }
-        else
-        { // The query fails...
-            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            query.finish();
-          //TODO: Manage the query error
-            return -1;
-        }
-        return status;                                       // if arrives to here decision => not worked
-}
-*/
 void Awards::setManageModes(const bool _manageModes)
 {
     manageModes = _manageModes;
@@ -1820,123 +1315,77 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
     //QString answer;
     if (_logNumber>0)
     {
-        stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd, id FROM log lognumber='%1'ORDER BY dxcc").arg(_logNumber);
+        stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log lognumber='%1'ORDER BY dxcc").arg(_logNumber);
     }
     else
     {
-        stringQuery = QString("SELECT DISTINCT dxcc, bandid, qsl_rcvd, lotw_qsl_rcvd, id FROM log ORDER BY dxcc");
+        stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log ORDER BY dxcc");
     }
 
-    if (!executeQuery(query, stringQuery)) {
+    if (!executeQuery(query, stringQuery))
+    {
             return false;
     }
+
     dxccStatusList.clear();
+
+
     int qsos = processQueryResults(query);
+    populateDXCCStatusMap(); // Populate the multi-hash map
 
     query.finish();
     return !(dxccStatusList.isEmpty() && qsos > 0);
-
-    // TODO REMOVE ALL BELOW THIS LINE
-    //int qsos = 0;
-    sqlOK = query.exec(stringQuery);
-    if (sqlOK)
-    {
-        //qDebug() << Q_FUNC_INFO << " - exec query: " << query.lastQuery ();
-        dxccStatusList.clear();
-        while(query.next())
-        {
-            if (query.isValid())
-            {
-                qsos++;
-                EntityBandStatus ent;
-                ent.status = unknown;
-
-                QSqlRecord rec = query.record();
-                int nameCol = rec.indexOf("dxcc");
-                if (query.value(nameCol).toInt()==0)
-                {
-                    //qDebug() << Q_FUNC_INFO << " - Returning false for: QSOid" << QString::number(query.value(4).toInt());
-                    query.finish();
-                    return false;
-                }
-                ent.dxcc = query.value(nameCol).toInt();
-                nameCol = rec.indexOf("bandid");
-                ent.bandid = query.value(nameCol).toInt();
-                if ((query.value(rec.indexOf("qsl_rcvd")).toString () == "Y") || (query.value(rec.indexOf("lotw_qsl_rcvd")).toString () == "Y"))
-                {
-                    ent.status = confirmed;
-                    //ent.confirmed = true;
-                }
-                else
-                {
-                    ent.status = worked;
-                }
-                ent.qsoId = query.value(rec.indexOf("id")).toInt();
-                dxccStatusList.append (ent);
-            }
-            else
-            {
-                //qDebug() << Q_FUNC_INFO << ": query NOK: " << query.lastQuery ();
-                query.finish();
-                return false;
-            }
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return false;
-    }
-    query.finish();
-
-    if (dxccStatusList.length ()<1)
-    {
-        //qDebug() << Q_FUNC_INFO << " RETURN FALSE" ;
-        // It may be the case that there are not dxcc
-        return false;
-    }
-    if (qsos>0)
-    {
-        //qDebug() << Q_FUNC_INFO << " RETURN FALSE" ;
-        // It may be the case that there are not dxcc
-        return false;
-    }
-    //qDebug() << Q_FUNC_INFO << ": dxccStatusList length: " << QString::number(dxccStatusList.length ()) ;
-    //qDebug() << Q_FUNC_INFO << ": QSOs: " << QString::number(qsos) ;
-    return true;
 }
 
-bool Awards::processQueryRow(QSqlQuery &query)
+void Awards::populateDXCCStatusMap()
 {
-    EntityBandStatus ent;
-    int dxcc = query.value(0).toInt();
-    if (dxcc == 0) {
-        return false;
+    qDebug() << Q_FUNC_INFO << " - Start";
+    dxccStatusMap.clear(); // Clear the multi-hash map
+    for (const EntityStatus &status : dxccStatusList) {
+        dxccStatusMap.insert(status.dxcc, status);
     }
+}
 
-    ent.dxcc = dxcc;
-    ent.bandid = query.value(1).toInt();
-    ent.confirmed = (query.value(2).toString() == "Y" || query.value(3).toString() == "Y");
-    dxccStatusList.append(ent);
-    return true;
+QList<EntityStatus> Awards::findEntityStatusByDXCC(int dxcc) const
+{
+    return dxccStatusMap.values(dxcc); // Return all EntityStatus instances for the given dxcc
+}
+
+QSOStatus Awards::getStatus(const QSqlQuery &query, const QSqlRecord &rec)
+{
+    if ((query.value(rec.indexOf("qsl_rcvd")).toString() == "Y") ||
+        (query.value(rec.indexOf("lotw_qsl_rcvd")).toString() == "Y"))
+    {
+        return QSOStatus::confirmed;
+    } else
+    {
+        return QSOStatus::worked;
+    }
 }
 
 int Awards::processQueryResults(QSqlQuery &query)
 {
     int qsos = 0;
+
     while (query.next()) {
         if (!query.isValid()) {
-            query.finish();
-            return -1;
+            emit queryError(Q_FUNC_INFO, "Invalid query result", "", query.lastQuery());
+            return qsos;
         }
 
         qsos++;
-        if (!processQueryRow(query)) {
-            query.finish();
-            return -1;
-        }
+        EntityStatus ent;
+        QSqlRecord rec = query.record();
+
+        ent.dxcc = query.value(rec.indexOf("dxcc")).toInt();
+        ent.bandId = query.value(rec.indexOf("bandid")).toInt();
+        ent.modeId = query.value(rec.indexOf("modeid")).toInt();
+        ent.status = getStatus(query, rec);
+        ent.qsoId = query.value(rec.indexOf("id")).toInt();
+
+        dxccStatusList.append(ent);
     }
+
     return qsos;
 }
 

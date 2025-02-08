@@ -1033,10 +1033,10 @@ void MainWindow::slotBandChanged (const QString &_b)
      //qDebug() << "MainWindow::slotBandChanged: Checking to update Freq  - DONE"  ;
 
     EntityStatus _entityStatus;
-    _entityStatus.entityId  = currentEntity;
+    _entityStatus.dxcc      = currentEntity;
     _entityStatus.bandId    = currentBandShown;
     _entityStatus.modeId    = currentModeShown;
-    _entityStatus.log       = currentLog;
+    _entityStatus.logId     = currentLog;
       //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " ;
     if (currentEntity>0)
     {
@@ -1063,10 +1063,10 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentMode = currentModeShown;
 
     EntityStatus _entityStatus;
-    _entityStatus.entityId  = currentEntity;
+    _entityStatus.dxcc      = currentEntity;
     _entityStatus.bandId    = currentBandShown;
     _entityStatus.modeId    = currentModeShown;
-    _entityStatus.log       = currentLog;
+    _entityStatus.logId     = currentLog;
 
     showStatusOfDXCC(_entityStatus);
     if (!modify)
@@ -2105,10 +2105,10 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
 
     EntityStatus _entityStatus;
-    _entityStatus.entityId  = currentEntity;
+    _entityStatus.dxcc      = currentEntity;
     _entityStatus.bandId    = currentBandShown;
     _entityStatus.modeId    = currentModeShown;
-    _entityStatus.log       = currentLog;
+    _entityStatus.logId     = currentLog;
 
   //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
@@ -4627,10 +4627,10 @@ void MainWindow::qsoToEdit (const int _qso)
 
     //qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
     EntityStatus _entityStatus;
-    _entityStatus.entityId  = currentEntity;
+    _entityStatus.dxcc      = currentEntity;
     _entityStatus.bandId    = currentBandShown;
     _entityStatus.modeId    = currentModeShown;
-    _entityStatus.log       = currentLog;
+    _entityStatus.logId     = currentLog;
 
     //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
     //qDebug() << Q_FUNC_INFO << " - calling showStatusOfDXCC-05 " ;
@@ -4723,7 +4723,7 @@ void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
     //infoLabel1->setText(message);
     //infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
     //qDebug() << Q_FUNC_INFO << " - 50";
-    infoWidget->showInfo(_entityStatus.entityId);
+    infoWidget->showInfo(_entityStatus.dxcc);
     //qDebug() << Q_FUNC_INFO << " - 51";
     //qDebug() << Q_FUNC_INFO << " - END-2" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5160,7 +5160,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
    //qDebug() << Q_FUNC_INFO << ": spot-Comment      : " << spot.getComment();
 
     EntityStatus _entityStatus;
-    _entityStatus.entityId = world->getQRZARRLId(spot.getDxCall());
+    _entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
 
     if (!manageMode)
     {
@@ -5169,8 +5169,8 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 
     if (spot.getClickStatus() == SingleClick)
     {
-        infoLabel2->setText(world->getEntityName(_entityStatus.entityId));
-        infoWidget->showEntityInfo(_entityStatus.entityId );
+        infoLabel2->setText(world->getEntityName(_entityStatus.dxcc));
+        infoWidget->showEntityInfo(_entityStatus.dxcc );
 
         // Becareful, he Frecuency arrives in KHz instead of bandid!!
         // db.getBandFromFreq expects a MHz!
