@@ -1105,7 +1105,7 @@ void MainWindow::slotQRZReturnPressed()
     }
     readingTheUI = true;
 
-    if (!readQSOFromUI ())
+    if (!readQSOFromUI())
     {return;}
   //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
 
@@ -1230,6 +1230,8 @@ bool MainWindow::readQSOFromUI()
         }
     }
     qso->setCall (tqrz);
+    qso->setMyCQZone(my_CQz);
+    qso->setMyITUZone(my_ITUz);
     qso->setBand(mainQSOEntryWidget->getBand());
     qso->setMode(dataProxy->getNameFromSubMode (mainQSOEntryWidget->getMode()));
     qso->setSubmode (mainQSOEntryWidget->getMode());
@@ -1241,6 +1243,7 @@ bool MainWindow::readQSOFromUI()
 
     qso->setRSTTX (QSOTabWidget->getRSTTX ());
     qso->setRSTRX (QSOTabWidget->getRSTRX ());
+
 
     int dxcc = world->getQRZARRLId(tqrz);
     //qDebug() << Q_FUNC_INFO + QString(": %1 - %2").arg(_callsign.getCallsign()).arg(dxcc);
@@ -6369,6 +6372,11 @@ bool MainWindow::loadSettings()
     {
         mainQRZ = value;
     }
+    my_ITUz = 0;
+    my_CQz = 0;
+    my_CQz = settings.value ("CQz").toInt ();
+    my_ITUz = settings.value ("ITUz").toInt ();
+
     // We Select the log after the mainQRZ is defined to prevent call conflicts
     selectTheLog(currentLog);
 

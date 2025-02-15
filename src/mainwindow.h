@@ -643,7 +643,7 @@ private:
     bool qrzAutoChanging; //To remove the data coming from QRZ.com only when data is coming.
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
 
-    //int my_CQz, my_ITUz; Not used
+    int my_CQz, my_ITUz;
     int defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
     int currentEntity, previousEntity;
     bool InValidCharsInPrevCall;
