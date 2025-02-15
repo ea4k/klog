@@ -73,9 +73,12 @@ private slots:
 
 private:
     void createUI();
+    void updateDXCCViewHeaders();               // Updaqtes the header, just for readability
+    QStringList filterValidBands(const QStringList &sortedBands);    // Removes a string if not a valid band
+    void fillData();                            // Calls all the functions to clean the table & fill the data
     void resetDXCCView();                       // deletes the entities and bands from the table
     void handleDXCCStatusUpdateFailure();       // Shows a message when there is a problem in update()
-    void processEntities(int _entities);        // Processes th Entities in update();
+    void processEntities();                     // Processes the Entities in update();
     QList<int> getBandIds();                    // Return the list of bands
     QIcon getFlagIcon(const QString _isoName);  // Returns the flag icon
     void setDefaultBands();

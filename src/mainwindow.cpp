@@ -1189,6 +1189,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         //awards->setAwards(lastId);
     }
     logWindow->refresh();
+    //awards->updateDXCCBandsStatus(-1);
     dxccStatusWidget->refresh();
     searchWidget->refresh();
     awardsWidget->showAwards ();

@@ -219,7 +219,7 @@ public:
     QStringList getEntitiesIds();
     int getHowManyEntities();
     int getMaxEntityID(bool limit = true);      // limit = true implies that it will only shouw ARRL valid DXCC (i.e. will not count Sicily)
-
+    QList<int> getListOfDXCCIds();              // Returns the list of valid DXCC id
     QStringList getOperatingYears(const int _currentLog);
     void compressDB();
     bool unMarkAllQSO();            // Unmarks all the marked QSO

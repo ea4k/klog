@@ -38,8 +38,6 @@ Awards::Awards(DataProxy_SQLite *dp, const QString &_parentFunction)
     dxMarathon = new DXMarathon(dataProxy);
        //qDebug() << "Awards::Awards - After DXMarathon" ;
 
-
-
     //world->create();
 /*
     newOneColor.setNamedColor("#ff0000");
@@ -849,16 +847,16 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
                 //qDebug() << Q_FUNC_INFO << " Band found: " << QString::number(_band);
                 if (aux.status == confirmed )
                 {
-                    qDebug() << Q_FUNC_INFO << " Confirmed " ;
+                   //qDebug() << Q_FUNC_INFO << " Confirmed " ;
                     return "C";
                 }
                 else if (aux.status == worked)
                 {
-                    qDebug() << Q_FUNC_INFO << " Worked " ;
+                   //qDebug() << Q_FUNC_INFO << " Worked " ;
                     return "W";
                 }
                 else {return "-";}
-                if (aux.confirmed)
+                if (aux.status == confirmed)
                 {
                     //qDebug() << Q_FUNC_INFO << " Confirmed " ;
                     return "C";
@@ -1300,7 +1298,6 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
         return status;                                       // if arrives to here decision => not worked
 }
 
-
 void Awards::setManageModes(const bool _manageModes)
 {
     manageModes = _manageModes;
@@ -1308,19 +1305,25 @@ void Awards::setManageModes(const bool _manageModes)
 
 bool Awards::updateDXCCBandsStatus(const int _logNumber)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_logNumber);
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_logNumber);
     QSqlQuery query;
     QString stringQuery = QString();
-    bool sqlOK = false;
-    //QString answer;
+
     if (_logNumber>0)
     {
-        stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log lognumber='%1'ORDER BY dxcc").arg(_logNumber);
+        stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log WHERE lognumber= :lognumber ORDER BY dxcc");
     }
     else
     {
         stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log ORDER BY dxcc");
     }
+    if (_logNumber>0)
+    {
+        if (!query.prepare(stringQuery))
+            return false;
+        query.bindValue(":lognumber", _logNumber);
+    }
+
 
     if (!executeQuery(query, stringQuery))
     {
@@ -1339,7 +1342,7 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
 
 void Awards::populateDXCCStatusMap()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     dxccStatusMap.clear(); // Clear the multi-hash map
     for (const EntityStatus &status : dxccStatusList) {
         dxccStatusMap.insert(status.dxcc, status);

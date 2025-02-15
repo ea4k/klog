@@ -7506,6 +7506,37 @@ int DataProxy_SQLite::getMaxEntityID(bool limit)
     }
 }
 
+QList<int> DataProxy_SQLite::getListOfDXCCIds()
+{
+    QSqlQuery query;
+    QString  queryString =  QString("SELECT dxcc FROM entity");
+    QList<int> entities;
+    entities.clear();
+
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+        return entities;
+    }
+    while(query.next())
+    {
+        if (query.isValid())
+        {
+            entities.append((query.value(0)).toInt());
+        }
+    }
+    query.finish();
+    int i;
+    foreach (i, entities) {
+       //qDebug() << Q_FUNC_INFO << " - " << QString::number(i);
+    }
+
+    return entities;
+}
+
 bool DataProxy_SQLite::updateISONames()
 {
     //qDebug()  << "DataProxy_SQLite::updateISONames" ;
