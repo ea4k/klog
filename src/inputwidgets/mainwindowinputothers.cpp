@@ -207,8 +207,9 @@ void MainWindowInputOthers::clear(bool _full)
     sig_info    = QString();
     wwff_ref    = QString();
 
-    iotaContinentComboBox->setCurrentIndex(0);
-    iotaNumberLineEdit->setText("000");
+    clearIOTA();
+    //iotaContinentComboBox->setCurrentIndex(0);
+    //iotaNumberLineEdit->setText("000");
     if ((!keepPropCheckBox->isChecked()) || _full)
     {
       //qDebug() << Q_FUNC_INFO << ": Clear the proModeComboBox";
@@ -330,7 +331,7 @@ void MainWindowInputOthers::clearIOTA()
     iotaContinentComboBox->setCurrentIndex(0);
     iotaNumberLineEdit->setText("000");
     logEvent (Q_FUNC_INFO, "END", Debug);
-    //iotaNumberLineEdit->setPalette(palBlack);
+    iotaNumberLineEdit->setPalette(palBlack);   //To avoid that 000 is considered wrong
 }
 
 bool MainWindowInputOthers::isIOTAModified()
@@ -346,7 +347,8 @@ void MainWindowInputOthers::setIOTA(const QString &_qs)
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {
-        iotaNumberLineEdit->setPalette(palRed);
+        if (iotaNumberLineEdit->text() !=  "000")
+            iotaNumberLineEdit->setPalette(palRed);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
@@ -407,61 +409,30 @@ Returns a valid format IOTA if possible and "" in other cases.
 ************************************/
       //qDebug() << Q_FUNC_INFO << ": " << _tiota;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    QString _continent;
-    QString _number;
-
-    if (_tiota.count("-") == 1)
+    if (_tiota.count("-") != 1)
     {
-        QStringList _values = _tiota.split("-", QT_SKIP);
-        _continent = _values.at(0);
-        _number = _values.at(1);
-    }
-    else
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
+        logEvent (Q_FUNC_INFO, "END - Wrong format", Debug);
         return "";
     }
-      //qDebug() << Q_FUNC_INFO << ": (cont) " << _continent;
-      //qDebug() << Q_FUNC_INFO << ": (numb): " << _number;
 
-    // Check if continent is valid
+    QStringList values = _tiota.split("-", QT_SKIP);
+    QString continent = values.at(0);
+    QString number = values.at(1);
 
-    if (dataProxy->isValidContinentShortName(_continent))
-    {
-        if ( (_number.toInt() >0 ) && ((_number.toInt()) < 1000 ))
-        {
-            if ((_number.length()) == 3)
-            {
-                logEvent (Q_FUNC_INFO, "END-1", Debug);
-                return _continent + "-" + _number ;
-            }
-            else if ((_number.length()) == 2)
-            {
-                logEvent (Q_FUNC_INFO, "END-2", Debug);
-                return _continent + "-0" + QString::number((_number).toInt());
-            }
-            else if ((_number.length()) == 1)
-            {
-                logEvent (Q_FUNC_INFO, "END-3", Debug);
-                return _continent + "-00" + QString::number((_number).toInt());
-            }
-            else
-            {
-                logEvent (Q_FUNC_INFO, "END-4", Debug);
-                return "";
-            }
-        }
-        else
-        {
-            logEvent (Q_FUNC_INFO, "END-5", Debug);
-            return "";
-        }
+    if (!dataProxy->isValidContinentShortName(continent)) {
+        logEvent (Q_FUNC_INFO, "END - Wrong continent", Debug);
+        return "";
     }
-    else
-    {
-        logEvent (Q_FUNC_INFO, "END", Debug);
-        return QString();
+
+    bool isNumberValid;
+    int numberInt = number.toInt(&isNumberValid);
+
+    if (!isNumberValid || numberInt <= 0 || numberInt >= 1000) {
+        logEvent (Q_FUNC_INFO, "END - Wrong number", Debug);
+        return "";
     }
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return QString("%1-%2").arg(continent).arg(numberInt, 3, 10, QChar('0'));
 }
 
 void MainWindowInputOthers::slotPropModeComboBoxChanged()

@@ -69,17 +69,17 @@ Awards::~Awards()
     delete(dxMarathon);
 }
 
-void Awards::setAwardDXCC(const int _qsoId)
-{
+//void Awards::setAwardDXCC(const int _qsoId)
+//{
        //qDebug() << "Awards::setAwardDXCC: _qsoId: " << QString::number(_qsoId);
-    dataProxy->setDXCCAwardStatus(_qsoId);
-}
+//    dataProxy->setDXCCAwardStatus(_qsoId);
+//}
 
-void Awards::setAwardWAZ(const int _qsoId)
-{
+//void Awards::setAwardWAZ(const int _qsoId)
+//{
        //qDebug() << "Awards::setAwardWAZ: _qsoId: " << QString::number(_qsoId);
-    dataProxy->setWAZAwardStatus(_qsoId);
-}
+//    dataProxy->setWAZAwardStatus(_qsoId);
+//}
 
 QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed)
 {// Returns the QRZ that granted that status in the DXCC
@@ -1098,31 +1098,6 @@ int Awards::getQSOsInLog(const int _logNumber)
         }
     }
 }
-
-/*
-void Awards::setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId)
-{
-       //qDebug() << "Awards::setAwards: " << QString::number(_dxcc);
-
-    //_workedOrConfirmed = -1     Remove this pair
-    //_workedOrConfirmed = 0     Set as Worked
-    //_workedOrConfirmed = 1     Set as Confirmed
-
-    int d = _dxcc;
-    int b = _band;
-    int m = _mode;
-    int w = _workedOrConfirmed;
-    int l = _logNumber;
-    int i = _qsoId;
-    int z = _waz;
-
-    setAwardDXCC(d, b, m, w, l, i);
-    setAwardWAZ(z, b, m, w, l, i);
-    //setAwardWAZ(_waz,  _band,  _mode,  _workedOrConfirmed, _logNumber);
-
-}
-
-*/
 
 void Awards::setAwards(const int _qsoId)
 {
