@@ -95,8 +95,7 @@ HEADERS += setupdialog.h \
     database/db_adif_primary_subdvisions_data.h \
     database/queryexecutor.h \
     dataproxy_sqlite.h \
-    downloadcty.h \     \     \
-    inputwidgets/customlineedit.h
+    downloadcty.h \
     frequency.h \
     dxccstatuswidget.h \
     dxcluster/dxspot.h \
@@ -185,7 +184,6 @@ SOURCES += main.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     frequency.cpp \
-    inputwidgets/customlineedit.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
