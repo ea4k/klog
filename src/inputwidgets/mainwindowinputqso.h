@@ -31,6 +31,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "customlineedit.h"
 #include "../dataproxy_sqlite.h"
 //#include "../locator.h"
 #include "../utilities.h"
@@ -100,6 +101,7 @@ private slots:
     void slotFreqTXChanged (double _f);
     void slotFreqRXChanged (double _f);
     void slotSplitClicked();
+    void slotPaletteChanged(QPalette _p);
 
 private:
     bool eventFilter(QObject *object, QEvent *event);
@@ -109,7 +111,8 @@ private:
     void setSplitCheckBox();
 
 
-    QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;
+    QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit;
+    CustomLineEdit *nameLineEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
     QCheckBox *splitCheckBox;
 
@@ -124,6 +127,7 @@ private:
     QString propMode;
     double freqTX, freqRX;
     bool modify, completedWithPreviousName, completedWithPreviousQTH, completedWithPreviousLocator;
+    bool darkMode;
 };
 
 #endif // MAINWINDOWINPUTQSO_H

@@ -49,6 +49,7 @@ HEADERS += \
     ../../src/frequency.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
+    ../../src/inputwidgets/customlineedit.h \
     ../../src/inputwidgets/mainwindowsattab.h \
     ../../src/inputwidgets/mainwindowmydatatab.h \
     ../../src/inputwidgets/mainwindowinputcomment.h \
@@ -126,6 +127,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/frequency.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \
+    ../../src/inputwidgets/customlineedit.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \
     ../../src/inputwidgets/mainwindowmydatatab.cpp \
     ../../src/inputwidgets/mainwindowinputcomment.cpp \

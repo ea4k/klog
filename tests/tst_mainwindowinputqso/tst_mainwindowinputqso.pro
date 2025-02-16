@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/inputwidgets/mainwindowinputqso.h \
+    ../../src/inputwidgets/customlineedit.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/database.h \
     ../../src/database/queryexecutor.h \
@@ -23,6 +24,7 @@ HEADERS += \
 
 SOURCES +=  tst_mainwindowinputqso.cpp \
     ../../src/inputwidgets/mainwindowinputqso.cpp \
+    ../../src/inputwidgets/customlineedit.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/database.cpp \
     ../../src/database/queryexecutor.cpp \

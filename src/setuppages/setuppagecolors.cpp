@@ -289,12 +289,14 @@ void SetupPageColors::setDarkMode(const bool _d)
         QPalette p;
         p = qApp->palette();
         p.setColor(QPalette::Window, QColor(53,53,53));
+        p.setColor(QPalette::Text, Qt::white);
         p.setColor(QPalette::Button, QColor(53,53,53));
         p.setColor(QPalette::Highlight, QColor(142,45,197));
         p.setColor(QPalette::ButtonText, QColor(255,255,255));
-        p.setColor(QPalette::WindowText, QColor(255,255,255));
-        p.setColor(QPalette::Text, Qt::white);
+        p.setColor(QPalette::WindowText, QColor(255,255,255));        
         p.setColor(QPalette::Base, QColor(100,100,100));
+        p.setColor(QPalette::ToolTipBase, Qt::white);
+        p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
         darkModeButton->setText(tr("Light Mode"));
         //darkMode = true;
