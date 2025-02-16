@@ -31,7 +31,6 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "customlineedit.h"
 #include "../dataproxy_sqlite.h"
 //#include "../locator.h"
 #include "../utilities.h"
@@ -111,8 +110,7 @@ private:
     void setSplitCheckBox();
 
 
-    QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit;
-    CustomLineEdit *nameLineEdit;
+    QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
     QCheckBox *splitCheckBox;
 

@@ -105,7 +105,6 @@ HEADERS += setupdialog.h \
     eqslutilities.h \
     global.h \
     hamlibclass.h \
-    inputwidgets/customlineedit.h \
     inputwidgets/mainwindowinputqso.h \
     inputwidgets/mainwindowinputcomment.h \
     inputwidgets/mainwindowmydatatab.h \
@@ -187,7 +186,6 @@ SOURCES += main.cpp \
     lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
-    inputwidgets/customlineedit.cpp \
     inputwidgets/mainwindowinputqso.cpp \
     inputwidgets/mainwindowinputcomment.cpp \
     inputwidgets/mainwindowmydatatab.cpp \

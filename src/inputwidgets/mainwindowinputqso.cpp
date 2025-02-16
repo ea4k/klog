@@ -36,7 +36,7 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     dataProxy = dp;
     //locator = new Locator();
 
-    nameLineEdit = new CustomLineEdit;
+    nameLineEdit = new QLineEdit;
     qthLineEdit = new QLineEdit;
     locatorLineEdit = new QLineEdit;
     rstTXLineEdit = new QLineEdit;
