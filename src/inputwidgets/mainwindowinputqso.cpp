@@ -262,6 +262,11 @@ void MainWindowInputQSO::setDefaultData()
     settings.beginGroup ("Colors");
     darkMode = settings.value("DarkMode", false).toBool ();
     settings.endGroup ();
+    if (darkMode) {
+        txFreqSpinBox->setPalette(palWhite);
+    } else {
+        txFreqSpinBox->setPalette(palBlack);
+    }
 }
 
 void MainWindowInputQSO::clear()
@@ -578,9 +583,9 @@ void MainWindowInputQSO::slotPaletteChanged(QPalette _p)
 
 bool MainWindowInputQSO::getDarkMode()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
-    return darkMode;
-    return (nameLineEdit->palette().color(QPalette::Base) == "#646464");
+    qDebug() << Q_FUNC_INFO << " - Start: " << nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb);
+    //return darkMode;
+    return (nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#646464");
 }
 
 void MainWindowInputQSO::setPaletteRightName(const bool _ok)
@@ -672,10 +677,12 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
         if (getDarkMode())
         {
+            qDebug() << Q_FUNC_INFO << " - We are in darkmode";
             txFreqSpinBox->setPalette(palWhite);
         }
         else
         {
+            qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
             txFreqSpinBox->setPalette(palBlack);
         }
         qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
@@ -806,3 +813,4 @@ bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
     }
     return QWidget::event(event);
 }
+

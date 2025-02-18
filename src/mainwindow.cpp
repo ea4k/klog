@@ -534,7 +534,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
       //qDebug() << Q_FUNC_INFO << " - 130";
 
-    applySettings ();
+    applySettings ();    
    //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

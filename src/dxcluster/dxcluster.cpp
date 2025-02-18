@@ -131,7 +131,7 @@ void DXClusterWidget::init()
     server = "dxfun.com";
     port = quint16(8000);
     saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
-
+    clearButton->setToolTip(tr("Clears the DXCluster command line."));
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
     Q_UNUSED(item);
     createActions ();

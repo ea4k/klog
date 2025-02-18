@@ -43,7 +43,6 @@ class MainWindowInputQSO : public QWidget
 public:
     explicit MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSO();
-
     void setPaletteRightName(const bool _ok);
     void setPaletteRightQTH(const bool _ok);
     void setPaletteRightDXLocator(const bool _ok);

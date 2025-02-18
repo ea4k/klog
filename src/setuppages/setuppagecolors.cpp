@@ -285,15 +285,17 @@ void SetupPageColors::setDarkMode(const bool _d)
     darkMode = _d;
     if (darkMode)
     {
-        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        //QApplication::setStyle(QStyleFactory::create("Fusion"));
+        QApplication::setStyle("fusion");
+
         QPalette p;
         p = qApp->palette();
         p.setColor(QPalette::Window, QColor(53,53,53));
         p.setColor(QPalette::Text, Qt::white);
         p.setColor(QPalette::Button, QColor(53,53,53));
         p.setColor(QPalette::Highlight, QColor(142,45,197));
-        p.setColor(QPalette::ButtonText, QColor(255,255,255));
-        p.setColor(QPalette::WindowText, QColor(255,255,255));        
+        p.setColor(QPalette::ButtonText, Qt::white);
+        p.setColor(QPalette::WindowText, Qt::white);
         p.setColor(QPalette::Base, QColor(100,100,100));
         p.setColor(QPalette::ToolTipBase, Qt::white);
         p.setColor(QPalette::ToolTipText, Qt::black);
@@ -303,7 +305,8 @@ void SetupPageColors::setDarkMode(const bool _d)
     }
     else
     {
-        QApplication::setStyle(QStyleFactory::create("Fusion"));
+        //QApplication::setStyle(QStyleFactory::create("Fusion"));
+        QApplication::setStyle("fusion");
         QPalette p;
         p = qApp->palette();
         p.setColor(QPalette::Window, QColor(244,246,246));
