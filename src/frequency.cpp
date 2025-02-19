@@ -198,7 +198,7 @@ int Frequency::bandId()
 
 bool Frequency::isValid()
 {
-    return (freq>=0);
+    return (freq>0.0);
 }
 
 void Frequency::operator=(Frequency const &_f2)

@@ -36,12 +36,13 @@ DXSpot::~DXSpot(){}
 
 DXSpot::DXSpot(const DXSpot& other)
 {
-    dxcall = other.dxcall;
-    freq = other.freq;
-    spotter = other.spotter;
-    comment = other.comment;
-    dateTime = other.dateTime;
+    dxcall      = other.dxcall;
+    freq        = other.freq;
+    spotter     = other.spotter;
+    comment     = other.comment;
+    dateTime    = other.dateTime;
     clickStatus = other.clickStatus;
+    shdx        = other.shdx;
 }
 
 void DXSpot::clear()
@@ -51,42 +52,44 @@ void DXSpot::clear()
     spotter.clear();
     dateTime.currentDateTimeUtc();
     clickStatus = NoClick;
+    shdx        = false;
 }
 
 void DXSpot::operator=(DXSpot const &_other)
 {
-    dxcall = _other.dxcall;
-    freq = _other.freq; // Might need a copy constructor for Frequency as well
-    spotter = _other.spotter;
-    comment = _other.comment;
+    dxcall          = _other.dxcall;
+    freq            = _other.freq; // Might need a copy constructor for Frequency as well
+    spotter         = _other.spotter;
+    comment         = _other.comment;
     if (_other.dateTime.isValid())
-        dateTime = _other.dateTime;
-    clickStatus = _other.clickStatus;
+        dateTime    = _other.dateTime;
+    clickStatus     = _other.clickStatus;
+    shdx            = _other.shdx;
 
 }
 
 bool DXSpot::isValid()
 {
-  //qDebug() << Q_FUNC_INFO << " - 010";
+   //qDebug() << Q_FUNC_INFO << " - 010";
     Callsign dxc(dxcall);
     if (!dxc.isValid())
         return false;
 
-  //qDebug() << Q_FUNC_INFO << " - 020";
+   //qDebug() << Q_FUNC_INFO << " - 020";
     Callsign spo(spotter);
     if (!spo.isValid())
         return false;
 
-  //qDebug() << Q_FUNC_INFO << " - 030";
+   //qDebug() << Q_FUNC_INFO << " - 030";
     if (!freq.isValid())
         return false;
 
-  //qDebug() << Q_FUNC_INFO << " - 040";
+   //qDebug() << Q_FUNC_INFO << " - 040";
 
     if (!dateTime.isValid())
         return false;
 
-  //qDebug() << Q_FUNC_INFO << " - 050";
+   //qDebug() << Q_FUNC_INFO << " - 050";
     return true;
 }
 
@@ -126,3 +129,10 @@ Frequency DXSpot::getFrequency()
     // Return the frequency stored in the object
     return freq;
 }
+
+void DXSpot::setSHDX(bool _shdx)
+{
+    shdx = _shdx;
+}
+
+bool DXSpot::getSHDX(){return shdx;}

@@ -65,6 +65,9 @@ public:
     void setFrequency(Frequency f);
     Frequency getFrequency();
 
+    void setSHDX(bool _shdx);   // To know if the spot arrived from the dxcluster or was requested with a sh/dx
+    bool getSHDX();
+
 signals:
 
 private:
@@ -73,6 +76,7 @@ private:
     QString spotter;
     QString comment;
     QDateTime dateTime;
+    bool shdx;
     MouseClicks clickStatus;    
 };
 

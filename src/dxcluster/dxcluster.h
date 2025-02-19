@@ -42,7 +42,7 @@ email                : jaime@robles.es
 class QWidget;
 class QTcpSocket;
 class Frequency;
-
+enum TypeOfDXSpot {dxde, shdx, other};
 
 class DXClusterWidget : public QWidget
 {
@@ -66,6 +66,7 @@ class DXClusterWidget : public QWidget
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
 
     void rightButtonFromLogMenu(const DXSpot &_spot);
+
     //void sendSpotToCluster(const QString &_dx, const QString &_freq);
 
 private slots:
@@ -95,8 +96,12 @@ private:
     void addItemToClusterList(const QString &text, const QColor &color); // Adds a message to the list
     void createActions();
     void connectToDXCluster();
+    void printSpot(const QString _stringSpot);
+    void printSHDX(const QString _stringSpot);
+    void printOther(const QString _stringSpot);
     //QStringList readItem(QListWidgetItem * _stringSpot);
     DXSpot readItem(const QString _stringSpot);
+    TypeOfDXSpot parseReceivedData(const QString _stringSpot);       // Parses the received data to identify if it is a "DX de" or other line.
     bool checkIfNeedsToBePrinted(EntityStatus _entityStatus);
     void saveSpot (const QString &_spot);
     bool openFile();

@@ -5058,7 +5058,7 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     // If the band/mode/log is already worked and status confirmed: Update and Return true
     // If not worked: Add and Return true
 
-    qDebug() << Q_FUNC_INFO << " " << QString::number(_qsoId);
+   //qDebug() << Q_FUNC_INFO << " " << QString::number(_qsoId);
     if (_qsoId <= 0)
     {
            //qDebug() << Q_FUNC_INFO << "  QSOid <=0 " << QString::number(_qsoId);

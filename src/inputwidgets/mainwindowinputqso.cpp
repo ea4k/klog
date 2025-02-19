@@ -32,7 +32,7 @@
 MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = dp;
     //locator = new Locator();
 
@@ -61,13 +61,13 @@ MainWindowInputQSO::~MainWindowInputQSO()
 
 void MainWindowInputQSO::setModifying(const bool _m)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     modify = _m;
 }
 
 void MainWindowInputQSO::createUI()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     rstTXLineEdit->setToolTip(tr("TX RST."));
     rstRXLineEdit->setToolTip(tr("RX RST."));
     txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
@@ -229,7 +229,7 @@ void MainWindowInputQSO::createUI()
     connect(locatorLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(qthLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
-    connect(nameLineEdit, SIGNAL(paletteChanged(QPalette)), this, SLOT(slotPaletteChanged(QPalette)) );
+    //connect(nameLineEdit, SIGNAL(paletteChanged(QPalette)), this, SLOT(slotPaletteChanged(QPalette)) );
     connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)) ) ;
@@ -244,7 +244,7 @@ void MainWindowInputQSO::createUI()
 
 void MainWindowInputQSO::setDefaultData()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
     palWhite.setColor(QPalette::Text, Qt::white);
@@ -271,7 +271,7 @@ void MainWindowInputQSO::setDefaultData()
 
 void MainWindowInputQSO::clear()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     qthLineEdit->clear();
     nameLineEdit->clear();
     locatorLineEdit->clear();
@@ -281,7 +281,7 @@ void MainWindowInputQSO::clear()
 
 void MainWindowInputQSO::cleanQRZCOM(const bool _dataFromQRZCOM)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (_dataFromQRZCOM)
     {
         qthLineEdit->clear();
@@ -292,34 +292,34 @@ void MainWindowInputQSO::cleanQRZCOM(const bool _dataFromQRZCOM)
 
 void MainWindowInputQSO::clearName()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     nameLineEdit->clear();
     completedWithPreviousName = false;
 }
 
 void MainWindowInputQSO::clearQTH()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     qthLineEdit->clear();
     completedWithPreviousQTH = false;
 }
 
 void MainWindowInputQSO::clearDXLocator()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     locatorLineEdit->clear ();
     completedWithPreviousLocator = false;
 }
 
 void MainWindowInputQSO::slotReturnPressed()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     emit returnPressed();
 }
 
 void MainWindowInputQSO::slotLocatorTextChanged()
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     int cursorP = locatorLineEdit->cursorPosition();
 
     locatorLineEdit->setText((util->getClearSQLi(locatorLineEdit->text())).toUpper());
@@ -350,13 +350,13 @@ void MainWindowInputQSO::slotLocatorTextChanged()
 
 QString MainWindowInputQSO::getDXLocator()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return locatorLineEdit->text();
 }
 
 void MainWindowInputQSO::setDXLocator(const QString &_loc, bool _completing)
 {
-   qDebug() << Q_FUNC_INFO << " - Start";
+  //qDebug() << Q_FUNC_INFO << " - Start";
     if (!util->isValidGrid(_loc))
        return;
     if (_completing)
@@ -379,13 +379,13 @@ void MainWindowInputQSO::setDXLocator(const QString &_loc, bool _completing)
 
 QString MainWindowInputQSO::getName()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return nameLineEdit->text ();
 }
 
 void MainWindowInputQSO::setName(const QString &_st, bool _completing)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (!_completing)
     {
         nameLineEdit->setText (_st);
@@ -410,13 +410,13 @@ void MainWindowInputQSO::setName(const QString &_st, bool _completing)
 
 double MainWindowInputQSO::getTXFreq()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return txFreqSpinBox->value();
 }
 
 void MainWindowInputQSO::setTXFreq(const double _ft)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
 
     if ( (_ft >= double(0)) && (_ft <= txFreqSpinBox->maximum()))
     {
@@ -433,13 +433,13 @@ void MainWindowInputQSO::setTXFreq(const double _ft)
 
 double MainWindowInputQSO::getRXFreq()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return rxFreqSpinBox->value();
 }
 
 void MainWindowInputQSO::setRXFreq(const double _ft)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if ( (_ft >= double(0)) && (_ft <= rxFreqSpinBox->maximum()))
     {
         rxFreqSpinBox->setValue(_ft);
@@ -465,13 +465,13 @@ void MainWindowInputQSO::setRXPwr(const double _pw)
 
 QString MainWindowInputQSO::getQTH()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return qthLineEdit->text();
 }
 
 void MainWindowInputQSO::setQTH(const QString &_st, bool _completing)
 {// if _completing, I a completing from a previous QSO
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (!_completing)
     {
         qthLineEdit->setText(_st);
@@ -493,32 +493,32 @@ void MainWindowInputQSO::setQTH(const QString &_st, bool _completing)
 
 QString MainWindowInputQSO::getRSTTX()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return rstTXLineEdit->text();
 }
 
 void MainWindowInputQSO::setRSTTX(const QString &_st)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     rstTXLineEdit->setText (_st);
 }
 
 QString MainWindowInputQSO::getRSTRX()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     return rstRXLineEdit->text();
 }
 
 void MainWindowInputQSO::setRSTRX(const QString &_st)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     rstRXLineEdit->setText (_st);
 }
 
 
 void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     //qDebug() << Q_FUNC_INFO << ": " << _m ;
 
     if ((_m == "SSB") || (_m== "LSB") || (_m=="USB") || (_m == "FM") || (_m == "AM") )
@@ -578,19 +578,19 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 
 void MainWindowInputQSO::slotPaletteChanged(QPalette _p)
 {
-    qDebug() << Q_FUNC_INFO << " - " << nameLineEdit->palette().color(QPalette::Base);
+   //qDebug() << Q_FUNC_INFO << " - " << nameLineEdit->palette().color(QPalette::Base);
 }
 
 bool MainWindowInputQSO::getDarkMode()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " - Start: " << nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb);
     //return darkMode;
     return (nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#646464");
 }
 
 void MainWindowInputQSO::setPaletteRightName(const bool _ok)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
         if (getDarkMode())
@@ -610,7 +610,7 @@ void MainWindowInputQSO::setPaletteRightName(const bool _ok)
 
 void MainWindowInputQSO::setPaletteRightQTH(const bool _ok)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
         if (getDarkMode())
@@ -630,7 +630,7 @@ void MainWindowInputQSO::setPaletteRightQTH(const bool _ok)
 
 void MainWindowInputQSO::setPaletteRightDXLocator(const bool _ok)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
         if (getDarkMode())
@@ -664,10 +664,10 @@ void MainWindowInputQSO::setPropModeFromSat(const QString &_p)
 
 void MainWindowInputQSO::slotFreqTXChanged (double _f)
 {
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     if (util->isSameFreq (_f, freqTX))
     {
-        qDebug() << Q_FUNC_INFO << ": Same Freq return" ;
+       //qDebug() << Q_FUNC_INFO << ": Same Freq return" ;
         return;
     }
     freqTX = _f;
@@ -677,35 +677,35 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
         if (getDarkMode())
         {
-            qDebug() << Q_FUNC_INFO << " - We are in darkmode";
+           //qDebug() << Q_FUNC_INFO << " - We are in darkmode";
             txFreqSpinBox->setPalette(palWhite);
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
+           //qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
             txFreqSpinBox->setPalette(palBlack);
         }
-        qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
+       //qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
         emit txFreqChanged (_f);
     }
     else
     {
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         txFreqSpinBox->setPalette(palRed);
-        qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
+       //qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
     }
     if ((!splitCheckBox->isChecked()) && !modify)
     {
         rxFreqSpinBox->setValue (_f);
-        qDebug() << Q_FUNC_INFO << ": copying to RX Freq " ;
+       //qDebug() << Q_FUNC_INFO << ": copying to RX Freq " ;
     }
-    qDebug() << Q_FUNC_INFO << " - END" ;
+   //qDebug() << Q_FUNC_INFO << " - END" ;
     setSplitCheckBox();
 }
 
 void MainWindowInputQSO::slotSplitClicked()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (!splitCheckBox->isChecked())
     {
         rxFreqSpinBox->setValue(txFreqSpinBox->value());
@@ -714,7 +714,7 @@ void MainWindowInputQSO::slotSplitClicked()
 
 void MainWindowInputQSO::slotFreqRXChanged(double _f)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (util->isSameFreq (_f, freqRX))
     {
         return;
@@ -770,7 +770,7 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
 
 void MainWindowInputQSO::setSplitCheckBox()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
    if (util->isSameFreq(txFreqSpinBox->value(), rxFreqSpinBox->value()))
     {
         splitCheckBox->setChecked(false);
@@ -783,14 +783,14 @@ void MainWindowInputQSO::setSplitCheckBox()
 
 void MainWindowInputQSO::receiveFocus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     rstTXLineEdit->setFocus ();
 }
 
 bool MainWindowInputQSO::eventFilter (QObject *object, QEvent *event)
 {
     Q_UNUSED(object);
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (!(event->type() == QEvent::Paint ))
     {
         //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());

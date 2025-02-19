@@ -75,7 +75,6 @@ public:
     int getQSOsInLog(const int _logNumber);
 
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
-    bool isThisSpotConfirmed(EntityStatus _entityStatus);
 
     QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 

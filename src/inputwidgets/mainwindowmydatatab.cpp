@@ -836,7 +836,7 @@ void MainWindowMyDataTab::setModify(const bool _modify)
 bool MainWindowMyDataTab::getDarkMode()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - color: " << operatorLineEdit->palette().color (QPalette::Base);
+   //qDebug() << Q_FUNC_INFO << " - color: " << operatorLineEdit->palette().color (QPalette::Base);
     return  (operatorLineEdit->palette().color (QPalette::Base) == "#646464");
 }
 

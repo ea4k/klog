@@ -150,6 +150,9 @@ void tst_Frequency::test_fromQString()
 
     freq->fromQString("1.296", GHz);
     QVERIFY2(qFuzzyCompare(freq->toDouble(),(double)1296.0), "Freq 1296 in MHz");
+
+    freq->fromQString("Hola", KHz);
+    QVERIFY2(!freq->isValid(), "Freq is Valid fails");
 }
 /*
 

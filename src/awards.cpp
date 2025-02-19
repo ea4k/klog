@@ -311,11 +311,6 @@ int Awards::getWAZConfirmed(const int _logNumber)
     }
 }
 
-bool Awards::isThisSpotConfirmed(EntityStatus _entityStatus)
-{
-    return (_entityStatus.status == confirmed);
-}
-
 int Awards::getDXStatus (EntityStatus _entityStatus)
 {
     //qDebug() << Q_FUNC_INFO<< ": Entity: " << _qs.at(0) << "/ Band: " << _qs.at(1) << "/ Mode: " << _qs.at(2)  << "/ Log: " << _qs.at(3)  <<  QT_ENDL;

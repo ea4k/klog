@@ -520,9 +520,9 @@ void MainWindow::init()
 
     timerInfoBars = new QTimer(this);
 
-    qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
     createUI();
-    qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
+   //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
       //qDebug() << Q_FUNC_INFO << " - 100";
     slotClearButtonClicked(Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << " - 110";
