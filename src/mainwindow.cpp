@@ -1102,9 +1102,9 @@ void MainWindow::slotQRZReturnPressed()
 
     if (!readQSOFromUI())
     {return;}
-  //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSO);
+  //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSOid);
 
-    int addedOK = qso->toDB (modifyingQSO);
+    int addedOK = qso->toDB (modifyingQSOid);
   //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
@@ -1133,9 +1133,9 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     {
        //qDebug() << Q_FUNC_INFO << " -  Modifying! " ;
        needToSave = true;
-       if(modifyingQSO>0)
+       if(modifyingQSOid>0)
        {
-           awards->setAwards(modifyingQSO);
+           awards->setAwards(modifyingQSOid);
            if (yearChangedDuringModification)
            {
                awardsWidget->fillOperatingYears();
@@ -1147,13 +1147,13 @@ void MainWindow::actionsJustAfterAddingOneQSO()
                 // Delete QSO in CLubLog
                elogClublog->deleteQSO(clublogPrevQSO);
                 // Add modified QSO in ClubLog
-               elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO));
+               elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSOid));
            }
            else
            {
                    //qDebug() << Q_FUNC_INFO << " -  (No ClubLog) Lastid: "<< QString::number(lastId) ;
            }
-           awards->setAwards(modifyingQSO);   //Update the DXCC award status
+           awards->setAwards(modifyingQSOid);   //Update the DXCC award status
        }
        // CHECK WHAT WAS THE QSOID to add the awards, if needed
     }
@@ -2213,7 +2213,7 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
 
     currentEntity = -1;
     //dateTimeTemp = dateTime;
-    modifyingQSO = -1;
+    modifyingQSOid = -1;
 
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
      //qDebug() << Q_FUNC_INFO << " - 10" ;
@@ -4467,7 +4467,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     setModifying(true);
 
-    modifyingQSO = _qso;
+    modifyingQSOid = _qso;
     QSO qsoE;
     qsoE.fromDB(_qso);
 

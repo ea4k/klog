@@ -171,7 +171,7 @@ BUG:
 Clublog:
 void MainWindow::slotQRZReturnPressed()
 _x = elogClublog->deleteQSO(clublogPrevQSO);
-_x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO))
+_x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSOid))
 It runs so fast and not serialized that at the end sometimes the QSO is deleted but not created afterwards
 
 

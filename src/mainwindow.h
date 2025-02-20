@@ -359,12 +359,14 @@ private:
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     bool callTQSL(const QString &_filename, const QString &_call);
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
+
+
     //QString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
-    QSO *qso, *backupQSO;
+    QSO *qso, *backupQSO *modifyingQSO;
 
     bool hamlibActive;
     bool hamlibChangingMode;
@@ -391,8 +393,8 @@ private:
     void createActionsCommon();
 
 
-    //bool validCharactersInCall(const QString &_qrz); // Looks for SQLi and no valid chars in the QRZ
     bool readQSOFromUI();
+
     //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     //QString readDataFromUIDX();
     //QString readDataFromUIDXModifying();
@@ -649,7 +651,7 @@ private:
     bool InValidCharsInPrevCall;
     int currentLog; // This is to be able to manage multiple logs without showing
                     // them all at the same time.
-    int modifyingQSO; // When modifying, the QSO is saved here.
+    int modifyingQSOid; // When modifying, the QSO is saved here.
     int selectedYear;
     bool readingTheUI;  // While reading the data from UI after QSO intro or modificationthis is true
 

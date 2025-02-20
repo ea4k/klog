@@ -170,7 +170,7 @@ void DXClusterWidget::addData()
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
-   qDebug() << Q_FUNC_INFO << ": " << ((item->data(0)).toString()).simplified();
+  //qDebug() << Q_FUNC_INFO << ": " << ((item->data(0)).toString()).simplified();
 
     QStringList ql;
     ql.clear();
@@ -611,7 +611,7 @@ TypeOfDXSpot DXClusterWidget::parseReceivedData(const QString _stringSpot)
 
 DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
+   //qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
     DXSpot spot;
     spot.clear();
     spot.setDateTime(QDateTime::currentDateTimeUtc());
