@@ -161,6 +161,8 @@ void MainQSOEntryWidget::createUI()
      //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
+
+
 void MainQSOEntryWidget::setShowSeconds(const bool &t)
 {
     if (t)
@@ -377,7 +379,7 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     emit currentQRZSignal(currentQrz);
 
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
-     //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP);
+   //qDebug() << "MainQSOEntryWidget::slotQRZTextChanged: cursorP at the end : " << QString::number(cursorP);
     qrzLineEdit->setCursorPosition(cursorP);
     checkIfDupe(Q_FUNC_INFO);
     qrzAutoChanging = false;
@@ -402,6 +404,7 @@ void MainQSOEntryWidget::slotBandComboBoxChanged(const QString &_b){
     bottomBandLimit = dataProxy->getLowLimitBandFromBandName (_b);
     upperBandLimit = dataProxy->getUpperLimitBandFromBandName (_b);
     emit bandChanged(_b);
+   //qDebug() << Q_FUNC_INFO << " - 99";
     checkIfDupe(Q_FUNC_INFO);
     logEvent (Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -410,8 +413,9 @@ void MainQSOEntryWidget::slotBandComboBoxChanged(const QString &_b){
 void MainQSOEntryWidget::slotModeComboBoxChanged(const QString &_m)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-
+   //qDebug() << Q_FUNC_INFO << " - 00";
     emit modeChanged(_m);
+   //qDebug() << Q_FUNC_INFO << " - 99";
     checkIfDupe(Q_FUNC_INFO);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -438,7 +442,7 @@ void MainQSOEntryWidget::slotOKButtonClicked()
 
 void MainQSOEntryWidget::slotClearButtonClicked()
 {
-     //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked: " ;
+   //qDebug() << "MainQSOEntryWidget::slotClearButtonClicked: " ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     setCleaning (true);
     clear();
@@ -463,6 +467,17 @@ void MainQSOEntryWidget::clear()
     //cleaning = false;
     //qDebug() << Q_FUNC_INFO << " - END";
     logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+QSO MainQSOEntryWidget::fillQSO(QSO _qso)
+{
+    QSO qso = _qso;
+    qso.setCall(getQrz());
+    qso.setBand(getBand());
+    qso.setMode(dataProxy->getNameFromSubMode (getMode()));
+    qso.setSubmode(getMode());
+    qso.setDateTimeOn(getDateTime());
+    return qso;
 }
 
 void MainQSOEntryWidget::setInitialData()
@@ -1047,32 +1062,47 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
     Q_UNUSED(_func);
 #ifdef QT_DEBUG
-    //qDebug() << Q_FUNC_INFO << "(" << _func << ")";
+   //qDebug() << Q_FUNC_INFO << "(" << _func << ")";
 #else
 #endif
     logEvent (Q_FUNC_INFO, "Start", Debug);
+   //qDebug() << Q_FUNC_INFO << " - " << _func;
+   //qDebug() << Q_FUNC_INFO << " - " << qrzLineEdit->text();
+    Callsign call(qrzLineEdit->text());
+    if (!call.isValid())
+        return;
+   //qDebug() << Q_FUNC_INFO << " - 20";
     QDateTime _dateTime;
     _dateTime.setDate(dateEdit->date());
     _dateTime.setTime(timeEdit->time());
+   //qDebug() << Q_FUNC_INFO << " - 30";
     QSO q;
     q.setCall(qrzLineEdit->text());
     q.setDateTimeOn(_dateTime);
     q.setBand(bandComboBox->currentText());
     q.setMode(modeComboBox->currentText());
+   //qDebug() << Q_FUNC_INFO << " - 35";
     if (!q.isValid())
+    {
+       //qDebug() << Q_FUNC_INFO << " - QSO not valid!";
         return;
-    //qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
+    }
+   //qDebug() << Q_FUNC_INFO << " - 40";
+
     if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs).length()<2) || modify)
     {
-         //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
-         //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify);
+       //qDebug() << Q_FUNC_INFO << " - 41";
+        //qDebug() << Q_FUNC_INFO << " - DUPE ";
+        //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify);
         qrzgroupBox->setTitle(tr("Callsign"));
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
+       //qDebug() << Q_FUNC_INFO << " - 42";
+       //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
         qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common world for hams. Do not translate of not sure"));
     }
+   //qDebug() << Q_FUNC_INFO << " - END";
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 

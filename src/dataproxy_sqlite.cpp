@@ -2473,9 +2473,13 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 
 QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 {
+   //qDebug() << Q_FUNC_INFO << " - 000";
     QList<int> dupeQsos;
+   //qDebug() << Q_FUNC_INFO << " - 001";
     dupeQsos.clear();
+   //qDebug() << Q_FUNC_INFO << " - 002";
     QSO q(_qso);
+   //qDebug() << Q_FUNC_INFO << " - 003";
     //qDebug() << Q_FUNC_INFO << " - Call: " << q.getCall();
 
     if (!q.isValid())
@@ -2483,14 +2487,14 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
         //qDebug() << Q_FUNC_INFO << " - END Empty 3" ;
         return dupeQsos;
     }
-
+   //qDebug() << Q_FUNC_INFO << " - 005";
     int validityPeriod = _secs * 60;
     QString initTime = util->getDateTimeSQLiteStringFromDateTime(q.getDateTimeOn().addSecs(-validityPeriod));
     QString endTime = util->getDateTimeSQLiteStringFromDateTime(q.getDateTimeOn().addSecs(validityPeriod));
 
     //yyyy-MM-dd hh:mm:ss
     // We will match +-15min
-
+   //qDebug() << Q_FUNC_INFO << " - 010";
     QString queryString = QString("SELECT id, qso_date FROM log WHERE call = ':call' AND bandid = ':bandid' AND modeid= ':modeid' AND qso_date BETWEEN ':initTime' AND ':endTime'");
     //QString queryString = QString("SELECT id, qso_date FROM log WHERE call= :call AND bandid = :bandid AND modeid= :modeid AND qso_date >= ':initTime' AND qso_date <= ':endTime'");
           //queryString = QString("SELECT id, qso_date FROM log WHERE call='%1' AND bandid='%2' AND modeid='%3' AND qso_date>='%4' AND qso_date<='%5'").arg(_qrz).arg(_band).arg(_mode).arg(initTime).arg(endTime);
@@ -2500,12 +2504,13 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
         //qDebug() << Q_FUNC_INFO << ": ERROR preparing the Query";
         return dupeQsos;
     }
+   //qDebug() << Q_FUNC_INFO << " - 020";
     query.bindValue(":call", q.getCall());   
     query.bindValue(":bandid", getIdFromBandName(q.getBand()));   
     query.bindValue(":modeid", getIdFromModeName(q.getMode()));   
     query.bindValue(":initTime", initTime);   
     query.bindValue(":endTime", endTime);
-
+   //qDebug() << Q_FUNC_INFO << " - 030";
     //qDebug() << Q_FUNC_INFO << " QUERY:   " << q.getCall();
     //qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromBandName(q.getBand());
     //qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromModeName(q.getMode());
@@ -2513,9 +2518,10 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
     //qDebug() << Q_FUNC_INFO << " QUERY:   " << endTime;
 
     bool sqlOK = query.exec(queryString);
-
+   //qDebug() << Q_FUNC_INFO << " - 050";
     if (sqlOK)
     {
+       //qDebug() << Q_FUNC_INFO << " - 051";
         while (query.next())
         {
             if (query.isValid())
@@ -2531,19 +2537,20 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
                 //qDebug() << Q_FUNC_INFO << " - END Empty 2" ;
             }
         }
-        //qDebug() << Q_FUNC_INFO << " - END" ;
+       //qDebug() << Q_FUNC_INFO << " - END - ok" ;
         return dupeQsos;
     }
     else
     {
+       //qDebug() << Q_FUNC_INFO << " - 052";
         //qDebug() << Q_FUNC_INFO << " : Native Error1 " << query.lastError().text();
         //qDebug() << Q_FUNC_INFO << " : Native Error2 " << query.lastError();
         //qDebug() << Q_FUNC_INFO << " : Native Error3 " << query.lastError().text();
 
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-        //qDebug() << Q_FUNC_INFO << " - END Empty 1" ;
-        return dupeQsos;
+       //qDebug() << Q_FUNC_INFO << " - END Empty 1" ;
+        return dupeQsos;        
     }
 }
 

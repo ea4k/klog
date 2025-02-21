@@ -30,6 +30,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "qso.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -54,6 +55,8 @@ public:
     bool isModeExisting(const QString &_m);
     bool isBandExisting(const QString &_b);
     void setShowSeconds(const bool &t);
+    QSO fillQSO(QSO _qso);
+
     QString getQrz();
     QString getBand(int _b=-1);
     QString getMode(int _m=-1);

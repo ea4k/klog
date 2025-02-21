@@ -45,7 +45,8 @@ public:
     QSO(QObject *parent = nullptr);
     QSO(const QSO& other);
     ~QSO();
-    QSO& operator=(const QSO &other); // Assignment operator
+    void operator=(QSO const &_other);
+
     bool copy(const QSO& other);
     void setLogLevel (const DebugLogLevel _b);
     void setRealTime(const bool _rt);   // Not QSO info but KLog status
