@@ -264,9 +264,32 @@ void tst_QSO::setQSOData()
 */
 }
 
-void tst_QSO::initTestCase(){}
+void tst_QSO::initTestCase()
+{
+    // Set up database connection that will be used for all tests
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "globalTestConnection");
+    db.setDatabaseName(":memory:");
+    if (!db.open()) {
+        qDebug() << "Failed to open test database";
+        return;
+    }
 
-void tst_QSO::cleanupTestCase(){}
+    // Create required tables
+    QSqlQuery query(db);
+    query.exec("CREATE TABLE IF NOT EXISTS band (id INTEGER PRIMARY KEY, name TEXT)");
+    query.exec("CREATE TABLE IF NOT EXISTS mode (id INTEGER PRIMARY KEY, name TEXT, submode TEXT)");
+
+    // Add some test data
+    query.exec("INSERT INTO band (id, name) VALUES (1, '10M'), (2, '20M'), (3, '40M')");
+    query.exec("INSERT INTO mode (id, name, submode) VALUES (1, 'SSB', 'USB'), (2, 'CW', 'CW')");
+}
+
+void tst_QSO::cleanupTestCase()
+{
+    // Clean up database
+    QSqlDatabase::database("globalTestConnection").close();
+    QSqlDatabase::removeDatabase("globalTestConnection");
+}
 
 void tst_QSO::test_Constructor()
 {
@@ -337,22 +360,85 @@ void tst_QSO::test_isValid()
 
 void tst_QSO::test_AdifCreation()
 {
-    setQSOData();   // To fill a QSO with all the data
+    // Create a new QSO object
+    QSO qso;
+
+    // Set up database connection for testing
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "testConnection");
+    db.setDatabaseName(":memory:");
+    QVERIFY2(db.open(), "Failed to open test database");
+
+    // Create required tables
+    QSqlQuery query(db);
+    query.exec("CREATE TABLE IF NOT EXISTS band (id INTEGER PRIMARY KEY, name TEXT)");
+    query.exec("CREATE TABLE IF NOT EXISTS mode (id INTEGER PRIMARY KEY, name TEXT, submode TEXT)");
+
+    // Insert some test data
+    query.exec("INSERT INTO band (id, name) VALUES (1, '10M')");
+    query.exec("INSERT INTO mode (id, name, submode) VALUES (1, 'SSB', 'USB')");
+
+    // Set test data
+    qso.setCall("EA4K");
+    qso.setBand("10M");
+    qso.setMode("SSB");
+    qso.setDateTimeOn(QDateTime::currentDateTimeUtc());
+    qso.setOperatorCallsign("EA4K");
+    qso.setRSTTX("59");
+    qso.setRSTRX("59");
+    qso.setFreq(28.5);
+    qso.setQTH("Madrid");
+    qso.setName("Test");
+
+    // Verify the data was set correctly
+    QVERIFY2(!qso.getCall().isEmpty(), "Call should not be empty");
+    QVERIFY2(!qso.getBand().isEmpty(), "Band should not be empty");
+    QVERIFY2(!qso.getMode().isEmpty(), "Mode should not be empty");
+    QVERIFY2(qso.getDateTimeOn().isValid(), "DateTime should be valid");
+
+    // Get ADIF string
+    QString adifStr = qso.getADIF();
+    QVERIFY2(!adifStr.isEmpty(), "ADIF string should not be empty");
+
+    // Clean up
+    db.close();
 }
 
 void tst_QSO::test_DeepCopy()
 {
-    QSO original;
-    original.setCall("EA4K");
-    original.setBand("20M");
-    original.setMode("SSB");
+    // Set up test database
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "testCopyConnection");
+    db.setDatabaseName(":memory:");
+    QVERIFY2(db.open(), "Failed to open test database");
 
-    QSO assigned;
-    assigned = original;
+    // Create required tables
+    QSqlQuery query(db);
+    query.exec("CREATE TABLE IF NOT EXISTS band (id INTEGER PRIMARY KEY, name TEXT)");
+    query.exec("CREATE TABLE IF NOT EXISTS mode (id INTEGER PRIMARY KEY, name TEXT, submode TEXT)");
+    query.exec("INSERT INTO band (id, name) VALUES (1, '20M')");
+    query.exec("INSERT INTO mode (id, name, submode) VALUES (1, 'SSB', 'USB')");
 
-    QCOMPARE(assigned.getCall(), original.getCall());
-    QCOMPARE(assigned.getBand(), original.getBand());
-    QCOMPARE(assigned.getMode(), original.getMode());
+    {
+        // Test copy constructor
+        QSO original;
+        original.setCall("EA4K");
+        original.setBand("20M");
+        original.setMode("SSB");
+
+        QSO copy(original);
+        QCOMPARE(copy.getCall(), QString("EA4K"));
+        QCOMPARE(copy.getBand(), QString("20M"));
+        QCOMPARE(copy.getMode(), QString("SSB"));
+
+        // Test assignment operator
+        QSO assigned;
+        assigned = original;
+        QCOMPARE(assigned.getCall(), original.getCall());
+        QCOMPARE(assigned.getBand(), original.getBand());
+        QCOMPARE(assigned.getMode(), original.getMode());
+    }
+
+    // Clean up
+    db.close();
 }
 
 QTEST_APPLESS_MAIN(tst_QSO)

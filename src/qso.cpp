@@ -34,19 +34,28 @@ QSO::QSO(QObject *parent)
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
-
-    //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
-    //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
+    adif = new Adif(Q_FUNC_INFO);  // Initialize adif in constructor
+    clear();  // Initialize all member variables
 }
 
 // Copy constructor
 QSO::QSO(const QSO &other) : QObject(other.parent()) {
+    util = new Utilities(Q_FUNC_INFO);
+    adif = new Adif(Q_FUNC_INFO);
     copy(other);
 }
 
 QSO::~QSO()
 {
-    delete(util);
+    // Make sure we delete objects in reverse order of creation
+    if (adif) {
+        delete adif;
+        adif = nullptr;
+    }
+    if (util) {
+        delete util;
+        util = nullptr;
+    }
 }
 
 // Assignment operator
@@ -269,11 +278,7 @@ void QSO::clear()
     haveSubMode = false;
     haveDateTime = false;
     haveCall = false;
-
-    qsoId = -1;
-    logId = -1;
     backup = false;
-    stationCallsign = QString();
     lotwUpdating = false;
     realTime = false;
     manualMode = false;
@@ -282,6 +287,14 @@ void QSO::clear()
     keepOther = false;
     keepSat = false;
     modifying = false;
+    isValidDistance = false;
+    forceInit = false;
+    swl = false;
+    qso_random = true;
+    silent_key = false;
+    qsoId = -1;
+    logId = -1;    
+    stationCallsign = QString();
 
     // VARIABLES for ADIF //////////
     address = QString();
@@ -321,8 +334,7 @@ void QSO::clear()
     eqsl_qsl_rcvd = QString();
     eqsl_qsl_sent = QString();
     fists = 0;
-    fists_cc = 0;
-    forceInit = false;
+    fists_cc = 0;   
     freq_tx = 0;
     freq_rx = 0;
     gridsquare = QString();
@@ -399,8 +411,7 @@ void QSO::clear()
     qslVia = QString();
     qso_complete = qso_complete = util->getQSO_CompleteFromADIF("Y");
     qso_dateTime = QDateTime();
-    qso_date_off = QDate();
-    qso_random = true;
+    qso_date_off = QDate();    
     qth = QString();
     region = QString();
     rig = QString();
@@ -412,7 +423,6 @@ void QSO::clear()
     sfi = 0;
     sig = QString();
     sig_info = QString();
-    silent_key = false;
     skcc = QString();
     sota_ref = QString();
     srx = 0;
@@ -421,7 +431,6 @@ void QSO::clear()
     stx = 0;
     stx_string = QString();
     submode = QString();
-    swl = false;
     ten_ten = 0;
     qso_time_off = QTime();
     pwr_tx = 0.0;
@@ -540,19 +549,34 @@ double QSO::getFreqRX()
 
 bool QSO::isValid()
 {// Add more controls: Call, Date, Time, Band, Mode?
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    return isComplete();
-    //if ( (callsign.length()>0))
-    //{
-    //   logEvent (Q_FUNC_INFO, "END-true", Debug);
-    //    return true;
-    //}
-    //else
-    //{
-    //   logEvent (Q_FUNC_INFO, "END-false", Debug);
-    //    return false;
-    //}
+    logEvent(Q_FUNC_INFO, "Start", Debug);
 
+    // Call must be present and valid
+    if (!haveCall || callsign.isEmpty()) {
+        logEvent(Q_FUNC_INFO, "Invalid call", Debug);
+        return false;
+    }
+
+    // Band must be present and valid
+    if (!haveBand || band.isEmpty()) {
+        logEvent(Q_FUNC_INFO, "Invalid band", Debug);
+        return false;
+    }
+
+    // Either mode or submode must be present
+    if (!haveMode && !haveSubMode) {
+        logEvent(Q_FUNC_INFO, "No mode/submode", Debug);
+        return false;
+    }
+
+    // Date/time must be valid
+    if (!haveDateTime || !qso_dateTime.isValid()) {
+        logEvent(Q_FUNC_INFO, "Invalid date/time", Debug);
+        return false;
+    }
+
+    logEvent(Q_FUNC_INFO, "QSO is valid", Debug);
+    return true;
 }
 
 bool QSO::setCall(const QString &_c)
