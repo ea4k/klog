@@ -34,6 +34,7 @@
 #include "../dataproxy_sqlite.h"
 //#include "../locator.h"
 #include "../utilities.h"
+#include "../qso.h"
 
 class MainWindowInputQSO : public QWidget
 {
@@ -82,6 +83,8 @@ public:
     void clearName();
     void clearQTH();
     void clearDXLocator();
+
+    QSO fillQSO(QSO _qso);
 
 signals:
     void returnPressed();

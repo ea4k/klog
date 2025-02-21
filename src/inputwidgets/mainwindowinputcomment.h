@@ -30,6 +30,7 @@
 //
 #include <QWidget>
 #include <QtWidgets>
+#include "../qso.h"
 
 class MainWindowInputComment : public QWidget
 {
@@ -44,6 +45,7 @@ public:
     void clear(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
     void setKeep(const bool _b);
     bool getKeep();
+    QSO fillQSO(QSO _qso);
 
 private:
     QString comment;

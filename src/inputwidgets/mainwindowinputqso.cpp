@@ -242,6 +242,20 @@ void MainWindowInputQSO::createUI()
     QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
 }
 
+QSO MainWindowInputQSO::fillQSO(QSO _qso)
+{
+    QSO qso = _qso;
+    qso.setGridSquare(getDXLocator());
+    qso.setName(getName());
+    qso.setQTH(getQTH());
+    qso.setRSTRX(getRSTRX());
+    qso.setRSTTX(getRSTTX());
+    qso.setFreq(getTXFreq());
+    qso.setFreqRX(getRXFreq());
+    qso.setRXPwr(getRXPwr());
+    return qso;
+}
+
 void MainWindowInputQSO::setDefaultData()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";

@@ -39,178 +39,9 @@ QSO::QSO(QObject *parent)
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 }
 
-QSO::QSO(const QSO &other)
-    : QObject(other.parent())
-{
-    util = new Utilities(Q_FUNC_INFO);    
-    logLevel = other.logLevel;
-    haveBand = other.haveBand;
-    haveMode = other.haveMode;
-    haveSubMode = other.haveSubMode;
-    haveDateTime = other.haveDateTime;
-    haveCall = other.haveCall;
-
-    qsoId = other.qsoId;
-    logId = other.logId;
-    backup = other.backup;
-    stationCallsign = other.stationCallsign;
-    lotwUpdating = other.lotwUpdating;
-    realTime = other.realTime;
-    manualMode = other.manualMode;
-    keepComment = other.keepComment;
-    keepMyData = other.keepMyData;
-    keepOther = other.keepOther;
-    keepSat = other.keepSat;
-    modifying = other.modifying;
-
-    // VARIABLES for ADIF //////////
-    address = other.address;
-    age = other.age;
-    altitude = other.altitude;
-    a_index = other.a_index;
-    ant_az = other.ant_az;
-    ant_el = other.ant_el;
-    ant_path = other.ant_path;
-    arrl_sect = other.arrl_sect;
-    award_submitted = other.award_submitted;
-    award_granted = other.award_granted;
-    band = other.band;
-    band_rx = other.band_rx;
-    callsign = other.callsign;
-    check = other.check;
-    clase = other.clase;
-    clublogQSOUpdateDate = other.clublogQSOUpdateDate;
-    clublog_status = other.clublog_status;
-    county = other.county;
-    comment = other.comment;
-    continent = other.continent;
-    contacted_op = other.contacted_op;
-    contest_id = other.contest_id;
-    country = other.country;
-    cqz = other.cqz;
-    credit_granted = other.credit_granted;
-    credit_submitted = other.credit_submitted;
-    darc_dok = other.darc_dok;
-    distance = other.distance;
-    dxcc = other.dxcc;
-    email = other.email;
-    ownerCall = other.ownerCall;
-    contacted_owner = other.contacted_owner;
-    eQSLRDate = other.eQSLRDate;
-    eQSLSDate = other.eQSLSDate;
-    eqsl_qsl_rcvd = other.eqsl_qsl_rcvd;
-    eqsl_qsl_sent = other.eqsl_qsl_sent;
-    fists = other.fists;
-    fists_cc = other.fists_cc;
-    forceInit = other.forceInit;
-    freq_tx = other.freq_tx;
-    freq_rx = other.freq_rx;
-    gridsquare = other.gridsquare;
-    gridsquare_ext = other.gridsquare_ext;
-    operatorCall = other.operatorCall;
-    hrdlogUploadDate = other.hrdlogUploadDate;
-    hrdlog_status = other.hrdlog_status;
-    hamlogeu_status = other.hamlogeu_status;
-    hamlogeuUpdateDate = other.hamlogeuUpdateDate;
-    hamqth_status = other.hamqth_status;
-    hamqthUpdateDate = other.hamqthUpdateDate;
-    iota = other.iota;
-    iota_ID = other.iota_ID;
-    itu_zone = other.itu_zone;
-    k_index = other.k_index;
-    latitude = other.latitude;
-    longitude = other.longitude;
-    QSLLoTWRDate = other.QSLLoTWRDate;
-    QSLLoTWSDate = other.QSLLoTWSDate;
-    lotw_qsl_rcvd = other.lotw_qsl_rcvd;
-    lotw_qsl_sent = other.lotw_qsl_sent;
-    max_bursts = other.max_bursts;
-    mode = other.mode;
-    ms_shower = other.ms_shower;
-    my_altitude = other.my_altitude;
-    my_antenna = other.my_antenna;
-    my_arrl_sect = other.my_arrl_sect;
-    my_city = other.my_city;
-    my_county = other.my_county;
-    my_country = other.my_country;
-    my_cqz = other.my_cqz;
-    my_dxcc = other.my_dxcc;
-    my_fists = other.my_fists;
-    my_gridsquare = other.my_gridsquare;
-    my_gridsquare_ext = other.my_gridsquare_ext;
-    my_iota = other.my_iota;
-    my_iota_ID = other.my_iota_ID;
-    my_itu_zone = other.my_itu_zone;
-    my_latitude = other.my_latitude;
-    my_longitude = other.my_longitude;
-    my_name = other.my_name;
-    my_pota_ref = other.my_pota_ref;
-    my_postal_code = other.my_postal_code;
-    my_rig = other.my_rig;
-    my_sig = other.my_sig;
-    my_sig_info = other.my_sig_info;
-    my_sota_ref = other.my_sota_ref;
-    my_state = other.my_state;
-    my_street = other.my_street;
-    my_usaca_counties = other.my_usaca_counties;
-    my_vucc_grids= other.my_vucc_grids;
-    my_wwff_ref = other.my_wwff_ref;
-    name = other.name;
-    notes = other.notes;
-    nr_bursts = other.nr_bursts;
-    nr_pings = other.nr_pings;
-    operatorCall = other.operatorCall;
-    ownerCall = other.ownerCall;
-    contacted_owner = other.contacted_owner;
-    prefix = other.prefix;
-    pota_ref = other.pota_ref;
-    precedence = other.precedence;
-    propMode = other.propMode;
-    public_key = other.public_key;
-    QRZComDate = other.QRZComDate;
-    QRZCom_status = other.QRZCom_status;
-    qslmsg = other.qslmsg;
-    QSLRDate = other.QSLRDate;
-    QSLSDate = other.QSLSDate;
-    qsl_rcvd = other.qsl_rcvd;
-    qsl_sent = other.qsl_sent;
-    qslSenVia = other.qslSenVia;
-    qslRecVia = other.qslRecVia;
-    qslVia = other.qslVia;
-    qso_complete = other.qso_complete;
-    qso_dateTime = other.qso_dateTime;
-    qso_date_off = other.qso_date_off;
-    qso_random = other.qso_random;
-    qth = other.qth;
-    region = other.region;
-    rig = other.rig;
-    RST_rx = other.RST_rx;
-    RST_tx = other.RST_tx;
-    pwr_rx = other.pwr_rx;
-    satMode = other.satMode;
-    satName = other.satName;
-    sfi =other.sfi;
-    sig = other.sig;
-    sig_info = other.sig_info;
-    silent_key = other.silent_key;
-    skcc = other.skcc;
-    sota_ref = other.sota_ref;
-    srx = other.srx;
-    srx_string = other.srx_string;
-    state = other.state;
-    stx = other.stx;
-    stx_string = other.stx_string;
-    submode = other.submode;
-    swl = other.swl;
-    ten_ten = other.ten_ten;
-    qso_time_off = other.qso_time_off;
-    pwr_tx = other.pwr_tx;
-    uksmg = other.uksmg;
-    usaca_counties = other.usaca_counties;
-    ve_prov = other.ve_prov;
-    vucc_grids = other.vucc_grids;
-    web = other.web;
-    wwff_ref = other.wwff_ref;
+// Copy constructor
+QSO::QSO(const QSO &other) : QObject(other.parent()) {
+    copy(other);
 }
 
 QSO::~QSO()
@@ -218,8 +49,21 @@ QSO::~QSO()
     delete(util);
 }
 
+// Assignment operator
+QSO& QSO::operator=(const QSO &other) {
+    if (this != &other) {
+        QObject::setParent(other.parent());
+        copy(other);
+    }
+    return *this;
+}
+
 bool QSO::copy(const QSO& other)
 {   //Copies the data of another QSO into this one
+    if (this == &other) {
+        return true;
+    }
+
     clear();
     setLogId(other.logId);
     setStationCallsign(other.stationCallsign);

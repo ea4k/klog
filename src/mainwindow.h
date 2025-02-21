@@ -366,7 +366,7 @@ private:
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
-    QSO *qso, *backupQSO *modifyingQSO;
+    QSO *qso, *backupQSO, *modifyingQSO;
 
     bool hamlibActive;
     bool hamlibChangingMode;
@@ -394,6 +394,7 @@ private:
 
 
     bool readQSOFromUI();
+    bool completeQSOFromUI(QSO _qso);
 
     //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     //QString readDataFromUIDX();

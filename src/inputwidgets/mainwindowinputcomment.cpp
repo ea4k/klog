@@ -98,3 +98,11 @@ bool MainWindowInputComment::getKeep()
 {
     return keepThisDataForNextQSOQCheckbox->isChecked ();
 }
+
+QSO MainWindowInputComment::fillQSO(QSO _qso)
+{
+    QSO qso = _qso;
+    qso.setComment(getComment());
+
+    return qso;
+}

@@ -1092,12 +1092,19 @@ void MainWindow::slotOKButtonClicked(){
 void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-  //qDebug() << Q_FUNC_INFO << " - Start"  ;
+    qDebug() << Q_FUNC_INFO << " - Start"  ;
     if (mainQSOEntryWidget->getQrz().length()<=0)
     {
       //qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;
         return;
     }
+
+    QSO qq;
+    qq = QSOTabWidget->fillQSO(qq);
+
+    qDebug() << Q_FUNC_INFO << " -  DXCall: " << qq.getCall()  ;
+
+
     readingTheUI = true;
 
     if (!readQSOFromUI())
@@ -1191,6 +1198,189 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     logEvent(Q_FUNC_INFO, "END", Debug);
   //qDebug() << Q_FUNC_INFO << " - END" ;
 }
+
+bool MainWindow::completeQSOFromUI(QSO _qso)
+{
+    //qDebug() << Q_FUNC_INFO << " -  Start" ;
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+
+    qso->clear ();
+    QString tqrz = (mainQSOEntryWidget->getQrz()).toUpper();
+    Callsign callsign(tqrz);
+    if (!callsign.isValid())
+    {
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(tr("KLog - Not valid call"));
+        QString aux = QString(tr("The callsign %1 is not a valid call. Do you really want to add this callsign to the log?") ).arg(mainQSOEntryWidget->getQrz());
+        msgBox.setText(aux);
+        msgBox.setInformativeText(tr("Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications."));
+        msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        int ret = msgBox.exec();
+        switch (ret)
+        {
+        case QMessageBox::Yes:
+            // Ok was clicked
+            break;
+        case QMessageBox::No:
+            qso->clear ();
+            return false;
+        default:
+            // should never be reached
+            break;
+        }
+    }
+    qso->setCall (tqrz);
+    qso->setMyCQZone(my_CQz);
+    qso->setMyITUZone(my_ITUz);
+    qso->setBand(mainQSOEntryWidget->getBand());
+    qso->setMode(dataProxy->getNameFromSubMode (mainQSOEntryWidget->getMode()));
+    qso->setSubmode (mainQSOEntryWidget->getMode());
+
+    //qso->setDate (tdate);
+    qso->setLogId (currentLog);
+
+    qso->setDateTimeOn (mainQSOEntryWidget->getDateTime());
+
+    qso->setRSTTX (QSOTabWidget->getRSTTX ());
+    qso->setRSTRX (QSOTabWidget->getRSTRX ());
+
+
+    int dxcc = world->getQRZARRLId(tqrz);
+    //qDebug() << Q_FUNC_INFO + QString(": %1 - %2").arg(_callsign.getCallsign()).arg(dxcc);
+
+    //int dxcc2 = getDXCCFromComboBox();
+    int dxcc2 = othersTabWidget->getEntity();
+
+    dxcc = util->getNormalizedDXCCValue (dxcc);
+    dxcc2 = util->getNormalizedDXCCValue (dxcc2);
+
+    if (dxcc!=dxcc2)
+    {
+        QString dxccn1 = world->getEntityName(dxcc);
+        dxccn1 = dxccn1 + " - " + world->getEntityMainPrefix(dxcc);
+
+        QString dxccn2 = world->getEntityName(dxcc2);
+        dxccn2 = dxccn2 + " - " + world->getEntityMainPrefix(dxcc2);
+
+        QPushButton *button2 = new QPushButton(this);
+        QPushButton *button1 = new QPushButton(this);
+
+        button1->setText(world->getEntityMainPrefix(dxcc));
+        button2->setText(world->getEntityMainPrefix(dxcc2));
+
+        int ret;
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - Select correct entity"));
+        msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxccn2+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n"+ "- "+dxccn1+"\n\n"
+                       +tr("Click on the prefix of the correct entity or Cancel to edit the QSO again."));
+
+        msgBox.addButton(button2, QMessageBox::AcceptRole);
+        msgBox.addButton(button1, QMessageBox::ActionRole);
+        msgBox.addButton(QMessageBox::Cancel);
+        ret = msgBox.exec();
+
+        if (ret == QMessageBox::AcceptRole)
+        {
+            dxcc = dxcc2;
+        }
+        else if (ret == QMessageBox::Cancel)
+        {
+            logEvent(Q_FUNC_INFO, "END-2", Debug);
+            qso->clear ();
+            return  false;
+        }
+    }
+
+    int cqz = infoWidget->getCQ();
+    int ituz = infoWidget->getITU();
+
+    qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
+    qso->setName (QSOTabWidget->getName());
+    if (othersTabWidget->getDistance()>0.0)
+        qso->setDistance(othersTabWidget->getDistance());
+    else
+        qso->setDistance (infoWidget->getDistance ());
+    qso->setGridSquare (QSOTabWidget->getDXLocator());
+    qso->setMyGridSquare (myDataTabWidget->getMyLocator());
+
+    qso->setFreq (QSOTabWidget->getTXFreq());
+    qso->setFreqRX (QSOTabWidget->getRXFreq());
+    qso->setBandRX (dataProxy->getBandNameFromFreq (QSOTabWidget->getRXFreq ()));
+
+    qso->setQTH (QSOTabWidget->getQTH());
+    qso->setOperatorCallsign (myDataTabWidget->getOperator());
+    qso->setStationCallsign (myDataTabWidget->getStationCallsign());
+
+    qso->setMyRig (myDataTabWidget->getMyRig());
+    qso->setMyAntenna (myDataTabWidget->getMyAntenna());
+    qso->setMySOTA_REF (myDataTabWidget->getMySOTA());
+    qso->setMyVUCCGrids (myDataTabWidget->getMyVUCCGrids ());
+    qso->setMyPOTA_Ref(myDataTabWidget->getMyPota_ref());
+    qso->setMySig(myDataTabWidget->getMySig());
+    qso->setMySigInfo(myDataTabWidget->getMySig_info());
+    qso->setMyWWFF_Ref(myDataTabWidget->getMyWWFF_Ref());
+
+    qso->setComment (commentTabWidget->getComment());
+    qso->setQSLMsg (QSLTabWidget->getQSLMsg());
+
+    qso->setDXCC (dxcc);
+    qso->setCQZone (cqz);
+    qso->setItuZone (ituz);
+
+    qso->setQSLVia (QSLTabWidget->getQSLVia());
+    qso->setTXPwr (myDataTabWidget->getMyPower());
+    qso->setRXPwr (QSOTabWidget->getRXPwr ());
+
+    qso->setSOTA_REF (othersTabWidget->getSOTA());
+    qso->setAge (othersTabWidget->getAge());
+    qso->setVUCCGrids (othersTabWidget->getVUCCGrids ());
+    qso->setIOTA (othersTabWidget->getIOTA());
+    qso->setPOTA_Ref(othersTabWidget->getPOTA_REF());
+    qso->setSIG(othersTabWidget->getSIG());
+    qso->setSIG_INFO(othersTabWidget->getSIG_INFO());
+    qso->setWWFF_Ref(othersTabWidget->getWWFF_Ref());
+    qso->setState(othersTabWidget->getState());
+
+    qso->setSatName (satTabWidget->getSatName());
+    qso->setSatMode (satTabWidget->getSatMode());
+
+    keepSatPage = satTabWidget->getKeep();
+
+    qso->setPropMode (othersTabWidget->getPropModeFromComboBox());
+
+    qso->setClubLogStatus (eQSLTabWidget->getClubLogStatus()); //Y, N, M
+    qso->setClubLogDate(eQSLTabWidget->getClubLogDate());
+
+    qso->setEQSLQSL_SENT (eQSLTabWidget->getEQSLSenStatus());
+    qso->setEQSLQSLSDate (eQSLTabWidget->getEQSLSenDate());
+
+    qso->setEQSLQSL_RCVD (eQSLTabWidget->getEQSLRecStatus());
+    qso->setEQSLQSLRDate (eQSLTabWidget->getEQSLRecDate());
+
+    qso->setLoTWQSL_SENT (eQSLTabWidget->getLOTWSenStatus());
+    qso->setLoTWQSLSDate (eQSLTabWidget->getLOTWSenDate());
+    qso->setLoTWQSL_RCVD (eQSLTabWidget->getLOTWRecStatus());
+    qso->setLoTWQSLRDate (eQSLTabWidget->getLOTWRecDate());
+
+    qso->setQSL_SENT (QSLTabWidget->getQSLSenStatus());
+    qso->setQSLSenVia (QSLTabWidget->getSentVia());
+    qso->setQSLSDate (QSLTabWidget->getQSLSenDate());
+
+    qso->setQRZCOMStatus(eQSLTabWidget->getQRZCOMStatus());
+    qso->setQRZCOMDate(eQSLTabWidget->getQRZCOMDate());
+
+    qso->setQSL_RCVD (QSLTabWidget->getQSLRecStatus());
+    qso->setQSLRecVia (QSLTabWidget->getRecVia());
+    qso->setQSLRDate (QSLTabWidget->getQSLRecDate());
+
+    //qDebug() << Q_FUNC_INFO << " -  END" ;
+    logEvent(Q_FUNC_INFO, "END", Debug);
+    return true;
+}
+
 
 bool MainWindow::readQSOFromUI()
 {
