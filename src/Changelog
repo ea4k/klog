@@ -1,8 +1,6 @@
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 TODO: Review bool QSO::copy(const QSO& other) it may have some fields missing
 
-TODO: Remove, if possible the QSO instance from the DataProxy_SQLite constructor
-
 TODO-Test: Add tests to test the subsivisions
 TODO-Test: the copy constructor of QSO
 

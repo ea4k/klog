@@ -26,7 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
-
+#include <QCoreApplication>
 #include "../../src/qso.h"
 #include "../../src/callsign.h"
 #include "../../src/klogdefinitions.h"
@@ -47,6 +47,7 @@ private slots:
     void test_dataEntry();
     void test_isValid();
     void test_AdifCreation();
+    void test_DeepCopy();
 
 private:
     QSO *qso;
@@ -337,9 +338,24 @@ void tst_QSO::test_isValid()
 void tst_QSO::test_AdifCreation()
 {
     setQSOData();   // To fill a QSO with all the data
+}
 
+void tst_QSO::test_DeepCopy()
+{
+    QSO original;
+    original.setCall("EA4K");
+    original.setBand("20M");
+    original.setMode("SSB");
+
+    QSO assigned;
+    assigned = original;
+
+    QCOMPARE(assigned.getCall(), original.getCall());
+    QCOMPARE(assigned.getBand(), original.getBand());
+    QCOMPARE(assigned.getMode(), original.getMode());
 }
 
 QTEST_APPLESS_MAIN(tst_QSO)
-
 #include "tst_qso.moc"
+
+
