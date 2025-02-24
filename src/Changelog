@@ -44,6 +44,7 @@ TBD - 2.4
 - Enhancement: ADIF Added SUBMM band.
 - Enhancement: Added several ADIF fields (Closes #396, #507, #508, #719)
 - BugFix: Fixed the ISO name for Togo.
+- BugFix: Distance was not exported to ADIF and DARC_DOK included the distance instead of the right DARC_DOK.
 - BugFix: Country fix read failed with complex prefixes.
 - Bugfix: CQ & ITU zones may be wrong for callsigns from specific DXCC if coming from WSJTX.
 - Bugfix: ClubLog date was not properly managed.

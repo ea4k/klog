@@ -7467,11 +7467,10 @@ QList<int> DataProxy_SQLite::getListOfDXCCIds()
         }
     }
     query.finish();
-    int i;
-    foreach (i, entities) {
-       //qDebug() << Q_FUNC_INFO << " - " << QString::number(i);
-    }
-
+    //int i;
+    //foreach (i, entities) {
+    //   //qDebug() << Q_FUNC_INFO << " - " << QString::number(i);
+    //}
     return entities;
 }
 

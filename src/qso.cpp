@@ -586,9 +586,15 @@ void QSO::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _le
 bool QSO::isComplete()
 {
     if (!haveCall)
+    {
         return false;
+    }
+
     if (!haveDateTime)
+    {
         return false;
+    }
+
     if (!haveBand)
         return false;
     return (haveMode || haveSubMode);
@@ -624,7 +630,7 @@ void QSO::clear()
     // VARIABLES for ADIF //////////
     address = QString();
     age = 0;
-    altitude = 0.0;
+    altitude = -10000;
     a_index = 0;
     ant_az = 0.0;
     ant_el = 0.0;
@@ -753,10 +759,10 @@ void QSO::clear()
     silent_key = false;
     skcc = QString();
     sota_ref = QString();
-    srx = 0;
+    srx = -1;
     srx_string = QString();
     state = QString();
-    stx = 0;
+    stx = -1;
     stx_string = QString();
     submode = QString();
     swl = false;
@@ -897,8 +903,10 @@ bool QSO::setCall(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
     Callsign call(_c);
+   //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (call.isValid())
     {
+       //qDebug() << Q_FUNC_INFO << ": valid Call";
         logEvent (Q_FUNC_INFO, QString("END - true"), Debug);
         callsign = _c;
         haveCall = true;
@@ -907,6 +915,7 @@ bool QSO::setCall(const QString &_c)
     else
     {
         logEvent (Q_FUNC_INFO, QString("END - false-2"), Debug);
+       //qDebug() << Q_FUNC_INFO << ": NOT valid Call";
         return false;
     }
 }
@@ -977,7 +986,7 @@ QString QSO::getBandRX()
 bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+   //qDebug() << Q_FUNC_INFO << ": " << _c;
     QString aux = _c;
 
     if (aux.isNull())
@@ -1132,13 +1141,17 @@ bool QSO::getManualMode()
 
 bool QSO::setClubLogStatus(const QString &_c)
 {
+   //qDebug() << Q_FUNC_INFO << " - " << _c;
+
     if (util->isValidUpload_Status (_c))
     {
+       //qDebug() << Q_FUNC_INFO << " - Valid";
         clublog_status = _c;
         return true;
     }
     else
     {
+       //qDebug() << Q_FUNC_INFO << " - NOT Valid";
         return false;
     }
 }
@@ -1150,6 +1163,7 @@ QString QSO::getClubLogStatus()
 
 bool QSO::setClubLogDate(const QDate &_c)
 {
+   //qDebug() << Q_FUNC_INFO << " - " << _c.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
         clublogQSOUpdateDate = _c;
@@ -1169,16 +1183,17 @@ QDate QSO::getClubLogDate()
 
 bool QSO::setQRZCOMStatus(const QString &_c)
 {
+   //qDebug() << Q_FUNC_INFO << " - " << _c;
+    if (util->isValidUpload_Status (_c))
     {
-        if (util->isValidUpload_Status (_c))
-        {
-            QRZCom_status = _c;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+       //qDebug() << Q_FUNC_INFO << " - VALID";
+        QRZCom_status = _c;
+        return true;
+    }
+    else
+    {
+       //qDebug() << Q_FUNC_INFO << " - NOT VALID";
+      return false;
     }
 }
 
@@ -2195,7 +2210,7 @@ QString QSO::getContinent()
 
 bool QSO::setDistance(const double _i)
 {
-    if (util->isValidDistance(_i))
+    if (adif->isValidDistance(QString::number(_i)))
     {
         distance = _i;
         return true;
@@ -4079,7 +4094,8 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
         adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
-    adifStr.append(adif->getADIFField ("ALTITUDE",  QString::number(getAltitude())));
+    if (adif->isValidAltitude(QString::number(getAltitude())))
+        adifStr.append(adif->getADIFField ("ALTITUDE",  QString::number(getAltitude())));
     adifStr.append(adif->getADIFField ("CNTY",  county));
     adifStr.append(adif->getADIFField ("COMMENT",  comment));
     if ((adif->isValidA_Index(QString::number(a_index))) && (a_index>0))
@@ -4107,8 +4123,9 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("credit_submitted",  credit_submitted));
     adifStr.append(adif->getADIFField ("credit_granted", credit_granted ));
 
+    adifStr.append(adif->getADIFField ("dark_dok", darc_dok ));
     if (distance>0)
-        adifStr.append(adif->getADIFField ("darc_dok", QString::number(distance) ));
+        adifStr.append(adif->getADIFField ("distance", QString::number(distance) ));
     adifStr.append(adif->getADIFField ("email",  email));
     adifStr.append(adif->getADIFField ("eq_call",  getEQ_Call()));
 
@@ -4165,7 +4182,8 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("max_bursts", QString::number(getMaxBursts()) ));
 
     adifStr.append(adif->getADIFField ("ms_shower",  ms_shower));
-    adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
+    if (adif->isValidAltitude(QString::number(getMyAltitude())))
+        adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
     adifStr.append(adif->getADIFField ("my_antenna", my_antenna));
     adifStr.append(adif->getADIFField ("my_arrl_sect", my_arrl_sect ));
     adifStr.append(adif->getADIFField ("my_city", my_city));
@@ -4265,10 +4283,10 @@ QString QSO::getADIF()
 
     adifStr.append(adif->getADIFField ("sota_ref", sota_ref));
     adifStr.append(adif->getADIFField ("srx_string", srx_string));
-    if (adif->isValidSRX(QString::number(nr_bursts)))
+    if (adif->isValidSRX(QString::number(srx)))
         adifStr.append(adif->getADIFField ("srx", QString::number(srx)));
     adifStr.append(adif->getADIFField ("stx_string", stx_string));
-    if (adif->isValidSTX(QString::number(nr_bursts)))
+    if (adif->isValidSTX(QString::number(stx)))
         adifStr.append(adif->getADIFField ("stx", QString::number(stx)));
 
     adifStr.append(adif->getADIFField ("state", state));
@@ -4400,6 +4418,7 @@ bool QSO::fromDB(int _qsoId)
     setCheck((query.value(rec.indexOf("checkcontest"))).toString());
     setClass((query.value(rec.indexOf("class"))).toString());
     //qDebug() << Q_FUNC_INFO << "  - 40";
+
     data = (query.value(rec.indexOf("clublog_qso_upload_date"))).toString();
     setClubLogDate(util->getDateTimeFromSQLiteString(data).date());
     setClubLogStatus((query.value(rec.indexOf("clublog_qso_upload_status"))).toString());
@@ -4562,6 +4581,7 @@ bool QSO::fromDB(int _qsoId)
     setWWFF_Ref((query.value(rec.indexOf("wwff_ref"))).toString());
     setTenTen((query.value(rec.indexOf("ten_ten"))).toInt());
     setTXPwr((query.value(rec.indexOf("tx_pwr"))).toDouble());
+    setRXPwr((query.value(rec.indexOf("rx_pwr"))).toDouble());
     //qDebug() << Q_FUNC_INFO << "  - 140";
     setWeb((query.value(rec.indexOf("web"))).toString());
     data = (query.value(rec.indexOf("qso_date_off"))).toString();

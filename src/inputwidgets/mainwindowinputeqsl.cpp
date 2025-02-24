@@ -59,6 +59,46 @@ MainWindowInputEQSL::~MainWindowInputEQSL()
     delete(dataProxy);
 }
 
+QSO MainWindowInputEQSL::getQSOData(QSO _qso)
+{
+    QSO qso = _qso;
+    qso.setClubLogStatus(getClubLogStatus());
+    qso.setEQSLQSL_RCVD(getEQSLRecStatus());
+    qso.setEQSLQSL_SENT(getEQSLSenStatus());
+    qso.setLoTWQSL_RCVD(getLOTWRecStatus());
+    qso.setLoTWQSL_SENT(getLOTWSenStatus());
+    qso.setQRZCOMStatus(getQRZCOMStatus());
+
+    qso.setClubLogDate(getClubLogDate());
+    qso.setEQSLQSLRDate(getEQSLRecDate());
+    qso.setEQSLQSLSDate(getEQSLSenDate());
+    qso.setLoTWQSLRDate(getLOTWRecDate());
+    qso.setLoTWQSLSDate(getLOTWSenDate());
+    qso.setQRZCOMDate(getQRZCOMDate());
+
+    return qso;
+}
+
+void MainWindowInputEQSL::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+    setClubLogStatus(qso.getClubLogStatus());
+    setClubLogDate(qso.getClubLogDate());
+
+    setEQSLRecDate(qso.getEQSLQSLRDate());
+    setEQSLSenDate(qso.getEQSLQSLSDate());
+    setEQSLRecStatus(qso.getEQSLQSL_RCVD());
+    setEQSLSenStatus(qso.getEQSLQSL_SENT());
+
+    setLOTWRecDate(qso.getLoTWQSLRDate());
+    setLOTWSenDate(qso.getLoTWQSLSDate());
+    setLOTWRecStatus(qso.getLoTWQSL_RCVD());
+    setLOTWSenStatus(qso.getLoTWQSL_SENT());
+
+    setQRZCOMDate(qso.getQRZCOMDate());
+    setQRZCOMStatus(qso.getQRZCOMStatus());
+}
+
 void MainWindowInputEQSL::createUI()
 {
     qslSentStatusList.clear();
@@ -204,15 +244,17 @@ void MainWindowInputEQSL::clear()
 QString MainWindowInputEQSL::getClubLogStatus()
 {
     QString _pm = QString();
-    //qDebug() << "MainWindowInputEQSL::getClubLogStatus:" << clublogComboBox->currentText();
+   //qDebug() << Q_FUNC_INFO << clublogComboBox->currentText();
      _pm = (((clublogComboBox->currentText()).split('-')).at(0)).simplified();
+   //qDebug() << Q_FUNC_INFO << " - From UI: " << _pm;
      return _pm;
 }
 
 QString MainWindowInputEQSL::getQRZCOMStatus()
 {
     QString _pm = QString();
-     _pm = (((qrzcomComboBox->currentText()).split('-')).at(0)).simplified();
+    _pm = (((qrzcomComboBox->currentText()).split('-')).at(0)).simplified();
+    //qDebug() << Q_FUNC_INFO << " - From UI: " << _pm;
      return _pm;
 }
 
@@ -411,7 +453,7 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged(){
             lotwRecQDateEdit->setEnabled(true);
         break;
         default: //NO
-            lotwRecQDateEdit->setVisible(false);
+            //lotwRecQDateEdit->setVisible(false);
             lotwRecQDateEdit->setEnabled(false);
         break;
     }
@@ -453,7 +495,7 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged(){
         break;
 
         default: //NO
-            lotwSentQDateEdit->setVisible(false);
+            //lotwSentQDateEdit->setVisible(false);
             lotwSentQDateEdit->setEnabled(false);
         break;
     }
@@ -495,7 +537,7 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
             eqslRecQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
-            eqslRecQDateEdit->setVisible(false);
+            //eqslRecQDateEdit->setVisible(false);
             eqslRecQDateEdit->setEnabled(false);
         break;
     }
@@ -537,7 +579,7 @@ void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
         break;
 
         default: //NO
-            eqslSentQDateEdit->setVisible(false);
+            //eqslSentQDateEdit->setVisible(false);
             eqslSentQDateEdit->setEnabled(false);
         break;
     }
@@ -564,7 +606,7 @@ void MainWindowInputEQSL::slotClubLogComboBoxChanged()
             clublogQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
-            clublogQDateEdit->setVisible(false);
+            //clublogQDateEdit->setVisible(false);
             clublogQDateEdit->setEnabled(false);
         break;
     }
@@ -572,6 +614,7 @@ void MainWindowInputEQSL::slotClubLogComboBoxChanged()
 
 void MainWindowInputEQSL::setClubLogDate(const QDate _qs)
 {
+   //qDebug() << Q_FUNC_INFO << "Date: " << _qs.toString("dd/MM/yyyy");
     if (_qs.isValid())
     {
         clublogQDateEdit->setDate(_qs);
@@ -603,7 +646,7 @@ void MainWindowInputEQSL::slotQRZCOMComboBoxChanged()
             qrzcomQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
         default: //NO
-            qrzcomQDateEdit->setVisible(false);
+            //qrzcomQDateEdit->setVisible(false);
             qrzcomQDateEdit->setEnabled(false);
         break;
     }

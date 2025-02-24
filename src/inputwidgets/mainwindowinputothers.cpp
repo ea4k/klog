@@ -73,6 +73,43 @@ MainWindowInputOthers::~MainWindowInputOthers()
     delete(util);
 }
 
+QSO MainWindowInputOthers::getQSOData(QSO _qso)
+{
+    QSO qso = _qso;
+
+    qso.setDXCC(getEntity());
+    qso.setState(getState());
+    //qso.setCounty()           //TODO: Related to entitySecDivComboBox when implemented
+    qso.setIOTA(getIOTA());
+    qso.setPropMode(getPropModeFromComboBox());
+    qso.setSOTA_REF(getSOTA());
+    qso.setAge(getAge());
+    qso.setDistance(getDistance());
+    qso.setSIG(getSIG());
+    qso.setSIG_INFO(getSIG_INFO());
+    qso.setVUCCGrids(getVUCCGrids());
+    qso.setWWFF_Ref(getWWFF_Ref());
+    qso.setPOTA_Ref(getPOTA_REF());
+    return qso;
+}
+
+void MainWindowInputOthers::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+    setEntity(qso.getDXCC());
+    setPropMode(qso.getPropMode(), false);
+    setSOTA(qso.getSOTA_REF());
+    setAge(qso.getAge());
+    setDistance(qso.getDistance());
+    setVUCCGrids(qso.getVUCCGrids());
+    setPOTA_REF(qso.getPOTA_Ref());
+    setSIG(qso.getSIG());
+    setSIG_INFO(qso.getSIG_INFO());
+    setWWFF_Ref(qso.getWWFF_Ref());
+    setIOTA(qso.getIOTA());
+    setState(qso.getState());
+}
+
 void MainWindowInputOthers::createUI()
 {
    //qDebug() << Q_FUNC_INFO ;

@@ -393,8 +393,8 @@ private:
     void createActionsCommon();
 
 
-    bool readQSOFromUI();
-    bool completeQSOFromUI(QSO _qso);
+    QSO readQSOFromUI();
+    QSO getQSODataFromUI();         // Calls to the different widgets for QSO data
 
     //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     //QString readDataFromUIDX();
@@ -432,6 +432,8 @@ private:
     void setModifying(const bool _m);
     void clearIfNotCompleted();                 // Refactored from completeWithPreviousQSO
     void completeWithPreviousQSO(const QString &_call);
+    bool checkValidCallBeforeAddingToLog(const QString &_call);                             // Asks the user if call is not valid
+    int checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_qso);                // Asks the user if DXCC if unsure
 
     //void showAwards();
     //void showDXMarathon(const int _year);

@@ -58,6 +58,39 @@ MainWindowInputQSL::~MainWindowInputQSL()
     delete(util);
 }
 
+QSO MainWindowInputQSL::getQSOData(QSO _qso)
+{
+    QSO qso = _qso;
+
+    qso.setQSL_SENT(getQSLSenStatus());
+    qso.setQSLSDate(getQSLSenDate());
+    qso.setQSLSenVia(getSentVia());
+
+    qso.setQSL_RCVD(getQSLRecStatus());
+    qso.setQSLRDate(getQSLRecDate());
+    qso.setQSLRecVia(getRecVia());
+
+    qso.setQSLVia(getQSLVia());
+    qso.setQSLMsg(getQSLMsg());
+
+    return qso;
+}
+
+void MainWindowInputQSL::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+    setQSLSenStatus(qso.getQSL_SENT());
+    setQSLSenDate(qso.getQSLSDate());
+    setQSLSenVia(qso.getQSLSentVia());
+
+    setQSLRecStatus(qso.getQSL_RCVD());
+    setQSLRecDate(qso.getQSLRDate());
+    setQSLRecVia(qso.getQSLRecVia());
+
+    setQSLVia(qso.getQSLVia());
+    setQSLMsg(qso.getQSLMsg());
+}
+
 void MainWindowInputQSL::createUI()
 {
     // QSL Tab definition starts here

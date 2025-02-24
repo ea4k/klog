@@ -249,7 +249,7 @@ void MainQSOEntryWidget::setCleaning (const bool _c)
 void MainQSOEntryWidget::slotQRZTextChanged()
 {
     logEvent (Q_FUNC_INFO, "Start: " + qrzLineEdit->text(), Debug);
-     //qDebug()<< Q_FUNC_INFO << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######";
+   //qDebug()<< Q_FUNC_INFO << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######";
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     if ((qrzLineEdit->text()).length()<1)
@@ -469,7 +469,7 @@ void MainQSOEntryWidget::clear()
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-QSO MainQSOEntryWidget::fillQSO(QSO _qso)
+QSO MainQSOEntryWidget::getQSOData(QSO _qso)
 {
     QSO qso = _qso;
     qso.setCall(getQrz());
@@ -480,9 +480,26 @@ QSO MainQSOEntryWidget::fillQSO(QSO _qso)
     return qso;
 }
 
+ void MainQSOEntryWidget::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+   //qDebug()<< Q_FUNC_INFO << "Call: " << qso.getCall();
+    //if (qso.isValid())
+    //{
+    //   //qDebug()<< Q_FUNC_INFO << "QSO is NOT Valid...";
+    //    return;
+    //}
+    //qDebug()<< Q_FUNC_INFO << "QSO is Valid...";
+    setQRZ(qso.getCall());
+    setBand(qso.getBand());
+    setMode(qso.getSubmode());
+    setDateTime(qso.getDateTimeOn());
+   //qDebug()<< Q_FUNC_INFO << "Call: " << getQrz();
+}
+
 void MainQSOEntryWidget::setInitialData()
 {
-       //qDebug()<< "MainQSOEntryWidget::setInitialData";
+       //qDebug()<< Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //Default band/modes
     modify = false;
@@ -586,7 +603,7 @@ void MainQSOEntryWidget::setBands(const QStringList &_bands)
 void MainQSOEntryWidget::setModes(const QStringList &_modes)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-     //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     modes.clear();
     modes = _modes;
@@ -693,16 +710,16 @@ bool MainQSOEntryWidget::setBand(const QString &_band)
 bool MainQSOEntryWidget::setMode(const QString &_mode)
 {
     logEvent (Q_FUNC_INFO, "Start" + _mode, Debug);
-     //qDebug() << Q_FUNC_INFO << ":  " << _mode;
+   //qDebug() << Q_FUNC_INFO << ":  " << _mode;
     if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
     {
-         //qDebug() << Q_FUNC_INFO << ":  NOT found";
+       //qDebug() << Q_FUNC_INFO << " -  NOT found";
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << ":  Updated";
+       //qDebug() << Q_FUNC_INFO << " -  Updated";
         modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
         logEvent (Q_FUNC_INFO, "END-2", Debug);
         return true;
@@ -712,7 +729,7 @@ bool MainQSOEntryWidget::setMode(const QString &_mode)
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     //TODO: Add validations to prevent that non valid qrz are sent from the outside of this function or at least manage this appropriately.
     qrzLineEdit->setText(_qrz.toUpper());
     logEvent (Q_FUNC_INFO, "END", Debug);

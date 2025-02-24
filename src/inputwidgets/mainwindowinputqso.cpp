@@ -242,7 +242,7 @@ void MainWindowInputQSO::createUI()
     QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
 }
 
-QSO MainWindowInputQSO::fillQSO(QSO _qso)
+QSO MainWindowInputQSO::getQSOData(QSO _qso)
 {
     QSO qso = _qso;
     qso.setGridSquare(getDXLocator());
@@ -253,7 +253,24 @@ QSO MainWindowInputQSO::fillQSO(QSO _qso)
     qso.setFreq(getTXFreq());
     qso.setFreqRX(getRXFreq());
     qso.setRXPwr(getRXPwr());
+    setRSTToMode(qso.getSubmode(), true);
+
+    qso.setBandRX (dataProxy->getBandNameFromFreq (getRXFreq()));
+    qso.setBand(dataProxy->getBandNameFromFreq (getTXFreq()));
     return qso;
+}
+
+void MainWindowInputQSO::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+    setDXLocator(qso.getGridSquare());
+    setName(qso.getName());
+    setQTH(qso.getQTH());
+    setRSTRX(qso.getRSTRX());
+    setRSTTX(qso.getRSTTX());
+    setTXFreq(qso.getFreqTX());
+    setRXFreq(qso.getFreqRX());
+    setRXPwr(qso.getRXPwr());
 }
 
 void MainWindowInputQSO::setDefaultData()
@@ -471,6 +488,7 @@ double MainWindowInputQSO::getRXPwr()
 
 void MainWindowInputQSO::setRXPwr(const double _pw)
 {
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _pw;
     if (_pw>=0)
     {
         rxPowerSpinBox->setValue(_pw);

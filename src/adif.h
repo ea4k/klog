@@ -71,6 +71,7 @@ public:
     bool isValidUKSMG(const QString &_b);            //>0
     bool isValidTenTen(const QString &_b);            //>0
     bool isValidLogId(const QString &_b);            //>0
+    bool isValidAltitude (const QString &_s);       // > 10000 (10000 is a default value in KLog)
     bool isValidAntPath(const QString &_s);
     bool isValidMode (const QString &_s);
     bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
@@ -98,7 +99,8 @@ private:
 
     QString parentName;
     DebugLogLevel logLevel;
-    QHash<QString, QString> ADIFHash; // Name, type
+    QHash<QString, QString> ADIFHash;   // Name, type
+    QStringList notZeroFields;          // Numeral ADIF fields where having a Zero makes no sense
 
     QStringList ARRL_sects, continents, sponsorsList, modes;
 };

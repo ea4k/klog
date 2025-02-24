@@ -68,6 +68,23 @@ MainWindowSatTab::~MainWindowSatTab(){
     delete(dataProxy);
 }
 
+QSO MainWindowSatTab::getQSOData(QSO _qso)
+{
+    QSO qso = _qso;
+
+    qso.setSatName(getSatName());
+    qso.setSatMode(getSatMode());
+
+    return qso;
+}
+
+void MainWindowSatTab::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+    setSatName(qso.getSatName());
+    setSatMode(qso.getSatMode());
+}
+
 void MainWindowSatTab::createUI()
 {
     connect(satNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSatNameTextChanged() ) );
@@ -440,12 +457,6 @@ void MainWindowSatTab::setOtherSatName(const QString &_t)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << _t ;
     satNameLineEdit->setText(_t);
-}
-
-QString MainWindowSatTab::getOtherSatName()
-{
-    //qDebug() << Q_FUNC_INFO << " - Start" ;
-    return QString();
 }
 
 int MainWindowSatTab::getSatIndex(const QString &_p)

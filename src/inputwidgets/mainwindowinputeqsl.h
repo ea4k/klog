@@ -33,6 +33,7 @@
 #include <QWidget>
 #include "../dataproxy_sqlite.h"
 #include "../utilities.h"
+#include "../qso.h"
 
 class MainWindowInputEQSL : public QWidget
 {
@@ -44,7 +45,8 @@ public:
 
     //void setData(const QString &_comment);
     //QString getComment();
-
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
     void clear();
 
     QString getQRZCOMStatus();

@@ -1013,6 +1013,7 @@ bool Utilities::isValidQSL_Sent(const QString &c)
 
 bool Utilities::isValidUpload_Status(const QString &c)
 {
+   //qDebug() << Q_FUNC_INFO << " - " << c;
     return ((c == "Y") || (c == "N") || (c == "M"));
 }
 
@@ -1883,10 +1884,10 @@ bool Utilities::isValidEmail(const QString &_s)
 }
 
 
-bool Utilities::isValidDistance(const double _d)
-{
-    return (_d>0);
-}
+//bool Utilities::isValidDistance(const double _d)
+//{
+//    return (_d>0);
+//}
 
 bool Utilities::isValidSponsor(const QString &_s)
 {

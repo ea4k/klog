@@ -369,7 +369,7 @@ public:
     QString getMyUsacaCounties();
     bool setNotes(const QString &_c);
     QString getNotes();
-    bool setPrefix(const QString &_c);
+    bool setPrefix(const QString &_c);          // ADIF - PFX   - WPX Prefix
     QString getPrefix();
     bool setPrecedence(const QString &_c);
     QString getPrecedence();
@@ -390,7 +390,7 @@ public:
     int getSrx();
     bool setSrxString(const QString &_c);
     QString getSrxString();
-    bool setState(const QString &_c);
+    bool setState(const QString &_c);       // ADIF - STATE - Primary subdivision
     QString getState();
     bool setStx(const int _i);
     int getStx();

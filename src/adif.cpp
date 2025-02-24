@@ -321,6 +321,11 @@ bool Adif::isValidDistance(const QString &_b)
     return (_b.toDouble()>0);
 }
 
+bool Adif::isValidAltitude(const QString &_b)
+{
+    return (_b.toDouble()>10000);
+}
+
 bool Adif::isValidIOTA_islandID(const QString &_b)
 {
     return ((_b.toInt()>=1) && (_b.toInt()<=90));
@@ -691,6 +696,9 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
         //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
+    if (fieldN == "DISTANCE" )
+        if (_data.toDouble() <= 0.0)
+            return QString();
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 

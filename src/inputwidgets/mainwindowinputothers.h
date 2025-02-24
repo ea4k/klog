@@ -34,6 +34,7 @@
 #include "../utilities.h"
 #include "../klogdefinitions.h"
 #include "../world.h"
+#include "../qso.h"
 
 class MainWindowInputOthers : public QWidget
 {
@@ -43,7 +44,8 @@ class MainWindowInputOthers : public QWidget
 public:
     MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputOthers();
-
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
     void setEntitiesList(const QStringList _qs);
     void setEntity(const int _entity);               // Move the external call to setEntityAndPrefix
     int getEntity();

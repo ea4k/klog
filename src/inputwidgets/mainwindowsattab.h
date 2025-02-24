@@ -34,6 +34,7 @@
 #include "../dataproxy_sqlite.h"
 //#include "../locator.h"
 #include "../utilities.h"
+#include "../qso.h"
 
 class MainWindowSatTab : public QWidget
 {
@@ -44,13 +45,15 @@ class MainWindowSatTab : public QWidget
 public:
     explicit MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowSatTab();
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
 
     QString getSatName();
     void setSatName(const QString &_t);
     void setOtherSatName(const QString &_t);
     void setNoSat();
 
-    QString getOtherSatName();
+
     QString getSatMode();
     double getRXFreq();
     //double getTXFreq();

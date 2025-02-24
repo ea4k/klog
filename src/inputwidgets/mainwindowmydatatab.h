@@ -37,6 +37,7 @@
 #include "../utilities.h"
 #include "../adif.h"
 #include "../dataproxy_sqlite.h"
+#include "../qso.h"
 //#include "dataproxy_sqlite.h"
 
 class MainWindowMyDataTab : public QWidget
@@ -46,6 +47,9 @@ class MainWindowMyDataTab : public QWidget
 public:
     explicit MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowMyDataTab();
+
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
 
     void createUI();
 

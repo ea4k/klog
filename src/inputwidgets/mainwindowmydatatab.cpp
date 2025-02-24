@@ -70,6 +70,43 @@ MainWindowMyDataTab::~MainWindowMyDataTab()
     delete(dataProxy);
 }
 
+QSO MainWindowMyDataTab::getQSOData(QSO _qso)
+{
+    QSO qso = _qso;
+
+    qso.setOperatorCallsign(getOperator());
+    qso.setTXPwr(getMyPower());
+    qso.setStationCallsign(getStationCallsign());
+    qso.setMyGridSquare(getMyLocator());
+    qso.setMyRig(getMyRig());
+    qso.setMyAntenna(getMyAntenna());
+    qso.setMyPOTA_Ref(getMyPota_ref());
+    qso.setMySig(getMySig());
+    qso.setMySigInfo(getMySig_info());
+    qso.setMySOTA_REF(getMySOTA());
+    qso.setMyWWFF_Ref(getMyWWFF_Ref());
+    qso.setMyVUCCGrids(getMyVUCCGrids());
+
+    return qso;
+}
+
+void MainWindowMyDataTab::setQSOData(const QSO &_qso)
+{
+    QSO qso(_qso);
+    setOperator(qso.getOperatorCallsign());
+    setMyPower(qso.getTXPwr());
+    setStationCallsign(qso.getStationCallsign());
+    setMyLocator(qso.getMyGridSquare());
+    setMyRig(qso.getMyRig());
+    setMyAntenna(qso.getMyAntenna());
+    setMyPota_ref(qso.getMyPOTA_Ref());
+    setMySig(qso.getMySig());
+    setMySig_info(qso.getMySigInfo());
+    setMySOTA(qso.getMySOTA_REF());
+    setMyWWFF_Ref(qso.getMyWWFF_Ref());
+    setMyVUCCGrids(qso.getMyVUCCGrids());
+}
+
 void MainWindowMyDataTab::createUI()
 {
     //qDebug() << Q_FUNC_INFO;

@@ -55,7 +55,8 @@ public:
     bool isModeExisting(const QString &_m);
     bool isBandExisting(const QString &_b);
     void setShowSeconds(const bool &t);
-    QSO fillQSO(QSO _qso);
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
 
     QString getQrz();
     QString getBand(int _b=-1);

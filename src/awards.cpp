@@ -824,16 +824,24 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
 
     foreach (aux, dxccStatusList)
     {
-         //qDebug() << Q_FUNC_INFO << " DXCC: " << QString::number(aux.dxcc);
-         //qDebug() << Q_FUNC_INFO << " Band: " << QString::number(aux.bandid);
-         if (aux.status == confirmed)
+         //qDebug() << Q_FUNC_INFO << " DXCC: " << QString::numb    er(aux.dxcc);
+         //qDebug() << Q_FUNC_INFO << " Band: " << QString::number(aux.bandId);
+         if (aux.dxcc == 32)    // DXCC = 32 > Cetua
          {
-             //qDebug() << Q_FUNC_INFO << "Confirmed";
+             if (aux.status == confirmed)
+             {
+                 qDebug() << Q_FUNC_INFO << "Confirmed";
+                 qDebug() << Q_FUNC_INFO << "bandId: " << aux.bandId;
+                 qDebug() << Q_FUNC_INFO << "qsoId: " << aux.qsoId;
+             }
+             else
+             {
+                 //qDebug() << Q_FUNC_INFO << "Not confirmed";
+                 //qDebug() << Q_FUNC_INFO << "bandId: " << aux.bandId;
+                 //qDebug() << Q_FUNC_INFO << "qsoId: " << aux.qsoId;
+             }
          }
-         else
-         {
-          //qDebug() << Q_FUNC_INFO << "Not confirmed";
-         }
+
         if (aux.dxcc == _dxcc)
         {
             //qDebug() << Q_FUNC_INFO << " DXCC found: " << QString::number(_dxcc);
@@ -1279,13 +1287,14 @@ bool Awards::updateDXCCBandsStatus(const int _logNumber)
     QSqlQuery query;
     QString stringQuery = QString();
 
+
     if (_logNumber>0)
     {
-        stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log WHERE lognumber= :lognumber ORDER BY dxcc");
+        stringQuery = QString("SELECT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, MIN(id) as id FROM log WHERE lognumber = :lognumber GROUP BY dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
     }
     else
     {
-        stringQuery = QString("SELECT DISTINCT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, id FROM log ORDER BY dxcc");
+        stringQuery = QString("SELECT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, MIN(id) as id FROM log GROUP BY dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
     }
     if (_logNumber>0)
     {

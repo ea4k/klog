@@ -84,7 +84,8 @@ public:
     void clearQTH();
     void clearDXLocator();
 
-    QSO fillQSO(QSO _qso);
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
 
 signals:
     void returnPressed();

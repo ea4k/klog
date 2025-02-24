@@ -34,6 +34,7 @@
 #include <QWidget>
 #include "../dataproxy_sqlite.h"
 #include "../utilities.h"
+#include "../qso.h"
 
 class MainWindowInputQSL : public QWidget
 {
@@ -42,7 +43,8 @@ class MainWindowInputQSL : public QWidget
 public:
     explicit MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSL();
-
+    QSO getQSOData(QSO _qso);
+    void setQSOData(const QSO &_qso);
     QString getQSLRecStatus();
     QString getQSLSenStatus();
     QString getSentVia();

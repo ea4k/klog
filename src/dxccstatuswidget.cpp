@@ -179,7 +179,7 @@ void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO << " - Start";
-    int entities = dataProxy->getMaxEntityID(false);        // REMOVE IF processEntities does not need it
+    //int entities = dataProxy->getMaxEntityID(false);        // REMOVE IF processEntities does not need it
     if (!awards->updateDXCCBandsStatus (-1)) // We update all
     {
        //qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned FALSE";
