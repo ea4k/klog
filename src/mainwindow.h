@@ -461,7 +461,7 @@ private:
     FileManager *filemanager;
     FileAwardManager *fileAwardManager;
     Locator *locator;
-    Awards *awards;
+    Awards awards;
     Utilities *util;
     //SetupPageMisc *miscPage;
 
@@ -474,7 +474,8 @@ private:
     TipsDialog *tipsDialog;
     ShowKLogLogWidget * showKLogLogWidget;
     StatisticsWidget *statsWidget;
-    DXCCStatusWidget *dxccStatusWidget;
+    std::unique_ptr<DXCCStatusWidget> dxccStatusWidget;
+    //DXCCStatusWidget *dxccStatusWidget;
     QLabel *logLabel;
 
     //LogModel *logModel;
@@ -687,7 +688,7 @@ private:
     //QString contestMode;
     //Contest *contest;
     // Contest
-    DataProxy_SQLite *dataProxy;
+    DataProxy_SQLite dataProxy;
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;

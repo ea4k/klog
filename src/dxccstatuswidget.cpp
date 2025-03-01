@@ -35,17 +35,20 @@ TODO: Call the creation of this depending on the bands that the user is using
 
 */
 
-DXCCStatusWidget::DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent) : QWidget(parent)
-{
-    Q_UNUSED(_parentFunction);
+
+DXCCStatusWidget::DXCCStatusWidget(Awards *awards, QWidget *parent) :
+    QWidget(parent),
+    awards(awards) // Initialize Awards reference
+{   
 #ifdef QT_DEBUG
   //qDebug() << Q_FUNC_INFO << " -  from: " << _parentFunction;
 #else
 #endif
+
    //qDebug() << Q_FUNC_INFO << " - Start";
-    dataProxy = dp;
+    dataProxy = awards->dataProxy;
     locator = new Locator();
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //wards = new Awards(dataProxy, Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << " - -1";
 
     world = new World(dataProxy,Q_FUNC_INFO);
@@ -74,7 +77,7 @@ DXCCStatusWidget::~DXCCStatusWidget()
 {
     delete(locator);
     delete(world);
-    delete(awards);
+    //delete(awards);
 }
 
 void DXCCStatusWidget::createUI()
@@ -178,7 +181,7 @@ QList<int> DXCCStatusWidget::getBandIds()
 void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     //int entities = dataProxy->getMaxEntityID(false);        // REMOVE IF processEntities does not need it
     if (!awards->updateDXCCBandsStatus (-1)) // We update all
     {

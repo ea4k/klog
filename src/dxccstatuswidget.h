@@ -42,7 +42,8 @@ class DXCCStatusWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, QWidget *parent = nullptr);
+    explicit DXCCStatusWidget(Awards *awards, QWidget *parent = nullptr);
+    //explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, Awards &awards, QWidget *parent = nullptr);
     ~DXCCStatusWidget();
 
     void update();
@@ -87,7 +88,7 @@ private:
 //    void righButtonFromLogMenu(const int trow);
 
     QTableWidget *dxccView;
-    Awards *awards;
+    Awards *awards; // Reference to the Awards instance
     World *world;
     DataProxy_SQLite *dataProxy;
     Locator *locator;

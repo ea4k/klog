@@ -820,66 +820,45 @@ QString Awards::getDXCCStatusBand(const int _dxcc, const int _band)
     //qDebug() << Q_FUNC_INFO << "DXCC/Band: " << QString::number(_dxcc) << "/" << QString::number(_band);
     //qDebug() << Q_FUNC_INFO << "dxccStatusList: " << QString::number(dxccStatusList.length ());
 
-    EntityStatus aux;
+    EntityStatus indexEntityStatus;
 
-    foreach (aux, dxccStatusList)
+    bool worked = false;
+
+    foreach (indexEntityStatus, dxccStatusList)
     {
-         //qDebug() << Q_FUNC_INFO << " DXCC: " << QString::numb    er(aux.dxcc);
-         //qDebug() << Q_FUNC_INFO << " Band: " << QString::number(aux.bandId);
-         if (aux.dxcc == 32)    // DXCC = 32 > Cetua
-         {
-             if (aux.status == confirmed)
-             {
-                 qDebug() << Q_FUNC_INFO << "Confirmed";
-                 qDebug() << Q_FUNC_INFO << "bandId: " << aux.bandId;
-                 qDebug() << Q_FUNC_INFO << "qsoId: " << aux.qsoId;
-             }
-             else
-             {
-                 //qDebug() << Q_FUNC_INFO << "Not confirmed";
-                 //qDebug() << Q_FUNC_INFO << "bandId: " << aux.bandId;
-                 //qDebug() << Q_FUNC_INFO << "qsoId: " << aux.qsoId;
-             }
-         }
-
-        if (aux.dxcc == _dxcc)
+         //qDebug() << Q_FUNC_INFO << " DXCC: " << QString::numb    er(indexEntityStatus.dxcc);
+         //qDebug() << Q_FUNC_INFO << " Band: " << QString::number(indexEntityStatus.bandId);
+        if (indexEntityStatus.dxcc == _dxcc)
         {
             //qDebug() << Q_FUNC_INFO << " DXCC found: " << QString::number(_dxcc);
-            if (aux.bandId == _band)
+            if (indexEntityStatus.bandId == _band)
             {
                 //qDebug() << Q_FUNC_INFO << " Band found: " << QString::number(_band);
-                if (aux.status == confirmed )
+                if (indexEntityStatus.status == confirmed )
                 {
-                   //qDebug() << Q_FUNC_INFO << " Confirmed " ;
-                    return "C";
-                }
-                else if (aux.status == worked)
-                {
-                   //qDebug() << Q_FUNC_INFO << " Worked " ;
-                    return "W";
-                }
-                else {return "-";}
-                if (aux.status == confirmed)
-                {
-                    //qDebug() << Q_FUNC_INFO << " Confirmed " ;
+
+                   qDebug() << Q_FUNC_INFO << " Confirmed " ;
                     return "C";
                 }
                 else
                 {
-                    //qDebug() << Q_FUNC_INFO << " Worked " ;
-                    return "W";
+                    worked = true;
                 }
             }
+
         }
     }
-    //qDebug() << Q_FUNC_INFO << " Returnin -" ;
+    //qDebug() << Q_FUNC_INFO << " Returning -" ;
+    if (worked)
+        return "W";
+
     return "-";
 }
 
 QString Awards::getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber)
 {
     // Returns -, W or C (Not worked, worked, Confirmed)
-       //qDebug() << "Awards::getDXCCStatusBand: log received: " << QString::number(_logNumber);
+       //qDebug() << Q_FUNC_INFO << " - log received: " << QString::number(_logNumber);
     QString stringQuery;
     if (_logNumber<0)
     {
@@ -1055,7 +1034,6 @@ void Awards::setColors (const QColor &_newOne, const QColor &_needed, const QCol
 }
 
 QColor Awards::getDefaultColor(){return defaultColor;}
-
 
 void Awards::recalculateAwards()
 {
@@ -1283,10 +1261,9 @@ void Awards::setManageModes(const bool _manageModes)
 
 bool Awards::updateDXCCBandsStatus(const int _logNumber)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_logNumber);
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_logNumber);
     QSqlQuery query;
     QString stringQuery = QString();
-
 
     if (_logNumber>0)
     {
@@ -1323,7 +1300,12 @@ void Awards::populateDXCCStatusMap()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     dxccStatusMap.clear(); // Clear the multi-hash map
+
     for (const EntityStatus &status : dxccStatusList) {
+        if (status.dxcc == 32)
+        {
+            qDebug() << Q_FUNC_INFO << " - Ceuta status: " << status2String(status.status);
+        }
         dxccStatusMap.insert(status.dxcc, status);
     }
 }
@@ -1339,7 +1321,8 @@ QSOStatus Awards::getStatus(const QSqlQuery &query, const QSqlRecord &rec)
         (query.value(rec.indexOf("lotw_qsl_rcvd")).toString() == "Y"))
     {
         return QSOStatus::confirmed;
-    } else
+    }
+    else
     {
         return QSOStatus::worked;
     }
@@ -1347,7 +1330,9 @@ QSOStatus Awards::getStatus(const QSqlQuery &query, const QSqlRecord &rec)
 
 int Awards::processQueryResults(QSqlQuery &query)
 {
+    qDebug() << Q_FUNC_INFO << " - Start " ;
     int qsos = 0;
+    dxccStatusList.clear();
 
     while (query.next()) {
         if (!query.isValid()) {
@@ -1364,10 +1349,83 @@ int Awards::processQueryResults(QSqlQuery &query)
         ent.modeId = query.value(rec.indexOf("modeid")).toInt();
         ent.status = getStatus(query, rec);
         ent.qsoId = query.value(rec.indexOf("id")).toInt();
+        bool add = true;
 
-        dxccStatusList.append(ent);
+        for (int i = 0; i < dxccStatusList.count(); ++i)
+        {
+            EntityStatus &currentStatus = dxccStatusList[i];
+            add = true;
+            if (currentStatus.dxcc == ent.dxcc)
+            {
+                if (currentStatus.bandId == ent.bandId)
+                {
+                    if (currentStatus.modeId == ent.modeId)
+                    {
+                        if (currentStatus.status == confirmed)
+                        {
+                            add = false;
+                        }
+                        else if (currentStatus.status == ent.status)
+                        {
+                            add = false;
+                        }
+                        else if (ent.status == confirmed)
+                        {
+                            if (currentStatus.status != confirmed)
+                            {
+                                qDebug() << Q_FUNC_INFO << " - +++++++++++++++++++++++++++++++++++++++++++";
+                                qDebug() << Q_FUNC_INFO << " - Upgrading QSO to confirmed";
+                                qDebug() << Q_FUNC_INFO << " - QSOid: " << currentStatus.qsoId;
+                                qDebug() << Q_FUNC_INFO << " - DXCC: " << currentStatus.dxcc;
+                                qDebug() << Q_FUNC_INFO << " - Band: " << currentStatus.bandId;
+                                qDebug() << Q_FUNC_INFO << " - Mode: " << currentStatus.modeId;
+                                qDebug() << Q_FUNC_INFO << " - Stat: " << status2String(currentStatus.status);
+
+                                qDebug() << Q_FUNC_INFO << " - ******************************************";
+                                currentStatus = ent;
+                                qDebug() << Q_FUNC_INFO << " - Upgraded QSO to confirmed";
+                                qDebug() << Q_FUNC_INFO << " - QSOid: " << currentStatus.qsoId;
+                                qDebug() << Q_FUNC_INFO << " - DXCC: " << currentStatus.dxcc;
+                                qDebug() << Q_FUNC_INFO << " - Band: " << currentStatus.bandId;
+                                qDebug() << Q_FUNC_INFO << " - Mode: " << currentStatus.modeId;
+                                qDebug() << Q_FUNC_INFO << " - Stat: " << status2String(currentStatus.status);
+                                add = false;
+                            }
+                        }
+                        else
+                        {
+                            qDebug() << Q_FUNC_INFO << " - Strange case!";
+                            qDebug() << Q_FUNC_INFO << " - DXCC: " << ent.dxcc;
+                            qDebug() << Q_FUNC_INFO << " - Band: " << ent.bandId;
+                            qDebug() << Q_FUNC_INFO << " - Mode: " << ent.modeId;
+                            qDebug() << Q_FUNC_INFO << " - Stat: " << status2String(ent.status);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        if (add)
+        {
+            dxccStatusList.append(ent);
+        }
     }
 
+    qDebug() << Q_FUNC_INFO << " - Lets look CANADA";
+    foreach (EntityStatus tmp, dxccStatusList)
+    {
+        if (tmp.dxcc == 1)
+            if (tmp.bandId == 24)
+            {
+                qDebug() << Q_FUNC_INFO << " - DATA FROM CANADA";
+                qDebug() << Q_FUNC_INFO << " - QSOid: " << tmp.qsoId;
+                qDebug() << Q_FUNC_INFO << " - DXCC: " << tmp.dxcc;
+                qDebug() << Q_FUNC_INFO << " - Band: " << tmp.bandId;
+                qDebug() << Q_FUNC_INFO << " - Mode: " << tmp.modeId;
+                qDebug() << Q_FUNC_INFO << " - Stat: " << status2String(tmp.status);
+
+            }
+    }
     return qsos;
 }
 
@@ -1379,4 +1437,25 @@ bool Awards::executeQuery(QSqlQuery &query, const QString &stringQuery)
         return false;
     }
     return true;
+}
+
+QString Awards::status2String(const QSOStatus &_status)
+{
+
+    switch (_status)
+    {
+    case unknown:
+        return "unknown";
+    case ATNO:
+        return "ATNO";
+    case needed:
+        return "needed";
+    case worked:
+        return "worked";
+    case confirmed:
+        return "confirmed";
+    default:
+        return "ERROR - default";
+    }
+    enum QSOStatus {unknown, ATNO, needed, worked, confirmed};
 }

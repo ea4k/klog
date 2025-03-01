@@ -89,10 +89,13 @@ void MainWindow::showNotWar()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-MainWindow::MainWindow(const QString &tversion)
+MainWindow::MainWindow(const QString &tversion):
+    dataProxy(Q_FUNC_INFO, tversion),
+    awards(&dataProxy, Q_FUNC_INFO)     // Pass Awards instance to DXCCStatusWidget
 {
     //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
+    dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
@@ -112,8 +115,8 @@ MainWindow::MainWindow(const QString &tversion)
     QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
       //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() ;
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
-    world = new World(dataProxy, Q_FUNC_INFO);
+    //dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
+    world = new World(&dataProxy, Q_FUNC_INFO);
     world->create(util->getCTYFile());
      //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
     hamlib = new HamLibClass();
@@ -121,40 +124,40 @@ MainWindow::MainWindow(const QString &tversion)
 
 
      //qDebug() << Q_FUNC_INFO << ": AFTER dataproxy ";
-    lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
+    lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, &dataProxy);
      //qDebug() << Q_FUNC_INFO << ": AFTER lotwUtilities";
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << ": AFTER eQSLUtilities";
-    mapWindow = new MapWindowWidget(dataProxy, this);
+    mapWindow = new MapWindowWidget(&dataProxy, this);
 
      //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") ;
-    dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
+    //dxccStatusWidget = new DXCCStatusWidget(&dataProxy, Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << ": After DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") ;
     elogClublog = new eLogClubLog();
      //qDebug() << Q_FUNC_INFO << ": 00082: " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
+    elogQRZcom = new eLogQrzLog(&dataProxy, Q_FUNC_INFO, softwareVersion);
 
     //qDebug() << Q_FUNC_INFO << ": 00083: " << QTime::currentTime().toString("hh:mm:ss") ;
-    updateSatsData = new UpdateSatsData(dataProxy);
+    updateSatsData = new UpdateSatsData(&dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 00084: " << QTime::currentTime().toString("hh:mm:ss") ;
-    statsWidget = new StatisticsWidget(dataProxy);
+    statsWidget = new StatisticsWidget(&dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 00085: " << QTime::currentTime().toString("hh:mm:ss") ;
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
     //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") ;
-    logWindow = new LogWindow(dataProxy, this);
+    logWindow = new LogWindow(&dataProxy, this);
      //qDebug() << Q_FUNC_INFO << ": 00087: " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    searchWidget = new SearchWidget(dataProxy, this);
+    searchWidget = new SearchWidget(&dataProxy, this);
      //qDebug() << Q_FUNC_INFO << ": 00087.1: " << QTime::currentTime().toString("hh:mm:ss") ;
-    //advancedSearchWidget = new AdvancedSearchWidget(dataProxy, this);
+    //advancedSearchWidget = new AdvancedSearchWidget(&dataProxy, this);
      //qDebug() << "MainWindow::MainWindow: 00087.2" << QTime::currentTime().toString("hh:mm:ss") ;
-    infoWidget = new InfoWidget(dataProxy, this);
+    infoWidget = new InfoWidget(&dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
-    awardsWidget = new AwardsWidget(dataProxy, this);
+    awardsWidget = new AwardsWidget(&dataProxy, this);
 
      //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") ;
 
@@ -171,24 +174,24 @@ MainWindow::MainWindow(const QString &tversion)
       //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") ;
 
     //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") ;
-    setupDialog = new SetupDialog(dataProxy, this);
+    setupDialog = new SetupDialog(&dataProxy, this);
 
     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
-    satTabWidget = new MainWindowSatTab(dataProxy);
+    satTabWidget = new MainWindowSatTab(&dataProxy);
    //qDebug() << Q_FUNC_INFO << ": 52: " << QTime::currentTime().toString("hh:mm:ss") ;
-    QSOTabWidget = new MainWindowInputQSO(dataProxy);
+    QSOTabWidget = new MainWindowInputQSO(&dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 53: " << QTime::currentTime().toString("hh:mm:ss") ;
-    myDataTabWidget = new MainWindowMyDataTab(dataProxy);
+    myDataTabWidget = new MainWindowMyDataTab(&dataProxy);
      //qDebug() << Q_FUNC_INFO << ": 54: " << QTime::currentTime().toString("hh:mm:ss") ;
     commentTabWidget = new MainWindowInputComment();
      //qDebug() << Q_FUNC_INFO << ": 55: " << QTime::currentTime().toString("hh:mm:ss") ;
-    othersTabWidget = new MainWindowInputOthers(dataProxy);
+    othersTabWidget = new MainWindowInputOthers(&dataProxy);
      //qDebug() << Q_FUNC_INFO << ": 56: " << QTime::currentTime().toString("hh:mm:ss") ;
-    eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
+    eQSLTabWidget = new MainWindowInputEQSL(&dataProxy);
      //qDebug() << Q_FUNC_INFO << ": 57: " << QTime::currentTime().toString("hh:mm:ss") ;
-    QSLTabWidget = new MainWindowInputQSL(dataProxy);
+    QSLTabWidget = new MainWindowInputQSL(&dataProxy);
     //qDebug() << Q_FUNC_INFO << ": 58: " << QTime::currentTime().toString("hh:mm:ss") ;
-    mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
+    mainQSOEntryWidget = new MainQSOEntryWidget(&dataProxy);
 
     //qDebug() << Q_FUNC_INFO << ": locator to be created 59" << QTime::currentTime().toString("hh:mm:ss") ;
     locator = new Locator();
@@ -202,12 +205,12 @@ MainWindow::MainWindow(const QString &tversion)
     loggWinAct = new QAction(tr("&Log Window"), this);
 
      //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    //dxClusterWidget = new DXClusterWidget(dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    dxClusterWidget = new DXClusterWidget(dataProxy, this);
+    //dxClusterWidget = new DXClusterWidget(&dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
+    dxClusterWidget = new DXClusterWidget(&dataProxy, this);
     dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //awards = new Awards(&dataProxy, Q_FUNC_INFO);
        //qDebug() << Q_FUNC_INFO << ": Awards created " << QTime::currentTime().toString("hh:mm:ss") ;
     // </UI>
 
@@ -220,16 +223,16 @@ MainWindow::MainWindow(const QString &tversion)
     softUpdate = new SoftwareUpdate(softwareVersion);
        //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    filemanager = new FileManager(dataProxy);
+    filemanager = new FileManager(&dataProxy);
 
        //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
+    fileAwardManager = new FileAwardManager(&dataProxy, Q_FUNC_INFO);
 
     lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
        //qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
+    adifLoTWExportWidget = new AdifLoTWExportWidget(&dataProxy, Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << ": ShowAdifImportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
+    showAdifImportWidget = new ShowAdifImportWidget(&dataProxy, Q_FUNC_INFO);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << ": END " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -257,7 +260,7 @@ MainWindow::~MainWindow()
     dateTime.reset();
     //delete(dateTime);
     //delete(dateTimeTemp);
-    delete(awards);
+    //delete(awards);
     delete(softUpdate);
     delete(filemanager);
     delete(fileAwardManager);
@@ -488,9 +491,9 @@ void MainWindow::init()
        //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
         //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    awards->setManageModes(manageMode);
+    awards.setManageModes(manageMode);
         //qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    if (dataProxy->getNumberOfManagedLogs()<1)
+    if (dataProxy.getNumberOfManagedLogs()<1)
     {
             //qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
         openSetup(6);
@@ -510,9 +513,9 @@ void MainWindow::init()
     checkVersions();
 
      //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
+    currentBandShown = dataProxy.getIdFromBandName(mainQSOEntryWidget->getBand());
      //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
+    currentModeShown = dataProxy.getIdFromModeName(mainQSOEntryWidget->getMode());
      //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     currentBand = currentBandShown;
@@ -677,17 +680,17 @@ void MainWindow::createActionsCommon(){
     connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
     connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
     connect(searchWidget, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
-    connect(awards, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
-    connect(awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
+    connect(&awards, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect(&awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
     connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(awardsWidget, SIGNAL(requireCurrentLogSignal()), this, SLOT(slotAwardsWidgetSetLog()) );
     connect(awardsWidget, SIGNAL(requireCurrentYearSignal()), this, SLOT(slotAwardsWidgetSetYear()) );
 
     //DXCCWIDGET TAB
     //connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
-    connect(dxccStatusWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
-    connect(dxccStatusWidget, SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
-    connect(dxccStatusWidget, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
+    connect(dxccStatusWidget.get(), SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+    connect(dxccStatusWidget.get(), SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
+    connect(dxccStatusWidget.get(), SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
     //connect(dxccStatusWidget, SIGNAL(updateAwards()), this, SLOT(slotShowAwards() ) );
     connect(filemanager, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(filemanager, SIGNAL(addQSOToList(QStringList)), this, SLOT(slotReceiveQSOListToShowFromFile(QStringList)) );
@@ -738,8 +741,8 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
-    connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
-    connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+    connect(&dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect(&dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
     connect(showKLogLogWidget, SIGNAL(newLogLevel(DebugLogLevel)), this, SLOT(slotNewLogLevel(DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
@@ -751,13 +754,13 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::slotQSO_SetMode(const QString _submode)
 {
-    qso->setMode (dataProxy->getNameFromSubMode (_submode));
+    qso->setMode (dataProxy.getNameFromSubMode (_submode));
 }
 
 void MainWindow::recommendBackupIfNeeded()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (dataProxy->getHowManyQSOInLog(-1)<1)
+    if (dataProxy.getHowManyQSOInLog(-1)<1)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
@@ -873,7 +876,7 @@ void MainWindow::slotShowMap()
     mapWindow->show();
     //QStringList a;
     //a.clear();
-    //a << dataProxy->getFilteredLocators("All", "All", "All", "All");
+    //a << dataProxy.getFilteredLocators("All", "All", "All", "All");
     //a << locator->getAll();
     //foreach (QString ai, a)
     //{
@@ -889,8 +892,8 @@ void MainWindow::slotShowDXClusterAssistant()
 void MainWindow::setMainWindowTitle()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QString aux = dataProxy->getCommentsFromLog(currentLog);
-    int numberOfQSOs = dataProxy->getHowManyQSOInLog (currentLog);
+    QString aux = dataProxy.getCommentsFromLog(currentLog);
+    int numberOfQSOs = dataProxy.getHowManyQSOInLog (currentLog);
      //qDebug() << Q_FUNC_INFO << " - (comment): " << aux ;
     QString msg;
 
@@ -941,7 +944,7 @@ void MainWindow::setModeFromFreq()
     //TODO: define frequency ranges for the different modes
     if (hamlibActive && !manualMode)
     {
-        if (QSOTabWidget->getTXFreq () >= dataProxy->getLowLimitBandFromBandName("20M"))
+        if (QSOTabWidget->getTXFreq () >= dataProxy.getLowLimitBandFromBandName("20M"))
         {
             hamlib->setMode("USB");
         }
@@ -973,7 +976,7 @@ void MainWindow::slotBandChanged (const QString &_b)
         return;
     }
 
-    bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(QSOTabWidget->getTXFreq ()));
+    bool isFRinBand = dataProxy.isThisFreqInBand(_b, QString::number(QSOTabWidget->getTXFreq ()));
     if ((isFRinBand) && (QSOTabWidget->getTXFreq () >0 ))
     { // No change in txFreq
           //qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  ;
@@ -981,8 +984,8 @@ void MainWindow::slotBandChanged (const QString &_b)
         return;
     }
 
-    currentBandShown = dataProxy->getIdFromBandName(_b);
-    currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
+    currentBandShown = dataProxy.getIdFromBandName(_b);
+    currentModeShown = dataProxy.getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
@@ -991,12 +994,12 @@ void MainWindow::slotBandChanged (const QString &_b)
           //qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  ;
           //qDebug() << "MainWindow::slotBandChanged: Band: " << mainQSOEntryWidget->getBand()  ;
           //qDebug() << "MainWindow::slotBandChanged: Freq: " << QString::number(QSOTabWidget->getTXFreq())  ;
-        double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
+        double txFr = (dataProxy.getFreqFromBandId(currentBandShown)).toDouble();
    //qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFr) ;
 
         slotFreqTXChanged (txFr);
 
-        //if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value ())))
+        //if (!dataProxy.isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value ())))
         //{
         //    rxFreqSpinBox->setvalue (QSOTabWidget->getTXFreq());
         //}
@@ -1027,9 +1030,9 @@ void MainWindow::slotModeChanged (const QString &_m)
     }
       //qDebug() << "MainWindow::slotModeChanged: " << _m ;
 
-    currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
+    currentBandShown = dataProxy.getIdFromBandName(mainQSOEntryWidget->getBand());
       //qDebug() << "MainWindow::slotModeComboBoxChanged: currentBandShown2: " << QString::number(currentBandShown) ;
-    currentModeShown = dataProxy->getIdFromModeName(_m);
+    currentModeShown = dataProxy.getIdFromModeName(_m);
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
@@ -1117,8 +1120,8 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         //qDebug() << Q_FUNC_INFO << " -  Modifying! " ;
        needToSave = true;
        if(modifyingQSOid>0)
-       {
-           awards->setAwards(modifyingQSOid);
+       {           
+           awards.setAwards(modifyingQSOid);
            if (yearChangedDuringModification)
            {
                awardsWidget->fillOperatingYears();
@@ -1130,29 +1133,29 @@ void MainWindow::actionsJustAfterAddingOneQSO()
                 // Delete QSO in CLubLog
                elogClublog->deleteQSO(clublogPrevQSO);
                 // Add modified QSO in ClubLog
-               elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSOid));
+               elogClublog->sendQSO(dataProxy.getClubLogRealTimeFromId(modifyingQSOid));
            }
            else
            {
                     //qDebug() << Q_FUNC_INFO << " -  (No ClubLog) Lastid: "<< QString::number(lastId) ;
            }
-           awards->setAwards(modifyingQSOid);   //Update the DXCC award status
+           awards.setAwards(modifyingQSOid);   //Update the DXCC award status
        }
        // CHECK WHAT WAS THE QSOID to add the awards, if needed
     }
     else
     {
          //qDebug() << Q_FUNC_INFO << " -  Not Modifying " ;
-        lastId = dataProxy->getLastQSOid();
+        lastId = dataProxy.getLastQSOid();
         if (lastId>=0)
         {
              //qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
-            awards->setAwards(lastId);   //Update the DXCC award status
+            awards.setAwards(lastId);   //Update the DXCC award status
             // Send to CLUBLOG if enabled
             if ((clublogActive) && (clublogRealTime))
             {
             //qDebug() << Q_FUNC_INFO << " -  (Sending ClubLog) Lastid: "<< QString::number(lastId) ;
-                elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(lastId));
+                elogClublog->sendQSO(dataProxy.getClubLogRealTimeFromId(lastId));
             }
             else
             {
@@ -1164,10 +1167,10 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         {
         //qDebug() << Q_FUNC_INFO << " -  Lastid < 0 "<< QString::number(lastId) ;
         }
-        //awards->setAwards(lastId);
+        //awards.setAwards(lastId);
     }
     logWindow->refresh();
-    //awards->updateDXCCBandsStatus(-1);
+    //awards.updateDXCCBandsStatus(-1);
     dxccStatusWidget->refresh();
     searchWidget->refresh();
     awardsWidget->showAwards ();
@@ -1293,7 +1296,7 @@ QSO MainWindow::readQSOFromUI()
 
     qq.setDXCC (dxcc);
 
-    qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
+    qso->setContinent (dataProxy.getContinentShortNameFromEntity(dxcc));
     qq.setCQZone(infoWidget->getCQ());
     qq.setItuZone(infoWidget->getITU());
     qq.setMyCQZone(my_CQz);
@@ -1369,8 +1372,8 @@ void MainWindow::slotQSOsDelete(QList<int> _id)
         {
             QStringList qsoToDelete;
             qsoToDelete.clear();
-            qsoToDelete << dataProxy->getClubLogRealTimeFromId(i);
-            if(dataProxy->deleteQSO(i))
+            qsoToDelete << dataProxy.getClubLogRealTimeFromId(i);
+            if(dataProxy.deleteQSO(i))
             {
             //qDebug() << "MainWindow::slotQSODelete: Just removed from log, now I will try to remove from ClubLog, if needed" ;
                 if (clublogActive && clublogRealTime)
@@ -1403,7 +1406,7 @@ void MainWindow::slotQSODelete(const int _id)
     int QSOid = _id;
     //int x = -1;
 
-    QString _qrz = dataProxy->getCallFromId(QSOid);
+    QString _qrz = dataProxy.getCallFromId(QSOid);
     if (_qrz.length()>=3)
     {
         QString message = QString(tr("You have requested to delete the QSO with: %1").arg(_qrz));
@@ -1422,8 +1425,8 @@ void MainWindow::slotQSODelete(const int _id)
             {
             QStringList qsoToDelete;
             qsoToDelete.clear();
-            qsoToDelete << dataProxy->getClubLogRealTimeFromId(QSOid);
-            if(dataProxy->deleteQSO(QSOid))
+            qsoToDelete << dataProxy.getClubLogRealTimeFromId(QSOid);
+            if(dataProxy.deleteQSO(QSOid))
             {
             //qDebug() << "MainWindow::slotQSODelete: Just removed from log, now I will try to remove from ClubLog, if needed" ;
                 if (clublogActive && clublogRealTime)
@@ -1529,7 +1532,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
 
      if (i == QMessageBox::Yes)
      {
-         bool uploadedToClubLog = dataProxy->clublogSentQSOs(_qsos);
+         bool uploadedToClubLog = dataProxy.clublogSentQSOs(_qsos);
          slotLogRefresh();
 
          // TODO: Check if QSOS where sent
@@ -1600,11 +1603,11 @@ void MainWindow::slotElogClubLogProcessAnswer(const int _i, const int _qID)
 
     if (clublogAnswer == 0) // NO ERROR
     {
-        dataProxy->setClubLogSent(_qID, "Y", eQSLTabWidget->getClubLogDate());
+        dataProxy.setClubLogSent(_qID, "Y", eQSLTabWidget->getClubLogDate());
     }
     else
     {
-        dataProxy->setClubLogSent(_qID, "M", eQSLTabWidget->getClubLogDate());
+        dataProxy.setClubLogSent(_qID, "M", eQSLTabWidget->getClubLogDate());
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -1646,7 +1649,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
 
      if (i == QMessageBox::Yes)
      {
-         bool uploadedToeQSL = dataProxy->eQSLSentQSOs(_qsos);
+         bool uploadedToeQSL = dataProxy.eQSLSentQSOs(_qsos);
          slotLogRefresh();
 
          // TODO: Check if QSOS where sent
@@ -1765,7 +1768,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
 
     if (i == QMessageBox::Yes)
     {
-        bool uploadedToeQSL = dataProxy->QRZCOMSentQSOs(_qsos);
+        bool uploadedToeQSL = dataProxy.QRZCOMSentQSOs(_qsos);
         slotLogRefresh();
 
         // TODO: Check if QSOS where sent
@@ -2218,7 +2221,7 @@ void MainWindow::clearUIDX(bool _full)
     if (QSOTabWidget->getTXFreq()<=0)
     {
           //qDebug() << Q_FUNC_INFO << " Setting TX Freq from: " << QString::number(QSOTabWidget->getTXFreq()) ;
-        QSOTabWidget->setTXFreq((dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
+        QSOTabWidget->setTXFreq((dataProxy.getFreqFromBandId(dataProxy.getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
           //qDebug() << Q_FUNC_INFO << " Setting TX Freq to: " << QString::number(QSOTabWidget->getTXFreq()) ;
         QSOTabWidget->setRXFreq(QSOTabWidget->getTXFreq());
     }
@@ -2242,8 +2245,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if (maybeSave())
     {
    //qDebug() << Q_FUNC_INFO << " saving needed" ;
-        dataProxy->unMarkAllQSO();
-        dataProxy->compressDB();
+        dataProxy.unMarkAllQSO();
+        dataProxy.compressDB();
         event->accept();
     }
     else
@@ -2688,7 +2691,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     {
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - LoTW"));
-        if(dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
+        if(dataProxy.lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setText(tr("All pending QSOs of this log has been marked as queued for LoTW!") + "\n\n" + tr("Now you can upload them to LoTW."));
@@ -2766,7 +2769,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - LoTW"));
 
-        if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
+        if (dataProxy.lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
         {
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setText(tr("All pending QSOs has been marked as queued for LoTW!") + "\n\n" +  tr("Now you can upload them to LoTW."));
@@ -2887,7 +2890,7 @@ QString MainWindow::selectStationCallsign()
     QStringList stationCallSigns;
     stationCallSigns.clear();
     stationCallSigns << "NONE";
-    stationCallSigns << dataProxy->getStationCallSignsFromLog(-1);
+    stationCallSigns << dataProxy.getStationCallSignsFromLog(-1);
     //bool callsignTyped = false;
 
     if (stationCallSigns.length()>1)
@@ -2951,7 +2954,7 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         logEvent(Q_FUNC_INFO, "Start", Debug);
-        if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
+        if(dataProxy.lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
         {
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setText(tr("All queued QSOs of this log has been marked as sent to LoTW!")  );
@@ -2976,7 +2979,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - LoTW"));
 
-    if (dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
+    if (dataProxy.lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
     {
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("All queued QSOs has been marked as sent to LoTW!") );
@@ -3008,12 +3011,12 @@ void MainWindow::slotReceiveQSOListToShowFromFile(QStringList _qs)
         return;
     }
 
-    if (dataProxy->getIdFromBandName(_qs.at(2))<0)
+    if (dataProxy.getIdFromBandName(_qs.at(2))<0)
     {
    //qDebug() << Q_FUNC_INFO << " - NO valid BAND received"<< _qs.at(2) ;
         return;
     }
-    if (dataProxy->getIdFromModeName(_qs.at(3))<0)
+    if (dataProxy.getIdFromModeName(_qs.at(3))<0)
     {
     //qDebug() << Q_FUNC_INFO << " - NO valid Mode received" << _qs.at(3);
         return;
@@ -3220,7 +3223,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
           //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
    //qDebug() << "MainWindow::openSetup: before db->reConnect" ;
-        dataProxy->reconnectDB();
+        dataProxy.reconnectDB();
 
           //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
@@ -3437,7 +3440,7 @@ void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const 
     //                             " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
     //                            " / Default: " << _default.name(QColor::HexRgb);
     searchWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
-    awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
+    awards.setColors (_newOne, _needed, _worked, _confirmed, _default);
     mapWindow->setColors (_worked, _confirmed, _default);
     dxClusterWidget->setColors (_newOne, _needed, _worked, _confirmed, _default);
     infoWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
@@ -3511,9 +3514,9 @@ void MainWindow::checkIfNewBandOrMode()
     QString currentMode = mainQSOEntryWidget->getMode();
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
       //qDebug() << "MainWindow::checkIfNewBandOrMode - 1 " << QTime::currentTime().toString("hh:mm:ss") ;
-    QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
+    QStringList bandsInLog = dataProxy.getBandsInLog(currentLog);
       //qDebug() << "MainWindow::checkIfNewBandOrMode - 2 " << QTime::currentTime().toString("hh:mm:ss") ;
-    QStringList modesInLog = dataProxy->getModesInLog(currentLog);
+    QStringList modesInLog = dataProxy.getModesInLog(currentLog);
       //qDebug() << "MainWindow::checkIfNewBandOrMode - 3 " << QTime::currentTime().toString("hh:mm:ss") ;
     QStringList qsTemp;
     qsTemp.clear();
@@ -3521,7 +3524,7 @@ void MainWindow::checkIfNewBandOrMode()
     bands << bandsInLog;
     bands.removeDuplicates();
       //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.2 " << QTime::currentTime().toString("hh:mm:ss") ;
-    qsTemp << dataProxy->sortBandNamesBottonUp(bands);
+    qsTemp << dataProxy.sortBandNamesBottonUp(bands);
       //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.3 " << QTime::currentTime().toString("hh:mm:ss") ;
     bands.clear();
     bands = qsTemp;
@@ -3579,14 +3582,14 @@ void MainWindow::selectDefaultBand()
     }
     QString aux;
     aux = QString();
-    defaultBand = dataProxy->getMostUsedBand(currentLog);
+    defaultBand = dataProxy.getMostUsedBand(currentLog);
     if (defaultBand<1)
     {
-        defaultBand = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand(0));
-        //defaultBand = dataProxy->getIdFromBandName(bandComboBox->itemText(1));
+        defaultBand = dataProxy.getIdFromBandName(mainQSOEntryWidget->getBand(0));
+        //defaultBand = dataProxy.getIdFromBandName(bandComboBox->itemText(1));
     }
 
-        aux = dataProxy->getNameFromBandId(defaultBand);
+        aux = dataProxy.getNameFromBandId(defaultBand);
         mainQSOEntryWidget->setBand(aux);
         //bandComboBox->setCurrentIndex(bandComboBox->findText(aux));
         logEvent(Q_FUNC_INFO, "END", Debug);
@@ -3603,21 +3606,21 @@ void MainWindow::selectDefaultMode()
         return;
     }
     //int aux = 1;
-    defaultMode = dataProxy->getMostUsedMode(currentLog);
+    defaultMode = dataProxy.getMostUsedMode(currentLog);
       //qDebug() << "MainWindow::selectDefaultMode: " << QString::number(defaultMode) ;
 
     if (defaultMode < 1)
     {
-        defaultMode = dataProxy->getSubModeIdFromSubMode(mainQSOEntryWidget->getBand(0));
-        //defaultMode = dataProxy->getSubModeIdFromSubMode((modeComboBox->itemText(0)));
+        defaultMode = dataProxy.getSubModeIdFromSubMode(mainQSOEntryWidget->getBand(0));
+        //defaultMode = dataProxy.getSubModeIdFromSubMode((modeComboBox->itemText(0)));
           //qDebug() << "MainWindow::selectDefaultMode2: " << QString::number(defaultMode) ;
           //qDebug() << "MainWindow::selectDefaultMode2S: "  ;
     }
 
-    //aux = dataProxy->getNameFromSubModeId(defaultMode);
+    //aux = dataProxy.getNameFromSubModeId(defaultMode);
 
-    mainQSOEntryWidget->setMode(dataProxy->getNameFromSubModeId(defaultMode));
-    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
+    mainQSOEntryWidget->setMode(dataProxy.getNameFromSubModeId(defaultMode));
+    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy.getNameFromSubModeId(defaultMode)));
 
      //qDebug() << "MainWindow::selectDefaultMode3: " << QString::number(defaultMode) ;
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -3639,14 +3642,14 @@ void MainWindow::readActiveBands (const QStringList actives)
     QStringList __bands;
     __bands.clear();
     __bands = actives;
-    __bands << dataProxy->getBandsInLog(currentLog);
+    __bands << dataProxy.getBandsInLog(currentLog);
     __bands.removeDuplicates();
 
     bands = __bands;
 
     for (int i = 0; i < __bands.size() ; i++)
     {
-        if (dataProxy->getIdFromBandName(__bands.at(i)) > 0)
+        if (dataProxy.getIdFromBandName(__bands.at(i)) > 0)
         {
             if (!atLeastOne)
             {
@@ -3675,14 +3678,14 @@ void MainWindow::readActiveModes (const QStringList actives)
     QStringList __modes;
     __modes.clear();
     __modes = actives;
-    __modes << dataProxy->getModesInLog(currentLog);
+    __modes << dataProxy.getModesInLog(currentLog);
     __modes.removeDuplicates();
     modes.clear();
 
     for (int i = 0; i < __modes.size() ; i++)
     {
          //qDebug() << "MainWindow::readActiveModes: checking: " << __modes.at(i) ;
-        if (dataProxy->getIdFromModeName(__modes.at(i)) > 0)
+        if (dataProxy.getIdFromModeName(__modes.at(i)) > 0)
         {
       //qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) ;
             aux = __modes.at(i);
@@ -3729,7 +3732,7 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
     dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
-   // othersTabWidget->setEntitiesList(dataProxy->getEntitiesNames());
+   // othersTabWidget->setEntitiesList(dataProxy.getEntitiesNames());
     dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
 
     dxUpLeftTab->addTab(myDataTabWidget, tr("My Data"));
@@ -3761,7 +3764,7 @@ void MainWindow::createUIDX()
 
     dxBottonTab->addTab(logWindow, tr("Log"));
     dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
-    dxBottonTab->addTab(dxccStatusWidget, tr("DXCC"));
+    dxBottonTab->addTab(dxccStatusWidget.get(), tr("DXCC"));
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;
     dxUpRightLayout->addLayout(dxUpRightFixLayout);
@@ -3868,10 +3871,10 @@ void MainWindow::slotADIFExportAll()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _callToUse, _qsos, ModeADIF, currentLog);
 
-    showNumberOfSavedQSO(fileName, dataProxy->getHowManyQSOInLog(-1));
+    showNumberOfSavedQSO(fileName, dataProxy.getHowManyQSOInLog(-1));
 
        //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName ;
-    //QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
+    //QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy.getFirstQSODateFromCall(_callToUse), dataProxy.getLastQSODateFromCall(_callToUse), -1, ModeADIF);
        //qDebug() << "MainWindow::slotADIFExportAll-3" ;
     //showNumberOfSavedQSO(fileName, qsos.count());
 
@@ -3930,7 +3933,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
         int i = msgBox.exec();
         if (i == QMessageBox::Yes)
         {
-           uploadedToLoTW = dataProxy->lotwSentQSOs(qsos);
+           uploadedToLoTW = dataProxy.lotwSentQSOs(qsos);
            slotLogRefresh();
 
            if (!uploadedToLoTW)
@@ -4111,7 +4114,7 @@ void MainWindow::slotLoTWDownload()
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QStringList calls;
-    calls << dataProxy->getStationCallSignsFromLog(-1);
+    calls << dataProxy.getStationCallSignsFromLog(-1);
 
     bool ok;
 
@@ -4154,7 +4157,7 @@ void MainWindow::slotLoTWFullDownload()
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QStringList calls;
-    calls << dataProxy->getStationCallSignsFromLog(-1);
+    calls << dataProxy.getStationCallSignsFromLog(-1);
 
     bool ok;
 
@@ -4203,7 +4206,7 @@ void MainWindow::slotElogClubLogModifyCurrentLog()
     if (i == QMessageBox::Yes)
     {
         QMessageBox msgBox;
-        if (dataProxy->clublogModifyFullLog(currentLog))
+        if (dataProxy.clublogModifyFullLog(currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setText(tr("The log is ready to be uploaded to ClubLog."));
@@ -4233,7 +4236,7 @@ void MainWindow::slotElogEQSLModifyCurrentLog()
     if (i == QMessageBox::Yes)
     {
         QMessageBox msgBox;
-        if (dataProxy->eQSLModifyFullLog(currentLog))
+        if (dataProxy.eQSLModifyFullLog(currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setText(tr("The log is ready to be uploaded to eQSL.cc."));
@@ -4263,7 +4266,7 @@ void MainWindow::slotElogQRZCOMModifyCurrentLog()
     if (i == QMessageBox::Yes)
     {
         QMessageBox msgBox;
-        if (dataProxy->QRZCOMModifyFullLog(currentLog))
+        if (dataProxy.QRZCOMModifyFullLog(currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setText(tr("The log is ready to be uploaded to QRZ.com."));
@@ -4410,7 +4413,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
     if ((clublogActive) && (clublogRealTime))
     {
-        clublogPrevQSO = dataProxy->getClubLogRealTimeFromId(_qso);
+        clublogPrevQSO = dataProxy.getClubLogRealTimeFromId(_qso);
     }
 
     manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
@@ -4444,7 +4447,7 @@ void MainWindow::qsoToEdit (const int _qso)
     //}
     //else
     //{
-    //    mainQSOEntryWidget->setMode(dataProxy->getNameFromSubModeId(defaultMode));
+    //    mainQSOEntryWidget->setMode(dataProxy.getNameFromSubModeId(defaultMode));
     //}
 
      //qDebug() << Q_FUNC_INFO << " - After ALL Mode actions" ;
@@ -4652,11 +4655,11 @@ void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
     }
      //qDebug() << Q_FUNC_INFO << " - 30";
     // Set the status bar with the appropriate message
-    int status = awards->getDXStatus (_entityStatus);
+    int status = awards.getDXStatus (_entityStatus);
 
      //qDebug() << Q_FUNC_INFO << " -  " << QString::number(status) ;
 
-    QString message = awards->getDXStatusString(status);
+    QString message = awards.getDXStatusString(status);
      //qDebug() << Q_FUNC_INFO << " - 40";
     slotShowInfoLabel(message);
      //qDebug() << Q_FUNC_INFO << " - 10";
@@ -4678,7 +4681,7 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-    if ( awards->isDXMarathonNeed(_dxcc, _cqz, _year, _log))
+    if ( awards.isDXMarathonNeed(_dxcc, _cqz, _year, _log))
     {
         slotShowInfoLabel(infoLabel1->text()+ tr(" - Needed for DXMarathon"));
         //infoLabel1->setText(infoLabel1->text()+ tr(" - Needed for DXMarathon"));
@@ -4690,7 +4693,7 @@ void MainWindow::slotShowAwards()
 { //To be called from the logWindow & searchWidget
      //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    awards->recalculateAwards();
+    awards.recalculateAwards();
      //qDebug() << Q_FUNC_INFO << " - 1";
     //logWindow->refresh();
      //qDebug() << Q_FUNC_INFO << " - 2";
@@ -4730,7 +4733,7 @@ void MainWindow::fillQSOData()
     int i = 0;
     int _dxcc = 0;
 
-    numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
+    numberOfQsos = dataProxy.getHowManyQSOInLog(currentLog);
 
     //int progressBarPosition = 0;
 
@@ -4853,7 +4856,7 @@ void MainWindow::fillQSOData()
 void MainWindow::slotFillEmptyDXCCInTheLog()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    dataProxy->fillEmptyDXCCInTheLog();
+    dataProxy.fillEmptyDXCCInTheLog();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -4905,7 +4908,7 @@ void MainWindow::slotFilePrint()
     int _numberOfQsos = 0;
     bool cancelPrinting = false;
     bool sqlOK;
-    _numberOfQsos = dataProxy->getHowManyQSOInLog(currentLog);
+    _numberOfQsos = dataProxy.getHowManyQSOInLog(currentLog);
     int step = util->getProgresStepForDialog(_numberOfQsos);
 
 
@@ -5035,7 +5038,7 @@ void MainWindow::slotFilePrint()
                   //qDebug() << "MainWindow::slotFilePrint: nameCol: " << QString::number(nameCol) ;
                 aux = (query.value (nameCol)).toString();
                   //qDebug() << "MainWindow::slotFilePrint: Mode1: " << aux ;
-                aux = dataProxy->getNameFromSubModeId(aux.toInt());
+                aux = dataProxy.getNameFromSubModeId(aux.toInt());
                   //qDebug() << "MainWindow::slotFilePrint: Mode2: " << aux ;
                 if (aux.length()>1)
                 {
@@ -5104,7 +5107,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
         // Becareful, he Frecuency arrives in KHz instead of bandid!!
         // db.getBandFromFreq expects a MHz!
         //(ql.at(1)).toDouble()
-        _entityStatus.bandId = dataProxy->getBandIdFromFreq((spot.getFrequency().toDouble()));
+        _entityStatus.bandId = dataProxy.getBandIdFromFreq((spot.getFrequency().toDouble()));
         //qls << QRZ << BandId << ModeId << lognumber;
         showStatusOfDXCC(_entityStatus);
     }
@@ -5113,12 +5116,12 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
         clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     }
 
-    int statusI = awards->getDXStatus (_entityStatus);
+    int statusI = awards.getDXStatus (_entityStatus);
 
     proposedQSOs pQSO;
 
 
-    pQSO.status = awards->getQSOStatus(statusI);
+    pQSO.status = awards.getQSOStatus(statusI);
     Callsign callsign(spot.getDxCall());
     if (callsign.isValid())
     {
@@ -5185,7 +5188,7 @@ void MainWindow::clusterSpotToLog(const QString &_call, Frequency _fr)
 
           //qDebug() << Q_FUNC_INFO << " - Freq: " << _aux ;
 
-    int _bandi = dataProxy->getBandIdFromFreq(_freqN);
+    int _bandi = dataProxy.getBandIdFromFreq(_freqN);
           //qDebug() << Q_FUNC_INFO << " - Bandi: " << QString::number(_bandi) ;
     _aux = QString::number(_bandi);
     _aux = QString("SELECT name FROM band WHERE id ='%1'").arg(_aux);
@@ -5202,8 +5205,8 @@ void MainWindow::clusterSpotToLog(const QString &_call, Frequency _fr)
     }
     else
     {
-        mainQSOEntryWidget->setBand(dataProxy->getNameFromBandId(defaultBand));
-        //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
+        mainQSOEntryWidget->setBand(dataProxy.getNameFromBandId(defaultBand));
+        //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy.getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
         //bandComboBox->setCurrentIndex(defaultBand);
     }
       //qDebug() << Q_FUNC_INFO << " - END "  ;
@@ -5244,8 +5247,8 @@ void MainWindow::updateQSLRecAndSent()
 
 QString MainWindow::findStationCallsignToUse()
 {
-    //QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
-    QString foundCall = dataProxy->getStationCallSignFromLog (currentLog);
+    //QString foundCall = dataProxy.getStationCallSignFromLog (currentLog);
+    QString foundCall = dataProxy.getStationCallSignFromLog (currentLog);
     Callsign callsign(foundCall);
     if (callsign.isValid())
         return foundCall;
@@ -5325,9 +5328,9 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
         //qDebug() << "MainWindow::completeWithPreviousQSO" ;
     //This function completes: Name, QTH, Locator, Entity, Iota
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    int previousQSOId = dataProxy->isWorkedB4(_call, -1);
+    int previousQSOId = dataProxy.isWorkedB4(_call, -1);
     if ((!completeWithPrevious) || (_call.length()<=0) || (previousQSOId<=0))
-    //if ( (_call.length()<=0) || (dataProxy->isWorkedB4(_call, -1)<=0))
+    //if ( (_call.length()<=0) || (dataProxy.isWorkedB4(_call, -1)<=0))
     {
     //qDebug() << "MainWindow::completeWithPreviousQSO NOT completing..." ;
         QSOTabWidget->setName(QString());
@@ -5350,7 +5353,7 @@ void MainWindow::completeWithPreviousQSO(const QString &_call)
 
     if ((aux.length()>=0) && (othersTabWidget->isIOTAModified()) )
     {
-        aux = awards->checkIfValidIOTA(aux);
+        aux = awards.checkIfValidIOTA(aux);
 
         if ((aux.length())==6)
         {
@@ -5401,7 +5404,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
         //qDebug() << Q_FUNC_INFO << " - not running" ;
         return;
     }
-    int bandId = dataProxy->getBandIdFromFreq(_fr);
+    int bandId = dataProxy.getBandIdFromFreq(_fr);
     if (bandId < 1)
     {
         //qDebug() << Q_FUNC_INFO << " - wrong band" ;
@@ -5426,7 +5429,7 @@ void MainWindow::slotFreqTXChangedFromSat(const double _fr)
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
-    if (dataProxy->isThisFreqInBand (mainQSOEntryWidget->getBand (), QString::number(_fr)))
+    if (dataProxy.isThisFreqInBand (mainQSOEntryWidget->getBand (), QString::number(_fr)))
     {
         //qDebug() << Q_FUNC_INFO << " - END-2";
         return;
@@ -5527,7 +5530,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
          //qDebug() <<  Q_FUNC_INFO << " - QSO added: " << QString::number(addedQSO);
         actionsJustAfterAddingOneQSO();
         slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
-        infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getMode());
+        infoLabel2->setText(q.getCall() + " - " + dataProxy.getBandNameFromFreq(q.getFreqTX()) + "/" + q.getMode());
         slotClearButtonClicked(Q_FUNC_INFO);
     }
     else
@@ -5590,7 +5593,7 @@ bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
 {
     QSO q = _qso;
   //qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
-    if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)).length()>0))
+    if (!((dataProxy.isThisQSODuplicated(q, dupeSlotInSeconds)).length()>0))
         return true;
 
     QMessageBox msgBox;
@@ -5627,7 +5630,7 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
 {
         //qDebug() << "MainWindow::checkIfNewMode: " << _mode ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
+    if (dataProxy.getSubModeIdFromSubMode(_mode)<0)
     {// The mode is not existing; it is not an accepted mode for KLog
      // TODO: Show an error to the user
           //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode ;
@@ -5709,7 +5712,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
       //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" ;
              //qDebug() << Q_FUNC_INFO << " - calling setQRZ-3" ;
              mainQSOEntryWidget->setQRZ(_dxcall);
-             if ((!noMoreModeErrorShown) && (dataProxy->getSubModeIdFromSubMode(_mode)>0) )
+             if ((!noMoreModeErrorShown) && (dataProxy.getSubModeIdFromSubMode(_mode)>0) )
              {
                  mainQSOEntryWidget->setMode(_mode);
         //modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
@@ -5852,7 +5855,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     //qsTemp << _bands;
     //qsTemp.removeDuplicates();
 
-    qsTemp << dataProxy->sortBandNamesBottonUp(_bands);
+    qsTemp << dataProxy.sortBandNamesBottonUp(_bands);
     qsTemp.removeDuplicates();
 
     bands.clear();
@@ -6130,7 +6133,7 @@ void MainWindow::setLogLevel(const DebugLogLevel _sev)
     settings.endGroup ();
 
     tipsDialog->setLogLevel(logLevel);
-    dataProxy->setLogLevel(logLevel);
+    dataProxy.setLogLevel(logLevel);
     mainQSOEntryWidget->setLogLevel(logLevel);
     util->setLogLevel(logLevel);
     qso->setLogLevel(logLevel);
@@ -6365,17 +6368,17 @@ void MainWindow::selectTheLog(const int _i)
 {
      //qDebug() << Q_FUNC_INFO;
     currentLog = _i;
-    if (!dataProxy->doesThisLogExist(currentLog))
+    if (!dataProxy.doesThisLogExist(currentLog))
     {
         int _howManyQSOMax = -1;     // NUmber of QSO of the log with more QSO
         int _howManyQSOMaxT = 0;    // Number of QSO in ine specific log
         int _logWithMoreQSOs = -1;
         QStringList logs = QStringList();
 
-        logs << dataProxy->getListOfManagedLogs();
+        logs << dataProxy.getListOfManagedLogs();
         for (int i = 0;i<logs.length();i++)
         {
-            _howManyQSOMaxT = dataProxy->getHowManyQSOInLog(i);
+            _howManyQSOMaxT = dataProxy.getHowManyQSOInLog(i);
             if (_howManyQSOMax < _howManyQSOMaxT)
             {
                 _howManyQSOMax = _howManyQSOMaxT;

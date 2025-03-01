@@ -109,10 +109,11 @@ public:
     5 - Confirmed: Confirmed in this band.
     6 - Default: Not applicable
     */
-
+    DataProxy_SQLite *dataProxy;
 private:
     //void setAwardDXCC(const int _qsoId);
     //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
+    QString status2String(const QSOStatus &_status);             //TODO: Just for debug
     int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
 
     int setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid); // Changes the status of a DXCC from worked to confirmed
@@ -155,7 +156,7 @@ private:
     QColor defaultColor;
 
     World *world;
-    DataProxy_SQLite *dataProxy;
+
     DXMarathon *dxMarathon;
 
     typedef QMultiHash<int, int> DXStatus;
@@ -164,7 +165,7 @@ private:
     bool manageModes;
 
     QList<EntityStatus> dxccStatusList;             // DXCC status
-    QMultiHash<int, EntityStatus> dxccStatusMap;    // Multi-hash map for quick lookup
+    QMultiHash<int, EntityStatus> dxccStatusMap;    // Multi-hash map for quick lookup (dxcc, EntityStatus)
 
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
