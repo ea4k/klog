@@ -96,6 +96,8 @@ MainWindow::MainWindow(const QString &tversion):
     //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << tversion << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
     dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
+    dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, this);
+
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
@@ -204,9 +206,7 @@ MainWindow::MainWindow(const QString &tversion):
     infoLabel2 = new QLabel(tr("DX Entity"));
     loggWinAct = new QAction(tr("&Log Window"), this);
 
-     //qDebug() << Q_FUNC_INFO << ": dxclusterwidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    //dxClusterWidget = new DXClusterWidget(&dataProxy, dxclusterServerToConnect , dxclusterServerPort, this);
-    dxClusterWidget = new DXClusterWidget(&dataProxy, this);
+
     dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
 
     //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -650,8 +650,8 @@ void MainWindow::createActionsCommon(){
     connect(logWindow, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     //CLUSTER
-    connect(dxClusterWidget, SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
-    connect(dxClusterWidget, SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
+    connect(dxClusterWidget.get(), SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
+    connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -3763,7 +3763,7 @@ void MainWindow::createUIDX()
     dxUpRightTab->addTab(searchWidget, tr("Search"));
 
     dxBottonTab->addTab(logWindow, tr("Log"));
-    dxBottonTab->addTab(dxClusterWidget, tr("DX-Cluster"));
+    dxBottonTab->addTab(dxClusterWidget.get(), tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget.get(), tr("DXCC"));
 
     QVBoxLayout *dxUpRightLayout = new QVBoxLayout;

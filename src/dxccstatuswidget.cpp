@@ -181,7 +181,7 @@ QList<int> DXCCStatusWidget::getBandIds()
 void DXCCStatusWidget::update()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug()() << Q_FUNC_INFO << " - Start";
     //int entities = dataProxy->getMaxEntityID(false);        // REMOVE IF processEntities does not need it
     if (!awards->updateDXCCBandsStatus (-1)) // We update all
     {
@@ -248,16 +248,21 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     newItemID->setFlags(Qt::NoItemFlags);
     dxccView->setItem(dxccView->rowCount()-1, 0, newItemID);
    //qDebug() << Q_FUNC_INFO << " - 040";
-    for (int i=1; i < _ent.length(); i++)
+    for (int i=0; i < _ent.length()-1; i++)
     {
        //qDebug() << Q_FUNC_INFO << ": " << entity.mainprefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
         int bandid = _ent.at(i);
-        QTableWidgetItem *newItem = new QTableWidgetItem(awards->getDXCCStatusBand(_dxcc, bandid));
+        QSOStatus qsoStatus = awards->getDXCCStatusBand(_dxcc, bandid);
+        QString qsoStatusString = awards->status2String(qsoStatus);
+        if ((qsoStatus != QSOStatus::confirmed) && (qsoStatus != QSOStatus::worked))
+            qsoStatusString = "-";
+
+        QTableWidgetItem *newItem = new QTableWidgetItem(qsoStatusString);
 
         newItem->setTextAlignment(Qt::AlignCenter);
         newItem->setFlags(Qt::ItemIsEnabled);
        //qDebug() << Q_FUNC_INFO << " - 042";
-        if (newItem->text()=="C")
+        if (qsoStatus == QSOStatus::confirmed)
         {
            //qDebug() << Q_FUNC_INFO << " - 043";
             newItem->setForeground (QBrush(Qt::blue));
@@ -265,7 +270,7 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
             newItem->setBackground(QBrush(Qt::green));
             status = 1;
         }
-        else if (newItem->text()=="W")
+        else if (qsoStatus == QSOStatus::worked)
         {
            //qDebug() << Q_FUNC_INFO << " - 045";
             if (status < 0)
@@ -275,6 +280,7 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
             newItem->setForeground (QBrush(Qt::red));
             newItem->setBackground(QBrush(Qt::yellow));
         }
+
        //qDebug() << Q_FUNC_INFO << " - 048";
         dxccView->setItem(dxccView->rowCount()-1, i+1, newItem);
        //qDebug() << Q_FUNC_INFO << " - 049";
@@ -303,6 +309,7 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
        //qDebug() << Q_FUNC_INFO << "  - 062" ;
         newItemName->setForeground(QBrush(Qt::darkRed));
         newItemPref->setForeground(QBrush(Qt::darkRed));
+        newItemName->setBackground(QBrush(Qt::yellow));
     }
     else
     {

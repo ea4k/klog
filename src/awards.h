@@ -85,8 +85,10 @@ public:
     int getDXStatus (EntityStatus _entitystatus);
     QSOStatus getQSOStatus(const int &_status); // Needs to be called with the output of getDXStatus)
     QString getDXStatusString (const int &_status); // Needs to be called with the output of getDXStatus
-    QString getDXCCStatusBand2(const int _dxcc, const int _band, const int _logNumber=0); // Returns -, W or C (Not worked, worked, Confirmed)
-    QString getDXCCStatusBand(const int _dxcc, const int _band); // Returns -, W or C (Not worked, worked, Confirmed)
+
+
+    QSOStatus getDXCCStatusBand(const int _dxcc, const int _band);
+    QString status2String(const QSOStatus &_status, bool shortString = true);             //TODO: Just for debug
 
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     QColor getQRZDXStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
@@ -113,7 +115,7 @@ public:
 private:
     //void setAwardDXCC(const int _qsoId);
     //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
-    QString status2String(const QSOStatus &_status);             //TODO: Just for debug
+
     int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
 
     int setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid); // Changes the status of a DXCC from worked to confirmed
@@ -126,9 +128,11 @@ private:
     bool executeQuery(QSqlQuery &query, const QString &stringQuery);    //Executes queries
 
     int processQueryResults(QSqlQuery &query);
-    QSOStatus getStatus(const QSqlQuery &query, const QSqlRecord &rec);  // Gets the status
+    QSOStatus getStatus(const QSqlQuery &query, const QSqlRecord &rec);     // Gets the status
     void populateDXCCStatusMap();
-
+    bool updateOrAddEntityStatus(const EntityStatus &ent);                  // Adds a new EntityStatus to the list or modifies a current status
+    EntityStatus extractEntityStatus(QSqlQuery &query);                     // Extract an entity status from the query
+    void printEntityStatus(const QString &_callingFunction, const EntityStatus &ent);   // DEBUG only function prints to console
     /*
     _confirmed = 0     Set as Worked
     _cConfirmed = 1     Set as Confirmed
@@ -140,8 +144,6 @@ private:
     int dxccStatusMode(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     /**/
 
-    //void setAwardWAZ(const int _qsoId);
-    //bool setAwardWAZ(const int _cqz, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
     int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
     /*
     _confirmed = 0     Set as Worked
@@ -164,7 +166,7 @@ private:
     DXStatus dxccWorked, dxccConfirmed, wazWorked, wazConfirmed;
     bool manageModes;
 
-    QList<EntityStatus> dxccStatusList;             // DXCC status
+    QList<EntityStatus> dxccStatusList;             // List of DXCC status
     QMultiHash<int, EntityStatus> dxccStatusMap;    // Multi-hash map for quick lookup (dxcc, EntityStatus)
 
 signals:

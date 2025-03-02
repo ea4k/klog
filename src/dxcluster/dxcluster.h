@@ -49,8 +49,8 @@ class DXClusterWidget : public QWidget
      Q_OBJECT
 
  public:
-    DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent );
-    //DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent );
+     DXClusterWidget(Awards *awards, QWidget *parent );
+
     void init();
     ~DXClusterWidget();
 
@@ -123,7 +123,7 @@ private:
     QColor dxSpotColor;
 
     World *world;
-    Awards *awards;
+    Awards *awards; // Reference to the Awards instance
     DataProxy_SQLite *dataProxy;
     Utilities *util;
 

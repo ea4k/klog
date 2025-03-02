@@ -475,6 +475,9 @@ private:
     ShowKLogLogWidget * showKLogLogWidget;
     StatisticsWidget *statsWidget;
     std::unique_ptr<DXCCStatusWidget> dxccStatusWidget;
+    std::unique_ptr<DXClusterWidget> dxClusterWidget;
+
+     //DXClusterWidget *dxClusterWidget;
     //DXCCStatusWidget *dxccStatusWidget;
     QLabel *logLabel;
 
@@ -618,7 +621,7 @@ private:
     SetupDialog *setupDialog;
 
     // <CLUSTER>
-    DXClusterWidget *dxClusterWidget;
+
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     // </CLUSTER>
 

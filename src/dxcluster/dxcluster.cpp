@@ -27,23 +27,22 @@ email                : jaime@robles.es
 #include "dxcluster.h"
 #include "../callsign.h"
 
-
-DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, QWidget *parent)
-          : QWidget(parent)
+DXClusterWidget::DXClusterWidget(Awards *awards, QWidget *parent)
+          : awards(awards),
+            QWidget(parent)
 //DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
 //          : QWidget(parent)
 {
       //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect);
 
-
+    dataProxy = awards->dataProxy;
     saveSpotsFile = new QFile();
 
-    dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     world = new World(dataProxy, Q_FUNC_INFO);
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     tcpSocket = new QTcpSocket(this);
 
@@ -89,7 +88,7 @@ DXClusterWidget::~DXClusterWidget()
 {
    //qDebug() << Q_FUNC_INFO;
     delete(dataProxy);
-    delete(awards);
+    //delete(awards);
     delete(world);
     delete(util);
     delete(saveSpotsFile);
