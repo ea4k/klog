@@ -133,7 +133,7 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
     }
     version = _softwareVersion;
     pageRequested = _page;
-
+    logViewPage->init();
     slotReadConfigData();
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log

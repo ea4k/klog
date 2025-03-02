@@ -47,7 +47,7 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
     layout->addLayout(fLayout);
 
     setLayout(layout);
-       //qDebug() << "SetupPageLogView::SetupPageLogView - END"  ;
+    //qDebug() << "SetupPageLogView::SetupPageLogView - END"  ;
 }
 
 SetupPageLogView::~SetupPageLogView()
@@ -55,19 +55,26 @@ SetupPageLogView::~SetupPageLogView()
 
 void SetupPageLogView::init()
 {
+    qDebug() << Q_FUNC_INFO ;
     addFields(dataProxy->getFields());
     if (fieldsListWidget->count ()<1)
     {
+        qDebug() << Q_FUNC_INFO << " - No fields in the widget, populating with default ones";
         QStringList aux;
         aux.clear ();
         aux << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
         aux.removeDuplicates();
         setActiveFields(aux);
     }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " -Fields in the widget: " << fieldsListWidget->count();
+    }
 }
 
 void SetupPageLogView::addFields(QStringList _b)
 {
+    qDebug() << Q_FUNC_INFO << " - fields: " << _b.count();
     fieldsListWidget->addItems(_b);
 
     QListWidgetItem* item = 0;
@@ -110,17 +117,17 @@ QStringList SetupPageLogView::getActiveFields()
 
 void SetupPageLogView::setActiveFields(QStringList q)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     if (q.isEmpty())
     {
-        //qDebug() << Q_FUNC_INFO << " - Empty list - END-0";
+        qDebug() << Q_FUNC_INFO << " - Empty list - END-0";
         return;
     }
 
     QListWidgetItem *it;
     if ( (fieldsListWidget->count()) < 1)
     {
-        //qDebug() << Q_FUNC_INFO << " - END-1";
+        qDebug() << Q_FUNC_INFO << " No fields in the widget to select - END-1";
         return;
     }
 
@@ -131,15 +138,15 @@ void SetupPageLogView::setActiveFields(QStringList q)
 
         for (int j=0;j<q.length();j++)
         {
-            //qDebug() << Q_FUNC_INFO << " - Checking: " << q.at(j);
+            qDebug() << Q_FUNC_INFO << " - Checking: " << q.at(j);
             if (it->text() == q.at(j))
             {
-                //qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);
+                qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);
                 it->setCheckState(Qt::Checked);
             }
         }
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageLogView::saveSettings()
@@ -154,7 +161,7 @@ void SetupPageLogView::saveSettings()
 
 void SetupPageLogView::loadSettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     QStringList aux;
@@ -162,5 +169,5 @@ void SetupPageLogView::loadSettings()
     aux << dataProxy->filterValidFields(settings.value("LogViewFields").toStringList ());
     aux.removeDuplicates();
     setActiveFields(aux);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
