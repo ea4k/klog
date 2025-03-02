@@ -118,7 +118,8 @@ tst_MainWindow::tst_MainWindow()
 {
     //MainWindow mw(klogDir, version);
     Utilities util(Q_FUNC_INFO);
-    mainWindow = new MainWindow("2.3");
+    DataProxy_SQLite dataProxy("2.4");
+    mainWindow = new MainWindow(&dataProxy);
 }
 
 tst_MainWindow::~tst_MainWindow(){}

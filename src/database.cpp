@@ -911,6 +911,7 @@ bool DataBase::recreateTableDXCC()
 
 bool DataBase::createTableAwardDXCC()
 {
+    qDebug() << Q_FUNC_INFO;
       return execQuery(Q_FUNC_INFO, "CREATE TABLE awarddxcc ("
                              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                              "dxcc INTEGER NOT NULL,"
@@ -919,14 +920,13 @@ bool DataBase::createTableAwardDXCC()
                              "confirmed INTEGER, "
                              "qsoid INTEGER NOT NULL, "
                              "lognumber INTEGER, "
-                             "UNIQUE (dxcc, band, mode, lognumber))");
-/*
+//                             "UNIQUE (dxcc, band, mode, lognumber))");
                              "UNIQUE (dxcc, band, mode, lognumber), "
                              "FOREIGN KEY (dxcc) REFERENCES entity (dxcc), "
                              "FOREIGN KEY (band) REFERENCES band (id), "
                              "FOREIGN KEY (mode) REFERENCES mode (id), "
                              "FOREIGN KEY (qsoid) REFERENCES log (id) )");
-*/
+
     /*
     In awarddxcc confirmed means:
     confirmed = 0     Set as Worked

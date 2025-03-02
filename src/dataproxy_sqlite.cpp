@@ -5075,6 +5075,10 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     int _mode = values.at(1);
     int _dxcc = values.at(2);
     int _log = values.at(4);
+    qDebug() << Q_FUNC_INFO << " - Band: " << _band;
+    qDebug() << Q_FUNC_INFO << " - Mode: " << _mode;
+    qDebug() << Q_FUNC_INFO << " - DXCC: " << _dxcc;
+    qDebug() << Q_FUNC_INFO << " - Log : " << _log;
     // Validate retrieved values
     if (_dxcc <= 0 || _band <= 0 || _mode <= 0 || _log <= 0) {
         logEvent(Q_FUNC_INFO, "Invalid retrieved values", Debug);
@@ -5094,6 +5098,8 @@ bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
     query.bindValue(":band", _band);
     query.bindValue(":mode", _mode);
     query.bindValue(":dxcc", _dxcc);
+
+    qDebug() << Q_FUNC_INFO << " - Executing query: " << query.executedQuery();
 
     if (!query.exec()) {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());

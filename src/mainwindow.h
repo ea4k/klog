@@ -138,12 +138,12 @@ class MainWindow : public  QMainWindow
     friend class tst_MainWindow;
 
 public:
-    MainWindow(const QString &tversion);
+    MainWindow(DataProxy_SQLite *dp);
     ~MainWindow();
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
-    void showNotWar();
+    //void showNotWar();
 
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
@@ -691,7 +691,7 @@ private:
     //QString contestMode;
     //Contest *contest;
     // Contest
-    DataProxy_SQLite dataProxy;
+    DataProxy_SQLite *dataProxy;
 
     SoftwareUpdate *softUpdate;
     bool callingUpdate;
