@@ -816,7 +816,7 @@ QSOStatus Awards::getDXCCStatusBand(const int _dxcc, const int _band)
 
     EntityStatus indexEntityStatus;
     QSOStatus status = QSOStatus::needed;
-    bool worked = false;
+   // bool worked = false;
 
     foreach (indexEntityStatus, dxccStatusList)
     {
@@ -834,10 +834,9 @@ QSOStatus Awards::getDXCCStatusBand(const int _dxcc, const int _band)
                 else
                 { // This is important because it may happoen that the entity/bandId is confirmed in some modes but not in others
                     status = QSOStatus::worked;
-                    worked = true;
+                    //worked = true;
                 }
             }
-
         }
     }
     //qDebug() << Q_FUNC_INFO << " Returning -" ;
