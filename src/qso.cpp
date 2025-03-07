@@ -2183,7 +2183,7 @@ QString QSO::getARRL_Sect() const
     return arrl_sect;
 }
 
-bool QSO::setCheck(const QString &_c) const
+bool QSO::setCheck(const QString &_c)
 {
     check = _c;
     return true;

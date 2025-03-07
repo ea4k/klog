@@ -244,7 +244,7 @@ public:
     QString getAnt_Path() const;
     bool setARRL_Sect(const QString &_c);
     QString getARRL_Sect() const;
-    bool setCheck(const QString &_c) const;
+    bool setCheck(const QString &_c);
     QString getCheck() const;
     bool setClass(const QString &_c);
     QString getClass() const;
