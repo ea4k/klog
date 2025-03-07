@@ -47,7 +47,8 @@ class SearchWindow : public  QWidget
     Q_OBJECT
 
 public:
-    explicit SearchWindow(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    //explicit SearchWidget(Awards *awards, QWidget *parent = nullptr);    
+    explicit SearchWindow(Awards *awards, QWidget *parent = nullptr);
     ~SearchWindow();
     void createlogPanel(const int _currentLog);
     void clear();
@@ -126,7 +127,7 @@ private:
     bool qslingNeeded;
     DataProxy_SQLite *dataProxy;
     SearchModel *searchModel;
-    Awards *awards;
+    Awards *awards;             // Reference to the Awards instance
 
     //eLogClubLog *elogClublog;
 

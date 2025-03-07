@@ -697,7 +697,7 @@ void LogWindow::qslRecViaBureau(const int _qsoId)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
-    awards->setAwards(_qsoId);   //Update the Award status
+    awards->setAwards();   //Update the Award status
 
     refresh();
     emit updateAwards();
@@ -709,7 +709,7 @@ void LogWindow::qslRecViaDirect(const int _qsoId)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), false);
-    awards->setAwards(_qsoId);
+    awards->setAwards();
 
     refresh();
     emit updateAwards();

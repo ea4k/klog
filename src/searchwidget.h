@@ -41,7 +41,7 @@ class SearchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SearchWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    explicit SearchWidget(Awards *awards, QWidget *parent = nullptr);
     ~SearchWidget();
     void setCurrentLog(const int _log);
     //void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
@@ -127,7 +127,9 @@ private:
     //QTreeWidget *searchResultsTreeWidget;
     QComboBox *stationCallsignComboBox;
 
-    SearchWindow *searchWindow;
+    //SearchWindow *searchWindow;
+    std::unique_ptr<SearchWindow> searchWindow;        // Defined like this to send the same award instance
+
 
     bool qslingNeeded;
     bool searchSelectAllClicked, stationCallSignShownInSearch;

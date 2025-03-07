@@ -27,11 +27,12 @@
 
 #include "searchwindow.h"
 
-
-SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
+SearchWindow::SearchWindow(Awards *awards, QWidget *parent) :
+    QWidget(parent),
+    awards(awards) // Initialize Awards reference
 {
     //qDebug() << "SearchWindow::SearchWindow: " ;
-    dataProxy = dp;
+    dataProxy = awards->dataProxy;
     showStationCallsignInHeader = true;
     //sortingThroughProxyModel = false;
     searchModel = new SearchModel(dataProxy, this);
@@ -45,7 +46,7 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
     //proxyModel = new LogViewSortFilterProxyModel(this);
 
 
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     createUI();
     createActions();
@@ -56,9 +57,9 @@ SearchWindow::SearchWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pare
 SearchWindow::~SearchWindow()
 {
 //    emit clearError();
-    delete(dataProxy);
+    //delete(dataProxy);
     delete(util);
-    delete(awards);
+    //delete(awards);
 }
 
 
@@ -517,7 +518,7 @@ void SearchWindow::qslRecViaBureau(const int _qsoId)
 {
    //    //qDebug() << "LogWyyyy-MM-ddRecViaBureau: " << QString::number(_qsoIyyyy-MM-dd<< (dateTime->currentDateTime()).toString("yyyy/MM/dd");
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
-    awards->setAwards(_qsoId);   //Update the Award status
+    awards->setAwards();   //Update the Award status
     searchModel->select();
     //refresh();
     emit updateAwards();
@@ -527,7 +528,7 @@ void SearchWindow::qslRecViaDirect(const int _qsoId)
 {
        //qDebug() << "SearchWindow::qslRecViaDirect: " << QString::number(_qsoId)yyyy-MM-dd
     dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), false);
-    awards->setAwards(_qsoId);
+    awards->setAwards();
     searchModel->select();
     //refresh();
     emit updateAwards();

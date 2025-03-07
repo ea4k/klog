@@ -474,9 +474,9 @@ private:
     TipsDialog *tipsDialog;
     ShowKLogLogWidget * showKLogLogWidget;
     StatisticsWidget *statsWidget;
-    std::unique_ptr<DXCCStatusWidget> dxccStatusWidget;
-    std::unique_ptr<DXClusterWidget> dxClusterWidget;
-
+    std::unique_ptr<DXCCStatusWidget> dxccStatusWidget; // Defined like this to send the same award instance
+    std::unique_ptr<DXClusterWidget> dxClusterWidget;   // Defined like this to send the same award instance
+    std::unique_ptr<SearchWidget> searchWidget;        // Defined like this to send the same award instance
 
      //DXClusterWidget *dxClusterWidget;
     //DXCCStatusWidget *dxccStatusWidget;
@@ -611,7 +611,7 @@ private:
     MainQSOEntryWidget *mainQSOEntryWidget;
 
     AwardsWidget *awardsWidget;
-    SearchWidget *searchWidget;
+    //SearchWidget *searchWidget;
     InfoWidget *infoWidget;
 
     //AdvancedSearchWidget *advancedSearchWidget;

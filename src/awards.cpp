@@ -989,7 +989,7 @@ int Awards::getQSOsInLog(const int _logNumber)
     }
 }
 
-void Awards::setAwards(const int _qsoId)
+void Awards::setAwards()
 {
     //qDebug() << Q_FUNC_INFO << " - " << QString::number(_qsoId);
     //dataProxy->setDXCCAwardStatus(_qsoId);

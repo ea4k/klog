@@ -27,16 +27,18 @@
 #include "searchwidget.h"
 #include "callsign.h"
 
-SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
-    QWidget(parent)
+SearchWidget::SearchWidget(Awards *awards, QWidget *parent) :
+    QWidget(parent),
+    awards(awards) // Initialize Awards reference
 {
     //qDebug() << "SearchWidget::SearchWidget"  ;
     searchBoxLineEdit = new QLineEdit;
-    dataProxy = dp;
+    dataProxy = awards->dataProxy;
     delayInputTimer = new QTimer;
-    searchWindow = new SearchWindow(dataProxy, this);
+    searchWindow = std::make_unique<SearchWindow>(awards, this);
+    //searchWindow = new SearchWindow(dataProxy, this);
 
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
@@ -66,9 +68,9 @@ SearchWidget::SearchWidget(DataProxy_SQLite *dp, QWidget *parent) :
 
 SearchWidget::~SearchWidget()
 {
-    delete(dataProxy);
-    delete(searchWindow);
-    delete(awards);
+    //delete(dataProxy);
+    //delete(searchWindow);
+    //delete(awards);
     delete(util);
     delete(filemanager);
     delete(world);
@@ -199,7 +201,7 @@ void SearchWidget::createUI()
     dxUpRightSearchTabLayout->addLayout(dxUpRightSearchTopLayout);
     dxUpRightSearchTabLayout->addLayout(dxUpRightButtonsLayout);
     //dxUpRightSearchTabLayout->addWidget(searchResultsTreeWidget);
-    dxUpRightSearchTabLayout->addWidget(searchWindow);
+    dxUpRightSearchTabLayout->addWidget(searchWindow.get());
 
     setLayout(dxUpRightSearchTabLayout);
 
@@ -218,10 +220,10 @@ void SearchWidget::createUI()
     connect(stationCallsignComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(slotStationCallsignChanged() ) ) ;
     connect(searchAllQCheckbox, SIGNAL(toggled(bool)), this, SLOT(slotQCheckboxToggled() ) ) ;
 
-    connect(searchWindow, SIGNAL( actionQSODoubleClicked(int)), this, SLOT(slotQSOToEditFromSearch(int)));
-    connect(searchWindow, SIGNAL( actionDeleteQSO(int)), this, SLOT( slotQsoDeleteFromSearch(int) ));
-    connect(searchWindow, SIGNAL( updateSearchLineEdit()), this, SLOT( slotSearchBoxTextChanged() ));
-    connect(searchWindow, SIGNAL( requestFocus()), this, SLOT( slotRequestFocus() ));
+    connect(searchWindow.get(), SIGNAL( actionQSODoubleClicked(int)), this, SLOT(slotQSOToEditFromSearch(int)));
+    connect(searchWindow.get(), SIGNAL( actionDeleteQSO(int)), this, SLOT( slotQsoDeleteFromSearch(int) ));
+    connect(searchWindow.get(), SIGNAL( updateSearchLineEdit()), this, SLOT( slotSearchBoxTextChanged() ));
+    connect(searchWindow.get(), SIGNAL( requestFocus()), this, SLOT( slotRequestFocus() ));
 }
 
 

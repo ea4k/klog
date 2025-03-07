@@ -88,7 +88,7 @@ private:
 //    void righButtonFromLogMenu(const int trow);
 
     QTableWidget *dxccView;
-    Awards *awards; // Reference to the Awards instance
+    Awards *awards;         // Reference to the Awards instance
     World *world;
     DataProxy_SQLite *dataProxy;
     Locator *locator;

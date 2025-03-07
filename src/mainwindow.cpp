@@ -46,6 +46,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
     dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
     dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, this);
+    searchWidget = std::make_unique<SearchWidget>(&awards, this);
 
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
@@ -107,7 +108,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     logWindow = new LogWindow(dataProxy, this);
       //qDebug() << Q_FUNC_INFO << ": 00087: " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    searchWidget = new SearchWidget(dataProxy, this);
+    //searchWidget = new SearchWidget(dataProxy, this);
       //qDebug() << Q_FUNC_INFO << ": 00087.1: " << QTime::currentTime().toString("hh:mm:ss") ;
     //advancedSearchWidget = new AdvancedSearchWidget(dataProxy, this);
       //qDebug() << "MainWindow::MainWindow: 00087.2" << QTime::currentTime().toString("hh:mm:ss") ;
@@ -629,13 +630,13 @@ void MainWindow::createActionsCommon(){
     // QSL TAB
     connect(QSLTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
     // SEARCH TAB
-    connect(searchWidget, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
-    connect(searchWidget, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
-    connect(searchWidget, SIGNAL(logRefresh() ), this, SLOT(slotLogRefresh() ) );
-    connect(searchWidget, SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
-    connect(searchWidget, SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
-    connect(searchWidget, SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
-    connect(searchWidget, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect(searchWidget.get(), SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
+    connect(searchWidget.get(), SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
+    connect(searchWidget.get(), SIGNAL(logRefresh() ), this, SLOT(slotLogRefresh() ) );
+    connect(searchWidget.get(), SIGNAL(toStatusBar(QString) ), this, SLOT(slotUpdateStatusBar(QString) ) );
+    connect(searchWidget.get(), SIGNAL(requestBeingShown() ), this, SLOT(slotShowSearchWidget() ) );
+    connect(searchWidget.get(), SIGNAL(actionQSODelete( int ) ), this, SLOT(slotQSODelete(int) ) );
+    connect(searchWidget.get(), SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(&awards, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(&awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
     connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -1039,30 +1040,12 @@ void MainWindow::slotQRZReturnPressed()
     qso->clear();
     *qso = readQSOFromUI(modify);
 
-    /*
-    if (modify)
-    {
-        qDebug() << Q_FUNC_INFO << " -  reading modifyingQSO"  ;
-        *qso = readQSOFromUI(modify);
-        qDebug() << Q_FUNC_INFO << " -  rm: " << modifyingQSO->getMyCity()  ;
-        qDebug() << Q_FUNC_INFO << " -  rq: " << qso->getMyCity()  ;
-        //*qso = readQSOFromUI(qso);
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << " -  reading qso"  ;
-        *qso = readQSOFromUI(qso);
-    }
-    */
+
     if (!qso->isValid())
     {
         qDebug() << Q_FUNC_INFO << " - QSO Not valid!";
         return;
     }
-
-
-   //qDebug() << Q_FUNC_INFO << " - Clublog: " << qso->getClubLogStatus();
-   //qDebug() << Q_FUNC_INFO << ": " << QString("Modifying QSO %1").arg(modifyingQSOid);
 
     int addedOK = qso->toDB (modifyingQSOid);
    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
@@ -1095,7 +1078,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
        needToSave = true;
        if(modifyingQSOid>0)
        {           
-           awards.setAwards(modifyingQSOid);
+           awards.setAwards();
            if (yearChangedDuringModification)
            {
                awardsWidget->fillOperatingYears();
@@ -1113,7 +1096,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
            {
                     //qDebug() << Q_FUNC_INFO << " -  (No ClubLog) Lastid: "<< QString::number(lastId) ;
            }
-           awards.setAwards(modifyingQSOid);   //Update the DXCC award status
+           awards.setAwards();   //Update the DXCC award status
        }
        // CHECK WHAT WAS THE QSOID to add the awards, if needed
     }
@@ -1124,7 +1107,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         if (lastId>=0)
         {
              //qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
-            awards.setAwards(lastId);   //Update the DXCC award status
+            awards.setAwards();   //Update the DXCC award status
             // Send to CLUBLOG if enabled
             if ((clublogActive) && (clublogRealTime))
             {
@@ -1249,7 +1232,6 @@ QSO MainWindow::readQSOFromUI(const bool _mod) // _mod = true if we want to use 
     qDebug() << Q_FUNC_INFO << " -  Start : "  << util->boolToQString(_mod);
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": ClubLog: antes de leer QSO: " << eQSLTabWidget->getClubLogStatus();
     QSO qq;
     if (_mod)
     {
@@ -1257,11 +1239,10 @@ QSO MainWindow::readQSOFromUI(const bool _mod) // _mod = true if we want to use 
     }
     else
     {
-        qq.copy(qso);
+        qq.clear();
     }
-    //qq.clear();
 
-    qDebug() << Q_FUNC_INFO << " -  MY_CITY-00 - QSO : " << qso->getMyCity();
+    //qDebug() << Q_FUNC_INFO << " -  MY_CITY-00 - QSO : " << qso->getMyCity();
     qDebug() << Q_FUNC_INFO << " -  MY_CITY-02 - Mod : " << modifyingQSO->getMyCity();
     qDebug() << Q_FUNC_INFO << " -  MY_CITY-03 - _qso: " << qq.getMyCity();
     if (!checkValidCallBeforeAddingToLog(mainQSOEntryWidget->getQrz()))
@@ -1460,7 +1441,7 @@ void MainWindow::slotQSODelete(const int _id)
 void MainWindow::slotShowSearchWidget()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    dxUpRightTab->setCurrentIndex(dxUpRightTab->indexOf(searchWidget));
+    dxUpRightTab->setCurrentIndex(dxUpRightTab->indexOf(searchWidget.get()));
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -3750,7 +3731,7 @@ void MainWindow::createUIDX()
 
       //qDebug() << "MainWindow::createUIDX-122" ;
     dxUpRightTab->addTab(awardsWidget, tr("Awards"));
-    dxUpRightTab->addTab(searchWidget, tr("Search"));
+    dxUpRightTab->addTab(searchWidget.get(), tr("Search"));
 
     dxBottonTab->addTab(logWindow, tr("Log"));
     dxBottonTab->addTab(dxClusterWidget.get(), tr("DX-Cluster"));
