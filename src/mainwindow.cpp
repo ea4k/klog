@@ -1028,7 +1028,7 @@ void MainWindow::slotQRZReturnPressed()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO << " - Start"  ;
-    qDebug() << Q_FUNC_INFO << " - 050: MY_CITY2: " << modifyingQSO->getMyCity();
+    qDebug() << Q_FUNC_INFO << " - 050: modifying MY_CITY2: " << modifyingQSO->getMyCity();
     if (mainQSOEntryWidget->getQrz().length()<=0)
     {
        //qDebug() << Q_FUNC_INFO << " -  no QRZ"  ;

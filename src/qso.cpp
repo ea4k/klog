@@ -792,7 +792,7 @@ void QSO::setBackup(const bool _rt)
     backup    = _rt;
 }
 
-bool QSO::getBackup()
+bool QSO::getBackup() const
 {
     return backup;
 }
@@ -802,7 +802,7 @@ void QSO::setModifying(const bool _mod)
     modifying = _mod;
 }
 
-bool QSO::getModifying()
+bool QSO::getModifying() const
 {
     return modifying;
 }
@@ -820,7 +820,7 @@ bool QSO::setQSOid(const int _i)
     }
 }
 
-int QSO::getQSOid()
+int QSO::getQSOid() const
 {
     if (qsoId>0)
         return qsoId;
@@ -840,7 +840,7 @@ bool QSO::setLogId(const int _i)
     }
 }
 
-int QSO::getLogId()
+int QSO::getLogId() const
 {
     if (logId>0)
         return logId;
@@ -988,7 +988,7 @@ bool QSO::setBandRX(const QString &_c)
     }
 }
 
-QString QSO::getBandRX()
+QString QSO::getBandRX() const
 {
     return band_rx;
 }
@@ -1022,7 +1022,7 @@ bool QSO::setMode(const QString &_c)
     }
 }
 
-QString QSO::getMode()
+QString QSO::getMode() const
 {
 
     return mode;
@@ -1043,7 +1043,7 @@ bool QSO::setDate(const QDate &_c)
     }
 }
 
-QDate QSO::getDate()
+QDate QSO::getDate() const
 {
     return qso_dateTime.date();
 }
@@ -1062,7 +1062,7 @@ bool QSO::setDateOff(const QDate &_c)
     }
 }
 
-QDate QSO::getDateOff()
+QDate QSO::getDateOff() const
 {
     return qso_date_off;
 }
@@ -1081,7 +1081,7 @@ bool QSO::setTimeOff(const QTime &_c)
     }
 }
 
-QTime QSO::getTimeOff()
+QTime QSO::getTimeOff() const
 {
     return qso_time_off;
 }
@@ -1103,7 +1103,7 @@ bool QSO::setTimeOn(const QTime &_c)
     }
 }
 
-QTime QSO::getTimeOn()
+QTime QSO::getTimeOn() const
 {
     return qso_dateTime.time();
 }
@@ -1132,7 +1132,7 @@ void QSO::setRealTime(const bool _rt)
     realTime = _rt;
 }
 
-bool QSO::getRealTime()
+bool QSO::getRealTime() const
 {
     return realTime;
 }
@@ -1142,7 +1142,7 @@ void QSO::setManualMode(const bool _rt)
     manualMode = _rt;
 }
 
-bool QSO::getManualMode()
+bool QSO::getManualMode() const
 {
     return manualMode;
 }
@@ -1166,7 +1166,7 @@ bool QSO::setClubLogStatus(const QString &_c)
     }
 }
 
-QString QSO::getClubLogStatus()
+QString QSO::getClubLogStatus() const
 {
     return clublog_status;
 }
@@ -1186,7 +1186,7 @@ bool QSO::setClubLogDate(const QDate &_c)
     }
 }
 
-QDate QSO::getClubLogDate()
+QDate QSO::getClubLogDate() const
 {
     return clublogQSOUpdateDate;
 }
@@ -1207,7 +1207,7 @@ bool QSO::setQRZCOMStatus(const QString &_c)
     }
 }
 
-QString QSO::getQRZCOMStatus()
+QString QSO::getQRZCOMStatus() const
 {
     return QRZCom_status;
 }
@@ -1226,7 +1226,7 @@ bool QSO::setQRZCOMDate(const QDate &_c)
     }
 }
 
-QDate QSO::getQRZCOMDate()
+QDate QSO::getQRZCOMDate() const
 {
     return QRZComDate;
 }
@@ -1244,7 +1244,7 @@ bool QSO::setEQSLQSL_RCVD(const QString &_c)
     }
 }
 
-QString QSO::getEQSLQSL_RCVD()
+QString QSO::getEQSLQSL_RCVD() const
 {
     return eqsl_qsl_rcvd;
 }
@@ -1261,7 +1261,7 @@ bool QSO::setEQSLQSL_SENT(const QString &_c)
     }
 }
 
-QString QSO::getEQSLQSL_SENT()
+QString QSO::getEQSLQSL_SENT() const
 {
     return eqsl_qsl_sent;
 }
@@ -1280,7 +1280,7 @@ bool QSO::setEQSLQSLRDate(const QDate &_c)
     }
 }
 
-QDate QSO::getEQSLQSLRDate()
+QDate QSO::getEQSLQSLRDate() const
 {
     return eQSLRDate;
 }
@@ -1299,7 +1299,7 @@ bool QSO::setEQSLQSLSDate(const QDate &_c)
     }
 }
 
-QDate QSO::getEQSLQSLSDate()
+QDate QSO::getEQSLQSLSDate() const
 {
     return eQSLSDate;
 }
@@ -1317,7 +1317,7 @@ bool QSO::setLoTWQSL_SENT(const QString &_c)
     }
 }
 
-QString QSO::getLoTWQSL_SENT()
+QString QSO::getLoTWQSL_SENT() const
 {
     return lotw_qsl_sent;
 }
@@ -1339,7 +1339,7 @@ bool QSO::setLoTWQSLSDate(const QDate &_c)
     }
 }
 
-QDate QSO::getLoTWQSLSDate()
+QDate QSO::getLoTWQSLSDate() const
 {
     return QSLLoTWSDate;
 }
@@ -1360,7 +1360,7 @@ bool QSO::setLoTWQSL_RCVD(const QString &_c)
     }
 }
 
-QString QSO::getLoTWQSL_RCVD()
+QString QSO::getLoTWQSL_RCVD() const
 {
     return lotw_qsl_rcvd;
 }
@@ -1382,7 +1382,7 @@ bool QSO::setLoTWQSLRDate(const QDate &_c)
     }
 }
 
-QDate QSO::getLoTWQSLRDate()
+QDate QSO::getLoTWQSLRDate() const
 {
     return QSLLoTWRDate;
 }
@@ -1401,7 +1401,7 @@ bool QSO::setQSL_SENT(const QString &_c)
     }
 }
 
-QString QSO::getQSL_SENT()
+QString QSO::getQSL_SENT() const
 {
     return qsl_sent;
 }
@@ -1420,7 +1420,7 @@ bool QSO::setQSLSDate(const QDate &_c)
     }
 }
 
-QDate QSO::getQSLSDate()
+QDate QSO::getQSLSDate() const
 {
     return QSLSDate;
 }
@@ -1437,7 +1437,7 @@ bool QSO::setQSL_RCVD(const QString &_c)
     }
 }
 
-QString QSO::getQSL_RCVD()
+QString QSO::getQSL_RCVD() const
 {
     return qsl_rcvd;
 }
@@ -1455,7 +1455,7 @@ bool QSO::setQSLSenVia(const QString &_qs)
     }
 }
 
-QString QSO::getQSLSentVia()
+QString QSO::getQSLSentVia() const
 {
     return qslSenVia;
 }
@@ -1473,7 +1473,7 @@ bool QSO::setQSLRecVia(const QString &_qs)
     }
 }
 
-QString QSO::getQSLRecVia()
+QString QSO::getQSLRecVia() const
 {
     return qslRecVia;
 }
@@ -1491,7 +1491,7 @@ bool QSO::setQSLVia(const QString &_qs)
     }
 }
 
-QString QSO::getQSLVia()
+QString QSO::getQSLVia() const
 {
     return qslVia;
 }
@@ -1510,7 +1510,7 @@ bool QSO::setQSLRDate(const QDate &_c)
     }
 }
 
-QDate QSO::getQSLRDate()
+QDate QSO::getQSLRDate() const
 {
     return QSLRDate;
 }
@@ -1528,7 +1528,7 @@ bool QSO::setQSLMsg(const QString &_qs)
     }
 }
 
-QString QSO::getQSLMsg()
+QString QSO::getQSLMsg() const
 {
     return qslmsg;
 }
@@ -1671,7 +1671,7 @@ bool QSO::setRSTTX(const QString &_c)
     }
 }
 
-QString QSO::getRSTTX()
+QString QSO::getRSTTX() const
 {
     return RST_tx;
 }
@@ -1688,7 +1688,7 @@ bool QSO::setRXPwr(const double _f)
     }
 }
 
-double QSO::getRXPwr()
+double QSO::getRXPwr() const
 {
     return pwr_rx;
 }
@@ -1702,7 +1702,7 @@ bool QSO::setComment(const QString &_c)
     return true;
 }
 
-QString QSO::getComment()
+QString QSO::getComment() const
 {
     return comment;
 }
@@ -1713,7 +1713,7 @@ bool QSO::setKeepComment(bool _k)
     return true;
 }
 
-bool QSO::getKeepComment()
+bool QSO::getKeepComment() const
 {
     return keepComment;
 }
@@ -1727,7 +1727,7 @@ bool QSO::setDXCC(const int _i)
     return true;
 }
 
-int QSO::getDXCC()
+int QSO::getDXCC() const
 {
     return dxcc;
 }
@@ -1746,7 +1746,7 @@ bool QSO::setPropMode(const QString &_c)
     return true;
 }
 
-QString QSO::getPropMode()
+QString QSO::getPropMode() const
 {
     //qDebug() << Q_FUNC_INFO << ": " << propMode;
     return propMode;
@@ -1760,7 +1760,7 @@ bool QSO::setSOTA_REF(const QString &_c)
     return true;
 }
 
-QString QSO::getSOTA_REF()
+QString QSO::getSOTA_REF() const
 {
     return sota_ref;
 }
@@ -1773,7 +1773,7 @@ bool QSO::setMySOTA_REF(const QString &_c)
     return true;
 }
 
-QString QSO::getMySOTA_REF()
+QString QSO::getMySOTA_REF() const
 {
     return my_sota_ref;
 }
@@ -1807,12 +1807,12 @@ bool QSO::setMyVUCCGrids(const QString &_c)
     return true;
 }
 
-QString QSO::getMyVUCCGrids()
+QString QSO::getMyVUCCGrids() const
 {
     return my_vucc_grids;
 }
 
-QString QSO::getMyRig()
+QString QSO::getMyRig() const
 {
     return my_rig;
 }
@@ -1825,7 +1825,7 @@ bool QSO::setMyAntenna(const QString &_c)
     return true;
 }
 
-QString QSO::getMyAntenna()
+QString QSO::getMyAntenna() const
 {
     return my_antenna;
 }
@@ -1843,7 +1843,7 @@ bool QSO::setMyARRL_Sect(const QString &_c)
     }
 }
 
-QString QSO::getMyARRL_Sect()
+QString QSO::getMyARRL_Sect() const
 {
     return my_arrl_sect;
 }
@@ -1872,7 +1872,7 @@ bool QSO::setAge(const double _c)
     return false;
 }
 
-double QSO::getAge()
+double QSO::getAge() const
 {
     return age;
 }
@@ -1889,7 +1889,7 @@ bool QSO::setAltitude(const double _c)
 
 }
 
-double QSO::getAltitude()
+double QSO::getAltitude() const
 {
     return altitude;
 }
@@ -1941,7 +1941,7 @@ bool QSO::setTXPwr(double _f)
     }
 }
 
-double QSO::getTXPwr()
+double QSO::getTXPwr() const
 {
     return pwr_tx;
 }
@@ -1966,7 +1966,7 @@ bool QSO::setOperatorCallsign(const QString &_c)
     }
 }
 
-QString QSO::getOperatorCallsign()
+QString QSO::getOperatorCallsign() const
 {
     return operatorCall;
 }
@@ -1991,7 +1991,7 @@ bool QSO::setStationCallsign(const QString &_c)
     }
 }
 
-QString QSO::getStationCallsign()
+QString QSO::getStationCallsign() const
 {
     return stationCallsign;
 }
@@ -2010,7 +2010,7 @@ bool QSO::setMyGridSquare(const QString &_c)
     }
 }
 
-QString QSO::getMyGridSquare()
+QString QSO::getMyGridSquare() const
 {
     return my_gridsquare;
 }
@@ -2030,7 +2030,7 @@ bool QSO::setMyGridSquare_ext(const QString &_c)
     }
 }
 
-QString QSO::getMyGridSquare_ext()
+QString QSO::getMyGridSquare_ext() const
 {
     //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
     return my_gridsquare_ext;
@@ -2042,7 +2042,7 @@ bool QSO::setKeepMyData(bool _k)
     return true;
 }
 
-bool QSO::getKeepMyData()
+bool QSO::getKeepMyData() const
 {
     return keepMyData;
 }
@@ -2050,7 +2050,7 @@ bool QSO::getKeepMyData()
 // Satellite Tab
 bool QSO::setKeepSatTab(bool _k){keepSat = _k; return true;}
 
-bool QSO::getKeepSatTab(){return keepSat;}
+bool QSO::getKeepSatTab() const{return keepSat;}
 
 bool QSO::setSatName(const QString &_c)
 {
@@ -2066,7 +2066,7 @@ bool QSO::setSatName(const QString &_c)
     }
 }
 
-QString QSO::getSatName()
+QString QSO::getSatName() const
 {
     return satName;
 }
@@ -2086,7 +2086,7 @@ bool QSO::setSatMode(const QString &_c)
     }
 }
 
-QString QSO::getSatMode()
+QString QSO::getSatMode() const
 {
     return satMode;
 }
@@ -2102,7 +2102,7 @@ bool QSO::setAddress(const QString &_c)
     return false;
 }
 
-QString QSO::getAddress()
+QString QSO::getAddress() const
 {
     return address;
 }
@@ -2118,7 +2118,7 @@ bool QSO::setA_Index(const int _i)
     return false;
 }
 
-int QSO::getA_Index()
+int QSO::getA_Index() const
 {
     return a_index;
 }
@@ -2132,7 +2132,7 @@ bool QSO::setAnt_az(const double _c)
     ant_az = 0.0;
     return false;
 }
-double QSO::getAnt_az()
+double QSO::getAnt_az() const
 {
     return ant_az;
 }
@@ -2148,7 +2148,7 @@ bool QSO::setAnt_el(const double _c)
     return false;
 }
 
-double QSO::getAnt_el()
+double QSO::getAnt_el() const
 {
     return ant_el;
 }
@@ -2165,7 +2165,7 @@ bool QSO::setAnt_Path(const QString &_c)
     return true;
 }
 
-QString QSO::getAnt_Path()
+QString QSO::getAnt_Path() const
 {
     return ant_path;
 }
@@ -2178,18 +2178,18 @@ bool QSO::setARRL_Sect(const QString &_c)
     return true;
 }
 
-QString QSO::getARRL_Sect()
+QString QSO::getARRL_Sect() const
 {
     return arrl_sect;
 }
 
-bool QSO::setCheck(const QString &_c)
+bool QSO::setCheck(const QString &_c) const
 {
     check = _c;
     return true;
 }
 
-QString QSO::getCheck()
+QString QSO::getCheck() const
 {
     return check;
 }
@@ -2200,7 +2200,7 @@ bool QSO::setClass(const QString &_c)
     return true;
 }
 
-QString QSO::getClass()
+QString QSO::getClass() const
 {
     return clase;
 }
@@ -2213,7 +2213,7 @@ bool QSO::setContinent(const QString &_c)
     return true;
 }
 
-QString QSO::getContinent()
+QString QSO::getContinent() const
 {
     return continent;
 }
@@ -2229,7 +2229,7 @@ bool QSO::setDistance(const double _i)
     return false;
 }
 
-double QSO::getDistance()
+double QSO::getDistance() const
 {
     return distance;
 }
@@ -2247,7 +2247,7 @@ bool QSO::setOwnerCallsign(const QString &_c)
     }
 }
 
-QString QSO::getOwnerCallsign()
+QString QSO::getOwnerCallsign() const
 {
     return ownerCall;
 }
@@ -2265,7 +2265,7 @@ bool QSO::setEQ_Call(const QString &_c)
     }
 }
 
-QString QSO::getEQ_Call()
+QString QSO::getEQ_Call() const
 {
     return contacted_owner;
 }
@@ -2285,7 +2285,7 @@ bool QSO::setHRDUpdateDate(const QDate &_c)
     }
 }
 
-QDate QSO::getHRDUpdateDate()
+QDate QSO::getHRDUpdateDate() const
 {
     return hrdlogUploadDate;
 }
@@ -2304,7 +2304,7 @@ bool QSO::setHRDLogStatus(const QString &_c)
     }
 }
 
-QString QSO::getHRDLogStatus()
+QString QSO::getHRDLogStatus() const
 {
     return hrdlog_status;
 }
@@ -2322,7 +2322,7 @@ bool QSO::setHamLogEUStatus(const QString &_c)
     }
 }
 
-QString QSO::getHamLogEUStatus()
+QString QSO::getHamLogEUStatus() const
 {
     return hamlogeu_status;
 }
@@ -2341,7 +2341,7 @@ bool QSO::setHamLogEUUpdateDate(const QDate &_c)
     }
 }
 
-QDate QSO::getHamLogEUUpdateDate()
+QDate QSO::getHamLogEUUpdateDate() const
 {
     return hamlogeuUpdateDate;
 }
@@ -2359,7 +2359,7 @@ bool QSO::setHamQTHStatus(const QString &_c)
     }
 }
 
-QString QSO::getHamQTHStatus()
+QString QSO::getHamQTHStatus() const
 {
     return hamqth_status;
 }
@@ -2378,7 +2378,7 @@ bool QSO::setHamQTHUpdateDate(const QDate &_c)
     }
 }
 
-QDate QSO::getHamQTHUpdateDate()
+QDate QSO::getHamQTHUpdateDate() const
 {
     return hamqthUpdateDate;
 }
@@ -2393,7 +2393,7 @@ bool QSO::setK_Index(const int _i)
     return false;
 }
 
-int QSO::getK_Index()
+int QSO::getK_Index() const
 {
     return k_index;
 }
@@ -2404,7 +2404,7 @@ bool QSO::setRig(const QString &_c)
     return true;
 }
 
-QString QSO::getRig()
+QString QSO::getRig() const
 {
     return rig;
 }
@@ -2415,7 +2415,7 @@ bool QSO::setCountry(const QString &_c)
     return true;
 }
 
-QString QSO::getCountry()
+QString QSO::getCountry() const
 {
     return country;
 }
@@ -2426,7 +2426,7 @@ bool QSO::setAwardGranted(const QString &_c)
     return true;
 }
 
-QString QSO::getAwardGranted()
+QString QSO::getAwardGranted() const
 {
     return award_granted;
 }
@@ -2437,7 +2437,7 @@ bool QSO::setAwardSubmitted(const QString &_c)
     return true;
 }
 
-QString QSO::getAwardSubmitted()
+QString QSO::getAwardSubmitted() const
 {
     return award_submitted;
 }
@@ -2448,7 +2448,7 @@ bool QSO::setCounty(const QString &_c)
     return true;
 }
 
-QString QSO::getCounty()
+QString QSO::getCounty() const
 {
     return county;
 }
@@ -2466,7 +2466,7 @@ bool QSO::setContactedOperator(const QString &_c)
     }
 }
 
-QString QSO::getContactedOperator()
+QString QSO::getContactedOperator() const
 {
     return contacted_op;
 }
@@ -2477,7 +2477,7 @@ bool QSO::setContestID(const QString &_c)
     return true;
 }
 
-QString QSO::getContestID()
+QString QSO::getContestID() const
 {
     return contest_id;
 }
@@ -2496,7 +2496,7 @@ bool QSO::setCQZone(const int _i)
     }
 }
 
-int QSO::getCQZone()
+int QSO::getCQZone() const
 {
     return cqz;
 }
@@ -2507,7 +2507,7 @@ bool QSO::setCreditGranted(const QString &_c)
     return true;
 }
 
-QString QSO::getCreditGranted()
+QString QSO::getCreditGranted() const
 {
     return credit_granted;
 }
@@ -2518,7 +2518,7 @@ bool QSO::setCreditSubmitted(const QString &_c)
     return true;
 }
 
-QString QSO::getCreditSubmitted()
+QString QSO::getCreditSubmitted() const
 {
     return credit_submitted;
 }
@@ -2529,7 +2529,7 @@ bool QSO::setDarcDok(const QString &_c)
     return true;
 }
 
-QString QSO::getDarcDok()
+QString QSO::getDarcDok() const
 {
     return darc_dok;
 }
@@ -2544,7 +2544,7 @@ bool QSO::setEmail(const QString &_c)
     return false;
 }
 
-QString QSO::getEmail()
+QString QSO::getEmail() const
 {
     return email;
 }
@@ -2562,7 +2562,7 @@ bool QSO::setFists(const int _i)
     }
 }
 
-int QSO::getFists()
+int QSO::getFists() const
 {
     return fists;
 }
@@ -2580,7 +2580,7 @@ bool QSO::setFistsCC(const int _i)
     }
 }
 
-int QSO::getFistsCC()
+int QSO::getFistsCC() const
 {
     return fists_cc;
 }
@@ -2591,7 +2591,7 @@ bool QSO::setForceInit(bool _k)
     return true;
 }
 
-bool QSO::getForceInit()
+bool QSO::getForceInit() const
 {
     return forceInit;
 }
@@ -2609,7 +2609,7 @@ bool QSO::setIotaID(const int _i)
     }
 }
 
-int QSO::getIotaID()
+int QSO::getIotaID() const
 {
     return iota_ID;
 }
@@ -2628,7 +2628,7 @@ bool QSO::setItuZone(const int _i)
     }
 }
 
-int QSO::getItuZone()
+int QSO::getItuZone() const
 {
     return itu_zone;
 }
@@ -2639,7 +2639,7 @@ bool QSO::setLatitude(const QString &_c)
     return true;
 }
 
-QString QSO::getLatitude()
+QString QSO::getLatitude() const
 {
     return latitude;
 }
@@ -2650,7 +2650,7 @@ bool QSO::setLongitude(const QString &_c)
     return true;
 }
 
-QString QSO::getLongitude()
+QString QSO::getLongitude() const
 {
     return longitude;
 }
@@ -2668,7 +2668,7 @@ bool QSO::setNrBursts(const int _i)
     }
 }
 
-int QSO::getNrBursts()
+int QSO::getNrBursts() const
 {
     return nr_bursts;
 }
@@ -2686,7 +2686,7 @@ bool QSO::setMaxBursts(const int _i)
     }
 }
 
-int QSO::getMaxBursts()
+int QSO::getMaxBursts() const
 {
     return max_bursts;
 }
@@ -2704,7 +2704,7 @@ bool QSO::setNrPings(const int _i)
     }
 }
 
-int QSO::getNrPings()
+int QSO::getNrPings() const
 {
     return nr_pings;
 }
@@ -2715,7 +2715,7 @@ bool QSO::setMsShower(const QString &_c)
     return true;
 }
 
-QString QSO::getMsShower()
+QString QSO::getMsShower() const
 {
     return ms_shower;
 }
@@ -2731,7 +2731,7 @@ bool QSO::setQSOComplete(const QString &_c)
     return true;
 }
 
-QString QSO::getQSOComplete()
+QString QSO::getQSOComplete() const
 {
     return qso_complete;
 }
@@ -2742,7 +2742,7 @@ bool QSO::setQSORandom(bool _k)
     return true;
 }
 
-bool QSO::getQSORandom()
+bool QSO::getQSORandom() const
 {
     return qso_random;
 }
@@ -2753,7 +2753,7 @@ bool QSO::setMyAltitude(const double _c)
     return true;
 }
 
-double QSO::getMyAltitude()
+double QSO::getMyAltitude() const
 {
     return my_altitude;
 }
@@ -2764,7 +2764,7 @@ bool QSO::setMyCity(const QString &_c)
     return true;
 }
 
-QString QSO::getMyCity()
+QString QSO::getMyCity() const
 {
     return my_city;
 }
@@ -2775,7 +2775,7 @@ bool QSO::setMyCounty(const QString &_c)
     return true;
 }
 
-QString QSO::getMyCounty()
+QString QSO::getMyCounty() const
 {
     return my_county;
 }
@@ -2786,7 +2786,7 @@ bool QSO::setMyCountry(const QString &_c)
     return true;
 }
 
-QString QSO::getMyCountry()
+QString QSO::getMyCountry() const
 {
     return my_country;
 }
@@ -2805,7 +2805,7 @@ bool QSO::setMyCQZone(const int _i)
     }
 }
 
-int QSO::getMyCQZone()
+int QSO::getMyCQZone() const
 {
     return my_cqz;
 }
@@ -2820,7 +2820,7 @@ bool QSO::setMyDXCC(const int _i)
     return false;
 }
 
-int QSO::getMyDXCC()
+int QSO::getMyDXCC() const
 {
     return my_dxcc;
 }
@@ -2835,7 +2835,7 @@ bool QSO::setMyFists(const int _i)
     return false;
 }
 
-int QSO::getMyFists()
+int QSO::getMyFists() const
 {
     return my_fists;
 }
@@ -2854,7 +2854,7 @@ bool QSO::setMyIOTA(const QString &_c)
     }
 }
 
-QString QSO::getMyIOTA()
+QString QSO::getMyIOTA() const
 {
     return my_iota;
 }
@@ -2872,7 +2872,7 @@ bool QSO::setMyIotaID(const int _i)
     }
 }
 
-int QSO::getMyIotaID()
+int QSO::getMyIotaID() const
 {
     return my_iota_ID;
 }
@@ -2891,7 +2891,7 @@ bool QSO::setMyITUZone(const int _i)
     }
 }
 
-int QSO::getMyITUZone()
+int QSO::getMyITUZone() const
 {
     return my_itu_zone;
 }
@@ -2902,7 +2902,7 @@ bool QSO::setMyLatitude(const QString &_c)
     return true;
 }
 
-QString QSO::getMyLatitude()
+QString QSO::getMyLatitude() const
 {
     return my_latitude;
 }
@@ -2913,7 +2913,7 @@ bool QSO::setMyLongitude(const QString &_c)
     return true;
 }
 
-QString QSO::getMyLongitude()
+QString QSO::getMyLongitude() const
 {
     return my_longitude;
 }
@@ -2924,7 +2924,7 @@ bool QSO::setMyName(const QString &_c)
     return true;
 }
 
-QString QSO::getMyName()
+QString QSO::getMyName() const
 {
     return my_name;
 }
@@ -2937,7 +2937,7 @@ bool QSO::setMyPOTA_Ref(const QString &_c)
     return true;
 }
 
-QString QSO::getMyPOTA_Ref()
+QString QSO::getMyPOTA_Ref() const
 {
     return my_pota_ref;
 }
@@ -2948,7 +2948,7 @@ bool QSO::setMyPostalCode(const QString &_c)
     return true;
 }
 
-QString QSO::getMyPostalCode()
+QString QSO::getMyPostalCode() const
 {
     return my_postal_code;
 }
@@ -2959,7 +2959,7 @@ bool QSO::setMySig(const QString &_c)
     return true;
 }
 
-QString QSO::getMySig()
+QString QSO::getMySig() const
 {
     return my_sig;
 }
@@ -2981,7 +2981,7 @@ bool QSO::setMyState(const QString &_c)
     return true;
 }
 
-QString QSO::getMyState()
+QString QSO::getMyState() const
 {
     return my_state;
 }
@@ -2992,7 +2992,7 @@ bool QSO::setMyStreet(const QString &_c)
     return true;
 }
 
-QString QSO::getMyStreet()
+QString QSO::getMyStreet() const
 {
     return my_street;
 }
@@ -3003,7 +3003,7 @@ bool QSO::setMyUsacaCounties(const QString &_c)
     return true;
 }
 
-QString QSO::getMyUsacaCounties()
+QString QSO::getMyUsacaCounties() const
 {
     return my_usaca_counties;
 }
@@ -3014,7 +3014,7 @@ bool QSO::setNotes(const QString &_c)
     return true;
 }
 
-QString QSO::getNotes()
+QString QSO::getNotes() const
 {
     return notes;
 }
@@ -3025,7 +3025,7 @@ bool QSO::setPrefix(const QString &_c)
     return true;
 }
 
-QString QSO::getPrefix()
+QString QSO::getPrefix() const
 {
     return prefix;
 }
@@ -3036,7 +3036,7 @@ bool QSO::setPrecedence(const QString &_c)
     return true;
 }
 
-QString QSO::getPrecedence()
+QString QSO::getPrecedence() const
 {
     return precedence;
 }
@@ -3047,7 +3047,7 @@ bool QSO::setPublicKey(const QString &_c)
     return true;
 }
 
-QString QSO::getPublicKey()
+QString QSO::getPublicKey() const
 {
     return public_key;
 }
@@ -3058,7 +3058,7 @@ bool QSO::setRegion(const QString &_c)
     return true;
 }
 
-QString QSO::getRegion()
+QString QSO::getRegion() const
 {
     return region;
 }
@@ -3076,7 +3076,7 @@ bool QSO::setTenTen(const int _i)
     }
 }
 
-int QSO::getTenTen()
+int QSO::getTenTen() const
 {
     return ten_ten;
 }
@@ -3094,7 +3094,7 @@ bool QSO::setSFI(const int _i)
     }
 }
 
-int QSO::getSFI()
+int QSO::getSFI() const
 {
     return sfi;
 }
@@ -3105,7 +3105,7 @@ bool QSO::setSIG(const QString &_c)
     return true;
 }
 
-QString QSO::getSIG()
+QString QSO::getSIG() const
 {
     return sig;
 }
@@ -3116,7 +3116,7 @@ bool QSO::setSIG_INFO(const QString &_c)
     return true;
 }
 
-QString QSO::getSIG_INFO()
+QString QSO::getSIG_INFO() const
 {
     return sig_info;
 }
@@ -3127,7 +3127,7 @@ bool QSO::setSilentKey(bool _k)
     return true;
 }
 
-bool QSO::getSilentKey()
+bool QSO::getSilentKey() const
 {
     return silent_key;
 }
@@ -3138,7 +3138,7 @@ bool QSO::setSkcc(const QString &_c)
     return true;
 }
 
-QString QSO::getSkcc()
+QString QSO::getSkcc() const
 {
     return skcc;
 }
@@ -3156,7 +3156,7 @@ bool QSO::setSrx(const int _i)
     }
 }
 
-int QSO::getSrx()
+int QSO::getSrx() const
 {
     return srx;
 }
@@ -3167,7 +3167,7 @@ bool QSO::setSrxString(const QString &_c)
     return true;
 }
 
-QString QSO::getSrxString()
+QString QSO::getSrxString() const
 {
     return srx_string;
 }
@@ -3185,7 +3185,7 @@ bool QSO::setStx(const int _i)
     }
 }
 
-int QSO::getStx()
+int QSO::getStx() const
 {
     return stx;
 }
@@ -3196,7 +3196,7 @@ bool QSO::setStxString(const QString &_c)
     return true;
 }
 
-QString QSO::getStxString()
+QString QSO::getStxString() const
 {
     return stx_string;
 }
@@ -3207,7 +3207,7 @@ bool QSO::setState(const QString &_c)
     return true;
 }
 
-QString QSO::getState()
+QString QSO::getState() const
 {
     //qDebug() << Q_FUNC_INFO << ": " << state;
     return state;
@@ -3244,7 +3244,7 @@ bool QSO::setSwl(bool _k)
     return true;
 }
 
-bool QSO::getSwl()
+bool QSO::getSwl() const
 {
     return swl;
 }
@@ -3262,7 +3262,7 @@ bool QSO::setUksmg(const int _i)
     }
 }
 
-int QSO::getUksmg()
+int QSO::getUksmg() const
 {
     return uksmg;
 }
@@ -3273,7 +3273,7 @@ bool QSO::setUsacaCounties(const QString &_c)
     return true;
 }
 
-QString QSO::getUsacaCounties()
+QString QSO::getUsacaCounties() const
 {
     return usaca_counties;
 }
@@ -3284,7 +3284,7 @@ bool QSO::setVeProv(const QString &_c)
     return true;
 }
 
-QString QSO::getVeProv()
+QString QSO::getVeProv() const
 {
     return ve_prov;
 }
@@ -3295,7 +3295,7 @@ bool QSO::setWeb(const QString &_c)
     return true;
 }
 
-QString QSO::getWeb()
+QString QSO::getWeb() const
 {
     return web;
 }
@@ -3308,7 +3308,7 @@ bool QSO::setWWFF_Ref(const QString &_c)
     return true;
 }
 
-QString QSO::getWWFF_Ref()
+QString QSO::getWWFF_Ref() const
 {
     return wwff_ref;
 }
@@ -3321,7 +3321,7 @@ bool QSO::setMyWWFF_Ref(const QString &_c)
     return true;
 }
 
-QString QSO::getMyWWFF_Ref()
+QString QSO::getMyWWFF_Ref() const
 {
     return my_wwff_ref;
 }
@@ -4070,7 +4070,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     return query;
 }
 
-QString QSO::getADIF()
+QString QSO::getADIF() const
 {
     if (!isComplete())
         return QString();
