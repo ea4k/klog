@@ -1037,10 +1037,13 @@ void MainWindow::slotQRZReturnPressed()
 
     readingTheUI = true;
     qso->clear();
+    *qso = readQSOFromUI(modify);
+
+    /*
     if (modify)
     {
         qDebug() << Q_FUNC_INFO << " -  reading modifyingQSO"  ;
-        *qso = readQSOFromUI(modifyingQSO);
+        *qso = readQSOFromUI(modify);
         qDebug() << Q_FUNC_INFO << " -  rm: " << modifyingQSO->getMyCity()  ;
         qDebug() << Q_FUNC_INFO << " -  rq: " << qso->getMyCity()  ;
         //*qso = readQSOFromUI(qso);
@@ -1050,6 +1053,7 @@ void MainWindow::slotQRZReturnPressed()
         qDebug() << Q_FUNC_INFO << " -  reading qso"  ;
         *qso = readQSOFromUI(qso);
     }
+    */
     if (!qso->isValid())
     {
         qDebug() << Q_FUNC_INFO << " - QSO Not valid!";
@@ -1242,7 +1246,7 @@ QSO MainWindow::getQSODataFromUI(const QSO &_qso)
 
 QSO MainWindow::readQSOFromUI(const bool _mod) // _mod = true if we want to use modifyingQSO
 {
-    qDebug() << Q_FUNC_INFO << " -  Start" ;
+    qDebug() << Q_FUNC_INFO << " -  Start : "  << util->boolToQString(_mod);
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
     qDebug() << Q_FUNC_INFO << ": ClubLog: antes de leer QSO: " << eQSLTabWidget->getClubLogStatus();
