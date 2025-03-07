@@ -416,8 +416,8 @@ public:
     bool fromDB(int _qsoId);
     //bool add();
     //bool modify(const int _qsoId);
-    bool isComplete();
-    QString getADIF() const;
+    bool isComplete() const;
+    QString getADIF();
     QString getBandNameFromFreq(const double _n); // Should be push out of this class
 
 

@@ -393,7 +393,7 @@ private:
     void createActionsCommon();
 
 
-    QSO readQSOFromUI(const QSO &_qso);
+    QSO readQSOFromUI(const bool _mod); //_mod = true if we want to use modifyingQSO
     QSO getQSODataFromUI(const QSO &_qso);         // Calls to the different widgets for QSO data
 
     //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query

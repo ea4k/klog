@@ -1240,17 +1240,26 @@ QSO MainWindow::getQSODataFromUI(const QSO &_qso)
     return qso;
 }
 
-QSO MainWindow::readQSOFromUI(const QSO &_qso)
+QSO MainWindow::readQSOFromUI(const bool _mod) // _mod = true if we want to use modifyingQSO
 {
     qDebug() << Q_FUNC_INFO << " -  Start" ;
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
     qDebug() << Q_FUNC_INFO << ": ClubLog: antes de leer QSO: " << eQSLTabWidget->getClubLogStatus();
     QSO qq;
+    if (_mod)
+    {
+        qq.copy(modifyingQSO);
+    }
+    else
+    {
+        qq.copy(qso);
+    }
     //qq.clear();
-    qq.copy(_qso);
-    qDebug() << Q_FUNC_INFO << " -  MY_CITY-00: " << _qso.getMyCity();
-    qDebug() << Q_FUNC_INFO << " -  MY_CITY-01: " << qq.getMyCity();
+
+    qDebug() << Q_FUNC_INFO << " -  MY_CITY-00 - QSO : " << qso->getMyCity();
+    qDebug() << Q_FUNC_INFO << " -  MY_CITY-02 - Mod : " << modifyingQSO->getMyCity();
+    qDebug() << Q_FUNC_INFO << " -  MY_CITY-03 - _qso: " << qq.getMyCity();
     if (!checkValidCallBeforeAddingToLog(mainQSOEntryWidget->getQrz()))
     {
        //qDebug() << Q_FUNC_INFO << ": Not valid Call" ;

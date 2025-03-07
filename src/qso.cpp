@@ -592,7 +592,7 @@ void QSO::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _le
         emit debugLog (_func, _msg, _level);
 }
 
-bool QSO::isComplete()
+bool QSO::isComplete() const
 {
     if (!haveCall)
     {
@@ -4070,7 +4070,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     return query;
 }
 
-QString QSO::getADIF() const
+QString QSO::getADIF()
 {
     if (!isComplete())
         return QString();
