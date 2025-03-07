@@ -1437,6 +1437,8 @@ QString Utilities::getClearSQLi(QString _s)
 void Utilities::setLogColumnNames()
 {
     // QMap<QString, QString> columnNames;
+    //columnNames.insert("", QObject::tr(""));
+    columnNames.insert("altitude", QObject::tr("Altitude"));
     columnNames.insert("qso_date", QObject::tr("Date"));
     columnNames.insert("call", QObject::tr("Call"));
     columnNames.insert("rst_sent", QObject::tr("RSTtx"));
@@ -1460,7 +1462,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("band_rx", QObject::tr("Band_RX"));
     columnNames.insert("checkcontest", QObject::tr("CheckContest"));
     columnNames.insert("class", QObject::tr("Class"));
-    columnNames.insert("clublog_qso_upload_date", QObject::tr("ClubLog SDate"));
+    columnNames.insert("clublog_qso_upload_date", QObject::tr("ClubLog SDate", "Date when it was sent"));
     columnNames.insert("clublog_qso_upload_status", QObject::tr("ClubLog status"));
     columnNames.insert("cont", QObject::tr("Continent"));
     columnNames.insert("contacted_op", QObject::tr("Contacted_Op"));
@@ -1468,12 +1470,12 @@ void Utilities::setLogColumnNames()
     columnNames.insert("country", QObject::tr("Country"));
     columnNames.insert("credit_submitted", QObject::tr("Credit Submitted"));
     columnNames.insert("credit_granted", QObject::tr("Credit granted"));
-    columnNames.insert("dark_dok", QObject::tr("Dark Dok", "Do not translate if unsure, common hamradio term."));
+    columnNames.insert("darc_dok", QObject::tr("Darc Dok", "Do not translate if unsure, common hamradio term."));
     columnNames.insert("distance", QObject::tr("Distance"));
     columnNames.insert("email", QObject::tr("Email"));
     columnNames.insert("eq_call", QObject::tr("EQ_Call"));
     columnNames.insert("eqsl_qslrdate", QObject::tr("eQSL RDate"));
-    columnNames.insert("eqsl_qslsdate", QObject::tr("eQSL SDate"));
+    columnNames.insert("eqsl_qslsdate", QObject::tr("eQSL SDate", "Date when it was sent"));
     columnNames.insert("eqsl_qsl_rcvd", QObject::tr("eQSL Rcvd"));
     columnNames.insert("eqsl_qsl_sent", QObject::tr("eQSL Sent"));
     columnNames.insert("fists", QObject::tr("Fists", "Do not translate if unsure, common hamradio term."));
@@ -1482,20 +1484,28 @@ void Utilities::setLogColumnNames()
     columnNames.insert("freq", QObject::tr("Freq"));
     columnNames.insert("freq_rx", QObject::tr("Freq RX"));
     columnNames.insert("gridsquare", QObject::tr("Gridsquare"));
-    columnNames.insert("hrdlog_qso_upload_date", QObject::tr("HRDLog SDate"));
+    columnNames.insert("gridsquare_ext", QObject::tr("Gridsquare ext", "Extended gridsquare"));
+    columnNames.insert("hamlogeu_qso_upload_status", QObject::tr("HamLog status"));
+    columnNames.insert("hamlogeu_qso_upload_date", QObject::tr("HamLog SDate", "Date when it was sent"));
+    columnNames.insert("hrdlog_qso_upload_date", QObject::tr("HRDLog SDate", "Date when it was sent"));
     columnNames.insert("hrdlog_qso_upload_status", QObject::tr("HRDLog status"));
+    columnNames.insert("hamqth_qso_upload_status", QObject::tr("HamQTH status"));
+    columnNames.insert("hamqth_qso_upload_date", QObject::tr("HamQTH SDate", "Date when it was sent"));
     columnNames.insert("iota", QObject::tr("IOTA"));
     columnNames.insert("iota_island_id", QObject::tr("IOTA Island id"));
     columnNames.insert("k_index", QObject::tr("K Index"));
     columnNames.insert("lat", QObject::tr("Lat"));
     columnNames.insert("lon", QObject::tr("Lon"));
     columnNames.insert("lotw_qslrdate", QObject::tr("LoTW RDate"));
-    columnNames.insert("lotw_qslsdate", QObject::tr("LoTW SDate"));
+    columnNames.insert("lotw_qslsdate", QObject::tr("LoTW SDate", "Date when it was sent"));
     columnNames.insert("lotw_qsl_rcvd", QObject::tr("LoTW Rcvd"));
     columnNames.insert("lotw_qsl_sent", QObject::tr("LoTW Sent"));
+    columnNames.insert("marked", QObject::tr("Marcado"));
     columnNames.insert("max_bursts", QObject::tr("Max Bursts"));
     columnNames.insert("ms_shower", QObject::tr("MS Shower"));
+    columnNames.insert("my_altitude", QObject::tr("My Altitude"));
     columnNames.insert("my_antenna", QObject::tr("My Antenna"));
+    columnNames.insert("my_arrl_sect", QObject::tr("My ARRL Sect"));
     columnNames.insert("my_city", QObject::tr("My City"));
     columnNames.insert("my_cnty", QObject::tr("My Cnty"));
     columnNames.insert("my_country", QObject::tr("My Country"));
@@ -1503,6 +1513,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("my_dxcc", QObject::tr("My DXCC"));
     columnNames.insert("my_fists", QObject::tr("My Fists", "Do not translate if unsure, common hamradio term."));
     columnNames.insert("my_gridsquare", QObject::tr("My Gridsquare"));
+    columnNames.insert("my_gridsquare_ext", QObject::tr("My Gridsquare Ext"));
     columnNames.insert("my_iota", QObject::tr("My IOTA"));
     columnNames.insert("my_iota_island_id", QObject::tr("My IOTA island id"));
     columnNames.insert("my_itu_zone", QObject::tr("My ITUz"));
@@ -1510,20 +1521,23 @@ void Utilities::setLogColumnNames()
     columnNames.insert("my_lon", QObject::tr("My Lon"));
     columnNames.insert("my_name", QObject::tr("My Name"));
     columnNames.insert("my_postal_code", QObject::tr("My Postal code"));
+    columnNames.insert("my_pota_ref", QObject::tr("My POTA"));
     columnNames.insert("my_rig", QObject::tr("My Rig"));
     columnNames.insert("my_sig", QObject::tr("My Sig"));
     columnNames.insert("my_sig_info", QObject::tr("My Sig Info"));
-    columnNames.insert("my_sota_ref", QObject::tr("My SOTA ref"));
+    columnNames.insert("my_sota_ref", QObject::tr("My SOTA"));
     columnNames.insert("my_state", QObject::tr("My State"));
     columnNames.insert("my_street", QObject::tr("My Street"));
     columnNames.insert("my_usaca_counties", QObject::tr("My USACA counties"));
     columnNames.insert("my_vucc_grids", QObject::tr("My VUCC grids"));
+    columnNames.insert("my_wwff_ref", QObject::tr("My WWFF"));
     columnNames.insert("name", QObject::tr("Name"));
     columnNames.insert("notes", QObject::tr("Notes"));
     columnNames.insert("nr_bursts", QObject::tr("Nr bursts", "Do not translate if unsure, common hamradio term."));
     columnNames.insert("nr_pings", QObject::tr("Nr pings", "Do not translate if unsure, common hamradio term."));
     columnNames.insert("operator", QObject::tr("Operator"));
     columnNames.insert("owner_callsign", QObject::tr("Owner Callsign"));
+    columnNames.insert("pota_ref", QObject::tr("POTA"));
     columnNames.insert("pfx", QObject::tr("Pfx"));
     columnNames.insert("precedence", QObject::tr("Precedence"));
     columnNames.insert("prop_mode", QObject::tr("Prop Mode"));
@@ -1566,6 +1580,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("ten_ten", QObject::tr("Ten-Ten", "Do not translate, it is a hamradio group name."));
     columnNames.insert("tx_pwr", QObject::tr("TX Pwr"));
     columnNames.insert("web", QObject::tr("Web"));
+    columnNames.insert("wwff_ref", QObject::tr("WWFF"));
     columnNames.insert("qso_date_off", QObject::tr("QSO Date off"));
     columnNames.insert("lognumber", QObject::tr("Log number"));
 }

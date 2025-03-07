@@ -69,11 +69,7 @@ Awards::~Awards()
     delete(dxMarathon);
 }
 
-//void Awards::setAwardDXCC(const int _qsoId)
-//{
-       //qDebug() << "Awards::setAwardDXCC: _qsoId: " << QString::number(_qsoId);
-//    dataProxy->setDXCCAwardStatus(_qsoId);
-//}
+
 
 //void Awards::setAwardWAZ(const int _qsoId)
 //{
@@ -134,9 +130,6 @@ int Awards::getQSOIdofAward (const int _enti, const int _bandid, const int _log,
     QString stringQuery = QString();
     bool sqlOK = false;
     int answer = -1;
-
-    //stringQuery = QString("SELECT qsoid from awarddxcc where dxcc='%1' and band='%2'").arg(_enti).arg(_bandid);
-
 
     if (_confirmed)
     {
@@ -958,13 +951,9 @@ QColor Awards::getDefaultColor(){return defaultColor;}
 
 void Awards::recalculateAwards()
 {
-/*
-  TODO: I need to optimize this function.
-    The select & insert of setAwardDXCC are too slow)
-*/
     //qDebug() << Q_FUNC_INFO;
-    dataProxy->updateAwardDXCC();
-    emit awardDXCCUpdated();
+    if (updateDXCCStatus())
+        emit awardDXCCUpdated();
     dataProxy->updateAwardWAZ();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -1004,8 +993,9 @@ int Awards::getQSOsInLog(const int _logNumber)
 void Awards::setAwards(const int _qsoId)
 {
     //qDebug() << Q_FUNC_INFO << " - " << QString::number(_qsoId);
-    dataProxy->setDXCCAwardStatus(_qsoId);
-    dataProxy->setWAZAwardStatus(_qsoId);
+    //dataProxy->setDXCCAwardStatus(_qsoId);
+    //ataProxy->setWAZAwardStatus(_qsoId);
+    recalculateAwards();
 }
 
 int Awards::setDXCCToQSO(const int _dxcc, const int _qsoid) // Defines the DXCC in a QSO
@@ -1062,8 +1052,18 @@ int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a 
 
 bool Awards::getIsDXCCConfirmed(const int _dxcc, const int _logNumber)
 {
-  //  isDXCCConfirmed(const int _dxcc, const int _currentLog);
-    return dataProxy->isDXCCConfirmed(_dxcc, _logNumber);
+    qDebug() << Q_FUNC_INFO << " - " << _dxcc;
+
+    for (const auto& indexEntityStatus : dxccStatusList)
+    {
+        if (indexEntityStatus.dxcc == _dxcc &&
+            indexEntityStatus.status == QSOStatus::confirmed &&
+            (_logNumber <= 0 || indexEntityStatus.logId == _logNumber))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 int Awards::getDXMarathonQSO(const int _year, const int _logNumber)
@@ -1180,7 +1180,7 @@ void Awards::setManageModes(const bool _manageModes)
     manageModes = _manageModes;
 }
 
-bool Awards::updateDXCCBandsStatus(const int _logNumber)
+bool Awards::updateDXCCStatus(const int _logNumber)
 {
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_logNumber);
     QSqlQuery query;
@@ -1340,12 +1340,12 @@ QString Awards::status2String(const QSOStatus &_status, bool shortString)
 
 void Awards::printEntityStatus(const QString &_callingFunction, const EntityStatus &ent)
 {   // This is a debug function
-    qDebug() << Q_FUNC_INFO << " ------------------------------------------------------------------------------------";
-    qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - DXCC   : " << ent.dxcc;
-    qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Band   : " << ent.bandId;
-    qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Mode   : " << ent.modeId;
-    qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - QSOid  : " << ent.qsoId;
-    qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - LogId  : " << ent.logId;
-    qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Status : " << status2String(ent.status);
-    qDebug() << Q_FUNC_INFO << " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+   //qDebug() << Q_FUNC_INFO << " ------------------------------------------------------------------------------------";
+   //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - DXCC   : " << ent.dxcc;
+   //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Band   : " << ent.bandId;
+   //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Mode   : " << ent.modeId;
+   //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - QSOid  : " << ent.qsoId;
+   //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - LogId  : " << ent.logId;
+   //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Status : " << status2String(ent.status);
+   //qDebug() << Q_FUNC_INFO << " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 }

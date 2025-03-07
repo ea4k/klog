@@ -409,7 +409,6 @@ DONE: Color support: Calculate a color for the search results.
 DONE: Color support: Calculate a color for the DXCluster.
 DONE: TODO: Colors: Reconfigure the colors needs KLog to be restarted.
 DONE: Working on the dxCluster: Color support, identify the different kind of lines... DX de, normal spots, comments, ...
-DONE: Working on setAwardDXCC: When adding if a pair is already entered but we are going to add a confirmed status, modify it.
 DONE: Right click on log to show a to edit QSO.
 DONE: Right click on log to show a QSL received.
 DONE: Right click on log to remove a QSO.

@@ -111,9 +111,6 @@ public:
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
 
-
-    bool updateAwardDXCCTable();
- KLOG_DEPRECATED   bool updateAwardDXCCTable2();
     bool updateAwardWAZTable();
     int getNumberOfQsos(int _logNumber = -1);
     int getLastInsertedQSO();

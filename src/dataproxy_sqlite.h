@@ -119,7 +119,7 @@ public:
     //QList<int> isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs);
     QList<int> isThisQSODuplicated (const QSO &_qso, const int _secs);
     int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
-    bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
+    //bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLLoTWReceived(const int _qsoId);
     bool isQSOConfirmed(const int _qsoId, const bool _checkPaper, const bool _checkLoTW);
@@ -151,8 +151,6 @@ public:
     QStringList getClubLogRealTimeFromId(const int _qsoId);
 
     QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
-
-    bool updateAwardDXCC();
     bool updateAwardWAZ();
     // QRZ.com
     bool QRZCOMModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to QRZ.com
@@ -306,8 +304,8 @@ public:
     bool updateISONames();                          // Update the entities ISO 3166names for the flags
     QString getISOName(const int _n);
     bool addPrimarySubdivisions();                  // Add the primary subdivisions to the BD
-    bool setDXCCAwardStatus(const int _qsoId);
-    bool setWAZAwardStatus(const int _qsoId);
+    //bool setDXCCAwardStatus(const int _qsoId);
+    KLOG_DEPRECATED bool setWAZAwardStatus(const int _qsoId);
 
     //bool addRegionalAward(RegionalAward _regionalAward);
     bool addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref, const QString &_group, const int _regId, const int _dxcc, const int _cq, const int _itu, const QDate &_startDate, const QDate &_endDate, const bool _deleted);

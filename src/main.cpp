@@ -307,7 +307,7 @@ int main(int argc, char *argv[])
     QPixmap pixmap(":img/klog_512x512.png");
    //qDebug() << Q_FUNC_INFO << " - 51" << (QTime::currentTime()).toString("HH:mm:ss");
     QSplashScreen splash(pixmap);
-    int firstTime = true;
+    //int firstTime = true;
     // If the KLog configuration file does not exist, we launch the wizard.
     if (!((QFile::exists(util.getCfgFile ()))))
     {
@@ -319,7 +319,7 @@ int main(int argc, char *argv[])
     else
     {   // KLog configuration file exists, let's look for the DB
        //qDebug() << Q_FUNC_INFO << " -  Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss");
-        firstTime = false;
+        //firstTime = false;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
        //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
         if (!db->createConnection(Q_FUNC_INFO))
@@ -344,35 +344,35 @@ int main(int argc, char *argv[])
     }
   //qDebug() << Q_FUNC_INFO << " - 100 - Show" << (QTime::currentTime()).toString("HH:mm:ss");
     splash.show();
-    qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
+   //qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
 
     splash.showMessage ("Creating the Data Base...");
-    DataProxy_SQLite dataProxy (version);
+    DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
 
     splash.showMessage ("Creating window...");
-    qDebug() << Q_FUNC_INFO << " - 102 " << (QTime::currentTime()).toString("HH:mm:ss");
+   //qDebug() << Q_FUNC_INFO << " - 102 " << (QTime::currentTime()).toString("HH:mm:ss");
 
     MainWindow mw(&dataProxy);
     splash.showMessage ("Initializing window...");
-     qDebug() << Q_FUNC_INFO << " - 103 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 103 " << (QTime::currentTime()).toString("HH:mm:ss");
 
-     qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.init();
-     qDebug() << Q_FUNC_INFO << " - 105 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 105 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.showMessage ("Checking for new versions...");
-     qDebug() << Q_FUNC_INFO << " - 106 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 106 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.checkIfNewVersion();
-     qDebug() << Q_FUNC_INFO << " - 107 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 107 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.showMessage ("Checking if backup is needed...");
-     qDebug() << Q_FUNC_INFO << " - 108 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 108 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.recommendBackupIfNeeded();
-     qDebug() << Q_FUNC_INFO << " - 109 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 109 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.showMessage ("Showing window...");
-     qDebug() << Q_FUNC_INFO << " - 110 " << (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " - 110 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.show();
-      qDebug() << Q_FUNC_INFO << " - 111 " << (QTime::currentTime()).toString("HH:mm:ss");
+     //qDebug() << Q_FUNC_INFO << " - 111 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.finish(&mw);
-      qDebug() << Q_FUNC_INFO << " - 112 " << (QTime::currentTime()).toString("HH:mm:ss");
+     //qDebug() << Q_FUNC_INFO << " - 112 " << (QTime::currentTime()).toString("HH:mm:ss");
     //mw.showNotWar();
     //qDebug() << Q_FUNC_INFO << " - 113 " << (QTime::currentTime()).toString("HH:mm:ss");
     //qDebug() << Q_FUNC_INFO << " - END";

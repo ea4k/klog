@@ -37,7 +37,7 @@ class MainQSOEntryWidget : public QWidget
     Q_OBJECT
     friend class tst_MainWindow;
 
-public:
+public:    
     explicit MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainQSOEntryWidget();
     void setBands(const QStringList &_bands);
@@ -55,8 +55,9 @@ public:
     bool isModeExisting(const QString &_m);
     bool isBandExisting(const QString &_b);
     void setShowSeconds(const bool &t);
+    void setQSOData(QSO _qso);
     QSO getQSOData(QSO _qso);
-    void setQSOData(const QSO &_qso);
+
 
     QString getQrz();
     QString getBand(int _b=-1);

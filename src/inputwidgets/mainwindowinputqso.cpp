@@ -608,10 +608,10 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
     }
 }
 
-void MainWindowInputQSO::slotPaletteChanged(QPalette _p)
-{
+//void MainWindowInputQSO::slotPaletteChanged(QPalette _p)
+//{
    //qDebug() << Q_FUNC_INFO << " - " << nameLineEdit->palette().color(QPalette::Base);
-}
+//}
 
 bool MainWindowInputQSO::getDarkMode()
 {

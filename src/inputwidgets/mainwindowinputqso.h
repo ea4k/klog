@@ -103,7 +103,7 @@ private slots:
     void slotFreqTXChanged (double _f);
     void slotFreqRXChanged (double _f);
     void slotSplitClicked();
-    void slotPaletteChanged(QPalette _p);
+    //void slotPaletteChanged(QPalette _p);
 
 private:
     bool eventFilter(QObject *object, QEvent *event);

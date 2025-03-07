@@ -31,6 +31,8 @@
 QSO::QSO(QObject *parent)
     : QObject(parent)
 {
+    startT = QTime::currentTime();
+    qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
@@ -42,6 +44,9 @@ QSO::QSO(QObject *parent)
 QSO::QSO(const QSO &other)
     : QObject(other.parent())
 {
+    startT = QTime::currentTime();
+   qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     util = new Utilities(Q_FUNC_INFO);
     logLevel = other.logLevel;
     haveBand = other.haveBand;
@@ -215,11 +220,14 @@ QSO::QSO(const QSO &other)
 
 QSO::~QSO()
 {
+   //qDebug() << Q_FUNC_INFO;
     delete(util);
 }
 
 void QSO::operator=(QSO const &_other)
 {
+   //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     callsign        = _other.callsign;
     qsoId           = _other.qsoId;
     logId           = _other.logId;
@@ -398,6 +406,7 @@ void QSO::operator=(QSO const &_other)
 
 bool QSO::copy(const QSO& other)
 {   //Copies the data of another QSO into this one
+   //qDebug() << Q_FUNC_INFO;
     clear();
     setLogId(other.logId);
     setStationCallsign(other.stationCallsign);
@@ -606,7 +615,7 @@ void QSO::clear()
 {   // When we clear a QSO, we put data that is not valid for a QSO, if possible.
     // so no data that has not been saved by the user is "populated automatically" by KLog
     // without the user's knowledge or intention
-
+    qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     haveBand = false;
     haveMode = false;
@@ -920,9 +929,10 @@ bool QSO::setCall(const QString &_c)
     }
 }
 
-QString QSO::getCall()
+QString QSO::getCall() const
 {
-    //qDebug() << Q_FUNC_INFO << ": " << callsign;
+   //qDebug() << Q_FUNC_INFO << ": " << callsign;
+   //qDebug() << Q_FUNC_INFO  << " - " << startT.msec();
     if (callsign.length()>2)
         return callsign;
     return QString();
@@ -958,7 +968,7 @@ bool QSO::setBand(const QString &_c)
     }
 }
 
-QString QSO::getBand()
+QString QSO::getBand() const
 {
     return band;
 }
@@ -1112,7 +1122,7 @@ bool QSO::setDateTimeOn(const QDateTime &_c)
     }
 }
 
-QDateTime QSO::getDateTimeOn()
+QDateTime QSO::getDateTimeOn() const
 {
     return qso_dateTime;
 }
@@ -3223,7 +3233,7 @@ bool QSO::setSubmode(const QString &_c)
     return true;
 }
 
-QString QSO::getSubmode()
+QString QSO::getSubmode() const
 {
     return submode;
 }

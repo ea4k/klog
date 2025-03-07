@@ -30,8 +30,8 @@
 
 MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug()<< Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);
+    //qDebug()<< Q_FUNC_INFO;
+    logEvent (Q_FUNC_INFO, "Start", Debug);       
     modifyingBands = false;
     upAndRunning = false;
     dataProxy = dp;
@@ -401,6 +401,7 @@ void MainQSOEntryWidget::slotBandComboBoxChanged(const QString &_b){
          //qDebug() << Q_FUNC_INFO << ": Modifying bands - END" ;
         return;
     }
+
     bottomBandLimit = dataProxy->getLowLimitBandFromBandName (_b);
     upperBandLimit = dataProxy->getUpperLimitBandFromBandName (_b);
     emit bandChanged(_b);
@@ -480,16 +481,25 @@ QSO MainQSOEntryWidget::getQSOData(QSO _qso)
     return qso;
 }
 
- void MainQSOEntryWidget::setQSOData(const QSO &_qso)
+void MainQSOEntryWidget::setQSOData(QSO _qso)
 {
+     qDebug()<< Q_FUNC_INFO << "Call: " << _qso.getCall();
+
     QSO qso(_qso);
-   //qDebug()<< Q_FUNC_INFO << "Call: " << qso.getCall();
+    qDebug() << "Setting QSO Data - Call:" << qso.getCall();
+    qDebug() << "Setting QSO Data - Band:" << qso.getBand();
+    qDebug() << "Setting QSO Data - Mode:" << qso.getSubmode();
+    qDebug() << "Setting QSO Data - DateTime:" << qso.getDateTimeOn().toString();
+
+
+    qDebug()<< Q_FUNC_INFO << "Call2: " << qso.getCall();
     //if (qso.isValid())
     //{
     //   //qDebug()<< Q_FUNC_INFO << "QSO is NOT Valid...";
     //    return;
     //}
     //qDebug()<< Q_FUNC_INFO << "QSO is Valid...";
+
     setQRZ(qso.getCall());
     setBand(qso.getBand());
     setMode(qso.getSubmode());
@@ -729,7 +739,7 @@ bool MainQSOEntryWidget::setMode(const QString &_mode)
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    qDebug() << Q_FUNC_INFO << ": " << _qrz;
     //TODO: Add validations to prevent that non valid qrz are sent from the outside of this function or at least manage this appropriately.
     qrzLineEdit->setText(_qrz.toUpper());
     logEvent (Q_FUNC_INFO, "END", Debug);

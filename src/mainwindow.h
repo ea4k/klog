@@ -393,8 +393,8 @@ private:
     void createActionsCommon();
 
 
-    QSO readQSOFromUI();
-    QSO getQSODataFromUI();         // Calls to the different widgets for QSO data
+    QSO readQSOFromUI(const QSO &_qso);
+    QSO getQSODataFromUI(const QSO &_qso);         // Calls to the different widgets for QSO data
 
     //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     //QString readDataFromUIDX();
@@ -476,6 +476,7 @@ private:
     StatisticsWidget *statsWidget;
     std::unique_ptr<DXCCStatusWidget> dxccStatusWidget;
     std::unique_ptr<DXClusterWidget> dxClusterWidget;
+
 
      //DXClusterWidget *dxClusterWidget;
     //DXCCStatusWidget *dxccStatusWidget;

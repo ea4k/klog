@@ -110,5 +110,7 @@ QSO MainWindowInputComment::getQSOData(QSO _qso)
 void MainWindowInputComment::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
+
+   qDebug() << Q_FUNC_INFO << qso.getCall();
     setData(qso.getComment());
 }

@@ -183,19 +183,19 @@ void DXCCStatusWidget::update()
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
    //qDebug()() << Q_FUNC_INFO << " - Start";
     //int entities = dataProxy->getMaxEntityID(false);        // REMOVE IF processEntities does not need it
-    if (!awards->updateDXCCBandsStatus (-1)) // We update all
+    if (!awards->updateDXCCStatus (-1)) // We update all
     {
-       //qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned FALSE";
+       //qDebug() << Q_FUNC_INFO << "awards->updateDXCCStatus returned FALSE";
         // It may be the case that DXCC field in the table is not defined.
         // It should be updated.
         handleDXCCStatusUpdateFailure();
         return;
     }
-   //qDebug() << Q_FUNC_INFO << "awards->updateDXCCBandsStatus returned TRUE";
+   //qDebug() << Q_FUNC_INFO << "awards->updateDXCCStatus returned TRUE";
 
     processEntities();
 
-   //qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCBandsStatus returned";
+   //qDebug() << Q_FUNC_INFO << "AFTER awards->updateDXCCStatus returned";
 
     emit debugLog (Q_FUNC_INFO, "END", Debug);
   //qDebug() << "DXCCStatusWidget::update END" << QTime::currentTime().toString("HH:mm:ss");

@@ -68,7 +68,7 @@ public:
     int getDXCCConfirmed(const int _logNumber);
     int getWAZWorked(const int _logNumber);
     int getWAZConfirmed(const int _logNumber);
-    bool updateDXCCBandsStatus(const int _logNumber=0);
+    bool updateDXCCStatus(const int _logNumber=0);
     QList<EntityStatus> findEntityStatusByDXCC(int dxcc) const;
 
 

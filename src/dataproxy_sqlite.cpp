@@ -37,7 +37,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
       //qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
     (void)_parentFunction;
-    //qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
+    qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
     logLevel = None;
     //qDebug() << Q_FUNC_INFO << " - 45";
     util = new Utilities(Q_FUNC_INFO);
@@ -115,6 +115,8 @@ int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _log
 QString DataProxy_SQLite::getSoftVersion()
 { //SELECT MAX (softversion) FROM softwarecontrolç
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    return util->getVersion();
+
     QSqlQuery query;
     QString stQuery = QString("SELECT MAX (softversion) FROM softwarecontrol");
     if (query.exec(stQuery))
@@ -1211,7 +1213,6 @@ bool DataProxy_SQLite::qslRecViaBureau(const int _qsoId, const QDate &_updateDat
     if (sqlOK)
     {
              //qDebug() << Q_FUNC_INFO << " -: TRUE";
-        //setDXCCAwardStatus(_qsoId);
         //setWAZAwardStatus(_qsoId);
         return true;
     }
@@ -2157,14 +2158,6 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     }
 }
 
-bool DataProxy_SQLite::updateAwardDXCC()
-{
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    fillEmptyDXCCInTheLog();
-    return db->updateAwardDXCCTable();
-    //qDebug() << Q_FUNC_INFO << " - END";
-}
-
 bool DataProxy_SQLite::updateAwardWAZ()
 {
        //qDebug() << Q_FUNC_INFO << " -";
@@ -2598,6 +2591,7 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_
     //return -1;
 }
 
+/*
 bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
 {
         //qDebug() << Q_FUNC_INFO << " - " << QString::number(_dxcc) << "/" << QString::number(_currentLog);
@@ -2639,6 +2633,7 @@ bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
         return false;
     }
 }
+*/
 
 bool DataProxy_SQLite::isHF(const int _band)
 {// 160M is considered as HF
@@ -5052,103 +5047,6 @@ QStringList DataProxy_SQLite::getColumnNamesFromTable(const QString &_tableName)
     return db->getColumnNamesFromTable(_tableName);
 }
 
-bool DataProxy_SQLite::setDXCCAwardStatus(const int _qsoId)
-{
-    // If the band/mode/log is already confirmed: Return true
-    // If the band/mode/log is already worked and status worked: Return true
-    // If the band/mode/log is already worked and status confirmed: Update and Return true
-    // If not worked: Add and Return true
-
-   //qDebug() << Q_FUNC_INFO << " " << QString::number(_qsoId);
-    if (_qsoId <= 0)
-    {
-           //qDebug() << Q_FUNC_INFO << "  QSOid <=0 " << QString::number(_qsoId);
-        return false;
-    }
-    QList<int> values = getBandModeDXCCCQZlogIDFromId(_qsoId);
-    if (values.length ()!=5)
-    {
-        return false;
-    }
-    // bandid, modeid, dxcc, cqz, lognumber
-    int _band = values.at(0);
-    int _mode = values.at(1);
-    int _dxcc = values.at(2);
-    int _log = values.at(4);
-    qDebug() << Q_FUNC_INFO << " - Band: " << _band;
-    qDebug() << Q_FUNC_INFO << " - Mode: " << _mode;
-    qDebug() << Q_FUNC_INFO << " - DXCC: " << _dxcc;
-    qDebug() << Q_FUNC_INFO << " - Log : " << _log;
-    // Validate retrieved values
-    if (_dxcc <= 0 || _band <= 0 || _mode <= 0 || _log <= 0) {
-        logEvent(Q_FUNC_INFO, "Invalid retrieved values", Debug);
-        return false;
-    }
-
-    // If the band/mode/log is already confirmed: Return true
-
-    // awarddxcc id dxcc band mode confirmed qsoid lognumber
-    // If the band/mode/log is already confirmed: Return true
-    // If the band/mode/log is already worked and status worked: Return true
-    // If the band/mode/log is already worked and status confirmed: Update and Return true
-    // If not worked: Add and Return true
-
-    QSqlQuery query;
-    query.prepare("SELECT id, confirmed, qsoid FROM awarddxcc WHERE band = :band AND mode = :mode AND dxcc = :dxcc");
-    query.bindValue(":band", _band);
-    query.bindValue(":mode", _mode);
-    query.bindValue(":dxcc", _dxcc);
-
-    qDebug() << Q_FUNC_INFO << " - Executing query: " << query.executedQuery();
-
-    if (!query.exec()) {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        return false;
-    }
-
-    if (query.next()) {
-        int recordId = query.value("id").toInt();
-        QString confirmedStatus = query.value("confirmed").toString();
-
-        // If already confirmed, return true
-        if (confirmedStatus == "1") {
-            return true;
-        }
-
-        // If not confirmed but the QSO is confirmed, update the status
-        if (confirmedStatus == "0" && isQSOConfirmed(_qsoId, true, true)) {
-            QSqlQuery updateQuery;
-            updateQuery.prepare("UPDATE awarddxcc SET confirmed = '1', qsoid = :qsoid WHERE id = :id");
-            updateQuery.bindValue(":qsoid", _qsoId);
-            updateQuery.bindValue(":id", recordId);
-
-            if (!updateQuery.exec()) {
-                emit queryError(Q_FUNC_INFO, updateQuery.lastError().databaseText(), updateQuery.lastError().text(), updateQuery.lastQuery());
-                return false;
-            }
-            return true;
-        }
-        return true;
-    }
-
-    // Insert a new record if not worked
-    QSqlQuery insertQuery;
-    insertQuery.prepare("INSERT INTO awarddxcc (dxcc, band, mode, confirmed, qsoid, lognumber) VALUES (:dxcc, :band, :mode, '1', :qsoid, :lognumber)");
-    insertQuery.bindValue(":dxcc", _dxcc);
-    insertQuery.bindValue(":band", _band);
-    insertQuery.bindValue(":mode", _mode);
-    insertQuery.bindValue(":qsoid", _qsoId);
-    insertQuery.bindValue(":lognumber", _log);
-
-
-    if (!insertQuery.exec())
-    {
-           emit queryError(Q_FUNC_INFO, insertQuery.lastError().databaseText(), insertQuery.lastError().text(), insertQuery.lastQuery());
-           return false;
-    }
-    return true;
-}
-
 bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
 {
     // If the band/mode/log is already confirmed: Return true
@@ -6635,10 +6533,10 @@ QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
     //    //qDebug() << Q_FUNC_INFO << ": validFields: " << aux;
     //}
 
-    foreach(aux, _fields)
-    {
+    //foreach(aux, _fields)
+    //{
         //qDebug() << Q_FUNC_INFO << ": _fields: " << aux;
-    }
+    //}
 
     QStringList returningFields;
     returningFields.clear();

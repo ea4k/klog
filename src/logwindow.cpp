@@ -26,7 +26,6 @@
 
 #include "logwindow.h"
 
-
 LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -148,24 +147,24 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
     }
 
     QString aux;
-    foreach(aux, columns)
-    {
+    //foreach(aux, columns)
+    //{
          //qDebug() << Q_FUNC_INFO << ": columns-1: " << aux;
-    }
-    foreach(aux, _columns)
-    {
+    //}
+    //foreach(aux, _columns)
+    //{
          //qDebug() << Q_FUNC_INFO << ": _columns-1: " << aux;
-    }
+    //}
     QStringList temPColumns;
     temPColumns.clear();
     temPColumns << _columns;
     columns.clear();
     //qDebug() << Q_FUNC_INFO << "calling filterValidFields";
     columns <<  dataProxy->filterValidFields(temPColumns);
-    foreach(aux, columns)
-    {
+    //foreach(aux, columns)
+    //{
         //qDebug() << Q_FUNC_INFO << ":-2:  " << aux;
-    }
+    //}
 
     foreach(aux, columns)
     {
@@ -221,7 +220,6 @@ void LogWindow::createActionsCommon()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     //LOG VIEW
-
     connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
     connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
     //qDebug() << Q_FUNC_INFO << " - END";

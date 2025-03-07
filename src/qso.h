@@ -66,14 +66,14 @@ public:
     void setLoTWUpdating(bool _lotw);
 
     bool setCall(const QString &_c);
-    QString getCall();
+    QString getCall() const;
     bool setBand(const QString &_c);
-    QString getBand();
+    QString getBand() const;
     bool setMode(const QString &_c);
     QString getMode();
 
     bool setDateTimeOn(const QDateTime &_c);
-    QDateTime getDateTimeOn();
+    QDateTime getDateTimeOn() const;
     bool setDate(const QDate &_c);
     QDate getDate();
     bool setTimeOn(const QTime &_c);
@@ -398,7 +398,7 @@ public:
     QString getStxString();
     //bool setSubmode(const QString &_c, bool requestMode = false);
     bool setSubmode(const QString &_c);
-    QString getSubmode();
+    QString getSubmode() const;
     bool setSwl(bool _k);
     bool getSwl();
     bool setUksmg(const int _i);
@@ -427,6 +427,7 @@ signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 private:
+    QTime startT;
     bool isValidCall() const;
     bool isValidBand() const;
     bool isValidMode() const;
