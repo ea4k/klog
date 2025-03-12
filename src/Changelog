@@ -1,8 +1,8 @@
-WIP: https://github.com/ea4k/klog/issues/722
-BUG: Version is shown as ZERO "0";
+
 BUG: MY_ALTITUDE stores wrong value, at least if not defined.
 
-Pérdida de datos al editar si el campo no se gestiona en la UI (i.e MY_CITY)
+VALIDAR que funciona void MainWindow::sendQSOToUI(const QSO &_qso)
+Si funciona ponerlo en todas las partes que suba datos a la UI
 
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 TODO: Review bool QSO::copy(const QSO& other) it may have some fields missing
@@ -20,8 +20,6 @@ WIP: - Bugfix: DB in alternative locations was not always found. (WIP #706)
 
 TODO: When completing with previous data the QSL is in red
 
-Pensar en como quiero gestionar los awards;
-Si en la DB con queries o en memoria
 TESTS to do during RC releases:
 - ADIF log Import
 - LoTW log Import
@@ -51,6 +49,7 @@ TBD - 2.4
 - Enhancement: ADIF Added SUBMM band.
 - Enhancement: Completed the names of the fields in the log view widget.
 - Enhancement: Added several ADIF fields (Closes #396, #507, #508, #719)
+- BugFix: Data loss: Data not managed by the UI may be lost if eddited (Closes #722)
 - BugFix: Fixed the ISO name for Togo.
 - BugFix: Distance was not exported to ADIF and DARC_DOK included the distance instead of the right DARC_DOK.
 - BugFix: Country fix read failed with complex prefixes.

@@ -37,7 +37,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
       //qDebug() << Q_FUNC_INFO << "Running a release build";
     #endif
     (void)_parentFunction;
-    qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
+    //qDebug() << Q_FUNC_INFO << ": " << _softVersion << _parentFunction;
     logLevel = None;
     //qDebug() << Q_FUNC_INFO << " - 45";
     util = new Utilities(Q_FUNC_INFO);

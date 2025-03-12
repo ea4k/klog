@@ -1051,7 +1051,7 @@ int Awards::setCQToQSO(const int _cqz, const int _qsoid) // Defines the CQ in a 
 
 bool Awards::getIsDXCCConfirmed(const int _dxcc, const int _logNumber)
 {
-    qDebug() << Q_FUNC_INFO << " - " << _dxcc;
+    //qDebug() << Q_FUNC_INFO << " - " << _dxcc;
 
     for (const auto& indexEntityStatus : dxccStatusList)
     {

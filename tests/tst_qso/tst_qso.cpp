@@ -47,6 +47,7 @@ private slots:
     void test_dataEntry();
     void test_isValid();
     void test_AdifCreation();
+    void test_Copy();
 
 private:
     QSO *qso;
@@ -59,6 +60,7 @@ tst_QSO::tst_QSO()
 }
 
 tst_QSO::~tst_QSO(){}
+
 void tst_QSO::setQSOData()
 {
     //TODO: Complete the assignment of values
@@ -338,6 +340,23 @@ void tst_QSO::test_AdifCreation()
 {
     setQSOData();   // To fill a QSO with all the data
 
+}
+
+void tst_QSO::test_Copy()
+{
+    QSO qso1;
+    qso1.setCall("EA4K");
+    qso1.setMyCity("Madrid");
+    QSO qso2(qso1);
+    QSO qso3;
+    qso3.copy(qso1);
+    //qDebug() << Q_FUNC_INFO << " -1- " << qso1.getCall();
+    //qDebug() << Q_FUNC_INFO << " -2- " << qso2.getCall();
+    //qDebug() << Q_FUNC_INFO << " -3- " << qso3.getCall();
+    QVERIFY2(qso2.getCall() == "EA4K", "Wrong Call in constructor copy");
+    QVERIFY2(qso3.getCall() == "EA4K", "Wrong Call in copy");
+    QVERIFY2(qso2.getMyCity() == "Madrid", "Wrong My_CITY in constructor copy");
+    QVERIFY2(qso3.getMyCity() == "Madrid", "Wrong My_CITY in copy");
 }
 
 QTEST_APPLESS_MAIN(tst_QSO)

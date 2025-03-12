@@ -470,29 +470,31 @@ void MainQSOEntryWidget::clear()
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-QSO MainQSOEntryWidget::getQSOData(QSO _qso)
+QSO MainQSOEntryWidget::getQSOData(QSO &
+                                       _qso)
 {
-    QSO qso = _qso;
-    qso.setCall(getQrz());
-    qso.setBand(getBand());
-    qso.setMode(dataProxy->getNameFromSubMode (getMode()));
-    qso.setSubmode(getMode());
-    qso.setDateTimeOn(getDateTime());
-    return qso;
+    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
+    //qDebug() << Q_FUNC_INFO << " -  MyCITY-01 : " << _qso.getMyCity();
+    _qso.setCall(getQrz());
+    _qso.setBand(getBand());
+    _qso.setMode(dataProxy->getNameFromSubMode (getMode()));
+    _qso.setSubmode(getMode());
+    _qso.setDateTimeOn(getDateTime());
+    return _qso;
 }
 
 void MainQSOEntryWidget::setQSOData(QSO _qso)
 {
-     qDebug()<< Q_FUNC_INFO << "Call: " << _qso.getCall();
+    //qDebug()<< Q_FUNC_INFO << "Call: " << _qso.getCall();
 
     QSO qso(_qso);
-    qDebug() << "Setting QSO Data - Call:" << qso.getCall();
-    qDebug() << "Setting QSO Data - Band:" << qso.getBand();
-    qDebug() << "Setting QSO Data - Mode:" << qso.getSubmode();
-    qDebug() << "Setting QSO Data - DateTime:" << qso.getDateTimeOn().toString();
+    //qDebug() << "Setting QSO Data - Call:" << qso.getCall();
+    //qDebug() << "Setting QSO Data - Band:" << qso.getBand();
+    //qDebug() << "Setting QSO Data - Mode:" << qso.getSubmode();
+    //qDebug() << "Setting QSO Data - DateTime:" << qso.getDateTimeOn().toString();
 
 
-    qDebug()<< Q_FUNC_INFO << "Call2: " << qso.getCall();
+    //qDebug()<< Q_FUNC_INFO << "Call2: " << qso.getCall();
     //if (qso.isValid())
     //{
     //   //qDebug()<< Q_FUNC_INFO << "QSO is NOT Valid...";
@@ -739,7 +741,7 @@ bool MainQSOEntryWidget::setMode(const QString &_mode)
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     //TODO: Add validations to prevent that non valid qrz are sent from the outside of this function or at least manage this appropriately.
     qrzLineEdit->setText(_qrz.toUpper());
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -791,6 +793,7 @@ QString MainQSOEntryWidget::getQrz()
         return QString();
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
+    //qDebug() << Q_FUNC_INFO << " - " << aux.toUpper();
     return aux.toUpper();
 }
 

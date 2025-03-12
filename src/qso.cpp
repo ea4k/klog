@@ -32,7 +32,7 @@ QSO::QSO(QObject *parent)
     : QObject(parent)
 {
     startT = QTime::currentTime();
-    qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
@@ -45,7 +45,7 @@ QSO::QSO(const QSO &other)
     : QObject(other.parent())
 {
     startT = QTime::currentTime();
-   qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+  //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
    //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     util = new Utilities(Q_FUNC_INFO);
     logLevel = other.logLevel;
@@ -227,7 +227,7 @@ QSO::~QSO()
 void QSO::operator=(QSO const &_other)
 {
    //qDebug() << Q_FUNC_INFO;
-    qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     callsign        = _other.callsign;
     qsoId           = _other.qsoId;
     logId           = _other.logId;
@@ -615,7 +615,7 @@ void QSO::clear()
 {   // When we clear a QSO, we put data that is not valid for a QSO, if possible.
     // so no data that has not been saved by the user is "populated automatically" by KLog
     // without the user's knowledge or intention
-    qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     haveBand = false;
     haveMode = false;
@@ -2760,6 +2760,7 @@ double QSO::getMyAltitude() const
 
 bool QSO::setMyCity(const QString &_c)
 {
+    //qDebug() << Q_FUNC_INFO << " - " << _c;
     my_city = _c;
     return true;
 }

@@ -892,7 +892,7 @@ bool DataBase::createDataBase()
 bool DataBase::recreateTableDXCC()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QSqlQuery query ("DROP TABLE awarddxcc");
 
@@ -913,7 +913,7 @@ bool DataBase::recreateTableDXCC()
 
 bool DataBase::createTableAwardDXCC()
 {
-   qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
       return execQuery(Q_FUNC_INFO, "CREATE TABLE awarddxcc ("
                              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                              "dxcc INTEGER NOT NULL,"
@@ -1021,7 +1021,7 @@ bool DataBase::createTablePrimarySubdivisions(const bool NoTmp)
     QString delS = QString();
     delS = "DROP TABLE IF exists " + table;
     execQuery(Q_FUNC_INFO, delS);
-    qDebug() << Q_FUNC_INFO << " Dropped table: " << table ;
+    //qDebug() << Q_FUNC_INFO << " Dropped table: " << table ;
     return execQuery(Q_FUNC_INFO, stringQuery);
 
     //qDebug() << Q_FUNC_INFO << " - END" ;
@@ -2797,7 +2797,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
  */
     QString delS = QString();
     delS = "DROP TABLE IF exists " + table;
-    qDebug() << Q_FUNC_INFO << " - Dropped table: " << table;
+    //qDebug() << Q_FUNC_INFO << " - Dropped table: " << table;
     execQuery(Q_FUNC_INFO, delS);
 
     return execQuery(Q_FUNC_INFO, stringQuery);
@@ -3732,7 +3732,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
 bool DataBase::updateBandIdTableAward(const int _db)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QString table = QString();
     QString field = QString();
@@ -3924,7 +3924,7 @@ bool DataBase::updateBandIdTableAward(const int _db)
 
 bool DataBase::updateModeIdTableAward(const int _db)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QString table = QString();
     QString field = "mode";
@@ -6087,7 +6087,7 @@ bool DataBase::updateTo026()
 
 bool DataBase::updateAwardWAZTable()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QList<AwarddxccEntry> dxccStatusList;
     dxccStatusList.clear();
 

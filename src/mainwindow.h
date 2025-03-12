@@ -366,7 +366,9 @@ private:
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
-    QSO *qso, *backupQSO, *modifyingQSO;
+    QSO *qso;           // QSO that is being managed in one specific moment
+    QSO *backupQSO;     // QSO that has been backed up to send another QSO to the UI
+    //QSO *modifyingQSO;
 
     bool hamlibActive;
     bool hamlibChangingMode;
@@ -393,8 +395,9 @@ private:
     void createActionsCommon();
 
 
-    QSO readQSOFromUI(const bool _mod); //_mod = true if we want to use modifyingQSO
-    QSO getQSODataFromUI(const QSO &_qso);         // Calls to the different widgets for QSO data
+    bool readQSOFromUI();                           // Adds the data in the UI to the qso instance (calling getQSODataFromUI)
+    void getQSODataFromUI();                        // Calls to the different widgets for QSO data and fills qso instance
+    void sendQSOToUI(const QSO &_qso);              // Shows the content of a QSO in the UI
 
     //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     //QString readDataFromUIDX();
