@@ -220,24 +220,7 @@ void SetupPageSats::slotRemoveButtonClicked()
             query.exec(stringQuery);
             sqlOk = query.exec();
                //qDebug() << "SetupPageSats::slotRemoveButtonClicked: LastQuery: " << query.lastQuery() ;
-            if (sqlOk)
-            {
-                stringQuery = QString("DELETE FROM awarddxcc WHERE lognumber='%2'").arg(selectedSat);
-                query.exec(stringQuery);
-                sqlOk = query.exec();
-                   //qDebug() << "SetupPageSats::slotRemoveButtonClicked: LastQuery: " << query.lastQuery() ;
-                if (sqlOk)
-                {
-                       //qDebug() << "SetupPageSats::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedSat) << ")";
-                }
-                else
-                {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                    showError(tr("Sat has not been removed. (#3)"));
-                       //qDebug() << "SetupPageSats::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedSat) << ")";
-                }
-            }
-            else
+            if (!sqlOk)
             {
                 showError(tr("Sat has not been removed. (#2)"));
                    //qDebug() << "SetupPageSats::slotRemoveButtonClicked (QSOS NOT REMOVED: " << QString::number(selectedSat) << ")";

@@ -135,8 +135,8 @@ void tst_DataBase::test_ExistingTables()
     QCOMPARE(db->isTheTableExisting("ant_path_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("arrl_sect_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("award_enumeration"), true);
-    QCOMPARE(db->isTheTableExisting("awarddxcc"), true);
-    QCOMPARE(db->isTheTableExisting("awardwaz"), true);
+    //QCOMPARE(db->isTheTableExisting("awarddxcc"), true);
+    //QCOMPARE(db->isTheTableExisting("awardwaz"), true);
     QCOMPARE(db->isTheTableExisting("band"), true);
     QCOMPARE(db->isTheTableExisting("clublog_status"), true);
     QCOMPARE(db->isTheTableExisting("contest"), true);
@@ -172,8 +172,8 @@ void tst_DataBase::test_DataInTables()
     QCOMPARE(db->hasTheTableData("ant_path_enumeration"), true);
     QCOMPARE(db->hasTheTableData("arrl_sect_enumeration"), true);
     QCOMPARE(db->hasTheTableData("award_enumeration"), true);
-    QCOMPARE(db->hasTheTableData("awarddxcc"), false);
-    QCOMPARE(db->hasTheTableData("awardwaz"), false);
+    //QCOMPARE(db->hasTheTableData("awarddxcc"), false);
+    //QCOMPARE(db->hasTheTableData("awardwaz"), false);
     QCOMPARE(db->hasTheTableData("band"), true);
     QCOMPARE(db->hasTheTableData("clublog_status"), true);
     QCOMPARE(db->hasTheTableData("contest"), true);

@@ -1,5 +1,3 @@
-WIP: Frequency number appears in black color #729
-
 BUG: MY_ALTITUDE stores wrong value, at least if not defined.
 
 VALIDAR que funciona void MainWindow::sendQSOToUI(const QSO &_qso)

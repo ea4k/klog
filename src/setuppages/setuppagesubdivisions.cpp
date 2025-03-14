@@ -148,16 +148,11 @@ void SetupPageSubdivisions::slotRemoveButtonClicked()
                 query.exec(stringQuery);
                 sqlOk = query.exec();
                    //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked: LastQuery: " << query.lastQuery() ;
-                if (sqlOk)
-                {
-                       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedLog) << ")";
-                }
-                else
+                if (!sqlOk)
                 {
                     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                     showError(tr("Log has not been removed. (#3)"));
-                       //qDebug() << "SetupPageSubdivisions::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")";
-                }
+                 }
             }
             else
             {

@@ -1086,43 +1086,6 @@ bool DataProxy_SQLite::clearLog()
              //qDebug() <<Q_FUNC_INFO << " - LastError-n: " << QString::number(query.lastError().text() );
     }
     query.finish();
-    sqlOK = query.exec("DELETE FROM awarddxcc");
-
-
-    if (sqlOK)
-    {
-             //qDebug() <<Q_FUNC_INFO << " - Awarddxcc deleted!";
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-             //qDebug() <<Q_FUNC_INFO << " - Awarddxcc deletedFAILED";
-
-             //qDebug() << Q_FUNC_INFO << " - - query error: " << QString::number(query.lastError().text());
-             //qDebug() <<Q_FUNC_INFO << " - LastQuery: " << query.lastQuery() ;
-             //qDebug() <<Q_FUNC_INFO << " - LastError-data: " << query.lastError().databaseText() ;
-             //qDebug() <<Q_FUNC_INFO << " - LastError-driver: " << query.lastError().driverText() ;
-             //qDebug() <<Q_FUNC_INFO << " - LastError-n: " << QString::number(query.lastError().text() );
-    }
-    query.finish();
-    if (query.exec("DELETE FROM awardwaz"))
-    {
-             //qDebug() <<Q_FUNC_INFO << " - Awardwaz deleted!";
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-             //qDebug() <<Q_FUNC_INFO << " - Awardwaz deleted FAILED";
-        //errorCode = query.lastError().text();
-             //qDebug() << Q_FUNC_INFO << " - - query error: " << QString::number(query.lastError().text());
-             //qDebug() <<Q_FUNC_INFO << " - LastQuery: " << query.lastQuery() ;
-             //qDebug() <<Q_FUNC_INFO << " - LastError-data: " << query.lastError().databaseText() ;
-             //qDebug() <<Q_FUNC_INFO << " - LastError-driver: " << query.lastError().driverText() ;
-             //qDebug() <<Q_FUNC_INFO << " - LastError-n: " << QString::number(query.lastError().text() );
-    }
-
-    query.finish();
-    //query.clear();
 
     if (query.isActive())
     {
@@ -2158,12 +2121,6 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     }
 }
 
-bool DataProxy_SQLite::updateAwardWAZ()
-{
-       //qDebug() << Q_FUNC_INFO << " -";
-    return db->updateAwardWAZTable();
-}
-
 bool DataProxy_SQLite::QRZCOMModifyFullLog(const int _currentLog)
 {
     //qDebug() << Q_FUNC_INFO << " -" << QString::number(_currentLog);
@@ -2590,50 +2547,6 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_
 
     //return -1;
 }
-
-/*
-bool DataProxy_SQLite::isDXCCConfirmed(const int _dxcc, const int _currentLog)
-{
-        //qDebug() << Q_FUNC_INFO << " - " << QString::number(_dxcc) << "/" << QString::number(_currentLog);
-    QString queryString = QString("SELECT confirmed from awarddxcc WHERE dxcc='%1' AND lognumber='%2'").arg(_dxcc).arg(_currentLog);
-    QSqlQuery query;
-
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            if ( (query.value(0)).toInt() == 1)
-            {
-                    //qDebug() << Q_FUNC_INFO << " -: TRUE";
-                query.finish();
-                return true;
-            }
-            else
-            {
-                    //qDebug() << Q_FUNC_INFO << " -: FALSE1";
-                query.finish();
-                return false;
-            }
-        }
-        else
-        {
-                //qDebug() << Q_FUNC_INFO << " -: FALSE2";
-            query.finish();
-            return false;
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            //qDebug() << Q_FUNC_INFO << " -: FALSE3";
-        query.finish();
-        return false;
-    }
-}
-*/
 
 bool DataProxy_SQLite::isHF(const int _band)
 {// 160M is considered as HF
@@ -5045,153 +4958,6 @@ QStringList DataProxy_SQLite::getColumnNamesFromTable(const QString &_tableName)
 {
        //qDebug() << Q_FUNC_INFO << " -;
     return db->getColumnNamesFromTable(_tableName);
-}
-
-bool DataProxy_SQLite::setWAZAwardStatus(const int _qsoId)
-{
-    // If the band/mode/log is already confirmed: Return true
-    // If the band/mode/log is already worked and status worked: Return true
-    // If the band/mode/log is already worked and status confirmed: Update and Return true
-    // If not worked: Add and Return true
-
-       //qDebug() << Q_FUNC_INFO << ":  << QString::number(_qsoId);
-    if (_qsoId <= 0)
-    {
-        return false;
-    }
-
-    QList<int> values;
-    values.clear();
-    values << getBandModeDXCCCQZlogIDFromId(_qsoId);
-    if (values.length ()!=5)
-    {
-        return false;
-    }
-    // bandid, modeid, dxcc, cqz, lognumber
-    int _cqz = values.at(3);
-
-    //int _cqz = getCQZFromId(_qsoId);
-    if (_cqz <= 0)
-    {
-        return false;
-    }
-
-    //int _band = getBandFromId(_qsoId);
-    int _band = values.at(0);
-    if (_band <= 0)
-    {
-        return false;
-    }
-
-    //int _mode = getModeFromId(_qsoId);
-    int _mode = values.at(1);
-    if (_mode <= 0)
-    {
-        return false;
-    }
-
-    //int _log = getLogNumberFromQSOId(_qsoId);
-    int _log = values.at(4);
-    if (_log <= 0)
-    {
-        return false;
-    }
-
-    // If the band/mode/log is already confirmed: Return true
-    QSqlQuery query;
-
-    // awarddxcc id dxcc band mode confirmed qsoid lognumber
-    // If the band/mode/log is already confirmed: Return true
-    // If the band/mode/log is already worked and status worked: Return true
-    // If the band/mode/log is already worked and status confirmed: Update and Return true
-    // If not worked: Add and Return true
-
-    QString queryString = QString("SELECT id, confirmed, qsoid FROM awardwaz WHERE band='%1' AND mode='%2' AND cqz='%3'").arg(_band).arg(_mode).arg(_cqz);
-
-    bool sqlOK = query.exec(queryString);
-    queryString.clear();
-
-    if (sqlOK)
-    {
-        QSqlRecord rec = query.record();
-        query.next();
-        int nameCol = -1;
-        if (query.isValid())
-        {
-            nameCol = rec.indexOf("id");
-            int __id = (query.value(nameCol)).toInt();
-
-            nameCol = rec.indexOf("confirmed");
-            QString __confirmed = (query.value(nameCol)).toString();
-            if (__confirmed == "1")
-            {   // #1 - If the band/mode/log is already confirmed: Return true
-                query.finish();
-                return true;
-            }
-            else if (__confirmed == "0")
-            {
-                if (!isQSOConfirmed(_qsoId, true, true))
-                //if (!isQSLReceived((_qsoId)))
-                {// #2 - If the band/mode/log is already worked and status worked: Return true
-                    query.finish();
-                    return true;
-                }
-                else
-                { // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
-                    nameCol = rec.indexOf("qsoid");
-                    //int __qsoid = (query.value(nameCol)).toInt();
-                    queryString = QString("UPDATE awardwaz SET confirmed = '1', qsoid = '%1' WHERE id = '%2'").arg(_qsoId).arg(__id);
-                }
-            }
-            else
-            {   // This case should not happen?
-                query.finish();
-                return true;
-            }
-
-            query.finish();
-
-            // #1 - If the band/mode/log is already confirmed: Return true
-            // #2 - If the band/mode/log is already worked and status worked: Return true
-            // #3 - If the band/mode/log is already worked and status confirmed: Update and Return true
-            // #4 - If not worked: Add and Return true
-        }
-        else
-        {
-            //#4 - If not worked: Add and Return true
-            query.finish();
-            // awarddxcc id dxcc band mode confirmed qsoid lognumber
-            queryString = QString("INSERT INTO awardwaz (cqz, band, mode, confirmed, qsoid, lognumber) values('%1','%2','%3','0', '%4', '%5')").arg(_cqz).arg(_band).arg(_mode).arg(_qsoId).arg(_log);
-        }
-
-        if (queryString.length()>5)
-        {
-            if (query.exec(queryString))
-            {
-                query.finish();
-                return true;
-            }
-            else
-            {
-                //#pragma "ERROR code 19 should be 2067 to indicate duplicate"
-                if ((query.lastError().nativeErrorCode()).toInt() == 2067)
-                //if(query.lastError().text()!=QString::number(19))
-                {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                    query.finish();
-                    return false;
-                }
-            }
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return false;
-    }
-    query.finish();
-    return true;
 }
 
 bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QString &_short, const QString &_pref,

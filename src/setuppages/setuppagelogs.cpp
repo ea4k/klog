@@ -165,25 +165,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
             stringQuery = QString("DELETE FROM log WHERE lognumber='%1'").arg(selectedLog);
             sqlOk = query.exec(stringQuery);
                //qDebug() << "SetupPageLogs::slotRemoveButtonClicked: LastQuery: " << query.lastQuery() ;
-            if (sqlOk)
-            {
-                   //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (QSOS REMOVED: " << QString::number(selectedLog) << ")";
-                stringQuery = QString("DELETE FROM awarddxcc WHERE lognumber='%2'").arg(selectedLog);
-                query.exec(stringQuery);
-                sqlOk = query.exec();
-                   //qDebug() << "SetupPageLogs::slotRemoveButtonClicked: LastQuery: " << query.lastQuery() ;
-                if (sqlOk)
-                {
-                       //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC REMOVED: " << QString::number(selectedLog) << ")";
-                }
-                else
-                {
-                    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                    showError(tr("Log has not been removed. (#3)"));
-                       //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (AWARDDXCC NOT REMOVED: " << QString::number(selectedLog) << ")";
-                }
-            }
-            else
+            if (!sqlOk)
             {
                 showError(tr("Log has not been removed. (#2)"));
                    //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (QSOS NOT REMOVED: " << QString::number(selectedLog) << ")";

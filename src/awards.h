@@ -113,12 +113,6 @@ public:
     */
     DataProxy_SQLite *dataProxy;
 private:
-    //void setAwardDXCC(const int _qsoId);
-    //bool setAwardDXCC(const int _dxcc, const int _band, const int _mode, const QString &_workedOrConfirmed, const int _logNumber, const int _qsoId);
-
-    int setAwardDXCCst(const int _dxcc, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
-
-    int setAwardDXCCConfirmed(const int _band, const int _mode, const int _dxcc, const int _newQSOid); // Changes the status of a DXCC from worked to confirmed
     int setDXCCToQSO(const int _dxcc, const int _qsoid); // Defines the DXCC in a QSO
     int setCQToQSO(const int _cqz, const int _qsoid); // Defines the CQ zone in a QSO
 
@@ -144,7 +138,6 @@ private:
     int dxccStatusMode(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     /**/
 
-    int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
     /*
     _confirmed = 0     Set as Worked
     _confirmed = 1     Set as Confirmed

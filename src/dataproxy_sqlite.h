@@ -151,7 +151,7 @@ public:
     QStringList getClubLogRealTimeFromId(const int _qsoId);
 
     QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
-    bool updateAwardWAZ();
+    //bool updateAwardWAZ();
     // QRZ.com
     bool QRZCOMModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to QRZ.com
      bool QRZCOMSentQSOs(const QList<int> &_qsos); // Mark as uploaded

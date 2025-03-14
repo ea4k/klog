@@ -69,14 +69,6 @@ Awards::~Awards()
     delete(dxMarathon);
 }
 
-
-
-//void Awards::setAwardWAZ(const int _qsoId)
-//{
-       //qDebug() << "Awards::setAwardWAZ: _qsoId: " << QString::number(_qsoId);
-//    dataProxy->setWAZAwardStatus(_qsoId);
-//}
-
 QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed)
 {// Returns the QRZ that granted that status in the DXCC
        //qDebug() << "Awards::getQSOofAward: " << QString::number(_enti) << "/" << QString::number(_bandid);
@@ -953,7 +945,7 @@ void Awards::recalculateAwards()
     //qDebug() << Q_FUNC_INFO;
     if (updateDXCCStatus())
         emit awardDXCCUpdated();
-    dataProxy->updateAwardWAZ();
+    //TODO: Update the WAZ Status
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

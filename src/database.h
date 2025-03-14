@@ -45,17 +45,6 @@
 class QSqlRelationalTableModel;
 const float DBVersionf = 0.026f; // This is the latest version of the DB.
 
-
-struct AwarddxccEntry
-{ // Information to update the awarddxcc table; For other Award tables, the DXCC is just the ID of the award element
-    QString dxcc;
-    QString band;
-    QString mode;
-    QString status;
-    QString logNumber;
-    QString qsoID;
-};
-
 class DataBase : public QObject
 {
     Q_OBJECT
@@ -111,7 +100,7 @@ public:
     bool updateTheEntityTableISONames();
     bool updateTableLogs();
 
-    bool updateAwardWAZTable();
+    //bool updateAwardWAZTable();
     int getNumberOfQsos(int _logNumber = -1);
     int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
@@ -182,9 +171,9 @@ private:
     bool syncLogQSOsOnBandTableChange();
 
     //bool recreateTableDXCC();
-    bool createTableAwardDXCC();
-    bool recreateTableWAZ();
-    bool createTableAwardWAZ();
+    //bool createTableAwardDXCC();
+    //bool recreateTableWAZ();
+    //bool createTableAwardWAZ();
 
     bool createTablePrimarySubdivisions(const bool NoTmp);
 
@@ -215,7 +204,7 @@ private:
     //bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();
     bool updateBandIdTableLogToNewOnes();
-    bool updateBandIdTableAward(const int _db);
+    //bool updateBandIdTableAward(const int _db);
     bool updateModeIdTableAward(const int _db);
 
     void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
