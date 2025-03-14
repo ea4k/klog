@@ -889,6 +889,7 @@ bool DataBase::createDataBase()
     return true;
 }
 
+/*
 bool DataBase::recreateTableDXCC()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -910,6 +911,7 @@ bool DataBase::recreateTableDXCC()
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
 }
+*/
 
 bool DataBase::createTableAwardDXCC()
 {
@@ -5155,12 +5157,12 @@ bool DataBase::updateTo011()
         return false;
     }
 
-    if (!recreateTableDXCC())
-    {
+    //if (!recreateTableDXCC())
+    //{
         //qDebug() << "DataBase::updateTo011: - recreateTable DXCC NOK " ;
        // emit debugLog(Q_FUNC_INFO, "3", 7);
-        return false;
-    }
+    //    return false;
+    //}
 
     if (!recreateTableWAZ())
     {

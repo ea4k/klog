@@ -181,7 +181,7 @@ private:
     bool recreateTableBand();
     bool syncLogQSOsOnBandTableChange();
 
-    bool recreateTableDXCC();
+    //bool recreateTableDXCC();
     bool createTableAwardDXCC();
     bool recreateTableWAZ();
     bool createTableAwardWAZ();
