@@ -427,7 +427,6 @@ signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 private:
-    QTime startT;
     bool isValidCall() const;
     bool isValidBand() const;
     bool isValidMode() const;
