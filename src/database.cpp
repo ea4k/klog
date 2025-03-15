@@ -5120,7 +5120,6 @@ bool DataBase::updateTheEntityTableISONames()
             //qDebug() << str << ':' << i;
         }
     }
-
     //qDebug() << "DataBase::updateTheEntityTableISONames-END" ;
     return true;
 }
@@ -5135,7 +5134,6 @@ bool DataBase::updateEntity (const QString &_codeString, const int _code)
 
 bool DataBase::doesEntityTablehaveData()
 {
-
     QString sq = QString("SELECT COUNT(id) FROM entity");
     QSqlQuery query;
     if (!query.exec(sq))
