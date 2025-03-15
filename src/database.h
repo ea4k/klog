@@ -205,6 +205,9 @@ private:
     bool populateContestData();
 
     bool populateTableSupportedContest();
+    bool populateQSLSentRecStatus();
+    bool createAndPopulateContinents();
+    bool createAndPopulateAnt_path_enumeration();
 
     bool createTableQSL_Via_enumeration();
     bool populateTableQSL_Via_enumeration();

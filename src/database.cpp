@@ -719,16 +719,6 @@ bool DataBase::createDataBase()
       confirmed = 1     Set as Confirmed
       */
 
-    stringQuery = QString("CREATE TABLE continent ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(2) NOT NULL, "
-                 "name VARCHAR(15) NOT NULL)");
-    execQuery(Q_FUNC_INFO, stringQuery);
-    stringQuery = QString("CREATE TABLE ant_path_enumeration ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(1) NOT NULL, "
-                 "name VARCHAR(15) NOT NULL)");
-    execQuery(Q_FUNC_INFO, stringQuery);
       stringQuery = QString("CREATE TABLE arrl_sect_enumeration ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(2) NOT NULL, "
@@ -817,28 +807,26 @@ bool DataBase::createDataBase()
         logEvent(Q_FUNC_INFO, "END-14", Debug);
         return false;
     }
+    if (!populateQSLSentRecStatus())
+    {
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate qsl sent/rec table";
+        logEvent(Q_FUNC_INFO, "END-14", Debug);
+        return false;
+    }
 
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('N', 'No')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('R', 'Requested')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Q', 'Queued')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('I', 'Ignore/Invalid')");
+    if (!createAndPopulateContinents())
+    {
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate continent table";
+        logEvent(Q_FUNC_INFO, "END-14", Debug);
+        return false;
+    }
 
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('Y', 'Yes')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('N', 'No')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('R', 'Requested')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('I', 'Ignore/Invalid')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('V', 'Validated')");
-
-
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AF', 'Africa')");
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AS', 'Asia')");
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('EU', 'Europe')");
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('NA', 'North America')");
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('OC', 'Oceania')");
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')");
-      execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
+    if (!createAndPopulateAnt_path_enumeration())
+    {
+        //qDebug() << Q_FUNC_INFO << ": Not possible to populate ant_path_enumeration table";
+        logEvent(Q_FUNC_INFO, "END-14", Debug);
+        return false;
+    }
 
     if (!populateContestData())
     {
@@ -852,10 +840,6 @@ bool DataBase::createDataBase()
         logEvent(Q_FUNC_INFO, "END-16", Debug);
         return false;
     }
-    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
 
     execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
 /*
@@ -3349,6 +3333,114 @@ bool DataBase::populateTableClubLogStatus()
 
     queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
     return execQuery(Q_FUNC_INFO, queryString);
+}
+bool DataBase::createAndPopulateAnt_path_enumeration()
+{
+    QString stringQuery = QString("CREATE TABLE ant_path_enumeration ("
+                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                 "shortname VARCHAR(1) NOT NULL, "
+                 "name VARCHAR(15) NOT NULL)");
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('G', 'GrayLine')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('O', 'Other')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('S', 'ShortPath')"))
+    {
+        return false;
+    }
+    return execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
+
+}
+
+bool DataBase::createAndPopulateContinents()
+{
+    //qDebug() << Q_FUNC_INFO ;
+    QString stringQuery = QString("CREATE TABLE continent ("
+                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                 "shortname VARCHAR(2) NOT NULL, "
+                 "name VARCHAR(15) NOT NULL)");
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return false;
+    }
+
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AF', 'Africa')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AS', 'Asia')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('EU', 'Europe')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('NA', 'North America')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('OC', 'Oceania')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('SA', 'South America')"))
+    {
+        return false;
+    }
+    return execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
+}
+
+bool DataBase::populateQSLSentRecStatus()
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('N', 'No')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('R', 'Requested')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Q', 'Queued')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('I', 'Ignore/Invalid')"))
+    {
+        return false;
+    }
+
+
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('Y', 'Yes')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('N', 'No')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('R', 'Requested')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('I', 'Ignore/Invalid')"))
+    {
+        return false;
+    }
+    return execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('V', 'Validated')");
 }
 
 bool DataBase::recreateTableEntity()
