@@ -382,7 +382,6 @@ bool DataBase::isTheDBCreated()
     query.finish();
 
     return (_num>0);
-
 }
 
 bool DataBase::recreateTableLog()
@@ -685,7 +684,6 @@ bool DataBase::createDataBase()
         return false;
     }
 
-
     if (!populateTableSatellites(true))
     {
         //qDebug() << Q_FUNC_INFO << ": Not possible to populate the satellites table";
@@ -710,26 +708,14 @@ bool DataBase::createDataBase()
     if (!createTablePrimarySubdivisions(true))
         return false;
 
+    if (!createAndPopulateARRLSectEnumeration())
+        return false;
 
-      //http://www.sqlite.org/lang_datefunc.html
-      /*
-       "confirmed INTEGER NOT NULL, "
-      confirmed means:
-      confirmed = 0     Set as Worked
-      confirmed = 1     Set as Confirmed
-      */
 
-      stringQuery = QString("CREATE TABLE arrl_sect_enumeration ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(2) NOT NULL, "
-                 "name VARCHAR(30) NOT NULL)");
 
-    execQuery(Q_FUNC_INFO, stringQuery);
-      stringQuery = QString("CREATE TABLE qso_complete_enumeration ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(3) NOT NULL, "
-                 "name VARCHAR(10) NOT NULL)");
-    execQuery(Q_FUNC_INFO, stringQuery);
+    if (!createAndPopulateQSO_CompleteEnumeration())
+        return false;
+
 
       createTableContest();
 
@@ -739,11 +725,9 @@ bool DataBase::createDataBase()
                  "name VARCHAR(40) NOT NULL)");
     execQuery(Q_FUNC_INFO, stringQuery);
 
-      stringQuery = QString("CREATE TABLE award_enumeration ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "name VARCHAR(15) NOT NULL)");
+    if (!createAndPopulateAwardEnumeration())
+        return false;
 
-    execQuery(Q_FUNC_INFO, stringQuery);
       stringQuery = QString("CREATE TABLE prefixesofentity ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "prefix VARCHAR(15) NOT NULL,"
@@ -756,18 +740,6 @@ bool DataBase::createDataBase()
 
     createTableAwardDXCC();
     createTableAwardWAZ();
-
-      stringQuery = QString("CREATE TABLE qsl_rec_status ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(1) NOT NULL, "
-                 "name VARCHAR(15) NOT NULL)");
-      execQuery(Q_FUNC_INFO, stringQuery);
-
-      stringQuery = QString("CREATE TABLE qsl_sent_status ("
-                 "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                 "shortname VARCHAR(1) NOT NULL, "
-                 "name VARCHAR(15) NOT NULL)");
-      execQuery(Q_FUNC_INFO, stringQuery);
 
     if (!createTableQSL_Via_enumeration())
     {
@@ -807,7 +779,7 @@ bool DataBase::createDataBase()
         logEvent(Q_FUNC_INFO, "END-14", Debug);
         return false;
     }
-    if (!populateQSLSentRecStatus())
+    if (!createAndPopulateQSLSentRecStatus())
     {
         //qDebug() << Q_FUNC_INFO << ": Not possible to populate qsl sent/rec table";
         logEvent(Q_FUNC_INFO, "END-14", Debug);
@@ -840,27 +812,6 @@ bool DataBase::createDataBase()
         logEvent(Q_FUNC_INFO, "END-16", Debug);
         return false;
     }
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')");
-/*
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AK', 'Alaska')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AB', 'Alberta')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AR', 'Arkansas')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AZ', 'Arizona')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('BC', 'British Columbia')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('CO', 'Colorado')");
-*/
-
-    //TODO: Awards are deprecated
-    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('AJA')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDX')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('DXCC')");
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')");
-    execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
 
     if (updateDBVersion(softVersion, QString::number(DBVersionf)))
     { // It was not possible to save the DB version
@@ -3334,6 +3285,83 @@ bool DataBase::populateTableClubLogStatus()
     queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
     return execQuery(Q_FUNC_INFO, queryString);
 }
+
+
+//TODO: Awards are deprecated
+bool DataBase::createAndPopulateAwardEnumeration()
+{
+    QString stringQuery = QString("CREATE TABLE award_enumeration ("
+             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+             "name VARCHAR(15) NOT NULL)");
+
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+            return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('AJA')"))
+    {
+            return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDX')"))
+    {
+            return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('CQDXFIELD')"))
+    {
+            return false;
+    }
+    return execQuery(Q_FUNC_INFO, "INSERT INTO award_enumeration (name) VALUES ('DXCC')");
+}
+
+bool DataBase::createAndPopulateARRLSectEnumeration()
+{
+    QString stringQuery = QString("CREATE TABLE arrl_sect_enumeration ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "shortname VARCHAR(2) NOT NULL, "
+               "name VARCHAR(30) NOT NULL)");
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+        return false;
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AL', 'Alabama')"))
+        return false;
+
+    /*
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AK', 'Alaska')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AB', 'Alberta')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AR', 'Arkansas')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AZ', 'Arizona')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('BC', 'British Columbia')");
+    execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('CO', 'Colorado')");
+    */
+
+}
+
+
+
+bool DataBase::createAndPopulateQSO_CompleteEnumeration()
+{
+    QString stringQuery = QString("CREATE TABLE qso_complete_enumeration ("
+             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+             "shortname VARCHAR(3) NOT NULL, "
+             "name VARCHAR(10) NOT NULL)");
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')"))
+    {
+        return false;
+    }
+    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')"))
+    {
+        return false;
+    }
+    return execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
+}
+
 bool DataBase::createAndPopulateAnt_path_enumeration()
 {
     QString stringQuery = QString("CREATE TABLE ant_path_enumeration ("
@@ -3357,7 +3385,6 @@ bool DataBase::createAndPopulateAnt_path_enumeration()
         return false;
     }
     return execQuery(Q_FUNC_INFO, "INSERT INTO ant_path_enumeration (shortname, name) VALUES ('L', 'LongPath')");
-
 }
 
 bool DataBase::createAndPopulateContinents()
@@ -3399,9 +3426,29 @@ bool DataBase::createAndPopulateContinents()
     return execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 }
 
-bool DataBase::populateQSLSentRecStatus()
+bool DataBase::createAndPopulateQSLSentRecStatus()
 {
     qDebug() << Q_FUNC_INFO << " - Start";
+
+
+    QString stringQuery = QString("CREATE TABLE qsl_rec_status ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "shortname VARCHAR(1) NOT NULL, "
+               "name VARCHAR(15) NOT NULL)");
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return false;
+    }
+
+    stringQuery = QString("CREATE TABLE qsl_sent_status ("
+               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "shortname VARCHAR(1) NOT NULL, "
+               "name VARCHAR(15) NOT NULL)");
+    if (!execQuery(Q_FUNC_INFO, stringQuery))
+    {
+        return false;
+    }
+
     if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')"))
     {
         return false;
