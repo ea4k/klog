@@ -8,5 +8,5 @@ install:
   - sh: sudo apt install -qqy make qmake6 qt6-base-dev qt6-declarative-dev libhamlib-dev build-essential libgl1-mesa-dev libqt6serialport6-dev qt6-positioning-dev libqt6charts6-dev qt6-l10n-tools
 build_script:
   - cd src
-  - qmake6 KLog.pro
+  - qmake6 src.pro
   - make
