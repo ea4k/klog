@@ -13,13 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: apt update
-      run: sudo apt-get update
     - name: Install dependencies
-      run: sudo apt install -y --fix-missing make qmake6 qt6-base-dev qt6-declarative-dev libhamlib-dev build-essential libgl1-mesa-dev libqt6serialport6-dev qt6-positioning-dev libqt6charts6-dev qt6-l10n-tools
+      run: |
+        sudo apt-get update
+        sudo apt install -y --fix-missing make qmake6 qt6-base-dev qt6-declarative-dev libhamlib-dev build-essential libgl1-mesa-dev libqt6serialport6-dev qt6-positioning-dev libqt6charts6-dev qt6-l10n-tools
     - name: Move to sources folder
-      run: cd src
-    - name: qmake
-      run: qmake6 src.pro
+      run: |
+       cd src
+       ls
+       qmake6 src.pro
     - name: make
-      run: make
+      run: |
+        cd src
+        make
