@@ -144,7 +144,7 @@ private:
     int dxccStatusMode(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     /**/
 
-    int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
+    //int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);
     /*
     _confirmed = 0     Set as Worked
     _confirmed = 1     Set as Confirmed

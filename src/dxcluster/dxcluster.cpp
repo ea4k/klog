@@ -405,7 +405,8 @@ void DXClusterWidget::printSHDX(const QString _stringSpot)
         QString lastToken = intraSpot.last();
         if (lastToken.startsWith("<"))
         {
-            lastToken.removeFirst();
+            lastToken.remove(0,1);
+            //lastToken.removeFirst();
             Callsign callsign(lastToken);
             if (callsign.isValid())
             {

@@ -70,13 +70,6 @@ Awards::~Awards()
 }
 
 
-
-//void Awards::setAwardWAZ(const int _qsoId)
-//{
-       //qDebug() << "Awards::setAwardWAZ: _qsoId: " << QString::number(_qsoId);
-//    dataProxy->setWAZAwardStatus(_qsoId);
-//}
-
 QString Awards::getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed)
 {// Returns the QRZ that granted that status in the DXCC
        //qDebug() << "Awards::getQSOofAward: " << QString::number(_enti) << "/" << QString::number(_bandid);
