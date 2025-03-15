@@ -55,10 +55,10 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     //util->setVersion(softwareVersion);
     //qDebug() << Q_FUNC_INFO << " - Creating qso - ";
     qso = new QSO;
-    QThread::sleep(std::chrono::microseconds{1000});
+    //QThread::sleep(std::chrono::microseconds{1000});
     //qDebug() << Q_FUNC_INFO << " - Creating backupQSO - ";
     backupQSO = new QSO;
-    QThread::sleep(std::chrono::microseconds{1000});
+    //QThread::sleep(std::chrono::microseconds{1000});
     //qDebug() << Q_FUNC_INFO << " - Creating modifyingQSO - ";
     //modifyingQSO = new QSO;
 

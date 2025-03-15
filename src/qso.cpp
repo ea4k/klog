@@ -31,7 +31,7 @@
 QSO::QSO(QObject *parent)
     : QObject(parent)
 {
-    startT = QTime::currentTime();
+    //startT = QTime::currentTime();
    //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logLevel = None;
     qsoId = -1;
@@ -44,7 +44,7 @@ QSO::QSO(QObject *parent)
 QSO::QSO(const QSO &other)
     : QObject(other.parent())
 {
-    startT = QTime::currentTime();
+    //startT = QTime::currentTime();
   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
    //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     util = new Utilities(Q_FUNC_INFO);
