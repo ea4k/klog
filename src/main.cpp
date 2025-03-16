@@ -141,8 +141,9 @@ int main(int argc, char *argv[])
 
         if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
         {
-        if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
-            missingTranslation = true;
+            if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
+                missingTranslation = true;
+        }
         else if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") ) /* Flawfinder: ignore */
         {
             if (myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name())))

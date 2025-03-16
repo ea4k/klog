@@ -946,7 +946,7 @@ void Awards::recalculateAwards()
     //qDebug() << Q_FUNC_INFO;
     if (updateDXCCStatus())
         emit awardDXCCUpdated();
-    dataProxy->updateAwardWAZ();
+    //dataProxy->updateAwardWAZ();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
