@@ -31,20 +31,24 @@
 QSO::QSO(QObject *parent)
     : QObject(parent)
 {
+    //startT = QTime::currentTime();
    //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
 
+    //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
+    //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
 }
 
 QSO::QSO(const QSO &other)
     : QObject(other.parent())
 {
+    //startT = QTime::currentTime();
+  //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
    //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     util = new Utilities(Q_FUNC_INFO);
-    *this = other;
-    /*logLevel = other.logLevel;
+    logLevel = other.logLevel;
     haveBand = other.haveBand;
     haveMode = other.haveMode;
     haveSubMode = other.haveSubMode;
@@ -212,7 +216,6 @@ QSO::QSO(const QSO &other)
     vucc_grids = other.vucc_grids;
     web = other.web;
     wwff_ref = other.wwff_ref;
-    */
 }
 
 QSO::~QSO()
@@ -4317,7 +4320,7 @@ QString QSO::getADIF()
     if (adif->isValidLogId(QString::number(getLogId())))
         adifStr.append(adif->getADIFField ("APP_KLOG_LOGN", QString::number(getLogId())));
     //return  qso.getADIF() + "<EOR>\n";
-    return adifStr + "<EOR>\n";;
+    return adifStr + "<EOR>\n";
 }
 
 QString QSO::getBandNameFromFreq(const double _n)

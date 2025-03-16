@@ -194,6 +194,12 @@ private:
     bool populateContestData();
 
     bool populateTableSupportedContest();
+    bool createAndPopulateQSLSentRecStatus();
+    bool createAndPopulateContinents();
+    bool createAndPopulateAnt_path_enumeration();
+    bool createAndPopulateQSO_CompleteEnumeration();
+    bool createAndPopulateAwardEnumeration();
+    bool createAndPopulateARRLSectEnumeration();
 
     bool createTableQSL_Via_enumeration();
     bool populateTableQSL_Via_enumeration();

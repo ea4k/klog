@@ -5544,7 +5544,6 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 
 bool DataProxy_SQLite::updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont)
 {   // Refactored from DataProxy_SQLite::fillEmptyDXCCInTheLog()
-
     QString queryString = QString("UPDATE log SET dxcc = :dxcc', cont = :cont WHERE id = :id");
     QSqlQuery query;
     query.prepare(queryString);
@@ -6861,7 +6860,6 @@ QString DataProxy_SQLite::getEntityPrefixes(const int _enti)
 
 QStringList DataProxy_SQLite::getSpecialCallsigns()
 {
-
     //qDebug() << Q_FUNC_INFO;
     QString aux = QString();
     QStringList qs;
