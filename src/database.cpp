@@ -5109,12 +5109,6 @@ bool DataBase::updateTo011()
     //    return false;
     //}
 
-    if (!recreateTableWAZ())
-    {
-           //qDebug() << "DataBase::updateTo011: - recreateTableWAZ NOK " ;
-       // emit debugLog(Q_FUNC_INFO, "4", 7);
-        return false;
-    }
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {

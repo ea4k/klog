@@ -289,14 +289,19 @@ void MainWindowInputQSO::setDefaultData()
     freqTX = 0.0;
     freqRX = 0.0;
     modify = false;
+
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
     darkMode = settings.value("DarkMode", false).toBool ();
     settings.endGroup ();
     if (darkMode) {
         txFreqSpinBox->setPalette(palWhite);
+        rxFreqSpinBox->setPalette(palWhite);
+        qDebug() << Q_FUNC_INFO << " - DarkMode: ON";
     } else {
+        qDebug() << Q_FUNC_INFO << " - DarkMode: OFF";
         txFreqSpinBox->setPalette(palBlack);
+        rxFreqSpinBox->setPalette(palBlack);
     }
 }
 
@@ -615,9 +620,12 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
 
 bool MainWindowInputQSO::getDarkMode()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start: " << nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb);
+    qDebug() << Q_FUNC_INFO << " - Start: " << nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb);
+    //New faf9f8
+    //FOrmer color #646464
+    qDebug() << Q_FUNC_INFO << " - Start: " << util->boolToQString((nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#646464"));
     //return darkMode;
-    return (nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#646464");
+    return  (nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#faf9f8");
 }
 
 void MainWindowInputQSO::setPaletteRightName(const bool _ok)
@@ -709,12 +717,12 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
         if (getDarkMode())
         {
-           //qDebug() << Q_FUNC_INFO << " - We are in darkmode";
+            qDebug() << Q_FUNC_INFO << " - We are in darkmode";
             txFreqSpinBox->setPalette(palWhite);
         }
         else
         {
-           //qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
+            qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
             txFreqSpinBox->setPalette(palBlack);
         }
        //qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
@@ -724,7 +732,7 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
     {
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         txFreqSpinBox->setPalette(palRed);
-       //qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
+        qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
     }
     if ((!splitCheckBox->isChecked()) && !modify)
     {
@@ -757,10 +765,12 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
     { // If the freq belongs to one ham band
         if (getDarkMode())
         {
+            qDebug() << Q_FUNC_INFO << " - We are in darkmode";
             rxFreqSpinBox->setPalette(palWhite);
         }
         else
         {
+            qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
             rxFreqSpinBox->setPalette(palBlack);
         }
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
