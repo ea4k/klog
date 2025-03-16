@@ -2040,10 +2040,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         showStatusOfDXCC(_entityStatus);
         showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
         //othersTabWidget->setEntity(currentEntity);
-
-
         // we need to update the list of Primary Subdivisions
-
     }
     else if ((dx_CQz == dxE_CQz) || (dx_ITUz == dxE_ITUz))
     {
@@ -2055,7 +2052,6 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     else
     {
              //qDebug()<< Q_FUNC_INFO << ": 110" ;
-
     }
          //qDebug()<< Q_FUNC_INFO << ": 120" ;
     qrzSmallModDontCalculate = false; // If the text has not been modified in this method
@@ -4369,7 +4365,6 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 
 void MainWindow::qsoToEdit (const int _qso)
 {    
-
    //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO  << " - 000";
@@ -5124,7 +5119,6 @@ QString MainWindow::findStationCallsignToUse()
 
 void MainWindow::defineStationCallsign()
 {
-
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString logQRZ = findStationCallsignToUse();
    //qDebug() << Q_FUNC_INFO << ": StationCallsign: " << logQRZ;

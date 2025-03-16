@@ -4320,7 +4320,7 @@ QString QSO::getADIF()
     if (adif->isValidLogId(QString::number(getLogId())))
         adifStr.append(adif->getADIFField ("APP_KLOG_LOGN", QString::number(getLogId())));
     //return  qso.getADIF() + "<EOR>\n";
-    return adifStr + "<EOR>\n";;
+    return adifStr + "<EOR>\n";
 }
 
 QString QSO::getBandNameFromFreq(const double _n)

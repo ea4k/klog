@@ -651,73 +651,35 @@ bool DataBase::createDataBase()
 
     execQuery(Q_FUNC_INFO, stringQuery);
 
-    if (!createTableBand(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the bands table";
-        logEvent(Q_FUNC_INFO, "END-1", Debug);
-        return false;
-    }
-    if (!populateTableBand(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the bands table";
-        logEvent(Q_FUNC_INFO, "END-2", Debug);
-        return false;
-    }
+    if  ( (!createTableBand(true))                      ||
+          (!populateTableBand(true))                    ||
+          (!createTableMode(true))                      ||
+          (!populateTableMode(true))                    ||
+          (!createTableSatellites(true))                ||
+          (!populateTableSatellites(true))              ||
+          (!createTableLog(true))                       ||
+          (!createTableEntity(true))                    ||
+          (!createTablePrimarySubdivisions(true))       ||
+          (!createAndPopulateARRLSectEnumeration())     ||
+          (!createAndPopulateQSO_CompleteEnumeration()) ||
+          (!createTableQSL_Via_enumeration())           ||
+          (!populateTableQSL_Via_enumeration())         ||
+          (!createTablePropModes())                     ||
+          (!createTableLogs(true))                      ||
+          (!createTableClubLogStatus())                 ||
+          (!populateTableClubLogStatus())               ||
+          (!createAndPopulateQSLSentRecStatus())        ||
+          (!createAndPopulateContinents())              ||
+          (!createAndPopulateAnt_path_enumeration())    ||
+          (!createTableContest())                       ||
+          (!populateContestData())                      ||
+          (!createAndPopulateAwardEnumeration())        ||
+          (!populatePropagationModes())
 
-    if (!createTableMode(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the modes table";
-        return false;
-    }
-
-    if (!populateTableMode(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the modes table";
-        logEvent(Q_FUNC_INFO, "END-3", Debug);
-        return false;
-    }
-
-    if (!createTableSatellites(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the satellites table";
-        logEvent(Q_FUNC_INFO, "END-4", Debug);
-        return false;
-    }
-
-    if (!populateTableSatellites(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the satellites table";
-        logEvent(Q_FUNC_INFO, "END-5", Debug);
-        return false;
-    }
-
-    if (!createTableLog(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the log table";
-        logEvent(Q_FUNC_INFO, "END-6", Debug);
-        return false;
-    }
-
-    if (!createTableEntity(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the entity table";
-        logEvent(Q_FUNC_INFO, "END-7", Debug);
-        return false;
-    }
-
-    if (!createTablePrimarySubdivisions(true))
-        return false;
-
-    if (!createAndPopulateARRLSectEnumeration())
+        )
         return false;
 
 
-
-    if (!createAndPopulateQSO_CompleteEnumeration())
-        return false;
-
-
-      createTableContest();
 
       stringQuery = QString("CREATE TABLE contestcategory ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -725,8 +687,6 @@ bool DataBase::createDataBase()
                  "name VARCHAR(40) NOT NULL)");
     execQuery(Q_FUNC_INFO, stringQuery);
 
-    if (!createAndPopulateAwardEnumeration())
-        return false;
 
       stringQuery = QString("CREATE TABLE prefixesofentity ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -738,80 +698,6 @@ bool DataBase::createDataBase()
                  "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
     execQuery(Q_FUNC_INFO, stringQuery);
 
-    createTableAwardDXCC();
-    createTableAwardWAZ();
-
-    if (!createTableQSL_Via_enumeration())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the qsl_via_enumeration table";
-        logEvent(Q_FUNC_INFO, "END-9", Debug);
-        return false;
-    }
-
-    if (!populateTableQSL_Via_enumeration())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate the qsl_via_enumeration table";
-        logEvent(Q_FUNC_INFO, "END-10", Debug);
-        return false;
-    }
-
-    if (!createTablePropModes())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the propModes table";
-        logEvent(Q_FUNC_INFO, "END-11", Debug);
-        return false;
-    }
-    if (!createTableLogs(true))
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the logs table";
-        logEvent(Q_FUNC_INFO, "END-12", Debug);
-        return false;
-    }
-    if (!createTableClubLogStatus())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to create the clublogstatus table";
-        logEvent(Q_FUNC_INFO, "END-13", Debug);
-        return false;
-    }
-    if (!populateTableClubLogStatus())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate clublog status table";
-        logEvent(Q_FUNC_INFO, "END-14", Debug);
-        return false;
-    }
-    if (!createAndPopulateQSLSentRecStatus())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate qsl sent/rec table";
-        logEvent(Q_FUNC_INFO, "END-14", Debug);
-        return false;
-    }
-
-    if (!createAndPopulateContinents())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate continent table";
-        logEvent(Q_FUNC_INFO, "END-14", Debug);
-        return false;
-    }
-
-    if (!createAndPopulateAnt_path_enumeration())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate ant_path_enumeration table";
-        logEvent(Q_FUNC_INFO, "END-14", Debug);
-        return false;
-    }
-
-    if (!populateContestData())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate contestData table";
-        logEvent(Q_FUNC_INFO, "END-15", Debug);
-        return false;
-    }
-    if (!populatePropagationModes())
-    {
-        //qDebug() << Q_FUNC_INFO << ": Not possible to populate propagation modes table";
-        logEvent(Q_FUNC_INFO, "END-16", Debug);
-        return false;
-    }
 
     if (updateDBVersion(softVersion, QString::number(DBVersionf)))
     { // It was not possible to save the DB version
@@ -822,87 +708,6 @@ bool DataBase::createDataBase()
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     return true;
-}
-
-/*
-bool DataBase::recreateTableDXCC()
-{
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO;
-
-    QSqlQuery query ("DROP TABLE awarddxcc");
-
-    if (!query.exec())
-    {
-        //qDebug() << Q_FUNC_INFO << ": awarddxcc NOT dropped";
-        //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
-        //qDebug() << Q_FUNC_INFO << ": " << query.lastError();
-        query.finish();
-        return false;
-    }
-    query.finish();
-    return createTableAwardDXCC();
-
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return true;
-}
-*/
-
-bool DataBase::createTableAwardDXCC()
-{
-   //qDebug() << Q_FUNC_INFO;
-      return execQuery(Q_FUNC_INFO, "CREATE TABLE awarddxcc ("
-                             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                             "dxcc INTEGER NOT NULL,"
-                             "band INTEGER NOT NULL, "
-                             "mode INTEGER NOT NULL, "
-                             "confirmed INTEGER, "
-                             "qsoid INTEGER NOT NULL, "
-                             "lognumber INTEGER, "
-//                             "UNIQUE (dxcc, band, mode, lognumber))");
-                             "UNIQUE (dxcc, band, mode, lognumber), "
-                             "FOREIGN KEY (dxcc) REFERENCES entity (dxcc), "
-                             "FOREIGN KEY (band) REFERENCES band (id), "
-                             "FOREIGN KEY (mode) REFERENCES mode (id), "
-                             "FOREIGN KEY (qsoid) REFERENCES log (id) )");
-
-    /*
-    In awarddxcc confirmed means:
-    confirmed = 0     Set as Worked
-    confirmed = 1     Set as Confirmed
-    */
-}
-
-bool DataBase::recreateTableWAZ()
-{
-    //QSqlQuery query;
-
-    if (execQuery(Q_FUNC_INFO, "DROP TABLE awardwaz"))
-    {
-        return createTableAwardWAZ();
-    }
-    return true;
-}
-
-bool DataBase::createTableAwardWAZ()
-{
-    return execQuery(Q_FUNC_INFO, "CREATE TABLE awardwaz ("
-                           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                           "cqz INTEGER NOT NULL,"
-                           "band INTEGER NOT NULL, "
-                           "mode INTEGER NOT NULL, "
-                           "confirmed INTEGER, "
-                           "qsoid INTEGER NOT NULL, "
-                           "lognumber INTEGER, "
-                           "UNIQUE (cqz, band, mode, lognumber), "
-                           "FOREIGN KEY (band) REFERENCES band (id), "
-                           "FOREIGN KEY (mode) REFERENCES mode (id), "
-                           "FOREIGN KEY (qsoid) REFERENCES log (id))");
-    /*
-    In awardwaz confirmed means:
-    confirmed = 0     Set as Worked
-    confirmed = 1     Set as Confirmed
-    */
 }
 
 
