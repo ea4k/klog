@@ -23,6 +23,10 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
+QT += core gui
+QT += qml quick
+
+CONFIG += c++11
 CONFIG += app_bundle
 CONFIG += static
 #CONFIG += console

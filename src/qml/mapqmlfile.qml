@@ -79,6 +79,7 @@ Rectangle {
         plugin: mapPlugin
         center: mapCenter.coordinate
         Plugin {
+            name: "osm"
            //locales: "en_US"
         }
         //Component.onCompleted:addMarker(40.18, -3.649, "OOO")

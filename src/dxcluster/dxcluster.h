@@ -49,7 +49,9 @@ class DXClusterWidget : public QWidget
      Q_OBJECT
 
  public:
-    DXClusterWidget(Awards *awards, QWidget *parent );
+    //DXClusterWidget(Awards *awards, QWidget *parent );
+     explicit DXClusterWidget(Awards *awards, QWidget *parent = nullptr);
+
 
     void init();
     ~DXClusterWidget();
@@ -92,6 +94,7 @@ signals:
     //void dxspot(const QString &_spot); // The text string to be saved
 
 private:
+    Awards *awards; // Reference to the Awards instance
     //void TESTADDSPOT(); // Just a test spot
     void addItemToClusterList(const QString &text, const QColor &color); // Adds a message to the list
     void createActions();
@@ -123,7 +126,6 @@ private:
     QColor dxSpotColor;
 
     World *world;
-    Awards *awards; // Reference to the Awards instance
     DataProxy_SQLite *dataProxy;
     Utilities *util;
 
