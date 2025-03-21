@@ -26,10 +26,12 @@
 
 #include "searchmodel.h"
 
-SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
+SearchModel::SearchModel(Awards *awards, QObject *parent):
+    QSqlRelationalTableModel(parent),
+    award(awards) // Correctly initialize 'award' instead of 'awards'
 {
     //qDebug() << "SearchModel::SearchModel " ;
-    dataProxy = dp;
+    dataProxy = awards->dataProxy;
     stationCallsignInHeader = true;
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
@@ -38,7 +40,7 @@ SearchModel::SearchModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTa
     modeid = -1;
     logn = -1;
 
-    award = new Awards(dataProxy, Q_FUNC_INFO);
+    //award = new Awards(dataProxy, Q_FUNC_INFO);
 
     //qDebug() << "SearchModel::SearchModel: Rows obtained: " << QString::number(rowCount()) ;
     //qDebug() << "SearchModel::SearchModel - END" ;

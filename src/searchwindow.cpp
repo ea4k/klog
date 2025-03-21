@@ -35,9 +35,10 @@ SearchWindow::SearchWindow(Awards *awards, QWidget *parent) :
     dataProxy = awards->dataProxy;
     showStationCallsignInHeader = true;
     //sortingThroughProxyModel = false;
-    searchModel = new SearchModel(dataProxy, this);
+    searchModel = std::make_unique<SearchModel>(awards, this);
+    //searchModel = new SearchModel(dataProxy, this);
     util = new Utilities(Q_FUNC_INFO);
-    connect(searchModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect(searchModel.get(), SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     //logView = new QTableView;
     treeView = new QTreeView;
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy);
@@ -136,7 +137,7 @@ void SearchWindow::createlogPanel(const int _currentLog)
     currentLog = _currentLog;
     searchModel->createSearchModel(currentLog);
 
-    treeView->setModel(searchModel);
+    treeView->setModel(searchModel.get());
     treeView->setCurrentIndex(searchModel->index(0, 0));
 
     //logView->setModel(searchModel);

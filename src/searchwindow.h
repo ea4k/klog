@@ -126,7 +126,8 @@ private:
 
     bool qslingNeeded;
     DataProxy_SQLite *dataProxy;
-    SearchModel *searchModel;
+    std::unique_ptr<SearchModel> searchModel;        // Defined like this to send the same award instance
+
     Awards *awards;             // Reference to the Awards instance
 
     //eLogClubLog *elogClublog;
