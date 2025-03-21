@@ -47,6 +47,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
     dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, this);
     searchWidget = std::make_unique<SearchWidget>(&awards, this);
+    logWindow = std::make_unique<LogWindow>(&awards, this);
 
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
@@ -105,7 +106,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     infoLabel2 = new QLabel(tr("DX Entity"));
 
      //qDebug() << "MainWindow::MainWindow: 00086" << QTime::currentTime().toString("hh:mm:ss") ;
-    logWindow = new LogWindow(dataProxy, this);
+    //logWindow = new LogWindow(dataProxy, this);
       //qDebug() << Q_FUNC_INFO << ": 00087: " << QTime::currentTime().toString("hh:mm:ss") ;
 
     //searchWidget = new SearchWidget(dataProxy, this);
@@ -599,12 +600,12 @@ void MainWindow::createActionsCommon(){
     connect(mainQSOEntryWidget, SIGNAL(manualModeSignal(bool)), this, SLOT(slotManualMode(bool) ) );
 
     // LOGVIEW
-    connect(logWindow, SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
-    connect(logWindow, SIGNAL(actionDeleteQSO ( int ) ), this, SLOT(slotQSODelete(int) ) );
-    connect(logWindow, SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
-    connect(logWindow, SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
-    connect(logWindow, SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
-    connect(logWindow, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect(logWindow.get(), SIGNAL(actionQSODoubleClicked ( int ) ), this, SLOT(slotDoubleClickLog( const int ) ) );
+    connect(logWindow.get(), SIGNAL(actionDeleteQSO ( int ) ), this, SLOT(slotQSODelete(int) ) );
+    connect(logWindow.get(), SIGNAL(deleteTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsDelete(QList<int>) ) );
+    connect(logWindow.get(), SIGNAL(exportToADIFTheseQSOs ( QList<int> ) ), this, SLOT(slotQSOsExportToADIF(QList<int>) ) );
+    connect(logWindow.get(), SIGNAL(updateAwards() ), this, SLOT(slotShowAwards() ) );
+    connect(logWindow.get(), SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
 
     //CLUSTER
     connect(dxClusterWidget.get(), SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
@@ -3718,7 +3719,7 @@ void MainWindow::createUIDX()
     dxUpRightTab->addTab(awardsWidget, tr("Awards"));
     dxUpRightTab->addTab(searchWidget.get(), tr("Search"));
 
-    dxBottonTab->addTab(logWindow, tr("Log"));
+    dxBottonTab->addTab(logWindow.get(), tr("Log"));
     dxBottonTab->addTab(dxClusterWidget.get(), tr("DX-Cluster"));
     dxBottonTab->addTab(dxccStatusWidget.get(), tr("DXCC"));
 

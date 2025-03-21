@@ -480,13 +480,15 @@ private:
     std::unique_ptr<DXCCStatusWidget> dxccStatusWidget; // Defined like this to send the same award instance
     std::unique_ptr<DXClusterWidget> dxClusterWidget;   // Defined like this to send the same award instance
     std::unique_ptr<SearchWidget> searchWidget;        // Defined like this to send the same award instance
+    std::unique_ptr<LogWindow> logWindow;        // Defined like this to send the same award instance
+
 
      //DXClusterWidget *dxClusterWidget;
     //DXCCStatusWidget *dxccStatusWidget;
     QLabel *logLabel;
 
     //LogModel *logModel;
-    LogWindow *logWindow;
+    //LogWindow *logWindow;
     UDPServer *UDPLogServer;
 
     ShowErrorDialog *showErrorDialog;

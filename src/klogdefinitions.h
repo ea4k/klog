@@ -38,6 +38,12 @@ enum DebugLogLevel {None, Info, Debug, Devel};
 enum ValidFieldsForStats {DXCC, GridSquare};
 enum FilesToDownload {CTY, Sats};
 enum QSOStatus {unknown, ATNO, needed, worked, confirmed};
+enum WJTXStatus {NewContinent, NewContinentInBand, NewContinentInMode,
+                 NewCQ, NewCQInBand, NewCQInMode,
+                 NewITU, NewITUInBand, NewITUInMode,
+                 NewDXCC, NewDXCCInBand, NewDXCCInMode,
+                 NewGrid, NewGridInBand, NewGridInMode,
+                 NewCall, NewCallInBand, NewCallInMode };
 enum FreqUnits {Hz, KHz, MHz, GHz, THz};
 enum MouseClicks {NoClick, RightClick, SingleClick, DoubleClick};
 

@@ -49,7 +49,7 @@ class DXClusterWidget : public QWidget
      Q_OBJECT
 
  public:
-     DXClusterWidget(Awards *awards, QWidget *parent );
+    DXClusterWidget(Awards *awards, QWidget *parent );
 
     void init();
     ~DXClusterWidget();

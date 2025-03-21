@@ -1,4 +1,12 @@
-WIP: Review bool QSO::copy(const QSO& other) it may have some fields missing
+WIP: Transforming LogView to receive the Award
+TODO: Transform SearchModel to receive Award
+BUG: LogWidget column names are not translated
+TODO: Colors when darkMode
+    AI: add sub-issues in github one per class that is not working properly
+
+TODO: Adapt the status & colors to WSJTX colors
+
+TODO:  QList<EntityStatus> wazStatusList;
 
 BUG: MY_ALTITUDE stores wrong value, at least if not defined.
 
@@ -9,7 +17,7 @@ Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 
 
 TODO-Test: Add tests to test the subsivisions
-TODO-Test: the copy constructor of QSO
+
 
 TODO: Reuse the bool World::insertPrefixes to read QSOs from a file so we can insert the whole log at once of in 500 or 1000 QSO blocks
 TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions

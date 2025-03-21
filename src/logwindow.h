@@ -52,7 +52,7 @@ class LogWindow : public  QWidget
     Q_OBJECT
 
 public:
-    explicit LogWindow(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    LogWindow(Awards *awards, QWidget *parent = nullptr);
     ~LogWindow();
     void createlogPanel(const int _currentLog);
     void clear();

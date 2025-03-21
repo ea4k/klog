@@ -26,10 +26,14 @@
 
 #include "logwindow.h"
 
-LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
+
+LogWindow::LogWindow(Awards *awards, QWidget *parent)
+    : QWidget(parent),
+    awards(awards)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    dataProxy = dp;
+
+qDebug() << Q_FUNC_INFO << " - Start";
+    dataProxy = awards->dataProxy;
     logModel = new LogModel(dataProxy, this);
     util = new Utilities(Q_FUNC_INFO);
     connect(logModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
@@ -38,7 +42,7 @@ LogWindow::LogWindow(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 
     currentLog = -1;
 
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     createUI();
     createActions();
@@ -50,7 +54,7 @@ LogWindow::~LogWindow()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     delete(util);
-    delete(awards);
+    //delete(awards);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
