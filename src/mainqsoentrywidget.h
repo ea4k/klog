@@ -100,6 +100,7 @@ signals:
     void validBands(QStringList _bands);
     void handOverFocusSignal();
     void manualModeSignal(bool _active);
+    bool getDarkMode();                     // Returns if we are in dark mode or not
 
 private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level);
@@ -145,7 +146,7 @@ private:
     bool InValidCharsInPrevCall;
     bool qrzSmallModDontCalculate;
     bool upAndRunning;
-    bool getDarkMode();
+
 
     QString previousQRZ;
     QString currentQrz;
