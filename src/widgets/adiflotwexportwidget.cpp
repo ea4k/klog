@@ -66,13 +66,14 @@ AdifLoTWExportWidget::~AdifLoTWExportWidget()
 
 void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     Callsign callsign(_st);
     if (callsign.isValid())
     {
+        qDebug() << Q_FUNC_INFO << " - Call not valid!";
         defaultStationCallsign = _st;
     }
-     //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setDefaultMyGrid(const QString &_st)
@@ -157,12 +158,12 @@ void AdifLoTWExportWidget::createUI()
 
 void AdifLoTWExportWidget::setDefaultStationComboBox()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     //stationCallsignComboBox->blockSignals(true);
     Callsign callsign(defaultStationCallsign);
     if (!callsign.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " - END-1";
+        qDebug() << Q_FUNC_INFO << " - END-1 (call not valid)";
         //stationCallsignComboBox->blockSignals(false);
         return;
     }
@@ -217,9 +218,9 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
 
     if (currentExportMode == ModeLotW)
     {
-        //qDebug() << Q_FUNC_INFO << " -3";
+        qDebug() << Q_FUNC_INFO << " -3";
         stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLogWithLoTWPendingToSend(logNumber));
-        //qDebug() << Q_FUNC_INFO << " -4";
+        qDebug() << Q_FUNC_INFO << " -4";
     }
     else
     {

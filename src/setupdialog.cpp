@@ -429,7 +429,7 @@ void SetupDialog::slotOkButtonClicked()
     }
     Callsign callsign(userDataPage->getMainCallsign());
 
-        if (!callsign.isValid())
+    if (!callsign.isValid())
     {
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);

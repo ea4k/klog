@@ -5320,26 +5320,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     {
         hamlib->setFreq(_fr);
     }
-      //qDebug() << Q_FUNC_INFO << " - Freq: " << QString::number (_fr);
-    if (_fr<10.0)
-    {
-          //qDebug() << Q_FUNC_INFO << " - Lower and mode: " << mainQSOEntryWidget->getMode ();
-        if (mainQSOEntryWidget->getMode() == "USB")
-        {
-      //qDebug() << Q_FUNC_INFO << " - We need to change";
-            mainQSOEntryWidget->setMode ("LSB");
-        }
-    }
-    else
-    {
-          //qDebug() << Q_FUNC_INFO << " - Higher and mode: " << mainQSOEntryWidget->getMode ();
-        if (mainQSOEntryWidget->getMode() == "LSB")
-        {
-      //qDebug() << Q_FUNC_INFO << " - We need to change";
-            mainQSOEntryWidget->setMode ("USB");
-        }
-    }
-
+    mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << " - END";

@@ -5257,7 +5257,7 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
 
 QStringList DataProxy_SQLite::getStationCallSignsFromLogWithLoTWPendingToSend(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ": logNumber: " << _log;
     QString queryString;
 
     if (doesThisLogExist(_log))
@@ -5266,7 +5266,7 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLogWithLoTWPendingToSend(co
     }
     else
     {
-        queryString = QString("SELECT DISTINCT station_callsign FROM log WHERE lotw_qsl_sent='Q'");
+        queryString = QString("");
     }
 
     QSqlQuery query;

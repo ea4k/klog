@@ -95,6 +95,7 @@ public:
     QDate getDefaultDate();
     QString getDefaultRST(const QString &_m);
     QStringList getDefaultLogFields();
+    QString getDefaultModeForFreq(const double _f);
 
     int getNormalizedDXCCValue(const int _dxcc);
 

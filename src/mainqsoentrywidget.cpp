@@ -721,8 +721,9 @@ bool MainQSOEntryWidget::setBand(const QString &_band)
 
 bool MainQSOEntryWidget::setMode(const QString &_mode)
 {
+    //TODO: If the mode is not already selected, add the mode automatically.
     logEvent (Q_FUNC_INFO, "Start" + _mode, Debug);
-   //qDebug() << Q_FUNC_INFO << ":  " << _mode;
+    qDebug() << Q_FUNC_INFO << ":  " << _mode;
     if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
     {
        //qDebug() << Q_FUNC_INFO << " -  NOT found";
