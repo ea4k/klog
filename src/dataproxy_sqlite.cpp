@@ -7372,7 +7372,7 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setCQZone((getADIFValueFromRec(rec, "cqz")).toInt());
     qso.setItuZone((getADIFValueFromRec(rec, "ituz")).toInt());
     qso.setDXCC((getADIFValueFromRec(rec, "dxcc")).toInt());
-    //qDebug() << Q_FUNC_INFO << ":  - 100";
+    qDebug() << Q_FUNC_INFO << ":  - 100";
 
     qso.setAddress(getADIFValueFromRec(rec, "address"));
     qso.setAge((getADIFValueFromRec(rec, "age")).toDouble());

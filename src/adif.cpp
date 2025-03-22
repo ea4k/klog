@@ -265,7 +265,7 @@ bool Adif::isValidFreq(const QString &_b)
 
 bool Adif::isValidPower(const QString &_b)
 {
-    return (_b.toDouble()>0);
+    return (_b.toDouble()>0.0);
 }
 
 QString Adif::getADIFBoolFromBool(const bool _b)
@@ -298,7 +298,7 @@ bool Adif::isValidDXCC(const QString &_b)
 
 bool Adif::isValidAge(const QString &_b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=120));
+    return ((_b.toInt()>0) && (_b.toInt()<=120));
 }
 
 bool Adif::isValidAnt_EL(const QString &_b)

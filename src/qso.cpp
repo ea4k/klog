@@ -638,11 +638,11 @@ void QSO::clear()
 
     // VARIABLES for ADIF //////////
     address = QString();
-    age = 0;
+    age = -1;
     altitude = -10000;
-    a_index = 0;
-    ant_az = 0.0;
-    ant_el = 0.0;
+    a_index = -1;
+    ant_az = -91.0;
+    ant_el = -91.0;
     ant_path = QString();
     arrl_sect = QString();
     award_submitted = QString();
@@ -664,7 +664,7 @@ void QSO::clear()
     credit_granted = QString();
     credit_submitted = QString();
     darc_dok = QString();
-    distance = 0;
+    distance = -1;
     dxcc = 0;
     email = QString();
     ownerCall = QString();
@@ -673,8 +673,8 @@ void QSO::clear()
     eQSLSDate = QDate();
     eqsl_qsl_rcvd = QString();
     eqsl_qsl_sent = QString();
-    fists = 0;
-    fists_cc = 0;
+    fists = -1;
+    fists_cc = -1;
     forceInit = false;
     freq_tx = 0;
     freq_rx = 0;
@@ -688,9 +688,9 @@ void QSO::clear()
     hamqth_status = QString();
     hamqthUpdateDate = QDate();
     iota = QString();
-    iota_ID = 0;
+    iota_ID = -1;
     itu_zone = 0;
-    k_index = 0;
+    k_index = -1;
     latitude = QString();
     longitude = QString();
     QSLLoTWRDate = QDate();
@@ -708,11 +708,11 @@ void QSO::clear()
     my_country = QString();
     my_cqz = 0;
     my_dxcc = 0;
-    my_fists = 0;
+    my_fists = -1;
     my_gridsquare = QString();
     my_gridsquare_ext = QString();
     my_iota = QString();
-    my_iota_ID = 0;
+    my_iota_ID = -1;
     my_itu_zone = 0;
     my_latitude = QString();
     my_longitude = QString();
@@ -762,7 +762,7 @@ void QSO::clear()
     pwr_rx = 0.0;
     satMode = QString();
     satName = QString();
-    sfi = 0;
+    sfi = -1;
     sig = QString();
     sig_info = QString();
     silent_key = false;
@@ -1863,12 +1863,13 @@ QString QSO::getPOTA_Ref()
 
 bool QSO::setAge(const double _c)
 {
-    if ((0 <= _c) && (_c <= 120))
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    if ((0 >= _c) && (_c <= 120))
     {
         age = _c;
         return true;
     }
-    age = 0;
+    age = -1;
     return false;
 }
 
@@ -3910,13 +3911,16 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":ituz", getItuZone());
     query.bindValue(":dxcc", getDXCC());
     query.bindValue(":address", getAddress());
-    query.bindValue(":age", getAge());
+    if (adif->isValidAge(QString::number(getAge())))
+        query.bindValue(":age", getAge());
     if (adif->isValidAltitude(QString::number(getAltitude())))
         query.bindValue(":altitude", getAltitude());
-
-    query.bindValue(":a_index", getA_Index());
-    query.bindValue(":ant_az", getAnt_az());
-    query.bindValue(":ant_el", getAnt_el());
+    if (adif->isValidA_Index(QString::number(getA_Index())))
+        query.bindValue(":a_index", getA_Index());
+    if (adif->isValidAnt_AZ(QString::number(getAnt_az())))
+        query.bindValue(":ant_az", getAnt_az());
+    if (adif->isValidAnt_EL(QString::number(getAnt_el())))
+        query.bindValue(":ant_el", getAnt_el());
 
     query.bindValue(":ant_path", getAnt_Path());
     query.bindValue(":arrl_sect", getARRL_Sect());
@@ -3936,7 +3940,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":credit_submitted", getCreditSubmitted());
     query.bindValue(":credit_granted,", getCreditGranted());
     query.bindValue(":darc_dok", getDarcDok ());
-    query.bindValue(":distance", getDistance());
+    if (adif->isValidDistance(QString::number(getDistance())))
+        query.bindValue(":distance", getDistance());
     query.bindValue(":email", getEmail());
     query.bindValue(":eq_call", getEQ_Call());
     query.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(getEQSLQSLRDate()));
@@ -3944,8 +3949,10 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 
     query.bindValue(":eqsl_qsl_rcvd", getEQSLQSL_RCVD());
     query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
-    query.bindValue(":fists", getFists ());
-    query.bindValue(":fists_cc", getFistsCC ());
+    if (adif->isValidFISTS(QString::number(getFists())))
+        query.bindValue(":fists", getFists ());
+    if (adif->isValidFISTS(QString::number(getFistsCC())))
+        query.bindValue(":fists_cc", getFistsCC ());
 
     query.bindValue(":force_init", util->boolToCharToSQLite (getForceInit()));
     query.bindValue(":freq_tx", getFreqTX());
@@ -3960,17 +3967,19 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":hamqth_qso_upload_date", getHamQTHUpdateDate());
     query.bindValue(":hamqth_qso_upload_status", getHamQTHStatus());
 
-
     query.bindValue(":iota", getIOTA());
-    query.bindValue(":iota_island_id", getIotaID());
-    query.bindValue(":k_index", getK_Index());
+    if (adif->isValidIOTA_islandID(QString::number(getIotaID())))
+        query.bindValue(":iota_island_id", getIotaID());
+    if (adif->isValidK_Index(QString::number(getK_Index())))
+        query.bindValue(":k_index", getK_Index());
     query.bindValue(":lat", getLatitude());
     query.bindValue(":lon", getLongitude());
     query.bindValue(":lotw_qslrdate", util->getDateSQLiteStringFromDate(getLoTWQSLRDate()));
     query.bindValue(":lotw_qslsdate", util->getDateSQLiteStringFromDate(getLoTWQSLSDate()));
     query.bindValue(":lotw_qsl_rcvd", getLoTWQSL_RCVD());
     query.bindValue(":lotw_qsl_sent", getLoTWQSL_SENT());
-    query.bindValue(":max_bursts", getMaxBursts());
+    if (adif->isValidNRBursts(QString::number(getMaxBursts())))
+        query.bindValue(":max_bursts", getMaxBursts());
     query.bindValue(":ms_shower", getMsShower());
     if (adif->isValidAltitude(QString::number(getMyAltitude())))
         query.bindValue(":my_altitude", getMyAltitude());
@@ -3986,7 +3995,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":my_gridsquare", getMyGridSquare());
     query.bindValue(":my_gridsquare_ext", getMyGridSquare_ext());
     query.bindValue(":my_iota", getMyIOTA());
-    query.bindValue(":my_iota_island_id", getMyIotaID());
+    if (adif->isValidIOTA_islandID(QString::number(getMyIotaID())))
+        query.bindValue(":my_iota_island_id", getMyIotaID());
     query.bindValue(":my_itu_zone", getMyITUZone ());
     query.bindValue(":my_lat", getMyLatitude());
     query.bindValue(":my_lon", getMyLongitude());
@@ -4006,8 +4016,10 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":my_vucc_grids", getMyVUCCGrids());
     query.bindValue(":name", getName());
     query.bindValue(":notes", getNotes());
-    query.bindValue(":nr_bursts", getNrBursts());
-    query.bindValue(":nr_pings", getNrPings());
+    if (adif->isValidNRBursts(QString::number(getNrBursts())))
+        query.bindValue(":nr_bursts", getNrBursts());
+    if (adif->isValidPings(QString::number(getNrPings())))
+        query.bindValue(":nr_pings", getNrPings());
     query.bindValue(":operator", getOperatorCallsign());
     query.bindValue(":owner_callsign", getOwnerCallsign());
     query.bindValue(":pfx", getPrefix());
@@ -4033,11 +4045,12 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":qth", getQTH());
     query.bindValue(":region", getRegion ());
     query.bindValue(":rig", getRig ());
-
-    query.bindValue(":rx_pwr", getRXPwr());
+    if (adif->isValidPower(QString::number(getRXPwr())))
+        query.bindValue(":rx_pwr", getRXPwr());
     query.bindValue(":sat_mode", getSatMode());
     query.bindValue(":sat_name",getSatName());
-    query.bindValue(":sfi", getSFI());
+    if (adif->isValidSFI(QString::number(getSFI())))
+        query.bindValue(":sfi", getSFI());
     query.bindValue(":sig", getSIG());
     query.bindValue(":sig_info", getSIG_INFO ());
     query.bindValue(":silent_key", util->boolToCharToSQLite (getSilentKey ()));
@@ -4045,22 +4058,26 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 
     query.bindValue(":sota_ref", getSOTA_REF());
     query.bindValue(":srx_string", getSrxString());
-
-    query.bindValue(":srx", getSrx());
+    if (adif->isValidSRX(QString::number(getSrx())))
+        query.bindValue(":srx", getSrx());
     query.bindValue(":stx_string", getStxString());
-    query.bindValue(":stx", getStx());
+    if (adif->isValidSTX(QString::number(getStx())))
+        query.bindValue(":stx", getStx());
     query.bindValue(":state", getState());
     query.bindValue(":station_callsign", getStationCallsign());
     //query.bindValue(":submode", getModeIdFromModeName ());
 
     query.bindValue(":swl", util->boolToCharToSQLite (getSwl()));
-    query.bindValue(":uksmg", getUksmg ());
+    if (adif->isValidUKSMG(QString::number(getUksmg())))
+        query.bindValue(":uksmg", getUksmg ());
     query.bindValue(":usaca_counties", getUsacaCounties ());
     query.bindValue(":ve_prov", getVeProv ());
     query.bindValue(":wwff_ref", getWWFF_Ref());
     query.bindValue(":vucc_grids", getVUCCGrids());
-    query.bindValue(":ten_ten", getTenTen());
-    query.bindValue(":tx_pwr", getTXPwr());
+    if (adif->isValidTenTen(QString::number(getTenTen())))
+        query.bindValue(":ten_ten", getTenTen());
+    if (adif->isValidPower(QString::number(getTXPwr())))
+        query.bindValue(":tx_pwr", getTXPwr());
     query.bindValue(":web", getWeb());
     query.bindValue(":qso_date_off", util->getDateSQLiteStringFromDate(getDateOff()));
     query.bindValue(":lognumber", getLogId());
