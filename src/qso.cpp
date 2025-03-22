@@ -3911,7 +3911,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":dxcc", getDXCC());
     query.bindValue(":address", getAddress());
     query.bindValue(":age", getAge());
-    query.bindValue(":altitude", getAltitude());
+    if (adif->isValidAltitude(QString::number(getAltitude())))
+        query.bindValue(":altitude", getAltitude());
 
     query.bindValue(":a_index", getA_Index());
     query.bindValue(":ant_az", getAnt_az());
@@ -3971,7 +3972,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":lotw_qsl_sent", getLoTWQSL_SENT());
     query.bindValue(":max_bursts", getMaxBursts());
     query.bindValue(":ms_shower", getMsShower());
-    query.bindValue(":my_altitude", getMyAltitude());
+    if (adif->isValidAltitude(QString::number(getMyAltitude())))
+        query.bindValue(":my_altitude", getMyAltitude());
     query.bindValue(":my_antenna", getMyAntenna());
     query.bindValue(":my_arrl_sect", getMyARRL_Sect());
     query.bindValue(":my_city", getMyCity());

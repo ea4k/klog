@@ -163,22 +163,4 @@ bool LogModel::setColumns(const QStringList &_columns)
     //qDebug() << Q_FUNC_INFO << " - END";
      return true;
  }
-/*
- void LogModel::showColumn(const QString &_columnName)
- {
-     QString stringQuery;
-     stringQuery = QString("SELECT * FROM log LIMIT 1");
-     QSqlQuery query;
-     bool sqlOK = query.exec(stringQuery);
-     if (!sqlOK)
-     {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-     }
-     QSqlRecord rec;
-     rec = query.record(); // Number of columns
 
-     int nameCol = rec.indexOf(_columnName);
-     setHeaderData(nameCol, Qt::Horizontal, _columnName);
-
- }
-*/
