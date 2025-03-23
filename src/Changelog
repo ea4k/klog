@@ -55,7 +55,10 @@ TBD - 2.4
 - Enhancement: ADIF Added SUBMM band.
 - Enhancement: Completed the names of the fields in the log view widget.
 - Enhancement: Added several ADIF fields (Closes #396, #507, #508, #719)
-- Bigfix: ADIF import: Do not add 0 as default iota_id & my_iota_id (Closes #768)
+- Bugfix: Click on disconnect whe you have just connected shows a message with no words (Closes #770)
+- Bugfix: Cancel does not restart the status (Closes #769)
+- Bugfix: Clicking Cancel in the DXCluster call when connecting does not stop the connecting secuence. (Closes #684)
+- Bugfix: ADIF import: Do not add 0 as default iota_id & my_iota_id (Closes #768)
 - Bugfix: ADIF import: Do not add a 0 as default k_index (Closes #767)
 - Bugfix: ALTITUDE gets a wrong data on ADIF import if no ALTITUDE is present in the ADIF file (Closes #765)
 - Bugfix: Default mode for 60m band is USB. (Closes #596)

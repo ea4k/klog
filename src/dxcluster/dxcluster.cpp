@@ -74,12 +74,21 @@ DXClusterWidget::DXClusterWidget(Awards *awards, QWidget *parent)
     dxClusterListWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(sendButton , SIGNAL(clicked()), this, SLOT(slotClusterSendToServer()) );
     connect(inputCommand, SIGNAL(textChanged(QString)), this, SLOT(slotClusterInputTextChanged()) );
+    connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
 
     //connect(searchResultsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(slotDoubleClickSearch(QTreeWidgetItem *, int)));
     connect(dxClusterListWidget, SIGNAL(itemDoubleClicked ( QListWidgetItem *)), this, SLOT(slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * )) );
     connect(dxClusterListWidget, SIGNAL(itemEntered ( QListWidgetItem *)), this, SLOT(slotClusterDXClusterWidgetItemEntered( QListWidgetItem * )) );
     connect(dxClusterListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotClusterDXClusterWidgetItemSelected() ) );
     connect(dxClusterListWidget, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRightButton( const QPoint& ) ) );
+
+    connect(tcpSocket, SIGNAL(connected()), SLOT(slotClusterSocketConnected()) );
+    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(slotClusterDataArrived() ));
+    connect(tcpSocket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this, SLOT(slotClusterDisplayError(QAbstractSocket::SocketError)));
+    connect(tcpSocket, SIGNAL(disconnected()), SLOT(slotClusterSocketConnectionClosed()) );
+
+
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
      //TESTADDSPOT();
        //qDebug() << "DXClusterWidget::DXClusterWidget2 - END" ;
 }
@@ -195,13 +204,6 @@ void DXClusterWidget::connectToDXCluster()
         return; // If we are connected we don't want to start another connection
     }
 
-    connect(tcpSocket, SIGNAL(connected()), SLOT(slotClusterSocketConnected()) );
-    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(slotClusterDataArrived() ));
-
-    connect(tcpSocket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this, SLOT(slotClusterDisplayError(QAbstractSocket::SocketError)));
-    connect(tcpSocket, SIGNAL(disconnected()), SLOT(slotClusterSocketConnectionClosed()) );
-    connect(inputCommand, SIGNAL(returnPressed()), this, SLOT(slotClusterSendToServer()) );
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
     //openFile(); // This functions opens the file to save the DX-Cluster activity. The file will be closed when the DX is disconnected.
     tcpSocket->connectToHost( server, port );
     dxClusterListWidget->setSortingEnabled (false);
@@ -212,10 +214,12 @@ void DXClusterWidget::connectToDXCluster()
 
 void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socketError)
 {
-   //qDebug() << Q_FUNC_INFO;
+   qDebug() << Q_FUNC_INFO << ": " << socketError;
     QString errorMessage;
+
      switch (socketError) {
      case QAbstractSocket::RemoteHostClosedError:
+         errorMessage = tr("The DXCluster server desconnected the session.");
          break;
      case QAbstractSocket::HostNotFoundError:
          errorMessage = tr("The host was not found. Please check:") + "\n\n" +
@@ -229,8 +233,7 @@ void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socke
                                      "settings are correct.");
          break;
      default:
-         errorMessage =  tr("The following error occurred: %1.")
-                                  .arg(tcpSocket->errorString());
+         errorMessage =  tr("The following error occurred: %1.").arg(socketError);
      }
 
    //qDebug() << Q_FUNC_INFO << errorMessage;
@@ -447,6 +450,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 
         if (!ok) {
             tcpSocket->disconnectFromHost();
+            dxClusterConnected = false;
             return;
         }
 
@@ -457,6 +461,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 
         if (!ok) {
             tcpSocket->abort();
+            dxClusterConnected = false;
             return;
         }
 
@@ -477,7 +482,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 
 void DXClusterWidget::slotClusterSocketConnectionClosed()
 {
-   //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     addItemToClusterList(tr("Connection closed by the server"), awards->getDefaultColor());
 
     dxClusterConnected = false;
@@ -491,28 +496,37 @@ void DXClusterWidget::slotClusterSocketConnectionClosed()
 
 void DXClusterWidget::slotClusterSendToServer()
 {
-   //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << " - 000";
     if (!dxClusterConnected) {
+        qDebug() << Q_FUNC_INFO << " - 001";
+        qDebug() << Q_FUNC_INFO << " - Cluster already connected, END";
         connectToDXCluster();
+        qDebug() << Q_FUNC_INFO << " - 002 - END";
+
         return; // If we try to connect...
     }
-
+    qDebug() << Q_FUNC_INFO << " - 010";
     QString inputText = inputCommand->text();
     if (inputText.isEmpty()) {
+        qDebug() << Q_FUNC_INFO << " - 020";
         if (sendButton->text() == tr("Disconnect")) {
             // Disconnecting
-            QTextStream os(tcpSocket);
-            os << "bye\n";
-            return;
+            {
+                qDebug() << Q_FUNC_INFO << " - 030";
+                QTextStream os(tcpSocket);
+                os << "bye\n";
+                qDebug() << Q_FUNC_INFO << " - 033 - END";
+                return;
+            }
         }
         // If input is empty and send button is not "Disconnect", do nothing
         return;
     }
-
+    qDebug() << Q_FUNC_INFO << " - 050";
     // Write to the server
-    QTextStream os(tcpSocket);
-    os << inputText << "\n";
+    QTextStream(tcpSocket) << inputText << "\n";
     inputCommand->clear();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void DXClusterWidget::slotClusterClearLineInput()
@@ -523,7 +537,7 @@ void DXClusterWidget::slotClusterClearLineInput()
 
 void DXClusterWidget::slotClusterInputTextChanged()
 {
-   //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     QString inputText = inputCommand->text();
     if (inputText.isEmpty()) {
         sendButton->setText(tr("Disconnect"));
@@ -621,10 +635,9 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     if (fields.size() < 5)
         return spot;
 
-    bool doubleClick = false;
-    if (fields.at(0) == "DOUBLE")
-    {
-        doubleClick = true;
+    // Check for double click
+    bool doubleClick = (fields.at(0) == "DOUBLE");
+    if (doubleClick) {
         fields.removeFirst();
     }
 
@@ -640,19 +653,18 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
             freq.fromQString(fields.at(3), MHz);
         else
             freq.fromQString(fields.at(3), KHz);
+
         if (freq.isValid())
         {
            //qDebug() << Q_FUNC_INFO << ": Freq is Valid";
             spot.setFrequency(freq);
             spot.setDXCall(fields.at(4));
 
-            QDateTime datetime;
-            QTime time;
             QString aux = fields.last();
-            aux.chop(1);
-            time.fromString(aux,"HHmm");
+            aux.chop(1);            
+            QTime time = QTime::fromString(aux,"HHmm");
+            QDateTime datetime = QDateTime::currentDateTime();
             datetime.setTime(time);
-            datetime.setDate(QDate::currentDate());
             spot.setDateTime(datetime);
 
             aux.clear();
@@ -664,7 +676,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
             spot.setComment(aux.trimmed());
         }
         else
-        return spot;
+            return spot;
     }
     // Check if the QSO is comming from sh/dx
     freq.fromQString(fields.at(0), KHz);
@@ -749,10 +761,7 @@ bool DXClusterWidget::openFile()
         msgBox.exec();
         return false;
     }
-    else
-    {
-        return true;
-    }
+    return true;
 }
 
 void DXClusterWidget::slotRightButton(const QPoint& pos)
@@ -805,26 +814,21 @@ void DXClusterWidget::saveSpot(const QString &_spot)
           //qDebug() << "DXClusterWidget::saveSpot: Not saving";
         return;
     }
-    else
-    {
-        if (openFile())
-        {
-              //qDebug() << "DXClusterWidget::saveSpot: File Open";
-            QTextStream out(saveSpotsFile);
 
-            out << util->getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTime()) << " - " << _spot.simplified().toUtf8();
-            out << Qt::endl;
-            saveSpotsFile->close();
-        }
-    }
+    if (!openFile())
+        return;
+
+    //qDebug() << "DXClusterWidget::saveSpot: File Open";
+    QTextStream out(saveSpotsFile);
+    out << util->getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTime()) << " - " << _spot.simplified().toUtf8();
+    out << Qt::endl;
+    saveSpotsFile->close();
 }
 
 void DXClusterWidget::loadSettings()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-
-
 
     QString aux = settings.value("DXClusterServerToUse").toString ();
 
