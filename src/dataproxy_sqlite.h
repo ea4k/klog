@@ -312,7 +312,7 @@ public:
     QList<PrimarySubdivision> getPrimarySubDivisions(const int _entity, const QString &_pref);      // Get the Primary subdivisions for an entity
 
     //void getFoundInLog(const QString &_txt, const int _log=-1);
-    KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
+    //KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
     QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // To refactor the getADIFFromQSOQuery function
     QString getADIFFromQSOQuery(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
     //QString getADIFFromQSOQuery2(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);

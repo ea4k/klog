@@ -7259,7 +7259,7 @@ void DataProxy_SQLite::logEvent(const QString &_func, const QString &_msg,  Debu
     if (logLevel<=_level)
         emit debugLog (_func, _msg, _level);
 }
-
+/*
 QString DataProxy_SQLite::getADIFQSO(const int _qsoId, ExportMode _em)
 {
     // Called from eLogQrzLog::sendQSO just for the QRZ.com QSO send
@@ -7279,6 +7279,7 @@ QString DataProxy_SQLite::getADIFQSO(const int _qsoId, ExportMode _em)
 
     return getADIFFromQSOQuery(rec, _em, false, false, -1);
 }
+*/
 
 QString DataProxy_SQLite::getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName)
 {// To refactor the getADIFFromQSOQuery function
