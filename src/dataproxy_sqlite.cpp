@@ -4232,32 +4232,38 @@ bool DataProxy_SQLite::clearSatList()
 
 bool DataProxy_SQLite::addSatellite(const QString &_arrlId, const QString &_name, const QString &_downLink, const QString &_upLink, const QString &_mode, int id)
 {
-      //qDebug()  <<Q_FUNC_INFO << " - " << QString::number(id) ;
     QSqlQuery query;
     QString queryString;
 
-    if (id>0)
+    if (id > 0)
     {
-        queryString = QString("UPDATE satellites set satarrlid = '%1', satname = '%2', uplink = '%3', downlink = '%4', satmode = '%5' WHERE id = '%6'").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode).arg(id);
+        queryString = QString(
+            "UPDATE satellites SET satarrlid = :arrlId, satname = :name, uplink = :upLink, downlink = :downLink, satmode = :mode WHERE id = :id"
+        );
+        query.prepare(queryString);
+        query.bindValue(":id", id);
     }
     else
     {
-        queryString = QString("INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES ('%1', '%2', '%3', '%4', '%5')").arg(_arrlId).arg(_name).arg(_upLink).arg(_downLink).arg(_mode);
+        queryString = QString(
+            "INSERT INTO satellites (satarrlid, satname, uplink, downlink, satmode) VALUES (:arrlId, :name, :upLink, :downLink, :mode)"
+        );
+        query.prepare(queryString);
     }
 
-    bool sqlOK = query.exec(queryString);
-      //qDebug()  << Q_FUNC_INFO << " - - query: " <<  query.lastQuery();
+    query.bindValue(":arrlId", _arrlId);
+    query.bindValue(":name", _name);
+    query.bindValue(":upLink", _upLink);
+    query.bindValue(":downLink", _downLink);
+    query.bindValue(":mode", _mode);
 
-    if (sqlOK)
+    if (query.exec())
     {
-          //qDebug()  << Q_FUNC_INFO << " - - TRUE" ;
-          //qDebug()  << Q_FUNC_INFO << " - - TRUE - ERROR: " <<  QString::number(query.lastError().text());
         query.finish();
         return true;
     }
     else
     {
-          //qDebug()  << Q_FUNC_INFO << " - - FALSE" ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return false;
@@ -4266,34 +4272,30 @@ bool DataProxy_SQLite::addSatellite(const QString &_arrlId, const QString &_name
 
 int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
 {
-    //qDebug()  << Q_FUNC_INFO << " - " << _arrlId;
     int aux = -1;
-    QString queryString = QString("SELECT id FROM satellites WHERE satarrlid='%1'").arg(_arrlId);
- QSqlQuery query;
+    QSqlQuery query;
+    QString queryString = "SELECT id FROM satellites WHERE satarrlid=:arrlId";
 
- bool sqlOK = query.exec(queryString);
+    query.prepare(queryString);
+    query.bindValue(":arrlId", _arrlId);
 
- if (sqlOK)
- {
-     query.next();
-     if (query.isValid())
-     {
-         aux = query.value(0).toInt();
-     }
-     else
-     {
-            //qDebug()  << Q_FUNC_INFO << " -  query not valid" ;
-         query.finish();
-     }
- }
- else
- {
-          //qDebug()  << Q_FUNC_INFO << ":  query failed: " << query.lastQuery() ;
-     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-     query.finish();
- }
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            aux = query.value(0).toInt();
+        }
+        else
+        {
+            query.finish();
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+    }
 
-    //qDebug()  << ":: final: " << aux ;
     query.finish();
     return aux;
 }

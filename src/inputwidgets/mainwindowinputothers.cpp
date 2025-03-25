@@ -56,6 +56,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     // TODO: I should find the way to connect the SAT tabwidget's signal to set the propmode in this widget
     //       Now it is done though the mainwindow but I should avoid depending on that class for that, if possible
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
+    connect(entityNameComboBox,             SIGNAL(currentIndexChanged(int)),   this, SLOT(slotEntityNameComboBoxChanged() ) ) ;
     connect(propModeComboBox,               SIGNAL(currentIndexChanged(int)),   this, SLOT(slotPropModeComboBoxChanged() ) ) ;
     connect(userDefinedADIFComboBox,        SIGNAL(currentIndexChanged(int)),   this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
     connect(userDefinedADIFValueLineEdit,   SIGNAL(textChanged(QString)),       this, SLOT(slotSetCurrentUserData() ) );
@@ -792,7 +793,7 @@ void MainWindowInputOthers::setEntity(const int _entity)
 
 void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString &_qrz)
 {
-  //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
     if (_entity<=0)
     {
       //qDebug() << Q_FUNC_INFO << " -  10";
@@ -831,7 +832,7 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     if ((hostFullPrefix.isEmpty()) && (hostPrefix.isEmpty()))
         return;
 
-  //qDebug() << Q_FUNC_INFO << " -  40";
+    //qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> primarySubdivisions;
     primarySubdivisions.clear();
 
@@ -864,7 +865,11 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     //qDebug() << Q_FUNC_INFO << " - 60";
     //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(primarySubdivisions.count());
     if (primarySubdivisions.isEmpty())
+    {
+        entityPrimDivComboBox->clear();
         return;
+    }
+
     //qDebug() << Q_FUNC_INFO << " - 70 ";
     updatePrimarySubdivisionsComboBox(primarySubdivisions);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -1082,6 +1087,16 @@ void MainWindowInputOthers::slotShowAllCheckBoxChanged()
     setEntityAndPrefix(currentInt, currentPref);
 }
 
+void MainWindowInputOthers::slotEntityNameComboBoxChanged()
+{
+    //qDebug() << Q_FUNC_INFO << entityNameComboBox->currentText();
+    QString prefix = ((entityNameComboBox->currentText()).split("-")).at(0);
+    //qDebug() << Q_FUNC_INFO << " - " << prefix;
+    int entity = world->getQRZARRLId(prefix);
+    setEntityAndPrefix(entity, prefix);
+    //entityPrimDivComboBox->clear();
+    entityPrimDivComboBox->addItem("00-" + tr("None Identified") + " (000)");
+}
 
 
 bool MainWindowInputOthers::getDarkMode()

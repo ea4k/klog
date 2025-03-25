@@ -1,3 +1,5 @@
+WIP: Order of Logview columns
+BUG: Setup logview fields are added to the setup creating an infinite list
 WIP: QSOs are not shown for LOTW upload
 TODO: Colors when darkMode
     AI: add sub-issues in github one per class that is not working properly
@@ -21,6 +23,7 @@ TODO: Reuse the bool World::insertPrefixes to read QSOs from a file so we can in
 TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions
 TODO-Bug: Review void tst_MainWindowInputQSO::test_GridLineEdit()
 
+
 WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 WIP: - Bugfix: DB in alternative locations was not always found. (WIP #706)
 
@@ -43,6 +46,8 @@ Close:  #396, #507, #508
 
 
 TBD - 2.4
+- Enhancement: Button without text label in message box. (Closes #641)
+- Enhancement: Refactor DataProxy_SQLite::addSatellite (Closes #690)
 - Enhancement: New DXCluster UI
 - Enhancement: Ported from Qt5 to Qt6.
 - Enhancement: Refactoring of several classes.

@@ -1172,24 +1172,41 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
 {
     if (dxcc_Call!=dxcc_qso)
     {
-        QString dxcc1_name = world->getEntityName(dxcc_Call);
-        dxcc1_name = dxcc1_name + " - " + world->getEntityMainPrefix(dxcc_Call);
+        QString dxcc1_name    = world->getEntityName(dxcc_Call);
+        QString dxcc1_prefix  = world->getEntityMainPrefix(dxcc_Call);
 
-        QString dxcc_qso_name = world->getEntityName(dxcc_qso);
-        dxcc_qso_name = dxcc_qso_name + " - " + world->getEntityMainPrefix(dxcc_qso);
+        QString dxcc2_name    = world->getEntityName(dxcc_qso);
+        QString dxcc2_prefix  = world->getEntityMainPrefix(dxcc_qso);
+
+        QString message           = QString(tr("The entity that is selected is different from the one proposed by KLog:") + "\n\n");
+
+        QString message_dxcc_qso  = dxcc1_prefix + " - " + dxcc1_name + "\n\n";
+        if (dxcc1_prefix.length()<1)
+        {
+          dxcc1_prefix      = tr ("Unknown", "Keep it short, its a button text");
+          message_dxcc_qso  = QString(tr("- There is no selected DXCC.") + "\n\n");
+        }
+
+        QString message_dxcc_klog = dxcc2_prefix + " - " + dxcc2_name;
+        if (dxcc2_prefix.length()<1)
+        {
+          dxcc2_prefix      = tr ("Unknown", "Keep it short, its a button text");
+          message_dxcc_klog = QString (tr("- KLog couldn't find a DXCC")  + "\n\n");
+        }
+
+        message = message + message_dxcc_qso + message_dxcc_klog + "\n\n" + tr("Please select the one you want to keep for this QSO.");
 
         QPushButton *button2 = new QPushButton(this);
         QPushButton *button1 = new QPushButton(this);
 
-        button1->setText(world->getEntityMainPrefix(dxcc_Call));
-        button2->setText(world->getEntityMainPrefix(dxcc_qso));
+        button1->setText(dxcc1_prefix);
+        button2->setText(dxcc2_prefix);
 
         int ret;
 
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Select correct entity"));
-        msgBox.setText( tr("You have selected an entity:") + "\n\n"+"- "+dxcc_qso_name+"\n\n"+tr("that is different from the KLog proposed entity:") + "\n\n"+ "- "+dxcc1_name+"\n\n"
-                       +tr("Click on the prefix of the correct entity or Cancel to edit the QSO again."));
+        msgBox.setText(message);
 
         msgBox.addButton(button2, QMessageBox::AcceptRole);
         msgBox.addButton(button1, QMessageBox::ActionRole);

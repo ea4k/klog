@@ -89,10 +89,26 @@ void LogWindow::createUI()
     logView->horizontalHeader ()->setSectionsMovable (true);
     //logView->setDragDropMode (QAbstractItemView::InternalMove);
     //logView->setDropIndicatorShown (true);
+    //retoreColumsOrder();
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(logView);
     setLayout(layout);
+}
+
+void LogWindow::retoreColumsOrder()
+{
+    // Restore the column order from the settings
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    settings.beginGroup("LogWindow");
+    QList<int> columnOrder = settings.value("columnOrder").value<QList<int>>();
+    settings.endGroup();
+
+    if (!columnOrder.isEmpty()) {
+        for (int i = 0; i < columnOrder.size(); ++i) {
+            logView->horizontalHeader()->moveSection(logView->horizontalHeader()->visualIndex(columnOrder[i]), i);
+        }
+    }
 }
 
 void LogWindow::setDefaultData()
@@ -226,6 +242,8 @@ void LogWindow::createActionsCommon()
     //LOG VIEW
     connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
     connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
+    connect(logView->horizontalHeader(), &QHeaderView::sectionMoved, this, &LogWindow::slotOnSectionMoved);
+
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -749,5 +767,24 @@ void LogWindow::slotCheckDXHeatCom()
     QString url = "https://www.dxheat.com/db/" + _qrz;
     QDesktopServices::openUrl(QUrl(url));
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void LogWindow::slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex)
+{
+    Q_UNUSED(logicalIndex);
+    Q_UNUSED(oldVisualIndex);
+    Q_UNUSED(newVisualIndex);
+
+    // Get the current column order
+    QList<int> columnOrder;
+    for (int i = 0; i < logView->model()->columnCount(); ++i) {
+        columnOrder << logView->horizontalHeader()->visualIndex(i);
+    }
+
+
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    settings.beginGroup("LogWindow");
+    settings.setValue("ColumnOrder", QVariant::fromValue(columnOrder));
+    settings.endGroup();
 }
 

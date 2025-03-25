@@ -108,6 +108,7 @@ private slots:
     void slotSetCurrentUserData();
     void slotPrimarySubdivisionsComboBoxChanged();
     void slotShowAllCheckBoxChanged();
+    void slotEntityNameComboBoxChanged();
 
 
 private:

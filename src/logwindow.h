@@ -107,12 +107,13 @@ private slots:
     void slotMultipleQSLRecViaBureauFromLog();
     void slotMultipleQSLRecViaDirectFromLog();
     void slotQSOsQRZUploadFromLog();
+    void slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
 
 private:    
     void createUI();
     void createActionsCommon();
     void createActions();
-
+    void retoreColumsOrder();
     void deleteQSO(const int _qsoID);
     void rightButtonFromLogMenu(const int trow);
     void rightButtonMultipleFromLogMenu();
