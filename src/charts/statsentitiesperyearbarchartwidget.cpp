@@ -45,7 +45,7 @@ StatsEntitiesPerYearBarChartWidget::StatsEntitiesPerYearBarChartWidget(DataProxy
 
 StatsEntitiesPerYearBarChartWidget::~StatsEntitiesPerYearBarChartWidget()
 {
-    delete(dataProxy);
+    //delete(dataProxy);
 }
 
 void StatsEntitiesPerYearBarChartWidget::createUI()

@@ -40,7 +40,7 @@ StatsSentConfirmedPieChartWidget::StatsSentConfirmedPieChartWidget(DataProxy_SQL
 
 StatsSentConfirmedPieChartWidget::~StatsSentConfirmedPieChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsSentConfirmedPieChartWidget::createUI()

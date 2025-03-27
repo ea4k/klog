@@ -56,7 +56,7 @@ MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) 
 MainWindowInputEQSL::~MainWindowInputEQSL()
 {
     delete(util);
-    delete(dataProxy);
+    //delete(dataProxy);
 }
 
 QSO MainWindowInputEQSL::getQSOData(QSO _qso)

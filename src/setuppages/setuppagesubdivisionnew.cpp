@@ -76,7 +76,7 @@ SetupPageSubdivisionNew::SetupPageSubdivisionNew(DataProxy_SQLite *dp, QWidget *
 
 SetupPageSubdivisionNew::~SetupPageSubdivisionNew()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void SetupPageSubdivisionNew::clear()

@@ -140,7 +140,7 @@ void tst_MainWindow::test_focusOrder()
 void tst_MainWindow::test_Constructor()
 {
     //qDebug() << Q_FUNC_INFO;
-    QVERIFY2(mainWindow->showKLogLogWidget, "showKLogLogWidget not created");
+    //QVERIFY2(mainWindow->showKLogLogWidget, "showKLogLogWidget not created");
     QVERIFY2(mainWindow->showErrorDialog, "showErrorDialog not created");
     QVERIFY2(mainWindow->UDPLogServer, "UDPLogServer not created");
     QVERIFY2(mainWindow->util, "util not created");
@@ -150,17 +150,17 @@ void tst_MainWindow::test_Constructor()
     QVERIFY2(mainWindow->lotwUtilities, "lotwUtilities not created");
     QVERIFY2(mainWindow->eqslUtilities, "eqslUtilities not created");
     QVERIFY2(mainWindow->elogQRZcom, "elogQRZcom not created");
-    QVERIFY2(mainWindow->elogClublog, "elogClublog not created");
+    //QVERIFY2(mainWindow->elogClublog, "elogClublog not created");
     QVERIFY2(mainWindow->downloadcty, "downloadcty not created");
     QVERIFY2(mainWindow->world, "world not created");
-    QVERIFY2(mainWindow->locator, "locator not created");
+    //QVERIFY2(mainWindow->locator, "locator not created");
     QVERIFY2(mainWindow->qso, "qso not created");
     //QVERIFY2(mainWindow->debugFile, "debugFile not created");
     QVERIFY2(mainWindow->dateTime, "dateTime not created");
     //QVERIFY2(mainWindow->awards, "awards not created");
     QVERIFY2(mainWindow->softUpdate, "softUpdate not created");
     QVERIFY2(mainWindow->filemanager, "filemanager not created");
-    QVERIFY2(mainWindow->fileAwardManager, "fileAwardManager not created");
+    //QVERIFY2(mainWindow->fileAwardManager, "fileAwardManager not created");
     QVERIFY2(mainWindow->qso, "qso not created");
     //QTimer::singleShot(500, this, SLOT(slotTimeOut()));
     //qDebug() << Q_FUNC_INFO << " - Init";

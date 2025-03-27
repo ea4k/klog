@@ -41,7 +41,7 @@ StatsQSOsPerMonthBarChartWidget::StatsQSOsPerMonthBarChartWidget(DataProxy_SQLit
 
 StatsQSOsPerMonthBarChartWidget::~StatsQSOsPerMonthBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerMonthBarChartWidget::createUI()

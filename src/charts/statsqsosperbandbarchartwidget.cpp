@@ -39,7 +39,7 @@ StatsQSOsPerBandBarChartWidget::StatsQSOsPerBandBarChartWidget(DataProxy_SQLite 
 
 StatsQSOsPerBandBarChartWidget::~StatsQSOsPerBandBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerBandBarChartWidget::createUI()

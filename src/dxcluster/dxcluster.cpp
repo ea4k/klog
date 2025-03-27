@@ -96,8 +96,8 @@ DXClusterWidget::DXClusterWidget(Awards *awards, QWidget *parent)
 DXClusterWidget::~DXClusterWidget()
 {
    //qDebug() << Q_FUNC_INFO;
-    delete(dataProxy);
-    //delete(awards);
+    //delete(dataProxy);
+    delete(tcpSocket);
     delete(world);
     delete(util);
     delete(saveSpotsFile);

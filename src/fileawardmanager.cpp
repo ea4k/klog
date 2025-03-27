@@ -35,7 +35,7 @@ FileAwardManager::FileAwardManager(DataProxy_SQLite *dp, const QString &_parentF
 }
 FileAwardManager::~FileAwardManager()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
     delete(util);
     delete(world);
 }

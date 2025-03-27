@@ -48,8 +48,8 @@ SearchModel::SearchModel(Awards *awards, QObject *parent):
 
 SearchModel::~SearchModel()
 {
-    delete(dataProxy);
-    delete(award);
+    //delete(dataProxy);
+    //delete(award);
 }
 
 void SearchModel::setDXCCColumn(const int _i)

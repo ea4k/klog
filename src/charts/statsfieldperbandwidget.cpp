@@ -41,7 +41,7 @@ StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFiel
 StatsFieldPerBandWidget::~StatsFieldPerBandWidget()
 {
     delete(util);
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsFieldPerBandWidget::createUI()

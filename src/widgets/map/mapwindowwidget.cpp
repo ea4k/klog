@@ -45,7 +45,7 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
 MapWindowWidget::~MapWindowWidget()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    delete(dataProxy);
+   //delete(dataProxy);
     delete(mapWidget);
     //qDebug() << Q_FUNC_INFO << " - END";
 }

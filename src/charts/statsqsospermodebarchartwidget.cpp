@@ -46,7 +46,7 @@ StatsQSOsPerModeBarChartWidget::StatsQSOsPerModeBarChartWidget(DataProxy_SQLite 
 
 StatsQSOsPerModeBarChartWidget::~StatsQSOsPerModeBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerModeBarChartWidget::createUI()

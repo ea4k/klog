@@ -43,7 +43,7 @@ StatsWorkedConfirmedPieChartWidget::StatsWorkedConfirmedPieChartWidget(DataProxy
 
 StatsWorkedConfirmedPieChartWidget::~StatsWorkedConfirmedPieChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsWorkedConfirmedPieChartWidget::createUI()

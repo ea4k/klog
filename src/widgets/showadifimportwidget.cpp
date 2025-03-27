@@ -46,7 +46,7 @@ ShowAdifImportWidget::ShowAdifImportWidget(DataProxy_SQLite *dp, const QString &
 
 ShowAdifImportWidget::~ShowAdifImportWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void ShowAdifImportWidget::createUI()

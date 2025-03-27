@@ -44,7 +44,7 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite 
 
 StatsQSOsPerDXCCBarChartWidget::~StatsQSOsPerDXCCBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerDXCCBarChartWidget::createUI()

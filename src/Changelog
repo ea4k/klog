@@ -1,6 +1,7 @@
 WIP: Order of Logview columns
 BUG: Setup logview fields are added to the setup creating an infinite list
 WIP: QSOs are not shown for LOTW upload
+TODO: Remove the call addition in mainwindow from software update, it is not used.
 TODO: Colors when darkMode
     AI: add sub-issues in github one per class that is not working properly
 
@@ -60,6 +61,7 @@ TBD - 2.4
 - Enhancement: ADIF Added SUBMM band.
 - Enhancement: Completed the names of the fields in the log view widget.
 - Enhancement: Added several ADIF fields (Closes #396, #507, #508, #719)
+- Bugfix: KLog 2.3.4 on OS/X always report an error when exiting the application (Closes #743)
 - Bugfix: Click on disconnect whe you have just connected shows a message with no words (Closes #770)
 - Bugfix: Cancel does not restart the status (Closes #769)
 - Bugfix: Clicking Cancel in the DXCluster call when connecting does not stop the connecting secuence. (Closes #684)

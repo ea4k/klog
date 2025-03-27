@@ -48,7 +48,7 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
 StatsGridsOnSatsWidget::~StatsGridsOnSatsWidget()
 {
     delete(util);
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsGridsOnSatsWidget::createUI()

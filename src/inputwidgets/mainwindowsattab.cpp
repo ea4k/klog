@@ -65,7 +65,7 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
 
 MainWindowSatTab::~MainWindowSatTab(){
     delete(util);
-    delete(dataProxy);
+    //delete(dataProxy);
 }
 
 QSO MainWindowSatTab::getQSOData(QSO _qso)

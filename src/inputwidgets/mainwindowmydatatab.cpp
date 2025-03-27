@@ -67,7 +67,7 @@ MainWindowMyDataTab::~MainWindowMyDataTab()
     logEvent (Q_FUNC_INFO, "Start", Debug);
     delete(locator);
     delete(util);
-    delete(dataProxy);
+    //delete(dataProxy);
 }
 
 QSO MainWindowMyDataTab::getQSOData(QSO _qso)

@@ -153,7 +153,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
 
      //qDebug() << Q_FUNC_INFO << ": locator to be created 59" << QTime::currentTime().toString("hh:mm:ss") ;
-    locator = new Locator();
+    //locator = new Locator();
 
     mainWidget = new QWidget(this);
      //qDebug() << Q_FUNC_INFO << ": 60 " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -183,7 +183,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     filemanager = new FileManager(dataProxy);
 
         //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
-    fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
+    //fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
 
     lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
         //qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -208,10 +208,10 @@ MainWindow::~MainWindow()
     delete(lotwUtilities);
     delete(eqslUtilities);
     delete(elogQRZcom);
-    delete(elogClublog);
+    //delete(elogClublog);
     delete(downloadcty);
     delete(world);
-    delete(locator);
+    //delete(locator);
     delete(qso);
     delete(backupQSO);
     //delete(modifyingQSO);
@@ -221,7 +221,7 @@ MainWindow::~MainWindow()
     //delete(awards);
     delete(softUpdate);
     delete(filemanager);
-    delete(fileAwardManager);
+    //delete(fileAwardManager);
     delete(util);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -823,7 +823,9 @@ void MainWindow::createStatusBar()
 
 void MainWindow::slotShowMap()
 {
-    Coordinate center = locator->getLocatorCoordinate(world->getQRZLocator(stationCallsign));
+    Locator locator;
+
+    Coordinate center = locator.getLocatorCoordinate(world->getQRZLocator(stationCallsign));
     mapWindow->setCenter(center);
 
     QSize size = this->size();
@@ -2027,8 +2029,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
+    Locator locator;
    //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
-    if ( locator->isValidLocator(QSOTabWidget->getDXLocator()))
+    if ( locator.isValidLocator(QSOTabWidget->getDXLocator()))
     {
         dxLocator = QSOTabWidget->getDXLocator();
     }
@@ -2303,12 +2306,14 @@ bool MainWindow::maybeSave()
     return true;
 }
 
+/*
 void MainWindow::slotAWAImport()
 {
         //qDebug() << Q_FUNC_INFO ;
     fileAwardManager->importNewAwardFile();
         //qDebug() << Q_FUNC_INFO << " - END" ;
 }
+*/
 
 void MainWindow::createMenusCommon()
 {
@@ -4479,8 +4484,8 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
 {//TO BE REMOVED ONCE InfoWidget is FINISHED - At least modified
      //qDebug() << "MainWindow::slotLocatorTextChanged: " << _loc;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    if ( locator->isValidLocator(_loc) )
+    Locator locator;
+    if ( locator.isValidLocator(_loc) )
     {
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), _loc);
     }
@@ -4491,7 +4496,8 @@ void MainWindow::slotMyLocatorTextChanged(const QString &_loc)
 {
       //qDebug() << "MainWindowMy::slotMyLocatorTextChanged: " <<_loc ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if ( locator->isValidLocator(_loc))
+    Locator locator;
+    if ( locator.isValidLocator(_loc))
     {
         dxccStatusWidget->setMyLocator(_loc);
         slotLocatorTextChanged(QSOTabWidget->getDXLocator());
@@ -5042,8 +5048,8 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     }
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString dxGrid = world->getQRZLocator (sp.getDxCall());
-
-    Coordinate coord = locator->getLocatorCoordinate (dxGrid);
+    Locator locator;
+    Coordinate coord = locator.getLocatorCoordinate (dxGrid);
       //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(sp.getDxCall()).arg(dxGrid).arg(coord.lat).arg(coord.lon);
       //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
     mapWindow->addMarker(coord, dxGrid);
@@ -6070,9 +6076,9 @@ bool MainWindow::loadSettings()
 
     // We Select the log after the mainQRZ is defined to prevent call conflicts
     selectTheLog(currentLog);
-
+    Locator locator;
     value = settings.value ("StationLocator").toString ();
-    if ( locator->isValidLocator(value) )
+    if ( locator.isValidLocator(value) )
     {
         myDataTabWidget->setMyLocator(value.toUpper());
         adifLoTWExportWidget->setDefaultMyGrid(value.toUpper());

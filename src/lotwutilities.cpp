@@ -69,9 +69,9 @@ LoTWUtilities::LoTWUtilities(const QString &_klogDir, const QString &_klogVersio
 
 LoTWUtilities::~LoTWUtilities()
 {
-    delete(dataProxy);
-    //delete(util);
     delete(file);
+    delete(pDialog);
+    delete(calendar);
     delete(manager);
       //qDebug() << Q_FUNC_INFO << " - END" ;
 }

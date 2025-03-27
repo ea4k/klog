@@ -39,7 +39,7 @@ StatsQSOsPerContinentBarChartWidget::StatsQSOsPerContinentBarChartWidget(DataPro
 
 StatsQSOsPerContinentBarChartWidget::~StatsQSOsPerContinentBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerContinentBarChartWidget::createUI()

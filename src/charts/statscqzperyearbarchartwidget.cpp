@@ -49,7 +49,7 @@ void StatsCQZPerYearBarChartWidget::createUI()
 
 StatsCQZPerYearBarChartWidget::~StatsCQZPerYearBarChartWidget()
 {
-    delete(dataProxy);
+    //delete(dataProxy);
 }
 
 void StatsCQZPerYearBarChartWidget::prepareChart(const int _log)

@@ -40,9 +40,9 @@
 #include "tipsdialog.h"
 #include "world.h"
 #include "filemanager.h"
-#include "fileawardmanager.h"
+//#include "fileawardmanager.h"
 #include "dataproxy_sqlite.h"
-#include "locator.h"
+//#include "locator.h"
 #include "dxcluster/dxcluster.h"
 #include "dxcluster/dxspot.h"
 #include "dxcluster/dxclusterassistant.h"
@@ -149,7 +149,7 @@ private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
     void slotOpenWiki();
-    void slotAWAImport();
+    //void slotAWAImport();
     void slotClearNoMorErrorShown();
     void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed);
     void slotQRZReturnPressed();
@@ -462,8 +462,8 @@ private:
     //QWidget *dxClusterTabWidget;//, *searchTabWidget;
     World *world;
     FileManager *filemanager;
-    FileAwardManager *fileAwardManager;
-    Locator *locator;
+    //FileAwardManager *fileAwardManager;
+    //Locator *locator;
     Awards awards;
     Utilities *util;
     //SetupPageMisc *miscPage;

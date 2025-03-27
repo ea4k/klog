@@ -43,7 +43,7 @@ StatsQSOsPerHourBarChartWidget::StatsQSOsPerHourBarChartWidget(DataProxy_SQLite 
 }
 StatsQSOsPerHourBarChartWidget::~StatsQSOsPerHourBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerHourBarChartWidget::createUI()

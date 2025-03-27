@@ -41,7 +41,7 @@ StatsQSOsPerYearBarChartWidget::StatsQSOsPerYearBarChartWidget(DataProxy_SQLite 
 
 StatsQSOsPerYearBarChartWidget::~StatsQSOsPerYearBarChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsQSOsPerYearBarChartWidget::createUI()

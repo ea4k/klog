@@ -40,7 +40,7 @@ StatsWorkedSentPieChartWidget::StatsWorkedSentPieChartWidget(DataProxy_SQLite *d
 
 StatsWorkedSentPieChartWidget::~StatsWorkedSentPieChartWidget()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void StatsWorkedSentPieChartWidget::createUI()

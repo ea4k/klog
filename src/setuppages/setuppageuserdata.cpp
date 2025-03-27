@@ -248,7 +248,7 @@ SetupPageUserDataPage::~SetupPageUserDataPage()
     //delete(world);
     delete(defaultPalette);
     delete(wrongPalette);
-    delete(dataProxy);
+   //delete(dataProxy);
 }
 
 void SetupPageUserDataPage::setPrefixes()
@@ -613,7 +613,7 @@ bool SetupPageUserDataPage::setAntenna3 (const QString &_aux)
 
 void SetupPageUserDataPage::slotOperatorsChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //QString _operators = operatorsLineEdit->text();
 
 

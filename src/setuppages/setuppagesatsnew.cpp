@@ -66,7 +66,7 @@ SetupPageSatsNew::SetupPageSatsNew(DataProxy_SQLite *dp, QWidget *parent)
 
 SetupPageSatsNew::~SetupPageSatsNew()
 {
-    delete(dataProxy);
+   //delete(dataProxy);
     delete(util);
 }
 
