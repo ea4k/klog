@@ -60,26 +60,20 @@ void SetupPageLogView::init()
     if (fieldsListWidget->count ()<1)
     {
        //qDebug() << Q_FUNC_INFO << " - No fields in the widget, populating with default ones";
-        QStringList aux;
-        aux.clear ();
-        aux << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "comment";
-        aux.removeDuplicates();
+        QStringList aux = {"qso_date", "call", "rst_sent", "rst_rcvd", "bandid", "modeid", "comment"};
         setActiveFields(aux);
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " -Fields in the widget: " << fieldsListWidget->count();
     }
 }
 
 void SetupPageLogView::addFields(QStringList _b)
 {
    //qDebug() << Q_FUNC_INFO << " - fields: " << _b.count();
+    fieldsListWidget->clear();
     fieldsListWidget->addItems(_b);
 
-    QListWidgetItem* item = 0;
-    for(int i = 0; i < fieldsListWidget->count(); ++i){
-        item = fieldsListWidget->item(i);
+    for(int i = 0; i < fieldsListWidget->count(); ++i)
+    {
+        QListWidgetItem* item = fieldsListWidget->item(i);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Unchecked);
     }
@@ -88,31 +82,18 @@ void SetupPageLogView::addFields(QStringList _b)
 QStringList SetupPageLogView::getActiveFields()
 {
     //qDebug() << Q_FUNC_INFO;
-    if ( (fieldsListWidget->count()) < 1)
+    QStringList activeFields;
+
+    for (int i = 0; i < fieldsListWidget->count(); ++i)
     {
-        return QStringList();
-    }
-    QStringList _list;
-    _list.clear ();
-     QListWidgetItem *it;
-    //QString b = QString();
-    for (int i = 0; i < fieldsListWidget->count(); i++)
-    {
-        it = fieldsListWidget->item(i);
-        if (it->checkState() == Qt::Checked)
+        QListWidgetItem* item = fieldsListWidget->item(i);
+        if (item->checkState() == Qt::Checked)
         {
-            _list.append (it->text ());
-            //b = b + it->text();
-            //b = b + ", ";
+            activeFields.append(item->text());
         }
     }
-    //if (b.size()>=2)
-    //{
-    //    b.chop(2);
-    //}
-    //qDebug() << Q_FUNC_INFO << " : " << b;
-    return _list;
-    //return b.split(", ", Qt::SkipEmptyParts);
+
+    return activeFields;
 }
 
 void SetupPageLogView::setActiveFields(QStringList q)
@@ -163,11 +144,8 @@ void SetupPageLogView::loadSettings()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
-    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
-    QStringList aux;
-    aux.clear();
-    aux << dataProxy->filterValidFields(settings.value("LogViewFields").toStringList ());
-    aux.removeDuplicates();
+    QSettings settings(util.getCfgFile(), QSettings::IniFormat);
+    QStringList aux = dataProxy->filterValidFields(settings.value("LogViewFields").toStringList());
     setActiveFields(aux);
    //qDebug() << Q_FUNC_INFO << " - END";
 }

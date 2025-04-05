@@ -1,5 +1,5 @@
 WIP: Order of Logview columns
-BUG: Setup logview fields are added to the setup creating an infinite list
+
 WIP: QSOs are not shown for LOTW upload
 TODO: Remove the call addition in mainwindow from software update, it is not used.
 TODO: Colors when darkMode
