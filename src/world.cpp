@@ -695,38 +695,47 @@ bool World::insertSpecialEntities()
     int entityID = dataProxy->getEntityIdFromMainPrefix("E7");
     int cqz = dataProxy->getCQZFromId(entityID);
     int ituz = dataProxy->getITUzFromEntity(entityID);
-    QString queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("T9").arg(entityID).arg(cqz).arg(ituz);
-    QSqlQuery query;
-    bool sqlOK = query.exec(queryString);
 
-    if (!sqlOK)
+    QSqlQuery query;
+    query.prepare("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?)");
+
+    // Insert "T9"
+    query.addBindValue("T9");
+    query.addBindValue(entityID);
+    query.addBindValue(cqz);
+    query.addBindValue(ituz);
+    if (!query.exec())
     {
         query.finish();
-         //qDebug() << Q_FUNC_INFO << " : T9 not added ";
         return false;
     }
+
     entityID = dataProxy->getEntityIdFromMainPrefix("4O");
     cqz = dataProxy->getCQzFromEntity(entityID);
     ituz = dataProxy->getITUzFromEntity(entityID);
-    queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("4N").arg(entityID).arg(cqz).arg(ituz);
 
-    sqlOK = query.exec(queryString);
-
-    if (!sqlOK)
+    // Insert "4N"
+    query.addBindValue("4N");
+    query.addBindValue(entityID);
+    query.addBindValue(cqz);
+    query.addBindValue(ituz);
+    if (!query.exec())
     {
         query.finish();
-         //qDebug() << Q_FUNC_INFO << " : 4N not added ";
         return false;
     }
-    queryString = QString("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES ('%1', '%2', '%3', '%4') ").arg("YZ").arg(entityID).arg(cqz).arg(ituz);
 
-    sqlOK = query.exec(queryString);
-    if (!sqlOK)
+    // Insert "YZ"
+    query.addBindValue("YZ");
+    query.addBindValue(entityID);
+    query.addBindValue(cqz);
+    query.addBindValue(ituz);
+    if (!query.exec())
     {
         query.finish();
-         //qDebug() << Q_FUNC_INFO << " : YZ not added ";
         return false;
     }
+
     return true;
      //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -781,4 +790,127 @@ bool World::executeQuery(QSqlQuery &query, const QString &queryString) const
 void World::emitQueryError(const QSqlQuery &query) const
 {
     emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+}
+
+
+int World::getHowManyEmptyDXCCorCont()
+{   // Refactored from DataProxy_SQLite::fillEmptyDXCCInTheLog()
+    QSqlQuery query;
+    QString queryString = QString("SELECT COUNT (id) FROM log WHERE dxcc IS NULL OR dxcc<'1' OR cont IS NULL");
+    bool sqlOK = query.exec(queryString);
+    int qsos = -1;
+    if (sqlOK)
+    {
+        query.next();
+        qsos = (query.value(0)).toInt();
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+    }
+    query.finish();
+    return qsos;
+}
+
+bool World::fillEmptyDXCCInTheLog()
+{
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    int qsos = getHowManyEmptyDXCCorCont();
+    if (qsos < 1)
+    {
+        return true;
+    }
+    int step = util->getProgresStepForDialog(qsos);
+
+    QProgressDialog progress(QObject::tr("Updating information..."), QObject::tr("Abort updating"), 0, qsos);
+    progress.setMaximum(qsos);
+    progress.setWindowModality(Qt::WindowModal);
+
+    QString queryString = QString("SELECT id, call FROM log WHERE dxcc IS NULL OR dxcc<1 OR cont IS NULL");
+    QSqlQuery query;
+    bool sqlOK = query.exec(queryString);
+
+    if (sqlOK)
+    {
+        int nameCol = -1;
+
+        QSqlRecord rec = query.record();
+        QString _call = QString();
+        int _id = -1;
+        int _dxcc = -1;
+        QString _aux = QString();
+        QString _continent = QString();
+        int j = 0;
+
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                nameCol = rec.indexOf("id");
+                _id = (query.value(nameCol)).toInt();
+                nameCol = rec.indexOf("call");
+                _call = (query.value(nameCol)).toString();
+                _dxcc = getQRZARRLId(_call);
+                //_dxcc = QString::number(getPrefixId(_call));
+                _continent = dataProxy->getContinentShortNameFromEntity(_dxcc);
+                    //qDebug() << Q_FUNC_INFO << ":   DXCC: " << _dxcc;
+                    //qDebug() << Q_FUNC_INFO << ":   Cont: " << _continent;
+                // UPDATE THE ID WITH THE DXCC
+                sqlOK = updateDXCCAndContinent(_id, _dxcc, _continent);
+                if (!sqlOK)
+                {
+                    query.finish();
+                    return false;
+                }
+                if (( (j % step )== 0) )
+                { // To update the speed I will only show the progress once each X QSOs
+                    _aux = QObject::tr("Updating DXCC and Continent information...") + "\n" + QObject::tr("QSO: ")  + QString::number(j) + "/" + QString::number(qsos);
+                    //_aux = "Updating ...";
+                    progress.setLabelText(_aux);
+                    progress.setValue(j);
+                }
+                if ( progress.wasCanceled() )
+                {
+                    //qDebug() << Q_FUNC_INFO << ":   progress canceled";
+                    query.finish();
+                    return true;
+                }
+                j++;
+            }
+        }
+        query.finish();
+        progress.setValue(qsos);
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setWindowTitle(tr("KLog DXCC"));
+        msgBox.setText(tr("All QSOs have been updated with a DXCC and the Continent.") );
+        msgBox.exec();
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    query.finish();
+    return true;
+}
+
+bool World::updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont)
+{   // Refactored from DataProxy_SQLite::fillEmptyDXCCInTheLog()
+    QString queryString = QString("UPDATE log SET dxcc = :dxcc', cont = :cont WHERE id = :id");
+    QSqlQuery query;
+    query.prepare(queryString);
+    query.bindValue(":dxcc", _dxcc);
+    query.bindValue(":cont", _cont);
+    query.bindValue(":id", _id);
+
+    if (query.exec(queryString))
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+        return false;
+    }
+    query.finish();
+    return true;
 }

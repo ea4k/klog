@@ -352,7 +352,7 @@ unix:!mac {
     DEFINES += APP_LINUX
     #CONFIG  += c++11
     CONFIG  += c++20
-
+    QMAKE_CXXFLAGS += -fmessage-length=0
     #QMAKE_CXXFLAGS += --coverage
     #QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage -O0
     #LIBS += -lgcov

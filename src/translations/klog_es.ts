@@ -3928,7 +3928,7 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
     <message>
         <location filename="../inputwidgets/mainwindowinputeqsl.cpp" line="78"/>
         <source>Date of the ClubLog upload.</source>
-        <translation>Dato del envío a ClubLog.</translation>
+        <translation>Fecha del envío a ClubLog.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputeqsl.cpp" line="79"/>
@@ -5007,7 +5007,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1947"/>
         <source>ClubLog SDate</source>
-        <translation>c</translation>
+        <translation>Fecha CLublog</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1948"/>

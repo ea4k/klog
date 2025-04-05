@@ -1332,6 +1332,8 @@ QString Awards::status2String(const QSOStatus &_status, bool shortString)
 
 void Awards::printEntityStatus(const QString &_callingFunction, const EntityStatus &ent)
 {   // This is a debug function
+    Q_UNUSED(_callingFunction);
+    Q_UNUSED(ent);
    //qDebug() << Q_FUNC_INFO << " ------------------------------------------------------------------------------------";
    //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - DXCC   : " << ent.dxcc;
    //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Band   : " << ent.bandId;

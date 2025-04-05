@@ -5442,25 +5442,8 @@ int DataProxy_SQLite::getLogNumberFromQSOId(const int _qsoId)
     }
 }
 
-int DataProxy_SQLite::getHowManyEmptyDXCCorCont()
-{   // Refactored from DataProxy_SQLite::fillEmptyDXCCInTheLog()
-    QSqlQuery query;
-    QString queryString = QString("SELECT COUNT (id) FROM log WHERE dxcc IS NULL OR dxcc<'1' OR cont IS NULL");
-    bool sqlOK = query.exec(queryString);
-    int qsos = -1;
-    if (sqlOK)
-    {
-        query.next();
-        qsos = (query.value(0)).toInt();
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-    }
-    query.finish();
-    return qsos;
-}
 
+/*
 bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -5544,24 +5527,8 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
     return true;
 }
 
-bool DataProxy_SQLite::updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont)
-{   // Refactored from DataProxy_SQLite::fillEmptyDXCCInTheLog()
-    QString queryString = QString("UPDATE log SET dxcc = :dxcc', cont = :cont WHERE id = :id");
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":dxcc", _dxcc);
-    query.bindValue(":cont", _cont);
-    query.bindValue(":id", _id);
+*/
 
-    if (query.exec(queryString))
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return false;
-    }
-    query.finish();
-    return true;
-}
 
 int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
 {
@@ -6657,6 +6624,7 @@ int DataProxy_SQLite::getEntityIdFromMainPrefix(const QString &_e)
     }
 }
 
+/*
 int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
 {
     //qDebug() << Q_FUNC_INFO << " - " << _p << "-";
@@ -6700,6 +6668,7 @@ int DataProxy_SQLite::getDXCCFromPrefix(const QString &_p)
         return -3;
     }
 }
+*/
 
 bool DataProxy_SQLite::isNewCQz(int _c)
 {
@@ -7216,6 +7185,7 @@ QString DataProxy_SQLite::getISOName(const int _n)
      return db->populateTablePrimarySubdivisions();
  }
 
+ /*
 int DataProxy_SQLite::getPrefixId(const QString &_qrz)
 {
     //qDebug() << Q_FUNC_INFO << ": -" << _qrz <<"-";
@@ -7244,7 +7214,7 @@ int DataProxy_SQLite::getPrefixId(const QString &_qrz)
     //qDebug() << Q_FUNC_INFO << ": " <<  _qrz << QString::number(entityID);
     return entityID;
 }
-
+*/
 
 void DataProxy_SQLite::setLogLevel (const DebugLogLevel _l)
 {

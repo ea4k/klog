@@ -776,15 +776,27 @@ void LogWindow::slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int new
     Q_UNUSED(newVisualIndex);
 
     // Get the current column order
-    QList<int> columnOrder;
-    for (int i = 0; i < logView->model()->columnCount(); ++i) {
-        columnOrder << logView->horizontalHeader()->visualIndex(i);
-    }
-
+    QStringList header = getOrderedVisibleHeaders();
 
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    settings.setValue("ColumnOrder", QVariant::fromValue(columnOrder));
+    settings.setValue("ColumnOrder", QVariant::fromValue(header));
     settings.endGroup();
 }
 
+QStringList LogWindow::getOrderedVisibleHeaders() const
+{
+    QStringList orderedHeaders;
+    QHeaderView* headerView = logView->horizontalHeader();
+    for (int i = 0; i < headerView->count(); ++i)
+    {
+        int logicalIndex = headerView->logicalIndex(i);
+        if (!logView->isColumnHidden(logicalIndex))
+        {
+            QString header = logModel->headerData(logicalIndex, Qt::Horizontal).toString();
+
+            orderedHeaders.append(util->getLogColumnDBName(header));
+        }
+    }
+    return orderedHeaders;
+}

@@ -28,14 +28,13 @@ email                : jaime@robles.es
 #include "../callsign.h"
 
 DXClusterWidget::DXClusterWidget(Awards *awards, QWidget *parent)
-          : awards(awards),
-            QWidget(parent)
-//DXClusterWidget::DXClusterWidget(DataProxy_SQLite *dp, const QString &clusterToConnect, const int portToConnect, QWidget *parent)
-//          : QWidget(parent)
+          : QWidget(parent),
+            awards(awards),
+            dataProxy(awards->dataProxy)
 {
       //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect);
 
-    dataProxy = awards->dataProxy;
+    //dataProxy = awards->dataProxy;
     saveSpotsFile = new QFile();
 
     util = new Utilities(Q_FUNC_INFO);

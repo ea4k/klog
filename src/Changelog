@@ -1,4 +1,5 @@
-WIP: Order of Logview columns
+WIP: List view fields order and sorting #678
+  Order of columns is already stored. Now I need to retrieve the order and configure KLog
 
 WIP: QSOs are not shown for LOTW upload
 TODO: Remove the call addition in mainwindow from software update, it is not used.

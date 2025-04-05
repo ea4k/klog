@@ -25,6 +25,8 @@
  *****************************************************************************/
 
 #include "setuppagelogview.h"
+#include "../utilities.h"
+
 
 SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
@@ -50,18 +52,29 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
     //qDebug() << "SetupPageLogView::SetupPageLogView - END"  ;
 }
 
-SetupPageLogView::~SetupPageLogView()
-{}
+SetupPageLogView::~SetupPageLogView(){}
 
 void SetupPageLogView::init()
 {
    //qDebug() << Q_FUNC_INFO ;
-    addFields(dataProxy->getFields());
+    Utilities util(Q_FUNC_INFO);
+    QStringList humanList;
+    QString aux;
+    foreach(aux, dataProxy->getFields())
+        humanList.append(util.getLogColumnName(aux));
+
+    addFields(humanList);
     if (fieldsListWidget->count ()<1)
     {
        //qDebug() << Q_FUNC_INFO << " - No fields in the widget, populating with default ones";
-        QStringList aux = {"qso_date", "call", "rst_sent", "rst_rcvd", "bandid", "modeid", "comment"};
-        setActiveFields(aux);
+       QStringList defaultList = {"qso_date", "call", "rst_sent", "rst_rcvd", "bandid", "modeid", "comment"};
+       humanList.clear();
+       aux.clear();
+
+       foreach(aux, defaultList)
+           humanList.append(util.getLogColumnName(aux));
+
+        setActiveFields(humanList);
     }
 }
 
@@ -69,7 +82,14 @@ void SetupPageLogView::addFields(QStringList _b)
 {
    //qDebug() << Q_FUNC_INFO << " - fields: " << _b.count();
     fieldsListWidget->clear();
-    fieldsListWidget->addItems(_b);
+    QStringList humanDBNames;
+    Utilities util(Q_FUNC_INFO);
+
+    QString aux;
+    foreach (aux, _b)
+        humanDBNames.append(util.getLogColumnName(aux));
+
+    fieldsListWidget->addItems(humanDBNames);
 
     for(int i = 0; i < fieldsListWidget->count(); ++i)
     {
@@ -87,6 +107,7 @@ QStringList SetupPageLogView::getActiveFields()
     for (int i = 0; i < fieldsListWidget->count(); ++i)
     {
         QListWidgetItem* item = fieldsListWidget->item(i);
+        //qDebug() << Q_FUNC_INFO << " - Field: " << item->text();
         if (item->checkState() == Qt::Checked)
         {
             activeFields.append(item->text());
@@ -119,7 +140,8 @@ void SetupPageLogView::setActiveFields(QStringList q)
 
         for (int j=0;j<q.length();j++)
         {
-           //qDebug() << Q_FUNC_INFO << " - Checking: " << q.at(j);
+            qDebug() << Q_FUNC_INFO << " - Checking(q): " << it->text();
+            qDebug() << Q_FUNC_INFO << " - Checking(i): " << q.at(j);
             if (it->text() == q.at(j))
             {
                //qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);
@@ -136,7 +158,13 @@ void SetupPageLogView::saveSettings()
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("LogView");
-    settings.setValue ("LogViewFields", getActiveFields ());
+    QStringList humanLogNames = getActiveFields();
+    QString aux;
+    QStringList dbLogNames;
+
+    foreach(aux, humanLogNames)
+        dbLogNames.append(util.getLogColumnDBName(aux));
+    settings.setValue ("LogViewFields", dbLogNames);
     //settings.endGroup ();
 }
 
@@ -145,7 +173,12 @@ void SetupPageLogView::loadSettings()
    //qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile(), QSettings::IniFormat);
-    QStringList aux = dataProxy->filterValidFields(settings.value("LogViewFields").toStringList());
-    setActiveFields(aux);
+
+    QStringList fields = dataProxy->filterValidFields(settings.value("LogViewFields").toStringList());
+    QStringList humanLogNames;
+    QString aux;
+    foreach(aux, fields)
+        humanLogNames.append(util.getLogColumnName(aux));
+    setActiveFields(humanLogNames);
    //qDebug() << Q_FUNC_INFO << " - END";
 }

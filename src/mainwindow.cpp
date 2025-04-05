@@ -4596,7 +4596,6 @@ void MainWindow::fillQSOData()
       //qDebug() << "MainWindow::fillQSOData" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
-    //QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE ((dxcc<1) OR (cqz<1) OR (ituz<1) OR (dxcc IS NULL) OR (cqz IS NULL) OR (ituz IS NULL)) AND lognumber='%1'").arg(currentLog);
     QString stringQuery = QString("SELECT call, bandid, modeid, qso_date, lognumber, id, cqz, ituz, dxcc, cont FROM log WHERE ((dxcc<1) OR (cqz<1) OR (ituz<1) OR (dxcc IS NULL) OR (cqz IS NULL) OR (ituz IS NULL))");
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
@@ -4741,7 +4740,7 @@ void MainWindow::fillQSOData()
 void MainWindow::slotFillEmptyDXCCInTheLog()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    dataProxy->fillEmptyDXCCInTheLog();
+    world->fillEmptyDXCCInTheLog();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

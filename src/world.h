@@ -106,7 +106,7 @@ public:
     //QStringList getEntitiesNames();
     int getHowManyEntities();
     bool hasSpecialEntities();
-
+    bool fillEmptyDXCCInTheLog();           // Adds the DXCC to the QSOs in the log that don't have it
 
 private slots:
 
@@ -115,7 +115,9 @@ private:
     //void identifyOS();
     bool insertSpecialEntities();
     bool readEntities();                        // Read all the entities and fill entities QMap
-    int getPrefixId(const QString &_prefix);
+
+    int getHowManyEmptyDXCCorCont();
+    bool updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont);
 
     //bool readCTYDAT();
     bool readCTYCSV(const QString &_worldFile);

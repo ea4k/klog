@@ -339,3 +339,4 @@ build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/src/build/rcc/qrc_klog.cpp
 build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/src/klog_resource.rc
 build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/src/Makefile.Debug
 build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/src/Makefile.Release
+*.ts~
