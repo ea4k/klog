@@ -211,6 +211,7 @@ private slots:
     void slotLoTWDownload();
     void slotLoTWFullDownload();
     void slotADIFExportSelection(const QString &_call, QList<int> _qsos, ExportMode _eM);
+    void slotADIFExportClose();
     void slotADIFExportAll();
     void slotADIFImport();
     void slotRQSLExport();

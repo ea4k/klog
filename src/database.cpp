@@ -3230,7 +3230,7 @@ bool DataBase::createAndPopulateContinents()
 
 bool DataBase::createAndPopulateQSLSentRecStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
 
     QString stringQuery = QString("CREATE TABLE qsl_rec_status ("

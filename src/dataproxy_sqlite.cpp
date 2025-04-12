@@ -5259,53 +5259,41 @@ QStringList DataProxy_SQLite::getStationCallSignsFromLog(const int _log)
 
 QStringList DataProxy_SQLite::getStationCallSignsFromLogWithLoTWPendingToSend(const int _log)
 {
-    qDebug() << Q_FUNC_INFO << ": logNumber: " << _log;
-    QString queryString;
+  //qDebug() << Q_FUNC_INFO << ": logNumber: " << _log;
 
-    if (doesThisLogExist(_log))
-    {
-        queryString = QString("SELECT DISTINCT station_callsign FROM log WHERE lotw_qsl_sent='Q' AND lognumber='%1'").arg(_log);
-    }
-    else
-    {
-        queryString = QString("");
-    }
-
-    QSqlQuery query;
-    bool sqlOK = query.exec(queryString);
-
-    if (!sqlOK)
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        //
-        //qDebug() << Q_FUNC_INFO << "END-2 - fail";
+    // Check if the log exists; return an empty list if it doesn't
+    if (!doesThisLogExist(_log)) {
         return QStringList();
     }
 
-    QStringList calls = QStringList();
-    while(query.next())
-    {
-        if (query.isValid())
-        {
-            queryString = (query.value(0)).toString();
-            if (queryString.length()>2)
-            {
-                calls.append(queryString);
-            }
-            //qDebug() << Q_FUNC_INFO << ": " << queryString;
-        }
-        else
-        {
-            query.finish();
-            //qDebug() << Q_FUNC_INFO << ": END-1 - fail";
-            return QStringList();
+    // Prepare the SQL query with placeholders
+    QString queryString = "SELECT DISTINCT station_callsign FROM log WHERE lotw_qsl_sent = 'Q' AND lognumber = :logNumber";
+    QSqlQuery query;
+
+    // Bind parameters to the prepared query
+    query.prepare(queryString);
+    //query.bindValue(":lotwStatus", "Q");
+    query.bindValue(":logNumber", _log);
+
+    // Execute the query
+    if (!query.exec()) {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.executedQuery());
+        return QStringList();
+    }
+
+    // Collect valid call signs
+    QStringList calls;
+    while (query.next()) {
+        QString callSign = query.value(0).toString().trimmed();
+        if (callSign.length() > 2) { // Ensure valid call signs
+            calls.append(callSign);
         }
     }
-    query.finish();
+
+    // Remove duplicates and sort the results
     calls.removeDuplicates();
     calls.sort();
-    //qDebug() << Q_FUNC_INFO << ": END";
+
     return calls;
 }
 
@@ -7328,7 +7316,7 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setCQZone((getADIFValueFromRec(rec, "cqz")).toInt());
     qso.setItuZone((getADIFValueFromRec(rec, "ituz")).toInt());
     qso.setDXCC((getADIFValueFromRec(rec, "dxcc")).toInt());
-    qDebug() << Q_FUNC_INFO << ":  - 100";
+    //qDebug() << Q_FUNC_INFO << ":  - 100";
 
     qso.setAddress(getADIFValueFromRec(rec, "address"));
     qso.setAge((getADIFValueFromRec(rec, "age")).toDouble());

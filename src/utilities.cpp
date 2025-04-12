@@ -510,7 +510,7 @@ QStringList Utilities::getDefaultLogFields()
 
 QString Utilities::getDefaultModeForFreq(const double _f)
 {
-    qDebug() << Q_FUNC_INFO << " - Freq: " << QString::number (_f);
+    //qDebug() << Q_FUNC_INFO << " - Freq: " << QString::number (_f);
     if (_f<10.0)
     {
         if ((_f>=5.0) && (_f<6.0))

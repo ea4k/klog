@@ -57,13 +57,14 @@ private slots:
 signals:
     void selection(QString _st, QString _grid, QDate _startD, QDate _endD, ExportMode _exportMode);
     void qsosToSend(QString _call, QList<int> _qsos, ExportMode _exportMode);
+    void askingToClose();
 
 private:
     void createUI();
     QList<int> fillTable();
     void setTopLabel(const QString &_t);
     void addQSO(const int _qsoID);
-    void fillStationCallsignComboBox();
+    bool fillStationCallsignComboBox();
     void fillStationMyGridComboBox();
     void fillDates();
     void setDefaultStationComboBox();

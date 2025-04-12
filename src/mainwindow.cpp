@@ -699,6 +699,8 @@ void MainWindow::createActionsCommon(){
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
+    connect(adifLoTWExportWidget, SIGNAL(askingToClose()), this, SLOT(slotADIFExportClose()) );
+
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
@@ -4067,6 +4069,11 @@ void MainWindow::slotADIFExportSelection(const QString &_call, QList<int> _qsos,
     }
     logWindow->refresh();
       //qDebug() << Q_FUNC_INFO << " - END " ;
+}
+
+void MainWindow::slotADIFExportClose()
+{
+  adifLoTWExportWidget->close();
 }
 
 void MainWindow::slotLoTWExport()

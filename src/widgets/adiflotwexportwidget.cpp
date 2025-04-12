@@ -23,6 +23,7 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
+#include <QMessageBox>
 #include "adiflotwexportwidget.h"
 #include "../callsign.h"
 #include "../locator.h"
@@ -66,14 +67,14 @@ AdifLoTWExportWidget::~AdifLoTWExportWidget()
 
 void AdifLoTWExportWidget::setDefaultStationCallsign(const QString &_st)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     Callsign callsign(_st);
     if (callsign.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - Call not valid!";
+        //qDebug() << Q_FUNC_INFO << " - Call not valid!";
         defaultStationCallsign = _st;
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AdifLoTWExportWidget::setDefaultMyGrid(const QString &_st)
@@ -90,7 +91,6 @@ void AdifLoTWExportWidget::setDefaultMyGrid(const QString &_st)
 void AdifLoTWExportWidget::createUI()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    //fillStationCallsignComboBox();
     tableWidget->setSortingEnabled (true);
     stationCallsignComboBox->setToolTip(tr("Select the Station Callsign that you want to use to upload the log."));
     startDate->setCalendarPopup (true);
@@ -158,12 +158,12 @@ void AdifLoTWExportWidget::createUI()
 
 void AdifLoTWExportWidget::setDefaultStationComboBox()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //stationCallsignComboBox->blockSignals(true);
     Callsign callsign(defaultStationCallsign);
     if (!callsign.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - END-1 (call not valid)";
+        //qDebug() << Q_FUNC_INFO << " - END-1 (call not valid)";
         //stationCallsignComboBox->blockSignals(false);
         return;
     }
@@ -201,7 +201,7 @@ void AdifLoTWExportWidget::setDefaultMyGridComboBox()
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void AdifLoTWExportWidget::fillStationCallsignComboBox()
+bool AdifLoTWExportWidget::fillStationCallsignComboBox()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     //stationCallsignComboBox->blockSignals(true);
@@ -215,21 +215,29 @@ void AdifLoTWExportWidget::fillStationCallsignComboBox()
         stationCallsignComboBox->addItem(tr("ALL"));
         //qDebug() << Q_FUNC_INFO << " -4";
     }
+    QStringList stationCallsigns;
+    stationCallsigns.clear();
 
     if (currentExportMode == ModeLotW)
     {
-        qDebug() << Q_FUNC_INFO << " -3";
-        stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLogWithLoTWPendingToSend(logNumber));
-        qDebug() << Q_FUNC_INFO << " -4";
+        stationCallsigns.append(dataProxy->getStationCallSignsFromLogWithLoTWPendingToSend(logNumber));
+        //qDebug() << Q_FUNC_INFO << " -3";
+        //stationCallsignComboBox->addItems();
+        //qDebug() << Q_FUNC_INFO << " -4";
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << " -5";
-        stationCallsignComboBox->addItems(dataProxy->getStationCallSignsFromLog(logNumber));
+        stationCallsigns.append(dataProxy->getStationCallSignsFromLog(logNumber));
         //qDebug() << Q_FUNC_INFO << " -6";
     }
-    //stationCallsignComboBox->blockSignals(false);
-    //qDebug() << QString::number(stationCallsignComboBox->count());
+    if (stationCallsigns.count()<1)
+    {
+        return false;
+    }
+    stationCallsignComboBox->addItems(stationCallsigns);
+    return true;
+
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -605,12 +613,21 @@ void AdifLoTWExportWidget::showEvent(QShowEvent *event)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     starting = true;
+    event->accept();
     numOfQSOsInThisLog = dataProxy->getHowManyQSOInLog(logNumber);
-    //myGridSquareComboBox->blockSignals(true);
-    //stationCallsignComboBox->blockSignals(true);
-    //startDate->blockSignals(true);
-    //endDate->blockSignals(true);
-    fillStationCallsignComboBox();
+    if (!fillStationCallsignComboBox())
+    {
+        // Show the warning message and wait for the user to acknowledge it
+        QMessageBox::warning(this, tr("KLog Warning"), tr("There are no queued QSOs."));
+
+        // Close the widget after the user acknowledges the warning
+        starting = false;
+        QTimer::singleShot(0, this, &AdifLoTWExportWidget::close); // Schedule the widget to close
+        return;
+
+        //emit askingToClose();
+        //return;          // Exit the function to stop further execution
+    }
     //qDebug() << Q_FUNC_INFO << ": 1 - " << stationCallsignComboBox->currentText();
     setDefaultStationComboBox();
     //qDebug() << Q_FUNC_INFO << ": 2 - " << stationCallsignComboBox->currentText();
@@ -622,7 +639,7 @@ void AdifLoTWExportWidget::showEvent(QShowEvent *event)
     starting = false;
     updateIfNeeded();
     //qDebug() << Q_FUNC_INFO << ": 5 - " << stationCallsignComboBox->currentText();
-    event->accept();
+    //event->accept();
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -655,7 +672,7 @@ void AdifLoTWExportWidget::setExportMode(const ExportMode _EMode)
         setWindowTitle("KLog - QSOs to be exported to ADIF.");
         topLabel->setText(tr("This table shows the QSOs that will be exported to ADIF."));
     }
-    //fillStationCallsignComboBox();
+
     //slotStationCallsignChanged();
      //qDebug() << Q_FUNC_INFO << " - END";
 }

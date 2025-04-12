@@ -213,7 +213,7 @@ void DXClusterWidget::connectToDXCluster()
 
 void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socketError)
 {
-   qDebug() << Q_FUNC_INFO << ": " << socketError;
+   //qDebug() << Q_FUNC_INFO << ": " << socketError;
     QString errorMessage;
 
      switch (socketError) {
@@ -481,7 +481,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 
 void DXClusterWidget::slotClusterSocketConnectionClosed()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     addItemToClusterList(tr("Connection closed by the server"), awards->getDefaultColor());
 
     dxClusterConnected = false;
@@ -495,37 +495,37 @@ void DXClusterWidget::slotClusterSocketConnectionClosed()
 
 void DXClusterWidget::slotClusterSendToServer()
 {
-    qDebug() << Q_FUNC_INFO << " - 000";
+    //qDebug() << Q_FUNC_INFO << " - 000";
     if (!dxClusterConnected) {
-        qDebug() << Q_FUNC_INFO << " - 001";
-        qDebug() << Q_FUNC_INFO << " - Cluster already connected, END";
+        //qDebug() << Q_FUNC_INFO << " - 001";
+        //qDebug() << Q_FUNC_INFO << " - Cluster already connected, END";
         connectToDXCluster();
-        qDebug() << Q_FUNC_INFO << " - 002 - END";
+        //qDebug() << Q_FUNC_INFO << " - 002 - END";
 
         return; // If we try to connect...
     }
-    qDebug() << Q_FUNC_INFO << " - 010";
+    //qDebug() << Q_FUNC_INFO << " - 010";
     QString inputText = inputCommand->text();
     if (inputText.isEmpty()) {
-        qDebug() << Q_FUNC_INFO << " - 020";
+        //qDebug() << Q_FUNC_INFO << " - 020";
         if (sendButton->text() == tr("Disconnect")) {
             // Disconnecting
             {
-                qDebug() << Q_FUNC_INFO << " - 030";
+                //qDebug() << Q_FUNC_INFO << " - 030";
                 QTextStream os(tcpSocket);
                 os << "bye\n";
-                qDebug() << Q_FUNC_INFO << " - 033 - END";
+                //qDebug() << Q_FUNC_INFO << " - 033 - END";
                 return;
             }
         }
         // If input is empty and send button is not "Disconnect", do nothing
         return;
     }
-    qDebug() << Q_FUNC_INFO << " - 050";
+    //qDebug() << Q_FUNC_INFO << " - 050";
     // Write to the server
     QTextStream(tcpSocket) << inputText << "\n";
     inputCommand->clear();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void DXClusterWidget::slotClusterClearLineInput()
@@ -536,7 +536,7 @@ void DXClusterWidget::slotClusterClearLineInput()
 
 void DXClusterWidget::slotClusterInputTextChanged()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QString inputText = inputCommand->text();
     if (inputText.isEmpty()) {
         sendButton->setText(tr("Disconnect"));
