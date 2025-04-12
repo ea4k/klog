@@ -65,7 +65,7 @@ void LogWindow::setColumns(const QStringList &_columns)
   //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
-    applyColumnOrder();
+    //applyColumnOrder();
   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -95,6 +95,8 @@ void LogWindow::createUI()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(logView);
     setLayout(layout);
+
+    restoreColumnOrder();
 }
 
 void LogWindow::retoreColumsOrder()
@@ -576,7 +578,6 @@ void LogWindow::deleteQSO(const int _qsoID)
     //dxccStatusWidget->refresh();
     emit updateAwards();
     emit updateSearchText();
-
 }
 */
 void LogWindow::slotQsoDeleteFromLog()
@@ -774,71 +775,59 @@ void LogWindow::slotCheckDXHeatCom()
 void LogWindow::slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
-    qDebug() << Q_FUNC_INFO << " - LogicalIndex: " << logicalIndex;
-    qDebug() << Q_FUNC_INFO << " - oldVisualIndex: " << oldVisualIndex;
-    qDebug() << Q_FUNC_INFO << " - newVisualIndex: " << newVisualIndex;
     Q_UNUSED(logicalIndex);
     Q_UNUSED(oldVisualIndex);
     Q_UNUSED(newVisualIndex);
 
-    // Get the current column order
-    QStringList header = getOrderedVisibleHeaders();
-
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    //settings.beginGroup("General");
-    settings.setValue("ColumnOrder", QVariant::fromValue(header));
-    //settings.endGroup();
-}
-
-QStringList LogWindow::getOrderedVisibleHeaders() const
-{
-    qDebug() << Q_FUNC_INFO << " - Start";
-    QStringList orderedHeaders;
+    // Get the current column order using descriptive names
+    QStringList columnHeaders;
     QHeaderView* headerView = logView->horizontalHeader();
     for (int i = 0; i < headerView->count(); ++i)
     {
         int logicalIndex = headerView->logicalIndex(i);
-        if (!logView->isColumnHidden(logicalIndex))
-        {
-            QString header = logModel->headerData(logicalIndex, Qt::Horizontal).toString();
-            orderedHeaders.append(util->getLogColumnDBName(header));
-            qDebug() << Q_FUNC_INFO << " - "
-        }
+        QString header = logModel->headerData(logicalIndex, Qt::Horizontal).toString();
+        columnHeaders.append(header);
     }
-    return orderedHeaders;
+
+    // Save the column headers to settings
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getCfgFile(), QSettings::IniFormat);
+    settings.setValue("LogWindow/ColumnOrder", columnHeaders);
+
+    qDebug() << Q_FUNC_INFO << " - Saved column headers: " << columnHeaders;
 }
 
-void LogWindow::applyColumnOrder()
+void LogWindow::restoreColumnOrder()
 {
     qDebug() << Q_FUNC_INFO << " - Start";
-    // Read the column order from the settings
-    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-    //settings.beginGroup("General");
-    QList<int> columnOrder = settings.value("ColumnOrder").value<QList<int>>();
-    //settings.endGroup();
 
-    // If no column order is found, use default order
-    if (columnOrder.isEmpty()) {
-        qDebug() << Q_FUNC_INFO << " - END-1";
+    // Read the column headers from the settings
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getCfgFile(), QSettings::IniFormat);
+    QStringList columnHeaders = settings.value("LogWindow/ColumnOrder").toStringList();
+
+    // If no column headers are found, do nothing
+    if (columnHeaders.isEmpty()) {
+        qDebug() << Q_FUNC_INFO << " - No saved column headers found.";
         return;
     }
 
-    // Hide all columns initially
-    for (int i = 0; i < logModel->columnCount(); ++i) {
-        logView->setColumnHidden(i, true);
+    QHeaderView* headerView = logView->horizontalHeader();
+
+    // Determine the logical indices for the saved header order
+    for (int i = 0; i < columnHeaders.size(); ++i)
+    {
+        for (int j = 0; j < logModel->columnCount(); ++j)
+        {
+            QString header = logModel->headerData(j, Qt::Horizontal).toString();
+            if (header == columnHeaders.at(i))
+            {
+                // Move the section to match the saved order
+                headerView->moveSection(headerView->visualIndex(j), i);
+                break;
+            }
+        }
     }
 
-    // Show and order the columns as per the settings
-    for (int i = 0; i < columnOrder.size(); ++i) {
-        int logicalIndex = columnOrder.at(i);
-        logView->setColumnHidden(logicalIndex, false);
-        //logView->horizontalHeader()->moveSection(logView->horizontalHeader()->visualIndex(logicalIndex), i);
-    }
-
-    // Move the columns to match the order in the settings
-    for (int i = 0; i < columnOrder.size(); ++i) {
-        logView->horizontalHeader()->moveSection(logView->horizontalHeader()->visualIndex(columnOrder[i]), i);
-   }
-
-    qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - Restored column headers: " << columnHeaders;
 }
