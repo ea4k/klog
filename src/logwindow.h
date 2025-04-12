@@ -123,6 +123,7 @@ private:
     void setDefaultData();
     void setColumnsOfLog(const QStringList &_columns);
     QStringList getOrderedVisibleHeaders() const;
+    void applyColumnOrder();
 
 
     DataProxy_SQLite *dataProxy;
@@ -163,6 +164,7 @@ private:
 
     Utilities *util;
     QStringList columns;
+    //QHeaderView *header;
    //LogViewSortFilterProxyModel *proxyModel;
    //bool sortingThroughProxyModel;
 };
