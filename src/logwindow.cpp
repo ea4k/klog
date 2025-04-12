@@ -31,13 +31,13 @@ LogWindow::LogWindow(Awards *awards, QWidget *parent)
     : QWidget(parent),
     awards(awards)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+
+qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = awards->dataProxy;
     logModel = new LogModel(dataProxy, this);
     util = new Utilities(Q_FUNC_INFO);
     connect(logModel, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logView = new QTableView;
-    //header = new QHeaderView;
     columns.clear();
 
     currentLog = -1;
@@ -52,7 +52,7 @@ LogWindow::LogWindow(Awards *awards, QWidget *parent)
 
 LogWindow::~LogWindow()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     delete(util);
     //delete(awards);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -60,30 +60,29 @@ LogWindow::~LogWindow()
 
 void LogWindow::setColumns(const QStringList &_columns)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+  //qDebug() << Q_FUNC_INFO << " - Start";
     columns.clear();
   //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
-    applyColumnOrder();
   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::sortColumn(const int _c)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logModel->sort(_c, Qt::AscendingOrder);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::clear()
 {
-    qDebug() << Q_FUNC_INFO << " - Start/END";
+    //qDebug() << Q_FUNC_INFO << " - Start/END";
 }
 
 void LogWindow::createUI()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
@@ -99,12 +98,11 @@ void LogWindow::createUI()
 
 void LogWindow::retoreColumsOrder()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
     // Restore the column order from the settings
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    //settings.beginGroup("LogWindow");
-    QList<int> columnOrder = settings.value("ColumnOrder").value<QList<int>>();
-    //settings.endGroup();
+    settings.beginGroup("LogWindow");
+    QList<int> columnOrder = settings.value("columnOrder").value<QList<int>>();
+    settings.endGroup();
 
     if (!columnOrder.isEmpty()) {
         for (int i = 0; i < columnOrder.size(); ++i) {
@@ -115,7 +113,7 @@ void LogWindow::retoreColumsOrder()
 
 void LogWindow::setDefaultData()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     columns.clear();
     //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(util->getDefaultLogFields());
@@ -126,7 +124,7 @@ void LogWindow::setDefaultData()
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-    qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
+  //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
     currentLog = _currentLog;
     if (!logModel->createlogModel(currentLog))
     {
@@ -149,7 +147,7 @@ void LogWindow::createlogPanel(const int _currentLog)
 
 void LogWindow::setColumnsOfLog(const QStringList &_columns)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: Length: " << QString::number(_columns.length());
+     //qDebug() << Q_FUNC_INFO << " - Start: Length: " << QString::number(_columns.length());
 
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
@@ -198,7 +196,7 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
 
 void LogWindow::showColumn(const QString &_columnName)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QString stringQuery;
     stringQuery = QString("SELECT * FROM log LIMIT 1");
     QSqlQuery query;
@@ -215,7 +213,7 @@ void LogWindow::showColumn(const QString &_columnName)
 
 void LogWindow::refresh()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+  //qDebug() << Q_FUNC_INFO << " - Start";
     if (!logModel->select())
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
@@ -232,7 +230,7 @@ void LogWindow::refresh()
 
 void LogWindow::createActions()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     createActionsCommon();
     showMenuRightButtonFromLogCreateActions();
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -240,7 +238,7 @@ void LogWindow::createActions()
 
 void LogWindow::createActionsCommon()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //LOG VIEW
     connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
     connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
@@ -251,7 +249,7 @@ void LogWindow::createActionsCommon()
 
 void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     int row = (logView->indexAt(pos)).row();
     QItemSelectionModel *select = logView->selectionModel();
     QModelIndexList list = select->selectedRows();
@@ -270,7 +268,7 @@ void LogWindow::slotRighButtonFromLog(const QPoint& pos)
 
 void LogWindow::rightButtonMultipleFromLogMenu()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     QMenu menu(this);
     menu.addAction(multipleDelQSOsFromLogAct);
@@ -305,7 +303,7 @@ void LogWindow::rightButtonMultipleFromLogMenu()
 
 void LogWindow::rightButtonFromLogMenu(const int trow)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(trow);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(trow);
      //qDebug() << Q_FUNC_INFO;
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
      //qDebug() << "LogWindow::slotshowRighButtonFromLogMenu:  QSOid: " << QString::number(_qsoID);
@@ -350,7 +348,7 @@ void LogWindow::rightButtonFromLogMenu(const int trow)
 
 void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 {
-    qDebug() << Q_FUNC_INFO << " - Start Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column());
+    //qDebug() << Q_FUNC_INFO << " - Start Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column());
 
     int row = index.row();
     //qsoToEdit((logModel->index(row, 0)).data(0).toInt());
@@ -370,14 +368,14 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
 bool LogWindow::isQSLReceived(const int _qsoId)
 {
-    qDebug() << Q_FUNC_INFO << " - Start " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " - Start " << QString::number(_qsoId);
     return dataProxy->isQSOConfirmed(_qsoId, true, false); // We check just paper QSL
     //return dataProxy->isQSLReceived(_qsoId);
 }
 
 bool LogWindow::isQSLSent(const int _qsoId)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
 
     return dataProxy->isQSLSent(_qsoId);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -385,7 +383,7 @@ bool LogWindow::isQSLSent(const int _qsoId)
 
 void LogWindow::showMenuRightButtonFromLogCreateActions()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     delQSOFromLogAct = new QAction(tr("&Delete"), this);
     delQSOFromLogAct->setShortcut(Qt::CTRL | Qt::Key_D);
@@ -481,21 +479,21 @@ void LogWindow::showMenuRightButtonFromLogCreateActions()
 
 void LogWindow::slotQSOsSelectAll()
 {
-   qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     logView->selectAll();
    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSOsDeselectAll()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logView->selectionModel()->clearSelection();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::slotQSLSentViaBureauFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
+    //qDebug() << Q_FUNC_INFO << " - Start: " << (qslSentViaBureauFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
     int _qsoId = ((logModel->index( ( (qslSentViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslSentViaBureau(_qsoId);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -503,7 +501,7 @@ void LogWindow::slotQSLSentViaBureauFromLog()
 
 void LogWindow::slotQSLSentViaDirectFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
+    //qDebug() << Q_FUNC_INFO << " - Start: " << (qslSentViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
      int _qsoId = ((logModel->index( ( (qslSentViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //dataProxy->qslSentViaDirect(_qsoId, (QDateTime::currentDateTime()).toString("yyyy-MM-dd"));
     dataProxy->qslSentViaDirect(_qsoId, QDate::currentDate());
@@ -512,7 +510,7 @@ void LogWindow::slotQSLSentViaDirectFromLog()
 
 void LogWindow::slotQSLRecViaBureauFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     int _qsoId = ((logModel->index( ( (qslRecViaBureauFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaBureau(_qsoId);
@@ -522,7 +520,7 @@ void LogWindow::slotQSLRecViaBureauFromLog()
 
 void LogWindow::slotQSLRecViaDirectFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
+    //qDebug() << Q_FUNC_INFO << " - Start: " << (qslRecViaDirectFromLogAct->data()).toString() << " - Id = " << QString::number( ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt()) );
     int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     qslRecViaDirect(_qsoId);
     // Mark Sent, Bureau, date, update log.
@@ -531,7 +529,7 @@ void LogWindow::slotQSLRecViaDirectFromLog()
 
 void LogWindow::slotQSOToEditFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << (qsoToEditFromLogAct->data()).toString();
+    //qDebug() << Q_FUNC_INFO << " - Start: " << (qsoToEditFromLogAct->data()).toString();
 
     //qsoToEdit((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0).toInt());
     int QSOid = ((logModel->index((qsoToEditFromLogAct->data()).toInt(), 0)).data(0)).toInt();
@@ -553,7 +551,7 @@ void LogWindow::slotQSOToEditFromLog()
 
 void LogWindow::deleteQSO(const int _qsoId)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     emit actionDeleteQSO(_qsoId);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -581,7 +579,7 @@ void LogWindow::deleteQSO(const int _qsoID)
 */
 void LogWindow::slotQsoDeleteFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << (delQSOFromLogAct->data()).toString();
+    //qDebug() << Q_FUNC_INFO << " - Start: " << (delQSOFromLogAct->data()).toString();
     //TODO: To be added to the logWindow and create an action that emist the QSO id
 
     int QSOid = ((logModel->index((delQSOFromLogAct->data()).toInt(), 0)).data(0)).toInt();
@@ -607,7 +605,7 @@ void LogWindow::slotQsoDeleteFromLog()
 
 void LogWindow::slotQSOsDeleteFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -630,7 +628,7 @@ void LogWindow::slotQSOsDeleteFromLog()
 
 void LogWindow::slotQSOsExportFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -654,17 +652,17 @@ void LogWindow::slotQSOsExportFromLog()
 
 void LogWindow::slotQSOsUploadToLoTWFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotQSOsUploadToClubLogFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotQSOsQRZUploadFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
     QItemSelectionModel *select = logView->selectionModel();
     QList<int> qsos;
     qsos.clear();
@@ -687,39 +685,39 @@ void LogWindow::slotQSOsQRZUploadFromLog()
 
 void LogWindow::slotQSOsUploadToEQSLFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLSentViaBureauFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLSentViaDirectFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLRecViaBureauFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 void LogWindow::slotMultipleQSLRecViaDirectFromLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
+    //qDebug() << Q_FUNC_INFO << " - Start - TO BE IMPLEMENTED";
 }
 
 
 void LogWindow::qslSentViaBureau(const int _qsoId)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslSentViaBureau(_qsoId, QDate::currentDate());
 }
 
 void LogWindow::qslRecViaBureau(const int _qsoId)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), false);
     awards->setAwards();   //Update the Award status
 
@@ -731,7 +729,7 @@ void LogWindow::qslRecViaBureau(const int _qsoId)
 
 void LogWindow::qslRecViaDirect(const int _qsoId)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_qsoId);
     dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), false);
     awards->setAwards();
 
@@ -748,7 +746,7 @@ void LogWindow::slotQueryErrorManagement(QString functionFailed, QString errorCo
 
 void LogWindow::slotCheckQRZCom()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
@@ -761,7 +759,7 @@ void LogWindow::slotCheckQRZCom()
 
 void LogWindow::slotCheckDXHeatCom()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QString _qrz = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 2)).data(Qt::DisplayRole).toString());
     //int _qsoId = ((logModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(0).toInt());
     //QString _qrz = dataProxy->getCallFromId(_qsoId);
@@ -773,10 +771,6 @@ void LogWindow::slotCheckDXHeatCom()
 
 void LogWindow::slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
-    qDebug() << Q_FUNC_INFO << " - LogicalIndex: " << logicalIndex;
-    qDebug() << Q_FUNC_INFO << " - oldVisualIndex: " << oldVisualIndex;
-    qDebug() << Q_FUNC_INFO << " - newVisualIndex: " << newVisualIndex;
     Q_UNUSED(logicalIndex);
     Q_UNUSED(oldVisualIndex);
     Q_UNUSED(newVisualIndex);
@@ -785,14 +779,13 @@ void LogWindow::slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int new
     QStringList header = getOrderedVisibleHeaders();
 
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    //settings.beginGroup("General");
+    settings.beginGroup("LogWindow");
     settings.setValue("ColumnOrder", QVariant::fromValue(header));
-    //settings.endGroup();
+    settings.endGroup();
 }
 
 QStringList LogWindow::getOrderedVisibleHeaders() const
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
     QStringList orderedHeaders;
     QHeaderView* headerView = logView->horizontalHeader();
     for (int i = 0; i < headerView->count(); ++i)
@@ -801,44 +794,9 @@ QStringList LogWindow::getOrderedVisibleHeaders() const
         if (!logView->isColumnHidden(logicalIndex))
         {
             QString header = logModel->headerData(logicalIndex, Qt::Horizontal).toString();
+
             orderedHeaders.append(util->getLogColumnDBName(header));
-            qDebug() << Q_FUNC_INFO << " - "
         }
     }
     return orderedHeaders;
-}
-
-void LogWindow::applyColumnOrder()
-{
-    qDebug() << Q_FUNC_INFO << " - Start";
-    // Read the column order from the settings
-    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-    //settings.beginGroup("General");
-    QList<int> columnOrder = settings.value("ColumnOrder").value<QList<int>>();
-    //settings.endGroup();
-
-    // If no column order is found, use default order
-    if (columnOrder.isEmpty()) {
-        qDebug() << Q_FUNC_INFO << " - END-1";
-        return;
-    }
-
-    // Hide all columns initially
-    for (int i = 0; i < logModel->columnCount(); ++i) {
-        logView->setColumnHidden(i, true);
-    }
-
-    // Show and order the columns as per the settings
-    for (int i = 0; i < columnOrder.size(); ++i) {
-        int logicalIndex = columnOrder.at(i);
-        logView->setColumnHidden(logicalIndex, false);
-        //logView->horizontalHeader()->moveSection(logView->horizontalHeader()->visualIndex(logicalIndex), i);
-    }
-
-    // Move the columns to match the order in the settings
-    for (int i = 0; i < columnOrder.size(); ++i) {
-        logView->horizontalHeader()->moveSection(logView->horizontalHeader()->visualIndex(columnOrder[i]), i);
-   }
-
-    qDebug() << Q_FUNC_INFO << " - END";
 }

@@ -6103,7 +6103,6 @@ bool MainWindow::loadSettings()
    //qDebug() << Q_FUNC_INFO << " - 41 - logs";
 
 
-
       //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     settings.beginGroup ("DXCluster");
     dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave", false).toBool ());
