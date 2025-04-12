@@ -140,8 +140,8 @@ void SetupPageLogView::setActiveFields(QStringList q)
 
         for (int j=0;j<q.length();j++)
         {
-            qDebug() << Q_FUNC_INFO << " - Checking(q): " << it->text();
-            qDebug() << Q_FUNC_INFO << " - Checking(i): " << q.at(j);
+            //qDebug() << Q_FUNC_INFO << " - Checking(q): " << it->text();
+            //qDebug() << Q_FUNC_INFO << " - Checking(i): " << q.at(j);
             if (it->text() == q.at(j))
             {
                //qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);

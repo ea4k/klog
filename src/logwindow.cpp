@@ -60,12 +60,12 @@ LogWindow::~LogWindow()
 
 void LogWindow::setColumns(const QStringList &_columns)
 {
-  //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     columns.clear();
   //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
-  //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void LogWindow::sortColumn(const int _c)
@@ -124,7 +124,7 @@ void LogWindow::setDefaultData()
 
 void LogWindow::createlogPanel(const int _currentLog)
 {
-  //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
+    qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
     currentLog = _currentLog;
     if (!logModel->createlogModel(currentLog))
     {

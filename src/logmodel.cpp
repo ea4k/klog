@@ -33,7 +33,8 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
-    columns = dataProxy->filterValidFields(util->getDefaultLogFields());
+    columns.clear();
+    columns.append(dataProxy->filterValidFields(util->getDefaultLogFields()));
     setTable("log");
 
     setEditStrategy(QSqlTableModel::OnFieldChange);
@@ -65,20 +66,20 @@ the view should present the city's name field to the user.
 This should be coherent with the logview
 */
 
-  //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
 
     QString stringQuery = QString("lognumber='%1'").arg(_i);
     //QSqlQuery query(stringQuery);
     setFilter(stringQuery);
     if (!setColumns(columns))
     {
-      //qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
+        qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
         return false;
     }
 
     if (!select())
     {
-      //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
+        qDebug() << Q_FUNC_INFO << " - ERROR on select()";
         return false;
     }
 
@@ -88,7 +89,7 @@ This should be coherent with the logview
 
 bool LogModel::setColumns(const QStringList &_columns)
 {
-    //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
     QString auxt;
     foreach(auxt, _columns)
     {
@@ -107,11 +108,15 @@ bool LogModel::setColumns(const QStringList &_columns)
      if (!q.exec(stringQuery))
      {
         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().nativeErrorCode(), q.lastQuery());
+        qDebug() << Q_FUNC_INFO << " - END - 1";
         return false;
      }
 
-     if (!q.next())
-        return false;
+     //if (!q.next())
+     //{
+     //    qDebug() << Q_FUNC_INFO << " - END - 2";
+     //    return false;
+     //}
      rec = q.record(); // Number of columns
 
      //qDebug() <<Q_FUNC_INFO << ": - columns: " << QString::number(rec.count());
@@ -155,12 +160,12 @@ bool LogModel::setColumns(const QStringList &_columns)
          nameCol = rec.indexOf(aux);
          if (!setHeaderData(nameCol, Qt::Horizontal, util->getLogColumnName(aux)))
          {
-             //qDebug() << Q_FUNC_INFO << ": - ERROR when adding the following column to the log view model: " << aux;
+             qDebug() << Q_FUNC_INFO << ": - ERROR when adding the following column to the log view model: " << aux;
              return false;
          }
-         //qDebug() << Q_FUNC_INFO << ": - " << aux;
+         qDebug() << Q_FUNC_INFO << ": - " << aux;
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
-     return true;
+    qDebug() << Q_FUNC_INFO << " - END";
+    return true;
  }
 

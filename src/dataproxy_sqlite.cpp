@@ -6256,43 +6256,26 @@ bool DataProxy_SQLite::isValidDXCC(const int _e)
 
 QStringList DataProxy_SQLite::filterValidFields(const QStringList &_fields)
 {
-    //qDebug() << Q_FUNC_INFO << ": Length: " << QString::number(_fields.length());
-
-    QStringList validFields;
-    validFields.clear();
-    validFields << getFields();
-    QString aux;
-    //foreach(aux, validFields)
-    //{
-    //    //qDebug() << Q_FUNC_INFO << ": validFields: " << aux;
-    //}
-
-    //foreach(aux, _fields)
-    //{
-        //qDebug() << Q_FUNC_INFO << ": _fields: " << aux;
-    //}
-
+    const QStringList validFields = getFields();
     QStringList returningFields;
-    returningFields.clear();
 
-    QString field;
-    foreach (field, _fields)
+    for (QString field : _fields)
     {
-        //qDebug() << Q_FUNC_INFO << ": Field:-1: " << field;
         field = field.trimmed();
         if (field.endsWith(';'))
         {
             field.chop(1);
         }
-        //qDebug() << Q_FUNC_INFO << ": Field:-2: " << field;
         if (validFields.contains(field))
         {
             returningFields << field;
         }
     }
+
+    // If no valid fields are found, return default fields
     if (returningFields.isEmpty())
     {
-        returningFields << util->getDefaultLogFields();
+        returningFields = util->getDefaultLogFields();
     }
 
     return returningFields;
