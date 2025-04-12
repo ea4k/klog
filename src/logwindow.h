@@ -122,8 +122,8 @@ private:
 
     void setDefaultData();
     void setColumnsOfLog(const QStringList &_columns);
-   // QStringList getOrderedVisibleHeaders() const;
-    void restoreColumnOrder();
+    QStringList getOrderedVisibleHeaders() const;
+    void applyColumnOrder();
 
 
     DataProxy_SQLite *dataProxy;
