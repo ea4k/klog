@@ -29,7 +29,6 @@
 
 #include <QtWidgets>
 #include <QWidget>
-//#include <QSqlRelationalTableModel>
 #include <QTableView>
 #include <QAction>
 #include <QSqlQuery>
@@ -39,17 +38,12 @@
 #include "dataproxy_sqlite.h"
 #include "logmodel.h"
 #include "awards.h"
-//#include "dxccstatuswidget.h"
-//#include "elogclublog.h"
 #include "utilities.h"
-//#include "logviewsortfilterproxymodel.h"
-
-//class  LogViewSortFilterProxyModel;
-//class ItemDelegate;
 
 class LogWindow : public  QWidget
 {
     Q_OBJECT
+    friend class tst_LogWindow;
 
 public:
     LogWindow(Awards *awards, QWidget *parent = nullptr);

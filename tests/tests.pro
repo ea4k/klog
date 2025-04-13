@@ -16,6 +16,7 @@ SUBDIRS=\
    tst_dataproxy \
    tst_database \
    tst_locator \
+   tst_logwindow \
    tst_mainwindowinputqso \
    tst_mainwindowinputothers \
    tst_qso \
