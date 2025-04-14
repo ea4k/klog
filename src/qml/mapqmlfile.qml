@@ -23,11 +23,11 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtLocation 5.6
-import QtPositioning 5.6
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Window
+import QtLocation
+import QtPositioning
+import QtQuick.Controls
 
 Rectangle {
     width: 640
@@ -71,7 +71,13 @@ Rectangle {
         //name: "esri" // Names not in local language but english
         //name: "googleMap"
         //name: "mapboxgl"
+        PluginParameter
+        {
+            name: "osm.mapping.custom.host"
+            value: "https://tile.openstreetmap.org/"
+        }
     }
+
 
     Map {
         id: map
@@ -88,6 +94,7 @@ Rectangle {
         //    console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
         //}
         zoomLevel: 14
+    activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
         MouseArea
         {
             hoverEnabled: true

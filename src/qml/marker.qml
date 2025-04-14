@@ -23,8 +23,8 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-import QtQuick 2.0
-import QtLocation 5.12
+import QtQuick
+import QtLocation
 
 MapQuickItem{
     id: marker

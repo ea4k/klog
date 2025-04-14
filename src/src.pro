@@ -64,6 +64,7 @@ QT += core \
     quickwidgets \
     positioning \
     widgets
+QT += location
 
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
 {
