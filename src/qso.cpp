@@ -3808,7 +3808,7 @@ int QSO::getModeIdFromModeName()
         //qDebug() << Q_FUNC_INFO << " - Failed to prepare";
         return -1;
     }
-    qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
+   //qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
     query.bindValue (":submode", getSubmode());
     //if (haveSubMode)
     //{
@@ -3829,7 +3829,7 @@ int QSO::getModeIdFromModeName()
         {
             if (query.isValid ())
             {
-                qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
+               //qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
                 return query.value (0).toInt ();
             }
             else

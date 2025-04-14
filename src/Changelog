@@ -1,5 +1,3 @@
-WIP: If a QSO with mode VARA HF is entered, it isnot shown in the log, it is stored as mode-id -5
-
 TODO: Remove the call addition in mainwindow from software update, it is not used.
 TODO: Colors when darkMode
     AI: add sub-issues in github one per class that is not working properly
@@ -8,24 +6,15 @@ TODO: Adapt the status & colors to WSJTX colors
 
 TODO:  QList<EntityStatus> wazStatusList;
 
-BUG: MY_ALTITUDE stores wrong value, at least if not defined.
-
 VALIDAR que funciona void MainWindow::sendQSOToUI(const QSO &_qso)
 Si funciona ponerlo en todas las partes que suba datos a la UI
 
 Complete: void MainWindow::slotQSOReceived(const QSO &_qso) to add the QSO
 
-
-TODO-Test: Add tests to test the subsivisions
-
-
 TODO: Reuse the bool World::insertPrefixes to read QSOs from a file so we can insert the whole log at once of in 500 or 1000 QSO blocks
 TODO: After update, it is needed to restart KLog to be able to use the primary subdivisions
 TODO-Bug: Review void tst_MainWindowInputQSO::test_GridLineEdit()
 
-
-WIP: Try to optimize bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
-WIP: - Bugfix: DB in alternative locations was not always found. (WIP #706)
 
 TODO: When completing with previous data the QSL is in red
 

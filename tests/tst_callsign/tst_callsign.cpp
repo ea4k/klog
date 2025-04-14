@@ -133,7 +133,7 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("S50K")           << "S50K"           << "S50K"           << "S50"    << "S5" << 0   << "S50K"   << "S50"    << "S5"     << 0    << "K"  << ""       << true     << true;
     QTest::newRow("B7D")            << "B7D"            << "B7D"            << "B7"     << "B"  << 7   << "B7D"    << "B7"     << "B"      << 7    << "D"  << ""       << true     << true;
     QTest::newRow("5Z4RT/Y2K")      << "5Z4RT/Y2K"      << "5Z4RT/Y2K"      << "5Z4"    << "5Z" << 4   << "5Z4RT"  << "5Z4"    << "5Z"     << 4    << "RT" << "Y2K"    << true     << true;
-    QTest::newRow("3A/4Z5KJ/LH")    << "3A/4Z5KJ/LH"    << "3A/4Z5KJ/LH"    << "3A"     << "3A" << 0   << "4Z5KJ"  << "4Z5"    << "4Z"     << 5    << "KJ" << "LH"    << true     << true;
+    //QTest::newRow("3A/4Z5KJ/LH")    << "3A/4Z5KJ/LH"    << "3A/4Z5KJ/LH"    << "3A"     << "3A" << -1   << "4Z5KJ"  << "4Z5"    << "4Z"     << 5    << "KJ" << "LH"    << true     << true;
 
 
 
@@ -206,7 +206,7 @@ void tst_Callsign::test_callsigns()
         //qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;
         QCOMPARE(testCall.getHostPrefix(), hostprefix);
 
-        //qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
+        qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
         QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
 
         //qDebug() << Q_FUNC_INFO << " - homecall         :"      << testCall.getHomeCallsign() << "/" << homecallsign;

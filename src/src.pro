@@ -33,8 +33,8 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-PKGVERSION = 2.4.0
-VERSION = 2.4.0
+PKGVERSION = 2.4.0-RC1
+VERSION = 2.4.0-RC1
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 

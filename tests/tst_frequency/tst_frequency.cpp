@@ -63,8 +63,8 @@ tst_Frequency::tst_Frequency()
 
 tst_Frequency::~tst_Frequency()
 {
-    delete(freq);
-    delete(freq2);
+    //delete(freq);
+    //delete(freq2);
 }
 
 void tst_Frequency::initTestCase()
