@@ -28,7 +28,7 @@ rem *                                                                           
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
-set PATH=%PATH%;C:\Qt\5.15.2\mingw81_32\bin;C:\Qt\Tools\mingw810_32\bin;
+set PATH=%PATH%;C:\Qt\6.8.3\mingw_64\bin;C:\Qt\Tools\mingw810_32\bin
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
 set PATH=%PATH%;C:\Program Files (x86)\BitRock InstallBuilder Enterprise 15.10.1\bin;
 echo Line 10
@@ -63,7 +63,7 @@ echo %localdir%
 rem COPY OpenSSL DLL
 copy ..\..\..\libs\win32\openssl\bin\*.dll release
 copy ..\..\..\libs\win32\hamlib\bin\*.dll release
-windeployqt --qmldir release release\klog.exe
+windeployqt6 --qmldir release release\klog.exe
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
 :: After knowing the version, the package can be obtained from: https://indy.fulgan.com/SSL/Archive/

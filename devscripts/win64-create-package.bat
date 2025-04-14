@@ -28,7 +28,7 @@ rem *                                                                           
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
-set PATH=%PATH%;C:\Qt\5.15.2\mingw81_64\bin;C:\Qt\Tools\mingw810_64\bin;
+set PATH=%PATH%;C:\Qt\6.8.3\mingw_64\bin;C:\Qt\Tools\mingw1310_64\bin
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
 del ..\devscripts\klog-*win64*.exe
 echo Line 10
@@ -73,7 +73,7 @@ copy ..\..\libs\win64\hamlib\bin\*.dll release
 echo Line 52
 rem windeployqt --qmldir release release\klog.exe
 rem windeployqt --qmldir qml release\klog.exe
-windeployqt --dir release --compiler-runtime --qmldir qml release\klog.exe
+windeployqt6 --dir release --compiler-runtime --qmldir qml release\klog.exe
 echo Line 60
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
