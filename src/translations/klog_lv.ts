@@ -85,7 +85,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="56"/>
         <source>Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (GNU/Linux, macOS and Windows) and to support new functionality.</source>
-        <translation type="unfinished">Kopš 0.6.2 KLog ir pilnībā pārrakstīts, lai nodrošinātu starpplatformu lietojumprogrammu, kas darbojas visās lielākajās operētājsistēmās (Linux, macOS un Windows), un atbalstītu jaunas funkcionalitātes.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="91"/>
@@ -175,7 +175,7 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="107"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="125"/>
         <source>My Locator</source>
-        <translation>Mans lokators</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="110"/>
@@ -227,12 +227,12 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="211"/>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="262"/>
         <source>ALL</source>
-        <translation>VISI</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="396"/>
         <source>QSOs: %1/%2</source>
-        <translation>QSOs: %1/%2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All</source>
@@ -475,12 +475,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="139"/>
         <source>It seems that the DXCC status in your database is not updated and KLog can&apos;t find any dxcc information. You can try to fix this by updating the log.</source>
-        <translation>Šķiet, ka DXCC statuss jūsu datu bāzē nav atjaunināts un KLog nevar atrast nekādu informāciju par dxcc. Varat mēģināt to novērst, atjauninot žurnālu.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="140"/>
         <source>Do you want to update your DXCC status?</source>
-        <translation>Vai vēlaties atjaunināt savu DXCC statusu?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="539"/>
@@ -542,12 +542,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster.cpp" line="110"/>
         <source>Check in QRZ.com</source>
-        <translation>Pārbaudiet QRZ.com</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="112"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation>Apskatiet šo izsaukuma signālu vietnē QRZ.com</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dxcluster.cpp" line="139"/>
@@ -668,7 +668,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="4889"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation>Lidmašīnu izkliede</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4893"/>
@@ -822,8 +822,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="5657"/>
         <source>Manager</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translatorcomment>padomat  kā rakstīt Manager</translatorcomment>
-        <translation>Pārvaldnieks</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="6528"/>
@@ -937,23 +936,23 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="184"/>
         <source>The selected log does not exist, please check it again.</source>
-        <translation>Atlasītais žurnāls neeksistē, pārbaudiet to vēlreiz.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="175"/>
         <location filename="../filemanager.cpp" line="436"/>
         <source>The selected callsign (%1) is not valid, please check it again to export the log.</source>
-        <translation>Atlasītais izsaukuma signāls (%1) nav derīgs. Lūdzu, pārbaudiet to vēlreiz, lai eksportētu žurnālu.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="257"/>
         <source>The file %1 can&apos;t be opened.</source>
-        <translation>Failu %1 nevar atvērt.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="329"/>
         <source>There are no QSOs pending to be exported with that station callsign.</source>
-        <translation>Ar šo stacijas izsaukuma signālu nav gaidīts neviens QSO, kas jāeksportē.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="340"/>
@@ -961,7 +960,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="633"/>
         <location filename="../filemanager.cpp" line="831"/>
         <source>Writing ADIF file...</source>
-        <translation>Notiek ADIF faila rakstīšana...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="340"/>
@@ -974,7 +973,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../filemanager.cpp" line="344"/>
         <source>Export</source>
-        <translation>Eksportēt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="388"/>
@@ -991,7 +990,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1596"/>
         <location filename="../filemanager.cpp" line="2107"/>
         <source>KLog - User cancelled</source>
-        <translation>KLog — lietotājs atcelts</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="398"/>
@@ -1038,7 +1037,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="949"/>
         <location filename="../filemanager.cpp" line="1157"/>
         <source>It was not possible to open the file %1 for reading.</source>
-        <translation>Nevarēja atvērt failu %1 lasīšanai.</translation>
+        <translation type="unfinished">Nevarēja atvērt failu %1 lasīšanai.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="950"/>
@@ -1097,12 +1096,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="1206"/>
         <location filename="../filemanager.cpp" line="1806"/>
         <source>Abort reading</source>
-        <translation>Pārtraukt lasīšanu</translation>
+        <translation type="unfinished">Pārtraukt lasīšanu</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1585"/>
         <source>Importing LoTW ADIF file...</source>
-        <translation>Notiek LoTW ADIF faila importēšana...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1585"/>
@@ -1345,7 +1344,7 @@ Do you want KLog to add this QSO to the log?</source>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="15"/>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="21"/>
         <source>Enter the hostname or address of the radio.</source>
-        <translation type="unfinished">Ievadiet radio resursdatora nosaukumu vai adresi.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="16"/>
@@ -1360,7 +1359,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="25"/>
         <source>Port</source>
-        <translation>Ports</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibnetworkconfigwidget.cpp" line="27"/>
@@ -1383,7 +1382,7 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="31"/>
         <source>Port</source>
-        <translation>Ports</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="33"/>
@@ -1403,22 +1402,22 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>5 bits</source>
-        <translation>5 biti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>6 bits</source>
-        <translation>6 biti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>7 bits</source>
-        <translation>7 biti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
         <source>8 bits</source>
-        <translation>8 biti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="52"/>
@@ -1493,17 +1492,17 @@ Do you want KLog to add this QSO to the log?</source>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
         <source>1 bit</source>
-        <translation>1 bits</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
         <source>1.5 bits</source>
-        <translation>1.5 biti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
         <source>2 bits</source>
-        <translation>2.biti</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="84"/>
@@ -4408,7 +4407,7 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="132"/>
         <source>All bands</source>
-        <translation>Visas diapazonos</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/map/mapwindowwidget.cpp" line="133"/>
@@ -4436,12 +4435,12 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="42"/>
         <source>The server returned the following error: %1</source>
-        <translation>Serveris atgrieza šādu kļūdu: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="176"/>
         <source>Not identified</source>
-        <translation>Nav identificēts</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
