@@ -367,7 +367,7 @@ private:
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
-    QSO *qso;           // QSO that is being managed in one specific moment
+    //QSO qso;           // QSO that is being managed in one specific moment
     QSO *backupQSO;     // QSO that has been backed up to send another QSO to the UI
     QSO qsoInUI;        // The QSO tat is shown in the UI  for a given time
     //QSO *modifyingQSO;

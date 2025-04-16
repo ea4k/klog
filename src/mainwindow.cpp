@@ -55,7 +55,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     util = new Utilities(Q_FUNC_INFO);
     //util->setVersion(softwareVersion);
     //qDebug() << Q_FUNC_INFO << " - Creating qso - ";
-    qso = new QSO;
+    //qso = new QSO;
     //QThread::sleep(std::chrono::microseconds{1000});
     //qDebug() << Q_FUNC_INFO << " - Creating backupQSO - ";
     backupQSO = new QSO;
@@ -212,7 +212,7 @@ MainWindow::~MainWindow()
     delete(downloadcty);
     delete(world);
     //delete(locator);
-    delete(qso);
+    //delete(qso);
     delete(backupQSO);
     //delete(modifyingQSO);
     dateTime.reset();
@@ -573,7 +573,7 @@ void MainWindow::createActionsCommon(){
     logEvent(Q_FUNC_INFO, "Start", Debug);
     connect(util, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
       //qDebug() << Q_FUNC_INFO << " - Connecting QSO";
-    connect(qso, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
+    connect(&qsoInUI, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
       //qDebug() << Q_FUNC_INFO << " - Connected QSO";
     connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
@@ -707,8 +707,8 @@ void MainWindow::createActionsCommon(){
     connect(showKLogLogWidget, SIGNAL(newLogLevel(DebugLogLevel)), this, SLOT(slotNewLogLevel(DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
     // Following calls answer calls from the QSO to receive information.
-    connect (qso, SIGNAL(getModeSignal(QString)), this, SLOT(slotQSO_SetMode(QString)));
-    connect(qso, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
+    connect (&qsoInUI, SIGNAL(getModeSignal(QString)), this, SLOT(slotQSO_SetMode(QString)));
+    connect(&qsoInUI, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5881,7 +5881,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     {
         mainQSOEntryWidget->setModify(true);
     }
-    qso = backupQSO;
+    //qso = backupQSO;
      //qDebug() << Q_FUNC_INFO << " - calling setQRZ-4" ;
     mainQSOEntryWidget->setQRZ(backupQSO->getCall ());
     mainQSOEntryWidget->setBand (backupQSO->getBand ());
