@@ -53,9 +53,9 @@ set KLOGDEVELVERSION=!KLOGDEVELVERSION: =!
 rem set KLOGDEVELVERSION=%KLOGDEVELVERSION:~1%
 echo Building KLog-%KLOGDEVELVERSION%
 echo Line 40
-qmake -set CONFIG+=x86_64
+qmake6 -set CONFIG+=x86_64
 echo Line 41
-qmake src.pro
+qmake6 src.pro
 echo Line 42
 mingw32-make
 echo Line 43

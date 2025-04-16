@@ -28,7 +28,7 @@ rem *                                                                           
 rem *****************************************************************************/@echo off
 echo Setting up environment for Qt usage...
 set KLOGDEVELVERSION=1
-set PATH=%PATH%;C:\Qt\6.8.3\mingw_64\bin;C:\Qt\Tools\mingw810_32\bin
+set PATH=%PATH%;C:\Qt\6.8.3\mingw_64\bin;C:\Qt\Tools\mingw1310_64\bin
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin;
 set PATH=%PATH%;C:\Program Files (x86)\BitRock InstallBuilder Enterprise 15.10.1\bin;
 echo Line 10
@@ -50,8 +50,8 @@ set KLOGDEVELVERSION=!KLOGDEVELVERSION: =!
 rem set KLOGDEVELVERSION=%KLOGDEVELVERSION:~1%
 echo Building KLog-%KLOGDEVELVERSION%
 echo Line 40
-qmake -set CONFIG+=x86_32
-qmake src.pro
+qmake6 -set CONFIG+=x86_32
+qmake6 src.pro
 echo Line 41
 mingw32-make
 echo Line 42
@@ -61,8 +61,8 @@ xcopy /Y /S /F build\target\* release
 echo localdir=%cd%
 echo %localdir%
 rem COPY OpenSSL DLL
-copy ..\..\..\libs\win32\openssl\bin\*.dll release
-copy ..\..\..\libs\win32\hamlib\bin\*.dll release
+copy ..\..\libs\win32\openssl\*.dll release
+copy ..\..\libs\win32\hamlib\bin\*.dll release
 windeployqt6 --qmldir release release\klog.exe
 :: The SSL DLLs must be included and must match the version that were used to build Qt.
 :: Check in main.cpp and uncomment the SSL line to see what is the version that was used.
