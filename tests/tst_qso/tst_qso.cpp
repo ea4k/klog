@@ -94,6 +94,10 @@ void tst_QSO::setQSOData()
     // eQSL tab
     qso->setClubLogStatus("Y");
 
+    // Comment Tab
+    qso->setComment("This is a comment");
+    qso->setKeepComment(true);
+
     /*
 
     qso->setClubLogDate(const QDate &_c);
@@ -109,9 +113,7 @@ void tst_QSO::setQSOData()
     qso->setQRZCOMDate(const QDate &_c);
     qso->setDefaultEQSLSentServices(const bool _send);
 
-    // Comment Tab
-    qso->setComment(const QString &_c);
-    qso->setKeepComment(bool _k);
+
 
     // Others Tab
     qso->setDXCC(const int _i);
@@ -294,12 +296,15 @@ void tst_QSO::test_dataEntry()
     QVERIFY2(qso->getStationCallsign() == "EA4K", "Error while reading StationCallsign");
     QVERIFY2(qso->setOwnerCallsign("EA4K"), "Error while setting OwnerCallsign");
     QVERIFY2(qso->getOwnerCallsign() == "EA4K", "Error while reading OwnerCallsign");
+    QVERIFY2(qso->setComment("Comment to test"), "Error while setting Commente");
+    QVERIFY2(qso->getComment() == "Comment to test", "Error while reading Comment");
     QVERIFY2(qso->setContactedOperator("EA4K"), "Error while setting ContactedOperator");
     QVERIFY2(qso->getContactedOperator() == "EA4K", "Error while reading ContactedOperator");
     QVERIFY2(qso->setGridSquare("IN80"), "Error while setting GridSquare");
     QVERIFY2(qso->getGridSquare() == "IN80", "Error while reading GridSquare");
     QVERIFY2(qso->setMyGridSquare("IM88"), "Error while setting GridSquare");
     QVERIFY2(qso->getMyGridSquare() == "IM88", "Error while reading GridSquare");
+
 
     qso->setLogLevel(Info);
     QVERIFY2(qso->logLevel == Info, "Error while setting logLevel (Info)");
@@ -347,6 +352,7 @@ void tst_QSO::test_Copy()
     QSO qso1;
     qso1.setCall("EA4K");
     qso1.setMyCity("Madrid");
+    qso1.setComment("QSO1-comment");
     QSO qso2(qso1);
     QSO qso3;
     qso3.copy(qso1);
@@ -357,6 +363,9 @@ void tst_QSO::test_Copy()
     QVERIFY2(qso3.getCall() == "EA4K", "Wrong Call in copy");
     QVERIFY2(qso2.getMyCity() == "Madrid", "Wrong My_CITY in constructor copy");
     QVERIFY2(qso3.getMyCity() == "Madrid", "Wrong My_CITY in copy");
+
+    QVERIFY2(qso2.getComment() == "QSO1-comment", "Wrong Comment in constructor copy");
+    QVERIFY2(qso3.getComment() == "QSO1-comment", "Wrong Comment in copy");
 }
 
 QTEST_APPLESS_MAIN(tst_QSO)

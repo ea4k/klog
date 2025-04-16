@@ -470,17 +470,18 @@ void MainQSOEntryWidget::clear()
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-QSO MainQSOEntryWidget::getQSOData(QSO &
-                                       _qso)
+QSO MainQSOEntryWidget::getQSOData(QSO & _qso)
 {
-    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
-    //qDebug() << Q_FUNC_INFO << " -  MyCITY-01 : " << _qso.getMyCity();
-    _qso.setCall(getQrz());
-    _qso.setBand(getBand());
-    _qso.setMode(dataProxy->getNameFromSubMode (getMode()));
-    _qso.setSubmode(getMode());
-    _qso.setDateTimeOn(getDateTime());
-    return _qso;
+    qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
+    QSO tQSO(_qso);
+    qDebug() << Q_FUNC_INFO << " -  Call-02   : " << tQSO.getCall();
+    tQSO.setCall(getQrz());
+    qDebug() << Q_FUNC_INFO << " -  Call-03   : " << tQSO.getCall();
+    tQSO.setBand(getBand());
+    tQSO.setMode(dataProxy->getNameFromSubMode (getMode()));
+    tQSO.setSubmode(getMode());
+    tQSO.setDateTimeOn(getDateTime());
+    return tQSO;
 }
 
 void MainQSOEntryWidget::setQSOData(QSO _qso)

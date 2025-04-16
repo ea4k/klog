@@ -32,7 +32,7 @@ LogWindow::LogWindow(Awards *awards, QWidget *parent)
     awards(awards)
 {
 
-qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = awards->dataProxy;
     logModel = new LogModel(dataProxy, this);
     util = new Utilities(Q_FUNC_INFO);

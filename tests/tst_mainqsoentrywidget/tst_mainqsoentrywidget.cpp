@@ -49,11 +49,13 @@ private slots:
     void test_InitialData();
     void test_Bands();
     void test_Modes();
+    void test_QSOData();
 
 private:
     DataProxy_SQLite *dataProxy;
     MainQSOEntryWidget *mainQSOEntryWidget;
 };
+
 
 tst_MainQSOEntryWidget::tst_MainQSOEntryWidget()
 {
@@ -142,6 +144,39 @@ void tst_MainQSOEntryWidget::test_Modes()
     QVERIFY (mainQSOEntryWidget->isModeExisting ("SSB") == true);
     QVERIFY (mainQSOEntryWidget->isModeExisting ("PSK") == false);
 }
+
+void tst_MainQSOEntryWidget::test_QSOData()
+{
+    QSO qso1;
+    qso1.setCall("EA4K");
+    qso1.setAge(10);
+    mainQSOEntryWidget->setQRZ("EA0K");
+    QSO qso2;
+    //qDebug() << Q_FUNC_INFO << " - 1 - qso1: " << qso1.getCall();
+    //qDebug() << Q_FUNC_INFO << " - 1 - this: " << mainQSOEntryWidget->getQrz();
+    //qDebug() << Q_FUNC_INFO << " - 1 - qso2: " << qso2.getCall();
+    qso2 = mainQSOEntryWidget->getQSOData(qso1);
+    //qDebug() << Q_FUNC_INFO << " - 2 - qso1: " << qso1.getCall();
+    //qDebug() << Q_FUNC_INFO << " - 2 - this: " << mainQSOEntryWidget->getQrz();
+    //qDebug() << Q_FUNC_INFO << " - 2 - qso2: " << qso2.getCall();
+    QVERIFY2 (qso2.getCall() == qso1.getCall(), "Wrong Call on QSO copy");
+}
+
+/*
+ *
+ * QSO MainQSOEntryWidget::getQSOData(QSO & _qso)
+{
+    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
+
+    _qso.setCall(getQrz());
+    _qso.setBand(getBand());
+    _qso.setMode(dataProxy->getNameFromSubMode (getMode()));
+    _qso.setSubmode(getMode());
+    _qso.setDateTimeOn(getDateTime());
+    return _qso;
+}
+
+*/
 
 QTEST_MAIN(tst_MainQSOEntryWidget)
 

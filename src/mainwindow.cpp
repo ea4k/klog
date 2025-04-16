@@ -430,7 +430,7 @@ void MainWindow::init()
     init_variables();
 
     hamlib->initClass();
-    qso->clear();
+    qsoInUI.clear();
 
     setCleaning(false);
 
@@ -714,7 +714,7 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::slotQSO_SetMode(const QString _submode)
 {
-    qso->setMode (dataProxy->getNameFromSubMode (_submode));
+    qsoInUI.setMode (dataProxy->getNameFromSubMode (_submode));
 }
 
 void MainWindow::recommendBackupIfNeeded()
@@ -1048,18 +1048,18 @@ void MainWindow::slotQRZReturnPressed()
         //qDebug() << Q_FUNC_INFO << " - readQSOFromUI returned FALSE";
         return;
     }
-    if (!qso->isValid())
+    if (!qsoInUI.isValid())
     {
         //qDebug() << Q_FUNC_INFO << " - QSO Not valid!";
         return;
     }
 
-    int addedOK = qso->toDB (modifyingQSOid);
+    int addedOK = qsoInUI.toDB (modifyingQSOid);
    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
         //qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
-        mapWindow->addLocator(qso->getGridSquare(), workedColor);
+        mapWindow->addLocator(qsoInUI.getGridSquare(), workedColor);
         actionsJustAfterAddingOneQSO();
     }
 
@@ -1235,57 +1235,69 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
 
 void MainWindow::getQSODataFromUI()
 {
-    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << qso->getCall();
-    *qso = mainQSOEntryWidget->getQSOData(*qso);
-    *qso = QSOTabWidget->getQSOData(*qso);
-    *qso = commentTabWidget->getQSOData(*qso);
-    *qso = othersTabWidget->getQSOData(*qso);
-    *qso = eQSLTabWidget->getQSOData(*qso);
-    *qso = QSLTabWidget->getQSOData(*qso);
-    *qso = mainQSOEntryWidget->getQSOData(*qso);
-    *qso = satTabWidget->getQSOData(*qso);
-    *qso = myDataTabWidget->getQSOData(*qso);
+    qDebug() << Q_FUNC_INFO << " -  Call-01   : " << qsoInUI.getCall();
+    qsoInUI.clear();
+    qsoInUI = mainQSOEntryWidget->getQSOData(qsoInUI);
+    qsoInUI = QSOTabWidget->getQSOData(qsoInUI);
+    qsoInUI = commentTabWidget->getQSOData(qsoInUI);
+    qsoInUI = othersTabWidget->getQSOData(qsoInUI);
+    qsoInUI = eQSLTabWidget->getQSOData(qsoInUI);
+    qsoInUI = QSLTabWidget->getQSOData(qsoInUI);
+    qsoInUI = mainQSOEntryWidget->getQSOData(qsoInUI);
+    qsoInUI = satTabWidget->getQSOData(qsoInUI);
+    qsoInUI = myDataTabWidget->getQSOData(qsoInUI);
+
+    //*qso = mainQSOEntryWidget->getQSOData(*qso);
+    //*qso = QSOTabWidget->getQSOData(*qso);
+    //*qso = commentTabWidget->getQSOData(*qso);
+    //*qso = othersTabWidget->getQSOData(*qso);
+    //*qso = eQSLTabWidget->getQSOData(*qso);
+    //*qso = QSLTabWidget->getQSOData(*qso);
+    //*qso = mainQSOEntryWidget->getQSOData(*qso);
+    //*qso = satTabWidget->getQSOData(*qso);
+    //*qso = myDataTabWidget->getQSOData(*qso);
+    qDebug() << Q_FUNC_INFO << " -  Call-02   : " << qsoInUI.getCall();
 }
 
 bool MainWindow::readQSOFromUI()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << " - 010";
-    //qDebug() << Q_FUNC_INFO << " -  CALL-01    : " << qso->getCall();
+    //qDebug() << Q_FUNC_INFO << " -  CALL-01    : " << qsoInUI.getCall();
 
     getQSODataFromUI();
 
-    if (!checkValidCallBeforeAddingToLog(qso->getCall()))
+    if (!checkValidCallBeforeAddingToLog(qsoInUI.getCall()))
     {
         //qDebug() << Q_FUNC_INFO << ": Not valid Call" ;
         return false;
     }
 
     //qDebug() << Q_FUNC_INFO << " - 030";
-    QString tqrz = (qso->getCall());
+    QString tqrz = (qsoInUI.getCall());
     //qDebug() << Q_FUNC_INFO << " - tqrz: " <<  tqrz;
     //qDebug() << Q_FUNC_INFO << " - ARRLid: " <<  world->getQRZARRLId(tqrz);
-    //qDebug() << Q_FUNC_INFO << " - DXCC  : " <<  qso->getDXCC();
+    //qDebug() << Q_FUNC_INFO << " - DXCC  : " <<  qsoInUI.getDXCC();
 
-    int dxcc = checkDXCCBeforeAddingToLog(world->getQRZARRLId(tqrz), qso->getDXCC());
+    int dxcc = checkDXCCBeforeAddingToLog(world->getQRZARRLId(tqrz), qsoInUI.getDXCC());
    //qDebug() << Q_FUNC_INFO << ": " << dxcc;
     if (dxcc < 0)
     {
         return false;
     }
 
-    qso->setDXCC (dxcc);
+    qsoInUI.setDXCC (dxcc);
     //qDebug() << Q_FUNC_INFO << " - 040";
-    qso->setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
-    qso->setCQZone(infoWidget->getCQ());
-    qso->setItuZone(infoWidget->getITU());
-    qso->setMyCQZone(my_CQz);
-    qso->setMyITUZone(my_ITUz);
-    qso->setLogId (currentLog);
+    qsoInUI.setContinent (dataProxy->getContinentShortNameFromEntity(dxcc));
+    qsoInUI.setCQZone(infoWidget->getCQ());
+    qsoInUI.setItuZone(infoWidget->getITU());
+    qsoInUI.setMyCQZone(my_CQz);
+    qsoInUI.setMyITUZone(my_ITUz);
+    qsoInUI.setLogId (currentLog);
     //qDebug() << Q_FUNC_INFO << " - 050";
 
-    if (qso->getDistance()<=0.0)
-        qso->setDistance (infoWidget->getDistance ());
+    if (qsoInUI.getDistance()<=0.0)
+        qsoInUI.setDistance (infoWidget->getDistance ());
 
     keepSatPage = satTabWidget->getKeep();
     //qDebug() << Q_FUNC_INFO << " - 060";
@@ -2165,7 +2177,7 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
     {
           //qDebug() << Q_FUNC_INFO << " - 40" ;
         clearUIDX();                    // Clear the UI
-        qso->clear();                   // Clear the QSO
+        qsoInUI.clear();                   // Clear the QSO
         statusBar()->clearMessage();
           //qDebug() << Q_FUNC_INFO << ": NOT recovening the previous status...";
     }
@@ -3216,7 +3228,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
           //qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     }
       //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
-    if (qso->getBackup())
+    if (qsoInUI.getBackup())
     {
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
           //qDebug() << Q_FUNC_INFO << ": Restoring..." ;
@@ -3225,7 +3237,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     else
     {
-          //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qso->.." ;
+          //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qsoInUI..." ;
           //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
       //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
@@ -4395,28 +4407,25 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 
 void MainWindow::qsoToEdit (const int _qso)
 {    
-   //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
+
+    qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO  << " - 000";
+    qDebug() << Q_FUNC_INFO  << " - 000";
     if (!modify)
     {
         backupCurrentQSO ();
        //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     }
-   //qDebug() << Q_FUNC_INFO  << " - 005";
+    qDebug() << Q_FUNC_INFO  << " - 005";
     clearUIDX(true);
     readingTheUI = true;
 
     setModifying(true);
 
-   //qDebug() << Q_FUNC_INFO  << " - 010";
+    qDebug() << Q_FUNC_INFO  << " - 010";
     modifyingQSOid = _qso;
-    //modifyingQSO->clear();
-    //qDebug() << Q_FUNC_INFO  << " - 012";
-    //modifyingQSO->fromDB(modifyingQSOid);
-   //qDebug() << Q_FUNC_INFO  << " - 013";
 
-   //qDebug() << Q_FUNC_INFO << " - 051: MY_CITY: " << modifyingQSO->getMyCity();
+    qDebug() << Q_FUNC_INFO << " - 051 ";
     if ((clublogActive) && (clublogRealTime))
     {
         clublogPrevQSO = dataProxy->getClubLogRealTimeFromId(modifyingQSOid);
@@ -4431,48 +4440,32 @@ void MainWindow::qsoToEdit (const int _qso)
     satTabWidget->setFillingToEdit(true);
     QSO qsoE;
     qsoE.fromDB(modifyingQSOid);
-    //qDebug() << Q_FUNC_INFO  << " - q: " << qsoE.getMyCity();
-    //modifyingQSO->copy(qsoE);
-    qso->copy(qsoE);
+
+    qsoInUI.copy(qsoE);
     //qDebug() << Q_FUNC_INFO  << " - m: " << modifyingQSO->getMyCity();
     sendQSOToUI(qsoE);
-
-    //mainQSOEntryWidget->setQSOData(qsoE);
-    //commentTabWidget->setQSOData(qsoE);
-    //satTabWidget->setQSOData(qsoE);
-    //othersTabWidget->setQSOData(qsoE);
-    //QSLTabWidget->setQSOData(qsoE);
-    //eQSLTabWidget->setQSOData(qsoE);
-    //myDataTabWidget->setQSOData(qsoE);
-    //satTabWidget->setQSOData(qsoE);
-    //QSOTabWidget->setQSOData(qsoE);
 
     QString currentQrz = qsoE.getCall();
     currentEntity = world->getQRZARRLId(currentQrz);
 
-     //qDebug() << Q_FUNC_INFO << " - in default - 104: " << QString::number(currentEntity)  ;
-    //othersTabWidget->setPropMode(modifyingQSO.getPropMode(), false);
+
     currentEntity = qsoE.getDXCC();
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
-    //othersTabWidget->setEntity(currentEntity);
 
-
-     //qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
+    qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
     EntityStatus _entityStatus;
     _entityStatus.dxcc      = currentEntity;
     _entityStatus.bandId    = currentBandShown;
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
-     //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
-     //qDebug() << Q_FUNC_INFO << " - calling showStatusOfDXCC-05 " ;
+    qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
     showStatusOfDXCC(_entityStatus);
 
-     //qDebug() << Q_FUNC_INFO << " - in default - END"  ;
     readingTheUI = false;
     satTabWidget->setFillingToEdit(false);
-    //qDebug() << Q_FUNC_INFO << " - 050: MY_CITY2: " << qso->getMyCity();
+    qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5009,16 +5002,16 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
 
     int statusI = awards.getDXStatus (_entityStatus);
 
-    proposedQSOs pQSO;
+    //proposedQSOs pQSO;
 
 
-    pQSO.status = awards.getQSOStatus(statusI);
-    Callsign callsign(spot.getDxCall());
-    if (callsign.isValid())
-    {
-        pQSO.call = spot.getDxCall();
-        dxClusterAssistant->newDXClusterSpot(pQSO);
-    }
+    //pQSO.status = awards.getQSOStatus(statusI);
+    //Callsign callsign(spot.getDxCall());
+    //if (callsign.isValid())
+    //{
+    //    pQSO.call = spot.getDxCall();
+    //    dxClusterAssistant->newDXClusterSpot(pQSO);
+    //}
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -5033,19 +5026,19 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     if (!sp.isValid())
         return;
     Callsign callsign(sp.getDxCall());
-    if (callsign.isValid())
-    {
-        proposedQSOs pQSO;
-        pQSO.call = sp.getDxCall();
-        pQSO.status = ATNO;
-        pQSO.freq = sp.getFrequency();
-        dxClusterAssistant->newDXClusterSpot(pQSO);
+    //if (callsign.isValid())
+    //{
+    //   proposedQSOs pQSO;
+    //    pQSO.call = sp.getDxCall();
+    //    pQSO.status = ATNO;
+    //    pQSO.freq = sp.getFrequency();
+    //    dxClusterAssistant->newDXClusterSpot(pQSO);
        //qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << pQSO.call;
-    }
-    else
-    {
+    //}
+    //else
+    //{
          //qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << sp.getDxCall();
-    }
+    //}
 
 
     if (!dxclusterSendSpotsToMap)
@@ -5859,10 +5852,11 @@ void MainWindow::slotManualMode(bool _enable)
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
+    qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     backupQSO->clear();
     getQSODataFromUI();
-    backupQSO->copy(qso);
+    backupQSO->copy(qsoInUI);
     backupQSO->setBackup (true);
     backupQSO->setModifying (mainQSOEntryWidget->getModifying());
     backupQSO->setRealTime (mainQSOEntryWidget->getRealTime());
@@ -5873,8 +5867,9 @@ void MainWindow::backupCurrentQSO()
     backupQSO->setKeepOthers (othersTabWidget->getKeep ());
     backupQSO->setKeepMyData (myDataTabWidget->getKeep ());   
     backupQSO->setKeepSatTab (satTabWidget->getKeep ());
-    //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
+    qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     logEvent(Q_FUNC_INFO, "END", Debug);
+    qDebug() << Q_FUNC_INFO << " - END" ;
        //qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (backupQSO->getRealTime ());
 }
 
@@ -6010,7 +6005,7 @@ void MainWindow::setLogLevel(const DebugLogLevel _sev)
     dataProxy->setLogLevel(logLevel);
     mainQSOEntryWidget->setLogLevel(logLevel);
     util->setLogLevel(logLevel);
-    qso->setLogLevel(logLevel);
+    qsoInUI.setLogLevel(logLevel);
     othersTabWidget->setLogLevel(logLevel);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

@@ -4452,7 +4452,7 @@ bool QSO::fromDB(int _qsoId)
     data = (query.value(rec.indexOf("clublog_qso_upload_date"))).toString();
     setClubLogDate(util->getDateTimeFromSQLiteString(data).date());
     setClubLogStatus((query.value(rec.indexOf("clublog_qso_upload_status"))).toString());
-
+    setComment((query.value(rec.indexOf("comment"))).toString());
     setContinent((query.value(rec.indexOf("cont"))).toString());
     setContactedOperator((query.value(rec.indexOf("contacted_op"))).toString());
     setContestID((query.value(rec.indexOf("contest_id"))).toString());
