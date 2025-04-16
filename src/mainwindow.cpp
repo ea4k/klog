@@ -164,7 +164,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     loggWinAct = new QAction(tr("&Log Window"), this);
 
 
-    dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
+    //dxClusterAssistant = new DXClusterAssistant(Q_FUNC_INFO);
 
      //qDebug() << Q_FUNC_INFO << ": Awards to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
@@ -464,7 +464,7 @@ void MainWindow::init()
     awardsWidget->setManageDXMarathon(manageDxMarathon);
 
     dxClusterWidget->setCurrentLog(currentLog);
-    dxClusterAssistant->init();
+    //dxClusterAssistant->init();
 
      //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
      //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -847,10 +847,10 @@ void MainWindow::slotShowMap()
     //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
-void MainWindow::slotShowDXClusterAssistant()
-{
-    dxClusterAssistant->show();
-}
+//void MainWindow::slotShowDXClusterAssistant()
+//{
+    //dxClusterAssistant->show();
+//}
 void MainWindow::setMainWindowTitle()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -2550,10 +2550,10 @@ void MainWindow::createMenusCommon()
     connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
     showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    dxClusterAssistantAct = new QAction (tr("DXCluster Assistant"), this);
-    toolMenu->addAction(dxClusterAssistantAct);
-    connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
-    dxClusterAssistantAct->setToolTip(tr("Show the statistics of your radio activity."));
+    //dxClusterAssistantAct = new QAction (tr("DXCluster Assistant"), this);
+    //toolMenu->addAction(dxClusterAssistantAct);
+    //connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
+    //dxClusterAssistantAct->setToolTip(tr("Show the statistics of your radio activity."));
 
 
      //qDebug() << "MainWindow::createMenusCommon before" ;
@@ -5003,7 +5003,6 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
     int statusI = awards.getDXStatus (_entityStatus);
 
     //proposedQSOs pQSO;
-
 
     //pQSO.status = awards.getQSOStatus(statusI);
     //Callsign callsign(spot.getDxCall());

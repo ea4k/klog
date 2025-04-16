@@ -45,7 +45,7 @@
 //#include "locator.h"
 #include "dxcluster/dxcluster.h"
 #include "dxcluster/dxspot.h"
-#include "dxcluster/dxclusterassistant.h"
+//#include "dxcluster/dxclusterassistant.h"
 #include "frequency.h"
 #include "awards.h"
 #include "inputwidgets/mainwindowsattab.h"
@@ -310,7 +310,7 @@ private slots:
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
 
     // DXCLUSTER ASSISTANT
-    void slotShowDXClusterAssistant();
+    //void slotShowDXClusterAssistant();
 
     //UDP Server (WXJT-x)
     void slotWSJXstatusFromUDPServer(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
@@ -584,7 +584,7 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
     QAction *showMapAct;
-    QAction *dxClusterAssistantAct;
+    //QAction *dxClusterAssistantAct;
 
     QStringList bands;
     QStringList modes;
@@ -633,7 +633,7 @@ private:
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     // </CLUSTER>
 
-    DXClusterAssistant *dxClusterAssistant;
+   // DXClusterAssistant *dxClusterAssistant;
 
     // </UI>
     int infoTimeout; // timeout that temporary info will stay in the infobars

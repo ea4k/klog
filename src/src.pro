@@ -34,7 +34,7 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 PKGVERSION = 2.4.0-RC1
-VERSION = 2.4.0-RC1
+VERSION = 2.4.0
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
@@ -394,7 +394,7 @@ win32: {
     TARGET = klog
     QMAKE_TARGET_COMPANY = EA4K
     QMAKE_TARGET_DESCRIPTION = Hamradio logging
-
+    QMAKE_CXXFLAGS += -std=c++20
     contains(QT_ARCH, i386) {
         message("32-bit")
         LIBS += -L"$$PWD/../../libs/win32/hamlib/lib/gcc" -lhamlib
