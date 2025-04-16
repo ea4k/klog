@@ -422,11 +422,11 @@ bool HamLibClass::stop()
 
 bool HamLibClass::init(bool _active)
 {
-    //qDebug()<< Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model);
+   //qDebug()<< Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model);
 
     if (!_active)
     {
-        //qDebug()<< Q_FUNC_INFO << ": not active, exiting";
+       //qDebug()<< Q_FUNC_INFO << ": not active, exiting";
         rigLaunched = false;
         stop();
         return false;
@@ -436,33 +436,33 @@ bool HamLibClass::init(bool _active)
 
     if ((getNameFromModelId(myrig_model)).length ()<1)
     {
-        //qDebug()<< Q_FUNC_INFO << ": no rig model!";
+       //qDebug()<< Q_FUNC_INFO << ": no rig model!";
         rigLaunched = false;
         return false;
     }
 
     if (rigLaunched)
     {
-        //qDebug()<< Q_FUNC_INFO << ": Already init" ;
+       //qDebug()<< Q_FUNC_INFO << ": Already init" ;
         return true;
     }
 
     my_rig = rig_init(myrig_model);
-    //qDebug()<< Q_FUNC_INFO << ": set after init" ;
+   //qDebug()<< Q_FUNC_INFO << ": set after init" ;
     //if (my_rig == nullptr)
     if (!my_rig)
     {
-       //qDebug()<< Q_FUNC_INFO << ": Init failed, hamlib returned fail!";
+      //qDebug()<< Q_FUNC_INFO << ": Init failed, hamlib returned fail!";
        return false;
     }
     else
     {
-        //qDebug()<< Q_FUNC_INFO << ": rig_init went OK!";
+       //qDebug()<< Q_FUNC_INFO << ": rig_init went OK!";
     }
     // Code of DG1VS (Thank you!)
     if (myrig_model == RIG_MODEL_NETRIGCTL)
     {
-        //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_NETWORK";
+       //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_NETWORK";
         // network based communication
         my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
         QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
@@ -475,50 +475,54 @@ bool HamLibClass::init(bool _active)
         my_rig->state.rigport.type.rig = RIG_PORT_RPC;
         //my_rig->state.rigport.type.rig = RIG_PORT_NETWORK;
         QString netAddPort = QString("%1:%2").arg (networkAddress).arg(networkPort);
-        //qDebug()<< Q_FUNC_INFO << ": " << netAddPort;
+       //qDebug()<< Q_FUNC_INFO << ": " << netAddPort;
         qstrncpy (my_rig->state.rigport.pathname, netAddPort.toLocal8Bit().constData(), FILPATHLEN);
+    }
+    else if ((myrig_model == RIG_MODEL_DUMMY) || (myrig_model == RIG_MODEL_DUMMY_NOVFO))
+    {
+       //qDebug()<< Q_FUNC_INFO << ": RIG_PORT_DUMMY";
     }
     else
     {
-        //qDebug()<< Q_FUNC_INFO << ": !RIG_PORT_NETWORK";
-        //qDebug()<< Q_FUNC_INFO << ": serialport2: " << serialPort.toLocal8Bit();
+       //qDebug()<< Q_FUNC_INFO << ": !RIG_PORT_NETWORK";
+       //qDebug()<< Q_FUNC_INFO << ": serialport2: " << serialPort.toLocal8Bit();
         my_rig->state.rigport.type.rig = RIG_PORT_SERIAL;
         //qstrncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
         QVariant aux = QVariant(serialPort);
         QByteArray portStr = aux.toByteArray();
         const char* port = portStr.constData();
         strncpy(my_rig->state.rigport.pathname, port, FILPATHLEN - 1);
-        //qDebug()<< Q_FUNC_INFO << ": rigport: " << my_rig->state.rigport.pathname ;
+       //qDebug()<< Q_FUNC_INFO << ": rigport: " << my_rig->state.rigport.pathname ;
         my_rig->state.rigport.parm.serial.rate = bauds;
-        //qDebug()<< Q_FUNC_INFO << ": serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) ;
+       //qDebug()<< Q_FUNC_INFO << ": serial rate: " << QString::number(my_rig->state.rigport.parm.serial.rate) ;
         my_rig->state.rigport.parm.serial.data_bits = dataBits;
-        //qDebug()<< Q_FUNC_INFO << ": data bits: " << QString::number(my_rig->state.rigport.parm.serial.data_bits) ;
+       //qDebug()<< Q_FUNC_INFO << ": data bits: " << QString::number(my_rig->state.rigport.parm.serial.data_bits) ;
         my_rig->state.rigport.parm.serial.stop_bits = stopBits;
-        //qDebug()<< Q_FUNC_INFO << ": stop bits: " << QString::number(my_rig->state.rigport.parm.serial.stop_bits);
+       //qDebug()<< Q_FUNC_INFO << ": stop bits: " << QString::number(my_rig->state.rigport.parm.serial.stop_bits);
         my_rig->state.rigport.parm.serial.parity = sparity;
-        //qDebug()<< Q_FUNC_INFO << ": handshake before" ;
+       //qDebug()<< Q_FUNC_INFO << ": handshake before" ;
         my_rig->state.rigport.parm.serial.handshake = shandshake;
-       //qDebug()<< Q_FUNC_INFO << ": after handshake " ;
+      //qDebug()<< Q_FUNC_INFO << ": after handshake " ;
         // Config done
     }
-    //qDebug()<< Q_FUNC_INFO << ": Rig model config " ;
+   //qDebug()<< Q_FUNC_INFO << ": Rig model config " ;
     // Config done
     retcode = rig_open(my_rig);
-    //qDebug()<< Q_FUNC_INFO << ": retcode: " << QString::number(retcode) ;
+   //qDebug()<< Q_FUNC_INFO << ": retcode: " << QString::number(retcode) ;
 
     if (retcode != RIG_OK)
     {
-        //qDebug()<< Q_FUNC_INFO << ": Can't open: " << rigerror(retcode);
+       //qDebug()<< Q_FUNC_INFO << ": Can't open: " << rigerror(retcode);
         rig_cleanup(my_rig);
         return errorManage(Q_FUNC_INFO,  retcode);
     }
-    //qDebug()<< Q_FUNC_INFO << ": Rig open!" ;
+   //qDebug()<< Q_FUNC_INFO << ": Rig open!" ;
     errorCount = 0;
     rigLaunched = true;
     freq_old = 0.0;
     timer->start(pollInterval);
 
-    //qDebug()<< Q_FUNC_INFO << ": END TRUE";
+   //qDebug()<< Q_FUNC_INFO << ": END TRUE";
     return true;
 }
 
