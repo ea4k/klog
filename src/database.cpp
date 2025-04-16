@@ -1360,6 +1360,7 @@ bool DataBase::createTheBandQuickReference()
 
     QString stringQuery = QString("SELECT id, name, lower FROM band");
     QString fr = QString();
+    Frequency ff;
     bandIDHash.clear();
     IDBandHash.clear();
     QSqlQuery query;
@@ -1380,9 +1381,12 @@ bool DataBase::createTheBandQuickReference()
             st = (query.value(1)).toString();
             in = (query.value(0)).toInt();
             fr = (query.value(2)).toString();
+            ff.fromDouble((query.value(2)).toDouble());
             bandIDHash.insert(st, in );
             IDBandHash.insert(in, st);
             freqBandIdHash.insert(in, fr);
+            ffreqBandIdHash.insert(in, ff);
+
                  //qDebug() << Q_FUNC_INFO << ": " << st <<"/" << QString::number(in);
         }
         else
@@ -1502,22 +1506,16 @@ bool DataBase::createBandModeMaps()
     //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
-QString DataBase::getFreqFromBandId(const int _i)
+Frequency DataBase::getFreqFromBandId(const int _i)
 {
     //qDebug() << Q_FUNC_INFO  ;
 
-    if (freqBandIdHash.contains(_i))
+    if (ffreqBandIdHash.contains(_i))
     {
         //qDebug() << Q_FUNC_INFO << " OK END" ;
-        return freqBandIdHash.value(_i);
+        return ffreqBandIdHash.value(_i);
     }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << " END-1" ;
-        return "-1.0";
-    }
-        //qDebug() << Q_FUNC_INFO << " END-2" ;
-    //return "-2.0";
+    return Frequency(0);
 }
 
 /*

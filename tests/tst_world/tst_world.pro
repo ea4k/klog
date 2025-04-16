@@ -16,6 +16,7 @@ HEADERS += \
     ../../src/database.h \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
+    ../../src/frequency.h \
     ../../src/qso.h \
     ../../src/callsign.h \
     ../../src/adif.h
@@ -29,6 +30,7 @@ SOURCES +=  tst_world.cpp \
     ../../src/database.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
+    ../../src/frequency.cpp \
     ../../src/locator.cpp \
     ../../src/adif.cpp
 

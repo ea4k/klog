@@ -89,7 +89,7 @@ public:
     //QString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
 
-    QString getFreqFromBandId(const int _id);
+    Frequency getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
     QString getBandNameFromFreq(const double _n);
 

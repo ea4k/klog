@@ -40,6 +40,7 @@
 //#include "database/queryexecutor.h"
 #include "database/db_adif_primary_subdvisions_data.h"
 #include "utilities.h"
+#include "frequency.h"
 #include "global.h"
 
 class QSqlRelationalTableModel;
@@ -85,7 +86,7 @@ public:
     int getBandIdFromFreq(const QString &fr); //Freq should be in MHz
     bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz
 
-    QString getFreqFromBandId(const int _i);
+    Frequency getFreqFromBandId(const int _i);
 
     //int getLogTypeNumber(const QString &_logType);
     //QString getLogTypeName(const int _logType);
@@ -229,6 +230,9 @@ private:
     QHash<int, QString> IDModeHash;
     QHash<int, QString> IDSubModeHash;
     QHash<int, QString> freqBandIdHash;
+
+    QHash<int, Frequency> ffreqBandIdHash;
+
 
     QMap<QString, int> bandQMap;
     QMap<QString, int> modeQMap;

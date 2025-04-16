@@ -532,7 +532,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     { // If the freq does not belong to the current band, we need to update the band
        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText() ;
         //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
-        QString tmpFreq = dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(satBandTXComboBox->currentText()));
+        Frequency tmpFreq = dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(satBandTXComboBox->currentText()));
         //qDebug() << ": Normal" << dataProxy->getSatelliteUplink(getSatName());
         //qDebug() << ": Normal1" << dataProxy->getSatelliteUplink(getSatName(), 1);
         //qDebug() << ": Normal2" << dataProxy->getSatelliteUplink(getSatName(), 2);

@@ -15,6 +15,7 @@ HEADERS += \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/global.h \
     ../../src/adif.h \
+    ../../src/frequency.h \
     ../../src/locator.h \
     ../../src/world.h \
     ../../src/dataproxy_sqlite.h \
@@ -25,6 +26,7 @@ HEADERS += \
 
 SOURCES +=  tst_database.cpp \
         ../../src/adif.cpp \
+        ../../src/frequency.cpp \
         ../../src/locator.cpp \
         ../../src/utilities.cpp \
         ../../src/world.cpp \

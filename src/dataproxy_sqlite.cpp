@@ -399,7 +399,7 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
     }
 }
 
-QString DataProxy_SQLite::getFreqFromBandId(const int _id)
+Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
 {
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return db->getFreqFromBandId(_id);
