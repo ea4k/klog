@@ -31,11 +31,11 @@ export CXXFLAGS=-std=c++11
 KLOG_VERSION=$(grep "PKGVERSION =" src.pro |awk '{print $3}')
 echo "Packaging KLog-$KLOG_VERSION"
 KLOG_SOURCES="../src"
-QTDIRi=$HOME"/Qt/5.15.2/clang_64"
+QTDIRi=$HOME"/Qt/6.6.3/macos"
 rm -Rf KLog.app
 rm -Rf build 
 /usr/bin/make clean
-"$QTDIRi"/bin/qmake src.pro -spec macx-clang CONFIG+=x86_64 
+"$QTDIRi"/bin/qmake6 src.pro -spec macx-clang CONFIG+=x86_64 
 /usr/bin/make
 mv build/target/klog.app KLog.app
 mkdir -p KLog.app/Contents/PlugIns/sqldrivers
@@ -48,6 +48,6 @@ cp /usr/local/lib/libhamlib.4.dylib KLog.app/Contents/MacOS/
 chmod +w KLog.app/Contents/MacOS/libhamlib.4.dylib
 install_name_tool -id @executable_path/libhamlib.4.dylib KLog.app/Contents/MacOS/libhamlib.4.dylib
 install_name_tool -change /usr/local/lib/libhamlib.4.dylib @executable_path/libhamlib.4.dylib KLog.app/Contents/MacOS/klog
-"$QTDIRi"/bin/macdeployqt KLog.app/ -qmldir=./qml/ -dmg
+"$QTDIRi"/bin/macdeployqt6 KLog.app/ -qmldir=./qml/ -dmg
 mv KLog.dmg KLog-"$KLOG_VERSION".dmg
 echo "You can find the dmg file in this folder... enjoy KLog!"
