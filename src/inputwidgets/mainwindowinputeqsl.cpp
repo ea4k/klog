@@ -183,9 +183,6 @@ void MainWindowInputEQSL::createUI()
     connect(qrzcomComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotQRZCOMComboBoxChanged() ) )  ;
 }
 
-
-
-
 void MainWindowInputEQSL::setDefaultData()
 {
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
@@ -621,7 +618,7 @@ void MainWindowInputEQSL::setClubLogDate(const QDate _qs)
     }
     else
     {
-        clublogQDateEdit->clear();
+        clublogQDateEdit->setDate(QDate::currentDate());
     }
 }
 
@@ -660,7 +657,7 @@ void MainWindowInputEQSL::setQRZCOMDate(const QDate _qs)
     }
     else
     {
-        qrzcomQDateEdit->clear();
+        qrzcomQDateEdit->setDate(QDate::currentDate());
     }
 }
 
@@ -672,7 +669,7 @@ void MainWindowInputEQSL::setEQSLRecDate(const QDate _qs)
     }
     else
     {
-        eqslRecQDateEdit->clear();
+        eqslRecQDateEdit->setDate(QDate::currentDate());
     }
 }
 
@@ -684,7 +681,7 @@ void MainWindowInputEQSL::setEQSLSenDate(const QDate _qs)
     }
     else
     {
-        eqslSentQDateEdit->clear();
+        eqslSentQDateEdit->setDate(QDate::currentDate());
     }
 }
 
@@ -696,7 +693,7 @@ void MainWindowInputEQSL::setLOTWRecDate(const QDate _qs)
     }
     else
     {
-        lotwRecQDateEdit->clear();
+        lotwRecQDateEdit->setDate(QDate::currentDate());
     }
 }
 
@@ -708,7 +705,7 @@ void MainWindowInputEQSL::setLOTWSenDate(const QDate _qs)
     }
     else
     {
-        lotwSentQDateEdit->clear();
+        lotwSentQDateEdit->setDate(QDate::currentDate());
     }
 }
 
