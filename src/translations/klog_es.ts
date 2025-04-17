@@ -225,12 +225,12 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="621"/>
         <source>KLog Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia de KLog</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="621"/>
         <source>There are no queued QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay QSO en cola</translation>
     </message>
     <message>
         <source>All</source>
@@ -292,57 +292,57 @@
         <location filename="../awards.cpp" line="1311"/>
         <source>A</source>
         <comment>Do not translate</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1312"/>
         <source>ATNO</source>
         <comment>All Time New One, Do not translate</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1315"/>
         <source>N</source>
         <comment>Needed, please try to keep the N</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1316"/>
         <source>Needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Necesitado</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1319"/>
         <source>W</source>
         <comment>Worked, please try to keep the W</comment>
-        <translation type="unfinished"></translation>
+        <translation>T</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1320"/>
         <source>Worked</source>
-        <translation type="unfinished">Trabajado</translation>
+        <translation>Trabajado</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1323"/>
         <source>C</source>
         <comment>Confirmed, please try to keep the C</comment>
-        <translation type="unfinished"></translation>
+        <translation>C</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1324"/>
         <source>Confirmed</source>
-        <translation type="unfinished">Confirmado</translation>
+        <translation>Confirmado</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1328"/>
         <source>U</source>
         <comment>Unknown</comment>
-        <translation type="unfinished"></translation>
+        <translation>D</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1329"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconocido</translation>
     </message>
 </context>
 <context>
@@ -580,17 +580,17 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="61"/>
         <source>DX</source>
-        <translation type="unfinished">DX</translation>
+        <translation>DX</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="61"/>
         <source>Freq</source>
-        <translation type="unfinished">Frec</translation>
+        <translation>Frec</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="61"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
 </context>
 <context>
@@ -638,7 +638,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="142"/>
         <source>Clears the DXCluster command line.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpia la linea comandos de DXCluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="211"/>
@@ -648,7 +648,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="221"/>
         <source>The DXCluster server desconnected the session.</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor DXCluster desconectó la sesión.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="229"/>
@@ -1966,7 +1966,7 @@ Error: #2</translation>
     <message>
         <location filename="../logwindow.cpp" line="222"/>
         <source>There was a problem with the log, please restart KLog and contact the development team if the error persist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hubo un problema con el log. Reinicia KLog y contacta con el desarrollador si el problema persiste.</translation>
     </message>
     <message>
         <location filename="../logwindow.cpp" line="327"/>
@@ -2570,14 +2570,14 @@ Error: #2</translation>
     <message>
         <location filename="../mainwindow.cpp" line="5413"/>
         <source>KLog - QSO received - NEW</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSO recibido - NUEVO</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5419"/>
         <source>&lt;HTML&gt;&lt;body&gt;ASK-The following QSO data has been received from to be logged:
 
 &lt;table&gt;&lt;tr&gt;&lt;TH&gt;Callsign:&lt;/TH&gt;&lt;TD&gt;%1&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Freq:&lt;/TH&gt;&lt;TD&gt;%2&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Mode:&lt;/TH&gt;&lt;TD&gt;%3&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Time On:&lt;/TH&gt;&lt;TD&gt;%4&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Time Off:&lt;/TH&gt;&lt;TD&gt;%5&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST TX:&lt;/TH&gt;&lt;TD&gt;%6&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST RX:&lt;/TH&gt;&lt;TD&gt;%7&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Comment:&lt;/TH&gt;&lt;TD&gt;%8&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;DX-Grid:&lt;/TH&gt;&lt;TD&gt;%9&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Local-Grid:&lt;/TH&gt;&lt;TD&gt;%10&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Station Callsign:&lt;/TH&gt;&lt;TD&gt;%11&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Operator Callsign:&lt;/TH&gt;&lt;TD&gt;%12&lt;/TD&gt;&lt;/TR&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6266"/>
@@ -3697,29 +3697,29 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
     <message>
         <location filename="../mainwindow.cpp" line="1185"/>
         <source>The entity that is selected is different from the one proposed by KLog:</source>
-        <translation type="unfinished"></translation>
+        <translation>La entidad seleccionada es diferente de la propuesta por KLog:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1190"/>
         <location filename="../mainwindow.cpp" line="1197"/>
         <source>Unknown</source>
         <comment>Keep it short, its a button text</comment>
-        <translation type="unfinished"></translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1191"/>
         <source>- There is no selected DXCC.</source>
-        <translation type="unfinished"></translation>
+        <translation>- No hay DXCC seleccionado.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1198"/>
         <source>- KLog couldn&apos;t find a DXCC</source>
-        <translation type="unfinished"></translation>
+        <translation>- KLog no pudo encontrar un DXCC</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1201"/>
         <source>Please select the one you want to keep for this QSO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona el que se deba usar en este QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1711"/>
@@ -4117,7 +4117,7 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="153"/>
         <source>Show All</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar todas</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="155"/>
@@ -4157,7 +4157,7 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="162"/>
         <source>Show all subdivisions for the current DXCC Entity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar todas las subdivisiones para esta entidad DXCC.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="164"/>
@@ -4184,7 +4184,7 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="233"/>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="1098"/>
         <source>None Identified</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguna identificada</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="683"/>
@@ -4199,17 +4199,17 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="684"/>
         <source>POTA Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Ref POTA</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="685"/>
         <source>SIG</source>
-        <translation type="unfinished"></translation>
+        <translation>SIG</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="685"/>
         <source>SIG Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info SIG</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="686"/>
@@ -4219,12 +4219,12 @@ Muestre su descontento a sus líderes o a través de redes sociales para parar l
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="686"/>
         <source>WWFF Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Ref WWFF</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="747"/>
         <source>Not selected</source>
-        <translation type="unfinished"></translation>
+        <translation>No seleccionada</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputothers.cpp" line="684"/>
@@ -4494,27 +4494,27 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="518"/>
         <source>My POTA Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi ref POTA</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="518"/>
         <source>My SIG</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi SIG</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="519"/>
         <source>My SIG Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi info SIG</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="519"/>
         <source>My SOTA Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi ref SOTA</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="521"/>
         <source>My WWFF Ref</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi Ref WWFF</translation>
     </message>
     <message>
         <source>My SOTA_Ref</source>
@@ -4998,7 +4998,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1454"/>
         <source>Altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Altitud</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1455"/>
@@ -5214,7 +5214,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <location filename="../utilities.cpp" line="1478"/>
         <source>ClubLog SDate</source>
         <comment>Date when it was sent</comment>
-        <translation type="unfinished">Fecha CLublog</translation>
+        <translation>Fecha envio Clublog</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1481"/>
@@ -5225,7 +5225,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <location filename="../utilities.cpp" line="1486"/>
         <source>Darc Dok</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
-        <translation type="unfinished"></translation>
+        <translation>DOK de DARC</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1488"/>
@@ -5485,87 +5485,87 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <location filename="../utilities.cpp" line="1491"/>
         <source>eQSL SDate</source>
         <comment>Date when it was sent</comment>
-        <translation type="unfinished">eQSL Fecha env</translation>
+        <translation>eQSL Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1500"/>
         <source>Gridsquare ext</source>
         <comment>Extended gridsquare</comment>
-        <translation type="unfinished"></translation>
+        <translation>Locator extendido</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1501"/>
         <source>HamLog status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado HamLog</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1502"/>
         <source>HamLog SDate</source>
         <comment>Date when it was sent</comment>
-        <translation type="unfinished"></translation>
+        <translation>HamLog Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1503"/>
         <source>HRDLog SDate</source>
         <comment>Date when it was sent</comment>
-        <translation type="unfinished">HRDLog Fecha env</translation>
+        <translation>HRDLog Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1505"/>
         <source>HamQTH status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado HamQTH</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1506"/>
         <source>HamQTH SDate</source>
         <comment>Date when it was sent</comment>
-        <translation type="unfinished"></translation>
+        <translation>HamQTH Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1513"/>
         <source>LoTW SDate</source>
         <comment>Date when it was sent</comment>
-        <translation type="unfinished">LoTW Fecha env</translation>
+        <translation>LoTW Fecha env</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1516"/>
         <source>Marcado</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcado</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1519"/>
         <source>My Altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi altitud</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1521"/>
         <source>My ARRL Sect</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi Sec ARRL</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1529"/>
         <source>My Gridsquare Ext</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi locator ext</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1537"/>
         <source>My POTA</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi POTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1541"/>
         <source>My SOTA</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi OTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1546"/>
         <source>My WWFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Mi WWFF</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1553"/>
         <source>POTA</source>
-        <translation type="unfinished"></translation>
+        <translation>POTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1555"/>
@@ -5756,7 +5756,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1596"/>
         <source>WWFF</source>
-        <translation type="unfinished"></translation>
+        <translation>WWFF</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1597"/>
@@ -9069,12 +9069,12 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../world.cpp" line="885"/>
         <source>KLog DXCC</source>
-        <translation type="unfinished">KLog DXCC</translation>
+        <translation>KLog DXCC</translation>
     </message>
     <message>
         <location filename="../world.cpp" line="886"/>
         <source>All QSOs have been updated with a DXCC and the Continent.</source>
-        <translation type="unfinished">Todos los QSO se han actualizado con un DXCC y un continente.</translation>
+        <translation>Todos los QSO se han actualizado con un DXCC y un continente.</translation>
     </message>
 </context>
 <context>
