@@ -64,6 +64,8 @@ private slots:
     void slotWSJTXButtonClicked();
     void slotKLogButtonClicked();
     void slotSetDarkMode();
+signals:
+    void darkModeChanged(bool darkMode); // Signal to notify other widgets
 
 private:
     Utilities *util;

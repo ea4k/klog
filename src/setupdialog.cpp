@@ -179,6 +179,7 @@ void SetupDialog::connectActions()
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     connect (eLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
+    connect (colorsPage, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -187,6 +188,10 @@ void SetupDialog::connectActions()
 //{
     //emit qrzcomAuto(_b);
 //}
+void SetupDialog::slotDarkModeChanged(const bool _dm)
+{
+    emit darkModeChanged(_dm);
+}
 
 void SetupDialog::setData(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)
 {

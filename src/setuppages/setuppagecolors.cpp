@@ -322,6 +322,7 @@ void SetupPageColors::setDarkMode(const bool _d)
         darkModeButton->setText(tr("Dark Mode"));
         //darkMode = false;
     }
+    emit darkModeChanged(darkMode);
 }
 
 void SetupPageColors::saveSettings()

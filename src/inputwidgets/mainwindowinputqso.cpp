@@ -296,18 +296,8 @@ void MainWindowInputQSO::readDarkMode()
 {
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
-    darkMode = settings.value("DarkMode", false).toBool ();
+    setDarkMode(settings.value("DarkMode", false).toBool ());
     settings.endGroup ();
-
-    if (darkMode) {
-        txFreqSpinBox->setPalette(palWhite);
-        rxFreqSpinBox->setPalette(palWhite);
-        //qDebug() << Q_FUNC_INFO << " - DarkMode: ON";
-    } else {
-        //qDebug() << Q_FUNC_INFO << " - DarkMode: OFF";
-        txFreqSpinBox->setPalette(palBlack);
-        rxFreqSpinBox->setPalette(palBlack);
-    }
 }
 
 void MainWindowInputQSO::clear()
@@ -690,6 +680,21 @@ void MainWindowInputQSO::setPaletteRightDXLocator(const bool _ok)
     else
     {
         locatorLineEdit->setPalette (palRed);
+    }
+}
+
+void MainWindowInputQSO::setDarkMode (const bool _dm)
+{
+    darkMode = _dm;
+
+    if (darkMode) {
+        txFreqSpinBox->setPalette(palWhite);
+        rxFreqSpinBox->setPalette(palWhite);
+        //qDebug() << Q_FUNC_INFO << " - DarkMode: ON";
+    } else {
+        //qDebug() << Q_FUNC_INFO << " - DarkMode: OFF";
+        txFreqSpinBox->setPalette(palBlack);
+        rxFreqSpinBox->setPalette(palBlack);
     }
 }
 

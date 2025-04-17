@@ -50,7 +50,7 @@ public:
 
     QSO getQSOData(QSO _qso);
     void setQSOData(const QSO &_qso);
-
+    void setDarkMode (const bool _dm);
     void createUI();
 
     void setData(const QString &_stationCallsign, const QString &_operator, const QString &_myLocator);
@@ -123,6 +123,8 @@ private:
     bool setInitialADIFValues();
     void setColorsForMyUserADIFLineEdit();
     bool checkMyVUCC_GRIDS(const QString &_string);
+    void readDarkMode();
+    bool darkMode;
     QStringList adifValidTypes;
 
     QDoubleSpinBox *myPowerSpinBox;
@@ -141,7 +143,7 @@ private:
     bool modify;
     QString my_rig, my_sota, my_antenna, my_vucc_grids, my_pota_ref, my_sig, my_sig_info, my_wwff_ref;
     DebugLogLevel logLevel;
-    bool getDarkMode();
+    //bool getDarkMode();
 };
 
 #endif // MAINWINDOWMYDATATAB_H

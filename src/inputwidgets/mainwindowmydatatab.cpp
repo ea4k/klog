@@ -50,9 +50,10 @@ MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) 
 
     stationCallsign = QString();    // Defined in the configuration by the user, will be used if the user configured so in the setup
     operatorQRZ = QString();        // Defined in the configuration by the user, will be used if the user configured so in the setup
-    myLocator = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
-    util = new Utilities(Q_FUNC_INFO);
-    modify = false;
+    myLocator   = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
+    util        = new Utilities(Q_FUNC_INFO);
+    modify      = false;
+    darkMode    = false;
     createUI();
     setInitialADIFValues();
     myPower = 0;
@@ -68,6 +69,14 @@ MainWindowMyDataTab::~MainWindowMyDataTab()
     delete(locator);
     delete(util);
     //delete(dataProxy);
+}
+
+void MainWindowMyDataTab::readDarkMode()
+{
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    settings.beginGroup ("Colors");
+    setDarkMode(settings.value("DarkMode", false).toBool ());
+    settings.endGroup ();
 }
 
 QSO MainWindowMyDataTab::getQSOData(QSO _qso)
@@ -162,6 +171,7 @@ void MainWindowMyDataTab::createUI()
     connect(myUserADIFComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotMyUserADIFComboBoxChanged() ) ) ;
 
     connect(myUserADIFLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentMyUSerData() ) );
+    readDarkMode();
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -260,7 +270,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
             myLocator = (myLocatorLineEdit->text()).toUpper();
         }
 
-        if (getDarkMode())
+        if (darkMode)
         {
             myLocatorLineEdit->setPalette(palWhite);
         }
@@ -440,7 +450,7 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
     Callsign callsign(operatorLineEdit->text());
     if (callsign.isValid())
     {
-        if (getDarkMode())
+        if (darkMode)
         {
             operatorLineEdit->setPalette(palWhite);
         }
@@ -468,6 +478,25 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
     operatorLineEdit->setCursorPosition(cursorP);
 }
 
+void MainWindowMyDataTab::setDarkMode (const bool _dm)
+{
+    darkMode = _dm;
+    if (darkMode)
+    {
+        myLocatorLineEdit->setPalette(palWhite);
+        operatorLineEdit->setPalette(palWhite);
+        stationCallSignLineEdit->setPalette(palWhite);
+        myUserADIFLineEdit->setPalette(palWhite);
+    }
+    else
+    {
+        myLocatorLineEdit->setPalette(palBlack);
+        operatorLineEdit->setPalette(palBlack);
+        stationCallSignLineEdit->setPalette(palBlack);
+        myUserADIFLineEdit->setPalette(palBlack);
+    }
+}
+
 void MainWindowMyDataTab::slotStationCallSignTextChanged()
 {
     //qDebug() << Q_FUNC_INFO;
@@ -479,7 +508,7 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
     Callsign callsign(stationCallSignLineEdit->text());
     if (callsign.isValid())
     {
-        if (getDarkMode())
+     if (darkMode)
         {
             stationCallSignLineEdit->setPalette(palWhite);
         }
@@ -765,7 +794,7 @@ QString MainWindowMyDataTab::getMyWWFF_Ref()
 void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (getDarkMode())
+    if (darkMode)
     {
         myUserADIFLineEdit->setPalette(palWhite);
     }
@@ -870,12 +899,12 @@ void MainWindowMyDataTab::setModify(const bool _modify)
     //emit debugLog(Q_FUNC_INFO, "END", Debug);
 }
 
-bool MainWindowMyDataTab::getDarkMode()
-{
-    logEvent (Q_FUNC_INFO, "Start", Debug);
+//bool MainWindowMyDataTab::getDarkMode()
+//{
+//    logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO << " - color: " << operatorLineEdit->palette().color (QPalette::Base);
-    return  (operatorLineEdit->palette().color (QPalette::Base) == "#646464");
-}
+//    return  (operatorLineEdit->palette().color (QPalette::Base) == "#646464");
+//}
 
 void MainWindowMyDataTab::setLogLevel (const DebugLogLevel _b)
 {

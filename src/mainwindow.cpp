@@ -667,6 +667,8 @@ void MainWindow::createActionsCommon(){
     connect(setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
     //connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
     connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
+    connect(setupDialog, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)) );
+
 
     connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
@@ -6126,6 +6128,7 @@ bool MainWindow::loadSettings()
     workedColor = settings.value("WorkedColor").value<QColor>();
     confirmedColor = settings.value("ConfirmedColor").value<QColor>();
     defaultColor = settings.value("DefaultColor").value<QColor>();
+    bool darkMode = settings.value("DarkMode", false).toBool ();
 
    //qDebug() << Q_FUNC_INFO << " - NewOneColor:    " << newOneColor.name(QColor::HexRgb);
    //qDebug() << Q_FUNC_INFO << " - NewOneColor:    " << newOneColor.name();
@@ -6138,6 +6141,7 @@ bool MainWindow::loadSettings()
     setColors(newOneColor, neededColor, workedColor, confirmedColor, defaultColor);
 
     setupDialog->loadDarkMode ();
+    setDarkMode(darkMode);
 
       //qDebug() << Q_FUNC_INFO << " - 70 - misc";
     settings.beginGroup ("Misc");
@@ -6230,6 +6234,18 @@ bool MainWindow::loadSettings()
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << Q_FUNC_INFO << " - END";
     return true;
+}
+
+void MainWindow::setDarkMode(const bool _dm)
+{
+  othersTabWidget->setDarkMode(_dm);
+  QSOTabWidget->setDarkMode(_dm);
+  myDataTabWidget->setDarkMode(_dm);
+}
+
+void MainWindow::slotDarkModeChanged(const bool _dm)
+{
+   setDarkMode(_dm);
 }
 
 void MainWindow::selectTheLog(const int _i)
