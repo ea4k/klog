@@ -400,14 +400,14 @@ void MainWindowInputOthers::setDarkMode (const bool _dm)
 
     if (darkMode)
     {
-        qDebug() << Q_FUNC_INFO << " - True";
+       //qDebug() << Q_FUNC_INFO << " - True";
         iotaNumberLineEdit->setPalette(palWhite);
         userDefinedADIFValueLineEdit->setPalette(palWhite);
         iotaNumberLineEdit->setPalette(palWhite);
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - False";
+       //qDebug() << Q_FUNC_INFO << " - False";
         iotaNumberLineEdit->setPalette(palBlack);
         userDefinedADIFValueLineEdit->setPalette(palBlack);
         iotaNumberLineEdit->setPalette(palBlack);

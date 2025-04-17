@@ -73,7 +73,39 @@ int showErrorUpdatingTheDB()
     return -1;
 }
 
+// Function to handle missing translation files
+void loadTranslations(QApplication &app, QTranslator &myappTranslator)
+{
+    Utilities util(Q_FUNC_INFO);
+    QString translationPath, translationPath2;
+    QString language = (QLocale::system().name()).left(2);
+    bool missingTranslation = true;
 
+// Check possible translation paths
+#if defined(Q_OS_WIN)
+    translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
+#elif defined(Q_OS_OSX)
+    translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
+#else
+    translationPath = "/usr/share/klog/translations/klog_" + language + ".qm";
+    translationPath2 = util.getHomeDir() + "/translations/klog_" + language + ".qm";
+#endif
+
+    if (myappTranslator.load(translationPath) || myappTranslator.load(translationPath2))
+    {
+        missingTranslation = false;
+    }
+
+    if (missingTranslation && language != "en")
+    {
+        QMessageBox::warning(nullptr, "KLog",
+                             QString("No translation files for your language were found. KLog will be shown in English.\n")
+                                 + QString("If you have the klog_%1.qm file for your language, copy it to the translations folder and restart KLog.")
+                                       .arg(language));
+    }
+
+    app.installTranslator(&myappTranslator);
+}
 
 int main(int argc, char *argv[])
 {
@@ -85,8 +117,6 @@ int main(int argc, char *argv[])
     QDir d1 = QDir();
     //qDebug() << Q_FUNC_INFO << " - STARTED: ";
     Utilities util(Q_FUNC_INFO);
-    QStringList arguments;
-    QTextStream cout(stdout);
     QApplication app(argc, argv);
 
     QString iconSt;
@@ -101,137 +131,24 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " -  -10 ";
 
     // Now we check if the user is executing from the command line
-    arguments.clear();
-    arguments << app.arguments();
-    if (arguments.length()>1)
+
+
+    // Command-line arguments
+    QTextStream cout(stdout);
+    QStringList arguments = app.arguments();
+    if (arguments.size() > 1)
     {
+        Utilities util(Q_FUNC_INFO);
         if (arguments.contains("-v"))
         {
             cout << "Version: KLog-" << app.applicationVersion() << "\n";
         }
-        else if ((arguments.contains("-?")) || (arguments.contains("-h")) )
-        {
-            util.printCommandHelp();
-        }
         else
         {
             util.printCommandHelp();
-            app.quit();
-            return 1;
         }
-        app.quit();
         return 0;
     }
-
-    //qDebug() << Q_FUNC_INFO << " -  Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss");
-    //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
-    // Translations begin
-    QTranslator qtTranslator;
-    if (qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
-        app.installTranslator(&qtTranslator);
-
-    QTranslator myappTranslator;
-
-    bool missingTranslation = false;
-    //QString msgOSFilePath = QString();        // The OS depending part of the message to be printed if no translation is found.
-
-    #if defined(Q_OS_WIN)
-        //qDebug() << Q_FUNC_INFO << " - WIN ";
-        //qDebug() << Q_FUNC_INFO << " - 20 - WIN";
-
-        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
-        {
-            if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
-                missingTranslation = true;
-        }
-        else if (QFile::exists(QDir::homePath()+"/klog/klog_" + (QLocale::system().name()).left(2)+ ".qm") ) /* Flawfinder: ignore */
-        {
-            if (myappTranslator.load(QDir::homePath()+"/klog/klog_" + (QLocale::system().name())))
-                missingTranslation = true;
-        }
-        else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
-        { // If language is English, it will execute without showing message
-        }
-        else
-        {
-            missingTranslation = true;
-            //msgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
-        }
-      //qDebug() << Q_FUNC_INFO << " -  -20 - end WIN ";
-    #elif defined(Q_OS_OSX)
-        //qDebug() << Q_FUNC_INFO << " -  OSX: " << QLocale::system().name();
-        if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" +  (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
-        {
-        if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm"))
-                missingTranslation = true;
-        }
-        else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
-        { // If language is English, it will execute without showing message
-        }
-        else
-        {
-            missingTranslation = true;
-        }
-    #else
-            //qDebug() << Q_FUNC_INFO << " - OTHER OS: " << (QLocale::system()).name();
-        if (QFile::exists("klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
-        {
-            if (myappTranslator.load("klog_" + (QLocale::system().name()).left(2))) /* Flawfinder: ignore */
-                missingTranslation = true;
-        }
-        else if (QFile::exists("/usr/share/klog/translations/klog_" + (QLocale::system().name()).left(2) + ".qm") ) /* Flawfinder: ignore */
-        {
-               //qDebug() << Q_FUNC_INFO << " - OTHER -2: " << "/usr/share/klog/klog_" + (QLocale::system().name()).left(2); /* Flawfinder: ignore */
-            if (myappTranslator.load("/usr/share/klog/translations/klog_" + (QLocale::system().name())))  /* Flawfinder: ignore */
-               missingTranslation = true;
-        }
-        else if (QFile::exists(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2) + ".qm")) /* Flawfinder: ignore */
-        {
-            //qDebug() << Q_FUNC_INFO << " - OTHER -3: " << QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name()).left(2);
-            if (myappTranslator.load(QCoreApplication::applicationDirPath() + "/translations/klog_" + (QLocale::system().name())))
-                missingTranslation = true;
-        }
-
-        else if (((QLocale::system().name()).left(2)) == "en") /* Flawfinder: ignore */
-        { // If language is English, it will execute without showing message
-        }
-        else
-        {
-            missingTranslation = true;
-            //sgOSFilePath = QCoreApplication::applicationDirPath() + "/translations/" ;
-        }
-
-    #endif
-    //qDebug() << Q_FUNC_INFO << " -  -40 ";
-    if (missingTranslation)
-    {
-        //qDebug() << Q_FUNC_INFO << " -  Translation missing! ";
-        QMessageBox msgBox;
-        QString urlTranslate = QString();
-        urlTranslate = "<p><a href=\"https://translate.google.com/?sl=auto&tl=auto#en/auto/No%20translation%20files%20for%20your%20language%20have%20been%20found%20so%20KLog%20will%20be%20shown%20in%20English.%0A%0AIf%20you%20have%20the%20klog_en.qm%20file%20for%20your%20language%2C%20you%20can%20copy%20it%20in%20the%20%2Fhome%2Fdevel%2F.klog%2F%20folder%20and%20restart%20KLog%20again.%0A%0A%20If%20you%20want%20to%20help%20to%20translate%20KLog%20into%20your%20language%2C%20please%20contact%20the%20author.\">TRANSLATE</a></p>";
-
-        QString msg = QString();
-
-        msgBox.setWindowTitle("KLog");
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setTextFormat(Qt::RichText);
-        QString language = (QLocale::system().name()).left(2); /* Flawfinder: ignore */
-
-        msg = QString("No translation files for your language have been found so KLog will be shown in English.") + "<p>" +
-              QString("If you have the klog_%1.qm file for your language, you can copy it into the %2/translations/ folder and restart KLog.</p><p>If you want to help to translate KLog into your language, please contact the author.").arg(language).arg(QCoreApplication::applicationDirPath()) +
-              "</p>" + urlTranslate;
-
-        msgBox.setText(msg);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-    }
-
-    //qDebug() << Q_FUNC_INFO << " - 1" << (QTime::currentTime()).toString("HH:mm:ss") ;
-
-    app.installTranslator(&myappTranslator);
-    //qDebug() << Q_FUNC_INFO << " -  End of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss");
-    // Traslations end
 
     /* Application Singleton
      *
@@ -285,6 +202,13 @@ int main(int argc, char *argv[])
     }
 
     // END OF Application Singleton
+
+    // Load translations
+    //qDebug() << Q_FUNC_INFO << " -  Start of translation activities: "<< (QTime::currentTime()).toString("HH:mm:ss");
+    //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
+    QTranslator myappTranslator;
+    loadTranslations(app, myappTranslator);
+
 
     QString klogDir = util.getHomeDir();
 
