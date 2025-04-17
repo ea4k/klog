@@ -111,6 +111,7 @@ private:
     void setDefaultData();
     bool getDarkMode();
     void setSplitCheckBox();
+    void readDarkMode();
 
 
     QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;

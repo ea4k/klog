@@ -49,6 +49,7 @@ TBD - 2.4
 - Enhancement: ADIF Added SUBMM band.
 - Enhancement: Completed the names of the fields in the log view widget.
 - Enhancement: Added several ADIF fields (Closes #396, #507, #508, #719)
+- Bugfix: QSO tab: If editing and cancelling, it shows red freq  (Closes #776)
 - Bugfix: Edit QSO does not recover the comment so info is lost (Closes #779)
 - Bugfix: LOTW upload using VARA-HF mode fails. (Closes #735)
 - Bugfix: Map shows a missing API message (Closes #675)WIP:

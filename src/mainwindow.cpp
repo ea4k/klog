@@ -1235,7 +1235,7 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
 
 void MainWindow::getQSODataFromUI()
 {
-    qDebug() << Q_FUNC_INFO << " -  Call-01   : " << qsoInUI.getCall();
+   //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << qsoInUI.getCall();
     qsoInUI.clear();
     qsoInUI = mainQSOEntryWidget->getQSOData(qsoInUI);
     qsoInUI = QSOTabWidget->getQSOData(qsoInUI);
@@ -1256,7 +1256,7 @@ void MainWindow::getQSODataFromUI()
     //*qso = mainQSOEntryWidget->getQSOData(*qso);
     //*qso = satTabWidget->getQSOData(*qso);
     //*qso = myDataTabWidget->getQSOData(*qso);
-    qDebug() << Q_FUNC_INFO << " -  Call-02   : " << qsoInUI.getCall();
+   //qDebug() << Q_FUNC_INFO << " -  Call-02   : " << qsoInUI.getCall();
 }
 
 bool MainWindow::readQSOFromUI()
@@ -4408,24 +4408,24 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 void MainWindow::qsoToEdit (const int _qso)
 {    
 
-    qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
+   //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO  << " - 000";
+   //qDebug() << Q_FUNC_INFO  << " - 000";
     if (!modify)
     {
         backupCurrentQSO ();
        //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     }
-    qDebug() << Q_FUNC_INFO  << " - 005";
+   //qDebug() << Q_FUNC_INFO  << " - 005";
     clearUIDX(true);
     readingTheUI = true;
 
     setModifying(true);
 
-    qDebug() << Q_FUNC_INFO  << " - 010";
+   //qDebug() << Q_FUNC_INFO  << " - 010";
     modifyingQSOid = _qso;
 
-    qDebug() << Q_FUNC_INFO << " - 051 ";
+   //qDebug() << Q_FUNC_INFO << " - 051 ";
     if ((clublogActive) && (clublogRealTime))
     {
         clublogPrevQSO = dataProxy->getClubLogRealTimeFromId(modifyingQSOid);
@@ -4453,19 +4453,19 @@ void MainWindow::qsoToEdit (const int _qso)
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
 
-    qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
+   //qDebug() << Q_FUNC_INFO << " - in default - 101"  ;
     EntityStatus _entityStatus;
     _entityStatus.dxcc      = currentEntity;
     _entityStatus.bandId    = currentBandShown;
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
-    qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
+   //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
     showStatusOfDXCC(_entityStatus);
 
     readingTheUI = false;
     satTabWidget->setFillingToEdit(false);
-    qDebug() << Q_FUNC_INFO << " - END" ;
+   //qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5851,7 +5851,7 @@ void MainWindow::slotManualMode(bool _enable)
 
 void MainWindow::backupCurrentQSO()
 { // This function reads the full UI and stores it in a QSO
-    qDebug() << Q_FUNC_INFO << " - Start" ;
+   //qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     backupQSO->clear();
     getQSODataFromUI();
@@ -5866,9 +5866,9 @@ void MainWindow::backupCurrentQSO()
     backupQSO->setKeepOthers (othersTabWidget->getKeep ());
     backupQSO->setKeepMyData (myDataTabWidget->getKeep ());   
     backupQSO->setKeepSatTab (satTabWidget->getKeep ());
-    qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
+   //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << " - END" ;
+   //qDebug() << Q_FUNC_INFO << " - END" ;
        //qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (backupQSO->getRealTime ());
 }
 

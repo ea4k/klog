@@ -289,11 +289,16 @@ void MainWindowInputQSO::setDefaultData()
     freqTX = 0.0;
     freqRX = 0.0;
     modify = false;
+    readDarkMode();
+}
 
+void MainWindowInputQSO::readDarkMode()
+{
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
     darkMode = settings.value("DarkMode", false).toBool ();
     settings.endGroup ();
+
     if (darkMode) {
         txFreqSpinBox->setPalette(palWhite);
         rxFreqSpinBox->setPalette(palWhite);
@@ -618,22 +623,22 @@ void MainWindowInputQSO::setRSTToMode(const QString &_m, const bool _reading)
    //qDebug() << Q_FUNC_INFO << " - " << nameLineEdit->palette().color(QPalette::Base);
 //}
 
-bool MainWindowInputQSO::getDarkMode()
-{
+//bool MainWindowInputQSO::getdarkMode
+//{
     //qDebug() << Q_FUNC_INFO << " - Start: " << nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb);
     //New faf9f8
     //FOrmer color #646464
     //qDebug() << Q_FUNC_INFO << " - Start: " << util->boolToQString((nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#646464"));
-    //return darkMode;
-    return  (nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#faf9f8");
-}
+//    return darkMode;
+    //return  (nameLineEdit->palette().color(QPalette::Base).name(QColor::HexRgb) == "#faf9f8");
+//}
 
 void MainWindowInputQSO::setPaletteRightName(const bool _ok)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
-        if (getDarkMode())
+        if (darkMode)
         {
             nameLineEdit->setPalette (palWhite);
         }
@@ -653,7 +658,7 @@ void MainWindowInputQSO::setPaletteRightQTH(const bool _ok)
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
-        if (getDarkMode())
+        if (darkMode)
         {
             qthLineEdit->setPalette (palWhite);
         }
@@ -673,7 +678,7 @@ void MainWindowInputQSO::setPaletteRightDXLocator(const bool _ok)
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
-        if (getDarkMode())
+        if (darkMode)
         {
             locatorLineEdit->setPalette (palWhite);
         }
@@ -715,7 +720,7 @@ void MainWindowInputQSO::slotFreqTXChanged (double _f)
     if (bandId > 1)
     { // If the freq belongs to one ham band
         txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-        if (getDarkMode())
+        if (darkMode)
         {
             //qDebug() << Q_FUNC_INFO << " - We are in darkmode";
             txFreqSpinBox->setPalette(palWhite);
@@ -763,7 +768,7 @@ void MainWindowInputQSO::slotFreqRXChanged(double _f)
     int bandId = dataProxy->getBandIdFromFreq(_f);
     if (bandId > 1)
     { // If the freq belongs to one ham band
-        if (getDarkMode())
+        if (darkMode)
         {
             //qDebug() << Q_FUNC_INFO << " - We are in darkmode";
             rxFreqSpinBox->setPalette(palWhite);
