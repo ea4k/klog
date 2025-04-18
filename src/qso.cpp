@@ -4090,6 +4090,20 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     return query;
 }
 
+QString QSO::getCabrillo()
+{
+    if (!isComplete())
+        return QString();
+    QString cabrilloStr = "QSO:  ";
+
+    if (!qso_dateTime.isValid())
+        return QString();
+
+    //cabrilloStr.append(getFreqTX())
+
+    return cabrilloStr;
+}
+
 QString QSO::getADIF()
 {
     if (!isComplete())

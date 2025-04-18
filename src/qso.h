@@ -418,6 +418,7 @@ public:
     //bool modify(const int _qsoId);
     bool isComplete() const;
     QString getADIF();
+    QString getCabrillo();
     QString getBandNameFromFreq(const double _n); // Should be push out of this class
 
 

@@ -205,3 +205,11 @@ void Frequency::operator=(Frequency const &_f2)
 {
     freq = _f2.freq;
 }
+
+bool isHF();                                                // True if < 30MHz
+bool is2m();                                                // True if 144-146
+bool is220();                                               // True if 222-225
+bool is70cm();                                              // True if 420-450
+bool is33cm();                                              // True if 902-928
+bool is23cm();                                              // True if 1240-1300
+
