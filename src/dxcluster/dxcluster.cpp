@@ -720,7 +720,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 
 void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
 {
-   //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO << clusterToConnect << ":" << portToConnect;
     server = clusterToConnect;
     port = quint16(portToConnect);
     if ((server.length()< 3) || (port <= 0))
@@ -728,6 +728,7 @@ void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const 
         server = "dxfun.com";
         port = 8000;
     }
+    //qDebug() << Q_FUNC_INFO << server << ":" << port;
 }
 
 void DXClusterWidget::setDXMarathon (const bool _enable)

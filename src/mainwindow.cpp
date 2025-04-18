@@ -6108,6 +6108,21 @@ bool MainWindow::loadSettings()
 
       //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     settings.beginGroup ("DXCluster");
+
+    // Get the server string from settings
+    QString server = settings.value("DXClusterServerToUse", "dxfun.com:8000").toString();
+
+    // Split the server string into host and port
+    QStringList serverList = server.split(':');
+    QString host = "dxfun.com";
+    int port = 8000;
+    // Check if the server string has both host and port
+    if (serverList.size() == 2) {
+        host = serverList.at(0); // Extract host
+        port = serverList.at(1).toInt(); // Convert port to integer
+    }
+    dxClusterWidget->setDXClusterServer(host, port);
+
     dxClusterWidget->setSaveSpots(settings.value ("DXClusterSave", false).toBool ());
     dxClusterShowHF = settings.value ("DXClusterShowHF", true).toBool ();
     dxClusterShowVHF = settings.value ("DXClusterShowVHF", true).toBool ();

@@ -170,54 +170,53 @@ void SetupPageDxCluster::createActions()
 
 void SetupPageDxCluster::slotAddButtonClicked()
 {
-   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked";
+    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked";
 
-    bool ok;
-    ok = false;
+    bool ok = false;
+
     while (!ok)
     {
-        QString text = QInputDialog::getText (this,
-                           tr("KLog: Add a DXCluster server"),
-                           tr("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default:"),
-                           QLineEdit::Normal, QString(),
-                           &ok);
-        //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - SERVER: " << text;
-        if (ok && !text.isEmpty ())
+        QString text = QInputDialog::getText(this,
+                                             tr("KLog: Add a DXCluster server"),
+                                             tr("Add the address followed by the :port\nExample: dxfun.com:8000\nIf no port is specified, 41112 will be used by default:"),
+                                             QLineEdit::Normal, QString(), &ok);
+
+        if (!ok || text.isEmpty()) // User pressed cancel or entered nothing
         {
-            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 01" ;
-            if (checkIfValidDXCluster (text))
-            {
-                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 02" ;
-                if (checkIfNewDXCluster (text))
-                {
-                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 03" ;
-                    ok = true;
-                    if ((text.contains (":")) == 0)
-                    {
-                       //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 04" ;
-                        text = text + ":41112";
-                    }
-                    dxclusterServersComboBox->insertItem (0, text);
-                    //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 05" ;
-                }
-                else
-                {
-                   //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 06" ;
-                    ok = false;
-                }
-            }
-            else
-            {
-                //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 07" ;
-                ok = false;
-            }
+            //qDebug() << Q_FUNC_INFO << " -  - User canceled or entered nothing";
+            break;
         }
-        else
+
+        //qDebug() << Q_FUNC_INFO << " -  - SERVER: " << text;
+
+        if (!checkIfValidDXCluster(text))
         {
-            // user entered nothing or pressed Cancel
-            //qDebug() << "SetupPageDxCluster::slotAddButtonClicked - 08" ;
-            ok = true;
+            //qDebug() << Q_FUNC_INFO << " -  - Invalid DXCluster";
+            continue; // Ask again
         }
+
+        if (!checkIfNewDXCluster(text))
+        {
+            //qDebug() << Q_FUNC_INFO << " -  - DXCluster already exists";
+            continue; // Ask again
+        }
+
+        // Append default port if not specified
+        if (!text.contains(":"))
+        {
+            text += ":41112";
+            //qDebug() << Q_FUNC_INFO << " -  - Default port added: " << text;
+        }
+
+        dxclusterServersComboBox->insertItem(0, text);
+        //qDebug() << Q_FUNC_INFO << " -  - DXCluster added: " << text;
+        ok = true; // Exit the loop
+    }
+
+    QString aux;
+    foreach(aux, getDxclusterServersComboBox())
+    {
+        //qDebug() << Q_FUNC_INFO << " - " << aux;
     }
 }
 
