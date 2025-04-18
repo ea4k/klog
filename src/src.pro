@@ -101,6 +101,7 @@ HEADERS += setupdialog.h \
     database/queryexecutor.h \
     dataproxy_sqlite.h \
     downloadcty.h \
+    edi.h \
     frequency.h \
     dxccstatuswidget.h \
     dxcluster/dxspot.h \
@@ -182,9 +183,13 @@ SOURCES += main.cpp \
     charts/statsfieldperbandwidget.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \
+    database.cpp \
+    dataproxy_sqlite.cpp \
+    downloadcty.cpp \
     dxcluster/dxspot.cpp \
     dxcluster/dxcluster.cpp \
     dxcluster/dxclusterassistant.cpp \
+    edi.cpp \
     elogqrzlog.cpp \
     eqslutilities.cpp \
     frequency.cpp \
@@ -219,9 +224,6 @@ SOURCES += main.cpp \
     logwindow.cpp \
     filemanager.cpp \
     fileawardmanager.cpp \
-    database.cpp \
-    dataproxy_sqlite.cpp \
-    downloadcty.cpp \    
     locator.cpp \
     qso.cpp \
     awards.cpp \
