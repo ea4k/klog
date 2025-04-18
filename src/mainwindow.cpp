@@ -211,11 +211,12 @@ MainWindow::~MainWindow()
     //delete(elogClublog);
     delete(downloadcty);
     delete(world);
+    delete(mapWindow);
     //delete(locator);
     //delete(qso);
     delete(backupQSO);
     //delete(modifyingQSO);
-    dateTime.reset();
+    //dateTime.reset();
     //delete(dateTime);
     //delete(dateTimeTemp);
     //delete(awards);
