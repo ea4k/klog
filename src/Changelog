@@ -1,3 +1,6 @@
+TBD - 2.4.1
+- Translations: Catalan (TNX Txema).
+
 Apr 2025 - 2.4.0
 - Enhancement: Button without text label in message box. (Closes #641)
 - Enhancement: Refactor DataProxy_SQLite::addSatellite (Closes #690)
