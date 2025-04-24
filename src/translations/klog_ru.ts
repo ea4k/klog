@@ -16,7 +16,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="26"/>
         <source>KLog is a free logbook for hamradio operators.</source>
-        <translation>KLog — бесплатный аппаратный журнал для радиолюбителей.</translation>
+        <translation>KLog — бесплатный бортовой журнал для радиолюбителей.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="27"/>
@@ -78,12 +78,12 @@
     <message>
         <location filename="../aboutdialog.cpp" line="79"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
-        <translation>Переводчики делают KLog доступным на вашем языке. Они действительно важная часть команды разработчиков KLog.</translation>
+        <translation>Переводчики переводят KLog на ваш язык. Они действительно важная часть команды разработчиков KLog.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="79"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;KLog development mailing list&lt;/a&gt;!</source>
-        <translation>Если KLog все еще не на вашем языке и вы хотите помочь нам, вы свяжитесь с нами через &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;рассылку по разработке KLog. список&lt;/a&gt;!</translation>
+        <translation>Если KLog все еще не на вашем языке и вы хотите помочь нам, вы можете связаться с нами через &lt;a href=&quot;https://lists.nongnu.org/mailman/listinfo/klog-devel&quot;&gt;рассылку по разработке KLog. список&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="80"/>
@@ -129,7 +129,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="134"/>
         <source>KLog</source>
-        <translation>Klog</translation>
+        <translation>Клог</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="137"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="52"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>Хорошо</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="53"/>
@@ -197,7 +197,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="63"/>
         <source>Mode</source>
-        <translation>Модуляция</translation>
+        <translation>Режим</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="106"/>
@@ -298,17 +298,17 @@
     <message>
         <location filename="../awardswidget.cpp" line="79"/>
         <source>Award</source>
-        <translation>Диплом</translation>
+        <translation>Награда</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="81"/>
         <source>Confirmed</source>
-        <translation>Подтвержден</translation>
+        <translation>Подтвержденный</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="84"/>
         <source>Worked</source>
-        <translation>Сработан</translation>
+        <translation>Работал</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="90"/>
@@ -329,12 +329,12 @@
     <message>
         <location filename="../awardswidget.cpp" line="255"/>
         <source>Number of confirmed DXCC entities.</source>
-        <translation>Количество подтвержденных стран DXCC.</translation>
+        <translation>Количество подтвержденных участников DXCC.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="256"/>
         <source>Number of worked DXCC entities.</source>
-        <translation>Количество сработанных объектов DXCC.</translation>
+        <translation>Количество отработанных объектов DXCC.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="257"/>
@@ -344,7 +344,7 @@
     <message>
         <location filename="../awardswidget.cpp" line="258"/>
         <source>Number of worked WAZ zones.</source>
-        <translation>Количество сработанных зон WAZ.</translation>
+        <translation>Количество отработанных зон WAZ.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="261"/>
@@ -354,7 +354,7 @@
     <message>
         <location filename="../awardswidget.cpp" line="262"/>
         <source>Number of worked QSOs.</source>
-        <translation>Количество сработанных QSO.</translation>
+        <translation>Количество отработанных QSO.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="264"/>
@@ -364,17 +364,17 @@
     <message>
         <location filename="../awardswidget.cpp" line="265"/>
         <source>Number of DXCCs worked in the selected year.</source>
-        <translation>Количество DXCC, сработанных в выбранном году.</translation>
+        <translation>Количество DXCC, работающих в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="266"/>
         <source>Number of CQ Zones worked in the selected year.</source>
-        <translation>Количество зон CQ, сработанных в выбранном году.</translation>
+        <translation>Количество зон CQ, работающих в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="267"/>
         <source>Score for the DXMarathon in the selected year.</source>
-        <translation>Оценка за DX-марафон в выбранном году.</translation>
+        <translation>Оценка за DXMarathon в выбранном году.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="381"/>
