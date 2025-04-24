@@ -996,11 +996,12 @@ QString QSO::getBandRX() const
 bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     QString aux = _c;
 
     if (aux.isNull())
     {
+        //qDebug() << Q_FUNC_INFO << ": NULL";
         mode = QString();
         haveMode = false;
         logEvent (Q_FUNC_INFO, "END - False 1", Debug);
@@ -1008,13 +1009,17 @@ bool QSO::setMode(const QString &_c)
     }
     if (aux.length()>0)
     {
+        //qDebug() << Q_FUNC_INFO << ": mode = " << _c;
         mode = aux;
+        if (!haveSubMode)
+            setSubmode(mode);
         logEvent (Q_FUNC_INFO, "END - True", Debug);
         haveMode = true;
         return true;
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << ": FALSE 2";
         mode = QString();
         haveMode = false;
         logEvent (Q_FUNC_INFO, "END - False 2", Debug);
@@ -3217,13 +3222,16 @@ QString QSO::getState() const
 
 bool QSO::setSubmode(const QString &_c)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (_c.length()>0)
     {
+        //qDebug() << Q_FUNC_INFO << ": submode: " << _c;
         submode = _c;
         haveSubMode = true;
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << ": NULL";
         submode = QString();
         haveSubMode = false;
     }
@@ -3802,14 +3810,16 @@ int QSO::getModeIdFromModeName()
     //
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
     // SELECT mode.id FROM mode WHERE mode.name="MFSK"
-    bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode=:submode");
+    bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode= :submode");
     if (!ok)
     {
         //qDebug() << Q_FUNC_INFO << " - Failed to prepare";
         return -1;
     }
-   //qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
+    //qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
     query.bindValue (":submode", getSubmode());
+
+    //query.bindValue(":idQSO", _qsoId);
     //if (haveSubMode)
     //{
     //    query.bindValue (":submode", getSubmode ());

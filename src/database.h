@@ -37,7 +37,6 @@
 #include <QDateTime>
 #include <QInputDialog>
 #include <QProgressDialog>
-//#include "database/queryexecutor.h"
 #include "database/db_adif_primary_subdvisions_data.h"
 #include "utilities.h"
 #include "frequency.h"

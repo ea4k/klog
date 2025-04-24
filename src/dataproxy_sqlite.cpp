@@ -4274,7 +4274,7 @@ int DataProxy_SQLite::getDBSatId(const QString &_arrlId)
 {
     int aux = -1;
     QSqlQuery query;
-    QString queryString = "SELECT id FROM satellites WHERE satarrlid=:arrlId";
+    QString queryString = "SELECT id FROM satellites WHERE satarrlid= :arrlId";
 
     query.prepare(queryString);
     query.bindValue(":arrlId", _arrlId);

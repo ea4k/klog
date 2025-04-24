@@ -1,4 +1,5 @@
-TBD - 2.4.1
+Apr - 2.4.1
+- BugFix: Qt6 Can't Import Adif File (Closes #787)
 - Translations: Catalan (TNX Txema), Rusian (YL3GBC,RA3TYL).
 
 Apr 2025 - 2.4.0

@@ -26,10 +26,13 @@
  *****************************************************************************/
 
 #include <QtTest>
+#include <QCoreApplication>
 
 #include "../../src/qso.h"
 #include "../../src/callsign.h"
 #include "../../src/klogdefinitions.h"
+#include "../../src/database.h"
+#include "../../src/utilities.h"
 
 
 class tst_QSO : public QObject
@@ -48,6 +51,7 @@ private slots:
     void test_isValid();
     void test_AdifCreation();
     void test_Copy();
+    void test_ModeManagement();
 
 private:
     QSO *qso;
@@ -56,6 +60,15 @@ private:
 
 tst_QSO::tst_QSO()
 {
+    Utilities util(Q_FUNC_INFO);
+    QString version = QCoreApplication::applicationVersion();
+    DataBase db(Q_FUNC_INFO, version, util.getKLogDBFile());
+    //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
+
+    if (!db.createConnection(Q_FUNC_INFO))
+    {
+        qDebug() << Q_FUNC_INFO << " -  NO DB";
+    }
     qso = new QSO;
 }
 
@@ -280,6 +293,17 @@ void tst_QSO::test_Constructor()
     QVERIFY2(qso->logLevel == None, "Wrong LogLevel in constructor");
     //qDebug() << "Testing the constructor" ;
 }
+
+void  tst_QSO::test_ModeManagement()
+{
+    qso->setMode("FM");
+    qso->setSubmode("FM");
+    //qDebug() << Q_FUNC_INFO << "Mode: " << qso->getMode();
+    //qDebug() << Q_FUNC_INFO << "Submode: " << qso->getSubmode();
+    //qDebug() << Q_FUNC_INFO << qso->getModeIdFromModeName();
+}
+
+
 
 void tst_QSO::test_dataEntry()
 {
