@@ -472,11 +472,11 @@ void MainQSOEntryWidget::clear()
 
 QSO MainQSOEntryWidget::getQSOData(QSO & _qso)
 {
-   //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
+    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
     QSO tQSO(_qso);
-   //qDebug() << Q_FUNC_INFO << " -  Call-02   : " << tQSO.getCall();
+    //qDebug() << Q_FUNC_INFO << " -  Call-02   : " << tQSO.getCall();
     tQSO.setCall(getQrz());
-   //qDebug() << Q_FUNC_INFO << " -  Call-03   : " << tQSO.getCall();
+    //qDebug() << Q_FUNC_INFO << " -  Call-03   : " << tQSO.getCall();
     tQSO.setBand(getBand());
     tQSO.setMode(dataProxy->getNameFromSubMode (getMode()));
     tQSO.setSubmode(getMode());

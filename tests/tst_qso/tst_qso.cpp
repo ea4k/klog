@@ -67,7 +67,7 @@ tst_QSO::tst_QSO()
 
     if (!db.createConnection(Q_FUNC_INFO))
     {
-        qDebug() << Q_FUNC_INFO << " -  NO DB";
+        //qDebug() << Q_FUNC_INFO << " -  NO DB";
     }
     qso = new QSO;
 }

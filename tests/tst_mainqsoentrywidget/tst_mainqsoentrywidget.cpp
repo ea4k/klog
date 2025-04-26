@@ -148,18 +148,21 @@ void tst_MainQSOEntryWidget::test_Modes()
 void tst_MainQSOEntryWidget::test_QSOData()
 {
     QSO qso1;
-    qso1.setCall("EA4K");
-    qso1.setAge(10);
-    mainQSOEntryWidget->setQRZ("EA0K");
     QSO qso2;
+
+    qso1.setCall("EA1K");
+    qso1.setAge(10);
+    mainQSOEntryWidget->setQRZ("EA2K");
+
     //qDebug() << Q_FUNC_INFO << " - 1 - qso1: " << qso1.getCall();
-    //qDebug() << Q_FUNC_INFO << " - 1 - this: " << mainQSOEntryWidget->getQrz();
     //qDebug() << Q_FUNC_INFO << " - 1 - qso2: " << qso2.getCall();
+    //qDebug() << Q_FUNC_INFO << " - 1 - UI  : " << mainQSOEntryWidget->getQrz();
+
     qso2 = mainQSOEntryWidget->getQSOData(qso1);
     //qDebug() << Q_FUNC_INFO << " - 2 - qso1: " << qso1.getCall();
-    //qDebug() << Q_FUNC_INFO << " - 2 - this: " << mainQSOEntryWidget->getQrz();
     //qDebug() << Q_FUNC_INFO << " - 2 - qso2: " << qso2.getCall();
-    QVERIFY2 (qso2.getCall() == qso1.getCall(), "Wrong Call on QSO copy");
+    //qDebug() << Q_FUNC_INFO << " - 2 - UI  : " << mainQSOEntryWidget->getQrz();
+    QVERIFY2 (qso2.getCall() == mainQSOEntryWidget->getQrz(), "Wrong Call on QSO copy");
 }
 
 /*

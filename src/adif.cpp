@@ -711,6 +711,16 @@ bool Adif::isValidCall(const QString &_c)
     //return false;
 }
 
+bool Adif::isValidQSLRCVD(const QString &_s, bool _importing)
+{    // Y, I, or V) (V on import only)
+    return ((_s == "Y") || (_s == "I") || ((_s == "V") && _importing));
+}
+
+bool Adif::isValidQSLSENT(const QString &_s)
+{// Y, Q, or I
+    return ((_s == "Y") || (_s == "Q") || (_s == "I"));
+}
+
 void Adif::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
 {
     emit debugLog (_func, _msg, _level);

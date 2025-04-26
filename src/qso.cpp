@@ -1256,6 +1256,7 @@ QString QSO::getEQSLQSL_RCVD() const
 
 bool QSO::setEQSLQSL_SENT(const QString &_c)
 {
+    //qDebug() << Q_FUNC_INFO << " : " << _c;
     if (util->isValidQSL_Sent(_c))
     {
         eqsl_qsl_sent = _c;
@@ -3392,15 +3393,15 @@ bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromA
 bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
 
 bool QSO::setLoTWQSLRDate2(const QString& data) {
-    setLoTWQSL_RCVD("Y");
+    //setLoTWQSL_RCVD("Y");
     return setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
 }
 bool QSO::setLoTWQSLSDate1(const QString& data) {
-    setLoTWQSL_SENT("Y");
+    //setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
 bool QSO::setLoTWQSLSDate2(const QString& data) {
-    setLoTWQSL_SENT("Y");
+    //setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
 
@@ -4170,11 +4171,11 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("eq_call",  getEQ_Call()));
 
     adifStr.append(adif->getADIFField ("eqsl_qsl_rcvd", eqsl_qsl_rcvd));
-    if (eQSLRDate.isValid())
+    if ((eQSLRDate.isValid()) && (adif->isValidQSLRCVD(eqsl_qsl_rcvd)))
         adifStr.append(adif->getADIFField ("eqsl_qslrdate", util->getADIFDateFromQDate(eQSLRDate) ));
 
     adifStr.append(adif->getADIFField ("eqsl_qsl_sent", eqsl_qsl_sent));
-    if (eQSLSDate.isValid())
+    if ((eQSLSDate.isValid()) && (adif->isValidQSLSENT(eqsl_qsl_sent)))
         adifStr.append(adif->getADIFField ("eqsl_qslsdate", util->getADIFDateFromQDate(eQSLSDate) ));
 
     if (fists>0)
@@ -4213,10 +4214,15 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("k_index", QString::number(k_index)));
     adifStr.append(adif->getADIFField ("lat", latitude));
     adifStr.append(adif->getADIFField ("lon", longitude));
-    adifStr.append(adif->getADIFField ("lotw_qslrdate", util->getADIFDateFromQDate(QSLLoTWRDate)));
-    adifStr.append(adif->getADIFField ("lotw_qslsdate", util->getADIFDateFromQDate(QSLLoTWSDate)));
-    adifStr.append(adif->getADIFField ("lotw_qsl_rcvd", lotw_qsl_rcvd));
+
     adifStr.append(adif->getADIFField ("lotw_qsl_sent", lotw_qsl_sent));
+    if ((QSLLoTWSDate.isValid()) && ( adif->isValidQSLSENT(lotw_qsl_sent) ))
+        adifStr.append(adif->getADIFField ("lotw_qslsdate", util->getADIFDateFromQDate(QSLLoTWSDate) ));
+
+    adifStr.append(adif->getADIFField ("lotw_qsl_rcvd", lotw_qsl_rcvd));
+    if ((QSLLoTWRDate.isValid()) && ( adif->isValidQSLRCVD(lotw_qsl_rcvd) ))
+        adifStr.append(adif->getADIFField ("lotw_qslrdate", util->getADIFDateFromQDate(QSLLoTWRDate) ));
+
 
     if (adif->isValidNRBursts(QString::number(getMaxBursts())))
         adifStr.append(adif->getADIFField ("max_bursts", QString::number(getMaxBursts()) ));
@@ -4284,13 +4290,12 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("qslmsg", qslmsg));
     adifStr.append(adif->getADIFField ("qsl_rcvd", getQSL_RCVD()));
 
-    if ((QSLRDate.isValid()) && ( (qsl_rcvd=="Y") || (qsl_rcvd=='I') || (qsl_rcvd=='R')))
+    if ((QSLRDate.isValid()) && ( adif->isValidQSLRCVD(qsl_rcvd)))
         adifStr.append(adif->getADIFField ("qslrdate", util->getADIFDateFromQDate(QSLRDate) ));
 
     adifStr.append(adif->getADIFField ("qsl_sent", getQSL_SENT()));
-    if ((QSLSDate.isValid()) && ( (qsl_sent=="Y") || (qsl_sent=='Q') || (qsl_sent=='I')))
+    if ((QSLSDate.isValid()) && ( adif->isValidQSLSENT(qsl_sent)))
         adifStr.append(adif->getADIFField ("qslsdate", util->getADIFDateFromQDate(QSLSDate)));
-
 
     if ((getQSL_RCVD()=="Y") or (getQSL_RCVD()=="V")) // Valid cases to use qslrcvdVia
         adifStr.append(adif->getADIFField ("qsl_rcvd_via", qslRecVia));
