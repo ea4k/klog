@@ -32,7 +32,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="53"/>
         <source>KLog is a free logbook for hamradio operators.</source>
-        <translation>El KLog és un llibre de registre lliure per a operadors de radioafició.</translation>
+        <translation>El KLog és un llibre de registre lliure per a operadors de ràdioafició.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="58"/>
@@ -142,7 +142,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="95"/>
         <source>Select the Station Callsign that you want to use to upload the log.</source>
-        <translation>Seleccioneu l&apos;indicatiu de l&apos;estació de la qual voleu usar per pujar el registre.</translation>
+        <translation>Seleccioneu l&apos;indicatiu de l&apos;estació de la qual voleu usar per a pujar el registre.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="99"/>
@@ -243,7 +243,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="652"/>
         <source>KLog - QSOs to be uploaded to LoTW.</source>
-        <translation>KLog - QSO que es pujaran a LoTW.</translation>
+        <translation>KLog - QSO que pujaran a LoTW.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="653"/>
@@ -253,7 +253,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="657"/>
         <source>KLog - QSOs to be uploaded to ClubLog.</source>
-        <translation>KLog - QSO que es pujaran a ClubLog.</translation>
+        <translation>KLog - QSO que pujaran a ClubLog.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="658"/>
@@ -263,7 +263,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="662"/>
         <source>KLog - QSOs to be uploaded to eQSL.cc.</source>
-        <translation>KLog - QSO que es pujaran a l&apos;eQSL.cc.</translation>
+        <translation>KLog - QSO que pujaran a l&apos;eQSL.cc.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="663"/>
@@ -273,7 +273,7 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="667"/>
         <source>KLog - QSOs to be uploaded to QRZ.com.</source>
-        <translation>KLog - QSO que es pujaran al QRZ.com.</translation>
+        <translation>KLog - QSO que pujaran al QRZ.com.</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="668"/>
@@ -355,7 +355,7 @@
     <message>
         <location filename="../awardswidget.cpp" line="98"/>
         <source>Click to recalculate the award status.</source>
-        <translation>Cliqueu per tornar a calcular l&apos;estat dels diplomes.</translation>
+        <translation>Cliqueu per a tornar a calcular l&apos;estat dels diplomes.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="99"/>
@@ -497,7 +497,7 @@
     <message>
         <location filename="../startwizard.cpp" line="947"/>
         <source>KLog uses the cty.csv file from https://www.country-files.com/ to get DXCC information.</source>
-        <translation>El KLog usa el fitxer «cty.csv» de https://www.country-files.com/ per aconseguir la informació de les DXCC.</translation>
+        <translation>El KLog usa el fitxer «cty.csv» de https://www.country-files.com/ per a aconseguir la informació de les DXCC.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="949"/>
@@ -507,7 +507,7 @@
     <message>
         <location filename="../startwizard.cpp" line="951"/>
         <source>Click on Download to download now.</source>
-        <translation>Cliqueu a Baixa per baixar ara.</translation>
+        <translation>Cliqueu a Baixa per a baixar ara.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="1026"/>
@@ -612,7 +612,7 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../dxcluster/dxcluster.cpp" line="143"/>
         <location filename="../dxcluster/dxcluster.cpp" line="174"/>
         <source>Click on connect to connect to the DX-Cluster</source>
-        <translation>Cliqueu a Connecta per connectar al DX-Cluster</translation>
+        <translation>Cliqueu a Connecta per a connectar al DX-Cluster</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="239"/>
@@ -623,7 +623,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="55"/>
         <source>Click on Connect to connect to the DX-Cluster server</source>
-        <translation>Cliqueu a Connecta per connectar al servidor de DX-Cluster</translation>
+        <translation>Cliqueu a Connecta per a connectar al servidor de DX-Cluster</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="108"/>
@@ -675,13 +675,13 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="447"/>
         <source>Enter your callsign to connect to the cluster:</source>
-        <translation>Introduïu el vostre indicatiu per connectar al clúster:</translation>
+        <translation>Introduïu el vostre indicatiu per a connectar al clúster:</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="458"/>
         <source>Enter your password to connect to the cluster:
 (Just hit enter for no password)</source>
-        <translation>Introduïu la contrasenya per connectar al clúster:
+        <translation>Introduïu la contrasenya per a connectar al clúster:
 (premeu retorn si no hi ha contrasenya)</translation>
     </message>
     <message>
@@ -725,7 +725,7 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="491"/>
         <source>Click on Connect to connect to the DX-Cluster server.</source>
-        <translation>Feu clic a Connecta per connectar al servidor DX-Cluster.</translation>
+        <translation>Feu clic a Connecta per a connectar al servidor DX-Cluster.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="544"/>
@@ -1077,7 +1077,7 @@ Voleu tornar-ho a intentar?</translation>
     </message>
     <message>
         <source>Click on Yes to add a default %1 for mode %2 to all QSOs with a similar problem.</source>
-        <translation type="vanished">Feu clic a Sí per afegir un %1 predeterminat per al mode %2 a tots els QSO amb un problema semblant.</translation>
+        <translation type="vanished">Feu clic a Sí per a afegir un %1 predeterminat per al mode %2 a tots els QSO amb un problema semblant.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1734"/>
@@ -1308,7 +1308,7 @@ Voleu que el KLog afegeixi aquest QSO al registre?</translation>
 Enter the Station Callsign that was used to do this QSO with %1 on %2:</source>
         <translation>El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
 
-Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO amb %1 a %2:</translation>
+Introduïu l&apos;identificador d&apos;estació que es va usar per a fer aquest QSO amb %1 a %2:</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1303"/>
@@ -1317,7 +1317,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
 Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation>El KLog ha trobat un QSO sense un identificador definit d&apos;estació.
 
-Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QSO a %1:</translation>
+Introduïu l&apos;identificador d&apos;estació que es va usar per a fer aquest QSO a %1:</translation>
     </message>
     <message>
         <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
@@ -1416,7 +1416,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="27"/>
         <source>Select the serial port speed.</source>
-        <translation>Seleccioneu la velocitat del port sèrie.</translation>
+        <translation>Seleccioneu la velocitat del port en sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="31"/>
@@ -1426,7 +1426,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="33"/>
         <source>Select the serial port. Only the serial ports that are detected are shown.</source>
-        <translation>Seleccioneu el port sèrie. Només es mostren els ports sèrie detectats.</translation>
+        <translation>Seleccioneu el port en sèrie. Només es mostren els ports en sèrie detectats.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="37"/>
@@ -1436,7 +1436,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="39"/>
         <source>Click to identify the serial ports available in your computer.</source>
-        <translation>Feu clic per identificar els ports sèrie disponibles a l&apos;ordinador.</translation>
+        <translation>Feu clic per a identificar els ports en sèrie disponibles a l&apos;ordinador.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="50"/>
@@ -1466,7 +1466,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="54"/>
         <source>Select the serial data bits.</source>
-        <translation>Seleccioneu els bits de dades del sèrie.</translation>
+        <translation>Seleccioneu els bits de dades en sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="60"/>
@@ -1491,7 +1491,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="64"/>
         <source>Select the serial flow control</source>
-        <translation>Seleccioneu el control de flux del sèrie</translation>
+        <translation>Seleccioneu el control de flux en sèrie</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="71"/>
@@ -1526,7 +1526,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="75"/>
         <source>Select the serial parity.</source>
-        <translation>Seleccioneu la paritat del sèrie.</translation>
+        <translation>Seleccioneu la paritat en sèrie.</translation>
     </message>
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="82"/>
@@ -1551,7 +1551,7 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     <message>
         <location filename="../setuppages/hamlibserialconfigwidget.cpp" line="86"/>
         <source>Select the serial stop bits.</source>
-        <translation>Seleccioneu els bits d&apos;aturada del sèrie.</translation>
+        <translation>Seleccioneu els bits d&apos;aturada en sèrie.</translation>
     </message>
 </context>
 <context>
@@ -1690,17 +1690,17 @@ Introduïu l&apos;identificador d&apos;estació que es va usar per fer aquest QS
     </message>
     <message>
         <source>KLog is a free hamradio logging program that can run on GNU/Linux, macOS, and Windows.</source>
-        <translation type="vanished">El KLog és un programa lliure d&apos;enregistrament de radioafició que es pot executar en el GNU/Linux, macOS, i Windows.</translation>
+        <translation type="vanished">El KLog és un programa lliure d&apos;enregistrament de ràdioafició que es pot executar en el GNU/Linux, macOS, i Windows.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="155"/>
         <source>KLog is a free hamradio logging program that can run on GNU/Linux, macOS, and Windows. </source>
-        <translation>El KLog és un programa lliure de registre de radioaficció que es pot executar en el GNU/Linux, macOS i Windows. </translation>
+        <translation>El KLog és un programa lliure de registre de ràdioafició que es pot executar en el GNU/Linux, macOS i Windows. </translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="156"/>
         <source>It is designed to provide general purpose DX, and contest logging.</source>
-        <translation>Està dissenyat per proporcionar un enregistrament de caràcter general de DX i per a concursos.</translation>
+        <translation>Està dissenyat per a proporcionar un enregistrament de caràcter general de DX i per a concursos.</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="157"/>
@@ -1819,7 +1819,7 @@ Error retornat: %2</translation>
     <message>
         <location filename="../lotwutilities.cpp" line="524"/>
         <source>The remote server redirected our connection to %1</source>
-        <translation>El el servidor remot ha redireccionat la connexió a %1</translation>
+        <translation>El servidor remot ha redireccionat la connexió a %1</translation>
     </message>
     <message>
         <location filename="../lotwutilities.cpp" line="525"/>
@@ -2294,7 +2294,7 @@ KLog will remind you to backup on a monthly basis.
 
 </source>
         <translation type="vanished">És una bona pràctica fer regularment una còpia de seguretat del registre complet per a evitar perdre dades en cas d&apos;algun problema.
-Un cop feta l&apos;exportació  del registre a una fitxer ADIF, caldria copiar aquest fitxer en un lloc segur, com una unitat USB, una unitat al núvol, un altre ordinador,...
+Un cop feta l&apos;exportació  del registre a un fitxer ADIF, caldria copiar aquest fitxer en un lloc segur, com una unitat USB, una unitat al núvol, un altre ordinador,...
 
 El KLog us recordarà que feu una còpia de seguretat mensualment.
 
@@ -2319,11 +2319,11 @@ El KLog us recordarà que feu una còpia de seguretat mensualment.
     </message>
     <message>
         <source>Click on the prefix of the correct entity or Cancel to edit the QSO again.</source>
-        <translation type="vanished">Feu clic al prefix de l&apos;entitat correcta o Cancel·la per tornar a editar el QSO.</translation>
+        <translation type="vanished">Feu clic al prefix de l&apos;entitat correcta o Cancel·la per a tornar a editar el QSO.</translation>
     </message>
     <message>
         <source>Click on the prefix of the right entity or Cancel to correct.</source>
-        <translation type="vanished">Feu clic al prefix de l&apos;entitat correcta o Cancel·la per corregir.</translation>
+        <translation type="vanished">Feu clic al prefix de l&apos;entitat correcta o Cancel·la per a corregir.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4200"/>
@@ -2366,7 +2366,7 @@ El KLog us recordarà que feu una còpia de seguretat mensualment.
         <location filename="../mainwindow.cpp" line="4120"/>
         <location filename="../mainwindow.cpp" line="4163"/>
         <source>Select the Station Callsign to use when quering LoTW:</source>
-        <translation>Seleccioneu l&apos;indicatiu d&apos;estació a usar per consultar el LoTW:</translation>
+        <translation>Seleccioneu l&apos;indicatiu d&apos;estació a usar per a consultar el LoTW:</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4138"/>
@@ -2456,7 +2456,7 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="2409"/>
         <source>Go through the log reusing previous QSOs to fill missing information in other QSOs.</source>
-        <translation>Recorre el registre reutilitzant els QSO anteriors per omplir informació que manqui en altres QSO.</translation>
+        <translation>Recorre el registre reutilitzant els QSO anteriors per a omplir informació que manqui en altres QSO.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2417"/>
@@ -2595,7 +2595,7 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="2844"/>
         <source>Error #8: No QSOs were processed since some QSOs were duplicates or out of date range.</source>
-        <translation>Error núm. 8: No s&apos;ha processat cap QSO ja que alguns QSO estaven duplicats o fora de l&apos;interval de dates.</translation>
+        <translation>Error núm. 8: No s&apos;ha processat cap QSO, ja que alguns QSO estaven duplicats o fora de l&apos;interval de dates.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2848"/>
@@ -2694,17 +2694,17 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="6266"/>
         <source>If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.</source>
-        <translation>Si esteu segur que la base de dades conté QSO i el KLog no és capaç de trobar-los, contacteu amb els desenvolupadors (vegeu Quant al KLog) per sol·licitar ajuda.</translation>
+        <translation>Si esteu segur que la base de dades conté QSO i el KLog no és capaç de trobar-los, contacteu amb els desenvolupadors (vegeu Quant al KLog) per a sol·licitar ajuda.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3897"/>
         <source>You need to select one station callsign to be able to send your log to LoTW.</source>
-        <translation>Cal seleccionar un indicatiu d&apos;estació per ser capaç d&apos;enviar el vostre registre al LoTW.</translation>
+        <translation>Cal seleccionar un indicatiu d&apos;estació per a ser capaç d&apos;enviar el vostre registre al LoTW.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3983"/>
         <source>You need to select one station callsign to be able to send your log to ClubLog.</source>
-        <translation>Cal seleccionar un indicatiu d&apos;estació per ser capaç d&apos;enviar el vostre registre a ClubLog.</translation>
+        <translation>Cal seleccionar un indicatiu d&apos;estació per a ser capaç d&apos;enviar el vostre registre a ClubLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4008"/>
@@ -2728,7 +2728,7 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     </message>
     <message>
         <source>You need to select one station callsign to be able to send your log to eQSL.cc.</source>
-        <translation type="vanished">Cal seleccionar un indicatiu d&apos;estació per ser capaç d&apos;enviar el vostre registre a l&apos;eQSL.cc.</translation>
+        <translation type="vanished">Cal seleccionar un indicatiu d&apos;estació per a ser capaç d&apos;enviar el vostre registre a l&apos;eQSL.cc.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4119"/>
@@ -2739,12 +2739,12 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="4210"/>
         <source>The log is ready to be uploaded to ClubLog.</source>
-        <translation>Aquest registre està preparat per pujar-se al ClubLog.</translation>
+        <translation>Aquest registre està preparat per a pujar-se al ClubLog.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4211"/>
         <source>All the QSOs in this log has been marked as Modified in the ClubLog status field</source>
-        <translation>Tots els QSO d&apos;aquest registre s&apos;han marcat com a Modificats en el camp s&apos;estat del ClubLog</translation>
+        <translation>Tots els QSO d&apos;aquest registre s&apos;han marcat com a Modificats en el camp d&apos;estat del ClubLog</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4216"/>
@@ -2761,12 +2761,12 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     <message>
         <location filename="../mainwindow.cpp" line="4240"/>
         <source>The log is ready to be uploaded to eQSL.cc.</source>
-        <translation>Aquest registre està preparat per pujar-se a l&apos;eQSL.cc.</translation>
+        <translation>Aquest registre està preparat per a pujar-se a l&apos;eQSL.cc.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4241"/>
         <source>All the QSOs in this log has been marked as Modified in the eQSL.cc status field</source>
-        <translation>Tots els QSO d&apos;aquest registre s&apos;han marcat com a Modificats en el camp s&apos;estat de l&apos;eQSL.cc</translation>
+        <translation>Tots els QSO d&apos;aquest registre s&apos;han marcat com a Modificats en el camp d&apos;estat de l&apos;eQSL.cc</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4246"/>
@@ -2785,7 +2785,7 @@ Obriu la pestanya del LoTW a l&apos;arranjament i configureu la connexió del Lo
     </message>
     <message>
         <source>The setup will be open to allow you to do any new setup you may need.</source>
-        <translation type="vanished">S&apos;obrirà la configuració per permetre establir qualsevol paràmetre nou que calgui.</translation>
+        <translation type="vanished">S&apos;obrirà la configuració per a permetre establir qualsevol paràmetre nou que calgui.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1501"/>
@@ -3129,7 +3129,7 @@ El KLog us recordarà que feu còpies de seguretat mensualment.
     <message>
         <location filename="../mainwindow.cpp" line="781"/>
         <source>Backup failed.</source>
-        <translation>La òpia de seguretat ha fallat.</translation>
+        <translation>La còpia de seguretat ha fallat.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="782"/>
@@ -3266,7 +3266,7 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2441"/>
         <source>Mark all non-sent QSOs in this log as queued to be uploaded.</source>
-        <translation>Marca tots els QSO no enviats en aquest registre com a posats en cua per pujar.</translation>
+        <translation>Marca tots els QSO no enviats en aquest registre com a posats en cua per a pujar.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2443"/>
@@ -3276,7 +3276,7 @@ Voleu que el KLog elimini aquest fitxer?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2446"/>
         <source>Put all the non-sent QSOs in the queue to be uploaded.</source>
-        <translation>Posa tots els QSO no enviats a la cua per pujar.</translation>
+        <translation>Posa tots els QSO no enviats a la cua per a pujar.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2450"/>
@@ -3550,7 +3550,7 @@ Voleu que el KLog elimini aquest fitxer?</translation>
 You can probably help to stop the Russian war, people are dying.
 
 Please call your leaders to stop the war.</source>
-        <translation type="vanished">Esteu empreant un idenficador rus (%1).
+        <translation type="vanished">Esteu emprant un identificador rus (%1).
 
 Probablement podeu ajudar a aturar la guerra russa, la gent està morint.
 
@@ -3578,7 +3578,7 @@ Please show your disagreement to your leaders, or in your social network to stop
 
 Podeu ajudar la guerra russa contra Ucraïna.
 
-Mostre el vostre desacord amb els vostres líders, o en les vostres xarxes socials per a aturar la guerra.</translation>
+Mostreu el vostre desacord amb els vostres líders, o en les vostres xarxes socials per a aturar la guerra.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="405"/>
@@ -3749,12 +3749,12 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4270"/>
         <source>The log is ready to be uploaded to QRZ.com.</source>
-        <translation>Aquest registre està preparat per pujar-se a QRZ.com.</translation>
+        <translation>Aquest registre està preparat per a pujar-se a QRZ.com.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4271"/>
         <source>All the QSOs in this log has been marked as Modified in the QRZ.com status field</source>
-        <translation>Tots els QSO d&apos;aquest registre s&apos;han marcat com a Modificats en el camp s&apos;estat de QRZ.com</translation>
+        <translation>Tots els QSO d&apos;aquest registre s&apos;han marcat com a Modificats en el camp d&apos;estat de QRZ.com</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4276"/>
@@ -3764,7 +3764,7 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
     <message>
         <location filename="../mainwindow.cpp" line="4330"/>
         <source>To upload QSOs you need a qrz.com subscription. If you have one, go to Setup-&gt;QRZ.com tab to enable it.</source>
-        <translation>Per pujar els QSO cal una subscripció a QRZ.com. Si en teniu una, aneu a la pestanya Configuració-&gt;QRZ.com per activar-la.</translation>
+        <translation>Per a pujar els QSO cal una subscripció a QRZ.com. Si en teniu una, aneu a la pestanya Configuració-&gt;QRZ.com per a activar-la.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4341"/>
@@ -4428,14 +4428,14 @@ Voleu marcar com a enviats tots els QSO pujats al LoTW?</translation>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Freqüència TX en MHz.
-La freqüència no es en una banda de radioafició!</translation>
+La freqüència no és en una banda de ràdioafició!</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="781"/>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation>Freqüència RX en MHz.
-La freqüència no es en una banda de radioafició!</translation>
+La freqüència no és en una banda de ràdioafició!</translation>
     </message>
 </context>
 <context>
@@ -4535,7 +4535,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="113"/>
         <source>Name of the Satellite if not in the list. Select: &quot;%1&quot; to enable this box. (format like AO-51).</source>
-        <translation>Nom del satèl·lit si no és a la llista. Seleccioneu: «%1» per activar aquest quadre. (format semblant AO-51).</translation>
+        <translation>Nom del satèl·lit si no és a la llista. Seleccioneu: «%1» per a activar aquest quadre. (format semblant AO-51).</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="116"/>
@@ -4606,18 +4606,18 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="438"/>
         <source>KLog has detected a satellite name that it does not recognise. If it should use one of the names of known satellites instead, please select it from the list. Alternatively, please contact the development team to add the new satellite name.</source>
-        <translation>El KLog ha detectat un nom de satèl·lit que no reconeix. En el seu lloc, caldria usar un dels noms coneguts de satèl·lit. Seleccioneu-lo de la llista. Alternativament, contacteu amb l&apos;equip de desenvolupament per afegir el nom nou de satèl·lit.</translation>
+        <translation>El KLog ha detectat un nom de satèl·lit que no reconeix. En el seu lloc, caldria usar un dels noms coneguts de satèl·lit. Seleccioneu-lo de la llista. Alternativament, contacteu amb l&apos;equip de desenvolupament per a afegir el nom nou de satèl·lit.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="439"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
-        <translation>Tingueu en compte que el nom del satèl·lit no es desarà si no és a la llista, i per tant, aquesta informació es podria perdre!</translation>
+        <translation>Tingueu en compte que el nom del satèl·lit no es desarà si no és a la llista i, per tant, aquesta informació es podria perdre!</translation>
     </message>
     <message>
         <source>RX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="vanished">Freqüència RX en MHz.
-La freqüència no es en una banda de radioafició!</translation>
+La freqüència no és en una banda de ràdioafició!</translation>
     </message>
     <message>
         <source>RX Frequency in MHz.</source>
@@ -4627,7 +4627,7 @@ La freqüència no es en una banda de radioafició!</translation>
         <source>TX Frequency in MHz.
 Frequency is not in a hamradio band!</source>
         <translation type="vanished">Freqüència TX en MHz.
-La freqüència no es en una banda de radioafició!</translation>
+La freqüència no és en una banda de ràdioafició!</translation>
     </message>
     <message>
         <source>TX Frequency in MHz.</source>
@@ -4748,7 +4748,7 @@ La freqüència no es en una banda de radioafició!</translation>
     <message>
         <location filename="../database.cpp" line="1283"/>
         <source>Upgrading software may potentially cause problems. Backing up your DB, before upgrading, is always a good idea.</source>
-        <translation>L&apos;actualització de programari pot provocar problemes potencials. Sempre és una bona idea fer un còpia de seguretat de la BD.</translation>
+        <translation>L&apos;actualització de programari pot provocar problemes potencials. Sempre és una bona idea fer una còpia de seguretat de la BD.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="1284"/>
@@ -4861,7 +4861,7 @@ La freqüència no es en una banda de radioafició!</translation>
 - Import your ADIF file.
 
 KLog will finish when you click on OK.</source>
-        <translation>El procés per actualitzar és:
+        <translation>El procés per a actualitzar és:
 - Usant una versió antiga del KLog, exportar el registre a ADIF.
 - Eliminar el fitxer «logbook.dat» de la carpeta del KLog.
 - Instal·lar la versió nova del KLog.
@@ -5520,7 +5520,7 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
     <message>
         <location filename="../utilities.cpp" line="1544"/>
         <source>My USACA counties</source>
-        <translation>El meu comtats USACA</translation>
+        <translation>Els meu comtats USACA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1545"/>
@@ -5825,7 +5825,7 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
     <message>
         <location filename="../searchwidget.cpp" line="175"/>
         <source>Select the Station Callsign used to do this QSO.</source>
-        <translation>Seleccioneu l&apos;indicatiu d&apos;estació usat per fer aquest QSO.</translation>
+        <translation>Seleccioneu l&apos;indicatiu d&apos;estació usat per a fer aquest QSO.</translation>
     </message>
     <message>
         <location filename="../searchwidget.cpp" line="373"/>
@@ -6071,12 +6071,12 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
     <message>
         <location filename="../searchwindow.cpp" line="646"/>
         <source>Needed QSO to send the QSL</source>
-        <translation>QSO necessari per enviar la QSL</translation>
+        <translation>QSO necessari per a enviar la QSL</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="654"/>
         <source>My QSL requested to be sent</source>
-        <translation>La meva QSL sol·licitada per enviar</translation>
+        <translation>La meva QSL sol·licitada per a enviar</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="659"/>
@@ -6183,7 +6183,7 @@ El KLog finalitzarà quan feu clic a D&apos;acord.</translation>
         <source>Do you want to add one log in the Logs tab or exit KLog?
 (Click Yes to add a log or No to exit KLog)</source>
         <translation>Voleu afegir un registre a la pestanya de Registres o sortir del KLog?
-(Feu clic a Sí per afegir un registre o No per a sortir del KLog)</translation>
+(Feu clic a Sí per a afegir un registre o No per a sortir del KLog)</translation>
     </message>
     <message>
         <location filename="../setupdialog.cpp" line="424"/>
@@ -6580,7 +6580,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="53"/>
         <source>Enter the email you used to register in ClubLog.</source>
-        <translation>Introduïu el correu electrònic usat per registrar-se al ClubLog.</translation>
+        <translation>Introduïu el correu electrònic usat per a registrar-se al ClubLog.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="54"/>
@@ -7053,7 +7053,7 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../setuppages/setuppagemisc.cpp" line="44"/>
         <source>Mark &amp;QSO to send QSL when QSL is received</source>
         <oldsource>Mark QSO to send QSL when QSL is received</oldsource>
-        <translation>Marca el &amp;QSO per enviar QSL quan es rebi la QSL</translation>
+        <translation>Marca el &amp;QSO per a enviar QSL quan es rebi la QSL</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="45"/>
@@ -7087,7 +7087,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="132"/>
         <source>If you disable this checkbox KLog will not check callsigns to identify wrong callsigns.</source>
-        <translation>Si desactiveu aquesta casella de verificació, el KLog no comprovarà els indicatius per a identificar indicatius erronis.</translation>
+        <translation>Si desactiveu aquesta casella de selecció, el KLog no comprovarà els indicatius per a identificar indicatius erronis.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="138"/>
@@ -7117,7 +7117,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="148"/>
         <source>Click to change the path of the database.</source>
-        <translation>Cliqueu per canviar el camí a la base de dades.</translation>
+        <translation>Cliqueu per a canviar el camí a la base de dades.</translation>
     </message>
     <message>
         <source>Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory.</source>
@@ -7126,7 +7126,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="152"/>
         <source>Click to mark as Queued (to be sent) all the eQSL (LoTW and eQSL) in all the new QSO by default.</source>
-        <translation>Cliqueu per canviar com a posat a la cua (per enviar) tots els eQSL (LoTW i eQSL) a tots els QSO nous de manera predeterminada.</translation>
+        <translation>Cliqueu per a canviar com a posat a la cua (per a enviar) tots els eQSL (LoTW i eQSL) a tots els QSO nous de manera predeterminada.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="153"/>
@@ -7171,12 +7171,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="147"/>
         <source>Click to change the default ADIF file.</source>
-        <translation>Cliqueu per canviar el fitxer ADIF predeterminat.</translation>
+        <translation>Cliqueu per a canviar el fitxer ADIF predeterminat.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="149"/>
         <source>Click to move the DB to the new directory.</source>
-        <translation>Cliqueu per moure la BD a un directori nou.</translation>
+        <translation>Cliqueu per a moure la BD a un directori nou.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="150"/>
@@ -7216,7 +7216,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="570"/>
         <source>The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file.</source>
-        <translation>El fitxer de destinació ja existeix i el KLog no el substituirà. Suprimiu el fitxer de la carpeta de destinació abans de moure el fitxer amb el KLog per assegurar que el KLog pot copiar el fitxer.</translation>
+        <translation>El fitxer de destinació ja existeix i el KLog no el substituirà. Suprimiu el fitxer de la carpeta de destinació abans de moure el fitxer amb el KLog per a assegurar que el KLog pot copiar el fitxer.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="575"/>
@@ -7226,7 +7226,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="576"/>
         <source>The file was not copied due to an unknown problem.</source>
-        <translation>No s&apos;ha copiat el fitxer degut a un problema desconegut.</translation>
+        <translation>No s&apos;ha copiat el fitxer per un problema desconegut.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="587"/>
@@ -7260,21 +7260,21 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="134"/>
         <source>The search box will also show the callsign on the air to do the QSO.</source>
-        <translation>El quadre de cerca també mostrà l&apos;indicatiu a l&apos;aire per fer el QSO.</translation>
+        <translation>El quadre de cerca també mostrà l&apos;indicatiu a l&apos;aire per a fer el QSO.</translation>
     </message>
     <message>
         <source>If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog.</source>
-        <translation type="vanished">Si s&apos;ha seleccionat la comprovació de versió nova, el KLog enviarà al desenvolupador el vostre indicatiu, la versió del KLog i el sistema operatiu per ajudar a millorar el KLog.</translation>
+        <translation type="vanished">Si s&apos;ha seleccionat la comprovació de versió nova, el KLog enviarà al desenvolupador el vostre indicatiu, la versió del KLog i el sistema operatiu per a ajudar a millorar el KLog.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="139"/>
         <source>Select to use real time.</source>
-        <translation>Seleccioneu-ho per emprar temps real.</translation>
+        <translation>Seleccioneu-ho per a emprar temps real.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="140"/>
         <source>Select to use UTC time.</source>
-        <translation>Seleccioneu-ho per emprar l&apos;hora UTC.</translation>
+        <translation>Seleccioneu-ho per a emprar l&apos;hora UTC.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="141"/>
@@ -7441,12 +7441,12 @@ El registre no s&apos;obrirà.</translation>
 It may be caused because the file you are trying to import does not have the right format.</source>
         <translation>Hi ha hagut un error inesperat en importar les dades dels satèl·lits.
 
-Pot ser degut a que el fitxer que esteu intentant importar no té el format correcte.</translation>
+Pot ser degut al fet que el fitxer que esteu intentant importar no té el format correcte.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="547"/>
         <source>Please check the format or contact the developer for analysis with the error code: </source>
-        <translation>Verifiqueu el format o contacteu amb el desenvolupador per a un anàlisi amb el codi d&apos;error: </translation>
+        <translation>Verifiqueu el format o contacteu amb el desenvolupador per a una anàlisi amb el codi d&apos;error: </translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesats.cpp" line="609"/>
@@ -7494,7 +7494,7 @@ Pot ser degut a que el fitxer que esteu intentant importar no té el format corr
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="110"/>
         <source>Enter the short name. Try to use the LoTW short name so you can upload your QSO to LoTW afterwards.</source>
-        <translation>Introduïu el nom curt. Intenteu usar el nom curt LoTW per a que pugueu pujar després el QSO a LoTW.</translation>
+        <translation>Introduïu el nom curt. Intenteu usar el nom curt LoTW perquè pugueu pujar després el QSO a LoTW.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagesatsnew.cpp" line="111"/>
@@ -7745,7 +7745,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="89"/>
         <source>UDP Server will receive QSOs sent from other programs like WSJT-X allowing you to log in KLog automatically from those programs.</source>
-        <translation>El servidor UDP rebrà els QSO enviats des d&apos;altres programes com el WSJT-X, permetent enregistrar-los automàticament al KLog des d&apos;aquests programes.</translation>
+        <translation>El servidor UDP rebrà els QSO enviats des d&apos;altres programes com el WSJT-X, que permet enregistrar-los automàticament al KLog des d&apos;aquests programes.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="96"/>
@@ -7771,7 +7771,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="117"/>
         <source>Miliseconds that the notification of QSOs received from WSJTX will be shown.</source>
-        <translation>Mil·lisegons en que es mostrarà la notificació dels QSO rebuts des del WSJTX.</translation>
+        <translation>Mil·lisegons en què es mostrarà la notificació dels QSO rebuts des del WSJTX.</translation>
     </message>
 </context>
 <context>
@@ -7926,7 +7926,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="177"/>
         <source>Enter the station callsign that will be used for logging.</source>
-        <translation>Introduïu l&apos;indicatiu de l&apos;estació que s&apos;usarà per l&apos;enregistrament.</translation>
+        <translation>Introduïu l&apos;indicatiu de l&apos;estació que s&apos;usarà per a l&apos;enregistrament.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="179"/>
@@ -8185,7 +8185,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../startwizard.cpp" line="68"/>
         <source>KLog - The free hamradio logging program</source>
-        <translation>KLog - El programa lliure d&apos;enregistrament de radioafició</translation>
+        <translation>KLog - El programa lliure d&apos;enregistrament de ràdioafició</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="93"/>
@@ -8330,7 +8330,7 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="58"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
-        <translation>Només el satèl·lits LEO</translation>
+        <translation>Només els satèl·lits LEO</translation>
     </message>
     <message>
         <location filename="../charts/statsdxccsonsatswidget.cpp" line="74"/>
@@ -8456,7 +8456,7 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="58"/>
         <source>Only LEO sats</source>
         <comment>LEO means Low Earth Orbiting and it is a well known word for hams. Do not translate if not sure.</comment>
-        <translation>Només el satèl·lits LEO</translation>
+        <translation>Només els satèl·lits LEO</translation>
     </message>
     <message>
         <location filename="../charts/statsgridsonsatswidget.cpp" line="71"/>
@@ -8892,18 +8892,18 @@ El registre no s&apos;obrirà.</translation>
         <location filename="../tipsdialog.cpp" line="133"/>
         <source>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
-        <translation>&lt;b&gt;Consell núm. 1:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;poseu usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Eines -&gt; Omple les dades QSO&lt;/a&gt; per llegir automàticament el registre complet per a omplir les zones DXCC, CQ, ITU i el continent?</translation>
+        <translation>&lt;b&gt;Consell núm. 1:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Eines -&gt; Omple les dades QSO&lt;/a&gt; per a llegir automàticament el registre complet per a omplir les zones DXCC, CQ, ITU i el continent?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="141"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
-        <translation>&lt;b&gt;Consell núm. 3:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca QSO a les QSL&lt;/a&gt; per cercar tots aquells QSO als que hauríeu d&apos;enviar la vostra QSL perquè encara cal confirmar que el DXCC i vós encara no heu enviat la targeta QSL?</translation>
+        <translation>&lt;b&gt;Consell núm. 3:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Eines-&gt;Eines QSL...-&gt;Cerca QSO a les QSL&lt;/a&gt; per a cercar tots aquells QSO als que hauríeu d&apos;enviar la vostra QSL perquè encara cal confirmar que el DXCC i vós encara no heu enviat la targeta QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="178"/>
         <source>&lt;b&gt;Tip #13:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can &lt;a href=https://twitter.com/_ea4k&gt;follow EA4K on twitter&lt;/a&gt; to get updates about KLog?</source>
-        <translation>&lt;b&gt;Consell núm. 13:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu &lt;a href=https://twitter.com/_ea4k&gt;seguir a EA4K al Twitter&lt;/a&gt; per aconseguir notícies quant al KLog?</translation>
+        <translation>&lt;b&gt;Consell núm. 13:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu &lt;a href=https://twitter.com/_ea4k&gt;seguir a EA4K al Twitter&lt;/a&gt; per a aconseguir notícies quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="193"/>
@@ -8913,7 +8913,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="196"/>
         <source>&lt;b&gt;Tip #19:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can right-click on a QSO and select &lt;i&gt;Check in QRZ.com&lt;/i&gt; to check that callsign in QRZ.com?</source>
-        <translation>&lt;b&gt;Consell núm. 19:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu fer clic amb el botó dret a un QSO i seleccionar &lt;i&gt;Comprova a QRZ.com&lt;/i&gt; per comprovar aquest identificador a QRZ.com?</translation>
+        <translation>&lt;b&gt;Consell núm. 19:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu fer clic amb el botó dret a un QSO i seleccionar &lt;i&gt;Comprova a QRZ.com&lt;/i&gt; per a comprovar aquest identificador a QRZ.com?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="137"/>
@@ -8959,12 +8959,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="169"/>
         <source>&lt;b&gt;Tip #10:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/klogchat&gt;English KLog Telegram group&lt;/a&gt; to discuss about KLog in English?</source>
-        <translation>&lt;b&gt;Consell núm. 10:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=https://t.me/klogchat&gt;grup de Telegram del KLog en anglès&lt;/a&gt; per conversar en anglès quant al KLog?</translation>
+        <translation>&lt;b&gt;Consell núm. 10:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=https://t.me/klogchat&gt;grup de Telegram del KLog en anglès&lt;/a&gt; per a conversar en anglès quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="172"/>
         <source>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; to discuss about KLog in Spanish?</source>
-        <translation>&lt;b&gt;Consell núm. 11:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=//https://t.me/KLogES&gt;grup de Telegram en castellà&lt;/a&gt; per conversar en castellà quant al KLog?</translation>
+        <translation>&lt;b&gt;Consell núm. 11:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu subscriure&apos;s al &lt;a href=//https://t.me/KLogES&gt;grup de Telegram en castellà&lt;/a&gt; per a conversar en castellà quant al KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="175"/>
@@ -8974,12 +8974,12 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="181"/>
         <source>&lt;b&gt;Tip #14:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can write your own &lt;a href=https://www.eham.net/reviews/detail/3118&gt;review in eHam.net about KLog&lt;/a&gt; to help other users to decide to use KLog?</source>
-        <translation>&lt;b&gt;Consell núm. 14:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu escriure els vostres propis &lt;a href=https://www.eham.net/reviews/detail/3118&gt;comentaris a eHam.net quant al KLog&lt;/a&gt; per ajudar als altres a decidir-se a usar el KLog?</translation>
+        <translation>&lt;b&gt;Consell núm. 14:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu escriure els vostres propis &lt;a href=https://www.eham.net/reviews/detail/3118&gt;comentaris a eHam.net quant al KLog&lt;/a&gt; per a ajudar als altres a decidir-se a usar el KLog?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
         <source>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can join the development team by simply &lt;a href=https://www.klog.xyz/contact&gt;Contacting us&lt;/a&gt;?</source>
-        <translation>&lt;b&gt;Consell núm. 15:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu unir-vos a l&apos;equip de desenvolupament senzillament &lt;a href=https://www.klog.xyz/contact&gt;contactant-nos&lt;/a&gt;?</translation>
+        <translation>&lt;b&gt;Consell núm. 15:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu unir-vos a l&apos;equip de desenvolupament senzillament &lt;a href=https://www.klog.xyz/contact&gt;contactar amb nosaltres&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="187"/>
@@ -9081,7 +9081,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../elogclublog.cpp" line="134"/>
         <source>This error may be caused for the QSO being duplicated or, if removing, trying to remove a non existing QSO.</source>
-        <translation>Aquest error pot estar provocat per una duplicitat del QSO, o si s&apos;elimina, intenteu eliminar un QSO inexistent.</translation>
+        <translation>Aquest error pot ser provocat per una duplicitat del QSO, o si s&apos;elimina, intenteu eliminar un QSO inexistent.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="140"/>
