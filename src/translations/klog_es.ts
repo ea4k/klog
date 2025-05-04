@@ -8911,7 +8911,7 @@ El log no se abrirá.</translation>
         <location filename="../tipsdialog.cpp" line="141"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
-        <translation>&lt;b&gt;Consejo #3:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Herramientas-&gt;Herramientas de QSL ...-&gt;Buscar QSO para enviar QSL&lt;/a&gt; buscar todos los QSO para los que debería enviar su QSL porque aun necesita confirmar ese DXCC y aun no ha enviado si tarjeta QSL?</translation>
+        <translation>&lt;b&gt;Consejo #3:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Herramientas-&gt;Herramientas de QSL ...-&gt;Buscar QSO para enviar QSL&lt;/a&gt; buscar todos los QSO para los que debería enviar su QSL porque aun necesita confirmar ese DXCC y aun no ha enviado su tarjeta QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="172"/>
