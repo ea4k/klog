@@ -79,6 +79,7 @@ QSO MainWindowInputQSL::getQSOData(QSO _qso)
 void MainWindowInputQSL::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
+
     setQSLSenStatus(qso.getQSL_SENT());
     setQSLSenDate(qso.getQSLSDate());
     setQSLSenVia(qso.getQSLSentVia());
@@ -321,7 +322,7 @@ void MainWindowInputQSL::setQSLRecDate(const QDate _qs)
     }
     else
     {
-        qslRecQDateEdit->clear();
+        qslRecQDateEdit->setDate(QDate::currentDate());
     }
 }
 
@@ -333,7 +334,8 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
     }
     else
     {
-        qslSentQDateEdit->clear();
+        qDebug() << Q_FUNC_INFO << " - Date not valid";
+        qslSentQDateEdit->setDate(QDate::currentDate());
     }
 }
 

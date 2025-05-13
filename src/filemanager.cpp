@@ -986,6 +986,30 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
     return adifReadLog2(fileName, stationCallSign, logN);
 }
 
+bool FileManager::isALoTWDownloadedFile(const QString& _fileName)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    QFile file( _fileName );
+    if (!file.exists ())
+    {
+        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
+        return false;
+    }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
+        return false;
+    }
+    QString line = file.readLine().trimmed();
+    if (line != QString("ARRL Logbook of the World Status Report"))
+    {
+        qDebug() << Q_FUNC_INFO << " - FALSE";
+        return false;
+    }
+    qDebug() << Q_FUNC_INFO << " - TRUE";
+    return true;
+}
+
 int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
@@ -995,14 +1019,17 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
         //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
+    bool lotWDownloaded = isALoTWDownloadedFile(file);
+
     int qsos = howManyQSOsInFile (file);
     //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug() << Q_FUNC_INFO << "  File not found" ;
+        //qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
         return false;
     }
+
 
     file.seek (pos); // QSO Data starts here
 
@@ -1824,7 +1851,7 @@ void FileManager::writeADIFHeader(QTextStream &out, const ExportMode _em, const 
     }
     else
     {
-        out << "ADIF v3.1.0 Export from KLog\nhttps://www.klog.xyz/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:4>KLOG ";
+        out << "ADIF v3.1.0 Export from KLog\nhttps://github.com/ea4k/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:4>KLOG ";
         out << "<APP_KLOG_QSOS:" << QString::number((QString::number(_numberOfQsos)).length()) << ">" << QString::number(_numberOfQsos);
         out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((QDateTime::currentDateTime().toString("yyyyMMdd-hhmm")).length()) << ">" << QDateTime::currentDateTime().toString("yyyyMMdd-hhmm");
     }

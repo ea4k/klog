@@ -447,6 +447,7 @@ bool QSO::copy(const QSO& other)
     setOwnerCallsign(other.ownerCall);
     setContactedOperator(other.contacted_op);
     setEQSLQSLRDate(other.eQSLRDate);
+    qDebug() << Q_FUNC_INFO;
     setEQSLQSLSDate(other.eQSLSDate);
 
     setEQSLQSL_RCVD(other.eqsl_qsl_rcvd);
@@ -1293,9 +1294,13 @@ QDate QSO::getEQSLQSLRDate() const
 
 bool QSO::setEQSLQSLSDate(const QDate &_c)
 {
+    QDate dat = _c;
+    qDebug() << Q_FUNC_INFO << " - " << dat.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
         eQSLSDate = _c;
+
+        qDebug() << Q_FUNC_INFO << " -  eQSLSDate: " << eQSLSDate.toString("yyyy-MM-dd");
         return true;
     }
     else
@@ -1373,16 +1378,19 @@ QString QSO::getLoTWQSL_RCVD() const
 
 bool QSO::setLoTWQSLRDate(const QDate &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ":  << _c.toString("yyyy-MM-dd");
+    //QDate dat = _c;
+   //qDebug() << Q_FUNC_INFO << " - " << dat.toString("yyyy-MM-dd");
+    //qDebug() << Q_FUNC_INFO << ": " << _c.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << ":  TRUE";
+       //qDebug() << Q_FUNC_INFO << ":  TRUE";
         QSLLoTWRDate = _c;
+       //qDebug() << Q_FUNC_INFO << " - " << QSLLo.toString("yyyy-MM-dd");
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": FALSE";
+       //qDebug() << Q_FUNC_INFO << ": FALSE";
         QSLLoTWRDate = QDate();
         return false;
     }
@@ -3408,6 +3416,7 @@ bool QSO::setLoTWQSLSDate2(const QString& data) {
 QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> QSO::SetDataHash;
 
 void QSO::InitializeHash() {
+    qDebug() << Q_FUNC_INFO;
     SetDataHash = {
         {"ADDRESS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAddress)},
         {"AGE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAge)},
@@ -4395,6 +4404,7 @@ QString QSO::getBandNameFromFreq(const double _n)
 bool QSO::fromDB(int _qsoId)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    qDebug() << Q_FUNC_INFO << " - Start";
     QString queryString = "SELECT * FROM log WHERE id= :idQSO";
     QSqlQuery query;
     query.prepare(queryString);
@@ -4465,7 +4475,7 @@ bool QSO::fromDB(int _qsoId)
     //qDebug() << Q_FUNC_INFO << "  - 40";
 
     data = (query.value(rec.indexOf("clublog_qso_upload_date"))).toString();
-    setClubLogDate(util->getDateTimeFromSQLiteString(data).date());
+    setClubLogDate(util->getDateFromSQliteString(data));
     setClubLogStatus((query.value(rec.indexOf("clublog_qso_upload_status"))).toString());
     setComment((query.value(rec.indexOf("comment"))).toString());
     setContinent((query.value(rec.indexOf("cont"))).toString());
@@ -4483,10 +4493,12 @@ bool QSO::fromDB(int _qsoId)
     setEQ_Call((query.value(rec.indexOf("eq_call"))).toString());
 
     data = (query.value(rec.indexOf("eqsl_qslrdate"))).toString();
-    setEQSLQSLRDate(util->getDateTimeFromSQLiteString(data).date());
-
+    setEQSLQSLRDate(util->getDateFromSQliteString(data));
+    qDebug() << Q_FUNC_INFO;
     data = (query.value(rec.indexOf("eqsl_qslsdate"))).toString();
-    setEQSLQSLSDate(util->getDateTimeFromSQLiteString(data).date());
+    qDebug() << Q_FUNC_INFO << "  - 49: " << data;
+
+    setEQSLQSLSDate(util->getDateFromSQliteString(data));
     //qDebug() << Q_FUNC_INFO << "  - 50";
     setEQSLQSL_RCVD((query.value(rec.indexOf("eqsl_qsl_rcvd"))).toString());
     setEQSLQSL_SENT((query.value(rec.indexOf("eqsl_qsl_sent"))).toString());
@@ -4498,17 +4510,17 @@ bool QSO::fromDB(int _qsoId)
     setGridSquare((query.value(rec.indexOf("gridsquare"))).toString());
     setGridSquare_ext((query.value(rec.indexOf("gridsquare_ext"))).toString());
     data = (query.value(rec.indexOf("hrdlog_qso_upload_date"))).toString();
-    setHRDUpdateDate(util->getDateTimeFromSQLiteString(data).date());
+    setHRDUpdateDate(util->getDateFromSQliteString(data));
 
     //qDebug() << Q_FUNC_INFO << "  - 60";
     setHRDLogStatus((query.value(rec.indexOf("hrdlog_qso_upload_status"))).toString());
 
     data = (query.value(rec.indexOf("hamlogeu_qso_upload_date"))).toString();
-    setHamLogEUUpdateDate(util->getDateTimeFromSQLiteString(data).date());
+    setHamLogEUUpdateDate(util->getDateFromSQliteString(data));
     setHamLogEUStatus((query.value(rec.indexOf("hamlogeu_qso_upload_status"))).toString());
 
     data = (query.value(rec.indexOf("hamqth_qso_upload_date"))).toString();
-    setHamQTHUpdateDate(util->getDateTimeFromSQLiteString(data).date());
+    setHamQTHUpdateDate(util->getDateFromSQliteString(data));
     setHamQTHStatus((query.value(rec.indexOf("hamqth_qso_upload_status"))).toString());
 
 
@@ -4523,9 +4535,11 @@ bool QSO::fromDB(int _qsoId)
     setLongitude((query.value(rec.indexOf("lon"))).toString());
 
     data = (query.value(rec.indexOf("lotw_qslrdate"))).toString();
-    setLoTWQSLRDate(util->getDateTimeFromSQLiteString(data).date());
+   //qDebug() << Q_FUNC_INFO << " - lotq_qslrdate - DB_ " << data;
+    setLoTWQSLRDate(util->getDateFromSQliteString(data));
+
     data = (query.value(rec.indexOf("lotw_qslsdate"))).toString();
-    setLoTWQSLSDate(util->getDateTimeFromSQLiteString(data).date());
+    setLoTWQSLSDate(util->getDateFromSQliteString(data));
 
     setLoTWQSL_RCVD((query.value(rec.indexOf("lotw_qsl_rcvd"))).toString());
     setLoTWQSL_SENT((query.value(rec.indexOf("lotw_qsl_sent"))).toString());
@@ -4576,14 +4590,14 @@ bool QSO::fromDB(int _qsoId)
     setPublicKey((query.value(rec.indexOf("public_key"))).toString());
 
     data = (query.value(rec.indexOf("qrzcom_qso_upload_date"))).toString();
-    setQRZCOMDate(util->getDateTimeFromSQLiteString(data).date());
+    setQRZCOMDate(util->getDateFromSQliteString(data));
     setQRZCOMStatus((query.value(rec.indexOf("qrzcom_qso_upload_status"))).toString());
     //qDebug() << Q_FUNC_INFO << "  - 100";
     setQSLMsg((query.value(rec.indexOf("qslmsg"))).toString());
     data = (query.value(rec.indexOf("qslrdate"))).toString();
-    setQSLRDate(util->getDateTimeFromSQLiteString(data).date());
+    setQSLRDate(util->getDateFromSQliteString(data));
     data = (query.value(rec.indexOf("qslsdate"))).toString();
-    setQSLSDate(util->getDateTimeFromSQLiteString(data).date());
+    setQSLSDate(util->getDateFromSQliteString(data));
 
     setQSL_RCVD((query.value(rec.indexOf("qsl_rcvd"))).toString());
     setQSL_SENT((query.value(rec.indexOf("qsl_sent"))).toString());
@@ -4630,7 +4644,7 @@ bool QSO::fromDB(int _qsoId)
     //qDebug() << Q_FUNC_INFO << "  - 140";
     setWeb((query.value(rec.indexOf("web"))).toString());
     data = (query.value(rec.indexOf("qso_date_off"))).toString();
-    setDateOff(util->getDateTimeFromSQLiteString(data).date());
+    setDateOff(util->getDateFromSQliteString(data));
     setLogId((query.value(rec.indexOf("lognumber"))).toInt());
     //qDebug() << Q_FUNC_INFO << "  - 150";
     logEvent (Q_FUNC_INFO, "END", Debug);

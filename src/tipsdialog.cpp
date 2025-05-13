@@ -181,13 +181,13 @@ void TipsDialog::setTip(const int _t)
         description = tr("<b>Tip #14:</b><br>Do you know...<br>You can write your own <a href=https://www.eham.net/reviews/detail/3118>review in eHam.net about KLog</a> to help other users to decide to use KLog?");
     break;
     case 15:
-        description = tr("<b>Tip #15:</b><br>Do you know...<br>You can join the development team by simply <a href=https://www.klog.xyz/contact>Contacting us</a>?");
+        description = tr("<b>Tip #15:</b><br>Do you know...<br>You can join the development team by simply <a href=https://github.com/ea4k/klog?tab=readme-ov-file#telegram-groups>Contacting us</a>?");
     break;
     case 16:
-        description = tr("<b>Tip #16:</b><br>Do you know...<br>That there are many ways to contribute to KLog and some of them are listed in the <a href=https://www.klog.xyz/contrib>KLog Contribute</a> page?");
+        description = tr("<b>Tip #16:</b><br>Do you know...<br>That there are many ways to contribute to KLog and some of them are listed in the <a href=https://github.com/ea4k/klog/issues>KLog issues</a> page?");
     break;
     case 17:
-        description = tr("<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into your language? Please check <a href=https://www.klog.xyz/contrib/translations>KLog Translations</a> page.");
+        description = tr("<b>Tip #17:</b><br>Do you know...<br>You can support translating KLog into your language? Please check <a href=https://github.com/ea4k/klog/tree/master/src/translations>KLog Translations</a> page.");
     break;
     case 18:
         description = tr("<b>Tip #18:</b><br>Do you know...<br>You can double-click on an entity name in the DXCC table and all the QSOs with that DXCC Entity will be shown in the search box?");

@@ -61,6 +61,7 @@ MainWindowInputEQSL::~MainWindowInputEQSL()
 
 QSO MainWindowInputEQSL::getQSOData(QSO _qso)
 {
+    qDebug() << Q_FUNC_INFO;
     QSO qso = _qso;
     qso.setClubLogStatus(getClubLogStatus());
     qso.setEQSLQSL_RCVD(getEQSLRecStatus());
@@ -82,25 +83,30 @@ QSO MainWindowInputEQSL::getQSOData(QSO _qso)
 void MainWindowInputEQSL::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
+    // Define first the status so the slots are not overwriting the dates or set uo a semaphore
+
+    qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
+    qDebug() << Q_FUNC_INFO << (qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     setClubLogStatus(qso.getClubLogStatus());
     setClubLogDate(qso.getClubLogDate());
 
-    setEQSLRecDate(qso.getEQSLQSLRDate());
-    setEQSLSenDate(qso.getEQSLQSLSDate());
     setEQSLRecStatus(qso.getEQSLQSL_RCVD());
     setEQSLSenStatus(qso.getEQSLQSL_SENT());
+    setEQSLRecDate(qso.getEQSLQSLRDate());
+    setEQSLSenDate(qso.getEQSLQSLSDate());
 
-    setLOTWRecDate(qso.getLoTWQSLRDate());
-    setLOTWSenDate(qso.getLoTWQSLSDate());
     setLOTWRecStatus(qso.getLoTWQSL_RCVD());
     setLOTWSenStatus(qso.getLoTWQSL_SENT());
+    setLOTWRecDate(qso.getLoTWQSLRDate());
+    setLOTWSenDate(qso.getLoTWQSLSDate());
 
-    setQRZCOMDate(qso.getQRZCOMDate());
     setQRZCOMStatus(qso.getQRZCOMStatus());
+    setQRZCOMDate(qso.getQRZCOMDate());    
 }
 
 void MainWindowInputEQSL::createUI()
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
     clubLogStatusList.clear();
@@ -209,8 +215,8 @@ void MainWindowInputEQSL::setDefaultData()
 
 void MainWindowInputEQSL::clear()
 {
-      //qDebug() << "MainWindowInputEQSL::clear" ;
-     // Do not upload
+    qDebug() << Q_FUNC_INFO << " - Start";
+    // Do not upload
     if (queueSentByDefault)
     {
         clublogComboBox->setCurrentIndex( clublogComboBox->findText("M", Qt::MatchStartsWith));
@@ -541,8 +547,9 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
 }
 
 
-void MainWindowInputEQSL::sloteQSLSentComboBoxChanged(){
-       //qDebug() << "MainWindowInputEQSL::sloteQSLSentComboBoxChanged";
+void MainWindowInputEQSL::sloteQSLSentComboBoxChanged()
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
 
     int i = eqslSentComboBox->currentIndex();
 //{Y, N, R, I, V}
@@ -675,12 +682,15 @@ void MainWindowInputEQSL::setEQSLRecDate(const QDate _qs)
 
 void MainWindowInputEQSL::setEQSLSenDate(const QDate _qs)
 {
+    qDebug() << Q_FUNC_INFO << (_qs).toString("yyyy-MM-dd");
     if (_qs.isValid())
     {
+        qDebug() << Q_FUNC_INFO << " - Date valid";
         eqslSentQDateEdit->setDate(_qs);
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << " - Date not valid";
         eqslSentQDateEdit->setDate(QDate::currentDate());
     }
 }

@@ -95,6 +95,7 @@ private:
     //bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     //bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
+    bool isALoTWDownloadedFile(const QString& _fileName);
     int howManyLogsInFile(QFile & _f);
     int howManyQSOsInFile (QFile & _f);
     qint64 passHeader(QFile & _f);

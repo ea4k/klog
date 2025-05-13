@@ -65,8 +65,8 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
     _version = tversion;
     if (updateNeeded)
     {
-        //text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://www.klog.xyz>https://www.klog.xyz</a></center>";
-        text = tr("<center><h2>KLog new version (%1) is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://www.klog.xyz>https://www.klog.xyz</a></center>").arg(tversion);
+        //text = "<center><h2>KLog new version ("+ tversion + ") is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://github.com/ea4k/klog>https://github.com/ea4k/klog</a></center>";
+        text = tr("<center><h2>KLog new version (%1) is available! </h2></center><br>There is a new version of KLog available.<br><br><b>You can get the new version from:<br><br><center><a href=https://github.com/ea4k/klog>https://github.com/ea4k/klog</a></center>").arg(tversion);
     }
     else
     {

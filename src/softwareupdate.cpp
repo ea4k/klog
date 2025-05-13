@@ -270,7 +270,6 @@ void SoftwareUpdate::needToUpdate(bool _showWithoutVersion)
       //qDebug() << "SoftwareUpdate::needToUpdate (current version: " << klogVersion  << ")" ;
     messageShown = _showWithoutVersion;
     setVersion(klogVersion);
-    //setTheURL("http://download.klog.xyz");
     connectToURL("https://api.github.com/repos/ea4k/klog/releases/latest");
       //qDebug() << "SoftwareUpdate::neededToUpdate - END";
 }

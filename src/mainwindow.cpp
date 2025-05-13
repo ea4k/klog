@@ -4397,6 +4397,7 @@ void MainWindow::slotADIFImport(){
 
 void MainWindow::sendQSOToUI(const QSO &_qso)
 {
+    qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     mainQSOEntryWidget->setQSOData(_qso);
     commentTabWidget->setQSOData(_qso);
     satTabWidget->setQSOData(_qso);
@@ -4445,7 +4446,7 @@ void MainWindow::qsoToEdit (const int _qso)
     qsoE.fromDB(modifyingQSOid);
 
     qsoInUI.copy(qsoE);
-    //qDebug() << Q_FUNC_INFO  << " - m: " << modifyingQSO->getMyCity();
+    qDebug() << Q_FUNC_INFO  << " - m: " << (qsoE.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     sendQSOToUI(qsoE);
 
     QString currentQrz = qsoE.getCall();
