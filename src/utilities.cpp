@@ -1288,7 +1288,6 @@ QDate Utilities::getDateFromLoTWQSLDateString(const QString &_s)
     return QDate::fromString(datet.at(0), "yyyy-MM-dd");
 }
 
-
 QString Utilities::getADIFDateFromQDateTime(const QDateTime &_d)
 {
     return getADIFDateFromQDate(_d.date());

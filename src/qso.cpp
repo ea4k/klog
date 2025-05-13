@@ -3572,7 +3572,7 @@ void QSO::InitializeHash() {
 
 
 // SET DATA ----------------------------------------------------------------------------------
-bool QSO::setData(const QString &_adifPair)
+bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << ": " << _adifPair;
@@ -3584,10 +3584,18 @@ bool QSO::setData(const QString &_adifPair)
         logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
         return false;
     }
+
     //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
+
+    if (_lotw)
+    {
+        if (field == "QSL_RCVD")
+            field = "LOTW_QSL_RCVD";
+    }
+
 
     if (SetDataHash.empty()) {
         InitializeHash();

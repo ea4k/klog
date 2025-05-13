@@ -986,28 +986,25 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
     return adifReadLog2(fileName, stationCallSign, logN);
 }
 
-bool FileManager::isALoTWDownloadedFile(const QString& _fileName)
+
+bool FileManager::isALoTWDownloadedFile(QFile & _f)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
-    QFile file( _fileName );
-    if (!file.exists ())
-    {
-        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
-        return false;
-    }
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
+    QFile &file = _f;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
+        qDebug() << Q_FUNC_INFO << " - File not found";
         return false;
     }
+
     QString line = file.readLine().trimmed();
-    if (line != QString("ARRL Logbook of the World Status Report"))
-    {
-        qDebug() << Q_FUNC_INFO << " - FALSE";
-        return false;
-    }
-    qDebug() << Q_FUNC_INFO << " - TRUE";
-    return true;
+    bool isLoTWFile = (line == QString("ARRL Logbook of the World Status Report"));
+
+    file.close();
+    qDebug() << Q_FUNC_INFO << " - LOTW: " << util->boolToQString(isLoTWFile);
+
+    return isLoTWFile;
 }
 
 int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
@@ -1026,7 +1023,7 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
+        qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
         return false;
     }
 
@@ -1099,7 +1096,7 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
             {
                 //qDebug() << Q_FUNC_INFO << QString(": Adding this to the QSO: %1").arg(fieldToAnalyze) ;
                 //fieldToAnalyze must be an ADIF record: <Field:length:Data type>Data                
-                qso.setData (fieldToAnalyze);
+                qso.setData (fieldToAnalyze, lotWDownloaded);
             }
             if ( progress.wasCanceled() )
             {

@@ -167,6 +167,7 @@ public:
     // Parse date fromLoTW
     QDate getDateFromLoTWQSLDateString(const QString &_s);
 
+
     // Creates the Cabrillo DATE & TIME (http://wwrof.org/cabrillo/)
     QString getCabrilloDateFromQDate(const QDate &_d);          // Will produce the Cabrillo DATE format: "YYYY-MM-DD"
     QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"

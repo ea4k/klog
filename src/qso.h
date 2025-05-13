@@ -60,7 +60,7 @@ public:
     void setModifying(const bool _mod);
     bool getModifying() const;
 
-    bool setData(const QString &_adifPair);
+    bool setData(const QString &_adifPair, bool _lotw = false);
     void clear();
     bool isValid();
     void setLoTWUpdating(bool _lotw);
