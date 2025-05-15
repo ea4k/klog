@@ -1305,6 +1305,7 @@ bool QSO::setEQSLQSLSDate(const QDate &_c)
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " -  Wrong eQSLSDate";
         eQSLSDate = QDate();
         return false;
     }
@@ -4018,19 +4019,11 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     if (qsl_rcvd_dates_set.contains(getEQSLQSL_RCVD()))
         query.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(getEQSLQSLRDate()));
 
-    qDebug() << Q_FUNC_INFO << "- eqsl_qsl_sent: " << getEQSLQSL_SENT();
+    //qDebug() << Q_FUNC_INFO << "- eqsl_qsl_sent: " << getEQSLQSL_SENT();
     query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
 
     if (qsl_sent_dates_set.contains(getEQSLQSL_SENT()))
-    {
-        qDebug() << Q_FUNC_INFO << "- Saving date " << getEQSLQSL_SENT();
         query.bindValue(":eqsl_qslsdate", util->getDateSQLiteStringFromDate(getEQSLQSLSDate()));
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << "- NOT Saving date " << getEQSLQSL_SENT();
-    }
-
 
     query.bindValue(":qsl_rcvd", getQSL_RCVD());
     if (qsl_rcvd_dates_set.contains(getQSL_RCVD()))

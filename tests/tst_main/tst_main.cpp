@@ -47,7 +47,7 @@ private:
 private slots:
     void initTestCase()
     {
-        qDebug("Called before everything else.");
+        //qDebug("Called before everything else.");
     }
 
     void myFirstTest()
@@ -64,7 +64,7 @@ private slots:
 
     void cleanupTestCase()
     {
-        qDebug("Called after myFirstTest and mySecondTest.");
+        //qDebug("Called after myFirstTest and mySecondTest.");
     }
 };
 
