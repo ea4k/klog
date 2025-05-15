@@ -989,12 +989,12 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
 
 bool FileManager::isALoTWDownloadedFile(QFile & _f)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
     QFile &file = _f;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << " - File not found";
+        //qDebug() << Q_FUNC_INFO << " - File not found";
         return false;
     }
 
@@ -1002,7 +1002,7 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
     bool isLoTWFile = (line == QString("ARRL Logbook of the World Status Report"));
 
     file.close();
-    qDebug() << Q_FUNC_INFO << " - LOTW: " << util->boolToQString(isLoTWFile);
+    //qDebug() << Q_FUNC_INFO << " - LOTW: " << util->boolToQString(isLoTWFile);
 
     return isLoTWFile;
 }
@@ -1023,7 +1023,7 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
+        //qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
         return false;
     }
 

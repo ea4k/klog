@@ -61,7 +61,7 @@ MainWindowInputEQSL::~MainWindowInputEQSL()
 
 QSO MainWindowInputEQSL::getQSOData(QSO _qso)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     QSO qso = _qso;
     qso.setClubLogStatus(getClubLogStatus());
     qso.setEQSLQSL_RCVD(getEQSLRecStatus());
@@ -85,8 +85,8 @@ void MainWindowInputEQSL::setQSOData(const QSO &_qso)
     QSO qso(_qso);
     // Define first the status so the slots are not overwriting the dates or set uo a semaphore
 
-    qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
-    qDebug() << Q_FUNC_INFO << (qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
+    //qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
+    //qDebug() << Q_FUNC_INFO << (qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     setClubLogStatus(qso.getClubLogStatus());
     setClubLogDate(qso.getClubLogDate());
 
@@ -106,7 +106,7 @@ void MainWindowInputEQSL::setQSOData(const QSO &_qso)
 
 void MainWindowInputEQSL::createUI()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
     clubLogStatusList.clear();
@@ -215,7 +215,7 @@ void MainWindowInputEQSL::setDefaultData()
 
 void MainWindowInputEQSL::clear()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     // Do not upload
     if (queueSentByDefault)
     {
@@ -549,7 +549,7 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged(){
 
 void MainWindowInputEQSL::sloteQSLSentComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     int i = eqslSentComboBox->currentIndex();
 //{Y, N, R, I, V}
@@ -682,15 +682,15 @@ void MainWindowInputEQSL::setEQSLRecDate(const QDate _qs)
 
 void MainWindowInputEQSL::setEQSLSenDate(const QDate _qs)
 {
-    qDebug() << Q_FUNC_INFO << (_qs).toString("yyyy-MM-dd");
+    //qDebug() << Q_FUNC_INFO << (_qs).toString("yyyy-MM-dd");
     if (_qs.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - Date valid";
+        //qDebug() << Q_FUNC_INFO << " - Date valid";
         eqslSentQDateEdit->setDate(_qs);
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Date not valid";
+        //qDebug() << Q_FUNC_INFO << " - Date not valid";
         eqslSentQDateEdit->setDate(QDate::currentDate());
     }
 }

@@ -447,7 +447,7 @@ bool QSO::copy(const QSO& other)
     setOwnerCallsign(other.ownerCall);
     setContactedOperator(other.contacted_op);
     setEQSLQSLRDate(other.eQSLRDate);
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     setEQSLQSLSDate(other.eQSLSDate);
 
     setEQSLQSL_RCVD(other.eqsl_qsl_rcvd);
@@ -1295,12 +1295,12 @@ QDate QSO::getEQSLQSLRDate() const
 bool QSO::setEQSLQSLSDate(const QDate &_c)
 {
     QDate dat = _c;
-    qDebug() << Q_FUNC_INFO << " - " << dat.toString("yyyy-MM-dd");
+    //qDebug() << Q_FUNC_INFO << " - " << dat.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
         eQSLSDate = _c;
 
-        qDebug() << Q_FUNC_INFO << " -  eQSLSDate: " << eQSLSDate.toString("yyyy-MM-dd");
+        //qDebug() << Q_FUNC_INFO << " -  eQSLSDate: " << eQSLSDate.toString("yyyy-MM-dd");
         return true;
     }
     else
@@ -3416,7 +3416,7 @@ bool QSO::setLoTWQSLSDate2(const QString& data) {
 QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> QSO::SetDataHash;
 
 void QSO::InitializeHash() {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     SetDataHash = {
         {"ADDRESS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAddress)},
         {"AGE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAge)},
@@ -3916,6 +3916,16 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 
 QSqlQuery QSO::getPreparedQuery(const QString &_s)
 {
+    QSet<QString> qsl_rcvd_dates_set;
+    qsl_rcvd_dates_set.insert("Y");
+    qsl_rcvd_dates_set.insert("I");
+    qsl_rcvd_dates_set.insert("V");
+
+    QSet<QString> qsl_sent_dates_set;
+    qsl_rcvd_dates_set.insert("Y");
+    qsl_rcvd_dates_set.insert("Q");
+    qsl_rcvd_dates_set.insert("I");
+
     QSqlQuery query;
 
     //qDebug() << Q_FUNC_INFO << " - Start ";
@@ -3957,8 +3967,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":band_rx", getBandIdFromBandName(true));
     query.bindValue(":checkcontest", getCheck());
     query.bindValue(":class", getClass());
-    query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClubLogDate()));
-    query.bindValue(":clublog_qso_upload_status", getClubLogStatus());
+
     query.bindValue(":cnty", getCounty());
     query.bindValue(":comment", getComment());
     query.bindValue(":cont", getContinent ());
@@ -3972,11 +3981,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
         query.bindValue(":distance", getDistance());
     query.bindValue(":email", getEmail());
     query.bindValue(":eq_call", getEQ_Call());
-    query.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(getEQSLQSLRDate()));
-    query.bindValue(":eqsl_qslsdate", util->getDateSQLiteStringFromDate(getEQSLQSLSDate()));
 
-    query.bindValue(":eqsl_qsl_rcvd", getEQSLQSL_RCVD());
-    query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
+
     if (adif->isValidFISTS(QString::number(getFists())))
         query.bindValue(":fists", getFists ());
     if (adif->isValidFISTS(QString::number(getFistsCC())))
@@ -3987,13 +3993,6 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":freq_rx", getFreqRX());
     query.bindValue(":gridsquare", getGridSquare());
     query.bindValue(":gridsquare_ext", getGridSquare_ext());
-    query.bindValue(":hrdlog_qso_upload_date", getHRDUpdateDate ());
-    query.bindValue(":hrdlog_qso_upload_status", getHRDLogStatus ());
-
-    query.bindValue(":hamlogeu_qso_upload_date", getHamLogEUUpdateDate());
-    query.bindValue(":hamlogeu_qso_upload_status", getHamLogEUStatus());
-    query.bindValue(":hamqth_qso_upload_date", getHamQTHUpdateDate());
-    query.bindValue(":hamqth_qso_upload_status", getHamQTHStatus());
 
     query.bindValue(":iota", getIOTA());
     if (adif->isValidIOTA_islandID(QString::number(getIotaID())))
@@ -4002,10 +4001,47 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
         query.bindValue(":k_index", getK_Index());
     query.bindValue(":lat", getLatitude());
     query.bindValue(":lon", getLongitude());
-    query.bindValue(":lotw_qslrdate", util->getDateSQLiteStringFromDate(getLoTWQSLRDate()));
-    query.bindValue(":lotw_qslsdate", util->getDateSQLiteStringFromDate(getLoTWQSLSDate()));
+
+    query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClubLogDate()));
+    query.bindValue(":clublog_qso_upload_status", getClubLogStatus());
+
+    query.bindValue(":hrdlog_qso_upload_date", getHRDUpdateDate ());
+    query.bindValue(":hrdlog_qso_upload_status", getHRDLogStatus ());
+
+    query.bindValue(":hamlogeu_qso_upload_date", getHamLogEUUpdateDate());
+    query.bindValue(":hamlogeu_qso_upload_status", getHamLogEUStatus());
+    query.bindValue(":hamqth_qso_upload_date", getHamQTHUpdateDate());
+    query.bindValue(":hamqth_qso_upload_status", getHamQTHStatus());
+
+
+    query.bindValue(":eqsl_qsl_rcvd", getEQSLQSL_RCVD());
+    if (qsl_rcvd_dates_set.contains(getEQSLQSL_RCVD()))
+        query.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(getEQSLQSLRDate()));
+
+    query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
+    if (qsl_sent_dates_set.contains(getEQSLQSL_SENT()))
+        query.bindValue(":eqsl_qslsdate", util->getDateSQLiteStringFromDate(getEQSLQSLSDate()));
+
+    query.bindValue(":qsl_rcvd", getQSL_RCVD());
+    if (qsl_rcvd_dates_set.contains(getQSL_RCVD()))
+        query.bindValue(":qslrdate", util->getDateSQLiteStringFromDate(getQSLRDate()));
+
+    query.bindValue(":qsl_sent", getQSL_SENT());
+    if (qsl_sent_dates_set.contains(getQSL_SENT()))
+        query.bindValue(":qslsdate", util->getDateSQLiteStringFromDate(getQSLSDate()));
+
     query.bindValue(":lotw_qsl_rcvd", getLoTWQSL_RCVD());
+    if (qsl_rcvd_dates_set.contains(getLoTWQSL_RCVD()))
+        query.bindValue(":lotw_qslrdate", util->getDateSQLiteStringFromDate(getLoTWQSLRDate()));
+
     query.bindValue(":lotw_qsl_sent", getLoTWQSL_SENT());
+    if (qsl_sent_dates_set.contains(getLoTWQSL_SENT()))
+        query.bindValue(":lotw_qslsdate", util->getDateSQLiteStringFromDate(getLoTWQSLSDate()));
+
+
+    query.bindValue(":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(getQRZCOMDate ()));
+    query.bindValue(":qrzcom_qso_upload_status", getQRZCOMStatus ());
+
     if (adif->isValidNRBursts(QString::number(getMaxBursts())))
         query.bindValue(":max_bursts", getMaxBursts());
     query.bindValue(":ms_shower", getMsShower());
@@ -4056,16 +4092,12 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":precedence", getPrecedence());
     query.bindValue(":prop_mode", getPropMode());
     query.bindValue(":public_key", getPublicKey());
-    query.bindValue(":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(getQRZCOMDate ()));
-    query.bindValue(":qrzcom_qso_upload_status", getQRZCOMStatus ());
+
 
     query.bindValue(":qslmsg", getQSLMsg());
-    query.bindValue(":qslrdate", util->getDateSQLiteStringFromDate(getQSLRDate()));
-    query.bindValue(":qslsdate", util->getDateSQLiteStringFromDate(getQSLSDate()));
-    query.bindValue(":qsl_rcvd", getQSL_RCVD());
-    query.bindValue(":qsl_sent", getQSL_SENT());
-    query.bindValue(":qsl_rcvd_via", getQSLRecVia());
 
+
+    query.bindValue(":qsl_rcvd_via", getQSLRecVia());
     query.bindValue(":qsl_sent_via", getQSLSentVia());
     query.bindValue(":qsl_via", getQSLVia());
     query.bindValue(":qso_complete", getQSOComplete());
@@ -4412,7 +4444,7 @@ QString QSO::getBandNameFromFreq(const double _n)
 bool QSO::fromDB(int _qsoId)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QString queryString = "SELECT * FROM log WHERE id= :idQSO";
     QSqlQuery query;
     query.prepare(queryString);
@@ -4502,9 +4534,9 @@ bool QSO::fromDB(int _qsoId)
 
     data = (query.value(rec.indexOf("eqsl_qslrdate"))).toString();
     setEQSLQSLRDate(util->getDateFromSQliteString(data));
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     data = (query.value(rec.indexOf("eqsl_qslsdate"))).toString();
-    qDebug() << Q_FUNC_INFO << "  - 49: " << data;
+    //qDebug() << Q_FUNC_INFO << "  - 49: " << data;
 
     setEQSLQSLSDate(util->getDateFromSQliteString(data));
     //qDebug() << Q_FUNC_INFO << "  - 50";

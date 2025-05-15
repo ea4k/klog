@@ -334,7 +334,7 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Date not valid";
+        //qDebug() << Q_FUNC_INFO << " - Date not valid";
         qslSentQDateEdit->setDate(QDate::currentDate());
     }
 }
