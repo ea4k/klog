@@ -793,6 +793,35 @@ int Utilities::getAreaNumberFromCall(const QString &_c)
     return -1;
 }
 
+bool Utilities::isValidIOTA(const QString &_c)
+{
+    QStringList iota;
+    iota.append(_c.split('-'));
+    if (!isValidContinent(iota.at(0)))
+        return false;
+
+    QString number = iota.at(1);
+    bool ok = false;
+    int n = number.toInt(&ok);
+    if (!ok)
+        return false;
+    if (n<=0)
+        return false;
+
+    return true;
+}
+
+int Utilities::getIOTAIdFromIOTA(const QString &_iota)
+{// Returns the numbert IOTA id
+
+    if (!isValidIOTA(_iota))
+        return -1;
+
+    QStringList iota;
+    iota.append(_iota.split('-'));
+    QString number = iota.at(1);
+    return number.toInt();
+}
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
 {

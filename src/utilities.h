@@ -119,6 +119,7 @@ public:
     bool isValidQSL_Rcvd(const QString &c);
     bool isValidQSL_Sent(const QString &c);
     bool isValidUpload_Status(const QString &c);
+    bool isValidIOTA(const QString &_c);
     //bool isValidFISTS(const QString &c);
 
     bool isValidTimeFromString(const QString &_s);
@@ -139,7 +140,7 @@ public:
     QString getPrefixFromCall(const QString &_c, bool withAreaNumber = false);
     int getAreaNumberFromCall(const QString &_c);
 
-
+    int getIOTAIdFromIOTA(const QString &_iota);    // Returns the numbert IOTA id
 
     // Write DATE/TIME to DB
     QString getDateTimeSQLiteStringFromDateTime(const QDateTime &_d);

@@ -1077,6 +1077,7 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
                 {
                     qso.setStationCallsign(_stationCallsign);
                 }
+                qso.setLoTWUpdating(lotWDownloaded);
                 qso.toDB ();
                 qso.clear ();
                 i++;

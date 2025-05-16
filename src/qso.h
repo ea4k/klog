@@ -445,6 +445,10 @@ private:
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
     //DataBase *db;
 
+    // Functions to update a QSO after downloading LoTW
+    bool updateFromLoTW();                                   // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+    int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
+
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;

@@ -1912,9 +1912,13 @@ double QSO::getAltitude() const
 
 bool QSO::setIOTA(const QString &_c)
 {
+    if (!util->isValidIOTA(_c))
+        return false;
+
     if (_c.length()>0)
     {
         iota = _c;
+        setIotaID(util->getIOTAIdFromIOTA(_c));
         return true;
     }
     else
@@ -3571,7 +3575,6 @@ void QSO::InitializeHash() {
 }
 
 
-
 // SET DATA ----------------------------------------------------------------------------------
 bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
@@ -3609,6 +3612,87 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     return true;
 }
 
+bool QSO::updateFromLoTW()
+{
+    //CALL, BAND, FREQ, QSODATE, MODE
+
+    int qsoId = findIdFromQSO(getCall(), getDateTimeOn(), getBandIdFromBandName(), getModeIdFromModeName());
+    if (qsoId > 0)
+    {
+        // First we backup the data coming from LoTW
+        //TODO: Add the NPOTA information APP_LoTW_NPSUNIT
+        QDate lotwRX            = getLoTWQSLRDate();
+        QDate lotwTX            = getLoTWQSLSDate();
+        QString _qsl_rcvd           = getLoTWQSL_RCVD();
+        QString _qsl_sent           = getLoTWQSL_SENT();
+        QString _credit_granted     = getCreditGranted();
+        QString _credit_submitted   = getCreditSubmitted();
+        QString _cnty               = getCounty();
+        QString _continent          = getContinent();
+        QString _pfx                = getPrefix();
+        int _cqz                    = getCQZone();
+        int _ituz                   = getItuZone();
+        int _iotaNum                = getIotaID();
+        QString _gridsquare         = getGridSquare();
+        QString _vucc               = getVUCCGrids();
+        QString _state              = getState();
+
+        // Recover the data from the log for the QSO
+        if (fromDB(qsoId))
+            return false;
+
+        //Update the data from LoTW to the QSO
+        setLoTWQSLRDate(lotwRX);
+        setLoTWQSLSDate(lotwTX);
+        setLoTWQSL_RCVD(_qsl_rcvd);
+        setLoTWQSL_SENT(_qsl_sent);
+        setCreditGranted(_credit_granted);
+        setCreditSubmitted(_credit_submitted);
+        setCounty(_cnty);
+        setContinent(_continent);
+        setPrefix(_pfx);
+        setCQZone(_cqz);
+        setItuZone(_ituz);
+        setIotaID(_iotaNum);
+        setGridSquare(_gridsquare);
+        setVUCCGrids(_vucc);
+        setState(_state);
+
+    }
+    //Store the QSO into the log
+    return true;
+}
+
+int QSO::findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
+{
+    QSqlQuery query;
+    QString datetime = util->getDateTimeSQLiteStringFromDateTime(_datetime);
+
+    // Use parameterized query to avoid SQL injection and improve performance
+    query.prepare("SELECT id FROM log WHERE call = :call AND qso_date = :qso_date AND bandid = :bandid AND modeid = :modeid");
+    query.bindValue(":call", _qrz);
+    query.bindValue(":qso_date", datetime);
+    query.bindValue(":bandid", _band);
+    query.bindValue(":modeid", _mode);
+
+    // Execute the query
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return -1;
+    }
+
+    // Check the result
+    if (query.next() && query.isValid())
+    {
+        int qsoId = query.value(0).toInt();
+        return qsoId > 0 ? qsoId : -2;
+    }
+
+    return -3;
+}
+
+
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
     // if _qsoID is >0 it should be an existing QSO in the DB.
@@ -3617,6 +3701,12 @@ int QSO::toDB(int _qsoId)
     {
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
+    }
+    if (lotwUpdating)
+    { // We are updating a QSO Downloaded from LOTW
+      // We should be updating just the LoTW data:
+      // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls
+        updateFromLoTW();
     }
 
     //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();

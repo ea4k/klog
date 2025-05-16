@@ -2507,45 +2507,31 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
 int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
 {
     //qDebug() << Q_FUNC_INFO;
-     QSqlQuery query;
-     QString queryString;
+    QSqlQuery query;
     QString datetime = util->getDateTimeSQLiteStringFromDateTime(_datetime);
 
-     queryString = QString("SELECT id FROM log WHERE call='%1' AND qso_date='%2' AND bandid='%4' AND modeid='%5'").arg(_qrz).arg(datetime).arg(_band).arg(_mode);
+    // Use parameterized query to avoid SQL injection and improve performance
+    query.prepare("SELECT id FROM log WHERE call = :call AND qso_date = :qso_date AND bandid = :bandid AND modeid = :modeid");
+    query.bindValue(":call", _qrz);
+    query.bindValue(":qso_date", datetime);
+    query.bindValue(":bandid", _band);
+    query.bindValue(":modeid", _mode);
 
-     bool sqlOK = query.exec(queryString);
+    // Execute the query
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return -1;
+    }
 
-     if (sqlOK)
-     {
-         query.next();
-         if (query.isValid())
-         {
-             int qsoId = (query.value(0)).toInt();
-             if (qsoId)
-             {
-                 query.finish();
-                 return qsoId;
-             }
-             else
-             {
-                 query.finish();
-                 return -1;
-             }
-         }
-         else
-         {
-             query.finish();
-             return -1;
-         }
-     }
-     else
-     {
-         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-         query.finish();
-         return -1;
-     }
+    // Check the result
+    if (query.next() && query.isValid())
+    {
+        int qsoId = query.value(0).toInt();
+        return qsoId > 0 ? qsoId : -2;
+    }
 
-    //return -1;
+    return -3;
 }
 
 bool DataProxy_SQLite::isHF(const int _band)
