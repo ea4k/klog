@@ -991,20 +991,23 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
-    QFile &file = _f;
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
+    //QFile &file = _f;
+    //if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    //{
         //qDebug() << Q_FUNC_INFO << " - File not found";
+    //    return false;
+    //}
+    QString programId = getProgramID(_f);
+    if (programId.length()<0)
         return false;
-    }
+    return true;
+    //QString line = file.readLine().trimmed();
+    //bool isLoTWFile = (line == QString("ARRL Logbook of the World Status Report"));
 
-    QString line = file.readLine().trimmed();
-    bool isLoTWFile = (line == QString("ARRL Logbook of the World Status Report"));
-
-    file.close();
+    //file.close();
     //qDebug() << Q_FUNC_INFO << " - LOTW: " << util->boolToQString(isLoTWFile);
 
-    return isLoTWFile;
+    //return isLoTWFile;
 }
 
 int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
@@ -1134,6 +1137,38 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
     return i;
 }
 
+
+QString FileManager::getProgramID (QFile &_f)
+{
+    qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
+    QFile &file = _f;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        qDebug() << Q_FUNC_INFO << "  File not found" ;
+        return QString();
+    }
+    QString line;
+    while ( !file.atEnd()  )
+    {
+        line.clear();
+        line.append(file.readLine().trimmed().toUpper());
+
+        QStringList fields = line.split("<", QT_SKIP);
+        while (!fields.isEmpty())
+        {
+            QString fieldToAnalyze = "<" + (fields.takeFirst()).trimmed();
+            if (fieldToAnalyze.contains ("<PROGRAMID:"))
+            { // <PROGRAMID:4>LOTW
+                file.close();
+                QStringList programIdFields = fieldToAnalyze.split(">");
+                qDebug() << Q_FUNC_INFO << "  Is a LOTW file: " << programIdFields.at(1);
+                return programIdFields.at(1);
+            }
+        }
+    }
+    file.close();
+    return QString();
+}
 qint64 FileManager::passHeader(QFile & _f)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
@@ -1602,20 +1637,20 @@ QStringList FileManager::readAdifField(const QString &_field)
     // <F:L:T>D
     // <Field:Length:Type>Data
 
-    //qDebug() << "FileManager::readAdifField: " << _field;
+    //qDebug() <<  Q_FUNC_INFO << ": " << _field;
     QStringList result;
     result.clear();
 
     if (_field == "<EOR>")
     {
-        //qDebug() << "FileManager::readAdifField: EOR found!!";
+        //qDebug() <<  Q_FUNC_INFO << ": EOR found!!";
         result << "EOR" << "EOR";
         return result;
     }
 
     if (!((_field.startsWith("<")) && (_field.contains(":")) && (_field.contains(">"))))
     {
-        //qDebug() << "FileManager::readAdifField: NOT (contains : and >): " << _field;
+        //qDebug() <<  Q_FUNC_INFO << ": NOT (contains : and >): " << _field;
         return QStringList();
     }
 
@@ -1626,11 +1661,11 @@ QStringList FileManager::readAdifField(const QString &_field)
     fieldList.clear();
     fieldList << (result.at(0)).split(':'); // we may have 1 or 2 depending on the format of the ADIF field.
     int iAux = fieldList.length();
-      //qDebug() << "FileManager::readAdifField: iAux: " << QString::number(iAux);
+      //qDebug() <<  Q_FUNC_INFO << ": iAux: " << QString::number(iAux);
     int dataLength;
     QString field;
     QString fieldType;
-      //qDebug() << "FileManager::readAdifField: analyzing..." ;
+      //qDebug() <<  Q_FUNC_INFO << ": analyzing..." ;
 
     if (iAux == 2)
     {
@@ -1646,24 +1681,24 @@ QStringList FileManager::readAdifField(const QString &_field)
     }
     else
     { // Not valid ADIF
-         //qDebug() << "FileManager::readAdifField: iAux != 1, 2";
+         //qDebug() <<  Q_FUNC_INFO << ": iAux != 1, 2";
         return QStringList();
     }
     field.remove('<');
     data = data.left(dataLength);
-      //qDebug() << "FileManager::readAdifField: field: " << field;
-      //qDebug() << "FileManager::readAdifField: dataLength: " << QString::number(dataLength);
-      //qDebug() << "FileManager::readAdifField: data: " << data;
-      //qDebug() << "FileManager::readAdifField: fieldType: " << fieldType;
+      //qDebug() <<  Q_FUNC_INFO << ": field: " << field;
+      //qDebug() <<  Q_FUNC_INFO << ": dataLength: " << QString::number(dataLength);
+      //qDebug() <<  Q_FUNC_INFO << ": data: " << data;
+      //qDebug() <<  Q_FUNC_INFO << ": fieldType: " << fieldType;
 
     if (data.length() != dataLength)
     {
-        //qDebug() << "FileManager::readAdifField: data.length != dataLength: " << QString::number(data.length()) << "/" << QString::number(dataLength);
+        //qDebug() <<  Q_FUNC_INFO << ": data.length != dataLength: " << QString::number(data.length()) << "/" << QString::number(dataLength);
         return QStringList();
     }
     result.clear();
     result << field << data;
-    //qDebug() << "FileManager::readAdifField: OK: " << field << "/" << data;
+    //qDebug() <<  Q_FUNC_INFO << ": OK: " << field << "/" << data;
     return result;
 }
 

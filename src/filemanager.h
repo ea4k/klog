@@ -99,6 +99,7 @@ private:
     int howManyLogsInFile(QFile & _f);
     int howManyQSOsInFile (QFile & _f);
     qint64 passHeader(QFile & _f);
+    QString getProgramID (QFile &_f);
 
     bool fillHashLog(QFile & _f);
     QStringList getListOfLogsInFile(QFile & _f);
