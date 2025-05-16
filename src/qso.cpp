@@ -3612,55 +3612,57 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     return true;
 }
 
-bool QSO::updateFromLoTW()
+int QSO::updateFromLoTW()
 {
     //CALL, BAND, FREQ, QSODATE, MODE
-
+    //qDebug() << Q_FUNC_INFO << " - Start";
     int qsoId = findIdFromQSO(getCall(), getDateTimeOn(), getBandIdFromBandName(), getModeIdFromModeName());
-    if (qsoId > 0)
-    {
-        // First we backup the data coming from LoTW
-        //TODO: Add the NPOTA information APP_LoTW_NPSUNIT
-        QDate lotwRX            = getLoTWQSLRDate();
-        QDate lotwTX            = getLoTWQSLSDate();
-        QString _qsl_rcvd           = getLoTWQSL_RCVD();
-        QString _qsl_sent           = getLoTWQSL_SENT();
-        QString _credit_granted     = getCreditGranted();
-        QString _credit_submitted   = getCreditSubmitted();
-        QString _cnty               = getCounty();
-        QString _continent          = getContinent();
-        QString _pfx                = getPrefix();
-        int _cqz                    = getCQZone();
-        int _ituz                   = getItuZone();
-        int _iotaNum                = getIotaID();
-        QString _gridsquare         = getGridSquare();
-        QString _vucc               = getVUCCGrids();
-        QString _state              = getState();
+    //qDebug() << Q_FUNC_INFO << " - qsoID: " << qsoId;
+    if (qsoId <= 0)
+        return qsoId;
 
-        // Recover the data from the log for the QSO
-        if (fromDB(qsoId))
-            return false;
+    // First we backup the data coming from LoTW
+    //TODO: Add the NPOTA information APP_LoTW_NPSUNIT
+    //qDebug() << Q_FUNC_INFO << " - Reading the existing QSO values";
+    QDate lotwRX                = getLoTWQSLRDate();
+    QDate lotwTX                = getLoTWQSLSDate();
+    QString _qsl_rcvd           = getLoTWQSL_RCVD();
+    QString _qsl_sent           = getLoTWQSL_SENT();
+    QString _credit_granted     = getCreditGranted();
+    QString _credit_submitted   = getCreditSubmitted();
+    QString _cnty               = getCounty();
+    QString _continent          = getContinent();
+    QString _pfx                = getPrefix();
+    int _cqz                    = getCQZone();
+    int _ituz                   = getItuZone();
+    int _iotaNum                = getIotaID();
+    QString _gridsquare         = getGridSquare();
+    QString _vucc               = getVUCCGrids();
+    QString _state              = getState();
 
-        //Update the data from LoTW to the QSO
-        setLoTWQSLRDate(lotwRX);
-        setLoTWQSLSDate(lotwTX);
-        setLoTWQSL_RCVD(_qsl_rcvd);
-        setLoTWQSL_SENT(_qsl_sent);
-        setCreditGranted(_credit_granted);
-        setCreditSubmitted(_credit_submitted);
-        setCounty(_cnty);
-        setContinent(_continent);
-        setPrefix(_pfx);
-        setCQZone(_cqz);
-        setItuZone(_ituz);
-        setIotaID(_iotaNum);
-        setGridSquare(_gridsquare);
-        setVUCCGrids(_vucc);
-        setState(_state);
-
-    }
+    // Recover the data from the log for the QSO
+    if (fromDB(qsoId))
+        return -1;
+    //qDebug() << Q_FUNC_INFO << " - Updating the QSO";
+    //Update the data from LoTW to the QSO
+    setLoTWQSLRDate(lotwRX);
+    setLoTWQSLSDate(lotwTX);
+    setLoTWQSL_RCVD(_qsl_rcvd);
+    setLoTWQSL_SENT(_qsl_sent);
+    setCreditGranted(_credit_granted);
+    setCreditSubmitted(_credit_submitted);
+    setCounty(_cnty);
+    setContinent(_continent);
+    setPrefix(_pfx);
+    setCQZone(_cqz);
+    setItuZone(_ituz);
+    setIotaID(_iotaNum);
+    setGridSquare(_gridsquare);
+    setVUCCGrids(_vucc);
+    setState(_state);
     //Store the QSO into the log
-    return true;
+    //qDebug() << Q_FUNC_INFO << " - END";
+    return qsoId;
 }
 
 int QSO::findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
@@ -3704,9 +3706,10 @@ int QSO::toDB(int _qsoId)
     }
     if (lotwUpdating)
     { // We are updating a QSO Downloaded from LOTW
-      // We should be updating just the LoTW data:
-      // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls
-        updateFromLoTW();
+        // We should be updating just the LoTW data:
+        // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls
+        //qDebug() << Q_FUNC_INFO << " - Updating...";
+        _qsoId = updateFromLoTW();
     }
 
     //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
@@ -3721,6 +3724,7 @@ int QSO::toDB(int _qsoId)
     }
     else
     {
+
         //qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }

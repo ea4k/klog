@@ -446,7 +446,7 @@ private:
     //DataBase *db;
 
     // Functions to update a QSO after downloading LoTW
-    bool updateFromLoTW();                                   // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+    int updateFromLoTW();                                   // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
     int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
 
 
