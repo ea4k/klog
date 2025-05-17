@@ -125,11 +125,11 @@ void Callsign::initialize(const QString &callsign)
 
         // Now we have all raw data, let's select what is valid
 
-        if (hostFullPrefix1.length()>0)
+        if (!hostFullPrefix1.isEmpty())
         {
             //qDebug() << Q_FUNC_INFO << " - 100";
             hostFullPrefix = hostFullPrefix1;
-            if (hostNormalPrefix1.length()>0)
+            if (!hostNormalPrefix1.isEmpty())
             {
                 //qDebug() << Q_FUNC_INFO << " - 110";
                 hostPrefix = hostNormalPrefix1;
@@ -143,7 +143,7 @@ void Callsign::initialize(const QString &callsign)
                     hostAreaNumber = -1;
                 }
             }
-            else if (hostSpecialPrefix1.length()>0)
+            else if (!hostSpecialPrefix1.isEmpty())
             {
                 //qDebug() << Q_FUNC_INFO << " - 130";
                 hostPrefix = hostSpecialPrefix1;
@@ -158,11 +158,11 @@ void Callsign::initialize(const QString &callsign)
                 }
             }
         }
-        else if (hostFullPrefix2.length()>0)
+        else if (!hostFullPrefix2.isEmpty())
         {
             //qDebug() << Q_FUNC_INFO << " - 200";
             hostFullPrefix = hostFullPrefix2;
-            if (hostNormalPrefix2.length()>0)
+            if (!hostNormalPrefix2.isEmpty())
             {
                 //qDebug() << Q_FUNC_INFO << " - 210";
                 hostPrefix = hostNormalPrefix2;
@@ -177,7 +177,7 @@ void Callsign::initialize(const QString &callsign)
                     hostAreaNumber = -1;
                 }
             }
-            else if (hostSpecialPrefix2.length()>0)
+            else if (!hostSpecialPrefix2.isEmpty())
             {
                 //qDebug() << Q_FUNC_INFO << " - 240";
                 hostPrefix = hostSpecialPrefix2;
@@ -214,7 +214,7 @@ void Callsign::initialize(const QString &callsign)
 
         //qDebug() << Q_FUNC_INFO << " - 300";
 
-        if (generalSuffix.length()>0)               // looking for cases like EA4K/6 where the right call should be EA6/EA4K
+        if (!generalSuffix.isEmpty())               // looking for cases like EA4K/6 where the right call should be EA6/EA4K
         {
             //qDebug() << Q_FUNC_INFO << " - 301";
             bool generalSuffixIsANumber = false;

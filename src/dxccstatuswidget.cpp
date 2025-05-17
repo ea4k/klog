@@ -656,7 +656,7 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
           }
         }
         //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of for" ;
-        if (qsos.length()>0)
+        if (!qsos.isEmpty())
         {
             //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - qsos.length = " << QString::number(qsos.length()) ;
             emit showQsos(qsos);

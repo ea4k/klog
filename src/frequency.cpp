@@ -205,3 +205,8 @@ void Frequency::operator=(Frequency const &_f2)
 {
     freq = _f2.freq;
 }
+
+bool Frequency::operator!=(Frequency &other) const
+{
+    return !(freq != other.toDouble());
+}

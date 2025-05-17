@@ -50,6 +50,7 @@ private slots:
     void test_dataEntry();
     void test_isValid();
     void test_AdifCreation();
+    //TODO: void test_LoTWImport();
     void test_Copy();
     void test_ModeManagement();
 

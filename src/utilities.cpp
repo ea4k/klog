@@ -943,7 +943,7 @@ bool Utilities::isValidVUCCGrids(const QString &_b)
 
 bool Utilities::isValidRST(const QString &_b)
 {
-    return (_b.length()>0);
+    return (!_b.isEmpty());
 }
 
 bool Utilities::isValidPower(const QString &_b)
@@ -953,12 +953,12 @@ bool Utilities::isValidPower(const QString &_b)
 
 bool Utilities::isValidComment(const QString &_b)
 {
-    return (_b.length()>0);
+    return (!_b.isEmpty());
 }
 
 bool Utilities::isValidName(const QString &_b)
 {
-    return (_b.length()>0);
+    return (!_b.isEmpty());
 }
 
 bool Utilities::fileExists(const QString &_fileName)
@@ -1630,7 +1630,7 @@ QString Utilities::getLogColumnName(const QString &_column)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _column;
     QString aux = columnNames.value(_column);
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
         return aux;
     }
@@ -1641,7 +1641,7 @@ QString Utilities::getLogColumnDBName(const QString &_column)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _column;
     QString aux = columnNames.key(_column);
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
         return aux;
     }

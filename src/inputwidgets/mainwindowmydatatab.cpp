@@ -418,7 +418,7 @@ void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString
     //qDebug() << Q_FUNC_INFO << ": Setting station Callsign: " << stationCallsign;
     setStationCallsign (stationCallsign);
     callsign(_operator);
-    if (_operator.length()>0)
+    if (!_operator.isEmpty())
     {
         setOperator (_operator);
         //operatorQRZ = _operator;
@@ -428,7 +428,7 @@ void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString
         operatorQRZ = QString();
     }
 
-    if (_myLocator.length()>0)
+    if (!_myLocator.isEmpty())
     {
         myLocator = _myLocator;
         setMyLocator (_myLocator);

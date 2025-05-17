@@ -86,7 +86,7 @@ void LoTWUtilities::slotCalendarDateSelected(const QDate _d)
 void LoTWUtilities::setFileName(const QString &_fn)
 {
     //qDebug() << Q_FUNC_INFO << ":  " << _fn ;
-    if (_fn.length()>0)
+    if (!_fn.isEmpty())
     {
         fileName = _fn;
     }

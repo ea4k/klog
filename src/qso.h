@@ -35,6 +35,7 @@
 #include "utilities.h"
 #include "klogdefinitions.h"
 #include "adif.h"
+#include "frequency.h"
 
 class QSO : public QObject
 {
@@ -452,7 +453,8 @@ private:
 
     int qsoId, logId, dxcc, a_index, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
-    double freq_tx, freq_rx, pwr_rx, pwr_tx, age, ant_el, ant_az, distance, altitude, my_altitude;
+    double pwr_rx, pwr_tx, age, ant_el, ant_az, distance, altitude, my_altitude;
+    Frequency freq_tx, freq_rx;
 
     QString satName, satMode, callsign, stationCallsign, operatorCall, propMode, band, band_rx, mode, gridsquare, my_gridsquare, gridsquare_ext, my_gridsquare_ext, qth, name, RST_tx, RST_rx;
     QString qsl_rcvd, qsl_sent, qslSenVia, qslRecVia, qslVia, check, clase;

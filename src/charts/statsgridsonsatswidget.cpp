@@ -117,7 +117,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     int number = 0;
     QStringList grids;
     grids.clear();
-    if (_qsos.length()>0)
+    if (!_qsos.isEmpty())
     {
         for (int i = 0; i<_qsos.length(); i++)
         {

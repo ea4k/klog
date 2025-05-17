@@ -2629,7 +2629,7 @@ QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
     }
            //qDebug() << Q_FUNC_INFO << " - END OK - " << QString::number(years.size())<< QT_ENDL;
     query.finish();
-    if (years.length()>0)
+    if (!years.isEmpty())
     {
         years.sort();
     }
@@ -5002,7 +5002,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
 
     QSqlQuery query;
     QString queryString;
-    if ((_pref.length()>0))
+    if ((!_pref.isEmpty()))
     {
        //qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
         queryString = QString("SELECT dxcc, prefix, name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix ORDER BY shortname");

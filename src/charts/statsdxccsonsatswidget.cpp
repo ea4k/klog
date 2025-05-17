@@ -126,7 +126,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
      QList<int> entities;
      entities.clear();
 
-     if (_qsos.length()>0)
+     if (!_qsos.isEmpty())
      {
          for (int i = 0; i<_qsos.length(); i++)
          {

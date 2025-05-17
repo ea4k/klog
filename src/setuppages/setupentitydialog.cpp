@@ -459,7 +459,7 @@ void SetupEntityDialog::slotCheckMainprefix()
        //qDebug() << "SetupEntityDialog::slotCheckMainprefix";
     QString aux;
     aux = mprefLineEdit->text();
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
         mprefLineEdit->setPalette(pal);
         mainPrefixBool = true;
@@ -476,7 +476,7 @@ void SetupEntityDialog::slotCheckCQz()
        //qDebug() << "SetupEntityDialog::slotCheckCQz";
     QString aux;
     aux = cqLineEdit->text();
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
           cqBool = true;
           cqLineEdit->setPalette(pal);
@@ -493,7 +493,7 @@ void SetupEntityDialog::slotCheckITUz()
        //qDebug() << "SetupEntityDialog::slotCheckITUz";
     QString aux;
     aux = ituLineEdit->text();
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
          ituBool = true;
          ituLineEdit->setPalette(pal);
@@ -528,7 +528,7 @@ void SetupEntityDialog::slotCheckLatitude()
        //qDebug() << "SetupEntityDialog::slotCheckLatitude";
     QString aux;
     aux = latLineEdit->text();
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
          latBool = true;
          latLineEdit->setPalette(pal);
@@ -565,7 +565,7 @@ void SetupEntityDialog::slotCheckUTC()
        //qDebug() << "SetupEntityDialog::slotCheckUTC";
     QString aux;
     aux = utcLineEdit->text();
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
          utcBool = true;
          utcLineEdit->setPalette(pal);
@@ -584,7 +584,7 @@ void SetupEntityDialog::slotCheckARRLid()
     aux = arrlidLineEdit->text();
 
 //    int n = aux.toInt();
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
         arrlidBool = false;
         arrlidLineEdit->setPalette(pal);
@@ -625,7 +625,7 @@ void SetupEntityDialog::slotCheckPrefixes()
 
     QStringList list = aux.split(",", QT_SKIP);
 
-    if (aux.length()>0)
+    if (!aux.isEmpty())
     {
          prefBool = true;
          prefLineEdit->setPalette(pal);

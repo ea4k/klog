@@ -705,14 +705,14 @@ void SearchWidget::setModelFilter()
     QString filter;
     filter = QString();
 
-    if (callFilter.length()>0)
+    if (!callFilter.isEmpty())
     {
         filter = callFilter;
     }
 
-    if (stationCallsignFilter.length() >0)
+    if (stationCallsignFilter.isEmpty())
     {
-        if (filter.length()>0)
+        if (!filter.isEmpty())
         {
             filter = filter + " AND " + stationCallsignFilter;
         }
@@ -722,9 +722,9 @@ void SearchWidget::setModelFilter()
         }
     }
 
-    if (currentLogFilter.length() >0)
+    if (!currentLogFilter.isEmpty())
     {
-        if (filter.length()>0)
+        if (!filter.isEmpty())
         {
             filter = filter + " AND " + currentLogFilter;
         }

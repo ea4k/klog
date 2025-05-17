@@ -420,12 +420,12 @@ NOTES
     //qso = "<QSO_DATE:" + QString::number((_q.at(0)).length()) + ">" + _q.at(0) + " ";
     qso = qso + "<TIME_ON:" + QString::number((_q.at(1)).length()) + ">" + _q.at(1) + " ";
        //qDebug()<< "eLogClubLog::getClubLogAdif: 10" ;
-    if ((_q.at(2)).length()>0)
+    if (!(_q.at(2)).isEmpty())
     {
         qso = qso + "<QSLRDATE:" + QString::number((_q.at(2)).length()) + ">" + _q.at(2) + " ";
     }
        //qDebug()<< "eLogClubLog::getClubLogAdif: 20" ;
-    if ((_q.at(3)).length()>0)
+    if (!(_q.at(3)).isEmpty())
     {
         qso = qso + "<QSLSDATE:" + QString::number((_q.at(3)).length()) + ">" + _q.at(3) + " ";
     }
@@ -433,7 +433,7 @@ NOTES
        //qDebug()<< "eLogClubLog::getClubLogAdif: 30" ;
     qso = qso + "<CALL:" + QString::number((_q.at(4)).length()) + ">" + _q.at(4) + " ";
        //qDebug()<< "eLogClubLog::getClubLogAdif: 40" ;
-    if ((_q.at(5)).length()>0)
+    if (!(_q.at(5)).isEmpty())
     {
         qso = qso + "<OPERATOR:" + QString::number((_q.at(5)).length()) + ">" + _q.at(5) + " ";
     }
@@ -471,7 +471,7 @@ NOTES
     }
 
        //qDebug()<< "eLogClubLog::getClubLogAdif: 140" ;
-    if ((_q.at(15)).length()>0)
+    if (!(_q.at(15)).isEmpty())
     {
         qso = qso + "<CREDIT_GRANTED:" + QString::number((_q.at(15)).length()) + ">" + _q.at(15) + " ";
     }

@@ -235,7 +235,7 @@ void MainWindowSatTab::slotSatNameTextChanged()
         return;
     }
 
-    if ((satNameLineEdit->text()).length()>0)
+    if (!(satNameLineEdit->text()).isEmpty())
     {
         //qDebug() << Q_FUNC_INFO << ": Emitting setPropModeSat -SAT- signal";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
@@ -255,7 +255,7 @@ void MainWindowSatTab::slotSatModeTextChanged()
 /*
     satModeLineEdit->setText((satModeLineEdit->text()).toUpper());
 
-    if ((satModeLineEdit->text()).length()>0)
+    if (!(satModeLineEdit->text()).isEmpty())
     {
         emit setPropModeSat("SAT");
     }
@@ -293,7 +293,7 @@ QString MainWindowSatTab::getSatName()
     else if(satNameComboBox->currentIndex() == 1)
     {
         satName = satNameLineEdit->text();
-        if (satName.length()>0)
+        if (!satName.isEmpty())
         {
             //qDebug() << Q_FUNC_INFO << ": - satName.length>0 return: " << satName;
             return satName;
@@ -431,7 +431,7 @@ void MainWindowSatTab::setSatelliteCombo(const QString &_p)
     else
     {
         satNameComboBox->setCurrentIndex(0);
-        if (_p.length()>0)
+        if (!_p.isEmpty())
         {
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Warning);

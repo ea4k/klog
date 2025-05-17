@@ -3447,7 +3447,7 @@ bool MainWindow::applySettings()
 {
      //qDebug() << Q_FUNC_INFO << " - Start";
 
-    if ((useDefaultLogFileName) && (defaultADIFLogFile.length()>0))
+    if ((useDefaultLogFileName) && (!defaultADIFLogFile.isEmpty()))
     {
         useDefaultLogFileName = true;
     }
@@ -3652,7 +3652,7 @@ void MainWindow::readActiveBands (const QStringList actives)
                 atLeastOne = true;
             }
             aux = __bands.at(i);
-            if (aux.length()>0)
+            if (!aux.isEmpty())
             {
          //qDebug() << Q_FUNC_INFO << ": " << aux;
                bands << aux;
@@ -3685,7 +3685,7 @@ void MainWindow::readActiveModes (const QStringList actives)
         {
       //qDebug() << "MainWindow::readActiveModes: checking-exist: " << __modes.at(i) ;
             aux = __modes.at(i);
-            if (aux.length()>0)
+            if (!aux.isEmpty())
             {
         //qDebug() << "MainWindow::readActiveModes: adding: " << aux ;
                modes << aux;
@@ -5587,7 +5587,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
        //qDebug() << "MainWindow::slotWSJXstatusFromUDPServer updating txFreqSpinBox" << QString::number(_freq) ;
              QSOTabWidget->setTXFreq (_freq);
              QSOTabWidget->setRXFreq (_freq);
-             if (_dx_grid.length()>0)
+             if (!_dx_grid.isEmpty())
              {
                 slotUpdateLocator(_dx_grid);
              }

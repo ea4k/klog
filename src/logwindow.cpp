@@ -619,7 +619,7 @@ void LogWindow::slotQSOsDeleteFromLog()
              //qDebug() << "LogWindow::slotshowRighButtonFromLog: " << QString::number(index.data(0).toInt()) ;
         }
     }
-    if (qsos.length()>0)
+    if (!qsos.isEmpty())
     {
         emit deleteTheseQSOs(qsos);
     }
@@ -642,7 +642,7 @@ void LogWindow::slotQSOsExportFromLog()
             //qDebug() << "LogWindow::slotQSOsExportFromLog: " << QString::number(index.data(0).toInt()) ;
         }
     }
-    if (qsos.length()>0)
+    if (!qsos.isEmpty())
     {
         emit exportToADIFTheseQSOs(qsos);
     }
@@ -676,7 +676,7 @@ void LogWindow::slotQSOsQRZUploadFromLog()
             //qDebug() << Q_FUNC_INFO << " : " << QString::number(index.data(0).toInt()) ;
         }
     }
-    if (qsos.length()>0)
+    if (!qsos.isEmpty())
     {
         emit uploadToQRZcomTheseQSOs(qsos);
     }

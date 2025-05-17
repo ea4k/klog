@@ -281,7 +281,7 @@ void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
     palette.setColor(QPalette::Text, qColor);
     qslViaLineEdit->setPalette(palette);
 
-    if (_qs.length()>0)
+    if (!_qs.isEmpty())
     {
         qslViaLineEdit->setText(_qs);
     }
@@ -293,7 +293,7 @@ void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
 
 void MainWindowInputQSL::setQSLMsg(const QString &_qs)
 {
-    if (_qs.length()>0)
+    if (!_qs.isEmpty())
     {
         qslmsgTextEdit->setText(_qs);
     }

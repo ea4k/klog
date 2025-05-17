@@ -187,7 +187,7 @@ void SetupPageUDP::fillNetworkInterfaceComboBox()
         {
             loopBack = i;
         }
-        else if ((i.flags().testFlag(QNetworkInterface::IsUp)) && (i.humanReadableName().length()>0) && (i.flags().testFlag(QNetworkInterface::CanMulticast)) )
+        else if ((i.flags().testFlag(QNetworkInterface::IsUp)) && (!i.humanReadableName().isEmpty()) && (i.flags().testFlag(QNetworkInterface::CanMulticast)) )
         {
             interfacesNames.append(i.humanReadableName() + "-" + i.hardwareAddress() );
         }

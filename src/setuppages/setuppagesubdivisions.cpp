@@ -301,7 +301,7 @@ void SetupPageSubdivisions::updateSelectedLogs()
        //qDebug() << "SetupPageSubdivisions::updateSelectedLogs";
     logsAvailable = readLogs();
 
-    if (logsAvailable.length()>0)
+    if (!logsAvailable.isEmpty())
     {
         currentLogs->clear();
         currentLogs->addItems(logsAvailable);

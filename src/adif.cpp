@@ -263,9 +263,9 @@ bool Adif::isValidFreq(const QString &_b)
     return false;
 }
 
-bool Adif::isValidPower(const QString &_b)
+bool Adif::isValidPower(const double _b)
 {
-    return (_b.toDouble()>0.0);
+    return (_b >0.0);
 }
 
 QString Adif::getADIFBoolFromBool(const bool _b)
@@ -276,104 +276,104 @@ QString Adif::getADIFBoolFromBool(const bool _b)
 }
 
 
-bool Adif::isValidK_Index(const QString &_b)
+bool Adif::isValidK_Index(const int _b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=9));
+    return ((_b>=0) && (_b<=9));
 }
 
-bool Adif::isValidCQz(const QString &_b)
+bool Adif::isValidCQz(const int _b)
 {
-   return ((_b.toInt()>=1) && (_b.toInt()<=40));
+   return ((_b>=1) && (_b<=40));
 }
 
-bool Adif::isValidITUz(const QString &_b)
+bool Adif::isValidITUz(const int _b)
 {
-    return ((_b.toInt()>=1) && (_b.toInt()<=90));
+    return ((_b>=1) && (_b<=90));
 }
 
-bool Adif::isValidDXCC(const QString &_b)
+bool Adif::isValidDXCC(const int _b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=522));
+    return ((_b>=0) && (_b<=522));
 }
 
-bool Adif::isValidAge(const QString &_b)
+bool Adif::isValidAge(const int _b)
 {
-    return ((_b.toInt()>0) && (_b.toInt()<=120));
+    return ((_b>0) && (_b<=120));
 }
 
-bool Adif::isValidAnt_EL(const QString &_b)
+bool Adif::isValidAnt_EL(const int _b)
 {
-    return ((_b.toInt()>=-90) && (_b.toInt()<=900));
+    return ((_b>=-90) && (_b<=900));
 }
 
-bool Adif::isValidAnt_AZ(const QString &_b)
+bool Adif::isValidAnt_AZ(const int _b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=360));
+    return ((_b>=0) && (_b<=360));
 }
 
-bool Adif::isValidA_Index(const QString &_b)
+bool Adif::isValidA_Index(const int _b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=400));
+    return ((_b>=0) && (_b<=400));
 }
 
-bool Adif::isValidDistance(const QString &_b)
+bool Adif::isValidDistance(const double _b)
 {
-    return (_b.toDouble()>0);
+    return (_b>0);
 }
 
-bool Adif::isValidAltitude(const QString &_b)
+//bool Adif::isValidAltitude(const double _b)
+//{
+//    return true;
+//}
+
+bool Adif::isValidIOTA_islandID(const int _b)
 {
-    return (_b.toDouble()>10000);
+    return ((_b>=1) && (_b<=99999999));
 }
 
-bool Adif::isValidIOTA_islandID(const QString &_b)
+bool Adif::isValidNRBursts(const int _b)
 {
-    return ((_b.toInt()>=1) && (_b.toInt()<=90));
+    return (_b>0);
 }
 
-bool Adif::isValidNRBursts(const QString &_b)
+bool Adif::isValidPings(const int _b)
 {
-    return (_b.toInt()>0);
+    return (_b>0);
 }
 
-bool Adif::isValidPings(const QString &_b)
+bool Adif::isValidSFI(const int _b)
 {
-    return (_b.toInt()>0);
+    return ((_b>=0) && (_b<=300));
 }
 
-bool Adif::isValidSFI(const QString &_b)
+bool Adif::isValidSTX(const int _b)
 {
-    return ((_b.toInt()>=0) && (_b.toInt()<=300));
+    return (_b>=0);
 }
 
-bool Adif::isValidSTX(const QString &_b)
+bool Adif::isValidSRX(const int _b)
 {
-    return (_b.toInt()>=0);
+    return (_b>=0);
 }
 
-bool Adif::isValidSRX(const QString &_b)
+bool Adif::isValidFISTS(const int _b)
 {
-    return (_b.toInt()>=0);
+   return (_b>0);
 }
 
-bool Adif::isValidFISTS(const QString &_b)
+bool Adif::isValidUKSMG(const int _b)
 {
-   return (_b.toInt()>0);
+    return (_b>0);
 }
 
-bool Adif::isValidUKSMG(const QString &_b)
+bool Adif::isValidTenTen(const int _b)
 {
-    return (_b.toInt()>0);
+    return (_b>0);
 }
 
-bool Adif::isValidTenTen(const QString &_b)
+bool Adif::isValidLogId(const int _b)
 {
-    return (_b.toInt()>0);
-}
-
-bool Adif::isValidLogId(const QString &_b)
-{
-    return (_b.toInt()>0);
+    return (_b>0);
 }
 
 bool Adif::isValidAntPath(const QString &_s)
@@ -421,9 +421,7 @@ bool Adif::isValidPOTA(const QString &_s)
 
 bool Adif::isValidWWFF_Ref(const QString &_s)
 {
-    if (_s.length()<1)
-        return false;
-    return true;
+    return (_s.isEmpty());
 }
 
 
@@ -431,7 +429,7 @@ bool Adif::isValidWWFF_Ref(const QString &_s)
 /*
 bool Utilities::isValidComment(const QString &_b)
 {
-    return (_b.length()>0);
+    return (!_b.isEmpty());
 }
 
 bool Utilities::isValidName(const QString &_b)

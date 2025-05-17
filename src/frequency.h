@@ -58,6 +58,8 @@ public:
     //int bandId();                                             // Returns the bandId
     bool isValid();
     void operator=(Frequency const &_f2);                       // Redefinition of =
+    bool operator!=(Frequency &other) const;              // Redefinition of !=
+
 
 
 private:

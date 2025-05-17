@@ -431,7 +431,7 @@ void SetupPageELog::slotSelectTQSLClicked()
     tqslFile.clear();
     tqslFile = QFileDialog::getOpenFileName(this, tr("Select File"), appsDir, filter);
 
-    if (tqslFile.length()>0)
+    if (!tqslFile.isEmpty())
     {
         lotwTQSLPathLineEdit->setText(tqslFile);
     }

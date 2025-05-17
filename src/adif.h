@@ -51,27 +51,27 @@ public:
     ~Adif();
     void init();
     bool isValidFreq(const QString &_b);            //>0
-    bool isValidPower(const QString &_b);           //>0
-    bool isValidK_Index(const QString &_b);         //0-9
-    bool isValidCQz(const QString &_b);             //1-40
-    bool isValidITUz(const QString &_b);            // 1-90
-    bool isValidDXCC(const QString &_b);            // 0-522
-    bool isValidAge(const QString &_b);             // 0-120
-    bool isValidDistance(const QString &_b);        //>0.0
-    bool isValidAnt_EL(const QString &_b);          //>=0-360
-    bool isValidAnt_AZ(const QString &_b);          //>=-90-90
-    bool isValidA_Index(const QString &_b);         //0-400
-    bool isValidIOTA_islandID(const QString &_b);   //1-99999999
-    bool isValidNRBursts(const QString &_b);        //>0
-    bool isValidPings(const QString &_b);            //>0
-    bool isValidSFI(const QString &_b);            //0-300
-    bool isValidSTX(const QString &_b);            //>=0
-    bool isValidSRX(const QString &_b);            //>=0
-    bool isValidFISTS(const QString &_b);            //>0
-    bool isValidUKSMG(const QString &_b);            //>0
-    bool isValidTenTen(const QString &_b);            //>0
-    bool isValidLogId(const QString &_b);            //>0
-    bool isValidAltitude (const QString &_s);       // > 10000 (10000 is a default value in KLog)
+    bool isValidPower(const double _b);           //>0
+    bool isValidK_Index(const int _b);         //0-9
+    bool isValidCQz(const int _b);              //1-40
+    bool isValidITUz(const int _b);            // 1-90
+    bool isValidDXCC(const int _b);            // 0-522
+    bool isValidAge(const int _b);             // 0-120
+    bool isValidDistance(const double _b);        //>0.0
+    bool isValidAnt_EL(const int _b);          //>=0-360
+    bool isValidAnt_AZ(const int _b);          //>=-90-90
+    bool isValidA_Index(const int _b);              //0-400
+    bool isValidIOTA_islandID(const int _b);   //1-99999999
+    bool isValidNRBursts(const int _b);        //>0
+    bool isValidPings(const int _b);            //>0
+    bool isValidSFI(const int _b);            //0-300
+    bool isValidSTX(const int _b);            //>=0
+    bool isValidSRX(const int _b);            //>=0
+    bool isValidFISTS(const int _b);            //>0
+    bool isValidUKSMG(const int _b);            //>0
+    bool isValidTenTen(const int _b);            //>0
+    bool isValidLogId(const int _b);            //>0
+    //bool isValidAltitude (const double _s);       // > 10000 (10000 is a default value in KLog)
     bool isValidAntPath(const QString &_s);
     bool isValidMode (const QString &_s);
     bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"

@@ -400,7 +400,7 @@ void SetupPageSats::updateSelectedSats()
     satsAvailable = readSats();
     satsModel->select();
 
-    if (satsAvailable.length()>0)
+    if (!satsAvailable.isEmpty())
     {
         currentSats->clear();
         currentSats->addItems(satsAvailable);

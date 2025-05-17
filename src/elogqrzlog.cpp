@@ -85,7 +85,7 @@ void eLogQrzLog::setLogBookKey(const QString &_key)
 {
     //qDebug()<< "eLogQrzLog::setLogBookKey: " << _key ;
     showDebugLog (Q_FUNC_INFO, "Start: key: " + _key);
-    if (_key.length()>0)
+    if (!_key.isEmpty())
     {
         logbookkey = _key;
     }
@@ -188,7 +188,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             {
                 tdata = xml.readElementText();
                 //qDebug() << Q_FUNC_INFO << " - API-Key: " << tdata;
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     sessionkey = tdata;
                     logged = true;
@@ -198,7 +198,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "call")
             {
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                    //qDebug() << Q_FUNC_INFO << " - CALL: " << tdata;
                 }
@@ -207,7 +207,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "Callsign")
             { // TEMP
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                    //qDebug() << Q_FUNC_INFO << " - CALLSIGN: " << tdata;
                 }
@@ -216,7 +216,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "name")
             { // TEMP
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     //qDebug() << Q_FUNC_INFO << " - Name: " << tdata;
                 }
@@ -225,7 +225,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "country")
             { // TEMP
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     //qDebug() << Q_FUNC_INFO << " - Country: " << tdata;
                 }
@@ -253,7 +253,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "fname")
             {
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     emit dataFoundSignal("name", tdata);
                     //qDebug() << Q_FUNC_INFO << " - FName: " << tdata;
@@ -263,7 +263,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "addr1")
             {
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     //emit dataFoundSignal("grid", tdata);
                    //qDebug() << Q_FUNC_INFO << " - addr1: " << tdata;
@@ -273,7 +273,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "addr2")
             {
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     emit dataFoundSignal("qth", tdata);
                    //qDebug() << Q_FUNC_INFO << " - addr2: " << tdata;
@@ -283,7 +283,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "grid")
             {
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     //qDebug() << Q_FUNC_INFO << " - grid: " << tdata;
                       emit dataFoundSignal("grid", tdata);
@@ -293,7 +293,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             else if (name == "qslmgr")
             {
                 tdata = xml.readElementText();
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     //qDebug() << Q_FUNC_INFO << " - qslmgr: " << tdata;
                     emit dataFoundSignal("qslmgr", tdata);
@@ -304,7 +304,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             {
                 tdata = xml.readElementText();
                 //qDebug() << Q_FUNC_INFO << " - Remark: " << tdata ;
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " << tdata;
                 }
@@ -356,7 +356,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             {
                 tdata = xml.readElementText();
                 //qDebug() << "eLogQrzLog::parseXMLAnswer: API-Key: " << tdata;
-                if (tdata.length()>0)
+                if (!tdata.isEmpty())
                 {
                     sessionkey = tdata;
                     logged = true;
@@ -378,7 +378,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "call")
               {
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                      //qDebug() << "eLogQrzLog::parseXMLAnswer: CALL: " << tdata;
                   }
@@ -387,7 +387,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "fname")
               {
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       emit dataFoundSignal("name", tdata);
                      //qDebug() << "eLogQrzLog::parseXMLAnswer: Name: " << tdata;
@@ -397,7 +397,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "addr1")
               {
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       //emit dataFoundSignal("grid", tdata);
                      //qDebug() << "eLogQrzLog::parseXMLAnswer: addr1: " << tdata;
@@ -407,7 +407,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "addr2")
               {
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       emit dataFoundSignal("qth", tdata);
                      //qDebug() << "eLogQrzLog::parseXMLAnswer: addr2: " << tdata;
@@ -417,7 +417,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "grid")
               {
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       emit dataFoundSignal("grid", tdata);
                   }
@@ -426,7 +426,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
             if (tname == "qslmgr")
               {
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       emit dataFoundSignal("qslmgr", tdata);
                   }
@@ -436,7 +436,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
               {
                   //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " ;
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       //qDebug() << "eLogQrzLog::parseXMLAnswer: Remark: " << tdata;
                   }
@@ -446,7 +446,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
               {
                   //qDebug() << "eLogQrzLog::parseXMLAnswer: Session: " ;
                   tdata = xml.readElementText();
-                  if (tdata.length()>0)
+                  if (!tdata.isEmpty())
                   {
                       //qDebug() << "eLogQrzLog::parseXMLAnswer: Session: " << tdata;
                   }
@@ -679,7 +679,7 @@ int eLogQrzLog::sendQSO(const int _qsoID)
 bool eLogQrzLog::hasLogBookKey()
 {
     showDebugLog (Q_FUNC_INFO, "Start");
-    if (logbookkey.length()>0)
+    if (!logbookkey.isEmpty())
     {
         showDebugLog (Q_FUNC_INFO, "END-true");
         return true;
