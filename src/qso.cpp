@@ -861,7 +861,7 @@ bool QSO::setFreq(const double _f)
         freq_tx = fTemp;
         //qDebug() << Q_FUNC_INFO << ":-2 " << QString::number(freq_tx);
         setBandFromFreq(freq_tx.toDouble());
-        if (!freq_rx.toDouble()<=0)
+        if (!(freq_rx.toDouble()<=0))
             freq_rx = freq_tx;
         return true;
     }
@@ -3718,13 +3718,6 @@ int QSO::toDB(int _qsoId)
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
-    if (lotwUpdating)
-    { // We are updating a QSO Downloaded from LOTW
-        // We should be updating just the LoTW data:
-        // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls
-        //qDebug() << Q_FUNC_INFO << " - Updating...";
-        _qsoId = updateFromLoTW();
-    }
 
     //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
     //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
@@ -3738,7 +3731,6 @@ int QSO::toDB(int _qsoId)
     }
     else
     {
-
         //qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }
@@ -4555,7 +4547,19 @@ bool QSO::fromDB(int _qsoId)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QString queryString = "SELECT * FROM log WHERE id= :idQSO";
+
+    QString queryString = "SELECT log.*,\
+        band.name AS band_name,         \
+        band_rx.name AS bandrx_name, \
+        mode.name AS mode_name, \
+        mode.submode AS submode_name\
+            FROM log                 \
+                LEFT JOIN band ON log.bandid = band.id\
+              LEFT JOIN band AS band_rx ON log.band_rx = band_rx.id\
+              LEFT JOIN mode ON log.modeid = mode.id\
+              WHERE log.id = :idQSO";
+
+//    QString queryString = "SELECT * FROM log WHERE id= :idQSO";
     QSqlQuery query;
     query.prepare(queryString);
     query.bindValue(":idQSO", _qsoId);
@@ -4590,17 +4594,25 @@ bool QSO::fromDB(int _qsoId)
     data = (query.value(rec.indexOf("rst_rcvd"))).toString();
     setRSTRX(data);
 
-    data = (query.value(rec.indexOf("bandid"))).toString();
-    data = getBandNameFromBandId(data.toInt());
+    data = (query.value(rec.indexOf("band_name"))).toString();
     setBand(data);
+    //data = (query.value(rec.indexOf("bandid"))).toString();
+    //data = getBandNameFromBandId(data.toInt());
+    //setBand(data);
 
-    data = (query.value(rec.indexOf("band_rx"))).toString();
-    data = getBandNameFromBandId(data.toInt());
+    data = (query.value(rec.indexOf("bandrx_name"))).toString();
     setBandRX(data);
+    //data = (query.value(rec.indexOf("band_rx"))).toString();
+    //data = getBandNameFromBandId(data.toInt());
+    //setBandRX(data);
 
-    data = (query.value(rec.indexOf("modeid"))).toString();
-    setMode(getModeNameFromModeId(data.toInt(), false));
-    setSubmode(getModeNameFromModeId(data.toInt(), true));
+    data = (query.value(rec.indexOf("mode_name"))).toString();
+    setMode(data);
+    //data = (query.value(rec.indexOf("modeid"))).toString();
+    //setMode(getModeNameFromModeId(data.toInt(), false));
+    //setSubmode(getModeNameFromModeId(data.toInt(), true));
+    data = (query.value(rec.indexOf("submode_name"))).toString();
+    setSubmode(data);
     //qDebug() << Q_FUNC_INFO << "  - 30";
     setCQZone((query.value(rec.indexOf("cqz"))).toInt());
     setItuZone((query.value(rec.indexOf("ituz"))).toInt());

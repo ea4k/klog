@@ -164,272 +164,11 @@ void FileManager::setSendQSLByDefault (const bool _send)
     sendEQSLByDefault = _send;
 }
 
-QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, const int _logN, const ExportMode _em)
-{
-    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
-    QList<int> qsos;
-    qsos.clear();
-    Callsign call(_callsign);
-    if ((!call.isValid()) && (_callsign != "ALL") && (_callsign !="NOT"))
-    {
-         showError(tr("The selected callsign (%1) is not valid, please check it again to export the log.").arg(_callsign));
-         return qsos;
-    }
-    noMoreQso = false;
-    if (_logN != -1)
-    { // We will export data from ALL logs.
-        if (!dataProxy->doesThisLogExist(_logN))
-        {
-            //qDebug() << Q_FUNC_INFO << ": The log does not exist";
-            showError(tr("The selected log does not exist, please check it again."));
-            return qsos;
-        }
-    }
-
-    QString queryStringCount;
-    QString queryString;
-    QString _queryStation;
-    QString _queryGrid;
-
-    if (_callsign == "NOT")
-    {
-         //qDebug() << Q_FUNC_INFO << ": else: " << _callsign;
-         _queryStation = QString(" ((station_callsign ='') OR (station_callsign IS NULL))");
-    }
-    else if (_callsign == "ALL")
-    {
-         //qDebug() << Q_FUNC_INFO << ": ALL: " << _callsign;
-        _queryStation = QString(" station_callsign !='ALL'");
-    }
-    else
-    {
-         //qDebug() << Q_FUNC_INFO << ": ValidCall: " << _callsign;
-        _queryStation = QString(" station_callsign ='%1'").arg(_callsign);
-    }
-    //qDebug() << Q_FUNC_INFO << ": _queryStation: " << _queryStation;
-    if (util->isValidGrid(_grid))
-    {
-        _queryGrid = QString(" AND my_gridsquare = '%1'").arg(_grid);
-    }
-    else if (_grid == "NOT")
-    {
-        _queryGrid = QString(" AND (my_gridsquare = '' OR my_gridsquare IS NULL)");
-    }
-    else
-    {
-        _queryGrid = QString();
-    }
-
-    QString _queryDateFrom;
-
-    if (_startDate.isValid())
-    {
-         _queryDateFrom = QString(" AND qso_date >= '%1'").arg(util->getDateSQLiteStringFromDate(_startDate));
-    }
-    else
-    {
-         _queryDateFrom = QString(" AND qso_date != '1'");
-    }
-
-    QString _queryDateTo;
-    if (_endDate.isValid())
-    {
-         _queryDateTo = QString(" AND qso_date <= '%1'").arg(util->getDateSQLiteStringFromDate(_endDate.addDays(1)));
-    }
-    else
-    {
-         _queryDateTo = QString();
-    }
-
-    QString _queryLog;
-    if (_logN == -1)
-    {
-         _queryLog = QString(" AND logNumber = '%1'").arg(_logN);
-    }
-    else
-    {
-         _queryLog = QString();
-    }
-
-    QFile file(_fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-         showError(tr("The file %1 can't be opened.").arg(_fileName));
-         return qsos;
-    }
-
-    QSqlQuery query;
-
-    if (_em == ModeLotW)
-    {
-         //qDebug() << Q_FUNC_INFO << ":  Exporting for LoTW";
-        // LoTW Required fields: call sign, UTC Date, UTC time, Mode, Band
-        // LoTW Optional fields: RX band, Frecuency TX, frecuency RX, Propagation mode, Satellite
-
-        queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + _queryGrid + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-        queryString = QString("SELECT id, call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_gridsquare, qso_date, prop_mode, sat_name, station_callsign FROM log WHERE") + _queryStation + QString(" AND lotw_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-    }
-    else if (_em == ModeClubLog)
-    {
-         //qDebug() << Q_FUNC_INFO << ": Exporting for ClubLog";
-        queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND clublog_qso_upload_status='M'") + _queryDateFrom + _queryDateTo;
-        queryString = QString("SELECT id, call, rst_sent, rst_rcvd, freq, bandid, band_rx, modeid, qso_date, qsl_rcvd, qslrdate, qslsdate, prop_mode, operator, station_callsign, dxcc, qsl_sent, lotw_qsl_rcvd, credit_granted, notes, qso_date_off FROM log WHERE") + _queryStation + QString(" AND clublog_qso_upload_status='M'") + _queryDateFrom + _queryDateTo;
-    }
-    else if (_em == ModeEQSL)
-    {
-         //qDebug() << Q_FUNC_INFO << ":  Exporting for eQSL";
-        queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation + QString(" AND eqsl_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-        queryString = QString("SELECT id, call, rst_sent, freq, bandid, modeid, qso_date, prop_mode, operator, station_callsign, sat_name, my_cnty, my_gridsquare, my_lat, my_lon FROM log WHERE") + _queryStation + QString(" AND eqsl_qsl_sent='Q'") + _queryDateFrom + _queryDateTo;
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << ": Exporting normal ADIF";
-        if (_callsign == "ALL")
-        {
-            queryStringCount = QString("SELECT COUNT (id) FROM log");
-            queryString = QString("SELECT * FROM log");
-        }
-        else if (_callsign == "NOT")
-        {
-            queryStringCount = QString("SELECT COUNT (id) FROM log WHERE ") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
-            queryString = QString("SELECT * FROM log WHERE ") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
-        }
-        else
-        {
-            queryStringCount = QString("SELECT COUNT (id) FROM log WHERE") + _queryStation  + _queryDateFrom + _queryDateTo + _queryLog;
-            queryString = QString("SELECT * FROM log WHERE") + _queryStation + _queryDateFrom + _queryDateTo + _queryLog;
-        }
-    }
-    //qDebug() << Q_FUNC_INFO << ":  Query Count: " << queryStringCount;
-    //qDebug() << Q_FUNC_INFO << ":  Query data: " << queryString;
-    int numberOfQsos = dataProxy->getHowManyQSOInLog(_logN);
-    int i = 0;
-
-    bool sqlOK = query.exec(queryStringCount);
-    //qDebug() << Q_FUNC_INFO << ": " << query.lastQuery();
-    if (!sqlOK)
-    {
-        //qDebug() << Q_FUNC_INFO << ":  Query Error" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        return qsos;
-    }
-    else
-    {
-        query.next();
-        if (query.isValid())
-        {
-            i = (query.value(0)).toInt();
-            if (i>0)
-            {
-                numberOfQsos = i;
-                query.finish();
-            }
-            else if (i == 0)
-            {
-                showError(tr("There are no QSOs pending to be exported with that station callsign."));
-                return qsos;
-            }
-        }
-    }
-
-    QTextStream out(&file);
-
-    int step = util->getProgresStepForDialog(numberOfQsos);
-    //qDebug() << Q_FUNC_INFO << ":  " << QString::number(step);
-
-    QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQsos, this);
-    progress.setMaximum(numberOfQsos);
-    progress.setWindowModality(Qt::WindowModal);
-    progress.setValue(0);
-    progress.setWindowTitle(tr("Export"));
-    progress.setAutoClose(true);
-
-
-    writeADIFHeader(out, _em, numberOfQsos);
-
-    i = 0;
-
-    sqlOK = query.exec(queryString);
-     //qDebug() << Q_FUNC_INFO << ":  " << query.lastQuery();
-    if (!sqlOK)
-    {
-         //qDebug() << Q_FUNC_INFO << ":  Query Error" ;
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        return qsos;
-    }
-
-
-    int nameCol;
-
-    //qDebug() << Q_FUNC_INFO << ":  Entering the While..." ;
-    QSqlRecord rec;
-    while ( (query.next()) && (!noMoreQso) )
-    {
-        //qDebug() << Q_FUNC_INFO << ":  Start of While" ;
-        if (query.isValid())
-        {
-            rec = query.record();
-            nameCol = rec.indexOf("id");
-            qsos.append((query.value(nameCol)).toInt());
-            writeQuery(rec, out, _em, false, false, _logN); // JustMarked = false, onlyRequested = false
-            //Use std::move(query) instead of query?
-            // Copy queries is deprecated
-
-            i++;
-            //qDebug() << Q_FUNC_INFO << ":  Start of isValid" ;
-        } // END of if (query.isValid())
-        else
-        {
-            //qDebug() << Q_FUNC_INFO << ":  Querty NOT isValid" ;
-        }
-
-        //qDebug() << Q_FUNC_INFO << ":  Checking if cancelled" ;
-
-        if (( (i % step ) == 0) )
-        { // To update the speed I will only show the progress once each X QSOs
-            //qDebug() << Q_FUNC_INFO << ":  ********************************   UPDATING THE MESSAGE! " << QString::number(i) ;
-            QString aux = tr("Exporting ADIF file...\n QSO: %1 / %2 ").arg(i).arg(numberOfQsos);
-            progress.setLabelText(aux);
-            progress.setValue(i);
-            //qDebug() << Q_FUNC_INFO << ":  ********************************   UPDATING THE MESSAGE: " << aux ;
-        }
-
-        if ( progress.wasCanceled() )
-        {
-            QMessageBox msgBox;
-            msgBox.setWindowTitle(tr("KLog - User cancelled"));
-            QString aux = QString(tr("You have canceled the file export. The file will be removed and no data will be exported.") + "\n" + tr("Do you still want to cancel?"));
-            msgBox.setText(aux);
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-            msgBox.setDefaultButton(QMessageBox::No);
-            int ret = msgBox.exec();
-            switch (ret)
-            {
-                case QMessageBox::Yes:
-            // Yes was clicked
-                noMoreQso = true;
-                qsos.clear();
-                progress.setValue(numberOfQsos);
-                return qsos;
-                case QMessageBox::No:
-                // No Save was clicked
-                break;
-                default:
-                // should never be reached
-                break;
-            }
-        }
-    } // END OF WHILE
-    //qDebug() << Q_FUNC_INFO << ":  End: " << QString::number(qsos.count());
-    progress.setValue(numberOfQsos);
-    return qsos;
-}
-
-QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN)
+QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN)
 {
     Q_UNUSED(_logN);
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
+   //qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
     //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
     QList<int> qsos;
     qsos.clear();
@@ -473,12 +212,13 @@ QList<int> FileManager::adifLogExportReturnList2(const QString& _fileName, const
 
 bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 {
+
    //qDebug() << Q_FUNC_INFO << _fileName;
     int numberOfQSOs = _qsos.length();
     if (numberOfQSOs<1)
     {
         //TODO: Warn the user NO QSOS TO EXPORT
-       //qDebug() << "FileManager::adifQSOsExport: No QSOs received to be exported";
+       //qDebug() <<  Q_FUNC_INFO << ": No QSOs received to be exported";
     }
     noMoreQso = false;
    //qDebug() << Q_FUNC_INFO << "  - 01";
@@ -512,7 +252,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     //qDebug() << Q_FUNC_INFO << " - query error: " << query.lastQuery();
      emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
-   //qDebug() << "FileManager::adifQSOsExport: query: " << query.lastQuery();
+   //qDebug() <<  Q_FUNC_INFO << ": query: " << query.lastQuery();
     QProgressDialog progress(tr("Writing ADIF file..."), tr("Abort writing"), 0, numberOfQSOs, this);
     progress.setMaximum(numberOfQSOs);
     progress.setWindowModality(Qt::ApplicationModal);
@@ -567,7 +307,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
             }
         }
     }
-   //qDebug() << "FileManager::adifQSOsExport - END";
+   //qDebug() <<  Q_FUNC_INFO << " - END";
     return true;
 }
 
@@ -1080,8 +820,16 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
                 {
                     qso.setStationCallsign(_stationCallsign);
                 }
-                qso.setLoTWUpdating(lotWDownloaded);
-                qso.toDB ();
+                int qsoId = -1;
+                if (lotWDownloaded)
+                {
+                    int bandId = dataProxy->getIdFromBandName(qso.getBand());
+                    int modeId = dataProxy->getIdFromModeName(qso.getMode());
+                    qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
+                    qso.setLoTWUpdating(lotWDownloaded);
+                }
+
+                qso.toDB (qsoId);
                 qso.clear ();
                 i++;
                 if (( (i % step ) == 0) )
@@ -1140,11 +888,11 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
 
 QString FileManager::getProgramID (QFile &_f)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
     QFile &file = _f;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  File not found" ;
+       //qDebug() << Q_FUNC_INFO << "  File not found" ;
         return QString();
     }
     QString line;
@@ -1161,7 +909,7 @@ QString FileManager::getProgramID (QFile &_f)
             { // <PROGRAMID:4>LOTW
                 file.close();
                 QStringList programIdFields = fieldToAnalyze.split(">");
-                qDebug() << Q_FUNC_INFO << "  Is a LOTW file: " << programIdFields.at(1);
+               //qDebug() << Q_FUNC_INFO << "  Is a LOTW file: " << programIdFields.at(1);
                 return programIdFields.at(1);
             }
         }

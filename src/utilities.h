@@ -105,8 +105,8 @@ public:
     //bool isValidCall(const QString &_c, bool _force=false);             // To be replaced by Callsign::isValid
 
     bool isSameFreq(const double fr1, const double fr2);
-    bool isValidBandId(const int _b);
-    bool isValidModeId(const int _m);
+    //bool isValidBandId(const int _b);
+    //bool isValidModeId(const int _m);
     bool isValidFreq(const QString &_b);
     bool isValidGrid(const QString &_b);
     bool isValidGrid_ext(const QString &_b);

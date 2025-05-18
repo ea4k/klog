@@ -112,7 +112,7 @@ void tst_DataProxy::test_Constructor()
 /*
 void tst_DataProxy::test_modes()
 {
-    QVERIFY2(dataProxy->getIdFromModeName("FT8") == dataProxy->getSubModeIdFromSubMode ("FT8"), "FT8 mode/Submode failed");
+    QVERIFY2(dataProxy->getIdFromModeName("FT8") == dataProxy->getIdFromModeName ("FT8"), "FT8 mode/Submode failed");
     QVERIFY2(dataProxy->getNameFromSubMode ("Q65") == "MFSK", "Q65 mode/Submode failed");
     QVERIFY2(dataProxy->getNameFromSubMode ("FT8") == "FT8", "FT8 mode/Submode failed");
     QVERIFY2(dataProxy->getNameFromSubMode ("USB") == "SSB", "USB mode/Submode failed");

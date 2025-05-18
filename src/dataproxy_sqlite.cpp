@@ -55,7 +55,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
      //qDebug() << Q_FUNC_INFO << " - 52";
     qso = new QSO;
     //qDebug() << Q_FUNC_INFO << " - 53";
-
+    createHashes();
     searching = false;
     executionN = 0;
     connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -69,6 +69,21 @@ DataProxy_SQLite::~DataProxy_SQLite()
     delete(util);
     delete(qso);
     logEvent (Q_FUNC_INFO, "END", Debug);
+}
+
+bool DataProxy_SQLite::createHashes()
+{
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    bandIDs.clear();
+    bandIDs = getHashTableData(BandData);
+    if (bandIDs.isEmpty())
+        return false;
+    modeIDs.clear();
+    modeIDs = getHashTableData(ModeData);
+    if (modeIDs.isEmpty())
+        return false;
+    logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
 }
 
 int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _logn)
@@ -207,9 +222,20 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
         return -4;
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
-    return db->getModeIdFromSubMode(_modeName);
+    return modeIDs.value(_modeName, -5);
+    //return db->getModeIdFromSubMode(_modeName);
 }
 
+bool DataProxy_SQLite::isValidMode(const QString& _modeName)
+{
+    return ( getIdFromModeName(_modeName) >=0 );
+}
+
+bool DataProxy_SQLite::isValidBand(const QString& _bandName)
+{
+    return ( getIdFromBandName(_bandName) >=0 );
+}
+/*
 int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -248,12 +274,14 @@ int DataProxy_SQLite::getSubModeIdFromSubMode(const QString &_subModeName)
     logEvent (Q_FUNC_INFO, "END-3", Debug);
     return -3;
 }
-
+*/
+/*
 int DataProxy_SQLite::getModeIdFromSubModeId(const int _sm)
 {
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
     return getIdFromModeName(getNameFromSubMode(getSubModeFromId(_sm)));
 }
+*/
 
 bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 {
@@ -310,7 +338,8 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
         return -4;
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
-    return db->getBandIdFromName(_bandName);
+    return bandIDs.value(_bandName, -5);
+    //return db->getBandIdFromName(_bandName);
 }
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
@@ -325,15 +354,14 @@ QString DataProxy_SQLite::getNameFromModeId (const int _id)
     return db->getModeNameFromNumber(_id);
 }
 
-QString DataProxy_SQLite::getNameFromSubModeId (const int _id)
-{
-    logEvent (Q_FUNC_INFO, "Start-End", Debug);
-    return db->getSubModeNameFromNumber(_id);
-}
-
 QString DataProxy_SQLite::getSubModeFromId (const int _id)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    QString key = modeIDs.key(_id);
+    if (key.isEmpty())
+        return QString();
+    return key;
+ /*
     QSqlQuery query;
     QString queryString = QString("SELECT submode FROM mode WHERE id='%1'").arg(_id);
     bool sqlOK = query.exec(queryString);
@@ -363,6 +391,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
         return QString();
     }
     //logEvent (Q_FUNC_INFO, "END", Debug);
+    */
 }
 
 QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
@@ -2026,7 +2055,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     QString bandString = QString();
     int bandId = getIdFromBandName(_band);
 
-    if (util->isValidBandId(bandId))
+    if (bandId > 0)
     {
         bandString = QString("bandid = '%1'").arg(bandId);
     }
@@ -2037,7 +2066,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
 
     QString modeString = QString();
     int modeId = getIdFromModeName(_mode);
-    if (util->isValidModeId(modeId))
+    if (modeId > 0)
     {
         modeString = QString("AND modeid = '%1'").arg(modeId);
     }
@@ -6819,6 +6848,71 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
     return qs;
 }
 
+
+QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
+{//enum DataTableHash {World, Band, Mode};
+    //qDebug() << Q_FUNC_INFO << "Start";
+    QHash<QString, int> hash;
+    hash.clear();
+
+    QString queryString;
+    QSqlQuery query;
+    QString name;
+    switch (_data) {
+        case WorldData:
+        queryString = "SELECT prefix, dxcc FROM prefixesofentity";
+        break;
+        case BandData:
+        queryString = "SELECT name, id FROM band";
+        break;
+        case ModeData:
+        queryString = "SELECT submode, id FROM mode";
+        break;
+        default:
+        // should never be reached
+        return hash;
+    }
+
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+       //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
+        return hash;
+    }
+    else
+    {
+        while ( (query.next()))
+        {
+            if (query.isValid())
+            {
+               //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
+                name = (query.value(0)).toString();
+                if (name.startsWith('='))
+                {
+                    name.remove(0,1);
+                }
+
+
+                hash.insert(name, (query.value(1)).toInt());
+            }
+            else
+            {
+                query.finish();
+                hash.clear();
+               //qDebug() << Q_FUNC_INFO << "END-FAIL - Query not valid";
+                return hash;
+            }
+        }
+    }
+    query.finish();
+    //qDebug() << Q_FUNC_INFO << "END";
+   //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(hash.count());
+    return hash;
+}
+
 QHash<QString, int> DataProxy_SQLite::getWorldData()
 {
     //qDebug() << Q_FUNC_INFO << "Start";
@@ -7807,7 +7901,7 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
    {
        //qDebug() << Q_FUNC_INFO << ": ALL Modes" ;
    }
-   else if (util->isValidModeId(modeId))
+   else if (modeId > 0)
    {
        //qDebug() << Q_FUNC_INFO << ": Valid Mode" ;
        modeString = QString(" AND modeid='%1' ").arg(modeId);

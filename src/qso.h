@@ -430,8 +430,8 @@ signals:
 private:
     //QTime startT;
     bool isValidCall() const;
-    bool isValidBand() const;
-    bool isValidMode() const;
+    //bool isValidBand() const;
+    //bool isValidMode() const;
     bool isValidDateTime() const;
 
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);

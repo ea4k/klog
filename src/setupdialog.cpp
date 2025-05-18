@@ -526,7 +526,8 @@ void SetupDialog::readActiveBands (const QStringList &actives)
 
     for (int i = 0; i < values.size() ; i++)
     {
-        if (isValidBand(values.at(i)))
+        if (dataProxy->isValidBand(values.at(i)))
+        //if (isValidBand(values.at(i)))
         {
             if (!atLeastOne)
             {
@@ -559,7 +560,7 @@ void SetupDialog::readActiveModes (const QStringList &actives)
 
     for (int i = 0; i < values.size() ; i++)
     {
-        if (isValidMode(values.at(i)))
+        if (dataProxy->isValidMode(values.at(i)))
         {
             if (!atLeastOne)
             {
@@ -578,6 +579,7 @@ void SetupDialog::readActiveModes (const QStringList &actives)
         //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ");
 }
 
+/*
 bool SetupDialog::isValidBand (const QString &b)
 {
     //qDebug() << "SetupDialog::isValidBand: "<< b;
@@ -588,17 +590,19 @@ bool SetupDialog::isValidBand (const QString &b)
     logEvent(Q_FUNC_INFO, "END", Debug);
     return query.isValid();
 }
+
 bool SetupDialog::isValidMode (const QString &b)
 {
         //qDebug() << "SetupDialog::isValidMode: " << b;
     logEvent(Q_FUNC_INFO, "Start", Debug);
+
     QString stringQuery = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
     QSqlQuery query(stringQuery);
     query.next();
     logEvent(Q_FUNC_INFO, "END", Debug);
     return query.isValid();
 }
-
+*/
 void SetupDialog::setDefaults()
 {
     //qDebug() <<  Q_FUNC_INFO << " - Start";

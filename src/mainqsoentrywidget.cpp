@@ -1070,10 +1070,10 @@ void MainQSOEntryWidget::selectDefaultMode(bool _init)
 
     if (defaultMode < 1)
     {
-        defaultMode = dataProxy->getSubModeIdFromSubMode(getBand(0));
+        defaultMode = dataProxy->getIdFromModeName(getBand(0));
     }
-    setMode(dataProxy->getNameFromSubModeId(defaultMode));
-    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
+    setMode(dataProxy->getSubModeFromId(defaultMode));
+    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(defaultMode)));
 
       //qDebug() << Q_FUNC_INFO << ":  " << QString::number(defaultMode);
     logEvent (Q_FUNC_INFO, "END", Debug);

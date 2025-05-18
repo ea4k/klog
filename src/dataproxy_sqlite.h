@@ -46,6 +46,7 @@ enum
     DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
 };
 
+
 class DataProxy_SQLite : public QObject
 {
     Q_OBJECT
@@ -66,8 +67,13 @@ public:
 
     int getIdFromModeName(const QString& _modeName);
     int getIdFromBandName(const QString& _bandName);
-    int getSubModeIdFromSubMode(const QString &_subModeName);
-    int getModeIdFromSubModeId(const int _sm);
+    //int getSubModeIdFromSubMode(const QString &_subModeName);
+
+    bool isValidMode(const QString& _modeName);
+    bool isValidBand(const QString& _bandName);
+
+    //int getModeIdFromSubModeId(const int _sm);
+    bool createHashes();                        // Creates a list of hashes for quick search (band/id & mode/id)
 
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
@@ -82,7 +88,6 @@ public:
 
     QString getNameFromBandId (const int _id);
     QString getNameFromModeId (const int _id);
-    QString getNameFromSubModeId (const int _id);
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
@@ -213,6 +218,8 @@ public:
     QStringList getLongPrefixes();
     QStringList getSpecialCallsigns();
     QHash<QString, int> getWorldData();
+
+    QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
     QStringList getEntitiesNames();
     QStringList getEntitiesIds();
     int getHowManyEntities();
@@ -323,6 +330,7 @@ public:
 
     QList<QSO*> getGridStats(int _log=-1);
     QList<QSO*> getSatDXCCStats(int _log=-1);
+
     int getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
@@ -347,6 +355,9 @@ private:
     int executionN;
     Utilities *util;
     DebugLogLevel logLevel;
+
+    QHash<QString, int> bandIDs;
+    QHash<QString, int> modeIDs;
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:

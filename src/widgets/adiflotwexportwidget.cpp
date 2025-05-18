@@ -557,43 +557,80 @@ void AdifLoTWExportWidget::slotDateChanged()
 
 void AdifLoTWExportWidget::slotOKPushButtonClicked()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     this->hide();
-    emit qsosToSend (stationCallsignComboBox->currentText(), qsos, currentExportMode);
-    return;
-    QString myGrid = myGridSquareComboBox->currentText();
-    if (myGridSquareComboBox->currentIndex () == 0)
-    {
-        myGrid = "NOT";
-    }
 
-    if (stationCallsignComboBox->currentIndex() == 0)
+    QString callToSend = getCallOnOK();
+
+    emit qsosToSend (callToSend, qsos, currentExportMode);
+    return;
+}
+
+QString AdifLoTWExportWidget::getCallOnOK()
+{
+    QString callToSend;
+
+    int currentIndex = stationCallsignComboBox->currentIndex();
+    QString currentText = stationCallsignComboBox->currentText();
+
+    switch (currentIndex)
     {
-        //qDebug() << Q_FUNC_INFO << " - emit NOT";
-        emit selection("NOT", myGrid, startDate->date(), endDate->date(), currentExportMode);
-    }
-    else if (stationCallsignComboBox->currentIndex() == 1)
-    {
-        if ((currentExportMode == ModeLotW) || (currentExportMode == ModeClubLog) || (currentExportMode == ModeQRZ)|| (currentExportMode == ModeEQSL))
+    case 0:
+       //qDebug() << Q_FUNC_INFO << " - StationCallsign index = 0";
+        callToSend = "NOT";
+        break;
+
+    case 1:
+       //qDebug() << Q_FUNC_INFO << " - StationCallsign index = 1";
+        if (currentExportMode == ModeLotW ||
+            currentExportMode == ModeClubLog ||
+            currentExportMode == ModeQRZ ||
+            currentExportMode == ModeEQSL)
         {
-            //qDebug() << Q_FUNC_INFO << " - emit 1";
-            emit selection(stationCallsignComboBox->currentText(), myGrid, startDate->date(), endDate->date(), currentExportMode);
+            callToSend = currentText;
         }
         else
         {
-            //qDebug() << Q_FUNC_INFO << " - emit ALL";
-            emit selection("ALL", myGrid, startDate->date(), endDate->date(), currentExportMode);
+            callToSend = "ALL";
         }
+        break;
+
+    default:
+        callToSend = currentText;
+        break;
     }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << " - emit stationcall";
-        emit selection(stationCallsignComboBox->currentText(), myGrid, startDate->date(), endDate->date(), currentExportMode);
-    }
-    //qDebug() << "AdifLoTWExportWidget::slotOKPushButtonClicked - END";
-    close();
-     //qDebug() << Q_FUNC_INFO << " - END";
+
+    return callToSend;
 }
+
+/*
+ * QString AdifLoTWExportWidget::getGridOnOK()
+{
+    QString gridToSend;
+
+    int currentIndex = myGridSquareComboBox->currentIndex();
+    QString currentText = myGridSquareComboBox->currentText();
+
+    switch (currentIndex)
+    {
+    case 0:
+       //qDebug() << Q_FUNC_INFO << " - myGridSquareComboBox index = 0";
+        gridToSend = "NOT";
+        break;
+
+    case 1:
+       //qDebug() << Q_FUNC_INFO << " - myGridSquareComboBox index = 1";
+        gridToSend = "ALL";
+        break;
+
+    default:
+        gridToSend = currentText;
+        break;
+    }
+
+    return gridToSend;
+}
+*/
 
 void AdifLoTWExportWidget::slotCancelPushButtonClicked()
 {

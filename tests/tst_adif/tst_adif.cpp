@@ -69,7 +69,7 @@ void tst_Adif::test_getADIFField()
 { //QString Utilities::getADIFField(const QString &_fieldName, const QString &_data)
    QVERIFY2(adif->getADIFField("CALL", "EA4K")=="<CALL:4>EA4K ", "Call");
    QVERIFY2(adif->getADIFField("CALLA", "EA4K")==QString(), "Non Valid");
-   QVERIFY2(adif->isValidPower(10.0), "10 Not valid power");
+   QVERIFY2(adif->isValidPower(10), "10 Not valid power");
   //QVERIFY2(!adif->isValidPower(10W), "10W Not valid power");
 }
 

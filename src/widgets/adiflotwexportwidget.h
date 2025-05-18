@@ -71,6 +71,8 @@ private:
     void setDefaultMyGridComboBox();
     void updateIfNeeded();
     void blockAllSignals(const bool _b);
+    QString getCallOnOK();
+    //QString getGridOnOK();
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;

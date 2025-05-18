@@ -104,8 +104,8 @@ private:
 
     void readActiveBands (const QStringList &actives);
     void readActiveModes (const QStringList &actives);
-    bool isValidBand (const QString &b);
-    bool isValidMode (const QString &b);
+    //bool isValidBand (const QString &b);
+    //bool isValidMode (const QString &b);
 
     QString checkAndFixASCIIinADIF(const QString &_data);
     bool haveAtleastOneLog();

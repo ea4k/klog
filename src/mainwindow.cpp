@@ -1312,10 +1312,10 @@ bool MainWindow::readQSOFromUI()
 
 
 
-void MainWindow::slotQSOsExportToADIF(QList<int> _id)
+void MainWindow::slotQSOsExportToADIF(QList<int> _qsos)
 {
-    logEvent(Q_FUNC_INFO, "Start: " + QString::number(_id.length ()), Debug);
-    if (_id.length()<1)
+    logEvent(Q_FUNC_INFO, "Start: " + QString::number(_qsos.length ()), Debug);
+    if (_qsos.length()<1)
     {
         return; // NO QSO TO EXPORT
     }
@@ -1324,29 +1324,30 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _id)
      //qDebug() << Q_FUNC_INFO << fileName ;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
     {
-   //qDebug() << "MainWindow::slotQSOsExportToADIF: Adding the .adi to the file" << fileName ;
+   //qDebug() <<  Q_FUNC_INFO << ": Adding the .adi to the file" << fileName ;
         fileName = fileName +  ".adi";
     }
-       //qDebug() << "MainWindow::slotQSOsExportToADIF-1: " << fileName ;
-    filemanager->adifQSOsExport(fileName, _id);
-       //qDebug() << "MainWindow::slotQSOsExportToADIF-3" ;
-    showNumberOfSavedQSO(fileName, _id.count());
-        //qDebug() << "MainWindow::slotQSOsExportToADIF - END" ;
+       //qDebug() <<  Q_FUNC_INFO << "-1: " << fileName ;
+    filemanager->adifQSOsExport2(fileName, QString(), _qsos, ModeADIF);
+    //filemanager->adifQSOsExport(fileName, _qsos);
+       //qDebug() <<  Q_FUNC_INFO << "-3" ;
+    showNumberOfSavedQSO(fileName, _qsos.count());
+        //qDebug() <<  Q_FUNC_INFO << " - END" ;
 }
 
-void MainWindow::slotQRZcomUpload(QList<int> _id)
+void MainWindow::slotQRZcomUpload(QList<int> _qsos)
 {
-    logEvent(Q_FUNC_INFO, "Start: " + QString::number(_id.length ()), Debug);
+    logEvent(Q_FUNC_INFO, "Start: " + QString::number(_qsos.length ()), Debug);
 
-    elogQRZcom->sendQSOs(_id);
+    elogQRZcom->sendQSOs(_qsos);
 
       //qDebug() << "MainWindow::slotQRZcomUpload - END" ;
 }
 
-void MainWindow::slotQSOsDelete(QList<int> _id)
+void MainWindow::slotQSOsDelete(QList<int> _qsos)
 {
-        //qDebug() << "MainWindow::slotQSOsDelete " << QString::number(_id.length())  ;
-    //foreach(int i, _id)
+        //qDebug() << "MainWindow::slotQSOsDelete " << QString::number(_qsos.length())  ;
+    //foreach(int i, _qsos)
     //{
     //        //qDebug() << "MainWindow::slotQSOsDelete " << QString::number(i)  ;
     //}
@@ -1365,7 +1366,7 @@ void MainWindow::slotQSOsDelete(QList<int> _id)
     {
         case QMessageBox::Yes :
 
-        foreach (int i, _id)
+        foreach (int i, _qsos)
         {
             QStringList qsoToDelete;
             qsoToDelete.clear();
@@ -3607,16 +3608,16 @@ void MainWindow::selectDefaultMode()
 
     if (defaultMode < 1)
     {
-        defaultMode = dataProxy->getSubModeIdFromSubMode(mainQSOEntryWidget->getBand(0));
-        //defaultMode = dataProxy->getSubModeIdFromSubMode((modeComboBox->itemText(0)));
+        defaultMode = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode(0));
+        //defaultMode = dataProxy->getIdFromModeName((modeComboBox->itemText(0)));
           //qDebug() << "MainWindow::selectDefaultMode2: " << QString::number(defaultMode) ;
           //qDebug() << "MainWindow::selectDefaultMode2S: "  ;
     }
 
-    //aux = dataProxy->getNameFromSubModeId(defaultMode);
 
-    mainQSOEntryWidget->setMode(dataProxy->getNameFromSubModeId(defaultMode));
-    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getNameFromSubModeId(defaultMode)));
+
+    mainQSOEntryWidget->setMode(dataProxy->getSubModeFromId(defaultMode));
+    //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(defaultMode)));
 
      //qDebug() << "MainWindow::selectDefaultMode3: " << QString::number(defaultMode) ;
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -3851,7 +3852,7 @@ void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
 {
      //qDebug() << Q_FUNC_INFO ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeADIF, currentLog);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _call, _qsos, ModeADIF, currentLog);
     showNumberOfSavedQSO(fileName, qsos.count());
      //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -3865,16 +3866,11 @@ void MainWindow::slotADIFExportAll()
     _qsos.clear();
     _qsos.append(-1); //Code to specify to export ALL QSOs;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _callToUse, _qsos, ModeADIF, currentLog);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, _qsos, ModeADIF, currentLog);
 
     showNumberOfSavedQSO(fileName, dataProxy->getHowManyQSOInLog(-1));
 
-       //qDebug() << "MainWindow::slotADIFExportAll-1: " << fileName ;
-    //QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, QString(), dataProxy->getFirstQSODateFromCall(_callToUse), dataProxy->getLastQSODateFromCall(_callToUse), -1, ModeADIF);
-       //qDebug() << "MainWindow::slotADIFExportAll-3" ;
-    //showNumberOfSavedQSO(fileName, qsos.count());
 
-    //filemanager->adifLogExport(fileName, 0);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -3907,7 +3903,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 
     QString fileName = util->getLoTWAdifFile();
 
-    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeLotW, currentLog);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _call, _qsos, ModeLotW, currentLog);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
@@ -3992,7 +3988,7 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
   }
 
   QString fileName = util->getClubLogFile();
-  QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeClubLog, currentLog);
+  QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _call, _qsos, ModeClubLog, currentLog);
 
   if (qsos.count() <= 0)
   { // TODO: Check if errors should be managed.
@@ -4036,7 +4032,7 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
 
     //QString fileName = "klog-eqsl-upload.adi";
     QString fileName = util->getEQSLFile();
-    QList<int> qsos = filemanager->adifLogExportReturnList2(fileName, _call, _qsos, ModeEQSL, currentLog);
+    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _call, _qsos, ModeEQSL, currentLog);
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
@@ -4926,7 +4922,7 @@ void MainWindow::slotFilePrint()
                   //qDebug() << "MainWindow::slotFilePrint: nameCol: " << QString::number(nameCol) ;
                 aux = (query.value (nameCol)).toString();
                   //qDebug() << "MainWindow::slotFilePrint: Mode1: " << aux ;
-                aux = dataProxy->getNameFromSubModeId(aux.toInt());
+                aux = dataProxy->getSubModeFromId(aux.toInt());
                   //qDebug() << "MainWindow::slotFilePrint: Mode2: " << aux ;
                 if (aux.length()>1)
                 {
@@ -5497,7 +5493,7 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
 {
         //qDebug() << "MainWindow::checkIfNewMode: " << _mode ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (dataProxy->getSubModeIdFromSubMode(_mode)<0)
+    if (dataProxy->getIdFromModeName(_mode)<0)
     {// The mode is not existing; it is not an accepted mode for KLog
      // TODO: Show an error to the user
           //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode ;
@@ -5579,7 +5575,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
       //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" ;
              //qDebug() << Q_FUNC_INFO << " - calling setQRZ-3" ;
              mainQSOEntryWidget->setQRZ(_dxcall);
-             if ((!noMoreModeErrorShown) && (dataProxy->getSubModeIdFromSubMode(_mode)>0) )
+             if ((!noMoreModeErrorShown) && (dataProxy->getIdFromModeName(_mode)>0) )
              {
                  mainQSOEntryWidget->setMode(_mode);
         //modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));

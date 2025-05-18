@@ -314,7 +314,7 @@ void SetupPageSatsNew::slotModesTextChanged()
         {
               //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: " <<  aux;
 
-            if (dataProxy->getSubModeIdFromSubMode(aux)>0)
+            if (dataProxy->getIdFromModeName(aux)>0)
             {
                   //qDebug() << "SetupPageSatsNew::slotModesTextChanged: Checking: true: " <<  aux;
                 hasModes = true;

@@ -194,9 +194,9 @@ private slots:
     void slotLogRefresh();
 
     void slotQSODelete(const int _id);
-    void slotQSOsDelete(QList<int> _id);
-    void slotQSOsExportToADIF(QList<int> _id);
-    void slotQRZcomUpload(QList<int> _id);
+    void slotQSOsDelete(QList<int> _qsos);
+    void slotQSOsExportToADIF(QList<int> _qsos);
+    void slotQRZcomUpload(QList<int> _qsos);
     void slotQRZCOMLogUpload();
     void slotElogQRZCOMDisable(const bool _b);
 
