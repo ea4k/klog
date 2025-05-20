@@ -404,7 +404,7 @@ void tst_DataBase::test_Constructor()
    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-QTEST_APPLESS_MAIN(tst_DataBase)
+QTEST_GUILESS_MAIN(tst_DataBase)
 
 #include "tst_database.moc"
 

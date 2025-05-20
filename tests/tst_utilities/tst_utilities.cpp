@@ -318,6 +318,6 @@ void tst_Utilities::test_QSL()
   QVERIFY2(!util->isValidQSL_Rcvd("K"), "K is not a valid QSL RCVD");
 }
 
-QTEST_APPLESS_MAIN(tst_Utilities)
+QTEST_GUILESS_MAIN(tst_Utilities)
 
 #include "tst_utilities.moc"

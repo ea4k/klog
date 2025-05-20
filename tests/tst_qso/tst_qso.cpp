@@ -309,8 +309,9 @@ void  tst_QSO::test_ModeManagement()
 void tst_QSO::test_dataEntry()
 {
     qso->clear();
-    QVERIFY2(qso->getFreqRX() == 0, "Wrong FreqRX");
-    QVERIFY2(qso->getFreqTX() == 0, "Wrong FreqTX");
+    qDebug() << Q_FUNC_INFO << qso->getFreqRX();
+    QVERIFY2(qso->getFreqRX() == -1, "Wrong FreqRX");
+    QVERIFY2(qso->getFreqTX() == -1, "Wrong FreqTX");
     QVERIFY2(qso->setPrefix("EA4"), "Error while setting Prefix");
     QVERIFY2(qso->getPrefix() == "EA4", "Error while reading Prefix");
     QVERIFY2(qso->setCall("EA4K"), "Error while setting Call");
@@ -393,6 +394,7 @@ void tst_QSO::test_Copy()
     QVERIFY2(qso3.getComment() == "QSO1-comment", "Wrong Comment in copy");
 }
 
-QTEST_APPLESS_MAIN(tst_QSO)
+//QTEST_APPLESS_MAIN(tst_QSO)
+QTEST_GUILESS_MAIN(tst_QSO)
 
 #include "tst_qso.moc"

@@ -107,6 +107,8 @@ private:
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
     bool showInvalidCallMessage(const QString &_call);
     void showError (const QString &_txt);
+    bool handleCancel();                        // Used in FileManager::adifReadLog2
+    void processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog2
 
     bool askUserToUseAlwaysSameAnswer();
     bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq);

@@ -65,6 +65,7 @@ public:
     void clear();
     bool isValid();
     void setLoTWUpdating(bool _lotw);
+    bool getLoTWUpdating();
 
     bool setCall(const QString &_c);
     QString getCall() const;
@@ -420,7 +421,7 @@ public:
     bool isComplete() const;
     QString getADIF();
     QString getBandNameFromFreq(const double _n); // Should be push out of this class
-
+    bool updateFromLoTW(const int _qsoId);        // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -447,7 +448,7 @@ private:
     //DataBase *db;
 
     // Functions to update a QSO after downloading LoTW
-    int updateFromLoTW();                                   // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+
     int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
 
 

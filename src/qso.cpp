@@ -1548,6 +1548,11 @@ void QSO::setLoTWUpdating(bool _lotw)
     lotwUpdating = _lotw;
 }
 
+bool QSO::getLoTWUpdating()
+{
+    return lotwUpdating;
+}
+
 void QSO::setDefaultEQSLSentServices(const bool _send)
 {
     if (_send)
@@ -3469,7 +3474,7 @@ void QSO::InitializeHash() {
         {"LOTW_QSLRDATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLRDate)},
         {"LOTW_QSLSDATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate)},
         {"LOTW_QSL_RCVD", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSL_RCVD)},
-        {"LOTW_QSL_SENT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setEQSLQSL_SENT)},
+        {"LOTW_QSL_SENT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSL_SENT)},
         {"MAX_BURSTS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMaxBursts)},
         {"MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMode)},
         {"MS_SHOWER", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMsShower)},
@@ -3603,36 +3608,38 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     return true;
 }
 
-int QSO::updateFromLoTW()
+bool QSO::updateFromLoTW(const int _qsoId)
 {
     //CALL, BAND, FREQ, QSODATE, MODE
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
     // Start by finding the QSO ID
-    int qsoId = findIdFromQSO(getCall(), getDateTimeOn(), getBandIdFromBandName(), getModeIdFromModeName());
-    if (qsoId <= 0)
-        return qsoId;
-
+    if (!lotwUpdating)
+        return false;
+    if (_qsoId <= 0)
+        return false;
+    qDebug() << Q_FUNC_INFO << " - Backup...";
     // Backup data coming from LoTW
-    QDate lotwRX = getLoTWQSLRDate();
-    QDate lotwTX = getLoTWQSLSDate();
-    QString _qsl_rcvd = getLoTWQSL_RCVD();
-    QString _qsl_sent = getLoTWQSL_SENT();
-    QString _credit_granted = getCreditGranted();
-    QString _credit_submitted = getCreditSubmitted();
-    QString _cnty = getCounty();
-    QString _continent = getContinent();
-    QString _pfx = getPrefix();
-    int _cqz = getCQZone();
-    int _ituz = getItuZone();
-    int _iotaNum = getIotaID();
-    QString _gridsquare = getGridSquare();
-    QString _vucc = getVUCCGrids();
-    QString _state = getState();
+    QDate lotwRX                = getLoTWQSLRDate();
+    QDate lotwTX                = getLoTWQSLSDate();
+    QString _qsl_rcvd           = getLoTWQSL_RCVD();
+    QString _qsl_sent           = getLoTWQSL_SENT();
+    QString _credit_granted     = getCreditGranted();
+    QString _credit_submitted   = getCreditSubmitted();
+    QString _cnty               = getCounty();
+    QString _continent          = getContinent();
+    QString _pfx                = getPrefix();
+    int _cqz                    = getCQZone();
+    int _ituz                   = getItuZone();
+    int _iotaNum                = getIotaID();
+    QString _gridsquare         = getGridSquare();
+    QString _vucc               = getVUCCGrids();
+    QString _state              = getState();
 
+    qDebug() << Q_FUNC_INFO << " - Recovering...";
     // Recover the data from the log for the QSO
-    if (fromDB(qsoId))
-        return -1;
-
+    if (fromDB(_qsoId))
+        return false;
+    qDebug() << Q_FUNC_INFO << " - Updating...";
     // Update the QSO fields from LoTW data
     if (lotwRX.isValid() && util->isValidQSL_Rcvd(_qsl_rcvd)) {
         setLoTWQSLRDate(lotwRX);
@@ -3676,7 +3683,8 @@ int QSO::updateFromLoTW()
     if (!_state.isEmpty())
         setState(_state);
 
-    return qsoId;
+    qDebug() << Q_FUNC_INFO << " - END";
+    return true;
 }
 
 int QSO::findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
@@ -3718,6 +3726,7 @@ int QSO::toDB(int _qsoId)
         //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
+
 
     //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
     //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();

@@ -282,7 +282,7 @@ void tst_DataProxy::test_primarySubdivisions()
     //}
    //getPrimarySubDivisions(currentInt, prefUsed)
 }
-QTEST_APPLESS_MAIN(tst_DataProxy)
+QTEST_GUILESS_MAIN(tst_DataProxy)
 
 #include "tst_dataproxy.moc"
 

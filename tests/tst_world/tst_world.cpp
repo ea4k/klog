@@ -202,6 +202,6 @@ void tst_World::test_SeveralIdentification()
 }
 
 
-QTEST_APPLESS_MAIN(tst_World)
+QTEST_GUILESS_MAIN(tst_World)
 
 #include "tst_world.moc"

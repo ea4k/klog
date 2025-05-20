@@ -433,7 +433,6 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     return true;
 }
 
-
 bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN, bool justMarked, bool _qslRequested , bool _lotw)
 {
     //adifLogExportToFile(const QString& _fileName, const int _logN=0, bool justMarked = false, bool _qslRequested = false, bool _lotw=false);
@@ -752,46 +751,40 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
 
 int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+    qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file( tfileName );
     if (!file.exists ())
     {
-        //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
+        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
     bool lotWDownloaded = isALoTWDownloadedFile(file);
+    qDebug() << Q_FUNC_INFO << " - IsLoTW: " << util->boolToQString(lotWDownloaded);
 
     int qsos = howManyQSOsInFile (file);
-    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
+    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
+        qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
         return false;
     }
 
 
     file.seek (pos); // QSO Data starts here
+    //qDebug() << Q_FUNC_INFO << ": Progress defined" ;
+    QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
+    progress.setWindowModality(Qt::ApplicationModal);
+    progress.setAutoClose(true);
+
+    int step = util->getProgresStepForDialog(qsos);
+    int i = 0;
+    bool noMoreQSO = false;
 
     QSO qso;
     QStringList fields; // fields keeps the running array,
 
-    fields.clear ();
-    QString line = QString();
-    //line.clear();
-    qso.clear ();
-
-    //qDebug() << Q_FUNC_INFO << ": Progress defined" ;
-    QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
-    progress.setMaximum(qsos);
-    progress.setWindowModality(Qt::ApplicationModal);
-    progress.setValue(0);
-    //progress.setWindowTitle(tr("Import"));
-    progress.setAutoClose(true);
-    int step = util->getProgresStepForDialog(qsos);
-    int i = 0;
-    bool noMoreQSO = false;
-    //qDebug() << Q_FUNC_INFO << ": We start the while" ;
+    qDebug() << Q_FUNC_INFO << ": We start the while" ;
     while ((!file.atEnd()) && (!noMoreQSO))
     {
         // One line is read and splitted into the list of fields
@@ -801,10 +794,12 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
         // Once the QSO is added to the log, QSO is cleared and process continues
         // Once the list of fields is empty, we read another file and start again
         // until we reach the end of file
-        line.clear();
-        line.append(file.readLine().trimmed().toUpper());
+
+        QString line = file.readLine().trimmed().toUpper();
+        fields << line.split("<", Qt::SkipEmptyParts);
+
         //qDebug() << Q_FUNC_INFO << ": Reading the line: " << line ;
-        fields << line.split("<", QT_SKIP);
+
         while (!fields.isEmpty())
         {
             //qDebug() << Q_FUNC_INFO << QString(": Fields still has %1 items").arg(fields.count()) ;
@@ -813,24 +808,10 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
             if ((fieldToAnalyze.contains ("<EOR>")) || (fieldToAnalyze.contains("<APP_LOTW_EOF>")) )
             {
                 //qDebug() << Q_FUNC_INFO << QString(": EOR detected, QSO added");
-                qso.setLogId (logN);
-                Callsign call1(_stationCallsign);
-                Callsign call2(qso.getStationCallsign());
-                if ((call1.isValid()) && (!call2.isValid()))
-                {
-                    qso.setStationCallsign(_stationCallsign);
-                }
-                int qsoId = -1;
-                if (lotWDownloaded)
-                {
-                    int bandId = dataProxy->getIdFromBandName(qso.getBand());
-                    int modeId = dataProxy->getIdFromModeName(qso.getMode());
-                    qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
-                    qso.setLoTWUpdating(lotWDownloaded);
-                }
-
-                qso.toDB (qsoId);
-                qso.clear ();
+                qso.setLogId(logN);
+                qso.setLoTWUpdating(lotWDownloaded);
+                processQSO(qso, _stationCallsign);
+                qso.clear();
                 i++;
                 if (( (i % step ) == 0) )
                 { // To update the speed I will only show the progress once each X QSOs
@@ -838,10 +819,6 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
                     QString aux = tr("Importing ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
                     progress.setLabelText(aux);
                     progress.setValue(i);
-                }
-                else
-                {
-                    //qDebug() << Q_FUNC_INFO << " Mod: "<< QString::number(i) << " mod " << QString::number(step) << " = " << QString::number(i % step);
                 }
             }
             else
@@ -853,25 +830,12 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
             if ( progress.wasCanceled() )
             {
                 //qDebug() << Q_FUNC_INFO << QString(": Progress Cancelled") ;
-                QMessageBox msgBox;
-                msgBox.setWindowTitle(tr("KLog - User cancelled"));
-                QString aux = QString(tr("You have canceled the file import. The file will be removed and no data will be imported.") + "\n" + tr("Do you still want to cancel?"));
-                msgBox.setText(aux);
-                msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                msgBox.setDefaultButton(QMessageBox::No);
-                int ret = msgBox.exec();
-                switch (ret) {
-                case QMessageBox::Yes:
-                    // Yes was clicked
+                if (handleCancel())
+                {
                     noMoreQSO = true;
                     break;
-                case QMessageBox::No:
-                    // No Save was clicked
-                    break;
-                default:
-                    // should never be reached
-                    break;
                 }
+
             }
             //qDebug() << Q_FUNC_INFO << QString(": Field process finished: ").arg(fieldToAnalyze) ;
         }
@@ -883,6 +847,44 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
 
     //qDebug() << Q_FUNC_INFO << " - END";
     return i;
+}
+
+void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    Callsign call1(_stationCallsign);
+    Callsign call2(qso.getStationCallsign());
+    if (call1.isValid() && !call2.isValid())
+    {
+        qso.setStationCallsign(_stationCallsign);
+    }
+//EA4K
+    int qsoId = -1;
+    if (qso.getLoTWUpdating())
+    {
+        qDebug() << Q_FUNC_INFO << " - Running LoTW update ode";
+        int bandId = dataProxy->getIdFromBandName(qso.getBand());
+        int modeId = dataProxy->getIdFromModeName(qso.getMode());
+        qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
+
+        if (qsoId > 0)
+        {
+            qso.updateFromLoTW(qsoId);
+        }
+    }
+
+    qso.toDB(qsoId);
+}
+
+bool FileManager::handleCancel()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - User cancelled"));
+    msgBox.setText(tr("You have canceled the file import. The file will be removed and no data will be imported.\nDo you still want to cancel?"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+
+    return msgBox.exec() == QMessageBox::Yes;
 }
 
 
