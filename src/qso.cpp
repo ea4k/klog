@@ -642,7 +642,7 @@ void QSO::clear()
     // VARIABLES for ADIF //////////
     address = QString();
     age = -1;
-    altitude = -10000;
+    altitude = 0;
     a_index = -1;
     ant_az = -91.0;
     ant_el = -91.0;
@@ -2145,27 +2145,52 @@ int QSO::getA_Index() const
 
 
 bool QSO::setAnt_az(const double _c)
-{ //TODO: Adjust number: http://www.adif.org/312/ADIF_312.htm#QSO_Field_ANT_AZ
-    ant_az = fmod(_c, 360.0);
-    if (ant_az>0.0)
-        return true;
-    ant_az = 0.0;
-    return false;
+{
+    qDebug() << Q_FUNC_INFO << ": " << _c;
+    if (_c < 0.0 || _c > 360.0)
+    {
+        // Normalize the value to fit within the range 0 to 360
+        ant_az = fmod((_c + 360.0), 360.0);
+    }
+    else
+    {
+        ant_az = _c;
+    }
+
+    // Ensure the value is valid and has been set
+    return (ant_az >= 0.0 && ant_az <= 360.0);
 }
+
 double QSO::getAnt_az() const
 {
     return ant_az;
 }
 
 bool QSO::setAnt_el(const double _c)
-{ //TODO: Adjust number: http://www.adif.org/312/ADIF_312.htm#QSO_Field_ANT_EL
-    if ((-90 <= _c) && (_c <= 90))
+{
+    qDebug() << Q_FUNC_INFO << ": " << _c;
+    if (_c >= -90.0 && _c <= 90.0)
     {
+        // Value is within range, directly store it
         ant_el = _c;
         return true;
     }
-    ant_el = 0.0;
-    return false;
+
+    // Normalize values outside the range [-90, 90]
+    if (_c > 90.0)
+    {
+        ant_el = 180.0 - _c; // Reflect downward
+    }
+    else if (_c < -90.0)
+    {
+        ant_el = -180.0 - _c; // Reflect upward
+    }
+
+    // Ensure the final value is within the valid range [-90, 90]
+    if (ant_el < -90.0) ant_el = -90.0;
+    if (ant_el > 90.0) ant_el = 90.0;
+
+    return true;
 }
 
 double QSO::getAnt_el() const
@@ -2239,10 +2264,12 @@ QString QSO::getContinent() const
 }
 
 bool QSO::setDistance(const double _i)
-{
+{// In Km
+    qDebug() << Q_FUNC_INFO << ": " << _i;
     if (adif->isValidDistance(_i))
     {
         distance = _i;
+        qDebug() << Q_FUNC_INFO << ": " << distance;
         return true;
     }
     distance = 0.0;
@@ -2250,7 +2277,7 @@ bool QSO::setDistance(const double _i)
 }
 
 double QSO::getDistance() const
-{
+{// In Km
     return distance;
 }
 
@@ -4294,7 +4321,8 @@ QString QSO::getADIF()
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
         adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
-    adifStr.append(adif->getADIFField ("ALTITUDE",  QString::number(getAltitude())));
+    if (getAltitude() != 0)
+        adifStr.append(adif->getADIFField ("ALTITUDE",  QString::number(getAltitude())));
     adifStr.append(adif->getADIFField ("CNTY",  county));
     adifStr.append(adif->getADIFField ("COMMENT",  comment));
     if ((adif->isValidA_Index(a_index)) && (a_index>0))

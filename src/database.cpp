@@ -452,14 +452,13 @@ bool DataBase::createTableLog(bool temp)
              "bandid INTEGER NOT NULL, "
              "modeid INTEGER NOT NULL, "
              "cqz INTEGER, "
-             "ituz INTEGER, "
              "dxcc INTEGER, "
              "address VARCHAR, "
-             "age INTEGER, "
-             "a_index INTEGER, "
+             "age REAL, "
+             "a_index REAL, "
              "altitude REAL, "
-             "ant_az INTEGER, "
-             "ant_el INTEGER, "
+             "ant_az REAL, "
+             "ant_el REAL, "
              "ant_path INTEGER, "
              "arrl_sect VARCHAR(3), "
              "award_submitted VARCHAR, "
@@ -478,7 +477,7 @@ bool DataBase::createTableLog(bool temp)
              "credit_submitted VARCHAR, "
              "credit_granted VARCHAR, "
              "darc_dok VARCHAR,"
-             "distance INTEGER, "
+             "distance REAL, "
              "email VARCHAR, "
              "eq_call VARCHAR, "
              "eqsl_qslrdate DATETIME, "
@@ -499,7 +498,8 @@ bool DataBase::createTableLog(bool temp)
              "hrdlog_qso_upload_date DATETIME, "
              "hrdlog_qso_upload_status VARCHAR(1), "
              "iota VARCHAR(6), "
-             "iota_island_id VARCHAR, "
+             "iota_island_id INTEGER, "
+             "ituz INTEGER, "
              "k_index INTEGER, "
              "lat VARCHAR(11), "
              "lon VARCHAR(11), "
@@ -521,7 +521,7 @@ bool DataBase::createTableLog(bool temp)
              "my_gridsquare VARCHAR, "
              "my_gridsquare_ext VARCHAR, "
              "my_iota VARCHAR(6), "
-             "my_iota_island_id VARCHAR, "
+             "my_iota_island_id INTEGER, "
              "my_itu_zone INTEGER, "
              "my_lat VARCHAR(11), "
              "my_lon VARCHAR(11), "
@@ -573,9 +573,9 @@ bool DataBase::createTableLog(bool temp)
              "skcc VARCHAR, "
              "sota_ref VARCHAR, "
              "srx_string VARCHAR, "
-             "srx VARCHAR(10), "
+             "srx INTEGER, "
              "stx_string VARCHAR, "
-             "stx VARCHAR(10), "
+             "stx INTEGER, "
              "state VARCHAR, "
              "station_callsign VARCHAR, "
              "submode VARCHAR, "
@@ -1634,7 +1634,7 @@ bool DataBase::updateTo003()
   *  QString stringQuery = QString ("ALTER TABLE award_enumeration ADD COLUMN dxcc INTEGER;");
   *
   */
-       //qDebug() << "DataBase::updateTo003: latestRead: " << QString::number(latestReaded) ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << QString::number(latestReaded) ;
     bool IAmIn003 = false;
     bool IAmIn002 = false;
     bool ErrorUpdating = false;
@@ -1670,8 +1670,8 @@ bool DataBase::updateTo003()
 
 bool DataBase::updateTo004()
 {// Updates the DB to 0.0.41
-       //qDebug() << "DataBase::updateTo004: latestRead: " << getDBVersion() ;
-       //qDebug() << "DataBase::updateTo004: latestRead: " << QString::number(latestReaded) ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << QString::number(latestReaded) ;
     bool IAmIn004 = false;
     bool IAmIn003 = false;
 
@@ -1682,57 +1682,57 @@ bool DataBase::updateTo004()
     latestReaded = getDBVersion();
     if (latestReaded >= 0.004f)
     {
-            //qDebug() << "DataBase::updateTo004: - I am in 004" ;
+            //qDebug() <<  Q_FUNC_INFO << " -- I am in 004" ;
         return true;
     }
     else
     {
-            //qDebug() << "DataBase::updateTo004: - I am not in 004" ;
+            //qDebug() <<  Q_FUNC_INFO << " -- I am not in 004" ;
         IAmIn004 = false;
     }
 
     while (!IAmIn004)
     {
-           //qDebug() << "DataBase::updateTo004: - And I am not in 004 nor ErrorUpdating" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- And I am not in 004 nor ErrorUpdating" ;
         while (!IAmIn003)
         {
-               //qDebug() << "DataBase::updateTo004: - And I am not in 003" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- And I am not in 003" ;
             //IAmIn002 = updateTo002();
             IAmIn003 = true;
         }
-           //qDebug() << "DataBase::updateTo004: - And I am in 003" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- And I am in 003" ;
         sqlOk = updateDBVersion(softVersion, "0.004");
-           //qDebug() << "DataBase::updateTo004: - Update Version" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- Update Version" ;
         if (sqlOk)
         { // Version updated
-               //qDebug() << "DataBase::updateTo004: - Update OK" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Update OK" ;
             sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE award_enumeration");
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo004: - Update NOK" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Update NOK" ;
         }
         //DO ALL THE TASKS TO BE IN 0.004 from 0.003 HERE and set ErrorUpdating if it is not possible.
-           //qDebug() << "DataBase::updateTo004: - IAmIn004 = true" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- IAmIn004 = true" ;
         IAmIn004 = true;
     }
 
     if (IAmIn004)
     {
-           //qDebug() << "DataBase::updateTo004: - Return... TRUE" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- Return... TRUE" ;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo004: - Return... FALSE" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- Return... FALSE" ;
     }
-       //qDebug() << "DataBase::updateTo004: UPDATED OK!" ;
+       //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
     return IAmIn004;
 }
 
 
 bool DataBase::updateTo005()
 {// Updates the DB to 0.0.5
-          //qDebug() << "DataBase::updateTo005: latestRead: " << getDBVersion() ;
+          //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
        bool IAmIn005 = false;
        bool IAmIn004 = false;
        bool ErrorUpdating = false;
@@ -1865,7 +1865,7 @@ bool DataBase::updateTo005()
           // emit debugLog(Q_FUNC_INFO, "2", 7);
         }
              //qDebug() << "DataBase::updateTo005 - I am in 005 already!! " ;
-          //qDebug() << "DataBase::updateTo005: UPDATED OK!" ;
+          //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
        return IAmIn005;
 }
 
@@ -3837,7 +3837,7 @@ bool DataBase::updateModeIdTableLogToNewOnes()
 
 bool DataBase::updateTo007()
 {// Updates the DB to 0.0.7
-       //qDebug() << "DataBase::updateTo007: latestRead: " << getDBVersion() ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn007 = false;
     bool IAmIn006 = false;
     bool ErrorUpdating = false;
@@ -3849,12 +3849,12 @@ bool DataBase::updateTo007()
 
     if (latestReaded >= 0.007f)
     {
-             //qDebug() << "DataBase::updateTo007: - I am in 007" ;
+             //qDebug() <<  Q_FUNC_INFO << " -- I am in 007" ;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo007: - I am not in 007" ;
+             //qDebug() <<  Q_FUNC_INFO << " -- I am not in 007" ;
         IAmIn007 = false;
     }
 
@@ -3863,13 +3863,13 @@ bool DataBase::updateTo007()
     {
         while (!IAmIn006 && !ErrorUpdating)
         {
-                //qDebug() << "DataBase::updateTo007: - And I am not in 006" ;
+                //qDebug() <<  Q_FUNC_INFO << " -- And I am not in 006" ;
             IAmIn006 = updateTo006();
         }
-           //qDebug() << "DataBase::updateTo007: - And I am in 006!!!!" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- And I am in 006!!!!" ;
         if (ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo007: NOK-1" ;
+               //qDebug() <<  Q_FUNC_INFO << " -NOK-1" ;
              // emit debugLog(Q_FUNC_INFO, "1", 7);
 
             return false;
@@ -3882,7 +3882,7 @@ bool DataBase::updateTo007()
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo007: NOK-2" ;
+               //qDebug() <<  Q_FUNC_INFO << " -NOK-2" ;
               // emit debugLog(Q_FUNC_INFO, "2", 7);
 
             return false;
@@ -3890,7 +3890,7 @@ bool DataBase::updateTo007()
         //DO ALL THE TASKS TO BE IN 0.007 from 0.006 HERE and set ErrorUpdating if it is not possible.
         IAmIn007 = true;
     }
-       //qDebug() << "DataBase::updateTo007: END" ;
+       //qDebug() <<  Q_FUNC_INFO << " -END" ;
     if (!IAmIn007)
     {
        // emit debugLog(Q_FUNC_INFO, "3", 7);
@@ -3901,19 +3901,19 @@ bool DataBase::updateTo007()
 
 bool DataBase::updateTo008()
 {// Updates the DB to 0.0.8
-    //qDebug() << "DataBase::updateTo008: latestRead: " << getDBVersion() ;
+    //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn008 = false;
     bool IAmIn007 = false;
 
     latestReaded = getDBVersion();
     if (latestReaded >= 0.008f)
     {
-          //qDebug() << "DataBase::updateTo008: - I am in 008" ;
+          //qDebug() <<  Q_FUNC_INFO << " -- I am in 008" ;
         return true;
     }
     else
     {
-          //qDebug() << "DataBase::updateTo008: - I am not in 008" ;
+          //qDebug() <<  Q_FUNC_INFO << " -- I am not in 008" ;
         IAmIn008 = false;
     }
 
@@ -3922,10 +3922,10 @@ bool DataBase::updateTo008()
     {
         while (!IAmIn007 )
         {
-               //qDebug() << "DataBase::updateTo008: - And I am not in 007" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- And I am not in 007" ;
             IAmIn007 = updateTo007();
         }
-           //qDebug() << "DataBase::updateTo008: - I am in 007" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- I am in 007" ;
 
 
         //DO ALL THE TASKS TO BE IN 0.008 from 0.007 HERE and set ErrorUpdating if it is not possible.
@@ -3936,23 +3936,23 @@ bool DataBase::updateTo008()
             bool sqlOk = updateDBVersion(softVersion, "0.008");
             if (sqlOk)
             { // Version updated
-                   //qDebug() << "DataBase::updateTo008: - OK" ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- OK" ;
             }
             else
             { // Version not updated
-                   //qDebug() << "DataBase::updateTo008: - NOK-3" ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- NOK-3" ;
                // emit debugLog(Q_FUNC_INFO, "2", 7);
                 return false;
             }
         }
         else
         {
-               //qDebug() << "DataBase::updateTo008: - NOK-2" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- NOK-2" ;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
     }
-       //qDebug() << "DataBase::updateTo008: - END" ;
+       //qDebug() <<  Q_FUNC_INFO << " -- END" ;
     if (!IAmIn008)
     {/*emit debugLog(Q_FUNC_INFO, "4", 7);*/
     }
@@ -3962,34 +3962,34 @@ bool DataBase::updateTo008()
 
 bool DataBase::updateTo009()
 {// Updates the DB to 0.0.9 - We add the Satellite tables
-       //qDebug() << "DataBase::updateTo009: latestRead: " << getDBVersion() ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn009 = false;
     bool IAmIn008 = false;
     bool ErrorUpdating = false;
 
-    //qDebug() << "DataBase::updateTo009: Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009);
+    //qDebug() <<  Q_FUNC_INFO << " -Checking:" << QString::number(latestReaded) << ":" << QString::number(0.009);
     latestReaded = getDBVersion();
    if (latestReaded >= 0.009f)
     //if ((latestReaded = 0.009) || (latestReaded > 0.009))
     {
-            //qDebug() << "DataBase::updateTo009: - I am in 009" ;
+            //qDebug() <<  Q_FUNC_INFO << " -- I am in 009" ;
         //IAmIn009 = true;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo009: - I am not in 009 I am in: " << QString::number(latestReaded);
+             //qDebug() <<  Q_FUNC_INFO << " -- I am not in 009 I am in: " << QString::number(latestReaded);
         IAmIn009 = false;
     }
-        //qDebug() << "DataBase::updateTo009: compared latestRead: " << QString::number(latestReaded) ;
+        //qDebug() <<  Q_FUNC_INFO << " -compared latestRead: " << QString::number(latestReaded) ;
     while (!IAmIn009 && !ErrorUpdating)
     {
         while (!IAmIn008 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo009: - And I am not in 008" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- And I am not in 008" ;
             IAmIn008 = updateTo008();
         }
-           //qDebug() << "DataBase::updateTo009: - And I am already at least in 008" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- And I am already at least in 008" ;
         if (ErrorUpdating)
         {
            // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -3999,43 +3999,43 @@ bool DataBase::updateTo009()
 
         if (sqlOk)
         { // Version updated
-               //qDebug() << "DataBase::updateTo009: - version updated" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- version updated" ;
             //IAmIn009 = updateTableLog(6);
         }
         else
         { // Version not updated
-               //qDebug() << "DataBase::updateTo009: - version not updated" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- version not updated" ;
         }
         //DO ALL THE TASKS TO BE IN 0.009 from 0.008 HERE and set ErrorUpdating if it is not possible.
         if (recreateSatelliteData())
         //if (createTableSatellites(true))
         {
-               //qDebug() << "DataBase::updateTo009: - createTableSatellites OK" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- createTableSatellites OK" ;
             //if (populateTableSatellites(true))
 
             if (recreateTableEntity())
             {
-                  //qDebug() << "DataBase::updateTo009: - recreateTableEntity OK" ;
+                  //qDebug() <<  Q_FUNC_INFO << " -- recreateTableEntity OK" ;
                if (updateTheEntityTableISONames())
                {
-                     //qDebug() << "DataBase::updateTo009: - isonames updated" ;
+                     //qDebug() <<  Q_FUNC_INFO << " -- isonames updated" ;
                   // Now I need to update the logs table
 
                   if (updateTableLogs())
                   {
-                         //qDebug() << "DataBase::updateTo009: - logs updated and Function finished successfuly!!" ;
+                         //qDebug() <<  Q_FUNC_INFO << " -- logs updated and Function finished successfuly!!" ;
                       IAmIn009 = true;
                   }
                   else
                   {
-                         //qDebug() << "DataBase::updateTo009: - logs NOT updated" ;
+                         //qDebug() <<  Q_FUNC_INFO << " -- logs NOT updated" ;
                       IAmIn009 = false;
                       ErrorUpdating = true;
                   }
                }
                else
                {
-                     //qDebug() << "DataBase::updateTo009: - isonames NOT updated" ;
+                     //qDebug() <<  Q_FUNC_INFO << " -- isonames NOT updated" ;
                   IAmIn009 = false;
                   ErrorUpdating = true;
                }
@@ -4048,13 +4048,13 @@ bool DataBase::updateTo009()
         }
         else
         {
-               //qDebug() << "DataBase::updateTo009: - createTableSatellites FALSE" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- createTableSatellites FALSE" ;
             ErrorUpdating = true;
             IAmIn009 = false;
         }
     }
 
-         //qDebug() << "DataBase::updateTo009: - END" ;
+         //qDebug() <<  Q_FUNC_INFO << " -- END" ;
     if (!IAmIn009)
     {
        // emit debugLog(Q_FUNC_INFO, "1", 7);
@@ -4068,7 +4068,7 @@ bool DataBase::updateTo010()
     // We add FT8 mode and
     // AS Propagation
 
-       //qDebug() << "DataBase::updateTo010: latestRead: " << getDBVersion() ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn010 = false;
     bool IAmIn009 = false;
     bool ErrorUpdating = false;
@@ -4076,36 +4076,36 @@ bool DataBase::updateTo010()
     QSqlQuery query;
 
     latestReaded = getDBVersion();
-        //qDebug() << "DataBase::updateTo010: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) ;
+        //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.010f)
     {
-           //qDebug() << "DataBase::updateTo010: - I am in 010" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- I am in 010" ;
         IAmIn010 = true;
         return true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo010: - I am not in 010 I am in: " << QString::number(latestReaded);
+             //qDebug() <<  Q_FUNC_INFO << " -- I am not in 010 I am in: " << QString::number(latestReaded);
 
         while (!IAmIn009 && !ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo010: - Check if I am in 009: !" ;
+                 //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 009: !" ;
             IAmIn009 = updateTo009();
 
             if (IAmIn009)
             {
-                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned TRUE - I am in 0.009: " << QString::number(latestReaded) ;
+                     //qDebug() <<  Q_FUNC_INFO << " -- updateTo009 returned TRUE - I am in 0.009: " << QString::number(latestReaded) ;
             }
             else
             {
-                     //qDebug() << "DataBase::updateTo010: - updateTo009 returned FALSE - I am NOT in 0.009: " << QString::number(latestReaded) ;
+                     //qDebug() <<  Q_FUNC_INFO << " -- updateTo009 returned FALSE - I am NOT in 0.009: " << QString::number(latestReaded) ;
                 ErrorUpdating = false;
             }
         }
 
         if (ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo010: - I Could not update to: " << QString::number(dbVersion) ;
+                 //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -4115,12 +4115,12 @@ bool DataBase::updateTo010()
     bool sqlOk = execQuery(Q_FUNC_INFO, "UPDATE band SET lower = '0.1357', upper = '0.1378' WHERE name='2190M'");
     if (sqlOk)
     {
-             //qDebug() << "DataBase::updateTo010: - Band update OK" ;
+             //qDebug() <<  Q_FUNC_INFO << " -- Band update OK" ;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-             //qDebug() << "DataBase::updateTo010: - Band update NOK" ;
+             //qDebug() <<  Q_FUNC_INFO << " -- Band update NOK" ;
     }
 
 
@@ -4130,17 +4130,17 @@ bool DataBase::updateTo010()
 
     if (updateDBVersion(softVersion, "0.010"))
     {
-             //qDebug() << "DataBase::updateTo010: - We are in 010! " ;
+             //qDebug() <<  Q_FUNC_INFO << " -- We are in 010! " ;
         IAmIn010 = true;
     }
     else
     {
-             //qDebug() << "DataBase::updateTo010: - Failed to go to 010! " ;
+             //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 010! " ;
         IAmIn010 = false;
        // emit debugLog(Q_FUNC_INFO, "1", 7);
     }
 
-         //qDebug() << "DataBase::updateTo010: - END" ;
+         //qDebug() <<  Q_FUNC_INFO << " -- END" ;
     return IAmIn010;
 }
 
@@ -4687,7 +4687,7 @@ bool DataBase::updateTo011()
     // AS Propagation
 
 
-       //qDebug() << "DataBase::updateTo011: latestRead: " << getDBVersion() ;
+       //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn011 = false;
     bool IAmIn010 = false;
 
@@ -4696,36 +4696,36 @@ bool DataBase::updateTo011()
 
     //bool sqlOk = false;
     latestReaded = getDBVersion();
-       //qDebug() << "DataBase::updateTo011: Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) ;
+       //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << QString::number(latestReaded) << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.011f)
     {
-           //qDebug() << "DataBase::updateTo011: - I am in 011" ;
+           //qDebug() <<  Q_FUNC_INFO << " -- I am in 011" ;
         IAmIn011 = true;
         return true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo011: - I am not in 0.012 I am in: " << QString::number(latestReaded);
+           //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.012 I am in: " << QString::number(latestReaded);
         bool ErrorUpdating = false;
         while (!IAmIn010 && !ErrorUpdating)
         {
-               //qDebug() << "DataBase::updateTo011: - Check if I am in 010: !" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 010: !" ;
             IAmIn010 = updateTo010();
 
             if (IAmIn010)
             {
-                     //qDebug() << "DataBase::updateTo011: - updateTo010 returned TRUE - I am in 0.010: " << QString::number(latestReaded) ;
+                     //qDebug() <<  Q_FUNC_INFO << " -- updateTo010 returned TRUE - I am in 0.010: " << QString::number(latestReaded) ;
             }
             else
             {
-                   //qDebug() << "DataBase::updateTo011: - updateTo009 returned FALSE - I am NOT in 0.010: " << QString::number(latestReaded) ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- updateTo009 returned FALSE - I am NOT in 0.010: " << QString::number(latestReaded) ;
                 ErrorUpdating = false;
             }
         }
 
         if (ErrorUpdating)
         {
-                 //qDebug() << "DataBase::updateTo011: - I Could not update to: " << QString::number(dbVersion) ;
+                 //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -4733,14 +4733,14 @@ bool DataBase::updateTo011()
 
     if (!recreateSatelliteData())
     {
-           //qDebug() << "DataBase::updateTo011: - Sats update NOK " ;
+           //qDebug() <<  Q_FUNC_INFO << " -- Sats update NOK " ;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
 
     //if (!recreateTableDXCC())
     //{
-        //qDebug() << "DataBase::updateTo011: - recreateTable DXCC NOK " ;
+        //qDebug() <<  Q_FUNC_INFO << " -- recreateTable DXCC NOK " ;
        // emit debugLog(Q_FUNC_INFO, "3", 7);
     //    return false;
     //}
@@ -4748,7 +4748,7 @@ bool DataBase::updateTo011()
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
-           //qDebug() << "DataBase::updateTo011: - MSK NOK " ;
+           //qDebug() <<  Q_FUNC_INFO << " -- MSK NOK " ;
        // emit debugLog(Q_FUNC_INFO, "5", 7);
         return false;
     }
@@ -4756,23 +4756,23 @@ bool DataBase::updateTo011()
 
     if (!recreateTableLog())
     {
-           //qDebug() << "DataBase::updateTo011: - Failed to recreate Table Log " ;
+           //qDebug() <<  Q_FUNC_INFO << " -- Failed to recreate Table Log " ;
        // emit debugLog(Q_FUNC_INFO, "6", 7);
         return false;
     }
 
     if (updateDBVersion(softVersion, "0.011"))
     {
-           //qDebug() << "DataBase::updateTo011: - We are in 011! " ;
+           //qDebug() <<  Q_FUNC_INFO << " -- We are in 011! " ;
         IAmIn011 = true;
     }
     else
     {
-           //qDebug() << "DataBase::updateTo011: - Failed to go to 011! " ;
+           //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 011! " ;
         IAmIn011 = false;
     }
 
-       //qDebug() << "DataBase::updateTo011: - END" ;
+       //qDebug() <<  Q_FUNC_INFO << " -- END" ;
     if (!IAmIn011)
     {// emit debugLog(Q_FUNC_INFO, "8", 7);
     }
@@ -4787,37 +4787,37 @@ bool DataBase::updateTo012()
     // Solve the supportedContest table missing bug in some deployments
 
 
-           //qDebug() << "DataBase::updateTo012: latestRead: " << getDBVersion() ;
+           //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
         bool IAmIn011 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion();
-           //qDebug() << "DataBase::updateTo012: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+           //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
         if (latestReaded >= 0.012f)
         {
-               //qDebug() << "DataBase::updateTo012: - I am in 012" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am in 012" ;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo012: - I am not in 0.012 I am in: " << getDBVersion() ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.012 I am in: " << getDBVersion() ;
             while (!IAmIn011 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateTo012: - Check if I am in 011: !" ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 011: !" ;
                 IAmIn011 = updateTo011();
 
                 if (IAmIn011)
                 {
-                         //qDebug() << "DataBase::updateTo012: - updateTo011 returned TRUE - I am in 0.011: " << QString::number(latestReaded) ;
+                         //qDebug() <<  Q_FUNC_INFO << " -- updateTo011 returned TRUE - I am in 0.011: " << QString::number(latestReaded) ;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateTo012: - updateTo011 returned FALSE - I am NOT in 0.011: " << QString::number(latestReaded) ;
+                        //qDebug() <<  Q_FUNC_INFO << " -- updateTo011 returned FALSE - I am NOT in 0.011: " << QString::number(latestReaded) ;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateTo012: - I Could not update to: " << QString::number(dbVersion) ;
+                    //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
                 // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -4837,7 +4837,7 @@ bool DataBase::updateTo012()
                 }
                 else
                 {
-                       //qDebug() << "DataBase::updateTo012: UPDATED NOK-1!" ;
+                       //qDebug() <<  Q_FUNC_INFO << " -UPDATED NOK-1!" ;
                    // emit debugLog(Q_FUNC_INFO, "2", 7);
                    return false;
                 }
@@ -4849,7 +4849,7 @@ bool DataBase::updateTo012()
             {
                if (!recreateSupportedContest())
                {
-                      //qDebug() << "DataBase::updateTo012: UPDATED NOK-2!" ;
+                      //qDebug() <<  Q_FUNC_INFO << " -UPDATED NOK-2!" ;
                   // emit debugLog(Q_FUNC_INFO, "3", 7);
                    return false;
                }
@@ -4858,16 +4858,16 @@ bool DataBase::updateTo012()
 
         if (updateDBVersion(softVersion, "0.012"))
         {
-               //qDebug() << "DataBase::updateTo012: - We are in 012! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- We are in 012! " ;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo011: - Failed to go to 012! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 012! " ;
            // emit debugLog(Q_FUNC_INFO, "4", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo012: UPDATED OK!" ;
+           //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
         return true;
 }
 
@@ -4878,37 +4878,37 @@ bool DataBase::updateTo013()
     // Solve the supportedContest table missing bug in some deployments
 
 
-           //qDebug() << "DataBase::updateTo013: latestRead: " << getDBVersion() ;
+           //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
         bool IAmIn012 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion();
-           //qDebug() << "DataBase::updateTo013: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+           //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
         if (latestReaded >= 0.013f)
         {
-               //qDebug() << "DataBase::updateTo013: - I am in 013" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am in 013" ;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo013: - I am not in 0.013 I am in: " << getDBVersion() ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.013 I am in: " << getDBVersion() ;
             while (!IAmIn012 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateTo013: - Check if I am in 012: !" ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 012: !" ;
                 IAmIn012 = updateTo012();
 
                 if (IAmIn012)
                 {
-                         //qDebug() << "DataBase::updateTo013: - updateTo012 returned TRUE - I am in 0.012: " << QString::number(latestReaded) ;
+                         //qDebug() <<  Q_FUNC_INFO << " -- updateTo012 returned TRUE - I am in 0.012: " << QString::number(latestReaded) ;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateTo013: - updateTo011 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) ;
+                        //qDebug() <<  Q_FUNC_INFO << " -- updateTo011 returned FALSE - I am NOT in 0.012: " << QString::number(latestReaded) ;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateTo013: - I Could not update to: " << QString::number(dbVersion) ;
+                    //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -4939,16 +4939,16 @@ bool DataBase::updateTo013()
          }
         if (updateDBVersion(softVersion, "0.013"))
         {
-               //qDebug() << "DataBase::updateTo013: - We are in 013! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- We are in 013! " ;
         }
         else
         {
-               //qDebug() << "DataBase::updateTo013: - Failed to go to 013! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 013! " ;
            // emit debugLog(Q_FUNC_INFO, "5", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo013: UPDATED OK!" ;
+           //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
         return true;
 }
 
@@ -4959,37 +4959,37 @@ bool DataBase::updateTo014()
     // Updates the Satellite DB
 
 
-           //qDebug() << "DataBase::updateto014: latestRead: " << getDBVersion() ;
+           //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
         bool IAmIn013 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion();
-           //qDebug() << "DataBase::updateto014: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+           //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
         if (latestReaded >= 0.014f)
         {
-               //qDebug() << "DataBase::updateto014: - I am in 013" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am in 013" ;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - I am not in 0.013 I am in: " << getDBVersion() ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.013 I am in: " << getDBVersion() ;
             while (!IAmIn013 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateto014: - Check if I am in 013: !" ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 013: !" ;
                 IAmIn013 = updateTo013();
 
                 if (IAmIn013)
                 {
-                         //qDebug() << "DataBase::updateto014: - updateTo012 returned TRUE - I am in 0.013: " << QString::number(latestReaded) ;
+                         //qDebug() <<  Q_FUNC_INFO << " -- updateTo012 returned TRUE - I am in 0.013: " << QString::number(latestReaded) ;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateto014: - updateTo011 returned FALSE - I am NOT in 0.013: " << QString::number(latestReaded) ;
+                        //qDebug() <<  Q_FUNC_INFO << " -- updateTo011 returned FALSE - I am NOT in 0.013: " << QString::number(latestReaded) ;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateto014: - I Could not update to: " << QString::number(dbVersion) ;
+                    //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -5000,7 +5000,7 @@ bool DataBase::updateTo014()
 
         if (!recreateSatelliteData())
         {
-               //qDebug() << "DataBase::updateTo014: - Sats update NOK " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Sats update NOK " ;
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
@@ -5008,16 +5008,16 @@ bool DataBase::updateTo014()
 
         if (updateDBVersion(softVersion, "0.014"))
         {
-               //qDebug() << "DataBase::updateto014: - We are in 013! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- We are in 013! " ;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - Failed to go to 013! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 013! " ;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
 
-           //qDebug() << "DataBase::updateTo014: UPDATED OK!" ;
+           //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
         return true;
 }
 
@@ -5027,36 +5027,36 @@ bool DataBase::updateTo015()
     // Updates the DB to 0.015:
     // Adds the FT4 mode
 
-    //qDebug() << "DataBase::updateto015: latestRead: " << getDBVersion() ;
+    //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn014 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion();
-      //qDebug() << "DataBase::updateto015: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+      //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.015f)
     {
-          //qDebug() << "DataBase::updateto015: - I am in 013" ;
+          //qDebug() <<  Q_FUNC_INFO << " -- I am in 013" ;
         return true;
     }
     else
     {
-          //qDebug() << "DataBase::updateto014: - I am not in 0.014 I am in: " << getDBVersion() ;
+          //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.014 I am in: " << getDBVersion() ;
         while (!IAmIn014 && !ErrorUpdating)
         {
-              //qDebug() << "DataBase::updateto015: - Check if I am in 014: !" ;
+              //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 014: !" ;
             IAmIn014 = updateTo014();
             if (IAmIn014)
             {
-                  //qDebug() << "DataBase::updateto015: - updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) ;
+                  //qDebug() <<  Q_FUNC_INFO << " -- updateTo013 returned TRUE - I am in 0.014: " << QString::number(latestReaded) ;
             }
             else
             {
-                  //qDebug() << "DataBase::updateto015: - updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) ;
+                  //qDebug() <<  Q_FUNC_INFO << " -- updateTo011 returned FALSE - I am NOT in 0.014: " << QString::number(latestReaded) ;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-              //qDebug() << "DataBase::updateto015: - I Could not update to: " << QString::number(dbVersion) ;
+              //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -5067,26 +5067,26 @@ bool DataBase::updateTo015()
 
     if (updateTheModeTableAndSyncLog())
     {
-          //qDebug() << "DataBase::updateTo015: - updateTheModeTableAndSyncLog OK" ;
+          //qDebug() <<  Q_FUNC_INFO << " -- updateTheModeTableAndSyncLog OK" ;
     }
     else
     {
-          //qDebug() << "DataBase::updateTo015: UPDATED NOK!(9)" ;
+          //qDebug() <<  Q_FUNC_INFO << " -UPDATED NOK!(9)" ;
         //ErrorUpdating = true;
     }
 
 
     if (updateDBVersion(softVersion, "0.015"))
     {
-          //qDebug() << "DataBase::updateto015: - We are in 015! " ;
+          //qDebug() <<  Q_FUNC_INFO << " -- We are in 015! " ;
     }
     else
     {
-          //qDebug() << "DataBase::updateto015: - Failed to go to 014! " ;
+          //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 014! " ;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-      //qDebug() << "DataBase::updateTo015: UPDATED OK!" ;
+      //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
     return true;
 }
 
@@ -5096,37 +5096,37 @@ bool DataBase::updateTo016()
     // Updates the Satellite DB
 
 
-           //qDebug() << "DataBase::updateto016: latestRead: " << getDBVersion() ;
+           //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
         bool IAmIn015 = false;
         bool ErrorUpdating = false;
         latestReaded = getDBVersion();
-           //qDebug() << "DataBase::updateto016: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+           //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
         if (latestReaded >= 0.016f)
         {
-               //qDebug() << "DataBase::updateto016: - I am in 015" ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am in 015" ;
             return true;
         }
         else
         {
-               //qDebug() << "DataBase::updateto016: - I am not in 0.015 I am in: " << getDBVersion() ;
+               //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.015 I am in: " << getDBVersion() ;
             while (!IAmIn015 && !ErrorUpdating)
             {
-                   //qDebug() << "DataBase::updateto014: - Check if I am in 015: !" ;
+                   //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 015: !" ;
                 IAmIn015 = updateTo015();
 
                 if (IAmIn015)
                 {
-                         //qDebug() << "DataBase::updateto016: - updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) ;
+                         //qDebug() <<  Q_FUNC_INFO << " -- updateTo015 returned TRUE - I am in 0.015: " << QString::number(latestReaded) ;
                 }
                 else
                 {
-                        //qDebug() << "DataBase::updateto016: - updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) ;
+                        //qDebug() <<  Q_FUNC_INFO << " -- updateTo015 returned FALSE - I am NOT in 0.015: " << QString::number(latestReaded) ;
                     ErrorUpdating = false;
                 }
             }
             if (ErrorUpdating)
             {
-                    //qDebug() << "DataBase::updateto016: - I Could not update to: " << QString::number(dbVersion) ;
+                    //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
                // emit debugLog(Q_FUNC_INFO, "1", 7);
                 return false;
             }
@@ -5136,21 +5136,21 @@ bool DataBase::updateTo016()
 
         if (!recreateSatelliteData())
         {
-               //qDebug() << "DataBase::updateTo016: - Sats update NOK " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Sats update NOK " ;
            // emit debugLog(Q_FUNC_INFO, "2", 7);
             return false;
         }
         if (updateDBVersion(softVersion, "0.016"))
         {
-               //qDebug() << "DataBase::updateto014: - We are in 016! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- We are in 016! " ;
         }
         else
         {
-               //qDebug() << "DataBase::updateto014: - Failed to go to 016! " ;
+               //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 016! " ;
            // emit debugLog(Q_FUNC_INFO, "3", 7);
             return false;
         }
-           //qDebug() << "DataBase::updateTo016: UPDATED OK!" ;
+           //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
         return true;
 }
 
@@ -5159,36 +5159,36 @@ bool DataBase::updateTo017()
     // Updates the DB to 0.017:
     // Updates the Satellite DB
 
-    //qDebug() << "DataBase::updateto017: latestRead: " << getDBVersion() ;
+    //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn016 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion();
-    //qDebug() << "DataBase::updateto017: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+    //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.017f)
     {
-        //qDebug() << "DataBase::updateto017: - I am in 017" ;
+        //qDebug() <<  Q_FUNC_INFO << " -- I am in 017" ;
         return true;
     }
     else
     {
-        //qDebug() << "DataBase::updateto017: - I am not in 0.017 I am in: " << getDBVersion() ;
+        //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.017 I am in: " << getDBVersion() ;
         while (!IAmIn016 && !ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - Check if I am in 016: !" ;
+            //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 016: !" ;
             IAmIn016 = updateTo016();
             if (IAmIn016)
             {
-                //qDebug() << "DataBase::updateto017: - updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) ;
+                //qDebug() <<  Q_FUNC_INFO << " -- updateTo016 returned TRUE - I am in 0.016: " << QString::number(latestReaded) ;
             }
             else
             {
-                //qDebug() << "DataBase::updateto017: - updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) ;
+                //qDebug() <<  Q_FUNC_INFO << " -- updateTo016 returned FALSE - I am NOT in 0.016: " << QString::number(latestReaded) ;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - I Could not update to: " << QString::number(dbVersion) ;
+            //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -5280,17 +5280,17 @@ bool DataBase::updateTo017()
     {/*emit debugLog(Q_FUNC_INFO, "13", 7);*/return false;}
     if (!recreateTableLog())
     {
-        //qDebug() << "DataBase::updateTo017: - Failed to recreate Table Log " ;
+        //qDebug() <<  Q_FUNC_INFO << " -- Failed to recreate Table Log " ;
        // emit debugLog(Q_FUNC_INFO, "14", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo017: - Recreated Table Log " ;
+    //qDebug() <<  Q_FUNC_INFO << " -- Recreated Table Log " ;
 
     /*
 
     else
     {
-        //qDebug() << "DataBase::updateTo017: - Table log recreated OK" ;
+        //qDebug() <<  Q_FUNC_INFO << " -- Table log recreated OK" ;
     }
     */
 
@@ -5300,15 +5300,15 @@ bool DataBase::updateTo017()
     // If everything went OK, we update the DB number.
     if (updateDBVersion(softVersion, "0.017"))
     {
-        //qDebug() << "DataBase::updateto017: - We are in 017! " ;
+        //qDebug() <<  Q_FUNC_INFO << " -- We are in 017! " ;
     }
     else
     {
-        //qDebug() << "DataBase::updateto017: - Failed to go to 017! " ;
+        //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 017! " ;
        // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo017: UPDATED OK!" ;
+    //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
     return true;
 }
 
@@ -5317,36 +5317,36 @@ bool DataBase::updateTo018()
     // Updates the DB to 0.018:
     // Adds the Subdivisions
 
-    //qDebug() << "DataBase::updateto018: latestRead: " << getDBVersion() ;
+    //qDebug() <<  Q_FUNC_INFO << " -latestRead: " << getDBVersion() ;
     bool IAmIn017 = false;
     bool ErrorUpdating = false;
     latestReaded = getDBVersion();
-    //qDebug() << "DataBase::updateto018: Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
+    //qDebug() <<  Q_FUNC_INFO << " -Checking (latestRead/dbVersion):" << getDBVersion() << "/" << QString::number(dbVersion) ;
     if (latestReaded >= 0.018f)
     {
-        //qDebug() << "DataBase::updateto018: - I am in 018" ;
+        //qDebug() <<  Q_FUNC_INFO << " -- I am in 018" ;
         return true;
     }
     else
     {
-        //qDebug() << "DataBase::updateto018: - I am not in 0.018 I am in: " << getDBVersion() ;
+        //qDebug() <<  Q_FUNC_INFO << " -- I am not in 0.018 I am in: " << getDBVersion() ;
         while (!IAmIn017 && !ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto017: - Check if I am in 017: !" ;
+            //qDebug() <<  Q_FUNC_INFO << " -- Check if I am in 017: !" ;
             IAmIn017 = updateTo017();
             if (IAmIn017)
             {
-                //qDebug() << "DataBase::updateto018: - updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) ;
+                //qDebug() <<  Q_FUNC_INFO << " -- updateTo017 returned TRUE - I am in 0.017: " << QString::number(latestReaded) ;
             }
             else
             {
-                //qDebug() << "DataBase::updateto017: - updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) ;
+                //qDebug() <<  Q_FUNC_INFO << " -- updateTo017 returned FALSE - I am NOT in 0.017: " << QString::number(latestReaded) ;
                 ErrorUpdating = false;
             }
         }
         if (ErrorUpdating)
         {
-            //qDebug() << "DataBase::updateto018: - I Could not update to: " << QString::number(dbVersion) ;
+            //qDebug() <<  Q_FUNC_INFO << " -- I Could not update to: " << QString::number(dbVersion) ;
            // emit debugLog(Q_FUNC_INFO, "1", 7);
             return false;
         }
@@ -5367,15 +5367,15 @@ bool DataBase::updateTo018()
     // If everything went OK, we update the DB number.
     if (updateDBVersion(softVersion, "0.018"))
     {
-        //qDebug() << "DataBase::updateto018: - We are in 018! " ;
+        //qDebug() <<  Q_FUNC_INFO << " -- We are in 018! " ;
     }
     else
     {
-        //qDebug() << "DataBase::updateto018: - Failed to go to 018! " ;
+        //qDebug() <<  Q_FUNC_INFO << " -- Failed to go to 018! " ;
        // emit debugLog(Q_FUNC_INFO, "15", 7);
         return false;
     }
-    //qDebug() << "DataBase::updateTo018: UPDATED OK!" ;
+    //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
     return true;
 }
 
@@ -5655,6 +5655,32 @@ bool DataBase::updateTo026()
         return false;
     //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.026");
+}
+
+bool DataBase::updateTo027()
+{
+    // Updates the DB to 0.027:
+    // Recreates entity log to adjust the type for several numeral
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    latestReaded = getDBVersion();
+    if (latestReaded >= 0.027f)
+    {
+        //qDebug() << Q_FUNC_INFO << " - I am in 027" ;
+        return true;
+    }
+    //qDebug() << Q_FUNC_INFO << " - 10" ;
+    if (!updateTo026())
+        return false;
+FALLAR
+    // Start executing the code to update to this version
+    if (!recreateTableLog())
+    {
+        return false;
+    }
+
+    // Modify the DB version
+    //qDebug() << Q_FUNC_INFO << " - 50" ;
+    return updateDBVersion(softVersion, "0.027");
 }
 
 int DataBase::getNumberOfQsos(const int _logNumber)

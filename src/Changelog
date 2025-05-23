@@ -1,7 +1,11 @@
 WIP: LoTW confirmations are not correctly imported to logbook.dat #798
+TODO: Check DISTANCE on ADIF EXPORT
+CHECK TYPES: Distance should be a double but it is an int or String in some functions
+
 
 -TODO: When downloading from LoTW, if there is no QSOs in the log the message that is shown appears ()
 TBD 2025 - 2.4.2
+- Enhancement: Updated some DataBase fields to match ADIF definition better.
 - Enhancement: Sevral refactors & optimization: ADIF import/export
 - Removed references to the www.klog.xyz
 - BugFix: Dates in eQSL tab are not correctly displayed. (Closes #799)

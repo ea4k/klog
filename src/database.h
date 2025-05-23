@@ -143,6 +143,7 @@ private:
     bool updateTo024(); // Fixes the entity table fixinf the DL id
     bool updateTo025(); // Adds modes from ADIF 3.1.3
     bool updateTo026(); // KLog-2.4: Recreates entity to make UTC a real & add new ADIF fields
+    bool updateTo027(); // KLog-2.4.2: Recreates entity to make UTC a real & add new ADIF fields
 
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);

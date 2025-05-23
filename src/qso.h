@@ -252,8 +252,8 @@ public:
     QString getClass() const;
     bool setContinent(const QString &_c);
     QString getContinent() const;
-    bool setDistance(const double _i);
-    double getDistance() const;
+    bool setDistance(const double _i);          // In Km
+    double getDistance() const;                 // In Km
     bool setOwnerCallsign(const QString &_c);
     QString getOwnerCallsign() const;
     bool setEQ_Call(const QString &_c); // Contacted station owner
@@ -499,7 +499,7 @@ private:
     bool setAnt_az(const QString &data);
     bool setAnt_el(const QString &data);
     bool setCQZone(const QString &data);
-    bool setDistance(const QString &data);
+    bool setDistance(const QString &data);      // In Km
     bool setDXCC(const QString &data);
     bool setFists(const QString &data);
     bool setFistsCC(const QString &data);

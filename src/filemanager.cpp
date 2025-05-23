@@ -725,21 +725,16 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
     return adifReadLog2(fileName, stationCallSign, logN);
 }
 
-
 bool FileManager::isALoTWDownloadedFile(QFile & _f)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
-    //QFile &file = _f;
-    //if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    //{
-        //qDebug() << Q_FUNC_INFO << " - File not found";
-    //    return false;
-    //}
+
     QString programId = getProgramID(_f);
-    if (programId.length()<0)
-        return false;
-    return true;
+    if (programId == "LOTW")
+        return true;
+
+    return false;
     //QString line = file.readLine().trimmed();
     //bool isLoTWFile = (line == QString("ARRL Logbook of the World Status Report"));
 
@@ -858,11 +853,10 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     {
         qso.setStationCallsign(_stationCallsign);
     }
-//EA4K
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
-        qDebug() << Q_FUNC_INFO << " - Running LoTW update ode";
+        qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
         int bandId = dataProxy->getIdFromBandName(qso.getBand());
         int modeId = dataProxy->getIdFromModeName(qso.getMode());
         qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);

@@ -697,6 +697,7 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
     if (fieldN == "DISTANCE" )
         if (_data.toDouble() <= 0.0)
             return QString();
+
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 
