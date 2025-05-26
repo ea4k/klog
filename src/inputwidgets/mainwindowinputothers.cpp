@@ -58,7 +58,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
     //connect(satTabWidget, SIGNAL(setPropModeSat(QString)), this, SLOT(slotSetPropMode(QString)) ) ;
     connect(entityNameComboBox,             SIGNAL(currentIndexChanged(int)),   this, SLOT(slotEntityNameComboBoxChanged() ) ) ;
     connect(propModeComboBox,               SIGNAL(currentIndexChanged(int)),   this, SLOT(slotPropModeComboBoxChanged() ) ) ;
-    connect(userDefinedADIFComboBox,        SIGNAL(currentIndexChanged(int)),   this, SLOT(slotUSerDefinedADIFComboBoxChanged() ) ) ;
+    connect(userDefinedADIFComboBox,        SIGNAL(currentIndexChanged(int)),   this, SLOT(slotUserDefinedADIFComboBoxChanged() ) ) ;
     connect(userDefinedADIFValueLineEdit,   SIGNAL(textChanged(QString)),       this, SLOT(slotSetCurrentUserData() ) );
     connect(entityPrimDivComboBox,          SIGNAL(currentIndexChanged(int)),   this, SLOT(slotPrimarySubdivisionsComboBoxChanged()) )  ;
     connect(showAllCheckBox,                SIGNAL(stateChanged(int)),          this, SLOT(slotShowAllCheckBoxChanged() ) ) ;
@@ -87,6 +87,7 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
     qso.setAge(getAge());
     qso.setDistance(getDistance());
     qso.setSIG(getSIG());
+    //qDebug() << Q_FUNC_INFO << " - AGE stored" << qso.getAge();
     qso.setSIG_INFO(getSIG_INFO());
     qso.setVUCCGrids(getVUCCGrids());
     qso.setWWFF_Ref(getWWFF_Ref());
@@ -551,7 +552,7 @@ bool MainWindowInputOthers::setPOTA_REF(const QString &_op)
     if (!adif.isValidPOTA(_op))
         return false;
     pota_ref = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -571,7 +572,7 @@ bool MainWindowInputOthers::setSIG(const QString &_op)
     if (_op.length()<=0)
         return false;
     sig = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -591,7 +592,7 @@ bool MainWindowInputOthers::setSIG_INFO(const QString &_op)
     if (_op.length()<=0)
         return false;
     sig_info = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -612,7 +613,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
     if (!adif.isValidWWFF_Ref(_op))
         return false;
     wwff_ref = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -673,7 +674,7 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
     logEvent (Q_FUNC_INFO, "Start", Debug);
     int value = (((userDefinedADIFComboBox->currentText ()).split('-')).at(0)).toInt ();
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
+
     switch (value)
     {
     case 1:
@@ -917,7 +918,7 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainWindowInputOthers::slotUSerDefinedADIFComboBoxChanged()
+void MainWindowInputOthers::slotUserDefinedADIFComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -966,7 +967,7 @@ bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
     if (checkVUCC_GRIDS(_op))
     {
         vucc_grids = _op;
-        slotUSerDefinedADIFComboBoxChanged();
+        slotUserDefinedADIFComboBoxChanged();
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return true;
     }
@@ -1026,7 +1027,7 @@ bool MainWindowInputOthers::setSOTA(const QString &_op)
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     sota_ref = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -1043,7 +1044,7 @@ bool MainWindowInputOthers::setAge(const double _op)
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     age = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -1051,6 +1052,7 @@ bool MainWindowInputOthers::setAge(const double _op)
 double MainWindowInputOthers::getAge()
 {
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
+    //qDebug() << Q_FUNC_INFO << ": " << age;
     return age;
 }
 
@@ -1059,7 +1061,7 @@ bool MainWindowInputOthers::setDistance(const double _op)
     //qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     distance = _op;
-    slotUSerDefinedADIFComboBoxChanged();
+    slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }

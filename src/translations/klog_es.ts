@@ -5555,7 +5555,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1541"/>
         <source>My SOTA</source>
-        <translation>Mi OTA</translation>
+        <translation>Mi SOTA</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1546"/>

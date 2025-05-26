@@ -112,6 +112,21 @@ void tst_QSO::setQSOData()
     qso->setComment("This is a comment");
     qso->setKeepComment(true);
 
+    qso->setAnt_az(33.0);
+    qso->setAnt_el(25.0);
+    qso->setA_Index(5.0);
+    qso->setMaxBursts(5);
+    qso->setMyDXCC(280);
+    qso->setNrBursts(10);
+    qso->setNrPings(10);
+    qso->setTenTen(10);
+    qso->setUksmg(10);
+    qso->setIotaID(10);
+
+    //ant_az, a_index, ant_el, max_bursts, my_dxcc, nr_bursts, nr_pings
+    //ten_ten, usksmg
+    //iota_ID
+
     /*
 
     qso->setClubLogDate(const QDate &_c);
@@ -309,7 +324,7 @@ void  tst_QSO::test_ModeManagement()
 void tst_QSO::test_dataEntry()
 {
     qso->clear();
-    qDebug() << Q_FUNC_INFO << qso->getFreqRX();
+    //qDebug() << Q_FUNC_INFO << qso->getFreqRX();
     QVERIFY2(qso->getFreqRX() == -1, "Wrong FreqRX");
     QVERIFY2(qso->getFreqTX() == -1, "Wrong FreqTX");
     QVERIFY2(qso->setPrefix("EA4"), "Error while setting Prefix");
@@ -330,6 +345,32 @@ void tst_QSO::test_dataEntry()
     QVERIFY2(qso->getGridSquare() == "IN80", "Error while reading GridSquare");
     QVERIFY2(qso->setMyGridSquare("IM88"), "Error while setting GridSquare");
     QVERIFY2(qso->getMyGridSquare() == "IM88", "Error while reading GridSquare");
+
+    QVERIFY2(qso->setAge(33.0), "Error while setting AGE");
+    QVERIFY2(qso->getAge() == 33.0, "Error while reading AGE");
+    QVERIFY2(qso->setDistance(33.0), "Error while setting Distance");
+    QVERIFY2(qso->getDistance() == 33.0, "Error while reading Distance");
+
+    QVERIFY2(qso->setAnt_az(33.0), "Error while setting ANT_AZ");
+    QVERIFY2(qso->getAnt_az() == 33.0, "Error while reading ANT_AZ");
+    QVERIFY2(qso->setAnt_el(25.0), "Error while setting ANT_EL");
+    QVERIFY2(qso->getAnt_el() == 25.0, "Error while reading ANT_EL");
+    QVERIFY2(qso->setA_Index(5.0), "Error while setting A_INDEX");
+    QVERIFY2(qso->getA_Index() == 5.0, "Error while reading A_INDEX");
+    QVERIFY2(qso->setMaxBursts(5), "Error while setting Max Bursts");
+    QVERIFY2(qso->getMaxBursts() == 5, "Error while reading Max Bursts");
+    QVERIFY2(qso->setMyDXCC(280), "Error while setting My DXCC");
+    QVERIFY2(qso->getMyDXCC() == 280, "Error while reading My DXCC");
+    QVERIFY2(qso->setNrBursts(10), "Error while setting NR Bursts");
+    QVERIFY2(qso->getNrBursts() == 10, "Error while reading NR Bursts");
+    QVERIFY2(qso->setNrPings(10), "Error while setting NR Pings");
+    QVERIFY2(qso->getNrPings() == 10, "Error while reading NR Pings");
+    QVERIFY2(qso->setTenTen(10), "Error while setting TenTen");
+    QVERIFY2(qso->getTenTen() == 10, "Error while reading TenTen");
+    QVERIFY2(qso->setUksmg(10), "Error while setting UKSMG");
+    QVERIFY2(qso->getUksmg() == 10, "Error while reading UKSMG");
+    QVERIFY2(qso->setIotaID(10), "Error while setting IOTA-ID");
+    QVERIFY2(qso->getIotaID() == 10, "Error while reading IOTA-ID");
 
 
     qso->setLogLevel(Info);
@@ -376,11 +417,13 @@ void tst_QSO::test_AdifCreation()
 void tst_QSO::test_Copy()
 {
     QSO qso1;
+    qso1.clear();
     qso1.setCall("EA4K");
     qso1.setMyCity("Madrid");
     qso1.setComment("QSO1-comment");
     QSO qso2(qso1);
     QSO qso3;
+    qso3.clear();
     qso3.copy(qso1);
     //qDebug() << Q_FUNC_INFO << " -1- " << qso1.getCall();
     //qDebug() << Q_FUNC_INFO << " -2- " << qso2.getCall();

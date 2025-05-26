@@ -320,8 +320,8 @@ public:
 
     //void getFoundInLog(const QString &_txt, const int _log=-1);
     //KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
-    QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // To refactor the getADIFFromQSOQuery function
-    QString getADIFFromQSOQuery(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
+    KLOG_DEPRECATED QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // Should be optimized to qso::fromDB / qso::getADIF
+    KLOG_DEPRECATED QString getADIFFromQSOQuery(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1); // Should be optimized to qso::fromDB / qso::getADIF
     //QString getADIFFromQSOQuery2(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
 
     bool showInvalidCallMessage(const QString &_call);

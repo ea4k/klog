@@ -33,6 +33,7 @@ QSO::QSO(QObject *parent)
 {
     //startT = QTime::currentTime();
    //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+    clear();
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
@@ -184,7 +185,8 @@ QSO::QSO(const QSO &other)
     qslVia = other.qslVia;
     qso_complete = other.qso_complete;
     qso_dateTime = other.qso_dateTime;
-    qso_date_off = other.qso_date_off;
+    //qso_date_off = other.qso_date_off;
+    qso_dateTime_off = other.qso_dateTime_off;
     qso_random = other.qso_random;
     qth = other.qth;
     region = other.region;
@@ -208,7 +210,7 @@ QSO::QSO(const QSO &other)
     submode = other.submode;
     swl = other.swl;
     ten_ten = other.ten_ten;
-    qso_time_off = other.qso_time_off;
+    //qso_time_off = other.qso_time_off;
     pwr_tx = other.pwr_tx;
     uksmg = other.uksmg;
     usaca_counties = other.usaca_counties;
@@ -363,14 +365,15 @@ void QSO::operator=(QSO const &_other)
     my_usaca_counties   = _other.my_usaca_counties;
     my_wwff_ref     = _other.my_wwff_ref;
 
-    qso_time_off    = _other.qso_time_off;
+    //qso_time_off    = _other.qso_time_off;
     qso_dateTime    = _other.qso_dateTime;
 
     QSLRDate        = _other.QSLRDate;
     QSLSDate        = _other.QSLSDate;
     QSLLoTWRDate    = _other.QSLLoTWRDate;
     QSLLoTWSDate    = _other.QSLLoTWSDate;
-    qso_date_off    = _other.qso_date_off;
+    //qso_date_off    = _other.qso_date_off;
+    qso_dateTime_off    = _other.qso_dateTime_off;
     eQSLRDate       = _other.eQSLRDate;
     eQSLSDate       = _other.eQSLSDate;
     clublogQSOUpdateDate    = _other.clublogQSOUpdateDate;
@@ -544,7 +547,7 @@ bool QSO::copy(const QSO& other)
     setQSLVia(other.qslVia);
     setQSOComplete(other.qso_complete);
     setDateTimeOn(other.qso_dateTime);
-    setDateOff(other.qso_date_off);
+    setDateOff(other.qso_dateTime_off.date());
     setQSORandom(other.qso_random);
     setQTH(other.qth);
     setRegion(other.region);
@@ -570,7 +573,7 @@ bool QSO::copy(const QSO& other)
     setSubmode(other.submode);
     setSwl(other.swl);
     setTenTen(other.ten_ten);
-    setTimeOff(other.qso_time_off);
+    setTimeOff(other.qso_dateTime_off.time());
 
     setTXPwr(other.pwr_tx);
     setUksmg(other.uksmg);
@@ -641,9 +644,9 @@ void QSO::clear()
 
     // VARIABLES for ADIF //////////
     address = QString();
-    age = -1;
-    altitude = 0;
-    a_index = -1;
+    age = -1.0;
+    altitude = 0.0;
+    a_index = -1.0;
     ant_az = -91.0;
     ant_el = -91.0;
     ant_path = QString();
@@ -667,7 +670,7 @@ void QSO::clear()
     credit_granted = QString();
     credit_submitted = QString();
     darc_dok = QString();
-    distance = -1;
+    distance = -1.0;
     dxcc = 0;
     email = QString();
     ownerCall = QString();
@@ -753,9 +756,10 @@ void QSO::clear()
     qslSenVia = QString();
     qslRecVia = QString();
     qslVia = QString();
-    qso_complete = qso_complete = util->getQSO_CompleteFromADIF("Y");
+    qso_complete = "Y";
     qso_dateTime = QDateTime();
-    qso_date_off = QDate();
+    //qso_date_off = QDate();
+    qso_dateTime_off = QDateTime();
     qso_random = true;
     qth = QString();
     region = QString();
@@ -779,7 +783,7 @@ void QSO::clear()
     submode = QString();
     swl = false;
     ten_ten = 0;
-    qso_time_off = QTime();
+    //qso_time_off = QTime();
     pwr_tx = 0.0;
     uksmg = 0;
     usaca_counties = QString();
@@ -1049,42 +1053,65 @@ QDate QSO::getDate() const
     return qso_dateTime.date();
 }
 
-bool QSO::setDateOff(const QDate &_c)
+bool QSO::setDateTimeOff(const QDateTime &_c)
 {
     if (_c.isValid())
     {
-        qso_date_off = _c;
+        qso_dateTime_off = _c;
         return true;
     }
     else
     {
-        qso_date_off = QDate();
+        return false;
+    }
+}
+
+QDateTime QSO::getDateTimeOff() const
+{
+    return qso_dateTime_off;
+}
+
+bool QSO::setDateOff(const QDate &_c)
+{
+    if (_c.isValid())
+    {
+
+        //qso_date_off = _c;
+        qso_dateTime_off.setDate(_c);
+        return true;
+    }
+    else
+    {
+        //qso_date_off = QDate();
+        qso_dateTime_off.setDate(QDate());
         return false;
     }
 }
 
 QDate QSO::getDateOff() const
 {
-    return qso_date_off;
+    return qso_dateTime_off.date();
 }
 
 bool QSO::setTimeOff(const QTime &_c)
 {
     if (_c.isValid())
     {
-        qso_time_off = _c;
+        //qso_time_off = _c;
+        qso_dateTime_off.setTime(_c);
         return true;
     }
     else
     {
-        qso_time_off = QTime();
+        //qso_time_off = QTime();
+        qso_dateTime_off.setTime(QTime());
         return false;
     }
 }
 
 QTime QSO::getTimeOff() const
 {
-    return qso_time_off;
+    return qso_dateTime_off.time();
 }
 
 bool QSO::setTimeOn(const QTime &_c)
@@ -1108,6 +1135,7 @@ QTime QSO::getTimeOn() const
 {
     return qso_dateTime.time();
 }
+
 
 bool QSO::setDateTimeOn(const QDateTime &_c)
 {
@@ -1693,7 +1721,7 @@ QString QSO::getRSTTX() const
 
 bool QSO::setRXPwr(const double _f)
 {
-    if (_f>0)
+    if (_f>0.0)
     {
         pwr_rx = _f;
         return true;
@@ -1879,12 +1907,14 @@ QString QSO::getPOTA_Ref()
 bool QSO::setAge(const double _c)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _c;
-    if ((0 >= _c) && (_c <= 120))
+    if ((_c > 0.0) && (_c <= 120.0))
     {
         age = _c;
+        //qDebug() << Q_FUNC_INFO << "  Stored OK: " << age;
         return true;
     }
     age = -1;
+    //qDebug() << Q_FUNC_INFO << "  Stored NOK: " << age;
     return false;
 }
 
@@ -1902,7 +1932,6 @@ bool QSO::setAltitude(const double _c)
     }
     altitude = 0.0;
     return false;
-
 }
 
 double QSO::getAltitude() const
@@ -1948,7 +1977,7 @@ bool QSO::getKeepOthers()
 bool QSO::setTXPwr(double _f)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_f>0)
+    if (_f>0.0)
     {
         pwr_tx = _f;
         logEvent (Q_FUNC_INFO, "END - True", Debug);
@@ -2127,18 +2156,18 @@ QString QSO::getAddress() const
     return address;
 }
 
-bool QSO::setA_Index(const int _i)
+bool QSO::setA_Index(const double _i)
 {
     if (adif->isValidA_Index(_i))
     {
         a_index = _i;
         return true;
     }
-    a_index = 0;
+    a_index = 0.0;
     return false;
 }
 
-int QSO::getA_Index() const
+double QSO::getA_Index() const
 {
     return a_index;
 }
@@ -2146,19 +2175,16 @@ int QSO::getA_Index() const
 
 bool QSO::setAnt_az(const double _c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c;
-    if (_c < 0.0 || _c > 360.0)
-    {
-        // Normalize the value to fit within the range 0 to 360
-        ant_az = fmod((_c + 360.0), 360.0);
-    }
-    else
-    {
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    if (_c >= 0.0 && _c <= 360.0) {
         ant_az = _c;
+        return true;
     }
-
-    // Ensure the value is valid and has been set
-    return (ant_az >= 0.0 && ant_az <= 360.0);
+    // Normalize to [0, 360)
+    ant_az = std::fmod(_c, 360.0);
+    if (ant_az < 0.0)
+        ant_az += 360.0;
+    return (ant_az >= 0.0 && ant_az < 360.0); // 360.0 is only valid as direct input, never via normalization
 }
 
 double QSO::getAnt_az() const
@@ -2168,7 +2194,7 @@ double QSO::getAnt_az() const
 
 bool QSO::setAnt_el(const double _c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (_c >= -90.0 && _c <= 90.0)
     {
         // Value is within range, directly store it
@@ -2265,11 +2291,11 @@ QString QSO::getContinent() const
 
 bool QSO::setDistance(const double _i)
 {// In Km
-    qDebug() << Q_FUNC_INFO << ": " << _i;
+    //qDebug() << Q_FUNC_INFO << ": " << _i;
     if (adif->isValidDistance(_i))
     {
         distance = _i;
-        qDebug() << Q_FUNC_INFO << ": " << distance;
+        //qDebug() << Q_FUNC_INFO << ": " << distance;
         return true;
     }
     distance = 0.0;
@@ -2770,12 +2796,19 @@ QString QSO::getMsShower() const
 bool QSO::setQSOComplete(const QString &_c)
 { // Y, N, I, ? are the valid chars.
     // Here we store the short version just for the DB
-    // If we need to export it to ADIF, we need to call util->getADIFQSO_CompleteFromDB()
+    // If we need to export it to ADIF, we need to call adif->getADIFQSO_CompleteFromDB()
     Adif adif(Q_FUNC_INFO);
-    qso_complete = adif.getQSO_COMPLETEFromDB(_c);
-    //qso_complete = util->getQSO_CompleteFromADIF(_c);
+    if (adif.isValidQSO_COMPLETE(_c))
+    {
+        qso_complete = _c;
+        return true;
+    }
+    else
+    {
+        qso_complete.clear();
+        return false;
+    }
     //qDebug() << Q_FUNC_INFO << ": " << qso_complete;
-    return true;
 }
 
 QString QSO::getQSOComplete() const
@@ -2796,8 +2829,13 @@ bool QSO::getQSORandom() const
 
 bool QSO::setMyAltitude(const double _c)
 {
-    my_altitude = _c;
-    return true;
+    if (_c>=0)
+    {
+        my_altitude = _c;
+        return true;
+    }
+    my_altitude = 0.0;
+    return false;
 }
 
 double QSO::getMyAltitude() const
@@ -2861,8 +2899,10 @@ int QSO::getMyCQZone() const
 
 bool QSO::setMyDXCC(const int _i)
 {
+    //qDebug() << Q_FUNC_INFO << ": " << _i;
     if (util->isValidDXCC(_i))
     {
+        //qDebug() << Q_FUNC_INFO << ": " << _i;
         my_dxcc = _i;
         return true;
     }
@@ -3638,13 +3678,13 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
 bool QSO::updateFromLoTW(const int _qsoId)
 {
     //CALL, BAND, FREQ, QSODATE, MODE
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
     // Start by finding the QSO ID
     if (!lotwUpdating)
         return false;
     if (_qsoId <= 0)
         return false;
-    qDebug() << Q_FUNC_INFO << " - Backup...";
+    //qDebug() << Q_FUNC_INFO << " - Backup...";
     // Backup data coming from LoTW
     QDate lotwRX                = getLoTWQSLRDate();
     QDate lotwTX                = getLoTWQSLSDate();
@@ -3662,11 +3702,11 @@ bool QSO::updateFromLoTW(const int _qsoId)
     QString _vucc               = getVUCCGrids();
     QString _state              = getState();
 
-    qDebug() << Q_FUNC_INFO << " - Recovering...";
+    //qDebug() << Q_FUNC_INFO << " - Recovering...";
     // Recover the data from the log for the QSO
     if (fromDB(_qsoId))
         return false;
-    qDebug() << Q_FUNC_INFO << " - Updating...";
+    //qDebug() << Q_FUNC_INFO << " - Updating...";
     // Update the QSO fields from LoTW data
     if (lotwRX.isValid() && util->isValidQSL_Rcvd(_qsl_rcvd)) {
         setLoTWQSLRDate(lotwRX);
@@ -3710,7 +3750,7 @@ bool QSO::updateFromLoTW(const int _qsoId)
     if (!_state.isEmpty())
         setState(_state);
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
@@ -4237,7 +4277,8 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":qsl_rcvd_via", getQSLRecVia());
     query.bindValue(":qsl_sent_via", getQSLSentVia());
     query.bindValue(":qsl_via", getQSLVia());
-    query.bindValue(":qso_complete", getQSOComplete());
+    if (adif->isValidQSO_COMPLETE(getQSOComplete()))
+        query.bindValue(":qso_complete", adif->setQSO_COMPLETEToDB(getQSOComplete()));
     query.bindValue(":qso_random", util->boolToCharToSQLite (getQSORandom()));
     query.bindValue(":qth", getQTH());
     query.bindValue(":region", getRegion ());
@@ -4276,7 +4317,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     if (adif->isValidPower(getTXPwr()))
         query.bindValue(":tx_pwr", getTXPwr());
     query.bindValue(":web", getWeb());
-    query.bindValue(":qso_date_off", util->getDateSQLiteStringFromDate(getDateOff()));
+    query.bindValue(":qso_date_off", util->getDateTimeSQLiteStringFromDateTime(getDateTimeOff()));
     query.bindValue(":lognumber", getLogId());
 
     //QVariantList list = query.boundValues();
@@ -4298,9 +4339,16 @@ QString QSO::getADIF()
     if (!qso_dateTime.isValid())
         return QString();
     adifStr.append(adif->getADIFField ("QSO_DATE",  util->getADIFDateFromQDateTime(qso_dateTime)));
-    adifStr.append(adif->getADIFField ("QSO_DATE_OFF",  util->getADIFDateFromQDate(qso_date_off)));
     adifStr.append(adif->getADIFField ("TIME_ON",  util->getADIFTimeFromQDateTime(qso_dateTime)));
-    adifStr.append(adif->getADIFField ("TIME_OFF",  util->getADIFTimeFromQTime(qso_time_off)));
+
+    if (qso_dateTime_off.isValid())
+    {
+        if (qso_dateTime_off.date() != qso_dateTime.date())
+            adifStr.append(adif->getADIFField ("QSO_DATE_OFF",  util->getADIFDateFromQDate(qso_dateTime_off.date())));
+        if (qso_dateTime_off.time() != qso_dateTime.time())
+            adifStr.append(adif->getADIFField ("TIME_OFF",  util->getADIFTimeFromQTime(qso_dateTime_off.time())));
+    }
+
     adifStr.append(adif->getADIFField ("RST_RCVD", RST_rx));
     adifStr.append(adif->getADIFField ("RST_SENT",  RST_tx));
     adifStr.append(adif->getADIFField ("BAND",  band));
@@ -4331,7 +4379,8 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("ANT_AZ",  QString::number(ant_az)));
     if ((adif->isValidAnt_EL(ant_el)) && (ant_el!=0.0) )
         adifStr.append(adif->getADIFField ("ANT_EL",  QString::number(ant_el)));
-    adifStr.append(adif->getADIFField ("ANT_PATH", ant_path));
+    if (adif->isValidAntPath(getAnt_Path()))
+        adifStr.append(adif->getADIFField ("ANT_PATH", getAnt_Path()));
     adifStr.append(adif->getADIFField ("ARRL_SECT", arrl_sect ));
     adifStr.append(adif->getADIFField ("AWARD_SUBMITTED",  award_submitted));
     adifStr.append(adif->getADIFField ("AWARD_GRANTED",  award_granted));
@@ -4417,7 +4466,8 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("max_bursts", QString::number(getMaxBursts()) ));
 
     adifStr.append(adif->getADIFField ("ms_shower",  ms_shower));
-    adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
+    if (getMyAltitude() != 0)
+        adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
     adifStr.append(adif->getADIFField ("my_antenna", my_antenna));
     adifStr.append(adif->getADIFField ("my_arrl_sect", my_arrl_sect ));
     adifStr.append(adif->getADIFField ("my_city", my_city));
@@ -4491,10 +4541,11 @@ QString QSO::getADIF()
     if (getQSL_SENT()=="Y")                // Valid case to use qslsentVia
         adifStr.append(adif->getADIFField ("qsl_sent_via", qslSenVia));
     adifStr.append(adif->getADIFField ("qsl_via", qslVia));
-    adifStr.append(adif->getADIFField ("qso_complete", util->getADIFQSO_CompleteFromDB(getQSOComplete())));
+    if (getQSOComplete() != "Y")
+        adifStr.append(adif->getADIFField ("qso_complete", getQSOComplete()));
 
     //TODO: Check wether it makes sense to use this field for ALL QSOs or just when it is not random.
-    if (getQSORandom())
+    if (!getQSORandom())
         adifStr.append(adif->getADIFField ("qso_random", adif->getADIFBoolFromBool(getQSORandom())));
 
     adifStr.append(adif->getADIFField ("qth", qth));
@@ -4516,10 +4567,10 @@ QString QSO::getADIF()
 
     adifStr.append(adif->getADIFField ("sota_ref", sota_ref));
     adifStr.append(adif->getADIFField ("srx_string", srx_string));
-    if (adif->isValidSRX(srx))
+    if ((adif->isValidSRX(srx)) && (srx>0))
         adifStr.append(adif->getADIFField ("srx", QString::number(srx)));
     adifStr.append(adif->getADIFField ("stx_string", stx_string));
-    if (adif->isValidSTX(stx))
+    if ((adif->isValidSTX(stx)) && (stx > 0))
         adifStr.append(adif->getADIFField ("stx", QString::number(stx)));
 
     adifStr.append(adif->getADIFField ("state", state));
@@ -4660,9 +4711,9 @@ bool QSO::fromDB(int _qsoId)
     setAltitude((query.value(rec.indexOf("altitude"))).toDouble());
     setCounty((query.value(rec.indexOf("cnty"))).toString());
 
-    setA_Index((query.value(rec.indexOf("a_index"))).toInt());
+    setA_Index((query.value(rec.indexOf("a_index"))).toDouble());
     setAnt_az((query.value(rec.indexOf("ant_az"))).toDouble());
-    setAnt_el((query.value(rec.indexOf("ant_el"))).toDouble());
+    setAnt_el((query.value(rec.indexOf("ant_el"))).toDouble());    
     setAnt_Path((query.value(rec.indexOf("ant_path"))).toString());
 
     setARRL_Sect((query.value(rec.indexOf("arrl_sect"))).toString());
@@ -4804,7 +4855,8 @@ bool QSO::fromDB(int _qsoId)
     setQSLSenVia((query.value(rec.indexOf("qsl_sent_via"))).toString());
 
     setQSLVia((query.value(rec.indexOf("qsl_via"))).toString());
-    setQSOComplete((query.value(rec.indexOf("qso_complete"))).toString());
+
+    setQSOComplete(adif->getQSO_COMPLETEFromDB((query.value(rec.indexOf("qso_complete"))).toString()));
     setQSORandom(util->QStringToBool((query.value(rec.indexOf("qso_random"))).toString()));
     //qDebug() << Q_FUNC_INFO << "  - 120";
     setQTH((query.value(rec.indexOf("qth"))).toString());
@@ -4842,8 +4894,10 @@ bool QSO::fromDB(int _qsoId)
     setRXPwr((query.value(rec.indexOf("rx_pwr"))).toDouble());
     //qDebug() << Q_FUNC_INFO << "  - 140";
     setWeb((query.value(rec.indexOf("web"))).toString());
+
     data = (query.value(rec.indexOf("qso_date_off"))).toString();
-    setDateOff(util->getDateFromSQliteString(data));
+    setDateTimeOff(util->getDateTimeFromSQLiteString(data));
+
     setLogId((query.value(rec.indexOf("lognumber"))).toInt());
     //qDebug() << Q_FUNC_INFO << "  - 150";
     logEvent (Q_FUNC_INFO, "END", Debug);

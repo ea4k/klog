@@ -32,6 +32,7 @@
 #include <QSqlError>
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
+#include "adif.h"
 
 
 class LogModel : public QSqlRelationalTableModel
@@ -41,13 +42,14 @@ public:
     LogModel(DataProxy_SQLite *dp, QObject *parent);
     bool createlogModel(const int _i);
     bool setColumns(const QStringList &_columns);
+    QVariant data(const QModelIndex &index, int role) const;
 
 private:
-    //void showColumn(const QString &_columnName);
-
-    //QSqlRelationalTableModel *logModel;
     DataProxy_SQLite *dataProxy;
     Utilities *util;
+
+    typedef std::function<bool(const QVariant&)> ValidationFunc;
+    static const QMap<QString, ValidationFunc> s_validationRules;
 
     QStringList columns;
 

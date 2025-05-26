@@ -43,7 +43,7 @@
 #include "global.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.026f; // This is the latest version of the DB.
+const float DBVersionf = 0.027f; // This is the latest version of the DB.
 
 class DataBase : public QObject
 {
@@ -198,7 +198,8 @@ private:
     bool createAndPopulateQSLSentRecStatus();
     bool createAndPopulateContinents();
     bool createAndPopulateAnt_path_enumeration();
-    bool createAndPopulateQSO_CompleteEnumeration();
+    //bool recreateTableQSO_CompleteEnumeration();
+    //bool createAndPopulateQSO_CompleteEnumeration();
     bool createAndPopulateAwardEnumeration();
     bool createAndPopulateARRLSectEnumeration();
 

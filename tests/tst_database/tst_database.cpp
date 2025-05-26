@@ -160,7 +160,7 @@ void tst_DataBase::test_ExistingTables()
     QCOMPARE(db->isTheTableExisting("qsl_sent_status"), true);
     QCOMPARE(db->isTheTableExisting("qsl_via_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("satellites"), true);
-    QCOMPARE(db->isTheTableExisting("qso_complete_enumeration"), true);
+    //QCOMPARE(db->isTheTableExisting("qso_complete_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("softwarecontrol"), true);
     QCOMPARE(db->isTheTableExisting("supportedcontests"), true);
 }
@@ -198,7 +198,7 @@ void tst_DataBase::test_DataInTables()
     QCOMPARE(db->hasTheTableData("qsl_sent_status"), true);
     QCOMPARE(db->hasTheTableData("qsl_via_enumeration"), true);
     QCOMPARE(db->hasTheTableData("satellites"), true);
-    QCOMPARE(db->hasTheTableData("qso_complete_enumeration"), true);
+    //QCOMPARE(db->hasTheTableData("qso_complete_enumeration"), true);
     QCOMPARE(db->hasTheTableData("softwarecontrol"), true);
     QCOMPARE(db->hasTheTableData("supportedcontests"), true);
 }

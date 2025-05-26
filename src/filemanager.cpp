@@ -210,6 +210,7 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     return qsos;
 }
 
+/*
 bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
 {
 
@@ -223,7 +224,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     noMoreQso = false;
    //qDebug() << Q_FUNC_INFO << "  - 01";
     QFile file(_fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
    //qDebug() << Q_FUNC_INFO << "  - 02";
     QTextStream out(&file);
@@ -262,28 +263,28 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
     QSqlRecord rec;
     while ( (query.next()) && (!noMoreQso) )
     {
-       //qDebug() << "FileManager::adifLogExportToFile -  Just in the While";
+       //qDebug() << Q_FUNC_INFO << " -    Just in the While";
         if (query.isValid())
         {
             rec = query.record();
-            //qDebug() << "FileManager::adifLogExportToFile -  Query is Valid";
+            //qDebug() << Q_FUNC_INFO << " -    Query is Valid";
              writeQuery(rec, out, ModeADIF, false, false, -1);
         } // Closes the isValid
         else {
-           //qDebug() << "FileManager::adifLogExportToFile -  Query is NOT Valid";
+           //qDebug() << Q_FUNC_INFO << " -    Query is NOT Valid";
         }
 
-       //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso);
+       //qDebug() << Q_FUNC_INFO << " -    before showing progress: " << QString::number(currentQso);
         currentQso++;
 
         if (( (currentQso % step ) == 0) )
         { // To update the speed I will only show the progress once each X QSOs
-           //qDebug() << "FileManager::adifLogExportToFile -  Showing progress: " ;
+           //qDebug() << Q_FUNC_INFO << " -    Showing progress: " ;
             QString aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQSOs);
             progress.setLabelText(aux1);
             progress.setValue(currentQso);
         }
-       //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step);
+       //qDebug() << Q_FUNC_INFO << " -    after showing progress (current%Step): " << QString::number(currentQso%step);
         if ( progress.wasCanceled() )
         {
             QMessageBox msgBox;
@@ -310,6 +311,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, QList<int> _qsos)
    //qDebug() <<  Q_FUNC_INFO << " - END";
     return true;
 }
+*/
 
 bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em)
 { // The fields are the database fields that are to be selected in the query
@@ -501,7 +503,7 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
                 numberOfQsos = query.value(0).toInt();
             }
         }
-           //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< QT_ENDL;
+           //qDebug() << Q_FUNC_INFO << " -    numberOfQsos = " << QString::number(numberOfQsos)<< QT_ENDL;
     }
     else
     {
@@ -525,10 +527,10 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         {
             numberOfQsos = (query1.value(0)).toInt();
         }
-          //qDebug() << "FileManager::adifLogExportToFile -  numberOfQsos = " << QString::number(numberOfQsos)<< QT_ENDL;
+          //qDebug() << Q_FUNC_INFO << " -    numberOfQsos = " << QString::number(numberOfQsos)<< QT_ENDL;
     }
     //qDebug() << Q_FUNC_INFO << " - 30";
-    //qDebug() << "FileManager::adifLogExportToFile - end get numberOfQsos = " << QString::number(numberOfQsos);
+    //qDebug() << Q_FUNC_INFO << " -   end get numberOfQsos = " << QString::number(numberOfQsos);
 
     step = util->getProgresStepForDialog(numberOfQsos);
     //qDebug() << Q_FUNC_INFO << " - 31";
@@ -586,17 +588,17 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
             //qDebug() << Q_FUNC_INFO << " - 50.2";
         } // Closes the isValid
 
-        //qDebug() << "FileManager::adifLogExportToFile -  before showing progress: " << QString::number(currentQso);
+        //qDebug() << Q_FUNC_INFO << " -    before showing progress: " << QString::number(currentQso);
         currentQso++;
         if (( (currentQso % step )== 0) )
         { // To update the speed I will only show the progress once each X QSOs
-            //qDebug() << "FileManager::adifLogExportToFile -  Showing progress: " ;
+            //qDebug() << Q_FUNC_INFO << " -    Showing progress: " ;
             aux1 = tr("Writing ADIF file...\n QSO: ")  + QString::number(currentQso) + "/" + QString::number(numberOfQsos);
             progress.setLabelText(aux1);
             progress.setValue(currentQso);
             //qDebug() << Q_FUNC_INFO << " - 50.3";
         }
-        //qDebug() << "FileManager::adifLogExportToFile -  after showing progress (current%Step): " << QString::number(currentQso%step);
+        //qDebug() << Q_FUNC_INFO << " -    after showing progress (current%Step): " << QString::number(currentQso%step);
 
         if ( progress.wasCanceled() )
         {
@@ -623,20 +625,20 @@ bool FileManager::adifLogExportToFile(const QString& _fileName, const int _logN,
         }
     } //Closes the While
     //qDebug() << Q_FUNC_INFO << " - 60";
-      //qDebug() << "FileManager::adifLogExportToFile -  after the While";
+      //qDebug() << Q_FUNC_INFO << " -    after the While";
     progress.setValue(numberOfQsos);
     //qDebug() << Q_FUNC_INFO << " - 70";
     if (noMoreQso)
     {
     //TODO: Remove the file (_fileName)
-          //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = true";
+          //qDebug() << Q_FUNC_INFO << " -    noMoreQSO = true";
         file.remove();
         //qDebug() << Q_FUNC_INFO << " - 70.1";
         return false;
     }
     else
     {
-          //qDebug() << "FileManager::adifLogExportToFile -  noMoreQSO = false";
+          //qDebug() << Q_FUNC_INFO << " -    noMoreQSO = false";
         //qDebug() << Q_FUNC_INFO << " - 70.2";
         return writeBackupDate();
     }
@@ -746,22 +748,22 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
 
 int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file( tfileName );
     if (!file.exists ())
     {
-        qDebug() << Q_FUNC_INFO << " - END: file does not exist";
+        //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
         return false;
     }
     bool lotWDownloaded = isALoTWDownloadedFile(file);
-    qDebug() << Q_FUNC_INFO << " - IsLoTW: " << util->boolToQString(lotWDownloaded);
+    //qDebug() << Q_FUNC_INFO << " - IsLoTW: " << util->boolToQString(lotWDownloaded);
 
     int qsos = howManyQSOsInFile (file);
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
+    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
     qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
+        //qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
         return false;
     }
 
@@ -779,7 +781,7 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
     QSO qso;
     QStringList fields; // fields keeps the running array,
 
-    qDebug() << Q_FUNC_INFO << ": We start the while" ;
+    //qDebug() << Q_FUNC_INFO << ": We start the while" ;
     while ((!file.atEnd()) && (!noMoreQSO))
     {
         // One line is read and splitted into the list of fields
@@ -846,7 +848,7 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
 
 void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     Callsign call1(_stationCallsign);
     Callsign call2(qso.getStationCallsign());
     if (call1.isValid() && !call2.isValid())
@@ -856,7 +858,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
-        qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
+        //qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
         int bandId = dataProxy->getIdFromBandName(qso.getBand());
         int modeId = dataProxy->getIdFromModeName(qso.getMode());
         qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);

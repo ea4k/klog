@@ -105,7 +105,7 @@ signals:
 private slots:
     //void slotSetPropMode(const QString &_p); // To receive the signal from the SAT widget and set "SAT" propagation mode, of needed.
     void slotPropModeComboBoxChanged();
-    void slotUSerDefinedADIFComboBoxChanged();
+    void slotUserDefinedADIFComboBoxChanged();
     void slotSetCurrentUserData();
     void slotPrimarySubdivisionsComboBoxChanged();
     void slotShowAllCheckBoxChanged();

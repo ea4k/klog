@@ -26,6 +26,13 @@
 
 #include "logmodel.h"
 
+const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
+    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc >= 0) && (dxcc <= 530)); } },
+    { "age", [](const QVariant &v) { bool ok; int age = v.toInt(&ok); return ok && age > 0.0 && age < 120.0; } },
+    { "ant_az", [](const QVariant &v) { bool ok; double az = v.toDouble(&ok); return ok && az >= 0.0 && az <= 360.0; } },
+    // ... add more column validators here ...
+};
+
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
      //qDebug() << Q_FUNC_INFO ;
@@ -39,6 +46,26 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
 
     setEditStrategy(QSqlTableModel::OnFieldChange);
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+QVariant LogModel::data(const QModelIndex &index, int role) const
+{ // Used to check if the data to be shown in the logview table must or not be shown
+  // Depending on the data validation. Check: ValidationFunc above
+    //qDebug() << Q_FUNC_INFO;
+    if (role != Qt::DisplayRole)
+        return QSqlRelationalTableModel::data(index, role);
+
+    QString columnName = this->record().fieldName(index.column());
+
+    auto it = s_validationRules.find(columnName);
+    if (it != s_validationRules.end()) {
+        QVariant value = QSqlRelationalTableModel::data(index, role);
+        if (!it.value()(value)) {
+            return QVariant(); // Hide invalid data by returning an empty QVariant
+        }
+    }
+
+    return QSqlRelationalTableModel::data(index, role);
 }
 
 bool LogModel::createlogModel(const int _i)
@@ -145,11 +172,11 @@ bool LogModel::setColumns(const QStringList &_columns)
          setRelation(nameCol, QSqlRelation("entity", "dxcc", "name"));
      }
 
-     if (_columns.contains("qso_complete"))
-     {
-         nameCol = rec.indexOf("qso_complete");
-         setRelation(nameCol, QSqlRelation("qso_complete_enumeration", "id", "shortname"));
-     }
+     //if (_columns.contains("qso_complete"))
+     //{
+     //    nameCol = rec.indexOf("qso_complete");
+     //    setRelation(nameCol, QSqlRelation("qso_complete_enumeration", "id", "shortname"));
+     //}
 
      nameCol = rec.indexOf("id");
      setSort(nameCol, Qt::AscendingOrder);

@@ -182,20 +182,33 @@ QString DataBase::getDBName()
 QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    qDebug() << Q_FUNC_INFO << " - Start: " << _tableName;
     QSqlQuery query;
-    QString queryString = "PRAGMA table_info(:table)";
-    query.prepare(queryString);
-    query.bindValue(":table", _tableName);
 
-    bool sqlOK = query.exec();
+    QString queryString;
+    if (_tableName == "log")
+    {
+        queryString = "PRAGMA table_info(log)";
+    }
+    else
+    {
+        return QStringList();
+    }
+    //query.prepare(queryString);
+    //query.bindValue(":table", _tableName);
+
+    bool sqlOK = query.exec(queryString);
+    //qDebug() << Q_FUNC_INFO << " - last query: " << query.lastQuery();
     QStringList list;
 
     if (sqlOK)
     {
+        //qDebug() << Q_FUNC_INFO << " - query: OK";
         while (query.next())
         {
+            //qDebug() << Q_FUNC_INFO << " - column: " << query.value(1).toString();
             QString columnName = query.value(1).toString();
-            if (!columnName.isEmpty() && columnName.toUpper() != "ID")
+            if ((!columnName.isEmpty()) && (columnName.toUpper() != "ID"))
             {
                 list << columnName;
             }
@@ -203,11 +216,12 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - query: NOK";
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
 
     query.finish();
-
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
     return list;
 }
@@ -387,22 +401,27 @@ bool DataBase::isTheDBCreated()
 bool DataBase::recreateTableLog()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
+    qDebug() << Q_FUNC_INFO << " - Start";
     if (!createTableLog(false))         // Create modetemp
     {
-        //qDebug() << Q_FUNC_INFO << ": CreateTableLog returned false" ;
+    qDebug() << Q_FUNC_INFO << ": CreateTableLog returned false" ;
        logEvent(Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
-
+    qDebug() << Q_FUNC_INFO << " - 10";
     QString queryString;
+    qDebug() << Q_FUNC_INFO << " - 11";
     queryString.clear();
+    qDebug() << Q_FUNC_INFO << " - 12";
     QStringList columns;
+    qDebug() << Q_FUNC_INFO << " - 13";
     columns.clear();
+    qDebug() << Q_FUNC_INFO << " - 14";
     columns << getColumnNamesFromTable("log");
-
+    qDebug() << Q_FUNC_INFO << " - 15";
     queryString =  columns.first();
 
+    qDebug() << Q_FUNC_INFO << " - 20";
     for (int i=1;i<columns.size()-1;i++)
     {
         if ( !(columns.at(i) == "time_on") && !(columns.at(i) == "time_off")  )
@@ -410,7 +429,7 @@ bool DataBase::recreateTableLog()
             queryString = queryString + ", " + columns.at(i);
         }
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 30";
     queryString = "INSERT INTO logtemp (" + queryString + ", " + columns.last() + ") SELECT " + queryString + ", " + columns.last() + " FROM log";
 
     if (!execQuery(Q_FUNC_INFO, queryString))
@@ -419,13 +438,13 @@ bool DataBase::recreateTableLog()
         logEvent(Q_FUNC_INFO, "END-4", Debug);
         return false;
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 40";
     if (!execQuery(Q_FUNC_INFO, "DROP table log"))
     {
         //qDebug() << Q_FUNC_INFO << ": ERROR - log table not dropped" ;
         return false;
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 50";
     return execQuery(Q_FUNC_INFO, "ALTER TABLE logtemp RENAME TO log");
 }
 
@@ -558,7 +577,7 @@ bool DataBase::createTableLog(bool temp)
              "qsl_rcvd_via VARCHAR(1), "
              "qsl_sent_via VARCHAR(1), "
              "qsl_via VARCHAR, "
-             "qso_complete VARCHAR(1), "
+             "qso_complete INTEGER, "
              "qso_random INTEGER, "
              "qth VARCHAR, "
              "region VARCHAR, "
@@ -593,7 +612,6 @@ bool DataBase::createTableLog(bool temp)
              "lognumber INTEGER NOT NULL, "
 
              "UNIQUE (call, qso_date, bandid, modeid, lognumber), "
-             "FOREIGN KEY (qso_complete) REFERENCES qso_complete_enumeration, "
              "FOREIGN KEY (qsl_rcvd_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_sent_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_rcvd) REFERENCES qsl_rec_status, "
@@ -661,7 +679,7 @@ bool DataBase::createDataBase()
           (!createTableEntity(true))                    ||
           (!createTablePrimarySubdivisions(true))       ||
           (!createAndPopulateARRLSectEnumeration())     ||
-          (!createAndPopulateQSO_CompleteEnumeration()) ||
+          //(!createAndPopulateQSO_CompleteEnumeration()) ||
           (!createTableQSL_Via_enumeration())           ||
           (!populateTableQSL_Via_enumeration())         ||
           (!createTablePropModes())                     ||
@@ -1578,16 +1596,18 @@ bool DataBase::updateToLatest()
 /*
  * With the DB updates, the function that is called from here should be also updated.
  * The updateXXX are recursive calls that calls the previous one.
- *
+ * Update float DBVersionf = 0.027f; in database.h to the latest version!
  */
-    //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO << " - Start";
     if (requiresManualUpgrade())
     {
+
         //qDebug() << Q_FUNC_INFO << " requires" ;
         exit(1);
         //return false;
     }
-    return updateTo026();
+    qDebug() << Q_FUNC_INFO << " - Let's update!";
+    return updateTo027();
 }
 
 
@@ -1598,7 +1618,7 @@ bool DataBase::requiresManualUpgrade()
     // Install new KLog version
     // import ADIF file
 
-    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << QString::number(ver) ;
+    //qDebug() << "DataBase::requiresManualUpgrade - ver: " << getDBVersion() << " / " << DBVersionf ;
     if (getDBVersion() >= 0.007f)
     {
         //qDebug() << "DataBase::requiresManualUpgrade false" ;
@@ -3137,30 +3157,31 @@ bool DataBase::createAndPopulateARRLSectEnumeration()
 
 
 
-bool DataBase::createAndPopulateQSO_CompleteEnumeration()
-{
-    QString stringQuery = QString("CREATE TABLE qso_complete_enumeration ("
-             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-             "shortname VARCHAR(3) NOT NULL, "
-             "name VARCHAR(10) NOT NULL)");
-    if (!execQuery(Q_FUNC_INFO, stringQuery))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('NIL', 'Not heard')"))
-    {
-        return false;
-    }
-    return execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
-}
+//bool DataBase::createAndPopulateQSO_CompleteEnumeration()
+//{
+//    QString stringQuery = QString("CREATE TABLE qso_complete_enumeration ("
+//             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+//             "shortname VARCHAR(3) NOT NULL, "
+//             "name VARCHAR(10) NOT NULL)");
+//    if (!execQuery(Q_FUNC_INFO, stringQuery))
+//    {
+//        return false;
+//    }
+//    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')"))
+//    {
+//        return false;
+//    }
+//    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')"))
+//    {
+//        return false;
+//    }
+//    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('H', 'Not heard')"))
+//    {
+//        return false;
+//    }
+//    return execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
+//}
+
 
 bool DataBase::createAndPopulateAnt_path_enumeration()
 {
@@ -5661,25 +5682,32 @@ bool DataBase::updateTo027()
 {
     // Updates the DB to 0.027:
     // Recreates entity log to adjust the type for several numeral
-    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
     latestReaded = getDBVersion();
     if (latestReaded >= 0.027f)
     {
-        //qDebug() << Q_FUNC_INFO << " - I am in 027" ;
+        qDebug() << Q_FUNC_INFO << " - I am in 027" ;
         return true;
     }
-    //qDebug() << Q_FUNC_INFO << " - 10" ;
+    qDebug() << Q_FUNC_INFO << " - 10" ;
     if (!updateTo026())
         return false;
-FALLAR
+    qDebug() << Q_FUNC_INFO << " - 20" ;
     // Start executing the code to update to this version
     if (!recreateTableLog())
     {
+        qDebug() << Q_FUNC_INFO << " - 21" ;
         return false;
     }
-
+    qDebug() << Q_FUNC_INFO << " - 30" ;
+    if (isTheTableExisting("qso_complete_enumeration"))
+    {
+        qDebug() << Q_FUNC_INFO << " - 31" ;
+        if (!execQuery(Q_FUNC_INFO, "DROP TABLE qso_complete_enumeration"))
+            return false;
+    }
     // Modify the DB version
-    //qDebug() << Q_FUNC_INFO << " - 50" ;
+    qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.027");
 }
 
