@@ -537,16 +537,16 @@ void InfoWidget::setDXLocator(const QString &_loc)
     }
 }
 
-int InfoWidget::getDistance(bool shortPath)
+double InfoWidget::getDistance(bool shortPath)
 { // Returns the distance in KM
     //qDebug() << Q_FUNC_INFO << distShortLabel->text ();
     if (shortPath)
     {
-        return (distShortLabel->text ()).toInt ();
+        return (distShortLabel->text ()).toDouble ();
     }
     else
     {
-        return (distLongLabel->text ()).toInt ();
+        return (distLongLabel->text ()).toDouble ();
     }
 }
 

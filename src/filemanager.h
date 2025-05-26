@@ -75,7 +75,7 @@ public:
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
 
-    bool adifQSOsExport(const QString& _fileName, QList<int> _qsos);
+    //bool adifQSOsExport(const QString& _fileName, QList<int> _qsos);
     bool adifQSOsExport2(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em);
 
     QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN);
@@ -122,7 +122,7 @@ private:
 
     // void writeAdifField(const QString &_field, const QString &_data); // It should possibly receive also the QTextStream
 
-    void writeQuery(QSqlRecord &rec, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
+    KLOG_DEPRECATED void writeQuery(QSqlRecord &rec, QTextStream &out, const ExportMode _em, const bool _justMarked, const bool _onlyRequested, const int _logN);
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
 
 

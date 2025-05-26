@@ -56,11 +56,11 @@ public:
     bool isValidCQz(const int _b);              //1-40
     bool isValidITUz(const int _b);            // 1-90
     bool isValidDXCC(const int _b);            // 0-522
-    bool isValidAge(const int _b);             // 0-120
+    bool isValidAge(const double _b);             // 0-120
     bool isValidDistance(const double _b);        //>0.0
-    bool isValidAnt_EL(const int _b);          //>=0-360
-    bool isValidAnt_AZ(const int _b);          //>=-90-90
-    bool isValidA_Index(const int _b);              //0-400
+    bool isValidAnt_EL(const double _b);          //>=0-360
+    bool isValidAnt_AZ(const double _b);          //>=-90-90
+    bool isValidA_Index(const double _b);              //0-400
     bool isValidIOTA_islandID(const int _b);   //1-99999999
     bool isValidNRBursts(const int _b);        //>0
     bool isValidPings(const int _b);            //>0
@@ -75,7 +75,9 @@ public:
     bool isValidAntPath(const QString &_s);
     bool isValidMode (const QString &_s);
     bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
-    QString getQSO_COMPLETEFromDB(const QString &_s);    // Translates the DB value into an ADIF value
+    QString getQSO_COMPLETEFromDB(const QString &_s);   // Translates the DB value into an ADIF value
+    int setQSO_COMPLETEToDB(const QString &_s);         // Translates the ADIF to a DB value
+
     bool isValidPOTA(const QString &_s);            // TODO
     bool isValidWWFF_Ref(const QString &_s);        // TODO
     bool isValidQSLRCVD(const QString &_s, bool _importing=true);         // Y, I, or V) (V on import only)

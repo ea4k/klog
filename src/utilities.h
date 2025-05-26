@@ -173,11 +173,6 @@ public:
     QString getCabrilloDateFromQDate(const QDate &_d);          // Will produce the Cabrillo DATE format: "YYYY-MM-DD"
     QString getCabrilloTimeFromQDateTime(const QDateTime &_d);  // Will produce the Cabrillo TIME format: "HHMM"
 
-    // Parse QSO_COMPLETE from ADIF
-    QString getQSO_CompleteFromADIF(const QString &_s);     // Expect a string and returns 1char string for DB
-    QString getADIFQSO_CompleteFromDB(const QString &_s);   // Returns the ADIF QSO_COMPLETE
-
-
     QString getOnlineServiceName(OnLineProvider _service);
 
     //bool isValidDistance(const double _d);

@@ -43,7 +43,7 @@
 #include "global.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.026f; // This is the latest version of the DB.
+const float DBVersionf = 0.027f; // This is the latest version of the DB.
 
 class DataBase : public QObject
 {
@@ -143,6 +143,7 @@ private:
     bool updateTo024(); // Fixes the entity table fixinf the DL id
     bool updateTo025(); // Adds modes from ADIF 3.1.3
     bool updateTo026(); // KLog-2.4: Recreates entity to make UTC a real & add new ADIF fields
+    bool updateTo027(); // KLog-2.4.2: Recreates entity to make UTC a real & add new ADIF fields
 
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
@@ -197,7 +198,8 @@ private:
     bool createAndPopulateQSLSentRecStatus();
     bool createAndPopulateContinents();
     bool createAndPopulateAnt_path_enumeration();
-    bool createAndPopulateQSO_CompleteEnumeration();
+    //bool recreateTableQSO_CompleteEnumeration();
+    //bool createAndPopulateQSO_CompleteEnumeration();
     bool createAndPopulateAwardEnumeration();
     bool createAndPopulateARRLSectEnumeration();
 

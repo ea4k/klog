@@ -26,6 +26,7 @@
 
 #include "dataproxy_sqlite.h"
 #include "callsign.h"
+#include "adif.h"
 
 //#include <QDebug>
 
@@ -7531,8 +7532,9 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setQSL_SENT(getADIFValueFromRec(rec, "qsl_sent"));
     qso.setQSLSenVia(getADIFValueFromRec(rec, "qsl_sent_via"));
     qso.setQSLVia(getADIFValueFromRec(rec, "qsl_via"));
-
-    qso.setQSOComplete(util->getADIFQSO_CompleteFromDB(getADIFValueFromRec(rec, "qso_complete")));
+    Adif adif(Q_FUNC_INFO);
+    adif.getQSO_COMPLETEFromDB(getADIFValueFromRec(rec, "qso_complete"));
+    //qso.setQSOComplete(util->getADIFQSO_CompleteFromDB(getADIFValueFromRec(rec, "qso_complete")));
     qso.setQSORandom(util->QStringToBool(getADIFValueFromRec(rec, "qso_random")));
 
     qso.setQTH(getADIFValueFromRec(rec, "qth"));

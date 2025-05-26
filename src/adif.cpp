@@ -296,29 +296,29 @@ bool Adif::isValidDXCC(const int _b)
     return ((_b>=0) && (_b<=522));
 }
 
-bool Adif::isValidAge(const int _b)
+bool Adif::isValidAge(const double _b)
 {
-    return ((_b>0) && (_b<=120));
+    return ((_b>0.0) && (_b<=120.0));
 }
 
-bool Adif::isValidAnt_EL(const int _b)
+bool Adif::isValidAnt_EL(const double _b)
 {
-    return ((_b>=-90) && (_b<=900));
+    return ((_b>=-90.0) && (_b<=900.0));
 }
 
-bool Adif::isValidAnt_AZ(const int _b)
+bool Adif::isValidAnt_AZ(const double _b)
 {
-    return ((_b>=0) && (_b<=360));
+    return ((_b>=0.0) && (_b<=360.0));
 }
 
-bool Adif::isValidA_Index(const int _b)
+bool Adif::isValidA_Index(const double _b)
 {
-    return ((_b>=0) && (_b<=400));
+    return ((_b>=0.0) && (_b<=400.0));
 }
 
 bool Adif::isValidDistance(const double _b)
 {
-    return (_b>0);
+    return (_b>0.0);
 }
 
 //bool Adif::isValidAltitude(const double _b)
@@ -386,6 +386,17 @@ bool Adif::isValidQSO_COMPLETE(const QString &_s)
     return ((_s == "Y") || (_s == "N") || (_s == "NIL") || (_s == "?"));
 }
 
+int Adif::setQSO_COMPLETEToDB(const QString &_s)
+{
+    if (_s == "Y")
+        return 1;
+    if (_s == "N")
+        return 2;
+    if (_s == "NIL")
+        return 3;
+    return 4;
+}
+
 QString Adif::getQSO_COMPLETEFromDB(const QString &_s)
 {// Returns the ADIF QSO_COMPLETE
     //1=Y, 2=N, 3=NIL, 4=?
@@ -393,22 +404,22 @@ QString Adif::getQSO_COMPLETEFromDB(const QString &_s)
     int i = _s.toInt();
     switch (i)
     {
-    case 2:
-    {
-        return "N";
-    }
-    case 3:
-    {
-        return "NIL";
-    }
-    case 4:
-    {
-        return "?";
-    }
-    default:
-    {
-        return "Y";
-    }
+        case 2:
+        {
+            return "N";
+        }
+        case 3:
+        {
+            return "NIL";
+        }
+        case 4:
+        {
+            return "?";
+        }
+        default:
+        {
+            return "Y";
+        }
     }
 }
 
@@ -697,6 +708,7 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
     if (fieldN == "DISTANCE" )
         if (_data.toDouble() <= 0.0)
             return QString();
+
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 
