@@ -42,13 +42,15 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     clubLogAppPasswordLineEdit = new QLineEdit;
     clubLogPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
     clubLogAppPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
-
+    clubLogSentDefaultComboBox = new QComboBox;
+    clubLogSentDefaultLabel = new QLabel(tr("Default"));
     clubLogPasswordLabel = new QLabel(tr("ClubLog password"));
     clubLogAppPasswordLabel = new QLabel(tr("ClubLog App password"));
     clubLogEmailLabel = new QLabel(tr("ClubLog email"));
     clubLogAppPasswordLabel->setBuddy (clubLogAppPasswordLineEdit);
     clubLogPasswordLabel->setBuddy(clubLogPasswordLineEdit);
     clubLogEmailLabel->setBuddy(clubLogEmailLineEdit);
+    clubLogSentDefaultLabel->setBuddy(clubLogSentDefaultComboBox);
 
     clubLogEmailLineEdit->setToolTip(tr("Enter the email you used to register in ClubLog."));
     clubLogPasswordLineEdit->setToolTip(tr("Enter your password ClubLog here. Warning: The password will be save on clear in the KLog config file!! (If you don't want to enter the password, KLog will ask you when it is needed.)"));
@@ -74,6 +76,10 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     eQSLpasswordLabel = new QLabel(tr("eQSL.cc password"));
     eQSLemailLabel = new QLabel(tr("eQSL.cc user"));
 
+    eQSLSentDefaultComboBox = new QComboBox;
+    eQSLSentDefaultLabel = new QLabel("Default");
+    eQSLSentDefaultLabel->setBuddy(eQSLSentDefaultComboBox);
+
     clubLogGroup = new QGroupBox (tr("ClubLog"));
     eQSLccGroup = new QGroupBox (tr("eQSL.cc"));
      //qDebug() << "SetupPageELog::SetupPageELog - 00020";
@@ -85,27 +91,51 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     cl1layout->addWidget(clubLogPasswordLineEdit, 1, 1);
     cl1layout->addWidget(clubLogAppPasswordLineEdit, 2, 1);
 
+    clubLogSentDefaultLabel->setToolTip(tr("Select the default option for new QSOs in Clublog"));
+    clubLogSentDefaultComboBox->setToolTip(tr("Select the default option for new QSOs in Clublog"));
+    QHBoxLayout *clubLogSentDefaultLayout = new QHBoxLayout;
+    clubLogSentDefaultLayout->addWidget(clubLogSentDefaultLabel);
+    clubLogSentDefaultLayout->addWidget(clubLogSentDefaultComboBox);
+
+    QHBoxLayout *clubLogTopLineLayout = new QHBoxLayout;
+    clubLogTopLineLayout->addWidget(clubLogActiveCheckBox);
+    clubLogTopLineLayout->addLayout(clubLogSentDefaultLayout);
+
 
     QVBoxLayout *cl2layout = new QVBoxLayout;
-    cl2layout->addWidget(clubLogActiveCheckBox);
-    //cl2layout->addWidget(warningLabel);
+    //cl2layout->addWidget(clubLogActiveCheckBox);
+    cl2layout->addLayout(clubLogTopLineLayout);
     cl2layout->addLayout(cl1layout);
     cl2layout->addWidget(clubLogSendInRealTimeCheckBox);
     clubLogGroup->setLayout(cl2layout);
-     //qDebug() << "SetupPageELog::SetupPageELog - 00030";
+
+
+    //qDebug() << "SetupPageELog::SetupPageELog - 00030";
     QGridLayout *e1layout = new QGridLayout;
     e1layout->addWidget(eQSLemailLabel, 0, 0);
     e1layout->addWidget(eQSLpasswordLabel, 1, 0);
     e1layout->addWidget(eQSLUserLineEdit, 0, 1);
     e1layout->addWidget(eQSLPasswordLineEdit, 1, 1);
 
+    QHBoxLayout *eQSLSentDefaultLayout = new QHBoxLayout;
+    eQSLSentDefaultLayout->addWidget(eQSLSentDefaultLabel);
+    eQSLSentDefaultLayout->addWidget(eQSLSentDefaultComboBox);
+    QHBoxLayout *eQSLTopLineLayout = new QHBoxLayout;
+    eQSLTopLineLayout->addWidget(eQSLActiveCheckBox);
+    eQSLTopLineLayout->addLayout(eQSLSentDefaultLayout);
+
     QVBoxLayout *e2layout = new QVBoxLayout;
-    e2layout->addWidget(eQSLActiveCheckBox);
+    e2layout->addLayout(eQSLTopLineLayout);
     e2layout->addLayout(e1layout);
     //e2layout->addWidget(eQSLSendInRealTimeCheckBox);
     eQSLccGroup->setLayout(e2layout);
      //qDebug() << "SetupPageELog::SetupPageELog - 00040";
     QRZCOMGroup = new QGroupBox (tr("QRZ.com"));
+    QRZCOMSentDefaultComboBox = new QComboBox;
+    QRZCOMSentDefaultLabel = new QLabel("Default");
+    QRZCOMSentDefaultLabel->setBuddy(QRZCOMSentDefaultComboBox);
+
+
 
     QRZCOMUserLineEdit = new QLineEdit;
     QRZCOMUserLineEdit->setToolTip(tr("Enter the user of your QRZ.com account. You need to be subscribed to QRZ.com to use this service."));
@@ -136,17 +166,28 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     q1layout->addWidget(QRZCOMPasswordLineEdit, 1, 1);
     q1layout->addWidget(QRZCOMSubscriberCheckBox,0,2);
 
+    QHBoxLayout *qrzcomActive = new QHBoxLayout;
+    qrzcomActive->addWidget(QRZCOMActiveCheckBox);
+    qrzcomActive->addWidget(QRZCOMSubscriberCheckBox);
+
+    QHBoxLayout *QRZCOMSentDefaultLayout = new QHBoxLayout;
+    QRZCOMSentDefaultLayout->addWidget(QRZCOMSentDefaultLabel);
+    QRZCOMSentDefaultLayout->addWidget(QRZCOMSentDefaultComboBox);
+    QHBoxLayout *QRZCOMTopLineLayout = new QHBoxLayout;
+    QRZCOMTopLineLayout->addLayout(qrzcomActive);
+    QRZCOMTopLineLayout->addLayout(QRZCOMSentDefaultLayout);
+
+
     QHBoxLayout *qrzcomKeyLayout = new QHBoxLayout;
     qrzcomKeyLayout->addWidget(QRZLogBookKeyLabel);
     qrzcomKeyLayout->addWidget(QRZCOMLogBookKEYLineEdit);
 
-    QHBoxLayout *qrzcomActive = new QHBoxLayout;
-    qrzcomActive->addWidget(QRZCOMActiveCheckBox);
-    //qrzcomActive->addWidget(QRZCOMSubscriberCheckBox);
+
 
      //qDebug() << "SetupPageELog::SetupPageELog - 00070";
     QVBoxLayout *qrzLayout = new QVBoxLayout;
-    qrzLayout->addLayout(qrzcomActive);
+    qrzLayout->addLayout(QRZCOMTopLineLayout);
+    //qrzLayout->addLayout(qrzcomActive);
     qrzLayout->addLayout(q1layout);
     qrzLayout->addWidget(QRZCOMAutoCheckCheckBox);
     qrzLayout->addLayout(qrzcomKeyLayout);
@@ -161,6 +202,9 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 
     lotwUserLineEdit = new QLineEdit;
     lotwUserLineEdit->setValidator(new QRegularExpressionValidator(rx, this));
+    lotwSentDefaultComboBox = new QComboBox;
+    lotwSentDefaultLabel = new QLabel("Default");
+    lotwSentDefaultLabel->setBuddy(lotwSentDefaultComboBox);
 
     lotwPasswordLineEdit = new QLineEdit;
     lotwPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
@@ -175,13 +219,20 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwTQSLPathLineEdit->setToolTip(tr("Path to the TQSL software."));
     lotwSearchTQSLPushButton->setToolTip(tr("Enable the LoTW integration with TQSL. You will need to have TQSL installed"));
 
+    QHBoxLayout *lotwSentDefaultLayout = new QHBoxLayout;
+    lotwSentDefaultLayout->addWidget(lotwSentDefaultLabel);
+    lotwSentDefaultLayout->addWidget(lotwSentDefaultComboBox);
+    QHBoxLayout *lotwTopLineLayout = new QHBoxLayout;
+    lotwTopLineLayout->addWidget(lotwUseTQSLCheckBox);
+    lotwTopLineLayout->addLayout(lotwSentDefaultLayout);
+
     QHBoxLayout *l1layout = new QHBoxLayout;
     l1layout->addWidget(lotwTQSLPathLineEdit);
     l1layout->addWidget(lotwSearchTQSLPushButton);
     //lotwUpGroup->setLayout(l1layout);
 
     QVBoxLayout *l2layout = new QVBoxLayout;
-    l2layout->addWidget(lotwUseTQSLCheckBox);
+    l2layout->addLayout(lotwTopLineLayout);
     l2layout->addLayout(l1layout);
     lotwUpGroup->setLayout(l2layout);
 
