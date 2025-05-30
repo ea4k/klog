@@ -120,6 +120,9 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QHBoxLayout *eQSLSentDefaultLayout = new QHBoxLayout;
     eQSLSentDefaultLayout->addWidget(eQSLSentDefaultLabel);
     eQSLSentDefaultLayout->addWidget(eQSLSentDefaultComboBox);
+
+    eQSLSentDefaultLabel->setToolTip(tr("Select the default option for new QSOs in eQSL"));
+    eQSLSentDefaultComboBox->setToolTip(tr("Select the default option for new QSOs in eQSL"));
     QHBoxLayout *eQSLTopLineLayout = new QHBoxLayout;
     eQSLTopLineLayout->addWidget(eQSLActiveCheckBox);
     eQSLTopLineLayout->addLayout(eQSLSentDefaultLayout);
@@ -170,6 +173,8 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     qrzcomActive->addWidget(QRZCOMActiveCheckBox);
     qrzcomActive->addWidget(QRZCOMSubscriberCheckBox);
 
+    QRZCOMSentDefaultLabel->setToolTip(tr("Select the default option for new QSOs in QRZ.com"));
+    QRZCOMSentDefaultComboBox->setToolTip(tr("Select the default option for new QSOs in QRZ.com"));
     QHBoxLayout *QRZCOMSentDefaultLayout = new QHBoxLayout;
     QRZCOMSentDefaultLayout->addWidget(QRZCOMSentDefaultLabel);
     QRZCOMSentDefaultLayout->addWidget(QRZCOMSentDefaultComboBox);
@@ -181,7 +186,6 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QHBoxLayout *qrzcomKeyLayout = new QHBoxLayout;
     qrzcomKeyLayout->addWidget(QRZLogBookKeyLabel);
     qrzcomKeyLayout->addWidget(QRZCOMLogBookKEYLineEdit);
-
 
 
      //qDebug() << "SetupPageELog::SetupPageELog - 00070";
@@ -219,6 +223,8 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     lotwTQSLPathLineEdit->setToolTip(tr("Path to the TQSL software."));
     lotwSearchTQSLPushButton->setToolTip(tr("Enable the LoTW integration with TQSL. You will need to have TQSL installed"));
 
+    lotwSentDefaultLabel->setToolTip(tr("Select the default option for new QSOs in LoTW"));
+    lotwSentDefaultComboBox->setToolTip(tr("Select the default option for new QSOs in LoTW"));
     QHBoxLayout *lotwSentDefaultLayout = new QHBoxLayout;
     lotwSentDefaultLayout->addWidget(lotwSentDefaultLabel);
     lotwSentDefaultLayout->addWidget(lotwSentDefaultComboBox);
@@ -306,6 +312,54 @@ SetupPageELog::~SetupPageELog()
     delete(util);
 }
 
+
+void SetupPageELog::setDefaultLoTW()
+{
+    Adif adif(Q_FUNC_INFO);
+    lotwSentDefaultComboBox->addItems(adif.getQSLSentStatus());
+    lotwPasswordLineEdit->clear ();
+    lotwUserLineEdit->clear ();
+    lotwPasswordLineEdit->clear ();
+}
+
+void SetupPageELog::setDefaultClubLog()
+{
+    Adif adif(Q_FUNC_INFO);
+    clubLogSentDefaultComboBox->addItems(adif.getQSOUploadStatus());
+
+    clubLogActiveCheckBox->setChecked (false);
+    clubLogSendInRealTimeCheckBox->setChecked (false);
+    clubLogEmailLineEdit->clear ();
+    clubLogPasswordLineEdit->clear();
+    clubLogAppPasswordLineEdit->clear();
+}
+
+void SetupPageELog::setDefaultEQSL()
+{
+    Adif adif(Q_FUNC_INFO);
+    eQSLSentDefaultComboBox->addItems(adif.getQSLSentStatus());
+
+    eQSLActiveCheckBox->setChecked(false);
+    eQSLPasswordLineEdit->clear();
+    eQSLUserLineEdit->clear();
+
+}
+
+void SetupPageELog::setDefaultQRZCOM()
+{
+    Adif adif(Q_FUNC_INFO);
+    QRZCOMSentDefaultComboBox->addItems(adif.getQSOUploadStatus());
+
+    QRZCOMActiveCheckBox->setChecked (false);
+    QRZCOMAutoCheckCheckBox->setChecked (false);
+
+    QRZCOMPasswordLineEdit->clear ();
+    QRZCOMUserLineEdit->clear();
+    QRZCOMLogBookKEYLineEdit->clear ();
+}
+
+
+
 void SetupPageELog::slotQRZCallTextChanged()
 {
     //qDebug() << "SetupPageELog::slotQRZCallTextChanged";
@@ -388,26 +442,12 @@ void SetupPageELog::slotLoTWEmailDefineColor()
 void SetupPageELog::setDefaults()
 {
      //qDebug() << "SetupPageELog::setDefaults()";
-    QRZCOMActiveCheckBox->setChecked (false);
-    QRZCOMAutoCheckCheckBox->setChecked (false);
 
-    QRZCOMPasswordLineEdit->clear ();
-    QRZCOMUserLineEdit->clear();
-    QRZCOMLogBookKEYLineEdit->clear ();
+    setDefaultClubLog();
+    setDefaultEQSL();
+    setDefaultLoTW();
+    setDefaultQRZCOM();
 
-    clubLogActiveCheckBox->setChecked (false);
-    clubLogSendInRealTimeCheckBox->setChecked (false);
-    clubLogEmailLineEdit->clear ();
-    clubLogPasswordLineEdit->clear();
-    clubLogAppPasswordLineEdit->clear();
-
-    eQSLActiveCheckBox->setChecked(false);
-    eQSLPasswordLineEdit->clear();
-    eQSLUserLineEdit->clear();
-
-    lotwPasswordLineEdit->clear ();
-    lotwUserLineEdit->clear ();
-    lotwPasswordLineEdit->clear ();
      //qDebug() << "SetupPageELog::setDefaults() - END";
 }
 
@@ -585,12 +625,14 @@ void SetupPageELog::saveSettings()
     settings.setValue ("ClubLogEmail", clubLogEmailLineEdit->text ());
     settings.setValue ("ClubLogPass", clubLogPasswordLineEdit->text());
     settings.setValue ("ClubLogAppPass", clubLogAppPasswordLineEdit->text());
+    settings.setValue ("ClubLogSentDefault", clubLogSentDefaultComboBox->currentText());
     settings.endGroup ();
 
     settings.beginGroup ("eQSL");
     settings.setValue ("eQSLActive", QVariant((eQSLActiveCheckBox->isChecked())));
     settings.setValue ("eQSLCall", eQSLUserLineEdit->text ());
     settings.setValue ("eQSLPass", eQSLPasswordLineEdit->text());
+    settings.setValue ("eQSLSentDefault", eQSLSentDefaultComboBox->currentText());
     settings.endGroup ();
 
     settings.beginGroup ("QRZcom");
@@ -600,6 +642,7 @@ void SetupPageELog::saveSettings()
     settings.setValue ("QRZcomSubscriber", QVariant((QRZCOMSubscriberCheckBox->isChecked())));
     settings.setValue ("QRZcomAuto", QVariant((QRZCOMAutoCheckCheckBox->isChecked())));
     settings.setValue ("QRZcomLogBookKey", QRZCOMLogBookKEYLineEdit->text ());
+    settings.setValue ("QRZcomSentDefault", QRZCOMSentDefaultComboBox->currentText());
     settings.endGroup ();
 
     settings.beginGroup ("LoTW");
@@ -607,6 +650,7 @@ void SetupPageELog::saveSettings()
     settings.setValue ("LoTWPath", lotwTQSLPathLineEdit->text());
     settings.setValue ("LoTWUser", lotwUserLineEdit->text());
     settings.setValue ("LoTWPass", lotwPasswordLineEdit->text());
+    settings.setValue ("LoTWSentDefault", lotwSentDefaultComboBox->currentText());
     settings.endGroup ();
 }
 
@@ -620,12 +664,18 @@ void SetupPageELog::loadSettings()
     clubLogEmailLineEdit->setText (settings.value("ClubLogEmail").toString ());
     clubLogPasswordLineEdit->setText (settings.value("ClubLogPass").toString ());
     clubLogAppPasswordLineEdit->setText (settings.value("ClubLogAppPass").toString ());
+
+    int index = clubLogSentDefaultComboBox->findText(settings.value("ClubLogSentDefault").toString(), Qt::MatchFixedString);
+    clubLogSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : 0);
     settings.endGroup ();
 
     settings.beginGroup ("eQSL");
     eQSLActiveCheckBox->setChecked (settings.value("eQSLActive").toBool ());
     eQSLUserLineEdit->setText (settings.value("eQSLCall").toString ());
     eQSLPasswordLineEdit->setText (settings.value("eQSLPass").toString ());
+    index = eQSLSentDefaultComboBox->findText(settings.value("eQSLSentDefault").toString(), Qt::MatchFixedString);
+    eQSLSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : 0);
+
     settings.endGroup ();
 
     settings.beginGroup ("QRZcom");
@@ -635,6 +685,8 @@ void SetupPageELog::loadSettings()
     QRZCOMUserLineEdit->setText (settings.value("QRZcomUser").toString ());
     QRZCOMPasswordLineEdit->setText (settings.value("QRZcomPass").toString ());
     QRZCOMLogBookKEYLineEdit->setText(settings.value("QRZcomLogBookKey").toString ());
+    index = QRZCOMSentDefaultComboBox->findText(settings.value("QRZcomSentDefault").toString(), Qt::MatchFixedString);
+    QRZCOMSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : 0);
     settings.endGroup ();
 
     settings.beginGroup ("LoTW");
@@ -643,5 +695,7 @@ void SetupPageELog::loadSettings()
     //qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
     lotwPasswordLineEdit->setText (settings.value("LoTWPass").toString ());
     lotwTQSLPathLineEdit->setText (settings.value("LoTWPath").toString ());
+    index = lotwSentDefaultComboBox->findText(settings.value("LoTWSentDefault").toString(), Qt::MatchFixedString);
+    lotwSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : 0);
     settings.endGroup ();
 }

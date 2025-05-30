@@ -1,10 +1,11 @@
-TODO: KLog crashes on Database update:
-qt.sql.qsqlquery: QSqlQuery::prepare: empty query
-ASSERT: "!isEmpty()" in file /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h, line 658
-
-WIP: LoTW confirmations are not correctly imported to logbook.dat #798
+-WIP: Define the default eQSL sent value. Decide if it is all or just the appropriate ones.
+-WIP: LoTW confirmations are not correctly imported to logbook.dat #798
 TODO: CHECK: HOW QSO_COMPLETE is being read/managed
 -TODO: When downloading from LoTW, if there is no QSOs in the log the message that is shown appears ()
+
+-TODO: Disable
+
+
 
 TBD 2025 - 2.4.2
 - Enhancement: Updated some DataBase fields to match ADIF definition better.

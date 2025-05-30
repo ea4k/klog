@@ -72,8 +72,8 @@ public:
     void setDebugLogLevel(const QString &_t);
     //QString getLogSort();
     //void setLogSort(const QString &_t);
-    QString getSendEQSLByDefault();
-    void setSetEQSLByDefault(const QString &_t);
+    KLOG_DEPRECATED QString getSendEQSLByDefault();
+    KLOG_DEPRECATED void setSetEQSLByDefault(const QString &_t);
     void setDeleteAlwaysAdiFile(const bool &_t);
     QString getDeleteAlwaysAdiFile();
     bool getCheckCalls();

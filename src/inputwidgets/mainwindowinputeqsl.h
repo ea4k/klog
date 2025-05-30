@@ -77,7 +77,7 @@ public:
     void setLOTWRecDate(const QDate _qs);
     void setLOTWSenDate(const QDate _qs);
 
-    void setQueueSentByDefault(const bool _b);
+    void loadSettings();
 
 signals:
 
@@ -93,6 +93,7 @@ private:
     void createUI();
     void setDefaultData();
 
+
     QComboBox *eqslSentComboBox, *eqslRecComboBox, *lotwSentComboBox, *lotwRecComboBox, *clublogComboBox, *qrzcomComboBox;
     QDateEdit *eqslSentQDateEdit, *eqslRecQDateEdit, *lotwSentQDateEdit, *lotwRecQDateEdit, *clublogQDateEdit,  *qrzcomQDateEdit;
 
@@ -101,6 +102,7 @@ private:
     Utilities *util;
 
     QStringList qslSentStatusList, qslRcvdStatusList, clubLogStatusList;
+    QString lotwSentDefault, qrzcomSentDefault, clublogSentDefault, eqslSentDefault;
     bool queueSentByDefault;
 };
 

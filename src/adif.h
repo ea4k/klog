@@ -88,6 +88,9 @@ public:
     QString getADIFBoolFromBool(const bool _b);             // Will produce the ADIF format if a bool is received
     void setModes(const QStringList &_modes);            //TODO: Do not depend on external source to fill
 
+    QStringList getQSOUploadStatus (bool _fullName = false);    // Returns the ADIF enumeration; fullname= true -> Yes-Upload
+    QStringList getQSLSentStatus (bool _fullName = false);      // Returns the ADIF enumeration; fullname= true -> Yes-Sent
+
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 

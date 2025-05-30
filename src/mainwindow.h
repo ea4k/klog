@@ -378,7 +378,7 @@ private:
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;
 
-    bool sendQSLByDefault;
+    //bool sendQSLByDefault;
     bool deleteAlwaysAdiFile;
 
     MapWindowWidget *mapWindow;

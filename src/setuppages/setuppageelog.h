@@ -77,6 +77,11 @@ protected:
 
 private:
     void setDefaults();
+    void setDefaultLoTW();
+    void setDefaultClubLog();
+    void setDefaultEQSL();
+    void setDefaultQRZCOM();
+
     //QString defaultFileName;
     QGroupBox *clubLogGroup;
     QCheckBox *clubLogSendInRealTimeCheckBox, *clubLogActiveCheckBox;//, *useQSOStationCallCheckBox;

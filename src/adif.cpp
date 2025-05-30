@@ -435,6 +435,25 @@ bool Adif::isValidWWFF_Ref(const QString &_s)
     return (_s.isEmpty());
 }
 
+QStringList Adif::getQSOUploadStatus (bool _fullName)
+{
+    QStringList uploadStatus;
+    if (_fullName)
+        uploadStatus = {"Y-Upload", "N-Do not Upload", "M-Modified"};
+    else
+        uploadStatus = {"Y", "N", "M"};
+    return uploadStatus;
+}
+
+QStringList Adif::getQSLSentStatus (bool _fullName)
+{
+    QStringList qslStatus;
+    if (_fullName)
+        qslStatus = {"Y-Sent", "N-Do not send", "R-Requested", "Q-Queued", "I-Ignore"};
+    else
+        qslStatus = {"Y", "N", "R", "Q", "I"};
+    return qslStatus;
+}
 
 
 /*

@@ -66,7 +66,6 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
 
 
     logLevel = Info;
-    sendQSLByDefault = true; // This must be before reading the config
     dupeSlotInSeconds = 15;
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
@@ -6086,6 +6085,7 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
 
     myDataTabWidget->loadSettings ();
+    eQSLTabWidget->loadSettings();
 
       //qDebug() << Q_FUNC_INFO << " - 30 - modes";
     settings.beginGroup ("BandMode");
@@ -6171,8 +6171,7 @@ bool MainWindow::loadSettings()
     alwaysADIF = settings.value ("AlwaysADIF", true).toBool ();
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
     mainQSOEntryWidget->setUTC(settings.value ("UTCTime", true).toBool ());
-    sendQSLByDefault = settings.value ("SendEQSLByDefault", true).toBool ();
-    eQSLTabWidget->setQueueSentByDefault(sendQSLByDefault);
+
     dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot", 300).toInt ();
     filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
     mainQSOEntryWidget->setDuplicatedQSOSlot(dupeSlotInSeconds);

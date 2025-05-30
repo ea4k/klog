@@ -26,6 +26,7 @@
 
 #include "mainwindowinputeqsl.h"
 
+
 MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
@@ -217,20 +218,10 @@ void MainWindowInputEQSL::clear()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     // Do not upload
-    if (queueSentByDefault)
-    {
-        clublogComboBox->setCurrentIndex( clublogComboBox->findText("M", Qt::MatchStartsWith));
-        eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("Q", Qt::MatchStartsWith));
-        lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("Q", Qt::MatchStartsWith));
-        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("M", Qt::MatchStartsWith));
-    }
-    else
-    {
-        clublogComboBox->setCurrentIndex( clublogComboBox->findText("N", Qt::MatchStartsWith));
-        qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText("N", Qt::MatchStartsWith));
-        eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText("N", Qt::MatchStartsWith));
-        lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText("N", Qt::MatchStartsWith));
-    }
+    clublogComboBox->setCurrentIndex( clublogComboBox->findText(clublogSentDefault, Qt::MatchStartsWith));
+    eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(eqslSentDefault, Qt::MatchStartsWith));
+    lotwSentComboBox->setCurrentIndex( lotwSentComboBox->findText(lotwSentDefault, Qt::MatchStartsWith));
+    qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText(qrzcomSentDefault, Qt::MatchStartsWith));
 
     eqslRecComboBox->setCurrentIndex(eqslRecComboBox->findText("N", Qt::MatchStartsWith));
     lotwRecComboBox->setCurrentIndex(lotwRecComboBox->findText("N", Qt::MatchStartsWith));
@@ -749,7 +740,32 @@ QDate MainWindowInputEQSL::getLOTWSenDate()
     return lotwSentQDateEdit->date();
 }
 
-void MainWindowInputEQSL::setQueueSentByDefault(const bool _b)
+
+void MainWindowInputEQSL::loadSettings()
 {
-    queueSentByDefault = _b;
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+
+    settings.beginGroup ("ClubLog");
+    clublogSentDefault = settings.value("ClubLogSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("eQSL");
+    eqslSentDefault = settings.value("eQSLSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("QRZcom");
+    qrzcomSentDefault = settings.value("QRZcomSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("LoTW");
+    lotwSentDefault = settings.value("LoTWSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("Misc");
+    queueSentByDefault = settings.value ("SendEQSLByDefault", true).toBool ();
+    settings.endGroup ();
+    //qDebug() << Q_FUNC_INFO << " - END";
+
+    //logEvent (Q_FUNC_INFO, "END", Debug);
 }
