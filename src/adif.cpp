@@ -439,7 +439,7 @@ QStringList Adif::getQSOUploadStatus (bool _fullName)
 {
     QStringList uploadStatus;
     if (_fullName)
-        uploadStatus = {"Y-Upload", "N-Do not Upload", "M-Modified"};
+        uploadStatus = {"Y - " + tr("Uploaded"), "N - " + tr("Do not Upload"), "M - " + tr("Modified")};
     else
         uploadStatus = {"Y", "N", "M"};
     return uploadStatus;
@@ -449,7 +449,8 @@ QStringList Adif::getQSLSentStatus (bool _fullName)
 {
     QStringList qslStatus;
     if (_fullName)
-        qslStatus = {"Y-Sent", "N-Do not send", "R-Requested", "Q-Queued", "I-Ignore"};
+        //qslStatus = {"Y-Sent", "N-Do not send", "R-Requested", "Q-Queued", "I-Ignore"};
+        qslStatus = {"Y - " + tr("Sent"), "N - " + tr("Do not send"), "R - " + tr("Requested"), "Q - " + tr("Queued"), "I - " + tr("Invalid/Ignore")};
     else
         qslStatus = {"Y", "N", "R", "Q", "I"};
     return qslStatus;

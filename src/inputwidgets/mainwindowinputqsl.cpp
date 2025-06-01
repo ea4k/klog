@@ -28,6 +28,7 @@
 //
 
 #include "mainwindowinputqsl.h"
+#include "../adif.h"
 
 MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
@@ -153,8 +154,10 @@ void MainWindowInputQSL::setDefaultData()
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
     qslViaList.clear();
+    Adif adif(Q_FUNC_INFO);
+    qslSentStatusList = adif.getQSLSentStatus(true);
 
-    qslSentStatusList = dataProxy->getQSLSentList();
+    //qslSentStatusList = dataProxy->getQSLSentList();
     qslRcvdStatusList = dataProxy->getQSLRcvdList();
     qslViaList = dataProxy->getQSLViaList();
 

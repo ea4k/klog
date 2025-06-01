@@ -1,3 +1,9 @@
+-WIP: Move to adif.cpp the qsl sent/rcvd/ aso upload adif data; Remove from: database.cpp DataProxy_SQLite and the calls.
+   - KLOG_DEPRECATED QStringList getQSLRcvdList();
+   - //QStringList getQSLSentList();
+   - DONE: //KLOG_DEPRECATED QStringList getClubLogStatusList();
+   - KLOG_DEPRECATED QStringList getQSLViaList();
+   - qsl_rec_status from database
 -WIP: Define the default eQSL sent value. Decide if it is all or just the appropriate ones.
 -WIP: LoTW confirmations are not correctly imported to logbook.dat #798
 TODO: CHECK: HOW QSO_COMPLETE is being read/managed

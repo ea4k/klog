@@ -648,9 +648,9 @@ private:
     QString softwareVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;
+    QString lotwSentDefault, qrzcomSentDefault, clublogSentDefault, eqslSentDefault;
+    QString stx, srx;
 
-    QString stx;
-    QString srx;
     QPalette palRed, palBlack; // To paint Text in red or black(normal)
     bool  alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
     // bool realTime, UTCTime;

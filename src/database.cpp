@@ -615,13 +615,13 @@ bool DataBase::createTableLog(bool temp)
              "FOREIGN KEY (qsl_rcvd_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_sent_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_rcvd) REFERENCES qsl_rec_status, "
-             "FOREIGN KEY (qsl_sent) REFERENCES qsl_sent_status, "
+             //"FOREIGN KEY (qsl_sent) REFERENCES qsl_sent_status, "
              "FOREIGN KEY (prop_mode) REFERENCES prop_mode_enumeration, "
              "FOREIGN KEY (my_country) REFERENCES entity, "
              "FOREIGN KEY (lotw_qsl_rcvd) REFERENCES qsl_rec_status, "
-             "FOREIGN KEY (lotw_qsl_sent) REFERENCES qsl_sent_status, "
+             //"FOREIGN KEY (lotw_qsl_sent) REFERENCES qsl_sent_status, "
              "FOREIGN KEY (eqsl_qsl_rcvd) REFERENCES qsl_rec_status, "
-             "FOREIGN KEY (eqsl_qsl_sent) REFERENCES qsl_sent_status, "
+             //"FOREIGN KEY (eqsl_qsl_sent) REFERENCES qsl_sent_status, "
              "FOREIGN KEY (credit_submitted) REFERENCES award_enumeration, "
              "FOREIGN KEY (credit_granted) REFERENCES award_enumeration, "
              "FOREIGN KEY (country) REFERENCES entity, "
@@ -684,9 +684,9 @@ bool DataBase::createDataBase()
           (!populateTableQSL_Via_enumeration())         ||
           (!createTablePropModes())                     ||
           (!createTableLogs(true))                      ||
-          (!createTableClubLogStatus())                 ||
-          (!populateTableClubLogStatus())               ||
-          (!createAndPopulateQSLSentRecStatus())        ||
+          //(!createTableClubLogStatus())                 ||
+          //(!populateTableClubLogStatus())               ||
+          //(!createAndPopulateQSLSentRecStatus())        ||
           (!createAndPopulateContinents())              ||
           (!createAndPopulateAnt_path_enumeration())    ||
           (!createTableContest())                       ||
@@ -3016,11 +3016,11 @@ bool DataBase::updateTo006()
     if (!updateTheModeTableAndSyncLog())
         return false;
 
-    if (!createTableClubLogStatus())
-        return false;
+    //if (!createTableClubLogStatus())
+    //    return false;
 
-    if (!populateTableClubLogStatus())
-        return false;
+    //if (!populateTableClubLogStatus())
+    //    return false;
 
     return updateDBVersion(softVersion, "0.006");
 }
@@ -3073,7 +3073,7 @@ bool DataBase::updateTableLog(const int _version)
     return execQuery(Q_FUNC_INFO, queryString);
 }
 
-
+/*
 bool DataBase::createTableClubLogStatus()
 {
         //qDebug() << "createTableClubLogStatus" ;
@@ -3102,7 +3102,7 @@ bool DataBase::populateTableClubLogStatus()
     queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
     return execQuery(Q_FUNC_INFO, queryString);
 }
-
+*/
 
 //TODO: Awards are deprecated
 bool DataBase::createAndPopulateAwardEnumeration()
@@ -3247,6 +3247,7 @@ bool DataBase::createAndPopulateContinents()
     return execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 }
 
+/*
 bool DataBase::createAndPopulateQSLSentRecStatus()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -3310,6 +3311,7 @@ bool DataBase::createAndPopulateQSLSentRecStatus()
     }
     return execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('V', 'Validated')");
 }
+*/
 
 bool DataBase::recreateTableEntity()
 {
@@ -5706,6 +5708,12 @@ bool DataBase::updateTo027()
         if (!execQuery(Q_FUNC_INFO, "DROP TABLE qso_complete_enumeration"))
             return false;
     }
+    if (!execQuery(Q_FUNC_INFO, "DROP TABLE IF exists clublog_status"))
+            return false;
+    if (!execQuery(Q_FUNC_INFO, "DROP TABLE IF exists qsl_sent_status"))
+            return false;
+
+
     // Modify the DB version
     qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.027");

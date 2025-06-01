@@ -158,8 +158,8 @@ private:
     bool createTableEntity(const bool NoTmp);
     bool recreateTableEntity();
 
-    bool createTableClubLogStatus();
-    bool populateTableClubLogStatus();
+    //bool createTableClubLogStatus();
+    //bool populateTableClubLogStatus();
 
     bool createTableMode(const bool NoTmp);
     bool populateTableMode(const bool NoTmp);
@@ -195,7 +195,7 @@ private:
     bool populateContestData();
 
     bool populateTableSupportedContest();
-    bool createAndPopulateQSLSentRecStatus();
+    //bool createAndPopulateQSLSentRecStatus();
     bool createAndPopulateContinents();
     bool createAndPopulateAnt_path_enumeration();
     //bool recreateTableQSO_CompleteEnumeration();

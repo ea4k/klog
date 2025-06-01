@@ -5378,6 +5378,10 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     dxcc = util->getNormalizedDXCCValue (dxcc);
      //qDebug() << Q_FUNC_INFO << "050";
     q.setDXCC(dxcc);
+    q.setClubLogStatus(clublogSentDefault);
+    q.setLoTWQSL_SENT(lotwSentDefault);
+    q.setEQSLQSL_SENT(eqslSentDefault);
+    q.setQRZCOMStatus(qrzcomSentDefault);
      //qDebug() << Q_FUNC_INFO << "060";
 
     if (!showWSJTXDuplicatedMSG(q))
@@ -6085,6 +6089,23 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
 
     myDataTabWidget->loadSettings ();
+
+    settings.beginGroup ("ClubLog");
+    clublogSentDefault = settings.value("ClubLogSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("eQSL");
+    eqslSentDefault = settings.value("eQSLSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("QRZcom");
+    qrzcomSentDefault = settings.value("QRZcomSentDefault").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("LoTW");
+    lotwSentDefault = settings.value("LoTWSentDefault").toString();
+    settings.endGroup ();
+
     eQSLTabWidget->loadSettings();
 
       //qDebug() << Q_FUNC_INFO << " - 30 - modes";

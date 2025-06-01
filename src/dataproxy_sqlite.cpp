@@ -4758,6 +4758,7 @@ QStringList DataProxy_SQLite::getQSLRcvdList()
      return qs;
 }
 
+/*
 QStringList DataProxy_SQLite::getQSLSentList()
 {
          //qDebug()  << Q_FUNC_INFO << " -" ;
@@ -4869,6 +4870,7 @@ QStringList DataProxy_SQLite::getClubLogStatusList()
      query.finish();
      return qs;
 }
+*/
 
 QStringList DataProxy_SQLite::getQSLViaList()
 {

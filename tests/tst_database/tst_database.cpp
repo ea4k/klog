@@ -138,7 +138,7 @@ void tst_DataBase::test_ExistingTables()
     //QCOMPARE(db->isTheTableExisting("awarddxcc"), true);
     //QCOMPARE(db->isTheTableExisting("awardwaz"), true);
     QCOMPARE(db->isTheTableExisting("band"), true);
-    QCOMPARE(db->isTheTableExisting("clublog_status"), true);
+    //QCOMPARE(db->isTheTableExisting("clublog_status"), true);
     QCOMPARE(db->isTheTableExisting("contest"), true);
     QCOMPARE(db->isTheTableExisting("contestcatassisted"), true);
     QCOMPARE(db->isTheTableExisting("contestcategory"), true);
@@ -157,7 +157,7 @@ void tst_DataBase::test_ExistingTables()
     QCOMPARE(db->isTheTableExisting("primary_subdivisions"), true);
     QCOMPARE(db->isTheTableExisting("prop_mode_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("qsl_rec_status"), true);
-    QCOMPARE(db->isTheTableExisting("qsl_sent_status"), true);
+    //QCOMPARE(db->isTheTableExisting("qsl_sent_status"), true);
     QCOMPARE(db->isTheTableExisting("qsl_via_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("satellites"), true);
     //QCOMPARE(db->isTheTableExisting("qso_complete_enumeration"), true);
@@ -175,7 +175,7 @@ void tst_DataBase::test_DataInTables()
     //QCOMPARE(db->hasTheTableData("awarddxcc"), false);
     //QCOMPARE(db->hasTheTableData("awardwaz"), false);
     QCOMPARE(db->hasTheTableData("band"), true);
-    QCOMPARE(db->hasTheTableData("clublog_status"), true);
+    //QCOMPARE(db->hasTheTableData("clublog_status"), true);
     QCOMPARE(db->hasTheTableData("contest"), true);
     QCOMPARE(db->hasTheTableData("contestcatassisted"), true);
     QCOMPARE(db->hasTheTableData("contestcatcategory"), false);
@@ -195,7 +195,7 @@ void tst_DataBase::test_DataInTables()
     QCOMPARE(db->hasTheTableData("primary_subdivisions"), false);
     QCOMPARE(db->hasTheTableData("prop_mode_enumeration"), true);
     QCOMPARE(db->hasTheTableData("qsl_rec_status"), true);
-    QCOMPARE(db->hasTheTableData("qsl_sent_status"), true);
+    //QCOMPARE(db->hasTheTableData("qsl_sent_status"), true);
     QCOMPARE(db->hasTheTableData("qsl_via_enumeration"), true);
     QCOMPARE(db->hasTheTableData("satellites"), true);
     //QCOMPARE(db->hasTheTableData("qso_complete_enumeration"), true);
