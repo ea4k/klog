@@ -4698,6 +4698,7 @@ double DataProxy_SQLite::getFreqFromRange(QString _fr, int _pair)
     return f1;
 }
 
+/*
 QStringList DataProxy_SQLite::getQSLRcvdList()
 {
          //qDebug()  << Q_FUNC_INFO << " -" ;
@@ -4758,7 +4759,7 @@ QStringList DataProxy_SQLite::getQSLRcvdList()
      return qs;
 }
 
-/*
+
 QStringList DataProxy_SQLite::getQSLSentList()
 {
          //qDebug()  << Q_FUNC_INFO << " -" ;

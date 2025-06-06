@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "mainwindowinputeqsl.h"
+#include "../adif.h"
 
 
 MainWindowInputEQSL::MainWindowInputEQSL(DataProxy_SQLite *dp, QWidget *parent) :
@@ -115,7 +116,9 @@ void MainWindowInputEQSL::createUI()
     Adif adif(Q_FUNC_INFO);
     qslSentStatusList = adif.getQSLSentStatus(true);
     //qslSentStatusList = dataProxy->getQSLSentList();
-    qslRcvdStatusList = dataProxy->getQSLRcvdList();
+
+    qslRcvdStatusList = adif.getQSLRecStatus (true);
+    //dataProxy->getQSLRcvdList();
 
     //clubLogStatusList = dataProxy->getClubLogStatusList();
     clubLogStatusList = adif.getQSOUploadStatus(true);

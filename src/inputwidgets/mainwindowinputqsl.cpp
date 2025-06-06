@@ -158,7 +158,8 @@ void MainWindowInputQSL::setDefaultData()
     qslSentStatusList = adif.getQSLSentStatus(true);
 
     //qslSentStatusList = dataProxy->getQSLSentList();
-    qslRcvdStatusList = dataProxy->getQSLRcvdList();
+    qslRcvdStatusList = getQSLRecStatus (true);
+    //qslRcvdStatusList = dataProxy->getQSLRcvdList();
     qslViaList = dataProxy->getQSLViaList();
 
     qslSentComboBox->addItems(qslSentStatusList);

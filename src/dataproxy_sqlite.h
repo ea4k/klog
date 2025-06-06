@@ -284,7 +284,7 @@ public:
     QString getSatelliteFullMode(const QString &_sat);
     QString getSatelliteName(const QString &_sat);
     QString getSateliteArrlIdFromId(const int _id);
-    KLOG_DEPRECATED QStringList getQSLRcvdList();
+    //KLOG_DEPRECATED QStringList getQSLRcvdList();
     //QStringList getQSLSentList();
     //KLOG_DEPRECATED QStringList getClubLogStatusList();
     KLOG_DEPRECATED QStringList getQSLViaList();

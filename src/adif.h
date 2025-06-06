@@ -90,6 +90,7 @@ public:
 
     QStringList getQSOUploadStatus (bool _fullName = false);    // Returns the ADIF enumeration; fullname= true -> Yes-Upload
     QStringList getQSLSentStatus (bool _fullName = false);      // Returns the ADIF enumeration; fullname= true -> Yes-Sent
+    QStringList getQSLRecStatus (bool _fullName = false);       // Returns the ADIF enumeration; fullname= true -> Yes-Sent
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
