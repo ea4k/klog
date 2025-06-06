@@ -772,19 +772,19 @@ void MainWindowInputEQSL::loadSettings()
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
     settings.beginGroup ("ClubLog");
-    clublogSentDefault = settings.value("ClubLogSentDefault").toString();
+    clublogSentDefault = settings.value("ClubLogSentDefault", "M").toString();
     settings.endGroup ();
 
     settings.beginGroup ("eQSL");
-    eqslSentDefault = settings.value("eQSLSentDefault").toString();
+    eqslSentDefault = settings.value("eQSLSentDefault", "Q").toString();
     settings.endGroup ();
 
     settings.beginGroup ("QRZcom");
-    qrzcomSentDefault = settings.value("QRZcomSentDefault").toString();
+    qrzcomSentDefault = settings.value("QRZcomSentDefault", "M").toString();
     settings.endGroup ();
 
     settings.beginGroup ("LoTW");
-    lotwSentDefault = settings.value("LoTWSentDefault").toString();
+    lotwSentDefault = settings.value("LoTWSentDefault", "Q").toString();
     settings.endGroup ();
 
     settings.beginGroup ("Misc");

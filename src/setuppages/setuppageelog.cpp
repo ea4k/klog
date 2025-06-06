@@ -681,35 +681,35 @@ void SetupPageELog::loadSettings()
     settings.endGroup ();
 
     settings.beginGroup ("eQSL");
-    eQSLActiveCheckBox->setChecked (settings.value("eQSLActive").toBool ());
+    eQSLActiveCheckBox->setChecked (settings.value("eQSLActive", false).toBool ());
     eQSLUserLineEdit->setText (settings.value("eQSLCall").toString ());
     eQSLPasswordLineEdit->setText (settings.value("eQSLPass").toString ());
     indexBackup = eQSLSentDefaultComboBox->findText("Q", Qt::MatchFixedString);
-    index = eQSLSentDefaultComboBox->findText(settings.value("eQSLSentDefault").toString(), Qt::MatchFixedString);
+    index = eQSLSentDefaultComboBox->findText(settings.value("eQSLSentDefault", "Q").toString(), Qt::MatchFixedString);
     eQSLSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : indexBackup);
 
     settings.endGroup ();
 
     settings.beginGroup ("QRZcom");
-    QRZCOMActiveCheckBox->setChecked (settings.value("QRZcomActive").toBool ());
+    QRZCOMActiveCheckBox->setChecked (settings.value("QRZcomActive", false).toBool ());
     QRZCOMSubscriberCheckBox->setChecked (settings.value("QRZcomSubscriber").toBool ());
-    QRZCOMAutoCheckCheckBox->setChecked (settings.value("QRZcomAuto").toBool ());
+    QRZCOMAutoCheckCheckBox->setChecked (settings.value("QRZcomAuto", false).toBool ());
     QRZCOMUserLineEdit->setText (settings.value("QRZcomUser").toString ());
     QRZCOMPasswordLineEdit->setText (settings.value("QRZcomPass").toString ());
     QRZCOMLogBookKEYLineEdit->setText(settings.value("QRZcomLogBookKey").toString ());
-    index = QRZCOMSentDefaultComboBox->findText(settings.value("QRZcomSentDefault").toString(), Qt::MatchFixedString);
+    index = QRZCOMSentDefaultComboBox->findText(settings.value("QRZcomSentDefault", "M").toString(), Qt::MatchFixedString);
     indexBackup = QRZCOMSentDefaultComboBox->findText("M", Qt::MatchFixedString);
     QRZCOMSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : indexBackup);
     settings.endGroup ();
 
     settings.beginGroup ("LoTW");
-    lotwUseTQSLCheckBox->setChecked (settings.value("LoTWActive").toBool ());
+    lotwUseTQSLCheckBox->setChecked (settings.value("LoTWActive", false).toBool ());
     lotwUserLineEdit->setText (settings.value("LoTWUser").toString ());
     //qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
     lotwPasswordLineEdit->setText (settings.value("LoTWPass").toString ());
     lotwTQSLPathLineEdit->setText (settings.value("LoTWPath").toString ());
     indexBackup = lotwSentDefaultComboBox->findText("Q", Qt::MatchFixedString);
-    index = lotwSentDefaultComboBox->findText(settings.value("LoTWSentDefault").toString(), Qt::MatchFixedString);
+    index = lotwSentDefaultComboBox->findText(settings.value("LoTWSentDefault", "Q").toString(), Qt::MatchFixedString);
     lotwSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : indexBackup);
     settings.endGroup ();
 }

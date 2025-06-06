@@ -4,7 +4,6 @@
    - DONE: //KLOG_DEPRECATED QStringList getClubLogStatusList();
    - KLOG_DEPRECATED QStringList getQSLViaList();
    - qsl_rec_status from database
--WIP: Define the default eQSL sent value. Decide if it is all or just the appropriate ones.
 -WIP: LoTW confirmations are not correctly imported to logbook.dat #798
 TODO: CHECK: HOW QSO_COMPLETE is being read/managed
 -TODO: When downloading from LoTW, if there is no QSOs in the log the message that is shown appears ()
@@ -15,7 +14,8 @@ TODO: CHECK: HOW QSO_COMPLETE is being read/managed
 
 TBD 2025 - 2.4.2
 - Enhancement: Updated some DataBase fields to match ADIF definition better.
-- Enhancement: Sevral refactors & optimization: ADIF import/export
+- Enhancement: Several refactors & optimization: ADIF import/export
+- Enhancement: Added user configured default eQSL/QRZ.com/LoTW/Clublog sent values
 - Removed references to the www.klog.xyz
 - BugFix: Dates in eQSL tab are not correctly displayed. (Closes #799)
 - BugFix: Spanish translation typo (TNX @samuelhm)
