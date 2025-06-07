@@ -780,7 +780,8 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
 
     QSO qso;
     QStringList fields; // fields keeps the running array,
-
+    QTime startTime = QTime::currentTime();
+    //QTime endTime;
     //qDebug() << Q_FUNC_INFO << ": We start the while" ;
     while ((!file.atEnd()) && (!noMoreQSO))
     {
@@ -839,6 +840,14 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
         //qDebug() << Q_FUNC_INFO << QString(": List of fields is empty!") ;
     }
     //qDebug() << Q_FUNC_INFO << QString(": End of File or no more QSOs") ;
+    //endTime = QTime::currentTime();
+    //QTime totalTime = endTime - startTime;
+    //totalTime.second();
+    //double qsosPerSecond = totalTime.second() / qsos;
+    qDebug() << Q_FUNC_INFO << " - Seconds: " <<  startTime.secsTo(QTime::currentTime());
+    qDebug() << Q_FUNC_INFO << " - QSOs: " << i;
+    if (i>0)
+        qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (i / startTime.secsTo(QTime::currentTime()));
     file.close ();
     progress.setValue(qsos);    // Closes the progressDialog
 
