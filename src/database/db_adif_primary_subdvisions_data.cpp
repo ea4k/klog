@@ -62,6 +62,9 @@ bool DB_ADIF_Primary_Subdvisions_data::addData()
    //qDebug() << Q_FUNC_INFO <<  " - Adding 149";
     if (!add_CT_149())     // Adds the data for Azores
         return false;
+    //qDebug() << Q_FUNC_INFO <<  " - Adding 248";
+    if (!add_I_248())     // Adds the data for Italy
+        return false;
    //qDebug() << Q_FUNC_INFO <<  " - Adding 256";
     if (!add_CT_256())      // Adds the data for Madeira
         return false;
@@ -400,6 +403,123 @@ bool DB_ADIF_Primary_Subdvisions_data::add_CT_272()
         << "'272', 'Viana do Castelo', 'VC', 'CT', '14', '37', '', '-1', '', '', 'N'"
         << "'272', 'Vila Real', 'VR', 'CT', '14', '37', '', '-1', '', '', 'N'"
         << "'272', 'Viseu', 'VS', 'CT', '14', '37', '', '-1', '', '', 'N'"
+        ;
+
+    return addValues(rows, values);
+}
+
+bool DB_ADIF_Primary_Subdvisions_data::add_I_248()
+{
+    // This function contains the Primary Subdivision data for Italy
+    // Source of data is https://www.adif.org (version 3.1.5)
+    // Last modification 20250608
+
+    QString rows = QString("dxcc, name, shortname, prefix, cqz, ituz, regionalgroup, regionalid, start_date, end_date, deleted");
+    QStringList values;
+    values.clear();
+    values
+        << "'248', 'Genova', 'GE', 'I', '14', '37', 'Liguria', '-1', '', '', 'N'"
+        << "'248', 'Imperia', 'IM', 'I', '14', '37', 'Liguria', '-1', '', '', 'N'"
+        << "'248', 'La Spezia', 'SP', 'I', '14', '37', 'Liguria', '-1', '', '', 'N'"
+        << "'248', 'Savona', 'SB', 'I', '14', '37', 'Liguria', '-1', '', '', 'N'"
+        << "'248', 'Alessandria', 'AL', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Asti', 'AT', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Biella', 'BI', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Cuneo', 'CN', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Novara', 'NO', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Torino', 'TO', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Verbano Cusio Ossola', 'VB', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Vercelli', 'VC', 'I', '14', '37', 'Piemonte', '-1', '', '', 'N'"
+        << "'248', 'Aosta', 'AO', 'I', '14', '37', 'Valle D Aosta', '-1', '', '', 'N'"
+        << "'248', 'Bergamo', 'BG', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Brescia', 'BS', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Como', 'CO', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Cremona', 'CR', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Lecco', 'LC', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Lodi', 'LO', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Monza e Brianza', 'MB', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Mantova', 'MN', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Milano', 'MI', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Pavia', 'PV', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Sondrio', 'SO', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Varese', 'VA', 'I', '14', '37', 'Lombardia', '-1', '', '', 'N'"
+        << "'248', 'Belluno', 'BL', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Padova', 'PD', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Rovigo', 'RO', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Treviso', 'TV', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Venezia', 'VE', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Verona', 'VR', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Vicenza', 'VI', 'I', '14', '37', 'Veneto', '-1', '', '', 'N'"
+        << "'248', 'Bolzano', 'BZ', 'I', '14', '37', 'Trentino-Alto Adige', '-1', '', '', 'N'"
+        << "'248', 'Trento', 'TN', 'I', '14', '37', 'Trentino-Alto Adige', '-1', '', '', 'N'"
+        << "'248', 'Gorizia', 'GO', 'I', '14', '37', 'Friuli-Venezia Giulia', '-1', '', '', 'N'"
+        << "'248', 'Pordenone', 'PN', 'I', '14', '37', 'Friuli-Venezia Giulia', '-1', '', '', 'N'"
+        << "'248', 'Trieste', 'TS', 'I', '14', '37', 'Friuli-Venezia Giulia', '-1', '', '', 'N'"
+        << "'248', 'Bologna', 'BO', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Forlì', 'FO', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'Y'"
+        << "'248', 'Forlì-Cesena', 'FC', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Modena', 'MO', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Parma', 'PR', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Piacenza', 'PC', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Ravenna', 'RA', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Reggio Emilia', 'RE', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Rimini', 'RI', 'I', '14', '37', 'Emilia Romagna', '-1', '', '', 'N'"
+        << "'248', 'Arezzo', 'AR', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Firenze', 'FI', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Grosseto', 'GR', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Livorno', 'LI', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Lucca', 'LU', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Massa Carrara', 'MS', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Pistoia', 'PT', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Pisa', 'PI', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Prato', 'PO', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Siena', 'SI', 'I', '14', '37', 'Toscana', '-1', '', '', 'N'"
+        << "'248', 'Chieti', 'CH', 'I', '14', '37', 'Abruzzo', '-1', '', '', 'N'"
+        << "'248', 'L Aquila', 'AQ', 'I', '14', '37', 'Abruzzo', '-1', '', '', 'N'"
+        << "'248', 'Pescara', 'PE', 'I', '14', '37', 'Abruzzo', '-1', '', '', 'N'"
+        << "'248', 'Teramo', 'TE', 'I', '14', '37', 'Abruzzo', '-1', '', '', 'N'"
+        << "'248', 'Ancona', 'AN', 'I', '14', '37', 'Marche', '-1', '', '', 'N'"
+        << "'248', 'Ascoli Piceno', 'AP', 'I', '14', '37', 'Marche', '-1', '', '', 'N'"
+        << "'248', 'Fermo', 'FM', 'I', '14', '37', 'Marche', '-1', '', '', 'N'"
+        << "'248', 'Macerata', 'MC', 'I', '14', '37', 'Marche', '-1', '', '', 'N'"
+        << "'248', 'Pesaro e Urbino', 'PS', 'I', '14', '37', 'Marche', '-1', '', '', 'Y'"
+        << "'248', 'Pesaro e Urbino', 'PU', 'I', '14', '37', 'Marche', '-1', '', '', 'N'"
+        << "'248', 'Matera', 'MT', 'I', '14', '37', 'Basilicata', '-1', '', '', 'N'"
+        << "'248', 'Potenza', 'PZ', 'I', '14', '37', 'Basilicata', '-1', '', '', 'N'"
+        << "'248', 'Bari', 'BA', 'I', '14', '37', 'Puglia', '-1', '', '', 'N'"
+        << "'248', 'Barletta-Andria-Trani', 'BT', 'I', '14', '37', 'Puglia', '-1', '', '', 'N'"
+        << "'248', 'Brindisi', 'BR', 'I', '14', '37', 'Puglia', '-1', '', '', 'N'"
+        << "'248', 'Foggia', 'FG', 'I', '14', '37', 'Puglia', '-1', '', '', 'N'"
+        << "'248', 'Lecce', 'LE', 'I', '14', '37', 'Puglia', '-1', '', '', 'N'"
+        << "'248', 'Taranto', 'TA', 'I', '14', '37', 'Puglia', '-1', '', '', 'N'"
+        << "'248', 'Catanzaro', 'CZ', 'I', '14', '37', 'Calabria', '-1', '', '', 'N'"
+        << "'248', 'Cosenza', 'CS', 'I', '14', '37', 'Calabria', '-1', '', '', 'N'"
+        << "'248', 'Crotone', 'KR', 'I', '14', '37', 'Calabria', '-1', '', '', 'N'"
+        << "'248', 'Reggio Calabria', 'RC', 'I', '14', '37', 'Calabria', '-1', '', '', 'N'"
+        << "'248', 'Vibo Valentia', 'VV', 'I', '14', '37', 'Calabria', '-1', '', '', 'N'"
+        << "'248', 'Avellino', 'AV', 'I', '14', '37', 'Campania', '-1', '', '', 'N'"
+        << "'248', 'Benevento', 'BN', 'I', '14', '37', 'Campania', '-1', '', '', 'N'"
+        << "'248', 'Caserta', 'CE', 'I', '14', '37', 'Campania', '-1', '', '', 'N'"
+        << "'248', 'Napoli', 'NA', 'I', '14', '37', 'Campania', '-1', '', '', 'N'"
+        << "'248', 'Salerno', 'SA', 'I', '14', '37', 'Campania', '-1', '', '', 'N'"
+        << "'248', 'Isernia', 'IS', 'I', '14', '37', 'Molise', '-1', '', '', 'N'"
+        << "'248', 'Campobasso', 'CB', 'I', '14', '37', 'Molise', '-1', '', '', 'N'"
+        << "'248', 'Frosinone', 'FR', 'I', '14', '37', 'Lazio', '-1', '', '', 'N'"
+        << "'248', 'Latina', 'LT', 'I', '14', '37', 'Lazio', '-1', '', '', 'N'"
+        << "'248', 'Rieti', 'RI', 'I', '14', '37', 'Lazio', '-1', '', '', 'N'"
+        << "'248', 'Roma', 'RM', 'I', '14', '37', 'Lazio', '-1', '', '', 'N'"
+        << "'248', 'Viterbo', 'VT', 'I', '14', '37', 'Lazio', '-1', '', '', 'N'"
+        << "'248', 'Perugia', 'PG', 'I', '14', '37', 'Umbria', '-1', '', '', 'N'"
+        << "'248', 'Terni', 'TR', 'I', '14', '37', 'Umbria', '-1', '', '', 'N'"
+        << "'248', 'Agrigento', 'AG', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Caltanissetta', 'CL', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Catania', 'CT', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Enna', 'EN', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Messina', 'ME', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Palermo', 'PA', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Ragusa', 'RG', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Siracusa', 'SR', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
+        << "'248', 'Trapani', 'TP', 'IT9', '14', '37', 'Sicilia', '-1', '', '', 'N'"
         ;
 
     return addValues(rows, values);

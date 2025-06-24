@@ -80,7 +80,7 @@ bool World::readEntities()
 // Function to get EntityData based on dxcc ID
 EntityData World::getEntityDataFromDXCC(const int _dxcc)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
     for (auto it = entities.constBegin(); it != entities.constEnd(); ++it) {
         if (it.value() == _dxcc) {
             return it.key();
@@ -92,9 +92,15 @@ EntityData World::getEntityDataFromDXCC(const int _dxcc)
 
 QString World::getEntityMainPrefix(int _dxcc)
 {
+   //qDebug() << Q_FUNC_INFO << ": " << _dxcc;
+
     EntityData entity = getEntityDataFromDXCC(_dxcc);
+   //qDebug() << Q_FUNC_INFO << " - 10";
     Callsign prefix(entity.mainprefix);
+   //qDebug() << Q_FUNC_INFO << " - 11";
     QString aux = QString();
+   //qDebug() << Q_FUNC_INFO << " - 11";
+   //qDebug() << Q_FUNC_INFO << ": prefix: " << prefix.getHostFullPrefix() ;
     if (prefix.isValidPrefix())
         aux = entity.mainprefix;
     return aux;
@@ -146,36 +152,37 @@ bool World::recreate(const QString &_worldFile)
 
 bool World::create(const QString &_worldFile)
 {
-   //qDebug() << Q_FUNC_INFO << "  " << _worldFile;
+    qDebug() << Q_FUNC_INFO << "  " << _worldFile;
 
     created = readCTYCSV(_worldFile);
 
-   //qDebug() << Q_FUNC_INFO << " - 30" ;
+    qDebug() << Q_FUNC_INFO << " - 30" ;
     if (created)
     {
-       //qDebug() << Q_FUNC_INFO << " - 40" ;
+        qDebug() << Q_FUNC_INFO << " - 40" ;
         created = insertSpecialEntities();
     }
     if (created)
     {
-       //qDebug() << Q_FUNC_INFO << " - 50" ;
+        qDebug() << Q_FUNC_INFO << " - 50" ;
         if (dataProxy->updateISONames())
         {
-           //qDebug() << Q_FUNC_INFO << " - 60" ;
-           //qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
+            qDebug() << Q_FUNC_INFO << " - 60" ;
+            qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
         }
         else
         {
-           //qDebug() << Q_FUNC_INFO << " - 70" ;
-           //qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
+            qDebug() << Q_FUNC_INFO << " - 70" ;
+            qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
         }
-       //qDebug() << Q_FUNC_INFO << " - 80" ;
+        qDebug() << Q_FUNC_INFO << " - 80" ;
     }
     if (created)
     { // Let's add the Primary Subdivisions to the DB
+        qDebug() << Q_FUNC_INFO << " - 81" ;
         created = dataProxy->addPrimarySubdivisions();
     }
-   //qDebug() << Q_FUNC_INFO << " - 90" ;
+    qDebug() << Q_FUNC_INFO << " - 90" ;
     read = readWorld ();
    //qDebug() << Q_FUNC_INFO << " - END" ;
     return created;
@@ -297,7 +304,7 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     QString  call = _qrz.toUpper();
     Callsign callsign(call);
     if (!callsign.isValidPrefix())
@@ -528,6 +535,8 @@ bool World::readCTYCSV(const QString &_worldFile)
       //qDebug() << Q_FUNC_INFO << ": File not found: END FALSE" << _worldFile;
         return false;
     }
+    QStringList existingPrefixes;
+    QList<int> existingDXCCs;
 
   //qDebug() << Q_FUNC_INFO << "File found:" << _worldFile;
 
@@ -573,9 +582,32 @@ bool World::readCTYCSV(const QString &_worldFile)
         if (stringList.size() != 10) {
             continue;
         }
+        // Si el indicativo ya existe, no se debe nuscar más
+        //    Aqui se añaden de forma indefinida... no se valida el indicativo, solo el numero y entonces se va añadiendo varias veces el mismo indicativo
+        //    habría que, además del numero, verificar el prefijo primero
 
-        int entityNumber = extractEntityNumber(stringList);
+
         QString mPrefix = stringList.at(0);
+        if (existingPrefixes.contains(mPrefix))
+        {
+            qDebug() << Q_FUNC_INFO << ": Existing prefix: " << mPrefix;
+            continue;
+        }
+
+
+        int _entityNumber = stringList.at(2).toInt();
+
+        if (mPrefix.contains(QChar('*'), Qt::CaseInsensitive))
+        {
+            _entityNumber += 1000;
+            // Loop until we find an unused entity number with an empty main prefix
+            while (existingDXCCs.contains(_entityNumber))
+            {
+                _entityNumber += 1000;
+            }
+            existingDXCCs.append(_entityNumber);
+        }
+
         QString entName = stringList.at(1);
         int contId = dataProxy->getContinentIdFromContinentShortName(stringList.at(3));
         int cqz = stringList.at(4).toInt();
@@ -584,10 +616,12 @@ bool World::readCTYCSV(const QString &_worldFile)
         double lon = stringList.at(7).toDouble();
         double utc = stringList.at(8).toDouble();
 
-        if (addEntity(entName, cqz, ituz, contId, lat, lon, utc, entityNumber, mPrefix)) {
+        qDebug() << Q_FUNC_INFO << ": NEW prefix: " << mPrefix;
+        existingPrefixes.append(mPrefix);
+        if (addEntity(entName, cqz, ituz, contId, lat, lon, utc, _entityNumber, mPrefix)) {
           //qDebug() << Q_FUNC_INFO << "Entity added:" << entName;
             // stringList.at(9) contains an space separated list of prefixes for that entity
-            addPrefixes(stringList.at(9), entityNumber, cqz, ituz);             //TODO: Handle the error
+            addPrefixes(stringList.at(9), _entityNumber, cqz, ituz);             //TODO: Handle the error
         } else {
           //qDebug() << Q_FUNC_INFO << "Entity not added:" << entName;
         }
@@ -669,17 +703,43 @@ bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>
 
 int World::extractEntityNumber(const QStringList &stringList)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start ";
-    int entityNumber;
-    if (stringList.at(0).contains(QChar('*'), Qt::CaseInsensitive)) {
-        entityNumber = stringList.at(2).toInt() + 1000;
-        while ( !(getEntityMainPrefix((entityNumber)).isEmpty())) {
-            entityNumber += 1000;
-        }
-    } else {
-        entityNumber = stringList.at(2).toInt();
+    if (stringList.size() < 3) {
+        qWarning() << Q_FUNC_INFO << "Insufficient elements in stringList!";
+        return -1; // or another error code
     }
-    return entityNumber;
+
+    int _entityNumber = stringList.at(2).toInt();
+    QString _dirtyPrefix = stringList.at(0);
+    QString _prefix;
+    if (_prefix.contains(QChar('*'), Qt::CaseInsensitive))
+    {
+
+    }
+
+    if (_prefix.contains(QChar('*'), Qt::CaseInsensitive)) {
+        _entityNumber += 1000;
+        // Loop until we find an unused entity number with an empty main prefix
+        while ((!getEntityMainPrefix(_entityNumber).isEmpty()) || existingDXCCId(_entityNumber)) {
+            _entityNumber += 1000;
+        }
+    }
+
+   //qDebug() << Q_FUNC_INFO << "Final extracted entity number:" << _entityNumber;
+    return _entityNumber;
+}
+
+bool World::existingDXCCId(const int _id) const
+{
+   //qDebug() << Q_FUNC_INFO << " - Start ";
+    QSqlQuery query;
+    query.prepare("SELECT 1 FROM entity WHERE dxcc = :id LIMIT 1");
+    query.bindValue(":id", _id);
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return false;
+    }
+    return query.next(); // Returns true if a row exists, false otherwise
 }
 
 int World::getHowManyEntities()

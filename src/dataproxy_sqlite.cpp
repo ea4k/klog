@@ -5029,45 +5029,47 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
 { // Returns the Primary Subdivision for an Entity
   // If _pref is empty, and entity >=0 we look for all the subdivisions of the Entity,
   // If _pref is not empty, we look for the subdivisions with that entity, if none, we look for the number.
-   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
     QList<PrimarySubdivision> list;
     list.clear();
+    int normalizedInt = _entity % 1000;
 
     QSqlQuery query;
     QString queryString;
     if ((!_pref.isEmpty()))
     {
-       //qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
+        qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
         queryString = QString("SELECT dxcc, prefix, name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix ORDER BY shortname");
         query.prepare(queryString);
         query.bindValue(":prefix", _pref);
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - Running with a pref, delivering just for the prefix";
-       //qDebug() << Q_FUNC_INFO << QString("If the entity is <=0 The list will be empty. Entity: %1").arg(_entity);
-        if (_entity<=0)
+        qDebug() << Q_FUNC_INFO << " - Running with a pref, delivering just for the prefix";
+        qDebug() << Q_FUNC_INFO << QString("If the entity is <=0 The list will be empty. Entity: %1").arg(normalizedInt);
+        if (normalizedInt<=0)
         {
-           //qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
+            qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
             return list;
         }
         queryString = QString("SELECT dxcc, prefix, name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc ORDER BY shortname");
         query.prepare(queryString);
-        query.bindValue(":dxcc", _entity);
+        query.bindValue(":dxcc", normalizedInt);
     }
 
     bool sqlOK = query.exec();
 
     if (sqlOK)
     {
-       //qDebug() << Q_FUNC_INFO << ": sqlOK true";
+        qDebug() << Q_FUNC_INFO << ": sqlOK true";
 
         while (query.next())
         {
             if (query.isValid())
             {
                 PrimarySubdivision ps;
-                ps.dxcc = (query.value(0)).toInt();
+                //ps.dxcc = (query.value(0)).toInt();
+                ps.dxcc = _entity;
                 ps.prefix = (query.value(1)).toString();
                 ps.name = (query.value(2)).toString();
                 ps.shortName = (query.value(3)).toString();
@@ -5075,24 +5077,24 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
                 ps.ituz = (query.value(5)).toInt();
 
                 list.append(ps);
-               //qDebug() << Q_FUNC_INFO << " : " << ps.name ;
+                qDebug() << Q_FUNC_INFO << " : " << ps.name ;
             }
             else
             {
-               //qDebug() << Q_FUNC_INFO << ": query not valid";
+                qDebug() << Q_FUNC_INFO << ": query not valid";
             }
         }
-       //qDebug() << Q_FUNC_INFO << ": query not next";
+        qDebug() << Q_FUNC_INFO << ": query not next";
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << ": sqlOK FALSE";
+        qDebug() << Q_FUNC_INFO << ": sqlOK FALSE";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         list.clear();
     }
     query.finish();
 
-    //qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
+     qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
     return list;
 }
 

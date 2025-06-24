@@ -47,7 +47,7 @@ public:
     void setDarkMode (const bool _dm);
     QSO getQSOData(QSO _qso);
     void setQSOData(const QSO &_qso);
-    void setEntitiesList(const QStringList _qs);
+    void setEntitiesList();
     void setEntity(const int _entity);               // Move the external call to setEntityAndPrefix
     int getEntity();
     QString getEntityPrefix();
@@ -131,7 +131,7 @@ private:
     World *world;
     bool darkMode;
 
-    QStringList entitiesList, propModeList;
+    QStringList  propModeList; // entitiesList,
     //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QLineEdit *iotaNumberLineEdit;

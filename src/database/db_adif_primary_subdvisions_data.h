@@ -60,6 +60,7 @@ private:
     bool add_Mexico_50();   // Adds the data for Mexico
     bool add_Argentina_100();// Adds the data for Argentina
     bool add_Brazil_108();  // Adds the data for Brazil
+    bool add_I_248();       // Adds the data for Italy
     bool add_EA_281();      // Adds the data for Spain
     bool add_USA_110();     // Adds the data for Hawaii
     bool add_CT_149();      // Adds the data for Azores
@@ -67,8 +68,6 @@ private:
     bool add_CT_272();      // Adds the data for Portugal
     bool add_USA_291();     // Adds the data for United States of America
     bool add_Japan_339();   // Adds the data for Japan
-
-
 };
 
 #endif // DB_ADIF_PRIMARY_SUBDVISIONS_DATA_H

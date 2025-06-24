@@ -129,7 +129,7 @@ private:
     bool addPrefixes(const QString &prefixes, int entityNumber, int cqz, int ituz);
     bool insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>>>> &pairPrefixes);
     int extractEntityNumber(const QStringList &stringList);
-
+    bool existingDXCCId(const int _id)  const;                  // TO Check on World creation if a non-DXCC(IT9, IG9, ...) is already existing
     void emitQueryError(const QSqlQuery &query) const;
     bool executeQuery(QSqlQuery &query, const QString &queryString) const;
     //int progressBarPosition;

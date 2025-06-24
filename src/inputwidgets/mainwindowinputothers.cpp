@@ -117,7 +117,7 @@ void MainWindowInputOthers::createUI()
    //qDebug() << Q_FUNC_INFO ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
-    entitiesList.clear();
+    //entitiesList.clear();
     propModeList.clear();
     adifValidTypes.clear();
     autoUpdating = false;
@@ -200,13 +200,7 @@ void MainWindowInputOthers::createUI()
     tabLayout->addWidget(keepPropCheckBox, 6, 2);
     //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
-    entitiesList.clear();
-    entitiesList.append( dataProxy->getEntitiesNames());
-    if (entitiesList.size()>1)
-    {
-        entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
-        entityNameComboBox->addItems(entitiesList);
-    }
+
    //qDebug() << Q_FUNC_INFO << ": Trying to add PropModes";
     propModeList = dataProxy->getPropModeList();
     if (propModeList.size()>1)
@@ -264,18 +258,19 @@ void MainWindowInputOthers::clear(bool _full)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindowInputOthers::setEntitiesList(const QStringList _qs)
+
+void MainWindowInputOthers::setEntitiesList()
 {
       //qDebug() << Q_FUNC_INFO << ": " << QString::number(_qs.length());
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    entitiesList.clear();
-    entitiesList << _qs;
-    if (entitiesList.size()>1)
-    {
-        entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
-        //entitiesList.prepend("00-Not Identified (000)");
-        entityNameComboBox->addItems(entitiesList);
-    }
+      QStringList entitiesList;
+      entitiesList.append( dataProxy->getEntitiesNames());
+      if (entitiesList.size()>1)
+      {
+          entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
+          entityNameComboBox->addItems(entitiesList);
+      }
+
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -723,6 +718,7 @@ QString MainWindowInputOthers::getUserADIFValue()
 bool MainWindowInputOthers::setInitialADIFValues()
 {
     logEvent (Q_FUNC_INFO, "END-", Debug);
+    setEntitiesList();
     adifValidTypes  << "01-"    + tr("SOTA Ref")    << "02-" + tr ("Age")
                    << "03-"     + tr("Distance")    << "04-" + tr("POTA Ref")
                    << "05-"     + tr("SIG")         << "06-" + tr("SIG Info")

@@ -1,4 +1,6 @@
+- WIP: IT9A is identified as African Italy
 -WIP: LoTW confirmations are not correctly imported to logbook.dat #798
+
 TODO: CHECK: HOW QSO_COMPLETE is being read/managed
 -TODO: When downloading from LoTW, if there is no QSOs in the log the message that is shown appears ()
 

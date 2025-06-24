@@ -67,7 +67,7 @@ tst_MainWindowInputOthers::tst_MainWindowInputOthers()
     //util = new Utilities(Q_FUNC_INFO);
 
     mainWindowInputOthers = new MainWindowInputOthers(dataProxy);
-    mainWindowInputOthers->setEntitiesList(dataProxy->getEntitiesNames());
+    mainWindowInputOthers->setEntitiesList();
    //qDebug() << Q_FUNC_INFO << " - CurrentProp" << mainWindowInputOthers->getPropModeFromComboBox() ;
 
 }
