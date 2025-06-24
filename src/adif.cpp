@@ -449,9 +449,9 @@ QStringList Adif::getQSLSentStatus (bool _fullName)
 {
     QStringList qslStatus;
     if (_fullName)
-        qslStatus = {"Y - " + tr("Yes"), "N - " + tr("No"), "R - " + tr("Requested"), "I - " + tr("Invalid/Ignore"), "V - " + tr("Verified")};
+        qslStatus = {"Y - " + tr("Sent"), "N - " + tr("Do not send"), "R - " + tr("Requested"), "Q - " + tr("Queued"), "I - " + tr("Invalid/Ignore")};
     else
-        qslStatus = {"Y", "N", "R", "I", "V"};
+        qslStatus = {"Y", "N", "R", "Q", "I"};
     return qslStatus;
 }
 
@@ -459,10 +459,9 @@ QStringList Adif::getQSLRecStatus (bool _fullName)
 {
     QStringList qslStatus;
     if (_fullName)
-
-        qslStatus = {"Y - " + tr("Sent"), "N - " + tr("Do not send"), "R - " + tr("Requested"), "Q - " + tr("Queued"), "I - " + tr("Invalid/Ignore")};
+        qslStatus = {"Y - " + tr("Yes"), "N - " + tr("No"), "R - " + tr("Requested"), "I - " + tr("Invalid/Ignore"), "V - " + tr("Verified")};
     else
-        qslStatus = {"Y", "N", "R", "Q", "I"};
+        qslStatus = {"Y", "N", "R", "I", "V"};
     return qslStatus;
 }
 
