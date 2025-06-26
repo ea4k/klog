@@ -7003,9 +7003,10 @@ QStringList DataProxy_SQLite::getLongPrefixes()
     return qs;
 }
 
-QStringList DataProxy_SQLite::getEntitiesNames()
+QStringList DataProxy_SQLite::getEntitiesNames(bool _dxccOnly)
 {
-         //qDebug()  << Q_FUNC_INFO << " -" ;
+    //qDebug()  << Q_FUNC_INFO << " -" ;
+
     QString aux = QString();
     QStringList qs;
     qs.clear();
@@ -7019,13 +7020,21 @@ QStringList DataProxy_SQLite::getEntitiesNames()
         while ( (query.next())) {
             if (query.isValid())
             {
-                if (query.value(2).toInt()<1000)
+                aux.clear();
+                if (_dxccOnly)
                 {
-                    aux.clear();
-                    aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
-                    //result = result + ", " + (query.value(0)).toString();
-                    qs << aux;
+                    if (query.value(2).toInt()<1000)
+                    {
+                        aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
+
+                    }
                 }
+                else
+                {
+                    aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
+                }
+                qDebug() << Q_FUNC_INFO << ": Adding: " << aux;
+                qs << aux;
             }
         }
     }

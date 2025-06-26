@@ -220,7 +220,7 @@ public:
     QHash<QString, int> getWorldData();
 
     QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
-    QStringList getEntitiesNames();
+    QStringList getEntitiesNames(bool _dxccOnly = true);
     QStringList getEntitiesIds();
     int getHowManyEntities();
     int getMaxEntityID(bool limit = true);      // limit = true implies that it will only shouw ARRL valid DXCC (i.e. will not count Sicily)

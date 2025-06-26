@@ -32,7 +32,7 @@
 MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << Q_FUNC_INFO;
+        qDebug() << Q_FUNC_INFO;
     logLevel = None;
     dataProxy = dp;
     world = new World(dataProxy,Q_FUNC_INFO);
@@ -65,7 +65,7 @@ MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *pare
 
     createUI();
     setInitialADIFValues ();
-       //qDebug() << Q_FUNC_INFO << ": "- END";
+        qDebug() << Q_FUNC_INFO << " - END";
 }
 
 MainWindowInputOthers::~MainWindowInputOthers()
@@ -78,7 +78,8 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
 {
     QSO qso = _qso;
 
-    qso.setDXCC(getEntity());
+    qso.setDXCC(getEntity() % 1000);
+    qDebug() << Q_FUNC_INFO << " - DXCC: " << qso.getDXCC();
     qso.setState(getState());
     //qso.setCounty()           //TODO: Related to entitySecDivComboBox when implemented
     qso.setIOTA(getIOTA());
@@ -87,7 +88,7 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
     qso.setAge(getAge());
     qso.setDistance(getDistance());
     qso.setSIG(getSIG());
-    //qDebug() << Q_FUNC_INFO << " - AGE stored" << qso.getAge();
+     qDebug() << Q_FUNC_INFO << " - AGE stored" << qso.getAge();
     qso.setSIG_INFO(getSIG_INFO());
     qso.setVUCCGrids(getVUCCGrids());
     qso.setWWFF_Ref(getWWFF_Ref());
@@ -98,7 +99,12 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
 void MainWindowInputOthers::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
-    setEntity(qso.getDXCC());
+
+    int qrzEntity = world->getQRZARRLId(qso.getCall());
+    if (world->selectEntity(qrzEntity, qso.getDXCC()>0))
+        setEntity(qrzEntity);
+    else
+        setEntity(qso.getDXCC());
     setPropMode(qso.getPropMode(), false);
     setSOTA(qso.getSOTA_REF());
     setAge(qso.getAge());
@@ -114,7 +120,7 @@ void MainWindowInputOthers::setQSOData(const QSO &_qso)
 
 void MainWindowInputOthers::createUI()
 {
-   //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO ;
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     //entitiesList.clear();
@@ -201,11 +207,11 @@ void MainWindowInputOthers::createUI()
     //tabLayout->setSizeConstraint(QLayout::SetFixedSize);
     setLayout(tabLayout);
 
-   //qDebug() << Q_FUNC_INFO << ": Trying to add PropModes";
+    qDebug() << Q_FUNC_INFO << ": Trying to add PropModes";
     propModeList = dataProxy->getPropModeList();
     if (propModeList.size()>1)
     {
-       //qDebug() << Q_FUNC_INFO << ": Adding PropModes";
+        qDebug() << Q_FUNC_INFO << ": Adding PropModes";
         propModeList.prepend("00 - " + tr("Not - Not Identified"));
         propModeComboBox->addItems(propModeList);
     }
@@ -217,12 +223,12 @@ void MainWindowInputOthers::createUI()
     readDarkMode();
     logEvent (Q_FUNC_INFO, "END", Debug);
 
-    //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
+     qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
 }
 
 void MainWindowInputOthers::clear(bool _full)
 {
-    //qDebug() << Q_FUNC_INFO << ": Full = " << util->boolToQString(_full);
+     qDebug() << Q_FUNC_INFO << ": Full = " << util->boolToQString(_full);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     entityNameComboBox->setCurrentIndex(0);
     userDefinedADIFComboBox->setCurrentIndex (0);
@@ -247,12 +253,12 @@ void MainWindowInputOthers::clear(bool _full)
     //iotaNumberLineEdit->setText("000");
     if ((!keepPropCheckBox->isChecked()) || _full)
     {
-      //qDebug() << Q_FUNC_INFO << ": Clear the proModeComboBox";
+       qDebug() << Q_FUNC_INFO << ": Clear the proModeComboBox";
       propModeComboBox->setCurrentIndex(0);
     }
     if (_full)
     {
-        //qDebug() << Q_FUNC_INFO << ": Clear the keepPropCheckBox";
+         qDebug() << Q_FUNC_INFO << ": Clear the keepPropCheckBox";
         keepPropCheckBox->setChecked (false);
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -261,10 +267,10 @@ void MainWindowInputOthers::clear(bool _full)
 
 void MainWindowInputOthers::setEntitiesList()
 {
-      //qDebug() << Q_FUNC_INFO << ": " << QString::number(_qs.length());
+       qDebug() << Q_FUNC_INFO << " - Start";
     logEvent (Q_FUNC_INFO, "Start", Debug);
       QStringList entitiesList;
-      entitiesList.append( dataProxy->getEntitiesNames());
+      entitiesList.append( dataProxy->getEntitiesNames(false));
       if (entitiesList.size()>1)
       {
           entitiesList.prepend("00-" + tr("Not Identified") + " (000)");
@@ -285,37 +291,40 @@ int MainWindowInputOthers::getEntity()
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return -1;
     }
-    //qDebug() << Q_FUNC_INFO << ": " << (aux.split('(').at(1).chopped(1));
+     qDebug() << Q_FUNC_INFO << ": " << (aux.split('(').at(1).chopped(1));
     //return (aux.split('(').at(1).chopped(1)).toInt ();
     QString a = aux.split('(').at(1);
     a.chop(1);
-    //qDebug() << Q_FUNC_INFO << ": " << a;
+     qDebug() << Q_FUNC_INFO << ": " << a;
     logEvent (Q_FUNC_INFO, "END", Debug);
     return a.toInt ();
 }
 
 QString MainWindowInputOthers::getEntityPrefix()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << (entityNameComboBox->currentText()).split('-').at(0);
+     qDebug() << Q_FUNC_INFO << ": " << (entityNameComboBox->currentText()).split('-').at(0);
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    return (entityNameComboBox->currentText()).split('-').at(0);
+    QString prefix = (entityNameComboBox->currentText()).split('-').at(0);
+    if (prefix.startsWith('*'))
+         prefix.remove(QChar('*'), Qt::CaseInsensitive);
+    return prefix;
     //return world->getQRZARRLId(pref);
 }
 
 void MainWindowInputOthers::setPropMode(const QString &_qs, bool _keep)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _qs << "/ Keep: " << util->boolToQString(_keep);
+    qDebug() << Q_FUNC_INFO << ": " << _qs << "/ Keep: " << util->boolToQString(_keep);
     logEvent (Q_FUNC_INFO, "Start", Debug);
     autoUpdating = true;
     if(( propModeComboBox->findText(_qs+" -", Qt::MatchContains))>0)
     {
-       //qDebug() << Q_FUNC_INFO << " PropMode found" ;
+        qDebug() << Q_FUNC_INFO << " PropMode found" ;
         propModeComboBox->setCurrentIndex( propModeComboBox->findText(_qs+" -", Qt::MatchContains));
         keepPropCheckBox->setChecked(_keep);
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
+        qDebug() << Q_FUNC_INFO << " PropMode NOT found" ;
         propModeComboBox->setCurrentIndex(0);
         keepPropCheckBox->setChecked(false);
     }
@@ -327,21 +336,21 @@ QString MainWindowInputOthers::getPropModeFromComboBox()
 {
     //logEvent (Q_FUNC_INFO, "Start", Debug);
 
-   //qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
+    qDebug() << Q_FUNC_INFO << ": " << propModeComboBox->currentText();
     QString _pm = (((propModeComboBox->currentText()).split('-')).at(1)).simplified();
-   //qDebug() << Q_FUNC_INFO << ": - 10" ;
+    qDebug() << Q_FUNC_INFO << ": - 10" ;
     QString _n = (((propModeComboBox->currentText()).split('-')).at(0)).simplified();
-   //qDebug() << Q_FUNC_INFO << ": - 11: " << _n ;
+    qDebug() << Q_FUNC_INFO << ": - 11: " << _n ;
 
     if (_n == "00")
     {
-       //qDebug() << Q_FUNC_INFO << ": - 12" ;
+        qDebug() << Q_FUNC_INFO << ": - 12" ;
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return QString();
     }
-   //qDebug() << Q_FUNC_INFO << ": - 14" ;
+    qDebug() << Q_FUNC_INFO << ": - 14" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
-   //qDebug() << Q_FUNC_INFO << ": " << _pm ;
+    qDebug() << Q_FUNC_INFO << ": " << _pm ;
     return _pm;
 }
 
@@ -362,7 +371,7 @@ bool MainWindowInputOthers::isSATPropagation()
 
 void MainWindowInputOthers::setPaletteIOTA(const bool _ok)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+     qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
     {
         if (darkMode)
@@ -396,14 +405,14 @@ void MainWindowInputOthers::setDarkMode (const bool _dm)
 
     if (darkMode)
     {
-       //qDebug() << Q_FUNC_INFO << " - True";
+        qDebug() << Q_FUNC_INFO << " - True";
         iotaNumberLineEdit->setPalette(palWhite);
         userDefinedADIFValueLineEdit->setPalette(palWhite);
         iotaNumberLineEdit->setPalette(palWhite);
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - False";
+        qDebug() << Q_FUNC_INFO << " - False";
         iotaNumberLineEdit->setPalette(palBlack);
         userDefinedADIFValueLineEdit->setPalette(palBlack);
         iotaNumberLineEdit->setPalette(palBlack);
@@ -419,7 +428,7 @@ bool MainWindowInputOthers::isIOTAModified()
 void MainWindowInputOthers::setIOTA(const QString &_qs)
 {//TODO: Seems to be better to send the color info like in: (it is much more flexible as I can send any color!)
     //void MainWindowInputQSL::setQSLVia(const QString &_qs, QColor qColor)
-      //qDebug() << "MainWindow::setIOTA: " << _qs;
+       qDebug() << "MainWindow::setIOTA: " << _qs;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if ( (checkIfValidIOTA(_qs)).length() !=6 )
     {
@@ -431,7 +440,7 @@ void MainWindowInputOthers::setIOTA(const QString &_qs)
     else
     {
         QStringList values = _qs.split("-", QT_SKIP);
-          //qDebug() << Q_FUNC_INFO << ": IOTA " << _qs;
+           qDebug() << Q_FUNC_INFO << ": IOTA " << _qs;
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
         iotaNumberLineEdit->setText(values.at(1));
         if (darkMode)
@@ -457,12 +466,12 @@ void MainWindowInputOthers::setIOTAContinent(const QString &_qs)
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if(( iotaContinentComboBox->findText(_qs, Qt::MatchContains))>0)
     {
-          //qDebug() << Q_FUNC_INFO << ": setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains));
+           qDebug() << Q_FUNC_INFO << ": setting to index: " << QString::number(iotaContinentComboBox->findText(_qs, Qt::MatchContains));
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(_qs, Qt::MatchContains));
     }
     else
     {
-           //qDebug() << Q_FUNC_INFO << ": setting to index: 00";
+            qDebug() << Q_FUNC_INFO << ": setting to index: 00";
         iotaContinentComboBox->setCurrentIndex(0);
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -483,7 +492,7 @@ QString MainWindowInputOthers::checkIfValidIOTA(const QString &_tiota)
 Returns a valid format IOTA if possible and "" in other cases.
 
 ************************************/
-      //qDebug() << Q_FUNC_INFO << ": " << _tiota;
+       qDebug() << Q_FUNC_INFO << ": " << _tiota;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     if (_tiota.count("-") != 1)
     {
@@ -527,7 +536,7 @@ void MainWindowInputOthers::slotPropModeComboBoxChanged()
 void MainWindowInputOthers::setKeep(const bool _b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(_b);
+     qDebug() << Q_FUNC_INFO << ": " << util->boolToQString(_b);
     keepPropCheckBox->setChecked (_b);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -535,13 +544,13 @@ void MainWindowInputOthers::setKeep(const bool _b)
 bool MainWindowInputOthers::getKeep()
 {
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    //qDebug() << Q_FUNC_INFO;
+     qDebug() << Q_FUNC_INFO;
     return keepPropCheckBox->isChecked ();
 }
 
 bool MainWindowInputOthers::setPOTA_REF(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Adif adif(Q_FUNC_INFO);
     if (!adif.isValidPOTA(_op))
@@ -554,14 +563,14 @@ bool MainWindowInputOthers::setPOTA_REF(const QString &_op)
 
 QString MainWindowInputOthers::getPOTA_REF()
 {
-    //qDebug() << Q_FUNC_INFO;
+     qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return pota_ref;
 }
 
 bool MainWindowInputOthers::setSIG(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Adif adif(Q_FUNC_INFO);
     if (_op.length()<=0)
@@ -574,14 +583,14 @@ bool MainWindowInputOthers::setSIG(const QString &_op)
 
 QString MainWindowInputOthers::getSIG()
 {
-    //qDebug() << Q_FUNC_INFO;
+     qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return sig;
 }
 
 bool MainWindowInputOthers::setSIG_INFO(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Adif adif(Q_FUNC_INFO);
     if (_op.length()<=0)
@@ -594,7 +603,7 @@ bool MainWindowInputOthers::setSIG_INFO(const QString &_op)
 
 QString MainWindowInputOthers::getSIG_INFO()
 {
-    //qDebug() << Q_FUNC_INFO;
+     qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return sig_info;
 }
@@ -602,7 +611,7 @@ QString MainWindowInputOthers::getSIG_INFO()
 
 bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Adif adif(Q_FUNC_INFO);
     if (!adif.isValidWWFF_Ref(_op))
@@ -615,7 +624,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
 
 QString MainWindowInputOthers::getWWFF_Ref()
 {
-    //qDebug() << Q_FUNC_INFO;
+     qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return wwff_ref;
 }
@@ -668,7 +677,7 @@ QString MainWindowInputOthers::getUserADIFTypeComboBox()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     int value = (((userDefinedADIFComboBox->currentText ()).split('-')).at(0)).toInt ();
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
+     qDebug() << Q_FUNC_INFO << ": " << QString::number(value);
 
     switch (value)
     {
@@ -732,13 +741,13 @@ bool MainWindowInputOthers::setInitialADIFValues()
 
 bool MainWindowInputOthers::setState(const QString &_op)
 { // Sets a subdivision/State
-   //qDebug() << Q_FUNC_INFO << ": " << _op;
+    qDebug() << Q_FUNC_INFO << ": " << _op;
     if (_op.length()<1)
         return false;
 
     int indexC = entityPrimDivComboBox->findText(QString("%1-").arg(_op), Qt::MatchStartsWith);
 
-   //qDebug() << Q_FUNC_INFO << _op << "/" << QString::number(indexC) << " / (6): "  << entityPrimDivComboBox->itemText(6);
+    qDebug() << Q_FUNC_INFO << _op << "/" << QString::number(indexC) << " / (6): "  << entityPrimDivComboBox->itemText(6);
     if (indexC<0)
         return false;
 
@@ -748,7 +757,7 @@ bool MainWindowInputOthers::setState(const QString &_op)
 
 QString MainWindowInputOthers::getState()
 {// Reads the subdivision. It return just the shortname/code for the subdivision/State
-   //qDebug() << Q_FUNC_INFO << ": " << ((entityPrimDivComboBox->currentText()).split("-")).at(0);
+    qDebug() << Q_FUNC_INFO << ": " << ((entityPrimDivComboBox->currentText()).split("-")).at(0);
 
     QString aux = entityPrimDivComboBox->currentText();
     if ((aux.startsWith("00-")) && (aux.endsWith("(000)")) )
@@ -759,7 +768,7 @@ QString MainWindowInputOthers::getState()
 
 void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdivision> _subdivisions)
 {
-    //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(_subdivisions.count());
+     qDebug() << Q_FUNC_INFO << " - count: " << QString::number(_subdivisions.count());
     entityPrimDivComboBox->clear();
     if (_subdivisions.isEmpty())
         return;
@@ -776,7 +785,7 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
         QString subdivision = ps.shortName + "-" + ps.name;
         if (!listOfSubdivisions.contains(subdivision))
             listOfSubdivisions.append(subdivision);
-        //qDebug() << Q_FUNC_INFO << ": Subdivision added: " << subdivision;
+         qDebug() << Q_FUNC_INFO << ": Subdivision added: " << subdivision;
     }
     if (listOfSubdivisions.isEmpty())
         return;
@@ -788,60 +797,59 @@ void MainWindowInputOthers::updatePrimarySubdivisionsComboBox(QList<PrimarySubdi
     entityPrimDivComboBox->addItems(listOfSubdivisions);
     if (listOfSubdivisions.length() == 2)
         entityPrimDivComboBox->setCurrentIndex(1);
-    //qDebug() << Q_FUNC_INFO << " - END";
+     qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::setEntity(const int _entity)
 {// Select the appropriate entity in the ComboBox
-  //qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
+   qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
     logEvent (Q_FUNC_INFO, "Start", Debug);
-  //qDebug() << Q_FUNC_INFO << " - 10" ;
+   qDebug() << Q_FUNC_INFO << " - 10" ;
 
     if (_entity<=0)
     {
-      //qDebug() << Q_FUNC_INFO << " - 11" ;
+       qDebug() << Q_FUNC_INFO << " - 11" ;
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-  //qDebug() << Q_FUNC_INFO << " - 20" ;
+   qDebug() << Q_FUNC_INFO << " - 20" ;
     currentInt = _entity;
-    QString aux = QString::number(_entity);
+    QString num = QString::number(_entity);
     if (_entity > 1000)
     {
-      //qDebug() << Q_FUNC_INFO << " - 30" ;
-        aux = (QString::number(_entity)).right(3);
+       qDebug() << Q_FUNC_INFO << " - 30" ;
+       // num = (QString::number(_entity)).right(3);
     }
-  //qDebug() << Q_FUNC_INFO << " - 40" ;
+   qDebug() << Q_FUNC_INFO << " - 40" ;
 
-    int indexC = entityNameComboBox->findText("(" + aux + ")", Qt::MatchEndsWith);
+    int indexC = entityNameComboBox->findText("(" + num + ")", Qt::MatchEndsWith);
     if (indexC != -1)
     {
         entityNameComboBox->setCurrentIndex(indexC);
     }
     else
     {
-      //qDebug() << Q_FUNC_INFO << " - Unable to find entity in the ComboBox";
+       qDebug() << Q_FUNC_INFO << " - Unable to find entity in the ComboBox";
     }
 
-
     setIOTAContinent(dataProxy->getContinentShortNameFromEntity(_entity)) ;
-    //qDebug() << Q_FUNC_INFO << " - 100" ;
+     qDebug() << Q_FUNC_INFO << " - 100" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString &_qrz)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
+     qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
     if (_entity<=0)
     {
-      //qDebug() << Q_FUNC_INFO << " -  10";
+       qDebug() << Q_FUNC_INFO << " -  10";
         entityNameComboBox->setCurrentIndex(0);
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
     }
 
-  //qDebug() << Q_FUNC_INFO << " - 15";
+   qDebug() << Q_FUNC_INFO << " - 15";
     setEntity(_entity);
 
     Callsign callsign(_qrz);
@@ -854,24 +862,28 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
 
 
     Callsign entityCall(prefixFromEntityNumber);    // To check if the prefixFromEntity is the main or not (EA->main, AM-> nor main, it should be EA)
-    QString prefixForSubdivision = prefixFromEntityNumber;    
+    QString prefixForSubdivision = prefixFromEntityNumber;
 
+    qDebug() << Q_FUNC_INFO << " - Before: hostPrefix:              " << hostPrefix;
+    qDebug() << Q_FUNC_INFO << " - Before: prefixFromEntityNumber:  " << prefixFromEntityNumber;
      // Construct hostFullPrefix if hostPrefix is not the main prefix.
     if (hostPrefix != prefixFromEntityNumber)
     {
+        qDebug() << Q_FUNC_INFO << " - Building: " << prefixFromEntityNumber;
         hostFullPrefix = prefixFromEntityNumber + QString::number(callsign.getHostAreaNumber());
     }
 
-  //qDebug() << Q_FUNC_INFO << " -  20";
-  //qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
-  //qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
-  //qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
+   qDebug() << Q_FUNC_INFO << " -  20";
+   qDebug() << Q_FUNC_INFO << "hostFullPrefix:             " << hostFullPrefix;
+   qDebug() << Q_FUNC_INFO << "hostPrefix:                 " << hostPrefix;
+   qDebug() << Q_FUNC_INFO << "prefixFromEntityNumber:     " << prefixFromEntityNumber;
 
+// ea4k parece que falla para IT9
 
     if ((hostFullPrefix.isEmpty()) && (hostPrefix.isEmpty()))
         return;
 
-    //qDebug() << Q_FUNC_INFO << " -  40";
+     qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> primarySubdivisions;
     primarySubdivisions.clear();
 
@@ -885,38 +897,38 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
         currentPref = hostFullPrefix;
         if (primarySubdivisions.isEmpty())
         {
-            //qDebug() << Q_FUNC_INFO << " -  50";
-            //qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
+             qDebug() << Q_FUNC_INFO << " -  50";
+             qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
             primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, hostPrefix));
             currentPref = hostPrefix;
             if (primarySubdivisions.isEmpty())
             {
-                //qDebug() << Q_FUNC_INFO << " -  55";
-                //qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with mainprefix, running just with the entity";
+                 qDebug() << Q_FUNC_INFO << " -  55";
+                 qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with mainprefix, running just with the entity";
                 primarySubdivisions.append(dataProxy->getPrimarySubDivisions(currentInt, QString()));
                 currentPref = QString();
             }
-            //qDebug() << Q_FUNC_INFO << " -  59";
+             qDebug() << Q_FUNC_INFO << " -  59";
         }
     }
 
 
-    //qDebug() << Q_FUNC_INFO << " - 60";
-    //qDebug() << Q_FUNC_INFO << " - count: " << QString::number(primarySubdivisions.count());
+     qDebug() << Q_FUNC_INFO << " - 60";
+     qDebug() << Q_FUNC_INFO << " - count: " << QString::number(primarySubdivisions.count());
     if (primarySubdivisions.isEmpty())
     {
         entityPrimDivComboBox->clear();
         return;
     }
 
-    //qDebug() << Q_FUNC_INFO << " - 70 ";
+     qDebug() << Q_FUNC_INFO << " - 70 ";
     updatePrimarySubdivisionsComboBox(primarySubdivisions);
-    //qDebug() << Q_FUNC_INFO << " - END";
+     qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindowInputOthers::slotUserDefinedADIFComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+     qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     QString currentTag = getUserADIFTypeComboBox ();
 
@@ -958,7 +970,7 @@ void MainWindowInputOthers::slotUserDefinedADIFComboBoxChanged()
 
 bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (checkVUCC_GRIDS(_op))
     {
@@ -973,7 +985,7 @@ bool MainWindowInputOthers::setVUCCGrids(const QString &_op)
 
 bool MainWindowInputOthers::checkVUCC_GRIDS(const QString &_string)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _string;
+     qDebug() << Q_FUNC_INFO << ": " << _string;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (util->isValidVUCCGrids (_string))
     {
@@ -1020,7 +1032,7 @@ void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
 
 bool MainWindowInputOthers::setSOTA(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     sota_ref = _op;
     slotUserDefinedADIFComboBoxChanged();
@@ -1030,14 +1042,14 @@ bool MainWindowInputOthers::setSOTA(const QString &_op)
 
 QString MainWindowInputOthers::getSOTA()
 {
-    //qDebug() << Q_FUNC_INFO;
+     qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return sota_ref;
 }
 
 bool MainWindowInputOthers::setAge(const double _op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     age = _op;
     slotUserDefinedADIFComboBoxChanged();
@@ -1048,13 +1060,13 @@ bool MainWindowInputOthers::setAge(const double _op)
 double MainWindowInputOthers::getAge()
 {
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << age;
+     qDebug() << Q_FUNC_INFO << ": " << age;
     return age;
 }
 
 bool MainWindowInputOthers::setDistance(const double _op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+     qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     distance = _op;
     slotUserDefinedADIFComboBoxChanged();
@@ -1117,7 +1129,7 @@ void MainWindowInputOthers::slotSetCurrentUserData()
 void MainWindowInputOthers::slotPrimarySubdivisionsComboBoxChanged()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << entityPrimDivComboBox->currentText();
+    qDebug() << Q_FUNC_INFO << entityPrimDivComboBox->currentText();
 
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -1129,9 +1141,10 @@ void MainWindowInputOthers::slotShowAllCheckBoxChanged()
 
 void MainWindowInputOthers::slotEntityNameComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << entityNameComboBox->currentText();
-    QString prefix = ((entityNameComboBox->currentText()).split("-")).at(0);
-    //qDebug() << Q_FUNC_INFO << " - " << prefix;
+     qDebug() << Q_FUNC_INFO << entityNameComboBox->currentText();
+
+    QString prefix = getEntityPrefix();
+     qDebug() << Q_FUNC_INFO << " - " << prefix;
     int entity = world->getQRZARRLId(prefix);
     setEntityAndPrefix(entity, prefix);
     //entityPrimDivComboBox->clear();

@@ -87,7 +87,7 @@ public:
 
     double getLongitude(const int _enti); // Returns the longitude of the Entity
     double getLatitude(const int _enti); // Returns the latitude of the Entity
-
+    int selectEntity(const int _ent1, const int _ent2);     // Useful to return Italy 248 if 248 or 2248 (IT9) are delivered. -1 if no selection can be made
     int getEntityCqz(const int _enti);
     int getQRZCqz(const QString &_qrz);
     //int getPrefixCQz(const QString &_p);

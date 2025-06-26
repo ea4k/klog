@@ -64,6 +64,7 @@ World::~World()
 bool World::readEntities()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
+    entities.clear();
     entities = dataProxy->getAllEntiNameISOAndPrefix();
     if (entities.count()<1)
         return false;
@@ -92,7 +93,7 @@ EntityData World::getEntityDataFromDXCC(const int _dxcc)
 
 QString World::getEntityMainPrefix(int _dxcc)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _dxcc;
+    qDebug() << Q_FUNC_INFO << ": " << _dxcc;
 
     EntityData entity = getEntityDataFromDXCC(_dxcc);
    //qDebug() << Q_FUNC_INFO << " - 10";
@@ -413,6 +414,19 @@ double World::getLatitude(const int _enti)
     }
     return dataProxy->getLatitudeFromEntity(_enti);
 }
+
+int World::selectEntity(const int _ent1, const int _ent2)
+{ // Check for I(248) vs IT9(2248) cases
+    int higher = std::max(_ent1, _ent2);
+    int lower  = std::min(_ent1, _ent2);
+
+    // Check if the lower matches the last three digits of the higher
+    if (higher % 1000 == lower)
+        return lower;
+
+    return -1;
+}
+
 
 QString World::getQRZLocator(const QString &_qrz)
 {

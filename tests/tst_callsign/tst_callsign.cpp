@@ -149,6 +149,7 @@ void tst_Callsign::test_callsigns_data()
     QTest::newRow("A2")             << "A2"             << ""               << "A2"     << "A2"     << -1   << ""       << ""       << ""       << -1   << ""   << ""       << true     << false;
     QTest::newRow("3D2")            << "3D2"            << ""               << "3D2"    << "3D2"    << -1   << ""       << ""       << ""       << -1   << ""   << ""       << true     << false;
     QTest::newRow("3D20")           << "3D20"           << ""               <<"3D20"    << "3D2"    << 0    << ""       << ""       << ""       << -1   << ""   << ""       << true     << false;
+    QTest::newRow("IT9")            << "IT9"            << ""               << "IT9"    << "IT"     << 9    << ""       << ""       << ""       << -1   << ""   << ""       << true     << false;
     // TEST T30, T31.. calls
     // test VK0M calls
 

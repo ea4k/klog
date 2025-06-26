@@ -1176,8 +1176,11 @@ bool MainWindow::checkValidCallBeforeAddingToLog(const QString &_call)
 
 int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_qso)
 {
-    if (dxcc_Call!=dxcc_qso)
+    int selected = world->selectEntity(dxcc_Call, dxcc_qso);
+
+    if ((dxcc_Call!=dxcc_qso) && (selected < 0))
     {
+
         QString dxcc1_name    = world->getEntityName(dxcc_Call);
         QString dxcc1_prefix  = world->getEntityMainPrefix(dxcc_Call);
 
@@ -1232,6 +1235,9 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
             return -1;
         }        
     }
+
+    if (selected>0)
+        return selected;
     return dxcc_Call;
 }
 
@@ -1967,7 +1973,7 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-   //qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
+    qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
      //qDebug()<< Q_FUNC_INFO << " - 10" ;
@@ -2058,8 +2064,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     //TODO: Look for a way to prevent updating when not needed. i.e. if the prefix is already defined and only suffix is being sent
     //      Maybe a wat could be to send the hostprefix and not the callsign?
-   //qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
-   //qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
+    qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
+    qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
     othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
          //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
