@@ -287,7 +287,7 @@ void DXClusterWidget::slotClusterDataArrived()
 {
    //qDebug() << Q_FUNC_INFO;
     QString dxClusterString = tcpSocket->readAll().trimmed().simplified();
-   //qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
+   qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
 
     if (dxClusterString.endsWith("\x07\x07\r\n"))
     {
@@ -837,6 +837,23 @@ void DXClusterWidget::loadSettings()
         setDXClusterServer((aux.split(':', QT_SKIP)).at(0), ((aux.split(':', QT_SKIP)).at(1)).toInt());
     }
 
+    showhf      = settings.value("DXClusterShowHF").toBool();
+    showvhf     = settings.value("DXClusterShowVHF").toBool();
+    showwarc    = settings.value("DXClusterShowWARC").toBool();
+    showwcy     = settings.value("DXClusterShowWCY").toBool();
+    showwwv     = settings.value("DXClusterShowWWV").toBool();
+    showann     = settings.value("DXClusterShowAnn").toBool();
+    showworked  = settings.value("DXClusterShowWorked").toBool();
+    showconfirmed = settings.value("DXClusterShowConfirmed").toBool();
+    saveSpots   = settings.value("DXClusterSave").toBool();
+
+/*
+        DXClusterSendToMap=true
+        DXClusterServerToUse=
+        DXClusterServers\1\Server=dxfun.com:8000
+                                    DXClusterServers\size=1
+
+*/
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

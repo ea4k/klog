@@ -417,6 +417,8 @@ double World::getLatitude(const int _enti)
 
 int World::selectEntity(const int _ent1, const int _ent2)
 { // Check for I(248) vs IT9(2248) cases
+    qDebug() << QString("Entity-1: %1, Entity-2: %2").arg(_ent1).arg(_ent2);
+
     int higher = std::max(_ent1, _ent2);
     int lower  = std::min(_ent1, _ent2);
 

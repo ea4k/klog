@@ -9,6 +9,7 @@ TBD 2025 - 2.4.2
 - Enhancement: Several refactors & optimization: ADIF import/export
 - Enhancement: Added user configured default eQSL/QRZ.com/LoTW/Clublog sent values
 - Removed references to the www.klog.xyz
+- Bugfix: DXCluster: Settings filtering based on worked status may not be working properly (Closes #800)
 - BugFix: Dates in eQSL tab are not correctly displayed. (Closes #799)
 - BugFix: Spanish translation typo (TNX @samuelhm)
 
