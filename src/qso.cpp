@@ -3468,6 +3468,7 @@ bool QSO::setSwl(const QString& data) { return setSwl(util->QStringToBool(data))
 bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromADIFTimeString(data)); }
 bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
 
+/*
 bool QSO::setLoTWQSLRDate2(const QString& data) {
     //setLoTWQSL_RCVD("Y");
     return setLoTWQSLRDate(util->getDateFromLoTWQSLDateString(data));
@@ -3480,6 +3481,7 @@ bool QSO::setLoTWQSLSDate2(const QString& data) {
     //setLoTWQSL_SENT("Y");
     return setLoTWQSLSDate(util->getDateFromLoTWQSLDateString(data));
 }
+*/
 
 QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> QSO::SetDataHash;
 
@@ -3630,9 +3632,9 @@ void QSO::InitializeHash() {
         {"VUCC_GRIDS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setVUCCGrids)},
         {"WEB", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWeb)},
         {"WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWWFF_Ref)},
-        {"APP_LOTW_RXQSL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLRDate2)},
-        {"APP_LOTW_RXQSO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate1)},
-        {"APP_LOTW_QSO_TIMESTAMP", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate2)}
+        {"APP_LOTW_RXQSL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLRDate)},
+        {"APP_LOTW_RXQSO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate)}
+        //{"APP_LOTW_QSO_TIMESTAMP", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate2)}
     };
     return;
 }

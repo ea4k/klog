@@ -4398,6 +4398,7 @@ void MainWindow::slotADIFImport(){
 void MainWindow::sendQSOToUI(const QSO &_qso)
 {
     //qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
+    QSOTabWidget->setRSTToMode(_qso.getMode(), false);
     mainQSOEntryWidget->setQSOData(_qso);
     commentTabWidget->setQSOData(_qso);
     satTabWidget->setQSOData(_qso);
