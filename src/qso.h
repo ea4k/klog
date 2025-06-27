@@ -553,6 +553,8 @@ private:
     bool setTimeOff(const QString& data);
     bool setTimeOn(const QString& data);
 
+    void clearQSLDateIfNeeded();            // Prevents a date when not ADIF compatible
+
     //KLOG_DEPRECATED bool setLoTWQSLRDate2(const QString& data);
     //KLOG_DEPRECATED bool setLoTWQSLSDate1(const QString& data);
     //KLOG_DEPRECATED bool setLoTWQSLSDate2(const QString& data);

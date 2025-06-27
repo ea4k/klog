@@ -1,5 +1,3 @@
--WIP: LoTW confirmations are not correctly imported to logbook.dat #798
-
 TODO: CHECK: HOW QSO_COMPLETE is being read/managed
 -TODO: When downloading from LoTW, if there is no QSOs in the log the message that is shown appears ()
 
@@ -9,6 +7,8 @@ TBD 2025 - 2.4.2
 - Enhancement: Several refactors & optimization: ADIF import/export
 - Enhancement: Added user configured default eQSL/QRZ.com/LoTW/Clublog sent values
 - Removed references to the www.klog.xyz
+- Bugfix: v 2.4.1 LoTW confirmations are not correctly imported to logbook.dat
+- Bugfix: RST is not correctly shown when editing (Closes #810)
 - Bugfix: DXCluster: Settings filtering based on worked status may not be working properly (Closes #800)
 - BugFix: Dates in eQSL tab are not correctly displayed. (Closes #799)
 - BugFix: Spanish translation typo (TNX @samuelhm)

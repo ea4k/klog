@@ -3785,6 +3785,19 @@ int QSO::findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const in
     return -3;
 }
 
+void QSO::clearQSLDateIfNeeded()
+{
+
+    if ((getLoTWQSL_RCVD() == "N") || (getLoTWQSL_RCVD() == "R"))
+    {
+        setLoTWQSLRDate(QDate());
+    }
+
+    if ((getLoTWQSL_SENT() == "N") || (getLoTWQSL_SENT() == "R"))
+    {
+        setLoTWQSLSDate(QDate());
+    }
+}
 
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
@@ -3796,6 +3809,7 @@ int QSO::toDB(int _qsoId)
         return -1;
     }
 
+    clearQSLDateIfNeeded();
 
     //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
     //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
