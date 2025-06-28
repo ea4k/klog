@@ -142,59 +142,59 @@
     <message>
         <location filename="../adif.cpp" line="442"/>
         <source>Uploaded</source>
-        <translation type="unfinished">Subida</translation>
+        <translation>Enviada</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="442"/>
         <source>Do not Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>No enviar</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="442"/>
         <source>Modified</source>
-        <translation type="unfinished">Modificado</translation>
+        <translation>Modificado</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviado</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <source>Do not send</source>
-        <translation type="unfinished"></translation>
+        <translation>No enviar</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <location filename="../adif.cpp" line="462"/>
         <source>Requested</source>
-        <translation type="unfinished">Solicitada</translation>
+        <translation>Solicitada</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <source>Queued</source>
-        <translation type="unfinished">En cola</translation>
+        <translation>En cola</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <location filename="../adif.cpp" line="462"/>
         <source>Invalid/Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Inválido/Ignorar</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="462"/>
         <source>Yes</source>
-        <translation type="unfinished">Sí</translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="462"/>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="462"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificado</translation>
     </message>
 </context>
 <context>
@@ -1080,7 +1080,8 @@ Do you want to try again?</source>
         <location filename="../filemanager.cpp" line="888"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.
 Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Has canceladola importación. Se eliminará el fichero y no se importarán datos.
+¿Quieres realmente cancelar?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1531"/>
@@ -6677,7 +6678,7 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="46"/>
         <source>Default</source>
-        <translation type="unfinished">Predeterminado</translation>
+        <translation>Predeterminado</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="48"/>
@@ -6702,13 +6703,13 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
         <location filename="../setuppages/setuppageelog.cpp" line="94"/>
         <location filename="../setuppages/setuppageelog.cpp" line="95"/>
         <source>Select the default option for new QSOs in Clublog</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione la opción predeterminada para los QSOs nuevos en Clublog</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="124"/>
         <location filename="../setuppages/setuppageelog.cpp" line="125"/>
         <source>Select the default option for new QSOs in eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione la opción predeterminada para los QSOs nuevos en eQSL</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="136"/>
@@ -6769,7 +6770,7 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
         <location filename="../setuppages/setuppageelog.cpp" line="174"/>
         <location filename="../setuppages/setuppageelog.cpp" line="175"/>
         <source>Select the default option for new QSOs in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione la opción predeterminada para los QSOs nuevos en QRZ.com</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="201"/>
@@ -6830,7 +6831,7 @@ Si no se especifica puerto se usará 41112 de forma predeterminada:</translation
         <location filename="../setuppages/setuppageelog.cpp" line="224"/>
         <location filename="../setuppages/setuppageelog.cpp" line="225"/>
         <source>Select the default option for new QSOs in LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione la opción predeterminada para los QSOs nuevos en LoTW</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="533"/>
@@ -8236,7 +8237,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="69"/>
         <source>&lt;center&gt;&lt;h2&gt;KLog new version (%1) is available! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;There is a new version of KLog available.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can get the new version from:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://github.com/ea4k/klog&gt;https://github.com/ea4k/klog&lt;/a&gt;&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;&lt;h2&gt;Hay una nueva versión de KLog (%1) disponible! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;Hay una nueva versión de KLog disponible.&lt;br&gt;&lt;br&gt;&lt;b&gt;Puedes descargar la nueva versión desde:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://github.com/ea4k/klog&gt;https://github.com/ea4k/klog&lt;/a&gt;&lt;/center&gt;</translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="73"/>
@@ -8970,18 +8971,18 @@ El log no se abrirá.</translation>
         <location filename="../tipsdialog.cpp" line="133"/>
         <source>&lt;b&gt;Tip #1:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Tools-&gt;Fill in QSO data&lt;/a&gt; to automatically read the full log to fill the DXCC, CQ, ITU zones and continent?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;Fill in QSO data</extracomment>
-        <translation>&lt;b&gt;Consejo #1:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Herramientas-&gt;Completar QSOs&lt;/a&gt; para leer automáticamente todo el log y rellenar los campos DXCC, CQ, ITU y continente?</translation>
+        <translation>&lt;b&gt;Consejo #1:&lt;/b&gt;&lt;br&gt;¿Sabías que...&lt;br&gt;Puedes usar &lt;a href=&quot;#ToolsFillInQSO&quot;&gt;Herramientas-&gt;Completar QSOs&lt;/a&gt; para leer automáticamente todo el log y rellenar los campos DXCC, CQ, ITU y continente?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="141"/>
         <source>&lt;b&gt;Tip #3:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can use &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Tools-&gt;QSL tools...-&gt;Find QSO to QSL&lt;/a&gt; to look for all those QSO that you should send your QSL because you still need to confirm that DXCC and you have still not send your QSL card?</source>
         <extracomment>Translator: Please make sure that the name of the link is coherent with the menu Tools-&gt;QSL tools...-&gt;Find QSO to QSL</extracomment>
-        <translation>&lt;b&gt;Consejo #3:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Herramientas-&gt;Herramientas de QSL ...-&gt;Buscar QSO para enviar QSL&lt;/a&gt; buscar todos los QSO para los que debería enviar su QSL porque aun necesita confirmar ese DXCC y aun no ha enviado su tarjeta QSL?</translation>
+        <translation>&lt;b&gt;Consejo #3:&lt;/b&gt;&lt;br&gt;¿Sabías que...&lt;br&gt;Puedes usar &lt;a href=&quot;#ToolsFindQSO2QSL&quot;&gt;Herramientas-&gt;Herramientas de QSL ...-&gt;Buscar QSO para enviar QSL&lt;/a&gt; buscar todos los QSO para los que deberías enviar su QSL porque aun necesitas confirmar ese DXCC y aun no has enviado la tarjeta QSL?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="172"/>
         <source>&lt;b&gt;Tip #11:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to the &lt;a href=https://t.me/KLogES&gt;Spanish Telegram group&lt;/a&gt; to discuss about KLog in Spanish?</source>
-        <translation>&lt;b&gt;Consejo #11:&lt;/b&gt;&lt;br&gt;¿Sabía que...&lt;br&gt;Puede subscribirse al &lt;a href=https://t.me/KLogES&gt;Grupo de Telegram en español&lt;/a&gt; para discutir sobre KLog en español?</translation>
+        <translation>&lt;b&gt;Consejo #11:&lt;/b&gt;&lt;br&gt;¿Sabías que...&lt;br&gt;Puedes subscribirte al &lt;a href=https://t.me/KLogES&gt;Grupo de Telegram en español&lt;/a&gt; para discutir sobre KLog en español?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="178"/>
@@ -8991,17 +8992,17 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
         <source>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can join the development team by simply &lt;a href=https://github.com/ea4k/klog?tab=readme-ov-file#telegram-groups&gt;Contacting us&lt;/a&gt;?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #15:&lt;/b&gt;&lt;br&gt;¿Sabías que...&lt;br&gt;puedes unirte al equipo de desarrollo simplemente &lt;a href=https://github.com/ea4k/klog?tab=readme-ov-file#telegram-groups&gt;Contactando con nosotros&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="187"/>
         <source>&lt;b&gt;Tip #16:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;That there are many ways to contribute to KLog and some of them are listed in the &lt;a href=https://github.com/ea4k/klog/issues&gt;KLog issues&lt;/a&gt; page?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #16:&lt;/b&gt;&lt;br&gt;¿Sabías que...&lt;br&gt;Hay muchas formas de contribuir con KLog y algunas están listadas en la página de &lt;a href=https://github.com/ea4k/klog/issues&gt;issues&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="190"/>
         <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://github.com/ea4k/klog/tree/master/src/translations&gt;KLog Translations&lt;/a&gt; page.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consejo #17:&lt;/b&gt;&lt;br&gt;¿Sabías que...&lt;br&gt;puedes ayudar en las traducciones de KLog a tu idioma? Por favor revisa la página de &lt;a href=https://github.com/ea4k/klog/tree/master/src/translations&gt;traducciones de KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="162"/>
