@@ -287,7 +287,7 @@ void DXClusterWidget::slotClusterDataArrived()
 {
    //qDebug() << Q_FUNC_INFO;
     QString dxClusterString = tcpSocket->readAll().trimmed().simplified();
-   qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
+  //qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
 
     if (dxClusterString.endsWith("\x07\x07\r\n"))
     {

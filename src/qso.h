@@ -437,6 +437,7 @@ signals:
 
 private:
     //QTime startT;
+    void printQSO();
     bool isValidCall() const;
     //bool isValidBand() const;
     //bool isValidMode() const;

@@ -716,7 +716,7 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::slotQSO_SetMode(const QString _submode)
 {
-    qsoInUI.setMode (dataProxy->getNameFromSubMode (_submode));
+    qsoInUI.setMode(dataProxy->getNameFromSubMode (_submode));
 }
 
 void MainWindow::recommendBackupIfNeeded()
@@ -1015,7 +1015,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     //QString _modeSeen = mainQSOEntryWidget->getMode();
     if (hamlibActive && !manualMode)
     {
-        hamlib->setMode (mainQSOEntryWidget->getMode());
+        hamlib->setMode(mainQSOEntryWidget->getMode());
     }
 /*    if (_modeSeen == "SSB")
     {
@@ -1973,7 +1973,7 @@ void MainWindow::exitQuestion()
 
 void MainWindow::slotQRZTextChanged(QString _qrz)
 {
-    qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
+   //qDebug()<< Q_FUNC_INFO << ": " << _qrz ;
 
     logEvent(Q_FUNC_INFO, QString("Start: %1").arg(_qrz), Debug);
      //qDebug()<< Q_FUNC_INFO << " - 10" ;
@@ -2064,8 +2064,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     }
     //TODO: Look for a way to prevent updating when not needed. i.e. if the prefix is already defined and only suffix is being sent
     //      Maybe a wat could be to send the hostprefix and not the callsign?
-    qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
-    qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
+   //qDebug()<< Q_FUNC_INFO << " - currentEntity: " << QString::number(currentEntity);
+   //qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
     othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
          //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
@@ -4374,7 +4374,7 @@ void MainWindow::slotADIFImport(){
     {
           //qDebug() << "MainWindow::slotADIFImport -1" ;
         //filemanager->adifReadLog(fileName, currentLog);
-        int loggedQSOs = filemanager->adifReadLog2(fileName, QString(), currentLog);  // Empty StationCallsign by default
+        int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog);  // Empty StationCallsign by default
         if (loggedQSOs>0)
         {
             updateQSLRecAndSent();
@@ -4398,7 +4398,7 @@ void MainWindow::slotADIFImport(){
 void MainWindow::sendQSOToUI(const QSO &_qso)
 {
     //qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
-    QSOTabWidget->setRSTToMode(_qso.getMode(), false);
+    QSOTabWidget->setRSTToMode(_qso.getSubmode(), false);
     mainQSOEntryWidget->setQSOData(_qso);
     commentTabWidget->setQSOData(_qso);
     satTabWidget->setQSOData(_qso);
@@ -4419,7 +4419,9 @@ void MainWindow::qsoToEdit (const int _qso)
     if (!modify)
     {
         backupCurrentQSO ();
-       //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
+       qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
+       qDebug() << Q_FUNC_INFO << ": Mode " << backupQSO->getMode();
+       qDebug() << Q_FUNC_INFO << ": SubMode " << backupQSO->getSubmode();
     }
    //qDebug() << Q_FUNC_INFO  << " - 005";
     clearUIDX(true);
@@ -5402,7 +5404,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
          //qDebug() <<  Q_FUNC_INFO << " - QSO added: " << QString::number(addedQSO);
         actionsJustAfterAddingOneQSO();
         slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
-        infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getMode());
+        infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getSubmode());
         slotClearButtonClicked(Q_FUNC_INFO);
     }
     else
@@ -5438,7 +5440,7 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
                            "<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
                            "<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
                            "<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
-                             "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getMode(),
+                             "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getSubmode(),
                             util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
                             qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
                             qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
@@ -5893,8 +5895,9 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     //qso = backupQSO;
      //qDebug() << Q_FUNC_INFO << " - calling setQRZ-4" ;
     mainQSOEntryWidget->setQRZ(backupQSO->getCall ());
-    mainQSOEntryWidget->setBand (backupQSO->getBand ());
-    mainQSOEntryWidget->setMode (backupQSO->getMode ());
+    mainQSOEntryWidget->setBand(backupQSO->getBand ());
+    //mainQSOEntryWidget->setMode(backupQSO->getMode ());
+    mainQSOEntryWidget->setMode(backupQSO->getSubmode());
     mainQSOEntryWidget->setDateTime (backupQSO->getDateTimeOn ());
 
       //qDebug() << Q_FUNC_INFO << ": restoring config: " << util->boolToQString (restoreConfig);

@@ -93,7 +93,7 @@ EntityData World::getEntityDataFromDXCC(const int _dxcc)
 
 QString World::getEntityMainPrefix(int _dxcc)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _dxcc;
+   //qDebug() << Q_FUNC_INFO << ": " << _dxcc;
 
     EntityData entity = getEntityDataFromDXCC(_dxcc);
    //qDebug() << Q_FUNC_INFO << " - 10";
@@ -153,37 +153,37 @@ bool World::recreate(const QString &_worldFile)
 
 bool World::create(const QString &_worldFile)
 {
-    qDebug() << Q_FUNC_INFO << "  " << _worldFile;
+   //qDebug() << Q_FUNC_INFO << "  " << _worldFile;
 
     created = readCTYCSV(_worldFile);
 
-    qDebug() << Q_FUNC_INFO << " - 30" ;
+   //qDebug() << Q_FUNC_INFO << " - 30" ;
     if (created)
     {
-        qDebug() << Q_FUNC_INFO << " - 40" ;
+       //qDebug() << Q_FUNC_INFO << " - 40" ;
         created = insertSpecialEntities();
     }
     if (created)
     {
-        qDebug() << Q_FUNC_INFO << " - 50" ;
+       //qDebug() << Q_FUNC_INFO << " - 50" ;
         if (dataProxy->updateISONames())
         {
-            qDebug() << Q_FUNC_INFO << " - 60" ;
-            qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
+           //qDebug() << Q_FUNC_INFO << " - 60" ;
+           //qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << " - 70" ;
-            qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
+           //qDebug() << Q_FUNC_INFO << " - 70" ;
+           //qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
         }
-        qDebug() << Q_FUNC_INFO << " - 80" ;
+       //qDebug() << Q_FUNC_INFO << " - 80" ;
     }
     if (created)
     { // Let's add the Primary Subdivisions to the DB
-        qDebug() << Q_FUNC_INFO << " - 81" ;
+       //qDebug() << Q_FUNC_INFO << " - 81" ;
         created = dataProxy->addPrimarySubdivisions();
     }
-    qDebug() << Q_FUNC_INFO << " - 90" ;
+   //qDebug() << Q_FUNC_INFO << " - 90" ;
     read = readWorld ();
    //qDebug() << Q_FUNC_INFO << " - END" ;
     return created;
@@ -417,7 +417,7 @@ double World::getLatitude(const int _enti)
 
 int World::selectEntity(const int _ent1, const int _ent2)
 { // Check for I(248) vs IT9(2248) cases
-    qDebug() << QString("Entity-1: %1, Entity-2: %2").arg(_ent1).arg(_ent2);
+   //qDebug() << QString("Entity-1: %1, Entity-2: %2").arg(_ent1).arg(_ent2);
 
     int higher = std::max(_ent1, _ent2);
     int lower  = std::min(_ent1, _ent2);
@@ -606,7 +606,7 @@ bool World::readCTYCSV(const QString &_worldFile)
         QString mPrefix = stringList.at(0);
         if (existingPrefixes.contains(mPrefix))
         {
-            qDebug() << Q_FUNC_INFO << ": Existing prefix: " << mPrefix;
+           //qDebug() << Q_FUNC_INFO << ": Existing prefix: " << mPrefix;
             continue;
         }
 
@@ -632,7 +632,7 @@ bool World::readCTYCSV(const QString &_worldFile)
         double lon = stringList.at(7).toDouble();
         double utc = stringList.at(8).toDouble();
 
-        qDebug() << Q_FUNC_INFO << ": NEW prefix: " << mPrefix;
+       //qDebug() << Q_FUNC_INFO << ": NEW prefix: " << mPrefix;
         existingPrefixes.append(mPrefix);
         if (addEntity(entName, cqz, ituz, contId, lat, lon, utc, _entityNumber, mPrefix)) {
           //qDebug() << Q_FUNC_INFO << "Entity added:" << entName;

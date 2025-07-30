@@ -182,7 +182,7 @@ QString DataBase::getDBName()
 QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start: " << _tableName;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _tableName;
     QSqlQuery query;
 
     QString queryString;
@@ -401,27 +401,27 @@ bool DataBase::isTheDBCreated()
 bool DataBase::recreateTableLog()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (!createTableLog(false))         // Create modetemp
     {
-    qDebug() << Q_FUNC_INFO << ": CreateTableLog returned false" ;
+   //qDebug() << Q_FUNC_INFO << ": CreateTableLog returned false" ;
        logEvent(Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
-    qDebug() << Q_FUNC_INFO << " - 10";
+   //qDebug() << Q_FUNC_INFO << " - 10";
     QString queryString;
-    qDebug() << Q_FUNC_INFO << " - 11";
+   //qDebug() << Q_FUNC_INFO << " - 11";
     queryString.clear();
-    qDebug() << Q_FUNC_INFO << " - 12";
+   //qDebug() << Q_FUNC_INFO << " - 12";
     QStringList columns;
-    qDebug() << Q_FUNC_INFO << " - 13";
+   //qDebug() << Q_FUNC_INFO << " - 13";
     columns.clear();
-    qDebug() << Q_FUNC_INFO << " - 14";
+   //qDebug() << Q_FUNC_INFO << " - 14";
     columns << getColumnNamesFromTable("log");
-    qDebug() << Q_FUNC_INFO << " - 15";
+   //qDebug() << Q_FUNC_INFO << " - 15";
     queryString =  columns.first();
 
-    qDebug() << Q_FUNC_INFO << " - 20";
+   //qDebug() << Q_FUNC_INFO << " - 20";
     for (int i=1;i<columns.size()-1;i++)
     {
         if ( !(columns.at(i) == "time_on") && !(columns.at(i) == "time_off")  )
@@ -1598,7 +1598,7 @@ bool DataBase::updateToLatest()
  * The updateXXX are recursive calls that calls the previous one.
  * Update float DBVersionf = 0.027f; in database.h to the latest version!
  */
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     if (requiresManualUpgrade())
     {
 
@@ -1606,7 +1606,7 @@ bool DataBase::updateToLatest()
         exit(1);
         //return false;
     }
-    qDebug() << Q_FUNC_INFO << " - Let's update!";
+   //qDebug() << Q_FUNC_INFO << " - Let's update!";
     return updateTo027();
 }
 
@@ -5684,27 +5684,27 @@ bool DataBase::updateTo027()
 {
     // Updates the DB to 0.027:
     // Recreates entity log to adjust the type for several numeral
-    qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+   //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
     latestReaded = getDBVersion();
     if (latestReaded >= 0.027f)
     {
-        qDebug() << Q_FUNC_INFO << " - I am in 027" ;
+       //qDebug() << Q_FUNC_INFO << " - I am in 027" ;
         return true;
     }
-    qDebug() << Q_FUNC_INFO << " - 10" ;
+   //qDebug() << Q_FUNC_INFO << " - 10" ;
     if (!updateTo026())
         return false;
-    qDebug() << Q_FUNC_INFO << " - 20" ;
+   //qDebug() << Q_FUNC_INFO << " - 20" ;
     // Start executing the code to update to this version
     if (!recreateTableLog())
     {
-        qDebug() << Q_FUNC_INFO << " - 21" ;
+       //qDebug() << Q_FUNC_INFO << " - 21" ;
         return false;
     }
-    qDebug() << Q_FUNC_INFO << " - 30" ;
+   //qDebug() << Q_FUNC_INFO << " - 30" ;
     if (isTheTableExisting("qso_complete_enumeration"))
     {
-        qDebug() << Q_FUNC_INFO << " - 31" ;
+       //qDebug() << Q_FUNC_INFO << " - 31" ;
         if (!execQuery(Q_FUNC_INFO, "DROP TABLE qso_complete_enumeration"))
             return false;
     }
@@ -5715,7 +5715,7 @@ bool DataBase::updateTo027()
 
 
     // Modify the DB version
-    qDebug() << Q_FUNC_INFO << " - 50" ;
+   //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.027");
 }
 

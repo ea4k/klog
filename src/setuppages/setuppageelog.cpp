@@ -313,19 +313,19 @@ SetupPageELog::~SetupPageELog()
 
 void SetupPageELog::setDefaultLoTW()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     Adif adif(Q_FUNC_INFO);
     lotwSentDefaultComboBox->addItems(adif.getQSLSentStatus());
-     qDebug() << Q_FUNC_INFO << " - Current-1: " << lotwSentDefaultComboBox->currentText();
+    //qDebug() << Q_FUNC_INFO << " - Current-1: " << lotwSentDefaultComboBox->currentText();
     int index = lotwSentDefaultComboBox->findText("Q", Qt::MatchFixedString);
     lotwSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : 0);
-    qDebug() << Q_FUNC_INFO << " - Current-2: " << lotwSentDefaultComboBox->currentText();
+   //qDebug() << Q_FUNC_INFO << " - Current-2: " << lotwSentDefaultComboBox->currentText();
 
 
     lotwPasswordLineEdit->clear ();
     lotwUserLineEdit->clear ();
     lotwPasswordLineEdit->clear ();
-    qDebug() << Q_FUNC_INFO << " -   ";
+   //qDebug() << Q_FUNC_INFO << " -   ";
 }
 
 void SetupPageELog::setDefaultClubLog()
@@ -666,7 +666,7 @@ void SetupPageELog::saveSettings()
 
 void SetupPageELog::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("ClubLog");
     clubLogActiveCheckBox->setChecked (settings.value("ClubLogActive").toBool ());

@@ -63,7 +63,7 @@ MainWindowInputEQSL::~MainWindowInputEQSL()
 
 QSO MainWindowInputEQSL::getQSOData(QSO _qso)
 {
-    qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     QSO qso = _qso;
     qso.setClubLogStatus(getClubLogStatus());
     qso.setEQSLQSL_RCVD(getEQSLRecStatus());
@@ -84,7 +84,7 @@ QSO MainWindowInputEQSL::getQSOData(QSO _qso)
 
 void MainWindowInputEQSL::setQSOData(const QSO &_qso)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QSO qso(_qso);
     // Define first the status so the slots are not overwriting the dates or set uo a semaphore
 
@@ -109,7 +109,7 @@ void MainWindowInputEQSL::setQSOData(const QSO &_qso)
 
 void MainWindowInputEQSL::createUI()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     qslSentStatusList.clear();
     qslRcvdStatusList.clear();
     clubLogStatusList.clear();
@@ -199,7 +199,7 @@ void MainWindowInputEQSL::createUI()
 
 void MainWindowInputEQSL::setDefaultData()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     //qsAux << tr("Y-Yes") << tr("N-No") << tr("R-Requested") << tr("I-Ignore") << tr("V-Validated");
 
     //eqslRecComboBox->addItems(qsAux);
@@ -224,7 +224,7 @@ void MainWindowInputEQSL::setDefaultData()
 
 void MainWindowInputEQSL::clear()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     // Do not upload
     clublogComboBox->setCurrentIndex( clublogComboBox->findText(clublogSentDefault, Qt::MatchStartsWith));
     eqslSentComboBox->setCurrentIndex( eqslSentComboBox->findText(eqslSentDefault, Qt::MatchStartsWith));
@@ -245,7 +245,7 @@ void MainWindowInputEQSL::clear()
 
 QString MainWindowInputEQSL::getClubLogStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QString _pm = QString();
    //qDebug() << Q_FUNC_INFO << clublogComboBox->currentText();
      _pm = (((clublogComboBox->currentText()).split('-')).at(0)).simplified();
@@ -255,7 +255,7 @@ QString MainWindowInputEQSL::getClubLogStatus()
 
 QString MainWindowInputEQSL::getQRZCOMStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QString _pm = QString();
     _pm = (((qrzcomComboBox->currentText()).split('-')).at(0)).simplified();
     //qDebug() << Q_FUNC_INFO << " - From UI: " << _pm;
@@ -264,7 +264,7 @@ QString MainWindowInputEQSL::getQRZCOMStatus()
 
 QString MainWindowInputEQSL::getEQSLRecStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
    QString _pm = QString();
     //qDebug() << "MainWindowInputEQSL::getEQSLRecStatus:" << eqslRecComboBox->currentText();
     _pm = (((eqslRecComboBox->currentText()).split('-')).at(0)).simplified();
@@ -278,7 +278,7 @@ QString MainWindowInputEQSL::getEQSLRecStatus()
 
 QString MainWindowInputEQSL::getEQSLSenStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QString _pm = QString();
      //qDebug() << "MainWindowInputEQSL::getEQSLSenStatus:" << eqslSentComboBox->currentText();
      _pm = (((eqslSentComboBox->currentText()).split('-')).at(0)).simplified();
@@ -292,7 +292,7 @@ QString MainWindowInputEQSL::getEQSLSenStatus()
 
 QString MainWindowInputEQSL::getLOTWRecStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QString _pm = QString();
      //qDebug() << "MainWindowInputEQSL::getLOTWRecStatus:" << lotwRecComboBox->currentText();
      _pm = (((lotwRecComboBox->currentText()).split('-')).at(0)).simplified();
@@ -306,7 +306,7 @@ QString MainWindowInputEQSL::getLOTWRecStatus()
 
 QString MainWindowInputEQSL::getLOTWSenStatus()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QString _pm = QString();
      //qDebug() << "MainWindowInputEQSL::getLOTWSenStatus:" << lotwSentComboBox->currentText();
      _pm = (((lotwSentComboBox->currentText()).split('-')).at(0)).simplified();
@@ -321,7 +321,7 @@ QString MainWindowInputEQSL::getLOTWSenStatus()
 
 void MainWindowInputEQSL::setClubLogStatus(const QString &_qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
     if((( clublogComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (!_qs.isEmpty())    )
      {
          clublogComboBox->setCurrentIndex( clublogComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -334,7 +334,7 @@ void MainWindowInputEQSL::setClubLogStatus(const QString &_qs)
 
 void MainWindowInputEQSL::setQRZCOMStatus(const QString &_qs)
 {
-     qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
     if((( qrzcomComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (!_qs.isEmpty())    )
      {
          qrzcomComboBox->setCurrentIndex( qrzcomComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -347,7 +347,7 @@ void MainWindowInputEQSL::setQRZCOMStatus(const QString &_qs)
 
 void MainWindowInputEQSL::setEQSLRecStatus(const QString &_qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
      //if(( eqslRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     if((( eqslRecComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (!_qs.isEmpty())    )
      {
@@ -361,7 +361,7 @@ void MainWindowInputEQSL::setEQSLRecStatus(const QString &_qs)
 
 void MainWindowInputEQSL::setEQSLSenStatus(const QString &_qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
 
      if((( eqslSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (!_qs.isEmpty())    )
      {
@@ -391,7 +391,7 @@ void MainWindowInputEQSL::setEQSLSenStatus(const QString &_qs)
 
 void MainWindowInputEQSL::setLOTWRecStatus(const QString &_qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
     if((( lotwRecComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (!_qs.isEmpty())    )
      //if(( lotwRecComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
@@ -406,7 +406,7 @@ void MainWindowInputEQSL::setLOTWRecStatus(const QString &_qs)
 
 void MainWindowInputEQSL::setLOTWSenStatus(const QString &_qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qs;
     if((( lotwSentComboBox->findText(_qs, Qt::MatchStartsWith))>=0) && (!_qs.isEmpty())    )
      //if(( lotwSentComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
      {
@@ -430,7 +430,7 @@ void MainWindowInputEQSL::setLOTWSenStatus(const QString &_qs)
 
 void MainWindowInputEQSL::slotLotwRecvComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
 
 //QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
 //Y-Yes-0
@@ -471,7 +471,7 @@ void MainWindowInputEQSL::slotLotwRecvComboBoxChanged()
 
 void MainWindowInputEQSL::slotLotwSentComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
 
     int i = lotwSentComboBox->currentIndex();
 //{Y, N, R, I, V}
@@ -514,7 +514,7 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged()
 
 void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
 
 //QSLRDATE (only valid if QSL_RCVD is Y-0, I-3, or V-4)
 //Y-Yes-0
@@ -557,7 +557,7 @@ void MainWindowInputEQSL::sloteQSLRecvComboBoxChanged()
 
 void MainWindowInputEQSL::sloteQSLSentComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
 
     int i = eqslSentComboBox->currentIndex();
 //{Y, N, R, I, V}
@@ -599,7 +599,7 @@ void MainWindowInputEQSL::sloteQSLSentComboBoxChanged()
 
 void MainWindowInputEQSL::slotClubLogComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     int i = clublogComboBox->currentIndex();
     //{Y, N, M}
     // Y-Yes = 0
@@ -627,7 +627,7 @@ void MainWindowInputEQSL::slotClubLogComboBoxChanged()
 
 void MainWindowInputEQSL::setClubLogDate(const QDate _qs)
 {
-   qDebug() << Q_FUNC_INFO << "Date: " << _qs.toString("dd/MM/yyyy");
+  //qDebug() << Q_FUNC_INFO << "Date: " << _qs.toString("dd/MM/yyyy");
     if (_qs.isValid())
     {
         clublogQDateEdit->setDate(_qs);
@@ -640,7 +640,7 @@ void MainWindowInputEQSL::setClubLogDate(const QDate _qs)
 
 void MainWindowInputEQSL::slotQRZCOMComboBoxChanged()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     int i = qrzcomComboBox->currentIndex();
     //{Y, N, M}
     // Y-Yes = 0
@@ -668,7 +668,7 @@ void MainWindowInputEQSL::slotQRZCOMComboBoxChanged()
 
 void MainWindowInputEQSL::setQRZCOMDate(const QDate _qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     if (_qs.isValid())
     {
         qrzcomQDateEdit->setDate(_qs);
@@ -681,7 +681,7 @@ void MainWindowInputEQSL::setQRZCOMDate(const QDate _qs)
 
 void MainWindowInputEQSL::setEQSLRecDate(const QDate _qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " ;
+   //qDebug() << Q_FUNC_INFO << " - Start: " ;
     if (_qs.isValid())
     {
         eqslRecQDateEdit->setDate(_qs);
@@ -694,7 +694,7 @@ void MainWindowInputEQSL::setEQSLRecDate(const QDate _qs)
 
 void MainWindowInputEQSL::setEQSLSenDate(const QDate _qs)
 {
-    qDebug() << Q_FUNC_INFO << (_qs).toString("yyyy-MM-dd");
+   //qDebug() << Q_FUNC_INFO << (_qs).toString("yyyy-MM-dd");
     if (_qs.isValid())
     {
         //qDebug() << Q_FUNC_INFO << " - Date valid";
@@ -709,7 +709,7 @@ void MainWindowInputEQSL::setEQSLSenDate(const QDate _qs)
 
 void MainWindowInputEQSL::setLOTWRecDate(const QDate _qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     if (_qs.isValid())
     {
         lotwRecQDateEdit->setDate(_qs);
@@ -722,7 +722,7 @@ void MainWindowInputEQSL::setLOTWRecDate(const QDate _qs)
 
 void MainWindowInputEQSL::setLOTWSenDate(const QDate _qs)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     if (_qs.isValid())
     {
         lotwSentQDateEdit->setDate(_qs);
@@ -735,31 +735,31 @@ void MainWindowInputEQSL::setLOTWSenDate(const QDate _qs)
 
 QDate MainWindowInputEQSL::getClubLogDate()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     return clublogQDateEdit->date();
 }
 
 QDate MainWindowInputEQSL::getQRZCOMDate()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     return qrzcomQDateEdit->date();
 }
 
 QDate MainWindowInputEQSL::getEQSLRecDate()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     return eqslRecQDateEdit->date();
 }
 
 QDate MainWindowInputEQSL::getEQSLSenDate()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     return eqslSentQDateEdit->date();
 }
 
 QDate MainWindowInputEQSL::getLOTWRecDate()
 {
-    qDebug() << Q_FUNC_INFO << " - Start: ";
+   //qDebug() << Q_FUNC_INFO << " - Start: ";
     return   lotwRecQDateEdit->date();
 }
 
@@ -771,7 +771,7 @@ QDate MainWindowInputEQSL::getLOTWSenDate()
 
 void MainWindowInputEQSL::loadSettings()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
     settings.beginGroup ("ClubLog");

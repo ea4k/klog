@@ -665,7 +665,7 @@ bool FileManager::adifLogExportMarked(const QString& _fileName)
 
 int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
 {
-  //qDebug() << Q_FUNC_INFO << " - " << fileName;
+    qDebug() << Q_FUNC_INFO << " - " << fileName;
    //QSO qso(Q_FUNC_INFO);
    QString stationCallSign;
    stationCallSign.clear();
@@ -724,7 +724,7 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
     }
     file.seek(pos);
     //qDebug() << Q_FUNC_INFO << " - END" ;
-    return adifReadLog2(fileName, stationCallSign, logN);
+    return adifReadLog(fileName, stationCallSign, logN);
 }
 
 bool FileManager::isALoTWDownloadedFile(QFile & _f)
@@ -746,30 +746,25 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
     //return isLoTWFile;
 }
 
-int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign, int logN)
+int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
-    QFile file( tfileName );
-    if (!file.exists ())
-    {
-        //qDebug() << Q_FUNC_INFO << " - END: file does not exist";
-        return false;
-    }
+   qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+    QFile file(tfileName);
+    if (!file.exists())
+        return 0;
+
     bool lotWDownloaded = isALoTWDownloadedFile(file);
-    //qDebug() << Q_FUNC_INFO << " - IsLoTW: " << util->boolToQString(lotWDownloaded);
+    if (lotWDownloaded)
+        qDebug() << Q_FUNC_INFO << " - LoTW file detected!";
 
-    int qsos = howManyQSOsInFile (file);
-    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(qsos);
-    qint64 pos = passHeader (file); // Position in the file to calculate where the header ends
+    int qsos = howManyQSOsInFile(file);
+    qint64 pos = passHeader(file);
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        //qDebug() << Q_FUNC_INFO << "  Can't open the file" ;
-        return false;
-    }
+        return 0;
 
+    file.seek(pos);
 
-    file.seek (pos); // QSO Data starts here
-    //qDebug() << Q_FUNC_INFO << ": Progress defined" ;
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setAutoClose(true);
@@ -779,85 +774,65 @@ int FileManager::adifReadLog2(const QString& tfileName, QString _stationCallsign
     bool noMoreQSO = false;
 
     QSO qso;
-    QStringList fields; // fields keeps the running array,
+    QStringList fields;
     QTime startTime = QTime::currentTime();
-    //QTime endTime;
-    //qDebug() << Q_FUNC_INFO << ": We start the while" ;
-    while ((!file.atEnd()) && (!noMoreQSO))
+    qDebug() << Q_FUNC_INFO << " - Starting to read the file";
+    while (!file.atEnd() && !noMoreQSO)
     {
-        // One line is read and splitted into the list of fields
-        // Fields are analyzed one by one and extracted from the list of fields
-        // Fields are added to the QSO
-        // If the field is <EOR> the QSO is completed and added to the log.
-        // Once the QSO is added to the log, QSO is cleared and process continues
-        // Once the list of fields is empty, we read another file and start again
-        // until we reach the end of file
-
         QString line = file.readLine().trimmed().toUpper();
-        fields << line.split("<", Qt::SkipEmptyParts);
+        if (line.isEmpty())
+            continue;
 
-        //qDebug() << Q_FUNC_INFO << ": Reading the line: " << line ;
+        fields << line.split("<", Qt::SkipEmptyParts);
 
         while (!fields.isEmpty())
         {
-            //qDebug() << Q_FUNC_INFO << QString(": Fields still has %1 items").arg(fields.count()) ;
-            QString fieldToAnalyze = "<" + (fields.takeFirst()).trimmed();
-            //qDebug() << Q_FUNC_INFO << QString(": Extracted: %1").arg(fieldToAnalyze) ;
-            if ((fieldToAnalyze.contains ("<EOR>")) || (fieldToAnalyze.contains("<APP_LOTW_EOF>")) )
+            QString fieldToAnalyze = "<" + fields.takeFirst().trimmed();
+
+            if (fieldToAnalyze.contains("<EOR>") || fieldToAnalyze.contains("<APP_LOTW_EOF>"))
             {
-                //qDebug() << Q_FUNC_INFO << QString(": EOR detected, QSO added");
                 qso.setLogId(logN);
                 qso.setLoTWUpdating(lotWDownloaded);
                 processQSO(qso, _stationCallsign);
                 qso.clear();
-                i++;
-                if (( (i % step ) == 0) )
-                { // To update the speed I will only show the progress once each X QSOs
-                    //qDebug() << Q_FUNC_INFO << " MOD 0 - i = " << QString::number(i) ;
-                    QString aux = tr("Importing ADIF file...") + "\n" + tr(" QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
-                    progress.setLabelText(aux);
+                ++i;
+
+                if (i % step == 0)
+                {
+                    progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
                     progress.setValue(i);
                 }
             }
             else
             {
-                //qDebug() << Q_FUNC_INFO << QString(": Adding this to the QSO: %1").arg(fieldToAnalyze) ;
-                //fieldToAnalyze must be an ADIF record: <Field:length:Data type>Data                
-                qso.setData (fieldToAnalyze, lotWDownloaded);
+                qso.setData(fieldToAnalyze, lotWDownloaded);
             }
-            if ( progress.wasCanceled() )
+
+            if (progress.wasCanceled())
             {
-                //qDebug() << Q_FUNC_INFO << QString(": Progress Cancelled") ;
                 if (handleCancel())
                 {
                     noMoreQSO = true;
                     break;
                 }
-
             }
-            //qDebug() << Q_FUNC_INFO << QString(": Field process finished: ").arg(fieldToAnalyze) ;
         }
-        //qDebug() << Q_FUNC_INFO << QString(": List of fields is empty!") ;
     }
-    //qDebug() << Q_FUNC_INFO << QString(": End of File or no more QSOs") ;
-    //endTime = QTime::currentTime();
-    //QTime totalTime = endTime - startTime;
-    //totalTime.second();
-    //double qsosPerSecond = totalTime.second() / qsos;
-    qDebug() << Q_FUNC_INFO << " - Seconds: " <<  startTime.secsTo(QTime::currentTime());
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << i;
-    if (i>0)
-        qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (i / startTime.secsTo(QTime::currentTime()));
-    file.close ();
-    progress.setValue(qsos);    // Closes the progressDialog
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    int elapsedSec = std::max(1, startTime.secsTo(QTime::currentTime()));
+   //qDebug() << Q_FUNC_INFO << " - Seconds: " << elapsedSec;
+   //qDebug() << Q_FUNC_INFO << " - QSOs: " << i;
+   //qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (i / elapsedSec);
+
+    file.close();
+    progress.setValue(qsos);
+
     return i;
 }
 
 void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start: " << _stationCallsign;
     Callsign call1(_stationCallsign);
     Callsign call2(qso.getStationCallsign());
     if (call1.isValid() && !call2.isValid())
@@ -867,7 +842,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
-        //qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
+        qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
         int bandId = dataProxy->getIdFromBandName(qso.getBand());
         int modeId = dataProxy->getIdFromModeName(qso.getMode());
         qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
@@ -877,7 +852,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
             qso.updateFromLoTW(qsoId);
         }
     }
-
+    qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
     qso.toDB(qsoId);
 }
 

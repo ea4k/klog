@@ -70,7 +70,7 @@ public:
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     //bool adifReadLog(const QString& tfileName, const int logN);
-    int adifReadLog2(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1);
+    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1);
     int adifLoTWReadLog2(const QString& fileName, const int logN);
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
@@ -107,8 +107,8 @@ private:
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
     bool showInvalidCallMessage(const QString &_call);
     void showError (const QString &_txt);
-    bool handleCancel();                        // Used in FileManager::adifReadLog2
-    void processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog2
+    bool handleCancel();                        // Used in FileManager::adifReadLog
+    void processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog
 
     bool askUserToUseAlwaysSameAnswer();
     bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq);
