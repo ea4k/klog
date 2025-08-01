@@ -43,6 +43,7 @@ private slots:
     //void initTestCase_data(); // will be called to create a global test data table.
     void cleanupTestCase(); //will be called after the last test function was executed.
     void test_getADIFField();
+    void test_Dates();
 
 private:
     Adif *adif;
@@ -72,6 +73,13 @@ void tst_Adif::test_getADIFField()
    QVERIFY2(adif->isValidPower(10), "10 Not valid power");
   //QVERIFY2(!adif->isValidPower(10W), "10W Not valid power");
 }
+
+void tst_Adif::test_Dates()
+{
+    QVERIFY2(adif->getADIFDateStringFromLoTWDateTime("2025-08-01 20:15:10")=="20250801", "LoTW Date is wrong");
+
+}
+
 
 QTEST_APPLESS_MAIN(tst_Adif)
 

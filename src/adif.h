@@ -37,6 +37,7 @@
 #include <QString>
 #include <QtDebug>
 #include <QStringList>
+#include <QDateTime>
 
 //#include "locator.h"
 #include "klogdefinitions.h"
@@ -91,6 +92,8 @@ public:
     QStringList getQSOUploadStatus (bool _fullName = false);    // Returns the ADIF enumeration; fullname= true -> Yes-Upload
     QStringList getQSLSentStatus (bool _fullName = false);      // Returns the ADIF enumeration; fullname= true -> Yes-Sent
     QStringList getQSLRecStatus (bool _fullName = false);       // Returns the ADIF enumeration; fullname= true -> Yes-Sent
+
+    QString getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime);      // Returns the date when importing LoTW ADIF
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

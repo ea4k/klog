@@ -3643,7 +3643,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
+    //qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
@@ -3653,25 +3653,44 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
+    //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
 
     if (_lotw)
     {
-        qDebug() << Q_FUNC_INFO << " - field: " << field;
-        qDebug() << Q_FUNC_INFO << " LOTW QSO... ";
-        if (field == "QSL_RCVD")
-        {
-            qDebug() << Q_FUNC_INFO << " ... modifying QSL_RCVD";
-            field = "LOTW_QSL_RCVD";
+        //qDebug() << Q_FUNC_INFO << " - field: " << field;
+        //qDebug() << Q_FUNC_INFO << " LOTW QSO... ";
+        if (field == "APP_LOTW_RXQSO")
+        {// Timestamp when QSO record was inserted/updated at LoTW
+         // LOTW_QSLSDATE
+            qDebug() << Q_FUNC_INFO << " - APP_LOTW_RXQSO";
+            qDebug() << Q_FUNC_INFO << " LOTW_QSLSDATE: " << data;
+            qDebug() << Q_FUNC_INFO << " LOTW_QSLSDATE-d: " << data;
+            field = "LOTW_QSLSDATE";
+            data = adif->getADIFDateStringFromLoTWDateTime(data);
+            setLoTWQSL_SENT("Y");
+        }
+        else if (field == "APP_LOTW_RXQSL")
+        {// Timestamp only if QSL_RCVD == Y
+            //qDebug() << Q_FUNC_INFO << " - Identified: APP_LOTW_RXQSL";
+            //qDebug() << Q_FUNC_INFO << " ... modifying QSLRDATE to LOTW_QSLRDATE";
+            //qDebug() << Q_FUNC_INFO << " Date: " << data;
+            field = "LOTW_QSLRDATE";
+            data = adif->getADIFDateStringFromLoTWDateTime(data);
+            //qDebug() << Q_FUNC_INFO << " LOTW_QSLRDATE: " << data;
         }
         else if (field == "QSLRDATE")
         {
-            qDebug() << Q_FUNC_INFO << " ... modifying QSLRDATE to LOTW_QSLRDATE";
-             qDebug() << Q_FUNC_INFO << " Date: " << data;
-            field = "LOTW_QSLRDATE";
+             field = "LOTW_QSLRDATE";
+        }
+        else if (field == "QSL_RCVD")
+        {// Y, N, ...
+            //qDebug() << Q_FUNC_INFO << " - Identified: QSLRCVD";
+            //qDebug() << Q_FUNC_INFO << " ... modifying QSLRCVD - previous: " << getLoTWQSLRDate().toString("yyyyMMdd");
+            //if (!(getLoTWQSLRDate() > QDate::fromString("19000101", "yyyyMMdd")))
+            field = "LOTW_QSL_RCVD";
         }
     }
 
