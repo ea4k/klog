@@ -665,7 +665,7 @@ bool FileManager::adifLogExportMarked(const QString& _fileName)
 
 int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
 {
-    qDebug() << Q_FUNC_INFO << " - " << fileName;
+    //qDebug() << Q_FUNC_INFO << " - " << fileName;
    //QSO qso(Q_FUNC_INFO);
    QString stationCallSign;
    stationCallSign.clear();
@@ -748,14 +748,14 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
 
 int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
-   qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+   //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file(tfileName);
     if (!file.exists())
         return 0;
 
     bool lotWDownloaded = isALoTWDownloadedFile(file);
-    if (lotWDownloaded)
-        qDebug() << Q_FUNC_INFO << " - LoTW file detected!";
+    //if (lotWDownloaded)
+        //qDebug() << Q_FUNC_INFO << " - LoTW file detected!";
 
     int qsos = howManyQSOsInFile(file);
     qint64 pos = passHeader(file);
@@ -764,7 +764,6 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
         return 0;
 
     file.seek(pos);
-
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setAutoClose(true);
@@ -776,7 +775,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     QSO qso;
     QStringList fields;
     QTime startTime = QTime::currentTime();
-    qDebug() << Q_FUNC_INFO << " - Starting to read the file";
+    //qDebug() << Q_FUNC_INFO << " - Starting to read the file";
     while (!file.atEnd() && !noMoreQSO)
     {
         QString line = file.readLine().trimmed().toUpper();
@@ -832,7 +831,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
 
 void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _stationCallsign;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _stationCallsign;
     Callsign call1(_stationCallsign);
     Callsign call2(qso.getStationCallsign());
     if (call1.isValid() && !call2.isValid())
@@ -842,7 +841,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
-        qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
+        //qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
         int bandId = dataProxy->getIdFromBandName(qso.getBand());
         int modeId = dataProxy->getIdFromModeName(qso.getMode());
         qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
@@ -852,7 +851,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
             qso.updateFromLoTW(qsoId);
         }
     }
-    qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
+    //qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
     qso.toDB(qsoId);
 }
 

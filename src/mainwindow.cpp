@@ -4419,9 +4419,9 @@ void MainWindow::qsoToEdit (const int _qso)
     if (!modify)
     {
         backupCurrentQSO ();
-       qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
-       qDebug() << Q_FUNC_INFO << ": Mode " << backupQSO->getMode();
-       qDebug() << Q_FUNC_INFO << ": SubMode " << backupQSO->getSubmode();
+       //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
+       //qDebug() << Q_FUNC_INFO << ": Mode " << backupQSO->getMode();
+       //qDebug() << Q_FUNC_INFO << ": SubMode " << backupQSO->getSubmode();
     }
    //qDebug() << Q_FUNC_INFO  << " - 005";
     clearUIDX(true);

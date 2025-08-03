@@ -1285,7 +1285,7 @@ QDate Utilities::getDateFromSQliteString(const QString &_s)
 
 QDate Utilities::getDateFromADIFDateString(const QString &_s)
 {// Expects an ADIF DATE format string: "YYYYMMDD"
-    qDebug() << "Utilities::getDateFromADIFDateString: " << _s ;
+    //qDebug() << "Utilities::getDateFromADIFDateString: " << _s ;
     return QDate::fromString(_s, "yyyyMMdd");
 }
 
