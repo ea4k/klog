@@ -33,7 +33,7 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-PKGVERSION = 2.4.2-RC2  # Version shown in the UI, it shows the package information, format: 2.4.2-RC2(-RC2 only in RC releases)
+PKGVERSION = 2.4.2-RC3  # Version shown in the UI, it shows the package information, format: 2.4.2-RC2(-RC2 only in RC releases)
 VERSION    = 2.4.2      # Version used for calculation, no RC versios, format "2.4.2"
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

@@ -95,6 +95,7 @@ public:
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
     //QString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
+    int getMainIdForSubmodeId(const int _submodeId);       // Returns the name id for a given submode id
 
     Frequency getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
@@ -347,6 +348,7 @@ private:
     QString getStringQueryStationCallSign (const QString &_a);      // Creates part of a query regarding the station_call field
     QString getStringQueryMyGrid (const QString &_a);               // Creates part of a query regarding the my_gridsquare field
     QString getStringQueryLogNumber (const int _a);                 // Creates part of a query regarding the lognumber field
+    void mapModeNameSubmode();                                      // Maps mode/Submode/id using submodeToName & nameToMainId
     //KLOG_DEPRECATED int getPrefixId(const QString &_qrz);           // TODO: Replace by int World::getPrefixId(const QString &_prefix)
                                // Refactored from fillEmptyDXCCInTheLog
     //bool updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont); // Refactored from fillEmptyDXCCInTheLog
@@ -361,6 +363,11 @@ private:
 
     QHash<QString, int> bandIDs;
     QHash<QString, int> modeIDs;
+
+    QHash<int, QString> idToName;           // To map a name the id.
+    QHash<QString, int> nameToMainId;       // To map a name the id.
+
+
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
 private slots:

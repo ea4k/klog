@@ -1,3 +1,5 @@
+Review ANT_AZ, DISTANCE float numbers are not OK
+
 TBD 2025 - 2.4.2
 - Enhancement: Updated some DataBase fields to better match ADIF definition.
 - Enhancement: Several refactors & optimization: ADIF import/export
