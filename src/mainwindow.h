@@ -143,6 +143,7 @@ public:
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
+    //void setPkgVersion(const QString &_pkgVersion);
     //void showNotWar();
 
 private slots:
@@ -645,7 +646,7 @@ private:
     QString infoLabel1T, infoLabel2T;
 
     QString ctyDatFile, defaultADIFLogFile;
-    QString softwareVersion;
+    QString softwareVersion, pkgVersion;
     bool itIsANewversion;
     int dupeSlotInSeconds;
     QString lotwSentDefault, qrzcomSentDefault, clublogSentDefault, eqslSentDefault;

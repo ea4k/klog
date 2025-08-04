@@ -33,12 +33,15 @@
 #include <QPushButton>
 #include <QDebug>
 
-AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
+AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWidget *parent)
     : QDialog(parent)
 {
       //qDebug() << "AboutDialog::AboutDialog";
 
     QPixmap pixmap(":/img/klog_256x256.png");
+    QString pkg;
+    if (tversion != pkgVersion)
+        pkg = "<h6>(" + pkgVersion + ") </h6>";
 
 
     setWindowTitle(tr("About KLog"));
@@ -48,7 +51,7 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
 
     const QString br = QLatin1String("<br/>");
 
-    const QString description = "<center><h2>KLog " + tversion + "</h2><h4> " +tr("By") +
+    const QString description = "<center><h2>KLog " + tversion + "</h2>" + pkg +  "<h4> " + tr("By") +
             " <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a> - 2002-2023</h4></center><br>" +
             tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
             tr("Please be aware that this is a development release and it may contain many bugs.<br>Backup your data before using this software!") +
@@ -79,8 +82,8 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     logoLabel2->setPixmap(pixmap);
     QLabel *logoLabel3 = new QLabel;
     logoLabel3->setPixmap(pixmap);
-    QLabel *logoLabel4 = new QLabel;
-    logoLabel4->setPixmap(pixmap);
+    //QLabel *logoLabel4 = new QLabel;
+    //logoLabel4->setPixmap(pixmap);
 
     QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td>") + "<td>(2002-" + tr("today") +") " +tr("Main developer") + "</td></tr>";
     QString author2 = QString("<tr><td>Juan Carlos Reig</td>")  + QString("<td><a href=\"https://www.qrz.com/db/ea5wa\">EA5WA</a></td>") + "<td>(2021-" + tr("today") + ")</td></tr>";
@@ -125,22 +128,22 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     translatorsLabel->setOpenExternalLinks(true);
     translatorsLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-    QString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
-            tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users' needs.") +
-            "<br><br>" + tr("At present, the data that is provided is the following:") +
-            "<ul><li>" + tr("Callsign") + "</li><li>" + tr("KLog version") + "</li><li>" + tr("Operating system") + "</li></ul><br><br><b>" +
-            tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page.") + "</b>";
+    //QString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
+    //        tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users' needs.") +
+    //        "<br><br>" + tr("At present, the data that is provided is the following:") +
+    //        "<ul><li>" + tr("Callsign") + "</li><li>" + tr("KLog version") + "</li><li>" + tr("Operating system") + "</li></ul><br><br><b>" +
+    //        tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page.") + "</b>";
 
-    QLabel *privacyLabel = new QLabel(privacy);
-    privacyLabel->setAlignment(Qt::AlignJustify);
-    privacyLabel->setWordWrap(true);
-    privacyLabel->setOpenExternalLinks(true);
-    privacyLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    //QLabel *privacyLabel = new QLabel(privacy);
+    //privacyLabel->setAlignment(Qt::AlignJustify);
+    //privacyLabel->setWordWrap(true);
+    //privacyLabel->setOpenExternalLinks(true);
+    //privacyLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
     tab1 = new QWidget;
     tab2 = new QWidget;
     tab3 = new QWidget;
-    tab4 = new QWidget;
+    //tab4 = new QWidget;
 
 
     QGridLayout *layout1 = new QGridLayout;
@@ -160,17 +163,17 @@ AboutDialog::AboutDialog(const QString &tversion, QWidget *parent)
     layout3->addWidget(translatorsLabel, 0, 1, 4, 4);
     tab3->setLayout(layout3);
 
-    QGridLayout *layout4 = new QGridLayout;
-    layout4->addWidget(logoLabel4 , 0, 0, 1, 1);
-    layout4->addWidget(privacyLabel, 0, 1, 4, 4);
-    tab4->setLayout(layout4);
+    //QGridLayout *layout4 = new QGridLayout;
+    //layout4->addWidget(logoLabel4 , 0, 0, 1, 1);
+    //layout4->addWidget(privacyLabel, 0, 1, 4, 4);
+    //tab4->setLayout(layout4);
 
     tabw = new QTabWidget;
 
     tabw->addTab(tab1, tr("KLog"));
     tabw->addTab(tab2, tr("Authors"));
     tabw->addTab(tab3, tr("Translators"));
-    tabw->addTab(tab4, tr("Privacy"));
+    //tabw->addTab(tab4, tr("Privacy"));
 
     layout->addWidget(tabw);
     layout->addWidget(buttonBox, 1, 0, Qt::AlignRight);

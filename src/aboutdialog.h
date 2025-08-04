@@ -37,14 +37,13 @@ class AboutDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit AboutDialog(const QString &tversion, QWidget *parent = nullptr);
+    explicit AboutDialog(const QString &tversion, const QString &pkgVersion, QWidget *parent = nullptr);
     ~AboutDialog();
-
     bool event(QEvent *event);
 
 private:
     QTabWidget *tabw;
-    QWidget *tab1, *tab2, *tab3, *tab4;
+    QWidget *tab1, *tab2, *tab3;//, *tab4;
 };
 
 

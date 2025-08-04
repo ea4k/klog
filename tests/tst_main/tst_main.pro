@@ -15,6 +15,7 @@ CONFIG -= app_bundle
 CONFIG += no_testcase_installs
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+DEFINES += APP_PKGVERSION=\\\"$$PKGVERSION\\\"
 
 TEMPLATE = app
 

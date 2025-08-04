@@ -56,6 +56,8 @@ public:
     ~DataProxy_SQLite();
     void setLogLevel (const DebugLogLevel _l);
     QString getSoftVersion();
+    void setPKGVersion(const QString &_pkgVersion);
+    QString getPKGVersion();
     QString getDBVersion();
     bool reconnectDB();
 
@@ -355,6 +357,7 @@ private:
     int executionN;
     Utilities *util;
     DebugLogLevel logLevel;
+    QString pkgVersion;
 
     QHash<QString, int> bandIDs;
     QHash<QString, int> modeIDs;

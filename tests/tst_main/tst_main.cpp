@@ -30,9 +30,6 @@
 
 #include "../../src/main.cpp"
 #include "../../src/inputwidgets/mainwindowsattab.h"
-//#include "../../src/startwizard.h"
-
-//#include "../../src/utilities.h"
 
 class tst_Main : public QObject
 {

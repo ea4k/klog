@@ -42,6 +42,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
 {
     dataProxy = dp;
     softwareVersion = dataProxy->getSoftVersion();
+    pkgVersion = dataProxy->getPKGVersion();
     //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << softwareVersion  << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
     dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
@@ -119,7 +120,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
 
       //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    aboutDialog = new AboutDialog(softwareVersion);
+    aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
     tipsDialog = new TipsDialog();
 
     downloadcty = new DownLoadCTY(util->getHomeDir (), softwareVersion);
@@ -863,11 +864,11 @@ void MainWindow::setMainWindowTitle()
 
     if (mainQRZ == stationCallsign)
     {
-        msg = QString(tr("KLog-%1 - Logbook of %2 - QSOs: %3" )).arg(softwareVersion).arg(stationCallsign).arg(numberOfQSOs);
+        msg = QString(tr("KLog-%1 - Logbook of %2 - QSOs: %3" )).arg(pkgVersion).arg(stationCallsign).arg(numberOfQSOs);
     }
     else
     {
-        msg = QString(tr("KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4" )).arg(softwareVersion).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
+        msg = QString(tr("KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4" )).arg(pkgVersion).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
     }
     if (aux.length ()>0)
     {

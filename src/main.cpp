@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 {
     //qDebug() << Q_FUNC_INFO << " -  Start! ";
     //qDebug() << Q_FUNC_INFO << " -  " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
-    QT_REQUIRE_VERSION(argc, argv, "5.9")
+    QT_REQUIRE_VERSION(argc, argv, "6.0")
     //qDebug() << QT_VERSION_STR;
 
     QDir d1 = QDir();
@@ -128,7 +128,10 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("klog.xyz");
     app.setApplicationVersion(QString(APP_VERSION));
     QString version = QCoreApplication::applicationVersion();
+
+    QString pkgVersion = QString(APP_PKGVERSION);
     //qDebug() << Q_FUNC_INFO << " -  -10 ";
+    qDebug() << Q_FUNC_INFO << " - " << pkgVersion;
 
     // Now we check if the user is executing from the command line
 
@@ -141,7 +144,7 @@ int main(int argc, char *argv[])
         Utilities util(Q_FUNC_INFO);
         if (arguments.contains("-v"))
         {
-            cout << "Version: KLog-" << app.applicationVersion() << "\n";
+            cout << "Version: KLog-" << app.applicationVersion() << " - pkg: " << pkgVersion << "\n";
         }
         else
         {
@@ -273,6 +276,7 @@ int main(int argc, char *argv[])
 
     splash.showMessage ("Creating the Data Base...");
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
+    dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage ("Creating window...");
    //qDebug() << Q_FUNC_INFO << " - 102 " << (QTime::currentTime()).toString("HH:mm:ss");
@@ -283,6 +287,7 @@ int main(int argc, char *argv[])
 
     //qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.init();
+
     //qDebug() << Q_FUNC_INFO << " - 105 " << (QTime::currentTime()).toString("HH:mm:ss");
     splash.showMessage ("Checking for new versions...");
     //qDebug() << Q_FUNC_INFO << " - 106 " << (QTime::currentTime()).toString("HH:mm:ss");

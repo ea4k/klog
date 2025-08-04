@@ -33,10 +33,11 @@ CONFIG += static
 CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
-PKGVERSION = 2.4.2-RC2
-VERSION = 2.4.2
+PKGVERSION = 2.4.2-RC2  # Version shown in the UI, it shows the package information, format: 2.4.2-RC2(-RC2 only in RC releases)
+VERSION    = 2.4.2      # Version used for calculation, no RC versios, format "2.4.2"
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+DEFINES += APP_PKGVERSION=\\\"$$PKGVERSION\\\"
 
 APP_NAME = KLog
 DEFINES += APP_NAME="$$APP_NAME"
@@ -46,6 +47,7 @@ DEFINES += APP_UNIX_NAME="$$APP_UNIX_NAME"
 
 
 message(Building $${APP_NAME} $${VERSION})
+message(Building package $${APP_NAME} $${APP_PKGVERSION})
 message(Qt $$[QT_VERSION] in $$[QT_INSTALL_PREFIX])
 
 #DEFINES *= QT_NO_DEBUG_OUTPUT

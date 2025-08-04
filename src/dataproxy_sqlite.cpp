@@ -87,6 +87,16 @@ bool DataProxy_SQLite::createHashes()
     return true;
 }
 
+void DataProxy_SQLite::setPKGVersion(const QString &_pkgVersion)
+{
+    pkgVersion = _pkgVersion;
+}
+
+QString DataProxy_SQLite::getPKGVersion()
+{
+    return pkgVersion;
+}
+
 int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _logn)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
