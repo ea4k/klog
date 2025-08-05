@@ -95,7 +95,6 @@ public:
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
     //QString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
-    int getMainIdForSubmodeId(const int _submodeId);       // Returns the name id for a given submode id
 
     Frequency getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const double _n);
@@ -364,8 +363,9 @@ private:
     QHash<QString, int> bandIDs;
     QHash<QString, int> modeIDs;
 
-    QHash<int, QString> idToName;           // To map a name the id.
-    QHash<QString, int> nameToMainId;       // To map a name the id.
+
+    QHash<int, QString> modeIdToName;
+    QHash<QString, QList<int>> nameToModeIds;
 
 
     //QSqlQuery preparedQuery;

@@ -3657,7 +3657,7 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
 
     QString field = d.at(0).toUpper();
     QString data = d.at(1);
-
+    //<APP_LoTW_QSO_TIMESTAMP:20>2022-04-23T18:08:00Z // QSO Date & Time; ISO-8601
     if (_lotw)
     {
         //qDebug() << Q_FUNC_INFO << " - field: " << field;
@@ -3671,6 +3671,14 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
             field = "LOTW_QSLSDATE";
             data = adif->getADIFDateStringFromLoTWDateTime(data);
             setLoTWQSL_SENT("Y");
+        }
+        else if (field == "APP_LoTW_QSO_TIMESTAMP")
+        {
+            //            2022-04-23T18:08:00Z
+            //            YYYY-MM-DDTHH:MM:SSZ
+            QDateTime dateTime = QDateTime::fromString(data, "yyyy-MM-ddTHH:mm:ssZ");
+            setDate(dateTime.date());
+            setTimeOn(dateTime.time());
         }
         else if (field == "APP_LOTW_RXQSL")
         {// Timestamp only if QSL_RCVD == Y

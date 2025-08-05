@@ -767,7 +767,10 @@ void Adif::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _l
 
 QString Adif::getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _lotwdatetime;
+    qDebug() << Q_FUNC_INFO << ": " << _lotwdatetime;
+    // LoTW can provide data in two formats:
+    //            2022-04-23T18:08:00Z
+    //            YYYY-MM-DD HH:MM:SS
     // DateTime should have this format: YYYY-MM-DD HH:MM:SS
     // It returns a date on YYYYMMDD adif format
     QDateTime dateTime = QDateTime::fromString(_lotwdatetime, "yyyy-MM-dd HH:mm:ss");
@@ -777,4 +780,3 @@ QString Adif::getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime)
     return (dateTime.date()).toString("yyyyMMdd");
 }
 
-QString getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime);
