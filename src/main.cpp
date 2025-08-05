@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 
     QString pkgVersion = QString(APP_PKGVERSION);
     //qDebug() << Q_FUNC_INFO << " -  -10 ";
-    qDebug() << Q_FUNC_INFO << " - " << pkgVersion;
+    //qDebug() << Q_FUNC_INFO << " - " << pkgVersion;
 
     // Now we check if the user is executing from the command line
 

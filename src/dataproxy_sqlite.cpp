@@ -2515,25 +2515,25 @@ QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _se
 
 int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     QString datetime = util->getDateTimeSQLiteStringFromDateTime(_datetime);
         // Lookup name for given modeid
     QString modeName = modeIdToName.value(_mode);
     if (modeName.isEmpty())
         return -1; // Mode not found
-    qDebug() << Q_FUNC_INFO << " - 010";
+    //qDebug() << Q_FUNC_INFO << " - 010";
     // Get all modeids for this name
     const QList<int> modeIds = nameToModeIds.value(modeName);
     if (modeIds.isEmpty())
         return -2; // No modes for this name
-    qDebug() << Q_FUNC_INFO << " - 020";
+    //qDebug() << Q_FUNC_INFO << " - 020";
     // Build the "IN" clause
 
     QStringList modeIdStrs;
     for (int id : modeIds) modeIdStrs << QString::number(id);
 
-    qDebug() << Q_FUNC_INFO << " - 030";
+    //qDebug() << Q_FUNC_INFO << " - 030";
     QString sql = QString(
             "SELECT id FROM log "
             "WHERE call = :call "
@@ -2542,39 +2542,39 @@ int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_
             "AND modeid IN (%1)")
             .arg(modeIdStrs.join(','));
 
-    qDebug() << Q_FUNC_INFO << " - 040";
-    qDebug() << Q_FUNC_INFO << ": " << sql;
+    //qDebug() << Q_FUNC_INFO << " - 040";
+    //qDebug() << Q_FUNC_INFO << ": " << sql;
     QSqlQuery query;
     query.prepare(sql);
     query.bindValue(":call", _qrz);
     query.bindValue(":qso_date", datetime);
     query.bindValue(":bandid", _band);
-    qDebug() << Q_FUNC_INFO << " - 050 - Call    : " << _qrz;
-    qDebug() << Q_FUNC_INFO << " - 050 - qso_date: " << datetime;
-    qDebug() << Q_FUNC_INFO << " - 050 - bandid  : " << _band;
+    //qDebug() << Q_FUNC_INFO << " - 050 - Call    : " << _qrz;
+    //qDebug() << Q_FUNC_INFO << " - 050 - qso_date: " << datetime;
+    //qDebug() << Q_FUNC_INFO << " - 050 - bandid  : " << _band;
     if (!query.exec()) {
-        qDebug() << Q_FUNC_INFO << " - 051 - query error";
+        //qDebug() << Q_FUNC_INFO << " - 051 - query error";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return -3;
     }
-    qDebug() << Q_FUNC_INFO << " - 060";
+    //qDebug() << Q_FUNC_INFO << " - 060";
     if (!query.next())
     {
-       qDebug() << Q_FUNC_INFO << " - 061 - query next error";
+       //qDebug() << Q_FUNC_INFO << " - 061 - query next error";
        return -4;
     }
-    qDebug() << Q_FUNC_INFO << " - 070";
+    //qDebug() << Q_FUNC_INFO << " - 070";
     if (!query.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - 071 - query isValid error";
+        //qDebug() << Q_FUNC_INFO << " - 071 - query isValid error";
         return -5;
     }
 
-    qDebug() << Q_FUNC_INFO << " - 080: " << query.value(0).toInt();;
+    //qDebug() << Q_FUNC_INFO << " - 080: " << query.value(0).toInt();;
     int qsoId = query.value(0).toInt();
     return qsoId > 0 ? qsoId : -6;
 
-    qDebug() << Q_FUNC_INFO << " - 090";
+    //qDebug() << Q_FUNC_INFO << " - 090";
     return -7;
 }
 

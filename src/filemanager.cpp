@@ -783,7 +783,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
             continue;
 
         fields << line.split("<", Qt::SkipEmptyParts);
-
+        QString progressText;
         while (!fields.isEmpty())
         {
             QString fieldToAnalyze = "<" + fields.takeFirst().trimmed();
@@ -798,7 +798,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
 
                 if (i % step == 0)
                 {
-                    QString progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i).arg(qsos).arg(startTime.secsTo(QTime::currentTime()));
+                    progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i).arg(qsos).arg(startTime.secsTo(QTime::currentTime()));
                     progress.setLabelText(progressText);
                     //progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
                     progress.setValue(i);
@@ -851,6 +851,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
         if (qsoId > 0)
         {
             qso.updateFromLoTW(qsoId);
+            return;
         }
     }
     //qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";

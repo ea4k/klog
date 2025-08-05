@@ -5,6 +5,7 @@ TBD 2025 - 2.4.2
 - Enhancement: Several refactors & optimization: ADIF import/export
 - Enhancement: Added user configured default eQSL/QRZ.com/LoTW/Clublog sent values
 - Removed references to the www.klog.xyz
+- Bugfix: LoTW import caused a QSO duplication
 - Bugfix: v 2.4.1 LoTW confirmations are not correctly imported to logbook.dat
 - Bugfix: RST is not correctly shown when editing (Closes #810)
 - Bugfix: DXCluster: Settings filtering based on worked status may not be working properly (Closes #800)
