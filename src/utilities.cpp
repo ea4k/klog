@@ -1047,18 +1047,21 @@ bool Utilities::isValidADIFField(const QString &_b)
 
 bool Utilities::isValidQSL_Rcvd(const QString &c)
 {
-    return ((c == "Y") || (c == "N") || (c == "R") || (c == "I") || (c == "V"));
+    QString v = c.toUpper();
+    return ((v == "Y") || (v == "N") || (v == "R") || (v == "I") || (v == "V"));
 }
 
 bool Utilities::isValidQSL_Sent(const QString &c)
 {
-    return ((c == "Y") || (c == "N") || (c == "R") || (c == "Q") || (c == "I"));
+    QString v = c.toUpper();
+    return ((v == "Y") || (v == "N") || (v == "R") || (v == "Q") || (v == "I"));
 }
 
 bool Utilities::isValidUpload_Status(const QString &c)
 {
    //qDebug() << Q_FUNC_INFO << " - " << c;
-    return ((c == "Y") || (c == "N") || (c == "M"));
+    QString v = c.toUpper();
+    return ((v == "Y") || (v == "N") || (v == "M"));
 }
 
 QStringList Utilities::getValidADIFFieldAndData(const QString &_b)

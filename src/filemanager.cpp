@@ -801,7 +801,8 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                     //qDebug() << Q_FUNC_INFO << " - QSOS: " << i ;
                     //qDebug() << Q_FUNC_INFO << " - secs: " << startTime.secsTo(QTime::currentTime());
                     //qDebug() << Q_FUNC_INFO << " - qsos/sec: " << i / startTime.secsTo(QTime::currentTime());
-                    progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i).arg(qsos).arg(i / startTime.secsTo(QTime::currentTime()));
+                    if (startTime.secsTo(QTime::currentTime()) >0)
+                        progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i).arg(qsos).arg(i / startTime.secsTo(QTime::currentTime()));
                     progress.setLabelText(progressText);
                     //progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
                     progress.setValue(i);
@@ -826,7 +827,8 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     int elapsedSec = std::max(1, startTime.secsTo(QTime::currentTime()));
     qDebug() << Q_FUNC_INFO << " - Seconds: " << elapsedSec;
     qDebug() << Q_FUNC_INFO << " - QSOs: " << qsos;
-    qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (qsos / elapsedSec);
+    if (elapsedSec>0)
+        qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (qsos / elapsedSec);
 
     file.close();
     progress.setValue(qsos);
@@ -854,7 +856,6 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
         if (qsoId > 0)
         {
             qso.updateFromLoTW(qsoId);
-            return;
         }
     }
     //qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
