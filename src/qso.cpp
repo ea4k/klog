@@ -3718,19 +3718,19 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
 bool QSO::updateFromLoTW(const int _qsoId)
 {
     //CALL, BAND, FREQ, QSODATE, MODE
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
     // Start by finding the QSO ID
     if (!lotwUpdating)
     {
-        qDebug() << Q_FUNC_INFO << " - Not LoTW updating";
+        //qDebug() << Q_FUNC_INFO << " - Not LoTW updating";
         return false;
     }
     if (_qsoId <= 0)
     {
-        qDebug() << Q_FUNC_INFO << " - qsoID <= 0: " << _qsoId;
+        //qDebug() << Q_FUNC_INFO << " - qsoID <= 0: " << _qsoId;
         return false;
     }
-    qDebug() << Q_FUNC_INFO << " - QSO received ";
+    //qDebug() << Q_FUNC_INFO << " - QSO received ";
     // Backup data coming from LoTW
     //printQSO();
 
@@ -3751,33 +3751,33 @@ bool QSO::updateFromLoTW(const int _qsoId)
     QString _lotw_vucc              = getVUCCGrids();
     QString _lotw_state             = getState();
 
-    qDebug() << Q_FUNC_INFO << " - Recovering...";
+    //qDebug() << Q_FUNC_INFO << " - Recovering...";
     // Recover the data from the log for the QSO
     if (!fromDB(_qsoId))
     {
-        qDebug() << Q_FUNC_INFO << " - QSO not found in the log" ;
+        //qDebug() << Q_FUNC_INFO << " - QSO not found in the log" ;
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << " - QSO Stored before modifying";
+    //qDebug() << Q_FUNC_INFO << " - QSO Stored before modifying";
     //printQSO();
-    qDebug() << Q_FUNC_INFO << " - Updating...";
+    //qDebug() << Q_FUNC_INFO << " - Updating...";
     // Update the QSO fields from LoTW data
     setLoTWQSL_RCVD(_lotw_qsl_rcvd);
-    qDebug() << Q_FUNC_INFO << " - Updating: LOTW_QSLRDATE if lotw_qsl_rcvd == Y: " << _lotw_qsl_rcvd;
+    //qDebug() << Q_FUNC_INFO << " - Updating: LOTW_QSLRDATE if lotw_qsl_rcvd == Y: " << _lotw_qsl_rcvd;
     if (_lotw_qsl_rcvd == "Y")
     {
-        qDebug() << Q_FUNC_INFO << " - LOTW_QSL_RCVD = TRUE - Saving LOTW_QSLRDATE: " << util->getADIFDateFromQDate(_lotwRXDate);
+        //qDebug() << Q_FUNC_INFO << " - LOTW_QSL_RCVD = TRUE - Saving LOTW_QSLRDATE: " << util->getADIFDateFromQDate(_lotwRXDate);
         setLoTWQSLRDate(_lotwRXDate);
     }
 
-    qDebug() << Q_FUNC_INFO << " - Updating: LOTW_QSL_SENT if getLoTWQSL_SENT() != Y: " << _lotw_qsl_rcvd;
+    //qDebug() << Q_FUNC_INFO << " - Updating: LOTW_QSL_SENT if getLoTWQSL_SENT() != Y: " << _lotw_qsl_rcvd;
     if (getLoTWQSL_SENT() != "Y")
         setLoTWQSL_SENT(_lotw_qsl_sent);
 
     if (_lotwTXDate.isValid() && (util->isValidQSL_Sent(_lotw_qsl_sent)) )
     {
-        qDebug() << Q_FUNC_INFO << " - LOTW_QSLSDATE: : " << util->getADIFDateFromQDate(_lotwTXDate);
+        //qDebug() << Q_FUNC_INFO << " - LOTW_QSLSDATE: : " << util->getADIFDateFromQDate(_lotwTXDate);
         setLoTWQSLSDate(_lotwTXDate);
     }
 
@@ -3813,9 +3813,9 @@ bool QSO::updateFromLoTW(const int _qsoId)
 
     if (!_lotw_state.isEmpty())
         setState(_lotw_state);
-    qDebug() << Q_FUNC_INFO << " - QSO Modifyied";
+    //qDebug() << Q_FUNC_INFO << " - QSO Modifyied";
     printQSO();
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 

@@ -825,10 +825,10 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     }
 
     int elapsedSec = std::max(1, startTime.secsTo(QTime::currentTime()));
-    qDebug() << Q_FUNC_INFO << " - Seconds: " << elapsedSec;
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << qsos;
+    //qDebug() << Q_FUNC_INFO << " - Seconds: " << elapsedSec;
+    //qDebug() << Q_FUNC_INFO << " - QSOs: " << qsos;
     if (elapsedSec>0)
-        qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (qsos / elapsedSec);
+        //qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (qsos / elapsedSec);
 
     file.close();
     progress.setValue(qsos);
