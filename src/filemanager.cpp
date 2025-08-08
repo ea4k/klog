@@ -364,7 +364,7 @@ bool FileManager::adifQSOsExport2(const QString& _fileName, const QString& _fiel
     }
     else
     {
-        queryString = QString("SELECT %1 FROM log WHERE id IN (%2)").arg(fields).arg(numbers);
+        queryString = QString("SELECT %1 FROM log WHERE id IN (%2)").arg(fields, numbers);
     }
     //qDebug() << Q_FUNC_INFO << " - writing the header";
     writeADIFHeader(out, _em, numberOfQSOs);
@@ -802,7 +802,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                     //qDebug() << Q_FUNC_INFO << " - secs: " << startTime.secsTo(QTime::currentTime());
                     //qDebug() << Q_FUNC_INFO << " - qsos/sec: " << i / startTime.secsTo(QTime::currentTime());
                     if (startTime.secsTo(QTime::currentTime()) >0)
-                        progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i).arg(qsos).arg(i / startTime.secsTo(QTime::currentTime()));
+                        progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i, qsos, i / startTime.secsTo(QTime::currentTime()));
                     progress.setLabelText(progressText);
                     //progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
                     progress.setValue(i);
@@ -1089,7 +1089,7 @@ bool FileManager::getStationCallsignFromUser(const QString &_qrzDX, const QDate 
     Callsign callsign(_qrzDX);
     if (callsign.isValid())
     {
-        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_qrzDX).arg(_date);
+        aux = tr("KLog has found one QSO without the Station Callsign defined.\n\nEnter the Station Callsign that was used to do this QSO with %1 on %2:").arg(_qrzDX, _date);
         text = QInputDialog::getText(this, tr("KLog - QSO without Station Callsign"),
                                             aux, QLineEdit::Normal, "", &ok);
     }
@@ -1480,7 +1480,7 @@ bool FileManager::askUserToAddThisQSOToLog(const QString &_call, const QDateTime
 {
     Q_UNUSED(_freq);
     //qDebug() << Q_FUNC_INFO << " - " << _call;
-    QString qsoData = QString(tr("<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: %3</li><li>Mode: %4</li></ul>")).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime)).arg(_call).arg(_band).arg(_mode);
+    QString qsoData = QString(tr("<ul><li>Date/Time:</i> %1</li><li>Callsign: %2</li><li>Band: %3</li><li>Mode: %4</li></ul>")).arg(util->getDateTimeSQLiteStringFromDateTime(_datetime), _call, _band, _mode);
     QMessageBox msgBox;
     msgBox.setTextFormat(Qt::RichText);
     msgBox.setIcon(QMessageBox::Warning);

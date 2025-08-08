@@ -2047,13 +2047,16 @@ QString QSO::getStationCallsign() const
 
 bool QSO::setMyGridSquare(const QString &_c)
 {
+    qDebug() << Q_FUNC_INFO << ": " << _c;
     if (util->isValidGrid(_c))
     {
+        qDebug() << Q_FUNC_INFO << " GRID OK " ;
         my_gridsquare = _c;
         return true;
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << " GRID NOK " ;
         my_gridsquare = QString();
         return false;
     }
@@ -3814,7 +3817,7 @@ bool QSO::updateFromLoTW(const int _qsoId)
     if (!_lotw_state.isEmpty())
         setState(_lotw_state);
     //qDebug() << Q_FUNC_INFO << " - QSO Modifyied";
-    printQSO();
+    //printQSO();
     //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
@@ -4562,7 +4565,8 @@ QString QSO::getADIF()
 
     if (adif->isValidFISTS(my_fists))
         adifStr.append(adif->getADIFField ("my_fists", QString::number(my_fists) ));
-    if (util->isValidGrid_ext(my_gridsquare))
+
+    if (util->isValidGrid(my_gridsquare))
         adifStr.append(adif->getADIFField ("my_gridsquare", my_gridsquare ));
     if (util->isValidGrid_ext(my_gridsquare_ext))
         adifStr.append(adif->getADIFField ("my_gridsquare_ext", my_gridsquare_ext));
