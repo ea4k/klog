@@ -719,10 +719,10 @@ bool Utilities::isValidSponsor(const QString &_s)
 QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 {// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
     // Check if _fieldName is a valid ADIF
-    qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
+    //qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
     if ((_data.length()<=0) || (_data.isNull()))
     {
-        qDebug() << Q_FUNC_INFO << " - Not Valid";
+        //qDebug() << Q_FUNC_INFO << " - Not Valid";
         return QString();
     }
     if (ADIFHash.empty()) {
@@ -730,16 +730,16 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
     }
 
     QString fieldN = _fieldName.toUpper();
-    qDebug() << Q_FUNC_INFO << " - toUpper: " << fieldN;
+    //qDebug() << Q_FUNC_INFO << " - toUpper: " << fieldN;
 
     if (!ADIFHash.contains(fieldN)) {
-        qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
+        //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
     if (fieldN == "DISTANCE" )
         if (_data.toDouble() <= 0.0)
             return QString();
-    qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
+    //qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 

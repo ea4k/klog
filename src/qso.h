@@ -426,7 +426,7 @@ public:
     //bool add();
     //bool modify(const int _qsoId);
     bool isComplete() const;
-    QString getADIF();
+    QString getADIF(ExportMode _em = ModeADIF);
     QString getBandNameFromFreq(const double _n); // Should be push out of this class
     bool updateFromLoTW(const int _qsoId);        // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
 
@@ -437,7 +437,11 @@ signals:
 
 private:
     //QTime startT;
+    QString getADIFStandard();
     QString getADIFLoTW();
+    QString getADIFClubLog();
+    QString getADIFeQSL();
+
     void printQSO();
     bool isValidCall() const;
     //bool isValidBand() const;
