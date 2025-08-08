@@ -4513,7 +4513,7 @@ QString QSO::getADIF()
 
     if ((freq_rx.isValid()) && (freq_tx != freq_rx))
         adifStr.append(adif->getADIFField ("freq_rx", freq_rx.toQString()));
-    if (util->isValidGrid_ext(gridsquare))
+    if (util->isValidGrid(gridsquare))
         adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
     if (util->isValidGrid_ext(gridsquare_ext))
         adifStr.append(adif->getADIFField ("gridsquare_ext",  gridsquare_ext));
@@ -4677,6 +4677,37 @@ QString QSO::getADIF()
         adifStr.append(adif->getADIFField ("APP_KLOG_LOGN", QString::number(getLogId())));
     //return  qso.getADIF() + "<EOR>\n";
     return adifStr + "<EOR>\n";
+}
+
+QString QSO::getADIFLoTW()
+{//id, call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_gridsquare, qso_date, prop_mode, sat_name, station_callsign
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    if (!isComplete())
+        return QString();
+    adif = new Adif(Q_FUNC_INFO);
+
+    QString adifStr = QString();
+    adifStr.append(adif->getADIFField ("CALL", callsign));
+    if (freq_tx.isValid())
+        adifStr.append(adif->getADIFField ("freq",  freq_tx.toQString()));
+    if ((freq_rx.isValid()) && (freq_tx != freq_rx))
+        adifStr.append(adif->getADIFField ("freq_rx", freq_rx.toQString()));
+    adifStr.append(adif->getADIFField ("MODE",  mode));
+
+    adifStr.append(adif->getADIFField ("BAND",  band));
+    if (QString::compare(band, band_rx) != 0)
+        adifStr.append(adif->getADIFField ("BAND_RX",  band_rx));
+
+    if (!qso_dateTime.isValid())
+        return QString();
+    adifStr.append(adif->getADIFField ("QSO_DATE",  util->getADIFDateFromQDateTime(qso_dateTime)));
+    adifStr.append(adif->getADIFField ("TIME_ON",  util->getADIFTimeFromQDateTime(qso_dateTime)));
+
+    adifStr.append(adif->getADIFField ("gridsquare",  gridsquare));
+    adifStr.append(adif->getADIFField ("my_gridsquare", my_gridsquare ));
+    adifStr.append(adif->getADIFField ("prop_mode", propMode));
+    adifStr.append(adif->getADIFField ("sat_name", getSatName()));
+    adifStr.append(adif->getADIFField ("station_callsign", stationCallsign));
 }
 
 QString QSO::getBandNameFromFreq(const double _n)

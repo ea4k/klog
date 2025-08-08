@@ -437,6 +437,7 @@ signals:
 
 private:
     //QTime startT;
+    QString getADIFLoTW();
     void printQSO();
     bool isValidCall() const;
     //bool isValidBand() const;
