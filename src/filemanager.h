@@ -43,7 +43,6 @@
 #include "awards.h"
 #include "database.h"
 #include "dataproxy_sqlite.h"
-#include "dataproxy_sqlite.h"
 #include "utilities.h"
 #include "qso.h"
 
@@ -61,6 +60,8 @@ enum
 class FileManager : public QWidget
 {
     Q_OBJECT
+    friend class tst_FileManager;
+
 public:
     FileManager(DataProxy_SQLite *dp);
     //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
@@ -108,7 +109,7 @@ private:
     bool showInvalidCallMessage(const QString &_call);
     void showError (const QString &_txt);
     bool handleCancel();                        // Used in FileManager::adifReadLog
-    void processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog
+    int processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog
 
     bool askUserToUseAlwaysSameAnswer();
     bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq);

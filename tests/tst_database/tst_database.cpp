@@ -352,44 +352,8 @@ void tst_DataBase::cleanupTestCase()
 {
    //qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
-    //QFile file(util.getKLogDBFile());
-    //if (file.exists())
-    //    if (file.rename(util.getKLogDBFile() + "-test-db"))
-           //qDebug() << Q_FUNC_INFO << "DB deleted";
-   //qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
-
-    //file.setFileName(util.getCfgFile());
-    //if (file.exists())
-    //    if (file.rename(util.getCfgFile() +  "-test-db"))
-           //qDebug() << Q_FUNC_INFO << "Restoring the config file";
-
-
-    //file.setFileName(util.getKLogDBFile() + "-test");
-    //if (file.exists())
-    //    if (file.rename(util.getKLogDBFile()))
-           //qDebug() << Q_FUNC_INFO << "DB deleted";
-    //file.setFileName(util.getCfgFile() +  "-test");
-    //if (file.exists())
-    //    if (file.rename(util.getCfgFile()))
-           //qDebug() << Q_FUNC_INFO << "Restoring the config file";
 }
 
-/*
-void tst_DataBase::cleanupTestCase()
-{
-    //qDebug() << Q_FUNC_INFO;
-}
-
-void tst_DataBase::init()
-{
-    //qDebug() << Q_FUNC_INFO;
-}
-
-void tst_DataBase::cleanup()
-{
-    //qDebug() << Q_FUNC_INFO;
-}
-*/
 
 void tst_DataBase::test_Constructor()
 {

@@ -646,10 +646,10 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
 
 int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
+   //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
     QFile file(tfileName);
     if (!file.exists())
-        return 0;
+        return -1;
 
     bool lotWDownloaded = isALoTWDownloadedFile(file);
     //if (lotWDownloaded)
@@ -659,7 +659,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     qint64 pos = passHeader(file);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-        return 0;
+        return -2;
 
     file.seek(pos);
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
@@ -673,7 +673,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     QSO qso;
     QStringList fields;
     QTime startTime = QTime::currentTime();
-    //qDebug() << Q_FUNC_INFO << " - Starting to read the file";
+   //qDebug() << Q_FUNC_INFO << " - Starting to read the file";
     while (!file.atEnd() && !noMoreQSO)
     {
         QString line = file.readLine().trimmed().toUpper();
@@ -690,9 +690,15 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
             {
                 qso.setLogId(logN);
                 qso.setLoTWUpdating(lotWDownloaded);
-                processQSO(qso, _stationCallsign);
+                if (processQSO(qso, _stationCallsign) > 0){
+                    ++i;
+                }
+                else
+                {
+                 //qDebug() << Q_FUNC_INFO << " - QSO not added! processQSO failed";
+                }
                 qso.clear();
-                ++i;
+
 
                 if (i % step == 0)
                 {
@@ -723,10 +729,10 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     }
 
     int elapsedSec = std::max(1, startTime.secsTo(QTime::currentTime()));
-    //qDebug() << Q_FUNC_INFO << " - Seconds: " << elapsedSec;
-    //qDebug() << Q_FUNC_INFO << " - QSOs: " << qsos;
+   //qDebug() << Q_FUNC_INFO << " - Seconds: " << elapsedSec;
+   //qDebug() << Q_FUNC_INFO << " - QSOs: " << qsos;
     if (elapsedSec>0)
-        //qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (qsos / elapsedSec);
+       //qDebug() << Q_FUNC_INFO << " - QSOs per second: " << (qsos / elapsedSec);
 
     file.close();
     progress.setValue(qsos);
@@ -734,9 +740,10 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     return i;
 }
 
-void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
+int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << _stationCallsign;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _stationCallsign;
+   //qDebug() << Q_FUNC_INFO << " - QSO: " << qso.getCall();
     Callsign call1(_stationCallsign);
     Callsign call2(qso.getStationCallsign());
     if (call1.isValid() && !call2.isValid())
@@ -746,7 +753,7 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
-        //qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
+       //qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
         int bandId = dataProxy->getIdFromBandName(qso.getBand());
         int modeId = dataProxy->getIdFromModeName(qso.getMode());
         qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
@@ -756,8 +763,8 @@ void FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
             qso.updateFromLoTW(qsoId);
         }
     }
-    //qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
-    qso.toDB(qsoId);
+   //qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
+    return qso.toDB(qsoId);
 }
 
 bool FileManager::handleCancel()

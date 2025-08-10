@@ -1200,11 +1200,12 @@ bool Awards::updateDXCCStatus(const int _logNumber)
     }
 
     int qsos = processQueryResults(query);
+    //qDebug() << Q_FUNC_INFO << ": DXCC" << qsos;
     populateDXCCStatusMap(); // Populate the multi-hash map
 
     query.finish();
 
-    return !(dxccStatusList.isEmpty() && qsos > 0);
+    return !(dxccStatusList.isEmpty() && (qsos > 0));
 }
 
 void Awards::populateDXCCStatusMap()

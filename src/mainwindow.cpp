@@ -2730,7 +2730,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
     QString aux;
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - LoTW"));
-
+    //qDebug() << Q_FUNC_INFO << " - QSOs added: " << added_qsos;
     if (added_qsos>0)
     {
         msgBox.setIcon(QMessageBox::Information);
@@ -4400,6 +4400,9 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 {
     //qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     QSOTabWidget->setRSTToMode(_qso.getSubmode(), false);
+  //qDebug() << Q_FUNC_INFO << ": " << _qso.getCall();
+  //qDebug() << Q_FUNC_INFO << ": " << _qso.getMode();
+  //qDebug() << Q_FUNC_INFO << ": " << _qso.getSubmode();
     mainQSOEntryWidget->setQSOData(_qso);
     commentTabWidget->setQSOData(_qso);
     satTabWidget->setQSOData(_qso);
@@ -4448,6 +4451,9 @@ void MainWindow::qsoToEdit (const int _qso)
     satTabWidget->setFillingToEdit(true);
     QSO qsoE;
     qsoE.fromDB(modifyingQSOid);
+  //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getCall();
+  //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getMode();
+  //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getSubmode();
 
     qsoInUI.copy(qsoE);
     //qDebug() << Q_FUNC_INFO  << " - m: " << (qsoE.getEQSLQSLSDate()).toString("yyyy-MM-dd");

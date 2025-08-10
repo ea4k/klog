@@ -342,7 +342,7 @@ int LoTWUtilities::fullDownload()
     {
          //qDebug() << Q_FUNC_INFO << ":  - Yes";
           firstDate = date;
-          startThefullDownload();
+          return startThefullDownload();
           return 1;
     }
 

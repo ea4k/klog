@@ -185,13 +185,13 @@ void DXCCStatusWidget::update()
     //int entities = dataProxy->getMaxEntityID(false);        // REMOVE IF processEntities does not need it
     if (!awards->updateDXCCStatus (-1)) // We update all
     {
-       //qDebug() << Q_FUNC_INFO << "awards->updateDXCCStatus returned FALSE";
+        //qDebug() << Q_FUNC_INFO << "awards->updateDXCCStatus returned FALSE";
         // It may be the case that DXCC field in the table is not defined.
         // It should be updated.
         handleDXCCStatusUpdateFailure();
         return;
     }
-   //qDebug() << Q_FUNC_INFO << "awards->updateDXCCStatus returned TRUE";
+    //qDebug() << Q_FUNC_INFO << "awards->updateDXCCStatus returned TRUE";
 
     processEntities();
 
@@ -411,11 +411,9 @@ void DXCCStatusWidget::fillData()
     //if (_creating)
     //{
     //qDebug() << Q_FUNC_INFO << " - 121";
-        update();
+    update();
     //}
    //qDebug() << Q_FUNC_INFO << " - END";
-
-
 }
 
 void DXCCStatusWidget::resetDXCCView()
@@ -453,12 +451,12 @@ void DXCCStatusWidget::setDefaultBands()
 void DXCCStatusWidget::slotRefreshButtonClicked()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     //TODO: Define a way to show the status of the selected log or all the logs in the DB
     if (dxccView->rowCount()<1)
     {
-       //qDebug() << Q_FUNC_INFO << " - rowcount <1";
+        //qDebug() << Q_FUNC_INFO << " - rowcount <1";
         return;
     }
     //QStringList _bands = bandNames;
@@ -467,14 +465,14 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
 
     //emit updateAwards();
     //update();
-  //qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
 
 void DXCCStatusWidget::refresh()
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //update();
     slotRefreshButtonClicked();
     emit debugLog (Q_FUNC_INFO, "END", Debug);

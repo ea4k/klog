@@ -126,7 +126,7 @@ private:
     void createUI();
     void setInitialData();
 
-    bool validCharactersInCall(const QString &_qrz);
+    //bool validCharactersInCall(const QString &_qrz);
     void clearForNextQSO();
     void checkIfDupe(const QString &_func);
     void setDateAndTimeInternally();
@@ -167,6 +167,7 @@ private:
     double freqTX, freqRX, bottomBandLimit, upperBandLimit;
     DebugLogLevel logLevel;
     bool modifyingBands;
+    bool fillingQSO;        // TRUE just when a QSO is being written in the UI from a qsoToEdit
 };
 
 #endif // MAINQSOENTRYWIDGET_H

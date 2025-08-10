@@ -3646,7 +3646,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
+   //qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
     QStringList d;
     d.clear();
     d << util->getValidADIFFieldAndData(_adifPair);
@@ -3868,10 +3868,11 @@ void QSO::clearQSLDateIfNeeded()
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
     // if _qsoID is >0 it should be an existing QSO in the DB.
-    //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
+   //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
+    printQSO();
     if (!isComplete ())
     {
-        //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
+       //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
 
@@ -3884,15 +3885,15 @@ int QSO::toDB(int _qsoId)
     queryString.clear();
     if (_qsoId<=0)
     {
-        //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
+       //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
         queryString = getAddQueryString();
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - qsoID>0";
+       //qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }
-    //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
+   //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
 
     QSqlQuery query = getPreparedQuery(queryString);
     //qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
@@ -3913,7 +3914,6 @@ int QSO::toDB(int _qsoId)
     }
     else
     {
-
             //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
             //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
             //qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
@@ -3926,7 +3926,7 @@ int QSO::toDB(int _qsoId)
     }
     query.finish();
     //qDebug() << Q_FUNC_INFO << " - END";
-    return 1;
+    return -3;
 }
 
 QString QSO::getAddQueryString()
@@ -5157,6 +5157,7 @@ void QSO::printQSO()
 { // This function is just to print inthe console the QSO fields for debug purposes
     //qDebug() << Q_FUNC_INFO << " - Start";
 
+   //qDebug() << Q_FUNC_INFO << " - CallSign      : " <<  getCall();
     //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_RCVD : " <<  getLoTWQSL_RCVD();
     //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_RDATE: " <<  util->getDateSQLiteStringFromDate(getLoTWQSLRDate());
     //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_SENT : " <<  getLoTWQSL_SENT();

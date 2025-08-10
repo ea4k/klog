@@ -15,6 +15,7 @@ SUBDIRS=\
    tst_mainwindow \
    tst_dataproxy \
    tst_database \
+   tst_filemanager \
    tst_locator \
    tst_logwindow \
    tst_mainwindowinputqso \
