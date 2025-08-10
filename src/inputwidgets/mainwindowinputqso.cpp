@@ -262,6 +262,9 @@ QSO MainWindowInputQSO::getQSOData(QSO _qso)
 
 void MainWindowInputQSO::setQSOData(const QSO &_qso)
 {
+    fillingQSO = true;
+    setModifying(true);
+
     QSO qso(_qso);
     setDXLocator(qso.getGridSquare());
     setName(qso.getName());
@@ -271,6 +274,7 @@ void MainWindowInputQSO::setQSOData(const QSO &_qso)
     setTXFreq(qso.getFreqTX());
     setRXFreq(qso.getFreqRX());
     setRXPwr(qso.getRXPwr());
+    fillingQSO = false;
 }
 
 void MainWindowInputQSO::setDefaultData()
@@ -308,6 +312,7 @@ void MainWindowInputQSO::clear()
     locatorLineEdit->clear();
     rxPowerSpinBox->setValue(0);
     modify = false;
+    fillingQSO = false;
 }
 
 void MainWindowInputQSO::cleanQRZCOM(const bool _dataFromQRZCOM)

@@ -131,6 +131,7 @@ private:
     double freqTX, freqRX;
     bool modify, completedWithPreviousName, completedWithPreviousQTH, completedWithPreviousLocator;
     bool darkMode;
+     bool fillingQSO;        // TRUE just when a QSO is being written in the UI from a qsoToEdit
 };
 
 #endif // MAINWINDOWINPUTQSO_H

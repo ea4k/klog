@@ -989,7 +989,7 @@ void MainWindow::slotBandChanged (const QString &_b)
 void MainWindow::slotModeChanged (const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (!upAndRunning)
+    if (!upAndRunning || modify)
     {
         return;
     }
@@ -3513,6 +3513,8 @@ void MainWindow::checkIfNewBandOrMode()
 //that is not currently selected as active
      //qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
+    if (!upAndRunning || modify)
+        return;
     QString currentBand = mainQSOEntryWidget->getBand();
     QString currentMode = mainQSOEntryWidget->getMode();
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
@@ -5295,7 +5297,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
-    if (!upAndRunning)
+    if (!upAndRunning || modify)
     {
         //qDebug() << Q_FUNC_INFO << " - not running" ;
         return;
@@ -5320,7 +5322,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
 void MainWindow::slotFreqTXChangedFromSat(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (!upAndRunning)
+    if (!upAndRunning || modify)
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
@@ -5339,7 +5341,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
-    if (!upAndRunning)
+    if (!upAndRunning || modify)
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
