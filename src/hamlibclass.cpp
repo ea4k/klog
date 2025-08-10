@@ -423,7 +423,8 @@ bool HamLibClass::stop()
 bool HamLibClass::init(bool _active)
 {
    //qDebug()<< Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model);
-
+    if (!loadSettings())
+       return false;
     if (!_active)
     {
        //qDebug()<< Q_FUNC_INFO << ": not active, exiting";

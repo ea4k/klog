@@ -3572,7 +3572,6 @@ void MainWindow::checkIfNewBandOrMode()
         selectDefaultMode();
     }
 
-
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::checkIfNewBandOrMode END " << QTime::currentTime().toString("hh:mm:ss") ;
 }
@@ -3621,8 +3620,6 @@ void MainWindow::selectDefaultMode()
           //qDebug() << "MainWindow::selectDefaultMode2: " << QString::number(defaultMode) ;
           //qDebug() << "MainWindow::selectDefaultMode2S: "  ;
     }
-
-
 
     mainQSOEntryWidget->setMode(dataProxy->getSubModeFromId(defaultMode));
     //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(defaultMode)));
@@ -6278,9 +6275,10 @@ bool MainWindow::loadSettings()
 
       //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
     settings.beginGroup ("HamLib");
-    hamlib->loadSettings ();
+
     hamlibActive = settings.value ("HamlibActive").toBool ();
     settings.endGroup ();
+    hamlib->loadSettings();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << Q_FUNC_INFO << " - END";
