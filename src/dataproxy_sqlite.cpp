@@ -6121,7 +6121,7 @@ QString DataProxy_SQLite::getContinentShortNameFromEntity(const int _n)
     QSqlQuery query;
 
     //QString queryString= QString("SELECT continent FROM entity WHERE dxcc='%1'").arg(_n);
-    QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.id WHERE entity.dxcc='%1'").arg(_n);
+    QString queryString= QString("SELECT continent.shortname FROM entity JOIN continent ON entity.continent=continent.shortname WHERE entity.dxcc='%1'").arg(_n);
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -6850,11 +6850,12 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
     {
         while ( (query.next())) {
             if (query.isValid())
-            {
+            { 
                 //aux.clear();
                 aux = (query.value(0)).toString();
                 aux = aux.remove(0,1);
                 qs << aux;
+                qDebug() << Q_FUNC_INFO << ": " << aux;
             }
         }
     }

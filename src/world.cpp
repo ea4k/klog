@@ -267,7 +267,9 @@ int World::getQRZCqz(const QString &_qrz)
          return -1;
      }
 
-    QString aux = util->getPrefixFromCall(_qrz);
+    Callsign callsign(_qrz);
+    QString aux = callsign.getHostPrefix();
+   // QString aux = util->getPrefixFromCall(_qrz);
     return dataProxy->getCQzFromPrefix(aux);
 }
 
@@ -278,8 +280,9 @@ int World::getQRZItuz(const QString &_qrz)
     {
         return -1;
     }
-
-    QString aux = util->getPrefixFromCall(_qrz);
+    Callsign callsign(_qrz);
+    QString aux = callsign.getHostPrefix();
+    //QString aux = util->getPrefixFromCall(_qrz);
     return dataProxy->getITUzFromPrefix(aux);
 }
 
@@ -305,7 +308,7 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-  //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
     QString  call = _qrz.toUpper();
     Callsign callsign(call);
     if (!callsign.isValidPrefix())

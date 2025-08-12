@@ -208,7 +208,7 @@ void tst_DataProxy::test_bands()
 
 void tst_DataProxy::test_continents()
 {
-    //qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
+    qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (281) == "EU", "Continent for Spain (dxcc=281) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (1) == "NA", "Continent for Canada (dxcc=1) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (100) == "SA", "Continent for Argentina (dxcc=100) failed");
