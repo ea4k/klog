@@ -84,8 +84,13 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
             if (columnName == "dxcc") {
                 return tr("Unknown");
             }
-            // Generic fallback for any unresolved relation (optional):
-            // return tr("Unknown");
+            else
+            {
+                // Generic fallback for any unresolved relation (optional):
+                // return tr("Unknown");
+                return tr("Unknown");
+            }
+
         }
     }
 
