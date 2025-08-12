@@ -6855,7 +6855,7 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
                 aux = (query.value(0)).toString();
                 aux = aux.remove(0,1);
                 qs << aux;
-                qDebug() << Q_FUNC_INFO << ": " << aux;
+                //qDebug() << Q_FUNC_INFO << ": " << aux;
             }
         }
     }
