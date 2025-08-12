@@ -43,6 +43,9 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
     columns.clear();
     columns.append(dataProxy->filterValidFields(util->getDefaultLogFields()));
     setTable("log");
+    // Ensure unmatched foreign keys do NOT hide base rows (e.g., dxcc=0)
+
+    setJoinMode(QSqlRelationalTableModel::LeftJoin);
 
     setEditStrategy(QSqlTableModel::OnFieldChange);
     //qDebug() << Q_FUNC_INFO << " - END";
@@ -57,15 +60,36 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
 
     QString columnName = this->record().fieldName(index.column());
 
+    // Validation: optionally hide invalid values for some columns
     auto it = s_validationRules.find(columnName);
     if (it != s_validationRules.end()) {
-        QVariant value = QSqlRelationalTableModel::data(index, role);
-        if (!it.value()(value)) {
-            return QVariant(); // Hide invalid data by returning an empty QVariant
+        QVariant raw = QSqlRelationalTableModel::data(index, role);
+        if (!it.value()(raw)) {
+            return QVariant(); // Hide invalid cell content
         }
     }
 
-    return QSqlRelationalTableModel::data(index, role);
+    // Provide a friendly fallback for relational columns that don't resolve (e.g., dxcc=0 → no match in entity)
+    QVariant v = QSqlRelationalTableModel::data(index, role);
+
+// If this column has a relation and no display data could be resolved, return "Unknown"
+
+    // relation() is available on QSqlRelationalTableModel; check if this column is relational
+    // Note: even though fieldName is the base column ("dxcc"), the DisplayRole here is the related display column (e.g., entity.name)
+    if (!v.isValid() || (v.type() == QVariant::String && v.toString().isEmpty())) {
+        const QSqlRelation rel = relation(index.column());
+        if (rel.isValid()) {
+            // Specifically requested: show unknown for dxcc with no matching entity.
+            // You may extend this behavior to other relations (modeid, bandid) as needed.
+            if (columnName == "dxcc") {
+                return tr("Unknown");
+            }
+            // Generic fallback for any unresolved relation (optional):
+            // return tr("Unknown");
+        }
+    }
+
+    return v;
 }
 
 bool LogModel::createlogModel(const int _i)
