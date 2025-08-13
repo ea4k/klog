@@ -132,7 +132,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
 SetupPageWorldEditor::~SetupPageWorldEditor()
 {
        //qDebug() << "SetupPageWorldEditor::~SetupPageWorldEditor" ;
-    delete(world);
+    //delete(world);
     delete(setupEntityDialog);
 }
 

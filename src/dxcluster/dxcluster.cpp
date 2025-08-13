@@ -98,7 +98,7 @@ DXClusterWidget::~DXClusterWidget()
    //qDebug() << Q_FUNC_INFO;
     //delete(dataProxy);
     delete(tcpSocket);
-    delete(world);
+    //delete(world);
     delete(util);
     delete(saveSpotsFile);
 }

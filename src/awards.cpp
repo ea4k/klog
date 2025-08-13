@@ -66,7 +66,7 @@ Awards::Awards(DataProxy_SQLite *dp, World *injectedWorld, const QString &_paren
 
 Awards::~Awards()
 {
-    delete(world);
+    //delete(world);
     delete(dxMarathon);
 }
 

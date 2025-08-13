@@ -77,7 +77,7 @@ DXCCStatusWidget::DXCCStatusWidget(Awards *awards, World *injectedWorld, QWidget
 DXCCStatusWidget::~DXCCStatusWidget()
 {
     delete(locator);
-    delete(world);
+    //delete(world);
     //delete(awards);
 }
 

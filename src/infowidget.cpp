@@ -75,7 +75,7 @@ InfoWidget::~InfoWidget()
 {
     delete(awards);
     delete(locator);
-    delete(world);
+    //delete(world);
 }
 
 void InfoWidget::createUI()
