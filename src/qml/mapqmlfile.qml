@@ -9,18 +9,18 @@
 /*****************************************************************************
  * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify           *
- *    it under the terms of the GNU General Public License as published by   *
- *    the Free Software Foundation, either version 3 of the License, or      *
- *    (at your option) any later version.                                    *
+ *    KLog is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,                *
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
- *    GNU General Public License for more details.                           *
+ *    KLog is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
  *                                                                           *
- *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *    You should have received a copy of the GNU General Public License
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.
  *                                                                           *
  *****************************************************************************/
 import QtQuick
@@ -33,17 +33,123 @@ Rectangle {
     width: 640
     height: 480
     visible: true
+
     property alias zoom: map.zoomLevel
     property alias lat: map.center.latitude
     property alias lon: map.center.longitude
     property double oldZoom
 
-    // Threshold for switching between short (4-char) and long (6-char) locator labels
-    property int labelZoomThreshold: 9
+    // Zoom thresholds for label granularity
+    // < labelZoom4: 2-char;  >= labelZoom4 and < labelZoom6: 4-char; >= labelZoom6: 6-char
+    property int labelZoom4: 7
+    property int labelZoom6: 11
+
+    // Dynamic model for grid labels
+    ListModel { id: gridLabelModel }
+
+    // Maidenhead encoder for 2/4/6 length
+    function maidenhead(lat, lon, length) {
+        // Normalize
+        var adjLon = lon + 180.0;
+        var adjLat = lat + 90.0;
+
+        // Fields (20° x 10°) -> letters
+        var lonField = Math.floor(adjLon / 20.0);
+        var latField = Math.floor(adjLat / 10.0);
+        var c1 = String.fromCharCode('A'.charCodeAt(0) + lonField);
+        var c2 = String.fromCharCode('A'.charCodeAt(0) + latField);
+        if (length <= 2) return c1 + c2;
+
+        // Squares (2° x 1°) -> digits
+        var lonRemain = adjLon - lonField * 20.0;
+        var latRemain = adjLat - latField * 10.0;
+        var lonSquare = Math.floor(lonRemain / 2.0);
+        var latSquare = Math.floor(latRemain / 1.0);
+        var c3 = lonSquare.toString();
+        var c4 = latSquare.toString();
+        if (length <= 4) return c1 + c2 + c3 + c4;
+
+        // Subsquares (2°/24 x 1°/24) -> letters (use uppercase)
+        lonRemain = lonRemain - lonSquare * 2.0;
+        latRemain = latRemain - latSquare * 1.0;
+        var lonSub = Math.floor(lonRemain / (2.0 / 24.0));  // 0..23
+        var latSub = Math.floor(latRemain / (1.0 / 24.0));  // 0..23
+        // Defensive clamp
+        lonSub = Math.max(0, Math.min(23, lonSub));
+        latSub = Math.max(0, Math.min(23, latSub));
+        var c5 = String.fromCharCode('A'.charCodeAt(0) + lonSub);
+        var c6 = String.fromCharCode('A'.charCodeAt(0) + latSub);
+        return c1 + c2 + c3 + c4 + c5 + c6;
+    }
+
+    function rebuildGridLabels() {
+        // Decide label length
+        var length = 2;
+        if (map.zoomLevel >= labelZoom6) {
+            length = 6;
+        } else if (map.zoomLevel >= labelZoom4) {
+            length = 4;
+        } else {
+            length = 2;
+        }
+
+        // Compute visible bounds
+        var tl = map.toCoordinate(Qt.point(0, 0));
+        var br = map.toCoordinate(Qt.point(map.width, map.height));
+        var west = Math.min(tl.longitude, br.longitude);
+        var east = Math.max(tl.longitude, br.longitude);
+        var north = Math.max(tl.latitude, br.latitude);
+        var south = Math.min(tl.latitude, br.latitude);
+
+        // Handle simple case; if crossing the date line, you can split into two ranges as an enhancement.
+        // Determine step sizes
+        var lonStep, latStep;
+        if (length === 2) { lonStep = 20.0; latStep = 10.0; }
+        else if (length === 4) { lonStep = 2.0; latStep = 1.0; }
+        else { lonStep = 2.0/24.0; latStep = 1.0/24.0; }
+
+        // Align starts to grid
+        function alignDown(value, origin, step) {
+            var v = value - origin;
+            var n = Math.floor(v / step);
+            return origin + n * step;
+        }
+        var startLon = alignDown(west, -180.0, lonStep);
+        var startLat = alignDown(south, -90.0, latStep);
+
+        gridLabelModel.clear();
+
+        // Limit to avoid pathological counts
+        var maxItems = 2000;
+        var count = 0;
+
+        for (var lon = startLon; lon <= east; lon += lonStep) {
+            for (var lat = startLat; lat <= north; lat += latStep) {
+                var cLon = lon + lonStep / 2.0;
+                var cLat = lat + latStep / 2.0;
+
+                // Skip if outside visible bounds due to rounding
+                if (cLon < west - lonStep || cLon > east + lonStep) continue;
+                if (cLat < south - latStep || cLat > north + latStep) continue;
+
+                var text = maidenhead(cLat, cLon, length);
+                gridLabelModel.append({
+                    latitude: cLat,
+                    longitude: cLon,
+                    text: text
+                });
+
+                count++;
+                if (count > maxItems) break;
+            }
+            if (count > maxItems) break;
+        }
+    }
 
     Location { id: mapCenter }
 
-    function addMarker(latitude, longitude) {
+    function addMarker(latitude, longitude)
+    {
         var Component = Qt.createComponent("qrc:qml/marker.qml")
         var item = Component.createObject(Rectangle, {
             coordinate: QtPositioning.coordinate(latitude, longitude)
@@ -55,7 +161,7 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        name: "osm" // default provider
+        name: "osm"
         PluginParameter {
             name: "osm.mapping.custom.host"
             value: "https://tile.openstreetmap.org/"
@@ -67,44 +173,38 @@ Rectangle {
         anchors.fill: parent
         plugin: mapPlugin
         center: mapCenter.coordinate
-        zoomLevel: 14
+        zoomLevel: 4
         activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
 
-        MouseArea { hoverEnabled: true; anchors.fill: parent }
-        MouseArea { hoverEnabled: true; anchors.fill: parent }
-
-        // Zoom out button
-        Rectangle {
-            id: buttonout
-            width: 30; height: 30
-            border.color: "red"; radius: 5
-            anchors.right: parent.right; anchors.bottom: parent.bottom
-            Text { text: "-"; color: "black"; anchors.centerIn: parent }
-            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
-        }
-        // Zoom in button
-        Rectangle {
-            id: buttonin
-            width: 30; height: 30
-            border.color: "red"; radius: 5
-            anchors.bottom: buttonout.top; anchors.right: buttonout.right
-            Text { text: "+"; color: "black"; anchors.centerIn: parent }
-            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom + 1 } }
-        }
-
-        // Painted Maidenhead rectangles
+        // Base GRID (2-letter fields) - persistent, thin borders, transparent fill (from C++)
         MapItemView {
-            model: rectangle_model
+            z: 0
+            model: grid_model
             delegate: MapRectangle {
-                border.width: 2
                 topLeft     : model.north
                 bottomRight : model.south
-                color       : model.color
+                color       : "transparent"
+                border.width: 1
+                border.color: "#808080" // grey grid lines
             }
         }
 
-        // Optional circle markers (existing)
+        // Data overlays (worked/confirmed) - semi-transparent fills (from C++)
         MapItemView {
+            z: 1
+            model: rectangle_model
+            delegate: MapRectangle {
+                topLeft     : model.north
+                bottomRight : model.south
+                color       : model.color
+                border.width: 2
+                border.color: "#000000"
+            }
+        }
+
+        // Optional circle markers (unchanged)
+        MapItemView {
+            z: 2
             model: circle_model
             delegate: MapCircle {
                 center: model.coordinate
@@ -114,34 +214,51 @@ Rectangle {
             }
         }
 
-        // Labels centered on each rectangle; text switches with zoom
+        // Dynamic GRID labels; 2/4/6 chars depending on zoom level
         MapItemView {
-            model: label_model
+            z: 3
+            model: gridLabelModel
             delegate: MapQuickItem {
-                id: labelItem
-                coordinate: model.center
-                // Center the text at the coordinate
+                coordinate: QtPositioning.coordinate(model.latitude, model.longitude)
                 sourceItem: Rectangle {
-                    id: labelRect
                     color: "transparent"
                     border.width: 0
                     Text {
-                        id: labelText
-                        text: map.zoomLevel >= labelZoomThreshold ? model.longtext : model.shorttext
-                        color: model.textcolor
+                        text: model.text
+                        color: "white"
                         font.bold: true
-                        // Add an outline for readability
                         style: Text.Outline
                         styleColor: "black"
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }
                 }
-                // Center the text over the geo coordinate
-                anchorPoint.x: labelRect.width  / 2
-                anchorPoint.y: labelRect.height / 2
+                anchorPoint.x: width / 2
+                anchorPoint.y: height / 2
             }
+        }
+
+        // Rebuild labels when view changes
+        onZoomLevelChanged: rebuildGridLabels()
+        onCenterChanged: rebuildGridLabels()
+        Component.onCompleted: rebuildGridLabels()
+
+        // Zoom buttons (unchanged)
+        Rectangle {
+            id: buttonout
+            width: 30; height: 30
+            border.color: "red"; radius: 5
+            anchors.right: parent.right; anchors.bottom: parent.bottom
+            Text { text: "-"; color: "black"; anchors.centerIn: parent }
+            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
+        }
+        Rectangle {
+            id: buttonin
+            width: 30; height: 30
+            border.color: "red"; radius: 5
+            anchors.bottom: buttonout.top; anchors.right: buttonout.right
+            Text { text: "+"; color: "black"; anchors.centerIn: parent }
+            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom + 1 } }
         }
     }
 }
-

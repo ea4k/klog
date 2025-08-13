@@ -9,18 +9,18 @@
 /*****************************************************************************
  * This file is part of KLog.                                                *
  *                                                                           *
- *    KLog is free software: you can redistribute it and/or modify           *
- *    it under the terms of the GNU General Public License as published by   *
- *    the Free Software Foundation, either version 3 of the License, or      *
- *    (at your option) any later version.                                    *
+ *    KLog is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *                                                                           *
- *    KLog is distributed in the hope that it will be useful,                *
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
- *    GNU General Public License for more details.                           *
+ *    KLog is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
  *                                                                           *
- *    You should have received a copy of the GNU General Public License      *
- *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+ *    You should have received a copy of the GNU General Public License
+ *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.
  *                                                                           *
  *****************************************************************************/
 
@@ -34,8 +34,6 @@
 MapWidget::MapWidget(QWidget *parent)
 {
     Q_UNUSED(parent);
-    //qDebug() << Q_FUNC_INFO;
-    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWidget::init()
@@ -45,30 +43,27 @@ void MapWidget::init()
 
 void MapWidget::createUI()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
-    // Roles for circle model
+    // Circle roles
     circleRoles[CoordinateRole] = QByteArray("coordinate");
     modelCircle.setItemRoleNames(circleRoles);
 
-    // Roles for rectangle model
-    rectangleRoles[NorthRole]   = QByteArray("north");
-    rectangleRoles[SouthRole]   = QByteArray("south");
-    rectangleRoles[ColorRole]   = QByteArray("color");
+    // Data overlay rectangle roles
+    rectangleRoles[NorthRole] = QByteArray("north");
+    rectangleRoles[SouthRole] = QByteArray("south");
+    rectangleRoles[ColorRole] = QByteArray("color");
     modelRectangle.setItemRoleNames(rectangleRoles);
 
-    // Roles for label model
-    labelRoles[LabelCenterRole]    = QByteArray("center");
-    labelRoles[LabelShortTextRole] = QByteArray("shorttext");
-    labelRoles[LabelLongTextRole]  = QByteArray("longtext");
-    labelRoles[LabelColorRole]     = QByteArray("textcolor");
-    modelLabels.setItemRoleNames(labelRoles);
+    // Grid rectangle roles (no color role; grid has transparent fill, only borders)
+    gridRoles[GridNorthRole] = QByteArray("north");
+    gridRoles[GridSouthRole] = QByteArray("south");
+    modelGrid.setItemRoleNames(gridRoles);
 
     // Expose models to QML
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-    qmlView.rootContext()->setContextProperty("label_model", &modelLabels);
+    qmlView.rootContext()->setContextProperty("grid_model", &modelGrid);
 
     qmlView.setSource(QUrl("qrc:qml/mapqmlfile.qml"));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
@@ -76,118 +71,104 @@ void MapWidget::createUI()
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0,0,0,0);
     layout->addWidget(container);
-    setLayout (layout);
-    //qDebug() << Q_FUNC_INFO << "-END";
+    setLayout(layout);
+
+    // Paint the persistent global field grid as soon as the map is created
+    paintFieldGrid();
 }
 
-void MapWidget::clearMap()
+void MapWidget::clearDataLayers()
 {
+    // Only clear overlays; keep grid_model intact so the grid stays visible
     modelRectangle.clear();
-    modelLabels.clear();
+    // modelCircle.clear(); // Uncomment if you want to clear markers as part of "data layers"
 }
 
 void MapWidget::setCenter(const Coordinate &_c)
 {
-    QObject *object = qmlView.rootObject ();
-    object->setProperty ("zoom", 8.0);
-    object->setProperty ("lat", _c.lat);
-    object->setProperty ("lon", _c.lon);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    QObject *object = qmlView.rootObject();
+    object->setProperty("zoom", 8.0);
+    object->setProperty("lat", _c.lat);
+    object->setProperty("lon", _c.lon);
 }
 
 void MapWidget::addLocator(const double lat1, const double lon1, const double lat2, const double lon2)
 {
-    //qDebug() << Q_FUNC_INFO ;
-    QObject *object = qmlView.rootObject ();
-    //MapRectangle
-    object->setProperty ("locLat1", lat1);
-    object->setProperty ("locLon1", lon1);
-    object->setProperty ("locLat2", lat2);
-    object->setProperty ("locLon2", lon2);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    QObject *object = qmlView.rootObject();
+    object->setProperty("locLat1", lat1);
+    object->setProperty("locLon1", lon1);
+    object->setProperty("locLat2", lat2);
+    object->setProperty("locLon2", lon2);
 }
 
 void MapWidget::addMarker(const Coordinate _coord)
 {
-    //qDebug() << Q_FUNC_INFO << QString("Lat/Lon = %1/%2").arg(_coord.lat).arg(_coord.lon);
-    QObject *object = qmlView.rootObject ();
+    QObject *object = qmlView.rootObject();
     QMetaObject::invokeMethod(object, "addMarker",
-            Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));
-//    QMetaObject::invokeMethod(object, "addMarker",
-//            Q_RETURN_ARG(QString, returnedValue),
-//            Q_ARG(double, 40.5), Q_ARG(double, -3.5));
+                              Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));
 }
 
 void MapWidget::addQSO(const QString &_loc)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))
-    {
         return;
-    }
+
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
     modelCircle.appendRow(item);
 }
 
-static inline QString shortLocatorFrom(const QString &loc)
-{
-    return loc.left(4);
-}
-
-static inline QString longLocatorFrom(const QString &loc)
-{
-    if (loc.size() >= 6) return loc.left(6);
-    return loc.left(4);
-}
-
-
 void MapWidget::addLocator(const QString &_loc, const QColor &_color)
 {
-    if (_loc.contains ("IN99"))
-    {
-        //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    }
     if (!locator.isValidLocator(_loc))
         return;
 
-    // Compute rectangle corners
+    qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+
     Coordinate _north = locator.getLocatorCorner(_loc, true);
     Coordinate _south = locator.getLocatorCorner(_loc, false);
 
-    // Add rectangle
+    QGeoRectangle rect;
+    rect.setTopLeft(QGeoCoordinate(_north.lat, _north.lon));
+    rect.setBottomRight(QGeoCoordinate(_south.lat, _south.lon));
+
+    if (rect.isValid())
     {
-        qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
-
-        QGeoRectangle rect;
-        rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
-        rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon));
-
-        if (rect.isValid())
-        {
-            QStandardItem *item = new QStandardItem;
-            item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
-            item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
-            item->setData(QVariant::fromValue(_color), ColorRole);
-            modelRectangle.appendRow(item);
-        }
+        QStandardItem *item = new QStandardItem;
+        item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
+        item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
+        item->setData(QVariant::fromValue(_color), ColorRole);
+        modelRectangle.appendRow(item);
     }
+}
 
-    // Add a label at the rectangle center with short/long text
-    {
-        // Center coordinate (simple mid-point; adequate for small rectangles)
-        const double centerLat = (_north.lat + _south.lat) / 2.0;
-        const double centerLon = (_north.lon + _south.lon) / 2.0;
+void MapWidget::paintFieldGrid()
+{
+    // Draw all 2-letter fields (A..R x A..R)
+    modelGrid.clear();
+    for (int lonIdx = 0; lonIdx < 18; ++lonIdx) {
+        for (int latIdx = 0; latIdx < 18; ++latIdx) {
+            const QChar lonChar = QChar('A' + lonIdx);
+            const QChar latChar = QChar('A' + latIdx);
+            const QString field = QString("%1%2").arg(lonChar).arg(latChar);
 
-        QStandardItem *labelItem = new QStandardItem;
-        labelItem->setData(QVariant::fromValue(QGeoCoordinate(centerLat, centerLon)), LabelCenterRole);
-        labelItem->setData(shortLocatorFrom(_loc), LabelShortTextRole);
-        labelItem->setData(longLocatorFrom(_loc),  LabelLongTextRole);
-        // Choose label color; white stands out on most fills
-        labelItem->setData(QColor(Qt::white), LabelColorRole);
+            if (!locator.isValidLocator(field))
+                continue;
 
-        modelLabels.appendRow(labelItem);
+            Coordinate north = locator.getLocatorCorner(field, true);
+            Coordinate south = locator.getLocatorCorner(field, false);
+
+            QGeoRectangle rect;
+            rect.setTopLeft(QGeoCoordinate(north.lat, north.lon));
+            rect.setBottomRight(QGeoCoordinate(south.lat, south.lon));
+
+            if (rect.isValid()) {
+                QStandardItem *item = new QStandardItem;
+                item->setData(QVariant::fromValue(QGeoCoordinate(north.lat, north.lon)), GridNorthRole);
+                item->setData(QVariant::fromValue(QGeoCoordinate(south.lat, south.lon)), GridSouthRole);
+                modelGrid.appendRow(item);
+            }
+        }
     }
 }

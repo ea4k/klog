@@ -49,35 +49,37 @@ public:
     void clearDataLayers();
 
 signals:
-      void doAddMarker(double latitude, double longitude);
-
-private slots:
+    void doAddMarker(double latitude, double longitude);
 
 private:
     void createUI();
 
-
-    // Build the global Maidenhead field grid (drawn once, persistent)
+    // Build the global 2-letter Maidenhead field grid (drawn once, persistent)
     void paintFieldGrid();
 
     QQuickView qmlView;
 
-    QStandardItemModel modelCircle, modelRectangle;
-    QStandardItemModel modelLabels;
+    // Models
+    QStandardItemModel modelCircle;      // optional circle markers
+    QStandardItemModel modelRectangle;   // data overlays (worked/confirmed)
+    QStandardItemModel modelGrid;        // persistent field grid (2-letter)
+
+    // Role name maps
     QHash<int, QByteArray> circleRoles;
     QHash<int, QByteArray> rectangleRoles;
-    QHash<int, QByteArray> labelRoles;
+    QHash<int, QByteArray> gridRoles;
 
+    // Roles (keep distinct spaces)
     int CoordinateRole = Qt::UserRole + 1000;
+
+    // For overlays (rectangles)
     int NorthRole = Qt::UserRole + 1000;
     int SouthRole = Qt::UserRole + 1001;
     int ColorRole = Qt::UserRole + 1002;
 
-    // Label roles (use distinct ids to avoid confusion)
-    int LabelCenterRole   = Qt::UserRole + 1100;
-    int LabelShortTextRole= Qt::UserRole + 1101;
-    int LabelLongTextRole = Qt::UserRole + 1102;
-    int LabelColorRole    = Qt::UserRole + 1103;
+    // For grid rectangles
+    int GridNorthRole = Qt::UserRole + 1200;
+    int GridSouthRole = Qt::UserRole + 1201;
 
     Locator locator;
 };

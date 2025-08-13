@@ -98,8 +98,7 @@ void MapWindowWidget::createUI()
     setPropModes();
     setSatNames();
     //qDebug() << Q_FUNC_INFO << "3";
-    mapWidget->init();
-    //qDebug() << Q_FUNC_INFO << "4";
+    mapWidget->init(); // Creates map and paints persistent global grid
 
     connect(bandComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotBandsComboBoxChanged()));
     connect(modeComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
@@ -107,9 +106,7 @@ void MapWindowWidget::createUI()
     connect(satNameComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
     connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
 
-    //connect(locatorsCheckBox, SIGNAL(clicked()), this, SLOT(slotLocatorsCheckBoxChanged()));
-
-    satNameComboBox->setEnabled(false); // Starts disable until propagation = SAT
+    satNameComboBox->setEnabled(false);// Starts disable until propagation = SAT
     //qDebug() << Q_FUNC_INFO << "-END";
 }
 
@@ -192,75 +189,85 @@ void MapWindowWidget::setSatNames()
 void MapWindowWidget::showFiltered()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    if (bandComboBox->currentIndex () == 0)
+    // Always keep the grid visible; only manage overlays here.
+    // If the "None - Show nothing" band is selected, just clear overlays and return.
+    if (bandComboBox->currentIndex() == 0)
     {
-        mapWidget->clearMap();
-        //qDebug() << Q_FUNC_INFO << " - END1";
+        mapWidget->clearDataLayers();
         return;
     }
-    QStringList confirmedLocators;
 
+    QStringList confirmedLocators;
     QStringList shortLocators, confirmedShortLocators;
-    shortLocators.clear();
-    confirmedShortLocators.clear ();
+    confirmedShortLocators.clear();
 
     QString satName = satNameComboBox->currentText();
 
+    confirmedLocators << dataProxy->getFilteredLocators(
+        bandComboBox->currentText(),
+        modeComboBox->currentText(),
+        getPropModeFromComboBox(),
+        satName.section(' ', 0, 0),
+        true);
 
-    // Get Confirmed Locators
-    // Print Confirmed
-        // !only confirmed
-        // Get worked locators
-        // Remove confirmed from worked
-        // Print Worked
-
-    //locators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), confirmedCheckBox->isChecked());
-
-    confirmedLocators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), true);
     QColor color;
     Locator locator;
-    confirmedShortLocators << locator.getShortLocators (confirmedLocators);
 
+    confirmedShortLocators << locator.getShortLocators(confirmedLocators);
     confirmedShortLocators << confirmedLocators;
     confirmedShortLocators.removeDuplicates();
     confirmedShortLocators.sort();
-    color = confirmedColor;
-    color.setAlpha (127);
-    addLocators(confirmedShortLocators, color);// The alpha gives some transparency
 
-    if (!confirmedCheckBox->isChecked ())
+    if (!confirmedShortLocators.isEmpty())
+    {
+        color = confirmedColor;
+        color.setAlpha(127);
+        addLocators(confirmedShortLocators, color);
+    }
+    else
+    {
+        mapWidget->clearDataLayers();
+    }
+
+    if (!confirmedCheckBox->isChecked())
     {
         QStringList wLocators;
-        wLocators.clear ();
-        wLocators << dataProxy->getFilteredLocators(bandComboBox->currentText(), modeComboBox->currentText(), getPropModeFromComboBox(), satName.section(' ', 0, 0), false);
-        QStringList workedLocators;
-        workedLocators.clear ();
+        wLocators << dataProxy->getFilteredLocators(
+            bandComboBox->currentText(),
+            modeComboBox->currentText(),
+            getPropModeFromComboBox(),
+            satName.section(' ', 0, 0),
+            false);
 
-        foreach (QString loc, wLocators)
+        QStringList workedLocators;
+        workedLocators.clear();
+
+        for (const QString &loc : wLocators)
         {
-            if (!confirmedShortLocators.contains (loc))
-            {
-                workedLocators.append (loc);
-            }
+            if (!confirmedShortLocators.contains(loc))
+                workedLocators.append(loc);
         }
 
         shortLocators.clear();
-        shortLocators << locator.getShortLocators (workedLocators);
+        shortLocators << locator.getShortLocators(workedLocators);
         shortLocators << workedLocators;
         shortLocators.removeDuplicates();
-        workedLocators.clear ();
-        foreach (QString loc, shortLocators)
+
+        workedLocators.clear();
+        for (const QString &loc : shortLocators)
         {
-            if (!confirmedShortLocators.contains (loc))
-            {
-                workedLocators.append (loc);
-            }
+            if (!confirmedShortLocators.contains(loc))
+                workedLocators.append(loc);
         }
+
         workedLocators.sort();
-        color = workedColor;
-        //qDebug() << " - WorkedColor: " << workedColor.name(QColor::HexRgb);
-        color.setAlpha (127);// The alpha gives some transparency
-        appendLocators(workedLocators, color);
+
+        if (!workedLocators.isEmpty())
+        {
+            color = workedColor;
+            color.setAlpha(127);
+            appendLocators(workedLocators, color);
+        }
     }
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -340,7 +347,8 @@ void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
 void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_color)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    mapWidget->clearMap();
+    // Clear only overlays; keep the persistent grid
+    mapWidget->clearDataLayers();
     foreach(QString i, _locators)
     {
         if (i.contains ("IN99"))
@@ -355,7 +363,7 @@ void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_c
 void MapWindowWidget::appendLocators(const QStringList &_locators, const QColor &_color)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    foreach(QString i, _locators)
+    foreach(const QString &i, _locators)
     {
         //mapWidget->addLocator(i, confirmedColor);
         mapWidget->addLocator(i, _color);
