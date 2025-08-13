@@ -42,7 +42,7 @@ class MainWindowInputOthers : public QWidget
     friend class tst_MainWindowInputOthers;
 
 public:
-    MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    MainWindowInputOthers(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent = nullptr);
     ~MainWindowInputOthers();
     void setDarkMode (const bool _dm);
     QSO getQSOData(QSO _qso);

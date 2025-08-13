@@ -32,13 +32,14 @@
 #include <QSqlQuery>
 #include "../dataproxy_sqlite.h"
 #include "../fileawardmanager.h"
+#include "../world.h"
 
 
 class SetupPageSubdivisions : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *parent=nullptr);
+    SetupPageSubdivisions(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent=nullptr);
     ~SetupPageSubdivisions();
     int getSelectedLog();
     void setSelectedLog(const int _i);

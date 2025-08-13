@@ -51,7 +51,7 @@ class Awards : public QObject {
     //friend class World;
 
 public:
-    Awards(DataProxy_SQLite *dp, const QString &_parentFunction);
+    Awards(DataProxy_SQLite *dp, World *injectedWorld, const QString &_parentFunction);
     ~Awards();
     void setAwards();
     void setAwards(const int _dxcc, const int _waz, const int _band, const int _mode, const int _workedOrConfirmed, const int _logNumber, const int _qsoId);

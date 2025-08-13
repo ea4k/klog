@@ -53,13 +53,15 @@ private:
     LogWindow *logWindow;       // Instance of LogWindow to test
     Awards *awards;         // Mock Awards object
     DataProxy_SQLite *dataProxy;
+    World *world;
 };
 
 // Initializes resources before tests
 void tst_LogWindow::initTestCase()
 {
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO);
-    awards = new Awards(dataProxy, nullptr); // Mock Awards object
+    world = new World(dataProxy, Q_FUNC_INFO);
+    awards = new Awards(dataProxy, world, nullptr); // Mock Awards object
     logWindow = new LogWindow(awards);     // Initialize LogWindow
 }
 

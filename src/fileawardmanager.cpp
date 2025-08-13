@@ -26,18 +26,20 @@
 
 #include "fileawardmanager.h"
 
-FileAwardManager::FileAwardManager(DataProxy_SQLite *dp, const QString &_parentFunction)
+FileAwardManager::FileAwardManager(DataProxy_SQLite *dp, World *injectedWorld, const QString &_parentFunction)
 {
     Q_UNUSED(_parentFunction);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
-    world = new World(dataProxy, Q_FUNC_INFO);
+    //world = new World(dataProxy, Q_FUNC_INFO);
+    world = injectedWorld;
 }
+
 FileAwardManager::~FileAwardManager()
 {
    //delete(dataProxy);
     delete(util);
-    delete(world);
+    //delete(world);
 }
 
 bool FileAwardManager::importNewAwardFile()

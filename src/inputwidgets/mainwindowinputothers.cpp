@@ -29,13 +29,14 @@
 #include "../adif.h"
 #include "../callsign.h"
 
-MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
+MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) :
     QWidget(parent)
 {
        //qDebug() << Q_FUNC_INFO;
     logLevel = None;
     dataProxy = dp;
-    world = new World(dataProxy,Q_FUNC_INFO);
+    //world = new World(dataProxy,Q_FUNC_INFO);
+    world = injectedWorld;
 
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());

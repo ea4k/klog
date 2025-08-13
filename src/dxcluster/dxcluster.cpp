@@ -27,7 +27,7 @@ email                : jaime@robles.es
 #include "dxcluster.h"
 #include "../callsign.h"
 
-DXClusterWidget::DXClusterWidget(Awards *awards, QWidget *parent)
+DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *parent)
           : QWidget(parent),
             awards(awards),
             dataProxy(awards->dataProxy)
@@ -40,7 +40,8 @@ DXClusterWidget::DXClusterWidget(Awards *awards, QWidget *parent)
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-    world = new World(dataProxy, Q_FUNC_INFO);
+    //world = new World(dataProxy, Q_FUNC_INFO);
+    world = injectedWorld;
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
     tcpSocket = new QTcpSocket(this);

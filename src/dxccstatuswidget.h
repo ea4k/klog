@@ -42,7 +42,7 @@ class DXCCStatusWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DXCCStatusWidget(Awards *awards, QWidget *parent = nullptr);
+    explicit DXCCStatusWidget(Awards *awards, World *injectedWorld, QWidget *parent = nullptr);
     //explicit DXCCStatusWidget(DataProxy_SQLite *dp, const QString &_parentFunction, Awards &awards, QWidget *parent = nullptr);
     ~DXCCStatusWidget();
 

@@ -276,12 +276,13 @@ int main(int argc, char *argv[])
 
     splash.showMessage ("Creating the Data Base...");
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
+    World world(&dataProxy, Q_FUNC_INFO);
     dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage ("Creating window...");
    //qDebug() << Q_FUNC_INFO << " - 102 " << (QTime::currentTime()).toString("HH:mm:ss");
 
-    MainWindow mw(&dataProxy);
+    MainWindow mw(&dataProxy, &world);
     splash.showMessage ("Initializing window...");
     //qDebug() << Q_FUNC_INFO << " - 103 " << (QTime::currentTime()).toString("HH:mm:ss");
 

@@ -36,7 +36,7 @@ TODO: Call the creation of this depending on the bands that the user is using
 */
 
 
-DXCCStatusWidget::DXCCStatusWidget(Awards *awards, QWidget *parent) :
+DXCCStatusWidget::DXCCStatusWidget(Awards *awards, World *injectedWorld, QWidget *parent) :
     QWidget(parent),
     awards(awards) // Initialize Awards reference
 {   
@@ -51,7 +51,8 @@ DXCCStatusWidget::DXCCStatusWidget(Awards *awards, QWidget *parent) :
     //wards = new Awards(dataProxy, Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << " - -1";
 
-    world = new World(dataProxy,Q_FUNC_INFO);
+    //world = new World(dataProxy,Q_FUNC_INFO);
+    world = injectedWorld;
       //qDebug() << Q_FUNC_INFO << " - -2";
 
     dxccView = new QTableWidget;

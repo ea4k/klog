@@ -44,7 +44,7 @@ class InfoWidget : public QWidget
     friend class tst_MainWindow;
 
 public:
-    InfoWidget(DataProxy_SQLite *dp, QWidget *parent = 0);
+    InfoWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent = 0);
     ~InfoWidget();
     void createUI();
     void clear();

@@ -26,7 +26,7 @@
 
 #include "awardswidget.h"
 
-AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
+AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) :
     QWidget(parent)
 {
       //qDebug() << "AwardsWidget::AwardsWidget"  ;
@@ -56,7 +56,8 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, QWidget *parent) :
     recalculateAwardsButton = new QPushButton;
     operatingYearsComboBox = new QComboBox;
     dataProxy = dp;
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    world = injectedWorld;
+    awards = new Awards(dataProxy, world, Q_FUNC_INFO);
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
     //util = new Utilities(Q_FUNC_INFO);
 

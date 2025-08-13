@@ -26,13 +26,14 @@
 
 #include "setuppageworldeditor.h"
 
-SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
+SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     //worldPanel = new QWidget;
     dataProxy = dp;
    //qDebug() << Q_FUNC_INFO << " - 00";
-    world = new World(dataProxy, Q_FUNC_INFO);
+   // world = new World(dataProxy, Q_FUNC_INFO);
+    world = injectedWorld;
    //qDebug() << Q_FUNC_INFO << " - 01";
     util = new Utilities(Q_FUNC_INFO);
    //qDebug() << Q_FUNC_INFO << " - 02";
