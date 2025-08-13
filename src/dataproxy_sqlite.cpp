@@ -2013,106 +2013,89 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     //qDebug() << Q_FUNC_INFO << ": " << _prop;
     //qDebug() << Q_FUNC_INFO << ": " << _sat;
 
-    QStringList grids = QStringList();
+    QStringList grids;
+    QStringList where;
+    where << "gridsquare IS NOT NULL" << "gridsquare <> ''";
+
+    // Resolve band/mode ids (only add predicates when they restrict results)
+    const int bandId = getIdFromBandName(_band);
+    if (bandId > 0) {
+        where << "bandid = :bandid";
+    }
+
+    const int modeId = getIdFromModeName(_mode);
+    if (modeId > 0) {
+        where << "modeid = :modeid";
+    }
+
+    // Propagation + satellite handling
+    const bool propValid = isValidPropMode(_prop);
+    const bool isSat = (propValid && _prop == "SAT");
+    int satDbId = -1;
+    if (isSat) {
+        satDbId = getDBSatId(_sat); // > 0 means a known sat was chosen
+    }
+
+    if (propValid) {
+        where << "prop_mode = :prop";
+        if (isSat) {
+            if (satDbId > 0) {
+                where << "sat_name = :satname";
+            } else {
+                // Keep SAT QSOs except the sentinel 'x'
+                where << "COALESCE(sat_name,'') <> 'x'";
+            }
+        } else {
+            // Not SAT propagation: exclude SAT-tagged QSOs
+            where << "COALESCE(sat_name,'') = ''";
+        }
+    } else {
+        // No specific prop filter: exclude sentinel 'x' and any SAT-tagged QSOs
+        where << "COALESCE(prop_mode,'') <> 'x'";
+        where << "COALESCE(sat_name,'') = ''";
+    }
+
+    // Confirmation filtering
+    if (_confirmed) {
+        where << "((qsl_rcvd = 'Y') OR (lotw_qsl_rcvd = 'Y'))";
+    } else {
+        // Keep anything that is not the sentinel 'x' (include NULL)
+        where << "COALESCE(qsl_rcvd,'') <> 'x'";
+    }
+
+    QString sql = "SELECT DISTINCT gridsquare FROM log";
+    if (!where.isEmpty()) {
+        sql += " WHERE " + where.join(" AND ");
+    }
+    // No ORDER BY here; DISTINCT+ORDER BY can be expensive. We sort in-memory below.
+
     QSqlQuery query;
-    QString queryString;
+    query.prepare(sql);
 
-    QString bandString = QString();
-    int bandId = getIdFromBandName(_band);
+    if (bandId > 0) query.bindValue(":bandid", bandId);
+    if (modeId > 0) query.bindValue(":modeid", modeId);
+    if (propValid)  query.bindValue(":prop", _prop);
+    if (isSat && satDbId > 0) query.bindValue(":satname", _sat);
 
-    if (bandId > 0)
-    {
-        bandString = QString("bandid = '%1'").arg(bandId);
-    }
-    else
-    {
-        bandString = QString("bandid <> ''");
-    }
-
-    QString modeString = QString();
-    int modeId = getIdFromModeName(_mode);
-    if (modeId > 0)
-    {
-        modeString = QString("AND modeid = '%1'").arg(modeId);
-    }
-    else
-    {
-        modeString = QString("AND modeid <> '' ");
-    }
-
-    QString propString = QString();
-    QString satsString = QString();
-
-    if (isValidPropMode(_prop))
-    {
-        propString = QString("AND prop_mode = '%1'").arg(_prop);
-        if (_prop == "SAT")
-        {
-            //qDebug() << Q_FUNC_INFO  << ": SAT: " << _sat;
-            if (getDBSatId(_sat)>0)
-            {
-                satsString = QString("AND sat_name = '%1'").arg(_sat);
-            }
-            else
-            {
-                satsString = QString("AND sat_name <> 'x'");
-            }
-        }
-        else
-        {
-            satsString = QString("AND sat_name = ''");
-        }
-    }
-    else
-    {
-        propString = QString("AND prop_mode <> 'x'");
-        satsString = QString("AND sat_name = ''");
-    }
-
-    QString confirmedString = QString();
-    if (_confirmed)
-    {
-        confirmedString = QString("AND ((qsl_rcvd = 'Y') OR (lotw_qsl_rcvd = 'Y'))");
-    }
-    else
-    {
-        confirmedString = QString("AND qsl_rcvd <> 'x' ");
-    }
-
-    queryString = QString("SELECT DISTINCT gridsquare from log WHERE %1 %2 %3 %4 %5 ORDER BY id ASC").arg(bandString).arg(modeString).arg(propString).arg(satsString).arg(confirmedString);
-
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        //qDebug() << Q_FUNC_INFO << queryString ;
-        while(query.next())
-        {
-            if (query.isValid())
-            {
-                queryString = (query.value(0)).toString();
-                grids.append(queryString);
-                if (grids.contains ("IN99"))
-                {
-                    //qDebug() << Q_FUNC_INFO << ": " << queryString ;
-                }
-            }
-            else
-            {
-                query.finish();
-                return QStringList();
-            }
-        }
-        query.finish();
-        grids.sort();
-        return grids;
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
+    if (!query.exec()) {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(),
+                        query.lastError().text(), query.executedQuery());
         return QStringList();
     }
+
+    while (query.next()) {
+        if (!query.isValid()) continue;
+        const QString grid = query.value(0).toString().trimmed();
+        if (!grid.isEmpty()) {
+            grids.append(grid);
+        }
+    }
+    query.finish();
+
+    grids.sort();          // natural sort for caller expectations
+    grids.removeDuplicates(); // defensive; DISTINCT already dedupes
+
+    return grids;
 }
 
 bool DataProxy_SQLite::QRZCOMModifyFullLog(const int _currentLog)

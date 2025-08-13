@@ -80,6 +80,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << ": AFTER eQSLUtilities";
     mapWindow = new MapWindowWidget(dataProxy, this);
+    mapWindow->init();
 
       //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") ;
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -438,7 +439,7 @@ void MainWindow::init()
     readSettingsFile();
 
      //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    mapWindow->init();
+
        //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
         //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -1050,7 +1051,7 @@ void MainWindow::slotQRZReturnPressed()
     }
 
     int addedOK = qsoInUI.toDB (modifyingQSOid);
-   //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
         //qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
@@ -3431,7 +3432,7 @@ void MainWindow::slotOpenWiki()
 
 void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-   //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) ;
+    //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) ;
     //                             " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
     //                            " / Default: " << _default.name(QColor::HexRgb);
     searchWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);

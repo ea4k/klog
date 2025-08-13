@@ -344,7 +344,7 @@ void SearchWidget::slotQSLRecViaDirectFromSearch()
 
 void SearchWidget::slotStartDelayInputTimer()
 {
-    qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime();
+    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime();
     int cursorP = searchBoxLineEdit->cursorPosition();
 
 
@@ -696,7 +696,7 @@ void SearchWidget::slotSearchBoxTextChanged()
     }
 
     searchBoxLineEdit->setCursorPosition(cursorP);
-    qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime();
+    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime();
 }
 
 void SearchWidget::setModelFilter()

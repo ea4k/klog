@@ -92,6 +92,7 @@ void MapWidget::setCenter(const Coordinate &_c)
 
 void MapWidget::addLocator(const double lat1, const double lon1, const double lat2, const double lon2)
 {
+    //qDebug() << Q_FUNC_INFO ;
     QObject *object = qmlView.rootObject ();
     //MapRectangle
     object->setProperty ("locLat1", lat1);

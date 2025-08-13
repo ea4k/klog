@@ -626,7 +626,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
 
 QString MainWindowInputOthers::getWWFF_Ref()
 {
-    qDebug() << Q_FUNC_INFO << ": " << wwff_ref;
+    //qDebug() << Q_FUNC_INFO << ": " << wwff_ref;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return wwff_ref;
 }
