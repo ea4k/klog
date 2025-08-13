@@ -48,37 +48,42 @@ void MapWidget::createUI()
     //qDebug() << Q_FUNC_INFO << "Start";
     QWidget *container = QWidget::createWindowContainer(&qmlView, this);
 
+    // Roles for circle model
     circleRoles[CoordinateRole] = QByteArray("coordinate");
-    rectangleRoles[NorthRole] = QByteArray("north");
-    rectangleRoles[SouthRole] = QByteArray("south");
-    rectangleRoles[ColorRole] = QByteArray("color");
     modelCircle.setItemRoleNames(circleRoles);
+
+    // Roles for rectangle model
+    rectangleRoles[NorthRole]   = QByteArray("north");
+    rectangleRoles[SouthRole]   = QByteArray("south");
+    rectangleRoles[ColorRole]   = QByteArray("color");
     modelRectangle.setItemRoleNames(rectangleRoles);
 
+    // Roles for label model
+    labelRoles[LabelCenterRole]    = QByteArray("center");
+    labelRoles[LabelShortTextRole] = QByteArray("shorttext");
+    labelRoles[LabelLongTextRole]  = QByteArray("longtext");
+    labelRoles[LabelColorRole]     = QByteArray("textcolor");
+    modelLabels.setItemRoleNames(labelRoles);
+
+    // Expose models to QML
     qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
     qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-    //qDebug() << Q_FUNC_INFO << "13";
-    //qmlView.setSource(QUrl(QStringLiteral("qrc:qml/mapqmlfile.qml")));
-    //qmlView.setSource(QUrl::fromLocalFile("qrc:qml/mapqmlfile.qml"));
-     qmlView.setSource(QUrl("qrc:qml/mapqmlfile.qml"));
+    qmlView.rootContext()->setContextProperty("label_model", &modelLabels);
 
-
-    //qDebug() << Q_FUNC_INFO << "14";
+    qmlView.setSource(QUrl("qrc:qml/mapqmlfile.qml"));
     qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
-    QVBoxLayout *layout = new QVBoxLayout(this);
 
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0,0,0,0);
     layout->addWidget(container);
     setLayout (layout);
-    //addMarker(latitude, longitude)
-
-    //setMinimumSize (200, 200); //This minimum size may be relative to another widget... (maybe the mainwindow?)
-    //connect(okButton, SIGNAL(clicked()), this, SLOT(slotButtonClicked() ) );
     //qDebug() << Q_FUNC_INFO << "-END";
 }
 
 void MapWidget::clearMap()
 {
     modelRectangle.clear();
+    modelLabels.clear();
 }
 
 void MapWidget::setCenter(const Coordinate &_c)
@@ -127,35 +132,62 @@ void MapWidget::addQSO(const QString &_loc)
     modelCircle.appendRow(item);
 }
 
+static inline QString shortLocatorFrom(const QString &loc)
+{
+    return loc.left(4);
+}
+
+static inline QString longLocatorFrom(const QString &loc)
+{
+    if (loc.size() >= 6) return loc.left(6);
+    return loc.left(4);
+}
+
+
 void MapWidget::addLocator(const QString &_loc, const QColor &_color)
 {
     if (_loc.contains ("IN99"))
     {
         //qDebug() << Q_FUNC_INFO << ": " << _loc;
     }
-    //qDebug() << Q_FUNC_INFO << ": " << _loc;
     if (!locator.isValidLocator(_loc))
-    {
         return;
+
+    // Compute rectangle corners
+    Coordinate _north = locator.getLocatorCorner(_loc, true);
+    Coordinate _south = locator.getLocatorCorner(_loc, false);
+
+    // Add rectangle
+    {
+        qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+
+        QGeoRectangle rect;
+        rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
+        rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon));
+
+        if (rect.isValid())
+        {
+            QStandardItem *item = new QStandardItem;
+            item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
+            item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
+            item->setData(QVariant::fromValue(_color), ColorRole);
+            modelRectangle.appendRow(item);
+        }
     }
 
-    qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
-
-    Coordinate _north, _south;
-    _north = locator.getLocatorCorner(_loc, true);
-    _south = locator.getLocatorCorner(_loc, false);
-
-    QGeoRectangle rect;
-    rect.setTopLeft (QGeoCoordinate(_north.lat, _north.lon));
-    rect.setBottomRight (QGeoCoordinate(_south.lat, _south.lon) );
-
-    if (rect.isValid ())
+    // Add a label at the rectangle center with short/long text
     {
-        QStandardItem *item = new QStandardItem;
-        item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
-        item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
-        item->setData(QVariant::fromValue(_color), ColorRole);
-        modelRectangle.appendRow(item);
-        //qDebug() << Q_FUNC_INFO << " Rectangle OK";
+        // Center coordinate (simple mid-point; adequate for small rectangles)
+        const double centerLat = (_north.lat + _south.lat) / 2.0;
+        const double centerLon = (_north.lon + _south.lon) / 2.0;
+
+        QStandardItem *labelItem = new QStandardItem;
+        labelItem->setData(QVariant::fromValue(QGeoCoordinate(centerLat, centerLon)), LabelCenterRole);
+        labelItem->setData(shortLocatorFrom(_loc), LabelShortTextRole);
+        labelItem->setData(longLocatorFrom(_loc),  LabelLongTextRole);
+        // Choose label color; white stands out on most fills
+        labelItem->setData(QColor(Qt::white), LabelColorRole);
+
+        modelLabels.appendRow(labelItem);
     }
 }

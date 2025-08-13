@@ -44,8 +44,9 @@ public:
     void addQSO(const QString &_loc);
     void addMarker(const Coordinate _coord);
     void addLocator(const QString &_loc, const QColor &_color);
-    void clearMap();
-    //void setLocale (const QString _locale);
+
+    // Clears only data overlays (worked/confirmed rectangles and circles), NOT the base grid layer
+    void clearDataLayers();
 
 signals:
       void doAddMarker(double latitude, double longitude);
@@ -54,18 +55,31 @@ private slots:
 
 private:
     void createUI();
+
+
+    // Build the global Maidenhead field grid (drawn once, persistent)
+    void paintFieldGrid();
+
     QQuickView qmlView;
 
     QStandardItemModel modelCircle, modelRectangle;
+    QStandardItemModel modelLabels;
     QHash<int, QByteArray> circleRoles;
     QHash<int, QByteArray> rectangleRoles;
+    QHash<int, QByteArray> labelRoles;
 
     int CoordinateRole = Qt::UserRole + 1000;
     int NorthRole = Qt::UserRole + 1000;
     int SouthRole = Qt::UserRole + 1001;
     int ColorRole = Qt::UserRole + 1002;
+
+    // Label roles (use distinct ids to avoid confusion)
+    int LabelCenterRole   = Qt::UserRole + 1100;
+    int LabelShortTextRole= Qt::UserRole + 1101;
+    int LabelLongTextRole = Qt::UserRole + 1102;
+    int LabelColorRole    = Qt::UserRole + 1103;
+
     Locator locator;
-    //double lat, lon;
 };
 
 #endif // MAPWIDGET_H

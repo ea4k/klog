@@ -37,179 +37,111 @@ Rectangle {
     property alias lat: map.center.latitude
     property alias lon: map.center.longitude
     property double oldZoom
-    //property alias mapLocale: map.plugin.locales
 
-    Location {
-            // Define location that will be "center" of map
-            id: mapCenter
-    }
-    //function addMarker(latitude: double, longitude: double, locatorText: String)
-    function addMarker(latitude: double, longitude: double)
-        {
-            var Component = Qt.createComponent("qrc:qml/marker.qml")
-            //var item = Component.createObject(Rectangle, {
-            //                                      coordinate: QtPositioning.coordinate(latitude, longitude), text: locatorText
-            //                                  })
+    // Threshold for switching between short (4-char) and long (6-char) locator labels
+    property int labelZoomThreshold: 9
+
+    Location { id: mapCenter }
+
+    function addMarker(latitude, longitude) {
+        var Component = Qt.createComponent("qrc:qml/marker.qml")
         var item = Component.createObject(Rectangle, {
-                                              coordinate: QtPositioning.coordinate(latitude, longitude)
-                                          })
-        //if (zoom>5)
-        //{
-        //    console.log("Zoom>5: ", zoom);
-        //}
-            map.addMapItem(item)
-        }
-
-    FocusScope
-    {
-         anchors.fill: parent
+            coordinate: QtPositioning.coordinate(latitude, longitude)
+        })
+        map.addMapItem(item)
     }
+
+    FocusScope { anchors.fill: parent }
 
     Plugin {
         id: mapPlugin
-        name: "osm" // Names in local language
-        //name: "esri" // Names not in local language but english
-        //name: "googleMap"
-        //name: "mapboxgl"
-        PluginParameter
-        {
+        name: "osm" // default provider
+        PluginParameter {
             name: "osm.mapping.custom.host"
             value: "https://tile.openstreetmap.org/"
         }
     }
-
 
     Map {
         id: map
         anchors.fill: parent
         plugin: mapPlugin
         center: mapCenter.coordinate
-        Plugin {
-            name: "osm"
-           //locales: "en_US"
-        }
-        //Component.onCompleted:addMarker(40.18, -3.649, "OOO")
-        //onCenterChanged:
-        //{
-        //    console.log("Map Center X: ", lat, " - Map Center Y: ", lon);
-        //}
         zoomLevel: 14
-    activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
-        MouseArea
-        {
-            hoverEnabled: true
-            anchors.fill: parent
-            //acceptedButtons: Qt.LeftButton
-            //onClicked:
-            //{
-            //             console.log("left button clicked!")
-            //}
-            //onPositionChanged:
-            //{
-            //    Qt.point(mouseX, mouseY)
-            //    var coordinate = map.toCoordinate(Qt.point(mouse.x,mouse.y))
-            //    console.log("Mouse Position (", mouseX, ", ", mouseY, ")");
-            //    console.log("Mouse GeoPosition (", coordinate.latitude, ", ", coordinate.longitude, ")");
-            //}
-        }
-        MouseArea
-        {
-            hoverEnabled: true
-            anchors.fill: parent
-            //acceptedButtons: Qt.RightButton
-            //onClicked:
-            //{
-            //     console.log("right button clicked!")
-            //    contextMenu.popup()
-            //}
-            //Menu {
-            //    id: contextMenu
-            //    MenuItem {text: "Show QSOs"}
-            //}
-        }
+        activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
 
+        MouseArea { hoverEnabled: true; anchors.fill: parent }
+        MouseArea { hoverEnabled: true; anchors.fill: parent }
+
+        // Zoom out button
         Rectangle {
             id: buttonout
-
-            width: 30
-            height: 30
-            border.color: "red"
-            radius: 5     // Let's round the rectangle's corner a bit, so it resembles more a button
-            //anchors.centerIn: parent
+            width: 30; height: 30
+            border.color: "red"; radius: 5
             anchors.right: parent.right; anchors.bottom: parent.bottom
-
-            Text {
-                id: buttonText
-                text: "-"
-                color: "black"
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                // We make the MouseArea as big as its parent, i.e. the rectangle. So pressing anywhere on the button will trigger the event
-                anchors.fill: parent
-
-                // Exploit the built-in "clicked" signal of the MouseArea component to do something when the MouseArea is clicked.
-                // Note that the code associated to the signal is plain JavaScript. We can reference any QML objects by using their IDs
-                onClicked: {
-                    oldZoom = zoom
-                    zoom = oldZoom - 1
-                }
-            }
+            Text { text: "-"; color: "black"; anchors.centerIn: parent }
+            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
         }
+        // Zoom in button
         Rectangle {
             id: buttonin
-            width: 30
-            height: 30
-            border.color: "red"
-            radius: 5     // Let's round the rectangle's corner a bit, so it resembles more a button
+            width: 30; height: 30
+            border.color: "red"; radius: 5
             anchors.bottom: buttonout.top; anchors.right: buttonout.right
-            //anchors.right: parent.right; anchors.bottom: parent.bottom
-
-            Text {
-                id: buttonTextout
-                text: "+"
-                color: "black"
-                anchors.centerIn: parent
-            }
-
-            MouseArea {
-                // We make the MouseArea as big as its parent, i.e. the rectangle. So pressing anywhere on the button will trigger the event
-                anchors.fill: parent
-
-                // Exploit the built-in "clicked" signal of the MouseArea component to do something when the MouseArea is clicked.
-                // Note that the code associated to the signal is plain JavaScript. We can reference any QML objects by using their IDs
-                onClicked: {
-                    oldZoom = zoom
-                    zoom = oldZoom + 1
-                    //buttonText.text = qsTr("Clicked");
-                    //buttonText.color = "black";
-                }
-            }
+            Text { text: "+"; color: "black"; anchors.centerIn: parent }
+            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom + 1 } }
         }
 
-        MapItemView
-        {
+        // Painted Maidenhead rectangles
+        MapItemView {
             model: rectangle_model
-            delegate: MapRectangle
-            {
+            delegate: MapRectangle {
                 border.width: 2
-                topLeft       : model.north
-                bottomRight   : model.south
-                color         : model.color
-                //opacity       : 0.5
+                topLeft     : model.north
+                bottomRight : model.south
+                color       : model.color
             }
         }
-        MapItemView
-        {
-              model: circle_model
-              delegate: MapCircle{
-                    center: model.coordinate
-                    radius: 5000.0
-                    color: 'green'
-                    border.width: 10
-              }
+
+        // Optional circle markers (existing)
+        MapItemView {
+            model: circle_model
+            delegate: MapCircle {
+                center: model.coordinate
+                radius: 5000.0
+                color: "green"
+                border.width: 10
+            }
+        }
+
+        // Labels centered on each rectangle; text switches with zoom
+        MapItemView {
+            model: label_model
+            delegate: MapQuickItem {
+                id: labelItem
+                coordinate: model.center
+                // Center the text at the coordinate
+                sourceItem: Rectangle {
+                    id: labelRect
+                    color: "transparent"
+                    border.width: 0
+                    Text {
+                        id: labelText
+                        text: map.zoomLevel >= labelZoomThreshold ? model.longtext : model.shorttext
+                        color: model.textcolor
+                        font.bold: true
+                        // Add an outline for readability
+                        style: Text.Outline
+                        styleColor: "black"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+                // Center the text over the geo coordinate
+                anchorPoint.x: labelRect.width  / 2
+                anchorPoint.y: labelRect.height / 2
+            }
         }
     }
-
 }
+
