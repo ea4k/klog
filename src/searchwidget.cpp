@@ -27,7 +27,7 @@
 #include "searchwidget.h"
 #include "callsign.h"
 
-SearchWidget::SearchWidget(Awards *awards, QWidget *parent) :
+SearchWidget::SearchWidget(Awards *awards, World *injectedWorld, QWidget *parent) :
     QWidget(parent),
     awards(awards) // Initialize Awards reference
 {
@@ -36,16 +36,17 @@ SearchWidget::SearchWidget(Awards *awards, QWidget *parent) :
     dataProxy = awards->dataProxy;
     delayInputTimer = new QTimer;
     searchWindow = std::make_unique<SearchWindow>(awards, this);
+    //world = injectedWorld;
     //searchWindow = new SearchWindow(dataProxy, this);
 
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-    filemanager = new FileManager(dataProxy);
+    filemanager = new FileManager(dataProxy, injectedWorld);
     filemanager->init();
 
-    world = new World(dataProxy, Q_FUNC_INFO);
+    //world = new World(dataProxy, Q_FUNC_INFO);
     mainStationCallsign = QString();
 
     currentLog = -1;
@@ -73,7 +74,7 @@ SearchWidget::~SearchWidget()
     //delete(awards);
     delete(util);
     delete(filemanager);
-    delete(world);
+    //delete(world);
 }
 
 void SearchWidget::clear()
@@ -343,7 +344,7 @@ void SearchWidget::slotQSLRecViaDirectFromSearch()
 
 void SearchWidget::slotStartDelayInputTimer()
 {
-    //qDebug() << "SearchWidget::slotStartDelayInputTimer" ;
+    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime();
     int cursorP = searchBoxLineEdit->cursorPosition();
 
 
@@ -695,6 +696,7 @@ void SearchWidget::slotSearchBoxTextChanged()
     }
 
     searchBoxLineEdit->setCursorPosition(cursorP);
+    //qDebug() << Q_FUNC_INFO << ": " << QTime::currentTime();
 }
 
 void SearchWidget::setModelFilter()

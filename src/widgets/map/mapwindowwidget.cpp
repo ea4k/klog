@@ -258,6 +258,7 @@ void MapWindowWidget::showFiltered()
         }
         workedLocators.sort();
         color = workedColor;
+        //qDebug() << " - WorkedColor: " << workedColor.name(QColor::HexRgb);
         color.setAlpha (127);// The alpha gives some transparency
         appendLocators(workedLocators, color);
     }
@@ -392,5 +393,8 @@ void MapWindowWidget::setColors (const QColor &_worked, const QColor &_confirmed
     defaultColor = _default;
     workedColor = _worked;
     confirmedColor = _confirmed;
+    //qDebug() << " - DefaultColor: " << defaultColor.name(QColor::HexRgb);
+    //qDebug() << " - WorkedColor: " << workedColor.name(QColor::HexRgb);
+    //qDebug() << " - ConfirmedColor: " << confirmedColor.name(QColor::HexRgb);
     //qDebug() << Q_FUNC_INFO << " - END";
 }

@@ -28,13 +28,14 @@
 #include "../callsign.h"
 
 
-SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
+SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent){
   //qDebug() << Q_FUNC_INFO << " - Start";
    slotQRZRunning = false;
    locator = new Locator();
    util = new Utilities(Q_FUNC_INFO);
    dataProxy = dp;
-   world = new World(dataProxy, Q_FUNC_INFO);
+   //world = new World(dataProxy, Q_FUNC_INFO);
+   world = injectedWorld;
    mainCallOK = false;
    tabWidget = new QTabWidget;
    QWidget *personalTab = new QWidget;

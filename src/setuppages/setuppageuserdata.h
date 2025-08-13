@@ -38,7 +38,7 @@ class SetupPageUserDataPage : public QWidget {
     Q_OBJECT
 
 public:
-    SetupPageUserDataPage(DataProxy_SQLite *dp, QWidget *parent=nullptr);
+    SetupPageUserDataPage(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent=nullptr);
     ~SetupPageUserDataPage();
     void setPrefixes();
 

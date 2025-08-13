@@ -34,7 +34,7 @@ This class calls all the othet "Setup..." to manage the configuration
 
 */
 
-SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
+SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent)
 {
      //qDebug() << Q_FUNC_INFO ;
 
@@ -49,7 +49,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
     locator = new Locator();
     tabWidget = new QTabWidget;
      //qDebug() << Q_FUNC_INFO << ": 01.0";
-    userDataPage = new SetupPageUserDataPage(dataProxy);
+    userDataPage = new SetupPageUserDataPage(dataProxy, injectedWorld);
      //qDebug() << Q_FUNC_INFO << ": 01.10";
     bandModePage = new SetupPageBandMode(dataProxy, this);
      //qDebug() << Q_FUNC_INFO << ": 01.20";
@@ -59,7 +59,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, QWidget *parent)
      //qDebug() << Q_FUNC_INFO << ": 01.40";
     miscPage = new SetupPageMisc(this);
      //qDebug() << Q_FUNC_INFO << ": 01.50";
-    worldEditorPage = new SetupPageWorldEditor (dataProxy, this);
+    worldEditorPage = new SetupPageWorldEditor (dataProxy, injectedWorld, this);
      //qDebug() << Q_FUNC_INFO << ": 01.60";
     logsPage = new SetupPageLogs(dataProxy, this);
      //qDebug() << Q_FUNC_INFO << ": 01.70";

@@ -138,7 +138,7 @@ class MainWindow : public  QMainWindow
     friend class tst_MainWindow;
 
 public:
-    MainWindow(DataProxy_SQLite *dp);
+    MainWindow(DataProxy_SQLite *dp, World *injectedWorld);
     ~MainWindow();
     void checkIfNewVersion();
     void recommendBackupIfNeeded();

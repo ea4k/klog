@@ -50,7 +50,7 @@ class DXClusterWidget : public QWidget
 
  public:
     //DXClusterWidget(Awards *awards, QWidget *parent );
-     explicit DXClusterWidget(Awards *awards, QWidget *parent = nullptr);
+     explicit DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *parent = nullptr);
 
 
     void init();

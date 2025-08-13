@@ -26,15 +26,17 @@
 
 #include "infowidget.h"
 
-InfoWidget::InfoWidget(DataProxy_SQLite *dp, QWidget *parent) :
+InfoWidget::InfoWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) :
     QWidget(parent)
 {
        //qDebug() << "InfoWidget::InfoWidget: "  ;
     dataProxy = dp;
-    awards = new Awards(dataProxy, Q_FUNC_INFO); //Just to know colors
+    world = injectedWorld;
+    awards = new Awards(dataProxy, world, Q_FUNC_INFO); //Just to know colors
 
     locator = new Locator();
-    world = new World(dataProxy, Q_FUNC_INFO);
+    //world = new World(dataProxy, Q_FUNC_INFO);
+
 
     bandLabel1 = new QLabel;
     bandLabel2 = new QLabel;
@@ -73,7 +75,7 @@ InfoWidget::~InfoWidget()
 {
     delete(awards);
     delete(locator);
-    delete(world);
+    //delete(world);
 }
 
 void InfoWidget::createUI()

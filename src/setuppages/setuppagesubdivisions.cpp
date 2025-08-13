@@ -29,10 +29,10 @@
 #include "setuppagesubdivisions.h"
 
 
-SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent){
+SetupPageSubdivisions::SetupPageSubdivisions(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent){
        //qDebug() << "SetupPageSubdivisions::SetupPageSubdivisions";
     dataProxy = dp;
-    fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
+    fileAwardManager = new FileAwardManager(dataProxy, injectedWorld, Q_FUNC_INFO);
     //util = new Utilities(Q_FUNC_INFO);
     selectedLog = -1;
     currentLogs = new QComboBox();

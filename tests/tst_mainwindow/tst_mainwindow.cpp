@@ -108,6 +108,7 @@ private slots:
 
 private:
     MainWindow *mainWindow;
+    World *world;
     //QWidget *testCandidate;
 
 public slots:
@@ -119,7 +120,9 @@ tst_MainWindow::tst_MainWindow()
     //MainWindow mw(klogDir, version);
     Utilities util(Q_FUNC_INFO);
     DataProxy_SQLite dataProxy("2.4");
-    mainWindow = new MainWindow(&dataProxy);
+    world = new World(&dataProxy, Q_FUNC_INFO);
+
+    mainWindow = new MainWindow(&dataProxy, world);
 }
 
 tst_MainWindow::~tst_MainWindow(){}

@@ -29,7 +29,7 @@
 
 
 
-FileManager::FileManager(DataProxy_SQLite *dp)
+FileManager::FileManager(DataProxy_SQLite *dp, World *injectedWorld)
 //FileManager::FileManager(const QString &_klogDir, const QString &_softVersion, DataBase _db)
 {
      //qDebug() << Q_FUNC_INFO << " -3: Dir(2)" << _klogDir;
@@ -37,8 +37,9 @@ FileManager::FileManager(DataProxy_SQLite *dp)
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
-    world = new World(dataProxy, Q_FUNC_INFO);
-    awards = new Awards(dataProxy, Q_FUNC_INFO);
+    //world = new World(dataProxy, Q_FUNC_INFO);
+    //world = injectedWorld;
+    awards = new Awards(dataProxy, injectedWorld, Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " -3: Dir(2) - END" ;
 }
 
@@ -46,7 +47,7 @@ FileManager::~FileManager()
 {
     delete(db);
     delete(awards);
-    delete(world);
+    //delete(world);
 }
 
 void FileManager::init()

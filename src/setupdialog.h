@@ -44,6 +44,7 @@
 #include "utilities.h"
 #include "locator.h"
 #include "klogdefinitions.h"
+#include "world.h"
 
 
 class QListWidget;
@@ -56,7 +57,7 @@ class SetupDialog : public QDialog
 
 public:
     //SetupDialog(DataProxy_SQLite *dp, const bool _firstTime=true, QWidget *parent = nullptr);
-    SetupDialog(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent = nullptr);
     ~SetupDialog();
     void init(const QString &_softwareVersion, const int _page=0, const bool _alreadyConfigured = true);
 

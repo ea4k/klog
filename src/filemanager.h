@@ -63,7 +63,7 @@ class FileManager : public QWidget
     friend class tst_FileManager;
 
 public:
-    FileManager(DataProxy_SQLite *dp);
+    FileManager(DataProxy_SQLite *dp, World *injectedWorld);
     //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
     //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
     //FileManager(DataProxy_SQLite *dp, const QString &_softVersion);
@@ -153,7 +153,7 @@ private:
                             // KLog sets or not a default value
     int duplicatedQSOSlotInSecs;
 
-    World *world;
+    //World *world;
     Awards *awards;
     //QSqlDatabase db;
 

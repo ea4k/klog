@@ -29,6 +29,7 @@
 #include <QStringList>
 #include "../../src/inputwidgets/mainwindowinputothers.h"
 #include "../../src/dataproxy_sqlite.h"
+#include "../../src/world.h"
 
 class tst_MainWindowInputOthers : public QObject
 {
@@ -55,6 +56,7 @@ private slots:
 
 private:
     DataProxy_SQLite *dataProxy;
+    World *world;
     //Utilities *util;
 
     MainWindowInputOthers *mainWindowInputOthers;
@@ -65,11 +67,11 @@ tst_MainWindowInputOthers::tst_MainWindowInputOthers()
    //qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, "0.0");
     //util = new Utilities(Q_FUNC_INFO);
+    world = new World(dataProxy, Q_FUNC_INFO);
 
-    mainWindowInputOthers = new MainWindowInputOthers(dataProxy);
+    mainWindowInputOthers = new MainWindowInputOthers(dataProxy, world);
     mainWindowInputOthers->setEntitiesList();
    //qDebug() << Q_FUNC_INFO << " - CurrentProp" << mainWindowInputOthers->getPropModeFromComboBox() ;
-
 }
 
 tst_MainWindowInputOthers::~tst_MainWindowInputOthers(){}
@@ -122,6 +124,7 @@ void tst_MainWindowInputOthers::test_Setters()
     mainWindowInputOthers->setPOTA_REF("EA-0151");
     QVERIFY2(mainWindowInputOthers->getPOTA_REF() == "EA-0151", "Wrong POTA (EA-151)");
     mainWindowInputOthers->setWWFF_Ref("EAFF-0163");
+    //qDebug() << " - " << mainWindowInputOthers->getWWFF_Ref();
     QVERIFY2(mainWindowInputOthers->getWWFF_Ref() == "EAFF-0163", "Wrong WWFF (EAFF-0163)");
    //qDebug() << Q_FUNC_INFO << " - Testing PROP_MODE";
 

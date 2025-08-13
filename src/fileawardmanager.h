@@ -36,7 +36,7 @@ class FileAwardManager : public QWidget
 {
     Q_OBJECT
 public:
-    explicit FileAwardManager(DataProxy_SQLite *dp, const QString &_parentFunction);
+    explicit FileAwardManager(DataProxy_SQLite *dp, World *injectedWorld, const QString &_parentFunction);
     ~FileAwardManager();
     bool importNewAwardFile();
 

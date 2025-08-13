@@ -56,6 +56,7 @@ private:
     DataProxy_SQLite *dataProxy;
     FileManager *fileManager;
     DataBase *db;
+    World *world;
     QString version;
 };
 
@@ -85,7 +86,8 @@ tst_FileManager::tst_FileManager()
 
 */
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    fileManager = new FileManager(dataProxy);
+    world = new World(dataProxy, Q_FUNC_INFO);
+    fileManager = new FileManager(dataProxy, world);
     fileManager->init();
 
     //qDebug() << Q_FUNC_INFO << "END";

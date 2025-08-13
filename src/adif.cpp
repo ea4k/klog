@@ -431,8 +431,8 @@ bool Adif::isValidPOTA(const QString &_s)
 }
 
 bool Adif::isValidWWFF_Ref(const QString &_s)
-{
-    return (_s.isEmpty());
+{ // TODO Add a real check
+    return (!_s.isEmpty());
 }
 
 QStringList Adif::getQSOUploadStatus (bool _fullName)

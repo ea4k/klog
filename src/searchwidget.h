@@ -41,7 +41,7 @@ class SearchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SearchWidget(Awards *awards, QWidget *parent = nullptr);
+    explicit SearchWidget(Awards *awards, World *injectedWorld, QWidget *parent = nullptr);
     ~SearchWidget();
     void setCurrentLog(const int _log);
     //void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
@@ -139,7 +139,7 @@ private:
 
     DataProxy_SQLite *dataProxy;
     Awards *awards;
-    World *world;
+    //World *world;
     Utilities *util;
     FileManager *filemanager;
 

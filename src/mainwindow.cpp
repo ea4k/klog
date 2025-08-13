@@ -36,35 +36,27 @@
 #include "mainwindow.h"
 
 
-MainWindow::MainWindow(DataProxy_SQLite *dp):
+MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
    // dataProxy(Q_FUNC_INFO, tversion),
-    awards(dp, Q_FUNC_INFO)     // Pass Awards instance to DXCCStatusWidget
+    awards(dp, injectedWorld, Q_FUNC_INFO)     // Pass Awards instance to DXCCStatusWidget
 {
     dataProxy = dp;
+    world = injectedWorld;
+    //world = new World(dataProxy, Q_FUNC_INFO);
     softwareVersion = dataProxy->getSoftVersion();
     pkgVersion = dataProxy->getPKGVersion();
     //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << softwareVersion  << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
-    dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
-    dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, this);
-    searchWidget = std::make_unique<SearchWidget>(&awards, this);
+    dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, world, this);
+    dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, world, this);
+    searchWidget = std::make_unique<SearchWidget>(&awards, world, this);
     logWindow = std::make_unique<LogWindow>(&awards, this);
 
     showKLogLogWidget = new ShowKLogLogWidget;
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
     util = new Utilities(Q_FUNC_INFO);
-    //util->setVersion(softwareVersion);
-    //qDebug() << Q_FUNC_INFO << " - Creating qso - ";
-    //qso = new QSO;
-    //QThread::sleep(std::chrono::microseconds{1000});
-    //qDebug() << Q_FUNC_INFO << " - Creating backupQSO - ";
     backupQSO = new QSO;
-    //QThread::sleep(std::chrono::microseconds{1000});
-    //qDebug() << Q_FUNC_INFO << " - Creating modifyingQSO - ";
-    //modifyingQSO = new QSO;
-
-
 
     logLevel = Info;
     dupeSlotInSeconds = 15;
@@ -75,7 +67,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
 
        //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() ;
     //dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
-    world = new World(dataProxy, Q_FUNC_INFO);
+
     world->create(util->getCTYFile());
       //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
     hamlib = new HamLibClass();
@@ -88,6 +80,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
       //qDebug() << Q_FUNC_INFO << ": AFTER eQSLUtilities";
     mapWindow = new MapWindowWidget(dataProxy, this);
+    mapWindow->init();
 
       //qDebug() << Q_FUNC_INFO << ": Before DXCCStatusWidget " << QTime::currentTime().toString("hh:mm:ss") ;
     //dxccStatusWidget = new DXCCStatusWidget(dataProxy, Q_FUNC_INFO);
@@ -113,10 +106,10 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
       //qDebug() << Q_FUNC_INFO << ": 00087.1: " << QTime::currentTime().toString("hh:mm:ss") ;
     //advancedSearchWidget = new AdvancedSearchWidget(dataProxy, this);
       //qDebug() << "MainWindow::MainWindow: 00087.2" << QTime::currentTime().toString("hh:mm:ss") ;
-    infoWidget = new InfoWidget(dataProxy, this);
+    infoWidget = new InfoWidget(dataProxy, world, this);
 
      //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
-    awardsWidget = new AwardsWidget(dataProxy, this);
+    awardsWidget = new AwardsWidget(dataProxy, world, this);
 
       //qDebug() << Q_FUNC_INFO << ": 0009: " << QTime::currentTime().toString("hh:mm:ss") ;
 
@@ -133,7 +126,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
        //qDebug() << Q_FUNC_INFO << ": 50: " << QTime::currentTime().toString("hh:mm:ss") ;
 
      //qDebug() << Q_FUNC_INFO << ": 51: " << QTime::currentTime().toString("hh:mm:ss") ;
-    setupDialog = new SetupDialog(dataProxy, this);
+    setupDialog = new SetupDialog(dataProxy, world, this);
 
      //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
     satTabWidget = new MainWindowSatTab(dataProxy);
@@ -144,7 +137,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
       //qDebug() << Q_FUNC_INFO << ": 54: " << QTime::currentTime().toString("hh:mm:ss") ;
     commentTabWidget = new MainWindowInputComment();
       //qDebug() << Q_FUNC_INFO << ": 55: " << QTime::currentTime().toString("hh:mm:ss") ;
-    othersTabWidget = new MainWindowInputOthers(dataProxy);
+    othersTabWidget = new MainWindowInputOthers(dataProxy, world);
       //qDebug() << Q_FUNC_INFO << ": 56: " << QTime::currentTime().toString("hh:mm:ss") ;
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
       //qDebug() << Q_FUNC_INFO << ": 57: " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -180,7 +173,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp):
     softUpdate = new SoftwareUpdate(softwareVersion);
         //qDebug() << Q_FUNC_INFO << ": FileManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
 
-    filemanager = new FileManager(dataProxy);
+    filemanager = new FileManager(dataProxy, world);
 
         //qDebug() << Q_FUNC_INFO << ": FileAwardManager to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     //fileAwardManager = new FileAwardManager(dataProxy, Q_FUNC_INFO);
@@ -210,7 +203,7 @@ MainWindow::~MainWindow()
     delete(elogQRZcom);
     //delete(elogClublog);
     delete(downloadcty);
-    delete(world);
+    //delete(world);
     delete(mapWindow);
     //delete(locator);
     //delete(qso);
@@ -446,7 +439,7 @@ void MainWindow::init()
     readSettingsFile();
 
      //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
-    mapWindow->init();
+
        //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
         //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
@@ -1058,7 +1051,7 @@ void MainWindow::slotQRZReturnPressed()
     }
 
     int addedOK = qsoInUI.toDB (modifyingQSOid);
-   //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
         //qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
@@ -3439,7 +3432,7 @@ void MainWindow::slotOpenWiki()
 
 void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-   //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) ;
+    //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) ;
     //                             " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
     //                            " / Default: " << _default.name(QColor::HexRgb);
     searchWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);

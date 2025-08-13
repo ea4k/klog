@@ -32,7 +32,7 @@
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
 #include "awards.h"
-//#include "world.h"
+#include "world.h"
 //#include "utilities.h"
 //#include "filemanager.h"
 
@@ -41,7 +41,7 @@ class AwardsWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AwardsWidget(DataProxy_SQLite *dp, QWidget *parent = nullptr);
+    explicit AwardsWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent = nullptr);
     ~AwardsWidget();
     void setManageDXMarathon(const bool _dx);
     void setLog(const int _log);
@@ -86,6 +86,7 @@ private:
     DebugLogLevel logLevel;
 
     Awards *awards;
+    World *world;
 };
 
 #endif // AWARDSWIDGET_H

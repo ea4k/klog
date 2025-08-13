@@ -29,13 +29,14 @@
 #include "../adif.h"
 #include "../callsign.h"
 
-MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, QWidget *parent) :
+MainWindowInputOthers::MainWindowInputOthers(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) :
     QWidget(parent)
 {
        //qDebug() << Q_FUNC_INFO;
     logLevel = None;
     dataProxy = dp;
-    world = new World(dataProxy,Q_FUNC_INFO);
+    //world = new World(dataProxy,Q_FUNC_INFO);
+    world = injectedWorld;
 
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
@@ -617,6 +618,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
     if (!adif.isValidWWFF_Ref(_op))
         return false;
     wwff_ref = _op;
+    //qDebug() << Q_FUNC_INFO << ": " << wwff_ref;
     slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
@@ -624,7 +626,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
 
 QString MainWindowInputOthers::getWWFF_Ref()
 {
-    //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO << ": " << wwff_ref;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return wwff_ref;
 }
