@@ -47,8 +47,8 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     pkgVersion = dataProxy->getPKGVersion();
     //qDebug() << Q_FUNC_INFO << ": " <<  " Ver: " << softwareVersion  << QTime::currentTime().toString("hh:mm:ss") ;
     //logEvent(Q_FUNC_INFO, "Start: " + _klogDir  + "/" + tversion, Debug);
-    dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, this);
-    dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, this);
+    dxccStatusWidget = std::make_unique<DXCCStatusWidget>(&awards, world, this);
+    dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, world, this);
     searchWidget = std::make_unique<SearchWidget>(&awards, world, this);
     logWindow = std::make_unique<LogWindow>(&awards, this);
 

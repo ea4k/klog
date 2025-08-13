@@ -618,6 +618,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
     if (!adif.isValidWWFF_Ref(_op))
         return false;
     wwff_ref = _op;
+    //qDebug() << Q_FUNC_INFO << ": " << wwff_ref;
     slotUserDefinedADIFComboBoxChanged();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
@@ -625,7 +626,7 @@ bool MainWindowInputOthers::setWWFF_Ref(const QString &_op)
 
 QString MainWindowInputOthers::getWWFF_Ref()
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ": " << wwff_ref;
     logEvent (Q_FUNC_INFO, "Start-END", Debug);
     return wwff_ref;
 }
