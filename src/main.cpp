@@ -37,6 +37,7 @@
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
+#include "version.h"
 
 
 int showNoDB()
