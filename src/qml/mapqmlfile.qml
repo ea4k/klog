@@ -23,6 +23,8 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.
  *                                                                           *
  *****************************************************************************/
+
+
 import QtQuick
 import QtQuick.Window
 import QtLocation
@@ -30,6 +32,7 @@ import QtPositioning
 import QtQuick.Controls
 
 Rectangle {
+    id: root
     width: 640
     height: 480
     visible: true
@@ -39,10 +42,21 @@ Rectangle {
     property alias lon: map.center.longitude
     property double oldZoom
 
+    // Pixel step for pan buttons
+    property int panStepPx: 100
+
     // Zoom thresholds for label granularity
     // < labelZoom4: 2-char;  >= labelZoom4 and < labelZoom6: 4-char; >= labelZoom6: 6-char
     property int labelZoom4: 7
     property int labelZoom6: 11
+
+    // Debounce label rebuild during map drags to keep panning smooth
+    Timer {
+        id: labelRebuildTimer
+        interval: 150
+        repeat: false
+        onTriggered: rebuildGridLabels()
+    }
 
     // Dynamic model for grid labels
     ListModel { id: gridLabelModel }
@@ -69,87 +83,84 @@ Rectangle {
         var c4 = latSquare.toString();
         if (length <= 4) return c1 + c2 + c3 + c4;
 
-        // Subsquares (2°/24 x 1°/24) -> letters (use uppercase)
+        // Subsquares (2°/24 x 1°/24) -> letters (uppercase)
         lonRemain = lonRemain - lonSquare * 2.0;
         latRemain = latRemain - latSquare * 1.0;
         var lonSub = Math.floor(lonRemain / (2.0 / 24.0));  // 0..23
         var latSub = Math.floor(latRemain / (1.0 / 24.0));  // 0..23
-        // Defensive clamp
         lonSub = Math.max(0, Math.min(23, lonSub));
         latSub = Math.max(0, Math.min(23, latSub));
         var c5 = String.fromCharCode('A'.charCodeAt(0) + lonSub);
         var c6 = String.fromCharCode('A'.charCodeAt(0) + latSub);
-        return c1 + c2 + c3 + c4 + c5 + c6;
+        return c1 + c2 + c3 + c4 + c5 + c6
     }
 
     function rebuildGridLabels() {
         // Decide label length
-        var length = 2;
+        var length = 2
         if (map.zoomLevel >= labelZoom6) {
-            length = 6;
+            length = 6
         } else if (map.zoomLevel >= labelZoom4) {
-            length = 4;
+            length = 4
         } else {
-            length = 2;
+            length = 2
         }
 
         // Compute visible bounds
-        var tl = map.toCoordinate(Qt.point(0, 0));
-        var br = map.toCoordinate(Qt.point(map.width, map.height));
-        var west = Math.min(tl.longitude, br.longitude);
-        var east = Math.max(tl.longitude, br.longitude);
-        var north = Math.max(tl.latitude, br.latitude);
-        var south = Math.min(tl.latitude, br.latitude);
+        var tl = map.toCoordinate(Qt.point(0, 0))
+        var br = map.toCoordinate(Qt.point(map.width, map.height))
+        var west = Math.min(tl.longitude, br.longitude)
+        var east = Math.max(tl.longitude, br.longitude)
+        var north = Math.max(tl.latitude, br.latitude)
+        var south = Math.min(tl.latitude, br.latitude)
 
-        // Handle simple case; if crossing the date line, you can split into two ranges as an enhancement.
         // Determine step sizes
-        var lonStep, latStep;
+        var lonStep, latStep
         if (length === 2) { lonStep = 20.0; latStep = 10.0; }
         else if (length === 4) { lonStep = 2.0; latStep = 1.0; }
         else { lonStep = 2.0/24.0; latStep = 1.0/24.0; }
 
         // Align starts to grid
         function alignDown(value, origin, step) {
-            var v = value - origin;
-            var n = Math.floor(v / step);
-            return origin + n * step;
+            var v = value - origin
+            var n = Math.floor(v / step)
+            return origin + n * step
         }
-        var startLon = alignDown(west, -180.0, lonStep);
-        var startLat = alignDown(south, -90.0, latStep);
+        var startLon = alignDown(west, -180.0, lonStep)
+        var startLat = alignDown(south, -90.0, latStep)
 
-        gridLabelModel.clear();
+        gridLabelModel.clear()
 
         // Limit to avoid pathological counts
-        var maxItems = 2000;
-        var count = 0;
+        var maxItems = 2000
+        var count = 0
 
         for (var lon = startLon; lon <= east; lon += lonStep) {
             for (var lat = startLat; lat <= north; lat += latStep) {
-                var cLon = lon + lonStep / 2.0;
-                var cLat = lat + latStep / 2.0;
+                var cLon = lon + lonStep / 2.0
+                var cLat = lat + latStep / 2.0
 
                 // Skip if outside visible bounds due to rounding
-                if (cLon < west - lonStep || cLon > east + lonStep) continue;
-                if (cLat < south - latStep || cLat > north + latStep) continue;
+                if (cLon < west - lonStep || cLon > east + lonStep) continue
+                if (cLat < south - latStep || cLat > north + latStep) continue
 
-                var text = maidenhead(cLat, cLon, length);
+                var text = maidenhead(cLat, cLon, length)
                 gridLabelModel.append({
                     latitude: cLat,
                     longitude: cLon,
                     text: text
-                });
+                })
 
-                count++;
-                if (count > maxItems) break;
+                count++
+                if (count > maxItems) break
             }
-            if (count > maxItems) break;
+            if (count > maxItems) break
         }
     }
 
     Location { id: mapCenter }
 
-    function addMarker(latitude, longitude)
-    {
+    function addMarker(latitude, longitude) {
         var Component = Qt.createComponent("qrc:qml/marker.qml")
         var item = Component.createObject(Rectangle, {
             coordinate: QtPositioning.coordinate(latitude, longitude)
@@ -175,6 +186,14 @@ Rectangle {
         center: mapCenter.coordinate
         zoomLevel: 4
         activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+
+        // Helper: pan by screen pixels (dx, dy). Positive dx -> right, positive dy -> down.
+        function panByPixels(dx, dy) {
+            var centerPx = Qt.point(width / 2, height / 2)
+            var targetPx = Qt.point(centerPx.x + dx, centerPx.y + dy)
+            var targetCoord = map.toCoordinate(targetPx)
+            map.center = targetCoord
+        }
 
         // Base GRID (2-letter fields) - persistent, thin borders, transparent fill (from C++)
         MapItemView {
@@ -238,27 +257,125 @@ Rectangle {
             }
         }
 
-        // Rebuild labels when view changes
-        onZoomLevelChanged: rebuildGridLabels()
-        onCenterChanged: rebuildGridLabels()
+        // Right-click logger (does not block left-drag panning)
+        MouseArea {
+            id: debugClickLogger
+            anchors.fill: parent
+            acceptedButtons: Qt.RightButton
+            onClicked: {
+                var coord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
+                console.log("DEBUG: Right clicked at px:", mouse.x, mouse.y, " geo:", coord.latitude, coord.longitude)
+            }
+        }
+
+        // Rebuild labels when view changes (debounced) + print zoom level
+        onZoomLevelChanged: { console.log("Map zoom level:", zoomLevel); labelRebuildTimer.restart() }
+        onCenterChanged: labelRebuildTimer.restart()
         Component.onCompleted: rebuildGridLabels()
 
-        // Zoom buttons (unchanged)
-        Rectangle {
-            id: buttonout
-            width: 30; height: 30
-            border.color: "red"; radius: 5
-            anchors.right: parent.right; anchors.bottom: parent.bottom
-            Text { text: "-"; color: "black"; anchors.centerIn: parent }
-            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
+        // =========================
+        // Zoom controls (top-right)
+        // =========================
+        Item {
+            id: zoomControls
+            z: 100
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.topMargin: 8
+            anchors.rightMargin: 8
+            width: 30
+            height: (30 * 2) + 6
+
+            Column {
+                anchors.fill: parent
+                spacing: 6
+
+                // Zoom in (+)
+                Rectangle {
+                    width: parent.width; height: 30
+                    radius: 5
+                    border.color: "red"
+                    Text { text: "+"; color: "black"; anchors.centerIn: parent }
+                    MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom + 1 } }
+                }
+                // Zoom out (-)
+                Rectangle {
+                    width: parent.width; height: 30
+                    radius: 5
+                    border.color: "red"
+                    Text { text: "-"; color: "black"; anchors.centerIn: parent }
+                    MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
+                }
+            }
         }
-        Rectangle {
-            id: buttonin
-            width: 30; height: 30
-            border.color: "red"; radius: 5
-            anchors.bottom: buttonout.top; anchors.right: buttonout.right
-            Text { text: "+"; color: "black"; anchors.centerIn: parent }
-            MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom + 1 } }
+
+        // ==================================
+        // Pan controls (bottom-right, cross)
+        // Arrows; N/S close together; W at left edge, E at right edge
+        // ==================================
+        Item {
+            id: panControls
+            z: 100
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: 8
+            anchors.bottomMargin: 8
+
+            // Cross layout parameters
+            property int btn: 30
+            property int gap: 4
+            // Container sized to fit W + NS + E with gaps, and N+S stacked with a gap
+            width: (btn * 3) + (gap * 2)
+            height: (btn * 2) + gap
+
+            // North/South stacked group in the middle (close together)
+            Column {
+                id: nsGroup
+                spacing: panControls.gap
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+
+                // North (top)
+                Rectangle {
+                    id: panNorth
+                    width: panControls.btn; height: panControls.btn
+                    radius: 5; border.color: "red"
+                    Text { text: "↑"; color: "black"; anchors.centerIn: parent }
+                    MouseArea { anchors.fill: parent; onClicked: map.panByPixels(0, -root.panStepPx) }
+                }
+                // South (bottom)
+                Rectangle {
+                    id: panSouth
+                    width: panControls.btn; height: panControls.btn
+                    radius: 5; border.color: "red"
+                    Text { text: "↓"; color: "black"; anchors.centerIn: parent }
+                    MouseArea { anchors.fill: parent; onClicked: map.panByPixels(0, root.panStepPx) }
+                }
+            }
+
+            // West: at the left limit of the NS group
+            Rectangle {
+                id: panWest
+                width: panControls.btn; height: panControls.btn
+                radius: 5; border.color: "red"
+                anchors.verticalCenter: nsGroup.verticalCenter
+                anchors.right: nsGroup.left
+                anchors.rightMargin: panControls.gap
+                Text { text: "←"; color: "black"; anchors.centerIn: parent }
+                MouseArea { anchors.fill: parent; onClicked: map.panByPixels(-root.panStepPx, 0) }
+            }
+
+            // East: at the right limit of the NS group
+            Rectangle {
+                id: panEast
+                width: panControls.btn; height: panControls.btn
+                radius: 5; border.color: "red"
+                anchors.verticalCenter: nsGroup.verticalCenter
+                anchors.left: nsGroup.right
+                anchors.leftMargin: panControls.gap
+                Text { text: "→"; color: "black"; anchors.centerIn: parent }
+                MouseArea { anchors.fill: parent; onClicked: map.panByPixels(root.panStepPx, 0) }
+            }
         }
     }
 }
