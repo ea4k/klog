@@ -25,6 +25,8 @@
  *****************************************************************************/
 
 
+
+
 import QtQuick
 import QtQuick.Window
 import QtLocation
@@ -262,15 +264,20 @@ Rectangle {
             id: debugClickLogger
             anchors.fill: parent
             acceptedButtons: Qt.RightButton
-            onClicked: {
+            onClicked: function(mouse) {
                 var coord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
                 console.log("DEBUG: Right clicked at px:", mouse.x, mouse.y, " geo:", coord.latitude, coord.longitude)
             }
         }
 
         // Rebuild labels when view changes (debounced) + print zoom level
-        onZoomLevelChanged: { console.log("Map zoom level:", zoomLevel); labelRebuildTimer.restart() }
-        onCenterChanged: labelRebuildTimer.restart()
+        onZoomLevelChanged: function() {
+            console.log("Map zoom level:", map.zoomLevel)
+            labelRebuildTimer.restart()
+        }
+        onCenterChanged: function() {
+            labelRebuildTimer.restart()
+        }
         Component.onCompleted: rebuildGridLabels()
 
         // =========================
@@ -341,7 +348,7 @@ Rectangle {
                     width: panControls.btn; height: panControls.btn
                     radius: 5; border.color: "red"
                     Text { text: "↑"; color: "black"; anchors.centerIn: parent }
-                    MouseArea { anchors.fill: parent; onClicked: map.panByPixels(0, -root.panStepPx) }
+                    MouseArea { anchors.fill: parent; onClicked: { map.panByPixels(0, -root.panStepPx) } }
                 }
                 // South (bottom)
                 Rectangle {
@@ -349,7 +356,7 @@ Rectangle {
                     width: panControls.btn; height: panControls.btn
                     radius: 5; border.color: "red"
                     Text { text: "↓"; color: "black"; anchors.centerIn: parent }
-                    MouseArea { anchors.fill: parent; onClicked: map.panByPixels(0, root.panStepPx) }
+                    MouseArea { anchors.fill: parent; onClicked: { map.panByPixels(0, root.panStepPx) } }
                 }
             }
 
@@ -362,7 +369,7 @@ Rectangle {
                 anchors.right: nsGroup.left
                 anchors.rightMargin: panControls.gap
                 Text { text: "←"; color: "black"; anchors.centerIn: parent }
-                MouseArea { anchors.fill: parent; onClicked: map.panByPixels(-root.panStepPx, 0) }
+                MouseArea { anchors.fill: parent; onClicked: { map.panByPixels(-root.panStepPx, 0) } }
             }
 
             // East: at the right limit of the NS group
@@ -374,8 +381,9 @@ Rectangle {
                 anchors.left: nsGroup.right
                 anchors.leftMargin: panControls.gap
                 Text { text: "→"; color: "black"; anchors.centerIn: parent }
-                MouseArea { anchors.fill: parent; onClicked: map.panByPixels(root.panStepPx, 0) }
+                MouseArea { anchors.fill: parent; onClicked: { map.panByPixels(root.panStepPx, 0) } }
             }
         }
     }
 }
+
