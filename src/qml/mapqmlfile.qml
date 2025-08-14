@@ -26,7 +26,6 @@
 
 
 
-
 import QtQuick
 import QtQuick.Window
 import QtLocation
@@ -47,8 +46,13 @@ Rectangle {
     // Pixel step for pan buttons
     property int panStepPx: 100
 
+    // For context menu lookup (hook points for C++ to set)
+    property var locatorToCallsign: ({}) // e.g. { "IN80": "EA4K" }
+    property var qsoLookup: null          // optional object with getCallsignByLocator(locator) function
+    property string lastLocator: ""
+    property string lastCallsign: ""
+
     // Zoom thresholds for label granularity
-    // < labelZoom4: 2-char;  >= labelZoom4 and < labelZoom6: 4-char; >= labelZoom6: 6-char
     property int labelZoom4: 7
     property int labelZoom6: 11
 
@@ -95,6 +99,19 @@ Rectangle {
         var c5 = String.fromCharCode('A'.charCodeAt(0) + lonSub);
         var c6 = String.fromCharCode('A'.charCodeAt(0) + latSub);
         return c1 + c2 + c3 + c4 + c5 + c6
+    }
+
+    function getCallsignForLocator(locator) {
+        // Try a provided lookup object first (from C++)
+        if (qsoLookup && typeof qsoLookup.getCallsignByLocator === "function") {
+            var cs = qsoLookup.getCallsignByLocator(locator)
+            if (cs && cs.length) return cs
+        }
+        // Fallback to dictionary map if provided
+        if (locatorToCallsign && locatorToCallsign[locator]) {
+            return locatorToCallsign[locator]
+        }
+        return "Unknown"
     }
 
     function rebuildGridLabels() {
@@ -206,7 +223,7 @@ Rectangle {
                 bottomRight : model.south
                 color       : "transparent"
                 border.width: 1
-                border.color: "#808080" // grey grid lines
+                border.color: "#808080"
             }
         }
 
@@ -223,7 +240,7 @@ Rectangle {
             }
         }
 
-        // Optional circle markers (unchanged)
+        // Optional circle markers
         MapItemView {
             z: 2
             model: circle_model
@@ -259,20 +276,9 @@ Rectangle {
             }
         }
 
-        // Right-click logger (does not block left-drag panning)
-        MouseArea {
-            id: debugClickLogger
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            onClicked: function(mouse) {
-                var coord = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-                console.log("DEBUG: Right clicked at px:", mouse.x, mouse.y, " geo:", coord.latitude, coord.longitude)
-            }
-        }
-
         // Rebuild labels when view changes (debounced) + print zoom level
         onZoomLevelChanged: function() {
-            console.log("Map zoom level:", map.zoomLevel)
+            //console.log("Map zoom level:", map.zoomLevel)
             labelRebuildTimer.restart()
         }
         onCenterChanged: function() {
