@@ -17,27 +17,6 @@ CONTENT:
 9 - DEPLOYING
 
 
-
-
-
-0 - MISSION AND OBJECTIVE
-
-The objective of KLog is to provide a free software that runs in Linux, macOS and Windows.
-KLog will provide hamradio contest and DX logging support.
-
-0.1 - REQUIREMENTS
-
-- Able to run in Linux, macOS and Windows.
-- Easy to use.
-- Able to localize to any language.
-- Any data can be exportable into ADIF (http://www.adif.org).
-- Can import standard ADIF.
-- Can export to Cabrillo (http://www.kkn.net/~trey/cabrillo/).
-
-- Provides a user manual / documentation.
-
-
-
 1 - BEFORE CODING:
 
 Read this document.
@@ -48,6 +27,9 @@ http//MAILINGLIST
 Interesting links:
 http://www.qtcentre.org/wiki/index.php?title=Keeping_the_GUI_Responsive
 Packer: http://upx.sourceforge.net/
+
+Install CMake
+https://cmake.org/download/
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
