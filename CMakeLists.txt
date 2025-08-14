@@ -1,12 +1,21 @@
 cmake_minimum_required(VERSION 3.16)
-project(KLog LANGUAGES CXX)
+project(KLog VERSION 2.4.2 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
+set(APP_VERSION "${PROJECT_VERSION}")
+set(APP_PKGVERSION "2.4.2-RC3")
+#set(APP_PKGVERSION "2.4.2-RC3")
 
-find_package(Qt5 COMPONENTS Widgets Sql Xml Network REQUIRED)
+# test this light line:
+# find_package(Qt6 COMPONENTS Core Gui Sql Network Serialport Printsupport Charts Quickwidgets Positioning REQUIRED)
+find_package(Qt6 COMPONENTS Charts Core Gui Qml Widgets Sql Location Network Positioning PrintSupport QuickWidgets SerialPort REQUIRED)
+# --- Hamlib support using pkg-config ---
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(HAMLIB REQUIRED hamlib)
+include_directories(${HAMLIB_INCLUDE_DIRS})
 
 # Gather all sources, headers, and UI files
 set(SOURCES
@@ -33,7 +42,7 @@ set(SOURCES
     src/inputwidgets/mainwindowinputothers.cpp
     src/inputwidgets/mainwindowinputeqsl.cpp
     src/inputwidgets/mainwindowinputqsl.cpp
-    src/inputwidgets/mainwindowsattab.cpp\
+    src/inputwidgets/mainwindowsattab.cpp
     src/searchmodel.cpp
     src/searchwindow.cpp
     src/setupdialog.cpp
@@ -109,11 +118,11 @@ set(SOURCES
 set(HEADERS
     src/setupdialog.h
     src/aboutdialog.h
-	src/adif.h
-	src/awarddxmarathon.h
-	src/awards.h
-	src/awardswidget.h
-	src/callsign.h
+    src/adif.h
+    src/awarddxmarathon.h
+    src/awards.h
+    src/awardswidget.h
+    src/callsign.h
 	src/charts/statsfieldperbandwidget.h
 	src/charts/statsgeneralchartwidget.h
 	src/charts/statsdxccsonsatswidget.h
@@ -151,7 +160,7 @@ set(HEADERS
 	src/inputwidgets/mainwindowinputeqsl.h
 	src/inputwidgets/mainwindowinputqsl.h
 	src/inputwidgets/mainwindowsattab.h
-    klogdefinitions.h
+	src/klogdefinitions.h
 	src/lotwutilities.h
 	src/mainqsoentrywidget.h
 	src/mainwindow.h
@@ -200,19 +209,21 @@ set(HEADERS
 	src/widgets/showkloglogwidget.h
 	src/widgets/onlinemessagewidget.h
 	src/widgets/showadifimportwidget.h
-    src/updatesettings.h
-    src/world.h
-    # ... add other .h files
+	src/updatesettings.h
+    	src/world.h
 )
 
 set(UIS
     # ... add .ui files here, if any
-	src/klog.ui
+    # src/klog.ui
 )
 
 set(RCCS
     # ... add .qrc files here, if any
+    src/klog.qrc
 )
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h)
 
 add_executable(klog
     ${SOURCES}
@@ -221,15 +232,29 @@ add_executable(klog
     ${RCCS}
 )
 
+target_include_directories(klog PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+
+find_package(Hamlib QUIET)
+if(Hamlib_FOUND)
+    target_link_libraries(klog Hamlib::Hamlib)
+else()
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(HAMLIB REQUIRED hamlib)
+    include_directories(${HAMLIB_INCLUDE_DIRS})
+    target_link_libraries(klog ${HAMLIB_LIBRARIES})
+endif()
+
 target_link_libraries(klog
-	Qt6::Core
+    Qt6::Core
     Qt6::Gui
+    Qt6::Widgets
     Qt6::Sql
     Qt6::Network
-    Qt6::Serialport
-    Qt6::Printsupport
+    Qt6::SerialPort
+    Qt6::PrintSupport
     Qt6::Charts
-    Qt6::Quickwidgets
-    Qt6::positioning
-    
+    Qt6::QuickWidgets
+    Qt6::Positioning
+    ${HAMLIB_LIBRARIES}
 )
