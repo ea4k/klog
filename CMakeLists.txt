@@ -12,9 +12,10 @@ set(APP_PKGVERSION "2.5-RC1")
 # test this light line:
 # find_package(Qt6 COMPONENTS Core Gui Sql Network Serialport Printsupport Charts Quickwidgets Positioning REQUIRED)
 find_package(Qt6 COMPONENTS Charts Core Gui Qml Widgets Sql Location Network Positioning PrintSupport QuickWidgets SerialPort REQUIRED)
+
 # --- Hamlib support using pkg-config ---
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(HAMLIB REQUIRED hamlib)
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(HAMLIB REQUIRED hamlib)
 include_directories(${HAMLIB_INCLUDE_DIRS})
 
 # Gather all sources, headers, and UI files
@@ -239,8 +240,8 @@ find_package(Hamlib QUIET)
 if(Hamlib_FOUND)
     target_link_libraries(klog Hamlib::Hamlib)
 else()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(HAMLIB REQUIRED hamlib)
+    #find_package(PkgConfig REQUIRED)
+    #pkg_check_modules(HAMLIB REQUIRED hamlib)
     include_directories(${HAMLIB_INCLUDE_DIRS})
     target_link_libraries(klog ${HAMLIB_LIBRARIES})
 endif()
