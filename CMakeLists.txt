@@ -1,23 +1,21 @@
 cmake_minimum_required(VERSION 3.16)
-project(KLog VERSION 2.5 LANGUAGES CXX)
+project(KLog VERSION 2.4.2 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(APP_VERSION "${PROJECT_VERSION}")
-set(APP_PKGVERSION "2.5-RC1")
-#set(APP_PKGVERSION "2.4.2-RC3")
+set(APP_PKGVERSION "2.4.2-RC3")
+# set(APP_PKGVERSION "2.4.2-RC3")
 
-# test this light line:
-# find_package(Qt6 COMPONENTS Core Gui Sql Network Serialport Printsupport Charts Quickwidgets Positioning REQUIRED)
+# Make custom find modules available (for Hamlib fallback)
+list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# Qt 6
 find_package(Qt6 COMPONENTS Charts Core Gui Qml Widgets Sql Location Network Positioning PrintSupport QuickWidgets SerialPort REQUIRED)
-# --- Hamlib support using pkg-config ---
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(HAMLIB REQUIRED hamlib)
-include_directories(${HAMLIB_INCLUDE_DIRS})
 
-# Gather all sources, headers, and UI files
+# Collect sources/headers/resources
 set(SOURCES
     src/main.cpp
     src/aboutdialog.cpp
@@ -234,18 +232,44 @@ add_executable(klog
 
 target_include_directories(klog PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
+# -------------------------
+# Hamlib discovery (portable)
+# -------------------------
+# 1) Prefer a CMake config package (e.g., from vcpkg or a system install shipping HamlibConfig.cmake)
+find_package(Hamlib CONFIG QUIET)
 
-find_package(Hamlib QUIET)
-if(Hamlib_FOUND)
-    target_link_libraries(klog Hamlib::Hamlib)
-else()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(HAMLIB REQUIRED hamlib)
-    include_directories(${HAMLIB_INCLUDE_DIRS})
-    target_link_libraries(klog ${HAMLIB_LIBRARIES})
+# 2) If not found, try a simple module-mode finder (provided in cmake/FindHamlib.cmake)
+if(NOT Hamlib_FOUND)
+    find_package(Hamlib QUIET)
 endif()
 
+# 3) If still not found, try pkg-config (typical on Linux/MSYS2)
+set(_HAMLIB_LIBS "")
+if(Hamlib_FOUND)
+    target_link_libraries(klog PRIVATE Hamlib::Hamlib)
+else()
+    find_package(PkgConfig QUIET)
+    if(PKG_CONFIG_FOUND)
+        pkg_check_modules(HAMLIB hamlib)
+    endif()
+
+    if(HAMLIB_FOUND)
+        target_include_directories(klog PRIVATE ${HAMLIB_INCLUDE_DIRS})
+        list(APPEND _HAMLIB_LIBS ${HAMLIB_LIBRARIES})
+    else()
+        message(FATAL_ERROR
+            "Hamlib not found.\n"
+            "Provide Hamlib via one of:\n"
+            " - A CMake package (set Hamlib_DIR or CMAKE_PREFIX_PATH), or\n"
+            " - pkg-config (ensure hamlib.pc is on PKG_CONFIG_PATH), or\n"
+            " - vcpkg toolchain. See DEVELOPMENT docs."
+        )
+    endif()
+endif()
+
+# Link Qt and Hamlib
 target_link_libraries(klog
+    PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
@@ -256,5 +280,5 @@ target_link_libraries(klog
     Qt6::Charts
     Qt6::QuickWidgets
     Qt6::Positioning
-    ${HAMLIB_LIBRARIES}
+    ${_HAMLIB_LIBS}
 )
