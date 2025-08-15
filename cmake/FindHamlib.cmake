@@ -37,3 +37,9 @@ if(Hamlib_FOUND AND NOT TARGET Hamlib::Hamlib)
     INTERFACE_INCLUDE_DIRECTORIES "${Hamlib_INCLUDE_DIR}"
   )
 endif()
+
+# Back-compat variables expected by some CMakeLists
+if(Hamlib_FOUND)
+  set(HAMLIB_INCLUDE_DIRS "${Hamlib_INCLUDE_DIR}")
+  set(HAMLIB_LIBRARIES    "${Hamlib_LIBRARY}")
+endif()
