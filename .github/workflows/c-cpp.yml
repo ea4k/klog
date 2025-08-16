@@ -19,8 +19,8 @@ jobs:
             build-essential cmake ninja-build \
             qt6-base-dev qt6-base-dev-tools \
             qt6-declarative-dev \
+            t6-declarative \
             libqt6serialport6-dev \
-            qml6-module-qtlocation \
             qt6-positioning-dev \
             libqt6charts6-dev \
             libhamlib-dev \
