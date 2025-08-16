@@ -7,7 +7,7 @@ set(_hamlib_hints
   $ENV{HAMLIB_ROOT}
   ${HAMLIB_ROOT}
   ${Hamlib_ROOT}
-  "C:/deps/hamlib"
+  "C:/Users/devel/Documents/GitHub/libs/win64/hamlib"
   "/usr"
   "/usr/local"
   "/opt/homebrew"
