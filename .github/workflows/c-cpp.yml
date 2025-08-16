@@ -16,8 +16,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install apt-file
-          apt-file update
-          apt-file search Qt6LocationDependencies.cmake
+          sudo apt-file update
+          sudo apt-file search Qt6LocationDependencies.cmake
           sudo apt-get install -y --fix-missing \
             build-essential cmake ninja-build \
             qt6-base-dev qt6-base-dev-tools \
