@@ -12,7 +12,21 @@ set(APP_PKGVERSION "2.5-RC1")
 
 # test this light line:
 # find_package(Qt6 COMPONENTS Core Gui Sql Network Serialport Printsupport Charts Quickwidgets Positioning REQUIRED)
-find_package(Qt6 COMPONENTS Charts Core Gui Qml Widgets Sql Location Network Positioning PrintSupport QuickWidgets SerialPort REQUIRED)
+find_package(Qt6 COMPONENTS
+    Charts
+    Core
+    Gui
+    Location
+    Network
+    Positioning
+    PrintSupport
+    Qml
+    Quick
+    QuickWidgets
+    SerialPort
+    Sql
+    Widgets
+    REQUIRED)
 
 # --- Hamlib support using pkg-config ---
 #find_package(PkgConfig REQUIRED)
@@ -224,8 +238,8 @@ set(RCCS
     # ... add .qrc files here, if any
     src/klog.qrc
 )
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h)
+# Version header (used by main.cpp via #include "version.h")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h @ONLY)
 
 add_executable(klog
     ${SOURCES}
@@ -248,15 +262,18 @@ else()
 endif()
 
 target_link_libraries(klog
+    Qt6::Charts
     Qt6::Core
     Qt6::Gui
-    Qt6::Widgets
-    Qt6::Sql
+    Qt6::Location
     Qt6::Network
-    Qt6::SerialPort
     Qt6::PrintSupport
-    Qt6::Charts
-    Qt6::QuickWidgets
     Qt6::Positioning
+    Qt6::Qml
+    Qt6::Quick
+    Qt6::QuickWidgets
+    Qt6::SerialPort
+    Qt6::Sql
+    Qt6::Widgets
     ${HAMLIB_LIBRARIES}
 )
