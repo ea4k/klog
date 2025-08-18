@@ -5,6 +5,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
+enable_testing()
 
 
 # Detect OS and print to console
@@ -23,6 +24,7 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+# Find Qt6 modules required (based on src.pro typical dependencies)
 find_package(Qt6 REQUIRED COMPONENTS
     Charts
     Core

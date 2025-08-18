@@ -8,8 +8,6 @@ set(APP_VERSION "${PROJECT_VERSION}")
 set(APP_PKGVERSION "2.5-RC1")
 #set(APP_PKGVERSION "2.4.2-RC3")
 
-# Find Qt6 modules required (based on src.pro typical dependencies)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network Sql PrintSupport)
 
 # Platform-specific settings
 if(WIN32)
