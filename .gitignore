@@ -19,6 +19,7 @@ src/klog_resource.rc
 *.pro~
 *.stash
 *.o
+CMakeFiles/*
 tests/tst_mainwindow/macOSDeploy.sh
 tests/tst_mainwindow/Makefile
 *.tmp

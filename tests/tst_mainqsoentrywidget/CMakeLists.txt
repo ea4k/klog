@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(tst_adif)
+project(tst_mainqsoentrywidget)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,26 +14,44 @@ file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_adif
+add_executable(tst_mainqsoentrywidget
     ${TEST_SOURCES}
-    ../../src/callsign.cpp
+    ../../src/mainqsoentrywidget.cpp
+    ../../src/dataproxy_sqlite.cpp
+    ../../src/frequency.cpp
+    ../../src/utilities.cpp
+    ../../src/qso.cpp
+        ../../src/callsign.cpp
+    ../../src/locator.cpp
+    ../../src/database.cpp
+    ../../src/database/queryexecutor.cpp
+    ../../src/database/db_adif_primary_subdvisions_data.cpp
     ../../src/adif.cpp
 
     ${TEST_HEADERS}
-    ../../src/adif.h
+    ../../src/mainqsoentrywidget.h
+    ../../src/dataproxy_sqlite.h
+    ../../src/frequency.h
+    ../../src/utilities.h
+    ../../src/qso.h
     ../../src/callsign.h
+    ../../src/locator.h
     ../../src/klogdefinitions.h
+    ../../src/database.h
+    ../../src/database/queryexecutor.h
+    ../../src/database/db_adif_primary_subdvisions_data.h
+      ../../src/adif.h
 )
 
 # Enable MOC for Qt signals/slots if needed
 set(CMAKE_AUTOMOC ON)
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_adif
+target_link_libraries(tst_mainqsoentrywidget
     Qt6::Core
     Qt6::Test
 )
 
 # Register the test with CTest
-add_test(NAME tst_adif COMMAND tst_adif)
+add_test(NAME tst_mainqsoentrywidget COMMAND tst_mainqsoentrywidget)
 

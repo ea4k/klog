@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(tst_adif)
+project(tst_mainwindow)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,26 +14,206 @@ file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_adif
+add_executable(tst_mainwindow
     ${TEST_SOURCES}
+    ../../src/setupdialog.cpp
+    ../../src/aboutdialog.cpp
     ../../src/callsign.cpp
+    ../../src/tipsdialog.cpp
+    ../../src/filemanager.cpp
+    ../../src/fileawardmanager.cpp
+    ../../src/locator.cpp
+    ../../src/dxcluster/dxcluster.cpp
+    ../../src/dxcluster/dxclusterassistant.cpp
+    ../../src/dxcluster/dxspot.cpp
+    ../../src/frequency.cpp
+    ../../src/awards.cpp
+    ../../src/awarddxmarathon.cpp
+    ../../src/inputwidgets/mainwindowsattab.cpp
+    ../../src/inputwidgets/mainwindowmydatatab.cpp
+    ../../src/inputwidgets/mainwindowinputcomment.cpp
+    ../../src/inputwidgets/mainwindowinputothers.cpp
+    ../../src/inputwidgets/mainwindowinputeqsl.cpp
+    ../../src/inputwidgets/mainwindowinputqsl.cpp
+    ../../src/inputwidgets/mainwindowinputqso.cpp
+    ../../src/mainqsoentrywidget.cpp
+    ../../src/elogclublog.cpp
+    ../../src/downloadcty.cpp
+    ../../src/dxccstatuswidget.cpp
+    ../../src/awardswidget.cpp
+    ../../src/softwareupdate.cpp
+    ../../src/softwareupdatedialog.cpp
+    ../../src/logmodel.cpp
+    ../../src/logwindow.cpp
+    ../../src/searchwidget.cpp
+    ../../src/searchwindow.cpp
+    ../../src/searchmodel.cpp
+    ../../src/infowidget.cpp
+    ../../src/showerrordialog.cpp
+    ../../src/udpserver.cpp
+    ../../src/statisticswidget.cpp
+    ../../src/updatesatsdata.cpp
+    ../../src/hamlibclass.cpp
+    ../../src/elogqrzlog.cpp
+    ../../src/lotwutilities.cpp
+    ../../src/eqslutilities.cpp
+    ../../src/widgets/adiflotwexportwidget.cpp
+    ../../src/widgets/showadifimportwidget.cpp
+    ../../src/widgets/onlinemessagewidget.cpp
+    ../../src/widgets/showkloglogwidget.cpp
+    ../../src/widgets/map/mapwindowwidget.cpp
+    ../../src/widgets/map/mapwidget.cpp
+    ../../src/mainwindow.cpp
+    ../../src/dataproxy_sqlite.cpp
+    ../../src/database.cpp
+    ../../src/database/queryexecutor.cpp
+    ../../src/database/db_adif_primary_subdvisions_data.cpp
+    ../../src/setuppages/hamlibnetworkconfigwidget.cpp
+    ../../src/setuppages/hamlibserialconfigwidget.cpp
+    ../../src/setuppages/setupentitydialog.cpp
+    ../../src/setuppages/setuppagebandmode.cpp
+    ../../src/setuppages/setuppagecolors.cpp
+    ../../src/setuppages/setuppagedxcluster.cpp
+    ../../src/setuppages/setuppageelog.cpp
+    ../../src/setuppages/setuppagehamlib.cpp
+    ../../src/setuppages/setuppagelogs.cpp
+    ../../src/setuppages/setuppagelogsnew.cpp
+    ../../src/setuppages/setuppagelogview.cpp
+    ../../src/setuppages/setuppagemisc.cpp
+    ../../src/setuppages/setuppagesats.cpp
+    ../../src/setuppages/setuppagesatsnew.cpp
+    ../../src/setuppages/setuppagesubdivisionnew.cpp
+    ../../src/setuppages/setuppagesubdivisions.cpp
+    ../../src/setuppages/setuppageudp.cpp
+    ../../src/setuppages/setuppageuserdata.cpp
+    ../../src/setuppages/setuppageworldeditor.cpp
+    ../../src/utilities.cpp
+    ../../src/qso.cpp
+    ../../src/charts/statsqsosperdxccbarchartwidget.cpp
+    ../../src/charts/statscqzperyearbarchartwidget.cpp
+    ../../src/charts/statsqsosperhourbarchartwidget.cpp
+    ../../src/charts/statsdxccsonsatswidget.cpp
+    ../../src/charts/statsqsospermodebarchartwidget.cpp
+    ../../src/charts/statsentitiesperyearbarchartwidget.cpp
+    ../../src/charts/statsqsospermonthbarchartwidget.cpp
+    ../../src/charts/statsfieldperbandwidget.cpp
+    ../../src/charts/statsqsosperyearbarchartwidget.cpp
+    ../../src/charts/statsgeneralchartwidget.cpp
+    ../../src/charts/statssentconfirmedpiechartwidget.cpp
+    ../../src/charts/statsgridsonsatswidget.cpp
+    ../../src/charts/statsworkedconfirmedpiechartwidget.cpp
+    ../../src/charts/statsqsosperbandbarchartwidget.cpp
+    ../../src/charts/statsworkedsentpiechartwidget.cpp
+    ../../src/charts/statsqsospercontinentbarchartwidget.cpp
+    ../../src/updatesettings.cpp
+    ../../src/world.cpp
     ../../src/adif.cpp
 
     ${TEST_HEADERS}
-    ../../src/adif.h
+    ../../src/setupdialog.h
+    ../../src/setuppages/hamlibnetworkconfigwidget.h
+    ../../src/setuppages/hamlibserialconfigwidget.h
+    ../../src/setuppages/setupentitydialog.h
+    ../../src/setuppages/setuppagebandmode.h
+    ../../src/setuppages/setuppagecolors.h
+    ../../src/setuppages/setuppagedxcluster.h
+    ../../src/setuppages/setuppageelog.h
+    ../../src/setuppages/setuppagehamlib.h
+    ../../src/setuppages/setuppagelogs.h
+    ../../src/setuppages/setuppagelogsnew.h
+    ../../src/setuppages/setuppagelogview.h
+    ../../src/setuppages/setuppagemisc.h
+    ../../src/setuppages/setuppagesats.h
+    ../../src/setuppages/setuppagesatsnew.h
+    ../../src/setuppages/setuppagesubdivisionnew.h
+    ../../src/setuppages/setuppagesubdivisions.h
+    ../../src/setuppages/setuppageudp.h
+    ../../src/setuppages/setuppageuserdata.h
+    ../../src/setuppages/setuppageworldeditor.h
+    ../../src/aboutdialog.h
     ../../src/callsign.h
+    ../../src/tipsdialog.h
+    ../../src/filemanager.h
+    ../../src/fileawardmanager.h
+    ../../src/locator.h
+    ../../src/dxcluster/dxcluster.h
+    ../../src/dxcluster/dxclusterassistant.h
+    ../../src/dxcluster/dxspot.h
+    ../../src/frequency.h
+    ../../src/awards.h
+    ../../src/awarddxmarathon.h
+    ../../src/inputwidgets/mainwindowsattab.h
+    ../../src/inputwidgets/mainwindowmydatatab.h
+    ../../src/inputwidgets/mainwindowinputcomment.h
+    ../../src/inputwidgets/mainwindowinputothers.h
+    ../../src/inputwidgets/mainwindowinputeqsl.h
+    ../../src/inputwidgets/mainwindowinputqsl.h
+    ../../src/inputwidgets/mainwindowinputqso.h
+    ../../src/elogclublog.h
+    ../../src/downloadcty.h
+    ../../src/dxccstatuswidget.h
+    ../../src/awardswidget.h
+    ../../src/softwareupdate.h
+    ../../src/softwareupdatedialog.h
+    ../../src/logmodel.h
+    ../../src/logwindow.h
+    ../../src/searchwidget.h
+    ../../src/searchwindow.h
+    ../../src/searchmodel.h
+    ../../src/infowidget.h
+    ../../src/showerrordialog.h
+    ../../src/udpserver.h
+    ../../src/statisticswidget.h
+    ../../src/updatesatsdata.h
+    ../../src/hamlibclass.h
+    ../../src/elogqrzlog.h
+    ../../src/lotwutilities.h
+    ../../src/eqslutilities.h
+    ../../src/widgets/adiflotwexportwidget.h
+    ../../src/widgets/showadifimportwidget.h
+    ../../src/widgets/onlinemessagewidget.h
+    ../../src/widgets/showkloglogwidget.h
+    ../../src/widgets/map/mapwindowwidget.h
+    ../../src/widgets/map/mapwidget.h
+    ../../src/mainwindow.h
+    ../../src/mainqsoentrywidget.h
+    ../../src/dataproxy_sqlite.h
+    ../../src/database.h
+    ../../src/database/queryexecutor.h
+    ../../src/database/db_adif_primary_subdvisions_data.h
     ../../src/klogdefinitions.h
+    ../../src/utilities.h
+    ../../src/qso.h
+    ../../src/charts/statsqsosperdxccbarchartwidget.h
+    ../../src/charts/statscqzperyearbarchartwidget.h
+    ../../src/charts/statsqsosperhourbarchartwidget.h
+    ../../src/charts/statsdxccsonsatswidget.h
+    ../../src/charts/statsqsospermodebarchartwidget.h
+    ../../src/charts/statsentitiesperyearbarchartwidget.h
+    ../../src/charts/statsqsospermonthbarchartwidget.h
+    ../../src/charts/statsfieldperbandwidget.h
+    ../../src/charts/statsqsosperyearbarchartwidget.h
+    ../../src/charts/statsgeneralchartwidget.h
+    ../../src/charts/statssentconfirmedpiechartwidget.h
+    ../../src/charts/statsgridsonsatswidget.h
+    ../../src/charts/statsworkedconfirmedpiechartwidget.h
+    ../../src/charts/statsqsosperbandbarchartwidget.h
+    ../../src/charts/statsworkedsentpiechartwidget.h
+    ../../src/charts/statsqsospercontinentbarchartwidget.h
+    ../../src/updatesettings.h
+    ../../src/world.h
+    ../../src/adif.h
 )
 
 # Enable MOC for Qt signals/slots if needed
 set(CMAKE_AUTOMOC ON)
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_adif
+target_link_libraries(tst_mainwindow
     Qt6::Core
     Qt6::Test
 )
 
 # Register the test with CTest
-add_test(NAME tst_adif COMMAND tst_adif)
+add_test(NAME tst_mainwindow COMMAND tst_mainwindow)
 

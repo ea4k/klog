@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(tst_adif)
+project(tst_frequency)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,14 +14,12 @@ file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_adif
+add_executable(tst_frequency
     ${TEST_SOURCES}
-    ../../src/callsign.cpp
-    ../../src/adif.cpp
+    ../../src/frequency.cpp
 
     ${TEST_HEADERS}
-    ../../src/adif.h
-    ../../src/callsign.h
+    ../../src/frequency.h
     ../../src/klogdefinitions.h
 )
 
@@ -29,11 +27,11 @@ add_executable(tst_adif
 set(CMAKE_AUTOMOC ON)
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_adif
+target_link_libraries(tst_frequency
     Qt6::Core
     Qt6::Test
 )
 
 # Register the test with CTest
-add_test(NAME tst_adif COMMAND tst_adif)
+add_test(NAME tst_frequency COMMAND tst_frequency)
 
