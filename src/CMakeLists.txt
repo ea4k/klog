@@ -56,7 +56,7 @@ target_link_libraries(KLog
     Qt6::Qml
     Qt6::Quick
     Qt6::QuickWidgets
-    Qt6:SerialPort
+    Qt6::SerialPort
     Qt6::Sql
     Qt6::Widgets
     Qt6::Charts

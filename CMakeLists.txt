@@ -23,7 +23,7 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-find_package(Qt6 COMPONENTS
+find_package(Qt6 REQUIRED COMPONENTS
     Charts
     Core
     Gui
