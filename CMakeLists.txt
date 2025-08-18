@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
-project(KLog)
+cmake_minimum_required(VERSION 3.16)
+project(KLog VERSION 2.5 LANGUAGES CXX)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -8,9 +9,17 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 # Generate version.h from version.h.in into this (src) binary directory
+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in
+#               ${CMAKE_CURRENT_BINARY_DIR}/build/src/version.h
+#               @ONLY)
+set(APP_VERSION "${PROJECT_VERSION}")
+set(APP_PKGVERSION "2.5-RC1")
+#set(APP_PKGVERSION "2.4.2-RC3")
+# Generate version.h into the build/src directory and add that directory to includes
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/src)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in
-               ${CMAKE_CURRENT_BINARY_DIR}/src/version.h
-               @ONLY)
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/version.h
+                @ONLY)
 
 enable_testing()
 

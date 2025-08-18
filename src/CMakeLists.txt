@@ -1,12 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
-project(KLog)
+cmake_minimum_required(VERSION 3.16)
+project(KLog VERSION 2.5 LANGUAGES CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(APP_VERSION "${PROJECT_VERSION}")
-set(APP_PKGVERSION "2.5-RC1")
-#set(APP_PKGVERSION "2.4.2-RC3")
 
 
 # Platform-specific settings
