@@ -1,6 +1,6 @@
 # Minimal FindHamlib.cmake
 # Provides imported target Hamlib::Hamlib when found.
-
+message(STATUS "Loaded FindHamlib.cmake")
 include_guard()
 
 set(_hamlib_hints
@@ -11,6 +11,8 @@ set(_hamlib_hints
   "/usr"
   "/usr/local"
   "/opt/homebrew"
+  "/usr/lib/x86_64-linux-gnu"
+
 )
 
 find_path(Hamlib_INCLUDE_DIR

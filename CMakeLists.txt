@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(KLog VERSION 2.5 LANGUAGES CXX)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_AUTOMOC ON)
@@ -20,6 +21,9 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/src)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/version.h
                 @ONLY)
+
+
+
 
 enable_testing()
 
@@ -57,9 +61,17 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
     REQUIRED)
 
+# Hamlib: use our cmake/FindHamlib.cmake if present; else use pkg-config
+find_package(Hamlib MODULE QUIET)
 
+if(NOT Hamlib_FOUND)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(HAMLIB REQUIRED IMPORTED_TARGET hamlib)
+  message(STATUS "Hamlib found via pkg-config: ${HAMLIB_VERSION}")
+else()
+  message(STATUS "Hamlib found via FindHamlib.cmake")
+endif()
 
-# Add subdirectory for source files
 add_subdirectory(src)
 add_subdirectory(tests)
 # Optionally, you can include other subdirectories for resources, docs, etc.
