@@ -59,18 +59,15 @@ find_package(Qt6 REQUIRED COMPONENTS
     SerialPort
     Sql
     Widgets
-    REQUIRED)
+    REQUIRED
+  )
 
-# Hamlib: use our cmake/FindHamlib.cmake if present; else use pkg-config
-find_package(Hamlib MODULE QUIET)
+# Hamlib (cross-platform):
+# - Try a CMake package (CONFIG) or your FindHamlib.cmake (MODULE) everywhere.
+# - Only on Linux (UNIX and not APPLE), if still not found, use pkg-config.
+set(_hamlib_found FALSE)
 
-if(NOT Hamlib_FOUND)
-  find_package(PkgConfig REQUIRED)
-  pkg_check_modules(HAMLIB REQUIRED IMPORTED_TARGET hamlib)
-  message(STATUS "Hamlib found via pkg-config: ${HAMLIB_VERSION}")
-else()
-  message(STATUS "Hamlib found via FindHamlib.cmake")
-endif()
+
 
 add_subdirectory(src)
 add_subdirectory(tests)

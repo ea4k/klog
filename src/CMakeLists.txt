@@ -76,11 +76,6 @@ target_link_libraries(klog
 )
 
 
-# Hamlib (cross-platform):
-# - Try a CMake package (CONFIG) or your FindHamlib.cmake (MODULE) everywhere.
-# - Only on Linux (UNIX and not APPLE), if still not found, use pkg-config.
-set(_hamlib_found FALSE)
-
 # Prefer a config package if available (e.g., Homebrew/macOS or user-provided)
 find_package(Hamlib CONFIG QUIET)
 if(Hamlib_FOUND)
