@@ -59,6 +59,7 @@ set(CMAKE_AUTOMOC ON)
 target_link_libraries(tst_logwindow
     Qt6::Core
     Qt6::Test
+    Qt6::Sql
 )
 
 # Register the test with CTest

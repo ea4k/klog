@@ -21,7 +21,7 @@ add_executable(tst_mainqsoentrywidget
     ../../src/frequency.cpp
     ../../src/utilities.cpp
     ../../src/qso.cpp
-        ../../src/callsign.cpp
+    ../../src/callsign.cpp
     ../../src/locator.cpp
     ../../src/database.cpp
     ../../src/database/queryexecutor.cpp
@@ -50,6 +50,7 @@ set(CMAKE_AUTOMOC ON)
 target_link_libraries(tst_mainqsoentrywidget
     Qt6::Core
     Qt6::Test
+    Qt6::Sql
 )
 
 # Register the test with CTest

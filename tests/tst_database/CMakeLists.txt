@@ -52,6 +52,7 @@ target_link_libraries(tst_database
     Qt6::Core
     Qt6::Test
     Qt6::Sql
+    Qt6::Widgets
 )
 
 # Register the test with CTest

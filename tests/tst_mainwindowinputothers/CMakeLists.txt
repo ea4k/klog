@@ -51,6 +51,8 @@ set(CMAKE_AUTOMOC ON)
 target_link_libraries(tst_mainwindowinputothers
     Qt6::Core
     Qt6::Test
+    Qt6::Sql
+    Qt6::Widgets
 )
 
 # Register the test with CTest
