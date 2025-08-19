@@ -211,6 +211,12 @@ set(CMAKE_AUTOMOC ON)
 # Link with Qt6 Core and Test
 target_link_libraries(tst_mainwindow
     Qt6::Core
+    Qt6::Charts
+    Qt6::Network
+    Qt6::Positioning
+    Qt6::PrintSupport
+    Qt6::Quick
+    Qt6::SerialPort
     Qt6::Test
     Qt6::Sql
     Qt6::Widgets
