@@ -32,13 +32,12 @@ add_executable(tst_wizard
     ../../src/startwizard.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_wizard
     Qt6::Core
+    Qt6::Network
     Qt6::Test
+    Qt6::Widgets
 )
 
 # Register the test with CTest

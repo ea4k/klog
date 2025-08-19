@@ -42,9 +42,6 @@ add_executable(tst_dataproxy
     ../../src/adif.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_dataproxy
     Qt6::Core

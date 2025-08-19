@@ -103,10 +103,6 @@ private:
 
     bool valid;         // The entered string is a correct callsign
     bool prefValid;     // The entered string is a correct prefix
-
-
-
-
 };
 
 #endif // CALLSIGN_H

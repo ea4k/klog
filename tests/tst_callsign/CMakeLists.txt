@@ -23,9 +23,6 @@ add_executable(tst_callsign
     ../../src/klogdefinitions.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_callsign
     Qt6::Core

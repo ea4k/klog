@@ -41,14 +41,12 @@ add_executable(tst_utilities
     ../../src/adif.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_utilities
     Qt6::Core
     Qt6::Test
     Qt6::Sql
+    Qt6::Widgets
 )
 
 # Register the test with CTest

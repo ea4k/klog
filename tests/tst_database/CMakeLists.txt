@@ -44,9 +44,6 @@ add_executable(tst_database
     ../../src/utilities.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_database
     Qt6::Core

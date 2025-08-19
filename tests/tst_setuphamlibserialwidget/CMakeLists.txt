@@ -23,13 +23,12 @@ add_executable(tst_setuphamlibserialwidget
     ../../src/setuppages/hamlibserialconfigwidget.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_setuphamlibserialwidget
     Qt6::Core
+    Qt6::SerialPort
     Qt6::Test
+    Qt6::Widgets
 )
 
 # Register the test with CTest

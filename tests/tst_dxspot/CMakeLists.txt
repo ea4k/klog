@@ -11,6 +11,11 @@ set(CMAKE_AUTOMOC ON)
 
 # Collect test sources
 file(GLOB TEST_SOURCES "*.cpp")
+# Exclude any stale/generated files that might be in the source tree
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/moc_.*\\.cpp$")
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/ui_.*\\.cpp$")
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/qrc_.*\\.cpp$")
+
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
@@ -26,9 +31,6 @@ add_executable(tst_dxspot
     ../../src/dxcluster/dxspot.h
     ../../src/klogdefinitions.h
 )
-
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
 
 # Link with Qt6 Core and Test
 target_link_libraries(tst_dxspot

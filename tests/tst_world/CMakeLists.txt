@@ -42,9 +42,6 @@ add_executable(tst_world
     ../../src/adif.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_world
     Qt6::Core

@@ -209,12 +209,14 @@ add_executable(tst_main
     ../../src/world.h
 )
 
-# Enable MOC for Qt signals/slots if needed
-set(CMAKE_AUTOMOC ON)
-
 # Link with Qt6 Core and Test
 target_link_libraries(tst_main
     Qt6::Core
+    Qt6::Charts
+    Qt6::Network
+    Qt6::PrintSupport
+    Qt6::Quick
+    Qt6::SerialPort
     Qt6::Test
     Qt6::Sql
     Qt6::Widgets

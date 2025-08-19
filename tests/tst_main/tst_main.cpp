@@ -65,3 +65,6 @@ private slots:
     }
 };
 
+QTEST_MAIN(tst_Main)
+#include "tst_main.moc"
+
