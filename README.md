@@ -2,8 +2,6 @@
 [![Build Status](https://app.travis-ci.com/ea4k/klog.svg?branch=master)](https://travis-ci.com/github/ea4k/klog)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/127fac70ffe649438bd323caa61f7153)](https://www.codacy.com/gh/ea4k/klog/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ea4k/klog&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/ea4k/klog/badge)](https://www.codefactor.io/repository/github/ea4k/klog)
-[![Coverage Status](https://coveralls.io/repos/github/ea4k/klog/badge.svg?branch=master)](https://coveralls.io/github/ea4k/klog?branch=master)
-<img src="https://img.shields.io/github/v/release/ea4k/klog?logo=github&logoColor=white" alt="GitHub release"/>
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <a href="https://twitter.com/_ea4k"><img src="https://img.shields.io/twitter/follow/_ea4k.svg?style=social&label=Follow" alt="Twitter Follow"/></a>
 [![C/C++ CI](https://github.com/ea4k/klog/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/ea4k/klog/actions/workflows/c-cpp.yml)
@@ -50,9 +48,10 @@ I hope you enjoy KLog!
 If you are a native in a language different than English or Spanish, please consider helping us translating KLog into your native language.
 
 ### Developers
-Patches may be submitted by one of several ways. Perhaps the most common is forking the KLog repository, making the changes to your cloned repository and then issuing a pull request.
+KLog accepts patches, suggestions, new developers and whatever help you can offer.
+Patches may be submitted by one of several ways. Perhaps the most common is [forking](https://help.github.com/search/?utf8=%E2%9C%93&q=forking) the KLog repository, making the changes to your cloned repository and then issuing a [pull request](https://help.github.com/search/?utf8=%E2%9C%93&q=pull+request).
 
-## Testing
+### Testing
 KLog includes several tests that can be seen in the tests folders.
 You can compile and execute those tests as you compile any other Qt application.
 New functionalities should include the appropriate testing before they are released.
