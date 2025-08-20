@@ -4,261 +4,277 @@ project(tst_mainwindow)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find Qt6 Core and Test modules
-find_package(Qt6 REQUIRED COMPONENTS Core Test)
 # Enable AUTOMOC before add_executable
 set(CMAKE_AUTOMOC ON)
+
+# Find all Qt6 components you link against
+find_package(Qt6 REQUIRED COMPONENTS
+  Core
+  Test
+  Charts
+  Network
+  Positioning
+  PrintSupport
+  Quick
+  SerialPort
+  Sql
+  Widgets
+)
 
 # Collect test sources
 file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
+# Optional: avoid accidentally compiling stale generated files
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/moc_.*\\.cpp$")
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/ui_.*\\.cpp$")
+list(FILTER TEST_SOURCES EXCLUDE REGEX "/qrc_.*\\.cpp$")
 
 # Create the test executable
 add_executable(tst_mainwindow
-    ${TEST_SOURCES}
-    ../../src/setupdialog.cpp
-    ../../src/aboutdialog.cpp
-    ../../src/callsign.cpp
-    ../../src/tipsdialog.cpp
-    ../../src/filemanager.cpp
-    ../../src/fileawardmanager.cpp
-    ../../src/locator.cpp
-    ../../src/dxcluster/dxcluster.cpp
-    ../../src/dxcluster/dxclusterassistant.cpp
-    ../../src/dxcluster/dxspot.cpp
-    ../../src/frequency.cpp
-    ../../src/awards.cpp
-    ../../src/awarddxmarathon.cpp
-    ../../src/inputwidgets/mainwindowsattab.cpp
-    ../../src/inputwidgets/mainwindowmydatatab.cpp
-    ../../src/inputwidgets/mainwindowinputcomment.cpp
-    ../../src/inputwidgets/mainwindowinputothers.cpp
-    ../../src/inputwidgets/mainwindowinputeqsl.cpp
-    ../../src/inputwidgets/mainwindowinputqsl.cpp
-    ../../src/inputwidgets/mainwindowinputqso.cpp
-    ../../src/mainqsoentrywidget.cpp
-    ../../src/elogclublog.cpp
-    ../../src/downloadcty.cpp
-    ../../src/dxccstatuswidget.cpp
-    ../../src/awardswidget.cpp
-    ../../src/softwareupdate.cpp
-    ../../src/softwareupdatedialog.cpp
-    ../../src/logmodel.cpp
-    ../../src/logwindow.cpp
-    ../../src/searchwidget.cpp
-    ../../src/searchwindow.cpp
-    ../../src/searchmodel.cpp
-    ../../src/infowidget.cpp
-    ../../src/showerrordialog.cpp
-    ../../src/udpserver.cpp
-    ../../src/statisticswidget.cpp
-    ../../src/updatesatsdata.cpp
-    ../../src/hamlibclass.cpp
-    ../../src/elogqrzlog.cpp
-    ../../src/lotwutilities.cpp
-    ../../src/eqslutilities.cpp
-    ../../src/widgets/adiflotwexportwidget.cpp
-    ../../src/widgets/showadifimportwidget.cpp
-    ../../src/widgets/onlinemessagewidget.cpp
-    ../../src/widgets/showkloglogwidget.cpp
-    ../../src/widgets/map/mapwindowwidget.cpp
-    ../../src/widgets/map/mapwidget.cpp
-    ../../src/mainwindow.cpp
-    ../../src/dataproxy_sqlite.cpp
-    ../../src/database.cpp
-    ../../src/database/queryexecutor.cpp
-    ../../src/database/db_adif_primary_subdvisions_data.cpp
-    ../../src/setuppages/hamlibnetworkconfigwidget.cpp
-    ../../src/setuppages/hamlibserialconfigwidget.cpp
-    ../../src/setuppages/setupentitydialog.cpp
-    ../../src/setuppages/setuppagebandmode.cpp
-    ../../src/setuppages/setuppagecolors.cpp
-    ../../src/setuppages/setuppagedxcluster.cpp
-    ../../src/setuppages/setuppageelog.cpp
-    ../../src/setuppages/setuppagehamlib.cpp
-    ../../src/setuppages/setuppagelogs.cpp
-    ../../src/setuppages/setuppagelogsnew.cpp
-    ../../src/setuppages/setuppagelogview.cpp
-    ../../src/setuppages/setuppagemisc.cpp
-    ../../src/setuppages/setuppagesats.cpp
-    ../../src/setuppages/setuppagesatsnew.cpp
-    ../../src/setuppages/setuppagesubdivisionnew.cpp
-    ../../src/setuppages/setuppagesubdivisions.cpp
-    ../../src/setuppages/setuppageudp.cpp
-    ../../src/setuppages/setuppageuserdata.cpp
-    ../../src/setuppages/setuppageworldeditor.cpp
-    ../../src/utilities.cpp
-    ../../src/qso.cpp
-    ../../src/charts/statsqsosperdxccbarchartwidget.cpp
-    ../../src/charts/statscqzperyearbarchartwidget.cpp
-    ../../src/charts/statsqsosperhourbarchartwidget.cpp
-    ../../src/charts/statsdxccsonsatswidget.cpp
-    ../../src/charts/statsqsospermodebarchartwidget.cpp
-    ../../src/charts/statsentitiesperyearbarchartwidget.cpp
-    ../../src/charts/statsqsospermonthbarchartwidget.cpp
-    ../../src/charts/statsfieldperbandwidget.cpp
-    ../../src/charts/statsqsosperyearbarchartwidget.cpp
-    ../../src/charts/statsgeneralchartwidget.cpp
-    ../../src/charts/statssentconfirmedpiechartwidget.cpp
-    ../../src/charts/statsgridsonsatswidget.cpp
-    ../../src/charts/statsworkedconfirmedpiechartwidget.cpp
-    ../../src/charts/statsqsosperbandbarchartwidget.cpp
-    ../../src/charts/statsworkedsentpiechartwidget.cpp
-    ../../src/charts/statsqsospercontinentbarchartwidget.cpp
-    ../../src/updatesettings.cpp
-    ../../src/world.cpp
-    ../../src/adif.cpp
+  ${TEST_SOURCES}
+  ${TEST_HEADERS}
 
-    ${TEST_HEADERS}
-    ../../src/setupdialog.h
-    ../../src/setuppages/hamlibnetworkconfigwidget.h
-    ../../src/setuppages/hamlibserialconfigwidget.h
-    ../../src/setuppages/setupentitydialog.h
-    ../../src/setuppages/setuppagebandmode.h
-    ../../src/setuppages/setuppagecolors.h
-    ../../src/setuppages/setuppagedxcluster.h
-    ../../src/setuppages/setuppageelog.h
-    ../../src/setuppages/setuppagehamlib.h
-    ../../src/setuppages/setuppagelogs.h
-    ../../src/setuppages/setuppagelogsnew.h
-    ../../src/setuppages/setuppagelogview.h
-    ../../src/setuppages/setuppagemisc.h
-    ../../src/setuppages/setuppagesats.h
-    ../../src/setuppages/setuppagesatsnew.h
-    ../../src/setuppages/setuppagesubdivisionnew.h
-    ../../src/setuppages/setuppagesubdivisions.h
-    ../../src/setuppages/setuppageudp.h
-    ../../src/setuppages/setuppageuserdata.h
-    ../../src/setuppages/setuppageworldeditor.h
-    ../../src/aboutdialog.h
-    ../../src/callsign.h
-    ../../src/tipsdialog.h
-    ../../src/filemanager.h
-    ../../src/fileawardmanager.h
-    ../../src/locator.h
-    ../../src/dxcluster/dxcluster.h
-    ../../src/dxcluster/dxclusterassistant.h
-    ../../src/dxcluster/dxspot.h
-    ../../src/frequency.h
-    ../../src/awards.h
-    ../../src/awarddxmarathon.h
-    ../../src/inputwidgets/mainwindowsattab.h
-    ../../src/inputwidgets/mainwindowmydatatab.h
-    ../../src/inputwidgets/mainwindowinputcomment.h
-    ../../src/inputwidgets/mainwindowinputothers.h
-    ../../src/inputwidgets/mainwindowinputeqsl.h
-    ../../src/inputwidgets/mainwindowinputqsl.h
-    ../../src/inputwidgets/mainwindowinputqso.h
-    ../../src/elogclublog.h
-    ../../src/downloadcty.h
-    ../../src/dxccstatuswidget.h
-    ../../src/awardswidget.h
-    ../../src/softwareupdate.h
-    ../../src/softwareupdatedialog.h
-    ../../src/logmodel.h
-    ../../src/logwindow.h
-    ../../src/searchwidget.h
-    ../../src/searchwindow.h
-    ../../src/searchmodel.h
-    ../../src/infowidget.h
-    ../../src/showerrordialog.h
-    ../../src/udpserver.h
-    ../../src/statisticswidget.h
-    ../../src/updatesatsdata.h
-    ../../src/hamlibclass.h
-    ../../src/elogqrzlog.h
-    ../../src/lotwutilities.h
-    ../../src/eqslutilities.h
-    ../../src/widgets/adiflotwexportwidget.h
-    ../../src/widgets/showadifimportwidget.h
-    ../../src/widgets/onlinemessagewidget.h
-    ../../src/widgets/showkloglogwidget.h
-    ../../src/widgets/map/mapwindowwidget.h
-    ../../src/widgets/map/mapwidget.h
-    ../../src/mainwindow.h
-    ../../src/mainqsoentrywidget.h
-    ../../src/dataproxy_sqlite.h
-    ../../src/database.h
-    ../../src/database/queryexecutor.h
-    ../../src/database/db_adif_primary_subdvisions_data.h
-    ../../src/klogdefinitions.h
-    ../../src/utilities.h
-    ../../src/qso.h
-    ../../src/charts/statsqsosperdxccbarchartwidget.h
-    ../../src/charts/statscqzperyearbarchartwidget.h
-    ../../src/charts/statsqsosperhourbarchartwidget.h
-    ../../src/charts/statsdxccsonsatswidget.h
-    ../../src/charts/statsqsospermodebarchartwidget.h
-    ../../src/charts/statsentitiesperyearbarchartwidget.h
-    ../../src/charts/statsqsospermonthbarchartwidget.h
-    ../../src/charts/statsfieldperbandwidget.h
-    ../../src/charts/statsqsosperyearbarchartwidget.h
-    ../../src/charts/statsgeneralchartwidget.h
-    ../../src/charts/statssentconfirmedpiechartwidget.h
-    ../../src/charts/statsgridsonsatswidget.h
-    ../../src/charts/statsworkedconfirmedpiechartwidget.h
-    ../../src/charts/statsqsosperbandbarchartwidget.h
-    ../../src/charts/statsworkedsentpiechartwidget.h
-    ../../src/charts/statsqsospercontinentbarchartwidget.h
-    ../../src/updatesettings.h
-    ../../src/world.h
-    ../../src/adif.h
+  ../../src/setupdialog.cpp
+  ../../src/aboutdialog.cpp
+  ../../src/callsign.cpp
+  ../../src/tipsdialog.cpp
+  ../../src/filemanager.cpp
+  ../../src/fileawardmanager.cpp
+  ../../src/locator.cpp
+  ../../src/dxcluster/dxcluster.cpp
+  ../../src/dxcluster/dxclusterassistant.cpp
+  ../../src/dxcluster/dxspot.cpp
+  ../../src/frequency.cpp
+  ../../src/awards.cpp
+  ../../src/awarddxmarathon.cpp
+  ../../src/inputwidgets/mainwindowsattab.cpp
+  ../../src/inputwidgets/mainwindowmydatatab.cpp
+  ../../src/inputwidgets/mainwindowinputcomment.cpp
+  ../../src/inputwidgets/mainwindowinputothers.cpp
+  ../../src/inputwidgets/mainwindowinputeqsl.cpp
+  ../../src/inputwidgets/mainwindowinputqsl.cpp
+  ../../src/inputwidgets/mainwindowinputqso.cpp
+  ../../src/mainqsoentrywidget.cpp
+  ../../src/elogclublog.cpp
+  ../../src/downloadcty.cpp
+  ../../src/dxccstatuswidget.cpp
+  ../../src/awardswidget.cpp
+  ../../src/softwareupdate.cpp
+  ../../src/softwareupdatedialog.cpp
+  ../../src/logmodel.cpp
+  ../../src/logwindow.cpp
+  ../../src/searchwidget.cpp
+  ../../src/searchwindow.cpp
+  ../../src/searchmodel.cpp
+  ../../src/infowidget.cpp
+  ../../src/showerrordialog.cpp
+  ../../src/udpserver.cpp
+  ../../src/statisticswidget.cpp
+  ../../src/updatesatsdata.cpp
+  ../../src/hamlibclass.cpp
+  ../../src/elogqrzlog.cpp
+  ../../src/lotwutilities.cpp
+  ../../src/eqslutilities.cpp
+  ../../src/widgets/adiflotwexportwidget.cpp
+  ../../src/widgets/showadifimportwidget.cpp
+  ../../src/widgets/onlinemessagewidget.cpp
+  ../../src/widgets/showkloglogwidget.cpp
+  ../../src/widgets/map/mapwindowwidget.cpp
+  ../../src/widgets/map/mapwidget.cpp
+  ../../src/mainwindow.cpp
+  ../../src/dataproxy_sqlite.cpp
+  ../../src/database.cpp
+  ../../src/database/queryexecutor.cpp
+  ../../src/database/db_adif_primary_subdvisions_data.cpp
+  ../../src/setuppages/hamlibnetworkconfigwidget.cpp
+  ../../src/setuppages/hamlibserialconfigwidget.cpp
+  ../../src/setuppages/setupentitydialog.cpp
+  ../../src/setuppages/setuppagebandmode.cpp
+  ../../src/setuppages/setuppagecolors.cpp
+  ../../src/setuppages/setuppagedxcluster.cpp
+  ../../src/setuppages/setuppageelog.cpp
+  ../../src/setuppages/setuppagehamlib.cpp
+  ../../src/setuppages/setuppagelogs.cpp
+  ../../src/setuppages/setuppagelogsnew.cpp
+  ../../src/setuppages/setuppagelogview.cpp
+  ../../src/setuppages/setuppagemisc.cpp
+  ../../src/setuppages/setuppagesats.cpp
+  ../../src/setuppages/setuppagesatsnew.cpp
+  ../../src/setuppages/setuppagesubdivisionnew.cpp
+  ../../src/setuppages/setuppagesubdivisions.cpp
+  ../../src/setuppages/setuppageudp.cpp
+  ../../src/setuppages/setuppageuserdata.cpp
+  ../../src/setuppages/setuppageworldeditor.cpp
+  ../../src/utilities.cpp
+  ../../src/qso.cpp
+  ../../src/charts/statsqsosperdxccbarchartwidget.cpp
+  ../../src/charts/statscqzperyearbarchartwidget.cpp
+  ../../src/charts/statsqsosperhourbarchartwidget.cpp
+  ../../src/charts/statsdxccsonsatswidget.cpp
+  ../../src/charts/statsqsospermodebarchartwidget.cpp
+  ../../src/charts/statsentitiesperyearbarchartwidget.cpp
+  ../../src/charts/statsqsospermonthbarchartwidget.cpp
+  ../../src/charts/statsfieldperbandwidget.cpp
+  ../../src/charts/statsqsosperyearbarchartwidget.cpp
+  ../../src/charts/statsgeneralchartwidget.cpp
+  ../../src/charts/statssentconfirmedpiechartwidget.cpp
+  ../../src/charts/statsgridsonsatswidget.cpp
+  ../../src/charts/statsworkedconfirmedpiechartwidget.cpp
+  ../../src/charts/statsqsosperbandbarchartwidget.cpp
+  ../../src/charts/statsworkedsentpiechartwidget.cpp
+  ../../src/charts/statsqsospercontinentbarchartwidget.cpp
+  ../../src/updatesettings.cpp
+  ../../src/world.cpp
+  ../../src/adif.cpp
+
+  # Headers for IDE visibility
+  ../../src/setupdialog.h
+  ../../src/setuppages/hamlibnetworkconfigwidget.h
+  ../../src/setuppages/hamlibserialconfigwidget.h
+  ../../src/setuppages/setupentitydialog.h
+  ../../src/setuppages/setuppagebandmode.h
+  ../../src/setuppages/setuppagecolors.h
+  ../../src/setuppages/setuppagedxcluster.h
+  ../../src/setuppages/setuppageelog.h
+  ../../src/setuppages/setuppagehamlib.h
+  ../../src/setuppages/setuppagelogs.h
+  ../../src/setuppages/setuppagelogsnew.h
+  ../../src/setuppages/setuppagelogview.h
+  ../../src/setuppages/setuppagemisc.h
+  ../../src/setuppages/setuppagesats.h
+  ../../src/setuppages/setuppagesatsnew.h
+  ../../src/setuppages/setuppagesubdivisionnew.h
+  ../../src/setuppages/setuppagesubdivisions.h
+  ../../src/setuppages/setuppageudp.h
+  ../../src/setuppages/setuppageuserdata.h
+  ../../src/setuppages/setuppageworldeditor.h
+  ../../src/aboutdialog.h
+  ../../src/callsign.h
+  ../../src/tipsdialog.h
+  ../../src/filemanager.h
+  ../../src/fileawardmanager.h
+  ../../src/locator.h
+  ../../src/dxcluster/dxcluster.h
+  ../../src/dxcluster/dxclusterassistant.h
+  ../../src/dxcluster/dxspot.h
+  ../../src/frequency.h
+  ../../src/awards.h
+  ../../src/awarddxmarathon.h
+  ../../src/inputwidgets/mainwindowsattab.h
+  ../../src/inputwidgets/mainwindowmydatatab.h
+  ../../src/inputwidgets/mainwindowinputcomment.h
+  ../../src/inputwidgets/mainwindowinputothers.h
+  ../../src/inputwidgets/mainwindowinputeqsl.h
+  ../../src/inputwidgets/mainwindowinputqsl.h
+  ../../src/inputwidgets/mainwindowinputqso.h
+  ../../src/elogclublog.h
+  ../../src/downloadcty.h
+  ../../src/dxccstatuswidget.h
+  ../../src/awardswidget.h
+  ../../src/softwareupdate.h
+  ../../src/softwareupdatedialog.h
+  ../../src/logmodel.h
+  ../../src/logwindow.h
+  ../../src/searchwidget.h
+  ../../src/searchwindow.h
+  ../../src/searchmodel.h
+  ../../src/infowidget.h
+  ../../src/showerrordialog.h
+  ../../src/udpserver.h
+  ../../src/statisticswidget.h
+  ../../src/updatesatsdata.h
+  ../../src/hamlibclass.h
+  ../../src/elogqrzlog.h
+  ../../src/lotwutilities.h
+  ../../src/eqslutilities.h
+  ../../src/widgets/adiflotwexportwidget.h
+  ../../src/widgets/showadifimportwidget.h
+  ../../src/widgets/onlinemessagewidget.h
+  ../../src/widgets/showkloglogwidget.h
+  ../../src/widgets/map/mapwindowwidget.h
+  ../../src/widgets/map/mapwidget.h
+  ../../src/mainwindow.h
+  ../../src/mainqsoentrywidget.h
+  ../../src/dataproxy_sqlite.h
+  ../../src/database.h
+  ../../src/database/queryexecutor.h
+  ../../src/database/db_adif_primary_subdvisions_data.h
+  ../../src/klogdefinitions.h
+  ../../src/utilities.h
+  ../../src/qso.h
+  ../../src/charts/statsqsosperdxccbarchartwidget.h
+  ../../src/charts/statscqzperyearbarchartwidget.h
+  ../../src/charts/statsqsosperhourbarchartwidget.h
+  ../../src/charts/statsdxccsonsatswidget.h
+  ../../src/charts/statsqsospermodebarchartwidget.h
+  ../../src/charts/statsentitiesperyearbarchartwidget.h
+  ../../src/charts/statsqsospermonthbarchartwidget.h
+  ../../src/charts/statsfieldperbandwidget.h
+  ../../src/charts/statsqsosperyearbarchartwidget.h
+  ../../src/charts/statsgeneralchartwidget.h
+  ../../src/charts/statssentconfirmedpiechartwidget.h
+  ../../src/charts/statsgridsonsatswidget.h
+  ../../src/charts/statsworkedconfirmedpiechartwidget.h
+  ../../src/charts/statsqsosperbandbarchartwidget.h
+  ../../src/charts/statsworkedsentpiechartwidget.h
+  ../../src/charts/statsqsospercontinentbarchartwidget.h
+  ../../src/updatesettings.h
+  ../../src/world.h
+  ../../src/adif.h
 )
 
-# Prefer a config package if available (e.g., Homebrew/macOS or user-provided)
+# Hamlib: try config or module everywhere; Linux-only fallback to pkg-config.
+set(_hamlib_found FALSE)
+
 find_package(Hamlib CONFIG QUIET)
 if(Hamlib_FOUND)
-    set(_hamlib_found TRUE)
+  set(_hamlib_found TRUE)
 endif()
 
-# Try module mode (uses cmake/FindHamlib.cmake if present)
 if(NOT _hamlib_found)
-    find_package(Hamlib MODULE QUIET)
-    if(Hamlib_FOUND)
-        set(_hamlib_found TRUE)
-    endif()
-endif()
-
-# Linux-only fallback to pkg-config
-if(NOT _hamlib_found AND UNIX AND NOT APPLE)
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(HAMLIB REQUIRED IMPORTED_TARGET hamlib)
+  find_package(Hamlib MODULE QUIET)
+  if(Hamlib_FOUND)
     set(_hamlib_found TRUE)
+  endif()
 endif()
 
-# Link to whichever method was found
-if(TARGET Hamlib::Hamlib)
-    target_link_libraries(klog PRIVATE Hamlib::Hamlib)
-elseif(TARGET PkgConfig::HAMLIB)
-    target_link_libraries(klog PRIVATE PkgConfig::HAMLIB)
-elseif(HAMLIB_LIBRARIES)
-    target_include_directories(klog PRIVATE ${HAMLIB_INCLUDE_DIRS})
-    target_link_libraries(klog PRIVATE ${HAMLIB_LIBRARIES})
-else()
-    message(FATAL_ERROR
-        "Hamlib not found.\n"
-        "Linux: sudo apt install libhamlib-dev (or equivalent)\n"
-        "macOS: brew install hamlib (then set Hamlib_DIR or use FindHamlib.cmake)\n"
-        "Windows: install Hamlib and set Hamlib_DIR to its CMake package or provide libs/headers."
-    )
+if(NOT _hamlib_found AND UNIX AND NOT APPLE)
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(HAMLIB REQUIRED IMPORTED_TARGET hamlib)
+  set(_hamlib_found TRUE)
 endif()
 
-
-
-# Link with Qt6 Core and Test
-target_link_libraries(tst_mainwindow
-    Qt6::Core
-    Qt6::Charts
-    Qt6::Network
-    Qt6::Positioning
-    Qt6::PrintSupport
-    Qt6::Quick
-    Qt6::SerialPort
-    Qt6::Test
-    Qt6::Sql
-    Qt6::Widgets
+# Collect link libraries and link once using the keyword signature
+set(_tst_libs
+  Qt6::Core
+  Qt6::Charts
+  Qt6::Network
+  Qt6::Positioning
+  Qt6::PrintSupport
+  Qt6::Quick
+  Qt6::SerialPort
+  Qt6::Test
+  Qt6::Sql
+  Qt6::Widgets
 )
+
+if(TARGET Hamlib::Hamlib)
+  list(APPEND _tst_libs Hamlib::Hamlib)
+elseif(TARGET PkgConfig::HAMLIB)
+  list(APPEND _tst_libs PkgConfig::HAMLIB)
+elseif(HAMLIB_LIBRARIES)
+  target_include_directories(tst_mainwindow PRIVATE ${HAMLIB_INCLUDE_DIRS})
+  list(APPEND _tst_libs ${HAMLIB_LIBRARIES})
+else()
+  message(FATAL_ERROR
+    "Hamlib not found.\n"
+    "Linux: sudo apt install libhamlib-dev (or equivalent)\n"
+    "macOS: brew install hamlib (then set Hamlib_DIR or use FindHamlib.cmake)\n"
+    "Windows: install Hamlib and set Hamlib_DIR to its CMake package or provide libs/headers."
+  )
+endif()
+
+target_link_libraries(tst_mainwindow PRIVATE ${_tst_libs})
 
 # Register the test with CTest
 add_test(NAME tst_mainwindow COMMAND tst_mainwindow)
-

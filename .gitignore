@@ -1,9 +1,13 @@
 
+klog.dir/*
+CMakeFiles/*
 *~
 *.user
 KLog.pro.user*
 src/.qmake.stash
 src/build
+src/CMakeFiles/*
+src/klog_autogen/*
 build
 src/release
 src/Makefile*
@@ -20,7 +24,14 @@ src/klog_resource.rc
 *.pro~
 *.stash
 *.o
-CMakeFiles/*
+tests/CMakeFiles/*
+tests/tst_*/CTestTestfile.cmake
+tests/CTestTestfile.cmake
+tests/*/CMakeFiles/*
+*moc_*.cpp
+*moc_*.cpp.d
+tests/tst_*/tst_*_autogen/*
+tests/tst_callsign/tst_callsign_autogen/*
 tests/tst_mainwindow/macOSDeploy.sh
 tests/tst_mainwindow/Makefile
 *.tmp

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.31)
 project(KLog VERSION 2.5 LANGUAGES CXX)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -48,7 +48,6 @@ add_executable(klog
 )
 
 
-
 # Ensure the generated version.h is visible
 target_include_directories(klog PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -77,7 +76,8 @@ target_link_libraries(klog
 
 
 # Prefer a config package if available (e.g., Homebrew/macOS or user-provided)
-find_package(Hamlib CONFIG QUIET)
+find_package (Hamlib REQUIRED)
+#find_package(Hamlib CONFIG QUIET)
 if(Hamlib_FOUND)
     set(_hamlib_found TRUE)
 endif()
