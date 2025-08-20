@@ -49,6 +49,7 @@ If you are a native in a language different than English or Spanish, please cons
 
 ### Developers
 KLog accepts patches, suggestions, new developers and whatever help you can offer.
+
 Patches may be submitted by one of several ways. Perhaps the most common is [forking](https://help.github.com/search/?utf8=%E2%9C%93&q=forking) the KLog repository, making the changes to your cloned repository and then issuing a [pull request](https://help.github.com/search/?utf8=%E2%9C%93&q=pull+request).
 
 ### Testing
