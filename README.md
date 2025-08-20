@@ -51,3 +51,8 @@ I hope you enjoy KLog!
 KLog includes several tests that can be seen in the tests folders.
 You can compile and execute those tests as you compile any other Qt application.
 New functionalities should include the appropriate testing before they are released.
+
+### Debian
+KLog is in Debian.
+[Debian build status](https://buildd.debian.org/status/package.php?p=klog)
+
