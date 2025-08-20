@@ -1,3 +1,6 @@
+# --- Debug: confirm this Find module is being used ---
+message(STATUS "[KLog] Using FindHamlib.cmake from: ${CMAKE_CURRENT_LIST_FILE}")
+
 include (LibFindMacros)
 
 libfind_pkg_detect (Hamlib hamlib
