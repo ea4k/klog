@@ -34,10 +34,6 @@ You can also join the Telegram chat group:
 The Telegram chat group in Spanish:
     - <https://t.me/KLogES>
 
-## Translations
-
-If you are a native in a language different than English or Spanish, please consider helping us translating KLog into your native language.
-
 ## Install
 Read the INSTALL.txt for installation purposes.
 
@@ -46,6 +42,15 @@ Please send all your suggestions & bug reports.
 I hope you enjoy KLog!
 
 73 de Jaime, EA4K
+
+## Contributing
+
+### Translations
+
+If you are a native in a language different than English or Spanish, please consider helping us translating KLog into your native language.
+
+### Developers
+Patches may be submitted by one of several ways. Perhaps the most common is forking the KLog repository, making the changes to your cloned repository and then issuing a pull request.
 
 ## Testing
 KLog includes several tests that can be seen in the tests folders.
