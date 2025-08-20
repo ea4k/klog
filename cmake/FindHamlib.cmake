@@ -5,13 +5,11 @@ libfind_pkg_detect (Hamlib hamlib
   FIND_LIBRARY hamlib
   )
 
-libfind_package (Hamlib Usb)
-
 libfind_process (Hamlib)
 
 if (NOT Hamlib_PKGCONF_FOUND)
   if (WIN32)
-    set (Hamlib_LIBRARIES ${Hamlib_LIBRARIES};${Usb_LIBRARY};ws2_32)
+    set (Hamlib_LIBRARIES ${Hamlib_LIBRARIES};ws2_32)
   else ()
     set (Hamlib_LIBRARIES ${Hamlib_LIBRARIES};m;dl)
   endif ()
