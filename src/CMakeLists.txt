@@ -17,32 +17,36 @@ else()
 endif()
 
 # Recursively gather sources/resources under src/
-file(GLOB_RECURSE SRC_CPP CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+
 file(GLOB_RECURSE SRC_UI  CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
 file(GLOB_RECURSE SRC_QRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.qrc")
 
 # (Optional, IDE nicety)
-file(GLOB_RECURSE SRC_HDR CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 
-# Source files - you may need to adjust/add more sources here based on src.pro
-#file(GLOB KLOG_SOURCES
-#    "*.cpp"
-#)
-#file(GLOB KLOG_HEADERS
-#    "*.h"
-#)
-##file(GLOB KLOG_RESOURCES
-#    "*.qrc"
-#)
 
-# UI files
+
+
+
 #file(GLOB KLOG_UIS "*.ui")
+set(KLOG_SOURCES
+    main.cpp
+    foo.cpp
+    bar.cpp
+    adif.cpp
+)
 
+set(KLOG_HEADERS
+    foo.h
+    bar.h
+    adif.h
+)
+
+add_executable(klog ${KLOG_SOURCES} ${KLOG_HEADERS})
 # Add executable
 
 add_executable(klog
-    ${SRC_CPP}
-    ${SRC_HDR}   # optional
+    ${KLOG_SOURCES}
+    ${KLOG_HEADERS} 
     ${SRC_UI}
     ${SRC_QRC}
 )
