@@ -2,9 +2,18 @@
 message(STATUS "[KLog] Using FindHamlib.cmake from: ${CMAKE_CURRENT_LIST_FILE}")
 
 if (WIN32)
-message(STATUS "Win32 detected in FindHamlib.cmake")
-	set (Hamlib_LIBRARY "C:/Program Files/hamlib-w64-4.6.3")
-	set (Hamlib_INCLUDE_DIR "C:/Program Files/hamlib-w64-4.6.3/include")
+  message(STATUS "Win32 detected in FindHamlib.cmake")
+  set(Hamlib_INCLUDE_DIR "C:/Program Files/hamlib-w64-4.6.3/include")
+  find_library(Hamlib_LIBRARY
+    NAMES hamlib libhamlib hamlib-4 usb gcc_s winpthread
+    PATHS "C:/Program Files/hamlib-w64-4.6.3/lib/gcc/"
+    NO_DEFAULT_PATH
+  )
+  if(NOT Hamlib_LIBRARY)
+    message(FATAL_ERROR "Hamlib library not found in C:/Program Files/hamlib-w64-4.6.3/bin")
+  else()
+    message(STATUS "Hamlib library found: ${Hamlib_LIBRARY}")
+  endif()
 endif ()
 include (LibFindMacros)
 
