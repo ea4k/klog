@@ -225,7 +225,6 @@ set(KLOG_HEADERS
    widgets/map/mapwindowwidget.h
 )
 
-add_executable(klog ${KLOG_SOURCES} ${KLOG_HEADERS})
 # Add executable
 
 add_executable(klog
