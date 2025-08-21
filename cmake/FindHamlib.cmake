@@ -1,7 +1,15 @@
 # --- Debug: confirm this Find module is being used ---
 message(STATUS "[KLog] Using FindHamlib.cmake from: ${CMAKE_CURRENT_LIST_FILE}")
 
+if (WIN32)
+message(STATUS "Win32 detected in FindHamlib.cmake")
+	set (Hamlib_LIBRARY "C:/Program Files/hamlib-w64-4.6.3")
+	set (Hamlib_INCLUDE_DIR "C:/Program Files/hamlib-w64-4.6.3/include")
+endif ()
 include (LibFindMacros)
+
+# Allow users to hint the install root on Windows (only used on WIN32)
+set(HAMLIB_ROOT "" CACHE PATH "Root directory of a Hamlib installation (Windows), e.g. C:/Program Files/hamlib-<ver>")
 
 libfind_pkg_detect (Hamlib hamlib
   FIND_PATH hamlib/rig.h PATH_SUFFIXES hamlib
