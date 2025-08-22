@@ -31,7 +31,8 @@ export PATH=$HOME/Qt/Tools/Ninja:$PATH
 #KLOG_VERSION="$1"
 KLOG_VERSION=$(grep "PKGVERSION =" src.pro |awk '{print $3}')
 echo "Packaging KLog-$KLOG_VERSION"
-KLOG_SOURCES="../src"
+cd ..
+#KLOG_SOURCES="../src"
 QTDIRi=$HOME"/Qt"
 rm -Rf KLog.app
 rm -Rf build 
