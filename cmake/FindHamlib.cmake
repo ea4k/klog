@@ -1,6 +1,11 @@
 # --- Debug: confirm this Find module is being used ---
 message(STATUS "[KLog] Using FindHamlib.cmake from: ${CMAKE_CURRENT_LIST_FILE}")
 
+set(HAMLIB_ROOT "" CACHE PATH "Root directory of a Hamlib installation (Windows), e.g. C:/Program Files/hamlib-w64-<ver>")
+
+# Default hints for all platforms
+
+
 #if (WIN32)
 #  message(STATUS "Win32 detected in FindHamlib.cmake")
 #  set(Hamlib_INCLUDE_DIR "C:/Program Files/hamlib-w64-4.6.3/include")
@@ -20,6 +25,11 @@ message(STATUS "[KLog] Using FindHamlib.cmake from: ${CMAKE_CURRENT_LIST_FILE}")
 
 # On Windows, auto-discover typical installers under Program Files without requiring a version
 if(WIN32)
+  set(_hamlib_hints
+    $ENV{HAMLIB_ROOT}
+    ${HAMLIB_ROOT}
+  )
+
   set(_hamlib_win_roots)
 
   if(HAMLIB_ROOT)
@@ -41,6 +51,24 @@ if(WIN32)
     list(PREPEND _hamlib_hints ${_hamlib_win_roots})
   endif()
 endif()
+
+# --- Recursive search for headers ---
+find_path(Hamlib_INCLUDE_DIR
+  NAMES hamlib/rig.h
+  HINTS ${_hamlib_hints}
+  PATH_SUFFIXES include include/hamlib . # Try root and subfolders
+  NO_DEFAULT_PATH
+  DOC "Path to Hamlib headers"
+)
+
+# --- Recursive search for libraries ---
+find_library(Hamlib_LIBRARY
+  NAMES hamlib libhamlib hamlib-4 hamlib-5 hamlib-6
+  HINTS ${_hamlib_hints}
+  PATH_SUFFIXES lib lib64 lib/gcc lib/mingw lib/msvc .
+  NO_DEFAULT_PATH
+  DOC "Path to Hamlib library"
+)
 
 include (LibFindMacros)
 
