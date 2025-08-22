@@ -154,59 +154,59 @@
     <message>
         <location filename="../adif.cpp" line="442"/>
         <source>Uploaded</source>
-        <translation type="unfinished">Augšupielādēts</translation>
+        <translation>Augšupielādēts</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="442"/>
         <source>Do not Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Neaugšupielādēt</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="442"/>
         <source>Modified</source>
-        <translation type="unfinished">Pārveidots</translation>
+        <translation>Pārveidots</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Sūtīt</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <source>Do not send</source>
-        <translation type="unfinished"></translation>
+        <translation>Nesūtiet</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <location filename="../adif.cpp" line="462"/>
         <source>Requested</source>
-        <translation type="unfinished">Pieprasīts</translation>
+        <translation>Pieprasīts</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <source>Queued</source>
-        <translation type="unfinished">Rindā</translation>
+        <translation>Rindā</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="452"/>
         <location filename="../adif.cpp" line="462"/>
         <source>Invalid/Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederīgs/Ignorēt</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="462"/>
         <source>Yes</source>
-        <translation type="unfinished">Jā</translation>
+        <translation>Jā</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="462"/>
         <source>No</source>
-        <translation type="unfinished">Nē</translation>
+        <translation>Nē</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="462"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificēt</translation>
     </message>
 </context>
 <context>
@@ -297,12 +297,12 @@
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="658"/>
         <source>KLog Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog brīdinājums</translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="658"/>
         <source>There are no queued QSOs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rindā nav QSO.</translation>
     </message>
     <message>
         <source>All</source>
@@ -364,7 +364,7 @@
         <location filename="../awards.cpp" line="1311"/>
         <source>A</source>
         <comment>Do not translate</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1312"/>
@@ -652,17 +652,17 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="61"/>
         <source>DX</source>
-        <translation type="unfinished">DX</translation>
+        <translation>DX</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="61"/>
         <source>Freq</source>
-        <translation type="unfinished"></translation>
+        <translation>Biežums</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="61"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Statuss</translation>
     </message>
 </context>
 <context>
@@ -688,12 +688,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="108"/>
         <source>Check in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Pārbaudiet QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="110"/>
         <source>Check this callsign in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Pārbaudiet šo izsaukuma signālu vietnē QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="143"/>
@@ -719,12 +719,12 @@ Vai vēlaties mēģināt vēlreiz?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="142"/>
         <source>Clears the DXCluster command line.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notīra DXCluster komandrindu.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="221"/>
         <source>The DXCluster server desconnected the session.</source>
-        <translation type="unfinished"></translation>
+        <translation>DX klastera serveris pārtrauca sesiju.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="225"/>
@@ -819,7 +819,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../dataproxy_sqlite.cpp" line="4138"/>
         <source>Aircraft Scatter</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lidmašīnu izkliede</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4142"/>
@@ -1078,7 +1078,7 @@ Vai vēlaties mēģināt vēlreiz?</translation>
         <location filename="../filemanager.cpp" line="380"/>
         <location filename="../filemanager.cpp" line="572"/>
         <source>Writing ADIF file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Notiek ADIF faila rakstīšana...</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="380"/>

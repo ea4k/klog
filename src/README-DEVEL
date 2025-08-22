@@ -21,15 +21,14 @@ CONTENT:
 
 Read this document.
 
-Join the KLog mailing list and send a "Hello that's me and I am here" message:
-http//MAILINGLIST
+Join the KLog Telegram group and say hello.
+Once the number of developers grow, I will create a Telegram group or mailing list for developers.
 
 Interesting links:
 http://www.qtcentre.org/wiki/index.php?title=Keeping_the_GUI_Responsive
 Packer: http://upx.sourceforge.net/
 
-Install CMake
-https://cmake.org/download/
+
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
@@ -41,9 +40,10 @@ add new features (mainly contests and awards support).
 2.1 IMPORTANT THINGS TO HAVE IN MIND
 
 DEPRECATED - KLog version number is using the following system:
-   Release versions: The Decimal part of the version number will always use even numbers like 0, 1.2, 2.20, ...
-   while the decimal part of the development or Release Candidate versions will always be an odd number ie 0.1, 1.3, ...
-   The release number is defined in the "main.cpp" file.
+   Release versions: 2.4, 2.5, ... 2.4.1, 2.4.2, ...
+   There are Release Critical versions that will be released before an official release for testing purposes.
+   Release Critical versions are like: 2.4.2-RC1, 2.4.2-RC2, ...
+   The release number is defined in the "version.h.in" file.
 
 - KLog should manage several logs. The "log" table of the DB has a column called "lognumber".
    ALL QSO has a lognumber id that identifies the log it belongs to.
@@ -58,23 +58,6 @@ DEPRECATED - KLog version number is using the following system:
 - Any change to the DB architecture must be communicated and agreed with the development team before
   commiting to the SVN and following the 2.4 DB UPDATES area in this document.
 
-
-
-2.2 CONTEST SUPPORT
-
-The "Contest" class (in contest.h) is a base class and all the contest should inherit it.
-The "Contest" class has several virtual functions that should re-implemented in all derived classes.
-
-2.2.1 ADDING A NEW CONTEST
-
-To add a new contest, a new class, inheriting the "Contest" class should be created.
-
-The new contest file should be named: "contest_nameofthecontest.h" and "contest_nameofthecontest.cpp"
-and should be included in the mainwindow.h
-
-All the calls to the contest class should be implemented in the virtual class.
-
-A new contest must include the implementation of all the functions of the virtual class.
 
 
 2.3 AWARD SUPPORT
@@ -102,8 +85,40 @@ To update the DB structure there are several things to have in mind:
 
 3 - BEFORE CODING
 
-Update your sources from the SVN: Remember that other developer may has done a commit.
+Update your sources from the Github: Remember that other developer may has done a commit.
 
+3.0 - Common development environment
+
+KLog is being developed using:
+ - Qt 6.8.3
+ - Hamlib 4.6.3
+
+Versions of Qt are upgraded together with Debian testing. KLog development can't be ahead of Debian testing to prevent we use a version
+that is not deployed in Debian stable and therefore we make KLog not available in all the Debian derivative versions (Ubuntu, ...)
+Same should be taken into consideration for hamlib.
+
+3.1 - Linux development environment
+3.2 - macOS development environment
+3.3 - Windows development environment
+  KLog is being developed using Qt Creator 17.0.0.
+  Using Qt Maintenance Tool, install:
+  
+  + Qt
+    - Qt 6.8.3
+	- MinGW 13.1.0 64 bits
+	- Additional Libraries:
+	  - Qt Charts
+	  - Qt Location
+	  - Qt Positioning
+	  - Qt Serial Port
+	
+  +Build Tools
+    - CMake
+	- Ninja
+	- MinGW 13.10.0 64bit
+	- OpenSSL 3.0.16 Toolkit
+
+After installing the previous software, KLog can be also developed with Visual Studio Code.
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
