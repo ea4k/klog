@@ -1909,7 +1909,7 @@ void MainWindow::slotElogQRZCOMAutoCheck()
     }
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("QRZcom");
-    settings.setValue ("QRZcomAuto", false);
+    settings.setValue ("QRZcomAuto", QRZCOMAutoCheckAct->isChecked());
     settings.endGroup ();
 
       //qDebug() << Q_FUNC_INFO << " - END" ;
@@ -6106,9 +6106,7 @@ bool MainWindow::loadSettings()
     eqslSentDefault = settings.value("eQSLSentDefault", "Q").toString();
     settings.endGroup ();
 
-    settings.beginGroup ("QRZcom");
-    qrzcomSentDefault = settings.value("QRZcomSentDefault", "M").toString();
-    settings.endGroup ();
+
 
     settings.beginGroup ("LoTW");
     lotwSentDefault = settings.value("LoTWSentDefault", "Q").toString();
@@ -6223,12 +6221,16 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
     elogClublog->loadSettings ();
 
+
+
     settings.beginGroup ("QRZcom");
+    qrzcomSentDefault = settings.value("QRZcomSentDefault", "M").toString();
+    QRZCOMAutoCheckAct->setChecked(settings.value ("QRZcomAuto", false).toBool ());
     qrzcomActive = settings.value ("QRZcomActive", false).toBool ();
     //setupDialog->setQRZCOMAutoCheckActive(QRZCOMAutoCheckAct->isChecked());
     qrzcomSubscriber = settings.value ("QRZcomSubscriber", false).toBool ();
     elogQRZcom->setSubcription (qrzcomSubscriber);
-    QRZCOMAutoCheckAct->setChecked(settings.value ("QRZcomSubscriber", false).toBool ());
+    //QRZCOMAutoCheckAct->setChecked(settings.value ("QRZcomSubscriber", false).toBool ());
     //setupDialog->setQRZCOMAutoCheckActive(settings.value ("QRZcomSubscriber", false).toBool ());
     elogQRZcom->setUser (settings.value ("QRZcomUser").toString ());
     elogQRZcom->setPassword (settings.value ("QRZcomPass").toString ());

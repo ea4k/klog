@@ -45,7 +45,7 @@ add_executable(tst_database
 )
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_database
+target_link_libraries(tst_database PRIVATE
     Qt6::Core
     Qt6::Test
     Qt6::Sql

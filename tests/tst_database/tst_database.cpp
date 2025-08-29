@@ -1,4 +1,4 @@
-/***************************************************************************
+        /***************************************************************************
                           tst_database.h  -  description
                              -------------------
     begin                : Mar 2024
@@ -350,10 +350,12 @@ void tst_DataBase::test_addQSOs()
 
 void tst_DataBase::cleanupTestCase()
 {
-   //qDebug() << Q_FUNC_INFO;
-    Utilities util(Q_FUNC_INFO);
+    {
+        QSqlDatabase db = QSqlDatabase::database(); // "qt_sql_default_connection"
+        db.close();
+    } // ensure all queries using the connection are out of scope here
+    QSqlDatabase::removeDatabase("qt_sql_default_connection");
 }
-
 
 void tst_DataBase::test_Constructor()
 {
@@ -368,7 +370,9 @@ void tst_DataBase::test_Constructor()
    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-QTEST_GUILESS_MAIN(tst_DataBase)
+//QTEST_GUILESS_MAIN(tst_DataBase)
+#include <QApplication>
+QTEST_MAIN(tst_DataBase)
 
 #include "tst_database.moc"
 
