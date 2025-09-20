@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.30)
 project(KLog VERSION 2.5 LANGUAGES CXX)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+add_compile_definitions(KLOG_USE_VERSION_H)
 
 # Disallow in-source builds
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")

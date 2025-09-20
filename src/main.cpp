@@ -37,7 +37,9 @@
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
+#ifdef KLOG_USE_VERSION_H
 #include "version.h"
+#endif
 
 
 int showNoDB()
