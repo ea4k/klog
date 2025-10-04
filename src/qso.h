@@ -501,6 +501,7 @@ private:
     Adif *adif;
     DebugLogLevel logLevel;
 
+
    // DataProxy_SQLite *dataProxy;
     bool decltype_function(const QString& _c); //empty function to find correct typenames for mem_fn, DO NOT RENAME
     static QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> SetDataHash;

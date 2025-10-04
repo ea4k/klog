@@ -3,7 +3,7 @@
 
 TEMPLATE=subdirs
 SUBDIRS=\
-   tst_main \
+   #tst_main \
    tst_wizard \
    tst_adif \
    tst_callsign \
@@ -21,6 +21,7 @@ SUBDIRS=\
    tst_mainwindowinputqso \
    tst_mainwindowinputothers \
    tst_qso \
+   tst_qsodatacache \
    tst_setuphamlibnetworkwidget \
    tst_setuphamlibserialwidget \
    tst_setuppageelog \

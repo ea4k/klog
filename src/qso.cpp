@@ -40,6 +40,9 @@ QSO::QSO(QObject *parent)
 
     //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
+
+    // ea4k Revisar setMode / setSubmode para que cuando le llegue el mode se añada el submode con el mismo valor pero si llega el submode, se busque el mode
+    //el mode se puede encontrar de un hash que creemos al instanciar QSO de forma que con una sola query podamos hacer cambios mode/submode varias veces.
 }
 
 QSO::QSO(const QSO &other)
@@ -404,7 +407,7 @@ void QSO::operator=(QSO const &_other)
     haveMode        = _other.haveMode;
     haveSubMode     = _other.haveSubMode;
     haveDateTime    = _other.haveDateTime;
-    haveCall        = _other.haveCall;
+    haveCall        = _other.haveCall;    
 }
 
 bool QSO::copy(const QSO& other)
@@ -996,7 +999,7 @@ QString QSO::getBandRX() const
 bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    qDebug() << Q_FUNC_INFO << ": " << _c;
     QString aux = _c;
 
     if (aux.isNull())
@@ -1010,6 +1013,9 @@ bool QSO::setMode(const QString &_c)
     if (!aux.isEmpty())
     {
         //qDebug() << Q_FUNC_INFO << ": mode = " << _c;
+        submode = aux;
+        if (!haveMode)
+
         mode = aux;
         if (!haveSubMode)
             setSubmode(mode);
@@ -3878,8 +3884,8 @@ int QSO::toDB(int _qsoId)
 
     clearQSLDateIfNeeded();
 
-    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
-    //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
+    qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
+    qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
     //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     queryString.clear();
@@ -3930,8 +3936,7 @@ int QSO::toDB(int _qsoId)
 }
 
 QString QSO::getAddQueryString()
-{   // submode is not used, keep it empty.
-    // mode field is populated with the submode
+{
     return QString( "INSERT INTO log ("
                    "qso_date, call, rst_sent, rst_rcvd, bandid, modeid, cqz, ituz, dxcc, address, age, altitude, cnty, comment, a_index, ant_az, ant_el, "
                    "ant_path, arrl_sect, award_submitted, award_granted, band_rx, checkcontest, class, clublog_qso_upload_date, "
@@ -3947,7 +3952,7 @@ QString QSO::getAddQueryString()
                    "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, pota_ref, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
                    "qrzcom_qso_upload_status, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, "
                    "qth, region, rig, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, silent_key, skcc, sota_ref, srx_string, srx, stx_string, stx, state, "
-                   "station_callsign, swl, uksmg, usaca_counties, ve_prov, wwff_ref, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
+                   "station_callsign, submode, swl, uksmg, usaca_counties, ve_prov, wwff_ref, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
                    "VALUES ("
                    ":qso_date, :call, :rst_sent, :rst_rcvd, :bandid, :modeid, :cqz, :ituz, :dxcc, :address, :age, :altitude, :cnty, :comment, :a_index, :ant_az, :ant_el, "
                    ":ant_path, :arrl_sect, :award_submitted, :award_granted, :band_rx, :checkcontest, :class, :clublog_qso_upload_date, :clublog_qso_upload_status, :cont, "
@@ -3960,13 +3965,12 @@ QString QSO::getAddQueryString()
                    ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :pota_ref, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
                    ":qrzcom_qso_upload_status, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, "
                    ":qth, :region, :rig, :rx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sig_info, :silent_key, :skcc, :sota_ref, :srx_string, :srx, :stx_string, :stx, :state, "
-                   ":station_callsign, :swl, :uksmg, :usaca_counties, :ve_prov, :wwff_ref, :vucc_grids, :ten_ten, :tx_pwr, :web, :qso_date_off, "
+                   ":station_callsign, :submode, :swl, :uksmg, :usaca_counties, :ve_prov, :wwff_ref, :vucc_grids, :ten_ten, :tx_pwr, :web, :qso_date_off, "
                    ":marked, :lognumber)" );
 }
 
 QString QSO::getModifyQueryString()
-{ // submode is not used, keep it empty.
-    // mode field is populated with the submode
+{
     return QString("UPDATE log SET call = :call, qso_date = :qso_date, rst_sent = :rst_sent, rst_rcvd = :rst_rcvd, "
                    "bandid = :bandid, modeid = :modeid, cqz = :cqz, ituz = :ituz, dxcc = :dxcc, address = :address, "
                    "age = :age, altitude = :altitude, cnty = :cnty, comment = :comment, a_index = :a_index, ant_az = :ant_az, ant_el = :ant_el, "
@@ -4001,7 +4005,7 @@ QString QSO::getModifyQueryString()
                    "qth = :qth, region = :region, rig = :rig, rx_pwr = :rx_pwr, sat_mode = :sat_mode, sat_name = :sat_name, "
                    "sfi = :sfi, sig = :sig, sig_info = :sig_info, silent_key = :silent_key, skcc = :skcc, "
                    "sota_ref = :sota_ref, srx_string = :srx_string, srx = :srx, stx_string = :stx_string, stx = :stx, "
-                   "state = :state, station_callsign = :station_callsign, swl = :swl, uksmg = :uksmg, "
+                   "state = :state, station_callsign = :station_callsign, submode = :submode, swl = :swl, uksmg = :uksmg, "
                    "usaca_counties = :usaca_counties, ve_prov = :ve_prov, wwff_ref = :wwff_ref, vucc_grids = :vucc_grids, ten_ten = :ten_ten, "
                    "tx_pwr = :tx_pwr, web = :web, qso_date_off = :qso_date_off, marked = :marked, lognumber = :lognumber "
                    "WHERE id = :id");

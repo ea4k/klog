@@ -326,3 +326,10 @@ CMakeFiles/progress.marks
 CMakeFiles/TargetDirectories.txt
 src/version.h
 src/CTestTestfile.cmake
+tests/tst_qso/.qt/QtDeploySupport.cmake
+tests/tst_qso/.qt/QtDeployTargets.cmake
+tests/tst_world/.qt/QtDeployTargets.cmake
+tests/tst_world/.qt/QtDeploySupport.cmake
+tests/tst_qsodatacache/tst_qsodatacache
+tests/tst_qsodatacache/moc_predefs.h
+tests/tst_qsodatacache/target_wrapper.sh
