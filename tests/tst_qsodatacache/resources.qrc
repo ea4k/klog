@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/">
+        <file>modes.json</file>
+    </qresource>
+</RCC>

@@ -105,6 +105,7 @@ public:
     int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
     bool populateTablePrimarySubdivisions();
+    bool isTheDBCreated();
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
@@ -114,7 +115,7 @@ private:
     bool doesEntityTablehaveData();
     bool createDataBase();
     bool setPragma();       // Defines the PRAGMA for the DB
-    bool isTheDBCreated();
+
     bool isTheTableExisting(const QString &_tableName);
     bool hasTheTableData(const QString &_tableName);
     bool requiresManualUpgrade();

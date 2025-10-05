@@ -27,7 +27,7 @@
 
 #include <QtTest>
 #include <QCoreApplication>
-
+#include "qtestcase.h"
 #include "../../src/qsodatacache.h"
 #include "../../src/callsign.h"
 #include "../../src/klogdefinitions.h"
@@ -47,27 +47,27 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_Constructor();
-    void test_mode_data();
+    void test_modes_data();
     void test_modes();
 
 private:
     //QSODataCache qdata;
+    DataBase *db;
+    Utilities *util;
 
 };
 
 tst_QSODataCache::tst_QSODataCache()
 {
-    Utilities util(Q_FUNC_INFO);
-    QString version = QCoreApplication::applicationVersion();
-    DataBase db(Q_FUNC_INFO, version, util.getKLogDBFile());
+    QString _version = QString ("99.9");
+    //qDebug() << Q_FUNC_INFO << "- 001";
+    util = new Utilities(Q_FUNC_INFO);
+    //qDebug() << Q_FUNC_INFO << "- 002: " << util->getKLogDBFile();
 
-    //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
-
-    if (!db.createConnection(Q_FUNC_INFO))
-    {
-        QFAIL("No DB connection!");
-        //qDebug() << Q_FUNC_INFO << " -  NO DB";
-    }
+    db = new DataBase(Q_FUNC_INFO, _version, util->getKLogDBFile());
+    //qDebug() << Q_FUNC_INFO << "- 003";
+    QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 tst_QSODataCache::~tst_QSODataCache(){}
@@ -80,32 +80,42 @@ void tst_QSODataCache::test_Constructor()
 {
     //qdata.reloadAll();
     //QVERIFY(qdata.getModeFromSubmode("USB") == "SSB");
-
 }
 
-void tst_QSODataCache::test_mode_data()
+void tst_QSODataCache::test_modes_data()
 {
-    qDebug() << Q_FUNC_INFO;
-    QTest::addColumn<QString>("testString");
     QTest::addColumn<QString>("mode");
     QTest::addColumn<QString>("submode");
 
-    QTest::newRow("USB")   << "SSB"   << "USB";
-    QTest::newRow("LSB")   << "SSB"   << "LSB";
+    QFile file(":/modes.json");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "No se pudo abrir el resource modes.json";
+        QFAIL("No se pudo abrir modes.json como resource");
+    }
+
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+    QJsonArray arr = doc.array();
+
+    for (const QJsonValue& v : arr) {
+        QJsonObject obj = v.toObject();
+        QString mode = obj.value("mode").toString();
+        QJsonArray submodes = obj.value("submodes").toArray();
+        for (const QJsonValue& sv : submodes) {
+            QString submode = sv.toString();
+            QTest::newRow(qPrintable(mode + "_" + submode)) << mode << submode;
+        }
+    }
 }
 
 void tst_QSODataCache::test_modes()
 {
-    qDebug() << Q_FUNC_INFO;
-    QFETCH(QString, testString);
     QFETCH(QString, mode);
     QFETCH(QString, submode);
 
-    QSODataCache qm;
-    qm.reloadAll();
-    qDebug() << qm.getModeFromSubmode(submode);
+    QSODataCache cache; // Make sure you pass your DB pointer
+    cache.reloadAll();
 
-    //QCOMPARE(qm.getModeFromSubmode(submode), mode);
+    QCOMPARE(cache.getModeFromSubmode(submode), mode);
 }
 
 QTEST_GUILESS_MAIN(tst_QSODataCache)

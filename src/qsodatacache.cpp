@@ -39,7 +39,7 @@ QString QSODataCache::getModeFromSubmode(const QString &_sm)
 
 bool QSODataCache::loadSubmodeModeHash()
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     submodeModeHash.clear();
 
     QSqlQuery query;
@@ -60,12 +60,12 @@ bool QSODataCache::loadSubmodeModeHash()
             QString submode = query.value(0).toString();
             QString mode    = query.value(1).toString();
             submodeModeHash.insert(submode, mode);
-            qDebug() << Q_FUNC_INFO << submode << "/" << mode;
+            //qDebug() << Q_FUNC_INFO << submode << "/" << mode;
         }
     }
 
     query.finish();
-    qDebug() << Q_FUNC_INFO << "END";
+    //qDebug() << Q_FUNC_INFO << "END";
     //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(submodeModeHash.count());
     return true;
 }

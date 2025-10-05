@@ -333,3 +333,6 @@ tests/tst_world/.qt/QtDeploySupport.cmake
 tests/tst_qsodatacache/tst_qsodatacache
 tests/tst_qsodatacache/moc_predefs.h
 tests/tst_qsodatacache/target_wrapper.sh
+tests/tst_qsodatacache/.qt/QtDeploySupport.cmake
+tests/tst_qsodatacache/.qt/QtDeployTargets.cmake
+tests/tst_qsodatacache/resources.qrc.depends

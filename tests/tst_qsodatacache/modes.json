@@ -1,0 +1,67 @@
+[
+  {"mode": "AM", "submodes": ["AM"]},
+  {"mode": "ARDOP", "submodes": ["ARDOP"]},
+  {"mode": "ATV", "submodes": ["ATV"]},
+  {"mode": "CLO", "submodes": ["CLO"]},
+  {"mode": "CHIP", "submodes": ["CHIP", "CHIP64", "CHIP128"]},
+  {"mode": "CONTESTI", "submodes": ["CONTESTI"]},
+  {"mode": "CW", "submodes": ["CW", "PCW"]},
+  {"mode": "DIGITALVOICE", "submodes": ["DIGITALVOICE", "C4FM", "DMR", "DSTAR", "FREEDV", "M17"]},
+  {"mode": "DOMINO", "submodes": ["DOMINO", "DOMINOEX", "DOMINOF", "DOM-M", "DOM4", "DOM5", "DOM8", "DOM11", "DOM16", "DOM22", "DOM44", "DOM88"]},
+  {"mode": "FAX", "submodes": ["FAX"]},
+  {"mode": "FM", "submodes": ["FM"]},
+  {"mode": "FSK441", "submodes": ["FSK441"]},
+  {"mode": "FSKHELL", "submodes": ["FSKHELL"]},
+  {"mode": "JT4", "submodes": ["JT4", "JT4A", "JT4B", "JT4C", "JT4D", "JT4E", "JT4F", "JT4G"]},
+  {"mode": "JT6M", "submodes": ["JT6M"]},
+  {"mode": "JT9", "submodes": [
+    "JT9", "JT9-1", "JT9-2", "JT9-5", "JT9-10", "JT9-30", "JT9A", "JT9B", "JT9C", "JT9D", "JT9E", "JT9E FAST", "JT9F", "JT9F FAST", "JT9G", "JT9G FAST", "JT9H", "JT9H FAST"
+  ]},
+  {"mode": "JT44", "submodes": ["JT44"]},
+  {"mode": "JT65", "submodes": ["JT65", "JT65A", "JT65B", "JT65B2", "JT65C", "JT65C2"]},
+  {"mode": "MFSK", "submodes": [
+    "MFSK", "MFSK4", "MFSK8", "MFSK11", "MFSK16", "MFSK22", "MFSK31", "MFSK32", "MFSK64", "MFSK64L", "MFSK128", "MFSK128L"
+  ]},
+  {"mode": "MSK144", "submodes": ["MSK144"]},
+  {"mode": "MT63", "submodes": ["MT63"]},
+  {"mode": "OLIVIA", "submodes": [
+    "OLIVIA", "OLIVIA 4/125", "OLIVIA 4/250", "OLIVIA 8/250", "OLIVIA 8/500", "OLIVIA 16/500", "OLIVIA 16/1000", "OLIVIA 32/1000"
+  ]},
+  {"mode": "OPERA", "submodes": ["OPERA", "OPERA-BEACON", "OPERA-QSO"]},
+  {"mode": "PAC", "submodes": ["PAC", "PAC2", "PAC3", "PAC4"]},
+  {"mode": "PAX", "submodes": ["PAX", "PAX2"]},
+  {"mode": "PSK", "submodes": [
+    "PSK", "PSK10", "PSK31", "PSK63", "PSK63F", "PSK63RC4", "PSK63RC5", "PSK63RC10", "PSK63RC20", "PSK63RC32", "PSK125", "PSK125C12", "PSK125R", "PSK125RC10", "PSK125RC12", "PSK125RC16", "PSK125RC4", "PSK125RC5", "PSK250", "PSK250C6", "PSK250R", "PSK250RC2", "PSK250RC3", "PSK250RC5", "PSK250RC6", "PSK250RC7", "PSK500", "PSK500C2", "PSK500C4", "PSK500R", "PSK500RC2", "PSK500RC3", "PSK500RC4", "PSK800C2", "PSK800RC2", "PSK1000", "PSK1000C2", "PSK1000R", "PSK1000RC2", "PSKAM10", "PSKAM31", "PSKAM50", "PSKFEC31"
+  ]},
+  {"mode": "PSK2K", "submodes": ["PSK2K"]},
+  {"mode": "PSKHELL", "submodes": ["PSKHELL"]},
+  {"mode": "Q15", "submodes": ["Q15"]},
+  {"mode": "QPSK", "submodes": ["QPSK31", "QPSK63", "QPSK125", "QPSK250", "QPSK500"]},
+  {"mode": "QRA64", "submodes": ["QRA64", "QRA64A", "QRA64B", "QRA64C", "QRA64D", "QRA64E"]},
+  {"mode": "Q65", "submodes": ["Q65"]},
+  {"mode": "ROS", "submodes": ["ROS", "ROS-EME", "ROS-HF", "ROS-MF"]},
+  {"mode": "RTTY", "submodes": ["RTTY", "RTTYM"]},
+  {"mode": "SSB", "submodes": ["SSB", "LSB", "USB"]},
+  {"mode": "SSTV", "submodes": ["SSTV"]},
+  {"mode": "THRB", "submodes": ["THRB", "THRBX", "THRBX1", "THRBX2", "THRBX4", "THROB1", "THROB2", "THROB4"]},
+  {"mode": "THOR", "submodes": [
+    "THOR", "THOR-M", "THOR4", "THOR5", "THOR8", "THOR11", "THOR16", "THOR22", "THOR25X4", "THOR50X1", "THOR50X2", "THOR100"
+  ]},
+  {"mode": "TOR", "submodes": ["TOR", "AMTORFEC", "NAVTEX", "SITORB", "GTOR"]},
+  {"mode": "V4", "submodes": ["V4"]},
+  {"mode": "VOI", "submodes": ["VOI"]},
+  {"mode": "WINMOR", "submodes": ["WINMOR"]},
+  {"mode": "WSPR", "submodes": ["WSPR"]},
+  {"mode": "FSQCALL", "submodes": ["FSQCALL"]},
+  {"mode": "FT4", "submodes": ["FT4"]},
+  {"mode": "FT8", "submodes": ["FT8"]},
+  {"mode": "FST4", "submodes": ["FST4"]},
+  {"mode": "FST4W", "submodes": ["FST4W"]},
+  {"mode": "HELL", "submodes": [
+    "HELL", "FMHELL", "FSKHELL", "HELLX5", "HELLX9", "HELL80", "HFSK", "SLOWHELL"
+  ]},
+  {"mode": "ISCAT", "submodes": ["ISCAT", "ISCAT-A", "ISCAT-B"]},
+  {"mode": "JS8", "submodes": ["JS8"]},
+  {"mode": "JTMS", "submodes": ["JTMS"]},
+  {"mode": "SIM31", "submodes": ["SIM31"]}
+]
