@@ -26,27 +26,61 @@
 
 #include "qsodatacache.h"
 
-QSODataCache::QSODataCache() {
-    qDebug() << Q_FUNC_INFO;
+QSODataCache::QSODataCache(const QString &_parentFunction) {
+#ifdef QT_DEBUG
+    //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
+#else
+//    //qDebug() << Q_FUNC_INFO << "Running a release build";
+#endif
+    (void)_parentFunction;
+    ready = false;
 }
-QSODataCache::~QSODataCache() {}
+QSODataCache::~QSODataCache(){}
 
-QString QSODataCache::getModeFromSubmode(const QString &_sm)
+//QString QSODataCache::getModeFromSubmode(const QString &_sm)
+//{
+//    //qDebug() << Q_FUNC_INFO;
+//    return submodeModeHash.value(_sm);
+//}
+
+int QSODataCache::getModeIdFromSubmode(const QString &_sm) const
 {
-    qDebug() << Q_FUNC_INFO;
-    return submodeModeHash.value(_sm);
+    //qDebug() << Q_FUNC_INFO;
+    auto it = submodeModeHash.constFind(_sm);
+    if (it != submodeModeHash.constEnd()) {
+        return it.value().id;
+    }
+    return -1; //  "not found"
+}
+
+QString QSODataCache::getModeFromSubmode(const QString &_sm) const
+{
+    //qDebug() << Q_FUNC_INFO << _sm;
+    auto it = submodeModeHash.constFind(_sm);
+    if (it != submodeModeHash.constEnd()) {
+        return it.value().mode;
+    }
+    return QString(); // or return a fallback/default value if you prefer
+}
+
+bool QSODataCache::isReady()
+{
+    //qDebug() << Q_FUNC_INFO;
+    return ready;
 }
 
 bool QSODataCache::loadSubmodeModeHash()
 {
     //qDebug() << Q_FUNC_INFO;
     submodeModeHash.clear();
+    //qDebug() << Q_FUNC_INFO << " - 001";
 
     QSqlQuery query;
-    QString queryString = "SELECT submode, name FROM mode";
-
+    //qDebug() << Q_FUNC_INFO << " - 002";
+    QString queryString = "SELECT id, submode, name FROM mode";
+    //qDebug() << Q_FUNC_INFO << " - 003";
     bool sqlOK = query.exec(queryString);
-
+    //qDebug() << Q_FUNC_INFO << " - 010";
     if (!sqlOK)
     {
         //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
@@ -54,25 +88,64 @@ bool QSODataCache::loadSubmodeModeHash()
         //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
         return false;
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 020";
     while (query.next()) {
         if (query.isValid()) {
-            QString submode = query.value(0).toString();
-            QString mode    = query.value(1).toString();
-            submodeModeHash.insert(submode, mode);
-            //qDebug() << Q_FUNC_INFO << submode << "/" << mode;
+            //submodeModeHash["USB"] = {1, "SSB"};
+            QString submode = query.value(1).toString();
+
+            ModeInfo mInfo;
+            mInfo.id = query.value(0).toInt();
+            mInfo.mode = query.value(2).toString();
+            submodeModeHash.insert(submode, mInfo);
+            //submodeModeHash.insert(submode, mode);
+            //qDebug() << Q_FUNC_INFO << QString::number(mInfo.id) << "/" << submode << "/" << mInfo.mode;
         }
     }
-
+    //qDebug() << Q_FUNC_INFO << " - 030";
     query.finish();
     //qDebug() << Q_FUNC_INFO << "END";
     //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(submodeModeHash.count());
     return true;
 }
 
-void QSODataCache::reloadAll()
+bool QSODataCache::reloadAll()
 {
-    qDebug() << Q_FUNC_INFO;
-    loadSubmodeModeHash();
-    //loadModeIdHash();
+    //qDebug() << Q_FUNC_INFO;
+    ready = loadSubmodeModeHash();
+    return isReady();
+}
+
+bool QSODataCache::isValidMode(const QString &_m)
+{
+    //qDebug() << Q_FUNC_INFO << "Checking mode:" << _m;
+
+    if (!ready) {
+        //qDebug() << Q_FUNC_INFO << "Not ready, reloading...";
+        if (!reloadAll()) {
+            //qDebug() << Q_FUNC_INFO << "Reload failed.";
+            return false;
+        }
+    }
+
+    // Efficient search: check if any value's mode matches _m
+    for (const auto &info : submodeModeHash) {
+        if (info.mode == _m)
+            return true;
+    }
+    return false;
+}
+
+bool QSODataCache::isValidSubMode(const QString &_m)
+{
+    //qDebug() << Q_FUNC_INFO << "Checking submode:" << _m;
+
+    if (!ready) {
+        if (!reloadAll()) {
+            //qDebug() << Q_FUNC_INFO << "Reload failed.";
+            return false;
+        }
+    }
+
+    return submodeModeHash.contains(_m);
 }

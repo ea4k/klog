@@ -28,7 +28,7 @@ SOURCES +=  tst_qsodatacache.cpp \
     ../../src/utilities.cpp \
     ../../src/qsodatacache.cpp 
 
-RESOURCES += modes.qrc
+RESOURCES += resources.qrc
 
 DEFINES += TESTING
 

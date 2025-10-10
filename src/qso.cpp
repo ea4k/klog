@@ -37,6 +37,7 @@ QSO::QSO(QObject *parent)
     logLevel = None;
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
+    qdata = new QSODataCache(Q_FUNC_INFO);
 
     //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
@@ -52,6 +53,7 @@ QSO::QSO(const QSO &other)
   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
    //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     util = new Utilities(Q_FUNC_INFO);
+    qdata = new QSODataCache(Q_FUNC_INFO);
     logLevel = other.logLevel;
     haveBand = other.haveBand;
     haveMode = other.haveMode;
@@ -999,45 +1001,32 @@ QString QSO::getBandRX() const
 bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << _c;
-    QString aux = _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
 
-    if (aux.isNull())
+    if (qdata->isValidMode(_c))
     {
-        //qDebug() << Q_FUNC_INFO << ": NULL";
-        mode = QString();
-        haveMode = false;
-        logEvent (Q_FUNC_INFO, "END - False 1", Debug);
-        return false;
+        //qDebug() << Q_FUNC_INFO << " - 010";
+        mode = _c;
+        haveMode = true;
+        submode = mode;
+        haveSubMode = true;
+        return true;
     }
-    if (!aux.isEmpty())
+    else if (qdata->isValidSubMode(_c))
     {
-        //qDebug() << Q_FUNC_INFO << ": mode = " << _c;
-        submode = aux;
-        if (!haveMode)
-
-        mode = aux;
-        if (!haveSubMode)
-            setSubmode(mode);
-        logEvent (Q_FUNC_INFO, "END - True", Debug);
+        //qDebug() << Q_FUNC_INFO << " - 020";
+        submode = _c;
+        haveSubMode = true;
+        mode = qdata->getModeFromSubmode(submode);
         haveMode = true;
         return true;
     }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << ": FALSE 2";
-        mode = QString();
-        haveMode = false;
-        logEvent (Q_FUNC_INFO, "END - False 2", Debug);
-        return false;
-    }
+
+    //qDebug() << Q_FUNC_INFO << " - 999";
+    return false;
 }
 
-QString QSO::getMode() const
-{
-
-    return mode;
-}
+QString QSO::getMode() const { return mode; }
 
 bool QSO::setDate(const QDate &_c)
 {
@@ -3311,28 +3300,22 @@ QString QSO::getState() const
     return state;
 }
 
-bool QSO::setSubmode(const QString &_c)
+void QSO::cleanMode()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
-    if (!_c.isEmpty())
-    {
-        //qDebug() << Q_FUNC_INFO << ": submode: " << _c;
-        submode = _c;
-        haveSubMode = true;
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << ": NULL";
-        submode = QString();
-        haveSubMode = false;
-    }
-    return true;
+    haveSubMode = false;
+    haveMode = false;
+    mode = QString();
+    submode = QString();
 }
 
-QString QSO::getSubmode() const
+bool QSO::setSubmode(const QString &_c)
 {
-    return submode;
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    return setMode(_c);
 }
+
+QString QSO::getSubmode() const { return submode; }
 
 bool QSO::setSwl(bool _k)
 {
@@ -3884,8 +3867,8 @@ int QSO::toDB(int _qsoId)
 
     clearQSLDateIfNeeded();
 
-    qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
-    qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
+    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
+    //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
     //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     queryString.clear();

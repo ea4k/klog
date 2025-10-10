@@ -456,8 +456,8 @@ QSO MainQSOEntryWidget::getQSOData(QSO & _qso)
     tQSO.setCall(getQrz());
    //qDebug() << Q_FUNC_INFO << " -  Call-03   : " << tQSO.getCall();
     tQSO.setBand(getBand());
-    tQSO.setMode(dataProxy->getNameFromSubMode (getMode()));
-    tQSO.setSubmode(getMode());
+    //tQSO.setMode(getMode());
+    tQSO.setSubmode(getMode()); // MainQSOEntryWidget::getMode returns the submode that is shown
     tQSO.setDateTimeOn(getDateTime());
     return tQSO;
 }

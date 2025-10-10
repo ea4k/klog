@@ -89,7 +89,7 @@ void tst_QSODataCache::test_modes_data()
 
     QFile file(":/modes.json");
     if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "No se pudo abrir el resource modes.json";
+        //qDebug() << "No se pudo abrir el resource modes.json";
         QFAIL("No se pudo abrir modes.json como resource");
     }
 
@@ -112,7 +112,7 @@ void tst_QSODataCache::test_modes()
     QFETCH(QString, mode);
     QFETCH(QString, submode);
 
-    QSODataCache cache; // Make sure you pass your DB pointer
+    QSODataCache cache(Q_FUNC_INFO); // Make sure you pass your DB pointer
     cache.reloadAll();
 
     QCOMPARE(cache.getModeFromSubmode(submode), mode);

@@ -256,6 +256,7 @@ void MainWindow::init_variables()
     QRZCOMAutoCheckAct->setChecked(false);
     manualMode = false;
     qrzAutoChanging = false;
+    changingBand = false;
     logEvents = true;
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
@@ -710,7 +711,7 @@ void MainWindow::createActionsCommon(){
 
 void MainWindow::slotQSO_SetMode(const QString _submode)
 {
-    qsoInUI.setMode(dataProxy->getNameFromSubMode (_submode));
+    qsoInUI.setMode(_submode);
 }
 
 void MainWindow::recommendBackupIfNeeded()
@@ -941,7 +942,7 @@ void MainWindow::slotBandChanged (const QString &_b)
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return;
     }
-
+    changingBand = true;
     currentBandShown = dataProxy->getIdFromBandName(_b);
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
@@ -974,7 +975,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     {
         showStatusOfDXCC(_entityStatus);
     }
-
+    changingBand = false;
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::slotBandChanged: END" ;
 }
@@ -1239,15 +1240,25 @@ void MainWindow::getQSODataFromUI()
 {
    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << qsoInUI.getCall();
     qsoInUI.clear();
+    //qDebug() << Q_FUNC_INFO << " -  000";
     qsoInUI = mainQSOEntryWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  001";
     qsoInUI = QSOTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  002";
     qsoInUI = commentTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  003";
     qsoInUI = othersTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  004";
     qsoInUI = eQSLTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  005";
     qsoInUI = QSLTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  006";
     qsoInUI = mainQSOEntryWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  008";
     qsoInUI = satTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  009";
     qsoInUI = myDataTabWidget->getQSOData(qsoInUI);
+    //qDebug() << Q_FUNC_INFO << " -  010";
 
     //*qso = mainQSOEntryWidget->getQSOData(*qso);
     //*qso = QSOTabWidget->getQSOData(*qso);
@@ -2210,6 +2221,7 @@ void MainWindow::clearUIDX(bool _full)
     completedWithPreviousName = false;
     completedWithPreviousQTH = false;
     completedWithPreviousLocator = false;
+    changingBand = false;
 
      //qDebug() << Q_FUNC_INFO << " deciding wether to change or not the Freq: " << QString::number(QSOTabWidget->getTXFreq()) ;
     if (QSOTabWidget->getTXFreq()<=0)
@@ -5337,6 +5349,9 @@ void MainWindow::slotFreqTXChanged(const double _fr)
         return;
     }
 
+    if (!changingBand)
+        mainQSOEntryWidget->setBand(dataProxy->getBandNameFromFreq(_fr));
+
     //qDebug() << Q_FUNC_INFO << " - 10";
     QSOTabWidget->setTXFreq (_fr);
     //qDebug() << Q_FUNC_INFO << " - 11";
@@ -5347,7 +5362,9 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     {
         hamlib->setFreq(_fr);
     }
-    mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
+
+    if (changingBand)
+        mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << " - END";

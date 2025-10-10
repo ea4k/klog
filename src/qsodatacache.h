@@ -31,18 +31,25 @@
 #include <QString>
 #include <QSqlQuery>
 
+struct ModeInfo {
+    int id;
+    QString mode;
+};
+
 class QSODataCache: public QObject
 {
     Q_OBJECT
     friend class tst_QSODataCache;
 public:
-    QSODataCache();
+    QSODataCache(const QString &_parentFunction);
     ~QSODataCache();
 public:
-    QString getModeFromSubmode(const QString &_sm);
-
-
-    void reloadAll(); //  To reload all the data
+    QString getModeFromSubmode(const QString &_sm) const;
+    int getModeIdFromSubmode(const QString &_sm) const;
+    bool reloadAll(); //  To reload all the data
+    bool isReady();
+    bool isValidMode(const QString &_m);
+    bool isValidSubMode(const QString &_m);
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
@@ -50,7 +57,9 @@ private:
     bool loadSubmodeModeHash();
     //void loadModeIdHash();
 
-    QHash<QString, QString> submodeModeHash; // submode -> mode
+    //QHash<QString, QString> submodeModeHash; // submode -> mode
+    QHash<QString, ModeInfo> submodeModeHash; // submode -> ModeInfo
+    bool ready;
 
 };
 

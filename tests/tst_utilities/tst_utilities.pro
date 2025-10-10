@@ -19,6 +19,7 @@ HEADERS += \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/frequency.h \
     ../../src/qso.h \
+    ../../src/qsodatacache.h \
     ../../src/callsign.h \
     ../../src/klogdefinitions.h \
     ../../src/locator.h \
@@ -32,6 +33,7 @@ SOURCES +=  tst_utilities.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/frequency.cpp \
     ../../src/qso.cpp \
+    ../../src/qsodatacache.cpp \
     ../../src/callsign.cpp \
     ../../src/locator.cpp \
     ../../src/adif.cpp
