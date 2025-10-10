@@ -36,6 +36,7 @@
 #include "klogdefinitions.h"
 #include "adif.h"
 #include "frequency.h"
+#include "qsodatacache.h"
 
 class QSO : public QObject
 {
@@ -62,6 +63,7 @@ public:
     bool getModifying() const;
 
     bool setData(const QString &_adifPair, bool _lotw = false);
+
     void clear();
     bool isValid();
     void setLoTWUpdating(bool _lotw);
@@ -405,7 +407,6 @@ public:
     int getStx() const;
     bool setStxString(const QString &_c);
     QString getStxString() const;
-    //bool setSubmode(const QString &_c, bool requestMode = false);
     bool setSubmode(const QString &_c);
     QString getSubmode() const;
     bool setSwl(bool _k);
@@ -459,7 +460,7 @@ private:
     void setBandFromFreq(const double _fr, bool TX = true);
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
     //DataBase *db;
-
+    void cleanMode(); // Cleans mode & submode
     // Functions to update a QSO after downloading LoTW
 
     int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
@@ -497,9 +498,11 @@ private:
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
     bool haveBand, haveMode, haveSubMode, haveDateTime, haveCall;
 
+    QSODataCache *qdata;
     Utilities *util;
     Adif *adif;
     DebugLogLevel logLevel;
+
 
    // DataProxy_SQLite *dataProxy;
     bool decltype_function(const QString& _c); //empty function to find correct typenames for mem_fn, DO NOT RENAME

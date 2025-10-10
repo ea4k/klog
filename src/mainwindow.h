@@ -606,6 +606,7 @@ private:
 
     bool txFreqBeingChanged,  updatingBands; //rxFreqBeingChanged  // When the freqs is being modified it is defined to true to prevent other automated to change.
     bool txFreqBeingAutoChanged, rxFreqBeingAutoChanged;        // This is defined to true when freq is being changed by the Sat tab to prevent a loop.
+    bool changingBand;  // True when the bands are being changed
     bool qslingNeeded;
     bool noMoreErrorShown;              // If true, the errors shown in slotQueryErrorManagement will not be shown anymore in that KLog execution
     bool noMoreModeErrorShown;          // If true, the non-valid modes received from WSJT-x will not be showed to the user

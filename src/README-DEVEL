@@ -161,6 +161,13 @@ Before adding or modifying any shortcut:
 - The DB version has to be checked and modified after a DB schema modification.
 - Any modification to the DB has to be provided with the code to update from any previous version.
 
+4.5 MODE & SUBMODE
+
+The UI should show always the SUBMODE in the main widget.
+QSOs should save mode & submode.
+If no submode is present, KLog should save the first "mode" where mode & submode are the same.
+On export, mode & submode should be exported.
+
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 5 - AFTER CODING

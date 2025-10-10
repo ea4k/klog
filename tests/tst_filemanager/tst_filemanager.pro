@@ -20,6 +20,7 @@ HEADERS += \
     ../../src/locator.h \
     ../../src/database/queryexecutor.h \
     ../../src/qso.h \
+    ../../src/qsodatacache.h \
     ../../src/utilities.h \
     ../../src/world.h \
     ../../src/filemanager.h
@@ -36,6 +37,7 @@ SOURCES +=  tst_filemanager.cpp \
     ../../src/locator.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/qso.cpp \
+    ../../src/qsodatacache.cpp \
     ../../src/utilities.cpp \
     ../../src/world.cpp \
     ../../src/filemanager.cpp

@@ -1,5 +1,10 @@
+TODO: Update the DB to include new modes/submodes: THOR & PSK,...
+
 TBD
-- Bugfix Check QRZ automatically is not saved (Closes #840)
+- Enhancement: Test on QSO cache class.
+- Bugfix: Check QRZ automatically is not saved (Closes #840)
+- Bugfix: Everytime TX Frequency changes, mode changes to USB (Closes #842)
+
 
 Aug 2025 - 2.4.2
 - Enhancement: Map is now showing Locator identifiers.

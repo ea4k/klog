@@ -1,49 +1,47 @@
 cmake_minimum_required(VERSION 3.30)
-project(tst_world)
+project(tst_qsodatacache)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find Qt6 Core and Test modules
-find_package(Qt6 REQUIRED COMPONENTS Core Test Sql)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Test Sql)
+
 # Enable AUTOMOC before add_executable
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORRC ON)
+
+qt_add_resources(tst_qsodatacache "resources.qrc")
 
 # Collect test sources
 file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_world
+add_executable(tst_qsodatacache
     ${TEST_SOURCES}
-    ../../src/world.cpp
-    ../../src/dataproxy_sqlite.cpp
-    ../../src/qso.cpp
     ../../src/callsign.cpp
-    ../../src/utilities.cpp
     ../../src/database.cpp
-    ../../src/database/queryexecutor.cpp
     ../../src/database/db_adif_primary_subdvisions_data.cpp
-    ../../src/frequency.cpp
-    ../../src/locator.cpp
-    ../../src/adif.cpp
+    ../../src/database/queryexecutor.cpp
+    ../../src/frequency.h
+    ../../src/locator.h
+    ../../src/qsodatacache.cpp
+    ../../src/utilities.cpp
 
     ${TEST_HEADERS}
-    ../../src/world.h
-    ../../src/dataproxy_sqlite.h
-    ../../src/locator.h
-    ../../src/utilities.h
-    ../../src/database.h
-    ../../src/database/queryexecutor.h
-    ../../src/database/db_adif_primary_subdvisions_data.h
-    ../../src/frequency.h
-    ../../src/qso.h
     ../../src/callsign.h
-    ../../src/adif.h
+    ../../src/database.h
+    ../../src/database/db_adif_primary_subdvisions_data.h 
+    ../../src/database/queryexecutor.h
+    ../../src/frequency.cpp
+    ../../src/locator.cpp
+    ../../src/qsodatacache.h    
+    ../../src/utilities.h
 )
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_world
+target_link_libraries(tst_qsodatacache
     Qt6::Core
     Qt6::Test
     Qt6::Sql
@@ -51,5 +49,5 @@ target_link_libraries(tst_world
 )
 
 # Register the test with CTest
-add_test(NAME tst_world COMMAND tst_world)
+add_test(NAME tst_qsodatacache COMMAND tst_qsodatacache)
 

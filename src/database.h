@@ -105,6 +105,7 @@ public:
     int getLastInsertedQSO();
     void setLogLevel (const DebugLogLevel _b);
     bool populateTablePrimarySubdivisions();
+    bool isTheDBCreated();
 //private slots:
 //    void slotPrintErrors(QString _func, QString _msg, int _level);
 
@@ -114,7 +115,7 @@ private:
     bool doesEntityTablehaveData();
     bool createDataBase();
     bool setPragma();       // Defines the PRAGMA for the DB
-    bool isTheDBCreated();
+
     bool isTheTableExisting(const QString &_tableName);
     bool hasTheTableData(const QString &_tableName);
     bool requiresManualUpgrade();
@@ -163,7 +164,9 @@ private:
 
     bool createTableMode(const bool NoTmp);
     bool populateTableMode(const bool NoTmp);
-    bool populateTableModePSK(bool NoTmp);  //Refactored from populateTableMode
+    //bool populateTableModePSK(bool NoTmp);  //Refactored from populateTableMode
+    //bool populateTableModeMFSK(bool NoTmp);
+    bool populateTableWithModes(const QStringList& submodes, const QString& mode, const QString &cabrillo, bool NoTmp); // General function for modes
     bool updateTheModeTableAndSyncLog();
 
     bool createTableBand(const bool NoTmp);

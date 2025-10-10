@@ -9,31 +9,26 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/callsign.h \
     ../../src/database.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/database/queryexecutor.h \
-    ../../src/utilities.h \
-    ../../src/callsign.h \
     ../../src/frequency.h \
-    ../../src/global.h \
-    ../../src/klogdefinitions.h \
     ../../src/locator.h \
-    ../../src/qso.h \
-    ../../src/qsodatacache.h \
-    ../../src/adif.h
+    ../../src/utilities.h \
+    ../../src/qsodatacache.h
 
-SOURCES +=  tst_qso.cpp \
+SOURCES +=  tst_qsodatacache.cpp \
+    ../../src/callsign.cpp \
     ../../src/database.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/database/queryexecutor.cpp \
-    ../../src/utilities.cpp \
-    ../../src/callsign.cpp \
     ../../src/frequency.cpp \
     ../../src/locator.cpp \
-    ../../src/qso.cpp \
-    ../../src/qsodatacache.cpp \
-    ../../src/adif.cpp
+    ../../src/utilities.cpp \
+    ../../src/qsodatacache.cpp 
 
+RESOURCES += resources.qrc
 
 DEFINES += TESTING
 

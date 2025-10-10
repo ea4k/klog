@@ -2260,41 +2260,50 @@ bool DataBase::createTableMode(const bool NoTmp)
                                             "cabrillo VARCHAR(2) NOT NULL, "
                                              "name VARCHAR(40) NOT NULL, "
                                              "submode VARCHAR(40) NOT NULL, "
-                                             "deprecated VARCHAR(1) NOT NULL)");
+                                             "deprecated VARCHAR(1) NOT NULL,"
+                                            "UNIQUE (name, submode))"
+                                            );
 
             //qDebug() << "DataBase::createTableMode END" ;
 
         return execQuery(Q_FUNC_INFO, stringQuery);
 }
 
-bool DataBase::populateTableModePSK(bool NoTmp)
-{
-    QStringList modes = {"8PSK125", "8PSK125F", "8PSK125FL", "8PSK250", "8PSK250F", "8PSK250FL",
-                         "8PSK500", "8PSK500F", "8PSK1000", "8PSK1000F", "8PSK1200F", "FSK31",
-                         "PSK10", "PSK31", "PSK63", "PSK63F", "PSK63RC4", "PSK63RC5", "PSK63RC10",
-                         "PSK63RC20", "PSK63RC32", "PSK125", "PSK125C12", "PSK125R", "PSK125RC10",
-                         "PSK125RC12", "PSK125RC16", "PSK125RC4", "PSK125RC5", "PSK250", "PSK250C6",
-                         "PSK250R", "PSK250RC2", "PSK250RC3", "PSK250RC5", "PSK250RC6", "PSK250RC7", "PSK500",
-                         "PSK500C2", "PSK500C4", "PSK500R", "PSK500RC2", "PSK500RC3", "PSK500RC4", "PSK800C2",
-                         "PSK800RC2", "PSK1000", "PSK1000C2", "PSK1000R", "PSK1000RC2", "PSKAM10", "PSKAM31",
-                         "PSKAM50", "PSKFEC31", "QPSK31", "QPSK63", "QPSK125", "QPSK250", "QPSK500", "SIM31" };
 
-    QString table;
-    if (NoTmp)
-    {
-        table = "mode";
+bool DataBase::populateTableWithModes(const QStringList& submodes, const QString& mode, const QString& cabrillo, bool NoTmp)
+{
+    QString table = NoTmp ? "mode" : "modetemp";
+    QStringList values;
+
+    // Ensure the mode is the first submode
+    QStringList allSubmodes = submodes;
+    if (allSubmodes.isEmpty() || allSubmodes.first() != mode)
+        allSubmodes.prepend(mode);
+
+    // Remove duplicates while keeping order (if mode was already present elsewhere)
+    QSet<QString> seen;
+    QStringList uniqueSubmodes;
+    for (const QString& sm : allSubmodes) {
+        if (!seen.contains(sm)) {
+            uniqueSubmodes.append(sm);
+            seen.insert(sm);
+        }
     }
-    else
-    {
-        table = "modetemp";
+
+    for (const QString& submode : uniqueSubmodes) {
+        QString submodeEscaped = submode;
+        submodeEscaped.replace("'", "''"); // SQL escape
+        QString modeEscaped = mode;
+        modeEscaped.replace("'", "''");    // SQL escape
+
+        values << QString("('%1', '%2', '%3', '0')").arg(submodeEscaped, modeEscaped, cabrillo);
     }
-    QString aux;
-    foreach (aux, modes)
-    {
-        if (!execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('%2', 'PSK', 'DG', '1')").arg(table).arg(aux)))
-            return false;
-    }
-    return true;
+
+    QString queryStr = QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES %2")
+                           .arg(table)
+                           .arg(values.join(", "));
+    //qDebug() << queryStr;
+    return execQuery(Q_FUNC_INFO, queryStr);
 }
 
 bool DataBase::populateTableMode(const bool NoTmp)
@@ -2325,182 +2334,182 @@ bool DataBase::populateTableMode(const bool NoTmp)
     {
              //qDebug() << "DataBase::populateTableMode: Mode table population  OK" ;
     }
-    if (!populateTableModePSK(NoTmp))
-        return false;
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ARDOP', 'ARDOP', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AMTORFEC', 'TOR', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ASCI', 'RTTY', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ATV', 'ATV', 'NO', '0')").arg(tableName));
 
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP', 'CHIP', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP64', 'CHIP', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CHIP128', 'CHIP', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CLO', 'CLO', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CONTESTI', 'CONTESTI', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('CW', 'CW', 'CW', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DIGITALVOICE', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('C4FM', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DMR', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DSTAR', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FREEDV', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('M17', 'DIGITALVOICE', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA HF', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA SATELLITE', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 1200', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VARA FM 9600', 'DYNAMIC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINO', 'DOMINO', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOEX', 'DOMINO', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOMINOF', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM-M', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM4', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM5', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM8', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM11', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM16', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM22', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM44', 'DOMINO', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('DOM88', 'DOMINO', 'NO', '1')").arg(tableName));
+    QStringList submodes = {};
+    populateTableWithModes(submodes, "AM", "PH", NoTmp);
 
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT4', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FST4', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FST4W', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT8', 'FT8', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSK441', 'FSK441', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSKHELL', 'HELL', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FSQCALL', 'MFSK', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('GTOR', 'TOR', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL', 'HELL', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELLX5', 'HELL', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELLX9', 'HELL', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HELL80', 'HELL', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('HFSK', 'HELL', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT', 'ISCAT', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-A', 'ISCAT', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ISCAT-B', 'ISCAT', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JTMS', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JS8', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4', 'JT4', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4A', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4B', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4C', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4D', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4E', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4F', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT4G', 'JT4', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT6M', 'JT6M', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-1', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-2', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-5', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-10', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9-30', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9A', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9B', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9C', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9D', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9E FAST', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9F FAST', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9G FAST', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT9H FAST', 'JT9', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT44', 'JT44', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65', 'JT65', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65A', 'JT65', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B', 'JT65', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65B2', 'JT65', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C', 'JT65', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('JT65C2', 'JT65', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK4', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK8', 'MFSK', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK11', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK16', 'MFSK', 'DG', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK22', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK31', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK32', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK64', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK64L', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK128', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MFSK128L', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('MT63', 'MT63', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/125', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 4/250', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/250', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 8/500', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/500', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 16/1000', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OLIVIA 32/1000', 'OLIVIA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA', 'OPERA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-BEACON', 'OPERA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('OPERA-QSO', 'OPERA', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC', 'PAC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC2', 'PAC', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC3', 'PAC', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAC4', 'PAC', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX', 'PAX', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PAX2', 'PAX', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PCW', 'CW', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PKT', 'PKT', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSK2K', 'PSK2K', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('PSKHELL', 'HELL', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SLOWHELL', 'HELL', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('Q15', 'Q15', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('Q65', 'MFSK', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64', 'QRA64', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64A', 'QRA64', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64B', 'QRA64', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64C', 'QRA64', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64D', 'QRA64', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('QRA64E', 'QRA64', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS', 'ROS', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-EME', 'ROS', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-HF', 'ROS', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('ROS-MF', 'ROS', 'DG', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTY', 'RTTY', 'RY', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('RTTYM', 'RTTYM', 'RY', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSB', 'SSB', 'PH', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('LSB', 'SSB', 'PH', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('USB', 'SSB', 'PH', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SSTV', 'SSTV', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('T10', 'T10', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRB', 'THRB', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX', 'THRB', 'NO', '1')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX1', 'THRB', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX2', 'THRB', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THRBX4', 'THRB', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THROB1', 'THRB', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THROB2', 'THRB', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THROB4', 'THRB', 'NO', '0')").arg(tableName));
+    submodes = {};
+    populateTableWithModes(submodes, "ARDOP", "DG", NoTmp);
 
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR-M', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR4', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR5', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR8', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR11', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR16', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR22', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR25X4', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR50X1', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR50X2', 'THOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('THOR100', 'THOR', 'NO', '0')").arg(tableName));
+    submodes = {};
+    populateTableWithModes(submodes, "ATV", "DG", NoTmp);
+
+    submodes = {"CHIP64", "CHIP128"};
+    populateTableWithModes(submodes, "CHIP", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "CLO", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "CONTESTI", "DG", NoTmp);
+
+    submodes = {"PCW"};
+    populateTableWithModes(submodes, "CW", "CW", NoTmp);
+
+    submodes = {"C4FM", "DMR", "DSTAR", "FREEDV", "M17" };
+    populateTableWithModes(submodes, "DIGITALVOICE", "DG", NoTmp);
+
+    submodes = {"DOM-M", "DOM4", "DOM5", "DOM8", "DOM11", "DOM16", "DOM22", "DOM44",
+                "DOM88", "DOMINOEX", "DOMINOF"};
+    populateTableWithModes(submodes, "DOMINO", "DG", NoTmp);
+
+    submodes = {"VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600"};
+    populateTableWithModes(submodes, "DYNAMIC", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "FAX", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "FM", "FM", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "FSK441", "DG", NoTmp);
+
+    submodes = {"SCAMP_FAST", "SCAMP_SLOW", "SCAMP_VSLOW"};
+    populateTableWithModes(submodes, "FSK", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "FT8", "DG", NoTmp);
+
+    submodes = {"FMHELL", "FSKH105", "FSKH245", "FSKHELL", "HELL80", "HELLX5", "HELLX9", "HFSK",
+                "PSKHELL", "SLOWHELL"};
+    populateTableWithModes(submodes, "HELL", "DG", NoTmp);
+
+    submodes = {"ISCAT-A", "ISCAT-B"};
+    populateTableWithModes(submodes, "ISCAT", "DG", NoTmp);
+
+    submodes = {"JT4A", "JT4B", "JT4C", "JT4D", "JT4E", "JT4F", "JT4G"};
+    populateTableWithModes(submodes, "JT4", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "JT6M", "DG", NoTmp);
+
+    submodes = {"JT9-1", "JT9-2", "JT9-5", "JT9-10", "JT9-30", "JT9A", "JT9B", "JT9C",
+                "JT9D", "JT9E", "JT9E FAST", "JT9F", "JT9F FAST", "JT9G", "JT9G FAST",
+                "JT9H", "JT9H FAST"};
+    populateTableWithModes(submodes, "JT9", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "JT44", "DG", NoTmp);
+
+    submodes = {"JT65A", "JT65B", "JT65B2", "JT65C", "JT65C2"};
+    populateTableWithModes(submodes, "JT65", "DG", NoTmp);
+
+    submodes =  {
+        "MFSK", "FSQCALL", "FST4", "FST4W", "FT4", "JS8", "JTMS", "MFSK4",
+        "MFSK8", "MFSK11", "MFSK16", "MFSK22", "MFSK31", "MFSK32", "MFSK64",
+        "MFSK64L", "MFSK128", "MFSK128L", "Q65"
+    };
+    populateTableWithModes(submodes, "MFSK", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "MSK144", "DG", NoTmp);
+
+    submodes = {"SCAMP_OO", "SCAMP_OO_SLW" };
+    populateTableWithModes(submodes, "MTONE", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "MT63", "DG", NoTmp);
+
+    submodes =  {
+        "OLIVIA 4/125", "OLIVIA 4/250", "OLIVIA 8/250", "OLIVIA 8/500", "OLIVIA 16/500",
+        "OLIVIA 16/1000", "OLIVIA 32/1000"
+    };
+    populateTableWithModes(submodes, "OLIVIA", "DG", NoTmp);
+
+    submodes =  {
+        "OPERA-BEACON", "OPERA-QSO"
+    };
+    populateTableWithModes(submodes, "OPERA", "DG", NoTmp);
+
+    submodes =  {
+        "PAC2", "PAC3", "PAC4"
+    };
+    populateTableWithModes(submodes, "PAC", "DG", NoTmp);
+
+    submodes =  {
+        "PAX2"
+    };
+    populateTableWithModes(submodes, "PAX", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "PKT", "DG", NoTmp);
+
+    submodes = {"8PSK125", "8PSK125F", "8PSK125FL", "8PSK250", "8PSK250F", "8PSK250FL", "8PSK500",
+                             "8PSK500F", "8PSK1000", "8PSK1000F", "8PSK1200F", "FSK31", "PSK10", "PSK31", "PSK63",
+                             "PSK63F", "PSK63RC4", "PSK63RC5", "PSK63RC10", "PSK63RC20", "PSK63RC32", "PSK125",
+                             "PSK125C12", "PSK125R", "PSK125RC10", "PSK125RC12", "PSK125RC16", "PSK125RC4", "PSK125RC5",
+                             "PSK250", "PSK250C6", "PSK250R", "PSK250RC2", "PSK250RC3", "PSK250RC5", "PSK250RC6",
+                             "PSK250RC7", "PSK500", "PSK500C2", "PSK500C4", "PSK500R", "PSK500RC2", "PSK500RC3",
+                             "PSK500RC4", "PSK800C2", "PSK800RC2", "PSK1000", "PSK1000C2", "PSK1000R", "PSK1000RC2",
+                             "PSKAM10", "PSKAM31", "PSKAM50", "PSKFEC31", "QPSK31", "QPSK63", "QPSK125", "QPSK250",
+                             "QPSK500", "SIM31" };
+    populateTableWithModes(submodes, "PSK", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "PSK2K", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "Q15", "DG", NoTmp);
+
+    submodes = {"QRA64A", "QRA64B", "QRA64C", "QRA64D", "QRA64E"};
+    populateTableWithModes(submodes, "QRA64", "DG", NoTmp);
+
+    submodes = {"ROS-EME", "ROS-HF", "ROS-MF"};
+    populateTableWithModes(submodes, "ROS", "DG", NoTmp);
+
+    submodes = {"ASCI"};
+    populateTableWithModes(submodes, "RTTY", "RY", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "RTTYM", "RY", NoTmp);
+
+    submodes = {"LSB", "USB"};
+    populateTableWithModes(submodes, "SSB", "PH", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "SSTV", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "T10", "DG", NoTmp);
+
+    submodes =  {
+        "THOR-M", "THOR4", "THOR5", "THOR8", "THOR11", "THOR16", "THOR22", "THOR25X4", "THOR50X1", "THOR50X2", "THOR100"
+    };
+    populateTableWithModes(submodes, "THOR", "DG", NoTmp);
 
 
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('TOR', 'TOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('NAVTEX', 'TOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('SITORB', 'TOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('V4', 'V4', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('VOI', 'VOI', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WINMOR', 'WINMOR', 'NO', '0')").arg(tableName));
-    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('WSPR', 'WSPR', 'NO', '0')").arg(tableName));
+    submodes =  {
+        "THRBX", "THRBX1", "THRBX2", "THRBX4", "THROB1", "THROB2", "THROB4"
+    };
+    populateTableWithModes(submodes, "THRB", "DG", NoTmp);
 
+    submodes =  {
+        "AMTORFEC", "GTOR", "NAVTEX", "SITORB"
+    };
+    populateTableWithModes(submodes, "TOR", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "V4", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "VOI", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "WINMOR", "DG", NoTmp);
+
+    submodes = {};
+    populateTableWithModes(submodes, "WSPR", "DG", NoTmp);
 
     createTheModeQuickReference();
          //qDebug() << "DataBase::populateTableMode END" ;
