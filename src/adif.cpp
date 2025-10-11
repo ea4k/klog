@@ -452,8 +452,19 @@ bool Adif::isValidPOTA(const QString &_s)
 
 
 bool Adif::isValidWWFF_Ref(const QString &_s)
-{ // TODO Add a real check
-    return (!_s.isEmpty());
+{
+    // Must be 8 to 11 characters: ^[A-Za-z0-9]{1,4}FF-[0-9]{4}$
+    if (_s.length() < 8 || _s.length() > 11)
+        return false;
+
+    // Regex pattern:
+    // ^           Start of string
+    // [A-Za-z0-9]{1,4}  1 to 4 alphanumeric national program
+    // FF-         literal "FF-"
+    // [0-9]{4}    exactly 4 digits (with leading zeros permitted)
+    // $           End of string
+    QRegularExpression wwffRegex(R"(^[A-Za-z0-9]{1,4}FF-[0-9]{4}$)", QRegularExpression::CaseInsensitiveOption);
+    return wwffRegex.match(_s).hasMatch();
 }
 
 QStringList Adif::getQSOUploadStatus (bool _fullName)

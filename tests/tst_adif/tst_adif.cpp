@@ -45,6 +45,7 @@ private slots:
     void test_getADIFField();
     void test_Dates();
     void test_POTA();
+    void test_WWFF();
 
 private:
     Adif *adif;
@@ -87,6 +88,12 @@ void tst_Adif::test_POTA()
     QVERIFY2(adif->isValidPOTA("US-0001"), "US-0001");
     QVERIFY2(adif->isValidPOTA("FR-13219"), "FR-13219");
     QVERIFY2(adif->isValidPOTA("gb-5662"), "gb-56629");
+}
+
+void tst_Adif::test_WWFF()
+{
+    QVERIFY2(adif->isValidPOTA("KFF-4655"), "KFF-4655");
+    QVERIFY2(adif->isValidPOTA("3DAFF-0002 "), "3DAFF-0002");
 }
 
 QTEST_APPLESS_MAIN(tst_Adif)
