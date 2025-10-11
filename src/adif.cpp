@@ -424,11 +424,32 @@ QString Adif::getQSO_COMPLETEFromDB(const QString &_s)
 }
 
 bool Adif::isValidPOTA(const QString &_s)
-{
-    if (_s.length()<1)
+{ //https://www.adif.org/316/ADIF_316.htm#POTARef
+    // POTA reference pattern:
+    // xxxx-nnnnn[@yyyyyy]
+    // xxxx: 1-4 letters/digits (case-insensitive)
+    // nnnnn: 4 or 5 digits/letters (per POTA, often digits, but allow letters)
+    // Optional: @yyyyyy (4-6 letters/digits)
+    // Total length: 6 to 17
+
+    if (_s.length() < 6 || _s.length() > 17)
         return false;
-    return true;
+
+    // Regex:
+    // ^           start of string
+    // [A-Za-z0-9]{1,4}  - xxxx: 1-4 alphanumeric
+    // -           literal dash
+    // [A-Za-z0-9]{4,5}  - nnnnn: 4 or 5 alphanumeric (POTA allows e.g. '1234', 'A2345')
+    // (                start optional
+    //   @
+    //   [A-Za-z0-9]{4,6} - yyyyyy: 4-6 alphanumeric
+    // )?               optional
+    // $           end of string
+
+    QRegularExpression potaRegex(R"(^[A-Za-z0-9]{1,4}-[A-Za-z0-9]{4,5}(@[A-Za-z0-9]{4,6})?$)", QRegularExpression::CaseInsensitiveOption);
+    return potaRegex.match(_s).hasMatch();
 }
+
 
 bool Adif::isValidWWFF_Ref(const QString &_s)
 { // TODO Add a real check

@@ -2,8 +2,10 @@ TODO: Update the DB to include new modes/submodes: THOR & PSK,...
 
 TBD
 - Enhancement: Test on QSO cache class.
+- Enhancement: Complete ADIF->IsValidPOTA (Closes #717)
 - Bugfix: Check QRZ automatically is not saved (Closes #840)
 - Bugfix: Everytime TX Frequency changes, mode changes to USB (Closes #842)
+
 
 
 Aug 2025 - 2.4.2

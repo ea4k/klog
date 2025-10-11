@@ -44,6 +44,7 @@ private slots:
     void cleanupTestCase(); //will be called after the last test function was executed.
     void test_getADIFField();
     void test_Dates();
+    void test_POTA();
 
 private:
     Adif *adif;
@@ -80,6 +81,13 @@ void tst_Adif::test_Dates()
 
 }
 
+void tst_Adif::test_POTA()
+{
+    QVERIFY2(adif->isValidPOTA("ES-0150"), "ES-0150");
+    QVERIFY2(adif->isValidPOTA("US-0001"), "US-0001");
+    QVERIFY2(adif->isValidPOTA("FR-13219"), "FR-13219");
+    QVERIFY2(adif->isValidPOTA("gb-5662"), "gb-56629");
+}
 
 QTEST_APPLESS_MAIN(tst_Adif)
 
