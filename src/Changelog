@@ -6,7 +6,8 @@ TBD
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 
 - Bugfix: Check QRZ automatically is not saved (Closes #840)
-- Bugfix: Everytime TX Frequency changes, mode changes to USB (Closes #842)
+- Bugfix: Everytime TX Frequency changes, mode changes to USB. Removed that behaviour (Closes #842)
+- Bugfix: Klog 2.3.4 on OS/X has an error with ADIF export dialog box. (Closes #744)
 
 
 

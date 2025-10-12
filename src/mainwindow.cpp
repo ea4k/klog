@@ -1325,11 +1325,12 @@ bool MainWindow::readQSOFromUI()
 void MainWindow::slotQSOsExportToADIF(QList<int> _qsos)
 {
     logEvent(Q_FUNC_INFO, "Start: " + QString::number(_qsos.length ()), Debug);
+    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_qsos.length()<1)
     {
         return; // NO QSO TO EXPORT
     }
-     //qDebug() << Q_FUNC_INFO << " - xxy";
+    //qDebug() << Q_FUNC_INFO << " - xxy";
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
      //qDebug() << Q_FUNC_INFO << fileName ;
     if ((!fileName.endsWith(".adi")) && ( !fileName.endsWith(".adif") ))
@@ -1337,12 +1338,12 @@ void MainWindow::slotQSOsExportToADIF(QList<int> _qsos)
    //qDebug() <<  Q_FUNC_INFO << ": Adding the .adi to the file" << fileName ;
         fileName = fileName +  ".adi";
     }
-       //qDebug() <<  Q_FUNC_INFO << "-1: " << fileName ;
-    filemanager->adifQSOsExport2(fileName, QString(), _qsos, ModeADIF);
-    //filemanager->adifQSOsExport(fileName, _qsos);
-       //qDebug() <<  Q_FUNC_INFO << "-3" ;
+     //qDebug() <<  Q_FUNC_INFO << "-1: " << fileName ;
+    filemanager->adifQSOsExport(fileName, QString(), _qsos, ModeADIF);
+
+    //qDebug() <<  Q_FUNC_INFO << "-3" ;
     showNumberOfSavedQSO(fileName, _qsos.count());
-        //qDebug() <<  Q_FUNC_INFO << " - END" ;
+    //qDebug() <<  Q_FUNC_INFO << " - END" ;
 }
 
 void MainWindow::slotQRZcomUpload(QList<int> _qsos)
@@ -3826,16 +3827,18 @@ void MainWindow::slotADIFExport()
 
 void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 {
-        //qDebug() << "MainWindow::showNumberOfSavedQSO: " << _fn << "/" << QString::number(_n) ;
+    //qDebug() << Q_FUNC_INFO << _fn << "/" << QString::number(_n) ;
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Information);
     msgBox.setWindowTitle(tr("KLog - ADIF export"));
     if (_n <= 0)
     { // TODO: Check if errors should be managed.
+        //qDebug() << Q_FUNC_INFO << " - <= 0";
         msgBox.setText(tr("No QSOs have been exported to ADIF.") );
     }
     else
     {
+        //qDebug() << Q_FUNC_INFO << " - > 0";
         QString msg = QString(tr("KLog has exported %1 QSOs to the ADIF file: %2")).arg(QString::number(_n)).arg(_fn);
         msgBox.setText(msg);
     }
@@ -3843,32 +3846,24 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
     msgBox.setStandardButtons(QMessageBox::Ok );
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
-        //qDebug() << "MainWindow::showNumberOfSavedQSO - END" ;
+    //qDebug() << Q_FUNC_INFO << " END";
 }
 
-/*
-void MainWindow::fileExportADIF(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate)
-{
-     //qDebug() << Q_FUNC_INFO << ": " << _st ;
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
-    QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _st, _grid, _startDate, _endDate, currentLog, ModeADIF);
-    showNumberOfSavedQSO(fileName, qsos.count());
-     //qDebug() << Q_FUNC_INFO << " - END";
-}
-*/
+
 
 void MainWindow::fileExportADIF2(const QString &_call, QList<int> _qsos)
 {
-     //qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _call, _qsos, ModeADIF, currentLog);
+    //qDebug() <<  Q_FUNC_INFO << "-3" ;
     showNumberOfSavedQSO(fileName, qsos.count());
-     //qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotADIFExportAll()
 {
-     //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QString _callToUse = "ALL";
     QList <int> _qsos;
@@ -3876,10 +3871,11 @@ void MainWindow::slotADIFExportAll()
     _qsos.append(-1); //Code to specify to export ALL QSOs;
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save ADIF File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
     QList<int> qsos = filemanager->adifLogExportReturnList(fileName, _callToUse, _qsos, ModeADIF, currentLog);
-
-    showNumberOfSavedQSO(fileName, dataProxy->getHowManyQSOInLog(-1));
-
-
+    //qDebug() <<  Q_FUNC_INFO << "-3" ;
+    //if (qsos.count()>0)
+        //showNumberOfSavedQSO(fileName, dataProxy->getHowManyQSOInLog(-1));
+        showNumberOfSavedQSO(fileName, qsos.count());
+    //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -4045,7 +4041,7 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
 
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
-          //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
+        //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - ClubLog"));
         msgBox.setIcon(QMessageBox::Warning);
@@ -5363,8 +5359,8 @@ void MainWindow::slotFreqTXChanged(const double _fr)
         hamlib->setFreq(_fr);
     }
 
-    if (changingBand)
-        mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
+    //if (changingBand)
+    //    mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << " - END";

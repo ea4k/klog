@@ -76,8 +76,7 @@ public:
     //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
 
-    //bool adifQSOsExport(const QString& _fileName, QList<int> _qsos);
-    bool adifQSOsExport2(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em);
+    bool adifQSOsExport(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em);
 
     QList<int> adifLogExportReturnList(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN);
     bool adifLogExport(const QString& _fileName, const int _logN);
