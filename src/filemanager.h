@@ -57,6 +57,14 @@ enum
 */
 //enum ExportMode {ModeLotW, ModeADIF};
 
+struct logfileInfo
+{ // Used to get the main info of an ADIF logfile
+    bool exists;
+    QString programId;
+    qint64 headerPos;
+    int numberOfQSOs;
+};
+
 class FileManager : public QWidget
 {
     Q_OBJECT
@@ -95,6 +103,10 @@ private:
     //bool cabrilloLogExportToFile(const QString& _fileName, const int logNconst);
     //bool cabrilloLogExportCQWWToFile(const QString& _fileName, const int logNconst);
     //bool adifCheckMoreThanOneLog(QFile &_f);
+    logfileInfo getADIFFIleInfo(QFile & _f);
+    int getAppKLogNumber(const QString &line);
+    QString getProgramIDFromLine(const QString &line);
+
     bool isALoTWDownloadedFile(QFile & _f);
     int howManyLogsInFile(QFile & _f);
     int howManyQSOsInFile (QFile & _f);

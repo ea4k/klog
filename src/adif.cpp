@@ -45,6 +45,55 @@ void Adif::init()
     setSponsorsList ();
 }
 
+ADIFField Adif::setPair(const QString &pair)
+{
+    ADIFField result;
+    result.field = QString();
+    result.value = QString();
+    result.valid = false;
+
+    // Must start with '<' and contain exactly one '>'
+    if (!pair.startsWith('<') || pair.count('>') != 1)
+        return result;
+
+    int closePos = pair.indexOf('>');
+    if (closePos == -1)
+        return result;
+
+    QString header = pair.mid(1, closePos - 1);
+    QString value = pair.mid(closePos + 1);
+
+    QStringList parts = header.split(':');
+    if (parts.size() < 2 || parts.size() > 3)
+        return result;
+
+    QString fieldName = parts[0].trimmed();
+    bool ok = false;
+    int length = parts[1].toInt(&ok);
+    if (!ok || length < 0)
+        return result;
+
+    // Optional: data type
+    if (parts.size() == 3) {
+        static QStringList validTypes = {"B","N","D","T","S","I","M","G","E","L"};
+        if (!validTypes.contains(parts[2].trimmed().toUpper()))
+            return result;
+    }
+
+    if (value.length() != length)
+        return result;
+
+    // Field name must be non-empty and contain only allowed chars
+    QRegularExpression fieldRe("^[A-Z0-9_]+$", QRegularExpression::CaseInsensitiveOption);
+    if (!fieldRe.match(fieldName).hasMatch())
+        return result;
+
+    result.field = fieldName;
+    result.value = value;
+    result.valid = true;
+    return result;
+}
+
 void Adif::InitializeHash() {
     ADIFHash = {
         {"ADDRESS", "MultiLineString"},
@@ -431,6 +480,7 @@ bool Adif::isValidPOTA(const QString &_s)
     // nnnnn: 4 or 5 digits/letters (per POTA, often digits, but allow letters)
     // Optional: @yyyyyy (4-6 letters/digits)
     // Total length: 6 to 17
+    qDebug() << Q_FUNC_INFO << " - " << _s;
 
     if (_s.length() < 6 || _s.length() > 17)
         return false;
@@ -497,264 +547,13 @@ QStringList Adif::getQSLRecStatus (bool _fullName)
     return qslStatus;
 }
 
-
-/*
-bool Utilities::isValidComment(const QString &_b)
-{
-    return (!_b.isEmpty());
-}
-
-bool Utilities::isValidName(const QString &_b)
-{
-    return (_b.length()>0);
-}
-
-bool Utilities::isValidADIFField(const QString &_b)
-{
-       //qDebug() << "Utilities::isValidADIFField: " << _b ;
-
-    //    This functions checks if the ADIF field has the proper format.
-    //    <Field:length:Data type>Data
-
-
-    if (!((_b.startsWith('<')) &&  (_b.count('>')) == 1 ))
-    {
-           //qDebug() << "Utilities::isValidADIFField: BAD FORMAT: No < or > delimiters: " << _b ;
-        return false;
-    }
-    if (_b.simplified() == "<EOR>")
-    {
-        return true;
-    }
-
-    QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
-    QStringList qs;
-    qs.clear();
-    qs.append(_b.split('>'));
-
-    if (qs.size()!= 2)
-    {
-           //qDebug() << "Utilities::isValidADIFField-0 (not two): " << QString::number(qs.size()) ;
-        return false;
-    }
-
-    QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
-    QString data = (qs.at(1)).simplified();
-    //data = data.simplified();
-    QString dataType = QString();
-
-      //qDebug() << "Utilities::isValidADIFField-Field: " << field ;
-      //qDebug() << "Utilities::isValidADIFField_Data: " << data ;
-
-    int length = data.length();
-    int separatorPosition = 0;
-    int i = (field).count(":"); //Check how many ":" do we have, to see if we have a data type or not
-
-    if (i == 2) // We have data type
-    { // DATE:8:D / 20141020
-        separatorPosition = (field.section(':', 1, 1)).toInt();
-        dataType = field.section(':', 2, 2);
-        if (!validDataTypes.contains(dataType.toUpper()))
-        {
-               //qDebug() << "Utilities::isValidADIFField - FORMAT ERROR: Wrong data type: " << dataType ;
-            return false;
-        }
-    }
-    else if (i == 1)
-    { // DATE:8 / 20141020
-        separatorPosition = (field.section(':', 1, 1)).toInt();
-    }
-    else
-    {
-           //qDebug() << "Utilities::isValidADIFField - FORMAT ERROR, more than 2 \":\" - " << field ;
-        return false;
-    }
-
-    if ( length != separatorPosition)
-    {
-           //qDebug() << "Utilities::isValidADIFField: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) ;
-        return false;
-    }
-
-    if (separatorPosition <= 0)
-    {
-        //qDebug() << "Utilities::isValidADIFField: Length problem <= 0" ;
-        return false;
-    }
-       //qDebug() << "FileManager::checkADIFValidFormat: Return true" ;
-    return true;
-}
-
-bool Utilities::isValidQSL_Rcvd(const QString &c)
-{
-    return ((c == "Y") || (c == "N") || (c == "R") || (c == "I") || (c == "V"));
-}
-
-bool Utilities::isValidQSL_Sent(const QString &c)
-{
-    return ((c == "Y") || (c == "N") || (c == "R") || (c == "Q") || (c == "I"));
-}
-
-bool Utilities::isValidUpload_Status(const QString &c)
-{
-    return ((c == "Y") || (c == "N") || (c == "M"));
-}
-
-
-bool Utilities::isValidFISTS(const QString &c)
-{
-    return (c.toInt ()>0);
-}
-
-QStringList Utilities::getValidADIFFieldAndData(const QString &_b)
-{
-   //qDebug() << "Utilities::getValidADIFFieldAndData: " << _b ;
-
-       // This functions checks if the ADIF field has the proper format.
-       // <Field:length:Data type>Data
-
-    QStringList result;
-    result.clear();
-
-    if (!(_b.startsWith('<')))
-    {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: BAD FORMAT: No < or > delimiters: " << _b ;
-        return QStringList();
-    }
-    if (_b.simplified() == "<EOR>")
-    {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: EOR" ;
-        result << "EOR" << "EOR";
-        return result;
-    }
-    QString aux = _b;
-    QStringList qs;
-    qs.clear();
-
-    if ((aux.contains("APP_LOTW_")) && aux.contains("//"))
-    { // Trying to fix a LoTW ADIF bug
-        qs.append(aux.split("//"));
-        aux = qs.at(0);
-    }
-
-    //qDebug() << "Utilities::getValidADIFFieldAndData: -20" ;
-    QStringList validDataTypes = {"B", "N", "D", "T", "S", "I", "M", "G", "E", "L"};
-
-    qs.clear();
-    qs.append(aux.split('>'));
-
-    if (qs.size()!= 2)
-    {
-        //qDebug() << "Utilities::getValidADIFFieldAndData-0 (not two): " << QString::number(qs.size()) ;
-        return result;
-    }
-    //qDebug() << "Utilities::getValidADIFFieldAndData: -30" ;
-    //QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
-    QString field = (qs.at(0)).right((qs.at(0)).length() - 1);
-    QString data = (qs.at(1)).simplified();
-    //data = data.simplified();
-    QString dataType = QString();
-
-    //qDebug() << "Utilities::getValidADIFFieldAndData-Field: " << field ;
-    //qDebug() << "Utilities::getValidADIFFieldAndData_Data: " << data ;
-
-    int length = data.length();
-    int separatorPosition = 0;
-    int i = (field).count(":"); //Check how many ":" do we have, to see if we have a data type or not
-
-    if (i == 2) // We have data type
-    { // DATE:8:D / 20141020
-        separatorPosition = (field.section(':', 1, 1)).toInt();
-        dataType = field.section(':', 2, 2);
-          //qDebug() << "Utilities::getValidADIFFieldAndData - DataType: -" << dataType << "-" ;
-        if (!validDataTypes.contains(dataType.toUpper()))
-        {
-              //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR: Wrong data type: " << dataType ;
-            return result;
-        }
-    }
-    else if (i == 1)
-    { // DATE:8 / 20141020
-        separatorPosition = (field.section(':', 1, 1)).toInt();
-    }
-    else
-    {
-        //qDebug() << "Utilities::getValidADIFFieldAndData - FORMAT ERROR, more than 2 \":\" - " << field ;
-        return result;
-    }
-    //qDebug() << "Utilities::getValidADIFFieldAndData: -60" ;
-    if ( length != separatorPosition)
-    {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: Data Length problem: " << (field) << "/" << data << " - " << QString::number(length) << "/" << QString::number(separatorPosition) ;
-        return result;
-    }
-
-    if (separatorPosition <= 0)
-    {
-        //qDebug() << "Utilities::getValidADIFFieldAndData: Length problem <= 0" ;
-        return result;
-    }
-     //qDebug() << "Utilities::getValidADIFFieldAndData: -90: f: " << field ;
-      //qDebug() << "Utilities::getValidADIFFieldAndData: -90: d: " << data;ield = field.section(':', 0, 0);
-    result.clear();
-    result << field.section(':', 0, 0) << data;
-     //qDebug() << "Utilities::checkADIFValidFormat: Return true: " << result.at(0) << "/" << result.at(1) ;
-    return result;
-}
-
-QString Utilities::getADIFField(const QString &_fieldName, const QString &_data)
-{// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
-    // Check if _fieldName is a valid ADIF
-    //
-    if (ADIFHash.empty()) {
-        InitializeHash();
-    }
-    if (!ADIFHash.contains(_fieldName)) {
-        //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
-        return QString();
-    }
-    return QString ("<%1:%2>%3 ").arg(_fieldName).arg(_data.length ()).arg(_data);
-}
-
-bool Utilities::isValidARRLSect(const QString &_s)
-{
-    return (ARRL_sects.contains (_s.toUpper ()));
-}
-
-
-bool Utilities::isValidContinent(const QString &_s)
-{
-    return (continent.contains (_s.toUpper ()));
-}
-
-bool Utilities::isValidPropMode(const QString &_s)
-{
-    QStringList propModes;
-    propModes.clear ();
-    propModes << "AS" << "AUE" << "AUR" << "BS" << "ECH" << "EME" << "ES"
-                << "F2" << "FAI" << "GWAVE" << "INTERNET" << "ION" << "IRL"
-                << "LOS" << "MS" << "RPT" << "RS" << "SAT" << "TEP" << "TR";
-    return propModes.contains (_s.toUpper ());
-}
-
-bool Utilities::isValidDistance(const double _d)
-{
-    return (_d>=0);
-}
-
-bool Utilities::isValidSponsor(const QString &_s)
-{
-    return (sponsorsList.contains (_s.toUpper ()));
-}
-*/
-
 QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 {// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
     // Check if _fieldName is a valid ADIF
-    //qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
+    qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
     if ((_data.length()<=0) || (_data.isNull()))
     {
-        //qDebug() << Q_FUNC_INFO << " - Not Valid";
+        qDebug() << Q_FUNC_INFO << " - Not Valid";
         return QString();
     }
     if (ADIFHash.empty()) {
@@ -762,16 +561,16 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
     }
 
     QString fieldN = _fieldName.toUpper();
-    //qDebug() << Q_FUNC_INFO << " - toUpper: " << fieldN;
+    qDebug() << Q_FUNC_INFO << " - toUpper: " << fieldN;
 
     if (!ADIFHash.contains(fieldN)) {
-        //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
+        qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
     if (fieldN == "DISTANCE" )
         if (_data.toDouble() <= 0.0)
             return QString();
-    //qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
+    qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 

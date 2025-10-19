@@ -168,9 +168,9 @@ void FileManager::setSendQSLByDefault (const bool _send)
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN)
 {
     Q_UNUSED(_logN);
-    //qDebug() << Q_FUNC_INFO << " - Start";
-   //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
-    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign << "/ " << _grid;
+    qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
+    qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign ;
     QList<int> qsos;
     qsos.clear();
     Callsign call(_callsign);
@@ -216,12 +216,13 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
 bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em)
 { // The fields are the database fields that are to be selected in the query
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Fields: " << _fields;
     int numberOfQSOs = _qsos.length();
     if (numberOfQSOs<1)
     {
         //TODO: Warn the user NO QSOS TO EXPORT
-        //qDebug() << Q_FUNC_INFO << " - No QSOs received to be exported";
+        qDebug() << Q_FUNC_INFO << " - No QSOs received to be exported";
     }
     QString fields = _fields;
     if (_fields.length ()<1)
@@ -258,7 +259,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _field
     }
 
     QString queryString;
-
+    qDebug() << Q_FUNC_INFO << " - ExportAll = " << util->boolToQString(exportAll);
     if (exportAll)
     {
         queryString = QString("SELECT %1 FROM log").arg(fields);
@@ -652,6 +653,7 @@ bool FileManager::isALoTWDownloadedFile(QFile & _f)
     //return isLoTWFile;
 }
 
+/*
 int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
    //qDebug() << Q_FUNC_INFO << " - Start: " << tfileName << "/" << QString::number(logN);
@@ -666,7 +668,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     int qsos = howManyQSOsInFile(file);
     qint64 pos = passHeader(file);
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) // Flawfinder: ignore
         return -2;
 
     file.seek(pos);
@@ -689,16 +691,16 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
             continue;
 
         fields << line.split("<", Qt::SkipEmptyParts);
-        QString progressText;
+       // QString progressText;
         while (!fields.isEmpty())
         {
             QString fieldToAnalyze = "<" + fields.takeFirst().trimmed();
-
             if (fieldToAnalyze.contains("<EOR>") || fieldToAnalyze.contains("<APP_LOTW_EOF>"))
             {
                 qso.setLogId(logN);
                 qso.setLoTWUpdating(lotWDownloaded);
-                if (processQSO(qso, _stationCallsign) > 0){
+                if (processQSO(qso, _stationCallsign) > 0)
+                {
                     ++i;
                 }
                 else
@@ -747,6 +749,156 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
 
     return i;
 }
+*/
+
+logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
+{
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
+    logfileInfo fileInfo;
+    fileInfo.exists = false;
+    fileInfo.numberOfQSOs = 0;
+    fileInfo.programId = "KLog";
+    fileInfo.headerPos = 0;
+
+    QFile &file = _f;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+    {
+        //qDebug() << Q_FUNC_INFO << "  File not found" ;
+        return fileInfo;
+    }
+
+    fileInfo.exists = true;
+    fileInfo.headerPos = file.pos();
+    QString line;
+    bool hasAPP_KLOG_NUMBER = false;
+    bool hasHeader = false;
+    int qsos = 0;
+    //bool headerFound = false;
+    while ( !file.atEnd() )
+    {
+        line = file.readLine ().toUpper ();
+        //qDebug() << Q_FUNC_INFO << " - Line: " << line;
+        if (line.contains("EOR"))
+        {
+            //qDebug() << Q_FUNC_INFO << "EOR - " << QString::number(qsos) ;
+            qsos++;
+            continue;
+        }
+        if (line.contains("PROGRAMID"))
+        {
+            fileInfo.programId = getProgramIDFromLine(line);
+            //qDebug() << Q_FUNC_INFO << "ProgramID found!  : " << fileInfo.programId;
+        }
+        if (line.count ("<EOH>")>0)
+        {
+            fileInfo.headerPos = file.pos();
+            hasHeader = true;
+            //qDebug() << Q_FUNC_INFO << " - Header Found!" ;
+        }
+        if (line.contains("APP_KLOG_QSOS"))
+        {
+            fileInfo.numberOfQSOs = getAppKLogNumber(line);
+            hasAPP_KLOG_NUMBER = true;
+            //qDebug() << Q_FUNC_INFO << "Number found:    " << QString::number(fileInfo.numberOfQSOs);
+        }
+        if ((fileInfo.programId.length()>0) && (hasAPP_KLOG_NUMBER) && (hasHeader) )
+            break;
+    }
+
+    file.close ();
+
+    if (qsos>0)
+    {
+        fileInfo.numberOfQSOs = qsos;
+        //qDebug() << Q_FUNC_INFO << "Number-1:    " << QString::number(fileInfo.numberOfQSOs);
+    }
+
+    //qDebug() << Q_FUNC_INFO << "Exist:     " << util->boolToQString(fileInfo.exists);
+    //qDebug() << Q_FUNC_INFO << "Number:    " << QString::number(fileInfo.numberOfQSOs);
+    //qDebug() << Q_FUNC_INFO << "ProgramID: " << fileInfo.programId;
+    return fileInfo;
+}
+
+int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
+{
+    qDebug() << Q_FUNC_INFO << " - " << tfileName;
+    QFile file(tfileName);
+    if (!file.exists())
+        return -1;
+
+    logfileInfo fileInfo = getADIFFIleInfo(file);
+    //bool lotWDownloaded = isALoTWDownloadedFile(file);
+    bool lotWDownloaded = (fileInfo.programId == "LOTW");
+
+    int qsos = fileInfo.numberOfQSOs;
+    qint64 pos = fileInfo.headerPos;
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
+        return -2;
+
+    file.seek(pos);
+    QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
+    progress.setWindowModality(Qt::ApplicationModal);
+    progress.setAutoClose(true);
+
+    int step = util->getProgresStepForDialog(qsos);
+    int i = 0;
+    bool noMoreQSO = false;
+
+    QSO qso;
+    QTime startTime = QTime::currentTime();
+    QStringList fields;
+
+    while (!file.atEnd() && !noMoreQSO)
+    {
+        QString line = file.readLine().trimmed();
+        if (line.isEmpty())
+            continue;
+
+        // Split only once per line, and clear previous data
+        fields = line.split("<", Qt::SkipEmptyParts);
+
+        for (QString& field : fields)
+        {
+            QString fieldToAnalyze = "<" + field.trimmed().toUpper();
+            if (fieldToAnalyze.contains("<EOR>") || fieldToAnalyze.contains("<APP_LOTW_EOF>"))
+            {
+                qso.setLogId(logN);
+                qso.setLoTWUpdating(lotWDownloaded);
+                if (processQSO(qso, _stationCallsign) > 0)
+                    ++i;
+                qso.clear();
+
+                if (i % step == 0)
+                {
+                    if (startTime.secsTo(QTime::currentTime()) >0)
+                        //progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i, qsos, i / startTime.secsTo(QTime::currentTime()));
+                        progress.setLabelText(tr("Importing ADIF file... \nQSO: ") + QString::number(i) + "/" + QString::number(qsos) + "\n" + "Speed: " + QString::number(i / startTime.secsTo(QTime::currentTime())) + " " "QSOs/sec");
+                    //progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
+                    progress.setValue(i);
+                }
+            }
+            else
+            {
+                qso.setData(fieldToAnalyze, lotWDownloaded);
+            }
+
+            if (progress.wasCanceled())
+            {
+                if (handleCancel())
+                {
+                    noMoreQSO = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    file.close();
+    progress.setValue(qsos);
+
+    return i;
+}
 
 int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
@@ -787,6 +939,33 @@ bool FileManager::handleCancel()
 }
 
 
+QString FileManager::getProgramIDFromLine(const QString &line)
+{
+    // Expects a line that contains "PROGRAMID" (already uppercased)
+    // Format example: <PROGRAMID:4>LOTW
+    qDebug() << Q_FUNC_INFO << " -  " << line;
+    QStringList fields = line.split("<", Qt::SkipEmptyParts);
+    for (QString aux : fields)
+    {
+        aux = aux.trimmed();
+        if (aux.startsWith("PROGRAMID:", Qt::CaseInsensitive))
+        {
+            // Find the data after the '>'
+            int idx = aux.indexOf('>');
+            if (idx != -1 && idx + 1 < aux.length())
+                return aux.mid(idx + 1).trimmed();
+        }
+        // Also support possible format: <PROGRAMID:4>LOTW
+        if (aux.contains("PROGRAMID:"))
+        {
+            QStringList programIdFields = aux.split('>');
+            if (programIdFields.size() > 1)
+                return programIdFields.at(1).trimmed();
+        }
+    }
+    return QString();
+}
+
 QString FileManager::getProgramID (QFile &_f)
 {
    //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
@@ -818,6 +997,7 @@ QString FileManager::getProgramID (QFile &_f)
     file.close();
     return QString();
 }
+
 qint64 FileManager::passHeader(QFile & _f)
 {
     //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
@@ -1066,40 +1246,49 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
    //qDebug() << "FileManager::adifReqQSLExport" << _fileName;
     return adifLogExportToFile(_fileName, 0, false, true, false);
 }
-int FileManager::howManyQSOsInFile (QFile & _f)
+
+
+int FileManager::getAppKLogNumber(const QString &line)
+{ // Expects a line containing APP_KLOG_QSOS (already uppercased)
+    qDebug() << Q_FUNC_INFO << " - " << line;
+    if (!line.contains("APP_KLOG_QSOS"))
+        return -1;
+
+    QStringList fields = line.split("<", Qt::SkipEmptyParts);
+    foreach (QString aux, fields)
+    {
+        aux = aux.trimmed();
+        if (aux.contains("APP_KLOG_QSOS"))
+        {
+            QStringList data = aux.split('>');
+            if (data.size() > 1)
+            {
+                qDebug() << Q_FUNC_INFO << " - NUMBER FOUND: " << data.at(1);
+                return data.at(1).toInt();
+            }
+        }
+    }
+    return -1;
+}
+
+int FileManager::howManyQSOsInFile(QFile & _f)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start: " << _f.fileName ();
     QFile &file = _f;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
-    {
-        //qDebug() << "FileManager::howManyLogsInFile File not found";
         return -1;
-    }
+
     QString line;
     int qsos = 0;
-    while ( !file.atEnd()   )
+    while (!file.atEnd())
     {
         line.clear();
         line.append(file.readLine().trimmed().toUpper());
 
-        if (line.contains("APP_KLOG_QSOS"))
+        int appKLogNumber = getAppKLogNumber(line);
+        if (appKLogNumber != -1)
         {
-            QStringList fields;
-            fields.clear();
-            fields << line.split("<", QT_SKIP);
-            QString aux = QString();
-            foreach (aux, fields)
-            {
-                aux = aux.trimmed();
-                if (aux.contains("APP_KLOG_QSOS"))
-                {
-                    QStringList data = QStringList();
-                    data << aux.split('>');
-                    file.close ();
-                    //qDebug() << Q_FUNC_INFO << " - END-1";
-                    return ((data.at(1)).toInt());
-                }
-            }
+            file.close();
+            return appKLogNumber;
         }
         else if (line.contains("EOR"))
         {
@@ -1108,7 +1297,6 @@ int FileManager::howManyQSOsInFile (QFile & _f)
     }
 
     file.close();
-    //qDebug() << Q_FUNC_INFO << " - END";
     return qsos;
 }
 
@@ -1461,8 +1649,8 @@ void FileManager::writeADIFHeader(QTextStream &out, const ExportMode _em, const 
     else
     {
         out << "ADIF v3.1.0 Export from KLog\nhttps://github.com/ea4k/klog\n<PROGRAMVERSION:" << QString::number(klogVersion.length()) << ">" << klogVersion << "\n<PROGRAMID:4>KLOG ";
-        out << "<APP_KLOG_QSOS:" << QString::number((QString::number(_numberOfQsos)).length()) << ">" << QString::number(_numberOfQsos);
-        out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((QDateTime::currentDateTime().toString("yyyyMMdd-hhmm")).length()) << ">" << QDateTime::currentDateTime().toString("yyyyMMdd-hhmm");
+        out << "<APP_KLOG_QSOS:" << QString::number((QString::number(_numberOfQsos)).length()) << ">" << QString::number(_numberOfQsos) << " ";
+        out << "<APP_KLOG_LOG_DATE_EXPORT:" << QString::number((QDateTime::currentDateTime().toString("yyyyMMdd-hhmm")).length()) << ">" << QDateTime::currentDateTime().toString("yyyyMMdd-hhmm") << " ";
     }
     out << "<EOH>\n";
 }

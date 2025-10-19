@@ -51,6 +51,8 @@ public:
     Adif(const QString &_parentName);
     ~Adif();
     void init();
+    ADIFField setPair(const QString &_pair);
+
     bool isValidFreq(const QString &_b);            //>0
     bool isValidPower(const double _b);           //>0
     bool isValidK_Index(const int _b);         //0-9

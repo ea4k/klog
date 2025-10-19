@@ -93,6 +93,13 @@ struct PrimarySubdivision { // Used to return data to MainWindow for each prefix
     int dxcc;
 };
 
+struct ADIFField {
+    QString field;
+    QString value;
+    bool valid;
+    //QChar type;
+};
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
 #define QT_SKIP Qt::SkipEmptyParts
 #define QT_ENDL Qt::endl

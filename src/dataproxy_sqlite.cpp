@@ -7262,27 +7262,6 @@ void DataProxy_SQLite::logEvent(const QString &_func, const QString &_msg,  Debu
     if (logLevel<=_level)
         emit debugLog (_func, _msg, _level);
 }
-/*
-QString DataProxy_SQLite::getADIFQSO(const int _qsoId, ExportMode _em)
-{
-    // Called from eLogQrzLog::sendQSO just for the QRZ.com QSO send
-
-    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_qsoId);
-    QSqlQuery query;
-    QString queryString = QString("SELECT * FROM log WHERE id='%1'").arg(_qsoId);
-    bool sqlOk = query.exec(queryString);
-
-    if (!sqlOk)
-        return QString();
-    if (!query.next())
-        return QString();
-    if (!query.isValid())
-        return QString();
-    QSqlRecord rec = query.record();
-
-    return getADIFFromQSOQuery(rec, _em, false, false, -1);
-}
-*/
 
 QString DataProxy_SQLite::getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName)
 {// To refactor the getADIFFromQSOQuery function
@@ -7328,6 +7307,22 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
             return QString();
         }
     }
+
+    qso.setAltitude((getADIFValueFromRec(rec, "altitude")).toDouble());
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "award_submitted"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "award_granted"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "gridsquare_ext"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamlogeu_qso_upload_date"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamlogeu_qso_upload_status"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamqth_qso_upload_date"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamqth_qso_upload_status"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_arrl_sect"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_gridsquare_ext"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_pota_ref"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_sig_info"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_wwff_ref"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "pota_ref"));
+    qso.setAwardSubmitted(getADIFValueFromRec(rec, "wwff_ref"));
 
     qso.setCall(getADIFValueFromRec(rec, "call"));
 

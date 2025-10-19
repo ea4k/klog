@@ -3018,6 +3018,7 @@ QString QSO::getMyName() const
 
 bool QSO::setMyPOTA_Ref(const QString &_c)
 {
+    qDebug() << Q_FUNC_INFO << " - " << _c;
     if (!adif->isValidPOTA(_c))
         return false;
     my_pota_ref = _c;
@@ -3635,62 +3636,72 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
+    qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
     QStringList d;
     d.clear();
-    d << util->getValidADIFFieldAndData(_adifPair);
-    if (d.length()!=2)
-    {
-        logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
+    Adif adif(Q_FUNC_INFO);
+    ADIFField aField = adif.setPair(_adifPair);
+    qDebug() << Q_FUNC_INFO << " - ADIF Field: " << aField.field;
+    qDebug() << Q_FUNC_INFO << " - ADIF Value: " << aField.value;
+    qDebug() << Q_FUNC_INFO << " - ADIF Valid: " << util->boolToQString(aField.valid);
+    if (!aField.valid)
         return false;
-    }
+
+    //d << util->getValidADIFFieldAndData(_adifPair);
+    //if (d.length()!=2)
+    //{
+     ////   qDebug() << Q_FUNC_INFO << " - ADIF not valid";
+       // logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
+    //    return false;
+    //}
 
     //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
 
-    QString field = d.at(0).toUpper();
-    QString data = d.at(1);
+    //QString field = d.at(0).toUpper();
+    //QString data = d.at(1);
+
     //<APP_LoTW_QSO_TIMESTAMP:20>2022-04-23T18:08:00Z // QSO Date & Time; ISO-8601
     if (_lotw)
     {
         //qDebug() << Q_FUNC_INFO << " - field: " << field;
         //qDebug() << Q_FUNC_INFO << " LOTW QSO... ";
-        if (field == "APP_LOTW_RXQSO")
+        if (aField.field == "APP_LOTW_RXQSO")
         {// Timestamp when QSO record was inserted/updated at LoTW
          // LOTW_QSLSDATE
             //qDebug() << Q_FUNC_INFO << " - APP_LOTW_RXQSO";
             //qDebug() << Q_FUNC_INFO << " LOTW_QSLSDATE: " << data;
             //qDebug() << Q_FUNC_INFO << " LOTW_QSLSDATE-d: " << data;
-            field = "LOTW_QSLSDATE";
-            data = adif->getADIFDateStringFromLoTWDateTime(data);
+            aField.field = "LOTW_QSLSDATE";
+            aField.value = adif.getADIFDateStringFromLoTWDateTime(aField.value);
             setLoTWQSL_SENT("Y");
         }
-        else if (field == "APP_LoTW_QSO_TIMESTAMP")
+        else if (aField.field == "APP_LoTW_QSO_TIMESTAMP")
         {
             //            2022-04-23T18:08:00Z
             //            YYYY-MM-DDTHH:MM:SSZ
-            QDateTime dateTime = QDateTime::fromString(data, "yyyy-MM-ddTHH:mm:ssZ");
+            QDateTime dateTime = QDateTime::fromString(aField.value, "yyyy-MM-ddTHH:mm:ssZ");
             setDate(dateTime.date());
             setTimeOn(dateTime.time());
         }
-        else if (field == "APP_LOTW_RXQSL")
+        else if (aField.field == "APP_LOTW_RXQSL")
         {// Timestamp only if QSL_RCVD == Y
             //qDebug() << Q_FUNC_INFO << " - Identified: APP_LOTW_RXQSL";
             //qDebug() << Q_FUNC_INFO << " ... modifying QSLRDATE to LOTW_QSLRDATE";
             //qDebug() << Q_FUNC_INFO << " Date: " << data;
-            field = "LOTW_QSLRDATE";
-            data = adif->getADIFDateStringFromLoTWDateTime(data);
+            aField.field = "LOTW_QSLRDATE";
+            aField.value = adif.getADIFDateStringFromLoTWDateTime(aField.value);
             //qDebug() << Q_FUNC_INFO << " LOTW_QSLRDATE: " << data;
         }
-        else if (field == "QSLRDATE")
+        else if (aField.field == "QSLRDATE")
         {
-             field = "LOTW_QSLRDATE";
+            aField.field = "LOTW_QSLRDATE";
         }
-        else if (field == "QSL_RCVD")
+        else if (aField.field == "QSL_RCVD")
         {// Y, N, ...
             //qDebug() << Q_FUNC_INFO << " - Identified: QSLRCVD";
             //qDebug() << Q_FUNC_INFO << " ... modifying QSLRCVD - previous: " << getLoTWQSLRDate().toString("yyyyMMdd");
             //if (!(getLoTWQSLRDate() > QDate::fromString("19000101", "yyyyMMdd")))
-            field = "LOTW_QSL_RCVD";
+            aField.field = "LOTW_QSL_RCVD";
         }
     }
 
@@ -3698,9 +3709,9 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
         InitializeHash();
     }
 
-    if (SetDataHash.contains(field)) {
-        //qDebug() << Q_FUNC_INFO << " Calling: " << SetDataHash.contains(field);
-        (*SetDataHash.find(field))(this,data);
+    if (SetDataHash.contains(aField.field)) {
+        qDebug() << Q_FUNC_INFO << " Calling: " << SetDataHash.contains(aField.field);
+        (*SetDataHash.find(aField.field))(this,aField.value);
     }
 
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -4402,7 +4413,7 @@ QString QSO::getADIF(ExportMode _em)
     //qDebug() << Q_FUNC_INFO << " - Start";
     if (!isComplete())
         return QString();
-
+    qDebug() << Q_FUNC_INFO << " - My_POTA_REF: " << getMyPOTA_Ref();
     QString adifStr;
     switch (_em) {
     case ModeADIF:
@@ -4591,6 +4602,7 @@ QString QSO::getADIFStandard()
     adifStr.append(adif->getADIFField ("my_lat", my_latitude));
     adifStr.append(adif->getADIFField ("my_lon", my_longitude));
     adifStr.append(adif->getADIFField ("my_name", my_name));
+    qDebug() << Q_FUNC_INFO << " - MY_POTA_REF";
     adifStr.append(adif->getADIFField ("my_pota_ref", my_pota_ref));
     adifStr.append(adif->getADIFField ("my_postal_code", my_postal_code));
     adifStr.append(adif->getADIFField ("my_rig", my_rig));
@@ -4845,7 +4857,7 @@ QString QSO::getBandNameFromFreq(const double _n)
 bool QSO::fromDB(int _qsoId)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
     QString queryString = "SELECT log.*, \
         band.name AS band_name,          \
@@ -5027,6 +5039,7 @@ bool QSO::fromDB(int _qsoId)
     setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
 
     setMyName((query.value(rec.indexOf("my_name"))).toString());
+    qDebug() << Q_FUNC_INFO << " - MY_POTA_REF: " << (query.value(rec.indexOf("my_pota_ref"))).toString();
     setMyPOTA_Ref((query.value(rec.indexOf("my_pota_ref"))).toString());
     setMyPostalCode((query.value(rec.indexOf("my_postal_code"))).toString());
     setMyRig((query.value(rec.indexOf("my_rig"))).toString());

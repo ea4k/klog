@@ -86,6 +86,7 @@ void tst_Adif::test_POTA()
 {
     QVERIFY2(adif->isValidPOTA("ES-0150"), "ES-0150");
     QVERIFY2(adif->isValidPOTA("US-0001"), "US-0001");
+    QVERIFY2(adif->isValidPOTA("US-2133"), "US-2133");
     QVERIFY2(adif->isValidPOTA("FR-13219"), "FR-13219");
     QVERIFY2(adif->isValidPOTA("gb-5662"), "gb-56629");
 }
