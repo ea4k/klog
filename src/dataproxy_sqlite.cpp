@@ -7278,6 +7278,10 @@ QString DataProxy_SQLite::getADIFValueFromRec(QSqlRecord _rec, const QString &_f
 QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bool _justMarked, bool _onlyRequested, const int _logN )
 {   //qDebug() << Q_FUNC_INFO << ": " <<  query.lastQuery();
     //qDebug() << Q_FUNC_INFO << ": START";
+        //TODO:
+        // Be aware that the function bool QSO::fromDB(int _qsoId)
+        // has a similar function
+        // Make sure that all fields are included inbot functions until consolidated
     int nameCol;
     QString aux;
 
@@ -7310,26 +7314,36 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
 
     qso.setAltitude((getADIFValueFromRec(rec, "altitude")).toDouble());
     qso.setAwardSubmitted(getADIFValueFromRec(rec, "award_submitted"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "award_granted"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "gridsquare_ext"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamlogeu_qso_upload_date"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamlogeu_qso_upload_status"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamqth_qso_upload_date"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "hamqth_qso_upload_status"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_arrl_sect"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_gridsquare_ext"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_pota_ref"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_sig_info"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "my_wwff_ref"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "pota_ref"));
-    qso.setAwardSubmitted(getADIFValueFromRec(rec, "wwff_ref"));
+    qso.setAwardGranted(getADIFValueFromRec(rec, "award_granted"));
+    qso.setGridSquare_ext(getADIFValueFromRec(rec, "gridsquare_ext"));
+
+    qso.setHamLogEUStatus(getADIFValueFromRec(rec, "hamlogeu_qso_upload_status"));
+    QDateTime tDateTime;
+    aux = getADIFValueFromRec(rec, "hamlogeu_qso_upload_date");
+    tDateTime = util->getDateTimeFromSQLiteString(aux);
+    qso.setHamLogEUUpdateDate(tDateTime.date());
+
+    aux = getADIFValueFromRec(rec, "hamqth_qso_upload_date");
+    tDateTime = util->getDateTimeFromSQLiteString(aux);
+    qso.setHamQTHUpdateDate(tDateTime.date());
+    //qso.setHamQTHUpdateDate(getADIFValueFromRec(rec, "hamqth_qso_upload_date"));
+    qso.setHamQTHStatus(getADIFValueFromRec(rec, "hamqth_qso_upload_status"));
+    qso.setMyARRL_Sect(getADIFValueFromRec(rec, "my_arrl_sect"));
+    qso.setMyGridSquare_ext(getADIFValueFromRec(rec, "my_gridsquare_ext"));
+    qso.setMyPOTA_Ref(getADIFValueFromRec(rec, "my_pota_ref"));
+    qso.setMySigInfo(getADIFValueFromRec(rec, "my_sig_info"));
+    qso.setMyWWFF_Ref(getADIFValueFromRec(rec, "my_wwff_ref"));
+    qso.setPOTA_Ref(getADIFValueFromRec(rec, "pota_ref"));
+    qso.setWWFF_Ref(getADIFValueFromRec(rec, "wwff_ref"));
 
     qso.setCall(getADIFValueFromRec(rec, "call"));
 
-    QDateTime tDateTime;
+
     aux = getADIFValueFromRec(rec, "qso_date");
     tDateTime = util->getDateTimeFromSQLiteString(aux);
     qso.setDateTimeOn(tDateTime);
+
+
 
     aux = getADIFValueFromRec(rec, "bandid");
     qso.setBand(getNameFromBandId(aux.toInt()));

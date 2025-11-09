@@ -3054,12 +3054,14 @@ QString QSO::getMySig() const
 
 bool QSO::setMySigInfo(const QString &_c)
 {
+    qDebug() << Q_FUNC_INFO << " - " << _c;
     my_sig_info = _c;
     return true;
 }
 
 QString QSO::getMySigInfo()
 {
+    qDebug() << Q_FUNC_INFO << " - " << my_sig_info;
     return my_sig_info;
 }
 
@@ -4607,7 +4609,9 @@ QString QSO::getADIFStandard()
     adifStr.append(adif->getADIFField ("my_postal_code", my_postal_code));
     adifStr.append(adif->getADIFField ("my_rig", my_rig));
     adifStr.append(adif->getADIFField ("my_sig", my_sig));
+    qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO";
     adifStr.append(adif->getADIFField ("my_sig_info", my_sig_info));
+    qDebug() << Q_FUNC_INFO << " - END - MY_SIG_INFO";
 
     adifStr.append(adif->getADIFField ("my_sota_ref", my_sota_ref));
     adifStr.append(adif->getADIFField ("my_state", my_state));
@@ -4856,6 +4860,9 @@ QString QSO::getBandNameFromFreq(const double _n)
 
 bool QSO::fromDB(int _qsoId)
 {
+    // TODO: Be aware that the function QString DataProxy_SQLite::getADIFFromQSOQuery
+    // has a similar function
+    // Make sure that all fields are included inbot functions until consolidated
     logEvent (Q_FUNC_INFO, "Start", Debug);
     qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
@@ -5034,7 +5041,7 @@ bool QSO::fromDB(int _qsoId)
     setMyGridSquare((query.value(rec.indexOf("my_gridsquare"))).toString());
     setMyGridSquare_ext((query.value(rec.indexOf("my_gridsquare_ext"))).toString());
     setMyIOTA((query.value(rec.indexOf("my_iota"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 80";
+    qDebug() << Q_FUNC_INFO << "  - 80";
     setMyLatitude((query.value(rec.indexOf("my_lat"))).toString());
     setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
 
@@ -5044,6 +5051,7 @@ bool QSO::fromDB(int _qsoId)
     setMyPostalCode((query.value(rec.indexOf("my_postal_code"))).toString());
     setMyRig((query.value(rec.indexOf("my_rig"))).toString());
     setMySig((query.value(rec.indexOf("my_sig"))).toString());
+    qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO: " << (query.value(rec.indexOf("my_sig_info"))).toString();
     setMySigInfo((query.value(rec.indexOf("my_sig_info"))).toString());
     setMySOTA_REF((query.value(rec.indexOf("my_sota_ref"))).toString());
     setMyState((query.value(rec.indexOf("my_state"))).toString());

@@ -123,6 +123,11 @@ void tst_QSO::setQSOData()
     qso->setTenTen(10);
     qso->setUksmg(10);
     qso->setIotaID(10);
+    qso->setSIG("POTA");
+    qso->setSIG_INFO("US-2134");
+    qso->setMySig("POTA");
+    qso->setMySigInfo("US-2133");
+
 
     //ant_az, a_index, ant_el, max_bursts, my_dxcc, nr_bursts, nr_pings
     //ten_ten, usksmg
@@ -234,9 +239,9 @@ void tst_QSO::setQSOData()
     QString getMyName();
     bool setMyPostalCode(const QString &_c);
     QString getMyPostalCode();
-    bool setMySig(const QString &_c);
+
     QString getMySig();
-    bool setMySigInfo(const QString &_c);
+
     QString getMySigInfo();
     bool setMyState(const QString &_c);
     QString getMyState();
@@ -258,9 +263,9 @@ void tst_QSO::setQSOData()
     int getTenTen();
     bool setSFI(const int _i);
     int getSFI();
-    bool setSIG(const QString &_c);
+
     QString getSIG();
-    bool setSIG_INFO(const QString &_c);
+
     QString getSIG_INFO();
     bool setSilentKey(bool _k);
     bool getSilentKey();
@@ -292,7 +297,6 @@ void tst_QSO::setQSOData()
     bool setWWFFRef(const QString &_c);
     QString getWWFFRef();
     bool setMyWwffRef(const QString &_c);
-
 
 */
 }
@@ -373,6 +377,16 @@ void tst_QSO::test_dataEntry()
     QVERIFY2(qso->setIotaID(10), "Error while setting IOTA-ID");
     QVERIFY2(qso->getIotaID() == 10, "Error while reading IOTA-ID");
 
+
+    QVERIFY2(qso->setSIG("POTA"), "Error while setting SIG");
+    QVERIFY2(qso->getSIG() == "POTA", "Error while reading SIG");
+    QVERIFY2(qso->setSIG_INFO("US-2133"), "Error while setting SIG_INFO");
+    QVERIFY2(qso->getSIG_INFO() == "US-2133", "Error while reading SIG_INFO");
+
+    QVERIFY2(qso->setMySig("POTA"), "Error while setting MY_SIG");
+    QVERIFY2(qso->getMySig() == "POTA", "Error while reading MY_SIG");
+    QVERIFY2(qso->setMySigInfo("US-2134"), "Error while setting MY_SIG_INFO");
+    QVERIFY2(qso->getMySigInfo() == "US-2134", "Error while reading MY_SIG_INFO");
 
     qso->setLogLevel(Info);
     QVERIFY2(qso->logLevel == Info, "Error while setting logLevel (Info)");

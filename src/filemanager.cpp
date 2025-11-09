@@ -236,7 +236,6 @@ bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _field
         exportAll = true;
     }
 
-
     noMoreQso = false;
     //qDebug() << Q_FUNC_INFO << " - 01";
     QFile file(_fileName);
@@ -271,7 +270,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _field
     //qDebug() << Q_FUNC_INFO << " - writing the header";
     writeADIFHeader(out, _em, numberOfQSOs);
    //qDebug() << Q_FUNC_INFO << " - writing the body";
-
+    qDebug() << Q_FUNC_INFO << " - Query: " << queryString;
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {

@@ -497,6 +497,13 @@ bool Adif::isValidPOTA(const QString &_s)
     // $           end of string
 
     QRegularExpression potaRegex(R"(^[A-Za-z0-9]{1,4}-[A-Za-z0-9]{4,5}(@[A-Za-z0-9]{4,6})?$)", QRegularExpression::CaseInsensitiveOption);
+    bool ok = potaRegex.match(_s).hasMatch();
+    QString test = "FALSE";
+    if (ok)
+        test = "TRUE";
+
+    qDebug() << Q_FUNC_INFO << " - " << test;
+    //return ok;
     return potaRegex.match(_s).hasMatch();
 }
 
