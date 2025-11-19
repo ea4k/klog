@@ -843,6 +843,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     int step = util->getProgresStepForDialog(qsos);
     int i = 0;
     bool noMoreQSO = false;
+    int duplicateCount = 0;
 
     QSO qso;
     QTime startTime = QTime::currentTime();
@@ -864,8 +865,16 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
             {
                 qso.setLogId(logN);
                 qso.setLoTWUpdating(lotWDownloaded);
-                if (processQSO(qso, _stationCallsign) > 0)
-                    ++i;
+                int result = processQSO(qso, _stationCallsign);
+                if (result>0)
+                    i++;
+                else if (result == -2)
+                {
+                    if (duplicateCount<1)
+                        showDuplicatedQSOFoundInLog();
+                    duplicateCount++;
+                }
+
                 qso.clear();
 
                 if (i % step == 0)
@@ -896,7 +905,28 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     file.close();
     progress.setValue(qsos);
 
+    if (duplicateCount>0)
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - Import finished"));
+        msgBox.setText(tr("The ADIF file import has finished."));
+        QString info = tr("Imported QSOs: %1\nIgnored duplicated: %2").arg(i).arg(duplicateCount);
+        msgBox.setInformativeText(info);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();// == QMessageBox::AcceptRole;
+    }
+
     return i;
+}
+
+void FileManager::showDuplicatedQSOFoundInLog()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("KLog - Duplicated QSOs!"));
+    msgBox.setText(tr("This file contains duplicated QSOs. Duplicated QSOs will not be imported"));
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();// == QMessageBox::AcceptRole;
 }
 
 int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
@@ -909,6 +939,7 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     {
         qso.setStationCallsign(_stationCallsign);
     }
+
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
