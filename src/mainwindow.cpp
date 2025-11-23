@@ -4363,7 +4363,7 @@ void MainWindow::slotRQSLExport()
 }
 
 void MainWindow::slotADIFImport(){
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
@@ -4371,7 +4371,7 @@ void MainWindow::slotADIFImport(){
                                                      "ADIF (*.adi *.adif)");
     if (!fileName.isNull())
     {
-       qDebug() << Q_FUNC_INFO << " - 010";
+       //qDebug() << Q_FUNC_INFO << " - 010";
         int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog);  // Empty StationCallsign by default
         if (loggedQSOs>0)
         {
@@ -4386,10 +4386,10 @@ void MainWindow::slotADIFImport(){
             awardsWidget->showAwards();
              //qDebug() << Q_FUNC_INFO << " -6" ;
         }
-        qDebug() << Q_FUNC_INFO << " - 020";
+        //qDebug() << Q_FUNC_INFO << " - 020";
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 

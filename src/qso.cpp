@@ -3018,7 +3018,7 @@ QString QSO::getMyName() const
 
 bool QSO::setMyPOTA_Ref(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << " - " << _c;
+    //qDebug() << Q_FUNC_INFO << " - " << _c;
     if (!adif->isValidPOTA(_c))
         return false;
     my_pota_ref = _c;
@@ -3054,14 +3054,14 @@ QString QSO::getMySig() const
 
 bool QSO::setMySigInfo(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << " - " << _c;
+    //qDebug() << Q_FUNC_INFO << " - " << _c;
     my_sig_info = _c;
     return true;
 }
 
 QString QSO::getMySigInfo()
 {
-    qDebug() << Q_FUNC_INFO << " - " << my_sig_info;
+    //qDebug() << Q_FUNC_INFO << " - " << my_sig_info;
     return my_sig_info;
 }
 
@@ -3638,21 +3638,21 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
+    //qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
     QStringList d;
     d.clear();
     Adif adif(Q_FUNC_INFO);
     ADIFField aField = adif.setPair(_adifPair);
-    qDebug() << Q_FUNC_INFO << " - ADIF Field: " << aField.field;
-    qDebug() << Q_FUNC_INFO << " - ADIF Value: " << aField.value;
-    qDebug() << Q_FUNC_INFO << " - ADIF Valid: " << util->boolToQString(aField.valid);
+    //qDebug() << Q_FUNC_INFO << " - ADIF Field: " << aField.field;
+    //qDebug() << Q_FUNC_INFO << " - ADIF Value: " << aField.value;
+    //qDebug() << Q_FUNC_INFO << " - ADIF Valid: " << util->boolToQString(aField.valid);
     if (!aField.valid)
         return false;
 
     //d << util->getValidADIFFieldAndData(_adifPair);
     //if (d.length()!=2)
     //{
-     ////   qDebug() << Q_FUNC_INFO << " - ADIF not valid";
+     ////   //qDebug() << Q_FUNC_INFO << " - ADIF not valid";
        // logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
     //    return false;
     //}
@@ -3712,7 +3712,7 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     }
 
     if (SetDataHash.contains(aField.field)) {
-        qDebug() << Q_FUNC_INFO << " Calling: " << SetDataHash.contains(aField.field);
+        //qDebug() << Q_FUNC_INFO << " Calling: " << SetDataHash.contains(aField.field);
         (*SetDataHash.find(aField.field))(this,aField.value);
     }
 
@@ -4415,7 +4415,7 @@ QString QSO::getADIF(ExportMode _em)
     //qDebug() << Q_FUNC_INFO << " - Start";
     if (!isComplete())
         return QString();
-    qDebug() << Q_FUNC_INFO << " - My_POTA_REF: " << getMyPOTA_Ref();
+    //qDebug() << Q_FUNC_INFO << " - My_POTA_REF: " << getMyPOTA_Ref();
     QString adifStr;
     switch (_em) {
     case ModeADIF:
@@ -4604,14 +4604,14 @@ QString QSO::getADIFStandard()
     adifStr.append(adif->getADIFField ("my_lat", my_latitude));
     adifStr.append(adif->getADIFField ("my_lon", my_longitude));
     adifStr.append(adif->getADIFField ("my_name", my_name));
-    qDebug() << Q_FUNC_INFO << " - MY_POTA_REF";
+    //qDebug() << Q_FUNC_INFO << " - MY_POTA_REF";
     adifStr.append(adif->getADIFField ("my_pota_ref", my_pota_ref));
     adifStr.append(adif->getADIFField ("my_postal_code", my_postal_code));
     adifStr.append(adif->getADIFField ("my_rig", my_rig));
     adifStr.append(adif->getADIFField ("my_sig", my_sig));
-    qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO";
+    //qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO";
     adifStr.append(adif->getADIFField ("my_sig_info", my_sig_info));
-    qDebug() << Q_FUNC_INFO << " - END - MY_SIG_INFO";
+    //qDebug() << Q_FUNC_INFO << " - END - MY_SIG_INFO";
 
     adifStr.append(adif->getADIFField ("my_sota_ref", my_sota_ref));
     adifStr.append(adif->getADIFField ("my_state", my_state));
@@ -4864,7 +4864,7 @@ bool QSO::fromDB(int _qsoId)
     // has a similar function
     // Make sure that all fields are included inbot functions until consolidated
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
     QString queryString = "SELECT log.*, \
         band.name AS band_name,          \
@@ -5041,17 +5041,17 @@ bool QSO::fromDB(int _qsoId)
     setMyGridSquare((query.value(rec.indexOf("my_gridsquare"))).toString());
     setMyGridSquare_ext((query.value(rec.indexOf("my_gridsquare_ext"))).toString());
     setMyIOTA((query.value(rec.indexOf("my_iota"))).toString());
-    qDebug() << Q_FUNC_INFO << "  - 80";
+    //qDebug() << Q_FUNC_INFO << "  - 80";
     setMyLatitude((query.value(rec.indexOf("my_lat"))).toString());
     setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
 
     setMyName((query.value(rec.indexOf("my_name"))).toString());
-    qDebug() << Q_FUNC_INFO << " - MY_POTA_REF: " << (query.value(rec.indexOf("my_pota_ref"))).toString();
+    //qDebug() << Q_FUNC_INFO << " - MY_POTA_REF: " << (query.value(rec.indexOf("my_pota_ref"))).toString();
     setMyPOTA_Ref((query.value(rec.indexOf("my_pota_ref"))).toString());
     setMyPostalCode((query.value(rec.indexOf("my_postal_code"))).toString());
     setMyRig((query.value(rec.indexOf("my_rig"))).toString());
     setMySig((query.value(rec.indexOf("my_sig"))).toString());
-    qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO: " << (query.value(rec.indexOf("my_sig_info"))).toString();
+    //qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO: " << (query.value(rec.indexOf("my_sig_info"))).toString();
     setMySigInfo((query.value(rec.indexOf("my_sig_info"))).toString());
     setMySOTA_REF((query.value(rec.indexOf("my_sota_ref"))).toString());
     setMyState((query.value(rec.indexOf("my_state"))).toString());

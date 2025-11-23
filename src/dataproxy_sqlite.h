@@ -338,6 +338,18 @@ public:
     //bool queryBind(const QString &_field, const QString &value);
     //bool queryExec();
 
+    // Transaction Wrappers
+    bool beginTransaction();
+    bool commitTransaction();
+
+    // Cache functions
+    void loadDuplicateCache(int logId);
+    int checkBatchDuplicate(const QString &call, const QString &date, int bandId, int modeId);
+    void clearDuplicateCache();
+    void addDuplicateCache (int qsoId, const QSO &qso);
+
+
+
 private:
     bool dbCreated;
     DataBase *db;
@@ -367,6 +379,8 @@ private:
     QHash<int, QString> modeIdToName;
     QHash<QString, QList<int>> nameToModeIds;
 
+    QHash<QString, int> m_duplicateCache;
+    QString generateDuplicateKey(const QString &call, const QString &date, int bandId, int modeId);
 
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;

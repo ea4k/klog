@@ -168,9 +168,9 @@ void FileManager::setSendQSLByDefault (const bool _send)
 QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const QString &_callsign, QList<int> _qsos, const ExportMode _em, const int _logN)
 {
     Q_UNUSED(_logN);
-    qDebug() << Q_FUNC_INFO << " - Start";
-    qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
-    qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign ;
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - QSOs: " << QString::number(_qsos.length ());
+    //qDebug() << Q_FUNC_INFO << ": Start)" << _fileName << "/" << _callsign ;
     QList<int> qsos;
     qsos.clear();
     Callsign call(_callsign);
@@ -216,13 +216,13 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
 
 bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em)
 { // The fields are the database fields that are to be selected in the query
-    qDebug() << Q_FUNC_INFO << " - Start";
-    qDebug() << Q_FUNC_INFO << " - Fields: " << _fields;
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Fields: " << _fields;
     int numberOfQSOs = _qsos.length();
     if (numberOfQSOs<1)
     {
         //TODO: Warn the user NO QSOS TO EXPORT
-        qDebug() << Q_FUNC_INFO << " - No QSOs received to be exported";
+        //qDebug() << Q_FUNC_INFO << " - No QSOs received to be exported";
     }
     QString fields = _fields;
     if (_fields.length ()<1)
@@ -258,7 +258,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _field
     }
 
     QString queryString;
-    qDebug() << Q_FUNC_INFO << " - ExportAll = " << util->boolToQString(exportAll);
+    //qDebug() << Q_FUNC_INFO << " - ExportAll = " << util->boolToQString(exportAll);
     if (exportAll)
     {
         queryString = QString("SELECT %1 FROM log").arg(fields);
@@ -270,7 +270,7 @@ bool FileManager::adifQSOsExport(const QString& _fileName, const QString& _field
     //qDebug() << Q_FUNC_INFO << " - writing the header";
     writeADIFHeader(out, _em, numberOfQSOs);
    //qDebug() << Q_FUNC_INFO << " - writing the body";
-    qDebug() << Q_FUNC_INFO << " - Query: " << queryString;
+    //qDebug() << Q_FUNC_INFO << " - Query: " << queryString;
     bool sqlOK = query.exec(queryString);
     if (!sqlOK)
     {
@@ -820,7 +820,7 @@ logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
 
 int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
-    qDebug() << Q_FUNC_INFO << " - " << tfileName;
+    //qDebug() << Q_FUNC_INFO << " - " << tfileName;
     QFile file(tfileName);
     if (!file.exists())
         return -1;
@@ -839,6 +839,8 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setAutoClose(true);
+
+    dataProxy->beginTransaction();
 
     int step = util->getProgresStepForDialog(qsos);
     int i = 0;
@@ -902,6 +904,8 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
         }
     }
 
+    dataProxy->commitTransaction();
+    dataProxy->clearDuplicateCache();
     file.close();
     progress.setValue(qsos);
 
@@ -940,21 +944,41 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
         qso.setStationCallsign(_stationCallsign);
     }
 
+    int bandId = dataProxy->getIdFromBandName(qso.getBand());
+    int modeId = dataProxy->getIdFromModeName(qso.getSubmode());
+    int duplicatedId = dataProxy->checkBatchDuplicate(qso.getCall(), util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn()), bandId, modeId);
+
     int qsoId = -1;
     if (qso.getLoTWUpdating())
     {
        //qDebug() << Q_FUNC_INFO << " - Running LoTW update code";
-        int bandId = dataProxy->getIdFromBandName(qso.getBand());
-        int modeId = dataProxy->getIdFromModeName(qso.getMode());
-        qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
-
-        if (qsoId > 0)
+       if (duplicatedId>0)
+       {
+           qso.updateFromLoTW(qsoId);
+           qsoId = duplicatedId;
+       }
+    }
+    else
+    { // Standard IMPORT
+        if (duplicatedId>0)
         {
-            qso.updateFromLoTW(qsoId);
+            return -2;
         }
     }
+
+        //int bandId = dataProxy->getIdFromBandName(qso.getBand());
+        //int modeId = dataProxy->getIdFromModeName(qso.getMode());
+        //qsoId = dataProxy->getDuplicatedQSOId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId);
+    int resultId = qso.toDB(qsoId);
+
+    if (resultId>0 && qsoId==-1)
+    {
+        // TODO: Add this QSO to the cache
+    }
+    return resultId;
+
    //qDebug() << Q_FUNC_INFO << " - Ready to add the QSO to the DB";
-    return qso.toDB(qsoId);
+    //return qso.toDB(qsoId);
 }
 
 bool FileManager::handleCancel()
@@ -973,7 +997,7 @@ QString FileManager::getProgramIDFromLine(const QString &line)
 {
     // Expects a line that contains "PROGRAMID" (already uppercased)
     // Format example: <PROGRAMID:4>LOTW
-    qDebug() << Q_FUNC_INFO << " -  " << line;
+    //qDebug() << Q_FUNC_INFO << " -  " << line;
     QStringList fields = line.split("<", Qt::SkipEmptyParts);
     for (QString aux : fields)
     {
@@ -1280,7 +1304,7 @@ bool FileManager::adifReqQSLExport(const QString& _fileName)
 
 int FileManager::getAppKLogNumber(const QString &line)
 { // Expects a line containing APP_KLOG_QSOS (already uppercased)
-    qDebug() << Q_FUNC_INFO << " - " << line;
+    //qDebug() << Q_FUNC_INFO << " - " << line;
     if (!line.contains("APP_KLOG_QSOS"))
         return -1;
 
@@ -1293,7 +1317,7 @@ int FileManager::getAppKLogNumber(const QString &line)
             QStringList data = aux.split('>');
             if (data.size() > 1)
             {
-                qDebug() << Q_FUNC_INFO << " - NUMBER FOUND: " << data.at(1);
+                //qDebug() << Q_FUNC_INFO << " - NUMBER FOUND: " << data.at(1);
                 return data.at(1).toInt();
             }
         }

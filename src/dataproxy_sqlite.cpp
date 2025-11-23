@@ -7947,6 +7947,78 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
     return 0;
 }
 
+QString DataProxy_SQLite::generateDuplicateKey(const QString &call, const QString &date, int bandId, int modeId)
+{
+    return QString("%1|%2|%3|%4")
+            .arg(call.toUpper())
+            .arg(date)
+            .arg(bandId)
+            .arg(modeId);
+}
+
+void DataProxy_SQLite::loadDuplicateCache(int logId)
+{
+    m_duplicateCache.clear();
+
+    QString queryString = "SELECT id, call, qso_date, bandid, modeid FROM log";
+    if (logId>0)
+    {
+        queryString += QString(" WHERE lognumber=%1").arg(logId);
+    }
+    QSqlQuery query;
+    query.setForwardOnly(true); // Optimization for reading
+
+    if (query.exec(queryString))
+    {
+        while (query.next())
+        {
+            int id = query.value(0).toInt();
+            QString call = query.value(1).toString();
+            QString date = query.value(2).toString();
+            int band = query.value(3).toInt();
+            int mode = query.value(4).toInt();
+            QString key = generateDuplicateKey(call, date, band, mode);
+            m_duplicateCache.insert(key, id);
+            //QString date = util->getDateSQLiteStringFromDate(util->getDateTimeFromSQLiteString(query.value(2)).date());
+        }
+    }
+
+}
+
+int DataProxy_SQLite::checkBatchDuplicate(const QString &call, const QString &date, int bandId, int modeId)
+{
+    QString key = generateDuplicateKey(call, date, bandId, modeId);
+    if (m_duplicateCache.contains(key))
+    {
+        return m_duplicateCache.value(key);
+    }
+    return -1;
+}
+
+void DataProxy_SQLite::addDuplicateCache (int qsoId, const QSO &qso)
+{
+    int bandId = getIdFromBandName(qso.getBand());
+    int modeId = getIdFromModeName(qso.getMode());
+    QString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
+    QString key = generateDuplicateKey(qso.getCall(), date, bandId, modeId);
+    m_duplicateCache.insert(key, qsoId);
+}
+
+void DataProxy_SQLite::clearDuplicateCache()
+{
+    m_duplicateCache.clear();
+}
+
+bool DataProxy_SQLite::beginTransaction()
+{
+    return db->beginTransaction();
+}
+
+bool DataProxy_SQLite::commitTransaction()
+{
+    return db->commitTransaction();
+}
+
 void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _l)
 {
     logEvent(_func, _msg, _l);

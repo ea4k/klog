@@ -94,7 +94,6 @@ DataBase::~DataBase()
          //qDebug() << "DataBase::~DataBase"  ;
 }
 
-
 QString DataBase::getSoftVersion()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -5777,6 +5776,27 @@ int DataBase::getLastInsertedQSO()
     query.finish();
     return id;
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+bool DataBase::beginTransaction()
+{
+    if (db.driver()->hasFeature(QSqlDriver::Transactions))
+        return db.transaction();
+    return false;
+}
+
+bool DataBase::commitTransaction()
+{
+    if (db.driver()->hasFeature(QSqlDriver::Transactions))
+        return db.commit();
+    return false;
+}
+
+bool DataBase::rollbackTransaction()
+{
+    if (db.driver()->hasFeature(QSqlDriver::Transactions))
+        return db.rollback();
+    return false;
 }
 
 void DataBase::queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery)

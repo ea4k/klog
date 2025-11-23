@@ -56,6 +56,10 @@ public:
     //virtual ~DataBase();
     ~DataBase();
 
+    bool beginTransaction();
+    bool commitTransaction();
+    bool rollbackTransaction();
+
     QString getSoftVersion();
     float getDBVersion();
     QString getDBName();
