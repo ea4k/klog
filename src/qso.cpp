@@ -1780,7 +1780,7 @@ bool QSO::setPropMode(const QString &_c)
         return false;
     }
     //qDebug() << Q_FUNC_INFO << " - OK END";
-    propMode = _c;
+    propMode = _c.toUpper();
     return true;
 }
 
@@ -4367,8 +4367,11 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":rig", getRig ());
     if (adif->isValidPower(getRXPwr()))
         query.bindValue(":rx_pwr", getRXPwr());
-    query.bindValue(":sat_mode", getSatMode());
-    query.bindValue(":sat_name",getSatName());
+    if (getPropMode() == "SAT")
+    {
+        query.bindValue(":sat_mode", getSatMode());
+        query.bindValue(":sat_name",getSatName());
+    }
     if (adif->isValidSFI(getSFI()))
         query.bindValue(":sfi", getSFI());
     query.bindValue(":sig", getSIG());

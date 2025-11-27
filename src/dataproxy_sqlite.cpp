@@ -8004,7 +8004,7 @@ void DataProxy_SQLite::addDuplicateCache (int qsoId, const QSO &qso)
     int modeId = getIdFromModeName(qso.getMode());
     //QString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
     QString key = generateDuplicateKey(qso.getCall(), qso.getDateTimeOn().date(), bandId, modeId);
-    qDebug() << Q_FUNC_INFO << "Key: " << key;
+    //qDebug() << Q_FUNC_INFO << "Key: " << key;
     m_duplicateCache.insert(key, qsoId);
 }
 
