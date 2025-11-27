@@ -946,7 +946,7 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 
     int bandId = dataProxy->getIdFromBandName(qso.getBand());
     int modeId = dataProxy->getIdFromModeName(qso.getSubmode());
-    int duplicatedId = dataProxy->checkBatchDuplicate(qso.getCall(), util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn()), bandId, modeId);
+    int duplicatedId = dataProxy->checkBatchDuplicate(qso.getCall(), qso.getDateTimeOn().date(), bandId, modeId);
 
     int qsoId = -1;
     if (qso.getLoTWUpdating())

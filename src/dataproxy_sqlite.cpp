@@ -7947,11 +7947,12 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
     return 0;
 }
 
-QString DataProxy_SQLite::generateDuplicateKey(const QString &call, const QString &date, int bandId, int modeId)
+QString DataProxy_SQLite::generateDuplicateKey(const QString &call, const QDate &date, int bandId, int modeId)
 {
+    QString dateS = util->getDateSQLiteStringFromDate(date);
     return QString("%1|%2|%3|%4")
             .arg(call.toUpper())
-            .arg(date)
+            .arg(dateS)
             .arg(bandId)
             .arg(modeId);
 }
@@ -7974,9 +7975,11 @@ void DataProxy_SQLite::loadDuplicateCache(int logId)
         {
             int id = query.value(0).toInt();
             QString call = query.value(1).toString();
-            QString date = query.value(2).toString();
+            QDate date = (util->getDateTimeFromSQLiteString(query.value(2).toString())).date();
+            //QString date = query.value(2).toString();
             int band = query.value(3).toInt();
             int mode = query.value(4).toInt();
+
             QString key = generateDuplicateKey(call, date, band, mode);
             m_duplicateCache.insert(key, id);
             //QString date = util->getDateSQLiteStringFromDate(util->getDateTimeFromSQLiteString(query.value(2)).date());
@@ -7985,7 +7988,7 @@ void DataProxy_SQLite::loadDuplicateCache(int logId)
 
 }
 
-int DataProxy_SQLite::checkBatchDuplicate(const QString &call, const QString &date, int bandId, int modeId)
+int DataProxy_SQLite::checkBatchDuplicate(const QString &call, const QDate &date, int bandId, int modeId)
 {
     QString key = generateDuplicateKey(call, date, bandId, modeId);
     if (m_duplicateCache.contains(key))
@@ -7999,8 +8002,9 @@ void DataProxy_SQLite::addDuplicateCache (int qsoId, const QSO &qso)
 {
     int bandId = getIdFromBandName(qso.getBand());
     int modeId = getIdFromModeName(qso.getMode());
-    QString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
-    QString key = generateDuplicateKey(qso.getCall(), date, bandId, modeId);
+    //QString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
+    QString key = generateDuplicateKey(qso.getCall(), qso.getDateTimeOn().date(), bandId, modeId);
+    qDebug() << Q_FUNC_INFO << "Key: " << key;
     m_duplicateCache.insert(key, qsoId);
 }
 

@@ -344,7 +344,7 @@ public:
 
     // Cache functions
     void loadDuplicateCache(int logId);
-    int checkBatchDuplicate(const QString &call, const QString &date, int bandId, int modeId);
+    int checkBatchDuplicate(const QString &call, const QDate &date, int bandId, int modeId);
     void clearDuplicateCache();
     void addDuplicateCache (int qsoId, const QSO &qso);
 
@@ -380,7 +380,7 @@ private:
     QHash<QString, QList<int>> nameToModeIds;
 
     QHash<QString, int> m_duplicateCache;
-    QString generateDuplicateKey(const QString &call, const QString &date, int bandId, int modeId);
+    QString generateDuplicateKey(const QString &call, const QDate &date, int bandId, int modeId);
 
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
