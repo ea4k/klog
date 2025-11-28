@@ -104,7 +104,7 @@ void MapWindowWidget::createUI()
     connect(modeComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotModesComboBoxChanged()));
     connect(propComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
     connect(satNameComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
-    connect(confirmedCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedCheckBoxChanged()));
+    connect(confirmedCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotConfirmedCheckBoxChanged()));
 
     satNameComboBox->setEnabled(false);// Starts disable until propagation = SAT
     //qDebug() << Q_FUNC_INFO << "-END";

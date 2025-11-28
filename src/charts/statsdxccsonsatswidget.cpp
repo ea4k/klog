@@ -90,8 +90,8 @@ void StatsDXCCOnSatsWidget::createUI()
     layout->addWidget(tableWidget);
     setLayout(layout);
 
-    connect(confirmedOnlyCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedClicked() ) );
-    connect(onlyLEOSatCheckBox, SIGNAL(clicked()), this, SLOT(slotConfirmedClicked() ) );
+    connect(confirmedOnlyCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotConfirmedClicked() ) );
+    connect(onlyLEOSatCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotConfirmedClicked() ) );
 }
 
 StatsDXCCOnSatsWidget::~StatsDXCCOnSatsWidget()

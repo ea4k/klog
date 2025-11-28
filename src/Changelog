@@ -9,6 +9,8 @@ TBD
 - Bugfix: Everytime TX Frequency changes, mode changes to USB. Removed that behaviour (Closes #842)
 - Bugfix: Klog 2.3.4 on OS/X has an error with ADIF export dialog box. (Closes #744)
 - Bugfix: sat_mode is been added for non-satellites QSOs (Closes #843)
+- Bugfix: Real time setting is not saved (Closes #839)
+
 
 
 Aug 2025 - 2.4.2

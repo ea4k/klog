@@ -151,8 +151,8 @@ void MainQSOEntryWidget::createUI()
 
     connect(timer, SIGNAL(timeout()), this, SLOT(slotUpdateTime()) );
     //connect(realtimeButton, SIGNAL(clicked()), this, SLOT(slotRealtimeButtonClicked()) );
-    connect(realtimeCheckBox, SIGNAL(clicked()), this, SLOT(slotCheckBoxClicked()));
-    connect(manualModeCheckBox, SIGNAL(clicked()), this, SLOT(slotManualModeCheckBoxClicked()));
+    connect(realtimeCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotCheckBoxClicked()));
+    connect(manualModeCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotManualModeCheckBoxClicked()));
 
     QWidget::setTabOrder (qrzLineEdit, dateEdit);
     QWidget::setTabOrder (dateEdit, timeEdit);
@@ -184,20 +184,28 @@ void MainQSOEntryWidget::setLogLevel (const DebugLogLevel _b)
 
 void MainQSOEntryWidget::slotCheckBoxClicked()
 {
-   //qDebug()<< Q_FUNC_INFO;
+   qDebug()<< Q_FUNC_INFO;
    logEvent (Q_FUNC_INFO, "Start", Debug);
     if (realtimeCheckBox->isChecked())
     {
+        qDebug()<< Q_FUNC_INFO << " - Checked";
         realTime = true;
         //realtimeButton->setIcon(QIcon(":/img/play.svg"));
-        timeEdit->setBackgroundRole(enabledCR);
+        //timeEdit->setBackgroundRole(enabledCR);
     }
     else
     {
+        qDebug()<< Q_FUNC_INFO << " - NOT Checked";
         realTime = false;
         //realtimeButton->setIcon(QIcon(":/img/stop.svg"));
-        timeEdit->setBackgroundRole(QPalette::BrightText);
+        //timeEdit->setBackgroundRole(QPalette::BrightText);
     }
+
+    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    settings.beginGroup ("Misc");
+    settings.setValue ("RealTime", QVariant((realTime)));
+    settings.endGroup ();
+
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -499,7 +507,7 @@ void MainQSOEntryWidget::setQSOData(QSO _qso)
 
 void MainQSOEntryWidget::setInitialData()
 {
-   //qDebug()<< Q_FUNC_INFO;
+    qDebug()<< Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //Default band/modes
     modify = false;
@@ -876,14 +884,15 @@ void MainQSOEntryWidget::toggleRealTime()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
-    if ( realtimeCheckBox->isChecked ())
-    {
-        setRealTime (false);
-    }
-    else
-    {
-        setRealTime (true);
-    }
+    setRealTime(realtimeCheckBox->isChecked ());
+    //if ( realtimeCheckBox->isChecked ())
+    //{
+    //    setRealTime (false);
+    //}
+    //else
+    //{
+    //    setRealTime (true);
+    //}
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -958,11 +967,11 @@ bool MainQSOEntryWidget::getModifying()
 
 void MainQSOEntryWidget::slotUpdateTime()
 {
-    //logEvent (Q_FUNC_INFO, "Start", Debug);
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug()<< Q_FUNC_INFO;
     if ( (!modify) && (realtimeCheckBox->isChecked())  )
     {
-        //qDebug()<< Q_FUNC_INFO << ":  Real Time & update";
+        qDebug()<< Q_FUNC_INFO << ":  Real Time & update";
         setDateAndTimeInternally();
     }
     //logEvent (Q_FUNC_INFO, "END", Debug);
@@ -971,17 +980,17 @@ void MainQSOEntryWidget::slotUpdateTime()
 void MainQSOEntryWidget::setDateAndTimeInternally()
 {
     //logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug()<< Q_FUNC_INFO;
+     qDebug()<< Q_FUNC_INFO;
+    QDateTime current = QDateTime::currentDateTime();
+
     if (UTCTime)
     {
-        dateEdit->setDate(QDateTime::currentDateTime().toUTC().date());
-        timeEdit->setTime(QDateTime::currentDateTime().toUTC().time());
+        current = current.toUTC();
     }
-    else
-    {
-        dateEdit->setDate(QDateTime::currentDateTime().date());
-        timeEdit->setTime(QDateTime::currentDateTime().time());
-    }
+    qDebug() << Q_FUNC_INFO << ": " << current.toString("hh:mm:ss");
+
+    dateEdit->setDate(current.date());
+    timeEdit->setTime(current.time());
     //logEvent (Q_FUNC_INFO, "END", Debug);
 }
 

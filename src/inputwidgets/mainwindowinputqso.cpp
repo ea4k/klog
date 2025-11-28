@@ -233,7 +233,7 @@ void MainWindowInputQSO::createUI()
     connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
     connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)) ) ;
     connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)) ) ;
-    connect(splitCheckBox, SIGNAL(clicked()), this, SLOT(slotSplitClicked()) ) ;
+    connect(splitCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotSplitClicked()) ) ;
 
     QWidget::setTabOrder (rstTXLineEdit, rstRXLineEdit);
     QWidget::setTabOrder (rstRXLineEdit, nameLineEdit);

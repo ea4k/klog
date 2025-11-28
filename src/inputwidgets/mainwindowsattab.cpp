@@ -99,7 +99,7 @@ void MainWindowSatTab::createUI()
     connect(satBandRXComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSatBandRXComboBoxChanged()) ) ;
     connect(satBandTXComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSatBandTXComboBoxChanged()) ) ;
 
-    connect (keepThisDataForNextQSOQcheckbox, SIGNAL(clicked()), this, SLOT(slotSatKeepThisDataClicked()) );
+    connect (keepThisDataForNextQSOQcheckbox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotSatKeepThisDataClicked()) );
 
     QLabel *keepLabel = new QLabel();
     keepLabel->setText(tr("Keep this data"));
