@@ -749,7 +749,7 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     manager->post(request, multiPart);
     //qDebug() << Q_FUNC_INFO << ": " << multiPart;
 
-    //qDebug()<< "eLogClubLog::sendLogFile - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void eLogClubLog::loadSettings()

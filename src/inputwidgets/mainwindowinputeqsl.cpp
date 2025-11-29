@@ -65,11 +65,12 @@ QSO MainWindowInputEQSL::getQSOData(QSO _qso)
 {
    //qDebug() << Q_FUNC_INFO;
     QSO qso = _qso;
+    //qDebug() << Q_FUNC_INFO << " - Calling setClubLogStatus";
     qso.setClubLogStatus(getClubLogStatus());
     qso.setEQSLQSL_RCVD(getEQSLRecStatus());
     qso.setEQSLQSL_SENT(getEQSLSenStatus());
     qso.setLoTWQSL_RCVD(getLOTWRecStatus());
-    qso.setLoTWQSL_SENT(getLOTWSenStatus());
+    qso.setLoTWQSL_SENT(getLOTWSenStatus());    
     qso.setQRZCOMStatus(getQRZCOMStatus());
 
     qso.setClubLogDate(getClubLogDate());
@@ -259,7 +260,7 @@ QString MainWindowInputEQSL::getQRZCOMStatus()
     QString _pm = QString();
     _pm = (((qrzcomComboBox->currentText()).split('-')).at(0)).simplified();
     //qDebug() << Q_FUNC_INFO << " - From UI: " << _pm;
-     return _pm;
+    return _pm;
 }
 
 QString MainWindowInputEQSL::getEQSLRecStatus()
@@ -269,10 +270,6 @@ QString MainWindowInputEQSL::getEQSLRecStatus()
     //qDebug() << "MainWindowInputEQSL::getEQSLRecStatus:" << eqslRecComboBox->currentText();
     _pm = (((eqslRecComboBox->currentText()).split('-')).at(0)).simplified();
     //qDebug() << "MainWindowInputEQSL::getEQSLRecStatus: " << _pm;
-    //if (_pm == "Not")
-    //{
-    //    return QString();
-    //}
     return _pm;
 }
 

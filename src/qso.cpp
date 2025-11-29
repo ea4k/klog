@@ -1177,21 +1177,19 @@ bool QSO::setClubLogStatus(const QString &_c)
 {
    //qDebug() << Q_FUNC_INFO << " - " << _c;
 
-    if (util->isValidUpload_Status (_c))
-    {
-       //qDebug() << Q_FUNC_INFO << " - Valid";
-        clublog_status = _c;
-        return true;
-    }
-    else
+    if (!util->isValidUpload_Status (_c))
     {
        //qDebug() << Q_FUNC_INFO << " - NOT Valid";
         return false;
     }
+   //qDebug() << Q_FUNC_INFO << " - Valid";
+    clublog_status = _c;
+    return true;
 }
 
 QString QSO::getClubLogStatus() const
 {
+   //qDebug() << Q_FUNC_INFO << " - " << clublog_status;
     return clublog_status;
 }
 
@@ -1217,18 +1215,16 @@ QDate QSO::getClubLogDate() const
 
 bool QSO::setQRZCOMStatus(const QString &_c)
 {
-   //qDebug() << Q_FUNC_INFO << " - " << _c;
-    if (util->isValidUpload_Status (_c))
+    //qDebug() << Q_FUNC_INFO << " - " << _c;
+    if (!util->isValidUpload_Status (_c))
     {
-       //qDebug() << Q_FUNC_INFO << " - VALID";
-        QRZCom_status = _c;
-        return true;
+        //qDebug() << Q_FUNC_INFO << " - NOT VALID";
+        return false;
     }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " - NOT VALID";
-      return false;
-    }
+    //qDebug() << Q_FUNC_INFO << " - VALID";
+    QRZCom_status = _c;
+    return true;
+
 }
 
 QString QSO::getQRZCOMStatus() const
@@ -4867,7 +4863,7 @@ bool QSO::fromDB(int _qsoId)
     // has a similar function
     // Make sure that all fields are included inbot functions until consolidated
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
     QString queryString = "SELECT log.*, \
         band.name AS band_name,          \
@@ -4883,11 +4879,13 @@ bool QSO::fromDB(int _qsoId)
 //    QString queryString = "SELECT * FROM log WHERE id= :idQSO";
     QSqlQuery query;
     query.prepare(queryString);
+
+   //qDebug() << Q_FUNC_INFO << " - query = " << queryString;
     query.bindValue(":idQSO", _qsoId);
 
     if (!query.exec())
     {
-        //qDebug() << Q_FUNC_INFO << " - ERROR in exec ";
+       //qDebug() << Q_FUNC_INFO << " - ERROR in exec ";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-1", Debug);
@@ -4895,7 +4893,7 @@ bool QSO::fromDB(int _qsoId)
     }
     if (!query.next())
     {
-        //qDebug() << Q_FUNC_INFO << " - ERROR in next ";
+       //qDebug() << Q_FUNC_INFO << " - ERROR in next ";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-2", Debug);
@@ -4904,7 +4902,7 @@ bool QSO::fromDB(int _qsoId)
     clear();
     QSqlRecord rec = query.record();
 
-    //qDebug() << Q_FUNC_INFO << "  - 20";
+   //qDebug() << Q_FUNC_INFO << "  - 20";
     QString data = (query.value(rec.indexOf("qso_date"))).toString();
     setDateTimeOn(util->getDateTimeFromSQLiteString(data));
 

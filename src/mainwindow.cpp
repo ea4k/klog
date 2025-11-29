@@ -1021,8 +1021,10 @@ void MainWindow::slotModeChanged (const QString &_m)
       //qDebug() << Q_FUNC_INFO << " - " << mainQSOEntryWidget->getMode() ;
 }
 
-void MainWindow::slotOKButtonClicked(){
+void MainWindow::slotOKButtonClicked()
+{
     logEvent(Q_FUNC_INFO, "Start", Debug);
+   //qDebug() << Q_FUNC_INFO << " - Start";
     slotQRZReturnPressed();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -1042,17 +1044,17 @@ void MainWindow::slotQRZReturnPressed()
 
     if (!readQSOFromUI())
     {
-        //qDebug() << Q_FUNC_INFO << " - readQSOFromUI returned FALSE";
+       //qDebug() << Q_FUNC_INFO << " - readQSOFromUI returned FALSE";
         return;
     }
     if (!qsoInUI.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " - QSO Not valid!";
+       //qDebug() << Q_FUNC_INFO << " - QSO Not valid!";
         return;
     }
 
     int addedOK = qsoInUI.toDB (modifyingQSOid);
-    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
+   //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
     {
         //qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
@@ -1275,7 +1277,7 @@ void MainWindow::getQSODataFromUI()
 bool MainWindow::readQSOFromUI()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - 010";
+   //qDebug() << Q_FUNC_INFO << " - 010";
     //qDebug() << Q_FUNC_INFO << " -  CALL-01    : " << qsoInUI.getCall();
 
     getQSODataFromUI();
@@ -2148,7 +2150,7 @@ void MainWindow::setCleaning(const bool _c)
 
 void MainWindow::slotClearButtonClicked(const QString &_func)
 {
-     //qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     Q_UNUSED(_func);
 
@@ -3300,7 +3302,7 @@ void MainWindow::slotUpdateStatusBar(const QString &statusm)
 
 void MainWindow::slotDoubleClickLog(const int _qsoID)
 {
-      //qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) ;
+   //qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     //int row = _qsoID.row();
 
@@ -3972,12 +3974,12 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 
 void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 {
-     //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
+   //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
     QMessageBox msgBox;
     Callsign callsign(_call);
     if (!callsign.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " - no valid call" ;
+       //qDebug() << Q_FUNC_INFO << " - no valid call" ;
       if (_call == "ALL")
       {
           msgBox.setWindowTitle(tr("KLog - ClubLog"));
@@ -3995,14 +3997,14 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 
   if (qsos.count() <= 0)
   { // TODO: Check if errors should be managed.
-        //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
-      msgBox.setWindowTitle(tr("KLog - ClubLog"));
-      msgBox.setIcon(QMessageBox::Warning);
-      msgBox.setText(tr("The selection you have done does not include any QSO"));
-      msgBox.setStandardButtons(QMessageBox::Ok );
-      msgBox.setDefaultButton(QMessageBox::Ok);
-      msgBox.exec();
-      return;
+   //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
+    msgBox.setWindowTitle(tr("KLog - ClubLog"));
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setText(tr("The selection you have done does not include any QSO"));
+    msgBox.setStandardButtons(QMessageBox::Ok );
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
+    return;
   }
 
   msgBox.setWindowTitle(tr("KLog - ClubLog"));
@@ -4022,7 +4024,8 @@ void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
           overwrite = true;
       break;
   }
-     //qDebug() << Q_FUNC_INFO << " - 50" ;
+   //qDebug() << Q_FUNC_INFO << " - 50" ;
+   //qDebug() << Q_FUNC_INFO << " - Overwrite: " << util->boolToQString(overwrite);
     elogClublog->sendLogFile(fileName, _qsos, overwrite);
     logWindow->refresh();
      //qDebug() << Q_FUNC_INFO << " - END " ;
@@ -4395,11 +4398,11 @@ void MainWindow::slotADIFImport(){
 
 void MainWindow::sendQSOToUI(const QSO &_qso)
 {
-    //qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
+   //qDebug() << Q_FUNC_INFO << (_qso.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     QSOTabWidget->setRSTToMode(_qso.getSubmode(), false);
-  //qDebug() << Q_FUNC_INFO << ": " << _qso.getCall();
-  //qDebug() << Q_FUNC_INFO << ": " << _qso.getMode();
-  //qDebug() << Q_FUNC_INFO << ": " << _qso.getSubmode();
+   //qDebug() << Q_FUNC_INFO << ": " << _qso.getCall();
+   //qDebug() << Q_FUNC_INFO << ": " << _qso.getMode();
+   //qDebug() << Q_FUNC_INFO << ": " << _qso.getSubmode();
     mainQSOEntryWidget->setQSOData(_qso);
     commentTabWidget->setQSOData(_qso);
     satTabWidget->setQSOData(_qso);
@@ -4413,12 +4416,17 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 
 void MainWindow::qsoToEdit (const int _qso)
 {    
-
    //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
+   // Switching to manualmode on start is important to prevent modifyingQSOid to be overwritten.
+    manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
+    mainQSOEntryWidget->setManualMode (manualMode);
+
+    modifyingQSOid = _qso;
     logEvent(Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO  << " - 000";
     if (!modify)
     {
+       //qDebug() << Q_FUNC_INFO << " - Calling backupCurrentQSO";
         backupCurrentQSO ();
        //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
        //qDebug() << Q_FUNC_INFO << ": Mode " << backupQSO->getMode();
@@ -4431,29 +4439,34 @@ void MainWindow::qsoToEdit (const int _qso)
     setModifying(true);
 
    //qDebug() << Q_FUNC_INFO  << " - 010";
-    modifyingQSOid = _qso;
+   //qDebug() << Q_FUNC_INFO  << " - modifyingQSOid: " << modifyingQSOid;
+
+   //qDebug() << Q_FUNC_INFO  << " - modifyingQSOid: " << modifyingQSOid;
 
    //qDebug() << Q_FUNC_INFO << " - 051 ";
     if ((clublogActive) && (clublogRealTime))
     {
+        //qDebug() << Q_FUNC_INFO << " - 052 ";
         clublogPrevQSO = dataProxy->getClubLogRealTimeFromId(modifyingQSOid);
     }
+    //qDebug() << Q_FUNC_INFO << " - 053 ";
 
-    manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
-    mainQSOEntryWidget->setManualMode (manualMode);
-
+    //qDebug() << Q_FUNC_INFO << " - 054 ";
     // ** Start of SAT data
 
      //qDebug() << Q_FUNC_INFO << " - SATELLITE - satName" ;
     satTabWidget->setFillingToEdit(true);
+    //qDebug() << Q_FUNC_INFO << " - 055 ";
     QSO qsoE;
+    //qDebug() << Q_FUNC_INFO << " - 056 ";
+   //qDebug() << Q_FUNC_INFO  << " - modifyingQSOid: " << modifyingQSOid;
     qsoE.fromDB(modifyingQSOid);
-  //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getCall();
-  //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getMode();
-  //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getSubmode();
+   //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getCall();
+   //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getMode();
+   //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getSubmode();
 
     qsoInUI.copy(qsoE);
-    //qDebug() << Q_FUNC_INFO  << " - m: " << (qsoE.getEQSLQSLSDate()).toString("yyyy-MM-dd");
+   //qDebug() << Q_FUNC_INFO  << " - m: " << (qsoE.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     sendQSOToUI(qsoE);
 
     QString currentQrz = qsoE.getCall();
@@ -5889,7 +5902,6 @@ void MainWindow::backupCurrentQSO()
    //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qDebug() << Q_FUNC_INFO << " - END" ;
-       //qDebug() << Q_FUNC_INFO << ": Realtime: " << util->boolToQString (backupQSO->getRealTime ());
 }
 
 void MainWindow::restoreCurrentQSO(const bool restoreConfig)
