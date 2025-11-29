@@ -668,7 +668,7 @@ int eLogClubLog::modifyQSO (QStringList _oldQSO, QStringList _newQSO)
 
 void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite)
 {
-    //qDebug()<< Q_FUNC_INFO << ": " << _file;
+   //qDebug()<< Q_FUNC_INFO << ": " << _file << " / Overwrite: " << util->boolToQString(_overwrite);
     qsos.clear();
     qsos.append(_qso);
     QUrl serviceUrl;

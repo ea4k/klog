@@ -265,9 +265,7 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
     QNetworkRequest request(serviceUrl);
     //qDebug()<< Q_FUNC_INFO << " Before sending";
     manager->post(request, multiPart);
-    //qDebug()<< Q_FUNC_INFO << " After sending";
-    //multiPart->setParent(reply);
-    //qDebug()<< "eQSLUtilities::sendLogFile - END";
+    //qDebug()<< Q_FUNC_INFO << " - END";
 }
 
 
