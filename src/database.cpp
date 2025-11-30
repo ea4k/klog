@@ -698,7 +698,7 @@ bool DataBase::createDataBase()
 
 
 
-      stringQuery = QString("CREATE TABLE contestcategory ("
+    stringQuery = QString("CREATE TABLE contestcategory ("
                  "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                  "shortname VARCHAR(20) NOT NULL, "
                  "name VARCHAR(40) NOT NULL)");
@@ -3255,71 +3255,6 @@ bool DataBase::createAndPopulateContinents()
     return execQuery(Q_FUNC_INFO, "INSERT INTO continent (shortname, name) VALUES ('AN', 'Antartica')");
 }
 
-/*
-bool DataBase::createAndPopulateQSLSentRecStatus()
-{
-    //qDebug() << Q_FUNC_INFO << " - Start";
-
-
-    QString stringQuery = QString("CREATE TABLE qsl_rec_status ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "shortname VARCHAR(1) NOT NULL, "
-               "name VARCHAR(15) NOT NULL)");
-    if (!execQuery(Q_FUNC_INFO, stringQuery))
-    {
-        return false;
-    }
-
-    stringQuery = QString("CREATE TABLE qsl_sent_status ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "shortname VARCHAR(1) NOT NULL, "
-               "name VARCHAR(15) NOT NULL)");
-    if (!execQuery(Q_FUNC_INFO, stringQuery))
-    {
-        return false;
-    }
-
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Y', 'Yes')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('N', 'No')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('R', 'Requested')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('Q', 'Queued')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_sent_status (shortname, name) VALUES ('I', 'Ignore/Invalid')"))
-    {
-        return false;
-    }
-
-
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('Y', 'Yes')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('N', 'No')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('R', 'Requested')"))
-    {
-        return false;
-    }
-    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('I', 'Ignore/Invalid')"))
-    {
-        return false;
-    }
-    return execQuery(Q_FUNC_INFO, "INSERT INTO qsl_rec_status (shortname, name) VALUES ('V', 'Validated')");
-}
-*/
 
 bool DataBase::recreateTableEntity()
 {
@@ -3701,170 +3636,6 @@ bool DataBase::updateBandIdTableLogToNewOnes()
         return false;
     }
 }
-
-
-/*
-
-bool DataBase::updateModeIdTableLogToNewOnes()
-{
-        //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: "  ;
-
-    QString bandtxt = QString();
-
-    bool cancel = false;
-    bool alreadyCancelled = false;
-    int errorCode = -1;
-
-    QString sq = QString();
-    bool sqlOk2 = false;
-    bool sqlOk3 = false;
-    int bandFound = -1;
-    int id = -1;
-    int qsos;
-    int i = 0;
-    QString aux;
-    QSqlQuery query, query2, query3;
-    bool sqlOk = query.exec("SELECT COUNT (*) FROM log");
-    if (sqlOk)
-    {
-        query.next();
-        qsos = (query.value(0)).toInt();
-    }
-    else
-    {
-        return false;
-    }
-
-    int step = util->getProgresStepForDialog(qsos);
-
-    QProgressDialog progress(QObject::tr("Updating mode information..."), QObject::tr("Abort updating"), 0, qsos);
-    progress.setMaximum(qsos);
-    progress.setWindowModality(Qt::WindowModal);
-
-    sqlOk = query.exec("SELECT modeid, id FROM log ORDER BY bandid DESC");
-    if (sqlOk)
-    {
-        while (query.next() && (!cancel) )
-        {
-            bandtxt = QString();
-            bandFound = -1;
-
-            if (query.isValid())
-            {
-                i++;
-
-                if (( (i % step )== 0) )
-                { // To update the speed I will only show the progress once each X QSOs
-                    aux = QObject::tr("Updating mode information...\n QSO: ")  + QString::number(i) + "/" + QString::number(qsos);
-                    progress.setLabelText(aux);
-                    progress.setValue(i);
-                }
-
-
-                bandFound = (query.value(0)).toInt();
-                id = (query.value(1)).toInt();
-                bandtxt = getModeNameFromNumber(bandFound, false);
-
-                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: mode found: " << bandtxt ;
-
-                sq = QString("SELECT id FROM modetemp WHERE name='%1'").arg(bandtxt);
-                sqlOk2 = query2.exec(sq);
-                if (sqlOk2)
-                {
-                    if (query2.next())
-                    {
-                        if (query2.isValid())
-                        {
-                            bandFound = query2.value(0).toInt();
-
-    sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(bandFound).arg(id);
-                            sqlOk3 = query3.exec(sq);
-                            if (sqlOk3)
-                            {
-                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt ;
-                            }
-                            else
-                            {
-                                     //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  ;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - QSOs not updated to main log" ;
-                                errorCode = query3.lastError().nativeErrorCode();
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes - query error: " << QString::number(errorCode) ;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastQuery: " << query3.lastQuery()  ;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-data: " << query3.lastError().databaseText()  ;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-driver: " << query3.lastError().driverText()  ;
-                                    //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: LastError-n: " << QString::number(query3.lastError().nativeErrorCode() ) ;
-
-                            }
-
-                        }
-                        else
-                        {
-                                 //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not valid "   ;
-                        }
-                    }
-                    else
-                    {
-                          //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: query2 not next "   ;
-                    }
-
-                }
-                else
-                {
-                         //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  ;
-                }
-
-            }
-
-            if ( progress.wasCanceled() )
-            {
-                if (alreadyCancelled)
-                {
-
-                }
-                else
-                {
-                    alreadyCancelled = true;
-
-                    QMessageBox msgBox;
-                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
-                    msgBox.setText(aux);
-                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                    msgBox.setDefaultButton(QMessageBox::No);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Yes:
-                          // Yes was clicked
-                            cancel = true;
-                          break;
-
-                      case QMessageBox::No:
-                          // No Save was clicked
-                            cancel = false;
-                            progress.setCancelButton(0);
-                          break;
-                      default:
-                          // should never be reached
-                            cancel = false;
-                          break;
-                    }
-                }
-            }
-
-        }
-        if (cancel && (!alreadyCancelled))
-        {
-            return false;
-        }
-             //qDebug() << "DataBase::updateModeIdTableLogToNewOnes: FINISHED OK"  ;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
-}
-*/
 
 bool DataBase::updateTo007()
 {// Updates the DB to 0.0.7
@@ -5236,15 +5007,6 @@ bool DataBase::updateTo017()
     // Query to remove the "/" from a Date: update log set qso_date = replace(qso_date, '/', '-')
     // Join: SELECT qso_date || ' ' || time_on from log
     UPDATE logtemp SET qso_date = (SELECT qso_date || ' ' || time_on FROM log)
-    */
-
-    /*
-    QString stringQuery;
-    stringQuery = "update log set qso_date = replace((SELECT qso_date from log)||'-'||time_on, '', '')";
-    //UPDATE log set qso_date =  qso_date ||'-'||time_on
-    bool sqlOK = execQuery(Q_FUNC_INFO, stringQuery);
-    if (!sqlOK)
-    {return false;}
     */
 
     // Modify the qso_date with the time_on data with the right format
