@@ -1977,10 +1977,10 @@ LOTW_QSL_RCVD, QSL_SENT, DXCC, PROP_MODE, CREDIT_GRANTED
 
 QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _band;
-    //qDebug() << Q_FUNC_INFO << ": " << _mode;
-    //qDebug() << Q_FUNC_INFO << ": " << _prop;
-    //qDebug() << Q_FUNC_INFO << ": " << _sat;
+    //qDebug() << Q_FUNC_INFO << " - band: " << _band;
+    //qDebug() << Q_FUNC_INFO << " - mode: " << _mode;
+    //qDebug() << Q_FUNC_INFO << " - prop: " << _prop;
+    //qDebug() << Q_FUNC_INFO << " -  sat: " << _sat;
 
     QStringList grids;
     QStringList where;
@@ -1996,7 +1996,6 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     if (modeId > 0) {
         where << "modeid = :modeid";
     }
-
     // Propagation + satellite handling
     const bool propValid = isValidPropMode(_prop);
     const bool isSat = (propValid && _prop == "SAT");
@@ -2006,22 +2005,26 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     }
 
     if (propValid) {
+        //qDebug() << Q_FUNC_INFO << " - PROP VALID";
         where << "prop_mode = :prop";
-        if (isSat) {
+        if (isSat)
+        {
+            where << "prop_mode = 'SAT'";
             if (satDbId > 0) {
                 where << "sat_name = :satname";
             } else {
                 // Keep SAT QSOs except the sentinel 'x'
-                where << "COALESCE(sat_name,'') <> 'x'";
+                //where << "COALESCE(sat_name,'') <> 'x'";
             }
         } else {
             // Not SAT propagation: exclude SAT-tagged QSOs
-            where << "COALESCE(sat_name,'') = ''";
+            //where << "COALESCE(sat_name,'') = ''";
         }
     } else {
         // No specific prop filter: exclude sentinel 'x' and any SAT-tagged QSOs
-        where << "COALESCE(prop_mode,'') <> 'x'";
-        where << "COALESCE(sat_name,'') = ''";
+        //qDebug() << Q_FUNC_INFO << " - PROP NOT VALID";
+        //where << "COALESCE(prop_mode,'') <> 'x'";
+        //where << "COALESCE(sat_name,'') = ''";
     }
 
     // Confirmation filtering
@@ -2038,6 +2041,7 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     }
     // No ORDER BY here; DISTINCT+ORDER BY can be expensive. We sort in-memory below.
 
+    //qDebug() << Q_FUNC_INFO << ": " << sql;
     QSqlQuery query;
     query.prepare(sql);
 

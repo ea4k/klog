@@ -374,19 +374,24 @@ void MapWindowWidget::appendLocators(const QStringList &_locators, const QColor 
 QString MapWindowWidget::getPropModeFromComboBox()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QString _pm = QString();
-     //qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText();
-    _pm = (((propComboBox->currentText()).split('-')).at(1)).simplified();
-    QString _n = (((propComboBox->currentText()).split('-')).at(0)).simplified();
+    QStringList _props =  ((propComboBox->currentText()).split('-'));
     //qDebug() << Q_FUNC_INFO << ": " << _pm;
+    //qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText();
 
-    if (_n == "00")
+    QString _pm = _props.at(1);
+    //(((propComboBox->currentText()).split('-')).at(0)).simplified();
+    //qDebug() << Q_FUNC_INFO << ": " << _pm;
+    //QString _n = (((propComboBox->currentText()).split('-')).at(1)).simplified();
+    //QString _n = _pm;
+    //qDebug() << Q_FUNC_INFO << ": " << _n;
+
+    if (_props.at(0) == "All")
     {
-        //qDebug() << Q_FUNC_INFO << " - END1";
-        return QString();
+        //qDebug() << Q_FUNC_INFO << " - All";
+        return "All";
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
-    return _pm;
+    //qDebug() << Q_FUNC_INFO << " - " << (_props.at(1)).simplified();
+    return (_props.at(1)).simplified();
 }
 
 void MapWindowWidget::paintGlobalGrid()

@@ -10,6 +10,8 @@ TBD
 - Bugfix: Klog 2.3.4 on OS/X has an error with ADIF export dialog box. (Closes #744)
 - Bugfix: sat_mode is been added for non-satellites QSOs (Closes #843)
 - Bugfix: Real time setting is not saved (Closes #839)
+- Bugfix: Map Filter is not properly filtering (Closes #827)
+
 
 
 
