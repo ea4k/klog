@@ -94,21 +94,43 @@ void LogWindow::createUI()
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(logView);
     setLayout(layout);
+
+    // Restore column order immediately after the UI is created
 }
 
 void LogWindow::retoreColumsOrder()
 {
-    // Restore the column order from the settings
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    // Retrieve stored column order from settings
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    QList<int> columnOrder = settings.value("columnOrder").value<QList<int>>();
+    QList<int> columnOrder = settings.value("ColumnOrder").value<QList<int>>();
     settings.endGroup();
 
-    if (!columnOrder.isEmpty()) {
-        for (int i = 0; i < columnOrder.size(); ++i) {
-            logView->horizontalHeader()->moveSection(logView->horizontalHeader()->visualIndex(columnOrder[i]), i);
+    QHeaderView *header = logView->horizontalHeader();
+
+    // Ensure columnOrder corresponds to the actual column count
+    int columnCount = logView->model()->columnCount();
+    if (columnOrder.size() != columnCount) {
+        // If mismatch, fallback to a default order (sequential: 0, 1, 2, ...)
+        columnOrder.clear();
+        for (int i = 0; i < columnCount; ++i) {
+            columnOrder.append(i);
         }
     }
+
+    // Temporarily disable updates for smoother reordering
+    logView->setUpdatesEnabled(false);
+
+    // Apply the stored (or default) order
+    for (int i = 0; i < columnOrder.size(); ++i) {
+        int currentVisualIndex = header->visualIndex(columnOrder[i]);
+        if (currentVisualIndex != i) {
+            header->moveSection(currentVisualIndex, i);
+        }
+    }
+
+    // Re-enable updates
+    logView->setUpdatesEnabled(true);
 }
 
 void LogWindow::setDefaultData()
@@ -142,6 +164,8 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->resizeColumnsToContents();
     logView->horizontalHeader()->setStretchLastSection(true);
     logView->sortByColumn(1, Qt::DescendingOrder);
+
+    retoreColumsOrder();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -775,12 +799,30 @@ void LogWindow::slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int new
     Q_UNUSED(oldVisualIndex);
     Q_UNUSED(newVisualIndex);
 
+    saveColumnOrder();
     // Get the current column order
-    QStringList header = getOrderedVisibleHeaders();
+    //QStringList header = getOrderedVisibleHeaders();
 
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    //QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    //settings.beginGroup("LogWindow");
+    //settings.setValue("ColumnOrder", QVariant::fromValue(header));
+    //settings.endGroup();
+}
+
+void LogWindow::saveColumnOrder()
+{
+    QHeaderView *header = logView->horizontalHeader();
+    QList<int> columnOrder;
+
+    // Capture the current column order
+    for (int i = 0; i < header->count(); ++i) {
+        columnOrder.append(header->logicalIndex(i));
+    }
+
+    // Save order to settings
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    settings.setValue("ColumnOrder", QVariant::fromValue(header));
+    settings.setValue("ColumnOrder", QVariant::fromValue(columnOrder));
     settings.endGroup();
 }
 

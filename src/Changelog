@@ -4,6 +4,7 @@ TBD
 - Enhancement: Test on QSO cache class.
 - Enhancement: Complete ADIF->IsValidPOTA (Closes #717)
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
+- Enhancement: List view fields order and sorting (Closes #678)
 - Bugfix: No Popup message when duplicted QSOs are detected on ADIF import. (Closes #848)
 - Bugfix: Check QRZ automatically is not saved (Closes #840)
 - Bugfix: Everytime TX Frequency changes, mode changes to USB. Removed that behaviour (Closes #842)
@@ -11,8 +12,6 @@ TBD
 - Bugfix: sat_mode is been added for non-satellites QSOs (Closes #843)
 - Bugfix: Real time setting is not saved (Closes #839)
 - Bugfix: Map Filter is not properly filtering (Closes #827)
-
-
 
 
 Aug 2025 - 2.4.2

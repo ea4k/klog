@@ -108,6 +108,7 @@ private:
     void createActionsCommon();
     void createActions();
     void retoreColumsOrder();
+    void saveColumnOrder();
     void deleteQSO(const int _qsoID);
     void rightButtonFromLogMenu(const int trow);
     void rightButtonMultipleFromLogMenu();
