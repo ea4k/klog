@@ -579,30 +579,6 @@ void SetupDialog::readActiveModes (const QStringList &actives)
         //qDebug() << "SetupDialog::readActiveModes: " << modes.join(" / ");
 }
 
-/*
-bool SetupDialog::isValidBand (const QString &b)
-{
-    //qDebug() << "SetupDialog::isValidBand: "<< b;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(b);
-    QSqlQuery query(stringQuery);
-    query.next();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return query.isValid();
-}
-
-bool SetupDialog::isValidMode (const QString &b)
-{
-        //qDebug() << "SetupDialog::isValidMode: " << b;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    QString stringQuery = QString("SELECT id FROM mode WHERE name='%1'").arg(b);
-    QSqlQuery query(stringQuery);
-    query.next();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return query.isValid();
-}
-*/
 void SetupDialog::setDefaults()
 {
     //qDebug() <<  Q_FUNC_INFO << " - Start";

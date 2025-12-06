@@ -859,25 +859,6 @@ bool Utilities::isSameFreq(const double fr1, const double fr2)
 }
 
 
-/*
-bool Utilities::isValidBandId(const int _b)
-{
-    if (_b>0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    //return false;
-}
-
-bool Utilities::isValidModeId(const int _m)
-{
-    return (_m>0);
-}
-*/
 bool Utilities::isValidFreq(const QString &_b)
 {
     return  (_b.toDouble()>0);

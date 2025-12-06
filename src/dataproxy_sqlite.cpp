@@ -308,15 +308,31 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 }
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
-{
-    logEvent (Q_FUNC_INFO, "Start-END", Debug);
-    return db->getBandNameFromNumber(_id);
+{ //TODO: Use the hash
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+
+    // QHash::key(_id) performs a linear search to find the key (Name)
+    // associated with the value (ID). If not found, it returns an empty QString.
+    // Since the number of bands is small, this O(N) operation is very fast.
+    QString name = bandIDs.key(_id);
+
+    logEvent(Q_FUNC_INFO, "END", Debug);
+    return name;
 }
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
-{
+{ //TODO: Use the hash
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
-    return db->getModeNameFromNumber(_id);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+
+    // QHash::key(_id) performs a linear search to find the key (Name)
+    // associated with the value (ID). If not found, it returns an empty QString.
+    // Since the number of bands is small, this O(N) operation is very fast.
+    QString name = modeIDs.key(_id);
+
+    logEvent(Q_FUNC_INFO, "END", Debug);
+    return name;
+    //return db->getModeNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getSubModeFromId (const int _id)

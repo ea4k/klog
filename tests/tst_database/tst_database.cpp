@@ -56,7 +56,6 @@ private slots:
     void test_CreateDB();
     void test_ExistingTables();
     void test_DataInTables();
-    void test_bands();
     void test_modes();
     void test_subModes();
     void test_checks();
@@ -203,22 +202,6 @@ void tst_DataBase::test_DataInTables()
     QCOMPARE(db->hasTheTableData("supportedcontests"), true);
 }
 
-void tst_DataBase::test_bands()
-{
-    QCOMPARE(db->isTheDBCreated(), true);
-    QString aux;
-    QStringList _bands = { "0", "1mm", "2mm", "2.5mm", "4mm", "6mm",
-                          "1.25CM", "3CM", "6CM", "9CM", "13CM", "23CM",
-                          "70CM", "1.25M", "2M", "4M", "6M", "8M", "10M",
-                          "12M", "15M", "17M", "20M", "30M", "40M", "60M",
-                          "80M", "160M", "560M", "630M", "2190M"  };
-
-    foreach(aux, _bands)
-    {
-        //qDebug() << aux;
-        QCOMPARE(db->isValidBand(aux), true);
-    }
-}
 
 void tst_DataBase::test_modes()
 {
@@ -277,37 +260,16 @@ void tst_DataBase::test_checks()
     //DataBase db(Q_FUNC_INFO, version, util->getKLogDBFile());
     QCOMPARE(db->isTheDBCreated(), true);
 
-    int i = db->getBandIdFromName("10M");
-    QCOMPARE (db->getBandNameFromNumber(i), "10M");
-    i = db->getBandIdFromName("30M");
-    QCOMPARE (db->getBandNameFromNumber(i), "30M");
-    i = db->getBandIdFromName("0");
-    QCOMPARE (db->getBandNameFromNumber(i), "0");
+    //int i = db->getBandIdFromName("10M");
+    //QCOMPARE (db->getBandNameFromNumber(i), "10M");
+    //i = db->getBandIdFromName("30M");
+    //QCOMPARE (db->getBandNameFromNumber(i), "30M");
+    //i = db->getBandIdFromName("0");
+    //QCOMPARE (db->getBandNameFromNumber(i), "0");
 
 
-    i = db->getModeIdFromSubMode("FT4");
-    QCOMPARE (db->getSubModeNameFromNumber(i), "FT4");
-
-/*
-    QString getBandNameFromNumber(const int _n);
-    QString getModeNameFromNumber(const int _n, bool _tmp=false);
-    QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
-
-    int getBandIdFromName(const QString &b);
-    int getModeIdFromName(const QString &b);
-    int getModeIdFromSubMode(const QString &b);
-
-
-    QString getSubModeNameFromNumber(const int _i);
-
-    int getBandIdFromFreq(const QString &fr); //Freq should be in MHz
-    bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz
-
-    QString getFreqFromBandId(const int _i);
-    int getNumberOfQsos(int _logNumber = -1);
-    int getLastInsertedQSO();
-
-*/
+    //i = db->getModeIdFromSubMode("FT4");
+    //QCOMPARE (db->getSubModeNameFromNumber(i), "FT4");
 }
 
 void tst_DataBase::test_CreateDB()

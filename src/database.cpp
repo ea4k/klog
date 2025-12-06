@@ -16,7 +16,7 @@
  *                                                                           *
  *    KLog is distributed in the hope that it will be useful,                *
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See thbe          *
  *    GNU General Public License for more details.                           *
  *                                                                           *
  *    You should have received a copy of the GNU General Public License      *
@@ -334,29 +334,20 @@ bool DataBase::createConnection(const QString &function, bool newDB)
 bool DataBase::setPragma()
 {
     //qDebug() << Q_FUNC_INFO << " - Start"  ;
+    QSqlQuery query;
+    // Use Write-Ahead Logging (allows readers to not block writers)
+    if (!query.exec("PRAGMA journal_mode=WAL;")) return false;
 
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA main.page_size = 4096;"))
-        return false;
+    // NORMAL is safe enough for WAL mode, significantly faster than FULL
+    if (!query.exec("PRAGMA synchronous=NORMAL;")) return false;
 
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA main.cache_size=10000;"))
-        return false;
+    // Increase cache size (e.g., -20000 = 20MB approx)
+    if (!query.exec("PRAGMA cache_size=-20000;")) return false;
 
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA main.synchronous=NORMAL;"))
-        return false;
+    // Store temporary tables in RAM
+    if (!query.exec("PRAGMA temp_store=MEMORY;")) return false;
 
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA main.journal_mode=WAL;"))
-        return false;
-
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA main.cache_size=5000;"))
-        return false;
-
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA synchronous=OFF;"))
-        return false;
-
-    if (!execQuery(Q_FUNC_INFO, "PRAGMA main.temp_store = MEMORY;"))
-        return false;
-    //qDebug() << Q_FUNC_INFO << " - END"  ;
-    return execQuery(Q_FUNC_INFO, "PRAGMA case_sensitive_like=OFF;");
+    return true;
 }
 
 bool DataBase::isTheDBCreated()
@@ -833,7 +824,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
        //qDebug() << Q_FUNC_INFO << ": END FALSE"  ;
     return false;
 }
-
+/*
 int DataBase::getBandIdFromName(const QString &b)
 {
     //qDebug() << Q_FUNC_INFO << ": " << b ;
@@ -857,6 +848,7 @@ int DataBase::getBandIdFromName(const QString &b)
     query.finish();
     return v;
 }
+*/
 
 int DataBase::getModeIdFromName(const QString &b)
 {
@@ -911,7 +903,7 @@ int DataBase::getModeIdFromSubMode(const QString &b)
 
 QString DataBase::getBandNameFromNumber(const int _n)
 {
-    //qDebug() << "DataBase::getBandNameFromNumber: " << QString::number(_n) ;
+    //qDebug() << Q_FUNC_INFO << " " << QString::number(_n) ;
     QSqlQuery query;
     QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
 
@@ -924,19 +916,19 @@ QString DataBase::getBandNameFromNumber(const int _n)
         {
             if ( isValidBand((query.value(0)).toString())  )
             {
-                    //qDebug() << "DataBase::getBandNameFromNumber: " << (query.value(0)).toString() << "-------- END" ;
+                    //qDebug() << "" << (query.value(0)).toString() << "-------- END" ;
                 return (query.value(0)).toString();
             }
             else
             {
-                   //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-1" ;
+                   //qDebug() << "" << "-------- END-1" ;
                 query.finish();
                 return QString();
             }
         }
         else
         {
-            //qDebug() << "DataBase::getBandNameFromNumber: " << "-------- END-2" ;
+            //qDebug() << "" << "-------- END-2" ;
             query.finish();
             return QString();
         }
@@ -1070,38 +1062,7 @@ bool DataBase::isValidBand (const QString &b)
 {
     //qDebug() << Q_FUNC_INFO << ": " << b ;
     //qDebug() << Q_FUNC_INFO << ": bandId: " << b ;
-    //qDebug() << "DataBase::isValidBand: " << QString::number(getBandIdFromName(b));
-
     return (getBandIdFromName(b)>0);
-   /*
-    QString _band = b.toUpper();
-
-    QSqlQuery query;
-    QString stringQuery = QString("SELECT id FROM band WHERE name='%1'").arg(_band);
-    bool sqlOK = query.exec(stringQuery);
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            query.finish();
-            return true;
-        }
-        else
-        {
-            query.finish();
-           // emit debugLog(Q_FUNC_INFO, "2", 7);
-            return false;
-        }
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-    }
-   //emit debugLog(Q_FUNC_INFO, "3", 7);
-    return false;
-    */
 }
 
 bool DataBase::isValidMode (const QString &b, const bool _tmp)
@@ -1130,18 +1091,6 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
     }
     query.next();
     return query.isValid();
-}
-
-bool DataBase::isValidBandNumber (const int b)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(b);
-    return isValidBand(getBandNameFromNumber(b));
-}
-
-bool DataBase::isValidModeNumber (const int b)
-{
-        //qDebug() << Q_FUNC_INFO << ": "  << QString::number(b);
-    return isValidMode(getModeNameFromNumber(b, false), false);
 }
 
 int DataBase::getBandIdFromFreq(const QString &fr)
@@ -3012,7 +2961,7 @@ bool DataBase::updateTo006()
     if (!populateTableBand(false))
         return false;
 
-    if (!updateBandIdTableLogToNewOnes())
+    if (!pdateBandIdTableLogToNewOnes())
         return false;
 
     if (!execQuery(Q_FUNC_INFO, "DROP TABLE band"))
@@ -3477,7 +3426,7 @@ bool DataBase::updateModeIdFromSubModeId()
 
 bool DataBase::updateBandIdTableLogToNewOnes()
 {
-       //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: "  ;
+       //qDebug() << Q_FUNC_INFO  ;
 
     QString bandtxt = QString();
 
@@ -3505,7 +3454,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END"  ;
+        //qDebug() << Q_FUNC_INFO <<  " : FALSE END"  ;
         query.finish();
         return false;
     }
@@ -3541,7 +3490,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 id = (query.value(1)).toInt();
                 bandtxt = getBandNameFromNumber(bandFound);
 
-                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: band found: " << bandtxt ;
+                     //qDebug() << Q_FUNC_INFO <<  " : band found: " << bandtxt ;
                 QSqlQuery query2;
                 sq = QString("SELECT id FROM bandtemp WHERE name='%1'").arg(bandtxt);
                 sqlOk2 = query2.exec(sq);
@@ -3559,23 +3508,23 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                             sqlOk3 = execQuery(Q_FUNC_INFO, sq);
                             if (sqlOk3)
                             {
-                                     //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt ;
+                                     //qDebug() << Q_FUNC_INFO <<  " : ID: " << QString::number(id) << " updated to: " << QString::number(bandFound) <<"/"<< bandtxt ;
                             }
                             else
                             {
                                     //queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-2"  ;
-                                    //qDebug() << "DataBase::updateBandIdTableLogToNewOnes - QSOs not updated to main log" ;
+                                    //qDebug() << Q_FUNC_INFO <<  " : ID: " << QString::number(id) << " NOT updated-2"  ;
+                                    //qDebug() << Q_FUNC_INFO <<  " : QSOs not updated to main log" ;
                             }
                         }
                         else
                         {
-                                 //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not valid "   ;
+                                 //qDebug() << Q_FUNC_INFO <<  " : query2 not valid "   ;
                         }
                     }
                     else
                     {
-                          //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: query2 not next "   ;
+                          //qDebug() << Q_FUNC_INFO <<  " : query2 not next "   ;
                     }
                     query2.finish();
                 }
@@ -3583,7 +3532,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 {
                     queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
                     query2.finish();
-                         //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: ID: " << QString::number(id) << " NOT updated-1"  ;
+                         //qDebug() << Q_FUNC_INFO <<  " : ID: " << QString::number(id) << " NOT updated-1"  ;
                 }
             }
 
@@ -3622,17 +3571,17 @@ bool DataBase::updateBandIdTableLogToNewOnes()
         query.finish();
         if (cancel && (!alreadyCancelled))
         {
-                //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 2"  ;
+                //qDebug() << Q_FUNC_INFO <<  " : FALSE END 2"  ;
             return false;
         }
-            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: END OK"  ;
+            //qDebug() << Q_FUNC_INFO <<  " : END OK"  ;
         return true;
     }
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-            //qDebug() << "DataBase::updateBandIdTableLogToNewOnes: FALSE END 3"  ;
+            //qDebug() << Q_FUNC_INFO <<  " : FALSE END 3"  ;
         return false;
     }
 }
@@ -3950,8 +3899,17 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 {
     QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
     //qDebug() << "DataBase::updateDBVersion: (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV ;
-    QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
-    return execQuery(Q_FUNC_INFO, stringQuery);
+    //QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
+
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES (:date, :soft, :db)");
+    query.bindValue(":date", dateString);
+    query.bindValue(":soft", _softV);
+    query.bindValue(":db", _dbV);
+    return query.exec();
+
+    //return execQuery(Q_FUNC_INFO, stringQuery);
 }
 
 

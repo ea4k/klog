@@ -74,13 +74,12 @@ public:
 
     bool isValidBand (const QString &b);
     bool isValidMode (const QString &b, const bool _tmp=false);
-    bool isValidBandNumber (const int b);
-    bool isValidModeNumber (const int b);
+
     QString getBandNameFromNumber(const int _n);
     QString getModeNameFromNumber(const int _n, bool _tmp=false);
     QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
-    int getBandIdFromName(const QString &b);
+    //int getBandIdFromName(const QString &b);
     int getModeIdFromName(const QString &b);
     int getModeIdFromSubMode(const QString &b);
 
