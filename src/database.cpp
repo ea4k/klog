@@ -824,7 +824,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
        //qDebug() << Q_FUNC_INFO << ": END FALSE"  ;
     return false;
 }
-/*
+
 int DataBase::getBandIdFromName(const QString &b)
 {
     //qDebug() << Q_FUNC_INFO << ": " << b ;
@@ -848,7 +848,7 @@ int DataBase::getBandIdFromName(const QString &b)
     query.finish();
     return v;
 }
-*/
+
 
 int DataBase::getModeIdFromName(const QString &b)
 {
@@ -1320,15 +1320,12 @@ bool DataBase::createTheBandQuickReference()
     QHash<int, QString> freqBandIdHash;
 
 */
-        //qDebug() << "DataBase::createTheBandQuickReference: " ;
-    QString st = "NULL";
-    int in = 0;
+        //qDebug() << Q_FUNC_INFO;
 
     QString stringQuery = QString("SELECT id, name, lower FROM band");
-    QString fr = QString();
-    Frequency ff;
+
     bandIDHash.clear();
-    IDBandHash.clear();
+
     QSqlQuery query;
     bool sqlOK = query.exec(stringQuery);
 
@@ -1339,21 +1336,22 @@ bool DataBase::createTheBandQuickReference()
        // emit debugLog(Q_FUNC_INFO, "1", 7);
         return false;
     }
+    QString     _bandName;
+    int         _bandId;
+    Frequency   _lowerfreq;
+
 
     while (query.next())
     {
         if (query.isValid())
         {
-            st = (query.value(1)).toString();
-            in = (query.value(0)).toInt();
-            fr = (query.value(2)).toString();
-            ff.fromDouble((query.value(2)).toDouble());
-            bandIDHash.insert(st, in );
-            IDBandHash.insert(in, st);
-            freqBandIdHash.insert(in, fr);
-            ffreqBandIdHash.insert(in, ff);
+            _bandName = (query.value(1)).toString();
+            _bandId = (query.value(0)).toInt();
+            _lowerfreq.fromDouble((query.value(2)).toDouble());
 
-                 //qDebug() << Q_FUNC_INFO << ": " << st <<"/" << QString::number(in);
+            bandIDHash.insert(_bandId, _bandName);
+            //freqBandIdHash.insert(_bandId, _lowerfreq.toQString());
+            ffreqBandIdHash.insert(_bandId, _lowerfreq);
         }
         else
         {
@@ -1389,12 +1387,9 @@ bool DataBase::createTheModeQuickReference()
         return true;
     }
         QString st = QString();
-        QString sm = QString();
+        //QString sm = QString();
         int in = 0;
-        modeIDHash.clear();
         IDModeHash.clear();
-        subModeIDHash.clear();
-        IDSubModeHash.clear();
         QString stringQuery = QString("SELECT id, name, submode FROM mode");
         QSqlQuery query;
 
@@ -1413,12 +1408,12 @@ bool DataBase::createTheModeQuickReference()
             {
                 in = (query.value(0)).toInt();
                 st = (query.value(1)).toString();
-                sm = (query.value(2)).toString();
+                //sm = (query.value(2)).toString();
 
-                modeIDHash.insert(st, in );
+                //modeIDHash.insert(st, in );
                 IDModeHash.insert(in, st);
-                subModeIDHash.insert(sm, in );
-                IDSubModeHash.insert(in, sm);
+                //subModeIDHash.insert(sm, in );
+                //IDSubModeHash.insert(in, sm);
                      //qDebug() << Q_FUNC_INFO << ": " << st <<"/" << QString::number(in);
             }
             else
@@ -1484,61 +1479,6 @@ Frequency DataBase::getFreqFromBandId(const int _i)
     return Frequency(0);
 }
 
-/*
-int DataBase::getLogTypeNumber(const QString &_logType)
-{
-        //qDebug() << "DataBase::getLogTypeNumber: " << _logType ;
-     QSqlQuery query;
-     QString queryString = QString("SELECT id FROM supportedcontests WHERE name='%1'").arg(_logType);
-
-     bool sqlOK = query.exec(queryString);
-
-
-     if(!sqlOK)
-     {
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-         query.finish();
-     }
-     query.next();
-     if ( query.isValid() )
-     {
-        return (query.value(0)).toInt();
-     }
-     else
-     {
-         query.finish();
-         return -1;
-     }
-     //query.finish();
-     //return -2;
-}
-
-QString DataBase::getLogTypeName(const int _logType)
-{
-         //qDebug() << "DataBase::getLogTypeName: " << QString::number(_logType) ;
-     QSqlQuery query;
-     QString queryString = QString("SELECT name FROM supportedcontests WHERE id='%1'").arg(_logType);
-     bool sqlOK = query.exec(queryString);
-
-     if(!sqlOK)
-     {
-         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-         query.finish();
-     }
-     query.next();
-     if ( query.isValid() )
-     {
-        return (query.value(0)).toString();
-     }
-     else
-     {
-         query.finish();
-         return QString();
-     }
-     //query.finish();
-     //return QString();
-}
-*/
 bool DataBase::updateToLatest()
 {
 /*
@@ -2961,7 +2901,7 @@ bool DataBase::updateTo006()
     if (!populateTableBand(false))
         return false;
 
-    if (!pdateBandIdTableLogToNewOnes())
+    if (!updateBandIdTableLogToNewOnes())
         return false;
 
     if (!execQuery(Q_FUNC_INFO, "DROP TABLE band"))

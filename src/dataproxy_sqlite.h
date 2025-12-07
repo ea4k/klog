@@ -88,8 +88,8 @@ public:
     int getMostUsedBand(const int _log);
     int getMostUsedMode(const int _log);
 
-    KLOG_DEPRECATED QString getNameFromBandId (const int _id);
-    KLOG_DEPRECATED QString getNameFromModeId (const int _id);
+    QString getNameFromBandId (const int _id);
+    QString getNameFromModeId (const int _id);
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed

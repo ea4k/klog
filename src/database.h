@@ -79,7 +79,7 @@ public:
     QString getModeNameFromNumber(const int _n, bool _tmp=false);
     QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
-    //int getBandIdFromName(const QString &b);
+    int getBandIdFromName(const QString &b);
     int getModeIdFromName(const QString &b);
     int getModeIdFromSubMode(const QString &b);
 
@@ -230,19 +230,16 @@ private:
     float latestReaded; // The latest version of DB readed in the DB itself
     //bool inMemoryOnly; // The DB is to be created in memory, no file support... Faster but less safe!
     //QDateTime date;
-    QHash<QString, int> bandIDHash;
-    QHash<QString, int> modeIDHash;
-    QHash<QString, int> subModeIDHash;
-    QHash<int, QString> IDBandHash;
-    QHash<int, QString> IDModeHash;
-    QHash<int, QString> IDSubModeHash;
-    QHash<int, QString> freqBandIdHash;
-
-    QHash<int, Frequency> ffreqBandIdHash;
 
 
-    QMap<QString, int> bandQMap;
-    QMap<QString, int> modeQMap;
+    QHash<int, QString> bandIDHash;
+    KLOG_DEPRECATED QHash<int, QString> IDModeHash;         // Validate if it is still needed
+    //KLOG_DEPRECATED QHash<int, QString> freqBandIdHash;     // Validate if it is still needed
+    KLOG_DEPRECATED QHash<int, Frequency> ffreqBandIdHash;  // Validate if it is still needed
+
+
+    //QMap<QString, int> bandQMap;
+    //QMap<QString, int> modeQMap;
 
     Utilities *util;
     QueryExecutor *exe;
