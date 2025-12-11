@@ -503,8 +503,10 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
         //qDebug() << Q_FUNC_INFO << " - return 1";
         return;
     }
+    //Frequency _FREQrx(freqRX);
 
-    bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(freqRX));
+    //bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(freqRX));
+    bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), Frequency(freqRX));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
        //qDebug() << Q_FUNC_INFO << " changing to: Band: " << satBandTXComboBox->currentText() ;
@@ -527,7 +529,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     }
     //qDebug() << Q_FUNC_INFO << " - Freq: " << QString::number(freqTX);
     QString tmpBand = satBandTXComboBox->currentText();
-    bool freqInBand = dataProxy->isThisFreqInBand(tmpBand, QString::number(freqTX));
+    bool freqInBand = dataProxy->isThisFreqInBand(tmpBand, Frequency(freqTX));
     if(!freqInBand)
     { // If the freq does not belong to the current band, we need to update the band
        //qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText() ;
@@ -670,7 +672,7 @@ void MainWindowSatTab::updateRXFreq(const double _f)
     if (bandId>=1)
     { //This prevent that a non-hamradio frequency is used on TX
        //qDebug() << Q_FUNC_INFO << " - Freq IS in ham band";
-        bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), QString::number(freqRX));
+        bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), Frequency(freqRX));
         if(!freqInBand)
         { // If the freq does not belong to the current band, we need to update the band
            //qDebug() << Q_FUNC_INFO << " - Freq in current band";
@@ -711,7 +713,7 @@ void MainWindowSatTab::updateTXFreq(const double _f)
         int bandId = dataProxy->getBandIdFromFreq(freqTX);
         if (bandId>=1)
         { //This prevent that a non-hamradio frequency is used on TX
-            bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), QString::number(freqTX));
+            bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), Frequency(freqTX));
             if(!freqInBand)
             { // If the freq does not belong to the current band, we need to update the band
                 //qDebug() << Q_FUNC_INFO << ": If the freq does not belong to the current band, we need to update the band";

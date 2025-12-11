@@ -317,11 +317,11 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     {
         //qDebug() << Q_FUNC_INFO << ": No Error, DB is open";
     }
-    //qDebug() << Q_FUNC_INFO << ": Going to run - createBandModeMaps " ;
+    //qDebug() << Q_FUNC_INFO << ": Going to run - updateBandHash " ;
 
-    if (!createBandModeMaps())
+    if (!updateBandHash())
     {
-        //qDebug() << Q_FUNC_INFO << ": createBandModeMaps false Stop";
+        //qDebug() << Q_FUNC_INFO << ": updateBandHash false Stop";
         logEvent(Q_FUNC_INFO, "END-3", Debug);
         return false;
     }
@@ -901,47 +901,6 @@ int DataBase::getModeIdFromSubMode(const QString &b)
     return v;
 }
 
-QString DataBase::getBandNameFromNumber(const int _n)
-{
-    //qDebug() << Q_FUNC_INFO << " " << QString::number(_n) ;
-    QSqlQuery query;
-    QString queryString = QString("SELECT name FROM band WHERE id='%1'").arg(_n);
-
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        query.next();
-        if ( query.isValid() )
-        {
-            if ( isValidBand((query.value(0)).toString())  )
-            {
-                    //qDebug() << "" << (query.value(0)).toString() << "-------- END" ;
-                return (query.value(0)).toString();
-            }
-            else
-            {
-                   //qDebug() << "" << "-------- END-1" ;
-                query.finish();
-                return QString();
-            }
-        }
-        else
-        {
-            //qDebug() << "" << "-------- END-2" ;
-            query.finish();
-            return QString();
-        }
-    }
-    else
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-    }
-    query.finish();
-    return QString();
-}
-
-
 
 QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 {
@@ -1097,6 +1056,8 @@ int DataBase::getBandIdFromFreq(const QString &fr)
 {
         //qDebug() << Q_FUNC_INFO << ": "  << fr ;
     //Freq should be in MHz
+ //QHash<int, Frequency> freqBandIDHash
+
 
     QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr, fr);
     QSqlQuery query;
@@ -1117,19 +1078,16 @@ int DataBase::getBandIdFromFreq(const QString &fr)
         }
         else
         {
-                //qDebug() << "DataBase::getBandIdFromFreq: Valid NOK - END" ;
+
             query.finish();
             return -1;
         }
     }
     else
     {
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK" ;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() ;
-           //qDebug() << "DataBase::getBandIdFromFreq: Query NOK: " << query.lastError().text() ;
         if (query.lastError().isValid())
         {
-               //qDebug() << "DataBase::getBandIdFromFreq: Query NOK - Error VALID" ;
+
         }
         else
         {
@@ -1145,7 +1103,7 @@ int DataBase::getBandIdFromFreq(const QString &fr)
     //return -3;
 }
 
-
+/*
 bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
 {//Freq should be in MHz
    //qDebug() << Q_FUNC_INFO << ": " << b << "/" << fr ;
@@ -1157,19 +1115,9 @@ bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
     int bandNf = getBandIdFromFreq(fr);
     int bandN = getBandIdFromName(b);
    //qDebug() << Q_FUNC_INFO << ":  (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) ;
-    if (bandNf == bandN)
-    {
-       //qDebug() << Q_FUNC_INFO << ": OK " << b << "/" << fr ;
-        return true;
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << ": NOK " << b << "/" << fr ;
-       //emit debugLog(Q_FUNC_INFO, "1", 7);
-        return false;
-    }
+    return (bandNf == bandN);
 }
-
+*/
 
 bool DataBase::unMarkAllQSO()
 {
@@ -1309,17 +1257,8 @@ void DataBase::logBackup()
     //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
-bool DataBase::createTheBandQuickReference()
+bool DataBase::updateBandHash()
 {
-/*
-          KEY      Value
-    QHash<QString, int> bandIDHash;
-    QHash<QString, int> modeIDHash;
-    QHash<int, QString> IDBandHash;
-    QHash<int, QString> IDModeHash
-    QHash<int, QString> freqBandIdHash;
-
-*/
         //qDebug() << Q_FUNC_INFO;
 
     QString stringQuery = QString("SELECT id, name, lower FROM band");
@@ -1350,8 +1289,7 @@ bool DataBase::createTheBandQuickReference()
             _lowerfreq.fromDouble((query.value(2)).toDouble());
 
             bandIDHash.insert(_bandId, _bandName);
-            //freqBandIdHash.insert(_bandId, _lowerfreq.toQString());
-            ffreqBandIdHash.insert(_bandId, _lowerfreq);
+            freqBandIDHash.insert(_bandId, _lowerfreq);
         }
         else
         {
@@ -1370,111 +1308,14 @@ bool DataBase::createTheBandQuickReference()
     return true;
 }
 
-
-bool DataBase::createTheModeQuickReference()
-{
-    /*
-              KEY      Value
-        QHash<QString, int> modeIDHash;
-        QHash<int, QString> IDModeHash
-
-    */
-          //qDebug() << Q_FUNC_INFO << ": " ;
-
-    if (getDBVersion()<0.01f)
-    {
-        // If the version is not updated we don't create the reference
-        return true;
-    }
-        QString st = QString();
-        //QString sm = QString();
-        int in = 0;
-        IDModeHash.clear();
-        QString stringQuery = QString("SELECT id, name, submode FROM mode");
-        QSqlQuery query;
-
-        bool sqlOK = query.exec(stringQuery);
-
-        if (!sqlOK)
-        {
-            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            query.finish();
-           // emit debugLog(Q_FUNC_INFO, "1", 7);
-            return false;
-        }
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                in = (query.value(0)).toInt();
-                st = (query.value(1)).toString();
-                //sm = (query.value(2)).toString();
-
-                //modeIDHash.insert(st, in );
-                IDModeHash.insert(in, st);
-                //subModeIDHash.insert(sm, in );
-                //IDSubModeHash.insert(in, sm);
-                     //qDebug() << Q_FUNC_INFO << ": " << st <<"/" << QString::number(in);
-            }
-            else
-            {
-                   //qDebug() << Q_FUNC_INFO << ": Query not valid - END" ;
-
-               //QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheModeQuickReference)"),
-               //                     query.lastError().text());
-                query.finish();
-               // emit debugLog(Q_FUNC_INFO, "2", 7);
-               return false;
-               //TODO: Manage this error, in case the query is NOK.
-            }
-        }
-        query.finish();
-            //qDebug() << Q_FUNC_INFO << " - END" ;
-        return true;
-}
-
-bool DataBase::createBandModeMaps()
-{
-    //qDebug() << Q_FUNC_INFO ;
-    bool b = false;
-    bool m = false;
-
-     //return (b && m);
-    if (isTheDBCreated())
-    {
-        b = createTheBandQuickReference();
-        m = createTheModeQuickReference();
-
-             //qDebug() << Q_FUNC_INFO << " - isTheDbCreated TRUE" ;
-        if (!b)
-        {
-           //emit debugLog(Q_FUNC_INFO, "1", 7);
-        }
-        if (!m)
-        {
-           //emit debugLog(Q_FUNC_INFO, "2", 7);
-        }
-        //qDebug() << Q_FUNC_INFO << " END 1" ;
-        return (b && m);
-    }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << " - isTheDbCreated FALSE" ;
-       //emit debugLog(Q_FUNC_INFO, "3", 7);
-        return false;
-    }
-    //return false;
-    //qDebug() << Q_FUNC_INFO << " - END" ;
-}
-
 Frequency DataBase::getFreqFromBandId(const int _i)
 {
     //qDebug() << Q_FUNC_INFO  ;
 
-    if (ffreqBandIdHash.contains(_i))
+    if (freqBandIDHash.contains(_i))
     {
         //qDebug() << Q_FUNC_INFO << " OK END" ;
-        return ffreqBandIdHash.value(_i);
+        return freqBandIDHash.value(_i);
     }
     return Frequency(0);
 }
@@ -2399,7 +2240,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     submodes = {};
     populateTableWithModes(submodes, "WSPR", "DG", NoTmp);
 
-    createTheModeQuickReference();
+    //createTheModeQuickReference();
          //qDebug() << "DataBase::populateTableMode END" ;
     return true;
 }
@@ -2738,7 +2579,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.1357', '0.1378', '2190M')").arg(tableName));
 
-    createTheBandQuickReference();
+    updateBandHash();
 
         //qDebug() << "DataBase::populateTableBand END" ;
     return true;
@@ -3405,6 +3246,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
+    updateBandHash();
     sqlOk = query.exec("SELECT bandid, id FROM log ORDER BY bandid DESC");
 
     if (sqlOk)
@@ -3412,7 +3254,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
         while (query.next() && (!cancel) )
         {
             bandtxt = QString();
-            bandFound = -1;
+            //bandFound = -1;
 
             if (query.isValid())
             {
@@ -3428,7 +3270,8 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
-                bandtxt = getBandNameFromNumber(bandFound);
+                bandtxt = bandIDHash.value(bandFound);
+                //bandtxt = getBandNameFromNumber(bandFound);
 
                      //qDebug() << Q_FUNC_INFO <<  " : band found: " << bandtxt ;
                 QSqlQuery query2;

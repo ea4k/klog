@@ -83,10 +83,9 @@ public:
     int getModeIdFromName(const QString &b);
     int getModeIdFromSubMode(const QString &b);
 
-    bool createBandModeMaps();
 
-    int getBandIdFromFreq(const QString &fr); //Freq should be in MHz
-    bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz
+    KLOG_DEPRECATED int getBandIdFromFreq(const QString &fr); //Freq should be in MHz // Move to dataproxy
+    // bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz // Move to dataproxy
 
     Frequency getFreqFromBandId(const int _i);
 
@@ -152,7 +151,7 @@ private:
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
 
-    bool createTheBandQuickReference();
+    bool updateBandHash();
     bool createTheModeQuickReference();
 
     //bool updateLog(); // Updates the log table
@@ -233,9 +232,7 @@ private:
 
 
     QHash<int, QString> bandIDHash;
-    KLOG_DEPRECATED QHash<int, QString> IDModeHash;         // Validate if it is still needed
-    //KLOG_DEPRECATED QHash<int, QString> freqBandIdHash;     // Validate if it is still needed
-    KLOG_DEPRECATED QHash<int, Frequency> ffreqBandIdHash;  // Validate if it is still needed
+    KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash;  // Validate if it is still needed, move to dataproxy
 
 
     //QMap<QString, int> bandQMap;

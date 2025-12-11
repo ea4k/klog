@@ -57,6 +57,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     qso = new QSO;
     //qDebug() << Q_FUNC_INFO << " - 53";
     createHashes();
+    loadBandLimits();
     searching = false;
     executionN = 0;
     connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -384,51 +385,35 @@ Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
     return db->getFreqFromBandId(_id);
 }
 
-int DataProxy_SQLite::getBandIdFromFreq(const double _n)
+int DataProxy_SQLite::getBandIdFromFreq(const Frequency _n)
 {
-    //Freq should be in MHz
+    // Replaced the heavy SQL query with a fast in-memory lookup.
+
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_n);
-    bool sqlOk = false;
-    QString queryString = QString("SELECT id FROM band WHERE lower <= :freq and upper >= :freq");
-
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":freq", _n);
-    sqlOk = query.exec();
-
-     //qDebug() << Q_FUNC_INFO << " - Query: " << query.lastQuery();
-    if (sqlOk)
+    Frequency f(_n);
+    double _tmp = f.toDouble();
+    // In-memory linear search over the small list of bands
+    for (const auto &limits : m_bandLimits)
     {
-        //qDebug() << Q_FUNC_INFO << " - Query OK";
-        query.next();
-        if (query.isValid())
+        // Check if the frequency is within the defined [lower, upper] range
+        if (_tmp >= limits.lower && _tmp <= limits.upper)
         {
-            int v = (query.value(0)).toInt();
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-1", Debug);
-            return v;
-        }
-        else
-        {
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-2", Debug);
-            return -1;
+            logEvent(Q_FUNC_INFO, QString("END-1 - Found ID: %1").arg(limits.id), Debug);
+            return limits.id;
         }
     }
-    else
-    {
-        //qDebug() << Q_FUNC_INFO << " - Query NOK";
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        logEvent (Q_FUNC_INFO, "END-3", Debug);
-        return -2;
-    }
+
+    // Per original logic, return an error code if the band is not found.
+    logEvent(Q_FUNC_INFO, "END-2 - Not found", Debug);
+    return -1;
 }
 
 QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    int id = getBandIdFromFreq(_n);
+    return bandIDs.key(id);
+ /*
     bool sqlOk = false;
     QString queryString = QString("SELECT name FROM band WHERE lower <= :freq and upper >= :freq");
 
@@ -462,6 +447,7 @@ QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
         logEvent (Q_FUNC_INFO, "END-3", Debug);
         return QString();
     }
+    */
 }
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
@@ -607,9 +593,54 @@ double DataProxy_SQLite::getUpperLimitBandFromBandName(const QString &_sm)
     }
 }
 
-bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const QString &_fr)
+bool DataProxy_SQLite::loadBandLimits()
 {
-    return db->isThisFreqInBand(_band, _fr);
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    m_bandLimits.clear();
+
+    // Query ID, lower limit, and upper limit from the 'band' table
+    QString queryString = "SELECT id, lower, upper FROM band";
+    QSqlQuery query;
+    query.setForwardOnly(true); // Optimization for reading data once
+
+    if (!query.exec(queryString))
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        logEvent(Q_FUNC_INFO, "END-FAIL-1 - Query failed", Debug);
+        return false;
+    }
+
+    while (query.next())
+    {
+        if (query.isValid())
+        {
+            BandLimits limits;
+            // Retrieve values using native C++ types for best speed and precision
+            limits.id = query.value(0).toInt();
+            limits.lower = query.value(1).toDouble();
+            limits.upper = query.value(2).toDouble();
+
+            // Store only valid bands (ID > 0 and a valid range)
+            if (limits.id > 0 && limits.lower < limits.upper) {
+                 m_bandLimits.append(limits);
+            }
+        }
+    }
+
+    query.finish();
+    logEvent(Q_FUNC_INFO, QString("END - Loaded %1 bands").arg(m_bandLimits.count()), Debug);
+    return true;
+}
+
+bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const Frequency _fr)
+{
+
+    int bandNf = getBandIdFromFreq(_fr);
+    int bandN = bandIDs.value(_band);
+    Frequency fTemp (_fr);
+    qDebug() << Q_FUNC_INFO << " - Band: " << _band << " / freq: " << fTemp.toDouble() << " - " << util->boolToQString(bandNf == bandN);
+
+    return (bandNf == bandN);
 }
 
 QStringList DataProxy_SQLite::getFields()
@@ -4337,7 +4368,7 @@ QStringList DataProxy_SQLite::getSatellitesList()
 }
 
 
-QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
+Frequency DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
 {
     //qDebug()  << Q_FUNC_INFO << " - " << _sat;
     QString aux = QString();
@@ -4345,7 +4376,8 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
     //double fr1, fr2, fr;
     QString queryString = QString("SELECT uplink FROM satellites WHERE satarrlid='%1'").arg(_sat);
     QSqlQuery query;
-
+    Frequency freq;
+    freq.clear();
     bool sqlOK = query.exec(queryString);
 
     if (sqlOK)
@@ -4354,13 +4386,14 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
         if (query.isValid())
         {
             aux = query.value(0).toString();
-            aux = QString::number(getFreqFromRange(aux, _pair));
+            freq = getFreqFromRange(aux, _pair);
+            //aux = freq.toQString();
         }
         else
         {
                  //qDebug()  << Q_FUNC_INFO << " -  query not valid" ;
             query.finish();
-            return QString();
+            return freq;
         }
     }
     else
@@ -4368,16 +4401,16 @@ QString DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
              //qDebug()  << Q_FUNC_INFO << " -  query failed: " << query.lastQuery() ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-        return QString();
+        return freq;
     }
 
          //qDebug()  << Q_FUNC_INFO << " - final: " << aux;
     query.finish();
-    return aux;
+    return freq;
 }
 
 
-QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
+Frequency DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
 {
          //qDebug()  << Q_FUNC_INFO << " - " << _sat;
     QString aux = QString();
@@ -4385,6 +4418,8 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
     //double fr1, fr2, fr;
     QString queryString = QString("SELECT downlink FROM satellites WHERE satarrlid='%1'").arg(_sat);
     QSqlQuery query;
+    Frequency freq;
+    freq.clear();
 
     bool sqlOK = query.exec(queryString);
 
@@ -4395,13 +4430,14 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
         if (query.isValid())
         {
             aux = query.value(0).toString();
-            aux = QString::number(getFreqFromRange(aux,_pair));
+            freq = getFreqFromRange(aux,_pair);
+            //aux = freq.toQString();
         }
         else
         {
                  //qDebug()  << Q_FUNC_INFO << " -  query not valid" ;
             query.finish();
-            return QString();
+            return freq;
         }
     }
     else
@@ -4409,12 +4445,12 @@ QString DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
              //qDebug()  << Q_FUNC_INFO << " -  query failed: " << query.lastQuery() ;
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-        return QString();
+        return freq;
     }
 
          //qDebug()  << Q_FUNC_INFO << " - final: " << aux;
     query.finish();
-    return aux;
+    return freq;
 }
 
 QString DataProxy_SQLite::getSatelliteMode(const QString &_sat)
@@ -4636,15 +4672,16 @@ QString DataProxy_SQLite::getSateliteArrlIdFromId(const int _id)
     return aux;
 }
 
-double DataProxy_SQLite::getFreqFromRange(QString _fr, int _pair)
+Frequency DataProxy_SQLite::getFreqFromRange(const QString &_fr, int _pair)
 { //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
-         //qDebug()  << Q_FUNC_INFO << " - " << _fr;
+    //qDebug()  << Q_FUNC_INFO << " - " << _fr;
     QString fr1, fr2, aux;
     double f1, f2;
     fr1.clear();
     fr2.clear();
-    f1 = 0.0;
-    f2 = 0.0;
+    //f1 = 0.0;
+    //f2 = 0.0;
+    Frequency freq;
 
     aux.clear();
     aux = _fr;
@@ -4672,16 +4709,18 @@ double DataProxy_SQLite::getFreqFromRange(QString _fr, int _pair)
              //qDebug()  << Q_FUNC_INFO << " - f2: " << QString::number(f2);
 
         f1 = (f2 + f1)/2;
+        freq.fromDouble(f1);
 
              //qDebug()  << Q_FUNC_INFO << " - f1 after calc: " << QString::number(f1);
     }
     else
     {   // It is only one freq 145.950 so this is what must be returned
-        f1 = aux.toDouble();
+        freq.fromQString(aux, KHz);
+        //f1 = aux.toDouble();
     }
 
          //qDebug()  << Q_FUNC_INFO << " - Return: " << QString::number(f1);
-    return f1;
+    return freq;
 }
 
 /*
@@ -6841,6 +6880,47 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
     return qs;
 }
 
+bool DataProxy_SQLite::getFreqHashData()
+{
+    // 1. Efficiency: Set forward-only flag for quicker sequential reads
+    QSqlQuery query;
+    query.setForwardOnly(true);
+
+    freqBandIDHash.clear();
+
+    QString queryString = "SELECT id, lower FROM band";
+
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return false;
+    }
+    else
+    {
+        while (query.next())
+        {
+            if (query.isValid())
+            {
+                // 2. Data Integrity: Retrieve data using native double type for better precision/speed
+                int id = query.value(0).toInt();
+                double lowerFreqValue = query.value(1).toDouble();
+
+                Frequency freq;
+                freq.fromDouble(lowerFreqValue);
+
+                if (freq.isValid())
+                {
+                    freqBandIDHash.insert(id, freq);
+                }
+                // TODO: Log an error if a row has a valid ID but invalid frequency object
+            }
+        }
+    }
+    query.finish();
+    return true;
+}
 
 QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
 {//enum DataTableHash {World, Band, Mode};
@@ -6850,6 +6930,7 @@ QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data
 
     QString queryString;
     QSqlQuery query;
+    query.setForwardOnly(true);
     QString name;
     switch (_data) {
         case WorldData:
@@ -6914,6 +6995,7 @@ QHash<QString, int> DataProxy_SQLite::getWorldData()
 
     QString queryString;
     QSqlQuery query;
+    query.setForwardOnly(true);
     QString pref;
 
     queryString = "SELECT prefix, dxcc FROM prefixesofentity";
@@ -6963,6 +7045,7 @@ QStringList DataProxy_SQLite::getLongPrefixes()
     qs.clear();
     QString queryString = QString("SELECT prefix from prefixesofentity WHERE prefix NOT like '=%'");
     QSqlQuery query;
+    query.setForwardOnly(true);
 
     bool sqlOK = query.exec(queryString);
 
@@ -6999,6 +7082,7 @@ QStringList DataProxy_SQLite::getEntitiesNames(bool _dxccOnly)
     qs.clear();
     QString queryString = QString("SELECT mainprefix, name, dxcc FROM entity");
     QSqlQuery query;
+    query.setForwardOnly(true);
 
     bool sqlOK = query.exec(queryString);
 
@@ -7041,6 +7125,7 @@ QStringList DataProxy_SQLite::getEntitiesIds()
     qs.clear();
     QString queryString = QString("SELECT dxcc FROM entity");
     QSqlQuery query;
+    query.setForwardOnly(true);
 
     bool sqlOK = query.exec(queryString);
 
@@ -7139,6 +7224,7 @@ int DataProxy_SQLite::getMaxEntityID(bool limit)
 QList<int> DataProxy_SQLite::getListOfDXCCIds()
 {
     QSqlQuery query;
+    query.setForwardOnly(true);
     QString  queryString =  QString("SELECT dxcc FROM entity");
     QList<int> entities;
     entities.clear();
@@ -7642,6 +7728,7 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     }
 
     QSqlQuery query;
+    query.setForwardOnly(true);
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
@@ -7721,6 +7808,7 @@ QList<QSO *> DataProxy_SQLite::getGridStats(int _log)
     }
 
     QSqlQuery query;
+    query.setForwardOnly(true);
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
@@ -7800,6 +7888,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
 
 
     QSqlQuery query;
+    query.setForwardOnly(true);
     bool sqlOK = query.exec(stringQuery);
     if (!sqlOK)
     {
@@ -7907,6 +7996,7 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
 
     QString stringQuery;
     QSqlQuery query;
+    query.setForwardOnly(true);
     QString modeString = QString();
 
 

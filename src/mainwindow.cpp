@@ -935,7 +935,7 @@ void MainWindow::slotBandChanged (const QString &_b)
         return;
     }
 
-    bool isFRinBand = dataProxy->isThisFreqInBand(_b, QString::number(QSOTabWidget->getTXFreq ()));
+    bool isFRinBand = dataProxy->isThisFreqInBand(_b, QSOTabWidget->getTXFreq ());
     if ((isFRinBand) && (QSOTabWidget->getTXFreq () >0 ))
     { // No change in txFreq
           //qDebug() << "MainWindow::slotBandChanged: isFRinBand and Freq >0"  ;
@@ -958,7 +958,7 @@ void MainWindow::slotBandChanged (const QString &_b)
 
         slotFreqTXChanged (txFr);
 
-        //if (!dataProxy->isThisFreqInBand(_b, QString::number(rxFreqSpinBox->value ())))
+        //if (!dataProxy->isThisFreqInBand(_b, rxFreqSpinBox->value ()))
         //{
         //    rxFreqSpinBox->setvalue (QSOTabWidget->getTXFreq());
         //}
@@ -5335,7 +5335,7 @@ void MainWindow::slotFreqTXChangedFromSat(const double _fr)
         //qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
-    if (dataProxy->isThisFreqInBand (mainQSOEntryWidget->getBand (), QString::number(_fr)))
+    if (dataProxy->isThisFreqInBand (mainQSOEntryWidget->getBand (), _fr))
     {
         //qDebug() << Q_FUNC_INFO << " - END-2";
         return;

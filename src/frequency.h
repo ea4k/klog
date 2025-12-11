@@ -60,8 +60,6 @@ public:
     void operator=(Frequency const &_f2);                       // Redefinition of =
     bool operator!=(Frequency &other) const;              // Redefinition of !=
 
-
-
 private:
     double normalize(const double _f, const FreqUnits _u = MHz);
     double deNormalize(const double _f, const FreqUnits _u = MHz);

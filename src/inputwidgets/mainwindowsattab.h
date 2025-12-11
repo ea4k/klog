@@ -35,6 +35,7 @@
 //#include "../locator.h"
 #include "../utilities.h"
 #include "../qso.h"
+#include "../frequency.h"
 
 class MainWindowSatTab : public QWidget
 {

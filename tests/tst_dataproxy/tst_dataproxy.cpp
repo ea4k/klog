@@ -200,8 +200,8 @@ void tst_DataProxy::test_bands()
     QVERIFY2(dataProxy->isUHF (dataProxy->getBandIdFromFreq (432.300)), "UHF not identified");
     QVERIFY2(!dataProxy->isUHF (dataProxy->getBandIdFromFreq (14.300)), "UHF not identified");
 
-    QVERIFY2(dataProxy->isThisFreqInBand ("80M", "3.775"), "Freq in band failed");
-    QVERIFY2(!dataProxy->isThisFreqInBand ("80M", "28.775"), "Freq in band failed");
+    QVERIFY2(dataProxy->isThisFreqInBand ("80M", 3.775), "Freq in band failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand ("80M", 28.775), "Freq in band failed");
 
     QVERIFY2(dataProxy->getNameFromBandId (dataProxy->getIdFromBandName ("20M")) == "20M", "Band names and Id failed");
 }

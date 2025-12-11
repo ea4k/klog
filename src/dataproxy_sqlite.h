@@ -32,6 +32,7 @@
 #include <QSqlQuery>
 #include "global.h"
 #include "database.h"
+#include "frequency.h"
 #include "qso.h"
 #include "utilities.h"
 #include "klogdefinitions.h"
@@ -46,6 +47,13 @@ enum
     DXCCEntities = 521 // http://www.adif.org/adif302.htm#Country%20Codes
 };
 
+// Structure to hold the band limits for fast in-memory range checks
+struct BandLimits
+{
+    int id;
+    double lower;
+    double upper;
+};
 
 class DataProxy_SQLite : public QObject
 {
@@ -97,14 +105,14 @@ public:
     bool isModeDeprecated (const QString &_sm);
 
     Frequency getFreqFromBandId(const int _id);
-    int getBandIdFromFreq(const double _n);
+    int getBandIdFromFreq(const Frequency _n);
     QString getBandNameFromFreq(const double _n);
 
 
     double getLowLimitBandFromBandName(const QString &_sm);
     double getLowLimitBandFromBandId(const int _sm);
     double getUpperLimitBandFromBandName(const QString &_sm);
-    bool isThisFreqInBand(const QString &_band, const QString &_fr);
+    bool isThisFreqInBand(const QString &_band, const Frequency _fr);
 
     int getLastQSOid();
     QDate getFirstQSODateFromCall (const QString &_call);  // If the callsign provided is not valid it provides the date of the first QSO
@@ -222,6 +230,8 @@ public:
     QHash<QString, int> getWorldData();
 
     QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
+    bool getFreqHashData();
+
     QStringList getEntitiesNames(bool _dxccOnly = true);
     QStringList getEntitiesIds();
     int getHowManyEntities();
@@ -278,8 +288,8 @@ public:
     bool addSatellite(const QString &_arrlId, const QString &_name, const QString &_downLink, const QString &_upLink, const QString &_mode, int id = -1);
     int getDBSatId(const QString &_arrlId);
     QStringList getSatellitesList();
-    QString getSatelliteUplink(const QString &_sat, int _pair=0);
-    QString getSatelliteDownlink(const QString &_sat, int _pair=0);
+    Frequency getSatelliteUplink(const QString &_sat, int _pair=0);
+    Frequency getSatelliteDownlink(const QString &_sat, int _pair=0);
     QString getSatelliteMode(const QString &_sat);
     QString getSatelliteFullUplink(const QString &_sat);
     QString getSatelliteFullDownlink(const QString &_sat);
@@ -354,7 +364,7 @@ private:
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
-    double getFreqFromRange(QString _fr, int _pair = 0);            //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
+    Frequency getFreqFromRange(const QString &_fr, int _pair);            //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString &_tableName);
     QString getStringQueryStationCallSign (const QString &_a);      // Creates part of a query regarding the station_call field
     QString getStringQueryMyGrid (const QString &_a);               // Creates part of a query regarding the my_gridsquare field
@@ -372,6 +382,8 @@ private:
     DebugLogLevel logLevel;
     QString pkgVersion;
 
+    QList<BandLimits> m_bandLimits;         // List to store all band limits, populated once on startup
+    QHash<int, Frequency> freqBandIDHash;   // Stores the lower frequency for a band
     QHash<QString, int> bandIDs;
     QHash<QString, int> modeIDs;
 
@@ -381,6 +393,8 @@ private:
 
     QHash<QString, int> m_duplicateCache;
     QString generateDuplicateKey(const QString &call, const QDate &date, int bandId, int modeId);
+
+    bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
 
     //QSqlQuery preparedQuery;
     //QSqlRelationalTableModel *logModel;
