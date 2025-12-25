@@ -728,9 +728,10 @@ bool QSO::completeWith(const QSO& q2)
     if (IS_EMPTY_BOOL(forceInit, false) && !IS_EMPTY_BOOL(q2.forceInit, false))
         setForceInit(q2.forceInit);
     
-    // For Frequency objects, we can't call isValid() on const references
-    // So we check if our freq is empty (<=0) by using the direct member access
-    // However, since Frequency::toDouble() is also non-const, we need to create temp copies
+    // For Frequency objects, we can't call isValid() on const references because
+    // Frequency::isValid() is not declared const. We create temporary copies to check validity.
+    // Direct assignment is used (not setters) because setFreq/setFreqRX take doubles, not Frequency objects,
+    // and Frequency::toDouble() is also non-const. This is consistent with the copy() method.
     Frequency temp_freq_tx = freq_tx;
     Frequency temp_freq_rx = freq_rx;
     Frequency temp_q2_freq_tx = q2.freq_tx;
