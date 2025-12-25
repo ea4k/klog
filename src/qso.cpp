@@ -601,7 +601,6 @@ bool QSO::completeWith(const QSO& q2)
     #define IS_EMPTY_BOOL(b, empty_val) ((b) == (empty_val))
     #define IS_EMPTY_DATE(d) (!(d).isValid())
     #define IS_EMPTY_DATETIME(dt) (!(dt).isValid())
-    #define IS_EMPTY_FREQ(f) (!(f).isValid())
     
     // Complete LogId if empty
     if (IS_EMPTY_INT(logId, -1) && !IS_EMPTY_INT(q2.logId, -1))
@@ -729,10 +728,18 @@ bool QSO::completeWith(const QSO& q2)
     if (IS_EMPTY_BOOL(forceInit, false) && !IS_EMPTY_BOOL(q2.forceInit, false))
         setForceInit(q2.forceInit);
     
-    if (IS_EMPTY_FREQ(freq_tx) && !IS_EMPTY_FREQ(q2.freq_tx))
+    // For Frequency objects, we can't call isValid() on const references
+    // So we check if our freq is empty (<=0) by using the direct member access
+    // However, since Frequency::toDouble() is also non-const, we need to create temp copies
+    Frequency temp_freq_tx = freq_tx;
+    Frequency temp_freq_rx = freq_rx;
+    Frequency temp_q2_freq_tx = q2.freq_tx;
+    Frequency temp_q2_freq_rx = q2.freq_rx;
+    
+    if (!temp_freq_tx.isValid() && temp_q2_freq_tx.isValid())
         freq_tx = q2.freq_tx;
     
-    if (IS_EMPTY_FREQ(freq_rx) && !IS_EMPTY_FREQ(q2.freq_rx))
+    if (!temp_freq_rx.isValid() && temp_q2_freq_rx.isValid())
         freq_rx = q2.freq_rx;
     
     if (IS_EMPTY_STRING(gridsquare) && !IS_EMPTY_STRING(q2.gridsquare))
@@ -1052,7 +1059,6 @@ bool QSO::completeWith(const QSO& q2)
     #undef IS_EMPTY_BOOL
     #undef IS_EMPTY_DATE
     #undef IS_EMPTY_DATETIME
-    #undef IS_EMPTY_FREQ
     
     return true;
 }

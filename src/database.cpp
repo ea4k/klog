@@ -80,7 +80,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
             return;
     }
       qDebug() << Q_FUNC_INFO << "  - - connection Name: " << dbConnectionName ;
-       qDebug() << Q_FUNC_INFO << "  - END"; - DB Name: " << db.databaseName() ;
+      qDebug() << Q_FUNC_INFO << "  - END - DB Name: " << db.databaseName() ;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
     qDebug() << Q_FUNC_INFO << "  - END";
@@ -1650,7 +1650,7 @@ bool DataBase::recreatePropModes()
     qDebug() << Q_FUNC_INFO << "  - Start";
     if (isTheTableExisting("prop_mode_enumeration"))
     {
-           f     Table Exist"  ;
+        qDebug() << Q_FUNC_INFO << " - Table Exist"  ;
         bool sqlOk = false;
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE prop_mode_enumeration");
 
