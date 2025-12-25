@@ -2,7 +2,7 @@ WIP: Working in DUPE detection taking into account time margin
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
 
 TODO: Check if QSL_SENT is properly readed when importing from LoTW
-TODO: Primary subdivisions are not working
+
 TODO: LoTW import ensure exiting QSOs are updated
 TODO: Update the DB to include new modes/submodes: THOR & PSK,...
 
@@ -13,6 +13,7 @@ TBD
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
+- Bugfix: Primary subdivisions were not properly identified (DB schema error ).
 - Bugfix: Search was not working properly
 - Bugfix: CQZ was not properly defined for T9, 4N & YZ callsigns.
 - Bugfix: No Popup message when duplicted QSOs are detected on ADIF import. (Closes #848)

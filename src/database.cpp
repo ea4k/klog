@@ -761,7 +761,7 @@ bool DataBase::createTablePrimarySubdivisions(const bool NoTmp)
         "start_date DATETIME, "
         "end_date DATETIME, "
         "deleted VARCHAR, "
-        "UNIQUE (dxcc, shortname, name), "
+        "UNIQUE (dxcc, shortname, name, cqz, ituz), "
         "FOREIGN KEY (cqz) REFERENCES entity (cqz), "
         "FOREIGN KEY (ituz) REFERENCES entity (ituz), "
         "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
