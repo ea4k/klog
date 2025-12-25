@@ -156,36 +156,40 @@ bool World::create(const QString &_worldFile)
    //qDebug() << Q_FUNC_INFO << "  " << _worldFile;
 
     created = readCTYCSV(_worldFile);
-
+   //qDebug() << Q_FUNC_INFO << " - created: " << util->boolToQString(created) ;
    //qDebug() << Q_FUNC_INFO << " - 30" ;
     if (created)
     {
        //qDebug() << Q_FUNC_INFO << " - 40" ;
         created = insertSpecialEntities();
+       //qDebug() << Q_FUNC_INFO << " - created: " << util->boolToQString(created) ;
     }
     if (created)
     {
        //qDebug() << Q_FUNC_INFO << " - 50" ;
         if (dataProxy->updateISONames())
-        {
-           //qDebug() << Q_FUNC_INFO << " - 60" ;
-           //qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
+        {            
+       //qDebug() << Q_FUNC_INFO << " - 60" ;
+          //qDebug() << Q_FUNC_INFO << "  updateISONames TRUE" ;
         }
         else
         {
-           //qDebug() << Q_FUNC_INFO << " - 70" ;
-           //qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
+          //qDebug() << Q_FUNC_INFO << " - 70" ;
+          //qDebug() << Q_FUNC_INFO << "  updateISONames FALSE" ;
         }
-       //qDebug() << Q_FUNC_INFO << " - 80" ;
+      //qDebug() << Q_FUNC_INFO << " - 80" ;
     }
     if (created)
     { // Let's add the Primary Subdivisions to the DB
-       //qDebug() << Q_FUNC_INFO << " - 81" ;
+     //qDebug() << Q_FUNC_INFO << " - 81" ;
         created = dataProxy->addPrimarySubdivisions();
+    //qDebug() << Q_FUNC_INFO << " - created: " << util->boolToQString(created) ;
     }
-   //qDebug() << Q_FUNC_INFO << " - 90" ;
+  //qDebug() << Q_FUNC_INFO << " - 90" ;
     read = readWorld ();
-   //qDebug() << Q_FUNC_INFO << " - END" ;
+  //qDebug() << Q_FUNC_INFO << " - read   : " << util->boolToQString(read) ;
+  //qDebug() << Q_FUNC_INFO << " - created: " << util->boolToQString(created) ;
+  //qDebug() << Q_FUNC_INFO << " - END" ;
     return created;
 }
 
@@ -770,54 +774,72 @@ int World::getHowManyEntities()
 bool World::insertSpecialEntities()
 { //https://en.wikipedia.org/wiki/Non-ITU_prefix
    //qDebug() << Q_FUNC_INFO << " - Start ";
-    // T9 to E7
-    // 4N & YZ to 4O
-    int entityID = dataProxy->getEntityIdFromMainPrefix("E7");
-    int cqz = dataProxy->getCQZFromId(entityID);
-    int ituz = dataProxy->getITUzFromEntity(entityID);
+    // Define the list of prefixes to insert and their target main prefixes
+    const QList<QPair<QString, QString>> prefixesToInsert = {
+        {"T9", "E7"},  // T9 prefix moved to E7 entity
+        {"4N", "4O"},  // 4N prefix moved to 4O entity
+        {"YZ", "4O"}   // YZ prefix moved to 4O entity
+    };
 
     QSqlQuery query;
-    query.prepare("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?)");
-
-    // Insert "T9"
-    query.addBindValue("T9");
-    query.addBindValue(entityID);
-    query.addBindValue(cqz);
-    query.addBindValue(ituz);
-    if (!query.exec())
+    // Prepare the reusable INSERT query
+    if (!query.prepare("INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?)"))
     {
-        query.finish();
+       //qDebug() << Q_FUNC_INFO << " - Failed to prepare query: " << query.lastError().text();
         return false;
     }
 
-    entityID = dataProxy->getEntityIdFromMainPrefix("4O");
-    cqz = dataProxy->getCQzFromEntity(entityID);
-    ituz = dataProxy->getITUzFromEntity(entityID);
-
-    // Insert "4N"
-    query.addBindValue("4N");
-    query.addBindValue(entityID);
-    query.addBindValue(cqz);
-    query.addBindValue(ituz);
-    if (!query.exec())
+    for (const auto &pair : prefixesToInsert)
     {
-        query.finish();
-        return false;
+        const QString prefix = pair.first;
+        const QString mainPrefix = pair.second;
+
+        // 1. Get target entity properties (DXCC, CQZ, ITUZ)
+        int entityID = dataProxy->getEntityIdFromMainPrefix(mainPrefix);
+        if (entityID <= 0) {
+           //qDebug() << Q_FUNC_INFO << " - ERROR: Failed to find entity ID for: " << mainPrefix;
+            return false;
+        }
+        int cqz = dataProxy->getCQzFromEntity(entityID);
+        int ituz = dataProxy->getITUzFromEntity(entityID);
+
+        // 2. Bind values to the prepared statement
+        query.bindValue(0, prefix);
+        query.bindValue(1, entityID);
+        query.bindValue(2, cqz);
+        query.bindValue(3, ituz);
+
+       //qDebug() << Q_FUNC_INFO << " - Attempting to insert: " << prefix;
+
+        // 3. Attempt insertion and check for errors
+        if (!query.exec())
+        {
+            // Check for the SQLite specific error code (or text) for a unique constraint violation.
+            // SQLite error code 19 is 'SQLITE_CONSTRAINT'.
+            const QString dbError = query.lastError().databaseText();
+            const bool isConstraintViolation = dbError.contains("UNIQUE constraint failed", Qt::CaseInsensitive);
+
+            if (isConstraintViolation)
+            {
+                // This means the prefix already exists, so the goal is met (value is present).
+               //qDebug() << Q_FUNC_INFO << " - SUCCESS: Prefix '" << prefix << "' already exists.";
+            }
+            else
+            {
+                // Unhandled error (e.g., table missing, syntax error), so fail the function.
+               //qDebug() << Q_FUNC_INFO << " - FAILURE: Unhandled SQL error for prefix '" << prefix << "': " << query.lastError().text();
+                query.finish();
+                return false;
+            }
+        } else {
+            // Insertion successful, meaning the data was added.
+           //qDebug() << Q_FUNC_INFO << " - SUCCESS: Prefix '" << prefix << "' inserted.";
+        }
     }
 
-    // Insert "YZ"
-    query.addBindValue("YZ");
-    query.addBindValue(entityID);
-    query.addBindValue(cqz);
-    query.addBindValue(ituz);
-    if (!query.exec())
-    {
-        query.finish();
-        return false;
-    }
-
+    query.finish();
+   //qDebug() << Q_FUNC_INFO << " - END - All prefixes processed successfully.";
     return true;
-     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 bool World::hasSpecialEntities()

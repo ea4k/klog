@@ -1128,7 +1128,7 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     }
     //qDebug() << Q_FUNC_INFO << " - 40";
 
-    if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs).length()<2) || modify)
+    if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs) < 1) || modify)
     {
         //qDebug() << Q_FUNC_INFO << " - 41";
          //qDebug() << Q_FUNC_INFO << " - DUPE ";

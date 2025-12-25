@@ -77,16 +77,21 @@ bool DataProxy_SQLite::createHashes()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     bandIDs.clear();
-    bandIDs = getHashTableData(BandData);
+    bandIDs = db->getHashTableData(BandData);
     if (bandIDs.isEmpty())
         return false;
     modeIDs.clear();
-    modeIDs = getHashTableData(ModeData);
+    modeIDs = db->getHashTableData(ModeData);
     if (modeIDs.isEmpty())
         return false;
     mapModeNameSubmode();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
+}
+
+QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
+{
+    return db->getHashTableData(_data);
 }
 
 void DataProxy_SQLite::setPKGVersion(const QString &_pkgVersion)
@@ -638,7 +643,7 @@ bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const Frequency _f
     int bandNf = getBandIdFromFreq(_fr);
     int bandN = bandIDs.value(_band);
     Frequency fTemp (_fr);
-    qDebug() << Q_FUNC_INFO << " - Band: " << _band << " / freq: " << fTemp.toDouble() << " - " << util->boolToQString(bandNf == bandN);
+  //qDebug() << Q_FUNC_INFO << " - Band: " << _band << " / freq: " << fTemp.toDouble() << " - " << util->boolToQString(bandNf == bandN);
 
     return (bandNf == bandN);
 }
@@ -2433,152 +2438,12 @@ void DataProxy_SQLite::mapModeNameSubmode()
         }
 }
 
-QList<int> DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
+int DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 {
    //qDebug() << Q_FUNC_INFO << " - 000";
-    QList<int> dupeQsos;
-   //qDebug() << Q_FUNC_INFO << " - 001";
-    dupeQsos.clear();
-   //qDebug() << Q_FUNC_INFO << " - 002";
-    QSO q(_qso);
-   //qDebug() << Q_FUNC_INFO << " - 003";
-    //qDebug() << Q_FUNC_INFO << " - Call: " << q.getCall();
-
-    if (!q.isValid())
-    {
-        //qDebug() << Q_FUNC_INFO << " - END Empty 3" ;
-        return dupeQsos;
-    }
-   //qDebug() << Q_FUNC_INFO << " - 005";
-    int validityPeriod = _secs * 60;
-    QString initTime = util->getDateTimeSQLiteStringFromDateTime(q.getDateTimeOn().addSecs(-validityPeriod));
-    QString endTime = util->getDateTimeSQLiteStringFromDateTime(q.getDateTimeOn().addSecs(validityPeriod));
-
-    //yyyy-MM-dd hh:mm:ss
-    // We will match +-15min
-   //qDebug() << Q_FUNC_INFO << " - 010";
-    QString queryString = QString("SELECT id, qso_date FROM log WHERE call = ':call' AND bandid = ':bandid' AND modeid= ':modeid' AND qso_date BETWEEN ':initTime' AND ':endTime'");
-    //QString queryString = QString("SELECT id, qso_date FROM log WHERE call= :call AND bandid = :bandid AND modeid= :modeid AND qso_date >= ':initTime' AND qso_date <= ':endTime'");
-          //queryString = QString("SELECT id, qso_date FROM log WHERE call='%1' AND bandid='%2' AND modeid='%3' AND qso_date>='%4' AND qso_date<='%5'").arg(_qrz).arg(_band).arg(_mode).arg(initTime).arg(endTime);
-    QSqlQuery query;
-    if (!query.prepare(queryString))
-    {
-        //qDebug() << Q_FUNC_INFO << ": ERROR preparing the Query";
-        return dupeQsos;
-    }
-   //qDebug() << Q_FUNC_INFO << " - 020";
-    query.bindValue(":call", q.getCall());
-    query.bindValue(":bandid", getIdFromBandName(q.getBand()));
-    query.bindValue(":modeid", getIdFromModeName(q.getMode()));
-    query.bindValue(":initTime", initTime);
-    query.bindValue(":endTime", endTime);
-   //qDebug() << Q_FUNC_INFO << " - 030";
-    //qDebug() << Q_FUNC_INFO << " QUERY:   " << q.getCall();
-    //qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromBandName(q.getBand());
-    //qDebug() << Q_FUNC_INFO << " QUERY:   " << getIdFromModeName(q.getMode());
-    //qDebug() << Q_FUNC_INFO << " QUERY:   " << initTime;
-    //qDebug() << Q_FUNC_INFO << " QUERY:   " << endTime;
-
-    bool sqlOK = query.exec(queryString);
-   //qDebug() << Q_FUNC_INFO << " - 050";
-    if (sqlOK)
-    {
-       //qDebug() << Q_FUNC_INFO << " - 051";
-        while (query.next())
-        {
-            if (query.isValid())
-            {
-                int dupeQSO = (query.value(0)).toInt();
-                if (dupeQSO>0)
-                {
-                    dupeQsos.append(dupeQSO);
-                }
-            }
-            else
-            {
-                //qDebug() << Q_FUNC_INFO << " - END Empty 2" ;
-            }
-        }
-       //qDebug() << Q_FUNC_INFO << " - END - ok" ;
-        return dupeQsos;
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " - 052";
-        //qDebug() << Q_FUNC_INFO << " : Native Error1 " << query.lastError().text();
-        //qDebug() << Q_FUNC_INFO << " : Native Error2 " << query.lastError();
-        //qDebug() << Q_FUNC_INFO << " : Native Error3 " << query.lastError().text();
-
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-       //qDebug() << Q_FUNC_INFO << " - END Empty 1" ;
-        return dupeQsos;
-    }
-}
-
-int DataProxy_SQLite::getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
-{
-    //qDebug() << Q_FUNC_INFO;
-
-    QString datetime = util->getDateTimeSQLiteStringFromDateTime(_datetime);
-        // Lookup name for given modeid
-    QString modeName = modeIdToName.value(_mode);
-    if (modeName.isEmpty())
-        return -1; // Mode not found
-    //qDebug() << Q_FUNC_INFO << " - 010";
-    // Get all modeids for this name
-    const QList<int> modeIds = nameToModeIds.value(modeName);
-    if (modeIds.isEmpty())
-        return -2; // No modes for this name
-    //qDebug() << Q_FUNC_INFO << " - 020";
-    // Build the "IN" clause
-
-    QStringList modeIdStrs;
-    for (int id : modeIds) modeIdStrs << QString::number(id);
-
-    //qDebug() << Q_FUNC_INFO << " - 030";
-    QString sql = QString(
-            "SELECT id FROM log "
-            "WHERE call = :call "
-            "AND qso_date = :qso_date "
-            "AND bandid = :bandid "
-            "AND modeid IN (%1)")
-            .arg(modeIdStrs.join(','));
-
-    //qDebug() << Q_FUNC_INFO << " - 040";
-    //qDebug() << Q_FUNC_INFO << ": " << sql;
-    QSqlQuery query;
-    query.prepare(sql);
-    query.bindValue(":call", _qrz);
-    query.bindValue(":qso_date", datetime);
-    query.bindValue(":bandid", _band);
-    //qDebug() << Q_FUNC_INFO << " - 050 - Call    : " << _qrz;
-    //qDebug() << Q_FUNC_INFO << " - 050 - qso_date: " << datetime;
-    //qDebug() << Q_FUNC_INFO << " - 050 - bandid  : " << _band;
-    if (!query.exec()) {
-        //qDebug() << Q_FUNC_INFO << " - 051 - query error";
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        return -3;
-    }
-    //qDebug() << Q_FUNC_INFO << " - 060";
-    if (!query.next())
-    {
-       //qDebug() << Q_FUNC_INFO << " - 061 - query next error";
-       return -4;
-    }
-    //qDebug() << Q_FUNC_INFO << " - 070";
-    if (!query.isValid())
-    {
-        //qDebug() << Q_FUNC_INFO << " - 071 - query isValid error";
-        return -5;
-    }
-
-    //qDebug() << Q_FUNC_INFO << " - 080: " << query.value(0).toInt();;
-    int qsoId = query.value(0).toInt();
-    return qsoId > 0 ? qsoId : -6;
-
-    //qDebug() << Q_FUNC_INFO << " - 090";
-    return -7;
+    int bandId = getIdFromBandName(qso->getBand());
+    int modeId = getIdFromModeName(qso->getMode());
+    return findDuplicateId(qso->getCall(), qso->getDateTimeOn(), bandId, modeId, _secs );
 }
 
 bool DataProxy_SQLite::isHF(const int _band)
@@ -5054,7 +4919,7 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
 { // Returns the Primary Subdivision for an Entity
   // If _pref is empty, and entity >=0 we look for all the subdivisions of the Entity,
   // If _pref is not empty, we look for the subdivisions with that entity, if none, we look for the number.
-   //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
+  //qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _pref;
     QList<PrimarySubdivision> list;
     list.clear();
     int normalizedInt = _entity % 1000;
@@ -5063,18 +4928,18 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
     QString queryString;
     if ((!_pref.isEmpty()))
     {
-       //qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
+      //qDebug() << Q_FUNC_INFO << " - Running for no pref, delivering ALL for the entity";
         queryString = QString("SELECT dxcc, prefix, name, shortname, cqz, ituz FROM primary_subdivisions WHERE prefix = :prefix ORDER BY shortname");
         query.prepare(queryString);
         query.bindValue(":prefix", _pref);
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - Running with a pref, delivering just for the prefix";
-       //qDebug() << Q_FUNC_INFO << QString("If the entity is <=0 The list will be empty. Entity: %1").arg(normalizedInt);
+      //qDebug() << Q_FUNC_INFO << " - Running without a pref, delivering just for the prefix";
+      //qDebug() << Q_FUNC_INFO << QString("If the entity is <=0 The list will be empty. Entity: %1").arg(normalizedInt);
         if (normalizedInt<=0)
         {
-           //qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
+          //qDebug() << Q_FUNC_INFO << " - END: entity <= 0";
             return list;
         }
         queryString = QString("SELECT dxcc, prefix, name, shortname, cqz, ituz FROM primary_subdivisions WHERE dxcc = :dxcc ORDER BY shortname");
@@ -5086,10 +4951,11 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
 
     if (sqlOK)
     {
-       //qDebug() << Q_FUNC_INFO << ": sqlOK true";
+     //qDebug() << Q_FUNC_INFO << ": sqlOK true";
 
         while (query.next())
         {
+            bool dupe = false;
             if (query.isValid())
             {
                 PrimarySubdivision ps;
@@ -5101,25 +4967,33 @@ QList<PrimarySubdivision> DataProxy_SQLite::getPrimarySubDivisions(const int _en
                 ps.cqz = (query.value(4)).toInt();
                 ps.ituz = (query.value(5)).toInt();
 
-                list.append(ps);
-               //qDebug() << Q_FUNC_INFO << " : " << ps.name ;
+                PrimarySubdivision aux;
+                foreach (aux, list)
+                {
+                    if (aux.name == ps.name)
+                        dupe = true;
+                }
+                if (!dupe)
+                    list.append(ps);
+
+             //qDebug() << Q_FUNC_INFO << " : " << ps.name ;
             }
             else
             {
-               //qDebug() << Q_FUNC_INFO << ": query not valid";
+             //qDebug() << Q_FUNC_INFO << ": query not valid";
             }
         }
-       //qDebug() << Q_FUNC_INFO << ": query not next";
+     //qDebug() << Q_FUNC_INFO << ": Afterthe while, query no more next";
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << ": sqlOK FALSE";
+     //qDebug() << Q_FUNC_INFO << ": sqlOK FALSE";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         list.clear();
     }
     query.finish();
 
-    //qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
+  //qDebug() << Q_FUNC_INFO << " - END - " << QString::number(list.count()) ;
     return list;
 }
 
@@ -6922,71 +6796,6 @@ bool DataProxy_SQLite::getFreqHashData()
     return true;
 }
 
-QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
-{//enum DataTableHash {World, Band, Mode};
-    //qDebug() << Q_FUNC_INFO << "Start";
-    QHash<QString, int> hash;
-    hash.clear();
-
-    QString queryString;
-    QSqlQuery query;
-    query.setForwardOnly(true);
-    QString name;
-    switch (_data) {
-        case WorldData:
-        queryString = "SELECT prefix, dxcc FROM prefixesofentity";
-        break;
-        case BandData:
-        queryString = "SELECT name, id FROM band";
-        break;
-        case ModeData:
-        queryString = "SELECT submode, id FROM mode";
-        break;
-        default:
-        // should never be reached
-        return hash;
-    }
-
-    bool sqlOK = query.exec(queryString);
-
-    if (!sqlOK)
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-       //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
-        return hash;
-    }
-    else
-    {
-        while ( (query.next()))
-        {
-            if (query.isValid())
-            {
-               //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
-                name = (query.value(0)).toString();
-                if (name.startsWith('='))
-                {
-                    name.remove(0,1);
-                }
-
-
-                hash.insert(name, (query.value(1)).toInt());
-            }
-            else
-            {
-                query.finish();
-                hash.clear();
-               //qDebug() << Q_FUNC_INFO << "END-FAIL - Query not valid";
-                return hash;
-            }
-        }
-    }
-    query.finish();
-    //qDebug() << Q_FUNC_INFO << "END";
-   //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(hash.count());
-    return hash;
-}
-
 QHash<QString, int> DataProxy_SQLite::getWorldData()
 {
     //qDebug() << Q_FUNC_INFO << "Start";
@@ -8056,7 +7865,7 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
     query.finish();
     return 0;
 }
-
+/*
 QString DataProxy_SQLite::generateDuplicateKey(const QString &call, const QDate &date, int bandId, int modeId)
 {
     QString dateS = util->getDateSQLiteStringFromDate(date);
@@ -8066,18 +7875,63 @@ QString DataProxy_SQLite::generateDuplicateKey(const QString &call, const QDate 
             .arg(bandId)
             .arg(modeId);
 }
+*/
+
+QString DataProxy_SQLite::generateGroupingKey(const QString &call, int bandId, int modeId)
+{
+    // Solo los datos que NO cambian con el tiempo del QSO
+    return QString("%1|%2|%3")
+            .arg(call.toUpper())
+            .arg(bandId)
+            .arg(modeId);
+}
+
+void DataProxy_SQLite::addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId)
+{
+    QString key = generateGroupingKey(call, bandId, modeId);
+
+    // Guardamos el par: (ID, FechaHora)
+    m_qsoCache.insert(key, qMakePair(id, dateTime));
+}
+
+int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds)
+{
+    QString key = generateGroupingKey(call, bandId, modeId);
+
+    // values(key) returns a QList<QsoInfo>
+    // QsoInfo is QPair<int, QDateTime>
+    QList<QsoInfo> potentialDupes = m_qsoCache.values(key);
+
+    for (const QsoInfo &info : potentialDupes)
+    {
+        // .second is the QDateTime in the pair
+        qint64 diff = qAbs(info.second.secsTo(newTime));
+
+        if (diff <= marginSeconds)
+        {
+            // .first is the int (ID) in the pair
+            return info.first;
+        }
+    }
+
+    return -1;
+}
 
 void DataProxy_SQLite::loadDuplicateCache(int logId)
 {
-    m_duplicateCache.clear();
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    clearDuplicateCache();
 
+    // Select only necessary fields.
+    // Optimization: query.value(index) is faster with explicit column names.
     QString queryString = "SELECT id, call, qso_date, bandid, modeid FROM log";
-    if (logId>0)
+    if (logId > 0)
     {
         queryString += QString(" WHERE lognumber=%1").arg(logId);
     }
+
     QSqlQuery query;
-    query.setForwardOnly(true); // Optimization for reading
+    query.setForwardOnly(true);
 
     if (query.exec(queryString))
     {
@@ -8085,27 +7939,26 @@ void DataProxy_SQLite::loadDuplicateCache(int logId)
         {
             int id = query.value(0).toInt();
             QString call = query.value(1).toString();
-            QDate date = (util->getDateTimeFromSQLiteString(query.value(2).toString())).date();
-            //QString date = query.value(2).toString();
+            // Convert SQLite string to QDateTime
+            QDateTime datetime = util->getDateTimeFromSQLiteString(query.value(2).toString());
             int band = query.value(3).toInt();
             int mode = query.value(4).toInt();
 
-            QString key = generateDuplicateKey(call, date, band, mode);
-            m_duplicateCache.insert(key, id);
-            //QString date = util->getDateSQLiteStringFromDate(util->getDateTimeFromSQLiteString(query.value(2)).date());
+            if (datetime.isValid()) {
+                QString key = generateGroupingKey(call, band, mode);
+                QsoInfo qsoInfo(id, datetime);
+
+                // QMultiHash::insert does NOT overwrite.
+                // It appends the value to the list of values for this key.
+                m_qsoCache.insert(key, qsoInfo);
+            }
         }
     }
-
-}
-
-int DataProxy_SQLite::checkBatchDuplicate(const QString &call, const QDate &date, int bandId, int modeId)
-{
-    QString key = generateDuplicateKey(call, date, bandId, modeId);
-    if (m_duplicateCache.contains(key))
+    else
     {
-        return m_duplicateCache.value(key);
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
-    return -1;
+    logEvent(Q_FUNC_INFO, QString("End - Cached %1 entries").arg(m_qsoCache.count()), Debug);
 }
 
 void DataProxy_SQLite::addDuplicateCache (int qsoId, const QSO &qso)
@@ -8113,14 +7966,16 @@ void DataProxy_SQLite::addDuplicateCache (int qsoId, const QSO &qso)
     int bandId = getIdFromBandName(qso.getBand());
     int modeId = getIdFromModeName(qso.getMode());
     //QString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
-    QString key = generateDuplicateKey(qso.getCall(), qso.getDateTimeOn().date(), bandId, modeId);
+    QString key = generateGroupingKey(qso.getCall(), bandId, modeId);
+    QsoInfo qsoInfo (qsoId, qso.getDateTimeOn());
+    m_qsoCache.insert(key, qsoInfo);
+
     //qDebug() << Q_FUNC_INFO << "Key: " << key;
-    m_duplicateCache.insert(key, qsoId);
 }
 
 void DataProxy_SQLite::clearDuplicateCache()
 {
-    m_duplicateCache.clear();
+    m_qsoCache.clear();
 }
 
 bool DataProxy_SQLite::beginTransaction()

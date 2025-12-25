@@ -5489,7 +5489,7 @@ bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
 {
     QSO q = _qso;
   //qDebug() << Q_FUNC_INFO << " - Calling isThisQSODuplicated with call: " << q.getCall();
-    if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)).length()>0))
+    if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)) > 0))
         return true;
 
     QMessageBox msgBox;

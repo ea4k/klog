@@ -80,12 +80,13 @@ tst_DataProxy::~tst_DataProxy()
     delete (util);
     delete (dataProxy);
 }
-/*
-void tst_DataProxy::initTestCase()
-{
-    //qDebug() << Q_FUNC_INFO;
-}
 
+//void tst_DataProxy::initTestCase()
+//{
+    //qDebug() << Q_FUNC_INFO;
+//}
+
+/*
 void tst_DataProxy::cleanupTestCase()
 {
     //qDebug() << Q_FUNC_INFO;
@@ -207,7 +208,9 @@ void tst_DataProxy::test_bands()
 }
 
 void tst_DataProxy::test_continents()
-{
+{// TODO: Can't test subdivisions without the World creation. Find a way to fill the DB without having to
+    // to include World or simply test it from World
+    /*
     //qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (281) == "EU", "Continent for Spain (dxcc=281) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (1) == "NA", "Continent for Canada (dxcc=1) failed");
@@ -216,10 +219,13 @@ void tst_DataProxy::test_continents()
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (150) == "OC", "Continent for Australia (dxcc=150) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (483) == "AF", "Continent for Togo (dxcc=483) failed");
     //QVERIFY2(dataProxy->getContinentShortNameFromEntity (13) == "AN", "Continent for Antartica (dxcc=13) failed");
+    */
 }
 
 void tst_DataProxy::test_primarySubdivisions()
-{
+{ // TODO: Can't test subdivisions without the World creation. Find a way to fill the DB without having to
+  // to include World or simply test it from World
+/*
     QList<PrimarySubdivision> subdivisions;
     subdivisions.clear();
     // Testing that the functions are working
@@ -239,7 +245,7 @@ void tst_DataProxy::test_primarySubdivisions()
 
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(6, QString()));
-    QVERIFY2(subdivisions.count() == 1, "Primary Subdivision number failed (6 - Canada)");
+    QVERIFY2(subdivisions.count() == 1, "Primary Subdivision number failed (6 - Alaska)");
 
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(1, QString()));
@@ -248,8 +254,6 @@ void tst_DataProxy::test_primarySubdivisions()
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(281, QString()));
     QVERIFY2(subdivisions.count() == 47, "Primary Subdivision number failed (281 - Spain)");
-
-
 
     subdivisions.clear();
     subdivisions.append(dataProxy->getPrimarySubDivisions(50, QString()));
@@ -281,6 +285,8 @@ void tst_DataProxy::test_primarySubdivisions()
     //  //qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
     //}
    //getPrimarySubDivisions(currentInt, prefUsed)
+*/
+
 }
 QTEST_GUILESS_MAIN(tst_DataProxy)
 

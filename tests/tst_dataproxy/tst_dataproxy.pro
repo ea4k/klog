@@ -10,7 +10,6 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/dataproxy_sqlite.h \
-    ../../src/utilities.h \
     ../../src/locator.h \
     ../../src/database.h \
     ../../src/database/queryexecutor.h \
@@ -20,10 +19,10 @@ HEADERS += \
     ../../src/qsodatacache.h \
     ../../src/callsign.h \
     ../../src/klogdefinitions.h \
-    ../../src/adif.h
+    ../../src/adif.h \
+    ../../src/utilities.h
 
 SOURCES +=  tst_dataproxy.cpp \
-        ../../src/utilities.cpp \
         ../../src/locator.cpp \
         ../../src/database.cpp \
         ../../src/database/queryexecutor.cpp \
@@ -33,7 +32,8 @@ SOURCES +=  tst_dataproxy.cpp \
         ../../src/qsodatacache.cpp \
         ../../src/callsign.cpp \
         ../../src/dataproxy_sqlite.cpp \
-        ../../src/adif.cpp
+        ../../src/adif.cpp \
+        ../../src/utilities.cpp
 
 
 

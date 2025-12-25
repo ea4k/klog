@@ -30,6 +30,10 @@
 #include <QStringList>
 #include <QObject>
 #include <QSqlQuery>
+#include <QPair>
+#include <QMultiHash>
+#include <QDateTime>
+
 #include "global.h"
 #include "database.h"
 #include "frequency.h"
@@ -132,8 +136,8 @@ public:
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
     //QList<int> isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs);
-    QList<int> isThisQSODuplicated (const QSO &_qso, const int _secs);
-    int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
+    int isThisQSODuplicated(const QSO &_qso, const int _secs); // It calls int findDuplicateId
+    //int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     //bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
     bool isQSLReceived(const int _qsoId);
     bool isQSLLoTWReceived(const int _qsoId);
@@ -229,7 +233,7 @@ public:
     QStringList getSpecialCallsigns();
     QHash<QString, int> getWorldData();
 
-    QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
+
     bool getFreqHashData();
 
     QStringList getEntitiesNames(bool _dxccOnly = true);
@@ -339,7 +343,6 @@ public:
     bool showInvalidCallMessage(const QString &_call);
 
     QList<QSO*> getSatGridStats(int _log=-1);
-
     QList<QSO*> getGridStats(int _log=-1);
     QList<QSO*> getSatDXCCStats(int _log=-1);
 
@@ -352,15 +355,17 @@ public:
     bool beginTransaction();
     bool commitTransaction();
 
-    // Cache functions
+    // Cache functions // DUPEs
     void loadDuplicateCache(int logId);
-    int checkBatchDuplicate(const QString &call, const QDate &date, int bandId, int modeId);
     void clearDuplicateCache();
     void addDuplicateCache (int qsoId, const QSO &qso);
-
+    int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
+    QHash<QString, int> getHashTableData(const DataTableHash _data);
 
 
 private:
+    typedef QPair<int, QDateTime> QsoInfo;  // QSOid link to QSO-DateTime
+
     bool dbCreated;
     DataBase *db;
     QStringList sortBandIdBottonUp(const QStringList _qs);
@@ -391,8 +396,11 @@ private:
     QHash<int, QString> modeIdToName;
     QHash<QString, QList<int>> nameToModeIds;
 
-    QHash<QString, int> m_duplicateCache;
-    QString generateDuplicateKey(const QString &call, const QDate &date, int bandId, int modeId);
+
+    QMultiHash<QString, QsoInfo> m_qsoCache;    // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
+    QString generateGroupingKey(const QString &call, int bandId, int modeId);
+    void addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId);
+
 
     bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
 

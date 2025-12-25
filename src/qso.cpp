@@ -3772,7 +3772,7 @@ bool QSO::updateFromLoTW(const int _qsoId)
         setLoTWQSLRDate(_lotwRXDate);
     }
 
-    //qDebug() << Q_FUNC_INFO << " - Updating: LOTW_QSL_SENT if getLoTWQSL_SENT() != Y: " << _lotw_qsl_rcvd;
+    qDebug() << Q_FUNC_INFO << " - Updating: LOTW_QSL_SENT if getLoTWQSL_SENT() != Y: " << _lotw_qsl_sent;
     if (getLoTWQSL_SENT() != "Y")
         setLoTWQSL_SENT(_lotw_qsl_sent);
 

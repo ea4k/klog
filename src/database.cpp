@@ -46,15 +46,15 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     exe = new QueryExecutor(Q_FUNC_INFO);
     if (!createConnection(QString(Q_FUNC_INFO)+"1"))
     {
-        //qDebug() << Q_FUNC_INFO <<  " 006:Could not create a connection";
+        qDebug() << Q_FUNC_INFO <<  " 006:Could not create a connection";
         return;
     }
-    //qDebug() << Q_FUNC_INFO <<  " 010";
-    //qDebug() << Q_FUNC_INFO << " - connection Name: " << dbConnectionName ;
-    //qDebug() << Q_FUNC_INFO << " - DB Name: " << db.databaseName() ;
+    qDebug() << Q_FUNC_INFO <<  " 010";
+    qDebug() << Q_FUNC_INFO << " - connection Name: " << dbConnectionName ;
+    qDebug() << Q_FUNC_INFO << " - DB Name: " << db.databaseName() ;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
-    //qDebug() << Q_FUNC_INFO << " - END" ;
+    qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
@@ -683,7 +683,6 @@ bool DataBase::createDataBase()
           (!populateContestData())                      ||
           (!createAndPopulateAwardEnumeration())        ||
           (!populatePropagationModes())
-
         )
         return false;
 
@@ -750,7 +749,6 @@ bool DataBase::createTablePrimarySubdivisions(const bool NoTmp)
     }
 
     stringQuery = "CREATE TABLE "+ table;
-
     stringQuery = stringQuery + QString(" (id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "dxcc INTEGER NOT NULL, "       // arrlId (281)
         "name VARCHAR NOT NULL, "       // Madrid
@@ -763,7 +761,7 @@ bool DataBase::createTablePrimarySubdivisions(const bool NoTmp)
         "start_date DATETIME, "
         "end_date DATETIME, "
         "deleted VARCHAR, "
-        "UNIQUE (id, shortname, name), "
+        "UNIQUE (dxcc, shortname, name), "
         "FOREIGN KEY (cqz) REFERENCES entity (cqz), "
         "FOREIGN KEY (ituz) REFERENCES entity (ituz), "
         "FOREIGN KEY (dxcc) REFERENCES entity (dxcc) )");
@@ -825,6 +823,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
     return false;
 }
 
+/*
 int DataBase::getBandIdFromName(const QString &b)
 {
     //qDebug() << Q_FUNC_INFO << ": " << b ;
@@ -848,7 +847,7 @@ int DataBase::getBandIdFromName(const QString &b)
     query.finish();
     return v;
 }
-
+*/
 
 int DataBase::getModeIdFromName(const QString &b)
 {
@@ -902,6 +901,70 @@ int DataBase::getModeIdFromSubMode(const QString &b)
 }
 
 
+QHash<QString, int> DataBase::getHashTableData(const DataTableHash _data)
+{//enum DataTableHash {World, Band, Mode};
+    //qDebug() << Q_FUNC_INFO << "Start";
+    QHash<QString, int> hash;
+    hash.clear();
+
+    QString queryString;
+    QSqlQuery query;
+    query.setForwardOnly(true);
+    QString name;
+    switch (_data) {
+        case WorldData:
+        queryString = "SELECT prefix, dxcc FROM prefixesofentity";
+        break;
+        case BandData:
+        queryString = "SELECT name, id FROM band";
+        break;
+        case ModeData:
+        queryString = "SELECT submode, id FROM mode";
+        break;
+        default:
+        // should never be reached
+        return hash;
+    }
+
+    bool sqlOK = query.exec(queryString);
+
+    if (!sqlOK)
+    {
+        emit queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        query.finish();
+       //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
+        return hash;
+    }
+    else
+    {
+        while ( (query.next()))
+        {
+            if (query.isValid())
+            {
+               //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
+                name = (query.value(0)).toString();
+                if (name.startsWith('='))
+                {
+                    name.remove(0,1);
+                }
+                hash.insert(name, (query.value(1)).toInt());
+            }
+            else
+            {
+                query.finish();
+                hash.clear();
+               //qDebug() << Q_FUNC_INFO << "END-FAIL - Query not valid";
+                return hash;
+            }
+        }
+    }
+    query.finish();
+    //qDebug() << Q_FUNC_INFO << "END";
+   //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(hash.count());
+    return hash;
+}
+
+/*
 QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
 {
     //TODO May fail to identify the sumbode(mode/modetemp... (Review STEP-2 o 3)
@@ -931,20 +994,6 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
     {
             //qDebug() << "DataBase::getModeNameFromNumber: ------ END-1" ;
         return (query.value(0)).toString();
-        /* In a version when I change the mode table to include submode, this comparison may need to be checked in both versions
-         * at once, failing the query as old version was not having the column submode
-         *
-        if ( isValidMode((query.value(0)).toString(), _tmp))
-        {
-                 //qDebug() << "DataBase::getModeNameFromNumber - Found: " << (query.value(0)).toString() ;
-            return (query.value(0)).toString();
-        }
-        else
-        {
-                 //qDebug() << "DataBase::getModeNameFromNumber - Not Valid Mode: " << (query.value(0)).toString()  ;
-            return QString();
-        }
-        */
     }
     else
     {
@@ -954,10 +1003,12 @@ QString DataBase::getModeNameFromNumber(const int _n, bool _tmp)
         return QString();
     }
 }
+*/
 
+/*
 QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 {
-       //qDebug() << "DataBase::getSubModeNameFromNumber: " << QString::number(_n) ;
+       //qDebug() << Q_FUNC_INFO << QString::number(_n) ;
     QSqlQuery query;
     QString queryString;
     if (_tmp)
@@ -971,8 +1022,6 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
 
     bool sqlOk = query.exec(queryString);
 
-   //qDebug() << "DataBase::getSubModeNameFromNumber - query: " << query.lastQuery() ;
-
     if (sqlOk)
     {
         if (query.next())
@@ -981,12 +1030,10 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
             {
                 if ( isValidMode((query.value(0)).toString(), _tmp)  )
                 {
-                        //qDebug() << "DataBase::getSubModeNameFromNumber: RETURN: " << (query.value(0)).toString() ;
                     return (query.value(0)).toString();
                 }
                 else
                 {
-                        //qDebug() << "DataBase::getSubModeNameFromNumber: NO valid mode - END" ;
                     query.finish();
                     return QString();
                 }
@@ -1016,14 +1063,14 @@ QString DataBase::getSubModeNameFromNumber(const int _n, bool _tmp)
     //query.finish();
     //return QString();
 }
+*/
 
-bool DataBase::isValidBand (const QString &b)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << b ;
-    //qDebug() << Q_FUNC_INFO << ": bandId: " << b ;
-    return (getBandIdFromName(b)>0);
-}
+//bool DataBase::isValidBand (const QString &b)
+//{
+//    return (getBandIdFromName(b)>0);
+//}
 
+/*
 bool DataBase::isValidMode (const QString &b, const bool _tmp)
 {
     //qDebug() << Q_FUNC_INFO << ": " << b ;
@@ -1051,6 +1098,7 @@ bool DataBase::isValidMode (const QString &b, const bool _tmp)
     query.next();
     return query.isValid();
 }
+*/
 
 int DataBase::getBandIdFromFreq(const QString &fr)
 {
@@ -3075,6 +3123,8 @@ bool DataBase::updateModeIdFromSubModeId()
     QProgressDialog progress(QObject::tr("Updating mode information..."), QObject::tr("Abort updating"), 0, qsos);
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
+    QHash<QString, int> modeIDs;
+    modeIDs = getHashTableData(ModeData);
 
     sqlOk = query.exec("SELECT modeid, id FROM log ORDER BY modeid");                                                   // STEP-1
 
@@ -3099,8 +3149,8 @@ bool DataBase::updateModeIdFromSubModeId()
                 modeFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
                      //qDebug() << Q_FUNC_INFO << ": (STEP-1) modeFound (numb): " << QString::number(modeFound) ;
-
-                modetxt = getModeNameFromNumber(modeFound, false);                                                      //STEP-2
+                modetxt = modeIDs.key(modeFound);
+                //modetxt = getModeNameFromNumber(modeFound, false);   //TODO: Create a QHash to speed this up                                                   //STEP-2
 
                      //qDebug() << Q_FUNC_INFO << ": (STEP-2) mode found (txt): " << modetxt ;
 

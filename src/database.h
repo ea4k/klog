@@ -41,6 +41,7 @@
 #include "utilities.h"
 #include "frequency.h"
 #include "global.h"
+#include "klogdefinitions.h"
 
 class QSqlRelationalTableModel;
 const float DBVersionf = 0.027f; // This is the latest version of the DB.
@@ -72,16 +73,17 @@ public:
     QStringList getColumnNamesFromTable(const QString &_tableName);
 
 
-    bool isValidBand (const QString &b);
-    bool isValidMode (const QString &b, const bool _tmp=false);
+    //KLOG_DEPRECATED bool isValidBand (const QString &b);
+    //KLOG_DEPRECATED bool isValidMode (const QString &b, const bool _tmp=false);
 
-    QString getBandNameFromNumber(const int _n);
-    QString getModeNameFromNumber(const int _n, bool _tmp=false);
-    QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
+    //QString getBandNameFromNumber(const int _n);
+    QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
+    //QString getModeNameFromNumber(const int _n, bool _tmp=false);
+    //QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
-    int getBandIdFromName(const QString &b);
-    int getModeIdFromName(const QString &b);
-    int getModeIdFromSubMode(const QString &b);
+    //KLOG_DEPRECATED int getBandIdFromName(const QString &b);
+    KLOG_DEPRECATED int getModeIdFromName(const QString &b);
+    KLOG_DEPRECATED int getModeIdFromSubMode(const QString &b);
 
 
     KLOG_DEPRECATED int getBandIdFromFreq(const QString &fr); //Freq should be in MHz // Move to dataproxy

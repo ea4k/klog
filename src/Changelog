@@ -1,12 +1,20 @@
-TODO: Update the DB to include new modes/submodes: THOR & PSK,...
-TODO: Working on Database qhash (band-done, mode, dupeQSOs)
+WIP: Working in DUPE detection taking into account time margin
+TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
+
+TODO: Check if QSL_SENT is properly readed when importing from LoTW
+TODO: Primary subdivisions are not working
 TODO: LoTW import ensure exiting QSOs are updated
+TODO: Update the DB to include new modes/submodes: THOR & PSK,...
+
 
 TBD
 - Enhancement: Test on QSO cache class.
 - Enhancement: Complete ADIF->IsValidPOTA (Closes #717)
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
+- Enhancement: Created a QHash to speed up the execution reducing database access.
+- Bugfix: Search was not working properly
+- Bugfix: CQZ was not properly defined for T9, 4N & YZ callsigns.
 - Bugfix: No Popup message when duplicted QSOs are detected on ADIF import. (Closes #848)
 - Bugfix: Check QRZ automatically is not saved (Closes #840)
 - Bugfix: Everytime TX Frequency changes, mode changes to USB. Removed that behaviour (Closes #842)
@@ -14,6 +22,7 @@ TBD
 - Bugfix: sat_mode is been added for non-satellites QSOs (Closes #843)
 - Bugfix: Real time setting is not saved (Closes #839)
 - Bugfix: Map Filter is not properly filtering (Closes #827)
+- Bugfix: Primary subdivisions table in DB allowed duplicated entries.
 
 
 Aug 2025 - 2.4.2
