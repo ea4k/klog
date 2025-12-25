@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find Qt6 Core and Test modules
-find_package(Qt6 REQUIRED COMPONENTS Core Test Sql)
+find_package(Qt6 REQUIRED COMPONENTS Core Test Sql Widgets)
 # Enable AUTOMOC before add_executable
 set(CMAKE_AUTOMOC ON)
 
@@ -24,6 +24,7 @@ add_executable(tst_qso
     ../../src/frequency.cpp
     ../../src/locator.cpp
     ../../src/qso.cpp
+    ../../src/qsodatacache.cpp
     ../../src/adif.cpp
 
     ${TEST_HEADERS}

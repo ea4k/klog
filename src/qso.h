@@ -50,6 +50,7 @@ public:
     void operator=(QSO const &_other);
 
     bool copy(const QSO& other);
+    bool completeWith(const QSO& q2);
     void setLogLevel (const DebugLogLevel _b);
     void setRealTime(const bool _rt);   // Not QSO info but KLog status
     bool getRealTime() const;
