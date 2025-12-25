@@ -590,6 +590,473 @@ bool QSO::copy(const QSO& other)
     return true;
 }
 
+bool QSO::completeWith(const QSO& q2)
+{   // Complete the calling QSO with values from q2 where the calling QSO has empty values
+    // If the calling QSO has a value in a variable and q2 too, q2 value is never overwriting the value of the calling QSO
+    
+    // Helper macros for checking empty values
+    #define IS_EMPTY_STRING(s) ((s).isEmpty())
+    #define IS_EMPTY_INT(i, empty_val) ((i) == (empty_val))
+    #define IS_EMPTY_DOUBLE(d, empty_val) ((d) == (empty_val))
+    #define IS_EMPTY_BOOL(b, empty_val) ((b) == (empty_val))
+    #define IS_EMPTY_DATE(d) (!(d).isValid())
+    #define IS_EMPTY_DATETIME(dt) (!(dt).isValid())
+    #define IS_EMPTY_FREQ(f) (!(f).isValid())
+    
+    // Complete LogId if empty
+    if (IS_EMPTY_INT(logId, -1) && !IS_EMPTY_INT(q2.logId, -1))
+        setLogId(q2.logId);
+    
+    // Complete StationCallsign if empty
+    if (IS_EMPTY_STRING(stationCallsign) && !IS_EMPTY_STRING(q2.stationCallsign))
+        setStationCallsign(q2.stationCallsign);
+    
+    // Complete ADIF fields if empty
+    if (IS_EMPTY_STRING(address) && !IS_EMPTY_STRING(q2.address))
+        setAddress(q2.address);
+    
+    if (IS_EMPTY_DOUBLE(age, -1.0) && !IS_EMPTY_DOUBLE(q2.age, -1.0))
+        setAge(q2.age);
+    
+    if (IS_EMPTY_DOUBLE(altitude, 0.0) && !IS_EMPTY_DOUBLE(q2.altitude, 0.0))
+        setAltitude(q2.altitude);
+    
+    if (IS_EMPTY_DOUBLE(a_index, -1.0) && !IS_EMPTY_DOUBLE(q2.a_index, -1.0))
+        setA_Index(q2.a_index);
+    
+    if (IS_EMPTY_DOUBLE(ant_az, -91.0) && !IS_EMPTY_DOUBLE(q2.ant_az, -91.0))
+        setAnt_az(q2.ant_az);
+    
+    if (IS_EMPTY_DOUBLE(ant_el, -91.0) && !IS_EMPTY_DOUBLE(q2.ant_el, -91.0))
+        setAnt_el(q2.ant_el);
+    
+    if (IS_EMPTY_STRING(ant_path) && !IS_EMPTY_STRING(q2.ant_path))
+        setAnt_Path(q2.ant_path);
+    
+    if (IS_EMPTY_STRING(arrl_sect) && !IS_EMPTY_STRING(q2.arrl_sect))
+        setARRL_Sect(q2.arrl_sect);
+    
+    if (IS_EMPTY_STRING(award_submitted) && !IS_EMPTY_STRING(q2.award_submitted))
+        setAwardSubmitted(q2.award_submitted);
+    
+    if (IS_EMPTY_STRING(award_granted) && !IS_EMPTY_STRING(q2.award_granted))
+        setAwardGranted(q2.award_granted);
+    
+    if (IS_EMPTY_STRING(band) && !IS_EMPTY_STRING(q2.band))
+        setBand(q2.band);
+    
+    if (IS_EMPTY_STRING(band_rx) && !IS_EMPTY_STRING(q2.band_rx))
+        setBandRX(q2.band_rx);
+    
+    if (IS_EMPTY_STRING(callsign) && !IS_EMPTY_STRING(q2.callsign))
+        setCall(q2.callsign);
+    
+    if (IS_EMPTY_STRING(check) && !IS_EMPTY_STRING(q2.check))
+        setCheck(q2.check);
+    
+    if (IS_EMPTY_STRING(clase) && !IS_EMPTY_STRING(q2.clase))
+        setClass(q2.clase);
+    
+    if (IS_EMPTY_DATE(clublogQSOUpdateDate) && !IS_EMPTY_DATE(q2.clublogQSOUpdateDate))
+        setClubLogDate(q2.clublogQSOUpdateDate);
+    
+    if (IS_EMPTY_STRING(clublog_status) && !IS_EMPTY_STRING(q2.clublog_status))
+        setClubLogStatus(q2.clublog_status);
+    
+    if (IS_EMPTY_STRING(county) && !IS_EMPTY_STRING(q2.county))
+        setCounty(q2.county);
+    
+    if (IS_EMPTY_STRING(comment) && !IS_EMPTY_STRING(q2.comment))
+        setComment(q2.comment);
+    
+    if (IS_EMPTY_STRING(continent) && !IS_EMPTY_STRING(q2.continent))
+        setContinent(q2.continent);
+    
+    if (IS_EMPTY_STRING(contacted_op) && !IS_EMPTY_STRING(q2.contacted_op))
+        setContactedOperator(q2.contacted_op);
+    
+    if (IS_EMPTY_STRING(contest_id) && !IS_EMPTY_STRING(q2.contest_id))
+        setContestID(q2.contest_id);
+    
+    if (IS_EMPTY_STRING(country) && !IS_EMPTY_STRING(q2.country))
+        setCountry(q2.country);
+    
+    if (IS_EMPTY_INT(cqz, 0) && !IS_EMPTY_INT(q2.cqz, 0))
+        setCQZone(q2.cqz);
+    
+    if (IS_EMPTY_STRING(credit_granted) && !IS_EMPTY_STRING(q2.credit_granted))
+        setCreditGranted(q2.credit_granted);
+    
+    if (IS_EMPTY_STRING(credit_submitted) && !IS_EMPTY_STRING(q2.credit_submitted))
+        setCreditSubmitted(q2.credit_submitted);
+    
+    if (IS_EMPTY_STRING(darc_dok) && !IS_EMPTY_STRING(q2.darc_dok))
+        setDarcDok(q2.darc_dok);
+    
+    if (IS_EMPTY_DOUBLE(distance, -1.0) && !IS_EMPTY_DOUBLE(q2.distance, -1.0))
+        setDistance(q2.distance);
+    
+    if (IS_EMPTY_INT(dxcc, 0) && !IS_EMPTY_INT(q2.dxcc, 0))
+        setDXCC(q2.dxcc);
+    
+    if (IS_EMPTY_STRING(email) && !IS_EMPTY_STRING(q2.email))
+        setEmail(q2.email);
+    
+    if (IS_EMPTY_STRING(ownerCall) && !IS_EMPTY_STRING(q2.ownerCall))
+        setOwnerCallsign(q2.ownerCall);
+    
+    if (IS_EMPTY_STRING(contacted_owner) && !IS_EMPTY_STRING(q2.contacted_owner))
+        setEQ_Call(q2.contacted_owner);
+    
+    if (IS_EMPTY_DATE(eQSLRDate) && !IS_EMPTY_DATE(q2.eQSLRDate))
+        setEQSLQSLRDate(q2.eQSLRDate);
+    
+    if (IS_EMPTY_DATE(eQSLSDate) && !IS_EMPTY_DATE(q2.eQSLSDate))
+        setEQSLQSLSDate(q2.eQSLSDate);
+    
+    if (IS_EMPTY_STRING(eqsl_qsl_rcvd) && !IS_EMPTY_STRING(q2.eqsl_qsl_rcvd))
+        setEQSLQSL_RCVD(q2.eqsl_qsl_rcvd);
+    
+    if (IS_EMPTY_STRING(eqsl_qsl_sent) && !IS_EMPTY_STRING(q2.eqsl_qsl_sent))
+        setEQSLQSL_SENT(q2.eqsl_qsl_sent);
+    
+    if (IS_EMPTY_INT(fists, -1) && !IS_EMPTY_INT(q2.fists, -1))
+        setFists(q2.fists);
+    
+    if (IS_EMPTY_INT(fists_cc, -1) && !IS_EMPTY_INT(q2.fists_cc, -1))
+        setFistsCC(q2.fists_cc);
+    
+    if (IS_EMPTY_BOOL(forceInit, false) && !IS_EMPTY_BOOL(q2.forceInit, false))
+        setForceInit(q2.forceInit);
+    
+    if (IS_EMPTY_FREQ(freq_tx) && !IS_EMPTY_FREQ(q2.freq_tx))
+        freq_tx = q2.freq_tx;
+    
+    if (IS_EMPTY_FREQ(freq_rx) && !IS_EMPTY_FREQ(q2.freq_rx))
+        freq_rx = q2.freq_rx;
+    
+    if (IS_EMPTY_STRING(gridsquare) && !IS_EMPTY_STRING(q2.gridsquare))
+        setGridSquare(q2.gridsquare);
+    
+    if (IS_EMPTY_STRING(gridsquare_ext) && !IS_EMPTY_STRING(q2.gridsquare_ext))
+        setGridSquare_ext(q2.gridsquare_ext);
+    
+    if (IS_EMPTY_STRING(operatorCall) && !IS_EMPTY_STRING(q2.operatorCall))
+        setOperatorCallsign(q2.operatorCall);
+    
+    if (IS_EMPTY_DATE(hrdlogUploadDate) && !IS_EMPTY_DATE(q2.hrdlogUploadDate))
+        setHRDUpdateDate(q2.hrdlogUploadDate);
+    
+    if (IS_EMPTY_STRING(hrdlog_status) && !IS_EMPTY_STRING(q2.hrdlog_status))
+        setHRDLogStatus(q2.hrdlog_status);
+    
+    if (IS_EMPTY_DATE(hamlogeuUpdateDate) && !IS_EMPTY_DATE(q2.hamlogeuUpdateDate))
+        setHamLogEUUpdateDate(q2.hamlogeuUpdateDate);
+    
+    if (IS_EMPTY_STRING(hamlogeu_status) && !IS_EMPTY_STRING(q2.hamlogeu_status))
+        setHamLogEUStatus(q2.hamlogeu_status);
+    
+    if (IS_EMPTY_DATE(hamqthUpdateDate) && !IS_EMPTY_DATE(q2.hamqthUpdateDate))
+        setHamQTHUpdateDate(q2.hamqthUpdateDate);
+    
+    if (IS_EMPTY_STRING(hamqth_status) && !IS_EMPTY_STRING(q2.hamqth_status))
+        setHamQTHStatus(q2.hamqth_status);
+    
+    if (IS_EMPTY_STRING(iota) && !IS_EMPTY_STRING(q2.iota))
+        setIOTA(q2.iota);
+    
+    if (IS_EMPTY_INT(iota_ID, -1) && !IS_EMPTY_INT(q2.iota_ID, -1))
+        setIotaID(q2.iota_ID);
+    
+    if (IS_EMPTY_INT(itu_zone, 0) && !IS_EMPTY_INT(q2.itu_zone, 0))
+        setItuZone(q2.itu_zone);
+    
+    if (IS_EMPTY_INT(k_index, -1) && !IS_EMPTY_INT(q2.k_index, -1))
+        setK_Index(q2.k_index);
+    
+    if (IS_EMPTY_STRING(latitude) && !IS_EMPTY_STRING(q2.latitude))
+        setLatitude(q2.latitude);
+    
+    if (IS_EMPTY_STRING(longitude) && !IS_EMPTY_STRING(q2.longitude))
+        setLongitude(q2.longitude);
+    
+    if (IS_EMPTY_DATE(QSLLoTWRDate) && !IS_EMPTY_DATE(q2.QSLLoTWRDate))
+        setLoTWQSLRDate(q2.QSLLoTWRDate);
+    
+    if (IS_EMPTY_DATE(QSLLoTWSDate) && !IS_EMPTY_DATE(q2.QSLLoTWSDate))
+        setLoTWQSLSDate(q2.QSLLoTWSDate);
+    
+    if (IS_EMPTY_STRING(lotw_qsl_rcvd) && !IS_EMPTY_STRING(q2.lotw_qsl_rcvd))
+        setLoTWQSL_RCVD(q2.lotw_qsl_rcvd);
+    
+    if (IS_EMPTY_STRING(lotw_qsl_sent) && !IS_EMPTY_STRING(q2.lotw_qsl_sent))
+        setLoTWQSL_SENT(q2.lotw_qsl_sent);
+    
+    if (IS_EMPTY_INT(max_bursts, 0) && !IS_EMPTY_INT(q2.max_bursts, 0))
+        setMaxBursts(q2.max_bursts);
+    
+    if (IS_EMPTY_STRING(mode) && !IS_EMPTY_STRING(q2.mode))
+        setMode(q2.mode);
+    
+    if (IS_EMPTY_STRING(ms_shower) && !IS_EMPTY_STRING(q2.ms_shower))
+        setMsShower(q2.ms_shower);
+    
+    if (IS_EMPTY_DOUBLE(my_altitude, 0.0) && !IS_EMPTY_DOUBLE(q2.my_altitude, 0.0))
+        setMyAltitude(q2.my_altitude);
+    
+    if (IS_EMPTY_STRING(my_antenna) && !IS_EMPTY_STRING(q2.my_antenna))
+        setMyAntenna(q2.my_antenna);
+    
+    if (IS_EMPTY_STRING(my_arrl_sect) && !IS_EMPTY_STRING(q2.my_arrl_sect))
+        setMyARRL_Sect(q2.my_arrl_sect);
+    
+    if (IS_EMPTY_STRING(my_city) && !IS_EMPTY_STRING(q2.my_city))
+        setMyCity(q2.my_city);
+    
+    if (IS_EMPTY_STRING(my_county) && !IS_EMPTY_STRING(q2.my_county))
+        setMyCounty(q2.my_county);
+    
+    if (IS_EMPTY_STRING(my_country) && !IS_EMPTY_STRING(q2.my_country))
+        setMyCountry(q2.my_country);
+    
+    if (IS_EMPTY_INT(my_cqz, 0) && !IS_EMPTY_INT(q2.my_cqz, 0))
+        setMyCQZone(q2.my_cqz);
+    
+    if (IS_EMPTY_INT(my_dxcc, 0) && !IS_EMPTY_INT(q2.my_dxcc, 0))
+        setMyDXCC(q2.my_dxcc);
+    
+    if (IS_EMPTY_INT(my_fists, -1) && !IS_EMPTY_INT(q2.my_fists, -1))
+        setMyFists(q2.my_fists);
+    
+    if (IS_EMPTY_STRING(my_gridsquare) && !IS_EMPTY_STRING(q2.my_gridsquare))
+        setMyGridSquare(q2.my_gridsquare);
+    
+    if (IS_EMPTY_STRING(my_gridsquare_ext) && !IS_EMPTY_STRING(q2.my_gridsquare_ext))
+        setMyGridSquare_ext(q2.my_gridsquare_ext);
+    
+    if (IS_EMPTY_STRING(my_iota) && !IS_EMPTY_STRING(q2.my_iota))
+        setMyIOTA(q2.my_iota);
+    
+    if (IS_EMPTY_INT(my_iota_ID, -1) && !IS_EMPTY_INT(q2.my_iota_ID, -1))
+        setMyIotaID(q2.my_iota_ID);
+    
+    if (IS_EMPTY_INT(my_itu_zone, 0) && !IS_EMPTY_INT(q2.my_itu_zone, 0))
+        setMyITUZone(q2.my_itu_zone);
+    
+    if (IS_EMPTY_STRING(my_latitude) && !IS_EMPTY_STRING(q2.my_latitude))
+        setMyLatitude(q2.my_latitude);
+    
+    if (IS_EMPTY_STRING(my_longitude) && !IS_EMPTY_STRING(q2.my_longitude))
+        setMyLongitude(q2.my_longitude);
+    
+    if (IS_EMPTY_STRING(my_name) && !IS_EMPTY_STRING(q2.my_name))
+        setMyName(q2.my_name);
+    
+    if (IS_EMPTY_STRING(my_pota_ref) && !IS_EMPTY_STRING(q2.my_pota_ref))
+        setMyPOTA_Ref(q2.my_pota_ref);
+    
+    if (IS_EMPTY_STRING(my_postal_code) && !IS_EMPTY_STRING(q2.my_postal_code))
+        setMyPostalCode(q2.my_postal_code);
+    
+    if (IS_EMPTY_STRING(my_rig) && !IS_EMPTY_STRING(q2.my_rig))
+        setMyRig(q2.my_rig);
+    
+    if (IS_EMPTY_STRING(my_sig) && !IS_EMPTY_STRING(q2.my_sig))
+        setMySig(q2.my_sig);
+    
+    if (IS_EMPTY_STRING(my_sig_info) && !IS_EMPTY_STRING(q2.my_sig_info))
+        setMySigInfo(q2.my_sig_info);
+    
+    if (IS_EMPTY_STRING(my_sota_ref) && !IS_EMPTY_STRING(q2.my_sota_ref))
+        setMySOTA_REF(q2.my_sota_ref);
+    
+    if (IS_EMPTY_STRING(my_state) && !IS_EMPTY_STRING(q2.my_state))
+        setMyState(q2.my_state);
+    
+    if (IS_EMPTY_STRING(my_street) && !IS_EMPTY_STRING(q2.my_street))
+        setMyStreet(q2.my_street);
+    
+    if (IS_EMPTY_STRING(my_usaca_counties) && !IS_EMPTY_STRING(q2.my_usaca_counties))
+        setMyUsacaCounties(q2.my_usaca_counties);
+    
+    if (IS_EMPTY_STRING(my_vucc_grids) && !IS_EMPTY_STRING(q2.my_vucc_grids))
+        setMyVUCCGrids(q2.my_vucc_grids);
+    
+    if (IS_EMPTY_STRING(my_wwff_ref) && !IS_EMPTY_STRING(q2.my_wwff_ref))
+        setMyWWFF_Ref(q2.my_wwff_ref);
+    
+    if (IS_EMPTY_STRING(name) && !IS_EMPTY_STRING(q2.name))
+        setName(q2.name);
+    
+    if (IS_EMPTY_STRING(notes) && !IS_EMPTY_STRING(q2.notes))
+        setNotes(q2.notes);
+    
+    if (IS_EMPTY_INT(nr_bursts, 0) && !IS_EMPTY_INT(q2.nr_bursts, 0))
+        setNrBursts(q2.nr_bursts);
+    
+    if (IS_EMPTY_INT(nr_pings, 0) && !IS_EMPTY_INT(q2.nr_pings, 0))
+        setNrPings(q2.nr_pings);
+    
+    if (IS_EMPTY_STRING(prefix) && !IS_EMPTY_STRING(q2.prefix))
+        setPrefix(q2.prefix);
+    
+    if (IS_EMPTY_STRING(pota_ref) && !IS_EMPTY_STRING(q2.pota_ref))
+        setPOTA_Ref(q2.pota_ref);
+    
+    if (IS_EMPTY_STRING(precedence) && !IS_EMPTY_STRING(q2.precedence))
+        setPrecedence(q2.precedence);
+    
+    if (IS_EMPTY_STRING(propMode) && !IS_EMPTY_STRING(q2.propMode))
+        setPropMode(q2.propMode);
+    
+    if (IS_EMPTY_STRING(public_key) && !IS_EMPTY_STRING(q2.public_key))
+        setPublicKey(q2.public_key);
+    
+    if (IS_EMPTY_DATE(QRZComDate) && !IS_EMPTY_DATE(q2.QRZComDate))
+        setQRZCOMDate(q2.QRZComDate);
+    
+    if (IS_EMPTY_STRING(QRZCom_status) && !IS_EMPTY_STRING(q2.QRZCom_status))
+        setQRZCOMStatus(q2.QRZCom_status);
+    
+    if (IS_EMPTY_STRING(qslmsg) && !IS_EMPTY_STRING(q2.qslmsg))
+        setQSLMsg(q2.qslmsg);
+    
+    if (IS_EMPTY_DATE(QSLRDate) && !IS_EMPTY_DATE(q2.QSLRDate))
+        setQSLRDate(q2.QSLRDate);
+    
+    if (IS_EMPTY_DATE(QSLSDate) && !IS_EMPTY_DATE(q2.QSLSDate))
+        setQSLSDate(q2.QSLSDate);
+    
+    if (IS_EMPTY_STRING(qsl_rcvd) && !IS_EMPTY_STRING(q2.qsl_rcvd))
+        setQSL_RCVD(q2.qsl_rcvd);
+    
+    if (IS_EMPTY_STRING(qsl_sent) && !IS_EMPTY_STRING(q2.qsl_sent))
+        setQSL_SENT(q2.qsl_sent);
+    
+    if (IS_EMPTY_STRING(qslSenVia) && !IS_EMPTY_STRING(q2.qslSenVia))
+        setQSLSenVia(q2.qslSenVia);
+    
+    if (IS_EMPTY_STRING(qslRecVia) && !IS_EMPTY_STRING(q2.qslRecVia))
+        setQSLRecVia(q2.qslRecVia);
+    
+    if (IS_EMPTY_STRING(qslVia) && !IS_EMPTY_STRING(q2.qslVia))
+        setQSLVia(q2.qslVia);
+    
+    // qso_complete has default "Y", only complete if current is empty string
+    if (IS_EMPTY_STRING(qso_complete) && !IS_EMPTY_STRING(q2.qso_complete))
+        setQSOComplete(q2.qso_complete);
+    
+    if (IS_EMPTY_DATETIME(qso_dateTime) && !IS_EMPTY_DATETIME(q2.qso_dateTime))
+        setDateTimeOn(q2.qso_dateTime);
+    
+    if (IS_EMPTY_DATETIME(qso_dateTime_off) && !IS_EMPTY_DATETIME(q2.qso_dateTime_off))
+        setDateTimeOff(q2.qso_dateTime_off);
+    
+    // qso_random has default true, only complete if current is false
+    if (IS_EMPTY_BOOL(qso_random, false) && !IS_EMPTY_BOOL(q2.qso_random, false))
+        setQSORandom(q2.qso_random);
+    
+    if (IS_EMPTY_STRING(qth) && !IS_EMPTY_STRING(q2.qth))
+        setQTH(q2.qth);
+    
+    if (IS_EMPTY_STRING(region) && !IS_EMPTY_STRING(q2.region))
+        setRegion(q2.region);
+    
+    if (IS_EMPTY_STRING(rig) && !IS_EMPTY_STRING(q2.rig))
+        setRig(q2.rig);
+    
+    if (IS_EMPTY_STRING(RST_rx) && !IS_EMPTY_STRING(q2.RST_rx))
+        setRSTRX(q2.RST_rx);
+    
+    if (IS_EMPTY_STRING(RST_tx) && !IS_EMPTY_STRING(q2.RST_tx))
+        setRSTTX(q2.RST_tx);
+    
+    if (IS_EMPTY_DOUBLE(pwr_rx, 0.0) && !IS_EMPTY_DOUBLE(q2.pwr_rx, 0.0))
+        setRXPwr(q2.pwr_rx);
+    
+    if (IS_EMPTY_STRING(satMode) && !IS_EMPTY_STRING(q2.satMode))
+        setSatMode(q2.satMode);
+    
+    if (IS_EMPTY_STRING(satName) && !IS_EMPTY_STRING(q2.satName))
+        setSatName(q2.satName);
+    
+    if (IS_EMPTY_INT(sfi, -1) && !IS_EMPTY_INT(q2.sfi, -1))
+        setSFI(q2.sfi);
+    
+    if (IS_EMPTY_STRING(sig) && !IS_EMPTY_STRING(q2.sig))
+        setSIG(q2.sig);
+    
+    if (IS_EMPTY_STRING(sig_info) && !IS_EMPTY_STRING(q2.sig_info))
+        setSIG_INFO(q2.sig_info);
+    
+    // silent_key has default false, only complete if current is false
+    if (IS_EMPTY_BOOL(silent_key, false) && !IS_EMPTY_BOOL(q2.silent_key, false))
+        setSilentKey(q2.silent_key);
+    
+    if (IS_EMPTY_STRING(skcc) && !IS_EMPTY_STRING(q2.skcc))
+        setSkcc(q2.skcc);
+    
+    if (IS_EMPTY_STRING(sota_ref) && !IS_EMPTY_STRING(q2.sota_ref))
+        setSOTA_REF(q2.sota_ref);
+    
+    if (IS_EMPTY_INT(srx, -1) && !IS_EMPTY_INT(q2.srx, -1))
+        setSrx(q2.srx);
+    
+    if (IS_EMPTY_STRING(srx_string) && !IS_EMPTY_STRING(q2.srx_string))
+        setSrxString(q2.srx_string);
+    
+    if (IS_EMPTY_STRING(state) && !IS_EMPTY_STRING(q2.state))
+        setState(q2.state);
+    
+    if (IS_EMPTY_INT(stx, -1) && !IS_EMPTY_INT(q2.stx, -1))
+        setStx(q2.stx);
+    
+    if (IS_EMPTY_STRING(stx_string) && !IS_EMPTY_STRING(q2.stx_string))
+        setStxString(q2.stx_string);
+    
+    if (IS_EMPTY_STRING(submode) && !IS_EMPTY_STRING(q2.submode))
+        setSubmode(q2.submode);
+    
+    // swl has default false, only complete if current is false
+    if (IS_EMPTY_BOOL(swl, false) && !IS_EMPTY_BOOL(q2.swl, false))
+        setSwl(q2.swl);
+    
+    if (IS_EMPTY_INT(ten_ten, 0) && !IS_EMPTY_INT(q2.ten_ten, 0))
+        setTenTen(q2.ten_ten);
+    
+    if (IS_EMPTY_DOUBLE(pwr_tx, 0.0) && !IS_EMPTY_DOUBLE(q2.pwr_tx, 0.0))
+        setTXPwr(q2.pwr_tx);
+    
+    if (IS_EMPTY_INT(uksmg, 0) && !IS_EMPTY_INT(q2.uksmg, 0))
+        setUksmg(q2.uksmg);
+    
+    if (IS_EMPTY_STRING(usaca_counties) && !IS_EMPTY_STRING(q2.usaca_counties))
+        setUsacaCounties(q2.usaca_counties);
+    
+    if (IS_EMPTY_STRING(ve_prov) && !IS_EMPTY_STRING(q2.ve_prov))
+        setVeProv(q2.ve_prov);
+    
+    if (IS_EMPTY_STRING(vucc_grids) && !IS_EMPTY_STRING(q2.vucc_grids))
+        setVUCCGrids(q2.vucc_grids);
+    
+    if (IS_EMPTY_STRING(web) && !IS_EMPTY_STRING(q2.web))
+        setWeb(q2.web);
+    
+    if (IS_EMPTY_STRING(wwff_ref) && !IS_EMPTY_STRING(q2.wwff_ref))
+        setWWFF_Ref(q2.wwff_ref);
+    
+    // Clean up macros
+    #undef IS_EMPTY_STRING
+    #undef IS_EMPTY_INT
+    #undef IS_EMPTY_DOUBLE
+    #undef IS_EMPTY_BOOL
+    #undef IS_EMPTY_DATE
+    #undef IS_EMPTY_DATETIME
+    #undef IS_EMPTY_FREQ
+    
+    return true;
+}
+
 void QSO::setLogLevel (const DebugLogLevel _b)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);

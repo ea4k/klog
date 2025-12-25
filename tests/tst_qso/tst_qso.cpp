@@ -54,6 +54,10 @@ private slots:
     //TODO: void test_LoTWImport();
     void test_Copy();
     void test_ModeManagement();
+    void test_CompleteWith();
+    void test_CompleteWith_EmptyQSO();
+    void test_CompleteWith_NumericFields();
+    void test_CompleteWith_DateFields();
 
 private:
     QSO *qso;
@@ -450,6 +454,155 @@ void tst_QSO::test_Copy()
 
     QVERIFY2(qso2.getComment() == "QSO1-comment", "Wrong Comment in constructor copy");
     QVERIFY2(qso3.getComment() == "QSO1-comment", "Wrong Comment in copy");
+}
+
+void tst_QSO::test_CompleteWith()
+{
+    // Test the completeWith method
+    QSO qso1, qso2;
+    
+    // Setup qso1 with some values
+    qso1.setCall("EA4K");
+    qso1.setBand("20M");
+    qso1.setMode("SSB");
+    qso1.setDateTimeOn(QDateTime::currentDateTimeUtc());
+    qso1.setRSTTX("59");
+    qso1.setName("John");
+    qso1.setQTH("Madrid");
+    
+    // Setup qso2 with some overlapping and some different values
+    qso2.setCall("EA4K");  // Same call
+    qso2.setBand("20M");   // Same band
+    qso2.setRSTRX("58");   // Different field (qso1 doesn't have this)
+    qso2.setGridSquare("IN80");  // Different field (qso1 doesn't have this)
+    qso2.setComment("Test comment");  // Different field (qso1 doesn't have this)
+    qso2.setQTH("Barcelona");  // Different value (qso1 has "Madrid")
+    qso2.setName("Jane");  // Different value (qso1 has "John")
+    
+    // Call completeWith - qso1 should get values from qso2 only where qso1 is empty
+    qso1.completeWith(qso2);
+    
+    // Verify that qso1's existing values are NOT overwritten
+    QVERIFY2(qso1.getCall() == "EA4K", "Call should remain unchanged");
+    QVERIFY2(qso1.getBand() == "20M", "Band should remain unchanged");
+    QVERIFY2(qso1.getMode() == "SSB", "Mode should remain unchanged");
+    QVERIFY2(qso1.getRSTTX() == "59", "RSTTX should remain unchanged");
+    QVERIFY2(qso1.getName() == "John", "Name should NOT be overwritten");
+    QVERIFY2(qso1.getQTH() == "Madrid", "QTH should NOT be overwritten");
+    
+    // Verify that qso1's empty values ARE filled from qso2
+    QVERIFY2(qso1.getRSTRX() == "58", "RSTRX should be filled from qso2");
+    QVERIFY2(qso1.getGridSquare() == "IN80", "GridSquare should be filled from qso2");
+    QVERIFY2(qso1.getComment() == "Test comment", "Comment should be filled from qso2");
+}
+
+void tst_QSO::test_CompleteWith_EmptyQSO()
+{
+    // Test completeWith when the calling QSO is empty
+    QSO qso1, qso2;
+    
+    // qso1 is empty, qso2 has values
+    qso2.setCall("EA4K");
+    qso2.setBand("40M");
+    qso2.setMode("CW");
+    qso2.setDateTimeOn(QDateTime::currentDateTimeUtc());
+    qso2.setRSTTX("599");
+    qso2.setRSTRX("579");
+    qso2.setName("Alice");
+    qso2.setQTH("London");
+    qso2.setGridSquare("IO91");
+    qso2.setComment("Nice QSO");
+    qso2.setMyGridSquare("IN80");
+    qso2.setOperatorCallsign("EA4X");
+    
+    // Call completeWith
+    qso1.completeWith(qso2);
+    
+    // Verify that all values from qso2 are copied to qso1
+    QVERIFY2(qso1.getCall() == "EA4K", "Call should be filled from qso2");
+    QVERIFY2(qso1.getBand() == "40M", "Band should be filled from qso2");
+    QVERIFY2(qso1.getMode() == "CW", "Mode should be filled from qso2");
+    QVERIFY2(qso1.getRSTTX() == "599", "RSTTX should be filled from qso2");
+    QVERIFY2(qso1.getRSTRX() == "579", "RSTRX should be filled from qso2");
+    QVERIFY2(qso1.getName() == "Alice", "Name should be filled from qso2");
+    QVERIFY2(qso1.getQTH() == "London", "QTH should be filled from qso2");
+    QVERIFY2(qso1.getGridSquare() == "IO91", "GridSquare should be filled from qso2");
+    QVERIFY2(qso1.getComment() == "Nice QSO", "Comment should be filled from qso2");
+    QVERIFY2(qso1.getMyGridSquare() == "IN80", "MyGridSquare should be filled from qso2");
+    QVERIFY2(qso1.getOperatorCallsign() == "EA4X", "OperatorCallsign should be filled from qso2");
+}
+
+void tst_QSO::test_CompleteWith_NumericFields()
+{
+    // Test completeWith with numeric fields
+    QSO qso1, qso2;
+    
+    // Setup qso1 with some numeric values
+    qso1.setCall("EA4K");
+    qso1.setBand("20M");
+    qso1.setMode("SSB");
+    qso1.setDateTimeOn(QDateTime::currentDateTimeUtc());
+    qso1.setDXCC(280);  // Spain
+    qso1.setCQZone(14);
+    qso1.setTXPwr(100.0);
+    
+    // Setup qso2 with overlapping and different numeric values
+    qso2.setDXCC(280);  // Same DXCC
+    qso2.setItuZone(37);  // Different field
+    qso2.setRXPwr(50.0);  // Different field
+    qso2.setA_Index(5.0);  // Different field
+    qso2.setK_Index(2);  // Different field
+    qso2.setTXPwr(200.0);  // Different value (qso1 has 100.0)
+    qso2.setCQZone(15);  // Different value (qso1 has 14)
+    
+    // Call completeWith
+    qso1.completeWith(qso2);
+    
+    // Verify that qso1's existing numeric values are NOT overwritten
+    QVERIFY2(qso1.getDXCC() == 280, "DXCC should remain unchanged");
+    QVERIFY2(qso1.getCQZone() == 14, "CQZone should NOT be overwritten");
+    QVERIFY2(qso1.getTXPwr() == 100.0, "TXPwr should NOT be overwritten");
+    
+    // Verify that qso1's empty numeric values ARE filled from qso2
+    QVERIFY2(qso1.getItuZone() == 37, "ItuZone should be filled from qso2");
+    QVERIFY2(qso1.getRXPwr() == 50.0, "RXPwr should be filled from qso2");
+    QVERIFY2(qso1.getA_Index() == 5.0, "A_Index should be filled from qso2");
+    QVERIFY2(qso1.getK_Index() == 2, "K_Index should be filled from qso2");
+}
+
+void tst_QSO::test_CompleteWith_DateFields()
+{
+    // Test completeWith with date fields
+    QSO qso1, qso2;
+    
+    QDate date1(2024, 1, 15);
+    QDate date2(2024, 2, 20);
+    QDate date3(2024, 3, 25);
+    
+    // Setup qso1 with some date values
+    qso1.setCall("EA4K");
+    qso1.setBand("20M");
+    qso1.setMode("SSB");
+    qso1.setDateTimeOn(QDateTime::currentDateTimeUtc());
+    qso1.setQSLSDate(date1);
+    qso1.setLoTWQSLRDate(date2);
+    
+    // Setup qso2 with overlapping and different date values
+    qso2.setQSLSDate(date3);  // Different value (qso1 has date1)
+    qso2.setQSLRDate(date2);  // Different field
+    qso2.setEQSLQSLSDate(date1);  // Different field
+    qso2.setLoTWQSLRDate(date3);  // Different value (qso1 has date2)
+    
+    // Call completeWith
+    qso1.completeWith(qso2);
+    
+    // Verify that qso1's existing date values are NOT overwritten
+    QVERIFY2(qso1.getQSLSDate() == date1, "QSLSDate should NOT be overwritten");
+    QVERIFY2(qso1.getLoTWQSLRDate() == date2, "LoTWQSLRDate should NOT be overwritten");
+    
+    // Verify that qso1's empty date values ARE filled from qso2
+    QVERIFY2(qso1.getQSLRDate() == date2, "QSLRDate should be filled from qso2");
+    QVERIFY2(qso1.getEQSLQSLSDate() == date1, "EQSLQSLSDate should be filled from qso2");
 }
 
 //QTEST_APPLESS_MAIN(tst_QSO)
