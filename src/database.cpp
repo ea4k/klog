@@ -80,7 +80,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
             return;
     }
       qDebug() << Q_FUNC_INFO << "  - - connection Name: " << dbConnectionName ;
-       qDebug() << Q_FUNC_INFO << "  - END"; - DB Name: " << db.databaseName() ;
+       qDebug() << Q_FUNC_INFO << "  - END";
     insertPreparedQueries.clear();
     insertQueryFields.clear();
     qDebug() << Q_FUNC_INFO << "  - END";
@@ -685,7 +685,11 @@ bool DataBase::createDataBase()
           (!createAndPopulateAwardEnumeration())        ||
           (!populatePropagationModes())
         )
+    {
+        qDebug() << Q_FUNC_INFO << " - Creation of at least one table failed!";
         return false;
+    }
+
 
 
 
@@ -1241,15 +1245,15 @@ bool DataBase::updateToLatest()
  * Update float DBVersionf = 0.028f; in database.h to the latest version!
  * To rebuild the Mode table and add new modes
  */
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     if (requiresManualUpgrade())
     {
 
-        //qDebug() << Q_FUNC_INFO << " requires" ;
+        qDebug() << Q_FUNC_INFO << " requires" ;
         exit(1);
         //return false;
     }
-   //qDebug() << Q_FUNC_INFO << " - Let's update!";
+    qDebug() << Q_FUNC_INFO << " - Let's update!";
     return updateTo028();
 }
 
@@ -1650,7 +1654,6 @@ bool DataBase::recreatePropModes()
     qDebug() << Q_FUNC_INFO << "  - Start";
     if (isTheTableExisting("prop_mode_enumeration"))
     {
-           f     Table Exist"  ;
         bool sqlOk = false;
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE prop_mode_enumeration");
 
@@ -1915,248 +1918,168 @@ bool DataBase::createTableMode(const bool NoTmp)
 
 bool DataBase::populateTableWithModes(const QStringList& submodes, const QString& mode, const QString& cabrillo, bool NoTmp)
 {
+    qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Mode:     " << mode;
+    qDebug() << Q_FUNC_INFO << " - Cabrillo: " << cabrillo;
+    qDebug() << Q_FUNC_INFO << " - NoTmp:    " << util->boolToQString(NoTmp);
+    qDebug() << Q_FUNC_INFO << " - Submodes: " << submodes.count();
+    util->printQString(submodes);
+
+
     QString table = NoTmp ? "mode" : "modetemp";
-    QStringList values;
+    qDebug() << Q_FUNC_INFO << " - Table: " << table;
 
-    // Ensure the mode is the first submode
-    QStringList allSubmodes = submodes;
-    if (allSubmodes.isEmpty() || allSubmodes.first() != mode)
-        allSubmodes.prepend(mode);
-
-    // Remove duplicates while keeping order (if mode was already present elsewhere)
-    QSet<QString> seen;
+    // 1. Preparar la lista de submodos garantizando que el modo principal esté incluido
     QStringList uniqueSubmodes;
-    for (const QString& sm : allSubmodes) {
-        if (!seen.contains(sm)) {
-            uniqueSubmodes.append(sm);
-            seen.insert(sm);
+    if (submodes.isEmpty()) {
+        qDebug() << Q_FUNC_INFO << " - submodes EMPTY";
+        uniqueSubmodes << mode; // Si no hay submodos, el modo actúa como su propio submodo
+    } else {
+        uniqueSubmodes = submodes;
+        if (!uniqueSubmodes.contains(mode)) {
+            uniqueSubmodes.prepend(mode);
+        }
+        uniqueSubmodes.removeDuplicates();
+    }
+
+    // 2. Usar una transacción para mayor velocidad y seguridad
+    db.transaction();
+
+    QSqlQuery query(db);
+    // Usamos bindValue para evitar inyecciones SQL y problemas con comillas simples automáticamente
+    query.prepare(QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES (:submode, :name, :cabrillo, '0')").arg(table));
+
+    for (const QString& sm : uniqueSubmodes) {
+        // Si el submodo resultante es un string vacío (por error en la lista), usamos el modo
+        QString finalSubmode = sm.trimmed().isEmpty() ? mode : sm;
+
+        query.bindValue(":submode", finalSubmode);
+        query.bindValue(":name", mode);
+        query.bindValue(":cabrillo", cabrillo);
+
+        if (!query.exec()) {
+            queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+            db.rollback();
+            qDebug() << Q_FUNC_INFO << " - END FALSE";
+            return false;
         }
     }
-
-    for (const QString& submode : uniqueSubmodes) {
-        QString submodeEscaped = submode;
-        submodeEscaped.replace("'", "''"); // SQL escape
-        QString modeEscaped = mode;
-        modeEscaped.replace("'", "''");    // SQL escape
-
-        values << QString("('%1', '%2', '%3', '0')").arg(submodeEscaped, modeEscaped, cabrillo);
-    }
-
-    QString queryStr = QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES %2")
-                           .arg(table)
-                           .arg(values.join(", "));
-    //qDebug() << queryStr;
-    return execQuery(Q_FUNC_INFO, queryStr);
+    qDebug() << Q_FUNC_INFO << " - END";
+    return db.commit();
 }
 
 bool DataBase::populateTableMode(const bool NoTmp)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     //QSqlQuery query;
-    QString tableName = QString();
-    QString squery = QString();
-    if (NoTmp)
-    {
-        tableName = "mode";
+/*
+
+struct ModeGroup {
+    QString mode;
+    QString cabrillo; // CW, PH, FM, RY, DG
+    QStringList submodes;
+};
+
+*/
+    // Lista centralizada con modos y submodos, asociando submodos a modos
+    const QList<ModeGroup> adifData = {
+        {"AM", "PH", {}},
+        {"ARDOP", "DG", {}},
+        {"ATV", "DG", {}},
+        {"CHIP", "PH", {"CHIP64", "CHIP128"}},
+        {"CLO", "DG", {}},
+        {"CONTESTI", "DG", {}},
+        {"CW",  "CW", {"PCW"}},
+        {"DIGITALVOICE", "PH", {"C4FM", "DMR", "DSTAR", "FREEDV", "M17"}},
+        {"DOMINO", "DG", {"DOM-M", "DOM4", "DOM5", "DOM8", "DOM11", "DOM16", "DOM22", "DOM44",
+                          "DOM88", "DOMINOEX", "DOMINOF" }},
+        {"DNAMIC", "DG", {"VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600" }},
+        {"FAX", "DG", {}},
+        {"FM", "FM", {}},
+        {"FSK441", "DG", {}},
+        {"FSK", "DG", {"SCAMP_FAST", "SCAMP_SLOW", "SCAMP_VSLOW"}},
+        {"FT8", "DG", {}},
+        {"HELL", "DG", {"FMHELL", "FSKH105", "FSKH245", "FSKHELL", "HELL80", "HELLX5", "HELLX9",
+                        "HFSK", "PSKHELL", "SLOWHELL" }},
+        {"ISCAT", "DG", {"ISCAT-A", "ISCAT-B"}},
+        {"JT4", "DG", {"JT4A", "JT4B", "JT4C", "JT4D", "JT4E", "JT4F", "JT4G"}},
+        {"JT6M", "DG", {}},
+        {"JT9", "DG", {"JT9-1", "JT9-2", "JT9-5", "JT9-10", "JT9-30", "JT9A", "JT9B", "JT9C",
+                       "JT9D", "JT9E", "JT9E FAST", "JT9F", "JT9F FAST", "JT9G", "JT9G FAST", "JT9H", "JT9H FAST"}},
+        {"JT44", "DG", {}},
+        {"JT65", "DG", {"JT65A", "JT65B", "JT65B2", "JT65C", "JT65C2"}},
+        {"MFSK", "DG", {"FSQCALL", "FST4", "FST4W", "FT4", "JS8", "JTMS", "MFSK4", "MFSK8",
+                        "MFSK11", "MFSK16", "MFSK22", "MFSK31", "MFSK32", "MFSK64", "MFSK64L", "MFSK128 MFSK128L", "Q65" }},
+        {"MSK144", "DG", {}},
+        {"MTONE", "DG", {"SCAMP_OO", "SCAMP_OO_SLW" }},
+        {"MT63", "DG", {}},
+        {"OLIVIA", "DG", {"OLIVIA 4/125", "OLIVIA 4/250", "OLIVIA 8/250", "OLIVIA 8/500",
+                          "OLIVIA 16/500", "OLIVIA 16/1000", "OLIVIA 32/1000"}},
+        {"OPERA", "DG", {"OPERA-BEACON", "OPERA-QSO"}},
+        {"PAC", "DG", {"PAC2", "PAC3", "PAC4"}},
+        {"PAX", "DG", {"PAX2"}},
+        {"PKT", "DG", {}},
+        {"PSK", "DG", {"8PSK125", "8PSK125F", "8PSK125FL", "8PSK250", "8PSK250F", "8PSK250FL", "8PSK500",
+                       "8PSK500F", "8PSK1000", "8PSK1000F", "8PSK1200F", "FSK31", "PSK10", "PSK31", "PSK63",
+                       "PSK63F", "PSK63RC4", "PSK63RC5", "PSK63RC10", "PSK63RC20", "PSK63RC32", "PSK125",
+                       "PSK125C12", "PSK125R", "PSK125RC10", "PSK125RC12", "PSK125RC16", "PSK125RC4",
+                       "PSK125RC5", "PSK250", "PSK250C6", "PSK250R", "PSK250RC2", "PSK250RC3", "PSK250RC5",
+                       "PSK250RC6", "PSK250RC7", "PSK500", "PSK500C2", "PSK500C4", "PSK500R", "PSK500RC2",
+                       "PSK500RC3", "PSK500RC4", "PSK800C2", "PSK800RC2", "PSK1000", "PSK1000C2", "PSK1000R",
+                       "PSK1000RC2", "PSKAM10", "PSKAM31", "PSKAM50", "PSKFEC31", "QPSK31", "QPSK63", "QPSK125",
+                       "QPSK250", "QPSK500", "SIM31"}},
+        {"PSK2K", "DG", {}},
+        {"Q15", "DG", {}},
+        {"QRA64", "DG", {"QRA64A", "QRA64B", "QRA64C", "QRA64D", "QRA64E"}},
+        {"ROS", "DG", {"ROS-EME", "ROS-HF", "ROS-MF"}},
+        {"RTTY", "DG", {"ASCI"}},
+        {"RTTYM", "DG", {}},
+        {"SSB", "PH", {"LSB", "USB"}},
+        {"SSTV", "DG", {}},
+        {"T10", "DG", {}},
+        {"THOR", "DG", {"THOR-M", "THOR4", "THOR5", "THOR8", "THOR11", "THOR16", "THOR22", "THOR25X4", "THOR50X1", "THOR50X2", "THOR100"}},
+        {"THRB", "DG", {"THRBX", "THRBX1", "THRBX2", "THRBX4", "THROB1", "THROB2", "THROB4"}},
+        {"TOR", "DG", {"AMTORFEC", "GTOR", "NAVTEX", "SITORB"}},
+        {"V4", "DG", {}},
+        {"VOI", "DG", {}},
+        {"WINMOR", "DG", {}},
+        {"WSPR", "DG", {}}
+    };
+    qDebug() << Q_FUNC_INFO << " - 010";
+
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+
+    if (!db.isOpen()) {
+        qDebug() << Q_FUNC_INFO << " - Database is not open!";
+        return false;
     }
-    else
-    {
-        tableName = "modetemp";
-    }
 
-    bool sqlOK = execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('AM', 'AM', 'PH', '0')").arg(tableName));
+    //bool transactionStarted = db.transaction();
+    //if (!transactionStarted) {
+    //    qDebug() << Q_FUNC_INFO << " - Failed to start a transaction!";
+    //    return false;
+    //}
+        qDebug() << Q_FUNC_INFO << " - 020";
+        for (const auto &group : adifData) {
+            qDebug() << Q_FUNC_INFO << " - 021 - Processing mode: " << group.mode;
 
-    //int errorCode = -1;
-    if (!sqlOK)
-    {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        qDebug() << Q_FUNC_INFO << " : Mode table population FAILED" ;
-        //errorCode = query.lastError().text();
-    }
-    else
-    {
-             qDebug() << Q_FUNC_INFO << " : Mode table population  OK" ;
-    }
+            if (!populateTableWithModes(group.submodes, group.mode, group.cabrillo, NoTmp)) {
+                qDebug() << Q_FUNC_INFO << " - 022 Error populating mode: " << group.mode;
 
-    QStringList submodes = {};
-    populateTableWithModes(submodes, "AM", "PH", NoTmp);
+                //bool rollOK = db.rollback();
+                //qDebug() << Q_FUNC_INFO << " - 023: " << util->boolToQString(rollOK);
+                return false;
+            }
+            qDebug() << Q_FUNC_INFO << " - 025";
+        }
+        qDebug() << Q_FUNC_INFO << " - 030";
 
-    submodes = {};
-    populateTableWithModes(submodes, "ARDOP", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "ATV", "DG", NoTmp);
-
-    submodes = {"CHIP64", "CHIP128"};
-    populateTableWithModes(submodes, "CHIP", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "CLO", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "CONTESTI", "DG", NoTmp);
-
-    submodes = {"PCW"};
-    populateTableWithModes(submodes, "CW", "CW", NoTmp);
-
-    submodes = {"C4FM", "DMR", "DSTAR", "FREEDV", "M17" };
-    populateTableWithModes(submodes, "DIGITALVOICE", "DG", NoTmp);
-
-    submodes = {"DOM-M", "DOM4", "DOM5", "DOM8", "DOM11", "DOM16", "DOM22", "DOM44",
-                "DOM88", "DOMINOEX", "DOMINOF"};
-    populateTableWithModes(submodes, "DOMINO", "DG", NoTmp);
-
-    submodes = {"VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600"};
-    populateTableWithModes(submodes, "DYNAMIC", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "FAX", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "FM", "FM", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "FSK441", "DG", NoTmp);
-
-    submodes = {"SCAMP_FAST", "SCAMP_SLOW", "SCAMP_VSLOW"};
-    populateTableWithModes(submodes, "FSK", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "FT8", "DG", NoTmp);
-
-    submodes = {"FMHELL", "FSKH105", "FSKH245", "FSKHELL", "HELL80", "HELLX5", "HELLX9", "HFSK",
-                "PSKHELL", "SLOWHELL"};
-    populateTableWithModes(submodes, "HELL", "DG", NoTmp);
-
-    submodes = {"ISCAT-A", "ISCAT-B"};
-    populateTableWithModes(submodes, "ISCAT", "DG", NoTmp);
-
-    submodes = {"JT4A", "JT4B", "JT4C", "JT4D", "JT4E", "JT4F", "JT4G"};
-    populateTableWithModes(submodes, "JT4", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "JT6M", "DG", NoTmp);
-
-    submodes = {"JT9-1", "JT9-2", "JT9-5", "JT9-10", "JT9-30", "JT9A", "JT9B", "JT9C",
-                "JT9D", "JT9E", "JT9E FAST", "JT9F", "JT9F FAST", "JT9G", "JT9G FAST",
-                "JT9H", "JT9H FAST"};
-    populateTableWithModes(submodes, "JT9", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "JT44", "DG", NoTmp);
-
-    submodes = {"JT65A", "JT65B", "JT65B2", "JT65C", "JT65C2"};
-    populateTableWithModes(submodes, "JT65", "DG", NoTmp);
-
-    submodes =  {
-        "MFSK", "FSQCALL", "FST4", "FST4W", "FT4", "JS8", "JTMS", "MFSK4",
-        "MFSK8", "MFSK11", "MFSK16", "MFSK22", "MFSK31", "MFSK32", "MFSK64",
-        "MFSK64L", "MFSK128", "MFSK128L", "Q65"
-    };
-    populateTableWithModes(submodes, "MFSK", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "MSK144", "DG", NoTmp);
-
-    submodes = {"SCAMP_OO", "SCAMP_OO_SLW" };
-    populateTableWithModes(submodes, "MTONE", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "MT63", "DG", NoTmp);
-
-    submodes =  {
-        "OLIVIA 4/125", "OLIVIA 4/250", "OLIVIA 8/250", "OLIVIA 8/500", "OLIVIA 16/500",
-        "OLIVIA 16/1000", "OLIVIA 32/1000"
-    };
-    populateTableWithModes(submodes, "OLIVIA", "DG", NoTmp);
-
-    submodes =  {
-        "OPERA-BEACON", "OPERA-QSO"
-    };
-    populateTableWithModes(submodes, "OPERA", "DG", NoTmp);
-
-    submodes =  {
-        "PAC2", "PAC3", "PAC4"
-    };
-    populateTableWithModes(submodes, "PAC", "DG", NoTmp);
-
-    submodes =  {
-        "PAX2"
-    };
-    populateTableWithModes(submodes, "PAX", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "PKT", "DG", NoTmp);
-
-    submodes = {"8PSK125", "8PSK125F", "8PSK125FL", "8PSK250", "8PSK250F", "8PSK250FL", "8PSK500",
-                             "8PSK500F", "8PSK1000", "8PSK1000F", "8PSK1200F", "FSK31", "PSK10", "PSK31", "PSK63",
-                             "PSK63F", "PSK63RC4", "PSK63RC5", "PSK63RC10", "PSK63RC20", "PSK63RC32", "PSK125",
-                             "PSK125C12", "PSK125R", "PSK125RC10", "PSK125RC12", "PSK125RC16", "PSK125RC4", "PSK125RC5",
-                             "PSK250", "PSK250C6", "PSK250R", "PSK250RC2", "PSK250RC3", "PSK250RC5", "PSK250RC6",
-                             "PSK250RC7", "PSK500", "PSK500C2", "PSK500C4", "PSK500R", "PSK500RC2", "PSK500RC3",
-                             "PSK500RC4", "PSK800C2", "PSK800RC2", "PSK1000", "PSK1000C2", "PSK1000R", "PSK1000RC2",
-                             "PSKAM10", "PSKAM31", "PSKAM50", "PSKFEC31", "QPSK31", "QPSK63", "QPSK125", "QPSK250",
-                             "QPSK500", "SIM31" };
-    populateTableWithModes(submodes, "PSK", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "PSK2K", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "Q15", "DG", NoTmp);
-
-    submodes = {"QRA64A", "QRA64B", "QRA64C", "QRA64D", "QRA64E"};
-    populateTableWithModes(submodes, "QRA64", "DG", NoTmp);
-
-    submodes = {"ROS-EME", "ROS-HF", "ROS-MF"};
-    populateTableWithModes(submodes, "ROS", "DG", NoTmp);
-
-    submodes = {"ASCI"};
-    populateTableWithModes(submodes, "RTTY", "RY", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "RTTYM", "RY", NoTmp);
-
-    submodes = {"LSB", "USB"};
-    populateTableWithModes(submodes, "SSB", "PH", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "SSTV", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "T10", "DG", NoTmp);
-
-    submodes =  {
-        "THOR-M", "THOR4", "THOR5", "THOR8", "THOR11", "THOR16", "THOR22", "THOR25X4", "THOR50X1", "THOR50X2", "THOR100"
-    };
-    populateTableWithModes(submodes, "THOR", "DG", NoTmp);
-
-
-    submodes =  {
-        "THRBX", "THRBX1", "THRBX2", "THRBX4", "THROB1", "THROB2", "THROB4"
-    };
-    populateTableWithModes(submodes, "THRB", "DG", NoTmp);
-
-    submodes =  {
-        "AMTORFEC", "GTOR", "NAVTEX", "SITORB"
-    };
-    populateTableWithModes(submodes, "TOR", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "V4", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "VOI", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "WINMOR", "DG", NoTmp);
-
-    submodes = {};
-    populateTableWithModes(submodes, "WSPR", "DG", NoTmp);
-
-    //createTheModeQuickReference();
-    qDebug() << Q_FUNC_INFO << " : END" ;
-    return true;
+        //bool success = db.commit();
+        qDebug() << Q_FUNC_INFO << " - 031 - True";
+        //logEvent(Q_FUNC_INFO, success ? "End OK" : "End FAIL", Debug);
+        //qDebug() << Q_FUNC_INFO << " - Success: " << util->boolToQString(success);
+        //return success;
+        return true;
 }
 
 
@@ -5150,24 +5073,25 @@ bool DataBase::updateTo028()
 {
     // Updates the DB to 0.028:
     // Recreates Mode to add new modes
-   //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
     latestReaded = getDBVersion();
     if (latestReaded >= 0.028f)
     {
-       //qDebug() << Q_FUNC_INFO << " - I am in 028" ;
+        qDebug() << Q_FUNC_INFO << " - I am in 028" ;
         return true;
     }
-   //qDebug() << Q_FUNC_INFO << " - 10" ;
+    qDebug() << Q_FUNC_INFO << " - 10" ;
     if (!updateTo027())
         return false;
-   //qDebug() << Q_FUNC_INFO << " - 20" ;
+   qDebug() << Q_FUNC_INFO << " - 20" ;
     // Start executing the code to update to this version
 
-
+    if (!updateTheModeTableAndSyncLog())
+        return false;
 
 
     // Modify the DB version
-   //qDebug() << Q_FUNC_INFO << " - 50" ;
+    qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.028");
 }
 
