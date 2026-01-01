@@ -85,7 +85,7 @@ SetupPageMisc::~SetupPageMisc()
 
 void SetupPageMisc::createUI()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     dupeTimeLineEdit->setInputMask("0000000");
     dupeTimeLineEdit->setToolTip(tr("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered."));
     palWrong.setColor(QPalette::Text, Qt::red);
@@ -621,7 +621,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 
 void SetupPageMisc::saveSettings()
 {
-    qDebug() << Q_FUNC_INFO ;
+    //qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
@@ -652,7 +652,7 @@ void SetupPageMisc::saveSettings()
 
 void SetupPageMisc::loadSettings(const QString &_callingFunction)
 {
-    qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
+    //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());
@@ -675,6 +675,6 @@ void SetupPageMisc::loadSettings(const QString &_callingFunction)
     setUseDefaultDBPath(settings.value("DBPath").toString ());
     setDebugLogLevel(settings.value("DebugLog").toString ());
     dupeTimeLineEdit->setText (settings.value("DuplicatedQSOSlot", "600").toString ());
-    qDebug() << Q_FUNC_INFO << " - DuplicatedQSOSlot: " << settings.value("DuplicatedQSOSlot").toString ();
+    //qDebug() << Q_FUNC_INFO << " - DuplicatedQSOSlot: " << settings.value("DuplicatedQSOSlot").toString ();
     settings.endGroup ();
 }
