@@ -126,7 +126,7 @@ void SetupPageMisc::createUI()
     //logSortCheckBox->setChecked(false);
     defaultFileNameLineEdit->setEnabled(true);
     fileNameButton->setEnabled(true);
-    dupeTimeLineEdit->setText("300");
+    dupeTimeLineEdit->setText("600");   // Seconds - 10min as LoTW
     checkCallsCheckBox->setEnabled (true);
     checkCallsCheckBox->setChecked (true);
     checkCallsCheckBox->setToolTip (tr("If you disable this checkbox KLog will not check callsigns to identify wrong callsigns."));
@@ -598,15 +598,15 @@ bool SetupPageMisc::areDBPathChangesApplied()
     return dbPathApplied;
 }
 
-void SetupPageMisc::setDupeTime(const int _t)
-{
-    dupeTimeLineEdit->setText(QString::number(_t));
-}
+//void SetupPageMisc::setDupeTime(const int _t)
+//{
+//    dupeTimeLineEdit->setText(QString::number(_t));
+//}
 
-int SetupPageMisc::getDupeTime()
-{
-    return dupeTimeLineEdit->text().toInt();
-}
+//int SetupPageMisc::getDupeTime()
+//{
+//    return dupeTimeLineEdit->text().toInt();
+//}
 
 bool SetupPageMisc::getCheckCalls()
 {

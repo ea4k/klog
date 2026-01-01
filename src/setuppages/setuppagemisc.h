@@ -79,8 +79,8 @@ public:
     bool getCheckCalls();
     void setCheckCalls(const bool &_t);
 
-    void setDupeTime(const int _t);
-    int getDupeTime();
+    //void setDupeTime(const int _t);
+    //int getDupeTime();
 
     bool areDBPathChangesApplied();
     void saveSettings();

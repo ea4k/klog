@@ -1971,16 +1971,7 @@ bool DataBase::populateTableWithModes(const QStringList& submodes, const QString
 bool DataBase::populateTableMode(const bool NoTmp)
 {
     qDebug() << Q_FUNC_INFO;
-    //QSqlQuery query;
-/*
 
-struct ModeGroup {
-    QString mode;
-    QString cabrillo; // CW, PH, FM, RY, DG
-    QStringList submodes;
-};
-
-*/
     // Lista centralizada con modos y submodos, asociando submodos a modos
     const QList<ModeGroup> adifData = {
         {"AM", "PH", {}},

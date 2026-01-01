@@ -61,7 +61,7 @@ void FileManager::init()
     //constrid = 2;
     ignoreUnknownAlways = false;
     usePreviousStationCallsignAnswerAlways = false;
-    duplicatedQSOSlotInSecs = 15;
+    duplicatedQSOSlotInSecs = 600;
     sendEQSLByDefault = false;
     dbCreated = false;
     rstTXDefault  = false;
@@ -73,8 +73,9 @@ void FileManager::init()
     util->setVersion(klogVersion);
 }
 
-void FileManager::setDuplicatedQSOSlot (const int _secs)
+void FileManager::setDuplicatedQSOSlot (int _secs)
 {
+    qDebug() << Q_FUNC_INFO << " - " << _secs;
     if (_secs >= 0)
     {
         duplicatedQSOSlotInSecs = _secs;
@@ -846,6 +847,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     int i = 0;
     bool noMoreQSO = false;
     int duplicateCount = 0;
+    int validCount = 0;
 
     QSO qso;
     QTime startTime = QTime::currentTime();
@@ -867,9 +869,10 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
             {
                 qso.setLogId(logN);
                 qso.setLoTWUpdating(lotWDownloaded);
+                i++;
                 int result = processQSO(qso, _stationCallsign);
                 if (result>0)
-                    i++;
+                    validCount++;
                 else if (result == -2)
                 {
                     if (duplicateCount<1)
@@ -914,7 +917,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Import finished"));
         msgBox.setText(tr("The ADIF file import has finished."));
-        QString info = tr("Imported QSOs: %1\nIgnored duplicated: %2").arg(i).arg(duplicateCount);
+        QString info = tr("Imported QSOs: %1\nIgnored duplicated: %2").arg(validCount).arg(duplicateCount);
         msgBox.setInformativeText(info);
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.exec();// == QMessageBox::AcceptRole;
@@ -958,7 +961,7 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 
     // 3. Check for duplicates using the cached IDs
     // duplicatedId holds the existing ID if found, otherwise -1.
-    int duplicatedId = dataProxy->findDuplicateId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId, 300);
+    int duplicatedId = dataProxy->findDuplicateId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
     if (duplicatedId>0)
         qDebug() << Q_FUNC_INFO << " - DUPE: " << duplicatedId << " / " << qso.getCall()<< " / " << util->getADIFDateFromQDate(qso.getDateTimeOn().date())<< " / " << bandId;
 

@@ -95,7 +95,7 @@ public:
     void setVersion(const QString &_version);
     QDateTime getDateTimeOfLastBackup();
     void setStationCallSign(const QString& _st);
-    void setDuplicatedQSOSlot (const int _secs);
+    void setDuplicatedQSOSlot (int _secs = 300);    //Default to 300secs/5min
     void setSendQSLByDefault (const bool _send);
 
 private:

@@ -59,7 +59,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     backupQSO = new QSO;
 
     logLevel = Info;
-    dupeSlotInSeconds = 15;
+    dupeSlotInSeconds = 600;
     needToEnd = false;
     upAndRunning = false; // To define some actions that can only be run when starting the software
 
@@ -6221,7 +6221,7 @@ bool MainWindow::loadSettings()
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
     mainQSOEntryWidget->setUTC(settings.value ("UTCTime", true).toBool ());
 
-    dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot", 300).toInt ();
+    dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot", 600).toInt ();
     filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
     mainQSOEntryWidget->setDuplicatedQSOSlot(dupeSlotInSeconds);
     completeWithPrevious = settings.value ("CompleteWithPrevious", true).toBool ();
