@@ -7988,6 +7988,11 @@ bool DataProxy_SQLite::commitTransaction()
     return db->commitTransaction();
 }
 
+bool DataProxy_SQLite::rollbackTransaction()
+{
+    return db->rollbackTransaction();
+}
+
 void DataProxy_SQLite::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _l)
 {
     logEvent(_func, _msg, _l);

@@ -354,6 +354,7 @@ public:
     // Transaction Wrappers
     bool beginTransaction();
     bool commitTransaction();
+    bool rollbackTransaction();
 
     // Cache functions // DUPEs
     void loadDuplicateCache(int logId);
