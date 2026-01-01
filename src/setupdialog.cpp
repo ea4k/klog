@@ -134,7 +134,7 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
     version = _softwareVersion;
     pageRequested = _page;
     logViewPage->init();
-    slotReadConfigData();
+    //slotReadConfigData(Q_FUNC_INFO);
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
     {
@@ -193,8 +193,9 @@ void SetupDialog::slotDarkModeChanged(const bool _dm)
     emit darkModeChanged(_dm);
 }
 
-void SetupDialog::setData(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)
+void SetupDialog::setData(const QString &_softwareVersion, const QString &_callingFunction, const int _page, const bool _alreadyConfigured)
 {
+    qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     //qDebug() << Q_FUNC_INFO << " - " << _softwareVersion << "/" << QString::number(_page);
     logEvent(Q_FUNC_INFO, "Start", Debug);
     nolog = !(haveAtleastOneLog());
@@ -211,7 +212,7 @@ void SetupDialog::setData(const QString &_softwareVersion, const int _page, cons
     //qDebug() << Q_FUNC_INFO << " - 10";
     setSoftVersion(_softwareVersion);
     //qDebug() << Q_FUNC_INFO << " - 20";
-    slotReadConfigData ();
+    //slotReadConfigData (Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " - 30";
     setPage(_page);
     //qDebug() << Q_FUNC_INFO << " - 40";
@@ -343,9 +344,9 @@ void SetupDialog::loadDarkMode()
     colorsPage->loadDarkMode ();
 }
 
-bool SetupDialog::loadSettings()
+bool SetupDialog::loadSettings(const QString &_callingFunction)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     if (!QFile::exists(util->getCfgFile ()))
     {
         //qDebug() << Q_FUNC_INFO << " - Nothing to load";
@@ -386,7 +387,7 @@ bool SetupDialog::loadSettings()
      //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     colorsPage->loadSettings ();
      //qDebug() << Q_FUNC_INFO << " - 70 - misc";
-    miscPage->loadSettings ();
+    miscPage->loadSettings (Q_FUNC_INFO);
      //qDebug() << Q_FUNC_INFO << " - 80 - logs";
     logsPage->loadSettings();
      //qDebug() << Q_FUNC_INFO << " - 90 - elog";
@@ -472,9 +473,9 @@ void SetupDialog::slotOkButtonClicked()
     close();
 }
 
-void SetupDialog::slotReadConfigData()
+void SetupDialog::slotReadConfigData(const QString &_callingFunction)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
     //if (!QFile::exists (util->getCfgFile ()))
@@ -489,7 +490,7 @@ void SetupDialog::slotReadConfigData()
         //logViewPage->setActiveFields(logViewFields);
     }
     //qDebug() << Q_FUNC_INFO << " - 30";
-    loadSettings();
+    loadSettings(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " - 40";
     //dxClusterPage->setDxclusterServersComboBox(dxClusterServers);
     //dxClusterPage->setSelectedDxClusterServer(dxClusterServerToUse);
@@ -751,8 +752,10 @@ void SetupDialog::showEvent(QShowEvent *event)
      //qDebug() << Q_FUNC_INFO;
      //qDebug() << Q_FUNC_INFO << " - selectedLog: " << QString::number(logsPage->getSelectedLog());
     QWidget::showEvent(event);
-    eLogPage->loadSettings ();
-    miscPage->loadSettings ();
+    slotReadConfigData(Q_FUNC_INFO);
+    //loadSettings(Q_FUNC_INFO);
+    //eLogPage->loadSettings ();
+    //miscPage->loadSettings (Q_FUNC_INFO);
     userDataPage->setStationFocus();
 }
 

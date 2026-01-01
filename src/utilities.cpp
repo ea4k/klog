@@ -363,18 +363,18 @@ QString Utilities::checkAndFixASCIIinADIF(const QString &_data)
 
 void Utilities::printQString(const QStringList &_qs)
 {
-    qDebug() << Q_FUNC_INFO << " ---- COMMENT THIS CALL BEFORE RELEASING" ;
+    //qDebug() << Q_FUNC_INFO << " ---- COMMENT THIS CALL BEFORE RELEASING" ;
     if (_qs.length()<1)
     {
-        qDebug() << Q_FUNC_INFO << " ---- EMPTY QStringList received!!" ;
+        //qDebug() << Q_FUNC_INFO << " ---- EMPTY QStringList received!!" ;
         return;
     }
     QString aux;
     foreach(aux, _qs)
     {
-        qDebug() << Q_FUNC_INFO << " - " << aux;
+        //qDebug() << Q_FUNC_INFO << " - " << aux;
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 QString Utilities::getGlobalAgent(const QString &_klogversion)

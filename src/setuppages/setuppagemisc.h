@@ -84,7 +84,7 @@ public:
 
     bool areDBPathChangesApplied();
     void saveSettings();
-    void loadSettings();
+    void loadSettings(const QString &_callingFunction);
 
 private slots:
     void slotOpenFileButtonClicked();

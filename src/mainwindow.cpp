@@ -3169,13 +3169,13 @@ void MainWindow::openSetup(const int _page)
         if (upAndRunning)
         {
          //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString("HH:mm:ss");
-            setupDialog->setData(softwareVersion, _page, !configured);
+            setupDialog->setData(softwareVersion, Q_FUNC_INFO, _page, !configured);
          //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString("HH:mm:ss");
         }
         else
         {
              //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString("HH:mm:ss");
-            setupDialog->setData(softwareVersion, 0, !configured);
+            setupDialog->setData(softwareVersion, Q_FUNC_INFO, 0, !configured);
              //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString("HH:mm:ss");
         }
         if ( (!configured) || (itIsANewversion) )

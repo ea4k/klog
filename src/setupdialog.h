@@ -61,7 +61,7 @@ public:
     ~SetupDialog();
     void init(const QString &_softwareVersion, const int _page=0, const bool _alreadyConfigured = true);
 
-    void setData(const QString &_softwareVersion, const int _page = 0, const bool _alreadyConfigured=true);
+    void setData(const QString &_softwareVersion, const QString &_callingFunction, const int _page = 0, const bool _alreadyConfigured=true);
     void setClubLogActive(const bool _b);
     //void setQRZCOMAutoCheckActive(const bool _b);
     void checkIfNewBandOrMode();
@@ -78,7 +78,7 @@ signals:
 
 private slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
-    void slotReadConfigData();
+    void slotReadConfigData(const QString &_callingFunction);
     void slotOkButtonClicked();
     void slotCancelButtonClicked();
     void slotAnalyzeNewLogData(const QStringList _qs);  // We receive the station callsign and operators from the logs tab
@@ -97,7 +97,7 @@ private:
     void setPage(const int _page);
     void connectActions();
     void saveSettings();
-    bool loadSettings();
+    bool loadSettings(const QString &_callingFunction);
     void createIcons();
     //bool processConfigLine(const QString &_line);
 

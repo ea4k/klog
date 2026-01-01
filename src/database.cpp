@@ -46,21 +46,21 @@ DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
     exe = new QueryExecutor(Q_FUNC_INFO);
     if (!createConnection(QString(Q_FUNC_INFO)+"1"))
     {
-        qDebug() << Q_FUNC_INFO <<  " 006:Could not create a connection";
+        //qDebug() << Q_FUNC_INFO <<  " 006:Could not create a connection";
         return;
     }
-    qDebug() << Q_FUNC_INFO <<  " 010";
-    qDebug() << Q_FUNC_INFO << " - connection Name: " << dbConnectionName ;
-    qDebug() << Q_FUNC_INFO << " - DB Name: " << db.databaseName() ;
+    //qDebug() << Q_FUNC_INFO <<  " 010";
+    //qDebug() << Q_FUNC_INFO << " - connection Name: " << dbConnectionName ;
+    //qDebug() << Q_FUNC_INFO << " - DB Name: " << db.databaseName() ;
     insertPreparedQueries.clear();
     insertQueryFields.clear();
-    qDebug() << Q_FUNC_INFO << " - END" ;
+    //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 
 DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, const QString &_DBName)
 {
     Q_UNUSED(_parentClass);
-    qDebug() << Q_FUNC_INFO << "  - : " << _parentClass << "/" << _softVersion << " / Name = " << _DBName ;
+    //qDebug() << Q_FUNC_INFO << "  - : " << _parentClass << "/" << _softVersion << " / Name = " << _DBName ;
     //TODO: Sometimes the DB is created without the proper calling (without passing softVersion)
     logLevel = None;
     constrid = 2;
@@ -79,11 +79,11 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
         if (!createConnection(QString(Q_FUNC_INFO)+"2"))
             return;
     }
-      qDebug() << Q_FUNC_INFO << "  - - connection Name: " << dbConnectionName ;
-       qDebug() << Q_FUNC_INFO << "  - END";
+      //qDebug() << Q_FUNC_INFO << "  - - connection Name: " << dbConnectionName ;
+       //qDebug() << Q_FUNC_INFO << "  - END";
     insertPreparedQueries.clear();
     insertQueryFields.clear();
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
 }
 
 DataBase::~DataBase()
@@ -91,7 +91,7 @@ DataBase::~DataBase()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     delete(util);
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 QString DataBase::getSoftVersion()
@@ -245,11 +245,11 @@ void DataBase::compress()
 bool DataBase::reConnect(const QString &_DBName)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     db.close();
     dbName = _DBName;
-        qDebug() << Q_FUNC_INFO << "  -  DB closed"  ;
-        qDebug() << Q_FUNC_INFO << "  -  DB: " << dbDir  ;
+        //qDebug() << Q_FUNC_INFO << "  -  DB closed"  ;
+        //qDebug() << Q_FUNC_INFO << "  -  DB: " << dbDir  ;
     bool sqlOK =  createConnection(Q_FUNC_INFO);
     if (!sqlOK)
     {
@@ -353,7 +353,7 @@ bool DataBase::setPragma()
 
 bool DataBase::isTheDBCreated()
 {
-    qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(constrid)  ;
+    //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(constrid)  ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     QSqlQuery query;
     int _num = 0;
@@ -382,7 +382,7 @@ bool DataBase::isTheDBCreated()
         return false;
     }
 
-    qDebug() << Q_FUNC_INFO << "  -  valid"  ;
+    //qDebug() << Q_FUNC_INFO << "  -  valid"  ;
     _num = (query.value(0)).toInt();
     query.finish();
 
@@ -686,7 +686,7 @@ bool DataBase::createDataBase()
           (!populatePropagationModes())
         )
     {
-        qDebug() << Q_FUNC_INFO << " - Creation of at least one table failed!";
+        //qDebug() << Q_FUNC_INFO << " - Creation of at least one table failed!";
         return false;
     }
 
@@ -971,7 +971,7 @@ QHash<QString, int> DataBase::getHashTableData(const DataTableHash _data)
 
 int DataBase::getBandIdFromFreq(const QString &fr)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << fr ;
+    //qDebug() << Q_FUNC_INFO << " - Start: " << fr ;
     //Freq should be in MHz
  //QHash<int, Frequency> freqBandIDHash
 
@@ -1008,14 +1008,14 @@ int DataBase::getBandIdFromFreq(const QString &fr)
         }
         else
         {
-            qDebug() << Q_FUNC_INFO << "  - Query NOK - Error NOT-VALID" ;
+            //qDebug() << Q_FUNC_INFO << "  - Query NOK - Error NOT-VALID" ;
         }
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().text(), query.lastQuery());
         query.finish();
        return -2;
     }
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
     //query.finish();
     //return -3;
 }
@@ -1245,15 +1245,15 @@ bool DataBase::updateToLatest()
  * Update float DBVersionf = 0.028f; in database.h to the latest version!
  * To rebuild the Mode table and add new modes
  */
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     if (requiresManualUpgrade())
     {
 
-        qDebug() << Q_FUNC_INFO << " requires" ;
+        //qDebug() << Q_FUNC_INFO << " requires" ;
         exit(1);
         //return false;
     }
-    qDebug() << Q_FUNC_INFO << " - Let's update!";
+    //qDebug() << Q_FUNC_INFO << " - Let's update!";
     return updateTo028();
 }
 
@@ -1265,15 +1265,15 @@ bool DataBase::requiresManualUpgrade()
     // Install new KLog version
     // import ADIF file
 
-    qDebug() << Q_FUNC_INFO << " - Start - ver: " << getDBVersion() << " / " << DBVersionf ;
+    //qDebug() << Q_FUNC_INFO << " - Start - ver: " << getDBVersion() << " / " << DBVersionf ;
     if (getDBVersion() >= 0.007f)
     {
-        qDebug() << Q_FUNC_INFO << "  - END - false" ;
+        //qDebug() << Q_FUNC_INFO << "  - END - false" ;
         return false;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << "  -  true" ;
+        //qDebug() << Q_FUNC_INFO << "  -  true" ;
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setWindowTitle(QObject::tr("KLog - DB can't be updated automatically"));
@@ -1399,7 +1399,7 @@ bool DataBase::updateTo004()
 
 bool DataBase::updateTo005()
 {// Updates the DB to 0.0.5
-       qDebug() << Q_FUNC_INFO << " - Start: " << getDBVersion() ;
+       //qDebug() << Q_FUNC_INFO << " - Start: " << getDBVersion() ;
        bool IAmIn005 = false;
        bool IAmIn004 = false;
        bool ErrorUpdating = false;
@@ -1415,28 +1415,28 @@ bool DataBase::updateTo005()
 
        if (latestReaded >= 0.005f)
        {
-          qDebug() << Q_FUNC_INFO << "  - Already in 005" ;
+          //qDebug() << Q_FUNC_INFO << "  - Already in 005" ;
            return true;
        }
        else
        {
-                qDebug() << Q_FUNC_INFO << "  - - 005 update false" ;
+                //qDebug() << Q_FUNC_INFO << "  - - 005 update false" ;
            IAmIn005 = false;
        }
 
 
        while (!IAmIn005 && !ErrorUpdating)
        {
-           qDebug() << Q_FUNC_INFO << "  -  - I am not in 005" ;
+           //qDebug() << Q_FUNC_INFO << "  -  - I am not in 005" ;
            while (!IAmIn004 && !ErrorUpdating)
            {
-                    qDebug() << Q_FUNC_INFO << "  -  - I am not in 004" ;
+                    //qDebug() << Q_FUNC_INFO << "  -  - I am not in 004" ;
                IAmIn004 = updateTo004();
            }
-              qDebug() << Q_FUNC_INFO << "  -  - I am in 004" ;
+              //qDebug() << Q_FUNC_INFO << "  -  - I am in 004" ;
            if (ErrorUpdating)
            {
-                  qDebug() << Q_FUNC_INFO << "  -  - 005 update false2" ;
+                  //qDebug() << Q_FUNC_INFO << "  -  - 005 update false2" ;
               // emit debugLog(Q_FUNC_INFO, "1", 7);
                return false;
            }
@@ -1446,7 +1446,7 @@ bool DataBase::updateTo005()
            { // Version updated
                if (recreateContestData())
                {
-                        qDebug() << Q_FUNC_INFO << "  -  - recreateContestData OK" ;
+                        //qDebug() << Q_FUNC_INFO << "  -  - recreateContestData OK" ;
 
                    sqlOk = execQuery(Q_FUNC_INFO, "DROP table logs");
 
@@ -1454,7 +1454,7 @@ bool DataBase::updateTo005()
                     if (!sqlOk)
                     {
                         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                            qDebug() << Q_FUNC_INFO << "  -  - logs table do not created" ;
+                            //qDebug() << Q_FUNC_INFO << "  -  - logs table do not created" ;
                     }
 
 
@@ -1471,7 +1471,7 @@ bool DataBase::updateTo005()
                         {
                           queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                             //showError(QObject::tr("QSOs not updated to main log"));
-                                 qDebug() << Q_FUNC_INFO << "  -  - QSOs not updated to main log" ;
+                                 //qDebug() << Q_FUNC_INFO << "  -  - QSOs not updated to main log" ;
                         }
 
                         QString dateString = (QDate::currentDate()).toString("yyyy-MM-dd");
@@ -1501,25 +1501,25 @@ bool DataBase::updateTo005()
                         {
                             queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
                             //showError(QObject::tr("New Log not created"));
-                                 qDebug() << Q_FUNC_INFO << "  -  - New Log not created" ;
-                                 qDebug() << Q_FUNC_INFO << "  -  Log deleted FAILED" ;
+                                 //qDebug() << Q_FUNC_INFO << "  -  - New Log not created" ;
+                                 //qDebug() << Q_FUNC_INFO << "  -  Log deleted FAILED" ;
                         }
                    }
                    IAmIn005 = true;
                }
                else
                {
-                        qDebug() << Q_FUNC_INFO << "  -  - recreateContestData FAILED" ;
+                        //qDebug() << Q_FUNC_INFO << "  -  - recreateContestData FAILED" ;
                    ErrorUpdating = true;
                }
            }
            else
            { // Version not updated
-                    qDebug() << Q_FUNC_INFO << "  -  - 005 update false6" ;
+                    //qDebug() << Q_FUNC_INFO << "  -  - 005 update false6" ;
                 ErrorUpdating = true;
            }
        }
-            qDebug() << Q_FUNC_INFO << "  -  - 005 updated 3" ;
+            //qDebug() << Q_FUNC_INFO << "  -  - 005 updated 3" ;
 
        //TODO: Delete the table and recreate it
        if (IAmIn005)
@@ -1531,14 +1531,14 @@ bool DataBase::updateTo005()
         {
           // emit debugLog(Q_FUNC_INFO, "2", 7);
         }
-             qDebug() << Q_FUNC_INFO << "  -  - I am in 005 already!! " ;
+             //qDebug() << Q_FUNC_INFO << "  -  - I am in 005 already!! " ;
           //qDebug() <<  Q_FUNC_INFO << " -UPDATED OK!" ;
        return IAmIn005;
 }
 
 bool DataBase::recreateSatelliteData()
 {
-    qDebug() << Q_FUNC_INFO << "  - Start ";
+    //qDebug() << Q_FUNC_INFO << "  - Start ";
     QSqlQuery query;
 
     if (isTheTableExisting("satellites"))
@@ -1578,7 +1578,7 @@ bool DataBase::recreateSatelliteData()
 
 bool DataBase::recreateContestData()
 {
-    qDebug() << Q_FUNC_INFO << "  - Start";
+    //qDebug() << Q_FUNC_INFO << "  - Start";
     if (isTheTableExisting("contest"))
     {
         QSqlQuery query;
@@ -1604,7 +1604,7 @@ bool DataBase::recreateContestData()
 
 bool DataBase::recreateSupportedContest()
 {
-       qDebug() << Q_FUNC_INFO << "  - Start";
+       //qDebug() << Q_FUNC_INFO << "  - Start";
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
 
     if (isTheTableExisting("supportedcontests"))
@@ -1614,15 +1614,15 @@ bool DataBase::recreateSupportedContest()
         sqlOk = execQuery(Q_FUNC_INFO, "DROP TABLE supportedcontests");
         if (sqlOk)
         {
-                qDebug() << Q_FUNC_INFO << "  - SQLOK"  ;
+                //qDebug() << Q_FUNC_INFO << "  - SQLOK"  ;
             if (createTableSupportedContest())
             {
-                    qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
+                    //qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
                 return populateTableSupportedContest();
             }
             else
             {
-                    qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE"  ;
+                    //qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE"  ;
                 return false;
             }
         }
@@ -1635,23 +1635,23 @@ bool DataBase::recreateSupportedContest()
     {
         if (createTableSupportedContest())
         {
-                qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
+                //qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
             return populateTableSupportedContest();
         }
         else
         {
-                qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE"  ;
+                //qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE"  ;
             return false;
         }
     }
-        qDebug() << Q_FUNC_INFO << "  - - FALSE end"  ;
+        //qDebug() << Q_FUNC_INFO << "  - - FALSE end"  ;
     return false;
 }
 
 
 bool DataBase::recreatePropModes()
 {
-    qDebug() << Q_FUNC_INFO << "  - Start";
+    //qDebug() << Q_FUNC_INFO << "  - Start";
     if (isTheTableExisting("prop_mode_enumeration"))
     {
         bool sqlOk = false;
@@ -1659,18 +1659,18 @@ bool DataBase::recreatePropModes()
 
         if (sqlOk)
         {
-               qDebug() << Q_FUNC_INFO << "  - SQLOK"  ;
+               //qDebug() << Q_FUNC_INFO << "  - SQLOK"  ;
             if (createTablePropModes())
             {
-                   qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
+                   //qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
                 if (populatePropagationModes())
                 {
-                       qDebug() << Q_FUNC_INFO << "  - - populatePropModes OK"  ;
+                       //qDebug() << Q_FUNC_INFO << "  - - populatePropModes OK"  ;
                     return true;
                 }
                 else
                 {
-                       qDebug() << Q_FUNC_INFO << "  - - populatePropModes NOK"  ;
+                       //qDebug() << Q_FUNC_INFO << "  - - populatePropModes NOK"  ;
                     return false;
                 }
             }
@@ -1678,41 +1678,41 @@ bool DataBase::recreatePropModes()
 
 
             {
-                     qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE-1"  ;
+                     //qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE-1"  ;
                   return false;
             }
         }
         else
         {
             //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-                 qDebug() << Q_FUNC_INFO << "  - - prop_mode_enumeration table has not been dropped"  ;
-                 qDebug() << Q_FUNC_INFO << "  - : Table creation FAILED" ;
+                 //qDebug() << Q_FUNC_INFO << "  - - prop_mode_enumeration table has not been dropped"  ;
+                 //qDebug() << Q_FUNC_INFO << "  - : Table creation FAILED" ;
         }
     }
     else
     {
-          qDebug() << Q_FUNC_INFO << "  - Table does NOT Exist"  ;
+          //qDebug() << Q_FUNC_INFO << "  - Table does NOT Exist"  ;
         if (createTablePropModes())
         {
-               qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
+               //qDebug() << Q_FUNC_INFO << "  - - createTable OK"  ;
             if (populatePropagationModes())
             {
-                   qDebug() << Q_FUNC_INFO << "  - - populatePropModes OK"  ;
+                   //qDebug() << Q_FUNC_INFO << "  - - populatePropModes OK"  ;
                 return true;
             }
             else
             {
-                   qDebug() << Q_FUNC_INFO << "  - - populatePropModes NOK"  ;
+                   //qDebug() << Q_FUNC_INFO << "  - - populatePropModes NOK"  ;
                 return false;
             }
         }
         else
         {
-                 qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE-2"  ;
+                 //qDebug() << Q_FUNC_INFO << "  - createTableSupportContest FALSE-2"  ;
         }
     }
 
-        qDebug() << Q_FUNC_INFO << "  - - FALSE end"  ;
+        //qDebug() << Q_FUNC_INFO << "  - - FALSE end"  ;
     return false;
 }
 
@@ -1756,7 +1756,7 @@ bool DataBase::createTableLogs(const bool real)
 
 bool DataBase::createTablePropModes()
 {
-     qDebug() << Q_FUNC_INFO << "  - Start";
+     //qDebug() << Q_FUNC_INFO << "  - Start";
 
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists prop_mode_enumeration");
     return execQuery(Q_FUNC_INFO, "CREATE TABLE prop_mode_enumeration (id INTEGER PRIMARY KEY AUTOINCREMENT, shortname VARCHAR(8), name VARCHAR(55) )");
@@ -1764,7 +1764,7 @@ bool DataBase::createTablePropModes()
 
 bool DataBase::createTableSupportedContest()
 {
-         qDebug() << Q_FUNC_INFO << "  - Start";
+         //qDebug() << Q_FUNC_INFO << "  - Start";
     execQuery(Q_FUNC_INFO, "DROP TABLE IF exists supportedcontests");
 
     QString st = QString("CREATE TABLE supportedcontests ("
@@ -1776,7 +1776,7 @@ bool DataBase::createTableSupportedContest()
 
 bool DataBase::createTableContest()
 {
-    qDebug() << Q_FUNC_INFO << "  - Start";
+    //qDebug() << Q_FUNC_INFO << "  - Start";
     //QSqlQuery query;
 
     createTableSupportedContest();
@@ -1857,13 +1857,13 @@ bool DataBase::createTableContest()
     execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('2', 'CW')");
     execQuery(Q_FUNC_INFO, "INSERT INTO contestcatmode (id, name) VALUES ('3', 'MIXED')");
 
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
     return true;
 }
 
 bool DataBase::populateTableSupportedContest()
 {
-    qDebug() << Q_FUNC_INFO << "  - Start";
+    //qDebug() << Q_FUNC_INFO << "  - Start";
     // ADDING ALL THE CATEGORIES OPTIONS
     return execQuery(Q_FUNC_INFO, "INSERT INTO supportedcontests (id, longname, name) VALUES ('0', 'Normal log', 'DX')");
 }
@@ -1890,7 +1890,7 @@ bool DataBase::populateTableQSL_Via_enumeration()
 
 bool DataBase::createTableMode(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
-    qDebug() << Q_FUNC_INFO << "  - Start";
+    //qDebug() << Q_FUNC_INFO << "  - Start";
     QString stringQuery = QString();
     QSqlQuery query;
     if (NoTmp)
@@ -1910,7 +1910,7 @@ bool DataBase::createTableMode(const bool NoTmp)
                                             "UNIQUE (name, submode))"
                                             );
 
-        qDebug() << Q_FUNC_INFO << "  - END";
+        //qDebug() << Q_FUNC_INFO << "  - END";
 
         return execQuery(Q_FUNC_INFO, stringQuery);
 }
@@ -1918,21 +1918,21 @@ bool DataBase::createTableMode(const bool NoTmp)
 
 bool DataBase::populateTableWithModes(const QStringList& submodes, const QString& mode, const QString& cabrillo, bool NoTmp)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
-    qDebug() << Q_FUNC_INFO << " - Mode:     " << mode;
-    qDebug() << Q_FUNC_INFO << " - Cabrillo: " << cabrillo;
-    qDebug() << Q_FUNC_INFO << " - NoTmp:    " << util->boolToQString(NoTmp);
-    qDebug() << Q_FUNC_INFO << " - Submodes: " << submodes.count();
-    util->printQString(submodes);
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Mode:     " << mode;
+    //qDebug() << Q_FUNC_INFO << " - Cabrillo: " << cabrillo;
+    //qDebug() << Q_FUNC_INFO << " - NoTmp:    " << util->boolToQString(NoTmp);
+    //qDebug() << Q_FUNC_INFO << " - Submodes: " << submodes.count();
+    //util->printQString(submodes);
 
 
     QString table = NoTmp ? "mode" : "modetemp";
-    qDebug() << Q_FUNC_INFO << " - Table: " << table;
+    //qDebug() << Q_FUNC_INFO << " - Table: " << table;
 
     // 1. Preparar la lista de submodos garantizando que el modo principal esté incluido
     QStringList uniqueSubmodes;
     if (submodes.isEmpty()) {
-        qDebug() << Q_FUNC_INFO << " - submodes EMPTY";
+        //qDebug() << Q_FUNC_INFO << " - submodes EMPTY";
         uniqueSubmodes << mode; // Si no hay submodos, el modo actúa como su propio submodo
     } else {
         uniqueSubmodes = submodes;
@@ -1960,17 +1960,17 @@ bool DataBase::populateTableWithModes(const QStringList& submodes, const QString
         if (!query.exec()) {
             queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
             db.rollback();
-            qDebug() << Q_FUNC_INFO << " - END FALSE";
+            //qDebug() << Q_FUNC_INFO << " - END FALSE";
             return false;
         }
     }
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return db.commit();
 }
 
 bool DataBase::populateTableMode(const bool NoTmp)
 {
-    qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 
     // Lista centralizada con modos y submodos, asociando submodos a modos
     const QList<ModeGroup> adifData = {
@@ -2036,37 +2036,37 @@ bool DataBase::populateTableMode(const bool NoTmp)
         {"WINMOR", "DG", {}},
         {"WSPR", "DG", {}}
     };
-    qDebug() << Q_FUNC_INFO << " - 010";
+    //qDebug() << Q_FUNC_INFO << " - 010";
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (!db.isOpen()) {
-        qDebug() << Q_FUNC_INFO << " - Database is not open!";
+        //qDebug() << Q_FUNC_INFO << " - Database is not open!";
         return false;
     }
 
     //bool transactionStarted = db.transaction();
     //if (!transactionStarted) {
-    //    qDebug() << Q_FUNC_INFO << " - Failed to start a transaction!";
+    //    //qDebug() << Q_FUNC_INFO << " - Failed to start a transaction!";
     //    return false;
     //}
-        qDebug() << Q_FUNC_INFO << " - 020";
+        //qDebug() << Q_FUNC_INFO << " - 020";
         for (const auto &group : adifData) {
-            qDebug() << Q_FUNC_INFO << " - 021 - Processing mode: " << group.mode;
+            //qDebug() << Q_FUNC_INFO << " - 021 - Processing mode: " << group.mode;
 
             if (!populateTableWithModes(group.submodes, group.mode, group.cabrillo, NoTmp)) {
-                qDebug() << Q_FUNC_INFO << " - 022 Error populating mode: " << group.mode;
+                //qDebug() << Q_FUNC_INFO << " - 022 Error populating mode: " << group.mode;
 
                 //bool rollOK = db.rollback();
                 //qDebug() << Q_FUNC_INFO << " - 023: " << util->boolToQString(rollOK);
                 return false;
             }
-            qDebug() << Q_FUNC_INFO << " - 025";
+            //qDebug() << Q_FUNC_INFO << " - 025";
         }
-        qDebug() << Q_FUNC_INFO << " - 030";
+        //qDebug() << Q_FUNC_INFO << " - 030";
 
         //bool success = db.commit();
-        qDebug() << Q_FUNC_INFO << " - 031 - True";
+        //qDebug() << Q_FUNC_INFO << " - 031 - True";
         //logEvent(Q_FUNC_INFO, success ? "End OK" : "End FAIL", Debug);
         //qDebug() << Q_FUNC_INFO << " - Success: " << util->boolToQString(success);
         //return success;
@@ -2078,7 +2078,7 @@ bool DataBase::createTableSatellites(const bool NoTmp)
 { // NoTmp = false => TMP data table to operate and be deleted afterwards
     //Creating the Sats DB to be able to include satellites to the LOTW
 
-    qDebug() << Q_FUNC_INFO << " - Start" ;
+    //qDebug() << Q_FUNC_INFO << " - Start" ;
 
     // The satmode column has the following format: {Up/down-mode;Up/down-mode}
     // this way we can implement several freqs/modes per sat
@@ -2133,7 +2133,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
 {
     // Data must come from:
     // https://lotw.arrl.org/lotw-help/frequently-asked-questions/#sats
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     //QSqlQuery query;
     QString tableName = QString();
@@ -2224,7 +2224,7 @@ bool DataBase::populateTableSatellites(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('FS-3', 'FalconSat-3', '435.103', '145.840', 'PKT')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (satarrlid, satname, uplink, downlink, satmode) VALUES ('QO-100', 'Es''hail-2', '2400.050-2409.500', '10489.550-10499.000', 'SSB,CW')").arg(tableName));
 
-     qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
@@ -2356,7 +2356,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
 {
     // Cabrillo definition: http://wwrof.org/cabrillo/cabrillo-specification-v3/
 
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
 
     QString tableName = QString();
@@ -2409,14 +2409,14 @@ bool DataBase::populateTableBand(const bool NoTmp)
 
     updateBandHash();
 
-    qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
 
 bool DataBase::populatePropagationModes()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     //QSqlQuery query;
 
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('AS', 'Aircraft Scatter')"));
@@ -2440,14 +2440,14 @@ bool DataBase::populatePropagationModes()
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TEP', 'Trans-equatorial')"));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO prop_mode_enumeration (shortname, name) VALUES ('TR', 'Tropospheric ducting')"));
 
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
     return true;
 }
 
 
 bool DataBase::populateContestData()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
 
 
@@ -2508,13 +2508,13 @@ bool DataBase::populateContestData()
     // CQ WW DX SSB END
 */
 
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
     return true;
 }
 
 bool DataBase::howManyQSOsInLog(const int i)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 
     QSqlQuery query;
     QString sqlQueryString = QString("SELECT COUNT(id) from log WHERE lognumber='%1'").arg(i);
@@ -2525,12 +2525,12 @@ bool DataBase::howManyQSOsInLog(const int i)
         query.next();
         if (query.isValid())
         {
-            qDebug() << Q_FUNC_INFO << "  - END";
+            //qDebug() << Q_FUNC_INFO << "  - END";
             return (query.value(0)).toInt();
         }
         else
         {
-                qDebug() << Q_FUNC_INFO << "  - END-1";
+                //qDebug() << Q_FUNC_INFO << "  - END-1";
             query.finish();
             return false;
         }
@@ -2539,7 +2539,7 @@ bool DataBase::howManyQSOsInLog(const int i)
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-        qDebug() << Q_FUNC_INFO << "  - END-2";
+        //qDebug() << Q_FUNC_INFO << "  - END-2";
         return false;
     }
     //query.finish();
@@ -3511,7 +3511,7 @@ bool DataBase::updateTo010()
 bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 {
     QString dateString = util->getDateSQLiteStringFromDate(QDate::currentDate());
-    qDebug() << Q_FUNC_INFO << " - Start (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV ;
+    //qDebug() << Q_FUNC_INFO << " - Start (date/SoftVersion/dbVersion): " << dateString << "/" << _softV << "/" << _dbV ;
     //QString stringQuery = "INSERT INTO softwarecontrol (dateupgrade, softversion, dbversion) VALUES ('" + dateString + "', '" + _softV + "', '" + _dbV + "')";
 
 
@@ -3528,7 +3528,7 @@ bool DataBase::updateDBVersion(QString _softV, QString _dbV)
 
 bool DataBase::updateTheModeTableAndSyncLog()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSqlQuery query;
 
     createTableMode(false);         // Create modetemp
@@ -3542,7 +3542,7 @@ bool DataBase::updateTheModeTableAndSyncLog()
     bool sqlOK = execQuery(Q_FUNC_INFO, "DROP TABLE mode");
     if (sqlOK)
     {
-             qDebug() << Q_FUNC_INFO << "  - - OK - mode was dropped" ;
+             //qDebug() << Q_FUNC_INFO << "  - - OK - mode was dropped" ;
         sqlOK = execQuery(Q_FUNC_INFO, "ALTER TABLE modetemp RENAME TO mode");
         if (!sqlOK)
         {
@@ -3553,17 +3553,17 @@ bool DataBase::updateTheModeTableAndSyncLog()
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            qDebug() << Q_FUNC_INFO << "  -- ERROR - modetemp not dropped" ;
+            //qDebug() << Q_FUNC_INFO << "  -- ERROR - modetemp not dropped" ;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-         qDebug() << Q_FUNC_INFO << "  - END";
+         //qDebug() << Q_FUNC_INFO << "  - END";
     //return true;
 }
 
 bool DataBase::recreateTableBand()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSqlQuery query;
 
     createTableBand(false);         // Create modetemp
@@ -3578,11 +3578,11 @@ bool DataBase::recreateTableBand()
     else
     {
         queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        qDebug() << Q_FUNC_INFO << "  -  ERROR - bandtemp not dropped" ;
+        //qDebug() << Q_FUNC_INFO << "  -  ERROR - bandtemp not dropped" ;
        // emit debugLog(Q_FUNC_INFO, "2", 7);
         return false;
     }
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
 }
 
 QMultiMap<QString, int> DataBase::fillCountryCodes()
@@ -3957,7 +3957,7 @@ QMultiMap<QString, int> DataBase::fillCountryCodes()
 
 bool DataBase::updateTheEntityTableISONames()
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
     QSqlQuery query;
     QString sq;
 
@@ -3984,7 +3984,7 @@ bool DataBase::updateTheEntityTableISONames()
             //qDebug() << str << ':' << i;
         }
     }
-    qDebug() << Q_FUNC_INFO << "  - END";
+    //qDebug() << Q_FUNC_INFO << "  - END";
     return true;
 }
 
@@ -5064,17 +5064,17 @@ bool DataBase::updateTo028()
 {
     // Updates the DB to 0.028:
     // Recreates Mode to add new modes
-    qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
     latestReaded = getDBVersion();
     if (latestReaded >= 0.028f)
     {
-        qDebug() << Q_FUNC_INFO << " - I am in 028" ;
+        //qDebug() << Q_FUNC_INFO << " - I am in 028" ;
         return true;
     }
-    qDebug() << Q_FUNC_INFO << " - 10" ;
+    //qDebug() << Q_FUNC_INFO << " - 10" ;
     if (!updateTo027())
         return false;
-   qDebug() << Q_FUNC_INFO << " - 20" ;
+   //qDebug() << Q_FUNC_INFO << " - 20" ;
     // Start executing the code to update to this version
 
     if (!updateTheModeTableAndSyncLog())
@@ -5082,7 +5082,7 @@ bool DataBase::updateTo028()
 
 
     // Modify the DB version
-    qDebug() << Q_FUNC_INFO << " - 50" ;
+    //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.028");
 }
 
