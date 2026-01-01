@@ -701,8 +701,8 @@ bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>
     query.prepare(
         "INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) "
         "VALUES (:pref, :dxcc, :cqz, :ituz)");
-
-    QSqlDatabase::database().transaction();  // Start the transaction
+    dataProxy->beginTransaction();
+    //QSqlDatabase::database().transaction();  // Start the transaction
 
     foreach (const auto &prefix, pairPrefixes)
     {
@@ -714,12 +714,13 @@ bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>
         if (!query.exec())
         {
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            QSqlDatabase::database().rollback();  // Rollback transaction on error
+            dataProxy->rollbackTransaction();
+            //QSqlDatabase::database().rollback();  // Rollback transaction on error
             return false;
         }
     }
-
-    QSqlDatabase::database().commit();  // Commit the transaction
+    dataProxy->commitTransaction();
+    //QSqlDatabase::database().commit();  // Commit the transaction
     return true;
 }
 
