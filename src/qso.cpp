@@ -1350,16 +1350,16 @@ QString QSO::getLoTWQSL_SENT() const
 
 bool QSO::setLoTWQSLSDate(const QDate &_c)
 {
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     if (_c.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " - valid";
+        qDebug() << Q_FUNC_INFO << " - valid";
         QSLLoTWSDate = _c;
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - NOT valid";
+        qDebug() << Q_FUNC_INFO << " - NOT valid";
         QSLLoTWSDate = QDate();
         return false;
     }
@@ -3447,6 +3447,7 @@ bool QSO::setHamLogEUUpdateDate(const QString& data) { return setHamLogEUUpdateD
 bool QSO::setHamQTHUpdateDate(const QString& data) { return setHamQTHUpdateDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setLoTWQSLRDate(const QString& data) { return setLoTWQSLRDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setLoTWQSLSDate(const QString& data) { return setLoTWQSLSDate(util->getDateFromADIFDateString(data)); }
+//bool QSO::setLoTWRXQSO(const QString& data) {return setLoTWRXQSO(data);};
 bool QSO::setQRZCOMDate(const QString& data) { return setQRZCOMDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setQSLRDate(const QString& data) { return setQSLRDate(util->getDateFromADIFDateString(data)); }
 bool QSO::setQSLSDate(const QString& data) { return setQSLSDate(util->getDateFromADIFDateString(data)); }
@@ -3457,6 +3458,23 @@ bool QSO::setSilentKey(const QString& data) { return setSilentKey(util->QStringT
 bool QSO::setSwl(const QString& data) { return setSwl(util->QStringToBool(data)); }
 bool QSO::setTimeOff(const QString& data) { return setTimeOff(util->getTimeFromADIFTimeString(data)); }
 bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADIFTimeString(data)); }
+
+
+bool QSO::setLoTWRXQSO(const QString& data)
+{
+    //Revisar los datos que llegan aqui
+    qDebug() << Q_FUNC_INFO << " - " << data;
+    QDateTime parsedDate = QDateTime::fromString(data, "yyyy-MM-dd HH:mm:ss");
+    if (!parsedDate.isValid())
+    {
+        qDebug() << Q_FUNC_INFO << " - Invalid APP_LoTW_RXQSO date: " <<data;
+        return false;
+    }
+    setLoTWQSL_SENT("Y");
+    setLoTWQSLRDate(parsedDate.date());
+
+    return true;
+}
 
 /*
 bool QSO::setLoTWQSLRDate2(const QString& data) {
@@ -3623,8 +3641,7 @@ void QSO::InitializeHash() {
         {"WEB", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWeb)},
         {"WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWWFF_Ref)},
         {"APP_LOTW_RXQSL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLRDate)},
-        {"APP_LOTW_RXQSO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate)}
-        //{"APP_LOTW_QSO_TIMESTAMP", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLSDate2)}
+        {"APP_LOTW_RXQSO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWRXQSO)}
     };
     return;
 }
@@ -3634,7 +3651,7 @@ void QSO::InitializeHash() {
 bool QSO::setData(const QString &_adifPair, bool _lotw)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
+    qDebug() << Q_FUNC_INFO << ": " << _adifPair << " - "  << util->boolToQString(_lotw);
     QStringList d;
     d.clear();
     Adif adif(Q_FUNC_INFO);
@@ -3657,21 +3674,25 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
 
     //QString field = d.at(0).toUpper();
     //QString data = d.at(1);
-
+    if (_lotw)
+        qDebug() << Q_FUNC_INFO << " - LOTW QSO";
+    else
+        qDebug() << Q_FUNC_INFO << " - NO LOTW QSO";
     //<APP_LoTW_QSO_TIMESTAMP:20>2022-04-23T18:08:00Z // QSO Date & Time; ISO-8601
     if (_lotw)
     {
         //qDebug() << Q_FUNC_INFO << " - field: " << field;
-        //qDebug() << Q_FUNC_INFO << " LOTW QSO... ";
+        qDebug() << Q_FUNC_INFO << " LOTW QSO... ";
         if (aField.field == "APP_LOTW_RXQSO")
         {// Timestamp when QSO record was inserted/updated at LoTW
          // LOTW_QSLSDATE
-            //qDebug() << Q_FUNC_INFO << " - APP_LOTW_RXQSO";
-            //qDebug() << Q_FUNC_INFO << " LOTW_QSLSDATE: " << data;
-            //qDebug() << Q_FUNC_INFO << " LOTW_QSLSDATE-d: " << data;
-            aField.field = "LOTW_QSLSDATE";
-            aField.value = adif.getADIFDateStringFromLoTWDateTime(aField.value);
-            setLoTWQSL_SENT("Y");
+            qDebug() << Q_FUNC_INFO << " - APP_LOTW_RXQSO: " << _adifPair;
+
+
+            //aField.field = "LOTW_QSLSDATE";
+            //aField.value = adif.getADIFDateStringFromLoTWDateTime(aField.value);
+            qDebug() << Q_FUNC_INFO << " - aField.value: " << aField.value;
+            //setLoTWQSL_SENT("Y");
         }
         else if (aField.field == "APP_LoTW_QSO_TIMESTAMP")
         {
@@ -3688,7 +3709,6 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
             //qDebug() << Q_FUNC_INFO << " Date: " << data;
             aField.field = "LOTW_QSLRDATE";
             aField.value = adif.getADIFDateStringFromLoTWDateTime(aField.value);
-            //qDebug() << Q_FUNC_INFO << " LOTW_QSLRDATE: " << data;
         }
         else if (aField.field == "QSLRDATE")
         {
@@ -3718,6 +3738,7 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
 
 bool QSO::updateFromLoTW(const int _qsoId)
 {
+   //REVISAR SI SE ACTUALIZA EL QSL_SENT al importar de LOTW
     //CALL, BAND, FREQ, QSODATE, MODE
     //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
     // Start by finding the QSO ID
@@ -3778,8 +3799,16 @@ bool QSO::updateFromLoTW(const int _qsoId)
 
     if (_lotwTXDate.isValid() && (util->isValidQSL_Sent(_lotw_qsl_sent)) )
     {
-        //qDebug() << Q_FUNC_INFO << " - LOTW_QSLSDATE: : " << util->getADIFDateFromQDate(_lotwTXDate);
+        qDebug() << Q_FUNC_INFO << " - LOTW_QSLSDATE: : " << util->getADIFDateFromQDate(_lotwTXDate);
         setLoTWQSLSDate(_lotwTXDate);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - Something happens with LOTW_QSLSDATE";
+        if (!_lotwTXDate.isValid())
+            qDebug() << Q_FUNC_INFO << " - _lotwTXDate is not valid";
+        if (!util->isValidQSL_Sent(_lotw_qsl_sent))
+            qDebug() << Q_FUNC_INFO << " - util->isValidQSL_Sent(_lotw_qsl_sent not valid";
     }
 
     if (!_lotw_credit_granted.isEmpty())
@@ -3867,7 +3896,7 @@ int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
     // if _qsoID is >0 it should be an existing QSO in the DB.
    //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
-    printQSO();
+    //printQSO();
     if (!isComplete ())
     {
        //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
@@ -5164,13 +5193,18 @@ int QSO::getLastInsertedQSO()
 
 void QSO::printQSO()
 { // This function is just to print inthe console the QSO fields for debug purposes
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << "CALL: " << getCall();
+    qDebug() << Q_FUNC_INFO << "BAND: " << getBand();
+    qDebug() << Q_FUNC_INFO << "MODE: " << getMode();
+    qDebug() << Q_FUNC_INFO << "DATE: " << util->getADIFDateFromQDate(getDate());
+    qDebug() << Q_FUNC_INFO << "TIME: " << util->getADIFTimeFromQTime(getTimeOn());
 
-   //qDebug() << Q_FUNC_INFO << " - CallSign      : " <<  getCall();
-    //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_RCVD : " <<  getLoTWQSL_RCVD();
-    //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_RDATE: " <<  util->getDateSQLiteStringFromDate(getLoTWQSLRDate());
-    //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_SENT : " <<  getLoTWQSL_SENT();
-    //qDebug() << Q_FUNC_INFO << " - LoTW_QSL_SDATE: " <<  util->getDateSQLiteStringFromDate(getLoTWQSLSDate());
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << "LOTW_QSLSDATE: " << util->getADIFDateFromQDate(getLoTWQSLSDate());
+    qDebug() << Q_FUNC_INFO << "LOTW_QSL_SENT: " << getLoTWQSL_SENT();;
+    qDebug() << Q_FUNC_INFO << "LOTW_QSLRDATE: " << util->getADIFDateFromQDate(getLoTWQSLRDate());;
+    qDebug() << Q_FUNC_INFO << "LOTW_QSL_RCVD: " << getLoTWQSL_RCVD(); ;
+
+    qDebug() << Q_FUNC_INFO << " - END";
 }

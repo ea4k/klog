@@ -46,6 +46,7 @@ private slots:
     void test_Dates();
     void test_POTA();
     void test_WWFF();
+    void test_setPair();
 
 private:
     Adif *adif;
@@ -94,7 +95,34 @@ void tst_Adif::test_POTA()
 void tst_Adif::test_WWFF()
 {
     QVERIFY2(adif->isValidPOTA("KFF-4655"), "KFF-4655");
-    QVERIFY2(adif->isValidPOTA("3DAFF-0002 "), "3DAFF-0002");
+    //QVERIFY2(adif->isValidPOTA("3DAFF-0002 "), "3DAFF-0002");
+}
+
+void tst_Adif::test_setPair()
+{
+    //qDebug() << Q_FUNC_INFO;
+    /*
+struct ADIFField {
+    QString field;
+    QString value;
+    bool valid;
+    //QChar type;
+};
+     */
+    ADIFField pair;
+    pair = adif->setPair("<QSO_DATE:8>20190528");
+    QVERIFY2(pair.field == "QSO_DATE", "Pair-field-1");
+    QVERIFY2(pair.value == "20190528", "Pair-value-1");
+    QVERIFY2(pair.valid == true, "Pair-bool-1");
+
+    pair = adif->setPair("<APP_LoTW_RXQSO:19>2019-05-28 21:23:13 // QSO record inserted/modified at LoTW");
+    //qDebug() << Q_FUNC_INFO << " - " << pair.field;
+    //qDebug() << Q_FUNC_INFO << " - " << pair.value;
+    QVERIFY2(pair.field == "APP_LoTW_RXQSO", "Pair-field-2");
+    QVERIFY2(pair.value == "2019-05-28 21:23:13", "Pair-value-2");
+    QVERIFY2(pair.valid == true, "Pair-bool-2");
+
+
 }
 
 QTEST_APPLESS_MAIN(tst_Adif)

@@ -430,6 +430,7 @@ public:
     QString getADIF(ExportMode _em = ModeADIF);
     QString getBandNameFromFreq(const double _n); // Should be push out of this class
     bool updateFromLoTW(const int _qsoId);        // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+    void printQSO();        //TODO:  Complete: Prints all QSO fields - DEBUG ONLY
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
@@ -443,7 +444,7 @@ private:
     QString getADIFClubLog();
     QString getADIFeQSL();
 
-    void printQSO();
+
     bool isValidCall() const;
     bool isValidDateTime() const;
 
@@ -549,6 +550,8 @@ private:
     bool setHamQTHUpdateDate(const QString& data);
     bool setLoTWQSLRDate(const QString& data);
     bool setLoTWQSLSDate(const QString& data);
+    //bool setLoTWRXQSO(const QString& string);     // Receives the string date/time in LOTW format (APP_LoTW_RXQSO)
+    bool setLoTWRXQSO(const QString& data);
     bool setQRZCOMDate(const QString& data);
     bool setQSLRDate(const QString& data);
     bool setQSLSDate(const QString& data);

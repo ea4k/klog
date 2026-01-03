@@ -827,7 +827,6 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
         return -1;
 
     logfileInfo fileInfo = getADIFFIleInfo(file);
-    //bool lotWDownloaded = isALoTWDownloadedFile(file);
     bool lotWDownloaded = (fileInfo.programId == "LOTW");
 
     int qsos = fileInfo.numberOfQSOs;
@@ -841,7 +840,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setAutoClose(true);
 
-    dataProxy->beginTransaction();
+
 
     int step = util->getProgresStepForDialog(qsos);
     int i = 0;
@@ -853,6 +852,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     QTime startTime = QTime::currentTime();
     QStringList fields;
 
+    dataProxy->beginTransaction();
     while (!file.atEnd() && !noMoreQSO)
     {
         QString line = file.readLine().trimmed();
@@ -958,12 +958,14 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     if (modeId<=0)
         return -2;
 
+    qso.printQSO();
+
 
     // 3. Check for duplicates using the cached IDs
     // duplicatedId holds the existing ID if found, otherwise -1.
     int duplicatedId = dataProxy->findDuplicateId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
-    if (duplicatedId>0)
-        qDebug() << Q_FUNC_INFO << " - DUPE: " << duplicatedId << " / " << qso.getCall()<< " / " << util->getADIFDateFromQDate(qso.getDateTimeOn().date())<< " / " << bandId;
+    //if (duplicatedId>0)
+    //    qDebug() << Q_FUNC_INFO << " - DUPE: " << duplicatedId << " / " << qso.getCall()<< " / " << util->getADIFDateFromQDate(qso.getDateTimeOn().date())<< " / " << bandId;
 
     int qsoIdToUse = -1; // Initial value means INSERT new QSO
 

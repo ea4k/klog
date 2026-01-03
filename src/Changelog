@@ -1,7 +1,7 @@
-WIP: Working in DUPE detection taking into account time margin
+WIP: bool QSO::setLoTWRXQSO(const QString& data)
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
 
-TODO: Check if QSL_SENT is properly readed when importing from LoTW
+TODO: Check if is properly readed when importing from LoTW
 
 TODO: LoTW import ensure exiting QSOs are updated
 TODO: Update the DB to include new modes/submodes: THOR & PSK,...
@@ -24,6 +24,7 @@ TBD
 - Bugfix: Real time setting is not saved (Closes #839)
 - Bugfix: Map Filter is not properly filtering (Closes #827)
 - Bugfix: Primary subdivisions table in DB allowed duplicated entries.
+- Bugfix: SAT mode saved as SAT when no SAT QSO is done (Closes #857)
 
 
 Aug 2025 - 2.4.2

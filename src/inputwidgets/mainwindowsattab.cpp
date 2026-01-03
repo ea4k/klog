@@ -80,6 +80,8 @@ QSO MainWindowSatTab::getQSOData(QSO _qso)
 
 void MainWindowSatTab::setQSOData(const QSO &_qso)
 {
+    if (satNameComboBox->currentIndex() == 0)
+        return;
     QSO qso(_qso);
     setSatName(qso.getSatName());
     setSatMode(qso.getSatMode());

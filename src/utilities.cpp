@@ -207,7 +207,7 @@ void Utilities::InitializeHash() {
         {"WEB", "String"},
         {"WWFF_REF", "WWFFRef"},
         {"APP_LOTW_RXQSL", "Date"},
-        {"APP_LOTW_RXQSO", "Date"},
+        {"APP_LOTW_RXQSO", "String"},
         {"APP_LOTW_QSO_TIMESTAMP", "Date"}
     };
     return;
@@ -1289,7 +1289,7 @@ QTime Utilities::getTimeFromADIFTimeString(const QString &_s)
 
 QDate Utilities::getDateFromLoTWQSLDateString(const QString &_s)
 {
-    //qDebug() << "Utilities::getDateFromLoTWQSLDateString: " << _s ;
+    qDebug() << "Utilities::getDateFromLoTWQSLDateString: " << _s ;
     QStringList datet;
     datet.clear();
     if (_s.endsWith ('Z'))

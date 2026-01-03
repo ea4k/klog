@@ -62,6 +62,8 @@ ADIFField Adif::setPair(const QString &pair)
 
     QString header = pair.mid(1, closePos - 1);
     QString value = pair.mid(closePos + 1);
+    qDebug() << Q_FUNC_INFO << " - header: " << header;
+    qDebug() << Q_FUNC_INFO << " - value : " << value;
 
     QStringList parts = header.split(':');
     if (parts.size() < 2 || parts.size() > 3)
@@ -70,27 +72,38 @@ ADIFField Adif::setPair(const QString &pair)
     QString fieldName = parts[0].trimmed();
     bool ok = false;
     int length = parts[1].toInt(&ok);
+    qDebug() << Q_FUNC_INFO << " - length : " << length;
     if (!ok || length < 0)
         return result;
-
+    qDebug() << Q_FUNC_INFO << " - 050";
     // Optional: data type
     if (parts.size() == 3) {
         static QStringList validTypes = {"B","N","D","T","S","I","M","G","E","L"};
         if (!validTypes.contains(parts[2].trimmed().toUpper()))
             return result;
     }
+    qDebug() << Q_FUNC_INFO << " - 060";
+    if (value.length() != length)
+    {
+        if (value.length() > length)
+            value = value.left(length);
+        else
+            return result;
+    }
 
     if (value.length() != length)
         return result;
-
+    qDebug() << Q_FUNC_INFO << " - 070";
     // Field name must be non-empty and contain only allowed chars
     QRegularExpression fieldRe("^[A-Z0-9_]+$", QRegularExpression::CaseInsensitiveOption);
     if (!fieldRe.match(fieldName).hasMatch())
         return result;
-
+    qDebug() << Q_FUNC_INFO << " - 080";
     result.field = fieldName;
     result.value = value;
     result.valid = true;
+    qDebug() << Q_FUNC_INFO << " - header: " << result.field;
+    qDebug() << Q_FUNC_INFO << " - value : " << result.value;
     return result;
 }
 
@@ -244,7 +257,7 @@ void Adif::InitializeHash() {
         {"WEB", "String"},
         {"WWFF_REF", "WWFFRef"},
         {"APP_LOTW_RXQSL", "Date"},
-        {"APP_LOTW_RXQSO", "Date"},
+        {"APP_LOTW_RXQSO", "String"},
         {"APP_LOTW_QSO_TIMESTAMP", "Date"}
     };
     return;
