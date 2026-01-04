@@ -3462,7 +3462,7 @@ bool QSO::setTimeOn(const QString& data) { return setTimeOn(util->getTimeFromADI
 
 bool QSO::setLoTWRXQSO(const QString& data)
 {
-    //Revisar los datos que llegan aqui
+    Revisar los datos que llegan aqui
     qDebug() << Q_FUNC_INFO << " - " << data;
     QDateTime parsedDate = QDateTime::fromString(data, "yyyy-MM-dd HH:mm:ss");
     if (!parsedDate.isValid())
