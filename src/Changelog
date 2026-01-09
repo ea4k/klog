@@ -1,4 +1,5 @@
 WIP: bool QSO::setLoTWRXQSO(const QString& data)
+
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
 
 TODO: Check if is properly readed when importing from LoTW

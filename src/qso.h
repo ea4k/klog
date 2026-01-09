@@ -498,8 +498,8 @@ private:
     bool haveBand, haveMode, haveSubMode, haveDateTime, haveCall;
 
     QSODataCache *qdata;
-    Utilities *util;
-    Adif *adif;
+    //Utilities *util;
+    //Adif *adif;
     DebugLogLevel logLevel;
 
 

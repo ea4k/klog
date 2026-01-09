@@ -964,16 +964,18 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     // 3. Check for duplicates using the cached IDs
     // duplicatedId holds the existing ID if found, otherwise -1.
     int duplicatedId = dataProxy->findDuplicateId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
-    //if (duplicatedId>0)
-    //    qDebug() << Q_FUNC_INFO << " - DUPE: " << duplicatedId << " / " << qso.getCall()<< " / " << util->getADIFDateFromQDate(qso.getDateTimeOn().date())<< " / " << bandId;
+    if (duplicatedId>0)
+        qDebug() << Q_FUNC_INFO << " - DUPE: " << duplicatedId << " / " << qso.getCall()<< " / " << util->getADIFDateFromQDate(qso.getDateTimeOn().date())<< " / " << bandId;
 
     int qsoIdToUse = -1; // Initial value means INSERT new QSO
 
     if (qso.getLoTWUpdating())
     {
+        qDebug() << Q_FUNC_INFO << " - LOTW QSO, we should update";
         // LoTW Update Path: If duplicated, update the existing record.
         if (duplicatedId > 0)
         {
+            qDebug() << Q_FUNC_INFO << " - LOTW QSO: Already existing, update if needed";
             qso.updateFromLoTW(duplicatedId); // Pass existing ID to update the QSO object fields
             qsoIdToUse = duplicatedId;        // Set ID for the final toDB() call
         }
@@ -981,6 +983,7 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << " - Standard QSO import, if duplicated, ignore";
         // Standard Import Path: If duplicated, reject.
         if (duplicatedId > 0)
         {
