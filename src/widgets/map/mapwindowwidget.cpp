@@ -28,49 +28,49 @@
 MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
     Q_UNUSED(parent);
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
-    //qDebug() << Q_FUNC_INFO << "1";
+    // qDebug() << Q_FUNC_INFO << "1";
     mapWidget = new MapWidget(this);
-    //qDebug() << Q_FUNC_INFO << "2";
+    // qDebug() << Q_FUNC_INFO << "2";
     propComboBox = new QComboBox;
     bandComboBox = new QComboBox;
     modeComboBox = new QComboBox;
     satNameComboBox = new QComboBox;
     confirmedCheckBox = new QCheckBox;
     //locatorsCheckBox = new QCheckBox;
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 MapWindowWidget::~MapWindowWidget()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
    //delete(dataProxy);
     delete(mapWidget);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::init()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     workedColor = Qt::black;
     confirmedColor = Qt::black;
     defaultColor = Qt::black;
     createUI();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::addMarker(const Coordinate _coord, const QString _loc)
 {
     Q_UNUSED(_loc);
-    //qDebug() << Q_FUNC_INFO << QString(" %1 = %2/%3(lat/lon)").arg(_loc).arg(_coord.lat).arg(_coord.lon);
+    // qDebug() << Q_FUNC_INFO << QString(" %1 = %2/%3(lat/lon)").arg(_loc).arg(_coord.lat).arg(_coord.lon);
     mapWidget->addMarker(_coord);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::createUI()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     bandComboBox->setToolTip(tr("Select QSOs in this band."));
     modeComboBox->setToolTip(tr("Select QSOs in this mode."));
     propComboBox->setToolTip(tr("Select QSOs in this propagation mode."));
@@ -97,7 +97,7 @@ void MapWindowWidget::createUI()
 
     setPropModes();
     setSatNames();
-    //qDebug() << Q_FUNC_INFO << "3";
+    // qDebug() << Q_FUNC_INFO << "3";
     mapWidget->init(); // Creates map and paints persistent global grid
 
     connect(bandComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotBandsComboBoxChanged()));
@@ -107,19 +107,19 @@ void MapWindowWidget::createUI()
     connect(confirmedCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotConfirmedCheckBoxChanged()));
 
     satNameComboBox->setEnabled(false);// Starts disable until propagation = SAT
-    //qDebug() << Q_FUNC_INFO << "-END";
+    // qDebug() << Q_FUNC_INFO << "-END";
 }
 
 void MapWindowWidget::setCenter(const Coordinate &_c)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     mapWidget->setCenter(_c);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::setBands(const QStringList _bands)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QStringList bands;
     bands.clear();
     bands = _bands;
@@ -129,12 +129,12 @@ void MapWindowWidget::setBands(const QStringList _bands)
     bands.prepend("All - " + tr("All bands"));
     bands.prepend("None - " + tr("Show nothing"));
     bandComboBox->addItems(bands);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::setModes(const QStringList _modes)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QStringList modes;
     modes.clear();
     modes = _modes;
@@ -143,12 +143,12 @@ void MapWindowWidget::setModes(const QStringList _modes)
     modes.prepend("All - " + tr("All modes"));
     modeComboBox->clear();
     modeComboBox->addItems(modes);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::setPropModes()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QStringList propModeList;
     propModeList.clear();
     propModeList = dataProxy->getPropModeList();
@@ -158,15 +158,15 @@ void MapWindowWidget::setPropModes()
             //propModeList.prepend("01 - " + tr("Not - Not Identified"));
             propComboBox->addItems(propModeList);
         }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::setSatNames()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
 
     QString nosat = tr("All satellites");
-    //QString othersat = tr("Other - Sat not in the list");
+    // qString othersat = tr("Other - Sat not in the list");
     QStringList satellitesList;
     satellitesList.clear();
     satellitesList = dataProxy->getSatellitesList();
@@ -183,12 +183,12 @@ void MapWindowWidget::setSatNames()
         //TODO: Check how to do it better... now I could simply remove the if
         satNameComboBox->addItems(satellitesList);
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::showFiltered()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     // Always keep the grid visible; only manage overlays here.
     // If the "None - Show nothing" band is selected, just clear overlays and return.
     if (bandComboBox->currentIndex() == 0)
@@ -269,145 +269,145 @@ void MapWindowWidget::showFiltered()
             appendLocators(workedLocators, color);
         }
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 void MapWindowWidget::slotBandsComboBoxChanged()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
    showFiltered();
    bandComboBox->setFocus();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::slotModesComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     showFiltered();
     modeComboBox->setFocus();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::slotPropComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
 
     if (getPropModeFromComboBox() == "SAT")
     {
-        //qDebug() << Q_FUNC_INFO << ": SAT";
+        // qDebug() << Q_FUNC_INFO << ": SAT";
         satNameComboBox->setCurrentIndex(0);
         satNameComboBox->setEnabled(true);
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": NO SAT";
+        // qDebug() << Q_FUNC_INFO << ": NO SAT";
         satNameComboBox->setCurrentIndex(0);
         satNameComboBox->setEnabled(false);
     }
     showFiltered();
     propComboBox->setFocus();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::slotSatsComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     showFiltered();
     satNameComboBox->setFocus();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::slotConfirmedCheckBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     showFiltered();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 void MapWindowWidget::addQSO(const QString &_loc)
 {
     Q_UNUSED(_loc);
-    //qDebug() << Q_FUNC_INFO << ": " << _loc;
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << ": " << _loc;
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _loc;
+    // qDebug() << Q_FUNC_INFO << ": " << _loc;
     //if (!locator.isValidLocator(_loc))
     //{
     //    return;
     //}
     mapWidget->addLocator(_loc, _color);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_color)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     // Clear only overlays; keep the persistent grid
     mapWidget->clearDataLayers();
     foreach(QString i, _locators)
     {
         if (i.contains ("IN99"))
         {
-            //qDebug() << Q_FUNC_INFO << ": " << i;
+            // qDebug() << Q_FUNC_INFO << ": " << i;
         }
         mapWidget->addLocator(i, _color);
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::appendLocators(const QStringList &_locators, const QColor &_color)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     foreach(const QString &i, _locators)
     {
         //mapWidget->addLocator(i, confirmedColor);
         mapWidget->addLocator(i, _color);
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 QString MapWindowWidget::getPropModeFromComboBox()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QStringList _props =  ((propComboBox->currentText()).split('-'));
-    //qDebug() << Q_FUNC_INFO << ": " << _pm;
-    //qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText();
+    // qDebug() << Q_FUNC_INFO << ": " << _pm;
+    // qDebug() << Q_FUNC_INFO << ": " << propComboBox->currentText();
 
     QString _pm = _props.at(1);
     //(((propComboBox->currentText()).split('-')).at(0)).simplified();
-    //qDebug() << Q_FUNC_INFO << ": " << _pm;
-    //QString _n = (((propComboBox->currentText()).split('-')).at(1)).simplified();
-    //QString _n = _pm;
-    //qDebug() << Q_FUNC_INFO << ": " << _n;
+    // qDebug() << Q_FUNC_INFO << ": " << _pm;
+    // qString _n = (((propComboBox->currentText()).split('-')).at(1)).simplified();
+    // qString _n = _pm;
+    // qDebug() << Q_FUNC_INFO << ": " << _n;
 
     if (_props.at(0) == "All")
     {
-        //qDebug() << Q_FUNC_INFO << " - All";
+        // qDebug() << Q_FUNC_INFO << " - All";
         return "All";
     }
-    //qDebug() << Q_FUNC_INFO << " - " << (_props.at(1)).simplified();
+    // qDebug() << Q_FUNC_INFO << " - " << (_props.at(1)).simplified();
     return (_props.at(1)).simplified();
 }
 
 void MapWindowWidget::paintGlobalGrid()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     defaultColor = _default;
     workedColor = _worked;
     confirmedColor = _confirmed;
-    //qDebug() << " - DefaultColor: " << defaultColor.name(QColor::HexRgb);
-    //qDebug() << " - WorkedColor: " << workedColor.name(QColor::HexRgb);
-    //qDebug() << " - ConfirmedColor: " << confirmedColor.name(QColor::HexRgb);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << " - DefaultColor: " << defaultColor.name(QColor::HexRgb);
+    // qDebug() << " - WorkedColor: " << workedColor.name(QColor::HexRgb);
+    // qDebug() << " - ConfirmedColor: " << confirmedColor.name(QColor::HexRgb);
+    // qDebug() << Q_FUNC_INFO << " - END";
 }

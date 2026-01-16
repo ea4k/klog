@@ -44,19 +44,19 @@ FileAwardManager::~FileAwardManager()
 
 bool FileAwardManager::importNewAwardFile()
 {
-    //qDebug() << Q_FUNC_INFO << " -  " ;
+    // qDebug() << Q_FUNC_INFO << " -  " ;
     QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open Award file"), util->getHomeDir(), tr("Award files (*.awa)"));
-    //qDebug() << Q_FUNC_INFO << " -   - file: " << fileName ;
+    // qDebug() << Q_FUNC_INFO << " -   - file: " << fileName ;
     QFile file( fileName );
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        //qDebug() << Q_FUNC_INFO << " -   File not found" << fileName;
+        // qDebug() << Q_FUNC_INFO << " -   File not found" << fileName;
         showError(tr("Award file not opened"), tr("KLog was not able to read the award file"), QString(tr("It was not possible to open the file %1 for reading.") ).arg(fileName));
         return false;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " -   File opened";
+        // qDebug() << Q_FUNC_INFO << " -   File opened";
     }
 
     QString line = QString();
@@ -80,18 +80,18 @@ bool FileAwardManager::importNewAwardFile()
 
     while ( !file.atEnd() )
     { // KLog first read the full file, to detect potential format errors and counting the number of references
-        //qDebug() << Q_FUNC_INFO << " -  : First read, counting and looking for errors: " << line;
+        // qDebug() << Q_FUNC_INFO << " -  : First read, counting and looking for errors: " << line;
 
         line = file.readLine().trimmed().toUpper();
-        //qDebug() << Q_FUNC_INFO << " -  : " << line;
+        // qDebug() << Q_FUNC_INFO << " -  : " << line;
         number = number + line.count("EOR>");
         if ((line.count("<EOH>")>0) )
         {
             hasEOH = true;
         }
-        //qDebug() << " //FileAwardManager::importNewAwardFile in the while, end of loop" ;
+        // qDebug() << " //FileAwardManager::importNewAwardFile in the while, end of loop" ;
     }
-    //qDebug() << Q_FUNC_INFO << " -  : While finished " ;
+    // qDebug() << Q_FUNC_INFO << " -  : While finished " ;
     if (!hasEOH)
     {
         showError(tr("AWA wrong format"), tr("The AWA file does not have the right format"), QString(tr("AWA file does not have an <EOH> field") ));
@@ -119,7 +119,7 @@ bool FileAwardManager::importNewAwardFile()
 
             foreach (aux, fields)
             {
-                //qDebug() << Q_FUNC_INFO << " -  : Reading header: " << aux;
+                // qDebug() << Q_FUNC_INFO << " -  : Reading header: " << aux;
                 aux = aux.trimmed();
                 aux = "<" + aux;
                 QStringList adifField;
@@ -149,7 +149,7 @@ bool FileAwardManager::importNewAwardFile()
                     }
                     else
                     {
-                        //qDebug() << Q_FUNC_INFO << " -  : Invalid AWA field found HEADER" << adifField.at(0);
+                        // qDebug() << Q_FUNC_INFO << " -  : Invalid AWA field found HEADER" << adifField.at(0);
                     }
                 }
                 aux.clear();
@@ -158,7 +158,7 @@ bool FileAwardManager::importNewAwardFile()
         else
         { // NOT in EOH
             // Read line, MODIFY AWARD
-            //qDebug() << Q_FUNC_INFO << " -  : Parsing : " << line;
+            // qDebug() << Q_FUNC_INFO << " -  : Parsing : " << line;
             foreach (aux, fields)
             {
                 aux = aux.trimmed();
@@ -166,10 +166,10 @@ bool FileAwardManager::importNewAwardFile()
                 QStringList adifField;
                 adifField.clear();
                 adifField << util->getValidADIFFieldAndData(aux);
-                //qDebug() << Q_FUNC_INFO << " -  : Length: " << QString::number(adifField.count());
+                // qDebug() << Q_FUNC_INFO << " -  : Length: " << QString::number(adifField.count());
                 if (adifField.count()==2)
                 {
-                    //qDebug() << Q_FUNC_INFO << " -  : Parsing : (" << adifField.at(0) << "/" << adifField.at(1) << ")";
+                    // qDebug() << Q_FUNC_INFO << " -  : Parsing : (" << adifField.at(0) << "/" << adifField.at(1) << ")";
                     if (adifField.at(0) == "SUBDIV_REFNUMBER" )
                     {
                         sub_regionalID = adifField.at(1).toInt();
@@ -204,7 +204,7 @@ bool FileAwardManager::importNewAwardFile()
                     }
                     else if (adifField.at(0) == "EOR")
                     {// END OF REGISTRY
-                        //qDebug() << Q_FUNC_INFO << " -  : EOR FOUND!\nLet's add the reference.";
+                        // qDebug() << Q_FUNC_INFO << " -  : EOR FOUND!\nLet's add the reference.";
                         QStringList _subDiv;
                         dataProxy->addDXCCEntitySubdivision(sub_name, sub_shortname, sub_prefix, sub_regionalGroup,
                                                             sub_regionalID, sub_dxcc, sub_cqz, sub_ituz, sub_startDate, sub_endDate, sub_deleted);
@@ -222,7 +222,7 @@ bool FileAwardManager::importNewAwardFile()
                     }
                  else
                 {
-                    //qDebug() << Q_FUNC_INFO << " -  : Invalid AWA field found in BODY" << adifField.at(0);
+                    // qDebug() << Q_FUNC_INFO << " -  : Invalid AWA field found in BODY" << adifField.at(0);
                 }
             }
             }
@@ -233,7 +233,7 @@ bool FileAwardManager::importNewAwardFile()
 
 void FileAwardManager::showError(const QString &_header, const QString &_msg, const QString &_detailedMsg)
 {
-    //qDebug() << "FileAwardManager::showError: " << _msg;
+    // qDebug() << "FileAwardManager::showError: " << _msg;
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle(tr("KLog - %1").arg(_header));

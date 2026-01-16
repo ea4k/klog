@@ -28,7 +28,7 @@
 
 ShowErrorDialog::ShowErrorDialog()
 {
-       //qDebug() << "ShowErrorDialog::ShowErrorDialog" ;
+       // qDebug() << "ShowErrorDialog::ShowErrorDialog" ;
     text.clear();
     setWindowTitle(tr("KLog Message"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -54,17 +54,17 @@ ShowErrorDialog::ShowErrorDialog()
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addWidget(closeButton);
 
-    //QVBoxLayout *mainLayout = new QVBoxLayout;
+    // qVBoxLayout *mainLayout = new QVBoxLayout;
     layout->addWidget(txtLabel);
     layout->addLayout(buttonsLayout);
 
     setLayout(layout);
-       //qDebug() << "ShowErrorDialog::ShowErrorDialog - END" ;
+       // qDebug() << "ShowErrorDialog::ShowErrorDialog - END" ;
 }
 
 void ShowErrorDialog::setText(const QString txt)
 {
-      //qDebug() << "ShowErrorDialog::setVersion: " << txt;
+      // qDebug() << "ShowErrorDialog::setVersion: " << txt;
     text = txt;
     txtLabel->setText(txt);
     //textBrowser->setHtml(text);
@@ -72,12 +72,12 @@ void ShowErrorDialog::setText(const QString txt)
 
 ShowErrorDialog::~ShowErrorDialog()
 {
-       //qDebug() << "ShowErrorDialog::~ShowErrorDialog" ;
+       // qDebug() << "ShowErrorDialog::~ShowErrorDialog" ;
 }
 
 void ShowErrorDialog::slotAcceptButtonClicked()
 {
-       //qDebug() << "ShowErrorDialog::slotAcceptButtonClicked" ;
+       // qDebug() << "ShowErrorDialog::slotAcceptButtonClicked" ;
     accept();
 }
 
@@ -88,7 +88,7 @@ void ShowErrorDialog::keyPressEvent(QKeyEvent *event)
         break;
 
     default:
-        //QFrame::keyPressEvent(event)
+        // qFrame::keyPressEvent(event)
         slotAcceptButtonClicked();
     }
 }

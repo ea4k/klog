@@ -1,7 +1,7 @@
 /*========== START Qt6 migration:
 **
 void tst_MainWindow::test_focusOrder()
-Test: //QApplication::setActiveWindow(mainWindow);
+Test: // qApplication::setActiveWindow(mainWindow);
 I had to replace previews line.
 
 **

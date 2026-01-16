@@ -52,7 +52,7 @@ Wikipedia:
 
 */
 
-    //qDebug() << "Locator::isValidLocator: " << tlocator;
+    // qDebug() << "Locator::isValidLocator: " << tlocator;
 
     //int lenght_of_locator;
 
@@ -64,7 +64,7 @@ Wikipedia:
     rx.setPattern("^[A-R]{2}$");
     if (rx.match(testLocator).hasMatch())
     {
-        //qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
+        // qDebug() << "Locator::isValidLocator: Match 2: " << testLocator;
         return true;
     }
     else
@@ -72,7 +72,7 @@ Wikipedia:
         rx.setPattern("^[A-R]{2}[0-9]{2}$");
         if (rx.match(testLocator).hasMatch())
         {
-            //qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
+            // qDebug() << "Locator::isValidLocator: Match 4: " << testLocator;
             return true;
         }
         else
@@ -80,7 +80,7 @@ Wikipedia:
             rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}$");
             if (rx.match(testLocator).hasMatch())
             {
-                //qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
+                // qDebug() << "Locator::isValidLocator: Match 6: " << testLocator;
                 return true;
             }
             else
@@ -88,12 +88,12 @@ Wikipedia:
                 rx.setPattern("^[A-R]{2}[0-9]{2}[A-X]{2}[0-9]{2}$");
                 if (rx.match(testLocator).hasMatch())
                 {
-                    //qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
+                    // qDebug() << "Locator::isValidLocator: Match 8: " << testLocator;
                     return true;
                 }
                 else
                 {
-                    //qDebug() << "Locator::isValidLocator: NOT VALID: " << testLocator;
+                    // qDebug() << "Locator::isValidLocator: NOT VALID: " << testLocator;
                     return false;
                 }
             }
@@ -108,7 +108,7 @@ Coordinate Locator::getLocatorCoordinate(const QString _tlocator)
     _position.lon = 0.0;
     if (!isValidLocator(_tlocator))
     {
-        //qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
+        // qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
         return _position;
     }
     _position.lat = getLat (_tlocator);
@@ -118,7 +118,7 @@ Coordinate Locator::getLocatorCoordinate(const QString _tlocator)
 
 Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << tlocator;
+    // qDebug() << Q_FUNC_INFO << ": " << tlocator;
     Coordinate _position, _north, _south;
     _position.lat = 0.0;
     _position.lon = 0.0;
@@ -129,7 +129,7 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
 
     if (!isValidLocator(tlocator))
     {
-        //qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
+        // qDebug() << Q_FUNC_INFO << ": Not valid: " << tlocator;
         return _position;
     }
 
@@ -162,24 +162,24 @@ Coordinate Locator::getLocatorCorner (const QString& tlocator, bool northWest)
         _south.lon = _positionC.lon + 0.0416666666666667;//(5/60/2);
     }
 
-    //qDebug() << Q_FUNC_INFO;
-    //qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);
-    //qDebug() << QString ("North : %1, %2").arg(_north.lat).arg(_north.lon);
-    //qDebug() << QString ("South : %1, %2").arg(_south.lat).arg(_south.lon);
+    // qDebug() << Q_FUNC_INFO;
+    // qDebug() << "Center: lat/lon" << QString::number(_positionC.lat) << "/" << QString::number(_positionC.lon);
+    // qDebug() << QString ("North : %1, %2").arg(_north.lat).arg(_north.lon);
+    // qDebug() << QString ("South : %1, %2").arg(_south.lat).arg(_south.lon);
     if (northWest)
     {
         return _north;
-        //qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
+        // qDebug() << QString ("North : %1, %2").arg(_position.lat).arg(_position.lon);
     }
     else
     {
         return _south;
-        //qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
+        // qDebug() << QString ("South : %1, %2").arg(_position.lat).arg(_position.lon);
     }
 }
 
 double Locator::getLat(const QString& tlocator){
-    //qDebug() << "Locator::getLat: " << tlocator;
+    // qDebug() << "Locator::getLat: " << tlocator;
     // Read formula from: https://unclassified.software/files/source/MaidenheadLocator.cs
     //Revisar las formulas porque salen distancias erroneas
     if (!isValidLocator(tlocator))
@@ -201,7 +201,7 @@ double Locator::getLat(const QString& tlocator){
     {
         double result = (((aux.at(1)).toLatin1() - 'A') * 10 ) + (aux.at(3).digitValue()) + (((aux.at(5)).toLatin1() - 'A') * (2.5/60)) + (static_cast<double>(2.5/60)) - 90;
 
-        //qDebug() << QString("%1: Locator/Latitude: %2/%3").arg(Q_FUNC_INFO).arg(aux).arg(result);
+        // qDebug() << QString("%1: Locator/Latitude: %2/%3").arg(Q_FUNC_INFO).arg(aux).arg(result);
         return result;
     }
     if (aux.length()== 8)
@@ -220,7 +220,7 @@ double Locator::getLat(const QString& tlocator){
 
 double Locator::getLon(const QString& tlocator)
 {
-      //qDebug() << "Locator::getLon: " << tlocator;
+      // qDebug() << "Locator::getLon: " << tlocator;
 
     if (!isValidLocator(tlocator))
     {
@@ -235,7 +235,7 @@ double Locator::getLon(const QString& tlocator)
 
     if (aux.length() == 4)
     {
-            //qDebug() << QString("%1 + %2 + %3 - 180 = %4")
+            // qDebug() << QString("%1 + %2 + %3 - 180 = %4")
             //            .arg((((aux.at(0)).toLatin1()  - 'A') * 20))
             //            .arg((((aux.at(2)).digitValue () ) * 2))
             //            .arg(1)
@@ -248,7 +248,7 @@ double Locator::getLon(const QString& tlocator)
     }
     if (aux.length() == 6)
     {
-        //qDebug() << QString("%1 + %2 + %3 + %4 - 180 = %5").arg((((aux.at(0)).toLatin1()  - 'A') * 20)).arg((((aux.at(2)).digitValue () ) * 2)).arg((((aux.at(4)).toLatin1() - 'A')/12 )).arg(0.0416666666666667).arg((((aux.at(0)).toLatin1()  - 'A') * 20) +  (((aux.at(2)).digitValue () ) * 2) + (static_cast<double>((aux.at(4)).toLatin1() - 'A')/12.0 ) + 0.0416666666666667 - 180);
+        // qDebug() << QString("%1 + %2 + %3 + %4 - 180 = %5").arg((((aux.at(0)).toLatin1()  - 'A') * 20)).arg((((aux.at(2)).digitValue () ) * 2)).arg((((aux.at(4)).toLatin1() - 'A')/12 )).arg(0.0416666666666667).arg((((aux.at(0)).toLatin1()  - 'A') * 20) +  (((aux.at(2)).digitValue () ) * 2) + (static_cast<double>((aux.at(4)).toLatin1() - 'A')/12.0 ) + 0.0416666666666667 - 180);
 
 
     return (((aux.at(0)).toLatin1()  - 'A') * 20) +
@@ -272,8 +272,8 @@ double Locator::getLon(const QString& tlocator)
 
 int Locator::getBeam(const double lon1, const double lat1, const double lon2, const double lat2){
   double lon_a,lat_a,lon_b,lat_b, bearing;
-     //qDebug() << "Locator::getBeam1: " << QString::number(lon1) << "/" << QString::number(lat1);
-     //qDebug() << "Locator::getBeam2: " << QString::number(lon2) << "/" << QString::number(lat2);
+     // qDebug() << "Locator::getBeam1: " << QString::number(lon1) << "/" << QString::number(lat1);
+     // qDebug() << "Locator::getBeam2: " << QString::number(lon2) << "/" << QString::number(lat2);
 
 
   lon_a=lon1*PI/180;   // Convert degrees to radians
@@ -314,7 +314,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
   bearing = 360 - (180/PI*bearing);
   bearing = 360 - bearing;
 
-     //qDebug() << "Locator::getBeam: " << QString::number(bearing);
+     // qDebug() << "Locator::getBeam: " << QString::number(bearing);
   /* Convert to degrees */
 
   return int(bearing);
@@ -322,7 +322,7 @@ int Locator::getBeam(const double lon1, const double lat1, const double lon2, co
 
 int Locator::getDistance(const double lon1, const double lat1, const double lon2, const double lat2, const bool _imperialSystem){
   //http://en.wikipedia.org/wiki/Haversine_formula
-       //qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << ")";
+       // qDebug() << "Locator::getDistanceKilometres: MyPos("<< QString::number(lon1) << ")";
 // << QString::number(lat1)  << ") - DxPos(" << QString::number(lon2) << "/" << QString::number(lat2) << ")";
   double lo1,la1,lo2,la2;
 
@@ -336,16 +336,16 @@ int Locator::getDistance(const double lon1, const double lat1, const double lon2
   la2=lat2* DEG_TO_RAD;
 
   if (!_imperialSystem){
-     //qDebug() << "Locator::getDistance (Km): " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS));
+     // qDebug() << "Locator::getDistance (Km): " << QString::number((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS));
     return int(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS);
   }else{ // In milles
-       //qDebug() << "Locator::getDistance (Milles): " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137);
+       // qDebug() << "Locator::getDistance (Milles): " << QString::number(((int)(acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS))* 0.62137);
     return int(((acos(cos(la1)*cos(lo1)*cos(la2)*cos(lo2)+cos(la1)*sin(lo1)*cos(la2)*sin(lo2)+sin(la1)*sin(la2)) * EARTH_RADIUS)) * 0.62137);
   }
 }
 
 bool Locator::checkCoords(const double lon1, const double lat1){
-   //qDebug() << "Locator::checkCoords" ;
+   // qDebug() << "Locator::checkCoords" ;
 // Checks if a coordinates is correct.
   if ((lat1 > 90.0 || lat1 < -90.0) && (lon1 > 180.0 || lon1 < -180.0)){
       return true;
@@ -361,7 +361,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
            lat = Latitude in decimal degrees (+ = North; - = South).
    Output: locator = 6 characters world wide locator.
    ------------------------------------------------- */
-    //qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")";
+    // qDebug() << "Locator::getLocator: (" << QString::number(lon1) << "/" << QString::number(lat1) << ")";
     QString locat = ""; //NO locator
 
     double lo, la;
@@ -375,7 +375,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
 
     locat = locat + QChar(alo+'A');
     locat = locat + QChar(bla+'A');
-    //qDebug() << Q_FUNC_INFO << ": " << locat;
+    // qDebug() << Q_FUNC_INFO << ": " << locat;
     if (length == 2)
     {
         return locat;
@@ -389,7 +389,7 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
     locat = locat + QChar(clo+'0');
     locat = locat + QChar(dla+'0');
 
-    //qDebug() << Q_FUNC_INFO << ": " << locat;
+    // qDebug() << Q_FUNC_INFO << ": " << locat;
     if (length == 4)
     {
         return locat;
@@ -400,16 +400,16 @@ QString Locator::getLocator(const double lon1, const double lat1, int length) co
 
     locat = locat + QChar(elo+'A');
     locat = locat + QChar(fla+'A');
-    //qDebug() << Q_FUNC_INFO << ": " << locat;
+    // qDebug() << Q_FUNC_INFO << ": " << locat;
   //locat = locat + QChar(elo+'A');
   //locat = locat + QChar(fla+'A');
-    //qDebug() << Q_FUNC_INFO << ": " << locat;
+    // qDebug() << Q_FUNC_INFO << ": " << locat;
     return locat;
 }
 
 int Locator::getBeamBetweenLocators (const QString& tlocator1, const QString& tlocator2)
 {
-       //qDebug() << "Locator::getBeamBetweenLocators: " << tlocator1 << "/" << tlocator2;
+       // qDebug() << "Locator::getBeamBetweenLocators: " << tlocator1 << "/" << tlocator2;
     if (  !(isValidLocator(tlocator1) && isValidLocator(tlocator2) )  )
     {
         return -1;
@@ -444,7 +444,7 @@ int Locator::getDistanceBetweenLocators (const QString& tlocator1, const QString
 
 QStringList Locator::getAll(int _length)
 {
-    //qDebug() << Q_FUNC_INFO << QString(" - %1").arg(_length);
+    // qDebug() << Q_FUNC_INFO << QString(" - %1").arg(_length);
 
     QStringList list;
     list.clear();
@@ -453,17 +453,17 @@ QStringList Locator::getAll(int _length)
     for (int i = 0; i<18; i++)
     {
         letter1 = QChar('A' + i);
-        //qDebug() << Q_FUNC_INFO << ": L1: " << letter1;
+        // qDebug() << Q_FUNC_INFO << ": L1: " << letter1;
         for (int j = 0; j<18; j++)
         {
             letter2 = QChar('A'+ j);
-            //qDebug() << Q_FUNC_INFO << ": L2: " << letter2;
+            // qDebug() << Q_FUNC_INFO << ": L2: " << letter2;
             if (_length<=2)
             {
                 locator.append(letter1);
                 locator.append(letter2);
                 list.append(locator);
-                //qDebug() << Q_FUNC_INFO << locator ;
+                // qDebug() << Q_FUNC_INFO << locator ;
                 locator.clear();
             }
             else
@@ -471,12 +471,12 @@ QStringList Locator::getAll(int _length)
                 for (int k = 0; k<10; k++)
                 {
                     num1 = QChar('0' + k);
-                    //qDebug() << Q_FUNC_INFO << ": N1: " << num1;
+                    // qDebug() << Q_FUNC_INFO << ": N1: " << num1;
 
                     for (int l = 0; l<10; l++)
                     {
                         num2 = QChar('0' + l);
-                        //qDebug() << Q_FUNC_INFO << ": N2: " << num2;
+                        // qDebug() << Q_FUNC_INFO << ": N2: " << num2;
                         if (_length<=4)
                         {
                             locator.append(letter1);
@@ -484,7 +484,7 @@ QStringList Locator::getAll(int _length)
                             locator.append(num1);
                             locator.append(num2);
                             list.append(locator);
-                            //qDebug() << Q_FUNC_INFO << locator ;
+                            // qDebug() << Q_FUNC_INFO << locator ;
                             locator.clear();
                         }
                         else
@@ -492,11 +492,11 @@ QStringList Locator::getAll(int _length)
                             for (int m = 0; m<24; m++)
                             {
                                 //letter3 = QChar('a' + m);
-                                //qDebug() << Q_FUNC_INFO << ": L3: " << letter3;
+                                // qDebug() << Q_FUNC_INFO << ": L3: " << letter3;
                                 for (int n = 0; n<24; n++)
                                 {
                                     letter4 = QChar('a' + n);
-                                    //qDebug() << Q_FUNC_INFO << ": L4: " << letter4;
+                                    // qDebug() << Q_FUNC_INFO << ": L4: " << letter4;
                                     if (_length<=6)
                                     {
                                         locator.append(letter1);
@@ -506,7 +506,7 @@ QStringList Locator::getAll(int _length)
                                         locator.append(letter3);
                                         locator.append(letter4);
                                         list.append(locator);
-                                        //qDebug() << Q_FUNC_INFO << locator ;
+                                        // qDebug() << Q_FUNC_INFO << locator ;
                                         locator.clear();
                                     }
                                 }

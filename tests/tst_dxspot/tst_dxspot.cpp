@@ -72,7 +72,7 @@ void tst_DXSpot::initTestCase()
 
 void tst_DXSpot::cleanupTestCase()
 {
-    //qDebug("Called after last test.");
+    // qDebug("Called after last test.");
 }
 
 void tst_DXSpot::test_Constructors()

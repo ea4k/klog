@@ -44,7 +44,7 @@ public:
     ~MainWindowInputEQSL();
 
     //void setData(const QString &_comment);
-    //QString getComment();
+    // qString getComment();
     QSO getQSOData(QSO _qso);
     void setQSOData(const QSO &_qso);
     void clear();

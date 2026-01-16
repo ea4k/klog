@@ -155,7 +155,7 @@ signals:
     //bool isComplete();
     //bool CTYFileDownloaded;
     //int downloadValueResult;
-    //QString klogDir;
+    // qString klogDir;
     //int total;
     //bool completed;
 
@@ -163,7 +163,7 @@ signals:
 
       QLabel *topLabel;
       QTextEdit *ctyBrowser;
-      //QCheckBox *downloadCTYCheckBox;
+      // qCheckBox *downloadCTYCheckBox;
       QProgressBar *progressBar;
       QPushButton *downloadButton, *ignoreDownloadButton;
       QCheckBox *hiddenCheckBox;

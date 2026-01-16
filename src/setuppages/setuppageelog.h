@@ -43,7 +43,7 @@ public:
     // LoTW
     void setLoTWActive(const bool &_s);
 
-    //QRZ.COM
+    // qRZ.COM
 
     void setQRZCOMActive(const bool _s);
     void setQRZCOMAutoCheck(const bool _s);
@@ -82,7 +82,7 @@ private:
     void setDefaultEQSL();
     void setDefaultQRZCOM();
 
-    //QString defaultFileName;
+    // qString defaultFileName;
     QGroupBox *clubLogGroup;
     QCheckBox *clubLogSendInRealTimeCheckBox, *clubLogActiveCheckBox;//, *useQSOStationCallCheckBox;
     QLineEdit *clubLogAppPasswordLineEdit, *clubLogPasswordLineEdit, *clubLogEmailLineEdit;//, *callLineEdit;
@@ -95,7 +95,7 @@ private:
     QLabel *eQSLpasswordLabel, *eQSLemailLabel, *eQSLSentDefaultLabel;
     QComboBox *eQSLSentDefaultComboBox;
     //bool eqslActive;
-    //QString eqslUser, eqslPass;
+    // qString eqslUser, eqslPass;
 
     QGroupBox *lotwGroup, *lotwUpGroup, *lotwDownGroup;
     QLineEdit *lotwUserLineEdit, *lotwPasswordLineEdit;
@@ -105,10 +105,10 @@ private:
     QLabel *lotwpasswordLabel, *lotwemailLabel, *lotwSentDefaultLabel;
     QComboBox *lotwSentDefaultComboBox;
     //bool lotwTQSL;
-    //QString lotwPath, lotwUser, lotwPass;
+    // qString lotwPath, lotwUser, lotwPass;
 
     QGroupBox *QRZCOMGroup;
-    //QLineEdit *QRZCOMAPILineEdit;
+    // qLineEdit *QRZCOMAPILineEdit;
     QLineEdit *QRZCOMUserLineEdit, *QRZCOMPasswordLineEdit, *QRZCOMLogBookKEYLineEdit;
     QLabel *QRZCOMPasswordLabel, *QRZCOMUserLabel, *QRZLogBookKeyLabel, *QRZCOMSentDefaultLabel;
     QCheckBox *QRZCOMActiveCheckBox, *QRZCOMAutoCheckCheckBox, *QRZCOMSubscriberCheckBox;

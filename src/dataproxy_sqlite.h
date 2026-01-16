@@ -105,7 +105,7 @@ public:
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
-    //QString getNameFromSubMode (const QString &_sm); // DEPRECATED
+    // qString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
 
     Frequency getFreqFromBandId(const int _id);
@@ -135,7 +135,7 @@ public:
 
     bool deleteQSO(const int _qsoId);
     int isWorkedB4(const QString &_qrz, const int _currentLog);
-    //QList<int> isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs);
+    // qList<int> isThisQSODuplicated(const QString &_callingFunc, const QString &_qrz, const QDateTime &_dateTime, const int _band, const int _mode, const int _secs);
     int isThisQSODuplicated(const QSO &_qso, const int _secs); // It calls int findDuplicateId
     //int getDuplicatedQSOId(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
     //bool isDXCCConfirmed(const int _dxcc, const int _currentLog);
@@ -192,7 +192,7 @@ public:
     bool lotwSentQSOs(const QList<int> &_qsos);
     int lotwUpdateQSLReception (const QString &_call, const QDateTime &_dateTime, const QString &_band, const QString &_mode, const QDate &_qslrdate);
     QList<int> getQSOsListLoTWToSend(const QString &_stationCallsign, const QString &_myGrid, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true, int _logN = -1);
-    //QStringList getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
+    // qStringList getQSOsListLoTWNotSent2(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
     QStringList getQSODetailsForLoTWDownload(const int _id);
 
     QList<int> getQSOsListeQSLNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
@@ -278,10 +278,10 @@ public:
     QStringList getContestCat(const int _catn);
     QStringList getContestOverlays();
     //int getContestTypeN(const int _co, const int _catop, const int _catas, const int _catpo, const int _catba, const int _catov, const int _catmo);
-    //QStringList getDataFromContestType(const int _n);
+    // qStringList getDataFromContestType(const int _n);
     //int getLogTypeNumber(const QString &_logType);
-    //QString getLogTypeName(const int _logType);
-    //QString getLogTypeOfUserLog(const int _logN);
+    // qString getLogTypeName(const int _logType);
+    // qString getLogTypeOfUserLog(const int _logN);
     int getLogNumberFromQSOId(const int _qsoId);
 
     QStringList getBandNames();
@@ -301,13 +301,13 @@ public:
     QString getSatelliteName(const QString &_sat);
     QString getSateliteArrlIdFromId(const int _id);
     //KLOG_DEPRECATED QStringList getQSLRcvdList();
-    //QStringList getQSLSentList();
+    // qStringList getQSLSentList();
     //KLOG_DEPRECATED QStringList getClubLogStatusList();
     KLOG_DEPRECATED QStringList getQSLViaList();
     int getHowManyQSOPerPropMode(const QString &_p, const int _logn);
 
 
-    //QStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
+    // qStringList getValidCatOptions(const int _currentCat, const int _lowerCa);
 
     //bool fillEmptyDXCCInTheLog();
 
@@ -320,7 +320,7 @@ public:
     QString getOperatorsFromLog(const int _log);
     QString getCommentsFromLog(const int _log);
     QString getLogDateFromLog(const int _log);
-    //QString getLogTypeNFromLog(const int _log);
+    // qString getLogTypeNFromLog(const int _log);
     bool addNewLog (const QStringList _qs);
     bool doesThisLogExist(const int _log);
 
@@ -338,7 +338,7 @@ public:
     //KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
     KLOG_DEPRECATED QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // Should be optimized to qso::fromDB / qso::getADIF
     KLOG_DEPRECATED QString getADIFFromQSOQuery(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1); // Should be optimized to qso::fromDB / qso::getADIF
-    //QString getADIFFromQSOQuery2(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
+    // qString getADIFFromQSOQuery2(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
 
     bool showInvalidCallMessage(const QString &_call);
 
@@ -379,7 +379,7 @@ private:
     //KLOG_DEPRECATED int getPrefixId(const QString &_qrz);           // TODO: Replace by int World::getPrefixId(const QString &_prefix)
                                // Refactored from fillEmptyDXCCInTheLog
     //bool updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont); // Refactored from fillEmptyDXCCInTheLog
-    //QString changeSlashAndFindPrefix(const QString &_qrz);
+    // qString changeSlashAndFindPrefix(const QString &_qrz);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     QSO *qso;
     bool searching;
@@ -405,8 +405,8 @@ private:
 
     bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
 
-    //QSqlQuery preparedQuery;
-    //QSqlRelationalTableModel *logModel;
+    // qSqlQuery preparedQuery;
+    // qSqlRelationalTableModel *logModel;
 private slots:
     void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _l);
 signals:

@@ -54,15 +54,15 @@ bool Frequency::fromDouble(const double _f, FreqUnits _u)
 
 bool Frequency::fromQString(const QString &_f, FreqUnits _u)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _f;
+    // qDebug() << Q_FUNC_INFO << ": " << _f;
     bool ok;
     freq =_f.toDouble(&ok);
-    //qDebug() << Q_FUNC_INFO << " - freq: " << _f;
+    // qDebug() << Q_FUNC_INFO << " - freq: " << _f;
     if (!ok)
         return false;
-    //qDebug() << Q_FUNC_INFO << " - Trying to normalize...";
+    // qDebug() << Q_FUNC_INFO << " - Trying to normalize...";
     freq = normalize(freq, _u);
-    //qDebug() << Q_FUNC_INFO << " - freqNormalized: " << _f;
+    // qDebug() << Q_FUNC_INFO << " - freqNormalized: " << _f;
     return isValid();
 }
 
@@ -83,18 +83,18 @@ double Frequency::toDouble(FreqUnits _u)
 
 QString Frequency::toQString(FreqUnits _u)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(freq);
-    //qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number(freq);
+    // qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
 
     double d = toDouble(_u);
-    //qDebug() << Q_FUNC_INFO << ":d: " << QString::number(freq);
+    // qDebug() << Q_FUNC_INFO << ":d: " << QString::number(freq);
 
     int dec = getDecimals(_u);
-    //qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
+    // qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
 
 
-    //qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(toDouble());
-    //qDebug() << Q_FUNC_INFO << ":  dec: " << QString::number(dec);
+    // qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(toDouble());
+    // qDebug() << Q_FUNC_INFO << ":  dec: " << QString::number(dec);
 
     return  QString("%1").arg(d, 0, 'f', dec);
 }

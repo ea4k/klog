@@ -54,7 +54,7 @@ public:
     void sendLogFile(const QString &_file, QList<int> _qso);
 
 private:
-    //QString geteQSLAdif(const QStringList _q);
+    // qString geteQSLAdif(const QStringList _q);
     //int sendData(const QString &_eQSLUser, const QString &_q); //  Sends the data (http post) to eQSL
     //int sendDataParams(const QString &_eQSLUser, const QUrlQuery &_params);
     QStringList prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it

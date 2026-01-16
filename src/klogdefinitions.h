@@ -97,7 +97,7 @@ struct ADIFField {
     QString field;
     QString value;
     bool valid;
-    //QChar type;
+    // qChar type;
 };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))

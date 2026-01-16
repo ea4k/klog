@@ -30,7 +30,7 @@
 MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"  ;
+       // qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab"  ;
     logLevel = None;
     dataProxy = dp;
     myPowerSpinBox = new QDoubleSpinBox;
@@ -60,7 +60,7 @@ MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) 
     lastPower = 0;
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
-       //qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"  ;
+       // qDebug() << "MainWindowMyDataTab::MainWindowMyDataTab - END"  ;
 }
 
 MainWindowMyDataTab::~MainWindowMyDataTab()
@@ -118,7 +118,7 @@ void MainWindowMyDataTab::setQSOData(const QSO &_qso)
 
 void MainWindowMyDataTab::createUI()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
@@ -177,17 +177,17 @@ void MainWindowMyDataTab::createUI()
 
 void MainWindowMyDataTab::clear(bool _full)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     modify = false;
     if (!keepThisDataForNextQSOQCheckbox->isChecked())
     {
-        //qDebug() << "MainWindowMyDataTab::clear: NOT checked" ;
+        // qDebug() << "MainWindowMyDataTab::clear: NOT checked" ;
         myPowerSpinBox->setValue(myPower);
         Callsign callsign(operatorQRZ);
         if (callsign.isValid())
         {
-            //qDebug() << Q_FUNC_INFO << ": " << operatorQRZ;
+            // qDebug() << Q_FUNC_INFO << ": " << operatorQRZ;
             operatorLineEdit->setText(operatorQRZ);
         }
         else
@@ -244,12 +244,12 @@ void MainWindowMyDataTab::clear(bool _full)
 void MainWindowMyDataTab::show()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO;
-    //qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationCallsign << "/" << myLocator;
+    // qDebug() << Q_FUNC_INFO;
+    // qDebug() << "MainWindowMyDataTab::show: " << QString::number(myPower) << "/" << operatorQRZ << "/" << stationCallsign << "/" << myLocator;
     myPowerSpinBox->setValue(myPower);
     operatorLineEdit->setText(operatorQRZ);
     stationCallSignLineEdit->setText(stationCallsign);
-    //qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator ;
+    // qDebug() << "MainWindowMyDataTab::show: setMyLocator: " << myLocator ;
     myLocatorLineEdit->setText(myLocator);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -257,12 +257,12 @@ void MainWindowMyDataTab::show()
 void MainWindowMyDataTab::slotMyLocatorTextChanged()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO;
-     //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
+    // qDebug() << Q_FUNC_INFO;
+     // qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: " << myLocatorLineEdit->text();
     //logEvent(Q_FUNC_INFO, "Start", logLevel);
     int cursorP = myLocatorLineEdit->cursorPosition();
     myLocatorLineEdit->setText(util->getClearSQLi(myLocatorLineEdit->text()).toUpper());
-    //qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text() ;
+    // qDebug() << "MainWindowMyDataTab::clear: setMyLocator: " << myLocatorLineEdit->text() ;
     if ( locator->isValidLocator(myLocatorLineEdit->text()))
     {
         if (!modify)
@@ -284,7 +284,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
         emit myLocChangedSignal(myLocatorLineEdit->text());
 
         //dxccStatusWidget->setMyLocator(myLocator);
-              //qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator;
+              // qDebug() << "MainWindowMyDataTab::slotMyLocatorTextChanged: My LOCATOR CHANGED TO: " << myLocator;
         //slotLocatorTextChanged();
     }
     else
@@ -301,7 +301,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
 
 void MainWindowMyDataTab::slotReturnPressed()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     emit returnPressed();
 }
@@ -309,7 +309,7 @@ void MainWindowMyDataTab::slotReturnPressed()
 
 void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (!locator->isValidLocator (_op))
     {
@@ -323,15 +323,15 @@ void MainWindowMyDataTab::setSetupMyLocator(const QString &_op)
 
 void MainWindowMyDataTab::setMyPower(const double _power)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_power);
-    //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO << ": " << QString::number(_power);
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     myPowerSpinBox->setValue(_power);
 }
 
 double MainWindowMyDataTab::getMyPower()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (myPowerSpinBox->value() > 0)
     {
@@ -347,7 +347,7 @@ double MainWindowMyDataTab::getMyPower()
 
 void MainWindowMyDataTab::setOperator(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     operatorLineEdit->setText(_op);
     logEvent (Q_FUNC_INFO, "END", Debug);
@@ -355,7 +355,7 @@ void MainWindowMyDataTab::setOperator(const QString &_op)
 
 QString MainWindowMyDataTab::getOperator()
 {
-     //qDebug() << Q_FUNC_INFO << ": " << (operatorLineEdit->text()).toUpper();
+     // qDebug() << Q_FUNC_INFO << ": " << (operatorLineEdit->text()).toUpper();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     lastOperatorQRZ = (operatorLineEdit->text()).toUpper();
     return lastOperatorQRZ;
@@ -364,7 +364,7 @@ QString MainWindowMyDataTab::getOperator()
 
 void MainWindowMyDataTab::setStationCallsign(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Callsign callsign(_op);
     if (callsign.isValid())
@@ -380,7 +380,7 @@ void MainWindowMyDataTab::setStationCallsign(const QString &_op)
 
 QString MainWindowMyDataTab::getStationCallsign()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
+    // qDebug() << Q_FUNC_INFO << ": " << (stationCallSignLineEdit->text()).toUpper();
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg((stationCallSignLineEdit->text()).toUpper()), Debug);
     return (stationCallSignLineEdit->text()).toUpper();
     //return lastStationQRZ;
@@ -388,14 +388,14 @@ QString MainWindowMyDataTab::getStationCallsign()
 
 void MainWindowMyDataTab::setMyLocator(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     myLocatorLineEdit->setText(_op);
 }
 
 QString MainWindowMyDataTab::getMyLocator()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     lastMyLocator = (myLocatorLineEdit->text()).toUpper();
     return lastMyLocator.toUpper();
@@ -404,7 +404,7 @@ QString MainWindowMyDataTab::getMyLocator()
 
 void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString &_operator, const QString &_myLocator)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Callsign callsign(_stationCallsign);
     if (callsign.isValid())
@@ -415,7 +415,7 @@ void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString
     {
         stationCallsign = QString();
     }
-    //qDebug() << Q_FUNC_INFO << ": Setting station Callsign: " << stationCallsign;
+    // qDebug() << Q_FUNC_INFO << ": Setting station Callsign: " << stationCallsign;
     setStationCallsign (stationCallsign);
     callsign(_operator);
     if (!_operator.isEmpty())
@@ -441,7 +441,7 @@ void MainWindowMyDataTab::setData(const QString &_stationCallsign, const QString
 
 void MainWindowMyDataTab::slotOperatorTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO << operatorLineEdit->text();
+    // qDebug() << Q_FUNC_INFO << operatorLineEdit->text();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     int cursorP = operatorLineEdit->cursorPosition();
 
@@ -499,7 +499,7 @@ void MainWindowMyDataTab::setDarkMode (const bool _dm)
 
 void MainWindowMyDataTab::slotStationCallSignTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     int cursorP = stationCallSignLineEdit->cursorPosition();
 
@@ -526,21 +526,21 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
 
 void MainWindowMyDataTab::setKeep(const bool _b)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     keepThisDataForNextQSOQCheckbox->setChecked (_b);
 }
 
 bool MainWindowMyDataTab::getKeep()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     return keepThisDataForNextQSOQCheckbox->isChecked ();
 }
 
 bool MainWindowMyDataTab::setInitialADIFValues()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     adifValidTypes.clear ();
     adifValidTypes << "01-" + tr("My Rig") << "02-" + tr("My Antenna")
@@ -556,7 +556,7 @@ bool MainWindowMyDataTab::setInitialADIFValues()
 
 bool MainWindowMyDataTab::setUserADIFTypeComboBox(const QString &_value)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _value;
+    // qDebug() << Q_FUNC_INFO << ": " << _value;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_value == "MY_RIG")
     {
@@ -601,7 +601,7 @@ bool MainWindowMyDataTab::setUserADIFTypeComboBox(const QString &_value)
 
 QString MainWindowMyDataTab::getUserADIFTypeComboBox()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     int value = (((myUserADIFComboBox->currentText ()).split('-')).at(0)).toInt ();
     switch (value)
@@ -629,7 +629,7 @@ QString MainWindowMyDataTab::getUserADIFTypeComboBox()
 
 bool MainWindowMyDataTab::setUserADIFValue(const QString &_adifValue)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     myUserADIFLineEdit->setText (_adifValue);
     return true;
@@ -637,14 +637,14 @@ bool MainWindowMyDataTab::setUserADIFValue(const QString &_adifValue)
 
 QString MainWindowMyDataTab::getUserADIFValue()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     return myUserADIFLineEdit->text();
 }
 
 bool MainWindowMyDataTab::setMyRig(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     my_rig = _op;
     slotMyUserADIFComboBoxChanged();
@@ -653,14 +653,14 @@ bool MainWindowMyDataTab::setMyRig(const QString &_op)
 
 QString MainWindowMyDataTab::getMyRig()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     return my_rig;
 }
 
 bool MainWindowMyDataTab::setMyAntenna(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     my_antenna = _op;
     slotMyUserADIFComboBoxChanged();
@@ -669,14 +669,14 @@ bool MainWindowMyDataTab::setMyAntenna(const QString &_op)
 
 QString MainWindowMyDataTab::getMyAntenna()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     return my_antenna;
 }
 
 bool MainWindowMyDataTab::setMySOTA(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     my_sota = _op;
     slotMyUserADIFComboBoxChanged();
@@ -685,14 +685,14 @@ bool MainWindowMyDataTab::setMySOTA(const QString &_op)
 
 QString MainWindowMyDataTab::getMySOTA()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     return my_sota;
 }
 
 bool MainWindowMyDataTab::setMyVUCCGrids(const QString &_op)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _op;
+    // qDebug() << Q_FUNC_INFO << ": " << _op;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (checkMyVUCC_GRIDS(_op))
     {
@@ -705,7 +705,7 @@ bool MainWindowMyDataTab::setMyVUCCGrids(const QString &_op)
 
 bool MainWindowMyDataTab::checkMyVUCC_GRIDS(const QString &_string)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _string;
+    // qDebug() << Q_FUNC_INFO << ": " << _string;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (util->isValidVUCCGrids (_string))
     {
@@ -806,7 +806,7 @@ void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
 
 void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
+    // qDebug() << Q_FUNC_INFO << ": " << getUserADIFTypeComboBox ();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     QString currentTag = getUserADIFTypeComboBox ();
 
@@ -850,7 +850,7 @@ void MainWindowMyDataTab::slotSetCurrentMyUSerData()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     QString currentTag = getUserADIFTypeComboBox ();
-    //qDebug() << Q_FUNC_INFO << ": " << currentTag;
+    // qDebug() << Q_FUNC_INFO << ": " << currentTag;
     int currentPos = myUserADIFLineEdit->cursorPosition ();
 
     if (currentTag == "MY_RIG")
@@ -902,7 +902,7 @@ void MainWindowMyDataTab::setModify(const bool _modify)
 //bool MainWindowMyDataTab::getDarkMode()
 //{
 //    logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << " - color: " << operatorLineEdit->palette().color (QPalette::Base);
+   // qDebug() << Q_FUNC_INFO << " - color: " << operatorLineEdit->palette().color (QPalette::Base);
 //    return  (operatorLineEdit->palette().color (QPalette::Base) == "#646464");
 //}
 
@@ -915,43 +915,43 @@ void MainWindowMyDataTab::setLogLevel (const DebugLogLevel _b)
 
 void MainWindowMyDataTab::logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     if (logLevel<=_level)
     {
-        //qDebug() << Q_FUNC_INFO << "Emitting...";
+        // qDebug() << Q_FUNC_INFO << "Emitting...";
         emit debugLog (_func, _msg, _level);
     }
 }
 
 void MainWindowMyDataTab::loadSettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
 
     myPower = settings.value("Power").toDouble ();
     myPowerSpinBox->setValue(myPower);
-    //qDebug() << Q_FUNC_INFO << " - 10 " << QString::number(myPower);
+    // qDebug() << Q_FUNC_INFO << " - 10 " << QString::number(myPower);
     QString aux = settings.value("Operators").toString();
     if (aux.contains(','))
     {
         aux = ((aux.split (',')).at(0)).simplified ();
     }
 
-    //qDebug() << Q_FUNC_INFO << " - 11";
+    // qDebug() << Q_FUNC_INFO << " - 11";
 
     Callsign callsign(aux);                 // Only the first operator is selected. TODO: To save this in a QStringList so the user can select.
     if (callsign.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " - 12";
+        // qDebug() << Q_FUNC_INFO << " - 12";
         operatorQRZ = aux.toUpper();
-        //qDebug() << Q_FUNC_INFO << " - 13";
+        // qDebug() << Q_FUNC_INFO << " - 13";
         operatorLineEdit->setText (operatorQRZ);
-        //qDebug() << Q_FUNC_INFO << " - 14";
+        // qDebug() << Q_FUNC_INFO << " - 14";
     }
 
     settings.endGroup ();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 
     logEvent (Q_FUNC_INFO, "END", Debug);
 }

@@ -365,15 +365,15 @@ private:
     void showNumberOfSavedQSO(const QString &_fn, const int _n);
 
 
-    //QString getCallToUseForLoTWExportUpload();
+    // qString getCallToUseForLoTWExportUpload();
     UpdateSatsData *updateSatsData;
     //UPDATE CTY.DAT
     DownLoadCTY *downloadcty;
     HamLibClass *hamlib;
-    //QSO qso;           // QSO that is being managed in one specific moment
+    // qSO qso;           // QSO that is being managed in one specific moment
     QSO *backupQSO;     // QSO that has been backed up to send another QSO to the UI
     QSO qsoInUI;        // The QSO tat is shown in the UI  for a given time
-    //QSO *modifyingQSO;
+    // qSO *modifyingQSO;
 
     bool hamlibActive;
     bool hamlibChangingMode;
@@ -404,9 +404,9 @@ private:
     void getQSODataFromUI();                        // Calls to the different widgets for QSO data and fills qso instance
     void sendQSOToUI(const QSO &_qso);              // Shows the content of a QSO in the UI
 
-    //QString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
-    //QString readDataFromUIDX();
-    //QString readDataFromUIDXModifying();
+    // qString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
+    // qString readDataFromUIDX();
+    // qString readDataFromUIDXModifying();
     void actionsJustAfterAddingOneQSO();
     //void clearForNextQSO();
     void clearUIDX(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
@@ -453,7 +453,7 @@ private:
     // CLUSTER
     void clusterSpotToLog(const QString &_call, Frequency _fr);
     QStringList dxclusterServersList;
-    //QString dxclusterServerToConnect;
+    // qString dxclusterServerToConnect;
     //int dxclusterServerPort;
     bool dxclusterSendSpotsToMap;
     // CLUSTER
@@ -464,7 +464,7 @@ private:
     ShowAdifImportWidget *showAdifImportWidget;
 
     QWidget *mainWidget;
-    //QWidget *dxClusterTabWidget;//, *searchTabWidget;
+    // qWidget *dxClusterTabWidget;//, *searchTabWidget;
     World *world;
     FileManager *filemanager;
     //FileAwardManager *fileAwardManager;
@@ -511,17 +511,17 @@ private:
     QMenu *clublogToolMenu;
     QMenu *eQSLToolMenu;
     QMenu *QRZCOMToolMenu;
-    //QMenu *lotwMarkAllAsQueuedMenu;
-    //QMenu *lotwMarkAllInThisLogAsQueuedMenu;
+    // qMenu *lotwMarkAllAsQueuedMenu;
+    // qMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
-    //QMenu *setupMenu;
+    // qMenu *setupMenu;
     QMenu *helpMenu;
 
-    //QAction *TestAct;       // Action for testing purposes only
+    // qAction *TestAct;       // Action for testing purposes only
     QAction *awardAddAct;
     QAction *klogFolderAct;
-    //QAction *openAct;
-    //QAction *saveAct;
+    // qAction *openAct;
+    // qAction *saveAct;
     QAction *exitAct;
     QAction *printLogAct;
     QAction *addAct;
@@ -541,7 +541,7 @@ private:
     QAction *ADIFExport;
     QAction *ADIFExportAll;
     QAction *ADIFImport;
-    //QAction *LoTWExport;
+    // qAction *LoTWExport;
     QAction *LoTWImport;
     QAction *ReqQSLExport;
     QAction *CabrilloExport;
@@ -572,8 +572,8 @@ private:
     QAction *downloadCTYAct;
     QAction *downloadSATSAct;
     QAction *showStatsAct;
-    //QAction *showRotatorAct;
-    //QAction *showDXCCSummaryAct;
+    // qAction *showRotatorAct;
+    // qAction *showDXCCSummaryAct;
 
     QAction *loggWinAct;
 /*
@@ -587,14 +587,14 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
     QAction *showMapAct;
-    //QAction *dxClusterAssistantAct;
+    // qAction *dxClusterAssistantAct;
 
     QStringList bands;
     QStringList modes;
     QStringList entitiesList, propModeList;
 
     // UI DX
-    //QLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
+    // qLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
     QLabel *infoLabel1, *infoLabel2, *dxMarathonLabelN, *dxMarathonTopScoreLabelN;
 
     QString lotwTQSLpath;
@@ -700,7 +700,7 @@ private:
 
     // Contest
     //int points, qsoPoints, multipliers, qsoMultiplier;
-    //QString contestMode;
+    // qString contestMode;
     //Contest *contest;
     // Contest
     DataProxy_SQLite *dataProxy;
@@ -717,7 +717,7 @@ private:
     eQSLUtilities *eqslUtilities;
 
     //LOGVIEW
-    //QString bandOld, modeOld;
+    // qString bandOld, modeOld;
     //LOGVIEW
 
 signals:

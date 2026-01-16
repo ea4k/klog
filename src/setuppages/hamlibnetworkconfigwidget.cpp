@@ -2,10 +2,10 @@
 
 HamLibNetworkConfigWidget::HamLibNetworkConfigWidget(QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     hostAddressLineEdit = new QLineEdit();
     portQSpinBox = new QSpinBox;
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void HamLibNetworkConfigWidget::createUI()
@@ -29,7 +29,7 @@ void HamLibNetworkConfigWidget::createUI()
     portNetLabel->setEnabled(true);
 
     QGridLayout *networkLayout = new QGridLayout;
-    //qDebug() << Q_FUNC_INFO << " - 120";
+    // qDebug() << Q_FUNC_INFO << " - 120";
     networkLayout->addWidget (hostAddLabel, 0, 0);
     networkLayout->addWidget (hostAddressLineEdit, 0, 1);
     networkLayout->addWidget (portNetLabel, 1, 0);
@@ -37,7 +37,7 @@ void HamLibNetworkConfigWidget::createUI()
 
     //networkGroup->setLayout (networkLayout);
     setLayout (networkLayout);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 int HamLibNetworkConfigWidget::getPort()

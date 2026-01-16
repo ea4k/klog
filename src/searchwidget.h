@@ -124,7 +124,7 @@ private:
     QLineEdit *searchBoxLineEdit;
     QPushButton *searchBoxClearButton, *searchBoxExportButton, *searchBoxSelectAllButton, *searchBoxReSearchButton;
     QCheckBox *searchAllQCheckbox;
-    //QTreeWidget *searchResultsTreeWidget;
+    // qTreeWidget *searchResultsTreeWidget;
     QComboBox *stationCallsignComboBox;
 
     //SearchWindow *searchWindow;
@@ -152,8 +152,8 @@ private:
     QAction *qslSentViaBureauMarkRcvReqFromSearchAct;
     QAction *qslRecViaBureauFromSearchAct;
     QAction *qslRecViaDirectFromSearchAct;
-    //QAction *qslRecViaBureauMarkReqFromSearchAct;
-    //QAction *qslRecViaDirectMarkReqFromSearchAct;
+    // qAction *qslRecViaBureauMarkReqFromSearchAct;
+    // qAction *qslRecViaDirectMarkReqFromSearchAct;
 
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;

@@ -27,7 +27,7 @@
 
 StatsFieldPerBandWidget::StatsFieldPerBandWidget(DataProxy_SQLite *dp, ValidFieldsForStats _field, QWidget *parent)
 {
-     //qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget";
+     // qDebug() << "StatsFieldPerBandWidget::StatsFieldPerBandWidget";
     Q_UNUSED(parent);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
@@ -81,7 +81,7 @@ void StatsFieldPerBandWidget::createUI()
 
 void StatsFieldPerBandWidget::prepareChart(const int _log)
 {
-    //qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log);
+    // qDebug() << Q_FUNC_INFO << "Log = " << QString::number(_log);
 
     while(tableWidget->rowCount()>0)
     {
@@ -136,7 +136,7 @@ void StatsFieldPerBandWidget::slotConfirmedClicked()
 
 void StatsFieldPerBandWidget::slotModeComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << modeComboBox->currentText() << "/" << QString::number(modeComboBox->currentIndex ());
+    // qDebug() << Q_FUNC_INFO << ": " << modeComboBox->currentText() << "/" << QString::number(modeComboBox->currentIndex ());
     if (modeComboBox->currentIndex ()==0)
     {
         modeInUse = "ALL";

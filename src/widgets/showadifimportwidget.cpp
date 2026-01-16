@@ -82,41 +82,41 @@ void ShowAdifImportWidget::createUI()
 
 void ShowAdifImportWidget::fillTable()
 {
-    //qDebug() << "ShowAdifImportWidget::fillTable ";
+    // qDebug() << "ShowAdifImportWidget::fillTable ";
     //header << tr("DX") << tr("Date/Time") << tr("Band") << tr("Mode");
 
-    //QList<int> qsos;
-    //qsos.clear();
-    //qsos.append(dataProxy->getQSOsListLoTWToSend(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
-    //qDebug() << "ShowAdifImportWidget::fillTable QSOS: " << QString::number(qsosList.length());
+    // qList<int> qsos;
+    // qsos.clear();
+    // qsos.append(dataProxy->getQSOsListLoTWToSend(stationCallsignComboBox->currentText(), startDate->date(), endDate->date(), true));
+    // qDebug() << "ShowAdifImportWidget::fillTable QSOS: " << QString::number(qsosList.length());
 
-    //QString aux, prefix;
-    //qDebug() << "ShowAdifImportWidget::fillTable: -3" ;
+    // qString aux, prefix;
+    // qDebug() << "ShowAdifImportWidget::fillTable: -3" ;
     tableWidget->clearContents();
     tableWidget->setRowCount(0);
     if (tableWidget->columnCount()>0)
     {
-       //qDebug() << "ShowAdifImportWidget::fillTable pre FOR";
+       // qDebug() << "ShowAdifImportWidget::fillTable pre FOR";
         for (int i=0; i<qsosList.length(); i++)
         {
-            //qDebug() << "ShowAdifImportWidget::fillTable in FOR " << QString::number(i);
+            // qDebug() << "ShowAdifImportWidget::fillTable in FOR " << QString::number(i);
             addQSO(qsosList.at(i));
         }
     }
-    //qDebug() << "ShowAdifImportWidget::fillTable END";
+    // qDebug() << "ShowAdifImportWidget::fillTable END";
 }
 
 void ShowAdifImportWidget::addQSO(const QStringList &_qso)
 {
-    //qDebug() << "ShowAdifImportWidget::addQSO: " << QString::number(_qsoID);
+    // qDebug() << "ShowAdifImportWidget::addQSO: " << QString::number(_qsoID);
     // QRZ-DX, Date-Time, Band, Mode
 
     QStringList qsoToAdd;
     qsoToAdd.clear();
     qsoToAdd << _qso;
 
-    //qDebug() << "ShowAdifImportWidget::addQSO: Columns: " << QString::number(tableWidget->columnCount());
-    //qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd-length: " << QString::number(qsoToAdd.length());
+    // qDebug() << "ShowAdifImportWidget::addQSO: Columns: " << QString::number(tableWidget->columnCount());
+    // qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd-length: " << QString::number(qsoToAdd.length());
 
     if (qsoToAdd.length() == tableWidget->columnCount())
     {
@@ -124,17 +124,17 @@ void ShowAdifImportWidget::addQSO(const QStringList &_qso)
 
         for (int i = 0; i<qsoToAdd.length(); i++)
         {
-            //qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i);
+            // qDebug() << "ShowAdifImportWidget::addQSO: qsoToAdd.at(i): " << qsoToAdd.at(i);
             QTableWidgetItem *newItemID = new QTableWidgetItem(qsoToAdd.at(i));
             newItemID->setTextAlignment(Qt::AlignCenter);
             newItemID->setFlags(Qt::NoItemFlags);
             tableWidget->setItem(tableWidget->rowCount()-1, i, newItemID);
         }
-        //QTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(pow(row, column+1)));
+        // qTableWidgetItem *newItem = new QTableWidgetItem(tr("%1").arg(pow(row, column+1)));
         //tableWidget->setItem(row, column, newItem);
     }
 
-    //qDebug() << "ShowAdifImportWidget::addQSO: - END" ;
+    // qDebug() << "ShowAdifImportWidget::addQSO: - END" ;
 }
 
 
@@ -148,40 +148,40 @@ void ShowAdifImportWidget::slotOKPushButtonClicked()
 
 void ShowAdifImportWidget::closeEvent(QCloseEvent *event)
 {
-    //qDebug() << "ShowAdifImportWidget::closeEvent";
+    // qDebug() << "ShowAdifImportWidget::closeEvent";
     event->accept();
 }
 
 void ShowAdifImportWidget::showEvent(QShowEvent *event)
 {
-    //qDebug() << "ShowAdifImportWidget::showEvent";
+    // qDebug() << "ShowAdifImportWidget::showEvent";
     fillTable();
     event->accept();
 }
 
 void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
 {
-    //qDebug() << "ShowAdifImportWidget::addQSOToTheList - Start";
+    // qDebug() << "ShowAdifImportWidget::addQSOToTheList - Start";
     // QRZ-DX, Date-Time(yyyyMMdd-hhmmss), Band, Mode
     if (_qso.length()!=4)
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received";
+        // qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid qso list received";
         return;
     }
     Callsign callsign(_qso.at(0));
     if (!callsign.isValid())
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received";
+        // qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid QRZ received";
         return;
     }
     if (dataProxy->getIdFromBandName(_qso.at(2))<0)
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid BAND received";
+        // qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid BAND received";
         return;
     }
     if (dataProxy->getIdFromModeName(_qso.at(3))<0)
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received";
+        // qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid Mode received";
         return;
     }
 
@@ -189,7 +189,7 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
     QDateTime _dateTime = util.getDateTimeFromSQLiteString(_qso.at(1));
     if (!_dateTime.isValid())
     {
-        //qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received";
+        // qDebug() << "ShowAdifImportWidget::addQSOToTheList - NO valid DateTime received";
         return;
     }
 
@@ -198,6 +198,6 @@ void ShowAdifImportWidget::addQSOToTheList(const QStringList _qso)
 
     _newQSO << _qso.at(0) << util.getDateTimeSQLiteStringFromDateTime(_dateTime) << _qso.at(2) << _qso.at(3);
     qsosList << _newQSO;
-    //qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END";
+    // qDebug() << "ShowAdifImportWidget::addQSOToTheList QSO Added! - "<< _qso.at(0) <<" - END";
 }
 

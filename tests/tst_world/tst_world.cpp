@@ -93,18 +93,18 @@ private:
 
 tst_World::tst_World()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     version = "1.5";
 
-    //qDebug() << Q_FUNC_INFO << "001";
+    // qDebug() << Q_FUNC_INFO << "001";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    //qDebug() << Q_FUNC_INFO << "002";
+    // qDebug() << Q_FUNC_INFO << "002";
     util = new Utilities(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << "003";
+    // qDebug() << Q_FUNC_INFO << "003";
     world = new World(dataProxy, Q_FUNC_INFO);
-    //QString ctyDatFile = util->getCTYFile();
+    // qString ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 tst_World::~tst_World(){}
@@ -115,15 +115,15 @@ void tst_World::cleanupTestCase(){}
 
 void tst_World::test_Constructor()
 {
-    //QVERIFY(util->getVersion() == "0.0");
-    //qDebug() << "Testing the constructor" ;
+    // qVERIFY(util->getVersion() == "0.0");
+    // qDebug() << "Testing the constructor" ;
 }
 
 void tst_World::test_WorldCreation()
 {
-    //qDebug() << "Testing the world";
-    //QString file = util->getCTYFile();
-    //QVERIFY2(world->readCTYCSV(file), "readCTYCSV failed");
+    // qDebug() << "Testing the world";
+    // qString file = util->getCTYFile();
+    // qVERIFY2(world->readCTYCSV(file), "readCTYCSV failed");
 }
 
 void tst_World::test_EntityIdentification()
@@ -154,22 +154,22 @@ void tst_World::test_EntityIdentification()
     QVERIFY2(world->getQRZARRLId("VP2ME") == 96, "VP2M Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("VP2VE") == 65, "VP2V Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("VP2EE") == 12, "VP2E Entity not properly identified");
-    //QVERIFY2(world->getQRZARRLId("VK9AA") == 35, "VK9AA Entity not properly identified");
+    // qVERIFY2(world->getQRZARRLId("VK9AA") == 35, "VK9AA Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("VK9MA") == 171, "VP2M Entity not properly identified");
-    //QVERIFY2(world->getQRZARRLId("AX9X") == 35, "AX9X Entity not properly identified");
+    // qVERIFY2(world->getQRZARRLId("AX9X") == 35, "AX9X Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("VK9XX") == 35, "VK9X Entity not properly identified");
-    //QVERIFY2(world->getQRZARRLId("4U2STAYHOME") == 1206, "4U2 Entity not properly identified");
+    // qVERIFY2(world->getQRZARRLId("4U2STAYHOME") == 1206, "4U2 Entity not properly identified");
 }
 
 void tst_World::test_ZonesIdentification()
 {
     QVERIFY2(world->getQRZCqz("EA4K") == 14, "CQz for EA not properly identified");
     QVERIFY2(world->getQRZCqz("PY") == 11, "CQz for PY not properly identified");
-    //QVERIFY2(world->getQRZCqz("AX9XA") == 29, "CQz for AX9XA not properly identified");
+    // qVERIFY2(world->getQRZCqz("AX9XA") == 29, "CQz for AX9XA not properly identified");
 
     QVERIFY2(world->getQRZItuz("EA4K") == 37, "ITUz for EA not properly identified");
     QVERIFY2(world->getQRZItuz("PY") == 15, "ITUz for PY not properly identified");
-    //QVERIFY2(world->getQRZItuz("AX9XA") ==54, "ITUz for AX9XA not properly identified");
+    // qVERIFY2(world->getQRZItuz("AX9XA") ==54, "ITUz for AX9XA not properly identified");
 }
 
 void tst_World::test_SeveralIdentification()

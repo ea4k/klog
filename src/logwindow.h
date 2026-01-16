@@ -122,7 +122,7 @@ private:
 
     DataProxy_SQLite *dataProxy;
     LogModel *logModel;
-    //QItemSelectionModel *selectionModel;
+    // qItemSelectionModel *selectionModel;
     Awards *awards;
     //DXCCStatusWidget *dxccStatusWidget;
     //eLogClubLog *elogClublog;
@@ -152,7 +152,7 @@ private:
     QAction *multipleQslSentViaDirectFromLogAct;
     QAction *multipleQslRecViaBureauFromLogAct;
     QAction *multipleQslRecViaDirectFromLogAct;
-    //QAction *moveToAnotherLog; // MOves the selected QSOs to another log.
+    // qAction *moveToAnotherLog; // MOves the selected QSOs to another log.
 
     int currentLog;
 
@@ -171,7 +171,7 @@ public:
 
     QString displayText(const QVariant &value, const QLocale &locale) const;
 
-    //QString displayText (const QVariant &value);
+    // qString displayText (const QVariant &value);
 };
 */
 #endif // LOGWINDOW_H

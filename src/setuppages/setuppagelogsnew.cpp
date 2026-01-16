@@ -32,7 +32,7 @@
 
 SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 {
-      //qDebug() << "SetupPageLogsNew::SetupPageLogsNew"  ;
+      // qDebug() << "SetupPageLogsNew::SetupPageLogsNew"  ;
     Q_UNUSED(parent);
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
@@ -63,7 +63,7 @@ SetupPageLogsNew::SetupPageLogsNew(DataProxy_SQLite *dp, QWidget *parent)
 
     okButton->setEnabled(false);
 
-       //qDebug() << "SetupPageLogsNew::SetupPageLogsNew - END"  ;
+       // qDebug() << "SetupPageLogsNew::SetupPageLogsNew - END"  ;
 }
 
 SetupPageLogsNew::~SetupPageLogsNew()
@@ -73,17 +73,17 @@ SetupPageLogsNew::~SetupPageLogsNew()
 
 void SetupPageLogsNew::clear()
 {
-      //qDebug() << "SetupPageLogsNew::Clear - Start"  ;
+      // qDebug() << "SetupPageLogsNew::Clear - Start"  ;
     stationCallsignLineEdit->clear();
     operatorsLineEdit->clear();
     dateEdit->setDate(QDate::currentDate ());
 
-      //qDebug() << "SetupPageLogsNew::Clear - END"  ;
+      // qDebug() << "SetupPageLogsNew::Clear - END"  ;
 }
 
 void SetupPageLogsNew::createWidget()
 {
-      //qDebug() << "SetupPageLogsNew::createWidget - Start";
+      // qDebug() << "SetupPageLogsNew::createWidget - Start";
 
     stationCallsignLabel->setWordWrap(true);
     operatorsLabel->setWordWrap(true);
@@ -131,12 +131,12 @@ void SetupPageLogsNew::createWidget()
     setLayout(mainLayout);
     clear();
 
-      //qDebug() << "SetupPageLogsNew::createWidget - End";
+      // qDebug() << "SetupPageLogsNew::createWidget - End";
 }
 
 void SetupPageLogsNew::slotOperatorsTextChanged()
 {
-       //qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - Start";
+       // qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - Start";
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((operatorsLineEdit->text()).length()<1)
     {
@@ -162,12 +162,12 @@ void SetupPageLogsNew::slotOperatorsTextChanged()
     {//TODO: Add a check of the format (comma separated)
         operatorsFilled= true;
     }
-      //qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - End";
+      // qDebug() << "SetupPageLogsNew::slotOperatorsTextChanged - End";
 }
 
 void SetupPageLogsNew::slotStationCallSignTextChanged()
 {
-       //qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged";
+       // qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged";
 //    connect(stationCallsignLineEdit, SIGNAL(textChanged(QString)), this, SLOT( ) );
     if ((stationCallsignLineEdit->text()).length()<1)
     {
@@ -195,12 +195,12 @@ void SetupPageLogsNew::slotStationCallSignTextChanged()
         stationCallsignFilled = true;
     }
     showOK();
-      //qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged - End";
+      // qDebug() << "SetupPageLogsNew::slotStationCallSignTextChanged - End";
 }
 
 void SetupPageLogsNew::slotOKButtonClicked()
 {
-       //qDebug() << "SetupPageLogsNew::slotOkButtonClicked";
+       // qDebug() << "SetupPageLogsNew::slotOkButtonClicked";
     stationCallsign = stationCallsignLineEdit->text();
     if (stationCallsign.length()<3)
     {
@@ -235,7 +235,7 @@ void SetupPageLogsNew::slotOKButtonClicked()
 
 void SetupPageLogsNew::gatherAndSend()
 {
-        //qDebug() << "SetupPageLogsNew::gatherAndSend: " ;
+        // qDebug() << "SetupPageLogsNew::gatherAndSend: " ;
 
     // The following lines will be removed once more contest types have been added
     //contestCatMode = contestCatModeComboBox->currentIndex();
@@ -278,13 +278,13 @@ void SetupPageLogsNew::gatherAndSend()
     //logData << QString::number(typeContest)
     // Update the SetupPageLogs::slotAnalyzeNewLogData if you add or remove any field (Today 12)
 
-       //qDebug() << "SetupPageLogsNew::gatherAndSend: EMITED";
+       // qDebug() << "SetupPageLogsNew::gatherAndSend: EMITED";
     emit newLogData(logData);
 }
 
 void SetupPageLogsNew::slotCancelButtonClicked()
 {
-       //qDebug() << "SetupPageLogsNew::slotCancelButtonClicked";
+       // qDebug() << "SetupPageLogsNew::slotCancelButtonClicked";
     logData.clear();
     emit cancelled(true);
     setResult(QDialog::Rejected);
@@ -303,7 +303,7 @@ QStringList SetupPageLogsNew::getValidCatOptions(const int _currentCat, const in
 // 5 - contestcatoverlay
 // 6 - contestcatmode
 
-       //qDebug() << "SetupPageLogsNew::getValidCatOptions: " << QString::number(_currentCat) <<"/"<< QString::number(_higherCat);
+       // qDebug() << "SetupPageLogsNew::getValidCatOptions: " << QString::number(_currentCat) <<"/"<< QString::number(_higherCat);
     //return dataProxy->getValidCatOptions(_currentCat, _higherCat);
     return QStringList();
 }
@@ -399,32 +399,32 @@ void SetupPageLogsNew::setEditing(const bool b)
 /*
 int SetupPageLogsNew::getSelectedTypeContest()
 {
-       //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: ";
+       // qDebug() << "SetupPageLogsNew::getSelectedTypeContest: ";
     //is/contest/catoperator/catassisted/catpower/catband/catoverlay/catmode
     int i = dataProxy->getContestTypeN(typeContestSelected, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestCatOverlay, contestCatMode);
-       //qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << QString::number(i);
+       // qDebug() << "SetupPageLogsNew::getSelectedTypeContest: " << QString::number(i);
     return i;
 
 }
 
 void SetupPageLogsNew::setTypeN(const int _n)
 {
-       //qDebug() << "SetupPageLogsNew::setTypeN: " << QString::number(_n);
+       // qDebug() << "SetupPageLogsNew::setTypeN: " << QString::number(_n);
     typeContestSelected = _n;
     fillWithType(typeContestSelected);
 }
 
 void SetupPageLogsNew::fillWithType(const int _n)
 {
-       //qDebug() << "SetupPageLogsNew::fillWithType - n = " << QString::number(_n);
+       // qDebug() << "SetupPageLogsNew::fillWithType - n = " << QString::number(_n);
     typeContestSelected = _n;
     QStringList contestData;
     contestData << dataProxy->getDataFromContestType(_n);
-       //qDebug() << "SetupPageLogsNew::fillWithType-1 (length = " << QString::number(contestData.length()) << ")";
+       // qDebug() << "SetupPageLogsNew::fillWithType-1 (length = " << QString::number(contestData.length()) << ")";
     if (contestData.length()== 8)
     {
 
-           //qDebug() << "SetupPageLogsNew::fillWithType-2";
+           // qDebug() << "SetupPageLogsNew::fillWithType-2";
         //setCOperators ((contestData.at(1)).toInt());
         //setCAssisted ((contestData.at(2)).toInt());
         //setCPower ((contestData.at(3)).toInt());
@@ -432,11 +432,11 @@ void SetupPageLogsNew::fillWithType(const int _n)
         //setCMode ((contestData.at(5)).toInt());
         //setType(contestData.at(6));
         //setCBands((contestData.at(7)).toInt());
-           //qDebug() << "SetupPageLogsNew::fillWithType: " << contestData.at(6);
+           // qDebug() << "SetupPageLogsNew::fillWithType: " << contestData.at(6);
     }
     else
     {
-           //qDebug() << "SetupPageLogsNew::fillWithType-3";
+           // qDebug() << "SetupPageLogsNew::fillWithType-3";
         return;
     }
 
@@ -445,7 +445,7 @@ void SetupPageLogsNew::fillWithType(const int _n)
 
 void SetupPageLogsNew::updateAllCats()
 {
-       //qDebug() << "SetupPageLogsNew::updateAllCats";
+       // qDebug() << "SetupPageLogsNew::updateAllCats";
 
     contestCatMode = contestCatModeComboBox->currentIndex();
     contestCatBands = contestCatBandsComboBox->currentIndex();

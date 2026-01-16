@@ -63,7 +63,7 @@ private:
     void fillNetworkInterfaceComboBox();
 
     QCheckBox *logFromWSJTXCheckbox, *logAutomaticallyWSJTXCheckbox, *realDataFromWSJTXCheckbox, *UDPServerCheckBox;
-    //QLineEdit *wsjtxIPAddress, *wsjtxPortNumber;
+    // qLineEdit *wsjtxIPAddress, *wsjtxPortNumber;
     QSpinBox *UDPServerPortSpinBox;
     QSpinBox *miliSecsSpinBox;
     QComboBox *networkInterfacesComboBox;

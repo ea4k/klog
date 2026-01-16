@@ -66,12 +66,12 @@ public:
     void setOperator(const QString &_op);
     QString getOperator();
 
-    //QString getLastOperator();
+    // qString getLastOperator();
 
     void setStationCallsign(const QString &_op);    // Sets ONLY the LineEdit, not the internal/configured stationCallsign
     QString getStationCallsign();
 
-    //QString getLastStationQRZ();
+    // qString getLastStationQRZ();
 
     void setMyLocator(const QString &_op);
     QString getMyLocator();

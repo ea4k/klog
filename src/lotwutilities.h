@@ -77,7 +77,7 @@ private:
 
     QFile *file;
     bool downloadAborted;
-    //qint64 fileSize;
+    // qint64 fileSize;
     QUrl url;
     QProgressDialog *pDialog;
 

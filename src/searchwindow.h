@@ -132,7 +132,7 @@ private:
 
     //eLogClubLog *elogClublog;
 
-    //QTableView *logView;
+    // qTableView *logView;
     QTreeView *treeView;
     QLabel *logLabel;
 

@@ -149,7 +149,7 @@ private:
     QLineEdit *ant1LineEdit;
     QLineEdit *ant2LineEdit;
     QLineEdit *ant3LineEdit;
-    //QLineEdit *powerLineEdit;
+    // qLineEdit *powerLineEdit;
     QDoubleSpinBox *myPowerSpinBox;
 
     QPalette *defaultPalette, *wrongPalette;

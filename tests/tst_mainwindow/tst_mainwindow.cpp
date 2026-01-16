@@ -110,7 +110,7 @@ private slots:
 private:
     MainWindow *mainWindow;
     World *world;
-    //QWidget *testCandidate;
+    // qWidget *testCandidate;
 
 public slots:
     void slotTimeOut();
@@ -135,7 +135,7 @@ void tst_MainWindow::init()
 
 void tst_MainWindow::test_focusOrder()
 {
-    //QApplication::setActiveWindow(mainWindow);
+    // qApplication::setActiveWindow(mainWindow);
     mainWindow->activateWindow();
     mainWindow->mainQSOEntryWidget->setFocus();
     QVERIFY2(mainWindow->mainQSOEntryWidget->hasFocus(), "mainQSOEntriWidget didn't get focus");
@@ -143,52 +143,52 @@ void tst_MainWindow::test_focusOrder()
 
 void tst_MainWindow::test_Constructor()
 {
-    //qDebug() << Q_FUNC_INFO;
-    //QVERIFY2(mainWindow->showKLogLogWidget, "showKLogLogWidget not created");
+    // qDebug() << Q_FUNC_INFO;
+    // qVERIFY2(mainWindow->showKLogLogWidget, "showKLogLogWidget not created");
     QVERIFY2(mainWindow->showErrorDialog, "showErrorDialog not created");
     QVERIFY2(mainWindow->UDPLogServer, "UDPLogServer not created");
     QVERIFY2(mainWindow->util, "util not created");
-    //QVERIFY2(mainWindow->qsoInUI, "qso not created");
+    // qVERIFY2(mainWindow->qsoInUI, "qso not created");
 
     QVERIFY2(mainWindow->showErrorDialog, "showErrorDialog not created");
     QVERIFY2(mainWindow->lotwUtilities, "lotwUtilities not created");
     QVERIFY2(mainWindow->eqslUtilities, "eqslUtilities not created");
     QVERIFY2(mainWindow->elogQRZcom, "elogQRZcom not created");
-    //QVERIFY2(mainWindow->elogClublog, "elogClublog not created");
+    // qVERIFY2(mainWindow->elogClublog, "elogClublog not created");
     QVERIFY2(mainWindow->downloadcty, "downloadcty not created");
     QVERIFY2(mainWindow->world, "world not created");
-    //QVERIFY2(mainWindow->locator, "locator not created");
-    //QVERIFY2(mainWindow->qsoInUI, "qso not created");
-    //QVERIFY2(mainWindow->debugFile, "debugFile not created");
+    // qVERIFY2(mainWindow->locator, "locator not created");
+    // qVERIFY2(mainWindow->qsoInUI, "qso not created");
+    // qVERIFY2(mainWindow->debugFile, "debugFile not created");
     QVERIFY2(mainWindow->dateTime, "dateTime not created");
-    //QVERIFY2(mainWindow->awards, "awards not created");
+    // qVERIFY2(mainWindow->awards, "awards not created");
     QVERIFY2(mainWindow->softUpdate, "softUpdate not created");
     QVERIFY2(mainWindow->filemanager, "filemanager not created");
-    //QVERIFY2(mainWindow->fileAwardManager, "fileAwardManager not created");
-    //QVERIFY2(mainWindow->qsoInUI, "qso not created");
-    //QTimer::singleShot(500, this, SLOT(slotTimeOut()));
-    //qDebug() << Q_FUNC_INFO << " - Init";
+    // qVERIFY2(mainWindow->fileAwardManager, "fileAwardManager not created");
+    // qVERIFY2(mainWindow->qsoInUI, "qso not created");
+    // qTimer::singleShot(500, this, SLOT(slotTimeOut()));
+    // qDebug() << Q_FUNC_INFO << " - Init";
 
     //mainWindow->init();
-    //qDebug() << Q_FUNC_INFO << " - Show";
+    // qDebug() << Q_FUNC_INFO << " - Show";
     mainWindow->show();
-    //qDebug() << Q_FUNC_INFO << " - SlotSetup";
+    // qDebug() << Q_FUNC_INFO << " - SlotSetup";
     mainWindow->slotSetup();
-    //qDebug() << Q_FUNC_INFO << " - After the SlotSetup";
+    // qDebug() << Q_FUNC_INFO << " - After the SlotSetup";
 
-    //QTest::keyClick(&mainWindow, Qt::Key_Tab);
+    // qTest::keyClick(&mainWindow, Qt::Key_Tab);
     // QTest::keyClick(toplevelWidget, Qt::Key_Space); // To close the showWar button
-    //qDebug() << Q_FUNC_INFO << "To be shown";
+    // qDebug() << Q_FUNC_INFO << "To be shown";
 
-    //qDebug() << Q_FUNC_INFO << "To be showed";
-    //QTest::mouseClick(toplevelWidget. , Qt::LeftButton);
+    // qDebug() << Q_FUNC_INFO << "To be showed";
+    // qTest::mouseClick(toplevelWidget. , Qt::LeftButton);
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void tst_MainWindow::test_Settings()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 /*
      QTestEventList events;
     events.addKeyClick('a');
@@ -201,38 +201,38 @@ void tst_MainWindow::test_Settings()
 */
     //mainWindow->show();
     mainWindow->slotSetup();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 void tst_MainWindow::slotTimeOut()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     QWidget *modalWidget = QApplication::activeModalWidget();
     if (modalWidget->inherits("QMessageBox"))
     {
-        //qDebug() << Q_FUNC_INFO << " Inherits QmessageBox";
+        // qDebug() << Q_FUNC_INFO << " Inherits QmessageBox";
                 QMessageBox *mb = qobject_cast<QMessageBox *>(modalWidget);
-                //qDebug() << mb->text ();
-                //QString msg = mb->informativeText ();
+                // qDebug() << mb->text ();
+                // qString msg = mb->informativeText ();
                 QString msg = mb->text ();
                 QVERIFY2(msg.contains ("Ukraine"), "Show War Message not created");
                 QTest::keyClick(mb, Qt::Key_Enter);
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void tst_MainWindow::test_QSOEntry()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     mainWindow->show();
     //mainWindow->mainQSOEntryWidget->setQRZ ("EA4K");
-    //QVERIFY2(mainWindow->mainQSOEntryWidget->getQrz () == "EA4K", "Callsign tested wrong");
-    //qDebug() << "Prefix: " << mainWindow->othersTabWidget->getEntityPrefix ();
-    //qDebug() << "Label: " << mainWindow->infoLabel2->text ();
-    //QVERIFY2(mainWindow->othersTabWidget->getEntityPrefix () == "EA", "Prefix not properly idenfified");
-    //QVERIFY2(mainWindow->infoLabel2->text () == "Spain", "Entity not properly idenfified");
-    //QVERIFY2(mainWindow->infoLabel2->text () == "Spadin", "Entity2 not properly idenfified");
+    // qVERIFY2(mainWindow->mainQSOEntryWidget->getQrz () == "EA4K", "Callsign tested wrong");
+    // qDebug() << "Prefix: " << mainWindow->othersTabWidget->getEntityPrefix ();
+    // qDebug() << "Label: " << mainWindow->infoLabel2->text ();
+    // qVERIFY2(mainWindow->othersTabWidget->getEntityPrefix () == "EA", "Prefix not properly idenfified");
+    // qVERIFY2(mainWindow->infoLabel2->text () == "Spain", "Entity not properly idenfified");
+    // qVERIFY2(mainWindow->infoLabel2->text () == "Spadin", "Entity2 not properly idenfified");
 
 /*
  QSignalSpy spy(myCustomObject, SIGNAL(mySignal(int,QString,double)));
@@ -258,7 +258,7 @@ void tst_MainWindow::test_QSOEntry()
 
     QList<QVariant> args = spy1.takeFirst();
 
-    //QVERIFY(args.at(0).type() == QMetaType::Bool);
+    // qVERIFY(args.at(0).type() == QMetaType::Bool);
     QVERIFY(args.at(0).typeId() == QMetaType::Bool);
     if (mainQSOEntryWidget->getManualMode() == true)
     {
@@ -278,22 +278,22 @@ void tst_MainWindow::test_QSOEntry()
     QTest::keyClick(testWidget, Qt::Key_4);
     QTest::keyClick(testWidget, Qt::Key_K);
 
-    //qDebug() << "Signal count: " << QString::number(spy.count ());
-    //qDebug() << Q_FUNC_INFO << " - reading signal";
+    // qDebug() << "Signal count: " << QString::number(spy.count ());
+    // qDebug() << Q_FUNC_INFO << " - reading signal";
     QList<QVariant> arguments = spy.takeFirst();
-    //qDebug() << Q_FUNC_INFO << " - launching signal-1";
-    //qDebug() << "Signal: " << arguments.at(0).toString ();
-    //qDebug() << Q_FUNC_INFO << " - launching signal-2";
+    // qDebug() << Q_FUNC_INFO << " - launching signal-1";
+    // qDebug() << "Signal: " << arguments.at(0).toString ();
+    // qDebug() << Q_FUNC_INFO << " - launching signal-2";
     QVERIFY2(arguments.at(0).type() == QVariant::String, "currentQRZSignal wrong type");
-    //qDebug() << Q_FUNC_INFO << " - launching signal-3";
+    // qDebug() << Q_FUNC_INFO << " - launching signal-3";
     QVERIFY2(arguments.at(0).toString ()== QString("EA4K"), "currentQRZSignal wrong type");
-    //qDebug() << Q_FUNC_INFO << " - launching signal-4";
+    // qDebug() << Q_FUNC_INFO << " - launching signal-4";
     */
-    //QVERIFY(arguments.at(1).type() == QVariant::String);
-    //QVERIFY(arguments.at(2).type() == QVariant::double);
+    // qVERIFY(arguments.at(1).type() == QVariant::String);
+    // qVERIFY(arguments.at(2).type() == QVariant::double);
 
-    //QVERIFY2(mainWindow->mainQSOEntryWidget->getQrz () == "EA4K", "Callsign tested wrong");
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qVERIFY2(mainWindow->mainQSOEntryWidget->getQrz () == "EA4K", "Callsign tested wrong");
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 QTEST_MAIN(tst_MainWindow)

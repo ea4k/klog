@@ -60,7 +60,7 @@ private:
     QNetworkRequest *request;
 
 
-    //QString target;
+    // qString target;
     int result; // enum QNetworkReply::NetworkError
     QString klogDir;
     QString urld;

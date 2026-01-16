@@ -29,11 +29,11 @@ DXClusterAssistant::DXClusterAssistant(const QString &_parentFunction, QWidget *
     : QWidget{parent}
 {
 #ifdef QT_DEBUG
-    //qDebug() << ": " << _parentFunction;
+    // qDebug() << ": " << _parentFunction;
 #else
 #endif
     (void)_parentFunction;
-    //qDebug() << Q_FUNC_INFO << " - Start: " + _parentFunction;
+    // qDebug() << Q_FUNC_INFO << " - Start: " + _parentFunction;
 
     tableWidget = new QTableWidget;
 }
@@ -48,7 +48,7 @@ bool DXClusterAssistant::init()
 
 bool DXClusterAssistant::createUI()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     tableWidget->setSortingEnabled (true);
 
     hv = tableWidget->verticalHeader();
@@ -70,15 +70,15 @@ bool DXClusterAssistant::createUI()
     return true;
 
     //connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancelPushButtonClicked() ) );
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void DXClusterAssistant::newDXClusterSpot(proposedQSOs _q)
 {
     list.append(_q);
-    //qDebug() << Q_FUNC_INFO << " - 50";
-    //qDebug() << Q_FUNC_INFO << " - 60";
-    //qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(getStringFromStatus(_status));
+    // qDebug() << Q_FUNC_INFO << " - 50";
+    // qDebug() << Q_FUNC_INFO << " - 60";
+    // qDebug() << Q_FUNC_INFO << QString("Data received: Call: %1 - Freq: %2 - Status: %3").arg(_call).arg(_freq).arg(getStringFromStatus(_status));
     addCall();
 }
 
@@ -108,7 +108,7 @@ QString DXClusterAssistant::getStringFromStatus(QSOStatus _s)
 
 void DXClusterAssistant::addCall()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     tableWidget->clearContents();
     tableWidget->setRowCount(0);
 
@@ -116,7 +116,7 @@ void DXClusterAssistant::addCall()
 
     foreach(aux, list)
     {
-        //qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
+        // qDebug() << Q_FUNC_INFO << "Call: " << aux.call;
         QTableWidgetItem *newItemCall = new QTableWidgetItem(aux.call, QTableWidgetItem::Type);
         QTableWidgetItem *newItemFreq = new QTableWidgetItem(aux.freq.toQString(), QTableWidgetItem::Type);
         QTableWidgetItem *newItemStatus = new QTableWidgetItem(getStringFromStatus(aux.status), QTableWidgetItem::Type);
@@ -127,5 +127,5 @@ void DXClusterAssistant::addCall()
         tableWidget->setItem(row-1, 1, newItemFreq);
         tableWidget->setItem(row-1, 2, newItemStatus);
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }

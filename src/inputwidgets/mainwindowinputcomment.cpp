@@ -30,12 +30,12 @@
 MainWindowInputComment::MainWindowInputComment(QWidget *parent) :
     QWidget(parent)
 {
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment"  ;
+       // qDebug() << "MainWindowInputComment::MainWindowInputComment"  ;
     commentLineEdit = new QLineEdit();
     keepThisDataForNextQSOQCheckbox = new QCheckBox;
     comment.clear();
     createUI();
-       //qDebug() << "MainWindowInputComment::MainWindowInputComment - END"  ;
+       // qDebug() << "MainWindowInputComment::MainWindowInputComment - END"  ;
 }
 
 
@@ -55,7 +55,7 @@ void MainWindowInputComment::createUI()
     keepThisDataForNextQSOQCheckbox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
     QGridLayout *tabLayout = new QGridLayout;
-    //QVBoxLayout *tabLayout = new QVBoxLayout;
+    // qVBoxLayout *tabLayout = new QVBoxLayout;
     //tabLayout->addWidget(commentLineEdit);
     tabLayout->addWidget(commentLabel, 0, 0);
     tabLayout->addWidget(commentLineEdit, 0, 1);
@@ -111,6 +111,6 @@ void MainWindowInputComment::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
 
-   //qDebug() << Q_FUNC_INFO << qso.getCall();
+   // qDebug() << Q_FUNC_INFO << qso.getCall();
     setData(qso.getComment());
 }

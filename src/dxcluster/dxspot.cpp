@@ -70,26 +70,26 @@ void DXSpot::operator=(DXSpot const &_other)
 
 bool DXSpot::isValid()
 {
-   //qDebug() << Q_FUNC_INFO << " - 010";
+   // qDebug() << Q_FUNC_INFO << " - 010";
     Callsign dxc(dxcall);
     if (!dxc.isValid())
         return false;
 
-   //qDebug() << Q_FUNC_INFO << " - 020";
+   // qDebug() << Q_FUNC_INFO << " - 020";
     Callsign spo(spotter);
     if (!spo.isValid())
         return false;
 
-   //qDebug() << Q_FUNC_INFO << " - 030";
+   // qDebug() << Q_FUNC_INFO << " - 030";
     if (!freq.isValid())
         return false;
 
-   //qDebug() << Q_FUNC_INFO << " - 040";
+   // qDebug() << Q_FUNC_INFO << " - 040";
 
     if (!dateTime.isValid())
         return false;
 
-   //qDebug() << Q_FUNC_INFO << " - 050";
+   // qDebug() << Q_FUNC_INFO << " - 050";
     return true;
 }
 
@@ -121,7 +121,7 @@ void DXSpot::setFrequency(Frequency f)
 {
     if (f.isValid())
         freq = f;
-   //qDebug() << Q_FUNC_INFO << ": " << freq.toQString(MHz);
+   // qDebug() << Q_FUNC_INFO << ": " << freq.toQString(MHz);
 }
 
 Frequency DXSpot::getFrequency()

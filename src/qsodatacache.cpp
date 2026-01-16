@@ -28,24 +28,24 @@
 
 QSODataCache::QSODataCache(const QString &_parentFunction) {
 #ifdef QT_DEBUG
-    //qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
+    // qDebug() << Q_FUNC_INFO << ": " << _parentFunction;
 #else
-//    //qDebug() << Q_FUNC_INFO << "Running a release build";
+//    // qDebug() << Q_FUNC_INFO << "Running a release build";
 #endif
     (void)_parentFunction;
     ready = false;
 }
 QSODataCache::~QSODataCache(){}
 
-//QString QSODataCache::getModeFromSubmode(const QString &_sm)
+// qString QSODataCache::getModeFromSubmode(const QString &_sm)
 //{
-//    //qDebug() << Q_FUNC_INFO;
+//    // qDebug() << Q_FUNC_INFO;
 //    return submodeModeHash.value(_sm);
 //}
 
 int QSODataCache::getModeIdFromSubmode(const QString &_sm) const
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     auto it = submodeModeHash.constFind(_sm);
     if (it != submodeModeHash.constEnd()) {
         return it.value().id;
@@ -55,7 +55,7 @@ int QSODataCache::getModeIdFromSubmode(const QString &_sm) const
 
 QString QSODataCache::getModeFromSubmode(const QString &_sm) const
 {
-    //qDebug() << Q_FUNC_INFO << _sm;
+    // qDebug() << Q_FUNC_INFO << _sm;
     auto it = submodeModeHash.constFind(_sm);
     if (it != submodeModeHash.constEnd()) {
         return it.value().mode;
@@ -65,30 +65,30 @@ QString QSODataCache::getModeFromSubmode(const QString &_sm) const
 
 bool QSODataCache::isReady()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     return ready;
 }
 
 bool QSODataCache::loadSubmodeModeHash()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     submodeModeHash.clear();
-    //qDebug() << Q_FUNC_INFO << " - 001";
+    // qDebug() << Q_FUNC_INFO << " - 001";
 
     QSqlQuery query;
-    //qDebug() << Q_FUNC_INFO << " - 002";
+    // qDebug() << Q_FUNC_INFO << " - 002";
     QString queryString = "SELECT id, submode, name FROM mode";
-    //qDebug() << Q_FUNC_INFO << " - 003";
+    // qDebug() << Q_FUNC_INFO << " - 003";
     bool sqlOK = query.exec(queryString);
-    //qDebug() << Q_FUNC_INFO << " - 010";
+    // qDebug() << Q_FUNC_INFO << " - 010";
     if (!sqlOK)
     {
         //emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
-        //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
+        // qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << " - 020";
+    // qDebug() << Q_FUNC_INFO << " - 020";
     while (query.next()) {
         if (query.isValid()) {
             //submodeModeHash["USB"] = {1, "SSB"};
@@ -99,31 +99,31 @@ bool QSODataCache::loadSubmodeModeHash()
             mInfo.mode = query.value(2).toString();
             submodeModeHash.insert(submode, mInfo);
             //submodeModeHash.insert(submode, mode);
-            //qDebug() << Q_FUNC_INFO << QString::number(mInfo.id) << "/" << submode << "/" << mInfo.mode;
+            // qDebug() << Q_FUNC_INFO << QString::number(mInfo.id) << "/" << submode << "/" << mInfo.mode;
         }
     }
-    //qDebug() << Q_FUNC_INFO << " - 030";
+    // qDebug() << Q_FUNC_INFO << " - 030";
     query.finish();
-    //qDebug() << Q_FUNC_INFO << "END";
-    //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(submodeModeHash.count());
+    // qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << ": count: " << QString::number(submodeModeHash.count());
     return true;
 }
 
 bool QSODataCache::reloadAll()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     ready = loadSubmodeModeHash();
     return isReady();
 }
 
 bool QSODataCache::isValidMode(const QString &_m)
 {
-    //qDebug() << Q_FUNC_INFO << "Checking mode:" << _m;
+    // qDebug() << Q_FUNC_INFO << "Checking mode:" << _m;
 
     if (!ready) {
-        //qDebug() << Q_FUNC_INFO << "Not ready, reloading...";
+        // qDebug() << Q_FUNC_INFO << "Not ready, reloading...";
         if (!reloadAll()) {
-            //qDebug() << Q_FUNC_INFO << "Reload failed.";
+            // qDebug() << Q_FUNC_INFO << "Reload failed.";
             return false;
         }
     }
@@ -138,11 +138,11 @@ bool QSODataCache::isValidMode(const QString &_m)
 
 bool QSODataCache::isValidSubMode(const QString &_m)
 {
-    //qDebug() << Q_FUNC_INFO << "Checking submode:" << _m;
+    // qDebug() << Q_FUNC_INFO << "Checking submode:" << _m;
 
     if (!ready) {
         if (!reloadAll()) {
-            //qDebug() << Q_FUNC_INFO << "Reload failed.";
+            // qDebug() << Q_FUNC_INFO << "Reload failed.";
             return false;
         }
     }

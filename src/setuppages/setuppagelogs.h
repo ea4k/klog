@@ -84,8 +84,8 @@ private:
 
     /* Wizard to create a new log*/
 
-    //QWizardPage *createLogTypePage();
-    //QWizard *newLogWizard; // Wizard to create a new log
+    // qWizardPage *createLogTypePage();
+    // qWizard *newLogWizard; // Wizard to create a new log
 
     /*^Wizard to create a new log^*/
 

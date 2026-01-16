@@ -66,10 +66,10 @@ public:
 
 private:
   //bool valid;
-  //QString myLocator;
-  //QString testLocator;
-  //QString otherLocator;
-  //QChar theChar;
+  // qString myLocator;
+  // qString testLocator;
+  // qString otherLocator;
+  // qChar theChar;
   //double my_lon, my_lat, other_lon, other_lat, beam, testNumb;
   //int ideg, imin, isec;
 };

@@ -54,7 +54,7 @@ public:
     double toDouble(FreqUnits _u = MHz);                        // Returns in MHz
     QString toQString(FreqUnits _u = MHz);   // Returns in MHz with decimals
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
-    //QString band();                                           // Returns the band
+    // qString band();                                           // Returns the band
     //int bandId();                                             // Returns the bandId
     bool isValid();
     void operator=(Frequency const &_f2);                       // Redefinition of =

@@ -65,11 +65,11 @@ tst_QSO::tst_QSO()
     Utilities util(Q_FUNC_INFO);
     QString version = QCoreApplication::applicationVersion();
     DataBase db(Q_FUNC_INFO, version, util.getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
+    // qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
 
     if (!db.createConnection(Q_FUNC_INFO))
     {
-        //qDebug() << Q_FUNC_INFO << " -  NO DB";
+        // qDebug() << Q_FUNC_INFO << " -  NO DB";
     }
     qso = new QSO;
 }
@@ -308,20 +308,20 @@ void tst_QSO::cleanupTestCase(){}
 void tst_QSO::test_Constructor()
 {
     //logLevel = None;
-    //qsoId = -1;
+    // qsoId = -1;
 
     QVERIFY2(qso->getQSOid() == -1, "Wrong Id in constructor");
     QVERIFY2(qso->logLevel == None, "Wrong LogLevel in constructor");
-    //qDebug() << "Testing the constructor" ;
+    // qDebug() << "Testing the constructor" ;
 }
 
 void  tst_QSO::test_ModeManagement()
 {
     qso->setMode("FM");
     qso->setSubmode("FM");
-    //qDebug() << Q_FUNC_INFO << "Mode: " << qso->getMode();
-    //qDebug() << Q_FUNC_INFO << "Submode: " << qso->getSubmode();
-    //qDebug() << Q_FUNC_INFO << qso->getModeIdFromModeName();
+    // qDebug() << Q_FUNC_INFO << "Mode: " << qso->getMode();
+    // qDebug() << Q_FUNC_INFO << "Submode: " << qso->getSubmode();
+    // qDebug() << Q_FUNC_INFO << qso->getModeIdFromModeName();
 }
 
 
@@ -329,7 +329,7 @@ void  tst_QSO::test_ModeManagement()
 void tst_QSO::test_dataEntry()
 {
     qso->clear();
-    //qDebug() << Q_FUNC_INFO << qso->getFreqRX();
+    // qDebug() << Q_FUNC_INFO << qso->getFreqRX();
     QVERIFY2(qso->getFreqRX() == -1, "Wrong FreqRX");
     QVERIFY2(qso->getFreqTX() == -1, "Wrong FreqTX");
     QVERIFY2(qso->setPrefix("EA4"), "Error while setting Prefix");
@@ -440,9 +440,9 @@ void tst_QSO::test_Copy()
     QSO qso3;
     qso3.clear();
     qso3.copy(qso1);
-    //qDebug() << Q_FUNC_INFO << " -1- " << qso1.getCall();
-    //qDebug() << Q_FUNC_INFO << " -2- " << qso2.getCall();
-    //qDebug() << Q_FUNC_INFO << " -3- " << qso3.getCall();
+    // qDebug() << Q_FUNC_INFO << " -1- " << qso1.getCall();
+    // qDebug() << Q_FUNC_INFO << " -2- " << qso2.getCall();
+    // qDebug() << Q_FUNC_INFO << " -3- " << qso3.getCall();
     QVERIFY2(qso2.getCall() == "EA4K", "Wrong Call in constructor copy");
     QVERIFY2(qso3.getCall() == "EA4K", "Wrong Call in copy");
     QVERIFY2(qso2.getMyCity() == "Madrid", "Wrong My_CITY in constructor copy");
@@ -452,7 +452,7 @@ void tst_QSO::test_Copy()
     QVERIFY2(qso3.getComment() == "QSO1-comment", "Wrong Comment in copy");
 }
 
-//QTEST_APPLESS_MAIN(tst_QSO)
+// qTEST_APPLESS_MAIN(tst_QSO)
 QTEST_GUILESS_MAIN(tst_QSO)
 
 #include "tst_qso.moc"

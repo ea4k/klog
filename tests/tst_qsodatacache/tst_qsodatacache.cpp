@@ -51,7 +51,7 @@ private slots:
     void test_modes();
 
 private:
-    //QSODataCache qdata;
+    // qSODataCache qdata;
     DataBase *db;
     Utilities *util;
 
@@ -60,14 +60,14 @@ private:
 tst_QSODataCache::tst_QSODataCache()
 {
     QString _version = QString ("99.9");
-    //qDebug() << Q_FUNC_INFO << "- 001";
+    // qDebug() << Q_FUNC_INFO << "- 001";
     util = new Utilities(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << "- 002: " << util->getKLogDBFile();
+    // qDebug() << Q_FUNC_INFO << "- 002: " << util->getKLogDBFile();
 
     db = new DataBase(Q_FUNC_INFO, _version, util->getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << "- 003";
+    // qDebug() << Q_FUNC_INFO << "- 003";
     QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 tst_QSODataCache::~tst_QSODataCache(){}
@@ -78,8 +78,8 @@ void tst_QSODataCache::cleanupTestCase(){}
 
 void tst_QSODataCache::test_Constructor()
 {
-    //qdata.reloadAll();
-    //QVERIFY(qdata.getModeFromSubmode("USB") == "SSB");
+    // qdata.reloadAll();
+    // qVERIFY(qdata.getModeFromSubmode("USB") == "SSB");
 }
 
 void tst_QSODataCache::test_modes_data()
@@ -89,7 +89,7 @@ void tst_QSODataCache::test_modes_data()
 
     QFile file(":/modes.json");
     if (!file.open(QIODevice::ReadOnly)) {
-        //qDebug() << "No se pudo abrir el resource modes.json";
+        // qDebug() << "No se pudo abrir el resource modes.json";
         QFAIL("No se pudo abrir modes.json como resource");
     }
 

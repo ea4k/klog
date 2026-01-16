@@ -83,12 +83,12 @@ tst_Utilities::~tst_Utilities()
 
 void tst_Utilities::initTestCase()
 {
-    //qDebug("Called before everything else.");
+    // qDebug("Called before everything else.");
 }
 
 void tst_Utilities::cleanupTestCase()
 {
-    //qDebug("Called after last test.");
+    // qDebug("Called after last test.");
 }
 
 void tst_Utilities::test_Constructor()
@@ -214,19 +214,19 @@ void tst_Utilities::test_isValidADIFField()
 
 void tst_Utilities::test_getPrefixFromCall()
 {
-    //qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
+    // qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
     QVERIFY2(util->getPrefixFromCall("K1AA") == "K", "K1AA" );
-    //qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
+    // qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
     QVERIFY2(util->getPrefixFromCall("K1A") == "K", "K1A");
-    //qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
+    // qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
     QVERIFY2(util->getPrefixFromCall("G1") == "G", "G1");
     QVERIFY2(util->getPrefixFromCall("I100") == "I", "I100");
     QVERIFY2(util->getPrefixFromCall("K100A") == "K", "K100");
     QVERIFY2(util->getPrefixFromCall("I100KK") == "I", "I100KK");
-    //qDebug() << "Returned: " << util->getPrefixFromCall("FB1K");
+    // qDebug() << "Returned: " << util->getPrefixFromCall("FB1K");
     QVERIFY2(util->getPrefixFromCall("FB1K") == "F", "FB1K");
     QVERIFY2(util->getPrefixFromCall("E") == QString(), "E");
-    //qDebug() << "Returned: " << util->getPrefixFromCall("EA");
+    // qDebug() << "Returned: " << util->getPrefixFromCall("EA");
     QVERIFY2(util->getPrefixFromCall("EA") == "EA", "EA");
     QVERIFY2(util->getPrefixFromCall("EA4") == "EA", "EA4-EA");
     QVERIFY2(util->getPrefixFromCall("EA4K") == "EA", "EA4K" );
@@ -246,16 +246,16 @@ void tst_Utilities::test_getPrefixFromCall()
 
     QVERIFY2(util->getPrefixFromCall("K1AA", true) == "K1", "K1AA-True" );
     QVERIFY2(util->getPrefixFromCall("K1A", true) == "K1", "K1A-True");
-    //qDebug() << Q_FUNC_INFO << ": TESTING: " << util->getPrefixFromCall("G1", true);
+    // qDebug() << Q_FUNC_INFO << ": TESTING: " << util->getPrefixFromCall("G1", true);
     QVERIFY2(util->getPrefixFromCall("G1", true) == "G1", "G1-True");
     QVERIFY2(util->getPrefixFromCall("I100", true) == "I1", "I100-True");
     QVERIFY2(util->getPrefixFromCall("K100A", true) == "K1", "K1-True");
     QVERIFY2(util->getPrefixFromCall("I100KK", true) == "I1", "I100KK-True");
-  //qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
+  // qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
     QVERIFY2(util->getPrefixFromCall("FB1K", true) == "FB1", "FB1K-True");
     QVERIFY2(util->getPrefixFromCall("E", true) == QString(), "E-True");
     QVERIFY2(util->getPrefixFromCall("EA", true) == "EA", "EA-True");
-    //qDebug() << Q_FUNC_INFO << ": EA4: " << util->getPrefixFromCall("EA4", true);
+    // qDebug() << Q_FUNC_INFO << ": EA4: " << util->getPrefixFromCall("EA4", true);
     QVERIFY2(util->getPrefixFromCall("EA4", true) == "EA4", "EA4-True");
     QVERIFY2(util->getPrefixFromCall("EA4K", true) == "EA4", "EA4K-True" );
     QVERIFY2(util->getPrefixFromCall("EA4KK", true) == "EA4", "EA4KK-True" );
@@ -276,9 +276,9 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getAreaNumberFromCall("A41A") == 1, "Area call: A41A");
     QVERIFY2(util->getAreaNumberFromCall("2Q0VIM") == 0, "Area call: 2Q0VIM");
     QVERIFY2(util->getAreaNumberFromCall("KL7AA") == 7, "Area call: KL7AA");
-    //QVERIFY2(util->getAreaNumberFromCall("EA4K/3") == 3, "Area call: EA4K/3");
-    //QVERIFY2(util->getAreaNumberFromCall("I100KK") == 100, "Area call: I100KK");
-    //QVERIFY2(util->getAreaNumberFromCall("RP67ST") == 67, "Area call: RP67ST");
+    // qVERIFY2(util->getAreaNumberFromCall("EA4K/3") == 3, "Area call: EA4K/3");
+    // qVERIFY2(util->getAreaNumberFromCall("I100KK") == 100, "Area call: I100KK");
+    // qVERIFY2(util->getAreaNumberFromCall("RP67ST") == 67, "Area call: RP67ST");
 
 
 

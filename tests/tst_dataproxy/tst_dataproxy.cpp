@@ -76,38 +76,38 @@ tst_DataProxy::tst_DataProxy()
 
 tst_DataProxy::~tst_DataProxy()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     delete (util);
     delete (dataProxy);
 }
 
 //void tst_DataProxy::initTestCase()
 //{
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 //}
 
 /*
 void tst_DataProxy::cleanupTestCase()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::init()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::cleanup()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
 }
 */
 
 void tst_DataProxy::test_Constructor()
 {
     QVERIFY2(util->getVersion() == "0.0", "Version failed");
-    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
-    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
+    // qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
+    // qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
 }
 
 /*
@@ -177,9 +177,9 @@ void tst_DataProxy::test_bands()
     QVERIFY2(dataProxy->getBandNameFromFreq (21.195) == "15M", "15M band failed");
     QVERIFY2(dataProxy->getBandNameFromFreq (24.900) == "12M", "12M band failed");
     QVERIFY2(dataProxy->getBandNameFromFreq (28.500) == "10M", "10M band failed");
-    //QVERIFY2(dataProxy->getBandNameFromFreq (41) == "8M", "8M band failed");
+    // qVERIFY2(dataProxy->getBandNameFromFreq (41) == "8M", "8M band failed");
     QVERIFY2(dataProxy->getBandNameFromFreq (52.1) == "6M", "6M band failed");
-    //QVERIFY2(dataProxy->getBandNameFromFreq (57) == "5M", "5M band failed");
+    // qVERIFY2(dataProxy->getBandNameFromFreq (57) == "5M", "5M band failed");
     QVERIFY2(dataProxy->getBandNameFromFreq (70.3) == "4M", "4M band failed");
     QVERIFY2(dataProxy->getBandNameFromFreq (144.3) == "2M", "2M band failed");
     QVERIFY2(dataProxy->getBandNameFromFreq (432.1) == "70CM", "70CM band failed");
@@ -211,14 +211,14 @@ void tst_DataProxy::test_continents()
 {// TODO: Can't test subdivisions without the World creation. Find a way to fill the DB without having to
     // to include World or simply test it from World
     /*
-    //qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
+    // qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (281) == "EU", "Continent for Spain (dxcc=281) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (1) == "NA", "Continent for Canada (dxcc=1) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (100) == "SA", "Continent for Argentina (dxcc=100) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (318) == "AS", "Continent for China (dxcc=318) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (150) == "OC", "Continent for Australia (dxcc=150) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (483) == "AF", "Continent for Togo (dxcc=483) failed");
-    //QVERIFY2(dataProxy->getContinentShortNameFromEntity (13) == "AN", "Continent for Antartica (dxcc=13) failed");
+    // qVERIFY2(dataProxy->getContinentShortNameFromEntity (13) == "AN", "Continent for Antartica (dxcc=13) failed");
     */
 }
 
@@ -282,7 +282,7 @@ void tst_DataProxy::test_primarySubdivisions()
     //PrimarySubdivision subdivision;
     //foreach(subdivision, subdivisions)
     //{
-    //  //qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
+    //  // qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
     //}
    //getPrimarySubDivisions(currentInt, prefUsed)
 */

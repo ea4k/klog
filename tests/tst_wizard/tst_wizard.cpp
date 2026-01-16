@@ -55,67 +55,67 @@ tst_Wizard::~tst_Wizard(){}
 
 void tst_Wizard::initTestCase()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
    // Utilities util(Q_FUNC_INFO);
    // QFile file(util.getKLogDBFile());
    // if (file.exists())
    //     if (file.rename(util.getKLogDBFile() + "-test"))
-            //qDebug() << Q_FUNC_INFO << "DB deleted";
-    //qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
-    //QFile sfile(util.getCfgFile());
+            // qDebug() << Q_FUNC_INFO << "DB deleted";
+    // qDebug() << Q_FUNC_INFO << ": " << util.getCfgFile();
+    // qFile sfile(util.getCfgFile());
     //if (sfile.exists())
     //    if (sfile.rename(util.getCfgFile() +  "-test"));
-            //qDebug() << Q_FUNC_INFO << "Restoring the config file";
+            // qDebug() << Q_FUNC_INFO << "Restoring the config file";
 }
 
 void tst_Wizard::cleanupTestCase()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
    // Utilities util(Q_FUNC_INFO);
    // QFile file(util.getKLogDBFile() + "-test");
    // if (file.exists())
    //     if (file.rename(util.getKLogDBFile()))
-            //qDebug() << Q_FUNC_INFO << "DB deleted";
+            // qDebug() << Q_FUNC_INFO << "DB deleted";
    // QFile sfile(util.getCfgFile() +  "-test");
    // if (sfile.exists())
    //     if (sfile.rename(util.getCfgFile()))
-            //qDebug() << Q_FUNC_INFO << "Restoring the config file";
+            // qDebug() << Q_FUNC_INFO << "Restoring the config file";
 }
 
 void tst_Wizard::test_Constructor()
 {
-    //qDebug() << Q_FUNC_INFO << " - 10";
+    // qDebug() << Q_FUNC_INFO << " - 10";
     Utilities util(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << " - 11";
+    // qDebug() << Q_FUNC_INFO << " - 11";
     StartWizard wizard(util.getHomeDir(), "test");
-    //qDebug() << Q_FUNC_INFO << " - 12";
+    // qDebug() << Q_FUNC_INFO << " - 12";
     wizard.setModal(false);
-    //qDebug() << Q_FUNC_INFO << " - 13";
+    // qDebug() << Q_FUNC_INFO << " - 13";
     wizard.show();
-    //qDebug() << Q_FUNC_INFO << " - 14";
+    // qDebug() << Q_FUNC_INFO << " - 14";
     QCOMPARE( wizard.button(QWizard::NextButton)->isEnabled(), true);
-    //qDebug() << Q_FUNC_INFO << " - 15";
+    // qDebug() << Q_FUNC_INFO << " - 15";
     QCOMPARE( wizard.button(QWizard::NextButton)->isVisible(), true);
 
     QCOMPARE( wizard.currentPage()->title(), "Welcome to KLog!");
-    //qDebug() << Q_FUNC_INFO << " - 20";
-    //qDebug() << Q_FUNC_INFO << " - " << wizard.currentPage()->title();
-    //QTest::mouseClick(wizard.button(QWizard::NextButton), Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
-    //QTest::mouseClick(wizard.button(QWizard::NextButton), Qt::LeftButton);
+    // qDebug() << Q_FUNC_INFO << " - 20";
+    // qDebug() << Q_FUNC_INFO << " - " << wizard.currentPage()->title();
+    // qTest::mouseClick(wizard.button(QWizard::NextButton), Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
+    // qTest::mouseClick(wizard.button(QWizard::NextButton), Qt::LeftButton);
     QTest::mouseClick(wizard.button(QWizard::NextButton), Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
-    //qDebug() << Q_FUNC_INFO << " - 21";
+    // qDebug() << Q_FUNC_INFO << " - 21";
     QCOMPARE( wizard.currentPage()->title(), "KLog License information");
-    //qDebug() << Q_FUNC_INFO << " - " << wizard.currentPage()->title();
-    //qDebug() << Q_FUNC_INFO << " - " << (wizard.buttonText(QWizard::CancelButton));
+    // qDebug() << Q_FUNC_INFO << " - " << wizard.currentPage()->title();
+    // qDebug() << Q_FUNC_INFO << " - " << (wizard.buttonText(QWizard::CancelButton));
     QCOMPARE( wizard.currentPage()->isComplete(), false); // the user has to accept the license first
     QCOMPARE( wizard.button(QWizard::NextButton)->isEnabled(), false);
-    //QWizardPage *licPage = wizard.currentPage();
+    // qWizardPage *licPage = wizard.currentPage();
 
-    //QTest::mouseClick(wizard.currentPage()->aceptLicCheckBox , Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
+    // qTest::mouseClick(wizard.currentPage()->aceptLicCheckBox , Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
 
-    //QTest::mouseClick(&wizard, Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
-    //QTest::keyClick(wizard.button(QWizard::NextButton), Qt::Key_Escape);
-    //qDebug() << Q_FUNC_INFO << " - 30";
+    // qTest::mouseClick(&wizard, Qt::LeftButton, Qt::NoModifier, QPoint(), 5000);
+    // qTest::keyClick(wizard.button(QWizard::NextButton), Qt::Key_Escape);
+    // qDebug() << Q_FUNC_INFO << " - 30";
 
 
 }

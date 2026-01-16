@@ -53,7 +53,7 @@ public:
 
 private:
     //void setColumnsToDX();
-    //QSqlRelationalTableModel *SearchModel;
+    // qSqlRelationalTableModel *SearchModel;
     QVariant data(const QModelIndex &index, int role) const;
     Awards *award;
     DataProxy_SQLite *dataProxy;

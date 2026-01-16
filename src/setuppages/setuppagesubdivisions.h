@@ -82,8 +82,8 @@ private:
 
     /* Wizard to create a new log*/
 
-    //QWizardPage *createLogTypePage();
-    //QWizard *newLogWizard; // Wizard to create a new log
+    // qWizardPage *createLogTypePage();
+    // qWizard *newLogWizard; // Wizard to create a new log
 
     /*^Wizard to create a new log^*/
 
@@ -94,11 +94,11 @@ private:
 
     QAbstractButton *finishButton;
 
-    //QWidget *logsWidget;
-    //QTreeWidget *logsQTreeWidget;
-    //QListWidget *bandsNotActiveListWidget, *bandsActiveListWidget;
-    //QListWidget *modesNotActiveListWidget, *modesActiveListWidget;
-    //QStringList bands, modes;
+    // qWidget *logsWidget;
+    // qTreeWidget *logsQTreeWidget;
+    // qListWidget *bandsNotActiveListWidget, *bandsActiveListWidget;
+    // qListWidget *modesNotActiveListWidget, *modesActiveListWidget;
+    // qStringList bands, modes;
     QPushButton *removePushButton; //*editPushButton, *newLogPushButton,
     QPushButton *importAwardPushButton;
     //*loadAllPushButton, *loadSelectedPushButton, *clearPushButton,;
@@ -110,14 +110,14 @@ private:
 
     //SetupPageSubdivisionNew *newLog;
 
-    //QString stationCallsign, operators, comment, dateString;//, typeContest;
+    // qString stationCallsign, operators, comment, dateString;//, typeContest;
     //int contestCatMode, contestCatOperators, contestCatAssisted, contestCatPower, contestCatBands, contestBands;//, typeContestN;
 
     DataProxy_SQLite *dataProxy;
     //Utilities *util;
     int selectedLog;
 
-    //QString defaultStationCallSign, defaultOperators;
+    // qString defaultStationCallSign, defaultOperators;
 };
 
 #endif // SETUPPAGEREGIONALAWARDS_H

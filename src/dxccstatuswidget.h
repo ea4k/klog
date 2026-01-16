@@ -95,9 +95,9 @@ private:
 
 
     QHeaderView *hv, *hh;
-    //QLineEdit *searchLineEdit;
+    // qLineEdit *searchLineEdit;
     QPushButton *refreshButton;
-    //QCheckBox *showAllLogsButton;
+    // qCheckBox *showAllLogsButton;
 
     int numberOfColumns; // Columns will be number Of Bands + 2 (Id + Name)
     QStringList bandNames;//, validBands;

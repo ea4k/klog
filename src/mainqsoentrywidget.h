@@ -140,7 +140,7 @@ private:
     QTimeEdit *timeEdit;
     QPushButton *OKButton, *clearButton, *QRZButton;
     QCheckBox *realtimeCheckBox, *manualModeCheckBox;
-    //QPushButton *realtimeButton;
+    // qPushButton *realtimeButton;
     //DebugLogLevel logLevel;
     bool cleaning;
     bool qrzAutoChanging;

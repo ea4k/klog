@@ -31,13 +31,14 @@ email                : jaime@robles.es
 #include <QtWidgets>
 #include <QTcpSocket>
 #include <QObject>
-#include "../awards.h"
-#include "dxspot.h"
-#include "../world.h"
-#include "../utilities.h"
-#include "../dataproxy_sqlite.h"
-#include "../frequency.h"
-#include "../klogdefinitions.h"
+//#include "../awards.h"
+#include "awards.h"
+#include "dxcluster/dxspot.h"
+#include "world.h"
+#include "utilities.h"
+#include "dataproxy_sqlite.h"
+#include "frequency.h"
+#include "klogdefinitions.h"
 
 class QWidget;
 class QTcpSocket;
@@ -102,7 +103,7 @@ private:
     void printSpot(const QString _stringSpot);
     void printSHDX(const QString _stringSpot);
     void printOther(const QString _stringSpot);
-    //QStringList readItem(QListWidgetItem * _stringSpot);
+    // qStringList readItem(QListWidgetItem * _stringSpot);
     DXSpot readItem(const QString _stringSpot);
     TypeOfDXSpot parseReceivedData(const QString _stringSpot);       // Parses the received data to identify if it is a "DX de" or other line.
     bool checkIfNeedsToBePrinted(EntityStatus _entityStatus);
@@ -121,7 +122,7 @@ private:
     bool dxClusterAlreadyConnected;
     QString server;
     quint16 port;
-    //quint16 blockSize;
+    // quint16 blockSize;
 
     QColor dxSpotColor;
 

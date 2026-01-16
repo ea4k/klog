@@ -100,7 +100,7 @@ void tst_SetupHamLibSerialWidget::test_DataBits()
 void tst_SetupHamLibSerialWidget::test_FlowControl()
 {
     serialHamLibWidget->setFlowControl("Hardware");
-    //QVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=Hardware", "FlowControl Hardware not OK");
+    // qVERIFY2(serialHamLibWidget->getFlowControl() == "HamLibSerialFlowControl=Hardware", "FlowControl Hardware not OK");
     QVERIFY2(serialHamLibWidget->getFlowControl() == "Hardware", "FlowControl Hardware not OK");
     serialHamLibWidget->setFlowControl("Software");
     QVERIFY2(serialHamLibWidget->getFlowControl() == "Software", "FlowControl Software not OK");

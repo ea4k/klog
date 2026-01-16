@@ -132,7 +132,7 @@ private:
     bool darkMode;
 
     QStringList  propModeList; // entitiesList,
-    //QLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
+    // qLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
     QComboBox *iotaContinentComboBox, *entityPrimDivComboBox, *entitySecDivComboBox, *entityNameComboBox, *propModeComboBox;
     QLineEdit *iotaNumberLineEdit;
     QCheckBox *keepPropCheckBox, *showAllCheckBox;

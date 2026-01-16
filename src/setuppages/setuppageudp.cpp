@@ -28,7 +28,7 @@
 
 SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
 {
-    //qDebug() << "SetupPageUDP::SetupPageUDP";
+    // qDebug() << "SetupPageUDP::SetupPageUDP";
     logFromWSJTXCheckbox = new QCheckBox(this);
     realDataFromWSJTXCheckbox  = new QCheckBox(this);
     logAutomaticallyWSJTXCheckbox  = new QCheckBox(this);
@@ -37,25 +37,25 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     UDPServerPortSpinBox = new QSpinBox;
     miliSecsSpinBox = new QSpinBox;
     networkInterfacesComboBox = new QComboBox;
-    //qDebug() << "SetupPageUDP::SetupPageUDP: 1";
+    // qDebug() << "SetupPageUDP::SetupPageUDP: 1";
     util = new Utilities(Q_FUNC_INFO);
 
     defaultport = 2237;     // Default WSJTX port
     defaultTimer = 2000;  // 2 secs
 
-    //qDebug() << "SetupPageUDP::SetupPageUDP: 2";
+    // qDebug() << "SetupPageUDP::SetupPageUDP: 2";
     createUI();
-    //qDebug() << "SetupPageUDP::SetupPageUDP: 3";
+    // qDebug() << "SetupPageUDP::SetupPageUDP: 3";
     createActions();
-    //qDebug() << "SetupPageUDP::SetupPageUDP: 4";
+    // qDebug() << "SetupPageUDP::SetupPageUDP: 4";
     fillNetworkInterfaceComboBox();
-    //qDebug() << "SetupPageUDP::SetupPageUDP - END";
+    // qDebug() << "SetupPageUDP::SetupPageUDP - END";
 }
 
 SetupPageUDP::~SetupPageUDP()
 {
     delete(util);
-       //qDebug() << "SetupPageUDP::~SetupPageUDP";
+       // qDebug() << "SetupPageUDP::~SetupPageUDP";
 }
 
 void SetupPageUDP::createUI()
@@ -123,7 +123,7 @@ void SetupPageUDP::createUI()
     UDPTimeLayout->addWidget(miliSecsSpinBoxLabel);
     UDPTimeLayout->addWidget(miliSecsSpinBox);
 
-    //QHBoxLayout *UDPLayout = new QHBoxLayout;
+    // qHBoxLayout *UDPLayout = new QHBoxLayout;
     //UDPLayout->addLayout(networkIfacesLayout);
     //UDPLayout->addLayout(UDPPortLayout);
 
@@ -150,7 +150,7 @@ void SetupPageUDP::createActions()
 
 void SetupPageUDP::slotUDPServerCheckBoxClicked()
  {
-       //qDebug() << "SetupPageUDP::slotUDPServerCheckBoxClicked";
+       // qDebug() << "SetupPageUDP::slotUDPServerCheckBoxClicked";
 
     if (UDPServerCheckBox->isChecked())
     {
@@ -198,7 +198,7 @@ void SetupPageUDP::fillNetworkInterfaceComboBox()
 
 void SetupPageUDP::slotLogFromWSJTCheckBoxClicked()
 {
-       //qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked";
+       // qDebug() << "SetupPageUDP::slotLogFromWSJTCheckBoxClicked";
     if (logFromWSJTXCheckbox->isChecked())
     {
         logAutomaticallyWSJTXCheckbox->setEnabled(true);
@@ -218,14 +218,14 @@ QString SetupPageUDP::getUDPServer()
 
 void SetupPageUDP::setUDPServer(const bool _t)
 {
-       //qDebug() << "SetupPageUDP::setUDPServer: "  << t;
+       // qDebug() << "SetupPageUDP::setUDPServer: "  << t;
     UDPServerCheckBox->setChecked(_t);
     slotUDPServerCheckBoxClicked();
 }
 
 void SetupPageUDP::setUDPServerPort(const int _t)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number (_t);
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number (_t);
     if (  (_t>0) && (_t<65535))
     {
         UDPServerPortSpinBox->setValue(_t);
@@ -323,22 +323,22 @@ QString SetupPageUDP::getNetworkInterface()
 
 void SetupPageUDP::setNetworkInterface(const QString &_t)
 {
-    //qDebug() << "SetupPageUDP::setNetworkInterface: " << _t;
+    // qDebug() << "SetupPageUDP::setNetworkInterface: " << _t;
     if (networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith) >= 0)
     {
-        //qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t;
+        // qDebug() << "SetupPageUDP::setNetworkInterface: found: " << _t;
        networkInterfacesComboBox->setCurrentIndex(networkInterfacesComboBox->findText(_t, Qt::MatchEndsWith));
     }
     else
     {
-        //qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t;
+        // qDebug() << "SetupPageUDP::setNetworkInterface: NOT found: " << _t;
         networkInterfacesComboBox->setCurrentIndex(0);
     }
 }
 
 void SetupPageUDP::saveSettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
     settings.setValue ("UDPServer", QVariant((UDPServerCheckBox->isChecked())));
@@ -349,7 +349,7 @@ void SetupPageUDP::saveSettings()
     settings.setValue ("RealTimeFromWSJTX", QVariant((realDataFromWSJTXCheckbox->isChecked())));
     settings.setValue ("InfoTimeOut", miliSecsSpinBox->value());
     settings.endGroup ();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageUDP::loadSettings()

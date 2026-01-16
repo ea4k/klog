@@ -438,7 +438,7 @@ signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 private:
-    //QTime startT;
+    // qTime startT;
     QString getADIFStandard();
     QString getADIFLoTW();
     QString getADIFClubLog();
@@ -483,7 +483,7 @@ private:
     QString iota, ownerCall, latitude, longitude, ms_shower, notes, prefix, precedence, public_key, qslmsg, region, sig, sig_info, skcc, srx_string, stx_string, state, submode;
     QString my_city, my_county, my_country, my_iota, my_latitude, my_longitude, my_name, my_postal_code, my_sig, my_sig_info, my_state, my_street, my_usaca_counties, my_wwff_ref;
 
-    //QTime qso_time_off;
+    // qTime qso_time_off;
     QDateTime qso_dateTime;
     QDateTime qso_dateTime_off;
 

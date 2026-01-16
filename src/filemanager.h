@@ -81,8 +81,8 @@ public:
     //bool adifReadLog(const QString& tfileName, const int logN);
     int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1);
     int adifLoTWReadLog2(const QString& fileName, const int logN);
-    //QList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
-    //QList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
+    // qList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
+    // qList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
 
     bool adifQSOsExport(const QString& _fileName, const QString& _fields, QList<int> _qsos, ExportMode _em);
 
@@ -126,7 +126,7 @@ private:
     bool askUserToUseAlwaysSameAnswer();
     bool askUserToAddThisQSOToLog(const QString &_call, const QDateTime _datetime, const QString &_mode, const QString &_band, const double _freq);
 
-    //QString checkAndFixASCIIinADIF(_data);
+    // qString checkAndFixASCIIinADIF(_data);
 
     //bool processQsoReadingADIF(const QStringList &_line, const int logNumber);//, const bool _keepLogsInFile);
     void queryPreparation(const int _logN);
@@ -147,7 +147,7 @@ private:
     DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;
 
     Utilities *util;
-    //QSO *qso;
+    // qSO *qso;
 
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 
@@ -167,7 +167,7 @@ private:
 
     //World *world;
     Awards *awards;
-    //QSqlDatabase db;
+    // qSqlDatabase db;
 
     QHash<int, int> hashLogs;  // to create different logs when importing a ADIF file
 

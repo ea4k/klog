@@ -57,7 +57,7 @@ private:
     bool loadSubmodeModeHash();
     //void loadModeIdHash();
 
-    //QHash<QString, QString> submodeModeHash; // submode -> mode
+    // qHash<QString, QString> submodeModeHash; // submode -> mode
     QHash<QString, ModeInfo> submodeModeHash; // submode -> ModeInfo
     bool ready;
 

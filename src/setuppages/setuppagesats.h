@@ -80,8 +80,8 @@ private:
 
     /* Wizard to create a new Sat*/
 
-    //QWizardPage *createSatTypePage();
-    //QWizard *newSatWizard; // Wizard to create a new Sat
+    // qWizardPage *createSatTypePage();
+    // qWizard *newSatWizard; // Wizard to create a new Sat
 
     /*^Wizard to create a new satellite^*/
 

@@ -68,7 +68,7 @@ private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
     QLabel *tipTextQLabel;
-    //QTextEdit *tipTextEdit;
+    // qTextEdit *tipTextEdit;
     QWidget *tip;
     DebugLogLevel logLevel;
     int tipId, tipMax;

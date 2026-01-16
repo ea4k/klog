@@ -29,32 +29,32 @@
 
 DXMarathon::DXMarathon(DataProxy_SQLite *dp)
 {
-       //qDebug() << "DXMarathon::DXMarathon" ;
+       // qDebug() << "DXMarathon::DXMarathon" ;
     dataProxy = dp;
-       //qDebug() << "DXMarathon::DXMarathon - END" ;
+       // qDebug() << "DXMarathon::DXMarathon - END" ;
 }
 
 int DXMarathon::getDXMarathonQSO(const int _year, const int _logNumber)
 {
-         //qDebug() << "DXMarathon::getDXMarathonQSO: " << QString::number(_year);
+         // qDebug() << "DXMarathon::getDXMarathonQSO: " << QString::number(_year);
     return dataProxy->getQSOonYear(_year, _logNumber);
 }
 
 int DXMarathon::getDXMarathonDXCC(const int _year, const int _logNumber)
 {
-         //qDebug() << "DXMarathon::getDXMarathonDXCC: " << QString::number(_year);
+         // qDebug() << "DXMarathon::getDXMarathonDXCC: " << QString::number(_year);
     return dataProxy->getDXCConYear(_year, _logNumber);
 }
 
 int DXMarathon::getDXMarathonCQ(const int _year, const int _logNumber)
 {
-         //qDebug() << "DXMarathon::getDXMarathonCQ: " << QString::number(_year);
+         // qDebug() << "DXMarathon::getDXMarathonCQ: " << QString::number(_year);
     return dataProxy->getCQzonYear(_year, _logNumber);
 }
 
 int DXMarathon::getDXMarathonScore(const int _year, const int _logNumber)
 {
-         //qDebug() << "DXMarathon::getDXMarathonScore: " << QString::number(_year);
+         // qDebug() << "DXMarathon::getDXMarathonScore: " << QString::number(_year);
 
     return ( getDXMarathonDXCC(_year, _logNumber) + getDXMarathonCQ(_year, _logNumber));
 }

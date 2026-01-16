@@ -89,8 +89,8 @@ private:
     QCheckBox *delRbutton;
 
     QStringList entityData;
-    //QPalette *paletteOrig, *paletteWrong;
-    //QColor color;
+    // qPalette *paletteOrig, *paletteWrong;
+    // qColor color;
     QPalette pal, palw;
 };
 

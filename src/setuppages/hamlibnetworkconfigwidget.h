@@ -2,8 +2,8 @@
 #define KLOG_SETUPPAGES_HAMLIBNETWORKCONFIGWIDGET_H
 
 #include <QtWidgets>
-#include "../klogdefinitions.h"
-#include "../utilities.h"
+#include "klogdefinitions.h"
+#include "utilities.h"
 
 class HamLibNetworkConfigWidget : public QWidget
 {

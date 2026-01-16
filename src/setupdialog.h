@@ -142,7 +142,7 @@ private:
     SetupPageLogView *logViewPage;
     //SetupPageRegionalAwards *regionalAwardsPage;
     int pageRequested; // The page on the Dialog that is requested to be shown when you call it
-    //QString klogDir;
+    // qString klogDir;
     QString version;
 
     QStringList bands, modes, logViewFields;
@@ -150,8 +150,8 @@ private:
     DataProxy_SQLite *dataProxy;
 
     Utilities *util;
-    //QString windowSize;
-    //QString latestBackup;
+    // qString windowSize;
+    // qString latestBackup;
 
     int constrid; // Just an id for the constructor to check who is being executed at one specific time
     DebugLogLevel logLevel;    // Manages as syslog, the severity of the application debug log

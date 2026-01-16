@@ -39,7 +39,7 @@ public:
     SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent=nullptr);
     ~SetupPageLogView();
     void init();
-    //QString getFields();
+    // qString getFields();
     void saveSettings();
     void loadSettings();
 

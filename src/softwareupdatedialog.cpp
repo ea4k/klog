@@ -30,7 +30,7 @@
 
 SoftwareUpdateDialog::SoftwareUpdateDialog()
 {
-      //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog" ;
+      // qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog" ;
 
     textBrowser = new QTextBrowser;
     textBrowser->setOpenLinks(true);
@@ -56,12 +56,12 @@ SoftwareUpdateDialog::SoftwareUpdateDialog()
     setWindowTitle(tr("KLog update"));
 
     connect(acceptButton, SIGNAL(clicked()), this, SLOT(slotAcceptButtonClicked()));
-     //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END" ;
+     // qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog - END" ;
 }
 
 void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateNeeded)
 {
-     //qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion;
+     // qDebug() << "SoftwareUpdateDialog::setVersion: " << tversion;
     _version = tversion;
     if (updateNeeded)
     {
@@ -74,28 +74,28 @@ void SoftwareUpdateDialog::setVersion(const QString tversion, const bool updateN
     }
 
     textBrowser->setHtml(text);
-     //qDebug() << "SoftwareUpdateDialog::setVersion: END"<< QT_ENDL;
+     // qDebug() << "SoftwareUpdateDialog::setVersion: END"<< QT_ENDL;
 }
 
 SoftwareUpdateDialog::~SoftwareUpdateDialog()
 {
-      //qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog" ;
+      // qDebug() << "SoftwareUpdateDialog::~SoftwareUpdateDialog" ;
 }
 
 void SoftwareUpdateDialog::slotAcceptButtonClicked()
 {
-      //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked" ;
+      // qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked" ;
     accept();
-     //qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END" ;
+     // qDebug() << "SoftwareUpdateDialog::slotAcceptButtonClicked END" ;
 }
 
 void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
 {
-    //qDebug() << "SoftwareUpdateDialog::keyPressEvent" ;
+    // qDebug() << "SoftwareUpdateDialog::keyPressEvent" ;
 
     if (event->key()>=0)
     {
         slotAcceptButtonClicked();
     }
-    //qDebug() << "SoftwareUpdateDialog::keyPressEvent END" ;
+    // qDebug() << "SoftwareUpdateDialog::keyPressEvent END" ;
 }

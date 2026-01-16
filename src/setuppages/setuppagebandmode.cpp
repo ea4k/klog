@@ -28,7 +28,7 @@
 
 SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode"  ;
+       // qDebug() << "SetupPageBandMode::SetupPageBandMode"  ;
     dataProxy = dp;
 
     bandsListWidget = new QListWidget;
@@ -61,7 +61,7 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     //layout->addWidget(modesListWidget);
 
     setLayout(layout);
-       //qDebug() << "SetupPageBandMode::SetupPageBandMode - END"  ;
+       // qDebug() << "SetupPageBandMode::SetupPageBandMode - END"  ;
 }
 
 SetupPageBandMode::~SetupPageBandMode()
@@ -96,7 +96,7 @@ void SetupPageBandMode::addModes(QStringList _b)
 
 QStringList SetupPageBandMode::getBands()
 {
-       //qDebug() << "SetupPageBandMode::getBands";
+       // qDebug() << "SetupPageBandMode::getBands";
   if ( (bandsListWidget->count()) < 1)
     {
         return QStringList();
@@ -117,7 +117,7 @@ QStringList SetupPageBandMode::getBands()
 
 QStringList SetupPageBandMode::getModes()
 {
-       //qDebug() << "SetupPageBandMode::getModes";
+       // qDebug() << "SetupPageBandMode::getModes";
 
 
     if ( (modesListWidget->count()) < 1)
@@ -142,12 +142,12 @@ QStringList SetupPageBandMode::getModes()
 
 void SetupPageBandMode::setActiveBands(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveBands";
+       // qDebug() << "SetupPageBandMode::setActiveBands";
 
     if (q.isEmpty())
     {return;}
 
-    //QString b;
+    // qString b;
     QListWidgetItem *it;
 
     if ( (bandsListWidget->count()) < 1)
@@ -172,12 +172,12 @@ void SetupPageBandMode::setActiveBands(QStringList q)
 
 void SetupPageBandMode::setActiveModes(QStringList q)
 {
-       //qDebug() << "SetupPageBandMode::setActiveModes";
+       // qDebug() << "SetupPageBandMode::setActiveModes";
 
     if (q.isEmpty())
     {return;}
 
-    //QString b;
+    // qString b;
     QListWidgetItem *it;
 
     if ( (modesListWidget->count()) < 1)
@@ -202,7 +202,7 @@ void SetupPageBandMode::setActiveModes(QStringList q)
 
 void SetupPageBandMode::saveSettings()
 {
-    //qDebug() << Q_FUNC_INFO ;
+    // qDebug() << Q_FUNC_INFO ;
     util = new Utilities(Q_FUNC_INFO);
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("BandMode");

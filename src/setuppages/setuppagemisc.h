@@ -51,7 +51,7 @@ public:
     void setUseDefaultDBPath(const QString &_t);
     QString getUseDefaultName();
     void setDefaultFileName(const QString &_t);
-    //QString getInMemory();
+    // qString getInMemory();
     //void setInMemory(const QString &_t);
     QString getImperial();
     void setImperial(const QString &_t);
@@ -59,7 +59,7 @@ public:
     void setSendQSLWhenRec(const QString &_t);
     QString getShowStationCallSignInSearch();
     void setShowStationCallSignInSearch(const QString &_t);
-    //QString getKeepMyData();
+    // qString getKeepMyData();
     //void setKeepMyData(const QString &_t);
     QString getCompleteWithPrevious();
     void setCompleteWithPrevious(const QString &_t);
@@ -70,7 +70,7 @@ public:
     void setDXMarathon(const QString &_t);
     QString getDebugLogLevel();
     void setDebugLogLevel(const QString &_t);
-    //QString getLogSort();
+    // qString getLogSort();
     //void setLogSort(const QString &_t);
     KLOG_DEPRECATED QString getSendEQSLByDefault();
     KLOG_DEPRECATED void setSetEQSLByDefault(const QString &_t);
@@ -107,7 +107,7 @@ private:
     QCheckBox *realTimeCheckbox, *showSecondsCheckBox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
     QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *checkCallsCheckBox;
-    //QCheckBox *logSortCheckBox;
+    // qCheckBox *logSortCheckBox;
     QCheckBox *sendEQSLByDefaultSearchCheckBox, *deleteAlwaysAdiFileCheckBox;
     QString defaultFileName;
     QLineEdit *defaultFileNameLineEdit, *dbPathLineEdit;

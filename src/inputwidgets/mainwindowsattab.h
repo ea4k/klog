@@ -120,7 +120,7 @@ private:
 
     QLineEdit *satNameLineEdit;
     QLineEdit *satModeLineEdit;
-    //QLineEdit *satDXLocatorLineEdit;
+    // qLineEdit *satDXLocatorLineEdit;
     QLabel *satOtherLabel;
     QCheckBox *keepThisDataForNextQSOQcheckbox;
 
@@ -133,7 +133,7 @@ private:
     bool qsoToEditInProcess;             // True just when MainWindow::qsoToEdit is being executed
     QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
 
-    //QDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
+    // qDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy_SQLite *dataProxy;
 
     Utilities *util;

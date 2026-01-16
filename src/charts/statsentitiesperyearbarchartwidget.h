@@ -52,7 +52,7 @@ private:
     void createUI();
     DataProxy_SQLite *dataProxy;
 
-    //QChart *chart;
+    // qChart *chart;
     QChartView *chartView;
 };
 

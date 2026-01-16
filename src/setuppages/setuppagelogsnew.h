@@ -84,8 +84,8 @@ private:
     QStringList logData;
     bool editing;
 
-    //QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
-    //QLabel *typeLabel, *validCats,
+    // qLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
+    // qLabel *typeLabel, *validCats,
     QLabel *stationCallsignLabel, *operatorsLabel, *commentLabel, *dateLabel;
 
     bool checking; //, bCass, bCOp, bCMo, bCPo, bCBa, bCOv, bCTy;

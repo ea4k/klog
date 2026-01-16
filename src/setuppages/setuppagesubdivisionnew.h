@@ -67,7 +67,7 @@ private:
     //bool isThereAnyNotManagedLog();
     void createWidget();
     void gatherAndSend();
-    //QStringList getValidCatOptions(const int _currentCat, const int _higherCat);
+    // qStringList getValidCatOptions(const int _currentCat, const int _higherCat);
     //int getSelectedTypeContest();
     //void fillWithType(const int _n);
     //void updateAllCats();
@@ -94,8 +94,8 @@ private:
     QStringList logData;
     bool editing;
 
-    //QLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
-    //QLabel *typeLabel, *validCats,
+    // qLabel *catAsLabel, *catOpLabel, *catModeLabel, *catPowerLabel, *catBandsLabel, *overlayLabel;
+    // qLabel *typeLabel, *validCats,
     QLabel *stationCallsignLabel, *operatorsLabel, *commentLabel, *dateLabel;
 
     //nameLabel->setBuddy();

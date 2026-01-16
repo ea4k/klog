@@ -82,14 +82,14 @@ tst_DataBase::tst_DataBase()
 
 tst_DataBase::~tst_DataBase()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     delete (util);
     delete (db);
 }
 
 void tst_DataBase::initTestCase()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
     QFile file(util.getKLogDBFile() + "-test");
 
@@ -114,36 +114,36 @@ void tst_DataBase::initTestCase()
 
 void tst_DataBase::test_Constructor()
 {
-    //qDebug() << Q_FUNC_INFO << "- Start";
+    // qDebug() << Q_FUNC_INFO << "- Start";
     QString _version = QString ("99.9");
-    //qDebug() << Q_FUNC_INFO << "- 001";
+    // qDebug() << Q_FUNC_INFO << "- 001";
     util = new Utilities(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << "- 002";
+    // qDebug() << Q_FUNC_INFO << "- 002";
     db = new DataBase(Q_FUNC_INFO, _version, util->getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << "- 003";
+    // qDebug() << Q_FUNC_INFO << "- 003";
     QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void tst_DataBase::test_CreateDB()
 {
-    //qDebug() << Q_FUNC_INFO << "000";
+    // qDebug() << Q_FUNC_INFO << "000";
     Utilities util(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << "001";
+    // qDebug() << Q_FUNC_INFO << "001";
     QFile file(util.getCTYFile());
-    //qDebug() << Q_FUNC_INFO << "003";
+    // qDebug() << Q_FUNC_INFO << "003";
     QCOMPARE( file.exists(), true); // Check if the CTYDAT file is available
-    //qDebug() << Q_FUNC_INFO << "003";
+    // qDebug() << Q_FUNC_INFO << "003";
     DataProxy_SQLite dataProxy(Q_FUNC_INFO, version);
-    //qDebug() << Q_FUNC_INFO << "004";
+    // qDebug() << Q_FUNC_INFO << "004";
     World world(&dataProxy, Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << "005";
+    // qDebug() << Q_FUNC_INFO << "005";
     QCOMPARE(world.create(util.getCTYFile()), true); // Read the CTY.CSV file into the DB
-    //qDebug() << Q_FUNC_INFO << "006";
+    // qDebug() << Q_FUNC_INFO << "006";
     QCOMPARE(db->hasTheTableData("entity"), true);
-    //qDebug() << Q_FUNC_INFO << "007";
+    // qDebug() << Q_FUNC_INFO << "007";
     QCOMPARE(db->hasTheTableData("prefixesofentity"), true);
-    //qDebug() << Q_FUNC_INFO << "999";
+    // qDebug() << Q_FUNC_INFO << "999";
 }
 
 void tst_DataBase::test_ExistingTables()
@@ -151,22 +151,22 @@ void tst_DataBase::test_ExistingTables()
     //DataBase db(Q_FUNC_INFO, version, util->getKLogDBFile());
 
     //TODO: This test fails // QCOMPARE(db->isTheTableExisting("ant_path_enumeration"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("arrl_sect_enumeration"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("award_enumeration"), true);
-    //QCOMPARE(db->isTheTableExisting("awarddxcc"), true);
-    //QCOMPARE(db->isTheTableExisting("awardwaz"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("band"), true);
-    //QCOMPARE(db->isTheTableExisting("clublog_status"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contest"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcatassisted"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcategory"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcatband"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcatmode"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcatoperator"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcatoverlay"), true);
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("contestcatpower"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("arrl_sect_enumeration"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("award_enumeration"), true);
+    // qCOMPARE(db->isTheTableExisting("awarddxcc"), true);
+    // qCOMPARE(db->isTheTableExisting("awardwaz"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("band"), true);
+    // qCOMPARE(db->isTheTableExisting("clublog_status"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contest"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcatassisted"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcategory"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcatband"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcatmode"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcatoperator"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcatoverlay"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("contestcatpower"), true);
 
-    //TODO: This test fails //QCOMPARE(db->isTheTableExisting("continent"), true);
+    //TODO: This test fails // qCOMPARE(db->isTheTableExisting("continent"), true);
     QCOMPARE(db->isTheTableExisting("entity"), true);
     QCOMPARE(db->isTheTableExisting("log"), true);
     QCOMPARE(db->isTheTableExisting("logs"), true);
@@ -175,10 +175,10 @@ void tst_DataBase::test_ExistingTables()
     QCOMPARE(db->isTheTableExisting("primary_subdivisions"), true);
     QCOMPARE(db->isTheTableExisting("prop_mode_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("qsl_rec_status"), true);
-    //QCOMPARE(db->isTheTableExisting("qsl_sent_status"), true);
+    // qCOMPARE(db->isTheTableExisting("qsl_sent_status"), true);
     QCOMPARE(db->isTheTableExisting("qsl_via_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("satellites"), true);
-    //QCOMPARE(db->isTheTableExisting("qso_complete_enumeration"), true);
+    // qCOMPARE(db->isTheTableExisting("qso_complete_enumeration"), true);
     QCOMPARE(db->isTheTableExisting("softwarecontrol"), true);
     QCOMPARE(db->isTheTableExisting("supportedcontests"), true);
 }
@@ -190,10 +190,10 @@ void tst_DataBase::test_DataInTables()
     QCOMPARE(db->hasTheTableData("ant_path_enumeration"), true);
     QCOMPARE(db->hasTheTableData("arrl_sect_enumeration"), true);
     QCOMPARE(db->hasTheTableData("award_enumeration"), true);
-    //QCOMPARE(db->hasTheTableData("awarddxcc"), false);
-    //QCOMPARE(db->hasTheTableData("awardwaz"), false);
+    // qCOMPARE(db->hasTheTableData("awarddxcc"), false);
+    // qCOMPARE(db->hasTheTableData("awardwaz"), false);
     QCOMPARE(db->hasTheTableData("band"), true);
-    //QCOMPARE(db->hasTheTableData("clublog_status"), true);
+    // qCOMPARE(db->hasTheTableData("clublog_status"), true);
     QCOMPARE(db->hasTheTableData("contest"), true);
     QCOMPARE(db->hasTheTableData("contestcatassisted"), true);
     QCOMPARE(db->hasTheTableData("contestcatcategory"), false);
@@ -207,16 +207,16 @@ void tst_DataBase::test_DataInTables()
     QCOMPARE(db->hasTheTableData("entity"), true);
 
     //TODO: This test fails // QCOMPARE(db->hasTheTableData("log"), false);
-    //QCOMPARE(db->hasTheTableData("logs"), false);
+    // qCOMPARE(db->hasTheTableData("logs"), false);
     QCOMPARE(db->hasTheTableData("mode"), true);
     QCOMPARE(db->hasTheTableData("prefixesofentity"), true);
-    //TODO: This test fails //QCOMPARE(db->hasTheTableData("primary_subdivisions"), false);
+    //TODO: This test fails // qCOMPARE(db->hasTheTableData("primary_subdivisions"), false);
     QCOMPARE(db->hasTheTableData("prop_mode_enumeration"), true);
-    //TODO: This test fails //QCOMPARE(db->hasTheTableData("qsl_rec_status"), true);
-    //QCOMPARE(db->hasTheTableData("qsl_sent_status"), true);
+    //TODO: This test fails // qCOMPARE(db->hasTheTableData("qsl_rec_status"), true);
+    // qCOMPARE(db->hasTheTableData("qsl_sent_status"), true);
     QCOMPARE(db->hasTheTableData("qsl_via_enumeration"), true);
     QCOMPARE(db->hasTheTableData("satellites"), true);
-    //QCOMPARE(db->hasTheTableData("qso_complete_enumeration"), true);
+    // qCOMPARE(db->hasTheTableData("qso_complete_enumeration"), true);
     QCOMPARE(db->hasTheTableData("softwarecontrol"), true);
     QCOMPARE(db->hasTheTableData("supportedcontests"), true);
 }
@@ -236,9 +236,9 @@ void tst_DataBase::test_modes()
                           "VOI", "WINMOR", "WSPR"};
     foreach(aux, _modes)
     {
-        //qDebug() << aux << " / " << modeIDs.value(aux);
+        // qDebug() << aux << " / " << modeIDs.value(aux);
         QCOMPARE(modeIDs.value(aux)>0,true);
-        //QCOMPARE(db->getModeIdFromName(aux)>0, true);
+        // qCOMPARE(db->getModeIdFromName(aux)>0, true);
     }
 }
 
@@ -277,9 +277,9 @@ void tst_DataBase::test_subModes()
 
     foreach(aux, _submodes)
     {
-        //qDebug() << " - Testing: " << aux;
+        // qDebug() << " - Testing: " << aux;
         QCOMPARE(modeIDs.value(aux)>0,true);
-        //QCOMPARE(db->getModeIdFromSubMode(aux)>0, true);
+        // qCOMPARE(db->getModeIdFromSubMode(aux)>0, true);
     }
 }
 
@@ -290,15 +290,15 @@ void tst_DataBase::test_checks()
     QCOMPARE(db->isTheDBCreated(), true);
 
     //int i = db->getBandIdFromName("10M");
-    //QCOMPARE (db->getBandNameFromNumber(i), "10M");
+    // qCOMPARE (db->getBandNameFromNumber(i), "10M");
     //i = db->getBandIdFromName("30M");
-    //QCOMPARE (db->getBandNameFromNumber(i), "30M");
+    // qCOMPARE (db->getBandNameFromNumber(i), "30M");
     //i = db->getBandIdFromName("0");
-    //QCOMPARE (db->getBandNameFromNumber(i), "0");
+    // qCOMPARE (db->getBandNameFromNumber(i), "0");
 
 
     //i = db->getModeIdFromSubMode("FT4");
-    //QCOMPARE (db->getSubModeNameFromNumber(i), "FT4");
+    // qCOMPARE (db->getSubModeNameFromNumber(i), "FT4");
 }
 
 
@@ -307,7 +307,7 @@ void tst_DataBase::test_checks()
 void tst_DataBase::test_addQSOs()
 {
     int i = db->getNumberOfQsos();
-   //qDebug() << "Number of QSOs: " << QString::number(i);
+   // qDebug() << "Number of QSOs: " << QString::number(i);
     QSO qso;
     qso.clear();
     qso.setCall("EA4K");
@@ -316,8 +316,8 @@ void tst_DataBase::test_addQSOs()
     qso.setBand("10M");
     qso.setMode("SSB");
     qso.toDB();
-   //qDebug() << "Number of QSOs: " << QString::number(i);
-    //TODO: This test fails //QCOMPARE(db->getNumberOfQsos(), i+1);
+   // qDebug() << "Number of QSOs: " << QString::number(i);
+    //TODO: This test fails // qCOMPARE(db->getNumberOfQsos(), i+1);
 }
 
 void tst_DataBase::cleanupTestCase()
@@ -331,7 +331,7 @@ void tst_DataBase::cleanupTestCase()
 
 
 
-//QTEST_GUILESS_MAIN(tst_DataBase)
+// qTEST_GUILESS_MAIN(tst_DataBase)
 #include <QApplication>
 QTEST_MAIN(tst_DataBase)
 

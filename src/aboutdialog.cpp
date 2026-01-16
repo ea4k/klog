@@ -36,7 +36,7 @@
 AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWidget *parent)
     : QDialog(parent)
 {
-      //qDebug() << "AboutDialog::AboutDialog";
+      // qDebug() << "AboutDialog::AboutDialog";
 
     QPixmap pixmap(":/img/klog_256x256.png");
     QString pkg;
@@ -82,7 +82,7 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
     logoLabel2->setPixmap(pixmap);
     QLabel *logoLabel3 = new QLabel;
     logoLabel3->setPixmap(pixmap);
-    //QLabel *logoLabel4 = new QLabel;
+    // qLabel *logoLabel4 = new QLabel;
     //logoLabel4->setPixmap(pixmap);
 
     QString author1 = QString("<tr><td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td>") + "<td>(2002-" + tr("today") +") " +tr("Main developer") + "</td></tr>";
@@ -128,13 +128,13 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
     translatorsLabel->setOpenExternalLinks(true);
     translatorsLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-    //QString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
+    // qString privacy = "<center><h2>" + tr("Privacy advisory") + "</h2></h4></center><br>" +
     //        tr("KLog developers have included a feature that reports some user data to the KLog server with the sole purpose of identifying the number of installed versions, to focus development in one direction or another taking into account users' needs.") +
     //        "<br><br>" + tr("At present, the data that is provided is the following:") +
     //        "<ul><li>" + tr("Callsign") + "</li><li>" + tr("KLog version") + "</li><li>" + tr("Operating system") + "</li></ul><br><br><b>" +
     //        tr("Be aware that you can enable/disable this feature from the Misc tab in the Setup page.") + "</b>";
 
-    //QLabel *privacyLabel = new QLabel(privacy);
+    // qLabel *privacyLabel = new QLabel(privacy);
     //privacyLabel->setAlignment(Qt::AlignJustify);
     //privacyLabel->setWordWrap(true);
     //privacyLabel->setOpenExternalLinks(true);
@@ -163,7 +163,7 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
     layout3->addWidget(translatorsLabel, 0, 1, 4, 4);
     tab3->setLayout(layout3);
 
-    //QGridLayout *layout4 = new QGridLayout;
+    // qGridLayout *layout4 = new QGridLayout;
     //layout4->addWidget(logoLabel4 , 0, 0, 1, 1);
     //layout4->addWidget(privacyLabel, 0, 1, 4, 4);
     //tab4->setLayout(layout4);
@@ -179,7 +179,7 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
     layout->addWidget(buttonBox, 1, 0, Qt::AlignRight);
 
     setLayout(layout);
-       //qDebug() << "AboutDialog::AboutDialog - END";
+       // qDebug() << "AboutDialog::AboutDialog - END";
 }
 
 AboutDialog::~AboutDialog(){}

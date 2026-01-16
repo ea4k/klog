@@ -31,7 +31,7 @@
 
 SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 {
-     //qDebug() << Q_FUNC_INFO " - Start";
+     // qDebug() << Q_FUNC_INFO " - Start";
     util = new Utilities(Q_FUNC_INFO);
 
     palRed.setColor(QPalette::Text, Qt::red);
@@ -64,7 +64,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     clubLogActiveCheckBox = new QCheckBox(tr("Activate ClubLog"), this);
     clubLogSendInRealTimeCheckBox->setToolTip(tr("Send each QSO to ClubLog in real time, as they are added (or modified) in KLog."));
     clubLogActiveCheckBox->setToolTip(tr("Starts the ClubLog support in KLog."));
-     //qDebug() << Q_FUNC_INFO << " -   00010";
+     // qDebug() << Q_FUNC_INFO << " -   00010";
     eQSLUserLineEdit = new QLineEdit;
     eQSLPasswordLineEdit = new QLineEdit;
     eQSLPasswordLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
@@ -82,7 +82,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
 
     clubLogGroup = new QGroupBox (tr("ClubLog"));
     eQSLccGroup = new QGroupBox (tr("eQSL.cc"));
-     //qDebug() << Q_FUNC_INFO << " -   00020";
+     // qDebug() << Q_FUNC_INFO << " -   00020";
     QGridLayout *cl1layout = new QGridLayout;
     cl1layout->addWidget(clubLogEmailLabel, 0, 0);
     cl1layout->addWidget(clubLogPasswordLabel, 1, 0);
@@ -110,7 +110,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     clubLogGroup->setLayout(cl2layout);
 
 
-    //qDebug() << Q_FUNC_INFO << " -   00030";
+    // qDebug() << Q_FUNC_INFO << " -   00030";
     QGridLayout *e1layout = new QGridLayout;
     e1layout->addWidget(eQSLemailLabel, 0, 0);
     e1layout->addWidget(eQSLpasswordLabel, 1, 0);
@@ -132,7 +132,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     e2layout->addLayout(e1layout);
     //e2layout->addWidget(eQSLSendInRealTimeCheckBox);
     eQSLccGroup->setLayout(e2layout);
-     //qDebug() << Q_FUNC_INFO << " -   00040";
+     // qDebug() << Q_FUNC_INFO << " -   00040";
     QRZCOMGroup = new QGroupBox (tr("QRZ.com"));
     QRZCOMSentDefaultComboBox = new QComboBox;
     QRZCOMSentDefaultLabel = new QLabel("Default");
@@ -151,7 +151,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     QRZCOMActiveCheckBox = new QCheckBox(tr("Activate QRZ.com"), this);
     QRZCOMAutoCheckCheckBox = new QCheckBox(tr("Check automatically"), this);
     QRZCOMAutoCheckCheckBox->setToolTip(tr("Check in Qrz.com all Calls as they are entered"));
-     //qDebug() << Q_FUNC_INFO << " -   00050";
+     // qDebug() << Q_FUNC_INFO << " -   00050";
     QRZCOMSubscriberCheckBox = new QCheckBox(tr("Paying Subscriber"), this);
     QRZCOMSubscriberCheckBox->setToolTip(tr("Check it if you are paying for a qrz.com subscription"));
 
@@ -186,17 +186,17 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     qrzcomKeyLayout->addWidget(QRZCOMLogBookKEYLineEdit);
 
 
-     //qDebug() << Q_FUNC_INFO << " -   00070";
+     // qDebug() << Q_FUNC_INFO << " -   00070";
     QVBoxLayout *qrzLayout = new QVBoxLayout;
     qrzLayout->addLayout(QRZCOMTopLineLayout);
-    //qrzLayout->addLayout(qrzcomActive);
+    // qrzLayout->addLayout(qrzcomActive);
     qrzLayout->addLayout(q1layout);
     qrzLayout->addWidget(QRZCOMAutoCheckCheckBox);
     qrzLayout->addLayout(qrzcomKeyLayout);
 
     QRZCOMGroup->setLayout(qrzLayout);
 
-     //qDebug() << Q_FUNC_INFO << " -   00080";
+     // qDebug() << Q_FUNC_INFO << " -   00080";
 
     lotwGroup = new QGroupBox (tr("LoTW"));
     lotwUpGroup = new QGroupBox (tr("Upload"));
@@ -246,26 +246,26 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     l3layout->addWidget(lotwUserLineEdit, 0, 1);
     l3layout->addWidget(lotwPasswordLineEdit, 1, 1);
     lotwDownGroup->setLayout(l3layout);
-     //qDebug() << Q_FUNC_INFO << " -   00100";
+     // qDebug() << Q_FUNC_INFO << " -   00100";
     QVBoxLayout *llayout = new QVBoxLayout;
     //llayout->addLayout(l2layout);
     llayout->addWidget(lotwUpGroup);
     llayout->addWidget(lotwDownGroup);
     lotwGroup->setLayout(llayout);
-     //qDebug() << Q_FUNC_INFO << " -   00110";
+     // qDebug() << Q_FUNC_INFO << " -   00110";
     QVBoxLayout *v1layout = new QVBoxLayout;
     v1layout->addWidget(clubLogGroup);
     v1layout->addWidget(eQSLccGroup);
-     //qDebug() << Q_FUNC_INFO << " -   00120";
+     // qDebug() << Q_FUNC_INFO << " -   00120";
     QVBoxLayout *v2layout = new QVBoxLayout;
     v2layout->addWidget(QRZCOMGroup);
     v2layout->addWidget(lotwGroup);
-     //qDebug() << Q_FUNC_INFO << " -   00130";
+     // qDebug() << Q_FUNC_INFO << " -   00130";
     QHBoxLayout *mlayout = new QHBoxLayout;
     mlayout->addLayout(v1layout);
     mlayout->addLayout(v2layout);
     setLayout(mlayout);
-     //qDebug() << Q_FUNC_INFO << " -   00140";
+     // qDebug() << Q_FUNC_INFO << " -   00140";
     connect(clubLogActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotClubLogActive(bool)));
 
     connect(clubLogPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
@@ -276,13 +276,13 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     connect(eQSLPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(eQSLActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotEQSLActive(bool)));
     connect(eQSLUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(sloteQSLCallTextChanged() ) );
-     //qDebug() << Q_FUNC_INFO << " -   00150";
+     // qDebug() << Q_FUNC_INFO << " -   00150";
     connect(QRZCOMActiveCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotQRZCOMActive(bool)));
     //connect(QRZCOMAutoCheckCheckBox, SIGNAL(toggled(bool) ), this, SLOT(slotQRZCOMAuto(bool)));
     connect(QRZCOMUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(QRZCOMUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotQRZCallTextChanged() ) );
     connect(QRZCOMPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
-     //qDebug() << Q_FUNC_INFO << " -   00160";
+     // qDebug() << Q_FUNC_INFO << " -   00160";
 
     connect(lotwUserLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
     connect(lotwPasswordLineEdit, SIGNAL(returnPressed()), this, SLOT(slotEnterKeyPressed() ) );
@@ -294,7 +294,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     connect(clubLogEmailLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotClubLogEmailDefineColor() ) );
     connect(lotwUserLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLoTWEmailDefineColor() ) );
 
-     //qDebug() << Q_FUNC_INFO << " -   00150";
+     // qDebug() << Q_FUNC_INFO << " -   00150";
     setDefaults();
     slotClubLogActive(false);
     setLoTWActive(false);
@@ -302,7 +302,7 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     slotEQSLActive(false);
     slotQRZCOMActive(false);
 
-     //qDebug() << Q_FUNC_INFO << " -   END";
+     // qDebug() << Q_FUNC_INFO << " -   END";
 }
 
 SetupPageELog::~SetupPageELog()
@@ -313,19 +313,19 @@ SetupPageELog::~SetupPageELog()
 
 void SetupPageELog::setDefaultLoTW()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
     Adif adif(Q_FUNC_INFO);
     lotwSentDefaultComboBox->addItems(adif.getQSLSentStatus());
-    //qDebug() << Q_FUNC_INFO << " - Current-1: " << lotwSentDefaultComboBox->currentText();
+    // qDebug() << Q_FUNC_INFO << " - Current-1: " << lotwSentDefaultComboBox->currentText();
     int index = lotwSentDefaultComboBox->findText("Q", Qt::MatchFixedString);
     lotwSentDefaultComboBox->setCurrentIndex(index >= 0 ? index : 0);
-   //qDebug() << Q_FUNC_INFO << " - Current-2: " << lotwSentDefaultComboBox->currentText();
+   // qDebug() << Q_FUNC_INFO << " - Current-2: " << lotwSentDefaultComboBox->currentText();
 
 
     lotwPasswordLineEdit->clear ();
     lotwUserLineEdit->clear ();
     lotwPasswordLineEdit->clear ();
-   //qDebug() << Q_FUNC_INFO << " -   ";
+   // qDebug() << Q_FUNC_INFO << " -   ";
 }
 
 void SetupPageELog::setDefaultClubLog()
@@ -372,36 +372,36 @@ void SetupPageELog::setDefaultQRZCOM()
 
 void SetupPageELog::slotQRZCallTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " -  ";
+    // qDebug() << Q_FUNC_INFO << " -  ";
     int cursor = QRZCOMUserLineEdit->cursorPosition();
-    //qDebug() << Q_FUNC_INFO << " -  -1";
+    // qDebug() << Q_FUNC_INFO << " -  -1";
 
     QString aux = util->getClearSQLi (QRZCOMUserLineEdit->text());
-    //qDebug() << Q_FUNC_INFO << " -  -2";
+    // qDebug() << Q_FUNC_INFO << " -  -2";
 
     Callsign callsign(aux);
     if (callsign.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " -  -2.1";
+        // qDebug() << Q_FUNC_INFO << " -  -2.1";
         QRZCOMUserLineEdit->setPalette(palBlack);
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " -  -2.2";
+        // qDebug() << Q_FUNC_INFO << " -  -2.2";
          QRZCOMUserLineEdit->setPalette(palRed);
     }
 
-    //qDebug() << Q_FUNC_INFO << " -  -3";
+    // qDebug() << Q_FUNC_INFO << " -  -3";
     QRZCOMUserLineEdit->setText(aux.toUpper());
-    //qDebug() << Q_FUNC_INFO << " -  -4";
+    // qDebug() << Q_FUNC_INFO << " -  -4";
     QRZCOMUserLineEdit->setCursorPosition(cursor);
 
-    //qDebug() << Q_FUNC_INFO << " -   - END";
+    // qDebug() << Q_FUNC_INFO << " -   - END";
 }
 
 void SetupPageELog::sloteQSLCallTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     int cursor = eQSLUserLineEdit->cursorPosition();
 
     QString aux = util->getClearSQLi (eQSLUserLineEdit->text());
@@ -418,12 +418,12 @@ void SetupPageELog::sloteQSLCallTextChanged()
 
     eQSLUserLineEdit->setText(aux.toUpper());
     eQSLUserLineEdit->setCursorPosition(cursor);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageELog::slotClubLogEmailDefineColor()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start"
+    // qDebug() << Q_FUNC_INFO << " - Start"
     if(!clubLogEmailLineEdit->hasAcceptableInput())
         clubLogEmailLineEdit->setStyleSheet("QLineEdit { color: red;}");
     else
@@ -432,7 +432,7 @@ void SetupPageELog::slotClubLogEmailDefineColor()
 
 void SetupPageELog::slotLoTWEmailDefineColor()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << lotwUserLineEdit->text();
+    // qDebug() << Q_FUNC_INFO << ": " << lotwUserLineEdit->text();
     int cursor = lotwUserLineEdit->cursorPosition();
     QString aux = lotwUserLineEdit->text();
     Callsign callsign(aux);
@@ -451,14 +451,14 @@ void SetupPageELog::slotLoTWEmailDefineColor()
 
 void SetupPageELog::setDefaults()
 {
-     //qDebug() << Q_FUNC_INFO << " - Start"
+     // qDebug() << Q_FUNC_INFO << " - Start"
 
     setDefaultClubLog();
     setDefaultEQSL();
     setDefaultLoTW();
     setDefaultQRZCOM();
 
-     //qDebug() << Q_FUNC_INFO << " - END"
+     // qDebug() << Q_FUNC_INFO << " - END"
 }
 
 
@@ -470,14 +470,14 @@ void SetupPageELog::setClubLogActive(const bool &_b)
 
 void SetupPageELog::slotClubLogActive(const bool _s)
 {
-     //qDebug() << Q_FUNC_INFO << " - " << util->boolToQString(_s);
+     // qDebug() << Q_FUNC_INFO << " - " << util->boolToQString(_s);
     clubLogEmailLabel->setEnabled(_s);
     clubLogPasswordLabel->setEnabled(_s);
     clubLogEmailLineEdit->setEnabled(_s);
     clubLogPasswordLineEdit->setEnabled(_s);
     clubLogAppPasswordLineEdit->setEnabled(_s);
     clubLogSendInRealTimeCheckBox->setEnabled(_s);
-     //qDebug() << "SetupPageELog::slotClubLogActive";
+     // qDebug() << "SetupPageELog::slotClubLogActive";
 }
 
  // END of CLubLog
@@ -487,7 +487,7 @@ void SetupPageELog::slotClubLogActive(const bool _s)
 
 void SetupPageELog::slotEQSLActive(const bool _s)
 {
-     //qDebug() << Q_FUNC_INFO << " - "  << util->boolToQString(_s);
+     // qDebug() << Q_FUNC_INFO << " - "  << util->boolToQString(_s);
     eQSLemailLabel->setEnabled(_s);
     eQSLpasswordLabel->setEnabled(_s);
     eQSLUserLineEdit->setEnabled(_s);
@@ -496,7 +496,7 @@ void SetupPageELog::slotEQSLActive(const bool _s)
 
 void SetupPageELog::slotTQSLActive(const bool _s)
 {
-     //qDebug() << Q_FUNC_INFO << " - " << util->boolToQString(_s);
+     // qDebug() << Q_FUNC_INFO << " - " << util->boolToQString(_s);
     setLoTWActive(_s);
 }
 
@@ -514,9 +514,9 @@ void SetupPageELog::setLoTWActive(const bool &_s)
 
 void SetupPageELog::slotSelectTQSLClicked()
 {
-       //qDebug() << Q_FUNC_INFO << " - " << QStandardPaths::ApplicationsLocation;
+       // qDebug() << Q_FUNC_INFO << " - " << QStandardPaths::ApplicationsLocation;
     QString appsDir= util->getTQSLsPath();
-    //QString proposedName = util->getTQSLsFileName();
+    // qString proposedName = util->getTQSLsFileName();
 
     QString filter;
     filter.clear();
@@ -536,7 +536,7 @@ void SetupPageELog::slotSelectTQSLClicked()
     {
         lotwTQSLPathLineEdit->setText(tqslFile);
     }
-        //qDebug() << Q_FUNC_INFO << " - END";
+        // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageELog::slotPathLineEditChanged(const QString &_q)
@@ -563,23 +563,23 @@ void SetupPageELog::slotEnterKeyPressed()
 
 void SetupPageELog::setQRZCOMActive(const bool _s)
 {
-     //qDebug() << Q_FUNC_INFO << " - Start";
+     // qDebug() << Q_FUNC_INFO << " - Start";
     QRZCOMActiveCheckBox->setChecked(_s);
     QRZCOMAutoCheckCheckBox->setEnabled(_s);
 }
 
 void SetupPageELog::slotQRZCOMActive(bool _s)
 {
-     //qDebug() << Q_FUNC_INFO << " - "  << util->boolToQString(_s);
+     // qDebug() << Q_FUNC_INFO << " - "  << util->boolToQString(_s);
     QRZCOMUserLabel->setEnabled(_s);
-     //qDebug() << Q_FUNC_INFO << " -   1";
+     // qDebug() << Q_FUNC_INFO << " -   1";
     QRZCOMUserLineEdit->setEnabled(_s);
-     //qDebug() << Q_FUNC_INFO << " -   2";
+     // qDebug() << Q_FUNC_INFO << " -   2";
     QRZCOMPasswordLabel->setEnabled(_s);
-     //qDebug() << Q_FUNC_INFO << " -   3";
+     // qDebug() << Q_FUNC_INFO << " -   3";
     QRZCOMPasswordLineEdit->setEnabled(_s);
     QRZCOMAutoCheckCheckBox->setEnabled(_s);
-     //qDebug() << Q_FUNC_INFO << " -   END";
+     // qDebug() << Q_FUNC_INFO << " -   END";
     //if (!QRZCOMActiveCheckBox->isChecked())
     //{
     //    QRZCOMAutoCheckCheckBox->setChecked(false);
@@ -599,16 +599,16 @@ void SetupPageELog::setQRZCOMAutoCheck(const bool _s)
 void SetupPageELog::showEvent(QShowEvent *event)
 {
     //clubLogSendInRealTimeCheckBox->setChecked(clubLogRealTime);
-     //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (clubLogSendInRealTimeCheckBox->isChecked ());
+     // qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (clubLogSendInRealTimeCheckBox->isChecked ());
     //clubLogActiveCheckBox->setChecked(clubLogActive);
     //clubLogPasswordLineEdit->setText(clubLogPass);
     //clubLogEmailLineEdit->setText(clubLogEmail);
 
-    //QRZCOMUserLineEdit->setText(qrzComUser);
-    //QRZCOMPasswordLineEdit->setText(qrzcomPass);
-    //QRZCOMActiveCheckBox->setChecked(qrzcomActive);
+    // qRZCOMUserLineEdit->setText(qrzComUser);
+    // qRZCOMPasswordLineEdit->setText(qrzcomPass);
+    // qRZCOMActiveCheckBox->setChecked(qrzcomActive);
    // QRZCOMAutoCheckCheckBox->setChecked(qrzcomAutoFill);
-    //QRZCOMLogBookKEYLineEdit->setText(qrcomLogbookKey);
+    // qRZCOMLogBookKEYLineEdit->setText(qrcomLogbookKey);
 
     //eQSLUserLineEdit->setText(eqslUser);
     //eQSLPasswordLineEdit->setText(eqslPass);
@@ -625,7 +625,7 @@ void SetupPageELog::showEvent(QShowEvent *event)
 
 void SetupPageELog::saveSettings()
 {
-    //qDebug() << Q_FUNC_INFO ;
+    // qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("eLogs");
 
@@ -666,12 +666,12 @@ void SetupPageELog::saveSettings()
 
 void SetupPageELog::loadSettings()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("ClubLog");
     clubLogActiveCheckBox->setChecked (settings.value("ClubLogActive").toBool ());
     clubLogSendInRealTimeCheckBox->setChecked (settings.value("ClubLogRealTime").toBool ());
-     //qDebug() << Q_FUNC_INFO << ": realTime: " << util->boolToQString (clubLogSendInRealTimeCheckBox->isChecked ());
+     // qDebug() << Q_FUNC_INFO << ": realTime: " << util->boolToQString (clubLogSendInRealTimeCheckBox->isChecked ());
     clubLogEmailLineEdit->setText (settings.value("ClubLogEmail").toString ());
     clubLogPasswordLineEdit->setText (settings.value("ClubLogPass").toString ());
     clubLogAppPasswordLineEdit->setText (settings.value("ClubLogAppPass").toString ());
@@ -705,7 +705,7 @@ void SetupPageELog::loadSettings()
     settings.beginGroup ("LoTW");
     lotwUseTQSLCheckBox->setChecked (settings.value("LoTWActive", false).toBool ());
     lotwUserLineEdit->setText (settings.value("LoTWUser").toString ());
-    //qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
+    // qDebug() << Q_FUNC_INFO << ": LoTWUser: " << lotwUserLineEdit->text ();
     lotwPasswordLineEdit->setText (settings.value("LoTWPass").toString ());
     lotwTQSLPathLineEdit->setText (settings.value("LoTWPath").toString ());
     indexBackup = lotwSentDefaultComboBox->findText("Q", Qt::MatchFixedString);

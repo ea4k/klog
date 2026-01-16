@@ -83,7 +83,7 @@ signals:
 
 private:
     void showDebugLog(const QString &_func, const QString &_log);
-    //QString getClubLogAdif(const QStringList _q);
+    // qString getClubLogAdif(const QStringList _q);
     //int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
     int sendDataParams(const QUrlQuery &_params);
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it

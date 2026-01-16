@@ -65,7 +65,7 @@ public:
     QString checkAndFixASCIIinADIF(const QString &_data);
     QString getAgent(const QString &_klogversion);
     QString getGlobalAgent(const QString &_klogversion);
-    //QOperatingSystemVersion getOS();
+    // qOperatingSystemVersion getOS();
     //Devel or debug functions - Not adding any feature to the user
     void printQString(const QStringList &_qs);
 
@@ -73,7 +73,7 @@ public:
     QString getKLogDBBackupFile();
     bool QStringToBool(const QString &_s);
 
-    //QString getKLogDatabaseFile(const QString &_file);
+    // qString getKLogDatabaseFile(const QString &_file);
     bool fileExists(const QString &_fileName);
 
     QString getTQSLsFileName();
@@ -132,7 +132,7 @@ public:
     bool isValidEmail(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
     bool areThoseListsTheSame(const QStringList &_list1, const QStringList &_list2);
-    //QString getADIFField(const QString &_fieldName, const QString &_data);
+    // qString getADIFField(const QString &_fieldName, const QString &_data);
 
     KLOG_DEPRECATED QString getMainCallFromComplexCall(const QString &_complexCall); //TODO: To be replaced by  QString Callsign::getHostFullPrefix(bool getHomeIfEmpty=true);
     QString getAValidCall (const QString &_wrongCall);
@@ -184,12 +184,12 @@ public:
     void setLogLevel(DebugLogLevel _l);
     void openQrzcom(const QString _call);
     void printCommandHelp();
-    //QPalette getPalete(bool _ok);
+    // qPalette getPalete(bool _ok);
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 private:
-    void init();
+    void init();        // Check if it is really needed or can be removed
     void InitializeHash();
     void setLogColumnNames(); // Creates the map of column Names (should be called from init() )
     QString getKLogDefaultDatabaseFile();
@@ -197,19 +197,19 @@ private:
 
     //bool isAKnownCall(const QString &_c);
 
-    //QStringList getPrefixRunningTheCall(const QString &_c, bool withAreaNumber = false);
+    // qStringList getPrefixRunningTheCall(const QString &_c, bool withAreaNumber = false);
                     //Goes char by char identifying the prefix and area Number
 
-    //QPair<QString, QString> getCallParts(const QString &_c);
+    // qPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
     void setContinent();
     void setSponsorsList();
-    //QString getCheckedComplexCall(const QString &_c);
+    // qString getCheckedComplexCall(const QString &_c);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     //bool darkMode;
     QString getDBPath();
-    //QString dbPath;
+    // qString dbPath;
     QString softwareVersion;
     QString parentName;     // The class that instanciated this object.
 

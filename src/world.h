@@ -103,7 +103,7 @@ public:
     bool isAKnownCall(const QString &_callsign);
     bool isAKnownPrefix(const QString &_prefix);
 
-    //QStringList getEntitiesNames();
+    // qStringList getEntitiesNames();
     int getHowManyEntities();
     bool hasSpecialEntities();
     bool fillEmptyDXCCInTheLog();           // Adds the DXCC to the QSOs in the log that don't have it
@@ -135,7 +135,7 @@ private:
     //int progressBarPosition;
 
     bool created, read;
-    //QString klogVersion;
+    // qString klogVersion;
     int cqz, ituz;//, numberOfEntities;
     QString entityName;
     QString currentPrefix; // Used in the progressBar
@@ -146,7 +146,7 @@ private:
     int continentId;
     double lat, lon, utc;
     //int utc;
-    //QString line;
+    // qString line;
     //bool readingDataOfAnEntity;
     int nullValue;
 

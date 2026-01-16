@@ -72,7 +72,7 @@ private:
     void updateIfNeeded();
     void blockAllSignals(const bool _b);
     QString getCallOnOK();
-    //QString getGridOnOK();
+    // qString getGridOnOK();
 
     DataProxy_SQLite *dataProxy;
     Utilities *util;

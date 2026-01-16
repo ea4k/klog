@@ -29,7 +29,7 @@
 
 
 SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent){
-  //qDebug() << Q_FUNC_INFO << " - Start";
+  // qDebug() << Q_FUNC_INFO << " - Start";
    slotQRZRunning = false;
    locator = new Locator();
    util = new Utilities(Q_FUNC_INFO);
@@ -237,13 +237,13 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *inject
     setLayout(mainLayout);
     maincallsignLineEdit->setFocus();
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
 SetupPageUserDataPage::~SetupPageUserDataPage()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     delete(locator);
     delete(util);
     //delete(world);
@@ -279,14 +279,14 @@ void SetupPageUserDataPage::slotEnterKeyPressed()
 
 void SetupPageUserDataPage::slotQRZTextChanged()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
     if (slotQRZRunning)
     {
-       //qDebug() << Q_FUNC_INFO << " - END-1";
+       // qDebug() << Q_FUNC_INFO << " - END-1";
         return;
     }
     slotQRZRunning = true;
-   //qDebug() << Q_FUNC_INFO << " - " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
+   // qDebug() << Q_FUNC_INFO << " - " << maincallsignLineEdit->text() << " / Length: " << QString::number((maincallsignLineEdit->text()).size());
 
     int i = maincallsignLineEdit->cursorPosition();
 
@@ -294,7 +294,7 @@ void SetupPageUserDataPage::slotQRZTextChanged()
     if (i<1)
     {
         slotQRZRunning = false;
-        //qDebug() << Q_FUNC_INFO << " - END-2";
+        // qDebug() << Q_FUNC_INFO << " - END-2";
         return;
     }
 
@@ -321,7 +321,7 @@ void SetupPageUserDataPage::slotQRZTextChanged()
         myLocatorLineEdit->setText(world->getQRZLocator(maincallsignLineEdit->text()));
     }
     */
-    //qDebug() << Q_FUNC_INFO << " - END-3";
+    // qDebug() << Q_FUNC_INFO << " - END-3";
     slotQRZRunning = false;
 }
 
@@ -337,7 +337,7 @@ int SetupPageUserDataPage::getITUz()
 
 bool SetupPageUserDataPage::setMainCallsign(const QString &_qrz)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+   // qDebug() << Q_FUNC_INFO << ": " << _qrz;
     Callsign callsign(_qrz);
     if (!callsign.isValid())
         return false;
@@ -359,7 +359,7 @@ bool SetupPageUserDataPage::setITUz(const int _ituz)
 
 void SetupPageUserDataPage::slotMyLocatorTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
 
     myLocatorLineEdit->setText(((util->getClearSQLi(myLocatorLineEdit->text()))).simplified());
     myLocatorLineEdit->setText((myLocatorLineEdit->text()).toUpper());
@@ -614,8 +614,8 @@ bool SetupPageUserDataPage::setAntenna3 (const QString &_aux)
 
 void SetupPageUserDataPage::slotOperatorsChanged()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    //QString _operators = operatorsLineEdit->text();
+    // qDebug() << Q_FUNC_INFO << " - Start";
+    // qString _operators = operatorsLineEdit->text();
 
 
     if (operatorsLineEdit->text().length() < 1)
@@ -634,19 +634,19 @@ void SetupPageUserDataPage::slotOperatorsChanged()
 
     if (checkOperatorsLineQString(_a))
     {
-        //qDebug() << Q_FUNC_INFO << "  VALID FORMAT";
+        // qDebug() << Q_FUNC_INFO << "  VALID FORMAT";
         operatorsLineEdit->setPalette(*defaultPalette);
         emit operatorsSignal(operatorsLineEdit->text());
     }
     else
     {
         operatorsLineEdit->setPalette(*wrongPalette);
-            //qDebug() << Q_FUNC_INFO << "  NOT VALID FORMAT";
+            // qDebug() << Q_FUNC_INFO << "  NOT VALID FORMAT";
     }
 
-       //qDebug() << Q_FUNC_INFO << " -05";
+       // qDebug() << Q_FUNC_INFO << " -05";
     operatorsLineEdit->setCursorPosition(i);
-       //qDebug() << Q_FUNC_INFO << " -END";
+       // qDebug() << Q_FUNC_INFO << " -END";
 }
 
 QString SetupPageUserDataPage::getOperators()
@@ -686,13 +686,13 @@ bool  SetupPageUserDataPage::checkOperatorsLineQString(const QString &_auxLine)
 
 void SetupPageUserDataPage::setStationFocus()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     maincallsignLineEdit->setFocus();
 }
 
 void SetupPageUserDataPage::saveSettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");
     settings.setValue ("Callsign", getMainCallsign());
@@ -717,12 +717,12 @@ void SetupPageUserDataPage::saveSettings()
     settings.setValue ("Antenna3",getAntenna3());
     settings.setValue ("Power", getPower ());
     settings.endGroup ();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageUserDataPage::loadSettings()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
 
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UserData");

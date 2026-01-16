@@ -30,7 +30,7 @@ StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget(DataProxy_SQLite 
 {
     Q_UNUSED(parent);
 #ifdef QT_DEBUG
-//qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget";
+// qDebug() << "StatsQSOsPerDXCCBarChartWidget::StatsQSOsPerDXCCBarChartWidget";
 #else
 #endif
 
@@ -90,7 +90,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
     entities.clear();
     entities << dataProxy->getEntitiesIds();
 
-       //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS ";
+       // qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: SelectedGrapth-1: YEARS ";
 
      QMap<int, int> map; // key,value = number of QSO, dxcc
      //int qsos = -1;
@@ -100,13 +100,13 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
      QList<QList<int>> data;
      data.clear();
     data <<  dataProxy->getTop10QSOPerDXCC(_log);
-    //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length());
+    // qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart: Length: " << QString::number(data.length());
 
     foreach(QList<int> pair, data)
     {
         map.insert(pair.at(0), pair.at(1));
-        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0));
-        //qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1));
+        // qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(0): " << QString::number(pair.at(0));
+        // qDebug() << "StatsQSOsPerDXCCBarChartWidget::prepareChart:Pair(1): " << QString::number(pair.at(1));
         categories.append(dataProxy->getEntityMainPrefix(pair.at(0)) + " (" + QString::number(pair.at(1)) + ")");
         set0->append(pair.at(1));
         //*set0 << pair.at(1);
@@ -118,11 +118,11 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
          qsos = dataProxy->getQSOsWithDXCC((entities.at(i)).toInt(), _log);
          if (qsos>0)
          {
-                //qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+                // qDebug() << "Checking: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
 
              if (map.size()<10)
              {
-                    //qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
+                    // qDebug() << "Inserting: " << dataProxy->getEntityNameFromId((entities.at(i)).toInt()) << " - " << entities.at(i) << " - QSOs: " << QString::number(qsos) ;
                  map.insert(qsos, (entities.at(i)).toInt());
              }
              else
@@ -132,8 +132,8 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
                      it.next();
                      if (it.key()< qsos)
                      {
-                            //qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value());
-                            //qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt());
+                            // qDebug() << "Removing: " << QString::number(it.key()) << " / " << QString::number(it.value());
+                            // qDebug() << "Replacing by: " << entities.at(i) << " / " << QString::number(qsos) << " - " << dataProxy->getEntityNameFromId((entities.at(i)).toInt());
                          map.remove(it.key());
                          map.insert(qsos, (entities.at(i)).toInt());
                          it.toBack();
@@ -149,7 +149,7 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
          {
              i = entities.size();
          }
-         //qDebug() << "End of for iteration";
+         // qDebug() << "End of for iteration";
      }
     */
     /*
@@ -157,14 +157,14 @@ void StatsQSOsPerDXCCBarChartWidget::prepareChart(const int _log)
      while (it.hasNext()) {
          it.next();
          categories.append(dataProxy->getEntityMainPrefix(it.value()));
-         //qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value());
+         // qDebug() << "While iteration: " << dataProxy->getEntityMainPrefix(it.value());
 
          numberPerX = it.key();
          *set0 << numberPerX;
          numberPerX = 0;
-            //qDebug() << "End of while iteration";
+            // qDebug() << "End of while iteration";
      }
-        //qDebug() << "Out of while";
+        // qDebug() << "Out of while";
     */
      categoriesElem = tr("DXCC");
      categoriesTitle = tr("Top ten DXCC per QSO");

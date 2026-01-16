@@ -31,7 +31,7 @@
 //      instead. It is easy to change but the code would not be so clear... Think about this. :-)
 
 SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
-       //qDebug() << "SetupPageMisc::SetupPageMisc";
+       // qDebug() << "SetupPageMisc::SetupPageMisc";
 
     util = new Utilities(Q_FUNC_INFO);
     checkCallsCheckBox = new QCheckBox(tr("Check non-valid calls"), this);
@@ -74,18 +74,18 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     {
         moveDBPushButton->setEnabled(true);
     }
-       //qDebug() << "SetupPageMisc::SetupPageMisc - END";
+       // qDebug() << "SetupPageMisc::SetupPageMisc - END";
 }
 
 SetupPageMisc::~SetupPageMisc()
 {
     delete(util);
-       //qDebug() << "SetupPageMisc::~SetupPageMisc";
+       // qDebug() << "SetupPageMisc::~SetupPageMisc";
 }
 
 void SetupPageMisc::createUI()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     dupeTimeLineEdit->setInputMask("0000000");
     dupeTimeLineEdit->setToolTip(tr("In seconds, enter the time range to consider a duplicate if same call, band and mode is entered."));
     palWrong.setColor(QPalette::Text, Qt::red);
@@ -93,11 +93,11 @@ void SetupPageMisc::createUI()
 
     //TODO: To be removed when the defaultDir is saved in the config file
     #ifdef Q_OS_WIN
-       //qDebug() << "WINDOWS DETECTED!" ;
+       // qDebug() << "WINDOWS DETECTED!" ;
     klogDir = util->getHomeDir();  // We create the \klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #else
-       //qDebug() << "NO WINDOWS DETECTED!" ;
+       // qDebug() << "NO WINDOWS DETECTED!" ;
     klogDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
     #endif
@@ -228,7 +228,7 @@ void SetupPageMisc::createActions()
 void SetupPageMisc::setDeleteAlwaysAdiFile(const bool &_t)
 {
     deleteAlwaysAdiFileCheckBox->setChecked(_t);
-    //qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t;
+    // qDebug() << "SetupPageMisc::setDeleteAlwaysAdiFile - DELETEALWAYSADIFILE = " << _t;
 }
 
 QString SetupPageMisc::getDeleteAlwaysAdiFile()
@@ -293,7 +293,7 @@ QString SetupPageMisc::getDefaultFileName()
 }
 void SetupPageMisc::setDefaultFileName(const QString &_t)
 {
-       //qDebug() << "SetupPageMisc::setDefaultFileName: " << _t;
+       // qDebug() << "SetupPageMisc::setDefaultFileName: " << _t;
     if (_t.length ()<1)
     {
         defaultFileName = util->getDebugLogFile ();
@@ -340,7 +340,7 @@ void SetupPageMisc::setImperial(const QString &_t)
 
 void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
 {
-       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged";
+       // qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged";
 
     if (state)
     {
@@ -447,7 +447,7 @@ QString SetupPageMisc::getDXMarathon(){
 }
 
 void SetupPageMisc::setDXMarathon(const QString &_t){
-    //QString st = t;
+    // qString st = t;
     useDxMarathonCheckBox->setChecked(util->trueOrFalse(_t));
 }
 
@@ -491,7 +491,7 @@ void SetupPageMisc::slotDBButtonClicked()
 
 void SetupPageMisc::slotDBLineEditChanged()
 {
-       //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text();
+       // qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text();
     QString aux;
     aux = dbPathLineEdit->text();
 
@@ -526,13 +526,13 @@ void SetupPageMisc::slotMoveDBButtonClicked()
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - Move DB"));
 
-       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source;
-       //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target;
+       // qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source;
+       // qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target): " << target;
     if ( QFile::exists(dbDirNew) )
     {
         if (QFile::exists(target))
         {
-            //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target;
+            // qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target;
         }
         if (QFile::copy(source, target))
         {
@@ -565,7 +565,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 
             if (QFile::exists(target))
             {
-                //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target;
+                // qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (target EXISTS): " << target;
 
                 msgBox.setText(tr("File already exist."));
                 msgBox.setDetailedText(tr("The destination file already exist and KLog will not replace it. Please remove the file from the destination folder before moving the file with KLog to make sure KLog can copy the file."));
@@ -621,7 +621,7 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
 
 void SetupPageMisc::saveSettings()
 {
-    //qDebug() << Q_FUNC_INFO ;
+    // qDebug() << Q_FUNC_INFO ;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     settings.setValue ("RealTime", QVariant((realTimeCheckbox->isChecked())));
@@ -652,7 +652,7 @@ void SetupPageMisc::saveSettings()
 
 void SetupPageMisc::loadSettings(const QString &_callingFunction)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
+    // qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());
@@ -675,6 +675,6 @@ void SetupPageMisc::loadSettings(const QString &_callingFunction)
     setUseDefaultDBPath(settings.value("DBPath").toString ());
     setDebugLogLevel(settings.value("DebugLog").toString ());
     dupeTimeLineEdit->setText (settings.value("DuplicatedQSOSlot", "600").toString ());
-    //qDebug() << Q_FUNC_INFO << " - DuplicatedQSOSlot: " << settings.value("DuplicatedQSOSlot").toString ();
+    // qDebug() << Q_FUNC_INFO << " - DuplicatedQSOSlot: " << settings.value("DuplicatedQSOSlot").toString ();
     settings.endGroup ();
 }

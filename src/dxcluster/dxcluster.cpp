@@ -32,7 +32,7 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
             awards(awards),
             dataProxy(awards->dataProxy)
 {
-      //qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect);
+      // qDebug() << "DXClusterWidget::DXClusterWidget2" << clusterToConnect << QString::number(portToConnect);
 
     //dataProxy = awards->dataProxy;
     saveSpotsFile = new QFile();
@@ -90,12 +90,12 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
 
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
      //TESTADDSPOT();
-       //qDebug() << "DXClusterWidget::DXClusterWidget2 - END" ;
+       // qDebug() << "DXClusterWidget::DXClusterWidget2 - END" ;
 }
 
 DXClusterWidget::~DXClusterWidget()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     //delete(dataProxy);
     delete(tcpSocket);
     //delete(world);
@@ -105,7 +105,7 @@ DXClusterWidget::~DXClusterWidget()
 
 void DXClusterWidget::createActions()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     checkQRZCOMFromLogAct = new QAction(tr("Check in QRZ.com"), this);
     //checkQRZCOMFromLogAct->setShortcut(Qt::CTRL | Qt::Key_Q);
     checkQRZCOMFromLogAct->setStatusTip(tr("Check this callsign in QRZ.com"));
@@ -114,7 +114,7 @@ void DXClusterWidget::createActions()
 
 void DXClusterWidget::init()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
    dxSpotColor.fromString(QAnyStringView(("slategrey"))); //To be replaced by .fromString in Qt6.6
 #else
@@ -149,7 +149,7 @@ void DXClusterWidget::init()
 
 void DXClusterWidget::setMyQRZ(const QString &_qrz)
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     if (_qrz.length()>2)
     {
         myQrz = _qrz;
@@ -158,7 +158,7 @@ void DXClusterWidget::setMyQRZ(const QString &_qrz)
 
 void DXClusterWidget::addData()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     /*
                 QTreeWidgetItem *item = new QTreeWidgetItem(searchResultsTreeWidget);
                 i = world->getQRZARRLId(_call);
@@ -178,7 +178,7 @@ void DXClusterWidget::addData()
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetItem * item )
 {
-  //qDebug() << Q_FUNC_INFO << ": " << ((item->data(0)).toString()).simplified();
+  // qDebug() << Q_FUNC_INFO << ": " << ((item->data(0)).toString()).simplified();
 
     QStringList ql;
     ql.clear();
@@ -197,10 +197,10 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemDoubleClicked( QListWidgetIt
 
 void DXClusterWidget::connectToDXCluster()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     if (dxClusterConnected)
     {
-           //qDebug() << "DXClusterWidget::connectToDXCluster: - Already connected!!";
+           // qDebug() << "DXClusterWidget::connectToDXCluster: - Already connected!!";
         return; // If we are connected we don't want to start another connection
     }
 
@@ -214,7 +214,7 @@ void DXClusterWidget::connectToDXCluster()
 
 void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socketError)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << socketError;
+   // qDebug() << Q_FUNC_INFO << ": " << socketError;
     QString errorMessage;
 
      switch (socketError) {
@@ -236,13 +236,13 @@ void DXClusterWidget::slotClusterDisplayError(QAbstractSocket::SocketError socke
          errorMessage =  tr("The following error occurred: %1.").arg(socketError);
      }
 
-   //qDebug() << Q_FUNC_INFO << errorMessage;
+   // qDebug() << Q_FUNC_INFO << errorMessage;
      QMessageBox::warning(this, tr("KLog DXCluster"), errorMessage);
  }
 
 bool DXClusterWidget::checkIfNeedsToBePrinted(EntityStatus _entityStatus)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     if (!showconfirmed && (_entityStatus.status == confirmed)) {
         return false;
     }
@@ -264,7 +264,7 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(EntityStatus _entityStatus)
 
 void DXClusterWidget::setCurrentLog(const int _log)
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     if (dataProxy->doesThisLogExist(_log))
     {
         currentLog = _log;
@@ -286,30 +286,30 @@ void DXClusterWidget::addItemToClusterList(const QString &text, const QColor &co
 
 void DXClusterWidget::slotClusterDataArrived()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     QString dxClusterString = tcpSocket->readAll().trimmed().simplified();
-  //qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
+  // qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
 
     if (dxClusterString.endsWith("\x07\x07\r\n"))
     {
-       //qDebug() << Q_FUNC_INFO << " - 011";
+       // qDebug() << Q_FUNC_INFO << " - 011";
         dxClusterString = dxClusterString.remove("\x07\x07\r\n");
     }
-    //qDebug() << Q_FUNC_INFO << " Line-2: " << dxClusterString;
+    // qDebug() << Q_FUNC_INFO << " Line-2: " << dxClusterString;
 
     if (dxClusterString.endsWith("\u0007\u0007\r\n"))
     {
-       //qDebug() << Q_FUNC_INFO << " - 012";
+       // qDebug() << Q_FUNC_INFO << " - 012";
         dxClusterString = dxClusterString.remove("\u0007\u0007\r\n");
     }
 
     if (dxClusterString.endsWith("\u0007\u0007"))
     {
-       //qDebug() << Q_FUNC_INFO << " - 013";
+       // qDebug() << Q_FUNC_INFO << " - 013";
         dxClusterString = dxClusterString.remove("\u0007\u0007");
     }
 
-   //qDebug() << Q_FUNC_INFO << " - 020:" << dxClusterString;
+   // qDebug() << Q_FUNC_INFO << " - 020:" << dxClusterString;
     saveSpot(dxClusterString);
 
     TypeOfDXSpot typeOfSpot = parseReceivedData(dxClusterString);
@@ -317,22 +317,22 @@ void DXClusterWidget::slotClusterDataArrived()
     switch (typeOfSpot)
     {
     case dxde:
-        //qDebug() << Q_FUNC_INFO << " - DX de";
+        // qDebug() << Q_FUNC_INFO << " - DX de";
         printSpot(dxClusterString);
         break;
     case shdx:
-        //qDebug() << Q_FUNC_INFO << " - sh/dx";
+        // qDebug() << Q_FUNC_INFO << " - sh/dx";
         printSHDX(dxClusterString);
         break;
     default:
-        //qDebug() << Q_FUNC_INFO << " - Other...";
+        // qDebug() << Q_FUNC_INFO << " - Other...";
         printOther(dxClusterString);
     }
 }
 
 void DXClusterWidget::printSpot(const QString _stringSpot)
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     QString stringToPrint = _stringSpot;
     DXSpot spot = readItem(stringToPrint);
 
@@ -341,11 +341,11 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
     _entityStatus.logId = currentLog;
 
     if (spot.isValid()) {
-       //qDebug() << Q_FUNC_INFO << " - spot is Valid";
-       //qDebug() << Q_FUNC_INFO << " - DX      : " << spot.getDxCall();
-       //qDebug() << Q_FUNC_INFO << " - Spotter : " << spot.getSpotter();
-       //qDebug() << Q_FUNC_INFO << " - Freq    : " << spot.getFrequency().toQString();
-       //qDebug() << Q_FUNC_INFO << " - Comment : " << spot.getComment();
+       // qDebug() << Q_FUNC_INFO << " - spot is Valid";
+       // qDebug() << Q_FUNC_INFO << " - DX      : " << spot.getDxCall();
+       // qDebug() << Q_FUNC_INFO << " - Spotter : " << spot.getSpotter();
+       // qDebug() << Q_FUNC_INFO << " - Freq    : " << spot.getFrequency().toQString();
+       // qDebug() << Q_FUNC_INFO << " - Comment : " << spot.getComment();
 
         _entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
         _entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
@@ -365,7 +365,7 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - spot is NOT Valid";
+       // qDebug() << Q_FUNC_INFO << " - spot is NOT Valid";
         dxSpotColor = awards->getDefaultColor();
     }
 
@@ -391,7 +391,7 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
 
 void DXClusterWidget::printSHDX(const QString _stringSpot)
 {
-   //qDebug() << Q_FUNC_INFO << _stringSpot;
+   // qDebug() << Q_FUNC_INFO << _stringSpot;
     //TODO: Check for spots like:
     //7160.0 GB70RS 19-Feb-2025 1202Z SES <2E0MNG> 50313.0 TZ1CE 19-Feb-2025 1201Z <F2> FT8 -12 dB 779 Hz <GW7SMV>
 
@@ -421,7 +421,7 @@ void DXClusterWidget::printSHDX(const QString _stringSpot)
 }
 void DXClusterWidget::printOther(const QString _stringSpot)
 {
-    //qDebug() << Q_FUNC_INFO << _stringSpot;
+    // qDebug() << Q_FUNC_INFO << _stringSpot;
     dxSpotColor = awards->getDefaultColor();
     addItemToClusterList(_stringSpot, dxSpotColor);
 }
@@ -436,7 +436,7 @@ QString DXClusterWidget::cleanSpotter(const QString _call)
 
 void DXClusterWidget::slotClusterSocketConnected()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     addItemToClusterList(tr("Connected to server"), awards->getDefaultColor());
     dxClusterConnected = true;
     inputCommand->setFocus(Qt::OtherFocusReason);
@@ -482,7 +482,7 @@ void DXClusterWidget::slotClusterSocketConnected()
 
 void DXClusterWidget::slotClusterSocketConnectionClosed()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     addItemToClusterList(tr("Connection closed by the server"), awards->getDefaultColor());
 
     dxClusterConnected = false;
@@ -496,48 +496,48 @@ void DXClusterWidget::slotClusterSocketConnectionClosed()
 
 void DXClusterWidget::slotClusterSendToServer()
 {
-    //qDebug() << Q_FUNC_INFO << " - 000";
+    // qDebug() << Q_FUNC_INFO << " - 000";
     if (!dxClusterConnected) {
-        //qDebug() << Q_FUNC_INFO << " - 001";
-        //qDebug() << Q_FUNC_INFO << " - Cluster already connected, END";
+        // qDebug() << Q_FUNC_INFO << " - 001";
+        // qDebug() << Q_FUNC_INFO << " - Cluster already connected, END";
         connectToDXCluster();
-        //qDebug() << Q_FUNC_INFO << " - 002 - END";
+        // qDebug() << Q_FUNC_INFO << " - 002 - END";
 
         return; // If we try to connect...
     }
-    //qDebug() << Q_FUNC_INFO << " - 010";
+    // qDebug() << Q_FUNC_INFO << " - 010";
     QString inputText = inputCommand->text();
     if (inputText.isEmpty()) {
-        //qDebug() << Q_FUNC_INFO << " - 020";
+        // qDebug() << Q_FUNC_INFO << " - 020";
         if (sendButton->text() == tr("Disconnect")) {
             // Disconnecting
             {
-                //qDebug() << Q_FUNC_INFO << " - 030";
+                // qDebug() << Q_FUNC_INFO << " - 030";
                 QTextStream os(tcpSocket);
                 os << "bye\n";
-                //qDebug() << Q_FUNC_INFO << " - 033 - END";
+                // qDebug() << Q_FUNC_INFO << " - 033 - END";
                 return;
             }
         }
         // If input is empty and send button is not "Disconnect", do nothing
         return;
     }
-    //qDebug() << Q_FUNC_INFO << " - 050";
+    // qDebug() << Q_FUNC_INFO << " - 050";
     // Write to the server
     QTextStream(tcpSocket) << inputText << "\n";
     inputCommand->clear();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void DXClusterWidget::slotClusterClearLineInput()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     inputCommand->clear();
 }
 
 void DXClusterWidget::slotClusterInputTextChanged()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     QString inputText = inputCommand->text();
     if (inputText.isEmpty()) {
         sendButton->setText(tr("Disconnect"));
@@ -549,14 +549,14 @@ void DXClusterWidget::slotClusterInputTextChanged()
 
 void DXClusterWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-  //qDebug() << Q_FUNC_INFO << ": " << _newOne.name(QColor::HexRgb) << "/" << _needed.name(QColor::HexRgb) << "/" << _worked.name(QColor::HexRgb) << "/" << _confirmed.name(QColor::HexRgb) << "/" << _default.name(QColor::HexRgb);
+  // qDebug() << Q_FUNC_INFO << ": " << _newOne.name(QColor::HexRgb) << "/" << _needed.name(QColor::HexRgb) << "/" << _worked.name(QColor::HexRgb) << "/" << _confirmed.name(QColor::HexRgb) << "/" << _default.name(QColor::HexRgb);
     // Just to pass the colors to the awards class
     awards->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
 }
 
 void DXClusterWidget::setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy )
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     showhf = _showhf;
     showvhf = _showvhf;
     showwarc = _showwarc;
@@ -569,7 +569,7 @@ void DXClusterWidget::setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemSelected()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     QListWidgetItem * item = dxClusterListWidget->currentItem();
 
     DXSpot spot = readItem(((item->data(0)).toString()).simplified());
@@ -579,7 +579,7 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemSelected()
 
 void DXClusterWidget::slotClusterDXClusterWidgetItemEntered(QListWidgetItem *item)
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     if (!item) return;
 
     DXSpot spot = readItem(item->data(0).toString().simplified());
@@ -591,13 +591,13 @@ void DXClusterWidget::slotClusterDXClusterWidgetItemEntered(QListWidgetItem *ite
 
 bool DXClusterWidget::isConnected()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     return dxClusterConnected;
 }
 
 TypeOfDXSpot DXClusterWidget::parseReceivedData(const QString _stringSpot)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
+    // qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
 
     QStringList fields = _stringSpot.split(" ");
     if (fields.length() < 2)
@@ -610,22 +610,22 @@ TypeOfDXSpot DXClusterWidget::parseReceivedData(const QString _stringSpot)
 
     if (first == "DX" && second == "de")
     {
-        //qDebug() << Q_FUNC_INFO << ": Identified DX de";
+        // qDebug() << Q_FUNC_INFO << ": Identified DX de";
         return dxde;
     }
     else if (firstF.isValid() && last.endsWith(">"))
     {
-        //qDebug() << Q_FUNC_INFO << ": Identified sh/dx";
-        //qDebug() << firstF.toQString();
+        // qDebug() << Q_FUNC_INFO << ": Identified sh/dx";
+        // qDebug() << firstF.toQString();
         return shdx;
     }
-    //qDebug() << Q_FUNC_INFO << ": Identified other";
+    // qDebug() << Q_FUNC_INFO << ": Identified other";
     return other;
 }
 
 DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
+   // qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
     DXSpot spot;
     spot.clear();
     spot.setDateTime(QDateTime::currentDateTimeUtc());
@@ -644,7 +644,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     Frequency freq;
     if (fields.at(0) == "DX" && fields.at(1) == "de")
     {   //"DX de IC8CUQ: 14250.0 IZ3WUW tnx QSO 73! 1429Z"
-       //qDebug() << Q_FUNC_INFO << ": Identified DX de";
+       // qDebug() << Q_FUNC_INFO << ": Identified DX de";
         spot.setSHDX(false);
         QString spotter = fields.at(2);
         spotter.remove(':');
@@ -656,7 +656,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 
         if (freq.isValid())
         {
-           //qDebug() << Q_FUNC_INFO << ": Freq is Valid";
+           // qDebug() << Q_FUNC_INFO << ": Freq is Valid";
             spot.setFrequency(freq);
             spot.setDXCall(fields.at(4));
 
@@ -682,7 +682,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     freq.fromQString(fields.at(0), KHz);
     if (freq.isValid())
     {   // Coming from SH/DX
-       //qDebug() << Q_FUNC_INFO << ": - Valid Freq";
+       // qDebug() << Q_FUNC_INFO << ": - Valid Freq";
         spot.setSHDX(true);
         spot.setFrequency(freq);
         spot.setDXCall(fields.at(1));
@@ -721,7 +721,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 
 void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const int portToConnect)
 {
-    //qDebug() << Q_FUNC_INFO << clusterToConnect << ":" << portToConnect;
+    // qDebug() << Q_FUNC_INFO << clusterToConnect << ":" << portToConnect;
     server = clusterToConnect;
     port = quint16(portToConnect);
     if ((server.length()< 3) || (port <= 0))
@@ -729,24 +729,24 @@ void DXClusterWidget::setDXClusterServer(const QString &clusterToConnect, const 
         server = "dxfun.com";
         port = 8000;
     }
-    //qDebug() << Q_FUNC_INFO << server << ":" << port;
+    // qDebug() << Q_FUNC_INFO << server << ":" << port;
 }
 
 void DXClusterWidget::setDXMarathon (const bool _enable)
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     showDxMarathon = _enable;
 }
 
 void  DXClusterWidget::setSaveSpots (const bool _enable)
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     saveSpots = _enable;
 }
 
 bool DXClusterWidget::openFile()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     if (saveSpotsFile->isOpen())
     {
         return true;
@@ -767,10 +767,10 @@ bool DXClusterWidget::openFile()
 
 void DXClusterWidget::slotRightButton(const QPoint& pos)
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     Q_UNUSED(pos);
     //int row = (dxClusterListWidget->indexAt(pos)).row();
-    //qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
+    // qDebug() << Q_FUNC_INFO << " row: " << QString::number(row);
     QListWidgetItem * item = dxClusterListWidget->currentItem();
 
     DXSpot spot = readItem(((item->data(0)).toString()).simplified());
@@ -783,7 +783,7 @@ void DXClusterWidget::slotRightButton(const QPoint& pos)
 void DXClusterWidget::rightButtonFromLogMenu(const DXSpot &_spot)
 {
     // This function creates the context menu
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     DXSpot spot = _spot;
     checkQRZCOMFromLogAct->setData (spot.getDxCall());
     QMenu menu(this);
@@ -795,7 +795,7 @@ void DXClusterWidget::rightButtonFromLogMenu(const DXSpot &_spot)
 
 void DXClusterWidget::slotCheckQRZCom()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     QString _c = checkQRZCOMFromLogAct->data ().toString ();
     util->openQrzcom (_c);
 }
@@ -803,23 +803,23 @@ void DXClusterWidget::slotCheckQRZCom()
 /*
 void DXClusterWidget::rightButtonFromLogMenu(const int trow)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(trow);
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number(trow);
     int _qsoID = ((logModel->index(trow, 0)).data(0)).toInt();
 }
 */
 void DXClusterWidget::saveSpot(const QString &_spot)
 {
-   //qDebug() << Q_FUNC_INFO << ": "  << _spot ;
+   // qDebug() << Q_FUNC_INFO << ": "  << _spot ;
     if (!saveSpots)
     {
-          //qDebug() << "DXClusterWidget::saveSpot: Not saving";
+          // qDebug() << "DXClusterWidget::saveSpot: Not saving";
         return;
     }
 
     if (!openFile())
         return;
 
-    //qDebug() << "DXClusterWidget::saveSpot: File Open";
+    // qDebug() << "DXClusterWidget::saveSpot: File Open";
     QTextStream out(saveSpotsFile);
     out << util->getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTime()) << " - " << _spot.simplified().toUtf8();
     out << Qt::endl;
@@ -828,7 +828,7 @@ void DXClusterWidget::saveSpot(const QString &_spot)
 
 void DXClusterWidget::loadSettings()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
     QString aux = settings.value("DXClusterServerToUse").toString ();
@@ -855,13 +855,13 @@ void DXClusterWidget::loadSettings()
                                     DXClusterServers\size=1
 
 */
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 /*
 void DXClusterWidget::TESTADDSPOT()
 {
-       //qDebug() << "DXClusterWidget::TESTADDSPOT "  ;
+       // qDebug() << "DXClusterWidget::TESTADDSPOT "  ;
     ; // Just a test spot
     QListWidgetItem *item = new QListWidgetItem();
     item->setForeground(QBrush(dxSpotColor));
@@ -879,7 +879,7 @@ void DXClusterWidget::TESTADDSPOT()
 ** It may be moved to a self .h & .cpp archives                           **
 ****************************************************************************/
 dxClusterSpotItem::dxClusterSpotItem( QListWidget *parent, const QString& spot, const QColor& color ) : QListWidgetItem( parent ){
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     spotColor = color;
     setText(spot);
     // Experimenting with fonts for the cluster
@@ -890,6 +890,6 @@ dxClusterSpotItem::dxClusterSpotItem( QListWidget *parent, const QString& spot, 
 
 dxClusterSpotItem::~dxClusterSpotItem()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
 }
 

@@ -61,20 +61,20 @@ tst_Adif::~tst_Adif(){}
 
 void tst_Adif::initTestCase()
 {
-    //qDebug("Called before everything else.");
+    // qDebug("Called before everything else.");
 }
 
 void tst_Adif::cleanupTestCase()
 {
-    //qDebug("Called after last test.");
+    // qDebug("Called after last test.");
 }
 
 void tst_Adif::test_getADIFField()
-{ //QString Utilities::getADIFField(const QString &_fieldName, const QString &_data)
+{ // qString Utilities::getADIFField(const QString &_fieldName, const QString &_data)
    QVERIFY2(adif->getADIFField("CALL", "EA4K")=="<CALL:4>EA4K ", "Call");
    QVERIFY2(adif->getADIFField("CALLA", "EA4K")==QString(), "Non Valid");
    QVERIFY2(adif->isValidPower(10), "10 Not valid power");
-  //QVERIFY2(!adif->isValidPower(10W), "10W Not valid power");
+  // qVERIFY2(!adif->isValidPower(10W), "10W Not valid power");
 }
 
 void tst_Adif::test_Dates()
@@ -95,18 +95,18 @@ void tst_Adif::test_POTA()
 void tst_Adif::test_WWFF()
 {
     QVERIFY2(adif->isValidPOTA("KFF-4655"), "KFF-4655");
-    //QVERIFY2(adif->isValidPOTA("3DAFF-0002 "), "3DAFF-0002");
+    // qVERIFY2(adif->isValidPOTA("3DAFF-0002 "), "3DAFF-0002");
 }
 
 void tst_Adif::test_setPair()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     /*
 struct ADIFField {
     QString field;
     QString value;
     bool valid;
-    //QChar type;
+    // qChar type;
 };
      */
     ADIFField pair;
@@ -116,8 +116,8 @@ struct ADIFField {
     QVERIFY2(pair.valid == true, "Pair-bool-1");
 
     pair = adif->setPair("<APP_LoTW_RXQSO:19>2019-05-28 21:23:13 // QSO record inserted/modified at LoTW");
-    //qDebug() << Q_FUNC_INFO << " - " << pair.field;
-    //qDebug() << Q_FUNC_INFO << " - " << pair.value;
+    // qDebug() << Q_FUNC_INFO << " - " << pair.field;
+    // qDebug() << Q_FUNC_INFO << " - " << pair.value;
     QVERIFY2(pair.field == "APP_LoTW_RXQSO", "Pair-field-2");
     QVERIFY2(pair.value == "2019-05-28 21:23:13", "Pair-value-2");
     QVERIFY2(pair.valid == true, "Pair-bool-2");

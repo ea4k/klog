@@ -62,13 +62,13 @@ private:
 
 tst_FileManager::tst_FileManager()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     version = "1.5";
-    //qDebug() << Q_FUNC_INFO << "001";
+    // qDebug() << Q_FUNC_INFO << "001";
     Utilities util(Q_FUNC_INFO);
 /*
     db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << "- 003";
+    // qDebug() << Q_FUNC_INFO << "- 003";
     QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
 
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
@@ -77,7 +77,7 @@ tst_FileManager::tst_FileManager()
 
     if (dataProxy->addNewLog(newLogq))
     {
-       //qDebug() << Q_FUNC_INFO << " - New log created";
+       // qDebug() << Q_FUNC_INFO << " - New log created";
     }
     else
     {
@@ -90,7 +90,7 @@ tst_FileManager::tst_FileManager()
     fileManager = new FileManager(dataProxy, world);
     fileManager->init();
 
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 tst_FileManager::~tst_FileManager(){}
@@ -104,13 +104,13 @@ void tst_FileManager::cleanupTestCase(){}
 
 void tst_FileManager::test_Constructor()
 {
-    //QVERIFY(util->getVersion() == "0.0");
-    //qDebug() << "Testing the constructor" ;
+    // qVERIFY(util->getVersion() == "0.0");
+    // qDebug() << "Testing the constructor" ;
 }
 
 void tst_FileManager::createADIFFile()
 { // Creates an ADIF file
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     QFile file("test-adif.adi");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
         QFAIL("Could not create the file");
@@ -128,16 +128,16 @@ void tst_FileManager::test_ADIF_Import()
 {
     createADIFFile();
     //int errorCode = fileManager->adifReadLog("test-adif.adi", "EA4K", 1);
-    //qDebug() << Q_FUNC_INFO << ": " << errorCode;
-    //QVERIFY2( errorCode == 1, "Import did not returned the right number of QSO");
+    // qDebug() << Q_FUNC_INFO << ": " << errorCode;
+    // qVERIFY2( errorCode == 1, "Import did not returned the right number of QSO");
     //int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 }
 
 void tst_FileManager::deleteADIFFile()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     QFile file("test-adif.adi");
-    //QVERIFY2(file.remove() == true, "test-adif-file could not be deleted");
+    // qVERIFY2(file.remove() == true, "test-adif-file could not be deleted");
 }
 
 

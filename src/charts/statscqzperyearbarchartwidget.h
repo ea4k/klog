@@ -31,8 +31,9 @@
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtDebug>
-#include "../dataproxy_sqlite.h"
-#include "statsgeneralchartwidget.h"
+//#include "../dataproxy_sqlite.h"
+#include "dataproxy_sqlite.h"
+#include "charts/statsgeneralchartwidget.h"
 
 
 
@@ -54,7 +55,7 @@ private:
     void createUI();
     DataProxy_SQLite *dataProxy;
 
-    //QChart *chart;
+    // qChart *chart;
     QChartView *chartView;
 };
 

@@ -72,7 +72,7 @@ private:
     QCheckBox *saveAllDXClusterDataQCheckbox;
 
     Utilities *util;
-    //QStringList dxClusterServers;
+    // qStringList dxClusterServers;
 };
 
 #endif // SETUPPAGEDXCLUSTER_H

@@ -28,7 +28,7 @@
 
 StatisticsWidget::StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent): QWidget(parent)
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     dataProxy = dp;
     statisticToShowComboBox = new QComboBox();
     logComboBox = new QComboBox();
@@ -57,81 +57,81 @@ StatisticsWidget::StatisticsWidget(DataProxy_SQLite *dp, QWidget *parent): QWidg
     createUI();
     connect(statisticToShowComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChartComboBoxChanged() ) ) ;
     connect(logComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotLogComboBoxChanged() ) ) ;
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 
 StatisticsWidget::~StatisticsWidget()
 {
-    //qDebug() << Q_FUNC_INFO << "Start-END";
+    // qDebug() << Q_FUNC_INFO << "Start-END";
 }
 
 void StatisticsWidget::clear()
 {
-    //qDebug() << Q_FUNC_INFO << "Start-END";
-     //qDebug() <<  "StatisticsWidget::clear()";
+    // qDebug() << Q_FUNC_INFO << "Start-END";
+     // qDebug() <<  "StatisticsWidget::clear()";
 }
 
 void StatisticsWidget::closeEvent(QCloseEvent *event)
 {
-       //qDebug() << "StatisticsWidget::closeEvent";
+       // qDebug() << "StatisticsWidget::closeEvent";
     //barChartStats->clear();
-    //qDebug() << Q_FUNC_INFO << "Start-END";
+    // qDebug() << Q_FUNC_INFO << "Start-END";
     event->accept();
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 void StatisticsWidget::showEvent(QShowEvent *event)
 {
-      //qDebug() << "StatisticsWidget::showEvent";
-    //qDebug() << Q_FUNC_INFO << "Start";
+      // qDebug() << "StatisticsWidget::showEvent";
+    // qDebug() << Q_FUNC_INFO << "Start";
     fillLogCombo();
     event->accept();
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 void StatisticsWidget::slotChartComboBoxChanged()
 {
-       //qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText() ;
-    //qDebug() << Q_FUNC_INFO << "Start";
+       // qDebug() << "StatisticsWidget::slotChartComboBoxChanged: " << statisticToShowComboBox->currentText() ;
+    // qDebug() << Q_FUNC_INFO << "Start";
     updateChart();
     statisticToShowComboBox->setFocus();
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 void StatisticsWidget::slotLogComboBoxChanged()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     updateChart();
     logComboBox->setFocus();
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 void StatisticsWidget::updateChart()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     QString text = statisticToShowComboBox->currentText();
     text.truncate(2);
-    //qDebug() << Q_FUNC_INFO << " - 010";
+    // qDebug() << Q_FUNC_INFO << " - 010";
     int log = ((logComboBox->currentText()).section('-', 0, 0)).toInt();
-    //qDebug() << Q_FUNC_INFO << " - 011";
-    //qDebug() << Q_FUNC_INFO << " Text : " << logComboBox->currentText();
-    //qDebug() << Q_FUNC_INFO << " Log : " << QString::number(log);
+    // qDebug() << Q_FUNC_INFO << " - 011";
+    // qDebug() << Q_FUNC_INFO << " Text : " << logComboBox->currentText();
+    // qDebug() << Q_FUNC_INFO << " Log : " << QString::number(log);
     //barChartStats->prepareChart(text.toInt(), log);
     switch (text.toInt())
     {
         case 1:
     {
-        //qDebug() << Q_FUNC_INFO << "10";
+        // qDebug() << Q_FUNC_INFO << "10";
         w1->prepareChart (log);
-        //qDebug() << Q_FUNC_INFO << "11";
+        // qDebug() << Q_FUNC_INFO << "11";
         stackedWidget->setCurrentWidget (w1);
-        //qDebug() << Q_FUNC_INFO << "12";
+        // qDebug() << Q_FUNC_INFO << "12";
     }
         break;
         case 2:
     {
-        //qDebug() << Q_FUNC_INFO << "20";
+        // qDebug() << Q_FUNC_INFO << "20";
         w2->prepareChart (log);
         stackedWidget->setCurrentWidget (w2);
     }
@@ -139,91 +139,91 @@ void StatisticsWidget::updateChart()
 
     case 3:
     {
-        //qDebug() << Q_FUNC_INFO << "30";
+        // qDebug() << Q_FUNC_INFO << "30";
         w3->prepareChart (log);
         stackedWidget->setCurrentWidget (w3);
     }
     break;
     case 4:
     {
-        //qDebug() << Q_FUNC_INFO << "40";
+        // qDebug() << Q_FUNC_INFO << "40";
         w4->prepareChart (log);
         stackedWidget->setCurrentWidget (w4);
     }
     break;
     case 5:
     {
-        //qDebug() << Q_FUNC_INFO << "50";
+        // qDebug() << Q_FUNC_INFO << "50";
         w5->prepareChart (log);
         stackedWidget->setCurrentWidget (w5);
     }
     break;
     case 6:
     {
-        //qDebug() << Q_FUNC_INFO << "60";
+        // qDebug() << Q_FUNC_INFO << "60";
         w6->prepareChart (log);
         stackedWidget->setCurrentWidget (w6);
     }
     break;
     case 7:
     { // How many QSO per Continent
-        //qDebug() << Q_FUNC_INFO << "70";
+        // qDebug() << Q_FUNC_INFO << "70";
         w7->prepareChart (log);
         stackedWidget->setCurrentWidget (w7);
     }
     break;
     case 8:
     {
-        //qDebug() << Q_FUNC_INFO << "80";
+        // qDebug() << Q_FUNC_INFO << "80";
         w8->prepareChart (log);
         stackedWidget->setCurrentWidget (w8);
     }
     break;
     case 9:
     {
-        //qDebug() << Q_FUNC_INFO << "90";
+        // qDebug() << Q_FUNC_INFO << "90";
         w9->prepareChart (log);
         stackedWidget->setCurrentWidget (w9);
     }
     break;
     case 10:
     {
-        //qDebug() << Q_FUNC_INFO << "100";
+        // qDebug() << Q_FUNC_INFO << "100";
         w10->prepareChart (log);
         stackedWidget->setCurrentWidget (w10);
     }
     break;
     case 11:
     {
-        //qDebug() << Q_FUNC_INFO << "110";
+        // qDebug() << Q_FUNC_INFO << "110";
         w11->prepareChart (log);
         stackedWidget->setCurrentWidget (w11);
     }
     break;
     case 12:
     {
-        //qDebug() << Q_FUNC_INFO << "120";
+        // qDebug() << Q_FUNC_INFO << "120";
         w12->prepareChart (log);
         stackedWidget->setCurrentWidget (w12);
     }
     break;
     case 13:
     {
-        //qDebug() << Q_FUNC_INFO << "130";
+        // qDebug() << Q_FUNC_INFO << "130";
         w13->prepareChart (log);
         stackedWidget->setCurrentWidget (w13);
     }
     break;
     case 14:
     {
-        //qDebug() << Q_FUNC_INFO << "140";
+        // qDebug() << Q_FUNC_INFO << "140";
         w14->prepareChart (log);
         stackedWidget->setCurrentWidget (w14);
     }
     break;
     case 15:
     {
-        //qDebug() << Q_FUNC_INFO << "150";
+        // qDebug() << Q_FUNC_INFO << "150";
         w15->prepareChart (log);
         stackedWidget->setCurrentWidget (w15);
         //genchart = new StatsFieldPerBandWidget(dataProxy, GridSquare, nullptr);
@@ -231,19 +231,19 @@ void StatisticsWidget::updateChart()
     break;
     case 16:
     {
-        //qDebug() << Q_FUNC_INFO << "160";
+        // qDebug() << Q_FUNC_INFO << "160";
         w16->prepareChart (log);
         stackedWidget->setCurrentWidget (w16);
         //genchart = new StatsFieldPerBandWidget(dataProxy, DXCC, nullptr);
     }
     break;
     }
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }
 
 void StatisticsWidget::createUI()
  {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     stackedWidget->addWidget(w1);
     stackedWidget->addWidget(w2);
     stackedWidget->addWidget(w3);
@@ -291,12 +291,12 @@ void StatisticsWidget::createUI()
      layout->addWidget(stackedWidget);
      setLayout(layout);
      resize(420,300);
-     //qDebug() << Q_FUNC_INFO << "END";
+     // qDebug() << Q_FUNC_INFO << "END";
  }
 
 void StatisticsWidget::fillLogCombo()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
+    // qDebug() << Q_FUNC_INFO << "Start";
     QStringList ids;
     ids.clear();
     ids << dataProxy->getListOfManagedLogs();
@@ -310,5 +310,5 @@ void StatisticsWidget::fillLogCombo()
     }
     logComboBox->clear();
     logComboBox->addItems(logs);
-    //qDebug() << Q_FUNC_INFO << "END";
+    // qDebug() << Q_FUNC_INFO << "END";
 }

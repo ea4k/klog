@@ -32,7 +32,7 @@ QSO::QSO(QObject *parent)
     : QObject(parent)
 {
     //startT = QTime::currentTime();
-   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   // qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     clear();
     logLevel = None;
     qsoId = -1;
@@ -50,8 +50,8 @@ QSO::QSO(const QSO &other)
     : QObject(other.parent())
 {
     //startT = QTime::currentTime();
-  //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
-   //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
+  // qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   // qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     //util = new Utilities(Q_FUNC_INFO);
     qdata = new QSODataCache(Q_FUNC_INFO);
     logLevel = other.logLevel;
@@ -190,7 +190,7 @@ QSO::QSO(const QSO &other)
     qslVia = other.qslVia;
     qso_complete = other.qso_complete;
     qso_dateTime = other.qso_dateTime;
-    //qso_date_off = other.qso_date_off;
+    // qso_date_off = other.qso_date_off;
     qso_dateTime_off = other.qso_dateTime_off;
     qso_random = other.qso_random;
     qth = other.qth;
@@ -215,7 +215,7 @@ QSO::QSO(const QSO &other)
     submode = other.submode;
     swl = other.swl;
     ten_ten = other.ten_ten;
-    //qso_time_off = other.qso_time_off;
+    // qso_time_off = other.qso_time_off;
     pwr_tx = other.pwr_tx;
     uksmg = other.uksmg;
     usaca_counties = other.usaca_counties;
@@ -227,14 +227,14 @@ QSO::QSO(const QSO &other)
 
 QSO::~QSO()
 {
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     //delete(util);
 }
 
 void QSO::operator=(QSO const &_other)
 {
-   //qDebug() << Q_FUNC_INFO;
-   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   // qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     callsign        = _other.callsign;
     qsoId           = _other.qsoId;
     logId           = _other.logId;
@@ -370,14 +370,14 @@ void QSO::operator=(QSO const &_other)
     my_usaca_counties   = _other.my_usaca_counties;
     my_wwff_ref     = _other.my_wwff_ref;
 
-    //qso_time_off    = _other.qso_time_off;
+    // qso_time_off    = _other.qso_time_off;
     qso_dateTime    = _other.qso_dateTime;
 
     QSLRDate        = _other.QSLRDate;
     QSLSDate        = _other.QSLSDate;
     QSLLoTWRDate    = _other.QSLLoTWRDate;
     QSLLoTWSDate    = _other.QSLLoTWSDate;
-    //qso_date_off    = _other.qso_date_off;
+    // qso_date_off    = _other.qso_date_off;
     qso_dateTime_off    = _other.qso_dateTime_off;
     eQSLRDate       = _other.eQSLRDate;
     eQSLSDate       = _other.eQSLSDate;
@@ -414,7 +414,7 @@ void QSO::operator=(QSO const &_other)
 
 bool QSO::copy(const QSO& other)
 {   //Copies the data of another QSO into this one
-   //qDebug() << Q_FUNC_INFO;
+   // qDebug() << Q_FUNC_INFO;
     clear();
     setLogId(other.logId);
     setStationCallsign(other.stationCallsign);
@@ -455,7 +455,7 @@ bool QSO::copy(const QSO& other)
     setOwnerCallsign(other.ownerCall);
     setContactedOperator(other.contacted_op);
     setEQSLQSLRDate(other.eQSLRDate);
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     setEQSLQSLSDate(other.eQSLSDate);
 
     setEQSLQSL_RCVD(other.eqsl_qsl_rcvd);
@@ -490,11 +490,11 @@ bool QSO::copy(const QSO& other)
     setLoTWQSL_SENT(other.lotw_qsl_sent);
 
     setMaxBursts(other.max_bursts);
-    //qDebug() <<Q_FUNC_INFO << " - 010 " ;
+    // qDebug() <<Q_FUNC_INFO << " - 010 " ;
     setMode(other.mode);
-    //qDebug() <<Q_FUNC_INFO << " - 011" ;
-    //qDebug() <<Q_FUNC_INFO << ": " << getMode();
-    //qDebug() <<Q_FUNC_INFO << " - 012 " ;
+    // qDebug() <<Q_FUNC_INFO << " - 011" ;
+    // qDebug() <<Q_FUNC_INFO << ": " << getMode();
+    // qDebug() <<Q_FUNC_INFO << " - 012 " ;
     setMsShower(other.ms_shower);
     setMyAltitude(other.my_altitude);
     setMyAntenna(other.my_antenna);
@@ -626,7 +626,7 @@ void QSO::clear()
 {   // When we clear a QSO, we put data that is not valid for a QSO, if possible.
     // so no data that has not been saved by the user is "populated automatically" by KLog
     // without the user's knowledge or intention
-   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+   // qDebug() << Q_FUNC_INFO << " - " << startT.msec();
     logEvent (Q_FUNC_INFO, "Start", Debug);
     haveBand = false;
     haveMode = false;
@@ -763,7 +763,7 @@ void QSO::clear()
     qslVia = QString();
     qso_complete = "Y";
     qso_dateTime = QDateTime();
-    //qso_date_off = QDate();
+    // qso_date_off = QDate();
     qso_dateTime_off = QDateTime();
     qso_random = true;
     qth = QString();
@@ -788,7 +788,7 @@ void QSO::clear()
     submode = QString();
     swl = false;
     ten_ten = 0;
-    //qso_time_off = QTime();
+    // qso_time_off = QTime();
     pwr_tx = 0.0;
     uksmg = 0;
     usaca_counties = QString();
@@ -861,14 +861,14 @@ int QSO::getLogId() const
 
 bool QSO::setFreq(const double _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
     Frequency fTemp(_f);
 
 
     if (fTemp.isValid())
     {
         freq_tx = fTemp;
-        //qDebug() << Q_FUNC_INFO << ":-2 " << QString::number(freq_tx);
+        // qDebug() << Q_FUNC_INFO << ":-2 " << QString::number(freq_tx);
         setBandFromFreq(freq_tx.toDouble());
         if (!(freq_rx.toDouble()<=0))
             freq_rx = freq_tx;
@@ -917,10 +917,10 @@ bool QSO::setCall(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, QString("Start: %1").arg(_c), Debug);
     Callsign call(_c);
-   //qDebug() << Q_FUNC_INFO << ": " << _c;
+   // qDebug() << Q_FUNC_INFO << ": " << _c;
     if (call.isValid())
     {
-       //qDebug() << Q_FUNC_INFO << ": valid Call";
+       // qDebug() << Q_FUNC_INFO << ": valid Call";
         logEvent (Q_FUNC_INFO, QString("END - true"), Debug);
         callsign = _c;
         haveCall = true;
@@ -929,15 +929,15 @@ bool QSO::setCall(const QString &_c)
     else
     {
         logEvent (Q_FUNC_INFO, QString("END - false-2"), Debug);
-       //qDebug() << Q_FUNC_INFO << ": NOT valid Call";
+       // qDebug() << Q_FUNC_INFO << ": NOT valid Call";
         return false;
     }
 }
 
 QString QSO::getCall() const
 {
-   //qDebug() << Q_FUNC_INFO << ": " << callsign;
-   //qDebug() << Q_FUNC_INFO  << " - " << startT.msec();
+   // qDebug() << Q_FUNC_INFO << ": " << callsign;
+   // qDebug() << Q_FUNC_INFO  << " - " << startT.msec();
     if (callsign.length()>2)
         return callsign;
     return QString();
@@ -957,7 +957,7 @@ void QSO::setBandFromFreq(const double _fr, bool TX)
 
 bool QSO::setBand(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     if (!_c.isEmpty())
     {
         band = _c;
@@ -980,7 +980,7 @@ QString QSO::getBand() const
 
 bool QSO::setBandRX(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     if (!_c.isEmpty())
     {
         band_rx = _c;
@@ -1001,11 +1001,11 @@ QString QSO::getBandRX() const
 bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
 
     if (qdata->isValidMode(_c))
     {
-        //qDebug() << Q_FUNC_INFO << " - 010";
+        // qDebug() << Q_FUNC_INFO << " - 010";
         mode = _c;
         haveMode = true;
         submode = mode;
@@ -1014,7 +1014,7 @@ bool QSO::setMode(const QString &_c)
     }
     else if (qdata->isValidSubMode(_c))
     {
-        //qDebug() << Q_FUNC_INFO << " - 020";
+        // qDebug() << Q_FUNC_INFO << " - 020";
         submode = _c;
         haveSubMode = true;
         mode = qdata->getModeFromSubmode(submode);
@@ -1022,7 +1022,7 @@ bool QSO::setMode(const QString &_c)
         return true;
     }
 
-    //qDebug() << Q_FUNC_INFO << " - 999";
+    // qDebug() << Q_FUNC_INFO << " - 999";
     return false;
 }
 
@@ -1071,13 +1071,13 @@ bool QSO::setDateOff(const QDate &_c)
     if (_c.isValid())
     {
 
-        //qso_date_off = _c;
+        // qso_date_off = _c;
         qso_dateTime_off.setDate(_c);
         return true;
     }
     else
     {
-        //qso_date_off = QDate();
+        // qso_date_off = QDate();
         qso_dateTime_off.setDate(QDate());
         return false;
     }
@@ -1092,13 +1092,13 @@ bool QSO::setTimeOff(const QTime &_c)
 {
     if (_c.isValid())
     {
-        //qso_time_off = _c;
+        // qso_time_off = _c;
         qso_dateTime_off.setTime(_c);
         return true;
     }
     else
     {
-        //qso_time_off = QTime();
+        // qso_time_off = QTime();
         qso_dateTime_off.setTime(QTime());
         return false;
     }
@@ -1111,10 +1111,10 @@ QTime QSO::getTimeOff() const
 
 bool QSO::setTimeOn(const QTime &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c.toString("mmhhss");
+    // qDebug() << Q_FUNC_INFO << ": " << _c.toString("mmhhss");
     if (_c.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << ": VALID";
+        // qDebug() << Q_FUNC_INFO << ": VALID";
         qso_dateTime.setTime(_c);
         if (qso_dateTime.date().isValid ())
             haveDateTime = true;
@@ -1175,27 +1175,27 @@ bool QSO::getManualMode() const
 
 bool QSO::setClubLogStatus(const QString &_c)
 {
-   //qDebug() << Q_FUNC_INFO << " - " << _c;
+   // qDebug() << Q_FUNC_INFO << " - " << _c;
     Utilities util(Q_FUNC_INFO);
     if (!util.isValidUpload_Status (_c))
     {
-       //qDebug() << Q_FUNC_INFO << " - NOT Valid";
+       // qDebug() << Q_FUNC_INFO << " - NOT Valid";
         return false;
     }
-   //qDebug() << Q_FUNC_INFO << " - Valid";
+   // qDebug() << Q_FUNC_INFO << " - Valid";
     clublog_status = _c;
     return true;
 }
 
 QString QSO::getClubLogStatus() const
 {
-   //qDebug() << Q_FUNC_INFO << " - " << clublog_status;
+   // qDebug() << Q_FUNC_INFO << " - " << clublog_status;
     return clublog_status;
 }
 
 bool QSO::setClubLogDate(const QDate &_c)
 {
-   //qDebug() << Q_FUNC_INFO << " - " << _c.toString("yyyy-MM-dd");
+   // qDebug() << Q_FUNC_INFO << " - " << _c.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
         clublogQSOUpdateDate = _c;
@@ -1215,14 +1215,14 @@ QDate QSO::getClubLogDate() const
 
 bool QSO::setQRZCOMStatus(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << " - " << _c;
+    // qDebug() << Q_FUNC_INFO << " - " << _c;
     Utilities util(Q_FUNC_INFO);
     if (!util.isValidUpload_Status (_c))
     {
-        //qDebug() << Q_FUNC_INFO << " - NOT VALID";
+        // qDebug() << Q_FUNC_INFO << " - NOT VALID";
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << " - VALID";
+    // qDebug() << Q_FUNC_INFO << " - VALID";
     QRZCom_status = _c;
     return true;
 
@@ -1273,7 +1273,7 @@ QString QSO::getEQSLQSL_RCVD() const
 
 bool QSO::setEQSLQSL_SENT(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << " : " << _c;
+    // qDebug() << Q_FUNC_INFO << " : " << _c;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidQSL_Sent(_c))
     {
@@ -1311,18 +1311,18 @@ QDate QSO::getEQSLQSLRDate() const
 
 bool QSO::setEQSLQSLSDate(const QDate &_c)
 {
-    //QDate dat = _c;
-    //qDebug() << Q_FUNC_INFO << " - " << dat.toString("yyyy-MM-dd");
+    // qDate dat = _c;
+    // qDebug() << Q_FUNC_INFO << " - " << dat.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
         eQSLSDate = _c;
 
-        //qDebug() << Q_FUNC_INFO << " -  eQSLSDate: " << eQSLSDate.toString("yyyy-MM-dd");
+        // qDebug() << Q_FUNC_INFO << " -  eQSLSDate: " << eQSLSDate.toString("yyyy-MM-dd");
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " -  Wrong eQSLSDate";
+        // qDebug() << Q_FUNC_INFO << " -  Wrong eQSLSDate";
         eQSLSDate = QDate();
         return false;
     }
@@ -1376,17 +1376,17 @@ QDate QSO::getLoTWQSLSDate() const
 
 bool QSO::setLoTWQSL_RCVD(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidQSL_Rcvd(_c))
     {
-        //qDebug() << Q_FUNC_INFO << ": VALID ";
+        // qDebug() << Q_FUNC_INFO << ": VALID ";
         lotw_qsl_rcvd = _c;
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": NOT valid ";
+        // qDebug() << Q_FUNC_INFO << ": NOT valid ";
         return false;
     }
 }
@@ -1399,17 +1399,17 @@ QString QSO::getLoTWQSL_RCVD() const
 bool QSO::setLoTWQSLRDate(const QDate &_c)
 {
 
-    //qDebug() << Q_FUNC_INFO << ": " << _c.toString("yyyy-MM-dd");
+    // qDebug() << Q_FUNC_INFO << ": " << _c.toString("yyyy-MM-dd");
     if (_c.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << ":  TRUE";
+        // qDebug() << Q_FUNC_INFO << ":  TRUE";
         QSLLoTWRDate = _c;
-       //qDebug() << Q_FUNC_INFO << " - " << QSLLo.toString("yyyy-MM-dd");
+       // qDebug() << Q_FUNC_INFO << " - " << QSLLo.toString("yyyy-MM-dd");
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": FALSE";
+        // qDebug() << Q_FUNC_INFO << ": FALSE";
         QSLLoTWRDate = QDate();
         return false;
     }
@@ -1605,7 +1605,7 @@ void QSO::setDefaultEQSLSentServices(const bool _send)
 
 bool QSO::setGridSquare(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidGrid(_c))
     {
@@ -1620,13 +1620,13 @@ bool QSO::setGridSquare(const QString &_c)
 
 QString QSO::getGridSquare()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
+    // qDebug() << Q_FUNC_INFO << ": " << gridsquare;
     return gridsquare;
 }
 
 bool QSO::setGridSquare_ext(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidGrid_ext(_c))
     {
@@ -1641,7 +1641,7 @@ bool QSO::setGridSquare_ext(const QString &_c)
 
 QString QSO::getGridSquare_ext()
 {
-    //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
+    // qDebug() << Q_FUNC_INFO << ": " << gridsquare;
     return gridsquare_ext;
 }
 
@@ -1780,22 +1780,22 @@ int QSO::getDXCC() const
 
 bool QSO::setPropMode(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << _c;
+    // qDebug() << Q_FUNC_INFO << _c;
     Utilities util(Q_FUNC_INFO);
     if (!util.isValidPropMode (_c))
     {
-        //qDebug() << Q_FUNC_INFO << " - Not valid!";
+        // qDebug() << Q_FUNC_INFO << " - Not valid!";
         propMode = QString();
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << " - OK END";
+    // qDebug() << Q_FUNC_INFO << " - OK END";
     propMode = _c.toUpper();
     return true;
 }
 
 QString QSO::getPropMode() const
 {
-    //qDebug() << Q_FUNC_INFO << ": " << propMode;
+    // qDebug() << Q_FUNC_INFO << ": " << propMode;
     return propMode;
 }
 
@@ -1914,15 +1914,15 @@ QString QSO::getPOTA_Ref()
 
 bool QSO::setAge(const double _c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     if ((_c > 0.0) && (_c <= 120.0))
     {
         age = _c;
-        //qDebug() << Q_FUNC_INFO << "  Stored OK: " << age;
+        // qDebug() << Q_FUNC_INFO << "  Stored OK: " << age;
         return true;
     }
     age = -1;
-    //qDebug() << Q_FUNC_INFO << "  Stored NOK: " << age;
+    // qDebug() << Q_FUNC_INFO << "  Stored NOK: " << age;
     return false;
 }
 
@@ -2006,18 +2006,18 @@ double QSO::getTXPwr() const
 
 bool QSO::setOperatorCallsign(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << "Start: " << _c;
+    // qDebug() << Q_FUNC_INFO << "Start: " << _c;
     //logEvent(Q_FUNC_INFO, "Start", Debug);
     Callsign call(_c);
     if (call.isValid())
     {
         operatorCall = _c;
-        //qDebug() << Q_FUNC_INFO << "END - true";
+        // qDebug() << Q_FUNC_INFO << "END - true";
         logEvent(Q_FUNC_INFO, "END-true", Debug);
         return true;
     }
     else {
-        //qDebug() << Q_FUNC_INFO << "End - false";
+        // qDebug() << Q_FUNC_INFO << "End - false";
         operatorCall = QString();
         logEvent(Q_FUNC_INFO, "END-false", Debug);
         return false;
@@ -2031,19 +2031,19 @@ QString QSO::getOperatorCallsign() const
 
 bool QSO::setStationCallsign(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << "Start: " << _c;
+    // qDebug() << Q_FUNC_INFO << "Start: " << _c;
 
     Callsign call(_c);
     if (call.isValid())
-    //qDebug() << Q_FUNC_INFO << " - 010";
+    // qDebug() << Q_FUNC_INFO << " - 010";
     {
-        //qDebug() << Q_FUNC_INFO << " - True";
+        // qDebug() << Q_FUNC_INFO << " - True";
         stationCallsign = _c;
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - False";
+        // qDebug() << Q_FUNC_INFO << " - False";
         stationCallsign = QString();
         return false;
     }
@@ -2056,17 +2056,17 @@ QString QSO::getStationCallsign() const
 
 bool QSO::setMyGridSquare(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidGrid(_c))
     {
-        //qDebug() << Q_FUNC_INFO << " GRID OK " ;
+        // qDebug() << Q_FUNC_INFO << " GRID OK " ;
         my_gridsquare = _c;
         return true;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " GRID NOK " ;
+        // qDebug() << Q_FUNC_INFO << " GRID NOK " ;
         my_gridsquare = QString();
         return false;
     }
@@ -2079,7 +2079,7 @@ QString QSO::getMyGridSquare() const
 
 bool QSO::setMyGridSquare_ext(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidGrid_ext(_c))
     {
@@ -2095,7 +2095,7 @@ bool QSO::setMyGridSquare_ext(const QString &_c)
 
 QString QSO::getMyGridSquare_ext() const
 {
-    //qDebug() << Q_FUNC_INFO << ": " << gridsquare;
+    // qDebug() << Q_FUNC_INFO << ": " << gridsquare;
     return my_gridsquare_ext;
 }
 
@@ -2136,7 +2136,7 @@ QString QSO::getSatName() const
 
 bool QSO::setSatMode(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     if (!_c.isEmpty())
     {
         satMode = _c;
@@ -2190,7 +2190,7 @@ double QSO::getA_Index() const
 
 bool QSO::setAnt_az(const double _c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     if (_c >= 0.0 && _c <= 360.0) {
         ant_az = _c;
         return true;
@@ -2209,7 +2209,7 @@ double QSO::getAnt_az() const
 
 bool QSO::setAnt_el(const double _c)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     if (_c >= -90.0 && _c <= 90.0)
     {
         // Value is within range, directly store it
@@ -2309,12 +2309,12 @@ QString QSO::getContinent() const
 
 bool QSO::setDistance(const double _i)
 {// In Km
-    //qDebug() << Q_FUNC_INFO << ": " << _i;
+    // qDebug() << Q_FUNC_INFO << ": " << _i;
     Adif adif(Q_FUNC_INFO);
     if (adif.isValidDistance(_i))
     {
         distance = _i;
-        //qDebug() << Q_FUNC_INFO << ": " << distance;
+        // qDebug() << Q_FUNC_INFO << ": " << distance;
         return true;
     }
     distance = 0.0;
@@ -2835,7 +2835,7 @@ bool QSO::setQSOComplete(const QString &_c)
         qso_complete.clear();
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << ": " << qso_complete;
+    // qDebug() << Q_FUNC_INFO << ": " << qso_complete;
 }
 
 QString QSO::getQSOComplete() const
@@ -2872,7 +2872,7 @@ double QSO::getMyAltitude() const
 
 bool QSO::setMyCity(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << " - " << _c;
+    // qDebug() << Q_FUNC_INFO << " - " << _c;
     my_city = _c;
     return true;
 }
@@ -2926,11 +2926,11 @@ int QSO::getMyCQZone() const
 
 bool QSO::setMyDXCC(const int _i)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _i;
+    // qDebug() << Q_FUNC_INFO << ": " << _i;
     Utilities util(Q_FUNC_INFO);
     if (util.isValidDXCC(_i))
     {
-        //qDebug() << Q_FUNC_INFO << ": " << _i;
+        // qDebug() << Q_FUNC_INFO << ": " << _i;
         my_dxcc = _i;
         return true;
     }
@@ -3050,7 +3050,7 @@ QString QSO::getMyName() const
 
 bool QSO::setMyPOTA_Ref(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << " - " << _c;
+    // qDebug() << Q_FUNC_INFO << " - " << _c;
     Adif adif(Q_FUNC_INFO);
     if (!adif.isValidPOTA(_c))
         return false;
@@ -3087,14 +3087,14 @@ QString QSO::getMySig() const
 
 bool QSO::setMySigInfo(const QString &_c)
 {
-    //qDebug() << Q_FUNC_INFO << " - " << _c;
+    // qDebug() << Q_FUNC_INFO << " - " << _c;
     my_sig_info = _c;
     return true;
 }
 
 QString QSO::getMySigInfo()
 {
-    //qDebug() << Q_FUNC_INFO << " - " << my_sig_info;
+    // qDebug() << Q_FUNC_INFO << " - " << my_sig_info;
     return my_sig_info;
 }
 
@@ -3332,7 +3332,7 @@ bool QSO::setState(const QString &_c)
 
 QString QSO::getState() const
 {
-    //qDebug() << Q_FUNC_INFO << ": " << state;
+    // qDebug() << Q_FUNC_INFO << ": " << state;
     return state;
 }
 
@@ -3347,7 +3347,7 @@ void QSO::cleanMode()
 bool QSO::setSubmode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    // qDebug() << Q_FUNC_INFO << ": " << _c;
     return setMode(_c);
 }
 
@@ -3533,7 +3533,7 @@ bool QSO::setLoTWQSLSDate2(const QString& data) {
 QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> QSO::SetDataHash;
 
 void QSO::InitializeHash() {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     SetDataHash = {
         {"ADDRESS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAddress)},
         {"AGE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setAge)},
@@ -3696,24 +3696,24 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     d.clear();
     Adif adif(Q_FUNC_INFO);
     ADIFField aField = adif.setPair(_adifPair);
-    //qDebug() << Q_FUNC_INFO << " - ADIF Field: " << aField.field;
-    //qDebug() << Q_FUNC_INFO << " - ADIF Value: " << aField.value;
-    //qDebug() << Q_FUNC_INFO << " - ADIF Valid: " << util.boolToQString(aField.valid);
+    // qDebug() << Q_FUNC_INFO << " - ADIF Field: " << aField.field;
+    // qDebug() << Q_FUNC_INFO << " - ADIF Value: " << aField.value;
+    // qDebug() << Q_FUNC_INFO << " - ADIF Valid: " << util.boolToQString(aField.valid);
     if (!aField.valid)
         return false;
 
     //d << util.getValidADIFFieldAndData(_adifPair);
     //if (d.length()!=2)
     //{
-     ////   //qDebug() << Q_FUNC_INFO << " - ADIF not valid";
+     ////   // qDebug() << Q_FUNC_INFO << " - ADIF not valid";
        // logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
     //    return false;
     //}
 
-    //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
+    // qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
 
-    //QString field = d.at(0).toUpper();
-    //QString data = d.at(1);
+    // qString field = d.at(0).toUpper();
+    // qString data = d.at(1);
     if (_lotw)
         qDebug() << Q_FUNC_INFO << " - LOTW QSO";
     else
@@ -3721,7 +3721,7 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     //<APP_LoTW_QSO_TIMESTAMP:20>2022-04-23T18:08:00Z // QSO Date & Time; ISO-8601
     if (_lotw)
     {
-        //qDebug() << Q_FUNC_INFO << " - field: " << field;
+        // qDebug() << Q_FUNC_INFO << " - field: " << field;
         qDebug() << Q_FUNC_INFO << " LOTW QSO... ";
         if (aField.field == "APP_LOTW_RXQSO")
         {// Timestamp when QSO record was inserted/updated at LoTW
@@ -3744,9 +3744,9 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
         }
         else if (aField.field == "APP_LOTW_RXQSL")
         {// Timestamp only if QSL_RCVD == Y
-            //qDebug() << Q_FUNC_INFO << " - Identified: APP_LOTW_RXQSL";
-            //qDebug() << Q_FUNC_INFO << " ... modifying QSLRDATE to LOTW_QSLRDATE";
-            //qDebug() << Q_FUNC_INFO << " Date: " << data;
+            // qDebug() << Q_FUNC_INFO << " - Identified: APP_LOTW_RXQSL";
+            // qDebug() << Q_FUNC_INFO << " ... modifying QSLRDATE to LOTW_QSLRDATE";
+            // qDebug() << Q_FUNC_INFO << " Date: " << data;
             aField.field = "LOTW_QSLRDATE";
             aField.value = adif.getADIFDateStringFromLoTWDateTime(aField.value);
         }
@@ -3756,8 +3756,8 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
         }
         else if (aField.field == "QSL_RCVD")
         {// Y, N, ...
-            //qDebug() << Q_FUNC_INFO << " - Identified: QSLRCVD";
-            //qDebug() << Q_FUNC_INFO << " ... modifying QSLRCVD - previous: " << getLoTWQSLRDate().toString("yyyyMMdd");
+            // qDebug() << Q_FUNC_INFO << " - Identified: QSLRCVD";
+            // qDebug() << Q_FUNC_INFO << " ... modifying QSLRCVD - previous: " << getLoTWQSLRDate().toString("yyyyMMdd");
             //if (!(getLoTWQSLRDate() > QDate::fromString("19000101", "yyyyMMdd")))
             aField.field = "LOTW_QSL_RCVD";
         }
@@ -3768,7 +3768,7 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     }
 
     if (SetDataHash.contains(aField.field)) {
-        //qDebug() << Q_FUNC_INFO << " Calling: " << SetDataHash.contains(aField.field);
+        // qDebug() << Q_FUNC_INFO << " Calling: " << SetDataHash.contains(aField.field);
         (*SetDataHash.find(aField.field))(this,aField.value);
     }
 
@@ -3894,9 +3894,9 @@ bool QSO::updateFromLoTW(const int _qsoId)
 
     if (!_lotw_state.isEmpty())
         setState(_lotw_state);
-    //qDebug() << Q_FUNC_INFO << " - QSO Modifyied";
+    // qDebug() << Q_FUNC_INFO << " - QSO Modifyied";
     //printQSO();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
@@ -3947,45 +3947,45 @@ void QSO::clearQSLDateIfNeeded()
 int QSO::toDB(int _qsoId)
 { // This function will add or modify a QSO in the DB depending on the _qsoID.
     // if _qsoID is >0 it should be an existing QSO in the DB.
-   //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
+   // qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
     //printQSO();
     if (!isComplete ())
     {
-       //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
+       // qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
         return -1;
     }
 
     clearQSLDateIfNeeded();
 
-    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
-    //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
-    //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
+    // qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
+    // qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
+    // qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
     QString queryString;
     queryString.clear();
     if (_qsoId<=0)
     {
-       //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
+       // qDebug() << Q_FUNC_INFO << " - qsoID <=0";
         queryString = getAddQueryString();
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - qsoID>0";
+       // qDebug() << Q_FUNC_INFO << " - qsoID>0";
         queryString = getModifyQueryString();
     }
-   //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
+   // qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
 
     QSqlQuery query = getPreparedQuery(queryString);
-    //qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
+    // qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
     if (_qsoId>0)
     {
-        //qDebug() << Q_FUNC_INFO << " - binding ID";
+        // qDebug() << Q_FUNC_INFO << " - binding ID";
         query.bindValue (":id", _qsoId);
     }
-    //qDebug() << Q_FUNC_INFO << " - executing query";
+    // qDebug() << Q_FUNC_INFO << " - executing query";
     if (query.exec())
     {
-        //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
-        //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
+        // qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
+        // qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
         if (_qsoId>0)
             return _qsoId;
 
@@ -3993,18 +3993,18 @@ int QSO::toDB(int _qsoId)
     }
     else
     {
-            //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
-            //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
-            //qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
-            //qDebug() << Q_FUNC_INFO << ": Error: text: " << query.lastError().text();
-            //qDebug() << Q_FUNC_INFO << ": Error: driverText: " << query.lastError().driverText();
-            //qDebug() << Q_FUNC_INFO << ": Error: nativeErrorCode: " << query.lastError().nativeErrorCode();
+            // qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
+            // qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
+            // qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
+            // qDebug() << Q_FUNC_INFO << ": Error: text: " << query.lastError().text();
+            // qDebug() << Q_FUNC_INFO << ": Error: driverText: " << query.lastError().driverText();
+            // qDebug() << Q_FUNC_INFO << ": Error: nativeErrorCode: " << query.lastError().nativeErrorCode();
         //void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
         return -2;
     }
     query.finish();
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
     return -3;
 }
 
@@ -4087,11 +4087,11 @@ QString QSO::getModifyQueryString()
 int QSO::getBandIdFromBandName(bool _rxBand)
 {
     QSqlQuery query;
-    //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
+    // qDebug() << Q_FUNC_INFO << "Band: " << getBand();
     bool ok = query.prepare ("SELECT band.id FROM band WHERE band.name= :bandname");
     if (!ok)
     {
-        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3122";
+        // qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3122";
     }
     if (_rxBand){
         query.bindValue (":bandname", getBandRX());
@@ -4111,12 +4111,12 @@ int QSO::getBandIdFromBandName(bool _rxBand)
             }
             else
             {
-                //qDebug() << Q_FUNC_INFO << " - Query NOT valid";
+                // qDebug() << Q_FUNC_INFO << " - Query NOT valid";
             }
         }
         else
         {
-            //qDebug() << Q_FUNC_INFO << " - Query NO Next";
+            // qDebug() << Q_FUNC_INFO << " - Query NO Next";
         }
     }
     else
@@ -4129,14 +4129,14 @@ int QSO::getBandIdFromBandName(bool _rxBand)
 
 QString QSO::getBandNameFromBandId(int bandId)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(bandId);
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number(bandId);
     QSqlQuery query;
-    //qDebug() << Q_FUNC_INFO << "Band: " << getBand();
+    // qDebug() << Q_FUNC_INFO << "Band: " << getBand();
     bool ok = query.prepare ("SELECT name FROM band WHERE id= :id");
     if (!ok)
     {
         return QString();
-        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3167";
+        // qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3167";
     }
     query.bindValue (":id", bandId);
 
@@ -4151,7 +4151,7 @@ QString QSO::getBandNameFromBandId(int bandId)
     if (!query.isValid())
         return QString();
 
-    //qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    // qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
 
@@ -4159,7 +4159,7 @@ int QSO::getModeIdFromModeName()
 {
     // We need to save always the submode id
     // If submode is no present, then we will store the mode id
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     QSqlQuery query;
     //
     // SELECT mode.id FROM mode WHERE mode.submode="FT4"
@@ -4167,13 +4167,13 @@ int QSO::getModeIdFromModeName()
     bool ok = query.prepare ("SELECT mode.id FROM mode WHERE mode.submode= :submode");
     if (!ok)
     {
-        //qDebug() << Q_FUNC_INFO << " - Failed to prepare";
+        // qDebug() << Q_FUNC_INFO << " - Failed to prepare";
         return -1;
     }
-    //qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
+    // qDebug() << Q_FUNC_INFO << " - Binding mode" << getMode();
     query.bindValue (":submode", getSubmode());
 
-    //query.bindValue(":idQSO", _qsoId);
+    // query.bindValue(":idQSO", _qsoId);
     //if (haveSubMode)
     //{
     //    query.bindValue (":submode", getSubmode ());
@@ -4193,7 +4193,7 @@ int QSO::getModeIdFromModeName()
         {
             if (query.isValid ())
             {
-               //qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
+               // qDebug() << Q_FUNC_INFO << ": " << query.value (0).toString();
                 return query.value (0).toInt ();
             }
             else
@@ -4216,7 +4216,7 @@ int QSO::getModeIdFromModeName()
 
 QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
     QSqlQuery query;
     bool ok;
     if (_submode)
@@ -4230,7 +4230,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 
     if (!ok)
     {
-        //qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3255";
+        // qDebug() << Q_FUNC_INFO << " - Query NOT prepared-3255";
         return QString();
     }
     query.bindValue (":id", _modeId);
@@ -4246,7 +4246,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
     if (!query.isValid())
         return QString();
 
-    //qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
+    // qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
 
@@ -4264,17 +4264,17 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
 
     QSqlQuery query;
 
-    //qDebug() << Q_FUNC_INFO << " - Start ";
-    //qDebug() << Q_FUNC_INFO << " - queryString: " << _s;
+    // qDebug() << Q_FUNC_INFO << " - Start ";
+    // qDebug() << Q_FUNC_INFO << " - queryString: " << _s;
 
     query.clear ();
     if (!query.prepare (_s))
     {
-        //qDebug() << Q_FUNC_INFO << " - Query not prepared-3285";
+        // qDebug() << Q_FUNC_INFO << " - Query not prepared-3285";
         query.clear ();
         return query;
     }
-    //qDebug() << Q_FUNC_INFO << " - Starting to bind values...";
+    // qDebug() << Q_FUNC_INFO << " - Starting to bind values...";
     Utilities util(Q_FUNC_INFO);
     query.bindValue(":qso_date", util.getDateTimeSQLiteStringFromDateTime (getDateTimeOn ()));
     query.bindValue(":call", getCall());
@@ -4355,7 +4355,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     if (qsl_rcvd_dates_set.contains(getEQSLQSL_RCVD()))
         query.bindValue(":eqsl_qslrdate", util.getDateSQLiteStringFromDate(getEQSLQSLRDate()));
 
-    //qDebug() << Q_FUNC_INFO << "- eqsl_qsl_sent: " << getEQSLQSL_SENT();
+    // qDebug() << Q_FUNC_INFO << "- eqsl_qsl_sent: " << getEQSLQSL_SENT();
     query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
 
     if (qsl_sent_dates_set.contains(getEQSLQSL_SENT()))
@@ -4467,7 +4467,7 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
         query.bindValue(":stx", getStx());
     query.bindValue(":state", getState());
     query.bindValue(":station_callsign", getStationCallsign());
-    //query.bindValue(":submode", getModeIdFromModeName ());
+    // query.bindValue(":submode", getModeIdFromModeName ());
 
     query.bindValue(":swl", util.boolToCharToSQLite (getSwl()));
     if (adif.isValidUKSMG(getUksmg()))
@@ -4484,20 +4484,20 @@ QSqlQuery QSO::getPreparedQuery(const QString &_s)
     query.bindValue(":qso_date_off", util.getDateTimeSQLiteStringFromDateTime(getDateTimeOff()));
     query.bindValue(":lognumber", getLogId());
 
-    //QVariantList list = query.boundValues();
+    // qVariantList list = query.boundValues();
     //for (int i = 0; i < list.size(); ++i)
-    //qDebug() << Q_FUNC_INFO << QString(": %1").arg(i) << "/ " << list.at(i).toString().toUtf8().data() << "\n";
+    // qDebug() << Q_FUNC_INFO << QString(": %1").arg(i) << "/ " << list.at(i).toString().toUtf8().data() << "\n";
 
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
     return query;
 }
 
 QString QSO::getADIF(ExportMode _em)
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     if (!isComplete())
         return QString();
-    //qDebug() << Q_FUNC_INFO << " - My_POTA_REF: " << getMyPOTA_Ref();
+    // qDebug() << Q_FUNC_INFO << " - My_POTA_REF: " << getMyPOTA_Ref();
     QString adifStr;
     switch (_em) {
     case ModeADIF:
@@ -4519,7 +4519,7 @@ QString QSO::getADIF(ExportMode _em)
 
 QString QSO::getADIFStandard()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     Adif adif(Q_FUNC_INFO);
 
     QString adifStr = QString();
@@ -4610,13 +4610,13 @@ QString QSO::getADIFStandard()
     if (forceInit)      // Only relevant if true
         adifStr.append(adif.getADIFField ("force_init", adif.getADIFBoolFromBool(getForceInit()) ));
 
-    //qDebug() << Q_FUNC_INFO << ": Printing FREQ: " << QString::number(freq_tx);
+    // qDebug() << Q_FUNC_INFO << ": Printing FREQ: " << QString::number(freq_tx);
 
 
     if (freq_tx.isValid())
         adifStr.append(adif.getADIFField ("freq",  freq_tx.toQString()));
 
-    //qDebug() << Q_FUNC_INFO << ": Printing FREQ_RX";
+    // qDebug() << Q_FUNC_INFO << ": Printing FREQ_RX";
 
     if ((freq_rx.isValid()) && (freq_tx != freq_rx))
         adifStr.append(adif.getADIFField ("freq_rx", freq_rx.toQString()));
@@ -4687,14 +4687,14 @@ QString QSO::getADIFStandard()
     adifStr.append(adif.getADIFField ("my_lat", my_latitude));
     adifStr.append(adif.getADIFField ("my_lon", my_longitude));
     adifStr.append(adif.getADIFField ("my_name", my_name));
-    //qDebug() << Q_FUNC_INFO << " - MY_POTA_REF";
+    // qDebug() << Q_FUNC_INFO << " - MY_POTA_REF";
     adifStr.append(adif.getADIFField ("my_pota_ref", my_pota_ref));
     adifStr.append(adif.getADIFField ("my_postal_code", my_postal_code));
     adifStr.append(adif.getADIFField ("my_rig", my_rig));
     adifStr.append(adif.getADIFField ("my_sig", my_sig));
-    //qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO";
+    // qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO";
     adifStr.append(adif.getADIFField ("my_sig_info", my_sig_info));
-    //qDebug() << Q_FUNC_INFO << " - END - MY_SIG_INFO";
+    // qDebug() << Q_FUNC_INFO << " - END - MY_SIG_INFO";
 
     adifStr.append(adif.getADIFField ("my_sota_ref", my_sota_ref));
     adifStr.append(adif.getADIFField ("my_state", my_state));
@@ -4790,7 +4790,7 @@ QString QSO::getADIFStandard()
 
 QString QSO::getADIFLoTW()
 {//id, call, freq, bandid, band_rx, freq_rx, modeid, gridsquare, my_gridsquare, qso_date, prop_mode, sat_name, station_callsign
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (!isComplete())
         return QString();
@@ -4828,7 +4828,7 @@ QString QSO::getADIFClubLog()
 // call, rst_sent, rst_rcvd, freq, bandid, band_rx, modeid, qso_date, qsl_rcvd, qslrdate, qslsdate,
 // prop_mode, operator, station_callsign, dxcc, qsl_sent, lotw_qsl_rcvd, credit_granted, notes, qso_date_off
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     if (!isComplete())
         return QString();
     Adif adif(Q_FUNC_INFO);
@@ -4951,7 +4951,7 @@ bool QSO::fromDB(int _qsoId)
     // has a similar function
     // Make sure that all fields are included inbot functions until consolidated
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+   // qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
     QString queryString = "SELECT log.*, \
         band.name AS band_name,          \
@@ -4968,12 +4968,12 @@ bool QSO::fromDB(int _qsoId)
     QSqlQuery query;
     query.prepare(queryString);
 
-   //qDebug() << Q_FUNC_INFO << " - query = " << queryString;
+   // qDebug() << Q_FUNC_INFO << " - query = " << queryString;
     query.bindValue(":idQSO", _qsoId);
 
     if (!query.exec())
     {
-       //qDebug() << Q_FUNC_INFO << " - ERROR in exec ";
+       // qDebug() << Q_FUNC_INFO << " - ERROR in exec ";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-1", Debug);
@@ -4981,7 +4981,7 @@ bool QSO::fromDB(int _qsoId)
     }
     if (!query.next())
     {
-       //qDebug() << Q_FUNC_INFO << " - ERROR in next ";
+       // qDebug() << Q_FUNC_INFO << " - ERROR in next ";
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         logEvent (Q_FUNC_INFO, "END-2", Debug);
@@ -4990,7 +4990,7 @@ bool QSO::fromDB(int _qsoId)
     clear();
     QSqlRecord rec = query.record();
 
-   //qDebug() << Q_FUNC_INFO << "  - 20";
+   // qDebug() << Q_FUNC_INFO << "  - 20";
     Utilities util(Q_FUNC_INFO);
     QString data = (query.value(rec.indexOf("qso_date"))).toString();
     setDateTimeOn(util.getDateTimeFromSQLiteString(data));
@@ -5023,7 +5023,7 @@ bool QSO::fromDB(int _qsoId)
     //setSubmode(getModeNameFromModeId(data.toInt(), true));
     data = (query.value(rec.indexOf("submode_name"))).toString();
     setSubmode(data);
-    //qDebug() << Q_FUNC_INFO << "  - 30";
+    // qDebug() << Q_FUNC_INFO << "  - 30";
     setCQZone((query.value(rec.indexOf("cqz"))).toInt());
     setItuZone((query.value(rec.indexOf("ituz"))).toInt());
     setDXCC((query.value(rec.indexOf("dxcc"))).toInt());
@@ -5044,7 +5044,7 @@ bool QSO::fromDB(int _qsoId)
 
     setCheck((query.value(rec.indexOf("checkcontest"))).toString());
     setClass((query.value(rec.indexOf("class"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 40";
+    // qDebug() << Q_FUNC_INFO << "  - 40";
 
     data = (query.value(rec.indexOf("clublog_qso_upload_date"))).toString();
     setClubLogDate(util.getDateFromSQliteString(data));
@@ -5066,12 +5066,12 @@ bool QSO::fromDB(int _qsoId)
 
     data = (query.value(rec.indexOf("eqsl_qslrdate"))).toString();
     setEQSLQSLRDate(util.getDateFromSQliteString(data));
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     data = (query.value(rec.indexOf("eqsl_qslsdate"))).toString();
-    //qDebug() << Q_FUNC_INFO << "  - 49: " << data;
+    // qDebug() << Q_FUNC_INFO << "  - 49: " << data;
 
     setEQSLQSLSDate(util.getDateFromSQliteString(data));
-    //qDebug() << Q_FUNC_INFO << "  - 50";
+    // qDebug() << Q_FUNC_INFO << "  - 50";
     setEQSLQSL_RCVD((query.value(rec.indexOf("eqsl_qsl_rcvd"))).toString());
     setEQSLQSL_SENT((query.value(rec.indexOf("eqsl_qsl_sent"))).toString());
     setFists((query.value(rec.indexOf("fists"))).toInt());
@@ -5084,7 +5084,7 @@ bool QSO::fromDB(int _qsoId)
     data = (query.value(rec.indexOf("hrdlog_qso_upload_date"))).toString();
     setHRDUpdateDate(util.getDateFromSQliteString(data));
 
-    //qDebug() << Q_FUNC_INFO << "  - 60";
+    // qDebug() << Q_FUNC_INFO << "  - 60";
     setHRDLogStatus((query.value(rec.indexOf("hrdlog_qso_upload_status"))).toString());
 
     data = (query.value(rec.indexOf("hamlogeu_qso_upload_date"))).toString();
@@ -5096,18 +5096,18 @@ bool QSO::fromDB(int _qsoId)
     setHamQTHStatus((query.value(rec.indexOf("hamqth_qso_upload_status"))).toString());
 
 
-    //qDebug() << Q_FUNC_INFO << "  - 61";
+    // qDebug() << Q_FUNC_INFO << "  - 61";
     setIOTA((query.value(rec.indexOf("iota"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 62";
+    // qDebug() << Q_FUNC_INFO << "  - 62";
     setIotaID((query.value(rec.indexOf("iota_island_id"))).toInt());
-    //qDebug() << Q_FUNC_INFO << "  - 63";
+    // qDebug() << Q_FUNC_INFO << "  - 63";
     setK_Index((query.value(rec.indexOf("k_index"))).toInt());
-    //qDebug() << Q_FUNC_INFO << "  - 64";
+    // qDebug() << Q_FUNC_INFO << "  - 64";
     setLatitude((query.value(rec.indexOf("lat"))).toString());
     setLongitude((query.value(rec.indexOf("lon"))).toString());
 
     data = (query.value(rec.indexOf("lotw_qslrdate"))).toString();
-   //qDebug() << Q_FUNC_INFO << " - lotq_qslrdate - DB_ " << data;
+   // qDebug() << Q_FUNC_INFO << " - lotq_qslrdate - DB_ " << data;
     setLoTWQSLRDate(util.getDateFromSQliteString(data));
 
     data = (query.value(rec.indexOf("lotw_qslsdate"))).toString();
@@ -5131,17 +5131,17 @@ bool QSO::fromDB(int _qsoId)
     setMyGridSquare((query.value(rec.indexOf("my_gridsquare"))).toString());
     setMyGridSquare_ext((query.value(rec.indexOf("my_gridsquare_ext"))).toString());
     setMyIOTA((query.value(rec.indexOf("my_iota"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 80";
+    // qDebug() << Q_FUNC_INFO << "  - 80";
     setMyLatitude((query.value(rec.indexOf("my_lat"))).toString());
     setMyLongitude((query.value(rec.indexOf("my_lon"))).toString());
 
     setMyName((query.value(rec.indexOf("my_name"))).toString());
-    //qDebug() << Q_FUNC_INFO << " - MY_POTA_REF: " << (query.value(rec.indexOf("my_pota_ref"))).toString();
+    // qDebug() << Q_FUNC_INFO << " - MY_POTA_REF: " << (query.value(rec.indexOf("my_pota_ref"))).toString();
     setMyPOTA_Ref((query.value(rec.indexOf("my_pota_ref"))).toString());
     setMyPostalCode((query.value(rec.indexOf("my_postal_code"))).toString());
     setMyRig((query.value(rec.indexOf("my_rig"))).toString());
     setMySig((query.value(rec.indexOf("my_sig"))).toString());
-    //qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO: " << (query.value(rec.indexOf("my_sig_info"))).toString();
+    // qDebug() << Q_FUNC_INFO << " - MY_SIG_INFO: " << (query.value(rec.indexOf("my_sig_info"))).toString();
     setMySigInfo((query.value(rec.indexOf("my_sig_info"))).toString());
     setMySOTA_REF((query.value(rec.indexOf("my_sota_ref"))).toString());
     setMyState((query.value(rec.indexOf("my_state"))).toString());
@@ -5149,7 +5149,7 @@ bool QSO::fromDB(int _qsoId)
     setMyUsacaCounties((query.value(rec.indexOf("my_usaca_counties"))).toString());
     setMyWWFF_Ref((query.value(rec.indexOf("my_wwff_ref"))).toString());
     setMyVUCCGrids((query.value(rec.indexOf("my_vucc_grids"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 90";
+    // qDebug() << Q_FUNC_INFO << "  - 90";
     setName((query.value(rec.indexOf("name"))).toString());
     setNotes((query.value(rec.indexOf("notes"))).toString());
 
@@ -5166,7 +5166,7 @@ bool QSO::fromDB(int _qsoId)
     data = (query.value(rec.indexOf("qrzcom_qso_upload_date"))).toString();
     setQRZCOMDate(util.getDateFromSQliteString(data));
     setQRZCOMStatus((query.value(rec.indexOf("qrzcom_qso_upload_status"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 100";
+    // qDebug() << Q_FUNC_INFO << "  - 100";
     setQSLMsg((query.value(rec.indexOf("qslmsg"))).toString());
     data = (query.value(rec.indexOf("qslrdate"))).toString();
     setQSLRDate(util.getDateFromSQliteString(data));
@@ -5182,7 +5182,7 @@ bool QSO::fromDB(int _qsoId)
     Adif adif(Q_FUNC_INFO);
     setQSOComplete(adif.getQSO_COMPLETEFromDB((query.value(rec.indexOf("qso_complete"))).toString()));
     setQSORandom(util.QStringToBool((query.value(rec.indexOf("qso_random"))).toString()));
-    //qDebug() << Q_FUNC_INFO << "  - 120";
+    // qDebug() << Q_FUNC_INFO << "  - 120";
     setQTH((query.value(rec.indexOf("qth"))).toString());
     setRegion((query.value(rec.indexOf("region"))).toString());
     setRig((query.value(rec.indexOf("rig"))).toString());
@@ -5197,7 +5197,7 @@ bool QSO::fromDB(int _qsoId)
 
     setSilentKey(util.QStringToBool((query.value(rec.indexOf("silent_key"))).toString()));
     setSkcc((query.value(rec.indexOf("skcc"))).toString());
-    //qDebug() << Q_FUNC_INFO << "  - 130";
+    // qDebug() << Q_FUNC_INFO << "  - 130";
     setSOTA_REF((query.value(rec.indexOf("sota_ref"))).toString());
     setSrxString((query.value(rec.indexOf("srx_string"))).toString());
     setSrx((query.value(rec.indexOf("srx"))).toInt());
@@ -5216,21 +5216,21 @@ bool QSO::fromDB(int _qsoId)
     setTenTen((query.value(rec.indexOf("ten_ten"))).toInt());
     setTXPwr((query.value(rec.indexOf("tx_pwr"))).toDouble());
     setRXPwr((query.value(rec.indexOf("rx_pwr"))).toDouble());
-    //qDebug() << Q_FUNC_INFO << "  - 140";
+    // qDebug() << Q_FUNC_INFO << "  - 140";
     setWeb((query.value(rec.indexOf("web"))).toString());
 
     data = (query.value(rec.indexOf("qso_date_off"))).toString();
     setDateTimeOff(util.getDateTimeFromSQLiteString(data));
 
     setLogId((query.value(rec.indexOf("lognumber"))).toInt());
-    //qDebug() << Q_FUNC_INFO << "  - 150";
+    // qDebug() << Q_FUNC_INFO << "  - 150";
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
 
 int QSO::getLastInsertedQSO()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start";
+    // qDebug() << Q_FUNC_INFO << " - Start";
     QString stringQuery = QString("SELECT last_insert_rowid()");
 
     QSqlQuery query;
@@ -5244,11 +5244,11 @@ int QSO::getLastInsertedQSO()
     }
     else
     {
-        //queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        // queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
     query.finish();
     return id;
-    //qDebug() << Q_FUNC_INFO << " - END";
+    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void QSO::printQSO()

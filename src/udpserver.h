@@ -85,7 +85,7 @@ private:
     QUdpSocket *socketServer;
     QHostAddress groupAddress;
 
-    //QString address;
+    // qString address;
     int port;
     bool logging, realtime;
     bool haveNetworkInterface;

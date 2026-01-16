@@ -30,7 +30,7 @@
 
 SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
-       //qDebug() << "SetupPageLogView::SetupPageLogView"  ;
+       // qDebug() << "SetupPageLogView::SetupPageLogView"  ;
     dataProxy = dp;
 
     fieldsListWidget = new QListWidget;
@@ -49,14 +49,14 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
     layout->addLayout(fLayout);
 
     setLayout(layout);
-    //qDebug() << "SetupPageLogView::SetupPageLogView - END"  ;
+    // qDebug() << "SetupPageLogView::SetupPageLogView - END"  ;
 }
 
 SetupPageLogView::~SetupPageLogView(){}
 
 void SetupPageLogView::init()
 {
-   //qDebug() << Q_FUNC_INFO ;
+   // qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
     QStringList humanList;
     QString aux;
@@ -66,7 +66,7 @@ void SetupPageLogView::init()
     addFields(humanList);
     if (fieldsListWidget->count ()<1)
     {
-       //qDebug() << Q_FUNC_INFO << " - No fields in the widget, populating with default ones";
+       // qDebug() << Q_FUNC_INFO << " - No fields in the widget, populating with default ones";
        QStringList defaultList = {"qso_date", "call", "rst_sent", "rst_rcvd", "bandid", "modeid", "comment"};
        humanList.clear();
        aux.clear();
@@ -80,7 +80,7 @@ void SetupPageLogView::init()
 
 void SetupPageLogView::addFields(QStringList _b)
 {
-   //qDebug() << Q_FUNC_INFO << " - fields: " << _b.count();
+   // qDebug() << Q_FUNC_INFO << " - fields: " << _b.count();
     fieldsListWidget->clear();
     QStringList humanDBNames;
     Utilities util(Q_FUNC_INFO);
@@ -101,13 +101,13 @@ void SetupPageLogView::addFields(QStringList _b)
 
 QStringList SetupPageLogView::getActiveFields()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // qDebug() << Q_FUNC_INFO;
     QStringList activeFields;
 
     for (int i = 0; i < fieldsListWidget->count(); ++i)
     {
         QListWidgetItem* item = fieldsListWidget->item(i);
-        //qDebug() << Q_FUNC_INFO << " - Field: " << item->text();
+        // qDebug() << Q_FUNC_INFO << " - Field: " << item->text();
         if (item->checkState() == Qt::Checked)
         {
             activeFields.append(item->text());
@@ -119,17 +119,17 @@ QStringList SetupPageLogView::getActiveFields()
 
 void SetupPageLogView::setActiveFields(QStringList q)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
     if (q.isEmpty())
     {
-       //qDebug() << Q_FUNC_INFO << " - Empty list - END-0";
+       // qDebug() << Q_FUNC_INFO << " - Empty list - END-0";
         return;
     }
 
     QListWidgetItem *it;
     if ( (fieldsListWidget->count()) < 1)
     {
-       //qDebug() << Q_FUNC_INFO << " No fields in the widget to select - END-1";
+       // qDebug() << Q_FUNC_INFO << " No fields in the widget to select - END-1";
         return;
     }
 
@@ -140,21 +140,21 @@ void SetupPageLogView::setActiveFields(QStringList q)
 
         for (int j=0;j<q.length();j++)
         {
-            //qDebug() << Q_FUNC_INFO << " - Checking(q): " << it->text();
-            //qDebug() << Q_FUNC_INFO << " - Checking(i): " << q.at(j);
+            // qDebug() << Q_FUNC_INFO << " - Checking(q): " << it->text();
+            // qDebug() << Q_FUNC_INFO << " - Checking(i): " << q.at(j);
             if (it->text() == q.at(j))
             {
-               //qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);
+               // qDebug() << Q_FUNC_INFO << " - Adding: " << q.at(j);
                 it->setCheckState(Qt::Checked);
             }
         }
     }
-   //qDebug() << Q_FUNC_INFO << " - END";
+   // qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageLogView::saveSettings()
 {
-    //qDebug() << Q_FUNC_INFO ;
+    // qDebug() << Q_FUNC_INFO ;
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     //settings.beginGroup ("LogView");
@@ -170,7 +170,7 @@ void SetupPageLogView::saveSettings()
 
 void SetupPageLogView::loadSettings()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+   // qDebug() << Q_FUNC_INFO << " - Start";
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile(), QSettings::IniFormat);
 
@@ -180,5 +180,5 @@ void SetupPageLogView::loadSettings()
     foreach(aux, fields)
         humanLogNames.append(util.getLogColumnName(aux));
     setActiveFields(humanLogNames);
-   //qDebug() << Q_FUNC_INFO << " - END";
+   // qDebug() << Q_FUNC_INFO << " - END";
 }

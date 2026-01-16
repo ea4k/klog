@@ -93,16 +93,16 @@ void tst_MainQSOEntryWidget::test_InitialData()
     mainQSOEntryWidget->setBands (bands);
     QVERIFY(mainQSOEntryWidget->getModes().length() == modes.length ());
     QVERIFY(mainQSOEntryWidget->getDate()== QDate::currentDate());
-    //qDebug() << mainQSOEntryWidget->getBand(-1) ;
-    //QVERIFY(mainQSOEntryWidget->getBand(-1) == "20M");
+    // qDebug() << mainQSOEntryWidget->getBand(-1) ;
+    // qVERIFY(mainQSOEntryWidget->getBand(-1) == "20M");
     QVERIFY(mainQSOEntryWidget->getBand(0) == "160M");
     QVERIFY(mainQSOEntryWidget->getBand(1) == "80M");
     QVERIFY(mainQSOEntryWidget->getBand(2) == "40M");
     QVERIFY(mainQSOEntryWidget->getBand(3) == "20M");
     QVERIFY(mainQSOEntryWidget->getBand(4) == "15M");
     QVERIFY(mainQSOEntryWidget->getBand(5) == "10M");
-    //QVERIFY(mainQSOEntryWidget->getBand(6) == "");
-    //QVERIFY(mainQSOEntryWidget->getMode(-1) == mode);
+    // qVERIFY(mainQSOEntryWidget->getBand(6) == "");
+    // qVERIFY(mainQSOEntryWidget->getMode(-1) == mode);
     QVERIFY(mainQSOEntryWidget->getMode(0) == "CW");
     QVERIFY(mainQSOEntryWidget->getMode(1) == "LSB");
     QVERIFY(mainQSOEntryWidget->getMode(2) == "RTTY");
@@ -129,13 +129,13 @@ void tst_MainQSOEntryWidget::test_Bands()
     QVERIFY (mainQSOEntryWidget->getBand() == "80M");
     mainQSOEntryWidget->setBand ("160M");
     QVERIFY (mainQSOEntryWidget->getBand() == "160M");
-    //qDebug() <<mainQSOEntryWidget->getBand() ;
+    // qDebug() <<mainQSOEntryWidget->getBand() ;
     //mainQSOEntryWidget->setBand("12M"); // Trying to select a band that is not in the list
     mainQSOEntryWidget->setBand (band);
     QVERIFY (mainQSOEntryWidget->getBand() == band);
-    //qDebug() << mainQSOEntryWidget->getBand() ;
+    // qDebug() << mainQSOEntryWidget->getBand() ;
     mainQSOEntryWidget->selectDefaultBand ();
-    //qDebug() << "DefaultBand: " << mainQSOEntryWidget->getBand() ;
+    // qDebug() << "DefaultBand: " << mainQSOEntryWidget->getBand() ;
     QVERIFY (mainQSOEntryWidget->getBand() == currentBand);
 }
 
@@ -154,14 +154,14 @@ void tst_MainQSOEntryWidget::test_QSOData()
     qso1.setAge(10);
     mainQSOEntryWidget->setQRZ("EA2K");
 
-    //qDebug() << Q_FUNC_INFO << " - 1 - qso1: " << qso1.getCall();
-    //qDebug() << Q_FUNC_INFO << " - 1 - qso2: " << qso2.getCall();
-    //qDebug() << Q_FUNC_INFO << " - 1 - UI  : " << mainQSOEntryWidget->getQrz();
+    // qDebug() << Q_FUNC_INFO << " - 1 - qso1: " << qso1.getCall();
+    // qDebug() << Q_FUNC_INFO << " - 1 - qso2: " << qso2.getCall();
+    // qDebug() << Q_FUNC_INFO << " - 1 - UI  : " << mainQSOEntryWidget->getQrz();
 
     qso2 = mainQSOEntryWidget->getQSOData(qso1);
-    //qDebug() << Q_FUNC_INFO << " - 2 - qso1: " << qso1.getCall();
-    //qDebug() << Q_FUNC_INFO << " - 2 - qso2: " << qso2.getCall();
-    //qDebug() << Q_FUNC_INFO << " - 2 - UI  : " << mainQSOEntryWidget->getQrz();
+    // qDebug() << Q_FUNC_INFO << " - 2 - qso1: " << qso1.getCall();
+    // qDebug() << Q_FUNC_INFO << " - 2 - qso2: " << qso2.getCall();
+    // qDebug() << Q_FUNC_INFO << " - 2 - UI  : " << mainQSOEntryWidget->getQrz();
     QVERIFY2 (qso2.getCall() == mainQSOEntryWidget->getQrz(), "Wrong Call on QSO copy");
 }
 
@@ -169,7 +169,7 @@ void tst_MainQSOEntryWidget::test_QSOData()
  *
  * QSO MainQSOEntryWidget::getQSOData(QSO & _qso)
 {
-    //qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
+    // qDebug() << Q_FUNC_INFO << " -  Call-01   : " << _qso.getCall();
 
     _qso.setCall(getQrz());
     _qso.setBand(getBand());

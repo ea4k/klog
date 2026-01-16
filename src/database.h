@@ -82,10 +82,10 @@ public:
     //KLOG_DEPRECATED bool isValidBand (const QString &b);
     //KLOG_DEPRECATED bool isValidMode (const QString &b, const bool _tmp=false);
 
-    //QString getBandNameFromNumber(const int _n);
+    // qString getBandNameFromNumber(const int _n);
     QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
-    //QString getModeNameFromNumber(const int _n, bool _tmp=false);
-    //QString getSubModeNameFromNumber(const int _n, bool _tmp=false);
+    // qString getModeNameFromNumber(const int _n, bool _tmp=false);
+    // qString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
     //KLOG_DEPRECATED int getBandIdFromName(const QString &b);
     KLOG_DEPRECATED int getModeIdFromName(const QString &b);
@@ -98,7 +98,7 @@ public:
     Frequency getFreqFromBandId(const int _i);
 
     //int getLogTypeNumber(const QString &_logType);
-    //QString getLogTypeName(const int _logType);
+    // qString getLogTypeName(const int _logType);
 
     bool unMarkAllQSO();
     bool updateIfNeeded();
@@ -237,15 +237,15 @@ private:
     QString softVersion;
     float latestReaded; // The latest version of DB readed in the DB itself
     //bool inMemoryOnly; // The DB is to be created in memory, no file support... Faster but less safe!
-    //QDateTime date;
+    // qDateTime date;
 
 
     QHash<int, QString> bandIDHash;
     KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash;  // Validate if it is still needed, move to dataproxy
 
 
-    //QMap<QString, int> bandQMap;
-    //QMap<QString, int> modeQMap;
+    // qMap<QString, int> bandQMap;
+    // qMap<QString, int> modeQMap;
 
     Utilities *util;
     QueryExecutor *exe;
