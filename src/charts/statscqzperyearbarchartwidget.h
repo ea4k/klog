@@ -28,14 +28,11 @@
 
 #include <QObject>
 #include <QWidget>
-#include <QtWidgets>
 #include <QtCharts>
 #include <QtDebug>
-//#include "../dataproxy_sqlite.h"
-#include "dataproxy_sqlite.h"
-#include "charts/statsgeneralchartwidget.h"
-
-
+#include <QtWidgets>
+#include "../dataproxy_sqlite.h"
+#include "statsgeneralchartwidget.h"
 
 class StatsCQZPerYearBarChartWidget : public StatsGeneralChartWidget
 {

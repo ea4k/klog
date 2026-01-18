@@ -28,17 +28,16 @@ email                : jaime@robles.es
 
 #include <QSettings>
 //#include <QtWidgets>
-#include <QtWidgets>
-#include <QTcpSocket>
 #include <QObject>
-//#include "../awards.h"
-#include "awards.h"
-#include "dxcluster/dxspot.h"
-#include "world.h"
-#include "utilities.h"
-#include "dataproxy_sqlite.h"
-#include "frequency.h"
-#include "klogdefinitions.h"
+#include <QTcpSocket>
+#include <QtWidgets>
+#include "../awards.h"
+#include "../dataproxy_sqlite.h"
+#include "../frequency.h"
+#include "../klogdefinitions.h"
+#include "../utilities.h"
+#include "../world.h"
+#include "dxspot.h"
 
 class QWidget;
 class QTcpSocket;
