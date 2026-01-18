@@ -7,7 +7,10 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+   permissions:
+      actions: read-all
+      contents: read
+    build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
