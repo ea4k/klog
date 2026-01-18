@@ -18,7 +18,10 @@ on:
 # Set the Job #
 ###############
 jobs:
-  build:
+   permissions:
+      actions: read-all
+      contents: read
+    build:
     # Name the Job
     name: SAST
 
