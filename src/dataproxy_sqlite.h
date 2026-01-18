@@ -384,7 +384,7 @@ private:
     QSO *qso;
     bool searching;
     int executionN;
-    //Utilities *util;
+    Utilities *util;
     DebugLogLevel logLevel;
     QString pkgVersion;
 

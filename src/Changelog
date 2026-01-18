@@ -6,7 +6,8 @@ TODO: Check if is properly readed when importing from LoTW
 
 TODO: LoTW import ensure exiting QSOs are updated
 TODO: Update the DB to include new modes/submodes: THOR & PSK,...
-
+TODO: Isolate the functions from Utilities that return data (like getVersion) and
+a small class for that. Keep utilities not persistant.
 
 TBD
 - Enhancement: Test on QSO cache class.

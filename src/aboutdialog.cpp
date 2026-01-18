@@ -40,6 +40,8 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
 
     QPixmap pixmap(":/img/klog_256x256.png");
     QString pkg;
+    qDebug() << Q_FUNC_INFO << " -   tversion: " << tversion;
+    qDebug() << Q_FUNC_INFO << " - pkgversion: " << pkgVersion;
     if (tversion != pkgVersion)
         pkg = "<h6>(" + pkgVersion + ") </h6>";
 
@@ -51,19 +53,26 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
 
     const QString br = QLatin1String("<br/>");
 
-    const QString description = "<center><h2>KLog " + tversion + "</h2>" + pkg +  "<h4> " + tr("By") +
-            " <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a> - 2002-2023</h4></center><br>" +
-            tr("KLog is a free logbook for hamradio operators.") +"<br><br><b>" +
-            tr("Please be aware that this is a development release and it may contain many bugs.<br>Backup your data before using this software!") +
-            "</b><br><br>" +
-            tr("Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application that runs on all major operating systems (GNU/Linux, macOS and Windows) and to support new functionality.") +
-            "<br><br>" +
-            tr("Please provide your review in KLog's eHam review page:") +
-            "<bR>" +
-            "<a href=https://www.eham.net/reviews/detail/3118>https://www.eham.net/reviews/detail/3118</a><br><br>" +
-            tr("Find more information and the latest release at") + "<br><a href=https://github.com/ea4k/klog>https://github.com/ea4k/klog</a><br><br>" +
-            tr("Author") + ": <a href=https://jaime.robles.es/klog>Jaime Robles</a>, <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a><br><a href=mailto:jaime@robles.es>jaime@robles.es</a>";
-
+    const QString description
+        = "<center><h2>KLog " + tversion + "</h2>" + pkg + "<h4> " + tr("By")
+          + " <a href=\"https://www.qrz.com/db/ea4k\">EA4K</a> - 2002-2025</h4></center><br>"
+          + tr("KLog is a free logbook for hamradio operators.") + "<br><br><b>"
+          + tr("Please be aware that this is a development release and it may contain many "
+               "bugs.<br>Backup your data before using this software!")
+          + "</b><br><br>"
+          + tr("Since 0.6.2, KLog has been fully rewritten to provide a cross-platform application "
+               "that runs on all major operating systems (GNU/Linux, macOS and Windows) and to "
+               "support new functionality.")
+          + "<br><br>" + tr("Please provide your review in KLog's eHam review page:") + "<bR>"
+          + "<a "
+            "href=https://www.eham.net/reviews/detail/3118>https://www.eham.net/reviews/detail/"
+            "3118</a><br><br>"
+          + tr("Find more information and the latest release at")
+          + "<br><a href=https://github.com/ea4k/klog>https://github.com/ea4k/klog</a><br><br>"
+          + tr("Author")
+          + ": <a href=https://jaime.robles.es/klog>Jaime Robles</a>, <a "
+            "href=\"https://www.qrz.com/db/ea4k\">EA4K</a><br><a "
+            "href=mailto:jaime@robles.es>jaime@robles.es</a>";
 
     QLabel *copyRightLabel = new QLabel(description);
     copyRightLabel->setWordWrap(true);
