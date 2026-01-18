@@ -14,5 +14,5 @@ If you do not receive an acknowledgement of your report within 10 business days,
 
 ## The KLog Security Notification Process
 
-KLog notifications are done in the Telegram channels.
+KLog notifications are done in the Telegram groups.
 
