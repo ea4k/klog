@@ -35,3 +35,9 @@ jobs:
       - name: Build (CMake)
         run: |
           cmake --build build --parallel
+
+# TESTING
+      - name: Run Tests
+        working-directory: build
+        # --output-on-failure prints the error log only if a test fails
+        run: ctest --output-on-failure
