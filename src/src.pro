@@ -105,6 +105,7 @@ HEADERS += setupdialog.h \
     database/queryexecutor.h \
     dataproxy_sqlite.h \
     downloadcty.h \
+    dxcluster/bandrecommender.h \
     frequency.h \
     dxccstatuswidget.h \
     dxcluster/dxspot.h \
@@ -187,6 +188,7 @@ SOURCES += main.cpp \
     charts/statsfieldperbandwidget.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \
+    dxcluster/bandrecommender.cpp \
     dxcluster/dxspot.cpp \
     dxcluster/dxcluster.cpp \
     dxcluster/dxclusterassistant.cpp \

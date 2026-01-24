@@ -43,6 +43,7 @@ HEADERS += \
     ../../src/filemanager.h \
     ../../src/fileawardmanager.h \
     ../../src/locator.h \
+    ../../src/dxcluster/bandrecommender.h \
     ../../src/dxcluster/dxcluster.h \
     ../../src/dxcluster/dxclusterassistant.h \
     ../../src/dxcluster/dxspot.h \
@@ -121,6 +122,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/filemanager.cpp \
     ../../src/fileawardmanager.cpp \
     ../../src/locator.cpp \
+    ../../src/dxcluster/bandrecommender.cpp \
     ../../src/dxcluster/dxcluster.cpp \
     ../../src/dxcluster/dxclusterassistant.cpp \
     ../../src/dxcluster/dxspot.cpp \

@@ -36,7 +36,8 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
 
     //dataProxy = awards->dataProxy;
     saveSpotsFile = new QFile();
-
+    recommender = new BandRecommender;
+    recommender->createUI();
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
@@ -65,8 +66,13 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
     bottonLayout->addWidget(sendButton);
     bottonLayout->addWidget(clearButton);
 
+    QHBoxLayout *dataAndRecLayout = new QHBoxLayout;
+    dataAndRecLayout->addWidget(dxClusterListWidget);
+    dataAndRecLayout->addWidget(recommender);
+
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(dxClusterListWidget);
+    layout->addLayout(dataAndRecLayout);
+    //layout->addWidget(dxClusterListWidget);
     layout->addLayout(bottonLayout);
 
     setLayout(layout);

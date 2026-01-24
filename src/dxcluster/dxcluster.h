@@ -37,6 +37,7 @@ email                : jaime@robles.es
 #include "../klogdefinitions.h"
 #include "../utilities.h"
 #include "../world.h"
+#include "bandrecommender.h"
 #include "dxspot.h"
 
 class QWidget;
@@ -128,6 +129,7 @@ private:
     World *world;
     DataProxy_SQLite *dataProxy;
     Utilities *util;
+    BandRecommender *recommender;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
     //bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
