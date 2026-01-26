@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 RUN apt-get -y update
  && apt-get clean \
@@ -6,10 +6,12 @@ RUN apt-get -y update
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Madrid
 RUN apt-get install  --no-install-recommends -y tzdata
-RUN apt-get  --no-install-recommends -y install wget build-essential perl python git \
-    g++ make qt5-qmake qtbase5-dev qttools5-dev libqt5charts5-dev libqt5sql5-sqlite libhamlib-dev libqt5serialport5-dev
+RUN apt-get  --no-install-recommends -y install wget build-essential perl python git \    
+    debhelper cmake qt6-tools-dev-tools qt6-base-dev libqt6charts6-dev qt6-serialport-dev \
+    libhamlib++-dev qmake6 libqt6sql6-sqlite libhamlib-dev qt6-location-dev \
+    qt6-positioning-dev qt6-l10n-tools qt6-declarative-private-dev
 
-ENV QT_SELECT qt5
+ENV QT_SELECT qt6
 
 ENV USER_NAME devel
 
@@ -19,5 +21,3 @@ RUN groupadd -g $host_gid $USER_NAME && useradd -g $host_gid -m -s /bin/bash -u 
 
 USER $USER_NAME
 WORKDIR /Work
-
-
