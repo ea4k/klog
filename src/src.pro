@@ -100,6 +100,7 @@ HEADERS += setupdialog.h \
     charts/statsworkedsentpiechartwidget.h \
     charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h \
+    clublogmostwanted.h \
     database.h \
     database/db_adif_primary_subdvisions_data.h \
     database/queryexecutor.h \
@@ -137,6 +138,7 @@ HEADERS += setupdialog.h \
     filemanager.h \
     fileawardmanager.h \
     locator.h \
+    spotrecommender.h \
     startwizard.h \
     elogclublog.h \
     softwareupdate.h \
@@ -186,6 +188,7 @@ SOURCES += main.cpp \
     awardswidget.cpp \
     callsign.cpp \
     charts/statsfieldperbandwidget.cpp \
+    clublogmostwanted.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \
     dxcluster/bandrecommender.cpp \
@@ -215,6 +218,7 @@ SOURCES += main.cpp \
     setuppages/setuppagelogview.cpp \
     setuppages/setuppagesubdivisionnew.cpp \
     setuppages/setuppagesubdivisions.cpp \
+    spotrecommender.cpp \
     widgets/adiflotwexportwidget.cpp \
     #widgets/advancedsearch/advancedsearchmodel.cpp \
     #widgets/advancedsearch/advancedsearchwidget.cpp \

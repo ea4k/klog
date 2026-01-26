@@ -196,7 +196,7 @@ int Frequency::bandId()
 }
 */
 
-bool Frequency::isValid()
+bool Frequency::isValid() const
 {
     return (freq>0.0);
 }

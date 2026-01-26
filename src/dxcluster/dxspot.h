@@ -46,24 +46,24 @@ public:
     void operator=(DXSpot const &_other);
     void clear();
 
-    bool isValid ();
+    bool isValid() const;
 
     void setDXCall(const QString &c);
-    QString getDxCall ();
+    QString getDxCall() const;
     void setSpotter(const QString &c);
-    QString getSpotter();
+    QString getSpotter() const;
 
     void setComment(const QString &c);
-    QString getComment();
+    QString getComment() const;
 
     void setDateTime(const QDateTime &d);
-    QDateTime getDateTime();
+    QDateTime getDateTime() const;
 
     void setClickStatus(const MouseClicks &_s );
     MouseClicks getClickStatus();
 
     void setFrequency(Frequency f);
-    Frequency getFrequency();
+    Frequency getFrequency() const;
 
     void setSHDX(bool _shdx);   // To know if the spot arrived from the dxcluster or was requested with a sh/dx
     bool getSHDX();

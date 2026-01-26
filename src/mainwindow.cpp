@@ -489,6 +489,12 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
        // qDebug() << Q_FUNC_INFO << " - 130";
 
+		clubLogMostWanted = new ClubLogMostWanted(this);
+		spotRecommender = new SpotRecommender(dataProxy, clubLogMostWanted, world, this);
+		connect(dxClusterWidget, &DXClusterWidget::dxspotArrived,
+								spotRecommender, &SpotRecommender::processSpot);
+		clubLogMostWanted->downloadList();
+
     applySettings ();    
     // qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
