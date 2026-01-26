@@ -7,11 +7,13 @@ on:
     branches: [ "master" ]
 
 jobs:
-   permissions:
-      actions: read-all
+  build:
+    permissions:
+      actions: read
       contents: read
-    build:
+      
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v3
 
@@ -36,7 +38,7 @@ jobs:
         run: |
           cmake --build build --parallel
 
-# TESTING
+      # TESTING
       - name: Run Tests
         working-directory: build
         # --output-on-failure prints the error log only if a test fails
