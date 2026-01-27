@@ -5449,23 +5449,35 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
     msgBox.setDefaultButton(QMessageBox::Yes);
     QSO qsoM(_qso);
 
-    QString aux  = QString(tr("<HTML><body>ASK-The following QSO data has been received from to be logged:\n\n"
-                           "<table>"
-                           "<tr><TH>Callsign:</TH><TD>%1</TD></TR>"
-                           "<TR><TH>Freq:</TH><TD>%2</TD></TR>"
-                           "<TR><TH>Mode:</TH><TD>%3</TD></TR>"
-                           "<TR><TH>Time On:</TH><TD>%4</TD></TR>"
-                           "<TR><TH>Time Off:</TH><TD>%5</TD></TR>"
-                           "<TR><TH>RST TX:</TH><TD>%6</TD></TR>"
-                           "<TR><TH>RST RX:</TH><TD>%7</TD></TR>"
-                           "<TR><TH>Comment:</TH><TD>%8</TD></TR>"
-                           "<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
-                           "<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
-                           "<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
-                             "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")).arg(qsoM.getCall(), QString::number(qsoM.getFreqTX()), qsoM.getSubmode(),
-                            util->getADIFTimeFromQTime(qsoM.getTimeOn()), util->getADIFTimeFromQTime(qsoM.getTimeOff()), qsoM.getRSTTX(), qsoM.getRSTRX(),
-                            qsoM.getComment(), qsoM.getGridSquare(), qsoM.getMyGridSquare(),
-                            qsoM.getStationCallsign(), qsoM.getOperatorCallsign());
+		QString aux  =
+			QString(tr("<HTML><body>The following QSO data has been received to be "
+				"logged:\n\n"
+				"<table>"
+				"<tr><TH>Callsign:</TH><TD>%1</TD></TR>"
+				"<TR><TH>Freq:</TH><TD>%2</TD></TR>"
+				"<TR><TH>Mode:</TH><TD>%3</TD></TR>"
+				"<TR><TH>Time On:</TH><TD>%4</TD></TR>"
+				"<TR><TH>Time Off:</TH><TD>%5</TD></TR>"
+				"<TR><TH>RST TX:</TH><TD>%6</TD></TR>"
+				"<TR><TH>RST RX:</TH><TD>%7</TD></TR>"
+				"<TR><TH>Comment:</TH><TD>%8</TD></TR>"
+				"<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
+				"<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
+				"<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
+			 "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")
+			).arg(
+				qsoM.getCall(), QString::number(qsoM.getFreqTX()),
+				qsoM.getSubmode(),
+				util->getADIFTimeFromQTime(qsoM.getTimeOn()),
+				util->getADIFTimeFromQTime(qsoM.getTimeOff()),
+				qsoM.getRSTTX(),
+				qsoM.getRSTRX(),
+				qsoM.getComment(),
+				qsoM.getGridSquare(),
+				qsoM.getMyGridSquare(),
+				qsoM.getStationCallsign(),
+				qsoM.getOperatorCallsign()
+			);
 
     msgBox.setText(aux);
     int ret = msgBox.exec();
