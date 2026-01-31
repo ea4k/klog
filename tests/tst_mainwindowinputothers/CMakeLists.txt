@@ -24,6 +24,7 @@ add_executable(tst_mainwindowinputothers
     ../../src/database/db_adif_primary_subdvisions_data.cpp
     ../../src/frequency.cpp
     ../../src/qso.cpp
+    ../../src/qsodatacache.cpp
     ../../src/utilities.cpp
     ../../src/locator.cpp
     ../../src/world.cpp
@@ -38,6 +39,7 @@ add_executable(tst_mainwindowinputothers
     ../../src/database/db_adif_primary_subdvisions_data.h
     ../../src/frequency.h
     ../../src/qso.h
+    ../../src/qsodatacache.h
     ../../src/utilities.h
     ../../src/locator.h
     ../../src/world.h

@@ -19,7 +19,7 @@ add_executable(tst_adif
     ../../src/callsign.cpp
     ../../src/adif.cpp
 
-    ${TEST_HEADERS}
+    #${TEST_HEADERS}
     ../../src/adif.h
     ../../src/callsign.h
     ../../src/klogdefinitions.h

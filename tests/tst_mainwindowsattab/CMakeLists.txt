@@ -19,6 +19,7 @@ add_executable(tst_mainwindosattab
     ../../src/inputwidgets/mainwindowsattab.cpp
     ../../src/dataproxy_sqlite.cpp
     ../../src/qso.cpp
+    ../../src/qsodatacache.cpp
     ../../src/frequency.cpp
     ../../src/callsign.cpp
     ../../src/utilities.cpp
@@ -33,6 +34,7 @@ add_executable(tst_mainwindosattab
     ../../src/inputwidgets/mainwindowsattab.h
     ../../src/dataproxy_sqlite.h
     ../../src/qso.h
+    ../../src/qsodatacache.h
     ../../src/frequency.h
     ../../src/callsign.h
     ../../src/utilities.h
