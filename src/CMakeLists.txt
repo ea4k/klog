@@ -251,7 +251,7 @@ target_link_libraries(klog
     Qt6::Charts
     Qt6::Core
     Qt6::Gui
-    Qt6::Location
+    #Qt6::Location
     Qt6::Network
     Qt6::Positioning
     Qt6::PrintSupport
