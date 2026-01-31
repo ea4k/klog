@@ -642,7 +642,6 @@ bool DataProxy_SQLite::loadBandLimits()
 
 bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const Frequency _fr)
 {
-
     int bandNf = getBandIdFromFreq(_fr);
     int bandN = bandIDs.value(_band);
     Frequency fTemp (_fr);
@@ -2428,7 +2427,6 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 
 void DataProxy_SQLite::mapModeNameSubmode()
 {
-
     modeIdToName.clear();
     nameToModeIds.clear();
         QSqlQuery query("SELECT id, name FROM mode");
@@ -2822,12 +2820,11 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
 
     QDate tmpDate;
     QString aux = QString();
-    QStringList qs;
-    qs.clear();
+		//QStringList qs;
+		//qs.clear();
     QString queryString;
 
     QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
-
     QString _queryGrid_string = getStringQueryMyGrid (_myGrid);
 
 
@@ -2884,7 +2881,7 @@ QList<int> DataProxy_SQLite::getQSOsListLoTWToSend(const QString &_stationCallsi
         return qsoList;
     }
     query.finish();
-    qs.sort();
+		//qs.sort();
     return qsoList;
 }
 
@@ -2953,35 +2950,36 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
 
     QList <int> qsoList;
     qsoList.clear();
-    QDate tmpDate;
-    QString aux = QString();
-    QStringList qs;
-    qs.clear();
-    QString queryString;
 
-    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+		//QStringList qs;
+		//qs.clear();
+		//QString queryString;
 
-    QString _query_justModified;
-    if (_justModified)
-    {
+		//QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+
+		//QString _query_justModified;
+		//if (_justModified)
+		//{
         // qDebug() << Q_FUNC_INFO << " - justQueued TRUE";
-        _query_justModified = QString("clublog_qso_upload_status='M'");
-    }
-    else
-    {
+		//    _query_justModified = QString("clublog_qso_upload_status='M'");
+		//}
+		//else
+		//{
         // qDebug() << Q_FUNC_INFO << " - justQueued FALSE";
-        _query_justModified = QString("clublog_qso_upload_status!='M'");
-    }
+		//    _query_justModified = QString("clublog_qso_upload_status!='M'");
+		//}
     // qDebug() << Q_FUNC_INFO << " - logN: " << QString::number(_logN);
 
-    QString _query_logNumber = getStringQueryLogNumber(_logN);
+		//QString _query_logNumber = getStringQueryLogNumber(_logN);
 
 
-    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
-    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+		//QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+		//QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
+		//queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
+	QString queryString = getStringQueryForQSOsLists(_stationCallsign, ClubLog, _justModified,_startDate, _endDate, _logN);
+	//QString queryString = getStringQueryForQSOsLists(_stationCallsign, _query_justModified, _startDate, _endDate, _logN);
 
     QSqlQuery query;
 
@@ -2992,6 +2990,8 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
     {
        // // qDebug() << Q_FUNC_INFO << " - Query: " << query.lastQuery();
 				//Utilities util(Q_FUNC_INFO);
+				QDate tmpDate;
+				QString aux = QString();
         while ( (query.next())) {
             if (query.isValid())
             {
@@ -3016,10 +3016,52 @@ QList<int> DataProxy_SQLite::getQSOsListClubLogToSent(const QString &_stationCal
         return qsoList;
     }
     query.finish();
-    qs.sort();
+		//qs.sort();
     // qDebug() << Q_FUNC_INFO << " - Returning: #"  << QString::number(qsoList.length());
     return qsoList;
 }
+QString DataProxy_SQLite::getStringQueryForQSOsLists(
+		const QString& _stationCallsign,
+		const OnLineProvider& _provider,
+		const bool _justModified,
+		const QDate &_startDate,
+		const QDate &_endDate,
+		const int _logN)
+{
+	QString _justModifiedS = getQueryJustModifiedString(_provider, _justModified);
+	QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+	QString _query_logNumber = getStringQueryLogNumber(_logN);
+	QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+	QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+
+	return QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_justModifiedS).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
+}
+
+// EA4K optimizando
+QString DataProxy_SQLite::getQueryJustModifiedString(const OnLineProvider& _provider, const bool _justModified)
+{//enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
+	switch (_provider) {
+			case eQSL:
+					if (_justModified)
+						return QString("eqsl_qsl_sent='Q'");
+					return QString("eqsl_qsl_sent!='M'");
+			break;
+		case QRZ:
+				if (_justModified)
+					return QString("qrzcom_qso_upload_status='M'");
+				return QString("qrzcom_qso_upload_status!='-'");
+		break;
+		case ClubLog:
+				if (_justModified)
+					return QString("clublog_qso_upload_status='M'");
+				return QString("clublog_qso_upload_status!='M'");
+		break;
+		default:
+			break;
+		}
+	return QString();
+}
+
 
 QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
 {
@@ -3027,35 +3069,33 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
 
     QList <int> qsoList;
     qsoList.clear();
-    QDate tmpDate;
-    QString aux = QString();
-    QStringList qs;
-    qs.clear();
-    QString queryString;
 
-    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+		//QStringList qs;
+		//qs.clear();
+		//QString queryString;
+		//QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
-
-    QString _query_justModified;
-    if (_justModified)
-    {
+		//QString _query_justModified;
+		//if (_justModified)
+		//{
         // qDebug() << Q_FUNC_INFO << " -justQueued TRUE";
-        _query_justModified = QString("eqsl_qsl_sent='Q'");
-    }
-    else
-    {
+		//    _query_justModified = QString("eqsl_qsl_sent='Q'");
+		//}
+		//else
+		//{
         // qDebug() << Q_FUNC_INFO << " -justQueued FALSE";
-        _query_justModified = QString("eqsl_qsl_sent!='M'");
-    }
+		//    _query_justModified = QString("eqsl_qsl_sent!='M'");
+		//}
 
-    QString _query_logNumber = getStringQueryLogNumber(_logN);
+		//QString _query_logNumber = getStringQueryLogNumber(_logN);
+		//QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+		//QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
-    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
-    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
-
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
+		//queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
 
+
+		QString queryString = getStringQueryForQSOsLists(_stationCallsign, eQSL, _justModified,_startDate, _endDate, _logN);
     QSqlQuery query;
 
     bool sqlOK = query.exec(queryString);
@@ -3065,6 +3105,8 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
     {
        // // qDebug() << Q_FUNC_INFO << " -Query: " << query.lastQuery();
 				//Utilities util(Q_FUNC_INFO);
+				QDate tmpDate;
+				QString aux = QString();
         while ( (query.next())) {
             if (query.isValid())
             {
@@ -3088,9 +3130,10 @@ QList<int> DataProxy_SQLite::getQSOsListEQSLToSent(const QString &_stationCallsi
         return qsoList;
     }
     query.finish();
-    qs.sort();
+		//qs.sort();
     return qsoList;
 }
+
 
 QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified, int _logN)
 {
@@ -3098,33 +3141,33 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
 
     QList <int> qsoList;
     qsoList.clear();
-    QDate tmpDate;
-    QString aux = QString();
-    QStringList qs;
-    qs.clear();
-    QString queryString;
 
-    QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
 
-    QString _query_justModified;
-    if (_justModified)
-    {
+		//QStringList qs;
+		//qs.clear();
+		//QString queryString;
+
+		//QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
+
+		//QString _query_justModified;
+		//if (_justModified)
+		//{
         // qDebug() << Q_FUNC_INFO << " - justQueued TRUE";
-        _query_justModified = QString("qrzcom_qso_upload_status='M'");
-    }
-    else
-    {
+		//    _query_justModified = QString("qrzcom_qso_upload_status='M'");
+		//}
+		//else
+		//{
         // qDebug() << Q_FUNC_INFO << " - justQueued FALSE";
-        _query_justModified = QString("qrzcom_qso_upload_status!='-'");
-    }
+		//    _query_justModified = QString("qrzcom_qso_upload_status!='-'");
+		//}
 
-    QString _query_logNumber = getStringQueryLogNumber(_logN);
+		//QString _query_logNumber = getStringQueryLogNumber(_logN);
+		//QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
+		//QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
-    QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
-    QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
+		//queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
 
-    queryString = QString("SELECT id, qso_date FROM log WHERE %1 AND %2 %3 AND %4 AND %5").arg(_queryST_string).arg(_query_justModified).arg(_query_logNumber).arg(_queryDateFrom).arg(_queryDateTo);
-
+		QString queryString = getStringQueryForQSOsLists(_stationCallsign, QRZ, _justModified,_startDate, _endDate, _logN);
 
     QSqlQuery query;
 
@@ -3135,6 +3178,8 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
     {
        // // qDebug() << Q_FUNC_INFO << " - Query: " << query.lastQuery();
 				//Utilities util(Q_FUNC_INFO);
+				QString aux = QString();
+				QDate tmpDate;
         while ( (query.next())) {
             if (query.isValid())
             {
@@ -3158,7 +3203,7 @@ QList<int> DataProxy_SQLite::getQSOsListQRZCOMToSent(const QString &_stationCall
         return qsoList;
     }
     query.finish();
-    qs.sort();
+		//qs.sort();
     return qsoList;
 }
 
@@ -3171,16 +3216,13 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
     qsoList.clear();
     QDate tmpDate;
     QString aux = QString();
-    QStringList qs;
-    qs.clear();
+		//QStringList qs;
+		//qs.clear();
     QString queryString;
 
     QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
-
     QString _queryGrid_String = getStringQueryMyGrid (_grid);
-
     QString _query_logNumber = getStringQueryLogNumber(_logN);
-
     QString _queryDateFrom = QString(" date(qso_date)>=date('%1')").arg(_startDate.toString ("yyyy-MM-dd"));
     QString _queryDateTo = QString(" date(qso_date)<=date('%1')").arg(_endDate.toString ("yyyy-MM-dd"));
 
@@ -3218,7 +3260,7 @@ QList<int> DataProxy_SQLite::getQSOsListToBeExported(const QString &_stationCall
         return qsoList;
     }
     query.finish();
-    qs.sort();
+		//qs.sort();
     return qsoList;
 }
 
@@ -3260,8 +3302,8 @@ QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCalls
     qsoList.clear();
     QDate tmpDate;
     QString aux = QString();
-    QStringList qs;
-    qs.clear();
+		//QStringList qs;
+		//qs.clear();
     QString queryString;
 
     QString _queryST_string = getStringQueryStationCallSign(_stationCallsign);
@@ -3324,7 +3366,7 @@ QList<int> DataProxy_SQLite::getQSOsListeQSLNotSent(const QString &_stationCalls
         return qsoList;
     }
     query.finish();
-    qs.sort();
+		//qs.sort();
     return qsoList;
 }
 
@@ -6912,7 +6954,6 @@ QStringList DataProxy_SQLite::getEntitiesNames(bool _dxccOnly)
                     if (query.value(2).toInt()<1000)
                     {
                         aux = (query.value(0)).toString() + "-" + (query.value(1)).toString()+" ("+(query.value(2)).toString()+")";
-
                     }
                 }
                 else

@@ -198,7 +198,11 @@ public:
     QList<int> getQSOsListeQSLNotSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justQueued=true);
 
     QList<int> getQSOsListClubLogToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
-    QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
+    QList<int> getQSOsListEQSLToSent(const QString &_stationCallsign,
+                                     const QDate &_startDate,
+                                     const QDate &_endDate,
+                                     bool _justModified = true,
+                                     int _logN = -1);
     QList<int> getQSOsListQRZCOMToSent(const QString &_stationCallsign, const QDate &_startDate, const QDate &_endDate, bool _justModified=true, int _logN = -1);
     QList<int> getQSOsListToBeExported(const QString &_stationCallsign, const QString &_grid, const QDate &_startDate, const QDate &_endDate, int _logN = -1);
     QList<int> getQSOsAll();
@@ -376,8 +380,17 @@ private:
     QString getStringQueryMyGrid (const QString &_a);               // Creates part of a query regarding the my_gridsquare field
     QString getStringQueryLogNumber (const int _a);                 // Creates part of a query regarding the lognumber field
     void mapModeNameSubmode();                                      // Maps mode/Submode/id using submodeToName & nameToMainId
+
+    // Helper function to simplify several functions
+    QString getStringQueryForQSOsLists(const QString &_stationCallsign,
+                                       const OnLineProvider &_provider,
+                                       const bool _justModified,
+                                       const QDate &_startDate,
+                                       const QDate &_endDate,
+                                       const int _logN);
+    QString getQueryJustModifiedString(const OnLineProvider &_provider, const bool _justModified);
     //KLOG_DEPRECATED int getPrefixId(const QString &_qrz);           // TODO: Replace by int World::getPrefixId(const QString &_prefix)
-                               // Refactored from fillEmptyDXCCInTheLog
+    // Refactored from fillEmptyDXCCInTheLog
     //bool updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont); // Refactored from fillEmptyDXCCInTheLog
     // qString changeSlashAndFindPrefix(const QString &_qrz);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
