@@ -13,7 +13,7 @@ jobs:
       actions: read
       contents: read
       
-    runs-on: ubuntu-plucky
+    runs-on: ubuntu-noble
     
     steps:
       - uses: actions/checkout@v3
