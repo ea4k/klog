@@ -12,7 +12,7 @@ jobs:
       actions: read
       contents: read
       
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-plucky
     
     steps:
       - uses: actions/checkout@v3
