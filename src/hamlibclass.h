@@ -31,6 +31,8 @@
 #include <QMap>
 #include <QObject>
 #include <QTimer>
+#include <QString>
+#include <QStringList>
 #include "frequency.h"
 //#include <QSerialPort>
 #include <QtSerialPort/QSerialPort>
