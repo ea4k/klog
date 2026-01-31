@@ -26,11 +26,12 @@
  *                                                                           *
  *****************************************************************************/
 
+#include <QFile>
+#include <QIODevice>
+#include <QMessageBox>
 #include <QObject>
+#include <QSettings>
 #include <QtGlobal>
-
-//#include <QSettings>
-//#include <QFile>
 //#include <QString>
 #include "utilities.h"
 #include "locator.h"

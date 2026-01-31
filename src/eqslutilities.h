@@ -25,11 +25,13 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QObject>
 #include <QFile>
-#include <QString>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QMessageBox>
+#include <QObject>
 #include <QProgressDialog>
+#include <QString>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 

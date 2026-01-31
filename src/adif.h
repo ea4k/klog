@@ -32,15 +32,13 @@
     This classs hould not need to query the DB neither the DataProxy Class
 
 */
-#include <QObject>
-#include <QtGlobal>
-#include <QString>
-#include <QtDebug>
-#include <QStringList>
 #include <QDateTime>
-
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QtDebug>
+#include <QtGlobal>
 #include "klogdefinitions.h"
-
 
 class Adif : public QObject {
     Q_OBJECT

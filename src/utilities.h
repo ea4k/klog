@@ -32,17 +32,23 @@
 
     This class should not need to query the DB neither the DataProxy Class
 */
-#include <iostream>
+#include <QDesktopServices>
+#include <QDir>
+#include <QFile>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <QObject>
-#include <QtGlobal>
 #include <QString>
-#include <QtWidgets>
+#include <QtGlobal>
+#include <iostream>
+//#include <QtWidgets>
 #include <QPalette>
+#include <QSettings>
 #include <QtDebug>
-#include "global.h"                     // Remove when all deprecated functions are removed
-#include "locator.h"
-#include "klogdefinitions.h"
 #include "adif.h"
+#include "global.h" // Remove when all deprecated functions are removed
+#include "klogdefinitions.h"
+#include "locator.h"
 //#include "dataproxy_sqlite.h"
 
 class Utilities : public QObject {

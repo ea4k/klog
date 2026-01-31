@@ -26,11 +26,12 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QNetworkInterface>
-#include <QUdpSocket>
-#include <QObject>
-#include <QHostAddress>
 #include <QDataStream>
+#include <QHostAddress>
+#include <QNetworkInterface>
+#include <QObject>
+#include <QSettings>
+#include <QUdpSocket>
 #include "qso.h"
 //#include "frequency.h"
 #include "utilities.h"

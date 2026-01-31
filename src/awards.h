@@ -27,16 +27,15 @@
  *****************************************************************************/
 
 //#include <QObject> // For the "tr" function
-
-#include <QString>
-#include <QSqlQuery>
-#include <QSqlRecord>
-#include <QVariant>
 #include <QColor>
-#include <QStringList>
-#include <QProgressDialog>
 #include <QMultiHash>
 #include <QObject>
+#include <QProgressDialog>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QString>
+#include <QStringList>
+#include <QVariant>
 #include <QtGlobal>
 
 #include "world.h"

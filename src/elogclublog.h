@@ -25,16 +25,17 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QObject>
 #include <QFile>
-#include <QString>
-#include <QMessageBox>
-#include <QProgressDialog>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QUrlQuery>
 #include <QHttpMultiPart>
 #include <QHttpPart>
+#include <QMessageBox>
+#include <QObject>
+#include <QProgressDialog>
+#include <QSettings>
+#include <QString>
+#include <QUrlQuery>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 #include "utilities.h"
 
 class eLogClubLog : public QObject {

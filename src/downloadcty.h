@@ -25,18 +25,18 @@
  *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
  *                                                                           *
  *****************************************************************************/
-#include <QObject>
-#include <QString>
-#include <QProgressDialog>
 #include <QFile>
 #include <QFileInfo>
+#include <QMessageBox>
 #include <QNetworkAccessManager>
-#include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QObject>
+#include <QProgressDialog>
 #include <QSslError>
+#include <QString>
 #include <QTimer>
 #include <QUrl>
-#include <QMessageBox>
 #include "utilities.h"
 
 class QSslError;
