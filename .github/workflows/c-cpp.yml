@@ -28,6 +28,7 @@ jobs:
             qt6-positioning-dev \
             libqt6charts6-dev \
             libhamlib-dev \
+            qml-module-qtlocation \
             libgl1-mesa-dev \
             libxkbcommon-dev
 
