@@ -9,6 +9,7 @@ SUBDIRS=\
    tst_callsign \
    tst_dxspot \
    tst_frequency \
+   tst_hamlib \
    tst_utilities \
    tst_mainqsoentrywidget \
    tst_mainwindowsattab \

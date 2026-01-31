@@ -95,7 +95,7 @@ void HamLibClass::clean()
 
 void HamLibClass::cleanup()
 {
-    logEvent(Q_FUNC_INFO, "Cleaning up Hamlib connection...", Debug);
+    //logEvent(Q_FUNC_INFO, "Cleaning up Hamlib connection...", Debug);
 
     timer->stop();
 
@@ -122,8 +122,8 @@ void HamLibClass::readFreq()
         return;
 
     freq_t freq;
-    mode_t mode;
-    pbwidth_t width;
+    //mode_t mode;
+    //pbwidth_t width;
     int ret;
 
     // 1. Read freq
@@ -500,7 +500,7 @@ bool HamLibClass::init(bool _active)
 
     // 3. Configurar Velocidad (Baud Rate)
     if (bauds > 0) {
-        my_rig->state.rigport.parm.serial.rate = bauds
+        my_rig->state.rigport.parm.serial.rate = bauds;
     }
 
     // Opcional: Configurar otros parámetros por defecto si fuera necesario
@@ -520,14 +520,15 @@ bool HamLibClass::init(bool _active)
         // Limpiamos memoria si falló la apertura
         rig_cleanup(my_rig);
         my_rig = nullptr;
-        return;
+        return false;
     }
 
     connected = true;
-    logEvent(Q_FUNC_INFO, "Rig Opened Successfully!", Debug);
+    //logEvent(Q_FUNC_INFO, "Rig Opened Successfully!", Debug);
 
     // Comenzamos el polling
     timer->start(pollInterval);
+    return true;
     /*
     
     qDebug() << Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model);

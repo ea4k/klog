@@ -13,6 +13,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON) # Added from MacOS
 
 
 # Put all build outputs under build/bin and build/lib
@@ -74,8 +75,11 @@ find_package(Qt6 REQUIRED COMPONENTS
     SerialPort
     Sql
     Widgets
-    REQUIRED
+    #REQUIRED
 )
+
+qt_standard_project_setup() # Added from MacOS
+
 
 add_subdirectory(src)
 add_subdirectory(tests)
