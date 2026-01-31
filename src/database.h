@@ -226,6 +226,7 @@ private:
     //bool moveFromModeIdToSubmodeId();
     bool updateModeIdFromSubModeId();
     bool updateBandIdTableLogToNewOnes();
+    bool confirmCancellation(QWidget *parent = nullptr);
 
     void queryErrorManagement(const QString &_functionFailed, const QString &errorCodeS, const QString &_nativeError, const QString &_failedQuery);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);

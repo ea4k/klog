@@ -996,7 +996,6 @@ int DataBase::getBandIdFromFreq(const QString &fr)
         }
         else
         {
-
             query.finish();
             return -1;
         }
@@ -1005,7 +1004,6 @@ int DataBase::getBandIdFromFreq(const QString &fr)
     {
         if (query.lastError().isValid())
         {
-
         }
         else
         {
@@ -1249,7 +1247,6 @@ bool DataBase::updateToLatest()
     // qDebug() << Q_FUNC_INFO << " - Start";
     if (requiresManualUpgrade())
     {
-
         // qDebug() << Q_FUNC_INFO << " requires" ;
         exit(1);
         //return false;
@@ -2988,28 +2985,12 @@ bool DataBase::updateModeIdFromSubModeId()
                 {
                     alreadyCancelled = true;
 
-                    QMessageBox msgBox;
-                    msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
-                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
-                    msgBox.setText(aux);
-                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                    msgBox.setDefaultButton(QMessageBox::No);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Yes:
-                          // Yes was clicked
-                            cancel = true;
-                          break;
-
-                      case QMessageBox::No:
-                          // No Save was clicked
-                            cancel = false;
-                            progress.setCancelButton(nullptr);
-                          break;
-                      default:
-                          // should never be reached
-                            cancel = false;
-                          break;
+                    if (confirmCancellation(
+                            nullptr)) { // Pasamos 'this' si Database es un Widget, si no, usa nullptr
+                        cancel = true;
+                    } else {
+                        cancel = false;
+                        progress.setCancelButton(nullptr);
                     }
                 }
             }
@@ -3035,6 +3016,18 @@ bool DataBase::updateModeIdFromSubModeId()
     // qDebug() << Q_FUNC_INFO << ": CHECK IF this is seen - END"  ;
 }
 
+bool DataBase::confirmCancellation(QWidget *parent)
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(parent,
+                                  tr("KLog - DB update"),
+                                  tr("Canceling this update will cause data inconsistencies and "
+                                     "possibly data loss. Do you still want to cancel?"),
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No);
+
+    return (reply == QMessageBox::Yes);
+}
 
 bool DataBase::updateBandIdTableLogToNewOnes()
 {
@@ -3156,28 +3149,11 @@ bool DataBase::updateBandIdTableLogToNewOnes()
                 {
                     alreadyCancelled = true;
 
-                    QMessageBox msgBox;
-                    msgBox.setWindowTitle(QObject::tr("KLog - DB update"));
-                    aux = QObject::tr("Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?");
-                    msgBox.setText(aux);
-                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-                    msgBox.setDefaultButton(QMessageBox::No);
-                    int ret = msgBox.exec();
-                    switch (ret) {
-                      case QMessageBox::Yes:
-                          // Yes was clicked
-                            cancel = true;
-                          break;
-
-                      case QMessageBox::No:
-                          // No Save was clicked
-                            cancel = false;
-                            progress.setCancelButton(nullptr);
-                          break;
-                      default:
-                          // should never be reached
-                            cancel = false;
-                          break;
+                    if (confirmCancellation(nullptr)) {
+                        cancel = true;
+                    } else {
+                        cancel = false;
+                        progress.setCancelButton(nullptr);
                     }
                 }
             }
