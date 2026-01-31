@@ -12,7 +12,7 @@ jobs:
       actions: read
       contents: read
       
-    runs-on: ubuntu-25.04
+    runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v3
@@ -26,7 +26,6 @@ jobs:
             qt6-declarative-dev \
             libqt6serialport6-dev \
             qt6-positioning-dev \
-            qt6-location \
             libqt6charts6-dev \
             libhamlib-dev \
             libgl1-mesa-dev \
