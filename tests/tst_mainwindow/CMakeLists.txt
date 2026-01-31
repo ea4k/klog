@@ -107,6 +107,7 @@ add_executable(tst_mainwindow
   ../../src/setuppages/setuppageworldeditor.cpp
   ../../src/utilities.cpp
   ../../src/qso.cpp
+  ../../src/qsodatacache.cpp
   ../../src/charts/statsqsosperdxccbarchartwidget.cpp
   ../../src/charts/statscqzperyearbarchartwidget.cpp
   ../../src/charts/statsqsosperhourbarchartwidget.cpp
@@ -202,6 +203,7 @@ add_executable(tst_mainwindow
   ../../src/klogdefinitions.h
   ../../src/utilities.h
   ../../src/qso.h
+  ../../src/qsodatacache.h
   ../../src/charts/statsqsosperdxccbarchartwidget.h
   ../../src/charts/statscqzperyearbarchartwidget.h
   ../../src/charts/statsqsosperhourbarchartwidget.h

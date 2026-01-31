@@ -39,7 +39,6 @@
 #include <QStringList>
 #include <QDateTime>
 
-//#include "locator.h"
 #include "klogdefinitions.h"
 
 

@@ -24,6 +24,7 @@ add_executable(tst_qso
     ../../src/frequency.cpp
     ../../src/locator.cpp
     ../../src/qso.cpp
+    ../../src/qsodatacache.cpp
     ../../src/adif.cpp
 
     ${TEST_HEADERS}
@@ -36,7 +37,8 @@ add_executable(tst_qso
     ../../src/global.h
     ../../src/klogdefinitions.h
     ../../src/locator.h
-    ../../src/qso.h    
+    ../../src/qso.h
+    ../../src/qsodatacache.h
     ../../src/adif.h
 )
 
