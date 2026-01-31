@@ -40,10 +40,6 @@ configure_file(
   @ONLY
 )
 
-
-enable_testing()
-
-
 # Detect OS and print to console
 if(WIN32)
     message(STATUS "Operating System: Windows")
@@ -82,5 +78,11 @@ qt_standard_project_setup() # Added from MacOS
 
 
 add_subdirectory(src)
-add_subdirectory(tests)
-# Optionally, you can include other subdirectories for resources, docs, etc.
+# Define an option to build tests (Default = OFF)
+option(BUILD_TESTING "Build the testing tree." OFF)
+
+if(BUILD_TESTING)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
+

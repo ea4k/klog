@@ -143,27 +143,33 @@ bool UpdateSettings::updateFile()
 bool UpdateSettings::processConfigLine(const QString &_line)
 {
     // qDebug() << Q_FUNC_INFO << _line;
-    Utilities util(Q_FUNC_INFO);
+
     QString line = _line.simplified();
 
-    QStringList values = line.split("=", QT_SKIP);
-
-    if (line.startsWith('#'))
-    {
+    if (line.startsWith('#')) {
         return true;
     }
     if (!( (line.contains('=')) && (line.contains(';')))){
         return false;
     }
 
-    QString value = values.at(1);
-    QString tab = (values.at(0)).toUpper();
+    // Use fast splitting
+    const int splitIndex = line.indexOf('=');
+    if (splitIndex == -1 || !line.contains(';'))
+        return false;
 
-    int endValue = value.indexOf(';');
-    if (endValue>-1)
-    {
-        value = value.left(value.length() - (value.length() - endValue));
-    }
+    QString tab = line.left(splitIndex).toUpper();
+    QString value = line.mid(splitIndex + 1);
+
+    //QStringList values = line.split("=", QT_SKIP);
+    //QString value = values.at(1);
+    //QString tab = (values.at(0)).toUpper();
+
+    // Remove the trailing semicolon if present
+    if (value.endsWith(';'))
+        value.chop(1);
+
+    Utilities util(Q_FUNC_INFO);
     // qSettings settings(util.getCfgFile(), QSettings::IniFormat);
     QSettings settings(util.getCfgFile(), QSettings::IniFormat);
 
@@ -589,13 +595,14 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.setValue ("LatestBackup", dtime.toString(Qt::ISODate));
     }else if(tab =="MAINWINDOWSIZE"){
         QSize windowSize;
-        QStringList values;
-        values.clear();
-        values << value.split("x");
-        if ((values.at(0).toInt()>0) && (values.at(1).toInt()>0))
-        {
-            windowSize.setWidth(values.at(0).toInt());
-            windowSize.setHeight(values.at(1).toInt());
+
+        // Use fast splitting
+        const int splitIndex2 = value.indexOf('x');
+        if (splitIndex2 == -1)
+            return false;
+        if ((value.left(splitIndex2).toInt() > 0) && (value.mid(splitIndex2 + 1).toInt() > 0)) {
+            windowSize.setWidth(value.left(splitIndex2).toInt());
+            windowSize.setHeight(value.mid(splitIndex2 + 1).toInt());
         }
         settings.setValue ("MainWindowSize", windowSize);
     }else if(tab =="DELETEALWAYSADIFILE"){
