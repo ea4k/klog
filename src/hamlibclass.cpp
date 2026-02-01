@@ -474,6 +474,7 @@ bool HamLibClass::stop()
 bool HamLibClass::init(bool _active)
 {
     //logEvent(Q_FUNC_INFO, "Start Initialization", Debug);
+    qDebug() << Q_FUNC_INFO << " - Start Initialization ";
     cleanup(); // Limpiar cualquier estado previo
     if (!_active)
         return true;
@@ -481,6 +482,7 @@ bool HamLibClass::init(bool _active)
 
     if (myrig_model <= 1) {
         //logEvent(Q_FUNC_INFO, "Hamlib disabled or invalid model.", Debug);
+        qDebug() << Q_FUNC_INFO << " - ERROR: Hamlib disabled or invalid model.";
         return false;
     }
 
@@ -489,6 +491,7 @@ bool HamLibClass::init(bool _active)
 
     if (!my_rig) {
         //emit hamlibError("Failed to initialize Rig (rig_init returned NULL).");
+        qDebug() << Q_FUNC_INFO << " - ERROR: Failed to initialize Rig (rig_init returned NULL).";
         return false;
     }
 
@@ -497,10 +500,18 @@ bool HamLibClass::init(bool _active)
     if (!serialPort.isEmpty()) {
         strncpy(my_rig->state.rigport.pathname, serialPort.toLatin1().constData(), FILPATHLEN - 1);
     }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - ERROR: Serial port is empty!.";
+    }
 
     // 3. Configurar Velocidad (Baud Rate)
     if (bauds > 0) {
         my_rig->state.rigport.parm.serial.rate = bauds;
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - ERROR: Bauds <= 0";
     }
 
     // Opcional: Configurar otros parámetros por defecto si fuera necesario
@@ -516,6 +527,7 @@ bool HamLibClass::init(bool _active)
         QString err = QString("Failed to open rig. Error code: %1").arg(ret);
         //logEvent(Q_FUNC_INFO, err, Error);
         //emit hamlibError(err);
+        qDebug() << Q_FUNC_INFO << " - ERROR: RIG_OK false: " << err;;
 
         // Limpiamos memoria si falló la apertura
         rig_cleanup(my_rig);
@@ -530,7 +542,7 @@ bool HamLibClass::init(bool _active)
     timer->start(pollInterval);
     return true;
     /*
-    
+
     qDebug() << Q_FUNC_INFO << ": " << getNameFromModelId(myrig_model);
     if (!loadSettings()) {
         qDebug() << Q_FUNC_INFO << ": loadSettings failed, exiting";
@@ -742,13 +754,13 @@ void HamLibClass::setSpeed(const int _speed)
     //TODO: Check that it is a valid speed
     bauds = _speed;
     connected = false;
-    qDebug() << Q_FUNC_INFO << ": " << QString::number(bauds);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(bauds);
 }
 
 void HamLibClass::setDataBits(const int _data)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    qDebug() << Q_FUNC_INFO << ": rec: " << QString::number(_data);
+    //qDebug() << Q_FUNC_INFO << ": rec: " << QString::number(_data);
     if ((_data >= 5) && (_data <= 8))
     {
         dataBits = _data;
@@ -764,7 +776,7 @@ void HamLibClass::setDataBits(const int _data)
 void HamLibClass::setStop(const QString &_stop)
 {
     //showDebugLog(Q_FUNC_INFO, "Start");
-    qDebug() << Q_FUNC_INFO << ": " << _stop;
+    //qDebug() << Q_FUNC_INFO << ": " << _stop;
 
     if (_stop == "OneStop")
     {
@@ -1057,4 +1069,9 @@ bool HamLibClass::loadSettings()
     if (pollInterval < 250)
         pollInterval = 250; // Limit saturation
     return true;
+}
+
+void HamLibClass::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
+{
+    emit debugLog (_func, _msg, _level);
 }

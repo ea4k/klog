@@ -306,8 +306,8 @@ void tst_DataBase::test_checks()
 
 void tst_DataBase::test_addQSOs()
 {
-    int i = db->getNumberOfQsos();
-   // qDebug() << "Number of QSOs: " << QString::number(i);
+  //int i = db->getNumberOfQsos();
+  // qDebug() << "Number of QSOs: " << QString::number(i);
     QSO qso;
     qso.clear();
     qso.setCall("EA4K");

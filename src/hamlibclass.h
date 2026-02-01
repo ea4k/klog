@@ -98,6 +98,7 @@ signals:
     void freqChanged(double newFreq);
     void modeChanged(QString newFreq);
     void frequency(Frequency newfreq);
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 public slots:
     void slotTimer();
@@ -112,6 +113,10 @@ private:
     QString hamlibMode2Mode(rmode_t _rmode);
     rmode_t mode2HamlibMode (const QString &_mode);
     bool errorManage(const QString &_func, const int _errorcode);
+
+    void logEvent(const QString &_func,
+                  const QString &_msg,
+                  DebugLogLevel _level);
     //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;
