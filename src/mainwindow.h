@@ -298,6 +298,7 @@ private slots:
 
     //HAMLIB
     void slotHamlibTXFreqChanged(const double _f);
+    void slotHamlibTXFreqChanged(const Frequency _f);
     void slotHamlibModeChanged(const QString &_m);
     //void slotHamlibModeNotADIF();
 

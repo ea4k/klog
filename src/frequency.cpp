@@ -76,12 +76,12 @@ bool Frequency::fromBand(const QString &_bandName)
 }
 */
 
-double Frequency::toDouble(FreqUnits _u)
+double Frequency::toDouble(FreqUnits _u) const
 {
     return deNormalize(freq, _u);
 }
 
-QString Frequency::toQString(FreqUnits _u)
+QString Frequency::toQString(FreqUnits _u) const
 {
     // qDebug() << Q_FUNC_INFO << ": " << QString::number(freq);
     // qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
@@ -91,15 +91,13 @@ QString Frequency::toQString(FreqUnits _u)
 
     int dec = getDecimals(_u);
     // qDebug() << Q_FUNC_INFO << ":u: " << QString::number(_u);
-
-
     // qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(toDouble());
     // qDebug() << Q_FUNC_INFO << ":  dec: " << QString::number(dec);
 
     return  QString("%1").arg(d, 0, 'f', dec);
 }
 
-double Frequency::normalize(const double _f, const FreqUnits _u)
+double Frequency::normalize(const double _f, const FreqUnits _u) const
 { // Convert to MHz any frequency
     switch (_u) {
     case Hz:
@@ -120,7 +118,7 @@ double Frequency::normalize(const double _f, const FreqUnits _u)
     }
 }
 
-double Frequency::deNormalize(const double _f, const FreqUnits _u)
+double Frequency::deNormalize(const double _f, const FreqUnits _u) const
 { // Convert MHz to other unit
     switch (_u) {
     case Hz:
@@ -141,7 +139,7 @@ double Frequency::deNormalize(const double _f, const FreqUnits _u)
     }
 }
 
-int Frequency::getDecimals(const FreqUnits _u)
+int Frequency::getDecimals(const FreqUnits _u) const
 { // Get the right number of decimals to display
     switch (_u) {
     case Hz:

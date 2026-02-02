@@ -693,6 +693,7 @@ void MainWindow::createActionsCommon(){
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
     connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
     connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
+		connect(hamlib, SIGNAL(frequency(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
@@ -5778,7 +5779,36 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
-      // qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
+		qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
+		logEvent(Q_FUNC_INFO, "Start", Debug);
+		if (manualMode)
+		{
+				return;
+		}
+		if (upAndRunning)
+		{
+				if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
+				{
+					qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+						QSOTabWidget->setTXFreq (_f);
+				}
+				else
+				{
+				qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not updating Freq" ;
+				}
+		}
+		else
+		{
+			qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not Up&Running" ;
+		}
+		qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " ;
+
+		logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
+{
+		qDebug() << Q_FUNC_INFO << " - f:  " << _f.toQString();
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (manualMode)
     {
@@ -5786,21 +5816,22 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
     }
     if (upAndRunning)
     {
-        if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
+				Frequency fOld(QSOTabWidget->getTXFreq ());
+				if (_f != fOld)
         {
-      // qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
-            QSOTabWidget->setTXFreq (_f);
+					qDebug() << Q_FUNC_INFO << " - f: Updating the freq... " ;
+					QSOTabWidget->setTXFreq (_f.toDouble());
         }
         else
         {
-     // qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not updating Freq" ;
+				qDebug() << Q_FUNC_INFO << " - f: Not updating Freq" ;
         }
     }
     else
     {
-          // qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not Up&Running" ;
+			qDebug() << Q_FUNC_INFO << " - f: Not Up&Running" ;
     }
-      // qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " ;
+		qDebug() << Q_FUNC_INFO << " - f: END";
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

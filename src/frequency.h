@@ -51,8 +51,8 @@ public:
     bool fromDouble(const double _f, FreqUnits _u = MHz);
     bool fromQString(const QString &_f, FreqUnits _u = MHz);
     //bool fromBand(const QString &_bandName);
-    double toDouble(FreqUnits _u = MHz);                        // Returns in MHz
-    QString toQString(FreqUnits _u = MHz);   // Returns in MHz with decimals
+    double toDouble(FreqUnits _u = MHz) const;                  // Returns in MHz
+    QString toQString(FreqUnits _u = MHz) const;                // Returns in MHz with decimals
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
     // qString band();                                           // Returns the band
     //int bandId();                                             // Returns the bandId
@@ -63,9 +63,9 @@ public:
     bool operator<(const Frequency &other) const; // Redefinition of <
 
 private:
-    double normalize(const double _f, const FreqUnits _u = MHz);
-    double deNormalize(const double _f, const FreqUnits _u = MHz);
-    int getDecimals(const FreqUnits _u = MHz);
+    double normalize(const double _f, const FreqUnits _u = MHz) const;
+    double deNormalize(const double _f, const FreqUnits _u = MHz) const;
+    int getDecimals(const FreqUnits _u = MHz) const;
     double freq;        // This must be in MHz
     QString bandInMHz;  //
     double tolerance;   // This must be in Hz
