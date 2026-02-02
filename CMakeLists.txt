@@ -43,6 +43,14 @@ configure_file(
 # Detect OS and print to console
 if(WIN32)
     message(STATUS "Operating System: Windows")
+    # Get the path to klog/../libs/win64/hamlib and convert it to an absolute path
+    get_filename_component(HAMLIB_LOCAL_PATH "${CMAKE_SOURCE_DIR}/../libs/win64/hamlib" ABSOLUTE)
+
+    # Check if that folder actually exists before setting it
+    if(EXISTS "${HAMLIB_LOCAL_PATH}")
+        set(HAMLIB_ROOT "${HAMLIB_LOCAL_PATH}")
+        message(STATUS "Generic Windows Libs path found: ${HAMLIB_ROOT}")
+    endif()
 elseif(APPLE)
     message(STATUS "Operating System: macOS")
 elseif(UNIX)

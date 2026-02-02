@@ -221,17 +221,37 @@ macx: {
     LIBS += -L"/usr/local/lib" -lhamlib
 }
 
+#win32: {
+#    message(windows)
+#    DESTDIR = build/target/
+#    OBJECTS_DIR = build/obj/
+#    MOC_DIR = build/moc/
+#    RCC_DIR = build/rcc/
+#    LIBS += -L"$$PWD/../../../../libs/hamlib/lib/gcc" -lhamlib
+#    LIBS += -L"$$PWD/../../../../libs/hamlib/bin"
+#    INCLUDEPATH += "$$PWD/../../../../libs/hamlib/include/"
+#}
+
 win32: {
     message(windows)
     DESTDIR = build/target/
     OBJECTS_DIR = build/obj/
     MOC_DIR = build/moc/
     RCC_DIR = build/rcc/
-    LIBS += -L"$$PWD/../../../../libs/hamlib/lib/gcc" -lhamlib
-    LIBS += -L"$$PWD/../../../../libs/hamlib/bin"
-    INCLUDEPATH += "$$PWD/../../../../libs/hamlib/include/"
-}
+    contains(QT_ARCH, i386) {
+        message("32-bit")
+        LIBS += -L"C:/Users/radio/Documents/Github/libs/win32/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"C:/Users/radio/Documents/Github/libs/win32/hamlib/bin"
+        INCLUDEPATH += "C:/Users/radio/Documents/Github/libs/win32/hamlib/include/"
+    } else {
+        message("64-bit")
+        #LIBS += -L"C:/Users/radio/Documents/Github/libs/win64/hamlib/lib/gcc" -lhamlib
+        #LIBS += -L"C:/Users/radio/Documents/Github/libs/win64/hamlib/bin"
+        INCLUDEPATH += "C:/Users/radio/Documents/Github/libs/win64/hamlib/include/"
+        LIBS += -L"C:/Users/radio/Documents/GitHub/libs/win64/hamlib/lib" -lhamlib
 
+    }
+}
 
 
 isEmpty(QMAKE_LRELEASE) {

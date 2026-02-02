@@ -149,6 +149,9 @@ public:
 private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
+
+    void logEvent(const QString &_func,
+                  const QString &_msg, DebugLogLevel _level);
     void slotOpenWiki();
     //void slotAWAImport();
     void slotClearNoMorErrorShown();
@@ -321,7 +324,7 @@ private slots:
 
     void slotQSOReceived(const QSO &_qso);
 
-    void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level);
+    //void slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level);
     //void slotTakeOverFocus(int _id);
     void slotTakeOverFocusToQSOTabWidget();
     void slotTakeOverFocusToMainQSOInput();
@@ -351,7 +354,7 @@ private:
     bool setHamlib(const bool _b);
     bool setUDPServer(const bool _b);
     bool askToAddQSOReceived(const QSO &_qso);  // Shows a message with the data of the QSO
-    void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
+
     void setLogLevel(const DebugLogLevel _sev);
     //void fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
     void fileExportLoTW2(const QString &_call, QList<int> _qsos);
@@ -399,6 +402,7 @@ private:
 
     void createMenusCommon();
     void createActionsCommon();
+    void connectDebugLogActions();  // Connects the log actions from other classes
 
 
     bool readQSOFromUI();                           // Adds the data in the UI to the qso instance (calling getQSODataFromUI)

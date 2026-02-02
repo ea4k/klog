@@ -22,9 +22,10 @@ set(HAMLIB_ROOT "" CACHE PATH "Root directory of a Hamlib installation (Windows)
 #endif ()
 
 
-
 # On Windows, auto-discover typical installers under Program Files without requiring a version
 if(WIN32)
+  message(STATUS "Win32 detected in FindHamlib.cmake")
+  set(HAMLIB_ROOT "C:/Users/radio/Documents/GitHub/libs/win64/hamlib")
   set(_hamlib_hints
     $ENV{HAMLIB_ROOT}
     ${HAMLIB_ROOT}

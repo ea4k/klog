@@ -489,7 +489,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
        // qDebug() << Q_FUNC_INFO << " - 130";
 
-    applySettings ();    
+    applySettings ();
     // qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -560,22 +560,58 @@ void MainWindow::checkVersions()
         softUpdate->needToUpdate();
     }
 }
+void MainWindow::connectDebugLogActions()
+{
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    connect(util, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+
+    connect(&qsoInUI, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+
+    connect(&hamlib, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+
+    connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(myDataTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    connect(dxccStatusWidget.get(), SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
 
 void MainWindow::createActionsCommon(){
 // Functional widgets connections
 //TODO: Reimplement the possibility to enter a QSO with enter inthe following widgets:
     //connect(qslViaLineEdit, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    connect(util, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
-      // qDebug() << Q_FUNC_INFO << " - Connecting QSO";
-    connect(&qsoInUI, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
+    connectDebugLogActions();   // Connect the logEvent signals
       // qDebug() << Q_FUNC_INFO << " - Connected QSO";
     connect(QSOTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
     connect(QSOTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotLocatorTextChanged(QString) ) );
 
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
-    connect(myDataTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+
     connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
     connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToMainQSOInput() ));
@@ -585,7 +621,7 @@ void MainWindow::createActionsCommon(){
 
     connect(mainQSOEntryWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToQSOTabWidget()));
     connect(mainQSOEntryWidget, SIGNAL(currentQRZSignal(QString)), this, SLOT(slotQRZTextChanged(QString)));
-    connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+
     connect(mainQSOEntryWidget, SIGNAL(showInfoLabel(QString)), this, SLOT(slotShowInfoLabel(QString)) );
     connect(mainQSOEntryWidget, SIGNAL(clearForNextQSOSignal(QString)), this, SLOT(slotClearButtonClicked(QString)) );
     connect(mainQSOEntryWidget, SIGNAL(OKClicked()), this, SLOT(slotQRZReturnPressed() ) );
@@ -635,13 +671,13 @@ void MainWindow::createActionsCommon(){
     connect(searchWidget.get(), SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(&awards, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(&awards, SIGNAL(awardDXCCUpdated()), this, SLOT(slotRefreshDXCCWidget()) );
-    connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+
     connect(awardsWidget, SIGNAL(requireCurrentLogSignal()), this, SLOT(slotAwardsWidgetSetLog()) );
     connect(awardsWidget, SIGNAL(requireCurrentYearSignal()), this, SLOT(slotAwardsWidgetSetYear()) );
 
     //DXCCWIDGET TAB
     //connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
-    connect(dxccStatusWidget.get(), SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+
     connect(dxccStatusWidget.get(), SIGNAL(showQsos(QList<int>)), this, SLOT(slotShowQSOsFromDXCCWidget(QList<int>) ) );
     connect(dxccStatusWidget.get(), SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
     //connect(dxccStatusWidget, SIGNAL(updateAwards()), this, SLOT(slotShowAwards() ) );
@@ -657,15 +693,13 @@ void MainWindow::createActionsCommon(){
     connect(UDPLogServer, SIGNAL(logged(QSO)), this, SLOT(slotQSOReceived(QSO) ) );
 
     connect(this, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
-    connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+
     connect(setupDialog, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
     //connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
     connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
     connect(setupDialog, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)) );
 
-
-    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
     connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()) );
     connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
@@ -686,8 +720,6 @@ void MainWindow::createActionsCommon(){
     connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotFreqRXChanged(double)));
     //connect(satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
     connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
-
-    connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
 
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
@@ -700,7 +732,6 @@ void MainWindow::createActionsCommon(){
     connect(adifLoTWExportWidget, SIGNAL(askingToClose()), this, SLOT(slotADIFExportClose()) );
 
     connect(dataProxy, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
-    connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
 
     connect(showKLogLogWidget, SIGNAL(newLogLevel(DebugLogLevel)), this, SLOT(slotNewLogLevel(DebugLogLevel)) );
     //connect(this, SIGNAL(focusC), this, SLOT(slotTimeOutInfoBars()) );
@@ -1083,7 +1114,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         // qDebug() << Q_FUNC_INFO << " -  Modifying! " ;
        needToSave = true;
        if(modifyingQSOid>0)
-       {           
+       {
            awards.setAwards();
            if (yearChangedDuringModification)
            {
@@ -1231,7 +1262,7 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
         else if (ret == QMessageBox::Cancel)
         {
             return -1;
-        }        
+        }
     }
 
     if (selected>0)
@@ -4416,7 +4447,7 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 }
 
 void MainWindow::qsoToEdit (const int _qso)
-{    
+{
    // qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
    // Switching to manualmode on start is important to prevent modifyingQSOid to be overwritten.
     manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
@@ -4721,7 +4752,7 @@ void MainWindow::fillQSOData()
             nameCol = rec.indexOf("cont");
             if (( (query.value (nameCol)).toString()).length() < 2 )
             {
-                aux1 = world->getContinentShortName(_dxcc);     
+                aux1 = world->getContinentShortName(_dxcc);
                 updateString = updateString + ", cont='" + aux1 + "'";
                 toModify = true;
             }
@@ -5025,7 +5056,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
         clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     }
 
-    int statusI = awards.getDXStatus (_entityStatus);
+    //int statusI = awards.getDXStatus (_entityStatus);
 
     //proposedQSOs pQSO;
 
@@ -5325,7 +5356,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
     QSOTabWidget->setRXFreq (_fr);
     satTabWidget->setDownLinkFreq(_fr);
     // qDebug() << Q_FUNC_INFO << " - END";
-    logEvent(Q_FUNC_INFO, "END", Debug);    
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotFreqTXChangedFromSat(const double _fr)
@@ -5388,7 +5419,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 
     void MainWindow::slotQSOReceived(const QSO &_qso)
-{    
+{
     // qDebug() <<  Q_FUNC_INFO << " - Start";
     //logEvent(Q_FUNC_INFO, "Start", Debug);
 
@@ -5450,35 +5481,35 @@ bool MainWindow::askToAddQSOReceived(const QSO &_qso)
     msgBox.setDefaultButton(QMessageBox::Yes);
     QSO qsoM(_qso);
 
-		QString aux  =
-			QString(tr("<HTML><body>The following QSO data has been received to be "
-				"logged:\n\n"
-				"<table>"
-				"<tr><TH>Callsign:</TH><TD>%1</TD></TR>"
-				"<TR><TH>Freq:</TH><TD>%2</TD></TR>"
-				"<TR><TH>Mode:</TH><TD>%3</TD></TR>"
-				"<TR><TH>Time On:</TH><TD>%4</TD></TR>"
-				"<TR><TH>Time Off:</TH><TD>%5</TD></TR>"
-				"<TR><TH>RST TX:</TH><TD>%6</TD></TR>"
-				"<TR><TH>RST RX:</TH><TD>%7</TD></TR>"
-				"<TR><TH>Comment:</TH><TD>%8</TD></TR>"
-				"<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
-				"<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
-				"<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
-			 "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")
-			).arg(
-				qsoM.getCall(), QString::number(qsoM.getFreqTX()),
-				qsoM.getSubmode(),
-				util->getADIFTimeFromQTime(qsoM.getTimeOn()),
-				util->getADIFTimeFromQTime(qsoM.getTimeOff()),
-				qsoM.getRSTTX(),
-				qsoM.getRSTRX(),
-				qsoM.getComment(),
-				qsoM.getGridSquare(),
-				qsoM.getMyGridSquare(),
-				qsoM.getStationCallsign(),
-				qsoM.getOperatorCallsign()
-			);
+        QString aux  =
+            QString(tr("<HTML><body>The following QSO data has been received to be "
+                "logged:\n\n"
+                "<table>"
+                "<tr><TH>Callsign:</TH><TD>%1</TD></TR>"
+                "<TR><TH>Freq:</TH><TD>%2</TD></TR>"
+                "<TR><TH>Mode:</TH><TD>%3</TD></TR>"
+                "<TR><TH>Time On:</TH><TD>%4</TD></TR>"
+                "<TR><TH>Time Off:</TH><TD>%5</TD></TR>"
+                "<TR><TH>RST TX:</TH><TD>%6</TD></TR>"
+                "<TR><TH>RST RX:</TH><TD>%7</TD></TR>"
+                "<TR><TH>Comment:</TH><TD>%8</TD></TR>"
+                "<TR><TH>DX-Grid:</TH><TD>%9</TD></TR>"
+                "<TR><TH>Local-Grid:</TH><TD>%10</TD></TR>"
+                "<TR><TH>Station Callsign:</TH><TD>%11</TD></TR>"
+             "<TR><TH>Operator Callsign:</TH><TD>%12</TD></TR></table></body></html>")
+            ).arg(
+                qsoM.getCall(), QString::number(qsoM.getFreqTX()),
+                qsoM.getSubmode(),
+                util->getADIFTimeFromQTime(qsoM.getTimeOn()),
+                util->getADIFTimeFromQTime(qsoM.getTimeOff()),
+                qsoM.getRSTTX(),
+                qsoM.getRSTRX(),
+                qsoM.getComment(),
+                qsoM.getGridSquare(),
+                qsoM.getMyGridSquare(),
+                qsoM.getStationCallsign(),
+                qsoM.getOperatorCallsign()
+            );
 
     msgBox.setText(aux);
     int ret = msgBox.exec();
@@ -5940,7 +5971,7 @@ void MainWindow::backupCurrentQSO()
 
     backupQSO->setKeepComment (commentTabWidget->getKeep ());
     backupQSO->setKeepOthers (othersTabWidget->getKeep ());
-    backupQSO->setKeepMyData (myDataTabWidget->getKeep ());   
+    backupQSO->setKeepMyData (myDataTabWidget->getKeep ());
     backupQSO->setKeepSatTab (satTabWidget->getKeep ());
    // qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -6100,13 +6131,6 @@ void MainWindow::slotTakeOverFocusToMainQSOInput()
     mainQSOEntryWidget->setFocus ();
     mainQSOEntryWidget->setFocusToOK ();
 }
-
-void MainWindow::slotCaptureDebugLogs(const QString &_func, const QString &_msg, DebugLogLevel _level)
-{
-    // qDebug() << Q_FUNC_INFO << _func << "/" << _msg << "/" << QString::number(_level);
-    logEvent(_func, _msg, _level);
-}
-
 
 void MainWindow::slotNewLogLevel(DebugLogLevel l)
 {
