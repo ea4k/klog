@@ -421,41 +421,6 @@ QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
     logEvent (Q_FUNC_INFO, "Start", Debug);
     int id = getBandIdFromFreq(_n);
     return bandIDs.key(id);
- /*
-    bool sqlOk = false;
-    QString queryString = QString("SELECT name FROM band WHERE lower <= :freq and upper >= :freq");
-
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":freq", _n);
-
-    sqlOk = query.exec();
-
-    if (sqlOk)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            QString b = (query.value(0)).toString();
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-1", Debug);
-            return b;
-        }
-        else
-        {
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-2", Debug);
-            return QString();
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        logEvent (Q_FUNC_INFO, "END-3", Debug);
-        return QString();
-    }
-    */
 }
 
 double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)

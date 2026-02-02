@@ -48,7 +48,7 @@ private slots:
     void test_toDouble();
     void test_toQString();
     void test_fromQString();
-
+    void test_operators();
 
 private:
     Frequency *freq;
@@ -154,6 +154,18 @@ void tst_Frequency::test_fromQString()
     freq->fromQString("Hola", KHz);
     QVERIFY2(!freq->isValid(), "Freq is Valid fails");
 }
+
+void tst_Frequency::test_operators()
+{
+    Frequency f1(21.295);
+    Frequency f2(14.295);
+    Frequency f11(21.295);
+    QVERIFY2(f1 > f2, "Freq Operator > fails");
+    QVERIFY2(f2 < f1, "Freq Operator < fails");
+    QVERIFY2(!(f1 > f11), "Freq Operator > fails when the same");
+    QVERIFY2(!(f1 < f11), "Freq Operator < fails when the same");
+}
+
 /*
 
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance

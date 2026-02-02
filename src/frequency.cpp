@@ -210,3 +210,13 @@ bool Frequency::operator!=(Frequency &other) const
 {
     return !(freq != other.toDouble());
 }
+
+bool Frequency::operator>(const Frequency &other) const
+{
+    return this->freq > other.freq;
+}
+
+bool Frequency::operator<(const Frequency &other) const
+{
+    return this->freq < other.freq;
+}

@@ -57,8 +57,10 @@ public:
     // qString band();                                           // Returns the band
     //int bandId();                                             // Returns the bandId
     bool isValid();
-    void operator=(Frequency const &_f2);                       // Redefinition of =
-    bool operator!=(Frequency &other) const;              // Redefinition of !=
+    void operator=(Frequency const &_f2);         // Redefinition of =
+    bool operator!=(Frequency &other) const;      // Redefinition of !=
+    bool operator>(const Frequency &other) const; // Redefinition of >
+    bool operator<(const Frequency &other) const; // Redefinition of <
 
 private:
     double normalize(const double _f, const FreqUnits _u = MHz);
