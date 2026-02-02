@@ -27,10 +27,13 @@
  *                                                                           *
  *****************************************************************************/
 
+#include <QDebug>
+#include <QMap>
 #include <QObject>
 #include <QTimer>
-#include <QMap>
-#include <QDebug>
+#include <QString>
+#include <QStringList>
+#include "frequency.h"
 //#include <QSerialPort>
 #include <QtSerialPort/QSerialPort>
 #include <hamlib/rig.h>
@@ -94,17 +97,26 @@ public:
 signals:
     void freqChanged(double newFreq);
     void modeChanged(QString newFreq);
+    void frequency(Frequency newfreq);
+    void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 public slots:
     void slotTimer();
 
 private:
+    void readFreq();
+    void cleanup();
+
     bool readRadioInternal(bool _forceRead);
     void fillRigsList();
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
     rmode_t mode2HamlibMode (const QString &_mode);
     bool errorManage(const QString &_func, const int _errorcode);
+
+    void logEvent(const QString &_func,
+                  const QString &_msg,
+                  DebugLogLevel _level);
     //rmode_t mode2HamlibMode(const QString &_m);
     QStringList strings;
     QTimer *timer;
@@ -128,20 +140,24 @@ private:
     //vfo_t vfo;              /* vfo selection */
     //int strength;           /* S-Meter level */
 
-    int bauds;                  // default 9600
-    int dataBits;               // default 8
-    int stopBits;               // default 1
-    QString flowControl;            // default QSerialPort::NoFLowControl
-    QString parity;                 // default QSerialPort::NoParity
+    int bauds;           // default 9600
+    int dataBits;        // default 8
+    int stopBits;        // default 1
+    QString flowControl; // default QSerialPort::NoFLowControl
+    QString parity;      // default QSerialPort::NoParity
     QString serialPort;
     QString networkAddress;
     int networkPort;
-    int pollInterval;           // Poll interval in mSecs
-    int errorCount;            // Number of times that the rig has returned an error since last time OK.
-    bool rigLaunched;
-    bool readOnlyMode;          // If true, KLog will not modify any parameter (freq/mode...) in the radio. KLog just will follow the radio.
+    int pollInterval; // Poll interval in mSecs
+    int errorCount;   // Number of times that the rig has returned an
+                      // error since last time OK.
+    bool connected;   // When we connect to the rig
+
+    bool readOnlyMode; // If true, KLog will not modify any parameter
+                       // (freq/mode...) in the radio.
+                       // KLog just will follow the radio.
     bool justEmitted;
-    bool reading;   // Just a semaphore to prevent several readings
+    bool reading; // Just a semaphore to prevent several readings
 };
 
 #endif // HAMLIBCLASS_H
