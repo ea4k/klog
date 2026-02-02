@@ -448,7 +448,7 @@ private:
     void updateQSLRecAndSent();
     //double checkFreqRanges(double _f);
     //void setRSTToMode(const QString &_m);
-
+    void setBandFromFreq(const double _fr);
 
     // CLUSTER
     void clusterSpotToLog(const QString &_call, Frequency _fr);

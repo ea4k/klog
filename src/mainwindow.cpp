@@ -488,7 +488,7 @@ void MainWindow::init()
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
        //qDebug() << Q_FUNC_INFO << " - 130";
 
-    applySettings ();    
+    applySettings ();
     //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -1079,7 +1079,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         //qDebug() << Q_FUNC_INFO << " -  Modifying! " ;
        needToSave = true;
        if(modifyingQSOid>0)
-       {           
+       {
            awards.setAwards();
            if (yearChangedDuringModification)
            {
@@ -1227,7 +1227,7 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
         else if (ret == QMessageBox::Cancel)
         {
             return -1;
-        }        
+        }
     }
 
     if (selected>0)
@@ -4407,7 +4407,7 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 }
 
 void MainWindow::qsoToEdit (const int _qso)
-{    
+{
 
    //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -4702,7 +4702,7 @@ void MainWindow::fillQSOData()
             nameCol = rec.indexOf("cont");
             if (( (query.value (nameCol)).toString()).length() < 2 )
             {
-                aux1 = world->getContinentShortName(_dxcc);     
+                aux1 = world->getContinentShortName(_dxcc);
                 updateString = updateString + ", cont='" + aux1 + "'";
                 toModify = true;
             }
@@ -5060,44 +5060,53 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainWindow::setBandFromFreq(const double _fr)
+{
+    QString _aux = dataProxy->getBandNameFromFreq (_fr);
+    if (_aux.length ()>0)
+    {
+        mainQSOEntryWidget->setBand(_aux);
+    }
+    else{
+        mainQSOEntryWidget->setBand(dataProxy->getNameFromBandId(defaultBand));
+    }
+}
+
 void MainWindow::clusterSpotToLog(const QString &_call, Frequency _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
-    QString _aux;
+
     double _freqN = _fr.toDouble(MHz);
      //qDebug() << Q_FUNC_INFO << " - calling setQRZ-2" ;
     mainQSOEntryWidget->setQRZ(_call);
     QSOTabWidget->setTXFreq (_freqN);
     QSOTabWidget->setRXFreq(_freqN);
+    setBandFromFreq (_freqN);
 
-    //freqQLCDNumber->display(_freqN);
+    //qDebug() << Q_FUNC_INFO << " - Freq: " << _aux ;
 
-    //_aux = QString::number(_freqN);
-
-          //qDebug() << Q_FUNC_INFO << " - Freq: " << _aux ;
-
-    int _bandi = dataProxy->getBandIdFromFreq(_freqN);
+    //int _bandi = dataProxy->getBandIdFromFreq(_freqN);
           //qDebug() << Q_FUNC_INFO << " - Bandi: " << QString::number(_bandi) ;
-    _aux = QString::number(_bandi);
-    _aux = QString("SELECT name FROM band WHERE id ='%1'").arg(_aux);
+    //_aux = QString::number(_bandi);
+    //_aux = QString("SELECT name FROM band WHERE id ='%1'").arg(_aux);
 
           //qDebug() << Q_FUNC_INFO << " - Band: " << _aux ;
 
-    QSqlQuery query(_aux);
-    query.next();
-    if (query.isValid())
-    {
-        _aux = (query.value (0)).toString();
-        mainQSOEntryWidget->setBand(_aux);
+    //QSqlQuery query(_aux);
+    //query.next();
+    //if (query.isValid())
+    //{
+    //    _aux = (query.value (0)).toString();
+    //    mainQSOEntryWidget->setBand(_aux);
         //bandComboBox->setCurrentIndex(bandComboBox->findText(_aux, Qt::MatchCaseSensitive));
-    }
-    else
-    {
-        mainQSOEntryWidget->setBand(dataProxy->getNameFromBandId(defaultBand));
+    //}
+    //else
+    //{
+    //    mainQSOEntryWidget->setBand(dataProxy->getNameFromBandId(defaultBand));
         //bandComboBox->setCurrentIndex(bandComboBox->findText(dataProxy->getNameFromBandId(defaultBand), Qt::MatchCaseSensitive));
         //bandComboBox->setCurrentIndex(defaultBand);
-    }
+    //}
       //qDebug() << Q_FUNC_INFO << " - END "  ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -5306,7 +5315,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
     QSOTabWidget->setRXFreq (_fr);
     satTabWidget->setDownLinkFreq(_fr);
     //qDebug() << Q_FUNC_INFO << " - END";
-    logEvent(Q_FUNC_INFO, "END", Debug);    
+    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotFreqTXChangedFromSat(const double _fr)
@@ -5347,6 +5356,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     {
         hamlib->setFreq(_fr);
     }
+    setBandFromFreq (_fr);
     mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5364,7 +5374,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
 
 
     void MainWindow::slotQSOReceived(const QSO &_qso)
-{    
+{
     //qDebug() <<  Q_FUNC_INFO << " - Start";
     //logEvent(Q_FUNC_INFO, "Start", Debug);
 
@@ -5743,7 +5753,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
-      //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
+    qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (manualMode)
     {
@@ -5753,19 +5763,20 @@ void MainWindow::slotHamlibTXFreqChanged(const double _f)
     {
         if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
         {
-      //qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+            qDebug() << Q_FUNC_INFO << " - Updating the freq... " ;
             QSOTabWidget->setTXFreq (_f);
+            // ea4k Revisar si es en la misma banda y si no, actualizar.
         }
         else
         {
-     //qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not updating Freq" ;
+            qDebug() << Q_FUNC_INFO << " - Not updating Freq" ;
         }
     }
     else
     {
-          //qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not Up&Running" ;
+        qDebug() << Q_FUNC_INFO << " - Not Up&Running" ;
     }
-      //qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " ;
+    qDebug() << Q_FUNC_INFO << " - END " ;
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -5874,7 +5885,7 @@ void MainWindow::backupCurrentQSO()
 
     backupQSO->setKeepComment (commentTabWidget->getKeep ());
     backupQSO->setKeepOthers (othersTabWidget->getKeep ());
-    backupQSO->setKeepMyData (myDataTabWidget->getKeep ());   
+    backupQSO->setKeepMyData (myDataTabWidget->getKeep ());
     backupQSO->setKeepSatTab (satTabWidget->getKeep ());
    //qDebug() << Q_FUNC_INFO << ": Callsign: " << backupQSO->getCall();
     logEvent(Q_FUNC_INFO, "END", Debug);

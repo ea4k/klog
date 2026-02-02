@@ -62,6 +62,7 @@ void HamLibClass::initClass()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     strings.clear();
     fillRigsList();
+    rig_set_debug (RIG_DEBUG_NONE);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(slotTimer()));
     clean();
@@ -134,13 +135,14 @@ void HamLibClass::readFreq()
     // 1. Read freq
     ret = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
     if (ret == RIG_OK) {
-        Frequency freqToEmit((double) freq);
-        if (freqToEmit.isValid()) {
+        //Frequency freqToEmit((double) freq);
+        //if (freqToEmit.isValid()) {
             // qDebug() << Q_FUNC_INFO << " - freqToEmit valid!";
-            emit frequency(freqToEmit);
-        } else {
+        //    emit frequency(freqToEmit);
+             emit freqChanged(freq/1000000);
+        //} else {
             // qDebug() << Q_FUNC_INFO << " - freqToEmit not valid!";
-        }
+        //}
 
     } else {
         // We should disconnect if there are several continuous errors
@@ -782,7 +784,7 @@ void HamLibClass::setDataBits(const int _data)
 void HamLibClass::setStop(const QString &_stop)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //// qDebug() << Q_FUNC_INFO << ": " << _stop;
+    // qDebug() << Q_FUNC_INFO << ": " << _stop;
 
     if (_stop == "OneStop")
     {
