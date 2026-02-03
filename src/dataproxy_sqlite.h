@@ -36,6 +36,7 @@
 
 #include "global.h"
 #include "database.h"
+#include "database/datacache.h"
 #include "frequency.h"
 #include "qso.h"
 #include "utilities.h"
