@@ -36,7 +36,7 @@ TEMPLATE = app
 # Version shown in the UI, it shows the package information, format: 2.4.2-RC2(-RC2 only in RC releases)
 PKGVERSION = 2.4.2
 # Version used for calculation, no RC versios, format "2.4.2"
-VERSION    = 2.4.2      
+VERSION    = 2.4.2
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 DEFINES += APP_PKGVERSION=\\\"$$PKGVERSION\\\"
@@ -101,6 +101,7 @@ HEADERS += setupdialog.h \
     charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h \
     database.h \
+    database/datacache.h \
     database/db_adif_primary_subdvisions_data.h \
     database/queryexecutor.h \
     dataproxy_sqlite.h \
@@ -185,6 +186,7 @@ SOURCES += main.cpp \
     awardswidget.cpp \
     callsign.cpp \
     charts/statsfieldperbandwidget.cpp \
+    database/datacache.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \
     dxcluster/dxspot.cpp \
@@ -227,7 +229,7 @@ SOURCES += main.cpp \
     fileawardmanager.cpp \
     database.cpp \
     dataproxy_sqlite.cpp \
-    downloadcty.cpp \    
+    downloadcty.cpp \
     locator.cpp \
     qso.cpp \
     awards.cpp \
