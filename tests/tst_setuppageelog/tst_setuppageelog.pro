@@ -12,6 +12,7 @@ TEMPLATE = app
 HEADERS += \
     ../../src/klogdefinitions.h \
     ../../src/utilities.h \
+    ../../src/database/datacache.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/database.h \
     ../../src/database/queryexecutor.h \
@@ -27,6 +28,7 @@ HEADERS += \
 
 SOURCES +=  tst_setuppageelog.cpp \
     ../../src/utilities.cpp \
+    ../../src/database/datacache.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/database.cpp \
     ../../src/database/queryexecutor.cpp \

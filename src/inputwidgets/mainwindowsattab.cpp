@@ -513,7 +513,7 @@ void MainWindowSatTab::slotSatBandRXComboBoxChanged()
     { // If the freq does not belong to the current band, we need to update the band
        // qDebug() << Q_FUNC_INFO << " changing to: Band: " << satBandTXComboBox->currentText() ;
         // qDebug() << Q_FUNC_INFO << " changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
-        setNoSat ();
+        setNoSat();
         updateRXFreq(dataProxy->getLowLimitBandFromBandName(satBandRXComboBox->currentText()));
     }
 
@@ -612,7 +612,7 @@ void MainWindowSatTab::setUpLink(const QString &_t)
     // qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainWindowSatTab::setUpLinkFreq(const double _t)
+void MainWindowSatTab::setUpLinkFreq(const Frequency _t)
 {
    // qDebug() << Q_FUNC_INFO << ": " << QString::number(_t);
     if ((!updatingSat) && (!qsoToEditInProcess))
@@ -625,20 +625,17 @@ void MainWindowSatTab::setUpLinkFreq(const double _t)
    // qDebug() << Q_FUNC_INFO << "END";
 }
 
-double MainWindowSatTab::getRXFreq()
+Frequency MainWindowSatTab::getRXFreq()
 {
     // qDebug() << Q_FUNC_INFO << " - Start" ;
     return freqRX;
 }
 
-void MainWindowSatTab::setDownLinkFreq(const double _t)
+void MainWindowSatTab::setDownLinkFreq(const Frequency _t)
 {
     // qDebug() << Q_FUNC_INFO << ": " << QString::number(_t);
-    if (util->isSameFreq (freqRX, _t))
-    {
-        // qDebug() << Q_FUNC_INFO << " - Is same freq";
+    if (freqRX == _t)
         return;
-    }
 
     updateRXFreq(_t);
     QString downLinkBand = dataProxy->getBandNameFromFreq(freqRX);
@@ -652,85 +649,74 @@ void MainWindowSatTab::setDownLinkFreq(const double _t)
    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainWindowSatTab::updateRXFreq(const double _f)
+void MainWindowSatTab::updateRXFreq(const Frequency _f)
 {
    // qDebug() << Q_FUNC_INFO << QString::number(_f);
+   if (freqRX == _f)
+       return;
+   freqRX = _f;
 
-    if (util->isSameFreq (freqRX, _f))
-    {
-       // qDebug() << Q_FUNC_INFO << " - END-1";
-        return;
-    }
-    freqRX = _f;
-
-    if (modifying)
-    {
+   if (modifying) {
        // qDebug() << Q_FUNC_INFO << " - END-2";
         return;
-    }
+   }
 
-
-    int bandId = dataProxy->getBandIdFromFreq(freqRX);
-    if (bandId>=1)
-    { //This prevent that a non-hamradio frequency is used on TX
-       // qDebug() << Q_FUNC_INFO << " - Freq IS in ham band";
-        bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(), Frequency(freqRX));
-        if(!freqInBand)
-        { // If the freq does not belong to the current band, we need to update the band
-           // qDebug() << Q_FUNC_INFO << " - Freq in current band";
-            QString aux;
-            aux = dataProxy->getBandNameFromFreq(freqRX);
-            if (satBandRXComboBox->findText(aux, Qt::MatchCaseSensitive)<0)
-            {
-                addNewBand(aux);
-            }
-            //addNewBand(const QString &_p)
-            satBandRXComboBox->setCurrentIndex(satBandRXComboBox->findText(aux, Qt::MatchCaseSensitive));
-        }
-    }
+   int bandId = dataProxy->getBandIdFromFreq(freqRX);
+   if (bandId >= 1) { //This prevent that a non-hamradio frequency is used on TX
+                      // qDebug() << Q_FUNC_INFO << " - Freq IS in ham band";
+       bool freqInBand = dataProxy->isThisFreqInBand(satBandRXComboBox->currentText(),
+                                                     Frequency(freqRX));
+       if (!freqInBand) { // If the freq does not belong to the current band, we need to update the band
+                          // qDebug() << Q_FUNC_INFO << " - Freq in current band";
+           QString aux;
+           aux = dataProxy->getBandNameFromFreq(freqRX);
+           if (satBandRXComboBox->findText(aux, Qt::MatchCaseSensitive) < 0) {
+               addNewBand(aux);
+           }
+           //addNewBand(const QString &_p)
+           satBandRXComboBox->setCurrentIndex(
+               satBandRXComboBox->findText(aux, Qt::MatchCaseSensitive));
+       }
+   }
     emit satRxFreqChanged(freqRX);
    // qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MainWindowSatTab::updateTXFreq(const double _f)
+void MainWindowSatTab::updateTXFreq(const Frequency _f)
 {
     // qDebug() << Q_FUNC_INFO << QString::number(_f);
-        // user changes TX Freq
-        // If band is real and band is configured, bandcombo is selected
-        // If band is real and not configured, we launch the band config and select the band.
-        // if band is real emit the band
-        if (util->isSameFreq (freqTX, _f))
-        {
-            // qDebug() << Q_FUNC_INFO << " - END-1";
-            return;
-        }
-        freqTX = _f;
+    // user changes TX Freq
+    // If band is real and band is configured, bandcombo is selected
+    // If band is real and not configured, we launch the band config and select the band.
+    // if band is real emit the band
+    if (freqTX == _f)
+        return;
 
-        if (modifying)
-        {
-            // qDebug() << Q_FUNC_INFO << " - END-2";
-            return;
-        }
+    freqTX = _f;
 
-        int bandId = dataProxy->getBandIdFromFreq(freqTX);
-        if (bandId>=1)
-        { //This prevent that a non-hamradio frequency is used on TX
-            bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(), Frequency(freqTX));
-            if(!freqInBand)
-            { // If the freq does not belong to the current band, we need to update the band
-                // qDebug() << Q_FUNC_INFO << ": If the freq does not belong to the current band, we need to update the band";
-                // qDebug() << Q_FUNC_INFO << ": We define UpLink to: " << dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
-                QString aux = dataProxy->getBandNameFromFreq(freqTX);
-                // qDebug() << Q_FUNC_INFO << QString("FreqTx = %1 / Band = %2").arg(freqTX).arg(aux);
-                if (satBandTXComboBox->findText(aux, Qt::MatchCaseSensitive)<0)
-                {
-                    addNewBand(aux);
-                }
-                satBandTXComboBox->setCurrentIndex(satBandTXComboBox->findText(aux, Qt::MatchCaseSensitive));
-                //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
+    if (modifying) {
+        // qDebug() << Q_FUNC_INFO << " - END-2";
+        return;
+    }
+
+    int bandId = dataProxy->getBandIdFromFreq(freqTX);
+    if (bandId >= 1) { //This prevent that a non-hamradio frequency is used on TX
+        bool freqInBand = dataProxy->isThisFreqInBand(satBandTXComboBox->currentText(),
+                                                      Frequency(freqTX));
+        if (!freqInBand) { // If the freq does not belong to the current band, we need to update the band
+            // qDebug() << Q_FUNC_INFO << ": If the freq does not belong to the current band, we need to update the band";
+            // qDebug() << Q_FUNC_INFO << ": We define UpLink to: " << dataProxy->getBandNameFromFreq(txFreqSpinBox->value());
+            QString aux = dataProxy->getBandNameFromFreq(freqTX);
+            // qDebug() << Q_FUNC_INFO << QString("FreqTx = %1 / Band = %2").arg(freqTX).arg(aux);
+            if (satBandTXComboBox->findText(aux, Qt::MatchCaseSensitive) < 0) {
+                addNewBand(aux);
             }
-        //autofillSatMode();
+            satBandTXComboBox->setCurrentIndex(
+                satBandTXComboBox->findText(aux, Qt::MatchCaseSensitive));
+            //setUpLinkFreq(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText()));
         }
+        //autofillSatMode();
+    }
 
         // qDebug() << Q_FUNC_INFO << QString::number(freqTX);
         emit satTxFreqChanged(freqTX);

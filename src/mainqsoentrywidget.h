@@ -29,8 +29,9 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "dataproxy_sqlite.h"
-#include "utilities.h"
+#include "frequency.h"
 #include "qso.h"
+#include "utilities.h"
 
 class MainQSOEntryWidget : public QWidget
 {
@@ -44,7 +45,7 @@ public:
     void setModes(const QStringList &_modes);
 
     bool setBand(const QString &_band);
-    bool setFreq(const double _f, bool isRX = false);
+    bool setFreq(const Frequency _f, bool isRX = false);
 
     bool setMode(const QString &_mode);
     bool setQRZ(const QString &_qrz);
@@ -131,7 +132,7 @@ private:
     void checkIfDupe(const QString &_func);
     void setDateAndTimeInternally();
     bool updateBandComboBox(const QString &_band); // If a new band arrives, we add it if possible to KLog
-    bool newBandNeededForFreq(const double _f);
+    bool newBandNeededForFreq(const Frequency _f);
     DataProxy_SQLite *dataProxy;
     QGroupBox *qrzgroupBox;//, *searchgroupBox;
     QLineEdit *qrzLineEdit;
@@ -164,7 +165,7 @@ private:
     int duplicatedQSOSlotInSecs;
     QTimer *delayInputTimer;
     QString lastQrz;
-    double freqTX, freqRX, bottomBandLimit, upperBandLimit;
+    Frequency freqTX, freqRX, bottomBandLimit, upperBandLimit;
     DebugLogLevel logLevel;
     bool modifyingBands;
     bool fillingQSO;        // TRUE just when a QSO is being written in the UI from a qsoToEdit

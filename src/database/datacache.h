@@ -29,19 +29,20 @@
     This class implements Cache of data to prevent querying the database
 
 */
-#include <QString>
 #include <QHash>
+#include <QString>
+#include "../frequency.h"
 
 struct BandEntry {
-    QString name;
-    double minFreq; // Store in Hz consistently
-    double maxFreq;
     int id;
+    QString name;
+    Frequency minFreq;
+    Frequency maxFreq;
+    //double minFreq; // Store in MHz consistently
+    //double maxFreq; // Store in MHz consistently
 
     // Helper to check inclusion
-    bool contains(double freq) const {
-        return (freq >= minFreq && freq <= maxFreq);
-    }
+    bool contains(Frequency freq) const { return (freq >= minFreq && freq <= maxFreq); }
     // Helper to handle "Not Found" state
     bool isValid() const { return !name.isEmpty(); }
 };
@@ -53,14 +54,13 @@ public:
     ~DataCache();
 
     // 1. Add Data (Call this when loading from DB)
-    void addBand(int id, const QString& name, double min, double max);
+    void addBand(int id, const QString &name, Frequency min, Frequency max);
     bool isBandListOK() const;
 
     // 2. Lookup by Frequency (Returns ID + Name via the struct)
-    BandEntry getBandFromFreq(double freq) const;
+    BandEntry getBandFromFreq(Frequency freq) const;
     BandEntry getBandFromName(const QString &name) const;
     BandEntry getBandFromId(int id) const;
-
 
 private:
     QList<BandEntry> bandList;

@@ -194,27 +194,50 @@ int Frequency::bandId()
 }
 */
 
-bool Frequency::isValid()
+bool Frequency::isValid() const
 {
     return (freq>0.0);
 }
 
-void Frequency::operator=(Frequency const &_f2)
+Frequency &Frequency::operator=(const Frequency &other)
 {
-    freq = _f2.freq;
+    // Standard self-assignment check (optimization)
+    if (this != &other) {
+        freq = other.freq;
+    }
+    return *this; // Return reference to self
 }
 
-bool Frequency::operator!=(Frequency &other) const
+bool Frequency::operator==(const Frequency &other) const
 {
-    return !(freq != other.toDouble());
+    // Perfect use of qFuzzyCompare for doubles
+    return qFuzzyCompare(freq, other.freq);
+}
+
+bool Frequency::operator!=(const Frequency &other) const
+{
+    // Reuse the == operator logic
+    return !(*this == other);
 }
 
 bool Frequency::operator>(const Frequency &other) const
 {
-    return this->freq > other.freq;
+    return freq > other.freq;
 }
 
 bool Frequency::operator<(const Frequency &other) const
 {
-    return this->freq < other.freq;
+    return freq < other.freq;
+}
+
+bool Frequency::operator>=(const Frequency &other) const
+{
+    // Fuzzy compare is important here too because 10.0 might be stored as 9.99999999
+    // So we check if it is greater OR fuzzy-equal
+    return (freq > other.freq) || qFuzzyCompare(freq, other.freq);
+}
+
+bool Frequency::operator<=(const Frequency &other) const
+{
+    return (freq < other.freq) || qFuzzyCompare(freq, other.freq);
 }

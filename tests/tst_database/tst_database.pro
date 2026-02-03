@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/database.h \
+    ../../src/database/datacache.h \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/global.h \
@@ -31,6 +32,7 @@ SOURCES +=  tst_database.cpp \
         ../../src/locator.cpp \
         ../../src/utilities.cpp \
         ../../src/world.cpp \
+        ../../src/database/datacache.cpp \
         ../../src/dataproxy_sqlite.cpp \
         ../../src/qso.cpp \
         ../../src/qsodatacache.cpp \

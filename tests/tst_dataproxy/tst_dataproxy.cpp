@@ -26,6 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
+#include "../../src/database/datacache.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/utilities.h"
 /*
@@ -201,8 +202,9 @@ void tst_DataProxy::test_bands()
     QVERIFY2(dataProxy->isUHF (dataProxy->getBandIdFromFreq (432.300)), "UHF not identified");
     QVERIFY2(!dataProxy->isUHF (dataProxy->getBandIdFromFreq (14.300)), "UHF not identified");
 
-    QVERIFY2(dataProxy->isThisFreqInBand ("80M", 3.775), "Freq in band failed");
-    QVERIFY2(!dataProxy->isThisFreqInBand ("80M", 28.775), "Freq in band failed");
+    Frequency f1(3.775);
+    QVERIFY2(dataProxy->isThisFreqInBand("80M", f1), "Freq in band failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("20M", f1), "Freq in band failed");
 
     QVERIFY2(dataProxy->getNameFromBandId (dataProxy->getIdFromBandName ("20M")) == "20M", "Band names and Id failed");
 }

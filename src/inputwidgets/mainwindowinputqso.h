@@ -33,8 +33,9 @@
 #include <QtWidgets>
 #include "../dataproxy_sqlite.h"
 //#include "../locator.h"
-#include "../utilities.h"
+#include "../frequency.h"
 #include "../qso.h"
+#include "../utilities.h"
 
 class MainWindowInputQSO : public QWidget
 {
@@ -65,11 +66,11 @@ public:
     QString getRSTRX();
     void setRSTRX(const QString &_st);
 
-    double getTXFreq();
-    void setTXFreq(const double _ft);
+    Frequency getTXFreq();
+    void setTXFreq(const Frequency &_ft);
 
-    double getRXFreq();
-    void setRXFreq(const double _ft);
+    Frequency getRXFreq();
+    void setRXFreq(const Frequency &_ft);
 
     void setPropModeFromSat(const QString &_p);
 
@@ -91,18 +92,18 @@ public:
 signals:
     void returnPressed();
     void dxLocatorChanged(QString _loc);
-    void rxFreqChanged(double _f);
+    void rxFreqChanged(Frequency _f);
     //void rxFreqChangedForSat(double _f);
     //void txFreqBeingChanged(bool _f);
-    void txFreqChanged(double _f);
+    void txFreqChanged(Frequency _f);
     void handOverFocusSignal();
     //void txFreqChangedForSat(double _f);
 
 private slots:
     void slotReturnPressed();
     void slotLocatorTextChanged();
-    void slotFreqTXChanged (double _f);
-    void slotFreqRXChanged (double _f);
+    void slotFreqTXChanged(Frequency _f);
+    void slotFreqRXChanged(Frequency _f);
     void slotSplitClicked();
     //void slotPaletteChanged(QPalette _p);
 
@@ -111,7 +112,7 @@ private:
     void createUI();
     void setDefaultData();
     bool getDarkMode();
-    void setSplitCheckBox();
+    //oid setSplitCheckBox();
     void readDarkMode();
 
 
@@ -128,7 +129,7 @@ private:
 
     bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
     QString propMode;
-    double freqTX, freqRX;
+    Frequency freqTX, freqRX;
     bool modify, completedWithPreviousName, completedWithPreviousQTH, completedWithPreviousLocator;
     bool darkMode;
      bool fillingQSO;        // TRUE just when a QSO is being written in the UI from a qsoToEdit

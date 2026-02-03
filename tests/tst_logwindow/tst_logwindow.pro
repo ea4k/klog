@@ -19,6 +19,7 @@ HEADERS += \
     ../../src/adif.h \
     ../../src/awarddxmarathon.h \
     ../../src/callsign.h \
+    ../../src/database/datacache.h \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/frequency.h \
@@ -38,6 +39,7 @@ SOURCES += tst_logwindow.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \
     ../../src/callsign.cpp \
+    ../../src/database/datacache.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/frequency.cpp \

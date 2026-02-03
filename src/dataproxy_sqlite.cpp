@@ -71,17 +71,16 @@ DataProxy_SQLite::~DataProxy_SQLite()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //delete(util);
-    delete(qso);
+		delete(qso);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
 bool DataProxy_SQLite::createHashes()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    bandIDs.clear();
-    bandIDs = db->getHashTableData(BandData);
-    if (bandIDs.isEmpty())
-        return false;
+		loadBandDataCache();
+
+
     modeIDs.clear();
     modeIDs = db->getHashTableData(ModeData);
     if (modeIDs.isEmpty())
@@ -89,6 +88,24 @@ bool DataProxy_SQLite::createHashes()
     mapModeNameSubmode();
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
+}
+
+void DataProxy_SQLite::loadBandDataCache()
+{
+	QSqlQuery query("SELECT id, name, lower, upper FROM band");
+	Frequency fmin;
+	Frequency fmax;
+
+			while (query.next()) {
+					fmin.fromDouble(query.value(2).toDouble(), MHz);
+					fmax.fromDouble(query.value(3).toDouble(), MHz);
+					m_cache.addBand(
+							query.value(0).toInt(),    // The existing BandID
+							query.value(1).toString(), // Name
+							fmin, // Min
+							fmax  // Max
+					);
+			}
 }
 
 QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
@@ -306,27 +323,13 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_bandName.length()<1)
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return -4;
-    }
-    logEvent (Q_FUNC_INFO, "END", Debug);
-    return bandIDs.value(_bandName, -5);
-    //return db->getBandIdFromName(_bandName);
+		return m_cache.getBandFromName(_bandName).id;
 }
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 { //TODO: Use the hash
     logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    // QHash::key(_id) performs a linear search to find the key (Name)
-    // associated with the value (ID). If not found, it returns an empty QString.
-    // Since the number of bands is small, this O(N) operation is very fast.
-    QString name = bandIDs.key(_id);
-
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return name;
+		return m_cache.getBandFromId(_id).name;
 }
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
@@ -396,7 +399,6 @@ Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
 int DataProxy_SQLite::getBandIdFromFreq(const Frequency _n)
 {
     // Replaced the heavy SQL query with a fast in-memory lookup.
-
     logEvent (Q_FUNC_INFO, "Start", Debug);
     Frequency f(_n);
     double _tmp = f.toDouble();
@@ -416,154 +418,28 @@ int DataProxy_SQLite::getBandIdFromFreq(const Frequency _n)
     return -1;
 }
 
-QString DataProxy_SQLite::getBandNameFromFreq(const double _n)
+QString DataProxy_SQLite::getBandNameFromFreq(const Frequency _n)
+{
+    logEvent (Q_FUNC_INFO, "Start", Debug);		
+		return m_cache.getBandFromFreq(_n).name;
+}
+
+Frequency DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    int id = getBandIdFromFreq(_n);
-    return bandIDs.key(id);
+		return m_cache.getBandFromName(_sm).minFreq;
 }
 
-double DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
+Frequency DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
 {
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_sm.length ()<2)
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return -1.0;
-    }
-
-    QString queryString = QString("SELECT lower FROM band WHERE name= :sm OR name= :name");
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":sm", _sm);
-    query.bindValue(":name", _sm.toUpper());
-
-    bool sqlOK = query.exec();
-
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            double fr = (query.value(0)).toDouble();
-            query.finish();
-            if ( fr < 0 )
-            {
-                logEvent (Q_FUNC_INFO, "END-2", Debug);
-                return -1.0;
-            }
-            else
-            {
-                // qDebug() << Q_FUNC_INFO << " -(value found): " << QString::number(fr);
-                logEvent (Q_FUNC_INFO, "END-2", Debug);
-                return fr;
-            }
-        }
-        else
-        {
-            // qDebug() << Q_FUNC_INFO << " - -1.0-2";
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-3", Debug);
-            return -1.0;
-        }
-        // qDebug() << Q_FUNC_INFO << " - -1.0-3";
-    }
-    else
-    {
-        // qDebug() << Q_FUNC_INFO << " - SQL Error";
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        logEvent (Q_FUNC_INFO, "END-4", Debug);
-        return -1.0;
-    }
+	logEvent (Q_FUNC_INFO, "Start", Debug);
+	return m_cache.getBandFromId(_sm).minFreq;
 }
 
-double DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
-{
-         // qDebug() << Q_FUNC_INFO << " - Start";
-    QString queryString = QString("SELECT lower FROM band WHERE id= :sm");
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":sm", _sm);
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            if ( (query.value(1)).toDouble()<0 )
-            {
-                     // qDebug() << Q_FUNC_INFO << " -1.0-1";
-                query.finish();
-                return -1.0;
-            }
-            else
-            {
-                     // qDebug() << Q_FUNC_INFO << " - " << QString::number((query.value(0)).toDouble());
-                double v = (query.value(0)).toDouble();
-                query.finish();
-                return v;
-            }
-        }
-        else
-        {
-            // qDebug() << Q_FUNC_INFO << "  -1.0-2";
-            query.finish();
-            return -1.0;
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return -1.0;
-    }
-}
-
-double DataProxy_SQLite::getUpperLimitBandFromBandName(const QString &_sm)
+Frequency DataProxy_SQLite::getUpperLimitBandFromBandName(const QString &_sm)
 {
     // qDebug() << Q_FUNC_INFO << ": " << _sm;
-    if (_sm.length ()<2)
-    {
-        return -1.0;
-    }
-    QSqlQuery query;
-    QString queryString = QString("SELECT upper FROM band WHERE name='%1' OR name='%2'").arg(_sm).arg(_sm.toUpper());
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            if ( (query.value(0)).toDouble()<0 )
-            {
-                // qDebug() << Q_FUNC_INFO << ": -1.0-1";
-                query.finish();
-                return -1.0;
-            }
-            else
-            {
-                // qDebug() << Q_FUNC_INFO << ": (else): " << QString::number((query.value(0)).toDouble());
-                double v = (query.value(0)).toDouble();
-                query.finish();
-                return v;
-            }
-        }
-        else
-        {
-            // qDebug() << Q_FUNC_INFO << ": -1.0-2";
-            query.finish();
-            return -1.0;
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        return -1.0;
-    }
+		return m_cache.getBandFromName(_sm).maxFreq;
 }
 
 bool DataProxy_SQLite::loadBandLimits()
@@ -607,12 +483,9 @@ bool DataProxy_SQLite::loadBandLimits()
 
 bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const Frequency _fr)
 {
-    int bandNf = getBandIdFromFreq(_fr);
-    int bandN = bandIDs.value(_band);
-    Frequency fTemp (_fr);
-	// qDebug() << Q_FUNC_INFO << " - Band: " << _band << " / freq: " << fTemp.toDouble() << " - " << util->boolToQString(bandNf == bandN);
-
-    return (bandNf == bandN);
+	qDebug() << Q_FUNC_INFO << " - Band: " << _band;
+	qDebug() << Q_FUNC_INFO << " - BandC: " << m_cache.getBandFromFreq(_fr).name;
+	return (m_cache.getBandFromFreq(_fr).name == _band );
 }
 
 QStringList DataProxy_SQLite::getFields()
@@ -685,7 +558,7 @@ QStringList DataProxy_SQLite::getModes()
 }
 
 QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
-{
+{//TODO: Check if is working well or can be optimized
     //Receives a list of band names, sorts it from the lower band to the upper band and returns
       // qDebug() << Q_FUNC_INFO << " - " << QString::number(_qs.length());
     if (_qs.length()<2)
@@ -701,7 +574,7 @@ QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)
 
     for (int j=0; j<_qs.count(); j++)
     {
-        map.insert(getLowLimitBandFromBandName(_qs.at(j)), _qs.at(j));
+				map.insert(getLowLimitBandFromBandName(_qs.at(j)).toDouble(), _qs.at(j));
     }
       // qDebug() << Q_FUNC_INFO << " : 10";
     QMap<double, QString>::const_iterator i = map.constBegin();
@@ -741,7 +614,7 @@ QStringList DataProxy_SQLite::sortBandIdBottonUp(const QStringList _qs)
 
     for (int j=0; j<_qs.count(); j++)
     {
-        map.insert(getLowLimitBandFromBandId(_qs.at(j).toInt()), _qs.at(j));
+				map.insert(getLowLimitBandFromBandId(_qs.at(j).toInt()).toDouble(), _qs.at(j));
     }
 
     QMap<double, QString>::const_iterator i = map.constBegin();

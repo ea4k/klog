@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/mainqsoentrywidget.h \
+    ../../src/database/datacache.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/frequency.h \
     ../../src/utilities.h \
@@ -26,6 +27,7 @@ HEADERS += \
 
 SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/mainqsoentrywidget.cpp \
+    ../../src/database/datacache.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/frequency.cpp \
     ../../src/utilities.cpp \

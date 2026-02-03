@@ -300,8 +300,8 @@ private slots:
     void slotDefineNewBands (const QStringList _bands);
 
     //HAMLIB
-    void slotHamlibTXFreqChanged(const double _f);
     void slotHamlibTXFreqChanged(const Frequency _f);
+    //void slotHamlibRXFreqChanged(const Frequency _f);
     void slotHamlibModeChanged(const QString &_m);
     //void slotHamlibModeNotADIF();
 

@@ -56,7 +56,7 @@ public:
 
 
     QString getSatMode();
-    double getRXFreq();
+    Frequency getRXFreq();
     //double getTXFreq();
     void setSatMode(const QString &_t);
 
@@ -66,8 +66,8 @@ public:
     void addBands(QStringList _bands);
     void setDefaultBands(); //Defines the default bands for SAT communications: 10m/2m/70cm/23CM only if they exist in the selected bands
 
-    void setUpLinkFreq(const double _t);
-    void setDownLinkFreq(const double _t);
+    void setUpLinkFreq(const Frequency _t);
+    void setDownLinkFreq(const Frequency _t);
     //void updateTXFreq(const double _f);
     //void updateRXFreq(const double _f);
 
@@ -85,10 +85,10 @@ signals:
     //void satBandTXChanged(const QString &_p);
     //void satBandRXChanged(const QString &_p);
     void newBandsToBeAdded(const QStringList _p);
-    void satTxFreqChanged(const double _p);
-    void satRxFreqChanged(const double _p);
-    void satTXFreqNeeded(const double _p);
-    void satRXFreqNeeded(const double _p);
+    void satTxFreqChanged(const Frequency _p);
+    void satRxFreqChanged(const Frequency _p);
+    void satTXFreqNeeded(const Frequency _p);
+    void satRXFreqNeeded(const Frequency _p);
     //void dxLocatorChanged(const QString &_p);
     void returnPressed();
 
@@ -113,8 +113,8 @@ private:
     void addNewBand(const QString &_p);
     void setUpLink(const QString &_t);
     QString bandToLetter(const QString &_band);
-    void updateTXFreq(const double _f);
-    void updateRXFreq(const double _f);
+    void updateTXFreq(const Frequency _f);
+    void updateRXFreq(const Frequency _f);
     void autofillSatMode();
 
 
@@ -137,7 +137,7 @@ private:
     DataProxy_SQLite *dataProxy;
 
     Utilities *util;
-    double freqTX, freqRX;
+    Frequency freqTX, freqRX;
 
     int downLinkBandId, upLinkBandId;
     QString downLinkBand, upLinkBand;

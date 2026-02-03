@@ -88,7 +88,9 @@ public:
     bool isValidBand(const QString& _bandName);
 
     //int getModeIdFromSubModeId(const int _sm);
-    bool createHashes();                        // Creates a list of hashes for quick search (band/id & mode/id)
+    // CACHE & HASH functios
+    bool createHashes();      // Creates a list of hashes for quick search (band/id & mode/id)
+    void loadBandDataCache(); // Creates the bands cache
 
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
@@ -102,7 +104,7 @@ public:
     int getMostUsedMode(const int _log);
 
     QString getNameFromBandId (const int _id);
-    QString getNameFromModeId (const int _id);
+    KLOG_DEPRECATED QString getNameFromModeId(const int _id); // datacache
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
@@ -111,12 +113,11 @@ public:
 
     Frequency getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const Frequency _n);
-    QString getBandNameFromFreq(const double _n);
+    QString getBandNameFromFreq(const Frequency _n);
 
-
-    double getLowLimitBandFromBandName(const QString &_sm);
-    double getLowLimitBandFromBandId(const int _sm);
-    double getUpperLimitBandFromBandName(const QString &_sm);
+    Frequency getLowLimitBandFromBandName(const QString &_sm);
+    Frequency getLowLimitBandFromBandId(const int _sm);
+    Frequency getUpperLimitBandFromBandName(const QString &_sm);
     bool isThisFreqInBand(const QString &_band, const Frequency _fr);
 
     int getLastQSOid();
@@ -237,8 +238,6 @@ public:
     QStringList getLongPrefixes();
     QStringList getSpecialCallsigns();
     QHash<QString, int> getWorldData();
-
-
     bool getFreqHashData();
 
     QStringList getEntitiesNames(bool _dxccOnly = true);
@@ -390,10 +389,7 @@ private:
                                        const QDate &_endDate,
                                        const int _logN);
     QString getQueryJustModifiedString(const OnLineProvider &_provider, const bool _justModified);
-    //KLOG_DEPRECATED int getPrefixId(const QString &_qrz);           // TODO: Replace by int World::getPrefixId(const QString &_prefix)
-    // Refactored from fillEmptyDXCCInTheLog
-    //bool updateDXCCAndContinent(const int _id, const int _dxcc, const QString &_cont); // Refactored from fillEmptyDXCCInTheLog
-    // qString changeSlashAndFindPrefix(const QString &_qrz);
+
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     QSO *qso;
     bool searching;
@@ -403,16 +399,17 @@ private:
     QString pkgVersion;
 
     QList<BandLimits> m_bandLimits;         // List to store all band limits, populated once on startup
-    QHash<int, Frequency> freqBandIDHash;   // Stores the lower frequency for a band
-    QHash<QString, int> bandIDs;
-    QHash<QString, int> modeIDs;
+    KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash; // Move to DataCache
+    KLOG_DEPRECATED QHash<QString, int> bandIDs;          // Move to DataCache
+    KLOG_DEPRECATED QHash<QString, int> modeIDs;          // Move to DataCache
 
+    DataCache m_cache; // Bands cache
 
-    QHash<int, QString> modeIdToName;
-    QHash<QString, QList<int>> nameToModeIds;
+    KLOG_DEPRECATED QHash<int, QString> modeIdToName;         // Move to DataCache
+    KLOG_DEPRECATED QHash<QString, QList<int>> nameToModeIds; // Move to DataCache
 
-
-    QMultiHash<QString, QsoInfo> m_qsoCache;    // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
+    QMultiHash<QString, QsoInfo>
+        m_qsoCache; // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
     QString generateGroupingKey(const QString &call, int bandId, int modeId);
     void addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId);
 

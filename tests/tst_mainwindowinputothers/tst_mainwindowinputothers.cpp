@@ -25,10 +25,11 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QtTest>
 #include <QStringList>
-#include "../../src/inputwidgets/mainwindowinputothers.h"
+#include <QtTest>
+#include "../../src/database/datacache.h"
 #include "../../src/dataproxy_sqlite.h"
+#include "../../src/inputwidgets/mainwindowinputothers.h"
 #include "../../src/world.h"
 
 class tst_MainWindowInputOthers : public QObject

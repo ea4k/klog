@@ -10,6 +10,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/dataproxy_sqlite.h \
+    ../../src/database/datacache.h \
     ../../src/locator.h \
     ../../src/database.h \
     ../../src/database/queryexecutor.h \
@@ -23,6 +24,7 @@ HEADERS += \
     ../../src/utilities.h
 
 SOURCES +=  tst_dataproxy.cpp \
+        ../../src/database/datacache.cpp \
         ../../src/locator.cpp \
         ../../src/database.cpp \
         ../../src/database/queryexecutor.cpp \

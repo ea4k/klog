@@ -164,6 +164,17 @@ void tst_Frequency::test_operators()
     QVERIFY2(f2 < f1, "Freq Operator < fails");
     QVERIFY2(!(f1 > f11), "Freq Operator > fails when the same");
     QVERIFY2(!(f1 < f11), "Freq Operator < fails when the same");
+    QVERIFY2(f1 == f11, "Freq Operator == fails");
+    QVERIFY2(!(f1 != f11), "Freq Operator != fails");
+    QVERIFY2((f1 != f2), "Freq Operator != fails");
+
+    //void operator=(Frequency const &_f2);         // Redefinition of =
+    //bool operator!=(Frequency &other) const;      // Redefinition of !=
+    //bool operator>(const Frequency &other) const; // Redefinition of >
+    //bool operator<(const Frequency &other) const; // Redefinition of <
+    //bool operator>=(const Frequency &other) const; // Redefinition of >=
+    //bool operator<=(const Frequency &other) const; // Redefinition of <=
+    //bool operator==(const Frequency &other) const; // Redefinition of ==
 }
 
 /*

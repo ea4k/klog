@@ -56,11 +56,17 @@ public:
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
     // qString band();                                           // Returns the band
     //int bandId();                                             // Returns the bandId
-    bool isValid();
-    void operator=(Frequency const &_f2);         // Redefinition of =
-    bool operator!=(Frequency &other) const;      // Redefinition of !=
-    bool operator>(const Frequency &other) const; // Redefinition of >
-    bool operator<(const Frequency &other) const; // Redefinition of <
+    bool isValid() const;
+
+    Frequency &operator=(const Frequency &other); // Redefinition of =
+
+    // Comparison: Always pass by const reference (const Frequency &)
+    bool operator==(const Frequency &other) const; // Redefinition of ==
+    bool operator!=(const Frequency &other) const; // Redefinition of !=
+    bool operator>(const Frequency &other) const;  // Redefinition of >
+    bool operator<(const Frequency &other) const;  // Redefinition of <
+    bool operator>=(const Frequency &other) const; // Redefinition of >=
+    bool operator<=(const Frequency &other) const; // Redefinition of <=
 
 private:
     double normalize(const double _f, const FreqUnits _u = MHz) const;

@@ -10,6 +10,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/adif.h \
+    ../../src/database/datacache.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
@@ -27,6 +28,7 @@ HEADERS += \
 
 SOURCES +=  tst_filemanager.cpp \
     ../../src/adif.cpp \
+    ../../src/database/datacache.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \

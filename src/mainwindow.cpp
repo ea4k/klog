@@ -569,8 +569,8 @@ void MainWindow::connectDebugLogActions()
     connect(&qsoInUI, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
             this, SLOT(logLevel(QString, QString, DebugLogLevel)));
 
-    connect(&hamlib, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+		//connect(&hamlib, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+		//        this, SLOT(logLevel(QString, QString, DebugLogLevel)));
 
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
             this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
@@ -612,8 +612,8 @@ void MainWindow::createActionsCommon(){
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-    connect(QSOTabWidget, SIGNAL(rxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double) )) ;
-    connect(QSOTabWidget, SIGNAL(txFreqChanged(double)), this, SLOT(slotFreqTXChanged(double) )) ;
+		connect(QSOTabWidget, SIGNAL(rxFreqChanged(Frequency)), this, SLOT(slotFreqRXChanged(Frequency))) ;
+		connect(QSOTabWidget, SIGNAL(txFreqChanged(Frequency)), this, SLOT(slotFreqTXChanged(Frequency))) ;
     connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToMainQSOInput() ));
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
 
@@ -5808,63 +5808,19 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotHamlibTXFreqChanged(const double _f)
-{
-		qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
-		logEvent(Q_FUNC_INFO, "Start", Debug);
-		if (manualMode)
-		{
-				return;
-		}
-		if (upAndRunning)
-		{
-				if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
-				{
-					qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
-						QSOTabWidget->setTXFreq (_f);
-				}
-				else
-				{
-				qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not updating Freq" ;
-				}
-		}
-		else
-		{
-			qDebug() << "MainWindow::slotHamlibTXFreqChanged - Not Up&Running" ;
-		}
-		qDebug() << "MainWindow::slotHamlibTXFreqChanged - END " ;
-
-		logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
 {
-		qDebug() << Q_FUNC_INFO << " - f:  " << _f.toQString();
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    if (manualMode)
-    {
-        return;
-    }
-    if (upAndRunning)
-    {
-				Frequency fOld(QSOTabWidget->getTXFreq ());
-				if (_f != fOld)
-        {
-					qDebug() << Q_FUNC_INFO << " - f: Updating the freq... " ;
-					QSOTabWidget->setTXFreq (_f.toDouble());
-        }
-        else
-        {
-				qDebug() << Q_FUNC_INFO << " - f: Not updating Freq" ;
-        }
-    }
-    else
-    {
-			qDebug() << Q_FUNC_INFO << " - f: Not Up&Running" ;
-    }
-		qDebug() << Q_FUNC_INFO << " - f: END";
+		qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
+		logEvent(Q_FUNC_INFO, "Start", Debug);
+		if (manualMode)
+			return;
 
-    logEvent(Q_FUNC_INFO, "END", Debug);
+		if (!upAndRunning)
+			return;
+		if (_f == QSOTabWidget->getTXFreq ())
+			return;
+		qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+		QSOTabWidget->setTXFreq (_f);
 }
 
 void MainWindow::slotHamlibModeChanged(const QString &_m)

@@ -26,12 +26,13 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/inputwidgets/mainwindowsattab.h"
-#include "../../src/dataproxy_sqlite.h"
 #include "../../src/database.h"
+#include "../../src/dataproxy_sqlite.h"
+#include "../../src/frequency.h"
+#include "../../src/inputwidgets/mainwindowsattab.h"
 #include "../../src/klogdefinitions.h"
-#include "../../src/utilities.h"
 #include "../../src/qso.h"
+#include "../../src/utilities.h"
 
 class tst_MainQSOEntryWidget : public QObject
 {
@@ -79,7 +80,7 @@ void tst_MainQSOEntryWidget::test_SatMode()
     mainWindowSattab->addBands(_bands);
 
     mainWindowSattab->setSatName ("Other");
-    double freq;
+    Frequency freq;
     /*
     freq = dataProxy->getLowLimitBandFromBandName("15M");
     mainWindowSattab->setUpLinkFreq(freq);

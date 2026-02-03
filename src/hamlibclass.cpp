@@ -62,6 +62,7 @@ void HamLibClass::initClass()
     logEvent(Q_FUNC_INFO, "Start", Debug);
     strings.clear();
     fillRigsList();
+    rig_set_debug(RIG_DEBUG_NONE);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(slotTimer()));
     clean();
@@ -694,13 +695,13 @@ QStringList HamLibClass::getRigList ()
     //fillRigsList ();
     //strings.sort();
     // qDebug() << "HamLibClass::getRigList-12 - Strings length: "
-             << QString::number(strings.length());
+    //<< QString::number(strings.length());
     return strings;
  }
 
 int HamLibClass::addRigToList (const struct rig_caps *caps, void *data)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    //logEvent(Q_FUNC_INFO, "Start", Debug);
     // qDebug() << "HamLibClass::addRigToList" << caps->model_name;
     QString name;
     // qDebug() << "HamLibClass::addRigToList-10";
@@ -732,7 +733,7 @@ QString HamLibClass::getNameFromModelId(const int _id)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     // qDebug() << "HamLibClass::getNameFromModelId: " << QString::number(_id) << "/"
-             << rigId2RigName.value(_id);
+    // << rigId2RigName.value(_id);
     return rigId2RigName.value(_id);
 }
 
@@ -760,7 +761,7 @@ void HamLibClass::setSpeed(const int _speed)
     //TODO: Check that it is a valid speed
     bauds = _speed;
     connected = false;
-    //// qDebug() << Q_FUNC_INFO << ": " << QString::number(bauds);
+    //qDebug() << Q_FUNC_INFO << ": " << QString::number(bauds);
 }
 
 void HamLibClass::setDataBits(const int _data)
@@ -1010,7 +1011,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
         break;
     case (RIG_EARG):
         // qDebug() << Q_FUNC_INFO
-                 << ": Error: 15 NULL RIG handle or any invalid pointer parameter in get arg";
+        // << ": Error: 15 NULL RIG handle or any invalid pointer parameter in get arg";
         break;
     case (RIG_EVFO):
         // qDebug() << Q_FUNC_INFO << ": Error: 16 Invalid VFO";
@@ -1027,7 +1028,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
             || _errorcode == RIG_EVFO || _errorcode == RIG_EDOM)
     {
         // qDebug() << Q_FUNC_INFO
-                 << ": Soft error: Invalid parameters - No reason to re-initialize the hardware";
+        // << ": Soft error: Invalid parameters - No reason to re-initialize the hardware";
     }
 
     if (errorCount<10)

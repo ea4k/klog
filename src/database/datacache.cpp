@@ -29,22 +29,29 @@ DataCache::DataCache() {
     bandListIsBuild = false;
 }
 
-DataCache::~DataCache(){};
+DataCache::~DataCache() {};
 
-void DataCache::addBand(const QString &name, int id, double min, double max){
-    BandEntry entry = {id, name.toUpper(), min, max};
+void DataCache::addBand(int id, const QString &name, Frequency min, Frequency max)
+{
+    BandEntry entry = {
+        id,
+        name.toUpper(),
+        min,
+        max,
+    };
     bandList.append(entry);
     bandListIsBuild = true;
 }
 
-BandEntry DataCache::getBandFromFreq(double freq) const {
+BandEntry DataCache::getBandFromFreq(Frequency freq) const
+{
     for (const auto &band : bandList) {
         if (band.contains(freq)) {
             return band;
         }
     }
     // Return empty/invalid entry if not found
-    return BandEntry{ -1, "", 0.0, 0.0 };
+    return BandEntry{-1, "", Frequency(0.0), Frequency(0.0)};
 }
 
 BandEntry DataCache::getBandFromName(const QString &name) const {
@@ -54,7 +61,7 @@ BandEntry DataCache::getBandFromName(const QString &name) const {
         }
     }
     // Return empty/invalid entry if not found
-    return BandEntry{ -1, "", 0.0, 0.0 };
+    return BandEntry{-1, "", Frequency(0.0), Frequency(0.0)};
 }
 
 bool DataCache::isBandListOK() const {
@@ -69,5 +76,5 @@ BandEntry DataCache::getBandFromId(int id) const
         }
     }
     // Return empty/invalid entry if not found
-    return BandEntry{ -1, "", 0.0, 0.0 };
+    return BandEntry{-1, "", Frequency(0.0), Frequency(0.0)};
 }

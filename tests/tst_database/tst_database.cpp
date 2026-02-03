@@ -27,14 +27,15 @@
 
 #include <QtTest>
 #include "../../src/database.h"
-#include "../../src/utilities.h"
-#include "../../src/world.h"
-#include "../../src/qso.h"
-#include "../../src/dataproxy_sqlite.h"
+#include "../../src/database/datacache.h"
 #include "../../src/database/db_adif_primary_subdvisions_data.h"
 #include "../../src/database/queryexecutor.h"
+#include "../../src/dataproxy_sqlite.h"
+#include "../../src/qso.h"
+#include "../../src/utilities.h"
+#include "../../src/world.h"
 
-/*
+        /*
     initTestCase() will be called before the first test function is executed.
     initTestCase_data() will be called to create a global test data table.
     cleanupTestCase() will be called after the last test function was executed.
@@ -42,38 +43,37 @@
     cleanup() will be called after every test function.
 */
 
-class tst_DataBase: public QObject
-{
-    Q_OBJECT
+        class tst_DataBase : public QObject
+        {
+            Q_OBJECT
 
-public:
-    tst_DataBase();
-    ~tst_DataBase();
+        public:
+            tst_DataBase();
+            ~tst_DataBase();
 
-private slots:
-    void initTestCase();        // will be called before the first test function is executed.
-    void test_Constructor();
-    void test_CreateDB();
-    void test_ExistingTables();
-    void test_DataInTables();
-    void test_modes();
-    void test_subModes();
-    void test_checks();
-    void test_addQSOs();
-    //void initTestCase_data();   // will be called to create a global test data table.
+        private slots:
+            void initTestCase(); // will be called before the first test function is executed.
+            void test_Constructor();
+            void test_CreateDB();
+            void test_ExistingTables();
+            void test_DataInTables();
+            void test_modes();
+            void test_subModes();
+            void test_checks();
+            void test_addQSOs();
+            //void initTestCase_data();   // will be called to create a global test data table.
 
-    //void init();                // will be called before each test function is executed.
-    //void cleanup();             // will be called after every test function.
-    void cleanupTestCase();     // will be called after the last test function was executed.
+            //void init();                // will be called before each test function is executed.
+            //void cleanup();             // will be called after every test function.
+            void cleanupTestCase(); // will be called after the last test function was executed.
 
+            //void test_getProgresStepForDialog();
 
-    //void test_getProgresStepForDialog();
-
-private:
-  DataBase *db;
-  Utilities *util;
-  QString version;
-};
+        private:
+            DataBase *db;
+            Utilities *util;
+            QString version;
+        };
 
 tst_DataBase::tst_DataBase()
 {

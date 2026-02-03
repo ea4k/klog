@@ -633,23 +633,21 @@ QStringList MainQSOEntryWidget::getModes()
     return modes;
 }
 
-bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
+bool MainQSOEntryWidget::setFreq(const Frequency _f, bool isRX)
 {
    // qDebug() << Q_FUNC_INFO << ":  " << QString::number(_f);
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
     if (isRX)
     {
-        if (util->isSameFreq (freqRX, _f))
-        {
+        if (freqRX == _f) {
             logEvent (Q_FUNC_INFO, "END-1", Debug);
             return true;
         }
         freqRX = _f;
     }
 
-    if (util->isSameFreq (freqTX, _f))
-    {
+    if (freqTX == _f) {
         logEvent (Q_FUNC_INFO, "END-2", Debug);
         return true;
     }
@@ -683,11 +681,11 @@ bool MainQSOEntryWidget::setFreq(const double _f, bool isRX)
     return false;
 }
 
-bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)
+bool MainQSOEntryWidget::newBandNeededForFreq(const Frequency _f)
 {
    // qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
-    logEvent (Q_FUNC_INFO, "Start: " + QString::number(_f), Debug);
-    QString _newBand = dataProxy->getBandNameFromFreq(_f);
+   logEvent(Q_FUNC_INFO, "Start: " + QString::number(_f.toDouble()), Debug);
+   QString _newBand = dataProxy->getBandNameFromFreq(_f);
    // qDebug() << Q_FUNC_INFO << " - Potential new band: " << _newBand;
     if (!updateBandComboBox (_newBand))
     {

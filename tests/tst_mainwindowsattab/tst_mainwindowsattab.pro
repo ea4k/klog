@@ -19,6 +19,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/inputwidgets/mainwindowsattab.h \
+    ../../src/database/datacache.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/qso.h \
     ../../src/qsodatacache.h \
@@ -34,6 +35,7 @@ HEADERS += \
 
 SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/inputwidgets/mainwindowsattab.cpp \
+    ../../src/database/datacache.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/qso.cpp \
     ../../src/qsodatacache.cpp \
