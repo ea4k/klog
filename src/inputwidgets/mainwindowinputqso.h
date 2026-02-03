@@ -102,8 +102,8 @@ signals:
 private slots:
     void slotReturnPressed();
     void slotLocatorTextChanged();
-    void slotFreqTXChanged(Frequency _f);
-    void slotFreqRXChanged(Frequency _f);
+    void slotFreqTXChanged(const double _f);
+    void slotFreqRXChanged(const double _f);
     void slotSplitClicked();
     //void slotPaletteChanged(QPalette _p);
 

@@ -231,8 +231,8 @@ void MainWindowInputQSO::createUI()
     connect(nameLineEdit, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed() ) );
     //connect(nameLineEdit, SIGNAL(paletteChanged(QPalette)), this, SLOT(slotPaletteChanged(QPalette)) );
     connect(locatorLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotLocatorTextChanged() ) );
-    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)) ) ;
-    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)) ) ;
+    connect(txFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqTXChanged(double)));
+    connect(rxFreqSpinBox, SIGNAL(valueChanged(double)), this, SLOT(slotFreqRXChanged(double)));
     connect(splitCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotSplitClicked()) ) ;
 
     QWidget::setTabOrder (rstTXLineEdit, rstRXLineEdit);
@@ -693,40 +693,6 @@ void MainWindowInputQSO::setPropModeFromSat(const QString &_p)
     }
 }
 
-void MainWindowInputQSO::slotFreqTXChanged(Frequency _f)
-{
-   // qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
-   if (_f == freqTX)
-       return;
-   freqTX = _f;
-
-   int bandId = dataProxy->getBandIdFromFreq(_f);
-   if (bandId > 1) { // If the freq belongs to one ham band
-       txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-       if (darkMode) {
-           // qDebug() << Q_FUNC_INFO << " - We are in darkmode";
-           txFreqSpinBox->setPalette(palWhite);
-       } else {
-           // qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
-           txFreqSpinBox->setPalette(palBlack);
-       }
-       // qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
-        emit txFreqChanged (_f);
-   } else {
-       txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
-       txFreqSpinBox->setPalette(palRed);
-       // qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
-   }
-    if ((!splitCheckBox->isChecked()) && !modify)
-    {
-        rxFreqSpinBox->setValue(_f.toDouble(MHz));
-        // qDebug() << Q_FUNC_INFO << ": copying to RX Freq " ;
-    }
-   // qDebug() << Q_FUNC_INFO << " - END" ;
-    splitCheckBox->setChecked(txFreqSpinBox->value() != rxFreqSpinBox->value());
-    //setSplitCheckBox();
-}
-
 void MainWindowInputQSO::slotSplitClicked()
 {
    // qDebug() << Q_FUNC_INFO << " - Start";
@@ -736,14 +702,53 @@ void MainWindowInputQSO::slotSplitClicked()
     }
 }
 
-void MainWindowInputQSO::slotFreqRXChanged(Frequency _f)
+void MainWindowInputQSO::slotFreqTXChanged(const double _f)
+{
+    // qDebug() << Q_FUNC_INFO << ": " << QString::number(_f);
+    Frequency f1(_f);
+    if (!f1.isValid())
+        return;
+    if (f1 == freqTX)
+        return;
+    freqTX = f1;
+
+    int bandId = dataProxy->getBandIdFromFreq(f1);
+    if (bandId > 1) { // If the freq belongs to one ham band
+        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
+        if (darkMode) {
+            // qDebug() << Q_FUNC_INFO << " - We are in darkmode";
+            txFreqSpinBox->setPalette(palWhite);
+        } else {
+            // qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
+            txFreqSpinBox->setPalette(palBlack);
+        }
+        // qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
+        emit txFreqChanged(f1);
+    } else {
+        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz.\nFrequency is not in a hamradio band!"));
+        txFreqSpinBox->setPalette(palRed);
+        // qDebug() << Q_FUNC_INFO << ":RED - Not in band " ;
+    }
+    if ((!splitCheckBox->isChecked()) && !modify) {
+        rxFreqSpinBox->setValue(f1.toDouble(MHz));
+        // qDebug() << Q_FUNC_INFO << ": copying to RX Freq " ;
+    }
+    // qDebug() << Q_FUNC_INFO << " - END" ;
+    splitCheckBox->setChecked(txFreqSpinBox->value() != rxFreqSpinBox->value());
+    //setSplitCheckBox();
+}
+
+void MainWindowInputQSO::slotFreqRXChanged(const double _f)
 {
    // qDebug() << Q_FUNC_INFO << " - Start";
-   if (_f == freqRX)
+   Frequency f1(_f);
+   if (!f1.isValid())
+       return;
+   if (f1 == freqRX)
        return;
 
-   freqRX = _f;
-   int bandId = dataProxy->getBandIdFromFreq(_f);
+   freqRX = f1;
+   int bandId = dataProxy->getBandIdFromFreq(f1);
    if (bandId > 1) { // If the freq belongs to one ham band
        if (darkMode) {
            // qDebug() << Q_FUNC_INFO << " - We are in darkmode";
@@ -759,15 +764,15 @@ void MainWindowInputQSO::slotFreqRXChanged(Frequency _f)
     {
         rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz.\nFrequency is not in a hamradio band!"));
         rxFreqSpinBox->setPalette(palRed);
-         // qDebug() << "MainWindow::slotFreqRXChanged Freq is not in ANY ham band";
+        // qDebug() << Q_FUNC_INFO << " - Freq is not in ANY ham band";
     }
     if ((!splitCheckBox->isChecked()) && !modify)
     {
-        txFreqSpinBox->setValue(_f.toDouble(MHz));
+        txFreqSpinBox->setValue(f1.toDouble(MHz));
     }
 
     splitCheckBox->setChecked(txFreqSpinBox->value() != rxFreqSpinBox->value());
-    // qDebug() << "MainWindow::slotFreqRXChanged: END";
+    // qDebug() << Q_FUNC_INFO << " - END";
     //setSplitCheckBox();
 }
 
