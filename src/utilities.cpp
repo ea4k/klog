@@ -826,39 +826,38 @@ int Utilities::getIOTAIdFromIOTA(const QString &_iota)
 
 QString Utilities::getPrefixFromCall(const QString &_c, bool withAreaNumber)
 {
-  // qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
+    qDebug() << Q_FUNC_INFO << ": " << _c << " - WithAreaNumber=" << boolToQString(withAreaNumber);
 
     Callsign _callsign(_c);
     if (!_callsign.isValid() && !_callsign.isValidPrefix())
     {
-      // qDebug() << Q_FUNC_INFO << " - 020";
+        qDebug() << Q_FUNC_INFO << " - 020";
         return QString();
     }
-
+    qDebug() << Q_FUNC_INFO << " - With Area Number   : " << _callsign.getHostFullPrefix();
+    qDebug() << Q_FUNC_INFO << " - With No Area Number: " << _callsign.getHostPrefix();
     if (withAreaNumber)
         return _callsign.getHostFullPrefix();
     else
         return _callsign.getHostPrefix();
 }
 
+//bool Utilities::isSameFreq(const double fr1, const double fr2)
+//{
+// qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << QString::number(fr1) << "/" << QString::number(fr2) << " = " << QString::number(fabs(fr1 - fr2)) ;
 
-bool Utilities::isSameFreq(const double fr1, const double fr2)
-{
-    // qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << QString::number(fr1) << "/" << QString::number(fr2) << " = " << QString::number(fabs(fr1 - fr2)) ;
-
-    if (fabs(fr1 - fr2) < 0.00001) // 10 Hz
-    {
-        // qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - true" ;
-        return true;
-    }
-    else
-    {
-        // qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - false" ;
-        return false;
-    }
-    //return fabs(fr1 - fr2) < 0.001;
-}
-
+//    if (fabs(fr1 - fr2) < 0.00001) // 10 Hz
+//    {
+// qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - true" ;
+//        return true;
+//    }
+//    else
+//    {
+// qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << " - false" ;
+//        return false;
+//    }
+//return fabs(fr1 - fr2) < 0.001;
+//}
 
 bool Utilities::isValidFreq(const QString &_b)
 {

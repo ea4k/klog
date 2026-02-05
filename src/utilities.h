@@ -110,7 +110,7 @@ public:
     bool isValidDateTime(const QString &_d);
     //bool isValidCall(const QString &_c, bool _force=false);             // To be replaced by Callsign::isValid
 
-    bool isSameFreq(const double fr1, const double fr2);
+    //bool isSameFreq(const double fr1, const double fr2);
 
     bool isValidFreq(const QString &_b);
     bool isValidGrid(const QString &_b);
