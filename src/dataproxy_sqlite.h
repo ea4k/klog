@@ -111,7 +111,7 @@ public:
     // qString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
 
-    Frequency getFreqFromBandId(const int _id);
+    //Frequency getFreqFromBandId(const int _id);
     int getBandIdFromFreq(const Frequency _n);
     QString getBandNameFromFreq(const Frequency _n);
 
@@ -238,7 +238,7 @@ public:
     QStringList getLongPrefixes();
     QStringList getSpecialCallsigns();
     QHash<QString, int> getWorldData();
-    bool getFreqHashData();
+    //bool getFreqHashData();
 
     QStringList getEntitiesNames(bool _dxccOnly = true);
     QStringList getEntitiesIds();
@@ -340,7 +340,7 @@ public:
 
     //void getFoundInLog(const QString &_txt, const int _log=-1);
     //KLOG_DEPRECATED QString getADIFQSO(const int _qsoId, ExportMode _em = ModeADIF);
-    KLOG_DEPRECATED QString getADIFValueFromRec(QSqlRecord _rec, const QString &_fieldName);   // Should be optimized to qso::fromDB / qso::getADIF
+    KLOG_DEPRECATED QString getADIFValueFromRec(const QSqlRecord &_rec, const QString &_fieldName);   // Should be optimized to qso::fromDB / qso::getADIF
     KLOG_DEPRECATED QString getADIFFromQSOQuery(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1); // Should be optimized to qso::fromDB / qso::getADIF
     // qString getADIFFromQSOQuery2(QSqlRecord _rec, ExportMode _em = ModeADIF, bool _justMarked = false, bool _onlyRequested = false, int _logN = -1);
 
@@ -398,8 +398,8 @@ private:
     DebugLogLevel logLevel;
     QString pkgVersion;
 
-    QList<BandLimits> m_bandLimits;         // List to store all band limits, populated once on startup
-    KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash; // Move to DataCache
+    //KLOG_DEPRECATED QList<BandLimits> m_bandLimits;         // List to store all band limits, populated once on startup
+    //KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash; // Move to DataCache
     KLOG_DEPRECATED QHash<QString, int> bandIDs;          // Move to DataCache
     KLOG_DEPRECATED QHash<QString, int> modeIDs;          // Move to DataCache
 
@@ -414,7 +414,7 @@ private:
     void addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId);
 
 
-    bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
+    //bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
 
     // qSqlQuery preparedQuery;
     // qSqlRelationalTableModel *logModel;

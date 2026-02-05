@@ -66,16 +66,6 @@ bool Frequency::fromQString(const QString &_f, FreqUnits _u)
     return isValid();
 }
 
-/*
-bool Frequency::fromBand(const QString &_bandName)
-{
-    DataProxy_SQLite dataProxy(Q_FUNC_INFO);
-    int id = dataProxy.getIdFromBandName(_bandName);
-    freq = fromQString(dataProxy.getFreqFromBandId(id));
-    return isValid();
-}
-*/
-
 double Frequency::toDouble(FreqUnits _u) const
 {
     return deNormalize(freq, _u);

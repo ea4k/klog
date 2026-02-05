@@ -42,7 +42,7 @@ public:
     //Frequency() : freq(0.0), bandInMHz(""), tolerance(0.0) {};
     Frequency();
     //Frequency(const Frequency &f);
-    Frequency(const Frequency &f) : QObject(), freq(f.freq) {}
+    Frequency(const Frequency &f) : QObject(), freq(f.freq), bandInMHz(f.bandInMHz), tolerance(f.tolerance) {}
     Frequency(const double _f, FreqUnits _u = MHz);
     //Frequency(const QString &_parentName);
     //Frequency(const QString &_parentName, const Frequency &_f);
@@ -54,7 +54,7 @@ public:
     double toDouble(FreqUnits _u = MHz) const;                  // Returns in MHz
     QString toQString(FreqUnits _u = MHz) const;                // Returns in MHz with decimals
     void setTolerance(const double _t, FreqUnits _u = Hz);      // Defines the tolerance
-    // qString band();                                           // Returns the band
+    // qString band();                                          // Returns the band
     //int bandId();                                             // Returns the bandId
     bool isValid() const;
 
@@ -72,9 +72,9 @@ private:
     double normalize(const double _f, const FreqUnits _u = MHz) const;
     double deNormalize(const double _f, const FreqUnits _u = MHz) const;
     int getDecimals(const FreqUnits _u = MHz) const;
-    double freq;        // This must be in MHz
-    QString bandInMHz;  //
-    double tolerance;   // This must be in Hz
+    double freq = 0.0;              // This must be in MHz
+    QString bandInMHz = QString();  //
+    double tolerance = 0.0;         // This must be in Hz
 };
 
 #endif // FREQUENCY_H

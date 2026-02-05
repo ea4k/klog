@@ -75,7 +75,7 @@ public:
     void setRTS(const QString &_state);
     void setDTR(const QString &_state);
 
-    void setFreq(const double _fr);
+    void setFreq(const Frequency _fr);
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
     bool isModeADIFMode(const QString &_m);
@@ -90,12 +90,12 @@ public:
     void clean();
     void checkErrorCountAndStop();
 
-    double getFrequency();
+    //double getFrequency();
     //void showDebugLog(const QString &_func, const QString &_log);
     bool loadSettings();
 
 signals:
-    void freqChanged(double newFreq);
+    void freqChanged(Frequency newFreq);
     void modeChanged(QString newFreq);
     void frequency(Frequency newfreq);
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);

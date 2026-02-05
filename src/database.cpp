@@ -321,12 +321,12 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     // qDebug() << Q_FUNC_INFO << ": Going to run - updateBandHash " ;
 
-    if (!updateBandHash())
-    {
+//    if (!updateBandHash())
+//    {
         // qDebug() << Q_FUNC_INFO << ": updateBandHash false Stop";
-        logEvent(Q_FUNC_INFO, "END-3", Debug);
-        return false;
-    }
+//        logEvent(Q_FUNC_INFO, "END-3", Debug);
+//        return false;
+ //   }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     // qDebug() << Q_FUNC_INFO <<  " - END";
@@ -1224,17 +1224,17 @@ bool DataBase::updateBandHash()
     return true;
 }
 
-Frequency DataBase::getFreqFromBandId(const int _i)
-{
+//Frequency DataBase::getFreqFromBandId(const int _i)
+//{
     // qDebug() << Q_FUNC_INFO  ;
 
-    if (freqBandIDHash.contains(_i))
-    {
+//    if (freqBandIDHash.contains(_i))
+//    {
         // qDebug() << Q_FUNC_INFO << " OK END" ;
-        return freqBandIDHash.value(_i);
-    }
-    return Frequency(0);
-}
+//        return freqBandIDHash.value(_i);
+//    }
+//    return Frequency(0);
+//}
 
 bool DataBase::updateToLatest()
 {

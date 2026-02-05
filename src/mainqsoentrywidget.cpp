@@ -31,7 +31,7 @@
 MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : QWidget(parent)
 {
    // qDebug()<< Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);       
+    logEvent (Q_FUNC_INFO, "Start", Debug);
     modifyingBands = false;
     upAndRunning = false;
     dataProxy = dp;
@@ -586,10 +586,10 @@ bool MainQSOEntryWidget::updateBandComboBox(const QString &_band)
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
-    return true;
 
-   // qDebug() << Q_FUNC_INFO << ": Band already existing, no need to add" ;
+    // qDebug() << Q_FUNC_INFO << ": Band already existing, no need to add" ;
     logEvent (Q_FUNC_INFO, "END", Debug);
+    return true;
 }
 
 void MainQSOEntryWidget::setBands(const QStringList &_bands)

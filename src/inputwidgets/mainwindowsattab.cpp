@@ -536,7 +536,7 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
     { // If the freq does not belong to the current band, we need to update the band
        // qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: Band: " << satBandTXComboBox->currentText() ;
         // qDebug() << "MainWindowsatTab::slotSatBandTXComboBoxChanged changing to: " << QString::number(dataProxy->getLowLimitBandFromBandName(satBandTXComboBox->currentText())) ;
-        Frequency tmpFreq = dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(satBandTXComboBox->currentText()));
+        Frequency tmpFreq = dataProxy->getLowLimitBandFromBandId(dataProxy->getIdFromBandName(satBandTXComboBox->currentText()));
         // qDebug() << ": Normal" << dataProxy->getSatelliteUplink(getSatName());
         // qDebug() << ": Normal1" << dataProxy->getSatelliteUplink(getSatName(), 1);
         // qDebug() << ": Normal2" << dataProxy->getSatelliteUplink(getSatName(), 2);
@@ -737,13 +737,13 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
         return;
     }
 
-    double upLink = (dataProxy->getSatelliteUplink(_p.section(' ', 0, 0))).toDouble();
-    double downLink = (dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble();
+    Frequency upLink ((dataProxy->getSatelliteUplink(_p.section(' ', 0, 0))).toDouble());
+    Frequency downLink ((dataProxy->getSatelliteDownlink(_p.section(' ', 0, 0))).toDouble());
 
    // qDebug() << Q_FUNC_INFO << ": upLink: " << QString::number(upLink)<< QT_ENDL;
    // qDebug() << Q_FUNC_INFO << ":  downLink: " << QString::number(downLink)<< QT_ENDL;
-
-    if (upLink>0)
+    Frequency f0(0.0);
+    if (upLink>f0)
     {
        // qDebug() << "MainWindowSatTab::setBandsOfSat upLink: emitting: " << QString::number(upLink)<< QT_ENDL;
         emit satTXFreqNeeded(upLink);
@@ -752,10 +752,10 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
     else
     {
        // qDebug() << "MainWindowSatTab::setBandsOfSat upLink: setting to ZERO (should be = RX) " <<  QT_ENDL;
-        updateTXFreq(0.0);
+        updateTXFreq(f0);
     }
 
-    if (downLink>0)
+    if (downLink>f0)
     {
        // qDebug() << "MainWindowSatTab::setBandsOfSat downLink: emitting: " << QString::number(downLink)<< QT_ENDL;
         emit satRXFreqNeeded(downLink);
@@ -764,7 +764,7 @@ void MainWindowSatTab::setBandsOfSat(const QString &_p)
     else
     {
        // qDebug() << "MainWindowSatTab::setBandsOfSat downLink: setting to ZERO" <<  QT_ENDL;
-        updateRXFreq(0.0);
+        updateRXFreq(f0);
         //satBandRXComboBox->setCurrentIndex(0);
     }
       // qDebug() << "MainWindowSatTab::setBandsOfSat downLink: emiting: " << QString::number(downLink)<< QT_ENDL;

@@ -95,7 +95,7 @@ public:
     KLOG_DEPRECATED int getBandIdFromFreq(const QString &fr); //Freq should be in MHz // Move to dataproxy
     // bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz // Move to dataproxy
 
-    Frequency getFreqFromBandId(const int _i);
+    //Frequency getFreqFromBandId(const int _i);
 
     //int getLogTypeNumber(const QString &_logType);
     // qString getLogTypeName(const int _logType);
@@ -160,7 +160,7 @@ private:
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
 
-    bool updateBandHash();
+    KLOG_DEPRECATED bool updateBandHash(); // Move this to datacache
     bool createTheModeQuickReference();
 
     //bool updateLog(); // Updates the log table

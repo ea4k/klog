@@ -135,7 +135,7 @@ void HamLibClass::readFreq()
     // 1. Read freq
     ret = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
     if (ret == RIG_OK) {
-        Frequency freqToEmit((double) freq);
+        Frequency freqToEmit((double) freq, Hz);
         if (freqToEmit.isValid()) {
             // qDebug() << Q_FUNC_INFO << " - freqToEmit valid!";
             emit frequency(freqToEmit);
@@ -161,7 +161,7 @@ void HamLibClass::readFreq()
     //    }
     //}
 }
-
+/*
 double HamLibClass::getFrequency()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -195,6 +195,7 @@ double HamLibClass::getFrequency()
         return 0.0;
     }
 }
+*/
 
 bool HamLibClass::readRadio(bool _forceRead)
 {
@@ -227,7 +228,8 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
         // qDebug() << Q_FUNC_INFO << ": Freq: " << QString::number(freq);
         if ((freq_old > freq) || (freq_old < freq) || (_forceRead == true))
         {
-            emit freqChanged(freq/1000000);
+            Frequency freqToEmit((double) freq, Hz);
+            emit freqChanged(freqToEmit);
             freq_old = freq;
             // qDebug() << Q_FUNC_INFO << ": EMITING; " << QString::number(freq);
         }
@@ -853,7 +855,7 @@ void HamLibClass::setParity(const QString &_parity)
     connected = false;
 }
 
-void HamLibClass::setFreq(const double _fr)
+void HamLibClass::setFreq(const Frequency _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     // qDebug() << "HamLibClass::setFreq: " << QString::number(_fr);
@@ -862,7 +864,7 @@ void HamLibClass::setFreq(const double _fr)
         return;
     }
 
-    freq = _fr * 1000000;
+    freq = _fr.toDouble (Hz);
     int retcode = rig_set_freq(my_rig, RIG_VFO_CURR, freq);
     if (retcode != RIG_OK)
     {

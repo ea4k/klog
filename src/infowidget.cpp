@@ -523,21 +523,21 @@ void InfoWidget::showDistanceAndBearing(const QString &_locLocal, const QString 
     }
 }
 
-void InfoWidget::setLocalLocator(const QString &_loc)
-{
-    if (locator->isValidLocator(_loc))
-    {
-        localLocator = _loc;
-    }
-}
+//void InfoWidget::setLocalLocator(const QString &_loc)
+//{
+//    if (locator->isValidLocator(_loc))
+//    {
+//        localLocator = _loc;
+//    }
+//}
 
-void InfoWidget::setDXLocator(const QString &_loc)
-{
-    if (locator->isValidLocator(_loc))
-    {
-        dxLocator = _loc;
-    }
-}
+//void InfoWidget::setDXLocator(const QString &_loc)
+//{
+//    if (locator->isValidLocator(_loc))
+//    {
+//        dxLocator = _loc;
+//    }
+//}
 
 double InfoWidget::getDistance(bool shortPath)
 { // Returns the distance in KM

@@ -150,8 +150,7 @@ private slots:
     //void slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery);
     //void slotTest();        // Slot for testing purposes only
 
-    void logEvent(const QString &_func,
-                  const QString &_msg, DebugLogLevel _level);
+    void logEvent(QString _func, QString _msg, DebugLogLevel _level);
     void slotOpenWiki();
     //void slotAWAImport();
     void slotClearNoMorErrorShown();
@@ -164,9 +163,9 @@ private slots:
     void slotUpdateLocator(QString _loc);
     KLOG_DEPRECATED void slotLocatorTextChanged(const QString &_loc);
     //void slotMyLocatorTextChanged();
-    void slotFreqTXChanged(const double _fr);
-    void slotFreqRXChanged(const double _fr);
-    void slotFreqTXChangedFromSat(const double _fr);
+    void slotFreqTXChanged(const Frequency _fr);
+    void slotFreqRXChanged(const Frequency _fr);
+    void slotFreqTXChangedFromSat(const Frequency _fr);
     //void slotSplitCLicked();
 
     //void slotSearchBoxTextChanged();

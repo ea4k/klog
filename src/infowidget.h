@@ -54,8 +54,8 @@ public:
     void showInfo(const int _entity);
     void showDistanceAndBearing(const QString &_locLocal, const QString &_loc2);
     void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
-    void setLocalLocator(const QString &_loc);   //MAYBE NOT NEEDED
-    void setDXLocator(const QString &_loc);      //MAYBE NOT NEEDED
+    //void setLocalLocator(const QString &_loc);   //MAYBE NOT NEEDED
+    //void setDXLocator(const QString &_loc);      //MAYBE NOT NEEDED
     double getDistance(bool shortPath=true);        // Returns the distance in KM
     int getCQ();                                 // Returns CQ zone
     int getITU();                                // Returns ITU zone

@@ -564,37 +564,37 @@ void MainWindow::connectDebugLogActions()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     connect(util, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)));
 
     connect(&qsoInUI, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+            this, SLOT(logEvent(QString,QString,DebugLogLevel)));
 
-		//connect(&hamlib, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-		//        this, SLOT(logLevel(QString, QString, DebugLogLevel)));
+    //connect(&hamlib, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+    //        this, SLOT(logEvent(QString, QString, DebugLogLevel)));
 
     connect(mainQSOEntryWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(myDataTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(setupDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(dataProxy, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(dxccStatusWidget.get(), SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logLevel(QString, QString, DebugLogLevel)) );
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -612,8 +612,8 @@ void MainWindow::createActionsCommon(){
     connect(myDataTabWidget, SIGNAL(myLocChangedSignal(QString)), this, SLOT(slotMyLocatorTextChanged(QString) ) );
     connect(myDataTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed() ) );
 
-		connect(QSOTabWidget, SIGNAL(rxFreqChanged(Frequency)), this, SLOT(slotFreqRXChanged(Frequency))) ;
-		connect(QSOTabWidget, SIGNAL(txFreqChanged(Frequency)), this, SLOT(slotFreqTXChanged(Frequency))) ;
+    connect(QSOTabWidget, SIGNAL(rxFreqChanged(Frequency)), this, SLOT(slotFreqRXChanged(Frequency))) ;
+    connect(QSOTabWidget, SIGNAL(txFreqChanged(Frequency)), this, SLOT(slotFreqTXChanged(Frequency))) ;
     connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToMainQSOInput() ));
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
 
@@ -712,20 +712,20 @@ void MainWindow::createActionsCommon(){
 
     // SATELLITES TAB
     //connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
-    connect(satTabWidget, SIGNAL(satTxFreqChanged(double)), this, SLOT(slotFreqTXChangedFromSat(double)  ) );
+    connect(satTabWidget, SIGNAL(satTxFreqChanged(Frequency)), this, SLOT(slotFreqTXChangedFromSat(Frequency)  ) );
     //connect(satTabWidget, SIGNAL(satRxFreqChanged(double)), this, SLOT(slotFreqRXChanged(double)  ) );
     //connect(satTabWidget, SIGNAL(dxLocatorChanged(QString)), this, SLOT(slotUpdateLocator(QString)) );
     connect(satTabWidget, SIGNAL(setPropModeSat(QString,bool)), this, SLOT(slotSetPropModeFromSat(QString,bool)) ) ;
-    connect(satTabWidget, SIGNAL(satTXFreqNeeded(double)), this, SLOT(slotFreqTXChanged(double)));
-    connect(satTabWidget, SIGNAL(satRXFreqNeeded(double)), this, SLOT(slotFreqRXChanged(double)));
+    connect(satTabWidget, SIGNAL(satTXFreqNeeded(Frequency)), this, SLOT(slotFreqTXChanged(Frequency)));
+    connect(satTabWidget, SIGNAL(satRXFreqNeeded(Frequency)), this, SLOT(slotFreqRXChanged(Frequency)));
     //connect(satTabWidget, SIGNAL (satBandTXChanged(QString)), this, SLOT (slotSatBandTXComboBoxChanged(QString)));
     connect(satTabWidget, SIGNAL(returnPressed()), this, SLOT(slotQRZReturnPressed()) );
     connect(othersTabWidget, SIGNAL(setPropMode(QString)), this, SLOT(slotSetPropModeFromOther(QString)) ) ;
 
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
     connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
-    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
-		connect(hamlib, SIGNAL(frequency(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
+    connect(hamlib, SIGNAL(freqChanged(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
+        connect(hamlib, SIGNAL(frequency(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
@@ -985,7 +985,7 @@ void MainWindow::slotBandChanged (const QString &_b)
           // qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  ;
           // qDebug() << "MainWindow::slotBandChanged: Band: " << mainQSOEntryWidget->getBand()  ;
           // qDebug() << "MainWindow::slotBandChanged: Freq: " << QString::number(QSOTabWidget->getTXFreq())  ;
-        double txFr = (dataProxy->getFreqFromBandId(currentBandShown)).toDouble();
+        double txFr = (dataProxy->getLowLimitBandFromBandId(currentBandShown)).toDouble();
    // qDebug() << "MainWindow::slotBandChanged: New Freq: " << QString::number(txFr) ;
 
         slotFreqTXChanged (txFr);
@@ -2262,7 +2262,7 @@ void MainWindow::clearUIDX(bool _full)
     if (QSOTabWidget->getTXFreq()<=0)
     {
           // qDebug() << Q_FUNC_INFO << " Setting TX Freq from: " << QString::number(QSOTabWidget->getTXFreq()) ;
-        QSOTabWidget->setTXFreq((dataProxy->getFreqFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
+        QSOTabWidget->setTXFreq((dataProxy->getLowLimitBandFromBandId(dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand()))).toDouble());
           // qDebug() << Q_FUNC_INFO << " Setting TX Freq to: " << QString::number(QSOTabWidget->getTXFreq()) ;
         QSOTabWidget->setRXFreq(QSOTabWidget->getTXFreq());
     }
@@ -5333,7 +5333,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotFreqRXChanged(const double _fr)
+void MainWindow::slotFreqRXChanged(const Frequency _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     // qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
@@ -5359,7 +5359,7 @@ void MainWindow::slotFreqRXChanged(const double _fr)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotFreqTXChangedFromSat(const double _fr)
+void MainWindow::slotFreqTXChangedFromSat(const Frequency  _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!upAndRunning || modify)
@@ -5377,7 +5377,7 @@ void MainWindow::slotFreqTXChangedFromSat(const double _fr)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotFreqTXChanged(const double _fr)
+void MainWindow::slotFreqTXChanged(const Frequency  _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     // qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
@@ -5810,17 +5810,17 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
 {
-		qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
-		logEvent(Q_FUNC_INFO, "Start", Debug);
-		if (manualMode)
-			return;
+        qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
+        logEvent(Q_FUNC_INFO, "Start", Debug);
+        if (manualMode)
+            return;
 
-		if (!upAndRunning)
-			return;
-		if (_f == QSOTabWidget->getTXFreq ())
-			return;
-		qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
-		QSOTabWidget->setTXFreq (_f);
+        if (!upAndRunning)
+            return;
+        if (_f == QSOTabWidget->getTXFreq ())
+            return;
+        qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+        QSOTabWidget->setTXFreq (_f);
 }
 
 void MainWindow::slotHamlibModeChanged(const QString &_m)
@@ -6389,7 +6389,7 @@ void MainWindow::selectTheLog(const int _i)
     dxccStatusWidget->setCurrentLog(currentLog);
 }
 
-void MainWindow::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _level)
+void MainWindow::logEvent(QString _func, QString _msg,  DebugLogLevel _level)
 {   //This function is the only one not logging the activity
       // qDebug() << Q_FUNC_INFO << "_level: " << _func << "/" << _msg << "/" << util->debugLevelToString(_level);
       // qDebug() << Q_FUNC_INFO << "upAndRunning: " << util->boolToQString(upAndRunning);
