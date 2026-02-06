@@ -331,7 +331,67 @@ QString Callsign::prefixRegExString()
 
 QString Callsign::getSpecialPrefixes()
 {
-    return QString("3D2|3D6|3D2C|3D2R|3DA|4U1I|4U1U|4U1V|KH7K|PY0F|PY0S|PY0T|R1FJ|SV2A|VK0H|VK0M|VK9C|VK9L|VK9M|VK9N|VK9W|VK9X|VP2E|VP2M|VP2V");
+    QStringList prefixes = {"3D2",
+                            "3D6",
+                            "3D2C",
+                            "3D2R",
+                            "3DA",
+                            "4U1I",
+                            "4U1U",
+                            "4U1V",
+                            "EA6",
+                            "AM6",
+                            "AN6",
+                            "AO6",
+                            "EB6"
+                            "EC6",
+                            "ED6",
+                            "EE6",
+                            "EF6",
+                            "EG6",
+                            "EH6",
+                            "EA8",
+                            "AM8",
+                            "AN8",
+                            "AO8",
+                            "EB8"
+                            "EC8",
+                            "ED8",
+                            "EE8",
+                            "EF8",
+                            "EG8",
+                            "EH8",
+                            "EA9",
+                            "AM9",
+                            "AN9",
+                            "AO9",
+                            "EB9"
+                            "EC9",
+                            "ED9",
+                            "EE9",
+                            "EF9",
+                            "EG9",
+                            "EH9",
+                            "KH7K",
+                            "PY0F",
+                            "PY0S",
+                            "PY0T",
+                            "R1FJ",
+                            "SV2A",
+                            "VK0H",
+                            "VK0M",
+                            "VK9C",
+                            "VK9L",
+                            "VK9M",
+                            "VK9N",
+                            "VK9W",
+                            "VK9X",
+                            "VP2E",
+                            "VP2M",
+                            "VP2V"};
+    return QString("3D2|3D6|3D2C|3D2R|3DA|4U1I|4U1U|4U1V|EA6|EA9|KH7K|PY0F|PY0S|"
+                   "PY0T|R1FJ|SV2A|VK0H|"
+                   "VK0M|VK9C|VK9L|VK9M|VK9N|VK9W|VK9X|VP2E|VP2M|VP2V");
 }
     // if getHomeIfEmpty is true and no hostprefix is identified, it will return homePrefix
 QString Callsign::getCallsign()                             {return fullCall;}

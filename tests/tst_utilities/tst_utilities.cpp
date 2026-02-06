@@ -232,9 +232,13 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("EA4K") == "EA", "EA4K" );
     QVERIFY2(util->getPrefixFromCall("EA4KK") == "EA", "EA4KK" );
     QVERIFY2(util->getPrefixFromCall("EA6") == "EA6", "EA6");
-    QVERIFY2(util->getPrefixFromCall("EA6A") == "EA6", "EA6");
+    QVERIFY2(util->getPrefixFromCall("EA6A") == "EA6", "EA6A");
+    QVERIFY2(util->getPrefixFromCall("EA9") == "EA9", "EA9");
+    QVERIFY2(util->getPrefixFromCall("EA9A") == "EA9", "EA9A");
+    QVERIFY2(util->getPrefixFromCall("AM9") == "AM9", "AM9");
+    QVERIFY2(util->getPrefixFromCall("AM9A") == "AM9", "AM9A");
     QVERIFY2(util->getPrefixFromCall("2E1AA") == "2E", "2E1AA" );
-    QVERIFY2(util->getPrefixFromCall("E73E") == "E7", "E73E");
+    QVERIFY2(util->getPrefixFromCall("AH1L") == "AH1", "AH1L");
     QVERIFY2(util->getPrefixFromCall("AM200A") == "AM", "AM200A");
     QVERIFY2(util->getPrefixFromCall("AM4000") == "AM", "AM4000");
     QVERIFY2(util->getPrefixFromCall("VP2EE") == "VP2E", "VP2EE");
@@ -243,7 +247,7 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("VK9AA") == "VK9AA", "VK9AA");
     QVERIFY2(util->getPrefixFromCall("VK9MA") == "VK9M", "VK9MA");
     QVERIFY2(util->getPrefixFromCall("4U2STAYHOME") == "4U2STAYHOME", "4U2STAYHOME");
-
+    QVERIFY2(util->getPrefixFromCall("E73E") == "E7", "E73E");
     QVERIFY2(util->getPrefixFromCall("K1AA", true) == "K1", "K1AA-True" );
     QVERIFY2(util->getPrefixFromCall("K1A", true) == "K1", "K1A-True");
     // qDebug() << Q_FUNC_INFO << ": TESTING: " << util->getPrefixFromCall("G1", true);

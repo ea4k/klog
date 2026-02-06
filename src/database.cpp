@@ -321,13 +321,6 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     }
     // qDebug() << Q_FUNC_INFO << ": Going to run - updateBandHash " ;
 
-//    if (!updateBandHash())
-//    {
-        // qDebug() << Q_FUNC_INFO << ": updateBandHash false Stop";
-//        logEvent(Q_FUNC_INFO, "END-3", Debug);
-//        return false;
- //   }
-
     logEvent(Q_FUNC_INFO, "END", Debug);
     // qDebug() << Q_FUNC_INFO <<  " - END";
     return unMarkAllQSO();
@@ -829,32 +822,6 @@ bool DataBase::recreateTablePrimarySubdivisions()
     return false;
 }
 
-/*
-int DataBase::getBandIdFromName(const QString &b)
-{
-    // qDebug() << Q_FUNC_INFO << ": " << b ;
-    QString band = b.toUpper();
-
-    QString queryString = QString("SELECT id FROM band WHERE name= :band");
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":band", b);
-
-    bool sqlOK = query.exec();
-
-    if (!sqlOK)
-        return -1;
-    if (!query.next())
-        return -2;
-    if (!query.isValid())
-        return -3;
-
-    int v = (query.value(0)).toInt();
-    query.finish();
-    return v;
-}
-*/
-
 int DataBase::getModeIdFromName(const QString &b)
 {
     // qDebug() << Q_FUNC_INFO << ": " << b ;
@@ -1018,22 +985,6 @@ int DataBase::getBandIdFromFreq(const QString &fr)
     // query.finish();
     //return -3;
 }
-
-/*
-bool DataBase::isThisFreqInBand(const QString &b, const QString &fr)
-{//Freq should be in MHz
-   // qDebug() << Q_FUNC_INFO << ": " << b << "/" << fr ;
-    if (b.length()<2)
-    {
-       // qDebug() << Q_FUNC_INFO << ": returning false" ;
-        return false;
-    }
-    int bandNf = getBandIdFromFreq(fr);
-    int bandN = getBandIdFromName(b);
-   // qDebug() << Q_FUNC_INFO << ":  (b/f)" << QString::number(bandN) << "/" << QString::number(bandNf) ;
-    return (bandNf == bandN);
-}
-*/
 
 bool DataBase::unMarkAllQSO()
 {
@@ -1223,18 +1174,6 @@ bool DataBase::updateBandHash()
         // qDebug() << Q_FUNC_INFO << " - END" ;
     return true;
 }
-
-//Frequency DataBase::getFreqFromBandId(const int _i)
-//{
-    // qDebug() << Q_FUNC_INFO  ;
-
-//    if (freqBandIDHash.contains(_i))
-//    {
-        // qDebug() << Q_FUNC_INFO << " OK END" ;
-//        return freqBandIDHash.value(_i);
-//    }
-//    return Frequency(0);
-//}
 
 bool DataBase::updateToLatest()
 {
@@ -2043,11 +1982,6 @@ bool DataBase::populateTableMode(const bool NoTmp)
         return false;
     }
 
-    //bool transactionStarted = db.transaction();
-    //if (!transactionStarted) {
-    //    // qDebug() << Q_FUNC_INFO << " - Failed to start a transaction!";
-    //    return false;
-    //}
         // qDebug() << Q_FUNC_INFO << " - 020";
         for (const auto &group : adifData) {
             // qDebug() << Q_FUNC_INFO << " - 021 - Processing mode: " << group.mode;
@@ -2062,12 +1996,6 @@ bool DataBase::populateTableMode(const bool NoTmp)
             // qDebug() << Q_FUNC_INFO << " - 025";
         }
         // qDebug() << Q_FUNC_INFO << " - 030";
-
-        //bool success = db.commit();
-        // qDebug() << Q_FUNC_INFO << " - 031 - True";
-        //logEvent(Q_FUNC_INFO, success ? "End OK" : "End FAIL", Debug);
-        // qDebug() << Q_FUNC_INFO << " - Success: " << util->boolToQString(success);
-        //return success;
         return true;
 }
 
@@ -2458,51 +2386,6 @@ bool DataBase::populateContestData()
 /*
     // CQ WW DX SSB START
     execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 0, 1)");
-
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 1, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 1, 1)");
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 1, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 1, 2, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 1, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 2, 2, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 1, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 1, 3, 2, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 1, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 1, 2, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 1, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 2, 2, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 1, 2, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 1, 2, 3, 2, 2, 1)");
-
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 1, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 2, 0, 2, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 1, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 3, 0, 2, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 4, 0, 1, 1, 0, 1)");
-    execQuery(Q_FUNC_INFO, "INSERT INTO contest (contest, catoperator, catassisted, catpower, catband, catoverlay, catmode) VALUES (1, 5, 0, 0, 0, 0, 1)");
     // CQ WW DX SSB END
 */
 
@@ -2637,37 +2520,6 @@ bool DataBase::updateTableLog(const int _version)
     return execQuery(Q_FUNC_INFO, queryString);
 }
 
-/*
-bool DataBase::createTableClubLogStatus()
-{
-        // qDebug() << "createTableClubLogStatus" ;
-
-    execQuery(Q_FUNC_INFO, "DROP TABLE IF exists clublog_status");
-    QString queryString = QString("CREATE TABLE clublog_status ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "shortname VARCHAR(1) NOT NULL, "
-               "name VARCHAR(15) NOT NULL)");
-
-    return execQuery(Q_FUNC_INFO, queryString);
-}
-
-bool DataBase::populateTableClubLogStatus()
-{
-    // qDebug() << Q_FUNC_INFO;
-
-    QString queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('Y', 'Uploaded')";
-    if (!execQuery(Q_FUNC_INFO, queryString))
-        return false;
-
-    queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('N', 'Do not upload')";
-    if (!execQuery(Q_FUNC_INFO, queryString))
-        return false;
-
-    queryString = "INSERT INTO clublog_status (shortname, name) VALUES ('M', 'Modified')";
-    return execQuery(Q_FUNC_INFO, queryString);
-}
-*/
-
 //TODO: Awards are deprecated
 bool DataBase::createAndPopulateAwardEnumeration()
 {
@@ -2718,33 +2570,6 @@ bool DataBase::createAndPopulateARRLSectEnumeration()
     return execQuery(Q_FUNC_INFO, "INSERT INTO arrl_sect_enumeration (shortname, name) VALUES ('AK', 'Alaska')");
         return false;
 }
-
-
-
-//bool DataBase::createAndPopulateQSO_CompleteEnumeration()
-//{
-//    QString stringQuery = QString("CREATE TABLE qso_complete_enumeration ("
-//             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-//             "shortname VARCHAR(3) NOT NULL, "
-//             "name VARCHAR(10) NOT NULL)");
-//    if (!execQuery(Q_FUNC_INFO, stringQuery))
-//    {
-//        return false;
-//    }
-//    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('Y', 'Yes')"))
-//    {
-//        return false;
-//    }
-//    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('N', 'No')"))
-//    {
-//        return false;
-//    }
-//    if (!execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('H', 'Not heard')"))
-//    {
-//        return false;
-//    }
-//    return execQuery(Q_FUNC_INFO, "INSERT INTO qso_complete_enumeration (shortname, name) VALUES ('?', 'Uncertain')");
-//}
 
 
 bool DataBase::createAndPopulateAnt_path_enumeration()
@@ -4088,13 +3913,6 @@ bool DataBase::updateTo011()
         return false;
     }
 
-    //if (!recreateTableDXCC())
-    //{
-        // qDebug() <<  Q_FUNC_INFO << " -- recreateTable DXCC NOK " ;
-       // emit debugLog(Q_FUNC_INFO, "3", 7);
-    //    return false;
-    //}
-
 
     if(!execQuery(Q_FUNC_INFO, "INSERT INTO mode (submode, name, cabrillo, deprecated) VALUES ('MSK144', 'MSK144', 'NO', '0')"))
     {
@@ -4626,14 +4444,6 @@ bool DataBase::updateTo017()
         return false;
     }
     // qDebug() <<  Q_FUNC_INFO << " -- Recreated Table Log " ;
-
-    /*
-
-    else
-    {
-        // qDebug() <<  Q_FUNC_INFO << " -- Table log recreated OK" ;
-    }
-    */
 
     // REMOVE THE FOLLOWING LINE ONCE THIS FUNCTION HAS BEEN UPDATED
     //return false;
