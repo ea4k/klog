@@ -1,4 +1,5 @@
 # KLog
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/ea4k/klog/latest/total)
 [![Build Status](https://app.travis-ci.com/ea4k/klog.svg?branch=master)](https://travis-ci.com/github/ea4k/klog)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/127fac70ffe649438bd323caa61f7153)](https://www.codacy.com/gh/ea4k/klog/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ea4k/klog&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/ea4k/klog/badge)](https://www.codefactor.io/repository/github/ea4k/klog)
