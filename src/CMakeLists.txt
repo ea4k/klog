@@ -87,6 +87,7 @@ set(KLOG_SOURCES
    charts/statssentconfirmedpiechartwidget.cpp
    charts/statsworkedconfirmedpiechartwidget.cpp
    charts/statsworkedsentpiechartwidget.cpp
+   database/datacache.cpp
    database/db_adif_primary_subdvisions_data.cpp
    database/queryexecutor.cpp
    dxcluster/dxclusterassistant.cpp
@@ -188,6 +189,7 @@ set(KLOG_HEADERS
    charts/statssentconfirmedpiechartwidget.h
    charts/statsworkedconfirmedpiechartwidget.h
    charts/statsworkedsentpiechartwidget.h
+   database/datacache.h
    database/db_adif_primary_subdvisions_data.h
    database/queryexecutor.h
    dxcluster/dxclusterassistant.h

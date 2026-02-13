@@ -394,6 +394,8 @@ macx: {
     #LIBS += -L"../../../hamlib/lib" -lhamlib
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
+    INCLUDEPATH +=/opt/homebrew/Cellar/hamlib/4.6.5/include/
+    LIBS += -L"/opt/homebrew/Cellar/hamlib/4.6.5/lib" -lhamlib
 }
 
 win32: {
