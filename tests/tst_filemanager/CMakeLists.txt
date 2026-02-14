@@ -21,6 +21,7 @@ add_executable(tst_filemanager
     ../../src/awards.cpp
     ../../src/awarddxmarathon.cpp
     ../../src/database.cpp
+    ../../src/database/datacache.cpp
     ../../src/callsign.cpp
     ../../src/dataproxy_sqlite.cpp
     ../../src/frequency.cpp
@@ -38,6 +39,7 @@ add_executable(tst_filemanager
     ../../src/awards.h
     ../../src/awarddxmarathon.h
     ../../src/database.h
+    ../../src/database/datacache.h
     ../../src/callsign.h
     ../../src/dataproxy_sqlite.h
     ../../src/frequency.h
