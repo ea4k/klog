@@ -26,7 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/database.h"
+#include "../../src/database/database.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/frequency.h"
 #include "../../src/inputwidgets/mainwindowsattab.h"

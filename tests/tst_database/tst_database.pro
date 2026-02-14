@@ -10,7 +10,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/database.h \
+    ../../src/database/database.h \
     ../../src/database/datacache.h \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
@@ -39,7 +39,7 @@ SOURCES +=  tst_database.cpp \
         ../../src/callsign.cpp \
         ../../src/database/queryexecutor.cpp \
         ../../src/database/db_adif_primary_subdvisions_data.cpp \
-        ../../src/database.cpp
+        ../../src/database/database.cpp
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe

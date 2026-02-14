@@ -35,13 +35,17 @@ set(KLOG_SOURCES
    awards.cpp
    awardswidget.cpp
    callsign.cpp
-   database.cpp
+   database/database.cpp
+   database/datacache.cpp
+   database/db_adif_primary_subdvisions_data.cpp
+   database/queryexecutor.cpp
    dataproxy_sqlite.cpp
    downloadcty.cpp
    dxccstatuswidget.cpp
-   elogclublog.cpp
-   elogqrzlog.cpp
-   eqslutilities.cpp
+   elog/elogclublog.cpp
+   elog/lotwutilities.cpp
+   elog/elogqrzlog.cpp
+   elog/eqslutilities.cpp
    fileawardmanager.cpp
    filemanager.cpp
    frequency.cpp
@@ -50,7 +54,6 @@ set(KLOG_SOURCES
    locator.cpp
    logmodel.cpp
    logwindow.cpp
-   lotwutilities.cpp
    main.cpp
    mainqsoentrywidget.cpp
    mainwindow.cpp
@@ -87,9 +90,6 @@ set(KLOG_SOURCES
    charts/statssentconfirmedpiechartwidget.cpp
    charts/statsworkedconfirmedpiechartwidget.cpp
    charts/statsworkedsentpiechartwidget.cpp
-   database/datacache.cpp
-   database/db_adif_primary_subdvisions_data.cpp
-   database/queryexecutor.cpp
    dxcluster/dxclusterassistant.cpp
    dxcluster/dxcluster.cpp
    dxcluster/dxspot.cpp
@@ -134,13 +134,17 @@ set(KLOG_HEADERS
    awards.h
    awardswidget.h
    callsign.h
-   database.h
+   database/database.h
+   database/datacache.h
+   database/db_adif_primary_subdvisions_data.h
+   database/queryexecutor.h
    dataproxy_sqlite.h
    downloadcty.h
    dxccstatuswidget.h
-   elogclublog.h
-   elogqrzlog.h
-   eqslutilities.h
+   elog/elogclublog.h
+   elog/lotwutilities.h
+   elog/elogqrzlog.h
+   elog/eqslutilities.h
    fileawardmanager.h
    filemanager.h
    frequency.h
@@ -150,8 +154,7 @@ set(KLOG_HEADERS
    klogdefinitions.h
    locator.h
    logmodel.h
-   logwindow.h
-   lotwutilities.h
+   logwindow.h 
    mainqsoentrywidget.h
    mainwindow.h
    qso.h
@@ -189,9 +192,6 @@ set(KLOG_HEADERS
    charts/statssentconfirmedpiechartwidget.h
    charts/statsworkedconfirmedpiechartwidget.h
    charts/statsworkedsentpiechartwidget.h
-   database/datacache.h
-   database/db_adif_primary_subdvisions_data.h
-   database/queryexecutor.h
    dxcluster/dxclusterassistant.h
    dxcluster/dxcluster.h
    dxcluster/dxspot.h

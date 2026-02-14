@@ -29,7 +29,7 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
-#include "callsign.h"
+#include "../callsign.h"
 //#include <QDebug>
 
 eLogQrzLog::eLogQrzLog(DataProxy_SQLite *dp, const QString &_parentFunction, const QString &_klogVersion)

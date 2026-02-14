@@ -100,7 +100,7 @@ HEADERS += setupdialog.h \
     charts/statsworkedsentpiechartwidget.h \
     charts/statsgridsonsatswidget.h \
     charts/statssentconfirmedpiechartwidget.h \
-    database.h \
+    database/database.h \
     database/datacache.h \
     database/db_adif_primary_subdvisions_data.h \
     database/queryexecutor.h \
@@ -111,8 +111,6 @@ HEADERS += setupdialog.h \
     dxcluster/dxspot.h \
     dxcluster/dxcluster.h \
     dxcluster/dxclusterassistant.h \
-    elogqrzlog.h \
-    eqslutilities.h \
     global.h \
     hamlibclass.h \
     inputwidgets/mainwindowinputqso.h \
@@ -123,7 +121,6 @@ HEADERS += setupdialog.h \
     inputwidgets/mainwindowinputqsl.h \
     inputwidgets/mainwindowsattab.h\
     klogdefinitions.h \
-    lotwutilities.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     qso.h \
@@ -137,8 +134,7 @@ HEADERS += setupdialog.h \
     filemanager.h \
     fileawardmanager.h \
     locator.h \
-    startwizard.h \
-    elogclublog.h \
+    startwizard.h \  
     softwareupdate.h \
     softwareupdatedialog.h \
     utilities.h \
@@ -186,16 +182,19 @@ SOURCES += main.cpp \
     awardswidget.cpp \
     callsign.cpp \
     charts/statsfieldperbandwidget.cpp \
+    database/database.cpp \
     database/datacache.cpp \
     database/db_adif_primary_subdvisions_data.cpp \
     database/queryexecutor.cpp \
+    dataproxy_sqlite.cpp \
     dxcluster/dxspot.cpp \
     dxcluster/dxcluster.cpp \
     dxcluster/dxclusterassistant.cpp \
-    elogqrzlog.cpp \
-    eqslutilities.cpp \
+    elog/elogclublog.cpp \
+    elog/elogqrzlog.cpp \
+    elog/eqslutilities.cpp \
+    elog/lotwutilities.cpp \
     frequency.cpp \
-    lotwutilities.cpp \
     mainqsoentrywidget.cpp \
     mainwindow.cpp \
     inputwidgets/mainwindowinputqso.cpp \
@@ -227,8 +226,6 @@ SOURCES += main.cpp \
     logwindow.cpp \
     filemanager.cpp \
     fileawardmanager.cpp \
-    database.cpp \
-    dataproxy_sqlite.cpp \
     downloadcty.cpp \
     locator.cpp \
     qso.cpp \
@@ -248,7 +245,6 @@ SOURCES += main.cpp \
     setuppages/setupentitydialog.cpp \
     startwizard.cpp \
     awarddxmarathon.cpp \
-    elogclublog.cpp \
     softwareupdate.cpp \
     softwareupdatedialog.cpp \
     utilities.cpp \

@@ -41,7 +41,7 @@
 #include <QDateTime>
 #include "world.h"
 #include "awards.h"
-#include "database.h"
+#include "database/database.h"
 #include "dataproxy_sqlite.h"
 #include "utilities.h"
 #include "qso.h"
@@ -139,8 +139,8 @@ private:
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
 
 
-    bool dbCreated;
-    DataBase *db;
+    //bool dbCreated;
+    //DataBase *db;
 
     //float softwareVersion;
     //DataProxy_SQLite *dataProxy;

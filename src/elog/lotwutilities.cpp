@@ -25,7 +25,7 @@
  *****************************************************************************/
 
 #include "lotwutilities.h"
-#include "callsign.h"
+#include "../callsign.h"
 #include <QCoreApplication>
 #include <QUrl>
 #include <QNetworkRequest>

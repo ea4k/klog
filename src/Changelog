@@ -1,8 +1,8 @@
-WIP: CheckQVERIFY2(util->getPrefixFromCall("FB1K") == "F", "FB1K");
+WIP: Check QVERIFY2(util->getPrefixFromCall("FB1K") == "F", "FB1K");
 WIP: bool QSO::setLoTWRXQSO(const QString& data)
 WIP: https://github.com/ea4k/klog/issues/858
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
-
+TODO: Hamlib is not always working
 TODO: Check if is properly readed when importing from LoTW
 
 TODO: LoTW import ensure exiting QSOs are updated

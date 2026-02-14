@@ -37,11 +37,11 @@
 #include <QDateTime>
 #include <QInputDialog>
 #include <QProgressDialog>
-#include "database/db_adif_primary_subdvisions_data.h"
-#include "utilities.h"
-#include "frequency.h"
-#include "global.h"
-#include "klogdefinitions.h"
+#include "queryexecutor.h"
+#include "../utilities.h"
+#include "../frequency.h"
+#include "../global.h"
+#include "../klogdefinitions.h"
 
 class QSqlRelationalTableModel;
 const float DBVersionf = 0.028f; // This is the latest version of the DB.

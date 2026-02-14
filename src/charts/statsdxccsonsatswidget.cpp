@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "statsdxccsonsatswidget.h"
+#include "../utilities.h"
 
 StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
@@ -35,7 +36,7 @@ StatsDXCCOnSatsWidget::StatsDXCCOnSatsWidget(DataProxy_SQLite *dp, QWidget *pare
 #endif
 
     dataProxy = dp;
-    util = new Utilities(Q_FUNC_INFO);
+    //util = new Utilities(Q_FUNC_INFO);
     confirmedOnlyCheckBox = new QCheckBox;
     onlyLEOSatCheckBox = new QCheckBox;
     numberLabel = new QLabel;
@@ -96,7 +97,7 @@ void StatsDXCCOnSatsWidget::createUI()
 
 StatsDXCCOnSatsWidget::~StatsDXCCOnSatsWidget()
 {
-    delete(util);
+    //delete(util);
 }
 
 void StatsDXCCOnSatsWidget::prepareChart(const int _log)
@@ -125,7 +126,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
      int number = 0;
      QList<int> entities;
      entities.clear();
-
+     Utilities util(Q_FUNC_INFO);
      if (!_qsos.isEmpty())
      {
          for (int i = 0; i<_qsos.length(); i++)
@@ -171,7 +172,7 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
                  number++;
                  tableWidget->insertRow(tableWidget->rowCount());
                  tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem((_qsos.at(i)->getCall())) );
-                 tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem( util->getDateSQLiteStringFromDate(_qsos.at(i)->getDate()) ) );
+                 tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem( util.getDateSQLiteStringFromDate(_qsos.at(i)->getDate()) ) );
                  tableWidget->setItem(tableWidget->rowCount()-1, 2, new QTableWidgetItem((_qsos.at(i)->getBand())) );
                  tableWidget->setItem(tableWidget->rowCount()-1, 3, new QTableWidgetItem((_qsos.at(i)->getMode())) );
                  tableWidget->setItem(tableWidget->rowCount()-1, 4, new QTableWidgetItem((dataProxy->getEntityNameFromId(_qsos.at(i)->getDXCC()))) );

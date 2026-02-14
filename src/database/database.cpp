@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "database.h"
+#include "db_adif_primary_subdvisions_data.h"
 //#include <qDebug>
 
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)

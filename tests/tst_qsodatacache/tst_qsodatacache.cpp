@@ -31,7 +31,7 @@
 #include "../../src/qsodatacache.h"
 #include "../../src/callsign.h"
 #include "../../src/klogdefinitions.h"
-#include "../../src/database.h"
+#include "../../src/database/database.h"
 #include "../../src/utilities.h"
 
 

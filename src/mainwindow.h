@@ -34,7 +34,6 @@
 #include <QtAlgorithms>
 #include <QDesktopServices>
 #include <QUrl>
-
 #include "setupdialog.h"
 #include "aboutdialog.h"
 #include "tipsdialog.h"
@@ -56,7 +55,10 @@
 #include "inputwidgets/mainwindowinputqsl.h"
 #include "inputwidgets/mainwindowinputqso.h"
 #include "mainqsoentrywidget.h"
-#include "elogclublog.h"
+#include "elog/elogclublog.h"
+#include "elog/elogqrzlog.h"
+#include "elog/lotwutilities.h"
+#include "elog/eqslutilities.h"
 #include "utilities.h"
 #include "downloadcty.h"
 #include "dxccstatuswidget.h"
@@ -70,9 +72,6 @@
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
-#include "elogqrzlog.h"
-#include "lotwutilities.h"
-#include "eqslutilities.h"
 #include "widgets/adiflotwexportwidget.h"
 #include "widgets/showadifimportwidget.h"
 #include "widgets/map/mapwindowwidget.h"
@@ -81,7 +80,6 @@
 #include "klogdefinitions.h"
 #include <memory>
 
-#include <memory>
 
 class QTimer;
 class QDateTime;

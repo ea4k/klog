@@ -10,7 +10,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/callsign.h \
-    ../../src/database.h \
+    ../../src/database/database.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/database/queryexecutor.h \
     ../../src/frequency.h \
@@ -20,7 +20,7 @@ HEADERS += \
 
 SOURCES +=  tst_qsodatacache.cpp \
     ../../src/callsign.cpp \
-    ../../src/database.cpp \
+    ../../src/database/database.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/frequency.cpp \

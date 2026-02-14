@@ -24,6 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 #include "statsgridsonsatswidget.h"
+#include "../utilities.h"
 
 StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *parent)
 {
@@ -34,7 +35,7 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
 #endif
 
     dataProxy = dp;
-    util = new Utilities(Q_FUNC_INFO);
+    //util = new Utilities(Q_FUNC_INFO);
     confirmedOnlyCheckBox = new QCheckBox;
     onlyLEOSatCheckBox = new QCheckBox;
     numberLabel = new QLabel;
@@ -47,7 +48,7 @@ StatsGridsOnSatsWidget::StatsGridsOnSatsWidget(DataProxy_SQLite *dp, QWidget *pa
 
 StatsGridsOnSatsWidget::~StatsGridsOnSatsWidget()
 {
-    delete(util);
+    //delete(util);
    //delete(dataProxy);
 }
 
@@ -113,7 +114,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     tableWidget->setHorizontalHeaderItem(6, new QTableWidgetItem(tr("Confirmed")));
     tableWidget->setStyleSheet("QHeaderView::section { background-color:cornflowerblue }");
     // qDebug() << "StatsGridsOnSatsWidget::prepareChart: QSOs: " << QString::number(_qsos.length());
-
+    Utilities util(Q_FUNC_INFO);
     int number = 0;
     QStringList grids;
     grids.clear();
@@ -161,7 +162,7 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
                 number++;
                 tableWidget->insertRow(tableWidget->rowCount());
                 tableWidget->setItem(tableWidget->rowCount()-1, 0, new QTableWidgetItem((_qsos.at(i)->getCall())) );
-                tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem( util->getDateSQLiteStringFromDate(_qsos.at(i)->getDate()) ) );
+                tableWidget->setItem(tableWidget->rowCount()-1, 1, new QTableWidgetItem( util.getDateSQLiteStringFromDate(_qsos.at(i)->getDate()) ) );
                 tableWidget->setItem(tableWidget->rowCount()-1, 2, new QTableWidgetItem((_qsos.at(i)->getBand())) );
                 tableWidget->setItem(tableWidget->rowCount()-1, 3, new QTableWidgetItem((_qsos.at(i)->getMode())) );
                 tableWidget->setItem(tableWidget->rowCount()-1, 4, new QTableWidgetItem((_qsos.at(i)->getGridSquare()).left(4)) );
@@ -178,3 +179,4 @@ void StatsGridsOnSatsWidget::slotConfirmedClicked()
 {
     prepareChart(log);
 }
+;
