@@ -111,6 +111,10 @@ HEADERS += setupdialog.h \
     dxcluster/dxspot.h \
     dxcluster/dxcluster.h \
     dxcluster/dxclusterassistant.h \
+    elog/elogclublog.h \
+    elog/elogqrzlog.h \
+    elog/eqslutilities.h \
+    elog/lotwutilities.h \
     global.h \
     hamlibclass.h \
     inputwidgets/mainwindowinputqso.h \
