@@ -17,17 +17,9 @@ else()
 endif()
 
 # Recursively gather sources/resources under src/
-
 file(GLOB_RECURSE SRC_UI  CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.ui")
 file(GLOB_RECURSE SRC_QRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.qrc")
 
-# (Optional, IDE nicety)
-
-
-
-
-
-#file(GLOB KLOG_UIS "*.ui")
 set(KLOG_SOURCES
    aboutdialog.cpp
    adif.cpp
@@ -125,6 +117,7 @@ set(KLOG_SOURCES
    widgets/showkloglogwidget.cpp
    widgets/map/mapwidget.cpp
    widgets/map/mapwindowwidget.cpp
+   klog.rc
 )
 
 set(KLOG_HEADERS
@@ -229,15 +222,67 @@ set(KLOG_HEADERS
    widgets/map/mapwindowwidget.h
 )
 
+set(KLOG_DOC
+   AUTHORS
+   Changelog
+   COPYING
+   INSTALL-es.txt
+   INSTALL-linux
+   INSTALL-macOS.txt
+   INSTALL-win.txt
+   INSTALL.txt
+   klog.1
+   NEWS
+   README
+   README-DEVEL
+   TODO
+   TROUBLESHOUTING
+)
+
+find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
+
+# Translation files
+set(KLOG_TS_FILES
+    translations/klog_ca.ts
+    translations/klog_cs.ts
+    translations/klog_da.ts
+    translations/klog_de.ts
+    translations/klog_en.ts
+    translations/klog_es.ts
+    translations/klog_fi.ts
+    translations/klog_fr.ts
+    translations/klog_hr.ts
+    translations/klog_it.ts
+    translations/klog_ja.ts
+    translations/klog_lv.ts
+    translations/klog_nl.ts
+    translations/klog_pl.ts
+    translations/klog_ru.ts
+    translations/klog_uk.ts
+)
+
+qt_add_translations(klog
+    TS_FILES ${KLOG_TS_FILES}
+    QM_FILES_OUTPUT_VARIABLE QM_FILES
+)
+
+
 # Add executable
 
-add_executable(klog
+add_executable(klog WIN32 MACOSX_BUNDLE
     ${KLOG_SOURCES}
     ${KLOG_HEADERS} 
     ${SRC_UI}
     ${SRC_QRC}
+    ${KLOG_DOC}
+    ${KLOG_TS_FILES}
 )
 
+source_group("Documentation" FILES ${KLOG_DOC})
+
+source_group("Translations" FILES ${KLOG_TS_FILES})
+source_group("UI Forms" FILES ${SRC_UI})
+source_group("Resources" FILES ${SRC_QRC})
 
 # Ensure the generated version.h is visible
 target_include_directories(klog PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
@@ -264,7 +309,6 @@ target_link_libraries(klog
     Qt6::Sql
     Qt6::Widgets
 )
-
 
 # Prefer a config package if available (e.g., Homebrew/macOS or user-provided)
 find_package (Hamlib REQUIRED)
@@ -306,9 +350,42 @@ else()
 endif()
 
 
+if(APPLE)
+    # Place the files in KLog.app/Contents/Resources/
+    # Instalar el binario principal
+    install(TARGETS klog BUNDLE  DESTINATION . )
+    set_source_files_properties(${KLOG_DOC} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set_source_files_properties(${QM_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/translations)
+    target_sources(klog PRIVATE ${QM_FILES})
+    set_target_properties(klog PROPERTIES MACOSX_BUNDLE_ICON_FILE klog.icns)
+
+   set_source_files_properties(klog.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+  target_sources(klog PRIVATE klog.icns)
+
+
+elseif(WIN32)
+    # Place the file in the same folder thn klog.exe
+    # (Normalmente es el directorio base '.' o 'bin' dependiendo de tu setup)
+    install(TARGETS klog
+       RUNTIME
+       RUNTIME_DEPENDENCIES
+       DESTINATION .
+    )
+    install(FILES ${KLOG_DOC} DESTINATION .)
+    install(FILES ${QM_FILES} DESTINATION translations)
+
+else()
+    # System standard (eg. /usr/local/share/doc/KLog/)
+    install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    install(FILES ${QM_FILES} DESTINATION share/klog/translations)
+
+endif()
+
 # Other platform-specific stuff (icons, etc)
 if(WIN32)
     # Add Windows resources if any (e.g., icons)
 elseif(APPLE)
     # Set MacOS bundle properties if any
 endif()
+
+

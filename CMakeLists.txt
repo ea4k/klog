@@ -86,8 +86,9 @@ qt_standard_project_setup() # Added from MacOS
 
 
 add_subdirectory(src)
+
 # Define an option to build tests (Default = OFF)
-option(BUILD_TESTING "Build the testing tree." OFF)
+option(BUILD_TESTING "Build the testing tree." ON)
 
 if(BUILD_TESTING)
     enable_testing()
