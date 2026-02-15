@@ -30,6 +30,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "utilities.h"
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {

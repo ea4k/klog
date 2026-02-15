@@ -3501,18 +3501,18 @@ bool QSO::setTimeOn(const QString& data) { Utilities util(Q_FUNC_INFO); return s
 
 bool QSO::setLoTWRXQSO(const QString& data)
 {
-    //TODO: Revisar los datos que llegan aqui
-    qDebug() << Q_FUNC_INFO << " - " << data;
-    QDateTime parsedDate = QDateTime::fromString(data, "yyyy-MM-dd HH:mm:ss");
-    if (!parsedDate.isValid())
-    {
-        qDebug() << Q_FUNC_INFO << " - Invalid APP_LoTW_RXQSO date: " <<data;
+    QString cleanData = data.trimmed();
+    if (cleanData.isEmpty()) return false;
+
+    QDateTime parsedDate = QDateTime::fromString(cleanData, "yyyy-MM-dd HH:mm:ss");
+    if (!parsedDate.isValid()) {
         return false;
     }
-    setLoTWQSL_SENT("Y");
-    setLoTWQSLRDate(parsedDate.date());
 
-    return true;
+    // Sets the QSO as sent
+    setLoTWQSL_SENT("Y");
+    setLoTWQSLSDate(parsedDate.date()); // Sent date (SDate)
+     return true;
 }
 
 /*
