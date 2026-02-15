@@ -3505,7 +3505,14 @@ bool QSO::setLoTWRXQSO(const QString& data)
     if (cleanData.isEmpty()) return false;
 
     QDateTime parsedDate = QDateTime::fromString(cleanData, "yyyy-MM-dd HH:mm:ss");
+
     if (!parsedDate.isValid()) {
+        // // Second try to import, in a different format
+        parsedDate = QDateTime::fromString(cleanData, Qt::ISODate);
+    }
+
+    if (!parsedDate.isValid()) {
+        qDebug() << Q_FUNC_INFO << " - Invalid APP_LoTW_RXQSO date: " << data;
         return false;
     }
 
@@ -3513,6 +3520,37 @@ bool QSO::setLoTWRXQSO(const QString& data)
     setLoTWQSL_SENT("Y");
     setLoTWQSLSDate(parsedDate.date()); // Sent date (SDate)
      return true;
+}
+
+bool QSO::setLoTWRXQSL(const QString& data)
+{
+    QString cleanData = data.trimmed();
+    if (cleanData.isEmpty()) {
+        return false;
+    }
+
+    // First try
+    QDateTime parsedDate = QDateTime::fromString(cleanData, "yyyy-MM-dd HH:mm:ss");
+
+    // If LoTW changes format
+    if (!parsedDate.isValid()) {
+        parsedDate = QDateTime::fromString(cleanData, Qt::ISODate);
+    }
+
+    // 3. No valid, data reject
+    if (!parsedDate.isValid()) {
+        qDebug() << Q_FUNC_INFO << " - Invalid APP_LoTW_RXQSL date: " << data;
+        return false;
+    }
+
+    // RXQSL Confirmed!
+    setLoTWQSL_RCVD("Y");
+    setLoTWQSLRDate(parsedDate.date()); // RDate = Received Date
+
+    // Forcing the QSL sent for coherence
+    setLoTWQSL_SENT("Y");
+
+    return true;
 }
 
 /*
@@ -3679,7 +3717,7 @@ void QSO::InitializeHash() {
         {"VUCC_GRIDS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setVUCCGrids)},
         {"WEB", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWeb)},
         {"WWFF_REF", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setWWFF_Ref)},
-        {"APP_LOTW_RXQSL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSLRDate)},
+        {"APP_LOTW_RXQSL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWRXQSL)},
         {"APP_LOTW_RXQSO", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWRXQSO)}
     };
     return;

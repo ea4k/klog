@@ -552,6 +552,7 @@ private:
     bool setLoTWQSLSDate(const QString& data);
     //bool setLoTWRXQSO(const QString& string);     // Receives the string date/time in LOTW format (APP_LoTW_RXQSO)
     bool setLoTWRXQSO(const QString& data);
+    bool setLoTWRXQSL(const QString& data);
     bool setQRZCOMDate(const QString& data);
     bool setQSLRDate(const QString& data);
     bool setQSLSDate(const QString& data);

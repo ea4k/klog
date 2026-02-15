@@ -1,3 +1,6 @@
+TEST to import LoTW:
+  bool QSO::setLoTWRXQSL(const QString& data)
+  bool QSO::setLoTWRXQSO(const QString& data)
 WIP: https://github.com/ea4k/klog/issues/858
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
 TODO: Hamlib is not always working

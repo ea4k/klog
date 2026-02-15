@@ -627,9 +627,19 @@ QString Adif::getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime)
     // DateTime should have this format: YYYY-MM-DD HH:MM:SS
     // It returns a date on YYYYMMDD adif format
     QDateTime dateTime = QDateTime::fromString(_lotwdatetime, "yyyy-MM-dd HH:mm:ss");
+    if (!dateTime.isValid())
+    {
+        // Second try, just in case LoTW changes format
+        dateTime = QDateTime::fromString(_lotwdatetime, Qt::ISODate);
+    }
+
+    if (dateTime.isValid())
+        return (dateTime.date()).toString("yyyyMMdd");
+    return QString();
+
     //yyyy-MM-ddTHH:mm:ss.zzz (e.g. 2017-07-24T15:46:29.739)
     //dateTime.fromString(_lotwdatetime, "yyyy-MM-dd HH:mm:ss");
     // qDebug() << Q_FUNC_INFO << ": Modified date: " << (dateTime.date()).toString("yyyyMMdd");
-    return (dateTime.date()).toString("yyyyMMdd");
+
 }
 
