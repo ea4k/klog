@@ -1,4 +1,3 @@
-WIP: Check QVERIFY2(util->getPrefixFromCall("FB1K") == "F", "FB1K");
 WIP: bool QSO::setLoTWRXQSO(const QString& data)
 WIP: https://github.com/ea4k/klog/issues/858
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
