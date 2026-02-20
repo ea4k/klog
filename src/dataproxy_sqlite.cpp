@@ -472,8 +472,8 @@ bool DataProxy_SQLite::loadBandLimits()
 
 bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const Frequency _fr)
 {
-    qDebug() << Q_FUNC_INFO << " - Band: " << _band;
-    qDebug() << Q_FUNC_INFO << " - BandC: " << m_cache.getBandFromFreq(_fr).name;
+    //qDebug() << Q_FUNC_INFO << " - Band: " << _band;
+    //qDebug() << Q_FUNC_INFO << " - BandC: " << m_cache.getBandFromFreq(_fr).name;
     return (m_cache.getBandFromFreq(_fr).name == _band );
 }
 
@@ -7804,6 +7804,7 @@ void DataProxy_SQLite::addToCache(int id, const QString &call, const QDateTime &
 
 int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds)
 {
+    qDebug() << Q_FUNC_INFO << QString(" Start: (%1, %2, %3, %4, %5)").arg(call).arg(util->getADIFTimeFromQDateTime(newTime)).arg(bandId).arg(modeId).arg(marginSeconds);
     QString key = generateGroupingKey(call, bandId, modeId);
 
     // values(key) returns a QList<QsoInfo>

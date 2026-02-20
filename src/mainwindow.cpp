@@ -181,7 +181,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
         // qDebug() << Q_FUNC_INFO << ": AdifLoTWExportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
-       // qDebug() << Q_FUNC_INFO << ": ShowAdifImportWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
+       // qDebug() << Q_FUNC_INFO << ": ShowAdifWidget to be created " << QTime::currentTime().toString("hh:mm:ss") ;
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -4398,33 +4398,48 @@ void MainWindow::slotRQSLExport()
 }
 
 void MainWindow::slotADIFImport(){
-    // qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                      util->getHomeDir(),
                                                      "ADIF (*.adi *.adif)");
+    if (fileName.isNull())
+    {
+        int OSVersion = QOperatingSystemVersion::currentType();
+        if (OSVersion == QOperatingSystemVersion::MacOS)
+        {
+            qDebug() << Q_FUNC_INFO << " - Failed to read with MacOS Dialog";
+            fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                             util->getHomeDir(),
+                                                             "ADIF (*.adi *.adif)",
+                                                             nullptr,
+                                                             QFileDialog::DontUseNativeDialog);
+        }
+    }
+    qDebug() << Q_FUNC_INFO << " - After QFileDialog: " << fileName;
     if (!fileName.isNull())
     {
-       // qDebug() << Q_FUNC_INFO << " - 010";
+        qDebug() << Q_FUNC_INFO << " - fileName is not Null 010";
         int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog);  // Empty StationCallsign by default
+        qDebug() << Q_FUNC_INFO << " - loggedQSOs: " << loggedQSOs;
         if (loggedQSOs>0)
         {
             updateQSLRecAndSent();
             logWindow->refresh();
-             // qDebug() << Q_FUNC_INFO << " -3";
+            qDebug() << Q_FUNC_INFO << " -3";
             checkIfNewBandOrMode();
-             // qDebug() << Q_FUNC_INFO << " -4" ;
+            qDebug() << Q_FUNC_INFO << " -4" ;
             awardsWidget->fillOperatingYears();
-             // qDebug() << Q_FUNC_INFO << " -5" ;
+            qDebug() << Q_FUNC_INFO << " -5" ;
             slotShowAwards();
             awardsWidget->showAwards();
-             // qDebug() << Q_FUNC_INFO << " -6" ;
+            qDebug() << Q_FUNC_INFO << " -6" ;
         }
         // qDebug() << Q_FUNC_INFO << " - 020";
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
-    // qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 
