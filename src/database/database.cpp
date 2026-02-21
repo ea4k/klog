@@ -1253,7 +1253,7 @@ bool DataBase::updateToLatest()
         //return false;
     }
     // qDebug() << Q_FUNC_INFO << " - Let's update!";
-    return updateTo028();
+    return updateTo029();
 }
 
 
@@ -5038,13 +5038,13 @@ bool DataBase::updateTo027()
     return updateDBVersion(softVersion, "0.027");
 }
 
-bool DataBase::updateTo028()
+bool DataBase::updateTo029()
 {
-    // Updates the DB to 0.028:
+    // Updates the DB to 0.029:
     // Recreates Mode to add new modes (including FT2)
     // qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
     latestReaded = getDBVersion();
-    if (latestReaded >= 0.028f)
+    if (latestReaded >= 0.029f)
     {
         // qDebug() << Q_FUNC_INFO << " - I am in 028" ;
         return true;
