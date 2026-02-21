@@ -1014,9 +1014,13 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     // This condition checks for a successful *insertion* (resultId > 0 AND it was a new QSO)
     if (resultId > 0 && qsoIdToUse == -1)
     {
-        AÑADIR AQUI EL CACHE
+        qDebug() << Q_FUNC_INFO << " - QSO was suscesfully inserted, let's add it to the cache.";
         // Add the newly inserted QSO (with its new ID: resultId) to the cache.
         dataProxy->addDuplicateCache(resultId, qso);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << " - QSO was not suscesfully inserted";
     }
     qDebug() << Q_FUNC_INFO << " - END - " << resultId;
     return resultId;

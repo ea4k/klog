@@ -18,6 +18,7 @@ TODO: Isolate the functions from Utilities that return data (like getVersion) an
 a small class for that. Keep utilities not persistant.
 
 TBD
+- Enhancement: Added the FT2 submode
 - Enhancement: Test on QSO cache class.
 - Enhancement: Complete ADIF->IsValidPOTA (Closes #717)
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
