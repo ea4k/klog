@@ -1,4 +1,7 @@
+TOOD: Add a test for dataproxy to test the add & remove of m_qsocache (removeDuplicateCache(int qsoId))
 WIP-BUG: la importación creo que no añade/elimina las fechas y estados de lotw
+No se está añadiendo los QSOs al cache (DataProxy_SQLite::addToCache) por lo que luego al validar
+ya están en el caché, lo devuelve como QSO nuevo.
 
   bool QSO::setLoTWRXQSL(const QString& data)
   bool QSO::setLoTWRXQSO(const QString& data)

@@ -4164,7 +4164,7 @@ int QSO::getBandIdFromBandName(bool _rxBand)
     }
     return -1;
 }
-
+/*
 QString QSO::getBandNameFromBandId(int bandId)
 {
     ////qDebug() << Q_FUNC_INFO << ": " << QString::number(bandId);
@@ -4192,6 +4192,7 @@ QString QSO::getBandNameFromBandId(int bandId)
     ////qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
+*/
 
 int QSO::getModeIdFromModeName()
 {
@@ -4251,7 +4252,7 @@ int QSO::getModeIdFromModeName()
     }
     return -3;
 }
-
+/*
 QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
 {
     ////qDebug() << Q_FUNC_INFO << ": " << QString::number(_modeId);
@@ -4287,6 +4288,7 @@ QString QSO::getModeNameFromModeId(int _modeId, bool _submode)
     ////qDebug() << Q_FUNC_INFO << ": " << (query.value(0)).toString();
     return (query.value(0)).toString();
 }
+*/
 
 QSqlQuery QSO::getPreparedQuery(const QString &_s)
 {

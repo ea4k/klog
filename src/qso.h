@@ -453,9 +453,9 @@ private:
     QString getModifyQueryString();
     QSqlQuery getPreparedQuery(const QString &_s);
     int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX
-    QString getBandNameFromBandId(int bandId);
+    //QString getBandNameFromBandId(int bandId);
     int getModeIdFromModeName();                // It really returns submode
-    QString getModeNameFromModeId(int _modeId, bool _submode=true);
+    //QString getModeNameFromModeId(int _modeId, bool _submode=true);
     void setBandFromFreq(const double _fr, bool TX = true);
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
     //DataBase *db;

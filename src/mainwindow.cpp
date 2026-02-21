@@ -1091,7 +1091,7 @@ void MainWindow::slotQRZReturnPressed()
     {
         // qDebug() << Q_FUNC_INFO << ": QSO Added: " << QString::number(addedOK);
         mapWindow->addLocator(qsoInUI.getGridSquare(), workedColor);
-        actionsJustAfterAddingOneQSO();
+        actionsJustAfterAddingOneQSO(qsoInUI);
     }
 
     // Just to prepare or some tasks before reading DATA from UI
@@ -1103,7 +1103,7 @@ void MainWindow::slotQRZReturnPressed()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::actionsJustAfterAddingOneQSO()
+void MainWindow::actionsJustAfterAddingOneQSO(const QSO& _qso)
 {
    // qDebug() << Q_FUNC_INFO << " - Start" ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -1113,8 +1113,10 @@ void MainWindow::actionsJustAfterAddingOneQSO()
     {
         // qDebug() << Q_FUNC_INFO << " -  Modifying! " ;
        needToSave = true;
+       dataProxy->loadDuplicateCache(currentLog);
        if(modifyingQSOid>0)
        {
+
            awards.setAwards();
            if (yearChangedDuringModification)
            {
@@ -1144,6 +1146,7 @@ void MainWindow::actionsJustAfterAddingOneQSO()
         if (lastId>=0)
         {
              // qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
+            dataProxy->addDuplicateCache(lastId, _qso);
             awards.setAwards();   //Update the DXCC award status
             // Send to CLUBLOG if enabled
             if ((clublogActive) && (clublogRealTime))
@@ -3267,6 +3270,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
    // qDebug() << "MainWindow::openSetup: before db->reConnect" ;
         dataProxy->reconnectDB();
+        dataProxy->loadDuplicateCache(currentLog);
 
           // qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
@@ -3531,7 +3535,7 @@ bool MainWindow::applySettings()
     {
         startServices();
     }
-
+    dataProxy->loadDuplicateCache(currentLog);
 
       // qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5471,7 +5475,7 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     {
          // qDebug() << Q_FUNC_INFO << "090";
          // qDebug() <<  Q_FUNC_INFO << " - QSO added: " << QString::number(addedQSO);
-        actionsJustAfterAddingOneQSO();
+        actionsJustAfterAddingOneQSO(q);
         slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
         infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getSubmode());
         slotClearButtonClicked(Q_FUNC_INFO);

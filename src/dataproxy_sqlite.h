@@ -364,7 +364,14 @@ public:
     void loadDuplicateCache(int logId);
     void clearDuplicateCache();
     void addDuplicateCache (int qsoId, const QSO &qso);
+    void removeDuplicateCache(int qsoId);
     int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
+    inline int findDuplicateId(const QSO &qso, int marginSeconds)
+    {
+        int modeId = getIdFromModeName(qso.getSubmode().isEmpty() ? qso.getMode() : qso.getSubmode());
+        return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), modeId, marginSeconds);
+    }
+
     QHash<QString, int> getHashTableData(const DataTableHash _data);
 
 

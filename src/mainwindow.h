@@ -409,7 +409,7 @@ private:
     // qString readDataFromUI(); // Reads the QSO data from the UI and returns the SQL Query
     // qString readDataFromUIDX();
     // qString readDataFromUIDXModifying();
-    void actionsJustAfterAddingOneQSO();
+    void actionsJustAfterAddingOneQSO(const QSO &_qso);
     //void clearForNextQSO();
     void clearUIDX(bool _full = false); //full= false leaves the "keep this data"; full = true clears everything
 

@@ -29,6 +29,7 @@
 #include "../../src/database/datacache.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/utilities.h"
+#include "../../src/qso.h"
 /*
     initTestCase() will be called before the first test function is executed.
     initTestCase_data() will be called to create a global test data table.
@@ -59,6 +60,7 @@ private slots:
 
     void test_subdivisions_data();
     void test_primarySubdivisions();
+    void test_qsosCache();
 
 
     //void test_getProgresStepForDialog();
@@ -207,6 +209,73 @@ void tst_DataProxy::test_bands()
     QVERIFY2(!dataProxy->isThisFreqInBand("20M", f1), "Freq in band failed");
 
     QVERIFY2(dataProxy->getNameFromBandId (dataProxy->getIdFromBandName ("20M")) == "20M", "Band names and Id failed");
+}
+
+void tst_DataProxy::test_qsosCache()
+{
+    // ==========================================
+    // PREPARATION (SETUP)
+    // ==========================================
+    dataProxy->clearDuplicateCache(); // Clear the cache
+
+    QSO qso;
+    qso.setCall("EA4K");
+    qso.setBand("20M");
+    qso.setMode("SSB");
+
+    QDateTime qsoTime(QDate(2025, 5, 20), QTime(14, 30, 0));
+    qso.setTimeOn(qsoTime.time());
+    qso.setDate(qsoTime.date());
+
+    int testQsoId = 999;
+    int bandId = dataProxy->getIdFromBandName("20M");
+    int modeId = dataProxy->getIdFromModeName("SSB");
+    int margin = 600; // 10 minutes margin for searchs
+
+
+    // ==========================================
+    // ADD & CHECK
+    // ==========================================
+    // Chec before we add to test it is not existinf
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
+
+    // Add the QSO
+    dataProxy->addDuplicateCache(testQsoId, qso);
+
+    // Search the QSO after adding it and check the ID
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), testQsoId);
+
+
+    // ==========================================
+    // LIMIT VALIDATION & ERRORS
+    // ==========================================
+    // Wrong call
+    QCOMPARE(dataProxy->findDuplicateId("EA4ZZ", qsoTime, bandId, modeId, margin), -1);
+
+    // wrong band
+    int wrongBandId = dataProxy->getIdFromBandName("40M");
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, wrongBandId, modeId, margin), -1);
+
+    // Works in the margin
+    QDateTime timeInsideMargin = qsoTime.addSecs(-300);
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", timeInsideMargin, bandId, modeId, margin), testQsoId);
+
+    // Fails out of the marging
+    QDateTime timeOutsideMargin = qsoTime.addSecs(margin + 60);
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", timeOutsideMargin, bandId, modeId, margin), -1);
+
+    // Test the wrapper
+    QCOMPARE(dataProxy->findDuplicateId(qso, margin), -1);
+
+    // ==========================================
+    // REMOVE
+    // ==========================================
+    // Remove using the ID
+    dataProxy->removeDuplicateCache(testQsoId);
+
+    // Check that is not existing anymore
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
+
 }
 
 void tst_DataProxy::test_continents()
