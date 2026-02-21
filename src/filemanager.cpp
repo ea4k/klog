@@ -941,6 +941,7 @@ void FileManager::showDuplicatedQSOFoundInLog()
 int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
+    qso.printQSO();
     // 1. Mandatory Setup / Callsign Assignment
     Callsign call1(_stationCallsign);
     Callsign call2(qso.getStationCallsign());
@@ -956,7 +957,7 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     int bandId = dataProxy->getIdFromBandName(qso.getBand());
     if (bandId<=0)
     {
-        qDebug() << Q_FUNC_INFO << " - END -1 - Wrong bandId, ignored";
+        qDebug() << Q_FUNC_INFO << " - END -1 - Wrong bandId, ignored: " << qso.getBand() << " / " << bandId;
         return -1;
     }
 
@@ -1013,6 +1014,7 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     // This condition checks for a successful *insertion* (resultId > 0 AND it was a new QSO)
     if (resultId > 0 && qsoIdToUse == -1)
     {
+        AÑADIR AQUI EL CACHE
         // Add the newly inserted QSO (with its new ID: resultId) to the cache.
         dataProxy->addDuplicateCache(resultId, qso);
     }

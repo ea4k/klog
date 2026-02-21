@@ -363,8 +363,8 @@ public:
     // Cache functions // DUPEs
     void loadDuplicateCache(int logId);
     void clearDuplicateCache();
-    void addDuplicateCache (int qsoId, const QSO &qso);
-    void removeDuplicateCache(int qsoId);
+    void addDuplicateCache (int _qsoId, const QSO &qso);
+    void removeDuplicateCache(int _qsoId);
     int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
     inline int findDuplicateId(const QSO &qso, int marginSeconds)
     {

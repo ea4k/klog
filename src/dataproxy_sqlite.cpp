@@ -2218,7 +2218,7 @@ bool DataProxy_SQLite::addQSOFromWSJTX (const QString &_dxcall, const QString &_
 
 bool DataProxy_SQLite::deleteQSO(const int _qsoId)
 {
-         // qDebug() << Q_FUNC_INFO << " -";
+    qDebug() << Q_FUNC_INFO << " - Start: Deleting QSO from log: " << _qsoId;
     QSqlQuery query;
     QString queryString = QString("DELETE FROM log WHERE id='%1'").arg(_qsoId);
     bool sqlOK = query.exec(queryString);
@@ -2237,14 +2237,16 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
     }
 }
 
-void DataProxy_SQLite::removeDuplicateCache(int qsoId)
+void DataProxy_SQLite::removeDuplicateCache(int _qsoId)
 {
+    qDebug() << Q_FUNC_INFO << " - Start: Deleting QSO from cache: " << _qsoId;
+    qDebug() << Q_FUNC_INFO << " - Start - " << QString("Cached %1 entries").arg(m_qsoCache.count()) ;
     auto it = m_qsoCache.begin();
 
     while (it != m_qsoCache.end())
     {
         // Again, assuming .first is the ID in your QsoInfo
-        if (it.value().first == qsoId)
+        if (it.value().first == _qsoId)
         {
             it = m_qsoCache.erase(it); // Safely remove it
             break;                     // ID found and removed, we can stop
@@ -2254,6 +2256,7 @@ void DataProxy_SQLite::removeDuplicateCache(int qsoId)
             ++it;
         }
     }
+    qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
 }
 
 int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
@@ -7694,7 +7697,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
 
 int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode, int _log)
 {
-        // qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
+    // qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
 
     if ((!doesThisLogExist(_log)) && !(_log == -1))
     {
@@ -7793,21 +7796,10 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
     query.finish();
     return 0;
 }
-/*
-QString DataProxy_SQLite::generateDuplicateKey(const QString &call, const QDate &date, int bandId, int modeId)
-{
-        QString dateS = util->getDateSQLiteStringFromDate(date);
-    return QString("%1|%2|%3|%4")
-            .arg(call.toUpper())
-            .arg(dateS)
-            .arg(bandId)
-            .arg(modeId);
-}
-*/
 
 QString DataProxy_SQLite::generateGroupingKey(const QString &call, int bandId, int modeId)
 {
-    // Solo los datos que NO cambian con el tiempo del QSO
+    //qDebug() << Q_FUNC_INFO << " - Start";
     return QString("%1|%2|%3")
             .arg(call.toUpper())
             .arg(bandId)
@@ -7821,12 +7813,13 @@ void DataProxy_SQLite::addToCache(int id, const QString &call, const QDateTime &
 
     // We save the pair: (ID, DateTime)
     m_qsoCache.insert(key, qMakePair(id, dateTime));
+    qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
 }
 
 int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds)
 {
     qDebug() << Q_FUNC_INFO << QString(" Start: (%1, %2, %3, %4, %5)").arg(call).arg(util->getADIFTimeFromQDateTime(newTime)).arg(bandId).arg(modeId).arg(marginSeconds);
-
+    qDebug() << Q_FUNC_INFO << " - Start - " << QString("Cached %1 entries").arg(m_qsoCache.count()) ;
     QString key = generateGroupingKey(call, bandId, modeId);
     qDebug() << Q_FUNC_INFO << key;
     QList<QsoInfo> potentialDupes = m_qsoCache.values(key);
@@ -7893,16 +7886,16 @@ void DataProxy_SQLite::loadDuplicateCache(int logId)
     logEvent(Q_FUNC_INFO, QString("End - Cached %1 entries").arg(m_qsoCache.count()), Debug);
 }
 
-void DataProxy_SQLite::addDuplicateCache (int qsoId, const QSO &qso)
+void DataProxy_SQLite::addDuplicateCache (int _qsoId, const QSO &qso)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     int bandId = getIdFromBandName(qso.getBand());
     int modeId = getIdFromModeName(qso.getMode());
         // qString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
     QString key = generateGroupingKey(qso.getCall(), bandId, modeId);
-    QsoInfo qsoInfo (qsoId, qso.getDateTimeOn());
+    QsoInfo qsoInfo (_qsoId, qso.getDateTimeOn());
     m_qsoCache.insert(key, qsoInfo);
-
+    qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
     // qDebug() << Q_FUNC_INFO << "Key: " << key;
 }
 
@@ -7910,6 +7903,7 @@ void DataProxy_SQLite::clearDuplicateCache()
 {
     qDebug() << Q_FUNC_INFO << " - Start";
     m_qsoCache.clear();
+    qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
 }
 
 bool DataProxy_SQLite::beginTransaction()

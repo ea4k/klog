@@ -236,7 +236,7 @@ void tst_DataProxy::test_qsosCache()
     // ==========================================
     // ADD & CHECK
     // ==========================================
-    // Chec before we add to test it is not existinf
+    // Check before we add to test it is not existinf
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
 
     // Add the QSO
@@ -275,7 +275,6 @@ void tst_DataProxy::test_qsosCache()
 
     // Check that is not existing anymore
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
-
 }
 
 void tst_DataProxy::test_continents()
