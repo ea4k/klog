@@ -155,11 +155,7 @@ private:
     bool updateTo025(); // Adds modes from ADIF 3.1.3
     bool updateTo026(); // KLog-2.4: Recreates entity to make UTC a real & add new ADIF fields
     bool updateTo027(); // KLog-2.4.2: Recreates entity to make UTC a real & add new ADIF fields
-<<<<<<< Updated upstream
     bool updateTo028(); // KLog-2.4.3: Adds FT2 submode
-=======
-    bool updateTo028(); // KLog-2.5: Recreates mode table to add new modes (2.4.3 uses 028 to add FT2)
->>>>>>> Stashed changes
 
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
