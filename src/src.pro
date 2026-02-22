@@ -34,9 +34,9 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 # Version shown in the UI, it shows the package information, format: 2.4.2-RC2(-RC2 only in RC releases)
-PKGVERSION = 2.4.2
+PKGVERSION = 2.5-Alpha
 # Version used for calculation, no RC versios, format "2.4.2"
-VERSION    = 2.4.2
+VERSION    = 2.5
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 DEFINES += APP_PKGVERSION=\\\"$$PKGVERSION\\\"
