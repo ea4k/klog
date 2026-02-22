@@ -5038,29 +5038,29 @@ bool DataBase::updateTo027()
     return updateDBVersion(softVersion, "0.027");
 }
 
-bool DataBase::updateTo029()
+bool DataBase::updateTo028()
 {
-    // Updates the DB to 0.029:
-    // Recreates Mode to add new modes (including FT2)
-    // qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    // Updates the DB to 0.028:
+    // Adds the FT2 submode
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
     latestReaded = getDBVersion();
-    if (latestReaded >= 0.029f)
+    if (latestReaded >= 0.028f)
     {
-        // qDebug() << Q_FUNC_INFO << " - I am in 028" ;
+        //qDebug() << Q_FUNC_INFO << " - I am in 023" ;
         return true;
     }
-    // qDebug() << Q_FUNC_INFO << " - 10" ;
+
     if (!updateTo027())
         return false;
-   // qDebug() << Q_FUNC_INFO << " - 20" ;
-    // Start executing the code to update to this version
+
+
+    // Now I am in the previous version and I can update the DB.
 
     if (!updateTheModeTableAndSyncLog())
         return false;
 
-
-    // Modify the DB version
-    // qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.028");
 }
 
