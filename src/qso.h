@@ -453,9 +453,9 @@ private:
     QString getModifyQueryString();
     QSqlQuery getPreparedQuery(const QString &_s);
     int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX
-    QString getBandNameFromBandId(int bandId);
+    //QString getBandNameFromBandId(int bandId);
     int getModeIdFromModeName();                // It really returns submode
-    QString getModeNameFromModeId(int _modeId, bool _submode=true);
+    //QString getModeNameFromModeId(int _modeId, bool _submode=true);
     void setBandFromFreq(const double _fr, bool TX = true);
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
     //DataBase *db;
@@ -552,6 +552,7 @@ private:
     bool setLoTWQSLSDate(const QString& data);
     //bool setLoTWRXQSO(const QString& string);     // Receives the string date/time in LOTW format (APP_LoTW_RXQSO)
     bool setLoTWRXQSO(const QString& data);
+    bool setLoTWRXQSL(const QString& data);
     bool setQRZCOMDate(const QString& data);
     bool setQSLRDate(const QString& data);
     bool setQSLSDate(const QString& data);

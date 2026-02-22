@@ -14,7 +14,7 @@ HEADERS += \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
-    ../../src/database.h \
+    ../../src/database/database.h \
     ../../src/callsign.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/frequency.h \
@@ -32,7 +32,7 @@ SOURCES +=  tst_filemanager.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/awards.cpp \
     ../../src/awarddxmarathon.cpp \
-    ../../src/database.cpp \
+    ../../src/database/database.cpp \
     ../../src/callsign.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/frequency.cpp \

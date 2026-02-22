@@ -1,8 +1,15 @@
-WIP: CheckQVERIFY2(util->getPrefixFromCall("FB1K") == "F", "FB1K");
-WIP: bool QSO::setLoTWRXQSO(const QString& data)
-WIP: https://github.com/ea4k/klog/issues/858
-TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
+QSO seems not to be arriving properly to processQSO some times
+WIP-BUG: la importación creo que no añade/elimina las fechas y estados de lotw
+No se está añadiendo los QSOs al cache (DataProxy_SQLite::addToCache) por lo que luego al validar
+ya están en el caché, lo devuelve como QSO nuevo.
 
+  bool QSO::setLoTWRXQSL(const QString& data)
+  bool QSO::setLoTWRXQSO(const QString& data)
+Check dataproxy isThisFreqInBand
+WIP: https://github.com/ea4k/klog/issues/858
+Test: bool DataProxy_SQLite::isThisFreqInBand(const QString &, const Frequency)
+TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
+TODO: Hamlib is not always working
 TODO: Check if is properly readed when importing from LoTW
 
 TODO: LoTW import ensure exiting QSOs are updated
@@ -11,6 +18,7 @@ TODO: Isolate the functions from Utilities that return data (like getVersion) an
 a small class for that. Keep utilities not persistant.
 
 TBD
+- Enhancement: Added the FT2 submode
 - Enhancement: Test on QSO cache class.
 - Enhancement: Complete ADIF->IsValidPOTA (Closes #717)
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)

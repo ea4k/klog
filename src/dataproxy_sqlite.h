@@ -35,7 +35,7 @@
 #include <QDateTime>
 
 #include "global.h"
-#include "database.h"
+#include "database/database.h"
 #include "database/datacache.h"
 #include "frequency.h"
 #include "qso.h"
@@ -363,8 +363,15 @@ public:
     // Cache functions // DUPEs
     void loadDuplicateCache(int logId);
     void clearDuplicateCache();
-    void addDuplicateCache (int qsoId, const QSO &qso);
+    void addDuplicateCache (int _qsoId, const QSO &qso);
+    void removeDuplicateCache(int _qsoId);
     int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
+    inline int findDuplicateId(const QSO &qso, int marginSeconds)
+    {
+        int modeId = getIdFromModeName(qso.getSubmode().isEmpty() ? qso.getMode() : qso.getSubmode());
+        return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), modeId, marginSeconds);
+    }
+
     QHash<QString, int> getHashTableData(const DataTableHash _data);
 
 

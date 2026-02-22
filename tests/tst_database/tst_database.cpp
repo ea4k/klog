@@ -26,7 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/database.h"
+#include "../../src/database/database.h"
 #include "../../src/database/datacache.h"
 #include "../../src/database/db_adif_primary_subdvisions_data.h"
 #include "../../src/database/queryexecutor.h"

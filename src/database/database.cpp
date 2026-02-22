@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "database.h"
+#include "db_adif_primary_subdvisions_data.h"
 //#include <qDebug>
 
 DataBase::DataBase(const QString &_parentClass, const QString &_DBName)
@@ -882,7 +883,7 @@ QHash<QString, int> DataBase::getHashTableData(const DataTableHash _data)
 
     QString queryString;
     QSqlQuery query;
-    query.setForwardOnly(true);
+    //query.setForwardOnly(true);
     QString name;
     switch (_data) {
         case WorldData:
@@ -1936,7 +1937,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
                        "JT9D", "JT9E", "JT9E FAST", "JT9F", "JT9F FAST", "JT9G", "JT9G FAST", "JT9H", "JT9H FAST"}},
         {"JT44", "DG", {}},
         {"JT65", "DG", {"JT65A", "JT65B", "JT65B2", "JT65C", "JT65C2"}},
-        {"MFSK", "DG", {"FSQCALL", "FST4", "FST4W", "FT4", "JS8", "JTMS", "MFSK4", "MFSK8",
+        {"MFSK", "DG", {"FSQCALL", "FST4", "FST4W", "FT2", "FT4", "JS8", "JTMS", "MFSK4", "MFSK8",
                         "MFSK11", "MFSK16", "MFSK22", "MFSK31", "MFSK32", "MFSK64", "MFSK64L", "MFSK128 MFSK128L", "Q65" }},
         {"MSK144", "DG", {}},
         {"MTONE", "DG", {"SCAMP_OO", "SCAMP_OO_SLW" }},
@@ -4850,26 +4851,26 @@ bool DataBase::updateTo027()
 bool DataBase::updateTo028()
 {
     // Updates the DB to 0.028:
-    // Recreates Mode to add new modes
-    // qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+    // Adds the FT2 submode
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
     latestReaded = getDBVersion();
     if (latestReaded >= 0.028f)
     {
-        // qDebug() << Q_FUNC_INFO << " - I am in 028" ;
+        //qDebug() << Q_FUNC_INFO << " - I am in 023" ;
         return true;
     }
-    // qDebug() << Q_FUNC_INFO << " - 10" ;
+
     if (!updateTo027())
         return false;
-   // qDebug() << Q_FUNC_INFO << " - 20" ;
-    // Start executing the code to update to this version
+
+
+    // Now I am in the previous version and I can update the DB.
 
     if (!updateTheModeTableAndSyncLog())
         return false;
 
-
-    // Modify the DB version
-    // qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.028");
 }
 

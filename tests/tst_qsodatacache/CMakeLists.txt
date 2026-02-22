@@ -21,7 +21,8 @@ file(GLOB TEST_HEADERS "*.h")
 add_executable(tst_qsodatacache
     ${TEST_SOURCES}
     ../../src/callsign.cpp
-    ../../src/database.cpp
+    ../../src/database/database.cpp
+    ../../src/database/datacache.cpp
     ../../src/database/db_adif_primary_subdvisions_data.cpp
     ../../src/database/queryexecutor.cpp
     ../../src/frequency.h
@@ -31,7 +32,8 @@ add_executable(tst_qsodatacache
 
     ${TEST_HEADERS}
     ../../src/callsign.h
-    ../../src/database.h
+    ../../src/database/database.h
+    ../../src/database/datacache.h
     ../../src/database/db_adif_primary_subdvisions_data.h 
     ../../src/database/queryexecutor.h
     ../../src/frequency.cpp

@@ -29,7 +29,7 @@
 #include "../../src/world.h"
 #include "../../src/awards.h"
 #include "../../src/callsign.h"
-#include "../../src/database.h"
+#include "../../src/database/database.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/filemanager.h"
 #include "../../src/utilities.h"

@@ -9,7 +9,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
-    ../../src/database.h \
+    ../../src/database/database.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/database/queryexecutor.h \
     ../../src/utilities.h \
@@ -23,7 +23,7 @@ HEADERS += \
     ../../src/adif.h
 
 SOURCES +=  tst_qso.cpp \
-    ../../src/database.cpp \
+    ../../src/database/database.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/utilities.cpp \

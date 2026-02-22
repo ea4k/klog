@@ -41,7 +41,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <QSettings>
-#include "utilities.h"
 #include "klogdefinitions.h"
 
 // Potential fix of hamlib 4.2 migration

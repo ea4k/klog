@@ -26,6 +26,7 @@ email                : jaime@robles.es
 #include <QFont>
 #include "dxcluster.h"
 #include "../callsign.h"
+#include "../utilities.h"
 
 DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *parent)
           : QWidget(parent),
@@ -37,7 +38,7 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
     //dataProxy = awards->dataProxy;
     saveSpotsFile = new QFile();
 
-    util = new Utilities(Q_FUNC_INFO);
+    //util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //util->setSpecialCalls(dataProxy->getSpecialCallsigns());
     //world = new World(dataProxy, Q_FUNC_INFO);
@@ -99,7 +100,7 @@ DXClusterWidget::~DXClusterWidget()
     //delete(dataProxy);
     delete(tcpSocket);
     //delete(world);
-    delete(util);
+    //delete(util);
     delete(saveSpotsFile);
 }
 
@@ -139,7 +140,8 @@ void DXClusterWidget::init()
     currentLog = 0;
     server = "dxfun.com";
     port = quint16(8000);
-    saveSpotsFile->setFileName(util->getSaveSpotsLogFile());
+    Utilities util(Q_FUNC_INFO);
+    saveSpotsFile->setFileName(util.getSaveSpotsLogFile());
     clearButton->setToolTip(tr("Clears the DXCluster command line."));
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
     Q_UNUSED(item);
@@ -797,7 +799,8 @@ void DXClusterWidget::slotCheckQRZCom()
 {
    // qDebug() << Q_FUNC_INFO;
     QString _c = checkQRZCOMFromLogAct->data ().toString ();
-    util->openQrzcom (_c);
+    Utilities util(Q_FUNC_INFO);
+    util.openQrzcom (_c);
 }
 
 /*
@@ -820,8 +823,9 @@ void DXClusterWidget::saveSpot(const QString &_spot)
         return;
 
     // qDebug() << "DXClusterWidget::saveSpot: File Open";
+    Utilities util(Q_FUNC_INFO);
     QTextStream out(saveSpotsFile);
-    out << util->getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTime()) << " - " << _spot.simplified().toUtf8();
+    out << util.getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTime()) << " - " << _spot.simplified().toUtf8();
     out << Qt::endl;
     saveSpotsFile->close();
 }
@@ -829,7 +833,8 @@ void DXClusterWidget::saveSpot(const QString &_spot)
 void DXClusterWidget::loadSettings()
 {
    // qDebug() << Q_FUNC_INFO << " - Start";
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
 
     QString aux = settings.value("DXClusterServerToUse").toString ();
 

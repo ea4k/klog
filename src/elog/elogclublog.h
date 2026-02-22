@@ -1,11 +1,11 @@
-#ifndef KLOG_EQSLUTILITIES_H
-#define KLOG_EQSLUTILITIES_H
+#ifndef KLOG_ELOGCLUBLOG_H
+#define KLOG_ELOGCLUBLOG_H
 /***************************************************************************
-                          eqslutilities.h  -  description
+                          elogclublog.h  -  description
                              -------------------
-    begin                : oct 2020
-    copyright            : (C) 2020 by Jaime Robles
-    user                : jaime@robles.es
+    begin                : feb 2015
+    copyright            : (C) 2015 by Jaime Robles
+    email                : jaime@robles.es
  ***************************************************************************/
 
 /*****************************************************************************
@@ -26,43 +26,43 @@
  *                                                                           *
  *****************************************************************************/
 #include <QFile>
-#include <QInputDialog>
-#include <QLineEdit>
+#include <QHttpMultiPart>
+#include <QHttpPart>
 #include <QMessageBox>
 #include <QObject>
 #include <QProgressDialog>
+#include <QSettings>
 #include <QString>
+#include <QUrlQuery>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
+//#include "utilities.h"
 
-#include <QUrlQuery>
-#include <QHttpMultiPart>
-#include <QHttpPart>
-#include "utilities.h"
-// https://www.eqsl.cc/qslcard/Programming.cfm
-class eQSLUtilities : public QObject {
+class eLogClubLog : public QObject {
     Q_OBJECT
 
 public:
-    explicit eQSLUtilities(const QString &_parentFunction);
-    ~eQSLUtilities();
-    void setUser(const QString &_call);
-    void setPass(const QString &_pass);
-    void setCredentials(const QString &_user, const QString &_pass, const QString &_defaultStationCallsign);
-    //int sendQSO(QStringList _qso);
-    //int deleteQSO(QStringList _qso);
-    //int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
+    explicit eLogClubLog();
+    ~eLogClubLog();
 
-    void sendLogFile(const QString &_file, QList<int> _qso);
+    void setDefaultCallsign(const QString &_defaultStationCallsign);
+    int sendQSO(QStringList _qso);
+
+    int deleteQSO(QStringList _qso);
+    //int deleteQSOid(const int _qsoId);
+    int modifyQSO (QStringList _oldQSO, QStringList _newQSO);
+
+    void sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite);
+    void loadSettings();
 
 private:
-    // qString geteQSLAdif(const QStringList _q);
-    //int sendData(const QString &_eQSLUser, const QString &_q); //  Sends the data (http post) to eQSL
-    //int sendDataParams(const QString &_eQSLUser, const QUrlQuery &_params);
-    QStringList prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
+    QString getClubLogAdif(const QStringList _q);
+    //int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
+    int sendDataParams(const QString &_clublogCall, const QUrlQuery &_params, bool _adding);
+    QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
 
-    QString user, pass, stationCallsign;
+    QString email, pass, appPass, api, stationCallsign;
 
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
@@ -71,12 +71,12 @@ private:
     QString target;
     bool uploadingFile;
     QList<int> qsos;
-    Utilities *util;
+    //Utilities *util;
     //bool useQSOStationCallsign;
 
 private slots:
     void slotQsoUploadFinished(QNetworkReply* data);
-    //void slotFileUploadFinished(QNetworkReply* data);
+    void slotFileUploadFinished(QNetworkReply* data);
     void downloadProgress(qint64 received, qint64 total);
     void slotErrorManagement(QNetworkReply::NetworkError networkError);
 
@@ -87,7 +87,7 @@ signals:
     void actionShowProgres(qint64 received, qint64 total);
     void actionError(const int _i);
     void showMessage(const QString &_t);
-    void disableeQSLAction(const bool _b);
+    void disableClubLogAction(const bool _b);
     void signalFileUploaded(QNetworkReply::NetworkError, QList<int>);
 };
-#endif // EQSLUTILITIES_H
+#endif // DOWNLOADCTY_H

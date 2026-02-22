@@ -29,12 +29,14 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
+#include "utilities.h"
 //#include <QDebug>
 
 DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) : QObject(0)
 {
     // qDebug() << "DownLoadCTY::DownLoadCTY(): " << _klogDir;
-    util = new Utilities(Q_FUNC_INFO);
+    //util = new Utilities(Q_FUNC_INFO);
+    Utilities util(Q_FUNC_INFO);
     url = new QUrl;
     klogDir = _klogDir;
     result = -1;  // Error unknown
@@ -46,7 +48,7 @@ DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) :
     QString ver = "KLog"+_klogVersion;
     QByteArray str;
     str.clear();
-    str.append(util->getAgent(_klogVersion).toUtf8());
+    str.append(util.getAgent(_klogVersion).toUtf8());
 
     request->setRawHeader("User-Agent", str);
     //request->setHeader(QNetworkRequest::UserAgentHeader, str);
@@ -59,7 +61,7 @@ DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) :
 
 DownLoadCTY::~DownLoadCTY()
 {
-    delete(util);
+    //delete(util);
     delete(request);
     delete(manager);
     delete(url);

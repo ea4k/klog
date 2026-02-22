@@ -29,6 +29,7 @@
 #include <QUrl>
 #include <QNetworkRequest>
 #include <QFile>
+#include "../utilities.h"
 //#include <QDebug>
 
 //https://clublog.freshdesk.com/support/solutions/59800
@@ -46,13 +47,13 @@ eLogClubLog::eLogClubLog()
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotQsoUploadFinished(QNetworkReply*)));
     //stationCallsign = QString();
     uploadingFile = false;
-    util = new Utilities(Q_FUNC_INFO);
+    //util = new Utilities(Q_FUNC_INFO);
     // qDebug()<< "eLogClubLog::eLogClubLog - END" ;
 }
 
 eLogClubLog::~eLogClubLog()
 {
-    delete(util);
+    //delete(util);
     delete(manager);
           // qDebug()<< "eLogClubLog::~eLogClubLog" ;
 }
@@ -684,7 +685,8 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     QByteArray blob;
 
     // qFile *file = new QFile("_file");
-    QFile *file = new QFile(util->getClubLogFile());
+    Utilities util(Q_FUNC_INFO);
+    QFile *file = new QFile(util.getClubLogFile());
     if (file->open(QIODevice::ReadOnly))        /* Flawfinder: ignore */
     {
          blob = file->readAll();
@@ -754,7 +756,8 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
 
 void eLogClubLog::loadSettings()
 {
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+    Utilities util(Q_FUNC_INFO);
+    QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("ClubLog");
     email = settings.value ("ClubLogEmail").toString ();
     pass = settings.value ("ClubLogPass").toString ();

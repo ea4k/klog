@@ -39,8 +39,7 @@
 #include <QString>
 #include <QTimer>
 #include <QUrl>
-#include "dataproxy_sqlite.h"
-#include "qso.h"
+#include "../dataproxy_sqlite.h"
 
 // https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/?lang=en
 class QSslError;

@@ -20,10 +20,11 @@ add_executable(tst_logwindow
     ../../src/awards.cpp
     ../../src/awarddxmarathon.cpp
     ../../src/callsign.cpp
+    ../../src/database/datacache.cpp
     ../../src/database/queryexecutor.cpp
     ../../src/database/db_adif_primary_subdvisions_data.cpp
     ../../src/frequency.cpp
-    ../../src/database.cpp
+    ../../src/database/database.cpp
     ../../src/dataproxy_sqlite.cpp
     ../../src/filemanager.cpp
     ../../src/locator.cpp
@@ -42,7 +43,8 @@ add_executable(tst_logwindow
     ../../src/database/queryexecutor.h
     ../../src/database/db_adif_primary_subdvisions_data.h
     ../../src/frequency.h
-    ../../src/database.h
+    ../../src/database/database.h
+    ../../src/database/datacache.h
     ../../src/dataproxy_sqlite.h
     ../../src/filemanager.h
     ../../src/locator.h

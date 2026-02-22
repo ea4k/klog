@@ -35,7 +35,6 @@ email                : jaime@robles.es
 #include "../dataproxy_sqlite.h"
 #include "../frequency.h"
 #include "../klogdefinitions.h"
-#include "../utilities.h"
 #include "../world.h"
 #include "dxspot.h"
 
@@ -127,7 +126,7 @@ private:
 
     World *world;
     DataProxy_SQLite *dataProxy;
-    Utilities *util;
+    //Utilities *util;
 
     bool showhf, showvhf, showwarc, showworked, showconfirmed, showann,  showwwv, showwcy;
     //bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;

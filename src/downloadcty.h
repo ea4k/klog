@@ -37,7 +37,7 @@
 #include <QString>
 #include <QTimer>
 #include <QUrl>
-#include "utilities.h"
+
 
 class QSslError;
 
@@ -50,7 +50,7 @@ public:
     int download();
 
 private:
-    Utilities *util;
+    //Utilities *util;
 
     //void setTarget(const QString& t);
     bool saveToDisk(const QString &filename, QIODevice *data);

@@ -16,7 +16,8 @@ file(GLOB TEST_HEADERS "*.h")
 # Create the test executable
 add_executable(tst_qso
     ${TEST_SOURCES}
-    ../../src/database.cpp
+    ../../src/database/database.cpp
+    ../../src/database/datacache.cpp
     ../../src/database/db_adif_primary_subdvisions_data.cpp
     ../../src/database/queryexecutor.cpp
     ../../src/utilities.cpp
@@ -28,7 +29,8 @@ add_executable(tst_qso
     ../../src/adif.cpp
 
     ${TEST_HEADERS}
-    ../../src/database.h
+    ../../src/database/database.h
+    ../../src/database/datacache.h
     ../../src/database/db_adif_primary_subdvisions_data.h
     ../../src/database/queryexecutor.h
     ../../src/utilities.h

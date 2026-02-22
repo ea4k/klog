@@ -33,7 +33,7 @@
 #include "../../src/awarddxmarathon.h"
 #include "../../src/logwindow.h"
 #include "../../src/logmodel.h"
-#include "../../src/database.h"
+#include "../../src/database/database.h"
 #include "../../src/utilities.h"
 #include "../../src/qso.h"
 #include "../../src/qsodatacache.h"
