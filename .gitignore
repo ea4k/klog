@@ -271,3 +271,4 @@ tests/tst_mainwindowsattab/moc_frequency.cpp
 tests/tst_setuppageelog/moc_frequency.cpp
 tests/tst_utilities/moc_frequency.cpp
 tests/tst_world/moc_frequency.cpp
+src/macOSDeploy-M.sh
