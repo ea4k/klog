@@ -1253,7 +1253,7 @@ bool DataBase::updateToLatest()
         //return false;
     }
     // qDebug() << Q_FUNC_INFO << " - Let's update!";
-    return updateTo029();
+    return updateTo028();
 }
 
 

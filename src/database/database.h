@@ -44,7 +44,7 @@
 #include "../klogdefinitions.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.029f; // This is the latest version of the DB.
+const float DBVersionf = 0.028f; // This is the latest version of the DB.
 
 struct ModeGroup {
     QString mode;
