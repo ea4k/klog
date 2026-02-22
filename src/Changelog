@@ -1,5 +1,8 @@
 Feb 2026 - 2.4.3
 - Enhancement: Add the FT2 submode
+- Bugfix: Hamlib is not init on start (Closes #823)
+- Bugfix: klog-2.4.2 tracking frequency & mode but not band. (Closes #833)
+
 
 Aug 2025 - 2.4.2
 - Enhancement: Map is now showing Locator identifiers.

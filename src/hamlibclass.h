@@ -74,7 +74,7 @@ public:
     void setRTS(const QString &_state);
     void setDTR(const QString &_state);
 
-    void setFreq(const Frequency _fr);
+    void setFreq(const Frequency &_fr);
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
     bool isModeADIFMode(const QString &_m);
@@ -94,9 +94,9 @@ public:
     bool loadSettings();
 
 signals:
-    void freqChanged(Frequency newFreq);
+    void freqTXChanged(double freq);
     void modeChanged(QString newFreq);
-    void frequency(Frequency newfreq);
+    //void frequency(Frequency newfreq);
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 public slots:

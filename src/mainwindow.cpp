@@ -691,7 +691,7 @@ void MainWindow::createActionsCommon(){
 
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
     connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
-    connect(hamlib, SIGNAL(freqChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
+    connect(hamlib, SIGNAL(freqTXChanged(double)), this, SLOT(slotHamlibTXFreqChanged(double)) );
     connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
@@ -5330,7 +5330,7 @@ void MainWindow::slotFreqTXChangedFromSat(const double _fr)
 void MainWindow::slotFreqTXChanged(const double _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_fr);
     if (!upAndRunning || modify)
     {
         //qDebug() << Q_FUNC_INFO << " - END-1";
@@ -5347,6 +5347,7 @@ void MainWindow::slotFreqTXChanged(const double _fr)
     {
         hamlib->setFreq(_fr);
     }
+    mainQSOEntryWidget->setBand(dataProxy->getBandNameFromFreq(_fr));
     mainQSOEntryWidget->setMode(util->getDefaultModeForFreq(_fr));
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5743,18 +5744,20 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibTXFreqChanged(const double _f)
 {
-      //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
+   //qDebug() << Q_FUNC_INFO << ": " << QString::number(_f) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (manualMode)
     {
         return;
     }
+   //qDebug() << Q_FUNC_INFO << " - Current Band: " << currentBand;
     if (upAndRunning)
     {
         if (!util->isSameFreq (_f, QSOTabWidget->getTXFreq ()))
         {
-      //qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+           //qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
             QSOTabWidget->setTXFreq (_f);
+
         }
         else
         {

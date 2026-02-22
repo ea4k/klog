@@ -695,6 +695,8 @@ bool MainQSOEntryWidget::newBandNeededForFreq(const double _f)
 bool MainQSOEntryWidget::setBand(const QString &_band)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _band;
+    if (bandComboBox->currentText() == _band)
+       return true;
 
     logEvent (Q_FUNC_INFO, "Start: " + _band, Debug);
     if (bandComboBox->findText(_band, Qt::MatchCaseSensitive) < 0)
