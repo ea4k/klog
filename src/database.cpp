@@ -2364,6 +2364,7 @@ bool DataBase::populateTableMode(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FAX', 'FAX', 'NO', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FM', 'FM', 'PH', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FMHELL', 'HELL', 'NO', '1')").arg(tableName));
+    execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT2', 'MFSK', 'DG', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FT4', 'MFSK', 'DG', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FST4', 'MFSK', 'DG', '0')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (submode, name, cabrillo, deprecated) VALUES ('FST4W', 'MFSK', 'DG', '0')").arg(tableName));
@@ -5718,6 +5719,34 @@ bool DataBase::updateTo027()
    //qDebug() << Q_FUNC_INFO << " - 50" ;
     return updateDBVersion(softVersion, "0.027");
 }
+
+
+bool DataBase::updateTo028()
+{
+    // Updates the DB to 0.028:
+    // Adds the FT2 submode
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
+    latestReaded = getDBVersion();
+    if (latestReaded >= 0.028f)
+    {
+          //qDebug() << Q_FUNC_INFO << " - I am in 023" ;
+        return true;
+    }
+
+    if (!updateTo027())
+        return false;
+
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!updateTheModeTableAndSyncLog())
+        return false;
+
+    return updateDBVersion(softVersion, "0.028");
+}
+
 
 int DataBase::getNumberOfQsos(const int _logNumber)
 {

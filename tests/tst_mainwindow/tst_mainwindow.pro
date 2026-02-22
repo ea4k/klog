@@ -215,8 +215,8 @@ unix:!mac {
 macx: {
     message(macx)
     CONFIG += c++11
-    INCLUDEPATH +=/usr/local/include/
-    LIBS += -L"/usr/local/lib" -lhamlib
+    INCLUDEPATH +=/opt/homebrew/Cellar/hamlib/4.6.5/include/
+    LIBS += -L"/opt/homebrew/Cellar/hamlib/4.6.5/lib" -lhamlib
 }
 
 win32: {

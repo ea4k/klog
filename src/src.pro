@@ -34,9 +34,9 @@ CONFIG -=depend_includepath
 #CONFIG += release
 TEMPLATE = app
 # Version shown in the UI, it shows the package information, format: 2.4.2-RC2(-RC2 only in RC releases)
-PKGVERSION = 2.4.2
-# Version used for calculation, no RC versios, format "2.4.2"
-VERSION    = 2.4.2      
+PKGVERSION = 2.4.3
+# Version used for calculation, no RC versions, format "2.4.3"
+VERSION    = 2.4.3
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 DEFINES += APP_PKGVERSION=\\\"$$PKGVERSION\\\"
@@ -388,8 +388,9 @@ macx: {
     CONFIG += c++11
     #INCLUDEPATH +=../../../hamlib/include/
     #LIBS += -L"../../../hamlib/lib" -lhamlib
-    INCLUDEPATH +=/usr/local/include/
-    LIBS += -L"/usr/local/lib" -lhamlib
+    INCLUDEPATH +=/opt/homebrew/Cellar/hamlib/4.6.5/include/
+    #LIBS += -L"/usr/local/lib" -lhamlib
+    LIBS += -L"/opt/homebrew/Cellar/hamlib/4.6.5/lib" -lhamlib
 }
 
 win32: {

@@ -1,3 +1,6 @@
+Feb 2026 - 2.4.3
+- Enhancement: Add the FT2 submode
+
 Aug 2025 - 2.4.2
 - Enhancement: Map is now showing Locator identifiers.
 - Enhancement: Updated some DataBase fields to better match ADIF definition.
