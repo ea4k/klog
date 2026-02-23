@@ -892,15 +892,15 @@ void MainWindow::setMainWindowTitle()
 
     if (mainQRZ == stationCallsign)
     {
-        msg = QString(tr("KLog-%1 - Logbook of %2 - QSOs: %3" )).arg(pkgVersion).arg(stationCallsign).arg(numberOfQSOs);
+        msg = QString(tr("KLog-%1 - Logbook of %2 - QSOs: %3" )).arg(pkgVersion, stationCallsign).arg(numberOfQSOs);
     }
     else
     {
-        msg = QString(tr("KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4" )).arg(pkgVersion).arg(mainQRZ).arg(stationCallsign).arg(numberOfQSOs);
+        msg = QString(tr("KLog-%1 - Logbook of %2 - Station Callsign: %3 - QSOs: %4" )).arg(pkgVersion, mainQRZ, stationCallsign).arg(numberOfQSOs);
     }
     if (aux.length ()>0)
     {
-        setWindowTitle(QString("%1 - %2").arg(msg).arg(aux));
+        setWindowTitle(QString("%1 - %2").arg(msg, aux));
     }
     else
     {

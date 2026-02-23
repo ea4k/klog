@@ -231,7 +231,6 @@ bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _
         _old.freq_VFO_TX != _new.freq_VFO_TX    ||
         _old.mode_VFO_RX != _new.mode_VFO_RX    ||
         _old.mode_VFO_TX != _new.mode_VFO_TX
-
         );
 }
 
