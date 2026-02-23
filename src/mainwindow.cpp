@@ -724,9 +724,11 @@ void MainWindow::createActionsCommon(){
 
     connect(downloadcty, SIGNAL(done(bool)), this, SLOT(slotWorldReload(bool)) );
     connect(timerInfoBars, SIGNAL(timeout()), this, SLOT(slotTimeOutInfoBars()) );
-    connect(hamlib, SIGNAL(freqChanged(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
-        connect(hamlib, SIGNAL(frequency(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
-    connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
+    //connect(hamlib, SIGNAL(freqTXChanged(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
+    //connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
+
+    connect(hamlib, SIGNAL(radioStatusChanged(RadioStatus)), this, SLOT(slotHamlibUpdate(RadioStatus)));
+
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
     connect(adifLoTWExportWidget, SIGNAL(askingToClose()), this, SLOT(slotADIFExportClose()) );
@@ -5827,19 +5829,25 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
+    slotHamlibTXFreqChanged(_s.freq_VFO_TX);
+    slotHamlibModeChanged(_s.mode_VFO_TX);
+}
+
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
 {
-        qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
-        logEvent(Q_FUNC_INFO, "Start", Debug);
-        if (manualMode)
-            return;
-
-        if (!upAndRunning)
-            return;
-        if (_f == QSOTabWidget->getTXFreq ())
-            return;
-        qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
-        QSOTabWidget->setTXFreq (_f);
+    //qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    if (manualMode)
+        return;
+    if (!upAndRunning)
+        return;
+    if (_f == QSOTabWidget->getTXFreq ())
+        return;
+    qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+    QSOTabWidget->setTXFreq (_f);
 }
 
 void MainWindow::slotHamlibModeChanged(const QString &_m)

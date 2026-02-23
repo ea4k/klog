@@ -52,7 +52,6 @@
 #define FILPATHLEN 100
 #endif
 
-
 class HamLibClass : public QObject
 {
     Q_OBJECT
@@ -74,7 +73,7 @@ public:
     void setRTS(const QString &_state);
     void setDTR(const QString &_state);
 
-    void setFreq(const Frequency _fr);
+    void setFreq(const Frequency &_fr);
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
     bool isModeADIFMode(const QString &_m);
@@ -94,19 +93,22 @@ public:
     bool loadSettings();
 
 signals:
-    void freqChanged(Frequency newFreq);
-    void modeChanged(QString newFreq);
-    void frequency(Frequency newfreq);
+    void radioStatusChanged(RadioStatus);
+    void freqTXChanged(Frequency newfreq);
+    void modeChanged(QString newMode);
+    //void frequency(Frequency newfreq);
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 public slots:
     void slotTimer();
 
 private:
-    void readFreq();
+    bool readFreq();
+    bool readMode();
     void cleanup();
+    bool radioStatusChanged(const RadioStatus _old, const RadioStatus _new);
 
-    bool readRadioInternal(bool _forceRead);
+    bool readRadioInternal();
     void fillRigsList();
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
@@ -157,6 +159,7 @@ private:
                        // KLog just will follow the radio.
     bool justEmitted;
     bool reading; // Just a semaphore to prevent several readings
+    RadioStatus radioStatus;
 };
 
 #endif // HAMLIBCLASS_H

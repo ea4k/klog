@@ -27,6 +27,7 @@
  *****************************************************************************/
 
 #include <QString>
+#include "frequency.h"
 
 //using namespace std;
 
@@ -44,7 +45,7 @@ enum WJTXStatus {NewContinent, NewContinentInBand, NewContinentInMode,
                  NewDXCC, NewDXCCInBand, NewDXCCInMode,
                  NewGrid, NewGridInBand, NewGridInMode,
                  NewCall, NewCallInBand, NewCallInMode };
-enum FreqUnits {Hz, KHz, MHz, GHz, THz};
+
 enum MouseClicks {NoClick, RightClick, SingleClick, DoubleClick};
 enum DataTableHash {WorldData, BandData, ModeData};                 // Used by World & DataProxy to select the table to build a Hash
 
@@ -98,6 +99,14 @@ struct ADIFField {
     QString value;
     bool valid;
     // qChar type;
+};
+
+struct RadioStatus {
+    Frequency freq_VFO_TX;
+    Frequency freq_VFO_RX;
+    bool split;
+    QString mode_VFO_TX;
+    QString mode_VFO_RX;
 };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))
