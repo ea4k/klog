@@ -103,6 +103,15 @@ public slots:
     void slotTimer();
 
 private:
+    enum class RigState {
+        Disconnected,
+        Connecting,
+        Connected,
+        Disconnecting,
+        Error
+    };
+    RigState rig_state = RigState::Disconnected;
+
     void readFreq();
     void cleanup();
 
