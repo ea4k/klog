@@ -52,6 +52,7 @@
 #define FILPATHLEN 100
 #endif
 
+
 class HamLibClass : public QObject
 {
     Q_OBJECT
@@ -103,12 +104,21 @@ public slots:
     void slotTimer();
 
 private:
+    enum class RigState {
+        Disconnected,
+        Connecting,
+        Connected,
+        Disconnecting,
+        Error
+    };
+    RigState rig_state = RigState::Disconnected;
+
     bool readFreq();
     bool readMode();
     void cleanup();
     bool radioStatusChanged(const RadioStatus _old, const RadioStatus _new);
 
-    bool readRadioInternal();
+    bool readRadioInternal(bool _forceRead);
     void fillRigsList();
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);
