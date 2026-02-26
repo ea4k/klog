@@ -336,3 +336,4 @@ tests/tst_qsodatacache/target_wrapper.sh
 tests/tst_qsodatacache/.qt/QtDeploySupport.cmake
 tests/tst_qsodatacache/.qt/QtDeployTargets.cmake
 tests/tst_qsodatacache/resources.qrc.depends
+src/macOSDeploy-M.sh

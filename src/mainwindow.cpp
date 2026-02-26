@@ -5363,17 +5363,21 @@ void MainWindow::slotFreqRXChanged(const Frequency _fr)
         // qDebug() << Q_FUNC_INFO << " - not running" ;
         return;
     }
-    int bandId = dataProxy->getBandIdFromFreq(_fr);
-    if (bandId < 1)
-    {
+    //int bandId = dataProxy->getBandIdFromFreq(_fr);
+    //if (bandId < 1)
+    //{
         // qDebug() << Q_FUNC_INFO << " - wrong band" ;
-        return;
-    }
+    //    return;
+    //}
 
     // The following line is needed to ensure that the band of the freqRX is included
     // in the list of available bands and include it if it is not.
-    mainQSOEntryWidget->setFreq (_fr, true);
+    if (hamlibActive && !manualMode)
+    {
+        hamlib->setFreq(_fr, false);
+    }
 
+    mainQSOEntryWidget->setFreq (_fr, true);
     QSOTabWidget->setRXFreq (_fr);
     satTabWidget->setDownLinkFreq(_fr);
     // qDebug() << Q_FUNC_INFO << " - END";
@@ -5832,13 +5836,16 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
 {
     qDebug() << Q_FUNC_INFO << " - Start";
+    QSOTabWidget->setSplit(!(_s.freq_VFO_TX == _s.freq_VFO_RX));
+    qDebug() << Q_FUNC_INFO << " - Split: " << util->boolToQString(_s.freq_VFO_TX == _s.freq_VFO_RX);
     slotHamlibTXFreqChanged(_s.freq_VFO_TX);
+    slotHamlibRXFreqChanged(_s.freq_VFO_RX);
     slotHamlibModeChanged(_s.mode_VFO_TX);
 }
 
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
+    qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (manualMode)
         return;
@@ -5846,8 +5853,22 @@ void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
         return;
     if (_f == QSOTabWidget->getTXFreq ())
         return;
-    qDebug() << Q_FUNC_INFO << ": Updating the freq... " ;
+    qDebug() << Q_FUNC_INFO << ": Updating the TX freq... " ;
     QSOTabWidget->setTXFreq (_f);
+}
+
+void MainWindow::slotHamlibRXFreqChanged(const Frequency _f)
+{
+    qDebug() << Q_FUNC_INFO << ": " << _f.toQString(MHz) ;
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    if (manualMode)
+        return;
+    if (!upAndRunning)
+        return;
+    if (_f == QSOTabWidget->getRXFreq ())
+        return;
+    qDebug() << Q_FUNC_INFO << ": Updating the RX freq... " ;
+    QSOTabWidget->setRXFreq (_f);
 }
 
 void MainWindow::slotHamlibModeChanged(const QString &_m)

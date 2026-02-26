@@ -449,7 +449,7 @@ Frequency MainWindowInputQSO::getTXFreq()
 
 void MainWindowInputQSO::setTXFreq(const Frequency &_ft)
 {
-   // qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start - " << _ft.toDouble();
 
    if ((_ft.isValid()) && (_ft.toDouble(MHz) <= txFreqSpinBox->maximum())) {
        // qDebug() << Q_FUNC_INFO << ": defining FR: " << QString::number(_ft);
@@ -469,12 +469,18 @@ Frequency MainWindowInputQSO::getRXFreq()
 
 void MainWindowInputQSO::setRXFreq(const Frequency &_ft)
 {
-   // qDebug() << Q_FUNC_INFO << " - Start";
+   qDebug() << Q_FUNC_INFO << " - Start - " << _ft.toDouble();
    if ((_ft.isValid()) && (_ft.toDouble(MHz) <= rxFreqSpinBox->maximum())) {
        rxFreqSpinBox->setValue(_ft.toDouble(MHz));
+       qDebug() << Q_FUNC_INFO << " - *** FREQ VALID ***" << _ft.toDouble();
    } else {
        rxFreqSpinBox->setValue(0.0);
    }
+}
+
+void MainWindowInputQSO::setSplit(const bool _split)
+{
+    splitCheckBox->setChecked(_split);
 }
 
 double MainWindowInputQSO::getRXPwr()
@@ -736,6 +742,7 @@ void MainWindowInputQSO::slotSplitClicked()
     if (!splitCheckBox->isChecked())
     {
         rxFreqSpinBox->setValue(txFreqSpinBox->value());
+        //slotFreqRXChanged(rxFreqSpinBox->value());
     }
 }
 

@@ -157,9 +157,10 @@ bool HamLibClass::readFreq()
        return false;
 
 
-   int retcode = rig_get_freq(my_rig, RIG_VFO_TX, &freq);
+   int retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
    if (retcode == RIG_OK)
    {
+       qDebug() << Q_FUNC_INFO << " FREQ TX: " << (double) freq;
        radioStatus.freq_VFO_TX = Frequency ((double) freq, Hz);
        errorCount = 0;
    }
@@ -168,9 +169,10 @@ bool HamLibClass::readFreq()
        //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
        return errorManage(Q_FUNC_INFO, retcode);
    }
-   retcode = rig_get_freq(my_rig, RIG_VFO_RX, &freq);
+   retcode = rig_get_freq(my_rig, RIG_VFO_SUB, &freq);
    if (retcode == RIG_OK)
    {
+       qDebug() << Q_FUNC_INFO << " FREQ RX: " << (double) freq;
        radioStatus.freq_VFO_RX = Frequency ((double) freq, Hz);
        errorCount = 0;
    }
@@ -190,7 +192,7 @@ bool HamLibClass::readMode()
         return false;
 
 
-    int retcode = rig_get_mode(my_rig, RIG_VFO_TX, &rmode, &width);
+    int retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
     if (retcode == RIG_OK)
     {
         radioStatus.mode_VFO_TX = hamlibMode2Mode(rmode);
@@ -201,7 +203,7 @@ bool HamLibClass::readMode()
         //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
         return errorManage(Q_FUNC_INFO, retcode);
     }
-    retcode = rig_get_mode(my_rig, RIG_VFO_RX, &rmode, &width);
+    retcode = rig_get_mode(my_rig, RIG_VFO_SUB, &rmode, &width);
     if (retcode == RIG_OK)
     {
         radioStatus.mode_VFO_RX = hamlibMode2Mode(rmode);
@@ -235,11 +237,11 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
 
     if (!readMode())
         return false;
-
-    if (radioStatusChanged(statusOld, radioStatus))
+    Utilities util(Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << " - RadioStatusChanged: " << util.boolToQString(radioStatusChanged(statusOld, radioStatus));
+    //if (radioStatusChanged(statusOld, radioStatus))
         emit radioStatusChanged(radioStatus);
 
-    No se si llega la señal
     //reading = false;
     return true;
 }
@@ -722,36 +724,30 @@ void HamLibClass::setParity(const QString &_parity)
     rig_state = RigState::Disconnected;
 }
 
-void HamLibClass::setFreq(const Frequency &_fr)
+void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "HamLibClass::setFreq: " << QString::number(_fr);
-    if ((!isRunning()) || (readOnlyMode))
-    {
+
+    if (!isRunning() || readOnlyMode) {
         return;
     }
-    freq = _fr.toDouble (Hz);
-    int retcode = rig_set_freq(my_rig, RIG_VFO_CURR, freq);
-    if (retcode != RIG_OK)
-    {
-        errorManage(Q_FUNC_INFO,  retcode);
-    }
-    else
-    {
-        errorCount = 0;
-        //qDebug() << "HamLibClass::setFreq OK: " << QString::number(freq);
-        retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
-        if (retcode == RIG_OK)
-        {
-            errorCount = 0;
-            //qDebug() << "HamLibClass::setFreq read: " << QString::number(freq);
-        }
-        else
-        {
-            errorManage(Q_FUNC_INFO,  retcode);
-        }
+
+
+    freq = _fr.toDouble(Hz);
+
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+    qDebug() << "HamLibClass::setFreq" << (_TX ? "(TX):" : "(RX):") << freq;
+
+    vfo_t target_vfo = _TX ? RIG_VFO_CURR : RIG_VFO_SUB;
+    int retcode = rig_set_freq(my_rig, target_vfo, freq);
+
+    // Error management
+    if (retcode != RIG_OK) {
+        errorManage(Q_FUNC_INFO, retcode);
         return;
     }
+
+    errorCount = 0;
 }
 
 void HamLibClass::setRTS(const QString &_state)

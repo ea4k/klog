@@ -71,6 +71,7 @@ public:
 
     Frequency getRXFreq();
     void setRXFreq(const Frequency &_ft);
+    void setSplit(const bool _split);
 
     void setPropModeFromSat(const QString &_p);
 
@@ -88,6 +89,7 @@ public:
 
     QSO getQSOData(QSO _qso);
     void setQSOData(const QSO &_qso);
+
 
 signals:
     void returnPressed();
