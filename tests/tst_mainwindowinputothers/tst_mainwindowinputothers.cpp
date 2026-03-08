@@ -65,33 +65,33 @@ private:
 
 tst_MainWindowInputOthers::tst_MainWindowInputOthers()
 {
-   // qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, "0.0");
     //util = new Utilities(Q_FUNC_INFO);
     world = new World(dataProxy, Q_FUNC_INFO);
 
     mainWindowInputOthers = new MainWindowInputOthers(dataProxy, world);
     mainWindowInputOthers->setEntitiesList();
-   // qDebug() << Q_FUNC_INFO << " - CurrentProp" << mainWindowInputOthers->getPropModeFromComboBox() ;
+   //qDebug() << Q_FUNC_INFO << " - CurrentProp" << mainWindowInputOthers->getPropModeFromComboBox() ;
 }
 
 tst_MainWindowInputOthers::~tst_MainWindowInputOthers(){}
 
 void tst_MainWindowInputOthers::initTestCase()
 {
-    // qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 void tst_MainWindowInputOthers::cleanupTestCase()
 {
-    // qDebug() << Q_FUNC_INFO << " - Start";
+    //qDebug() << Q_FUNC_INFO << " - Start";
 }
 
 
 
 void tst_MainWindowInputOthers::test_Constructor()
 {
-   // qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     //distance = 0;
     //age = 0;
     //currentInt = 0;
@@ -106,7 +106,7 @@ void tst_MainWindowInputOthers::test_Constructor()
 
 void tst_MainWindowInputOthers::test_Setters()
 {
-   // qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     mainWindowInputOthers->clear();
     mainWindowInputOthers->setAge(10.1);
     QVERIFY2(mainWindowInputOthers->getAge() == 10.1, "Wrong Age (10.1)");
@@ -125,15 +125,15 @@ void tst_MainWindowInputOthers::test_Setters()
     mainWindowInputOthers->setPOTA_REF("EA-0151");
     QVERIFY2(mainWindowInputOthers->getPOTA_REF() == "EA-0151", "Wrong POTA (EA-151)");
     mainWindowInputOthers->setWWFF_Ref("EAFF-0163");
-    // qDebug() << " - " << mainWindowInputOthers->getWWFF_Ref();
+    //qDebug() << " - " << mainWindowInputOthers->getWWFF_Ref();
     QVERIFY2(mainWindowInputOthers->getWWFF_Ref() == "EAFF-0163", "Wrong WWFF (EAFF-0163)");
-   // qDebug() << Q_FUNC_INFO << " - Testing PROP_MODE";
+   //qDebug() << Q_FUNC_INFO << " - Testing PROP_MODE";
 
     mainWindowInputOthers->setPropMode("SAT", false);
     QVERIFY2(mainWindowInputOthers->getPropModeFromComboBox() == "SAT", "Wrong PROP_MODE (SAT)");
-   // qDebug() << Q_FUNC_INFO << " - PROP_MODE-1: " << mainWindowInputOthers->getPropModeFromComboBox();
+   //qDebug() << Q_FUNC_INFO << " - PROP_MODE-1: " << mainWindowInputOthers->getPropModeFromComboBox();
    // mainWindowInputOthers->setPropMode("ES", false);              // Wrong PROP_MODE
-   // qDebug() << Q_FUNC_INFO << " - PROP_MODE-2: " << mainWindowInputOthers->getPropModeFromComboBox();
+   //qDebug() << Q_FUNC_INFO << " - PROP_MODE-2: " << mainWindowInputOthers->getPropModeFromComboBox();
     // qVERIFY2(mainWindowInputOthers->getPropModeFromComboBox() == "SAT", "Wrong wrong PROP_MODE (SAT)");
 /*
 
@@ -153,13 +153,13 @@ void tst_MainWindowInputOthers::test_PropModes()
     QString aux;
     foreach (aux, propModes)
     {
-       // qDebug() << Q_FUNC_INFO << " - PropMode: " << aux;
+       //qDebug() << Q_FUNC_INFO << " - PropMode: " << aux;
         QStringList fields;
         fields.clear();
         fields.append(aux.split('-'));
         QString field = fields.at(1);
         field = field.simplified();
-       // qDebug() << Q_FUNC_INFO << " - ShortName: " << field;
+       //qDebug() << Q_FUNC_INFO << " - ShortName: " << field;
         mainWindowInputOthers->setPropMode(field, false);
         QVERIFY2(mainWindowInputOthers->getPropModeFromComboBox() == field, "Wrong propMode in list");
     }

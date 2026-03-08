@@ -27,22 +27,21 @@
 #include "adif.h"
 #include "callsign.h"
 
-Adif::Adif(const QString &_parentName)
+Adif::Adif(const QString &_parentName) : QObject(nullptr),
+    parentName(_parentName),
+    logLevel(Info)
 {
     parentName = _parentName;
-    ////qDebug() << Q_FUNC_INFO << " (" << _parentName << ")";
+    setARRLSect();
+    setContinents();
+    setSponsorsList();
+    InitializeHash();
+    //qDebug() << Q_FUNC_INFO << " (" << _parentName << ")";
     //init();
 }
 
 Adif::~Adif()
 {
-}
-
-void Adif::init()
-{
-    setARRLSect();
-    setContinents();
-    setSponsorsList ();
 }
 
 ADIFField Adif::setPair(const QString &pair)
@@ -270,7 +269,7 @@ void Adif::setLogLevel(DebugLogLevel _l)
 
 void Adif::setARRLSect()
 {
-    QStringList pARRL_sects = {"AL", "AK", "AB", "AR", "AZ", "BC", "CO", "CT", "DE", "EB", "EMA", "ENY", "EPA", "EWA"
+    ARRL_sects = {"AL", "AK", "AB", "AR", "AZ", "BC", "CO", "CT", "DE", "EB", "EMA", "ENY", "EPA", "EWA"
         "GA", "GTA", "ID", "IL", "IN", "IA", "KS", "KY", "LAX", "LA",
         "ME", "MB", "MAR", "MDC", "MI", "MN", "MS", "MO", "MT",
         "NE", "NV", "NH", "NM", "NLI", "NL", "NC", "ND", "NTX",
@@ -279,19 +278,29 @@ void Adif::setARRLSect()
         "RI", "SV", "SDG", "SF", "SJV", "SB", "SCV", "SK", "SC", "SD",
         "STX", "SFL", "SNJ", "TN", "VI", "UT", "VT", "VA",
         "WCF", "WTX", "WV", "WMA", "WNY", "WPA", "WWA", "WI", "WY"};
-    ARRL_sects = pARRL_sects;
+    //ARRL_sects = pARRL_sects;
 }
 
 void Adif::setContinents()
 {
-    QStringList pcontinents = {"NA", "SA", "EU", "AF", "OC", "AS", "AN"};
-    continents = pcontinents;
+    //QStringList pcontinents = {"NA", "SA", "EU", "AF", "OC", "AS", "AN"};
+    continents = {"AF", "AN", "AS", "EU", "NA", "OC", "SA"};
+}
+
+QStringList Adif::getContinents()
+{
+    return continents;
+}
+
+bool Adif::isValidContinent(const QString &_s)
+{
+    return continents.contains(_s.toUpper());
 }
 
 void Adif::setSponsorsList()
 {
-    QStringList psponsorsList = {"ADIF_", "ARI_", "ARRL_", "CQ_", "DARC_", "EQSL_", "IARU_", "JARL_", "RSGB_", "TAG_", "WABAG_"};
-    sponsorsList = psponsorsList;
+    //QStringList psponsorsList = {"ADIF_", "ARI_", "ARRL_", "CQ_", "DARC_", "EQSL_", "IARU_", "JARL_", "RSGB_", "TAG_", "WABAG_"};
+    sponsorsList = {"ADIF_", "ARI_", "ARRL_", "CQ_", "DARC_", "EQSL_", "IARU_", "JARL_", "RSGB_", "TAG_", "WABAG_"};
 }
 
 bool Adif::isValidMode (const QString &_s)
@@ -308,20 +317,20 @@ void Adif::setModes(const QStringList &_modes)
 
 bool Adif::isValidFreq(const QString &_b)
 {
-    ////qDebug() << Q_FUNC_INFO << ": freq: " << _b;
+    //qDebug() << Q_FUNC_INFO << ": freq: " << _b;
     bool _ok;
     double f = _b.toDouble(&_ok);
     if ((_ok) && f>0)
     {
-        ////qDebug() << Q_FUNC_INFO << ": Freq OK" ;
+        //qDebug() << Q_FUNC_INFO << ": Freq OK" ;
         return true;
     }
    /* if (!_ok)
-        ////qDebug() << Q_FUNC_INFO << ": Freq NOK: NOK" ;
+        //qDebug() << Q_FUNC_INFO << ": Freq NOK: NOK" ;
     if (f<=0)
-        ////qDebug() << Q_FUNC_INFO << ": Freq NOK: f=0" ;
+        //qDebug() << Q_FUNC_INFO << ": Freq NOK: f=0" ;
     else
-        ////qDebug() << Q_FUNC_INFO << ": Freq NOK: NOT-KNOWN" ;*/
+        //qDebug() << Q_FUNC_INFO << ": Freq NOK: NOT-KNOWN" ;*/
     return false;
 }
 
@@ -462,7 +471,7 @@ int Adif::setQSO_COMPLETEToDB(const QString &_s)
 QString Adif::getQSO_COMPLETEFromDB(const QString &_s)
 {// Returns the ADIF QSO_COMPLETE
     //1=Y, 2=N, 3=NIL, 4=?
-    ////qDebug() << Q_FUNC_INFO << ": " << _s;
+    //qDebug() << Q_FUNC_INFO << ": " << _s;
     int i = _s.toInt();
     switch (i)
     {
@@ -493,7 +502,7 @@ bool Adif::isValidPOTA(const QString &_s)
     // nnnnn: 4 or 5 digits/letters (per POTA, often digits, but allow letters)
     // Optional: @yyyyyy (4-6 letters/digits)
     // Total length: 6 to 17
-    ////qDebug() << Q_FUNC_INFO << " - " << _s;
+    //qDebug() << Q_FUNC_INFO << " - " << _s;
 
     if (_s.length() < 6 || _s.length() > 17)
         return false;
@@ -515,7 +524,7 @@ bool Adif::isValidPOTA(const QString &_s)
     if (ok)
         test = "TRUE";
 
-    ////qDebug() << Q_FUNC_INFO << " - " << test;
+    //qDebug() << Q_FUNC_INFO << " - " << test;
     //return ok;
     return potaRegex.match(_s).hasMatch();
 }
@@ -570,10 +579,10 @@ QStringList Adif::getQSLRecStatus (bool _fullName)
 QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
 {// Receives the ADIF field and the data and returns the ADIF field with a blank space at the end.
     // Check if _fieldName is a valid ADIF
-    ////qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
+    //qDebug() << Q_FUNC_INFO << " - " << _fieldName << "/" << _data;
     if ((_data.length()<=0) || (_data.isNull()))
     {
-        ////qDebug() << Q_FUNC_INFO << " - Not Valid";
+        //qDebug() << Q_FUNC_INFO << " - Not Valid";
         return QString();
     }
     if (ADIFHash.empty()) {
@@ -581,16 +590,16 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
     }
 
     QString fieldN = _fieldName.toUpper();
-    ////qDebug() << Q_FUNC_INFO << " - toUpper: " << fieldN;
+    //qDebug() << Q_FUNC_INFO << " - toUpper: " << fieldN;
 
     if (!ADIFHash.contains(fieldN)) {
-        ////qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
+        //qDebug() << Q_FUNC_INFO << " - No valid ADIF: " << _fieldName;
         return QString();
     }
     if (fieldN == "DISTANCE" )
         if (_data.toDouble() <= 0.0)
             return QString();
-    ////qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
+    //qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
 
@@ -620,7 +629,7 @@ void Adif::logEvent(const QString &_func, const QString &_msg,  DebugLogLevel _l
 
 QString Adif::getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime)
 {
-    ////qDebug() << Q_FUNC_INFO << ": " << _lotwdatetime;
+    //qDebug() << Q_FUNC_INFO << ": " << _lotwdatetime;
     // LoTW can provide data in two formats:
     //            2022-04-23T18:08:00Z
     //            YYYY-MM-DD HH:MM:SS
@@ -639,7 +648,7 @@ QString Adif::getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime)
 
     //yyyy-MM-ddTHH:mm:ss.zzz (e.g. 2017-07-24T15:46:29.739)
     //dateTime.fromString(_lotwdatetime, "yyyy-MM-dd HH:mm:ss");
-    ////qDebug() << Q_FUNC_INFO << ": Modified date: " << (dateTime.date()).toString("yyyyMMdd");
+    //qDebug() << Q_FUNC_INFO << ": Modified date: " << (dateTime.date()).toString("yyyyMMdd");
 
 }
 

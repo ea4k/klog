@@ -36,7 +36,7 @@
 
 eLogClubLog::eLogClubLog()
 {
-    // qDebug()<< "eLogClubLog::eLogClubLog" ;
+    //qDebug()<< "eLogClubLog::eLogClubLog" ;
 
     //email = QString();
     //pass = QString();
@@ -48,23 +48,23 @@ eLogClubLog::eLogClubLog()
     //stationCallsign = QString();
     uploadingFile = false;
     //util = new Utilities(Q_FUNC_INFO);
-    // qDebug()<< "eLogClubLog::eLogClubLog - END" ;
+    //qDebug()<< "eLogClubLog::eLogClubLog - END" ;
 }
 
 eLogClubLog::~eLogClubLog()
 {
     //delete(util);
     delete(manager);
-          // qDebug()<< "eLogClubLog::~eLogClubLog" ;
+          //qDebug()<< "eLogClubLog::~eLogClubLog" ;
 }
 
 
  void eLogClubLog::slotQsoUploadFinished(QNetworkReply *data)
 {
-      // qDebug()<< "eLogClubLog::slotQsoUploadFinished" ;
+      //qDebug()<< "eLogClubLog::slotQsoUploadFinished" ;
 
     result = data->error();
-    // qDebug()<< Q_FUNC_INFO << " - Result = " << QString::number(result);
+    //qDebug()<< Q_FUNC_INFO << " - Result = " << QString::number(result);
 
     const QByteArray sdata = data->readAll();
 
@@ -79,8 +79,8 @@ eLogClubLog::~eLogClubLog()
     if (result == QNetworkReply::NoError)
     {
         text = "ClubLog: " + prepareToTranslate(sdata);
-          // qDebug()<< sdata;
-          // qDebug()<< Q_FUNC_INFO << " - NO ERROR";
+          //qDebug()<< sdata;
+          //qDebug()<< Q_FUNC_INFO << " - NO ERROR";
         if (uploadingFile)
         {
             uploadingFile = false;
@@ -91,13 +91,13 @@ eLogClubLog::~eLogClubLog()
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-          // qDebug()<< Q_FUNC_INFO << " - Result = Host Not found! = " << QString::number(result) ;
+          //qDebug()<< Q_FUNC_INFO << " - Result = Host Not found! = " << QString::number(result) ;
         text = "ClubLog: " + tr("Host not found!");
         //TODO: Mark the previous QSO as not sent to clublog
     }
     else if (result == QNetworkReply::TimeoutError)
     {
-          // qDebug()<< Q_FUNC_INFO << " - Result = Time out error! = " << QString::number(result) ;
+          //qDebug()<< Q_FUNC_INFO << " - Result = Time out error! = " << QString::number(result) ;
         text = "ClubLog: " + tr("Timeout error!");
         //TODO: Mark the previous QSO as not sent to clublog
     }
@@ -114,7 +114,7 @@ eLogClubLog::~eLogClubLog()
     /*
     else if (result == 202)
     {
-          // qDebug()<< Q_FUNC_INFO << " - Result = Password Error! = " << QString::number(result) ;
+          //qDebug()<< Q_FUNC_INFO << " - Result = Password Error! = " << QString::number(result) ;
         text = "ClubLog: " + tr("It seems to be a PASSWORD ERROR; check your password.");
 
         int i = QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
@@ -137,7 +137,7 @@ eLogClubLog::~eLogClubLog()
     }
     else
     {
-          // qDebug()<< Q_FUNC_INFO << " - Result = UNDEFINED = " << QString::number(result) ;
+          //qDebug()<< Q_FUNC_INFO << " - Result = UNDEFINED = " << QString::number(result) ;
         text = "ClubLog: " + tr("Undefined error number (#%1)... ").arg(result);
         QMessageBox::warning(nullptr, tr("KLog - ClubLog"),
                                        tr("We have received an undefined error from Clublog (%1)").arg(result) + "\n" +
@@ -147,8 +147,8 @@ eLogClubLog::~eLogClubLog()
         //TODO: Mark the previous QSO as not sent to clublog
     }
 
-     // qDebug()<< Q_FUNC_INFO << " - Result = " << QString::number(result);
-     // qDebug()<< Q_FUNC_INFO << "  - Result Text = " << text;
+     //qDebug()<< Q_FUNC_INFO << " - Result = " << QString::number(result);
+     //qDebug()<< Q_FUNC_INFO << "  - Result Text = " << text;
     //emit done();
     //emit signalFileUploaded(result, qsos);
     emit showMessage(text);
@@ -156,10 +156,10 @@ eLogClubLog::~eLogClubLog()
 
 void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
 {
-         // qDebug()<< "eLogClubLog::slotFileUploadFinished" ;
+         //qDebug()<< "eLogClubLog::slotFileUploadFinished" ;
 
     result = data->error();
-          // qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = " << QString::number(result);
+          //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = " << QString::number(result);
 
     const QByteArray sdata = data->readAll();
 
@@ -168,78 +168,78 @@ void eLogClubLog::slotFileUploadFinished(QNetworkReply *data)
     if (result == QNetworkReply::NoError)
     {
         text = "ClubLog: " + prepareToTranslate(sdata);
-             // qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = NoError = " << QString::number(result) ;
-             // qDebug()<< sdata;
+             //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = NoError = " << QString::number(result) ;
+             //qDebug()<< sdata;
     }
     else if (result == QNetworkReply::HostNotFoundError)
     {
-             // qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = Host Not found! = " << QString::number(result) ;
+             //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = Host Not found! = " << QString::number(result) ;
         text = "ClubLog: " + tr("Host not found!");
     }
     else if (result == QNetworkReply::TimeoutError)
     {
-             // qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = Time out error! = " << QString::number(result) ;
+             //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = Time out error! = " << QString::number(result) ;
         text = "ClubLog: " + tr("Timeout error!");
     }
     else
     {
-             // qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = UNDEFINED = " << QString::number(result) ;
+             //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = UNDEFINED = " << QString::number(result) ;
         text = "ClubLog: " + tr("Undefined error...");
     }
 
-          // qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = " << QString::number(result);
+          //qDebug()<< "eLogClubLog::slotFileUploadFinished - Result = " << QString::number(result);
     //emit done();
     emit  showMessage(text);
 }
 
 void eLogClubLog::downloadProgress(qint64 received, qint64 total) {
-         // qDebug()<< "eLogClubLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total);
+         //qDebug()<< "eLogClubLog::downloadProgress: " << QString::number(received) << "/" << QString::number(total);
 
-         // qDebug()<< received << total;
+         //qDebug()<< received << total;
     emit actionShowProgres(received, total);
 }
 
 void eLogClubLog::slotErrorManagement(QNetworkReply::NetworkError networkError)
 {
-         // qDebug()<< "eLogClubLog::slotErrorManagement: " << QString::number(networkError);
+         //qDebug()<< "eLogClubLog::slotErrorManagement: " << QString::number(networkError);
     result = networkError;
 }
 
 int eLogClubLog::sendQSO(QStringList _qso)
 {
-      // qDebug() << "eLogClubLog::sendQSO: " << email << "/" << pass << "/" << api ;
-       // qDebug()<< "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length());
+      //qDebug() << "eLogClubLog::sendQSO: " << email << "/" << pass << "/" << api ;
+       //qDebug()<< "eLogClubLog::sendQSO:: length = " << QString::number(_qso.length());
     // First Data in the QStringList is the QSO id, not to be sent to clublog but used in the signal actionReturnDownload(const int _i, const int _qsoId);
    for(int i = 0; i<_qso.length(); i++)
     {
-         // qDebug()<< "eLogClubLog::sendQSO = qso-at: "<< QString::number(i) << "- " << _qso.at(i);
+         //qDebug()<< "eLogClubLog::sendQSO = qso-at: "<< QString::number(i) << "- " << _qso.at(i);
     }
     if (_qso.length()!=18)
     {
-          // qDebug() << "eLogClubLog::sendQSO:: length - END";
+          //qDebug() << "eLogClubLog::sendQSO:: length - END";
         return -1;
     }
 
     currentQSO = (_qso.at(0)).toInt();
     _qso.removeFirst();
     //_qso.removeFirst();
-     // qDebug()<< "eLogClubLog::sendQSO CALL TO USE (before checking): " << _qso.at(16);
-     // qDebug()<< "eLogClubLog::sendQSO default StationCallsign): " << stationCallsign;
+     //qDebug()<< "eLogClubLog::sendQSO CALL TO USE (before checking): " << _qso.at(16);
+     //qDebug()<< "eLogClubLog::sendQSO default StationCallsign): " << stationCallsign;
 
     QString tempCall = _qso.at(16);
     if (tempCall.length()<1)
     {
         tempCall = stationCallsign;
     }
-     // qDebug()<< "eLogClubLog::sendQSO CALL TO USE: " << tempCall;
+     //qDebug()<< "eLogClubLog::sendQSO CALL TO USE: " << tempCall;
     _qso.removeLast();
 
     QString qso = getClubLogAdif(_qso);
-      // qDebug()<< "eLogClubLog::sendQSO: " << qso;
+      //qDebug()<< "eLogClubLog::sendQSO: " << qso;
     QUrlQuery params;
     params.addQueryItem("adif",qso);
-     // qDebug() << "eLogClubLog::sendQSO: QSO: " << qso;
-      // qDebug() << "eLogClubLog::sendQSO: END";
+     //qDebug() << "eLogClubLog::sendQSO: QSO: " << qso;
+      //qDebug() << "eLogClubLog::sendQSO: END";
     uploadingFile = false;
     return sendDataParams(tempCall, params, true);
     //return sendData(tempCall, qso);
@@ -247,7 +247,7 @@ int eLogClubLog::sendQSO(QStringList _qso)
 /*
 int eLogClubLog::deleteQSOid(const int _qsoId)
 {
-     // qDebug()<< "eLogClubLog::deleteQSOid: " << QString::number(_qsoId);
+     //qDebug()<< "eLogClubLog::deleteQSOid: " << QString::number(_qsoId);
    // email, password, callsign, dxcall, datetime, bandid, api
     QString dxcall, datatime, bandid;
     QUrlQuery params;
@@ -258,10 +258,10 @@ int eLogClubLog::deleteQSOid(const int _qsoId)
 
 int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_params, bool _adding)
 {
-      // qDebug()<< Q_FUNC_INFO << ":  Call: " << _clublogCall;
-      // qDebug()<< Q_FUNC_INFO << ": : Params: " << _params.query(QUrl::FullyEncoded).toUtf8();
-      // qDebug()<< Q_FUNC_INFO << ":  email = " << email;
-      // qDebug()<< Q_FUNC_INFO << ":  Pass = " << pass;
+      //qDebug()<< Q_FUNC_INFO << ":  Call: " << _clublogCall;
+      //qDebug()<< Q_FUNC_INFO << ": : Params: " << _params.query(QUrl::FullyEncoded).toUtf8();
+      //qDebug()<< Q_FUNC_INFO << ":  email = " << email;
+      //qDebug()<< Q_FUNC_INFO << ":  Pass = " << pass;
 
     QUrl serviceUrl;
     if (_adding)
@@ -284,14 +284,14 @@ int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_p
     if  (_clublogCall.length()>2)
     {
         params.addQueryItem("callsign",_clublogCall);
-           // qDebug()<< Q_FUNC_INFO << ":  - callsign 1: " << _clublogCall;
+           //qDebug()<< Q_FUNC_INFO << ":  - callsign 1: " << _clublogCall;
     }
     else
     {
         params.addQueryItem("callsign",stationCallsign);
     }
 
-      // qDebug()<< Q_FUNC_INFO << ":  - query before send/delete: " << params.query(QUrl::FullyEncoded).toUtf8();
+      //qDebug()<< Q_FUNC_INFO << ":  - query before send/delete: " << params.query(QUrl::FullyEncoded).toUtf8();
     if (_adding)
     {
         params.addQueryItem("api",api);
@@ -315,16 +315,16 @@ int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_p
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
-    // qDebug() << Q_FUNC_INFO << ": " << postData;
+    //qDebug() << Q_FUNC_INFO << ": " << postData;
     manager->post(request, postData);
-    // qDebug()<< Q_FUNC_INFO << ":  - END";
+    //qDebug()<< Q_FUNC_INFO << ":  - END";
     return -1;
 }
 
 /*
 int eLogClubLog::sendData(const QString &_clublogCall, const QString &_q)
 {
-      // qDebug()<< "eLogClubLog::sendData: " << _q;
+      //qDebug()<< "eLogClubLog::sendData: " << _q;
 
     QUrl serviceUrl = QUrl("https://secure.clublog.org/realtime.php");
     QByteArray postData;
@@ -337,7 +337,7 @@ int eLogClubLog::sendData(const QString &_clublogCall, const QString &_q)
     if  (_clublogCall.length()>2)
     {
         params.addQueryItem("callsign",_clublogCall);
-             // qDebug()<< "eLogClubLog::sendData - callsign 1: " << _clublogCall;
+             //qDebug()<< "eLogClubLog::sendData - callsign 1: " << _clublogCall;
     }
     else
     {
@@ -349,7 +349,7 @@ int eLogClubLog::sendData(const QString &_clublogCall, const QString &_q)
     params.addQueryItem("adif",_q);
 
     postData = params.query(QUrl::FullyEncoded).toUtf8();
-       // qDebug()<< "eLogClubLog::sendData - query: " << postData;
+       //qDebug()<< "eLogClubLog::sendData - query: " << postData;
     //postData = params.encodedQuery();
 
     // Call the webservice
@@ -370,7 +370,7 @@ int eLogClubLog::sendData(const QString &_clublogCall, const QString &_q)
 QString eLogClubLog::getClubLogAdif(const QStringList _q)
 
 {
-      // qDebug() << "eLogClubLog::getClubLogAdif: " << QString::number(_q.length());
+      //qDebug() << "eLogClubLog::getClubLogAdif: " << QString::number(_q.length());
     // _qso must include 16 ordered fields than can be empty or contain data. This function builds the ADIF QSO
 /* http://clublog.freshdesk.com/support/solutions/articles/53202-which-adif-fields-does-club-log-use-
 ClubLog only accepts the following ADIF fields:
@@ -401,48 +401,48 @@ NOTES
     }
     for (int i = 0; i< _q.length(); i++)
     {
-          // qDebug()<< QString("eLogClubLog::getClubLogAdif: (%1): %2").arg(i).arg(_q.at(i));
+          //qDebug()<< QString("eLogClubLog::getClubLogAdif: (%1): %2").arg(i).arg(_q.at(i));
     }
 
     QString qso, aux1;
     qso.clear();
     aux1 = _q.at(0);
-      // qDebug()<< "eLogClubLog::getClubLogAdif: Date: " << _q.at(0) ;
+      //qDebug()<< "eLogClubLog::getClubLogAdif: Date: " << _q.at(0) ;
     if (QDate::fromString(aux1, "yyyyMMdd").isValid())
     {
         qso = "<QSO_DATE:" + QString::number(aux1.length()) + ">" +  aux1  +  " ";
     }
     else
     {
-          // qDebug() << "eLogClubLog::getClubLogAdif: END error ";
+          //qDebug() << "eLogClubLog::getClubLogAdif: END error ";
         return QString();
     }
 
     // qso = "<QSO_DATE:" + QString::number((_q.at(0)).length()) + ">" + _q.at(0) + " ";
     qso = qso + "<TIME_ON:" + QString::number((_q.at(1)).length()) + ">" + _q.at(1) + " ";
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 10" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 10" ;
     if (!(_q.at(2)).isEmpty())
     {
         qso = qso + "<QSLRDATE:" + QString::number((_q.at(2)).length()) + ">" + _q.at(2) + " ";
     }
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 20" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 20" ;
     if (!(_q.at(3)).isEmpty())
     {
         qso = qso + "<QSLSDATE:" + QString::number((_q.at(3)).length()) + ">" + _q.at(3) + " ";
     }
 
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 30" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 30" ;
     qso = qso + "<CALL:" + QString::number((_q.at(4)).length()) + ">" + _q.at(4) + " ";
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 40" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 40" ;
     if (!(_q.at(5)).isEmpty())
     {
         qso = qso + "<OPERATOR:" + QString::number((_q.at(5)).length()) + ">" + _q.at(5) + " ";
     }
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 50" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 50" ;
     qso = qso + "<MODE:" + QString::number((_q.at(6)).length()) + ">" + _q.at(6) + " ";
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 60" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 60" ;
     qso = qso + "<BAND:" + QString::number((_q.at(7)).length()) + ">" + _q.at(7) + " ";
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 70" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 70" ;
     if ((_q.at(8)).length()> 2)
     {
         qso = qso + "<BAND_RX:" + QString::number((_q.at(8)).length()) + ">" + _q.at(8) + " ";
@@ -453,34 +453,34 @@ NOTES
         qso = qso + "<FREQ:" + QString::number((_q.at(9)).length()) + ">" + _q.at(9) + " ";
     }
 
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 90" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 90" ;
     qso = qso + "<QSL_RCVD:" + QString::number((_q.at(10)).length()) + ">" + _q.at(10) + " ";
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 100" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 100" ;
     qso = qso + "<LOTW_QSL_RCVD:" + QString::number((_q.at(11)).length()) + ">" + _q.at(11) + " ";
-      // qDebug()<< "eLogClubLog::getClubLogAdif: 110" ;
+      //qDebug()<< "eLogClubLog::getClubLogAdif: 110" ;
     // qso = qso + "<QSL_SENT:" + QString::number((_q.at(12)).length()) + ">" + _q.at(12) + " ";
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 120" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 120" ;
     if ((_q.at(13)).toInt()> 0)
     {
         qso = qso + "<DXCC:" + QString::number((_q.at(13)).length()) + ">" + _q.at(13) + " ";
     }
 
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 130'" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 130'" ;
     if ((_q.at(14)).toInt()> 0)
     {
         qso = qso + "<PROP_MODE:" + QString::number((_q.at(14)).length()) + ">" + _q.at(14) + " ";
     }
 
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 140" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 140" ;
     if (!(_q.at(15)).isEmpty())
     {
         qso = qso + "<CREDIT_GRANTED:" + QString::number((_q.at(15)).length()) + ">" + _q.at(15) + " ";
     }
 
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 150" ;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 150" ;
     qso = qso + "<EOR>";
-      // qDebug()<< "eLogClubLog:: - QSO: "  << qso;
-       // qDebug()<< "eLogClubLog::getClubLogAdif: 100" ;
+      //qDebug()<< "eLogClubLog:: - QSO: "  << qso;
+       //qDebug()<< "eLogClubLog::getClubLogAdif: 100" ;
     return qso;
 }
 
@@ -491,10 +491,10 @@ void eLogClubLog::setDefaultCallsign(const QString &_defaultStationCallsign)
 
 int eLogClubLog::deleteQSO(QStringList _qso)
 {
-      // qDebug()<< "eLogClubLog::deleteQSO: length = " << QString::number(_qso.length());
-      // qDebug()<< "eLogClubLog::deleteQSO: " << email << "/" << pass << "/" << api ;
-      // qDebug()<< "eLogClubLog::deleteQSO: email = " << email;
-      // qDebug()<< "eLogClubLog::deleteQSO: Pass = " << pass;
+      //qDebug()<< "eLogClubLog::deleteQSO: length = " << QString::number(_qso.length());
+      //qDebug()<< "eLogClubLog::deleteQSO: " << email << "/" << pass << "/" << api ;
+      //qDebug()<< "eLogClubLog::deleteQSO: email = " << email;
+      //qDebug()<< "eLogClubLog::deleteQSO: Pass = " << pass;
 
     // email, password, callsign, dxcall, datetime (sqlite format, not ADIF), bandid (only the number, not ADIF), api
     if (_qso.length()!=18)
@@ -503,7 +503,7 @@ int eLogClubLog::deleteQSO(QStringList _qso)
     }
     for (int i = 0; i<_qso.length(); i++)
     {
-          // qDebug()<< QString("eLogClubLog::deleteQSO: qso.at(%1) = %2").arg(i).arg(_qso.at(i));
+          //qDebug()<< QString("eLogClubLog::deleteQSO: qso.at(%1) = %2").arg(i).arg(_qso.at(i));
     }
 
     QString dxcall, sdateTime, bandid;
@@ -524,18 +524,18 @@ int eLogClubLog::deleteQSO(QStringList _qso)
     }
 
     sdateTime = dateTime.toString("yyyy-MM-dd HH:mm:ss");
-      // qDebug()<< QString("eLogClubLog::deleteQSO: DateTime = %1").arg(sdateTime);
-       // qDebug()<< QString("eLogClubLog::deleteQSO: band-1: ") << _qso.at(8);
+      //qDebug()<< QString("eLogClubLog::deleteQSO: DateTime = %1").arg(sdateTime);
+       //qDebug()<< QString("eLogClubLog::deleteQSO: band-1: ") << _qso.at(8);
     bandid = (_qso.at(8)).chopped(1);
-       // qDebug()<< QString("eLogClubLog::deleteQSO: band-2: ") << bandid;
+       //qDebug()<< QString("eLogClubLog::deleteQSO: band-2: ") << bandid;
     bool ok;
     bandid.toInt(&ok);
     if (!ok)
     { // This check is to capture potential QSOs in 222Mhz (AKA 1.25)
         bandid = bandid.chopped(1);
-          // qDebug()<< QString("eLogClubLog::deleteQSO: band-3: ") << bandid;
+          //qDebug()<< QString("eLogClubLog::deleteQSO: band-3: ") << bandid;
     }
-      // qDebug()<< QString("eLogClubLog::deleteQSO: bandid = %1").arg(bandid);
+      //qDebug()<< QString("eLogClubLog::deleteQSO: bandid = %1").arg(bandid);
     if (bandid.toInt()<=0)
     {
         return -2;
@@ -553,7 +553,7 @@ int eLogClubLog::deleteQSO(QStringList _qso)
 
 QString eLogClubLog::prepareToTranslate(const QString &_m)
 {
-         // qDebug()<< "eLogClubLog:: = prepareToTranslate" << _m;
+         //qDebug()<< "eLogClubLog:: = prepareToTranslate" << _m;
     if (_m == "Callsign missing")
     {
         return tr("Callsign missing");
@@ -659,7 +659,7 @@ QString eLogClubLog::prepareToTranslate(const QString &_m)
 
 int eLogClubLog::modifyQSO (QStringList _oldQSO, QStringList _newQSO)
 {
-       // qDebug()<< QString("eLogClubLog::modifyQSO");
+       //qDebug()<< QString("eLogClubLog::modifyQSO");
    int x = -1;
 
     x = deleteQSO(_oldQSO);
@@ -669,7 +669,7 @@ int eLogClubLog::modifyQSO (QStringList _oldQSO, QStringList _newQSO)
 
 void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite)
 {
-   // qDebug()<< Q_FUNC_INFO << ": " << _file << " / Overwrite: " << util->boolToQString(_overwrite);
+   //qDebug()<< Q_FUNC_INFO << ": " << _file << " / Overwrite: " << util->boolToQString(_overwrite);
     qsos.clear();
     qsos.append(_qso);
     QUrl serviceUrl;
@@ -693,15 +693,15 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     }
     else
     {
-           // qDebug()<< Q_FUNC_INFO << ":  ERROR File not opened";
+           //qDebug()<< Q_FUNC_INFO << ":  ERROR File not opened";
         return;
     }
     file->close();
     // The rest of the form goes as usual
-    // qDebug()<< Q_FUNC_INFO << ": email: " << email;
-    // qDebug()<< Q_FUNC_INFO << ": apPass: " << appPass;
-    // qDebug()<< Q_FUNC_INFO << ": stationcall: " << stationCallsign;
-    // qDebug()<< Q_FUNC_INFO << ": api: " << api;
+    //qDebug()<< Q_FUNC_INFO << ": email: " << email;
+    //qDebug()<< Q_FUNC_INFO << ": apPass: " << appPass;
+    //qDebug()<< Q_FUNC_INFO << ": stationcall: " << stationCallsign;
+    //qDebug()<< Q_FUNC_INFO << ": api: " << api;
 
     QHttpPart emailPart;
     emailPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"email\""));
@@ -749,9 +749,9 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
 
     QNetworkRequest request(serviceUrl);
     manager->post(request, multiPart);
-    // qDebug() << Q_FUNC_INFO << ": " << multiPart;
+    //qDebug() << Q_FUNC_INFO << ": " << multiPart;
 
-   // qDebug() << Q_FUNC_INFO << " - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void eLogClubLog::loadSettings()

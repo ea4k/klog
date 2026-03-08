@@ -38,8 +38,7 @@ struct BandEntry {
     QString name;
     Frequency minFreq;
     Frequency maxFreq;
-    //double minFreq; // Store in MHz consistently
-    //double maxFreq; // Store in MHz consistently
+
 
     // Helper to check inclusion
     bool contains(Frequency freq) const { return (freq >= minFreq && freq <= maxFreq); }

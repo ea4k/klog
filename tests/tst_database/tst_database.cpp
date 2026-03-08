@@ -60,7 +60,7 @@
             void test_modes();
             void test_subModes();
             void test_checks();
-            void test_addQSOs();
+            //void test_addQSOs();
             //void initTestCase_data();   // will be called to create a global test data table.
 
             //void init();                // will be called before each test function is executed.
@@ -82,68 +82,68 @@ tst_DataBase::tst_DataBase()
 
 tst_DataBase::~tst_DataBase()
 {
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     delete (util);
     delete (db);
 }
 
 void tst_DataBase::initTestCase()
 {
-   // qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     Utilities util(Q_FUNC_INFO);
     QFile file(util.getKLogDBFile() + "-test");
 
     if (file.exists())
     {
-        qDebug() << Q_FUNC_INFO << QString("DB-test exists: %1").arg(util.getKLogDBFile() + "-test");
+       //qDebug() << Q_FUNC_INFO << QString("DB-test exists: %1").arg(util.getKLogDBFile() + "-test");
         if (file.remove())
         {
-            qDebug() << Q_FUNC_INFO << "DB-test deleted";
+           //qDebug() << Q_FUNC_INFO << "DB-test deleted";
             QCOMPARE(file.exists(), false);
         }
         else
         {
-           qDebug() << Q_FUNC_INFO << "DB-test NOT deleted";
+          //qDebug() << Q_FUNC_INFO << "DB-test NOT deleted";
         }
     }
     else
     {
-       qDebug() << Q_FUNC_INFO << QString("DB-test DOES NOT exists: %1").arg(util.getKLogDBFile() + "-test");
+      //qDebug() << Q_FUNC_INFO << QString("DB-test DOES NOT exists: %1").arg(util.getKLogDBFile() + "-test");
     }
 }
 
 void tst_DataBase::test_Constructor()
 {
-    // qDebug() << Q_FUNC_INFO << "- Start";
+    //qDebug() << Q_FUNC_INFO << "- Start";
     QString _version = QString ("99.9");
-    // qDebug() << Q_FUNC_INFO << "- 001";
+    //qDebug() << Q_FUNC_INFO << "- 001";
     util = new Utilities(Q_FUNC_INFO);
-    // qDebug() << Q_FUNC_INFO << "- 002";
+    //qDebug() << Q_FUNC_INFO << "- 002";
     db = new DataBase(Q_FUNC_INFO, _version, util->getKLogDBFile());
-    // qDebug() << Q_FUNC_INFO << "- 003";
+    //qDebug() << Q_FUNC_INFO << "- 003";
     QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
-    // qDebug() << Q_FUNC_INFO << " - END";
+    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void tst_DataBase::test_CreateDB()
 {
-    // qDebug() << Q_FUNC_INFO << "000";
+    //qDebug() << Q_FUNC_INFO << "000";
     Utilities util(Q_FUNC_INFO);
-    // qDebug() << Q_FUNC_INFO << "001";
+    //qDebug() << Q_FUNC_INFO << "001";
     QFile file(util.getCTYFile());
-    // qDebug() << Q_FUNC_INFO << "003";
+    //qDebug() << Q_FUNC_INFO << "003";
     QCOMPARE( file.exists(), true); // Check if the CTYDAT file is available
-    // qDebug() << Q_FUNC_INFO << "003";
+    //qDebug() << Q_FUNC_INFO << "003";
     DataProxy_SQLite dataProxy(Q_FUNC_INFO, version);
-    // qDebug() << Q_FUNC_INFO << "004";
+    //qDebug() << Q_FUNC_INFO << "004";
     World world(&dataProxy, Q_FUNC_INFO);
-    // qDebug() << Q_FUNC_INFO << "005";
+    //qDebug() << Q_FUNC_INFO << "005";
     //QCOMPARE(world.create(util.getCTYFile()), true); // Read the CTY.CSV file into the DB
-    // qDebug() << Q_FUNC_INFO << "006";
+    //qDebug() << Q_FUNC_INFO << "006";
     //QCOMPARE(db->hasTheTableData("entity"), true);
-    // qDebug() << Q_FUNC_INFO << "007";
+    //qDebug() << Q_FUNC_INFO << "007";
     //QCOMPARE(db->hasTheTableData("prefixesofentity"), true);
-    // qDebug() << Q_FUNC_INFO << "999";
+    //qDebug() << Q_FUNC_INFO << "999";
 }
 
 void tst_DataBase::test_ExistingTables()
@@ -236,7 +236,7 @@ void tst_DataBase::test_modes()
                           "VOI", "WINMOR", "WSPR"};
     foreach(aux, _modes)
     {
-        // qDebug() << aux << " / " << modeIDs.value(aux);
+        //qDebug() << aux << " / " << modeIDs.value(aux);
         //QCOMPARE(modeIDs.value(aux)>0,true);
         // qCOMPARE(db->getModeIdFromName(aux)>0, true);
     }
@@ -277,7 +277,7 @@ void tst_DataBase::test_subModes()
 
     foreach(aux, _submodes)
     {
-        // qDebug() << " - Testing: " << aux;
+        //qDebug() << " - Testing: " << aux;
         //QCOMPARE(modeIDs.value(aux)>0,true);
         // qCOMPARE(db->getModeIdFromSubMode(aux)>0, true);
     }
@@ -302,23 +302,6 @@ void tst_DataBase::test_checks()
 }
 
 
-
-
-void tst_DataBase::test_addQSOs()
-{
-  //int i = db->getNumberOfQsos();
-  // qDebug() << "Number of QSOs: " << QString::number(i);
-    QSO qso;
-    qso.clear();
-    qso.setCall("EA4K");
-    qso.setDate(QDate::fromString("20240327", "yyyyMMdd"));
-    qso.setTimeOn(QTime::fromString("1000", "hhmm"));
-    qso.setBand("10M");
-    qso.setMode("SSB");
-    qso.toDB();
-   // qDebug() << "Number of QSOs: " << QString::number(i);
-    //TODO: This test fails // qCOMPARE(db->getNumberOfQsos(), i+1);
-}
 
 void tst_DataBase::cleanupTestCase()
 {

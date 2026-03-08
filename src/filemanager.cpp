@@ -854,7 +854,9 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     QTime startTime = QTime::currentTime();
     QStringList fields;
 
+    dataProxy->loadDuplicateCache(logN);  // ← cargar QSOs existentes antes del import
     dataProxy->beginTransaction();
+
     while (!file.atEnd() && !noMoreQSO)
     {
         QString line = file.readLine().trimmed();
@@ -940,89 +942,50 @@ void FileManager::showDuplicatedQSOFoundInLog()
 
 int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
-    qso.printQSO();
-    // 1. Mandatory Setup / Callsign Assignment
-    Callsign call1(_stationCallsign);
-    Callsign call2(qso.getStationCallsign());
-    if (call1.isValid() && !call2.isValid())
-    {
-        // Ensure the station callsign is set if it was missing in the QSO object
+   //qDebug() << Q_FUNC_INFO << " - Start";
+    // 1. Callsign Assignment
+    if (Callsign(_stationCallsign).isValid() && !Callsign(qso.getStationCallsign()).isValid())
         qso.setStationCallsign(_stationCallsign);
-    }
 
-    // 2. Cache IDs for efficiency (avoids repeating lookups)
-    // NOTE: If bandId or modeId are invalid (<= 0), the QSO cannot be processed correctly
-    // and findDuplicateId will fail.
-    int bandId = dataProxy->getIdFromBandName(qso.getBand());
-    if (bandId<=0)
-    {
-        qDebug() << Q_FUNC_INFO << " - END -1 - Wrong bandId, ignored: " << qso.getBand() << " / " << bandId;
+    // 2. Resolve band/mode IDs once — used in duplicate check and cache update
+    const int bandId = dataProxy->getIdFromBandName(qso.getBand());
+    if (bandId <= 0)
         return -1;
-    }
 
-    QString modeToFind = qso.getSubmode();
-    if (modeToFind.isEmpty())
-        modeToFind = qso.getMode();
-
-    int modeId = dataProxy->getIdFromModeName(modeToFind);
-    if (modeId<=0)
-    {
-        qDebug() << Q_FUNC_INFO << " - END -3 - Wrong modeId, ignored";
+    const QString modeToFind = qso.getSubmode().isEmpty() ? qso.getMode() : qso.getSubmode();
+    const int modeId = dataProxy->getIdFromModeName(modeToFind);
+    if (modeId <= 0)
         return -3;
-    }
 
-    qso.printQSO();
+    // 3. Duplicate check (in-memory cache, fast)
+    const int duplicatedId = dataProxy->findDuplicateId(
+        qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
 
-
-    // 3. Check for duplicates using the cached IDs
-    // duplicatedId holds the existing ID if found, otherwise -1.
-    int duplicatedId = dataProxy->findDuplicateId(qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
-    qDebug() << Q_FUNC_INFO << " - duplicatedId: " << duplicatedId ;
-    //if (duplicatedId>0)
-       //qDebug() << Q_FUNC_INFO << " - DUPE: " << duplicatedId << " / " << qso.getCall()<< " / " << util->getADIFDateFromQDate(qso.getDateTimeOn().date())<< " / " << bandId;
-
-    int qsoIdToUse = -1; // Initial value means INSERT new QSO
-
+    // 4. LoTW path: quirurgical UPDATE of only LoTW fields, no full SELECT+UPDATE
     if (qso.getLoTWUpdating())
     {
-        qDebug() << Q_FUNC_INFO << " - LOTW QSO, we should update";
-        // LoTW Update Path: If duplicated, update the existing record.
         if (duplicatedId > 0)
         {
-            qDebug() << Q_FUNC_INFO << " - LOTW QSO: Already existing, update if needed";
-            qso.updateFromLoTW(duplicatedId); // Pass existing ID to update the QSO object fields
-            qsoIdToUse = duplicatedId;        // Set ID for the final toDB() call
+            dataProxy->applyLoTWFieldsToQSO(qso, duplicatedId);
+            return duplicatedId;    // Done — no INSERT needed
         }
-        // If not duplicated, proceed with INSERT (qsoIdToUse remains -1).
+        // QSO not in log yet → fall through to INSERT below
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - Standard QSO import, if duplicated, ignore";
-        // Standard Import Path: If duplicated, reject.
+        // Standard import: reject duplicates
         if (duplicatedId > 0)
-        {
-            qDebug() << Q_FUNC_INFO << " - END -2 Duplicated QSO, ignored";
-            return -2; // Duplicate found, stop processing this QSO.
-        }
+            return -2;
     }
 
-    // 4. Insert (qsoIdToUse = -1) or Update (qsoIdToUse = existing ID)
-    int resultId = qso.toDB(qsoIdToUse);
+    // 5. INSERT new QSO (both standard and LoTW-new)
+    qso.setQSOid(-1);
+    const int resultId = dataProxy->addQSO(qso);
 
-    // 5. Update Cache for Newly Inserted QSOs
-    // This condition checks for a successful *insertion* (resultId > 0 AND it was a new QSO)
-    if (resultId > 0 && qsoIdToUse == -1)
-    {
-        qDebug() << Q_FUNC_INFO << " - QSO was suscesfully inserted, let's add it to the cache.";
-        // Add the newly inserted QSO (with its new ID: resultId) to the cache.
-        dataProxy->addDuplicateCache(resultId, qso);
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << " - QSO was not suscesfully inserted";
-    }
-    qDebug() << Q_FUNC_INFO << " - END - " << resultId;
+    // 6. Update duplicate cache only for successful INSERTs
+    if (resultId > 0)
+        dataProxy->addDuplicateCache(resultId, qso, bandId, modeId);
+
     return resultId;
 }
 

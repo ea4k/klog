@@ -36,12 +36,12 @@
 AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWidget *parent)
     : QDialog(parent)
 {
-      // qDebug() << "AboutDialog::AboutDialog";
+      //qDebug() << "AboutDialog::AboutDialog";
 
     QPixmap pixmap(":/img/klog_256x256.png");
     QString pkg;
-    qDebug() << Q_FUNC_INFO << " -   tversion: " << tversion;
-    qDebug() << Q_FUNC_INFO << " - pkgversion: " << pkgVersion;
+   //qDebug() << Q_FUNC_INFO << " -   tversion: " << tversion;
+   //qDebug() << Q_FUNC_INFO << " - pkgversion: " << pkgVersion;
     if (tversion != pkgVersion)
         pkg = "<h6>(" + pkgVersion + ") </h6>";
 
@@ -188,7 +188,7 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
     layout->addWidget(buttonBox, 1, 0, Qt::AlignRight);
 
     setLayout(layout);
-       // qDebug() << "AboutDialog::AboutDialog - END";
+       //qDebug() << "AboutDialog::AboutDialog - END";
 }
 
 AboutDialog::~AboutDialog(){}

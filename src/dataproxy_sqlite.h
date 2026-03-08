@@ -115,12 +115,14 @@ public:
     int getBandIdFromFreq(const Frequency _n);
     QString getBandNameFromFreq(const Frequency _n);
 
+
     Frequency getLowLimitBandFromBandName(const QString &_sm);
     Frequency getLowLimitBandFromBandId(const int _sm);
     Frequency getUpperLimitBandFromBandName(const QString &_sm);
     bool isThisFreqInBand(const QString &_band, const Frequency _fr);
 
-    int getLastQSOid();
+    int getLastQSOid();         // Returns the MAX QSO id
+    int getLastInsertedQSO();   // Return the last inserted
     QDate getFirstQSODateFromCall (const QString &_call);  // If the callsign provided is not valid it provides the date of the first QSO
     QDate getLastQSODateFromCall (const QString &_call);   // If the callsign provided is not valid it provides the date of the last QSO
 
@@ -132,7 +134,12 @@ public:
                           const QDateTime &_datetime, const QDateTime &_datetime_off, const double txpower,
                           const int _dxcc, const int _logNumber, bool _sendQSL = true);
 
-    //int addQSO(QSO &_qso);
+    int addQSO(QSO &_qso);
+    QSO fromDB(const int _qsoId);
+    bool updateQSOFromLoTW(const QSO &_lotwQso, const int _qsoId); // TODO: Check if still needed
+    bool applyLoTWFieldsToQSO(const QSO &_lotwQso, const int _qsoId);
+
+
     //int addQSOQuery(const QSqlQuery &_q);
 
     bool deleteQSO(const int _qsoId);
@@ -363,7 +370,7 @@ public:
     // Cache functions // DUPEs
     void loadDuplicateCache(int logId);
     void clearDuplicateCache();
-    void addDuplicateCache (int _qsoId, const QSO &qso);
+    void addDuplicateCache (int _qsoId, const QSO &qso, const int _bandId, const int _modeId);
     void removeDuplicateCache(int _qsoId);
     int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
     inline int findDuplicateId(const QSO &qso, int marginSeconds)
@@ -377,15 +384,32 @@ public:
 
 private:
     typedef QPair<int, QDateTime> QsoInfo;  // QSOid link to QSO-DateTime
+    static QDateTime normalizeForCache(const QDateTime &dt)
+    {
+        // Trunca a segundos y fuerza Qt::UTC para comparaciones consistentes
+        return QDateTime(dt.date(), QTime(dt.time().hour(),
+                                          dt.time().minute(),
+                                          dt.time().second()),
+                         Qt::UTC);
+    }
 
     bool dbCreated;
     DataBase *db;
+    QSqlQuery m_insertQuery;        // Pre-prepared query, just once
+    QSqlQuery m_updateQuery;        // To manage ADIF import query
+    bool m_queriesPrepared = false; // Pre-prepared query status
+
     QStringList sortBandIdBottonUp(const QStringList _qs);
     Frequency getFreqFromRange(const QString &_fr, int _pair);            //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString &_tableName);
     QString getStringQueryStationCallSign (const QString &_a);      // Creates part of a query regarding the station_call field
     QString getStringQueryMyGrid (const QString &_a);               // Creates part of a query regarding the my_gridsquare field
     QString getStringQueryLogNumber (const int _a);                 // Creates part of a query regarding the lognumber field
+    QString getAddQueryString();    // Gets the query to add a QSO
+    QString getModifyQueryString(); // Gets the query to modify a QSO
+    QSqlQuery getPreparedQuery(const QString &_s, const QSO &_qso);  // Prepares the query to add QSOs
+    void prepareStaticQueries();  // prepares the static query to save time in run time
+    void bindQSOValues(QSqlQuery &query, const QSO &_qso);
     void mapModeNameSubmode();                                      // Maps mode/Submode/id using submodeToName & nameToMainId
 
     // Helper function to simplify several functions
@@ -398,7 +422,7 @@ private:
     QString getQueryJustModifiedString(const OnLineProvider &_provider, const bool _justModified);
 
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
-    QSO *qso;
+    //QSO *qso;
     bool searching;
     int executionN;
     Utilities *util;

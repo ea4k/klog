@@ -93,18 +93,18 @@ private:
 
 tst_World::tst_World()
 {
-    // qDebug() << Q_FUNC_INFO << "Start";
+    //qDebug() << Q_FUNC_INFO << "Start";
     version = "1.5";
 
-    // qDebug() << Q_FUNC_INFO << "001";
+    //qDebug() << Q_FUNC_INFO << "001";
     dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    // qDebug() << Q_FUNC_INFO << "002";
+    //qDebug() << Q_FUNC_INFO << "002";
     util = new Utilities(Q_FUNC_INFO);
-    // qDebug() << Q_FUNC_INFO << "003";
+    //qDebug() << Q_FUNC_INFO << "003";
     world = new World(dataProxy, Q_FUNC_INFO);
     // qString ctyDatFile = util->getCTYFile();
     //world->create(ctyDatFile);
-    // qDebug() << Q_FUNC_INFO << "END";
+    //qDebug() << Q_FUNC_INFO << "END";
 }
 
 tst_World::~tst_World(){}
@@ -116,12 +116,12 @@ void tst_World::cleanupTestCase(){}
 void tst_World::test_Constructor()
 {
     // qVERIFY(util->getVersion() == "0.0");
-    // qDebug() << "Testing the constructor" ;
+    //qDebug() << "Testing the constructor" ;
 }
 
 void tst_World::test_WorldCreation()
 {
-    // qDebug() << "Testing the world";
+    //qDebug() << "Testing the world";
     // qString file = util->getCTYFile();
     // qVERIFY2(world->readCTYCSV(file), "readCTYCSV failed");
 }

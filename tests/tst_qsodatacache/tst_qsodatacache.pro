@@ -9,6 +9,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/callsign.h \
     ../../src/database/database.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
@@ -19,6 +20,7 @@ HEADERS += \
     ../../src/qsodatacache.h
 
 SOURCES +=  tst_qsodatacache.cpp \
+    ../../src/adif.cpp \
     ../../src/callsign.cpp \
     ../../src/database/database.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \

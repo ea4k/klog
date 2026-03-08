@@ -133,7 +133,6 @@ public:
     bool isValidDXCC(const int _d);
     bool isValidAntPath(const QString &_s);
     bool isValidARRLSect(const QString &_s);
-    bool isValidContinent(const QString &_s);
     bool isValidPropMode(const QString &_s);
     bool isValidEmail(const QString &_s);
     QStringList getValidADIFFieldAndData(const QString &_b);
@@ -209,7 +208,7 @@ private:
     // qPair<QString, QString> getCallParts(const QString &_c);
 
     void setARRLSect();
-    void setContinent();
+
     void setSponsorsList();
     // qString getCheckedComplexCall(const QString &_c);
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
@@ -219,7 +218,7 @@ private:
     QString softwareVersion;
     QString parentName;     // The class that instanciated this object.
 
-    QStringList ARRL_sects, continent, sponsorsList, logLevels;
+    QStringList ARRL_sects, sponsorsList, logLevels;
     DebugLogLevel logLevel;
     //KLOG_DEPRECATED QStringList specialCalls;     // To be moved to World class
     QMap<QString, QString> columnNames;

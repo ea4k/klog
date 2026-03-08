@@ -33,7 +33,7 @@
 MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     QWidget(parent)
 {
-       // qDebug() << "MainWindowInputQSL::MainWindowInputQSL"  ;
+       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL"  ;
     util = new Utilities(Q_FUNC_INFO);
     qslSentComboBox = new QComboBox;
     qslRecComboBox = new QComboBox;
@@ -51,7 +51,7 @@ MainWindowInputQSL::MainWindowInputQSL(DataProxy_SQLite *dp, QWidget *parent) :
     createUI();
     setDefaultData();
     clear();
-       // qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"  ;
+       //qDebug() << "MainWindowInputQSL::MainWindowInputQSL - END"  ;
 }
 
 MainWindowInputQSL::~MainWindowInputQSL()
@@ -208,7 +208,7 @@ QString MainWindowInputQSL::getSentVia()
 {
     QString _pm = QString();
     _pm = (((qslSentViaComboBox->currentText()).split('-')).at(0)).simplified();
-       // qDebug() << "MainWindow::getSentVia: " << _pm;
+       //qDebug() << "MainWindow::getSentVia: " << _pm;
      return _pm;
 }
 
@@ -216,7 +216,7 @@ QString MainWindowInputQSL::getRecVia()
 {
     QString _pm = QString();
     _pm = (((qslRecViaComboBox->currentText()).split('-')).at(0)).simplified();
-       // qDebug() << "MainWindowInputQSL::getRecVia: " << _pm;
+       //qDebug() << "MainWindowInputQSL::getRecVia: " << _pm;
      return _pm;
 }
 
@@ -269,7 +269,7 @@ void MainWindowInputQSL::setQSLRecVia(const QString &_qs)
 
 void MainWindowInputQSL::setQSLSenVia(const QString &_qs)
 {
-       // qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs;
+       //qDebug() << "MainWindowInputQSL::setQSLSenVia: " << _qs;
     if(( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith))>=0)
     {
         qslSentViaComboBox->setCurrentIndex( qslSentViaComboBox->findText(_qs+" -", Qt::MatchStartsWith));
@@ -338,14 +338,14 @@ void MainWindowInputQSL::setQSLSenDate(const QDate _qs)
     }
     else
     {
-        // qDebug() << Q_FUNC_INFO << " - Date not valid";
+        //qDebug() << Q_FUNC_INFO << " - Date not valid";
         qslSentQDateEdit->setDate(QDate::currentDate());
     }
 }
 
 void MainWindowInputQSL::slotQSLViaTextChanged()
 {
-       // qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size());
+       //qDebug() << "MainWindow::slotQSLViaTextChanged: " << qslViaLineEdit->text() << " / Length: " << QString::number((qslViaLineEdit->text()).size());
     qslViaLineEdit->setText((util->getClearSQLi(qslViaLineEdit->text())).toUpper());
 }
 

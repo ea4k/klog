@@ -160,7 +160,7 @@ bool HamLibClass::readFreq()
    int retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
    if (retcode == RIG_OK)
    {
-       qDebug() << Q_FUNC_INFO << " FREQ TX: " << (double) freq;
+      //qDebug() << Q_FUNC_INFO << " FREQ TX: " << (double) freq;
        radioStatus.freq_VFO_TX = Frequency ((double) freq, Hz);
        errorCount = 0;
    }
@@ -172,7 +172,7 @@ bool HamLibClass::readFreq()
    retcode = rig_get_freq(my_rig, RIG_VFO_SUB, &freq);
    if (retcode == RIG_OK)
    {
-       qDebug() << Q_FUNC_INFO << " FREQ RX: " << (double) freq;
+      //qDebug() << Q_FUNC_INFO << " FREQ RX: " << (double) freq;
        radioStatus.freq_VFO_RX = Frequency ((double) freq, Hz);
        errorCount = 0;
    }
@@ -238,7 +238,7 @@ bool HamLibClass::readRadioInternal(bool _forceRead)
     if (!readMode())
         return false;
     Utilities util(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << " - RadioStatusChanged: " << util.boolToQString(radioStatusChanged(statusOld, radioStatus));
+   //qDebug() << Q_FUNC_INFO << " - RadioStatusChanged: " << util.boolToQString(radioStatusChanged(statusOld, radioStatus));
     //if (radioStatusChanged(statusOld, radioStatus))
         emit radioStatusChanged(radioStatus);
 
@@ -634,7 +634,7 @@ void HamLibClass::setSpeed(const int _speed)
 void HamLibClass::setDataBits(const int _data)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    ////qDebug() << Q_FUNC_INFO << ": rec: " << QString::number(_data);
+    //qDebug() << Q_FUNC_INFO << ": rec: " << QString::number(_data);
     if ((_data >= 5) && (_data <= 8))
     {
         dataBits = _data;
@@ -651,7 +651,7 @@ void HamLibClass::setDataBits(const int _data)
 void HamLibClass::setStop(const QString &_stop)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    ////qDebug() << Q_FUNC_INFO << ": " << _stop;
+    //qDebug() << Q_FUNC_INFO << ": " << _stop;
 
     if (_stop == "OneStop")
     {
@@ -731,12 +731,11 @@ void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
     if (!isRunning() || readOnlyMode) {
         return;
     }
-
-
+    //TODO: When split is disabled it does not detect the freq properly
     freq = _fr.toDouble(Hz);
 
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    qDebug() << "HamLibClass::setFreq" << (_TX ? "(TX):" : "(RX):") << freq;
+   //qDebug() << "HamLibClass::setFreq" << (_TX ? "(TX):" : "(RX):") << freq;
 
     vfo_t target_vfo = _TX ? RIG_VFO_CURR : RIG_VFO_SUB;
     int retcode = rig_set_freq(my_rig, target_vfo, freq);

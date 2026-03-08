@@ -192,41 +192,41 @@ void tst_Callsign::test_callsigns()
 
     Callsign testCall(testString);
 
-    // qDebug() << Q_FUNC_INFO << " -         fullcall       : "  << fullcallsign;
+    //qDebug() << Q_FUNC_INFO << " -         fullcall       : "  << fullcallsign;
 
-    // qDebug() << Q_FUNC_INFO << " - isValid";
+    //qDebug() << Q_FUNC_INFO << " - isValid";
     // qCOMPARE(testCall.isValid(), isValid);
 
     if (isValid)
     {
-        // qDebug() << Q_FUNC_INFO << " - fullcallsign     : "      << testCall.getCallsign() << "/" << fullcallsign;
+        //qDebug() << Q_FUNC_INFO << " - fullcallsign     : "      << testCall.getCallsign() << "/" << fullcallsign;
         QCOMPARE(testCall.getCallsign(), testString);
 
-      // qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
+      //qDebug() << Q_FUNC_INFO << " - hostfullprefix   :"  << testCall.getHostFullPrefix() << "/" << hostfullprefix;
         QCOMPARE(testCall.getHostFullPrefix(), hostfullprefix);
 
-        // qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;
+        //qDebug() << Q_FUNC_INFO << " - hostprefix       :"      << testCall.getHostPrefix() << "/" << hostprefix;
         QCOMPARE(testCall.getHostPrefix(), hostprefix);
 
-       // qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
+       //qDebug() << Q_FUNC_INFO << " - hostareanumber   :"  << QString::number(testCall.getHostAreaNumber()) << "/" << QString::number(hostareanumber);
         QCOMPARE(testCall.getHostAreaNumber(), hostareanumber);
 
-        // qDebug() << Q_FUNC_INFO << " - homecall         :"      << testCall.getHomeCallsign() << "/" << homecallsign;
+        //qDebug() << Q_FUNC_INFO << " - homecall         :"      << testCall.getHomeCallsign() << "/" << homecallsign;
         QCOMPARE(testCall.getHomeCallsign(), homecallsign);
 
-        // qDebug() << Q_FUNC_INFO << " - homefullprefix   :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
+        //qDebug() << Q_FUNC_INFO << " - homefullprefix   :"      << testCall.getHomeFullPrefix() << "/" << homefullprefix;
         QCOMPARE(testCall.getHomeFullPrefix(), homefullprefix);
 
-        // qDebug() << Q_FUNC_INFO << " - homeprefix       :"      << testCall.getHomePrefix() << "/" << homeprefix;
+        //qDebug() << Q_FUNC_INFO << " - homeprefix       :"      << testCall.getHomePrefix() << "/" << homeprefix;
         QCOMPARE(testCall.getHomePrefix(), homeprefix);
 
-        // qDebug() << Q_FUNC_INFO << " - homeareanumber   :"  << QString::number(testCall.getHomeAreaNumber()) << "/" << QString::number(homeareanumber);
+        //qDebug() << Q_FUNC_INFO << " - homeareanumber   :"  << QString::number(testCall.getHomeAreaNumber()) << "/" << QString::number(homeareanumber);
         QCOMPARE(testCall.getHomeAreaNumber(), homeareanumber);
 
-        // qDebug() << Q_FUNC_INFO << " - homesuffix       :"      << testCall.getHomeSuffix() << "/" << homesuffix;
+        //qDebug() << Q_FUNC_INFO << " - homesuffix       :"      << testCall.getHomeSuffix() << "/" << homesuffix;
         QCOMPARE(testCall.getHomeSuffix(), homesuffix);
 
-        // qDebug() << Q_FUNC_INFO << " - suffix           :"      << testCall.getSuffix() << "/" << suffix;
+        //qDebug() << Q_FUNC_INFO << " - suffix           :"      << testCall.getSuffix() << "/" << suffix;
         QCOMPARE(testCall.getSuffix(), suffix);
     }
     if ((isValidPrefix) && (!isValid))
@@ -240,10 +240,10 @@ void tst_Callsign::test_callsigns()
 void tst_Callsign::test_callsign_operator()
 {
     Callsign testCall("EA0K");
-    // qDebug() << Q_FUNC_INFO << " - getCallsign-1     : "      << testCall.getCallsign();
+    //qDebug() << Q_FUNC_INFO << " - getCallsign-1     : "      << testCall.getCallsign();
     QVERIFY2("EA0K" == testCall.getCallsign(), "Constructor is failing - EA0K");
     testCall("EA0L");
-    // qDebug() << Q_FUNC_INFO << " - getCallsign-2     : "      << testCall.getCallsign();
+    //qDebug() << Q_FUNC_INFO << " - getCallsign-2     : "      << testCall.getCallsign();
     QVERIFY2("EA0L" == testCall.getCallsign(), "Operator is failing - EA0L");
     testCall("KB1/EA0K/QRP");
     QCOMPARE(testCall.getHomeSuffix(), "K");

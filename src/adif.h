@@ -47,9 +47,10 @@ class Adif : public QObject {
 public:
     Adif(const QString &_parentName);
     ~Adif();
-    void init();
+    //void init();
     ADIFField setPair(const QString &_pair);
-
+    bool isValidContinent(const QString &_s);
+    QStringList getContinents();
     bool isValidFreq(const QString &_b);            //>0
     bool isValidPower(const double _b);           //>0
     bool isValidK_Index(const int _b);         //0-9

@@ -61,6 +61,7 @@ private slots:
     void test_subdivisions_data();
     void test_primarySubdivisions();
     void test_qsosCache();
+    void test_addQSO();
 
 
     //void test_getProgresStepForDialog();
@@ -79,38 +80,38 @@ tst_DataProxy::tst_DataProxy()
 
 tst_DataProxy::~tst_DataProxy()
 {
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     delete (util);
     delete (dataProxy);
 }
 
 //void tst_DataProxy::initTestCase()
 //{
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 //}
 
 /*
 void tst_DataProxy::cleanupTestCase()
 {
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::init()
 {
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 
 void tst_DataProxy::cleanup()
 {
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
 }
 */
 
 void tst_DataProxy::test_Constructor()
 {
     QVERIFY2(util->getVersion() == "0.0", "Version failed");
-    // qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
-    // qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
+    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
+    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
 }
 
 /*
@@ -240,7 +241,7 @@ void tst_DataProxy::test_qsosCache()
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
 
     // Add the QSO
-    dataProxy->addDuplicateCache(testQsoId, qso);
+    dataProxy->addDuplicateCache(testQsoId, qso, bandId, modeId);
 
     // Search the QSO after adding it and check the ID
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), testQsoId);
@@ -281,7 +282,7 @@ void tst_DataProxy::test_continents()
 {// TODO: Can't test subdivisions without the World creation. Find a way to fill the DB without having to
     // to include World or simply test it from World
     /*
-    // qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
+    //qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (281) == "EU", "Continent for Spain (dxcc=281) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (1) == "NA", "Continent for Canada (dxcc=1) failed");
     QVERIFY2(dataProxy->getContinentShortNameFromEntity (100) == "SA", "Continent for Argentina (dxcc=100) failed");
@@ -352,12 +353,32 @@ void tst_DataProxy::test_primarySubdivisions()
     //PrimarySubdivision subdivision;
     //foreach(subdivision, subdivisions)
     //{
-    //  // qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
+    //  //qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
     //}
    //getPrimarySubDivisions(currentInt, prefUsed)
 */
 
 }
+
+
+void tst_DataProxy::test_addQSO()
+{
+    //int i = db->getNumberOfQsos();
+    //qDebug() << "Number of QSOs: " << QString::number(i);
+    QSO qso;
+    qso.clear();
+    qso.setCall("EA4K");
+    qso.setDate(QDate::fromString("20240327", "yyyyMMdd"));
+    qso.setTimeOn(QTime::fromString("1000", "hhmm"));
+    qso.setBand("10M");
+    qso.setMode("SSB");
+
+    QVERIFY2(dataProxy->addQSO(qso) > 0, "QSO NOT added");
+
+    //qDebug() << "Number of QSOs: " << QString::number(i);
+    //TODO: This test fails // qCOMPARE(db->getNumberOfQsos(), i+1);
+}
+
 QTEST_GUILESS_MAIN(tst_DataProxy)
 
 #include "tst_dataproxy.moc"

@@ -1,3 +1,6 @@
+WIP: LoTW & QSO
+WIP: Remove QSO::toDB and dependencies
+WIP: Remove QSO::fromFB and dependencies
 QSO seems not to be arriving properly to processQSO some times
 WIP-BUG: la importación creo que no añade/elimina las fechas y estados de lotw
 No se está añadiendo los QSOs al cache (DataProxy_SQLite::addToCache) por lo que luego al validar
@@ -10,6 +13,7 @@ WIP: https://github.com/ea4k/klog/issues/858
 Test: bool DataProxy_SQLite::isThisFreqInBand(const QString &, const Frequency)
 TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
 TODO: Hamlib is not always working
+TODO: void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
 TODO: Check if is properly readed when importing from LoTW
 
 TODO: LoTW import ensure exiting QSOs are updated

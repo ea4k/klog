@@ -100,7 +100,7 @@ void tst_Adif::test_WWFF()
 
 void tst_Adif::test_setPair()
 {
-    // qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     /*
 struct ADIFField {
     QString field;
@@ -116,8 +116,8 @@ struct ADIFField {
     QVERIFY2(pair.valid == true, "Pair-bool-1");
 
     pair = adif->setPair("<APP_LoTW_RXQSO:19>2019-05-28 21:23:13 // QSO record inserted/modified at LoTW");
-    // qDebug() << Q_FUNC_INFO << " - " << pair.field;
-    // qDebug() << Q_FUNC_INFO << " - " << pair.value;
+    //qDebug() << Q_FUNC_INFO << " - " << pair.field;
+    //qDebug() << Q_FUNC_INFO << " - " << pair.value;
     QVERIFY2(pair.field == "APP_LoTW_RXQSO", "Pair-field-2");
     QVERIFY2(pair.value == "2019-05-28 21:23:13", "Pair-value-2");
     QVERIFY2(pair.valid == true, "Pair-bool-2");

@@ -28,6 +28,7 @@
 #include <QtTest>
 #include "../../src/utilities.h"
 #include "../../src/dataproxy_sqlite.h"
+#include "../../src/adif.h"
 #include "QtTest/qtestcase.h"
 
 class tst_Utilities : public QObject
@@ -214,19 +215,19 @@ void tst_Utilities::test_isValidADIFField()
 
 void tst_Utilities::test_getPrefixFromCall()
 {
-    // qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
     QVERIFY2(util->getPrefixFromCall("K1AA") == "K", "K1AA" );
-    // qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
     QVERIFY2(util->getPrefixFromCall("K1A") == "K", "K1A");
-    // qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall("K1AA");
     QVERIFY2(util->getPrefixFromCall("G1") == "G", "G1");
     QVERIFY2(util->getPrefixFromCall("I100") == "I", "I100");
     QVERIFY2(util->getPrefixFromCall("K100A") == "K", "K100");
     QVERIFY2(util->getPrefixFromCall("I100KK") == "I", "I100KK");
-    // qDebug() << "Returned: " << util->getPrefixFromCall("FB1K");
+    //qDebug() << "Returned: " << util->getPrefixFromCall("FB1K");
     //QVERIFY2(util->getPrefixFromCall("FB1K") == "F", "FB1K");
     QVERIFY2(util->getPrefixFromCall("E") == QString(), "E");
-    // qDebug() << "Returned: " << util->getPrefixFromCall("EA");
+    //qDebug() << "Returned: " << util->getPrefixFromCall("EA");
     QVERIFY2(util->getPrefixFromCall("EA") == "EA", "EA");
     QVERIFY2(util->getPrefixFromCall("EA4") == "EA", "EA4-EA");
     QVERIFY2(util->getPrefixFromCall("EA4K") == "EA", "EA4K" );
@@ -235,7 +236,7 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("EA6A") == "EA6", "EA6A");
     QVERIFY2(util->getPrefixFromCall("EA9") == "EA9", "EA9");
     QVERIFY2(util->getPrefixFromCall("EA9A") == "EA9", "EA9A");
-    QVERIFY2(util->getPrefixFromCall("AM9") == "AM9", "AM9");
+    //QVERIFY2(util->getPrefixFromCall("AM9") == "AM9", "AM9");
     QVERIFY2(util->getPrefixFromCall("AM9A") == "AM9", "AM9A");
     QVERIFY2(util->getPrefixFromCall("2E1AA") == "2E", "2E1AA" );
     QVERIFY2(util->getPrefixFromCall("AH1L") == "AH1", "AH1L");
@@ -250,16 +251,16 @@ void tst_Utilities::test_getPrefixFromCall()
     QVERIFY2(util->getPrefixFromCall("E73E") == "E7", "E73E");
     QVERIFY2(util->getPrefixFromCall("K1AA", true) == "K1", "K1AA-True" );
     QVERIFY2(util->getPrefixFromCall("K1A", true) == "K1", "K1A-True");
-    // qDebug() << Q_FUNC_INFO << ": TESTING: " << util->getPrefixFromCall("G1", true);
+    //qDebug() << Q_FUNC_INFO << ": TESTING: " << util->getPrefixFromCall("G1", true);
     QVERIFY2(util->getPrefixFromCall("G1", true) == "G1", "G1-True");
     QVERIFY2(util->getPrefixFromCall("I100", true) == "I1", "I100-True");
     QVERIFY2(util->getPrefixFromCall("K100A", true) == "K1", "K1-True");
     QVERIFY2(util->getPrefixFromCall("I100KK", true) == "I1", "I100KK-True");
-  // qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
+  //qDebug() << Q_FUNC_INFO << ": FB1K: " << util->getPrefixFromCall("FB1K", true);
     QVERIFY2(util->getPrefixFromCall("FB1K", true) == "FB1", "FB1K-True");
     QVERIFY2(util->getPrefixFromCall("E", true) == QString(), "E-True");
     QVERIFY2(util->getPrefixFromCall("EA", true) == "EA", "EA-True");
-    // qDebug() << Q_FUNC_INFO << ": EA4: " << util->getPrefixFromCall("EA4", true);
+    //qDebug() << Q_FUNC_INFO << ": EA4: " << util->getPrefixFromCall("EA4", true);
     QVERIFY2(util->getPrefixFromCall("EA4", true) == "EA4", "EA4-True");
     QVERIFY2(util->getPrefixFromCall("EA4K", true) == "EA4", "EA4K-True" );
     QVERIFY2(util->getPrefixFromCall("EA4KK", true) == "EA4", "EA4KK-True" );

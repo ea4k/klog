@@ -125,7 +125,7 @@ void tst_Frequency::test_toQString()
 {
     Frequency freq1(21.295);
     //*freq = freq1;
-    // qDebug() << Q_FUNC_INFO << ": Hz: " << freq1.toQString(Hz);
+    //qDebug() << Q_FUNC_INFO << ": Hz: " << freq1.toQString(Hz);
     QVERIFY2(freq1.toQString(Hz) == QString("21295000"), "toQString(Hz) failed");
     QVERIFY2(freq1.toQString(KHz) == QString("21295"), "toQString(KHz) failed");
     QVERIFY2(freq1.toQString() == QString("21.295"), "toQString() failed");

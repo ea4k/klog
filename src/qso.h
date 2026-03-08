@@ -67,7 +67,7 @@ public:
     void clear();
     bool isValid();
     void setLoTWUpdating(bool _lotw);
-    bool getLoTWUpdating();
+    bool getLoTWUpdating() const;
 
     bool setCall(const QString &_c);
     QString getCall() const;
@@ -95,19 +95,19 @@ public:
     bool setRSTTX(const QString &_c);
     QString getRSTTX() const;
     bool setRSTRX(const QString &_c);
-    QString getRSTRX();
+    QString getRSTRX() const;
     bool setFreq(const double _f);
     bool setFreqRX(const double _f);
-    double getFreqTX();
-    double getFreqRX();
+    double getFreqTX() const;
+    double getFreqRX() const;
     bool setQTH(const QString &_c);
-    QString getQTH();
+    QString getQTH() const;
     bool setGridSquare(const QString &_c);
-    QString getGridSquare();
+    QString getGridSquare() const;
     bool setGridSquare_ext(const QString &_c);
-    QString getGridSquare_ext();
+    QString getGridSquare_ext() const;
     bool setName(const QString &_c);
-    QString getName();
+    QString getName() const;
     bool setRXPwr(const double _f);
     double getRXPwr() const;
 
@@ -181,14 +181,14 @@ public:
     bool setAge(const double _c);
     double getAge() const;
     bool setIOTA(const QString &_c);
-    QString getIOTA();
+    QString getIOTA() const;
     bool setKeepOthers(bool _k);
-    bool getKeepOthers();
+    bool getKeepOthers() const;
     bool setVUCCGrids(const QString &_c);
-    QString getVUCCGrids();
+    QString getVUCCGrids() const;
 
     bool setPOTA_Ref(const QString &_c);
-    QString getPOTA_Ref();
+    QString getPOTA_Ref() const;
     bool setWWFF_Ref(const QString &_c);
     QString getWWFF_Ref() const;
     bool setSIG(const QString &_c);
@@ -285,9 +285,6 @@ public:
     bool setTimeOff(const QTime &_c);
     QTime getTimeOff() const;
 
-
-
-
     bool setRig(const QString &_c);
     QString getRig() const;
     bool setCountry(const QString &_c);
@@ -371,7 +368,7 @@ public:
     bool setMySig(const QString &_c);
     QString getMySig() const;
     bool setMySigInfo(const QString &_c);
-    QString getMySigInfo();
+    QString getMySigInfo() const;
     bool setMyState(const QString &_c);
     QString getMyState() const;
     bool setMyStreet(const QString &_c);
@@ -420,16 +417,74 @@ public:
     bool setWeb(const QString &_c);
     QString getWeb() const;
 
+    //Overloaded helper functions to accept string data for nonstring functions
+    bool setAge(const QString &data);
+    bool setAltitude(const QString &data);
+    bool setA_Index(const QString &data);
+    bool setAnt_az(const QString &data);
+    bool setAnt_el(const QString &data);
+    bool setCQZone(const QString &data);
+    bool setDistance(const QString &data);      // In Km
+    bool setDXCC(const QString &data);
+    bool setFists(const QString &data);
+    bool setFistsCC(const QString &data);
+    bool setMyFists(const QString &data);
+    bool setIotaID(const QString &data);
+    bool setItuZone(const QString &data);
+    bool setK_Index(const QString &data);
+    bool setMaxBursts(const QString &data);
+    bool setMyAltitude(const QString &data);
+    bool setMyCQZone(const QString &data);
+    bool setMyDXCC(const QString &data);
+    bool setMyIotaID(const QString &data);
+    bool setMyITUZone(const QString &data);
+    bool setNrBursts(const QString &data);
+    bool setNrPings(const QString &data);
+    bool setSFI(const QString &data);
+    bool setSrx(const QString &data);
+    bool setStx(const QString &data);
+    bool setTenTen(const QString &data);
+    bool setUksmg(const QString &data);
+    bool setFreq(const QString& data);
+    bool setFreqRX(const QString& data);
+    bool setRXPwr(const QString& data);
+    bool setTXPwr(const QString& data);
+    bool setEQSLQSLRDate(const QString& data);
+    bool setEQSLQSLSDate(const QString& data);
+    bool setForceInit(const QString& data);
+    bool setHRDUpdateDate(const QString& data);
+    bool setHamLogEUUpdateDate(const QString& data);
+    bool setHamQTHUpdateDate(const QString& data);
+    bool setLoTWQSLRDate(const QString& data);
+    bool setLoTWQSLSDate(const QString& data);
+    //bool setLoTWRXQSO(const QString& string);     // Receives the string date/time in LOTW format (APP_LoTW_RXQSO)
+    bool setLoTWRXQSO(const QString& data);
+    bool setLoTWRXQSL(const QString& data);
+    bool setQRZCOMDate(const QString& data);
+    bool setQSLRDate(const QString& data);
+    bool setQSLSDate(const QString& data);
+    bool setDate(const QString& data);
+    bool setDateOff(const QString& data);
+    bool setQSORandom(const QString& data);
+    bool setSilentKey(const QString& data);
+    bool setSwl(const QString& data);
+    bool setTimeOff(const QString& data);
+    bool setTimeOn(const QString& data);
 
 
-    int toDB(int _qsoId = 0);
-    bool fromDB(int _qsoId);
+
+    void clearQSLDateIfNeeded();                // Prevents a date when not ADIF compatible
+
+
+    //KLOG_DEPRECATED int toDB(int _qsoId = 0);   // To be moved to dataproxy_sqlite
+    //KLOG_DEPRECATED bool fromDB(int _qsoId);    // To be moved to dataproxy_sqlite
     //bool add();
     //bool modify(const int _qsoId);
     bool isComplete() const;
     QString getADIF(ExportMode _em = ModeADIF);
-    QString getBandNameFromFreq(const double _n); // Should be push out of this class
-    bool updateFromLoTW(const int _qsoId);        // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+    //KLOG_DEPRECATED QString getBandNameFromFreq(const double _n); // Should be push out of this class
+    //KLOG_DEPRECATED bool updateFromLoTW(const QSO &_lotw);        // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+    bool mergeLoTWData(const QSO &_lotw);       // Updates a QSO with the data obtained from LoTW
     void printQSO();        //TODO:  Complete: Prints all QSO fields - DEBUG ONLY
 
 signals:
@@ -449,20 +504,20 @@ private:
     bool isValidDateTime() const;
 
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
-    QString getAddQueryString();
-    QString getModifyQueryString();
-    QSqlQuery getPreparedQuery(const QString &_s);
-    int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX
+    //KLOG_DEPRECATED QString getAddQueryString();
+    //KLOG_DEPRECATED QString getModifyQueryString();
+    //KLOG_DEPRECATED QSqlQuery getPreparedQuery(const QString &_s);  // To be moved to dataproxy_sqlite
+    KLOG_DEPRECATED int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX // To be moved to dataproxy_sqlite
     //QString getBandNameFromBandId(int bandId);
-    int getModeIdFromModeName();                // It really returns submode
+    KLOG_DEPRECATED int getModeIdFromModeName();        // To be moved to dataproxy_sqlite           // It really returns submode
     //QString getModeNameFromModeId(int _modeId, bool _submode=true);
-    void setBandFromFreq(const double _fr, bool TX = true);
+    //void setBandFromFreq(const double _fr, bool TX = true);
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
     //DataBase *db;
     void cleanMode(); // Cleans mode & submode
     // Functions to update a QSO after downloading LoTW
 
-    int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode);
+    KLOG_DEPRECATED int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode); // Move to dataproxy
 
 
     int qsoId, logId, dxcc, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
@@ -498,8 +553,8 @@ private:
     bool haveBand, haveMode, haveSubMode, haveDateTime, haveCall;
 
     QSODataCache *qdata;
-    //Utilities *util;
-    //Adif *adif;
+    Utilities *util;
+    Adif *adif;
     DebugLogLevel logLevel;
 
 
@@ -508,69 +563,13 @@ private:
     static QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> SetDataHash;
     void InitializeHash();
 
-    //Overloaded helper functions to accept string data for nonstring functions
-    bool setAge(const QString &data);
-    bool setAltitude(const QString &data);
-    bool setA_Index(const QString &data);
-    bool setAnt_az(const QString &data);
-    bool setAnt_el(const QString &data);
-    bool setCQZone(const QString &data);
-    bool setDistance(const QString &data);      // In Km
-    bool setDXCC(const QString &data);
-    bool setFists(const QString &data);
-    bool setFistsCC(const QString &data);
-    bool setMyFists(const QString &data);
-    bool setIotaID(const QString &data);
-    bool setItuZone(const QString &data);
-    bool setK_Index(const QString &data);
-    bool setMaxBursts(const QString &data);
-    bool setMyAltitude(const QString &data);
-    bool setMyCQZone(const QString &data);
-    bool setMyDXCC(const QString &data);
-    bool setMyIotaID(const QString &data);
-    bool setMyITUZone(const QString &data);
-    bool setNrBursts(const QString &data);
-    bool setNrPings(const QString &data);
-    bool setSFI(const QString &data);
-    bool setSrx(const QString &data);
-    bool setStx(const QString &data);
-    bool setTenTen(const QString &data);
-    bool setUksmg(const QString &data);
 
-    bool setFreq(const QString& data);
-    bool setFreqRX(const QString& data);
-    bool setRXPwr(const QString& data);
-    bool setTXPwr(const QString& data);
-
-    bool setEQSLQSLRDate(const QString& data);
-    bool setEQSLQSLSDate(const QString& data);
-    bool setForceInit(const QString& data);
-    bool setHRDUpdateDate(const QString& data);
-    bool setHamLogEUUpdateDate(const QString& data);
-    bool setHamQTHUpdateDate(const QString& data);
-    bool setLoTWQSLRDate(const QString& data);
-    bool setLoTWQSLSDate(const QString& data);
-    //bool setLoTWRXQSO(const QString& string);     // Receives the string date/time in LOTW format (APP_LoTW_RXQSO)
-    bool setLoTWRXQSO(const QString& data);
-    bool setLoTWRXQSL(const QString& data);
-    bool setQRZCOMDate(const QString& data);
-    bool setQSLRDate(const QString& data);
-    bool setQSLSDate(const QString& data);
-    bool setDate(const QString& data);
-    bool setDateOff(const QString& data);
-    bool setQSORandom(const QString& data);
-    bool setSilentKey(const QString& data);
-    bool setSwl(const QString& data);
-    bool setTimeOff(const QString& data);
-    bool setTimeOn(const QString& data);
-
-    void clearQSLDateIfNeeded();            // Prevents a date when not ADIF compatible
 
     //KLOG_DEPRECATED bool setLoTWQSLRDate2(const QString& data);
     //KLOG_DEPRECATED bool setLoTWQSLSDate1(const QString& data);
     //KLOG_DEPRECATED bool setLoTWQSLSDate2(const QString& data);
 
-    int getLastInsertedQSO();   // just a query to get the latest inserted QSO
+    KLOG_DEPRECATED int getLastInsertedQSO();   // To be moved to dataproxy_sqlite // just a query to get the latest inserted QSO
 };
 
 #endif // QSO_H
