@@ -1171,6 +1171,9 @@ bool MainWindow::checkValidCallBeforeAddingToLog(const QString &_call)
 int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_qso)
 {
     int selected = world->selectEntity(dxcc_Call, dxcc_qso);
+   //qDebug() << Q_FUNC_INFO << " - Selected: " << selected;
+    if (dxcc_qso <= 0)
+        return dxcc_Call;
 
     if ((dxcc_Call!=dxcc_qso) && (selected < 0))
     {
@@ -1186,14 +1189,14 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
         QString message_dxcc_qso  = dxcc1_prefix + " - " + dxcc1_name + "\n\n";
         if (dxcc1_prefix.length()<1)
         {
-          dxcc1_prefix      = tr ("Unknown", "Keep it short, its a button text");
+          dxcc1_prefix      = tr ("Unknown", "Keep it short, it's a button text");
           message_dxcc_qso  = QString(tr("- There is no selected DXCC.") + "\n\n");
         }
 
         QString message_dxcc_klog = dxcc2_prefix + " - " + dxcc2_name;
         if (dxcc2_prefix.length()<1)
         {
-          dxcc2_prefix      = tr ("Unknown", "Keep it short, its a button text");
+          dxcc2_prefix      = tr ("Unknown", "Keep it short, it's a button text");
           message_dxcc_klog = QString (tr("- KLog couldn't find a DXCC")  + "\n\n");
         }
 
@@ -1205,7 +1208,7 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
         button1->setText(dxcc1_prefix);
         button2->setText(dxcc2_prefix);
 
-        int ret;
+        //int ret;
 
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Select correct entity"));
@@ -1214,24 +1217,26 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
         msgBox.addButton(button2, QMessageBox::AcceptRole);
         msgBox.addButton(button1, QMessageBox::ActionRole);
         msgBox.addButton(QMessageBox::Cancel);
-        ret = msgBox.exec();
+        msgBox.exec();
+        QAbstractButton *clicked = msgBox.clickedButton();
 
-        if (ret == QMessageBox::AcceptRole)
+        if (clicked == button2)
         {
             return dxcc_qso;
         }
-        else if (ret == QMessageBox::ActionRole)
+        else if (clicked == button1)
         {
             return dxcc_Call;
         }
-        else if (ret == QMessageBox::Cancel)
+        else
         {
             return -1;
-        }        
+        }
     }
 
     if (selected>0)
         return selected;
+
     return dxcc_Call;
 }
 

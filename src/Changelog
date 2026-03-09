@@ -1,5 +1,6 @@
 Mar 2026 - 2.4.4
-- Bugfix: Cant log 3Y0 QSOs(Closes #882)
+- Bugfix: Can't log 3Y0K or other special callsigns QSOs(Closes #882)
+- Bugfix: Can't change the DXCC of a logged QSO
 
 Feb 2026 - 2.4.3
 - Enhancement: Add the FT2 submode
