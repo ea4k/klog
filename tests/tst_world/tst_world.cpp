@@ -128,6 +128,8 @@ void tst_World::test_WorldCreation()
 
 void tst_World::test_EntityIdentification()
 {
+    QVERIFY2(world->getQRZARRLId("3Y/b") == 24, "3Y/b Entity not properly identified");
+    QVERIFY2(world->getQRZARRLId("3Y0K") == 24, "3Y0K Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("VA1A") == 1, "VE Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("K1AA") == 291, "K Entity not properly identified");
     QVERIFY2(world->getQRZARRLId("K1A") == 291, "K Entity not properly identified");
