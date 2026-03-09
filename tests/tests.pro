@@ -22,7 +22,7 @@ SUBDIRS=\
    tst_mainwindowinputqso \
    tst_mainwindowinputothers \
    tst_qso \
-   tst_qsodatacache \
+   #tst_qsodatacache \
    tst_setuphamlibnetworkwidget \
    tst_setuphamlibserialwidget \
    tst_setuppageelog \

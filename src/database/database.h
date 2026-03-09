@@ -46,12 +46,6 @@
 class QSqlRelationalTableModel;
 const float DBVersionf = 0.028f; // This is the latest version of the DB.
 
-struct ModeGroup {
-    QString mode;
-    QString cabrillo; // CW, PH, FM, RY, DG
-    QStringList submodes;
-};
-
 class DataBase : public QObject
 {
     Q_OBJECT

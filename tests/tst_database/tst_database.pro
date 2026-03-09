@@ -21,7 +21,7 @@ HEADERS += \
     ../../src/world.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/qso.h \
-    ../../src/qsodatacache.h \
+    ##../../src/qsodatacache.h \
     ../../src/callsign.h \
     ../../src/utilities.h
 
@@ -35,7 +35,7 @@ SOURCES +=  tst_database.cpp \
         ../../src/database/datacache.cpp \
         ../../src/dataproxy_sqlite.cpp \
         ../../src/qso.cpp \
-        ../../src/qsodatacache.cpp \
+        ##../../src/qsodatacache.cpp \
         ../../src/callsign.cpp \
         ../../src/database/queryexecutor.cpp \
         ../../src/database/db_adif_primary_subdvisions_data.cpp \

@@ -50,7 +50,6 @@ set(KLOG_SOURCES
    mainqsoentrywidget.cpp
    mainwindow.cpp
    qso.cpp
-   qsodatacache.cpp
    searchmodel.cpp
    searchwidget.cpp
    searchwindow.cpp
@@ -151,7 +150,6 @@ set(KLOG_HEADERS
    mainqsoentrywidget.h
    mainwindow.h
    qso.h
-   qsodatacache.h
    searchmodel.h
    searchwidget.h
    searchwindow.h

@@ -128,7 +128,7 @@ HEADERS += setupdialog.h \
     mainqsoentrywidget.h \
     mainwindow.h \
     qso.h \
-    qsodatacache.h \
+    #qsodatacache.h \
     searchmodel.h \
     searchwindow.h \
     #widgets/advancedsearch/advancedsearchmodel.h \
@@ -208,7 +208,7 @@ SOURCES += main.cpp \
     inputwidgets/mainwindowinputeqsl.cpp \
     inputwidgets/mainwindowinputqsl.cpp \
     inputwidgets/mainwindowsattab.cpp\
-    qsodatacache.cpp \
+    #qsodatacache.cpp \
     searchmodel.cpp \
     searchwindow.cpp \
     setupdialog.cpp \

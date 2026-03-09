@@ -28,7 +28,7 @@
 
 
 #include <QString>
-#include <QSqlQuery>
+//#include <QSqlQuery>
 #include <QDate>
 #include <QTime>
 #include <QObject>
@@ -36,7 +36,7 @@
 #include "klogdefinitions.h"
 #include "adif.h"
 #include "frequency.h"
-#include "qsodatacache.h"
+//#include "qsodatacache.h"
 
 class QSO : public QObject
 {
@@ -475,15 +475,11 @@ public:
 
     void clearQSLDateIfNeeded();                // Prevents a date when not ADIF compatible
 
-
-    //KLOG_DEPRECATED int toDB(int _qsoId = 0);   // To be moved to dataproxy_sqlite
-    //KLOG_DEPRECATED bool fromDB(int _qsoId);    // To be moved to dataproxy_sqlite
     //bool add();
     //bool modify(const int _qsoId);
     bool isComplete() const;
     QString getADIF(ExportMode _em = ModeADIF);
-    //KLOG_DEPRECATED QString getBandNameFromFreq(const double _n); // Should be push out of this class
-    //KLOG_DEPRECATED bool updateFromLoTW(const QSO &_lotw);        // It checks if the QSO is already in the log and updates just the LoTW fields, if needed.
+
     bool mergeLoTWData(const QSO &_lotw);       // Updates a QSO with the data obtained from LoTW
     void printQSO();        //TODO:  Complete: Prints all QSO fields - DEBUG ONLY
 
@@ -504,12 +500,10 @@ private:
     bool isValidDateTime() const;
 
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
-    //KLOG_DEPRECATED QString getAddQueryString();
-    //KLOG_DEPRECATED QString getModifyQueryString();
-    //KLOG_DEPRECATED QSqlQuery getPreparedQuery(const QString &_s);  // To be moved to dataproxy_sqlite
-    KLOG_DEPRECATED int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX // To be moved to dataproxy_sqlite
+
+    //KLOG_DEPRECATED int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX // To be moved to dataproxy_sqlite
     //QString getBandNameFromBandId(int bandId);
-    KLOG_DEPRECATED int getModeIdFromModeName();        // To be moved to dataproxy_sqlite           // It really returns submode
+    //KLOG_DEPRECATED int getModeIdFromModeName();        // To be moved to dataproxy_sqlite           // It really returns submode
     //QString getModeNameFromModeId(int _modeId, bool _submode=true);
     //void setBandFromFreq(const double _fr, bool TX = true);
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
@@ -517,7 +511,7 @@ private:
     void cleanMode(); // Cleans mode & submode
     // Functions to update a QSO after downloading LoTW
 
-    KLOG_DEPRECATED int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode); // Move to dataproxy
+    //KLOG_DEPRECATED int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode); // Move to dataproxy
 
 
     int qsoId, logId, dxcc, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
@@ -552,7 +546,7 @@ private:
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
     bool haveBand, haveMode, haveSubMode, haveDateTime, haveCall;
 
-    QSODataCache *qdata;
+    //QSODataCache *qdata;
     Utilities *util;
     Adif *adif;
     DebugLogLevel logLevel;
@@ -569,7 +563,7 @@ private:
     //KLOG_DEPRECATED bool setLoTWQSLSDate1(const QString& data);
     //KLOG_DEPRECATED bool setLoTWQSLSDate2(const QString& data);
 
-    KLOG_DEPRECATED int getLastInsertedQSO();   // To be moved to dataproxy_sqlite // just a query to get the latest inserted QSO
+    //KLOG_DEPRECATED int getLastInsertedQSO();   // To be moved to dataproxy_sqlite // just a query to get the latest inserted QSO
 };
 
 #endif // QSO_H

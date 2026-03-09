@@ -542,19 +542,11 @@ QStringList DataProxy_SQLite::getBandNames()
 
 QStringList DataProxy_SQLite::getModes()
 {
-    QStringList modes = QStringList();
-
-    QSqlQuery query("SELECT submode FROM mode ORDER BY submode");
-    //query.setForwardOnly(true);
-
-    while (query.next()) {
-        if (query.isValid()){
-            modes << query.value(0).toString();
-        }
-    }
-    query.finish();
-    modes.sort();
-    return modes;
+    static Adif adif(Q_FUNC_INFO);
+    QStringList result;
+    for (const AdifMode &g : adif.getModeList())
+        result << g.submodes;
+    return result;
 }
 
 QStringList DataProxy_SQLite::sortBandNamesBottonUp(const QStringList _qs)

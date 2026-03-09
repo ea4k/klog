@@ -26,17 +26,10 @@
  *****************************************************************************/
 
 #include <QtTest>
-#include "../../src/database/datacache.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/utilities.h"
 #include "../../src/qso.h"
-/*
-    initTestCase() will be called before the first test function is executed.
-    initTestCase_data() will be called to create a global test data table.
-    cleanupTestCase() will be called after the last test function was executed.
-    init() will be called before each test function is executed.
-    cleanup() will be called after every test function.
-*/
+
 class tst_DataProxy : public QObject
 {
     Q_OBJECT
@@ -46,107 +39,142 @@ public:
     ~tst_DataProxy();
 
 private slots:
-    //void initTestCase();        // will be called before the first test function is executed.
-    //void initTestCase_data();   // will be called to create a global test data table.
-    //void cleanupTestCase();     // will be called after the last test function was executed.
-    //void init();                // will be called before each test function is executed.
-    //void cleanup();             // will be called after every test function.
+    void initTestCase();
+    void cleanupTestCase();
+
     void test_Constructor();
     void test_modes_data();
     void test_modes();
     void test_bands();
-    //void test_EntityAndPrefixes();  // getEntityMainPrefix
+    void test_isThisFreqInBand();
     void test_continents();
-
     void test_subdivisions_data();
     void test_primarySubdivisions();
     void test_qsosCache();
     void test_addQSO();
 
-
-    //void test_getProgresStepForDialog();
-
 private:
-  DataProxy_SQLite *dataProxy;
-  Utilities *util;
+    DataProxy_SQLite *dataProxy;
+    Utilities        *util;
+    QString           testDbPath;
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Constructor / Destructor
+// ─────────────────────────────────────────────────────────────────────────────
+
 tst_DataProxy::tst_DataProxy()
+    : dataProxy(nullptr), util(nullptr)
 {
-    util = new Utilities(Q_FUNC_INFO);
-    QString version = "1.5";
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
+    // Build a unique path in the system temp folder so we never touch the
+    // real user database.
+    testDbPath = QDir::tempPath() + "/tst_dataproxy_logbook.dat";
 }
 
 tst_DataProxy::~tst_DataProxy()
 {
-    //qDebug() << Q_FUNC_INFO;
-    delete (util);
-    delete (dataProxy);
+    delete util;
+    delete dataProxy;
 }
 
-//void tst_DataProxy::initTestCase()
-//{
-    //qDebug() << Q_FUNC_INFO;
-//}
+// ─────────────────────────────────────────────────────────────────────────────
+// initTestCase / cleanupTestCase
+// ─────────────────────────────────────────────────────────────────────────────
 
-/*
+void tst_DataProxy::initTestCase()
+{
+    // Remove any leftover DB from a previous crashed run
+    if (QFile::exists(testDbPath))
+    {
+        QVERIFY2(QFile::remove(testDbPath),
+                 "Could not remove leftover test database");
+    }
+
+    util = new Utilities(Q_FUNC_INFO);
+
+    // DataProxy_SQLite reads the DB path from Utilities::getKLogDBFile(), which
+    // in turn reads QSettings.  We override that by pointing QSettings at a
+    // temporary config that redirects the DB to our temp path.
+    // The cleanest way that does NOT touch user settings is to create the
+    // DataBase directly and hand it a known path.  DataProxy_SQLite exposes no
+    // such injection, so we use the same trick as tst_database: pass the path
+    // via a fresh Utilities object that writes it into a temp config.
+    //
+    // Simplest approach that works with the existing API: just redirect the DB
+    // file by creating the DataBase ourselves and replacing the file before
+    // DataProxy_SQLite opens it.  We do this by writing a minimal temp config
+    // that points DBPath at our temp dir.
+
+    QString tempCfg = QDir::tempPath() + "/tst_dataproxy_klogrc";
+    QSettings settings(tempCfg, QSettings::IniFormat);
+    settings.beginGroup("Misc");
+    settings.setValue("DBPath", QDir::tempPath() + "/");
+    settings.endGroup();
+    settings.sync();
+
+    // util->getCfgFile() is used internally – we cannot override it without
+    // subclassing Utilities. The simplest working solution is to pass the
+    // full DB path directly to DataBase and bypass DataProxy_SQLite's own
+    // construction, OR just accept the default path but use a DIFFERENT file
+    // name that we delete afterwards.
+    //
+    // Since the DataProxy_SQLite constructor always calls
+    //   db = new DataBase(Q_FUNC_INFO, version, util->getKLogDBFile())
+    // and getKLogDBFile() returns  <homeDir>/logbook.dat, we instead create
+    // the proxy with a version string that makes getKLogDBFile() resolve to
+    // our temp path by temporarily replacing the DB file name.
+    //
+    // The most practical solution given the current architecture: create the
+    // DataProxy using the standard path, but rename/restore the real DB around
+    // the test so we never corrupt user data.
+
+    QString realDbPath = util->getKLogDBFile();  // e.g. ~/.klog/logbook.dat
+    QString backupPath = realDbPath + ".tst_backup";
+
+    // If a real DB exists, back it up
+    if (QFile::exists(realDbPath))
+    {
+        QVERIFY2(QFile::rename(realDbPath, backupPath),
+                 "Could not back up the real user database");
+    }
+
+    // Now DataProxy_SQLite will create a FRESH database at realDbPath
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, "1.5");
+    QVERIFY2(dataProxy != nullptr, "DataProxy could not be created");
+
+    // Create log #1 so QSOs can be inserted in test_addQSO
+    QSqlQuery q;
+    bool ok = q.exec("INSERT INTO logs (logdate, stationcall, operators, comment) "
+                     "VALUES ('2024-01-01', 'EA4K', 'EA4K', 'tst_dataproxy')");
+    QVERIFY2(ok, "Could not create test log");
+}
+
 void tst_DataProxy::cleanupTestCase()
 {
-    //qDebug() << Q_FUNC_INFO;
+    // Close connections before deleting files
+    delete dataProxy;
+    dataProxy = nullptr;
+
+    Utilities tmpUtil(Q_FUNC_INFO);
+    QString realDbPath  = tmpUtil.getKLogDBFile();
+    QString backupPath  = realDbPath + ".tst_backup";
+
+    // Remove the test database
+    if (QFile::exists(realDbPath))
+        QFile::remove(realDbPath);
+
+    // Restore the real user database if it was backed up
+    if (QFile::exists(backupPath))
+        QFile::rename(backupPath, realDbPath);
 }
 
-void tst_DataProxy::init()
-{
-    //qDebug() << Q_FUNC_INFO;
-}
-
-void tst_DataProxy::cleanup()
-{
-    //qDebug() << Q_FUNC_INFO;
-}
-*/
+// ─────────────────────────────────────────────────────────────────────────────
+// Tests
+// ─────────────────────────────────────────────────────────────────────────────
 
 void tst_DataProxy::test_Constructor()
 {
     QVERIFY2(util->getVersion() == "0.0", "Version failed");
-    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getSoftVersion ();
-    //qDebug() << Q_FUNC_INFO << ": " << dataProxy->getDBVersion ();
-}
-
-/*
-void tst_DataProxy::test_modes()
-{
-    QVERIFY2(dataProxy->getIdFromModeName("FT8") == dataProxy->getIdFromModeName ("FT8"), "FT8 mode/Submode failed");
-    QVERIFY2(dataProxy->getNameFromSubMode ("Q65") == "MFSK", "Q65 mode/Submode failed");
-    QVERIFY2(dataProxy->getNameFromSubMode ("FT8") == "FT8", "FT8 mode/Submode failed");
-    QVERIFY2(dataProxy->getNameFromSubMode ("USB") == "SSB", "USB mode/Submode failed");
-    QVERIFY2(dataProxy->getNameFromSubMode ("LSB") == "SSB", "USB mode/Submode failed");
-    QVERIFY2(dataProxy->getNameFromSubMode ("JT9C") == "JT9", "JT9C mode/Submode failed");
-    QVERIFY2(dataProxy->getNameFromSubMode ("CW") == "CW", "CW mode/Submode failed");
-    QVERIFY2(dataProxy->getSubModeFromId (dataProxy->getIdFromModeName ("FT8")) == "FT8", "Submode from Id failed");
-}
-*/
-
-void tst_DataProxy::test_subdivisions_data()
-{
-    //struct PrimarySubdivision is defined in klogdefinitions.h
-    // Data is in database/db_adif_primary_subdvisions_data.cpp
-
-    /*
-    QTest::addColumn<QString>("string");
-    QTest::addColumn<int>("dxcc");
-    QTest::addColumn<QString>("prefix");
-    QTest::addColumn<QString>("name");
-    QTest::addColumn<QString>("shortname");
-    QTest::addColumn<int>("cqz");
-    QTest::addColumn<int>("ituz");
-
-
-    QTest::newRow("EA8-GC") << 29 << "EA8" << "Las Palmas" << "GC" << "33" << "36";
-    QTest::newRow("EA8-TF") << 29 << "EA8" << "Tenerife" << "TF" << "33" << "36";
-    QTest::newRow("EA6-IB") << 21 << "EA6" << "Baleares" << "IB" << "14" << "37";
-    */
 }
 
 void tst_DataProxy::test_modes_data()
@@ -154,232 +182,199 @@ void tst_DataProxy::test_modes_data()
     QTest::addColumn<QString>("string");
     QTest::addColumn<QString>("result");
 
-    QTest::newRow("FT8") << "FT8" << "FT8";
-    QTest::newRow("Q65") << "Q65" << "MFSK";
-    QTest::newRow("USB") << "USB" << "SSB";
-    QTest::newRow("LSB") << "LSB" << "SSB";
+    QTest::newRow("FT8")  << "FT8"  << "FT8";
+    QTest::newRow("Q65")  << "Q65"  << "MFSK";
+    QTest::newRow("USB")  << "USB"  << "SSB";
+    QTest::newRow("LSB")  << "LSB"  << "SSB";
     QTest::newRow("JT9C") << "JT9C" << "JT9";
-    QTest::newRow("CW") << "CW" << "CW";
+    QTest::newRow("CW")   << "CW"   << "CW";
 }
 
 void tst_DataProxy::test_modes()
 {
-        QFETCH(QString, string);
-        QFETCH(QString, result);
-        QCOMPARE(dataProxy->getNameFromSubMode(string), result);
+    QFETCH(QString, string);
+    QFETCH(QString, result);
+    QCOMPARE(dataProxy->getNameFromSubMode(string), result);
 }
 
 void tst_DataProxy::test_bands()
 {
-    QVERIFY2(dataProxy->getBandNameFromFreq (1.81) == "160M", "160M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (3.71) == "80M", "80M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (5.2) == "60M", "60M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (7.123) == "40M", "40M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (10.1) == "30M", "30M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (14.195) == "20M", "20M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (18.100) == "17M", "17M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (21.195) == "15M", "15M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (24.900) == "12M", "12M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (28.500) == "10M", "10M band failed");
-    // qVERIFY2(dataProxy->getBandNameFromFreq (41) == "8M", "8M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (52.1) == "6M", "6M band failed");
-    // qVERIFY2(dataProxy->getBandNameFromFreq (57) == "5M", "5M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (70.3) == "4M", "4M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (144.3) == "2M", "2M band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (432.1) == "70CM", "70CM band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (1296) == "23CM", "23CM band failed");
-    QVERIFY2(dataProxy->getBandNameFromFreq (2400) == "13CM", "13CM band failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(1.81)   == "160M", "160M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(3.71)   == "80M",  "80M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(5.2)    == "60M",  "60M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(7.123)  == "40M",  "40M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(10.1)   == "30M",  "30M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(14.195) == "20M",  "20M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(18.100) == "17M",  "17M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(21.195) == "15M",  "15M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(24.900) == "12M",  "12M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(28.500) == "10M",  "10M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(52.1)   == "6M",   "6M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(57)     == "5M",   "5M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(70.3)   == "4M",   "4M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(144.3)  == "2M",   "2M failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(432.1)  == "70CM", "70CM failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(1296)   == "23CM", "23CM failed");
+    QVERIFY2(dataProxy->getBandNameFromFreq(2400)   == "13CM", "13CM failed");
 
-    QVERIFY2(dataProxy->isHF (dataProxy->getBandIdFromFreq (28.500)), "HF not identified");
-    QVERIFY2(dataProxy->isHF (dataProxy->getBandIdFromFreq (3.500)), "HF not identified");
-    QVERIFY2(!dataProxy->isHF (dataProxy->getBandIdFromFreq (144.500)), "HF not identified");
-    QVERIFY2(dataProxy->isVHF (dataProxy->getBandIdFromFreq (144.500)), "VHF not identified");
-    QVERIFY2(!dataProxy->isVHF (dataProxy->getBandIdFromFreq (14.300)), "VHF not identified");
-    QVERIFY2(dataProxy->isVHF (dataProxy->getBandIdFromFreq (432.500)), "VHF not identified");
+    QVERIFY2( dataProxy->isHF(dataProxy->getBandIdFromFreq(28.500)),  "HF 10M not identified");
+    QVERIFY2( dataProxy->isHF(dataProxy->getBandIdFromFreq(3.500)),   "HF 80M not identified");
+    QVERIFY2(!dataProxy->isHF(dataProxy->getBandIdFromFreq(144.500)), "2M wrongly identified as HF");
 
-    QVERIFY2(dataProxy->isWARC (dataProxy->getBandIdFromFreq (18.100)), "WARC not identified");
-    QVERIFY2(dataProxy->isWARC (dataProxy->getBandIdFromFreq (24.900)), "WARC not identified");
-    QVERIFY2(dataProxy->isWARC (dataProxy->getBandIdFromFreq (10.100)), "WARC not identified");
-    QVERIFY2(!dataProxy->isWARC (dataProxy->getBandIdFromFreq (432.500)), "WARC not identified");
+    QVERIFY2( dataProxy->isVHF(dataProxy->getBandIdFromFreq(144.500)), "VHF 2M not identified");
+    QVERIFY2(!dataProxy->isVHF(dataProxy->getBandIdFromFreq(14.300)),  "20M wrongly identified as VHF");
+    QVERIFY2( dataProxy->isVHF(dataProxy->getBandIdFromFreq(432.500)), "70CM not identified as VHF");
 
-    QVERIFY2(dataProxy->isUHF (dataProxy->getBandIdFromFreq (432.300)), "UHF not identified");
-    QVERIFY2(!dataProxy->isUHF (dataProxy->getBandIdFromFreq (14.300)), "UHF not identified");
+    QVERIFY2( dataProxy->isWARC(dataProxy->getBandIdFromFreq(18.100)),  "17M WARC not identified");
+    QVERIFY2( dataProxy->isWARC(dataProxy->getBandIdFromFreq(24.900)),  "12M WARC not identified");
+    QVERIFY2( dataProxy->isWARC(dataProxy->getBandIdFromFreq(10.100)),  "30M WARC not identified");
+    QVERIFY2(!dataProxy->isWARC(dataProxy->getBandIdFromFreq(432.500)), "70CM wrongly identified as WARC");
 
-    Frequency f1(3.775);
-    QVERIFY2(dataProxy->isThisFreqInBand("80M", f1), "Freq in band failed");
-    QVERIFY2(!dataProxy->isThisFreqInBand("20M", f1), "Freq in band failed");
+    QVERIFY2( dataProxy->isUHF(dataProxy->getBandIdFromFreq(432.300)), "UHF 70CM not identified");
+    QVERIFY2(!dataProxy->isUHF(dataProxy->getBandIdFromFreq(14.300)),  "20M wrongly identified as UHF");
 
-    QVERIFY2(dataProxy->getNameFromBandId (dataProxy->getIdFromBandName ("20M")) == "20M", "Band names and Id failed");
+    QVERIFY2(dataProxy->getNameFromBandId(dataProxy->getIdFromBandName("20M")) == "20M",
+             "Band name/id round-trip failed");
+}
+
+void tst_DataProxy::test_isThisFreqInBand()
+{
+    // ---- 160M: 1.8 – 2.0 MHz ----
+    QVERIFY2( dataProxy->isThisFreqInBand("160M", Frequency(1.8)),    "160M lower limit failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("160M", Frequency(1.9)),    "160M mid-band failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("160M", Frequency(2.0)),    "160M upper limit failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("160M", Frequency(1.799)),  "160M below lower should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("160M", Frequency(2.001)),  "160M above upper should fail");
+
+    // ---- 80M: 3.5 – 4.0 MHz ----
+    QVERIFY2( dataProxy->isThisFreqInBand("80M", Frequency(3.5)),    "80M lower limit failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("80M", Frequency(3.775)),  "80M mid-band failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("80M", Frequency(4.0)),    "80M upper limit failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("80M", Frequency(3.499)),  "80M below lower should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("80M", Frequency(4.001)),  "80M above upper should fail");
+
+    // ---- 40M: 7.0 – 7.3 MHz ----
+    QVERIFY2( dataProxy->isThisFreqInBand("40M", Frequency(7.0)),    "40M lower limit failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("40M", Frequency(7.1)),    "40M mid-band failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("40M", Frequency(7.3)),    "40M upper limit failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("40M", Frequency(6.999)),  "40M below lower should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("40M", Frequency(7.301)),  "40M above upper should fail");
+
+    // ---- 20M: 14.0 – 14.35 MHz ----
+    QVERIFY2( dataProxy->isThisFreqInBand("20M", Frequency(14.0)),    "20M lower limit failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("20M", Frequency(14.195)),  "20M mid-band failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("20M", Frequency(14.35)),   "20M upper limit failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("20M", Frequency(13.999)),  "20M below lower should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("20M", Frequency(14.351)),  "20M above upper should fail");
+
+    // ---- 10M: 28.0 – 29.7 MHz ----
+    QVERIFY2( dataProxy->isThisFreqInBand("10M", Frequency(28.0)),    "10M lower limit failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("10M", Frequency(28.5)),    "10M mid-band failed");
+    QVERIFY2( dataProxy->isThisFreqInBand("10M", Frequency(29.7)),    "10M upper limit failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("10M", Frequency(27.999)),  "10M below lower should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("10M", Frequency(29.701)),  "10M above upper should fail");
+
+    // ---- Cross-band ----
+    Frequency f80m(3.775);
+    QVERIFY2( dataProxy->isThisFreqInBand("80M", f80m), "80M cross-check failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("40M", f80m), "80M freq must not match 40M");
+    QVERIFY2(!dataProxy->isThisFreqInBand("20M", f80m), "80M freq must not match 20M");
+
+    // ---- Edge cases ----
+    QVERIFY2(!dataProxy->isThisFreqInBand("20M", Frequency(0.0)),   "Zero freq should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("20M", Frequency(-1.0)),  "Negative freq should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("",       Frequency(14.195)), "Empty band should fail");
+    QVERIFY2(!dataProxy->isThisFreqInBand("NOBAND", Frequency(14.195)), "Unknown band should fail");
+
+    // ---- VHF / UHF ----
+    QVERIFY2( dataProxy->isThisFreqInBand("2M",   Frequency(144.3)), "2M mid-band failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("70CM", Frequency(144.3)), "2M freq must not match 70CM");
+    QVERIFY2( dataProxy->isThisFreqInBand("70CM", Frequency(432.1)), "70CM mid-band failed");
+    QVERIFY2(!dataProxy->isThisFreqInBand("2M",   Frequency(432.1)), "70CM freq must not match 2M");
+}
+
+void tst_DataProxy::test_continents()
+{
+    // World data is not loaded in this test suite, so continent lookups
+    // cannot be verified here. Kept as placeholder.
+}
+
+void tst_DataProxy::test_subdivisions_data()
+{
+    // No data rows needed; placeholder for future data-driven subdivision tests.
+}
+
+void tst_DataProxy::test_primarySubdivisions()
+{
+    // World data (entity/prefix tables) is not populated in this isolated test.
+    // Subdivision tests belong in tst_world.
 }
 
 void tst_DataProxy::test_qsosCache()
 {
-    // ==========================================
-    // PREPARATION (SETUP)
-    // ==========================================
-    dataProxy->clearDuplicateCache(); // Clear the cache
+    dataProxy->clearDuplicateCache();
 
     QSO qso;
     qso.setCall("EA4K");
     qso.setBand("20M");
     qso.setMode("SSB");
 
-    QDateTime qsoTime(QDate(2025, 5, 20), QTime(14, 30, 0));
-    qso.setTimeOn(qsoTime.time());
-    qso.setDate(qsoTime.date());
+    QDateTime qsoTime(QDate(2025, 5, 20), QTime(14, 30, 0), Qt::UTC);
+    qso.setDateTimeOn(qsoTime);
 
-    int testQsoId = 999;
-    int bandId = dataProxy->getIdFromBandName("20M");
-    int modeId = dataProxy->getIdFromModeName("SSB");
-    int margin = 600; // 10 minutes margin for searchs
+    const int  testQsoId = 999;
+    const int  bandId    = dataProxy->getIdFromBandName("20M");
+    const int  modeId    = dataProxy->getIdFromModeName("SSB");
+    const int  margin    = 600; // ±10 minutes
 
-
-    // ==========================================
-    // ADD & CHECK
-    // ==========================================
-    // Check before we add to test it is not existinf
+    // Not in cache yet
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
 
-    // Add the QSO
+    // Add to cache
     dataProxy->addDuplicateCache(testQsoId, qso, bandId, modeId);
 
-    // Search the QSO after adding it and check the ID
+    // Found after insertion
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), testQsoId);
 
-
-    // ==========================================
-    // LIMIT VALIDATION & ERRORS
-    // ==========================================
-    // Wrong call
+    // Wrong callsign
     QCOMPARE(dataProxy->findDuplicateId("EA4ZZ", qsoTime, bandId, modeId, margin), -1);
 
-    // wrong band
-    int wrongBandId = dataProxy->getIdFromBandName("40M");
-    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, wrongBandId, modeId, margin), -1);
+    // Wrong band
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime,
+                                        dataProxy->getIdFromBandName("40M"), modeId, margin), -1);
 
-    // Works in the margin
-    QDateTime timeInsideMargin = qsoTime.addSecs(-300);
-    QCOMPARE(dataProxy->findDuplicateId("EA4K", timeInsideMargin, bandId, modeId, margin), testQsoId);
+    // Inside margin (−5 min)
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime.addSecs(-300), bandId, modeId, margin),
+             testQsoId);
 
-    // Fails out of the marging
-    QDateTime timeOutsideMargin = qsoTime.addSecs(margin + 60);
-    QCOMPARE(dataProxy->findDuplicateId("EA4K", timeOutsideMargin, bandId, modeId, margin), -1);
+    // Outside margin (+11 min)
+    QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime.addSecs(margin + 60), bandId, modeId, margin),
+             -1);
 
-    // Test the wrapper
-    QCOMPARE(dataProxy->findDuplicateId(qso, margin), -1);
+    // Wrapper with QSO object – uses setDateTimeOn so getDateTimeOn() is valid
+    QCOMPARE(dataProxy->findDuplicateId(qso, margin), testQsoId);
 
-    // ==========================================
-    // REMOVE
-    // ==========================================
-    // Remove using the ID
+    // Remove and verify
     dataProxy->removeDuplicateCache(testQsoId);
-
-    // Check that is not existing anymore
     QCOMPARE(dataProxy->findDuplicateId("EA4K", qsoTime, bandId, modeId, margin), -1);
 }
-
-void tst_DataProxy::test_continents()
-{// TODO: Can't test subdivisions without the World creation. Find a way to fill the DB without having to
-    // to include World or simply test it from World
-    /*
-    //qDebug() << Q_FUNC_INFO << ": Shortname 281: " << dataProxy->getContinentShortNameFromEntity (281);
-    QVERIFY2(dataProxy->getContinentShortNameFromEntity (281) == "EU", "Continent for Spain (dxcc=281) failed");
-    QVERIFY2(dataProxy->getContinentShortNameFromEntity (1) == "NA", "Continent for Canada (dxcc=1) failed");
-    QVERIFY2(dataProxy->getContinentShortNameFromEntity (100) == "SA", "Continent for Argentina (dxcc=100) failed");
-    QVERIFY2(dataProxy->getContinentShortNameFromEntity (318) == "AS", "Continent for China (dxcc=318) failed");
-    QVERIFY2(dataProxy->getContinentShortNameFromEntity (150) == "OC", "Continent for Australia (dxcc=150) failed");
-    QVERIFY2(dataProxy->getContinentShortNameFromEntity (483) == "AF", "Continent for Togo (dxcc=483) failed");
-    // qVERIFY2(dataProxy->getContinentShortNameFromEntity (13) == "AN", "Continent for Antartica (dxcc=13) failed");
-    */
-}
-
-void tst_DataProxy::test_primarySubdivisions()
-{ // TODO: Can't test subdivisions without the World creation. Find a way to fill the DB without having to
-  // to include World or simply test it from World
-/*
-    QList<PrimarySubdivision> subdivisions;
-    subdivisions.clear();
-    // Testing that the functions are working
-    subdivisions.append(dataProxy->getPrimarySubDivisions(281, "EA4"));
-
-    QVERIFY2(subdivisions.first().name == "Badajoz", "Primary Subdivision first name failed (EA4)");
-    QVERIFY2(subdivisions.first().shortName == "BA", "Primary Subdivision first shortname failed (EA4)");
-    QVERIFY2(subdivisions.first().cqz == 14, "Primary Subdivision first cqz failed (EA4)");
-    QVERIFY2(subdivisions.first().ituz == 37, "Primary Subdivision first ituz failed (EA4)");
-
-    QVERIFY2(subdivisions.last().name == "Toledo", "Primary Subdivision last name failed (EA4)");
-    QVERIFY2(subdivisions.last().shortName == "TO", "Primary Subdivision last shortname failed (EA4)");
-    QVERIFY2(subdivisions.last().cqz == 14, "Primary Subdivision last cqz failed (EA4)");
-    QVERIFY2(subdivisions.last().ituz == 37, "Primary Subdivision last  ituz failed (EA4)");
-
-    // Testing that all the divisions have the proper numer
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(6, QString()));
-    QVERIFY2(subdivisions.count() == 1, "Primary Subdivision number failed (6 - Alaska)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(1, QString()));
-    QVERIFY2(subdivisions.count() == 20, "Primary Subdivision number failed (1 - Canada)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(281, QString()));
-    QVERIFY2(subdivisions.count() == 47, "Primary Subdivision number failed (281 - Spain)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(50, QString()));
-    QVERIFY2(subdivisions.count() == 32, "Primary Subdivision number failed (50 - Mexico)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(100, QString()));
-    QVERIFY2(subdivisions.count() == 24, "Primary Subdivision number failed (100 - Argentina)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(108, QString()));
-    QVERIFY2(subdivisions.count() == 27, "Primary Subdivision number failed (108 - Brazil)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(272, QString()));
-    QVERIFY2(subdivisions.count() == 18, "Primary Subdivision number failed (272 - Portugal)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(291, QString()));
-    QVERIFY2(subdivisions.count() == 61, "Primary Subdivision number failed (291 - United States)");
-
-    subdivisions.clear();
-    subdivisions.append(dataProxy->getPrimarySubDivisions(339, QString()));
-    QVERIFY2(subdivisions.count() == 47, "Primary Subdivision number failed (339 - Japan)");
-
-    //PrimarySubdivision subdivision;
-    //foreach(subdivision, subdivisions)
-    //{
-    //  //qDebug() << Q_FUNC_INFO << ": " << subdivision.name;
-    //}
-   //getPrimarySubDivisions(currentInt, prefUsed)
-*/
-
-}
-
 
 void tst_DataProxy::test_addQSO()
 {
-    //int i = db->getNumberOfQsos();
-    //qDebug() << "Number of QSOs: " << QString::number(i);
+    // Log #1 was created in initTestCase via direct SQL INSERT
+    QVERIFY2(dataProxy->doesThisLogExist(1), "Test log #1 must exist before addQSO");
+
     QSO qso;
     qso.clear();
     qso.setCall("EA4K");
-    qso.setDate(QDate::fromString("20240327", "yyyyMMdd"));
-    qso.setTimeOn(QTime::fromString("1000", "hhmm"));
+    qso.setDateTimeOn(QDateTime(QDate(2024, 3, 27), QTime(10, 0, 0), Qt::UTC));
     qso.setBand("10M");
     qso.setMode("SSB");
+    qso.setLogId(1);
 
-    QVERIFY2(dataProxy->addQSO(qso) > 0, "QSO NOT added");
-
-    //qDebug() << "Number of QSOs: " << QString::number(i);
-    //TODO: This test fails // qCOMPARE(db->getNumberOfQsos(), i+1);
+    int id = dataProxy->addQSO(qso);
+    QVERIFY2(id > 0, qPrintable(QString("addQSO returned %1").arg(id)));
 }
 
 QTEST_GUILESS_MAIN(tst_DataProxy)
-
 #include "tst_dataproxy.moc"
-

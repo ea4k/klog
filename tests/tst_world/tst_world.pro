@@ -19,7 +19,7 @@ HEADERS += \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/frequency.h \
     ../../src/qso.h \
-    ../../src/qsodatacache.h \
+    #../../src/qsodatacache.h \
     ../../src/callsign.h \
     ../../src/adif.h
 
@@ -27,7 +27,7 @@ SOURCES +=  tst_world.cpp \
     ../../src/world.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/qso.cpp \
-    ../../src/qsodatacache.cpp \
+    ##../../src/qsodatacache.cpp \
     ../../src/callsign.cpp \
     ../../src/utilities.cpp \
     ../../src/database/database.cpp \

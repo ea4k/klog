@@ -24,8 +24,6 @@
  *                                                                           *
  *****************************************************************************/
 #include "qso.h"
-#include "QtSql/qsqlerror.h"
-#include "qsqlrecord.h"
 #include "callsign.h"
 #include "locator.h"
 
@@ -39,7 +37,7 @@ QSO::QSO(QObject *parent)
     qsoId = -1;
     util = new Utilities(Q_FUNC_INFO);
     adif = new Adif(Q_FUNC_INFO);
-    qdata = new QSODataCache(Q_FUNC_INFO);
+    //qdata = new QSODataCache(Q_FUNC_INFO);
 
     //db = new DataBase(Q_FUNC_INFO, "1", util->getKLogDBFile());
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
@@ -56,7 +54,7 @@ QSO::QSO(const QSO &other)
    //qDebug() << Q_FUNC_INFO << " (2): " << other.callsign;
     util = new Utilities(Q_FUNC_INFO);
     adif = new Adif(Q_FUNC_INFO);
-    qdata = new QSODataCache(Q_FUNC_INFO);
+    //qdata = new QSODataCache(Q_FUNC_INFO);
     logLevel = other.logLevel;
     haveBand = other.haveBand;
     haveMode = other.haveMode;
@@ -993,8 +991,7 @@ bool QSO::setMode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << ": " << _c;
-
-    if (qdata->isValidMode(_c))
+    if (adif->isValidMode(_c))
     {
         //qDebug() << Q_FUNC_INFO << " - 010";
         mode = _c;
@@ -1003,12 +1000,12 @@ bool QSO::setMode(const QString &_c)
         haveSubMode = true;
         return true;
     }
-    else if (qdata->isValidSubMode(_c))
+    else if (adif->isValidSubMode(_c))
     {
         //qDebug() << Q_FUNC_INFO << " - 020";
         submode = _c;
         haveSubMode = true;
-        mode = qdata->getModeFromSubmode(submode);
+        mode = adif->getModeFromSubmode(submode);
         haveMode = true;
         return true;
     }
@@ -3733,23 +3730,6 @@ bool QSO::setData(const QString &_adifPair, bool _lotw)
     if (!aField.valid)
         return false;
 
-    //d << util->getValidADIFFieldAndData(_adifPair);
-    //if (d.length()!=2)
-    //{
-     //   //qDebug() << Q_FUNC_INFO << " - ADIF not valid";
-       // logEvent (Q_FUNC_INFO, "END - ADIF not valid", Debug);
-    //    return false;
-    //}
-
-    //qDebug() << Q_FUNC_INFO << ": " << d.at(0) << "/" << d.at(1);
-
-    // qString field = d.at(0).toUpper();
-    // qString data = d.at(1);
-    //if (_lotw)
-       //qDebug() << Q_FUNC_INFO << " - LOTW QSO";
-    //else
-       //qDebug() << Q_FUNC_INFO << " - NO LOTW QSO";
-    //<APP_LoTW_QSO_TIMESTAMP:20>2022-04-23T18:08:00Z // QSO Date & Time; ISO-8601
     if (_lotw)
     {
         //qDebug() << Q_FUNC_INFO << " - field: " << field;
@@ -3869,6 +3849,7 @@ bool QSO::mergeLoTWData(const QSO &_lotw)
     return true;
 }
 
+/*
 int QSO::findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode)
 {
     QSqlQuery query;
@@ -3898,6 +3879,7 @@ int QSO::findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const in
 
     return -3;
 }
+*/
 
 void QSO::clearQSLDateIfNeeded()
 {
@@ -3914,149 +3896,6 @@ void QSO::clearQSLDateIfNeeded()
 }
 
 /*
-int QSO::toDB(int _qsoId)
-{ // This function will add or modify a QSO in the DB depending on the _qsoID.
-    // if _qsoID is >0 it should be an existing QSO in the DB.
-   //qDebug() << Q_FUNC_INFO << " - Start: qsoId: " << QString::number(_qsoId);
-    //printQSO();
-    if (!isComplete ())
-    {
-       //qDebug() << Q_FUNC_INFO << " - QSO NOT COMPLETE";
-        return -1;
-    }
-
-    clearQSLDateIfNeeded();
-
-    //qDebug() << Q_FUNC_INFO << "Mode: " << getMode();
-    //qDebug() << Q_FUNC_INFO << "Submode: " << getSubmode();
-    //qDebug() << Q_FUNC_INFO << " - QSO Complete... adding";
-    QString queryString;
-    queryString.clear();
-    if (_qsoId<=0)
-    {
-       //qDebug() << Q_FUNC_INFO << " - qsoID <=0";
-        queryString = getAddQueryString();
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " - qsoID>0";
-        queryString = getModifyQueryString();
-    }
-   //qDebug() << Q_FUNC_INFO << " Query: " << queryString;;
-
-    QSqlQuery query = getPreparedQuery(queryString);
-    //qDebug() << Q_FUNC_INFO << " qsoId: " << QString::number(_qsoId);
-    if (_qsoId>0)
-    {
-        //qDebug() << Q_FUNC_INFO << " - binding ID";
-        query.bindValue (":id", _qsoId);
-    }
-    //qDebug() << Q_FUNC_INFO << " - executing query";
-    if (query.exec())
-    {
-        //qDebug() << Q_FUNC_INFO << QString(": QSO ADDED/Modified: %1 - %2").arg(callsign).arg(getDateTimeOn().toString("yyyyMMdd-hhmm"));
-        //qDebug() << Q_FUNC_INFO << ": QSO ADDED/Modified: " << query.lastQuery ();
-        if (_qsoId>0)
-            return _qsoId;
-
-        return getLastInsertedQSO();
-    }
-    else
-    {
-            //qDebug() << Q_FUNC_INFO << QString(": QSO NOT ADDED/Modified: %1 - %2").arg(callsign).arg(_qsoId);
-            //qDebug() << Q_FUNC_INFO << ": QSO NOT ADDED/Modified: " << query.lastQuery ();
-            //qDebug() << Q_FUNC_INFO << ": Error: databaseText: " << query.lastError().databaseText();
-            //qDebug() << Q_FUNC_INFO << ": Error: text: " << query.lastError().text();
-            //qDebug() << Q_FUNC_INFO << ": Error: driverText: " << query.lastError().driverText();
-            //qDebug() << Q_FUNC_INFO << ": Error: nativeErrorCode: " << query.lastError().nativeErrorCode();
-        //void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString queryFailed)
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().nativeErrorCode(), query.lastQuery());
-        return -2;
-    }
-    query.finish();
-    //qDebug() << Q_FUNC_INFO << " - END";
-    return -3;
-}
-
-
-QString QSO::getAddQueryString()
-{
-    return QString( "INSERT INTO log ("
-                   "qso_date, call, rst_sent, rst_rcvd, bandid, modeid, cqz, ituz, dxcc, address, age, altitude, cnty, comment, a_index, ant_az, ant_el, "
-                   "ant_path, arrl_sect, award_submitted, award_granted, band_rx, checkcontest, class, clublog_qso_upload_date, "
-                   "clublog_qso_upload_status, cont, contacted_op, contest_id, country, credit_submitted, credit_granted, darc_dok, "
-                   "distance, email, eq_call, eqsl_qslrdate, eqsl_qslsdate, eqsl_qsl_rcvd, eqsl_qsl_sent, fists, fists_cc, "
-                   "force_init, freq, freq_rx, gridsquare, gridsquare_ext, hrdlog_qso_upload_date, hrdlog_qso_upload_status, "
-                   "hamlogeu_qso_upload_date, hamlogeu_qso_upload_status, hamqth_qso_upload_date, hamqth_qso_upload_status, "
-                   "iota, iota_island_id, k_index, lat, lon, lotw_qslrdate, lotw_qslsdate, lotw_qsl_rcvd, lotw_qsl_sent, max_bursts, ms_shower, "
-                   "my_antenna, my_altitude, my_arrl_sect, my_city, my_cnty, my_country, my_cq_zone, my_dxcc, my_fists, my_gridsquare, my_gridsquare_ext, my_iota, my_iota_island_id, "
-                   "my_itu_zone, my_lat, "
-                   "my_lon, my_name, my_pota_ref, my_postal_code, my_rig, my_sig, my_sig_info, my_sota_ref, my_state, my_street, "
-                   "my_usaca_counties, my_wwff_ref, my_vucc_grids, name, "
-                   "notes, nr_bursts, nr_pings, operator, owner_callsign, pfx, pota_ref, precedence, prop_mode, public_key, qrzcom_qso_upload_date, "
-                   "qrzcom_qso_upload_status, qslmsg, qslrdate, qslsdate, qsl_rcvd, qsl_sent, qsl_rcvd_via, qsl_sent_via, qsl_via, qso_complete, qso_random, "
-                   "qth, region, rig, rx_pwr, sat_mode, sat_name, sfi, sig, sig_info, silent_key, skcc, sota_ref, srx_string, srx, stx_string, stx, state, "
-                   "station_callsign, submode, swl, uksmg, usaca_counties, ve_prov, wwff_ref, vucc_grids, ten_ten, tx_pwr, web, qso_date_off, marked, lognumber) "
-                   "VALUES ("
-                   ":qso_date, :call, :rst_sent, :rst_rcvd, :bandid, :modeid, :cqz, :ituz, :dxcc, :address, :age, :altitude, :cnty, :comment, :a_index, :ant_az, :ant_el, "
-                   ":ant_path, :arrl_sect, :award_submitted, :award_granted, :band_rx, :checkcontest, :class, :clublog_qso_upload_date, :clublog_qso_upload_status, :cont, "
-                   ":contacted_op, :contest_id, :country, :credit_submitted, :credit_granted, :darc_dok, :distance, :email, :eq_call, :eqsl_qslrdate, :eqsl_qslsdate, "
-                   ":eqsl_qsl_rcvd, :eqsl_qsl_sent, :fists, :fists_cc, :force_init, :freq_tx, :freq_rx, :gridsquare, :gridsquare_ext, :hrdlog_qso_upload_date, "
-                   ":hrdlog_qso_upload_status, :hamlogeu_qso_upload_date, :hamlogeu_qso_upload_status, :hamqth_qso_upload_date, :hamqth_qso_upload_status, "
-                   ":iota, :iota_island_id, :k_index, :lat, :lon, :lotw_qslrdate, :lotw_qslsdate, :lotw_qsl_rcvd, :lotw_qsl_sent, :max_bursts, :ms_shower, "
-                   ":my_antenna, :my_altitude, :my_arrl_sect, :my_city, :my_cnty, :my_country, :my_cq_zone, :my_dxcc, :my_fists, :my_gridsquare, :my_gridsquare_ext, :my_iota, :my_iota_island_id, :my_itu_zone, :my_lat, "
-                   ":my_lon, :my_name, :my_pota_ref, :my_postal_code, :my_rig, :my_sig, :my_sig_info, :my_sota_ref, :my_state, :my_street, :my_usaca_counties, :my_wwff_ref, :my_vucc_grids, :name, "
-                   ":notes, :nr_bursts, :nr_pings, :operator, :owner_callsign, :pfx, :pota_ref, :precedence, :prop_mode, :public_key, :qrzcom_qso_upload_date, "
-                   ":qrzcom_qso_upload_status, :qslmsg, :qslrdate, :qslsdate, :qsl_rcvd, :qsl_sent, :qsl_rcvd_via, :qsl_sent_via, :qsl_via, :qso_complete, :qso_random, "
-                   ":qth, :region, :rig, :rx_pwr, :sat_mode, :sat_name, :sfi, :sig, :sig_info, :silent_key, :skcc, :sota_ref, :srx_string, :srx, :stx_string, :stx, :state, "
-                   ":station_callsign, :submode, :swl, :uksmg, :usaca_counties, :ve_prov, :wwff_ref, :vucc_grids, :ten_ten, :tx_pwr, :web, :qso_date_off, "
-                   ":marked, :lognumber)" );
-}
-
-QString QSO::getModifyQueryString()
-{
-    return QString("UPDATE log SET call = :call, qso_date = :qso_date, rst_sent = :rst_sent, rst_rcvd = :rst_rcvd, "
-                   "bandid = :bandid, modeid = :modeid, cqz = :cqz, ituz = :ituz, dxcc = :dxcc, address = :address, "
-                   "age = :age, altitude = :altitude, cnty = :cnty, comment = :comment, a_index = :a_index, ant_az = :ant_az, ant_el = :ant_el, "
-                   "ant_path = :ant_path, arrl_sect = :arrl_sect, award_submitted = :award_submitted, "
-                   "award_granted = :award_granted, band_rx = :band_rx, checkcontest = :checkcontest, class = :class, "
-                   "clublog_qso_upload_date = :clublog_qso_upload_date, clublog_qso_upload_status = :clublog_qso_upload_status, "
-                   "cont = :cont, contacted_op = :contacted_op, contest_id = :contest_id, country = :country, "
-                   "credit_submitted = :credit_submitted, credit_granted = :credit_granted, darc_dok = :darc_dok, "
-                   "distance = :distance, email = :email, eq_call = :eq_call, eqsl_qslrdate = :eqsl_qslrdate, "
-                   "eqsl_qslsdate = :eqsl_qslsdate, eqsl_qsl_rcvd = :eqsl_qsl_rcvd, eqsl_qsl_sent = :eqsl_qsl_sent, "
-                   "fists = :fists, fists_cc = :fists_cc, force_init = :force_init, freq = :freq_tx, freq_rx = :freq_rx, "
-                   "gridsquare = :gridsquare, gridsquare_ext = :gridsquare_ext, "
-                   "hrdlog_qso_upload_date = :hrdlog_qso_upload_date, hrdlog_qso_upload_status = :hrdlog_qso_upload_status, "
-                   "hamlogeu_qso_upload_date = :hamlogeu_qso_upload_date, hamlogeu_qso_upload_status = :hamlogeu_qso_upload_status, "
-                   "hamqth_qso_upload_date = :hamqth_qso_upload_date, hamqth_qso_upload_status = :hamqth_qso_upload_status, "
-                   "iota = :iota, iota_island_id = :iota_island_id, "
-                   "k_index = :k_index, lat = :lat, lon = :lon, lotw_qslrdate = :lotw_qslrdate, lotw_qslsdate = :lotw_qslsdate, "
-                   "lotw_qsl_rcvd = :lotw_qsl_rcvd, lotw_qsl_sent = :lotw_qsl_sent, max_bursts = :max_bursts, "
-                   "ms_shower = :ms_shower, my_antenna = :my_antenna, my_altitude = :my_altitude, my_arrl_sect = :my_arrl_sect, my_city = :my_city, my_cnty = :my_cnty, "
-                   "my_country = :my_country, my_cq_zone = :my_cq_zone, my_dxcc = :my_dxcc, my_fists = :my_fists, "
-                   "my_gridsquare = :my_gridsquare, my_gridsquare_ext = :my_gridsquare_ext, my_iota = :my_iota, my_iota_island_id = :my_iota_island_id, "
-                   "my_itu_zone = :my_itu_zone, my_lat = :my_lat, my_lon = :my_lon, my_name = :my_name, "
-                   "my_pota_ref = :my_pota_ref, my_postal_code = :my_postal_code, my_rig = :my_rig, my_sig = :my_sig, my_sig_info = :my_sig_info, "
-                   "my_sota_ref = :my_sota_ref, my_state = :my_state, my_street = :my_street, "
-                   "my_usaca_counties = :my_usaca_counties, my_wwff_ref = :my_wwff_ref, my_vucc_grids = :my_vucc_grids, name = :name, notes = :notes, "
-                   "nr_bursts = :nr_bursts, nr_pings = :nr_pings, operator = :operator, owner_callsign = :owner_callsign, "
-                   "pfx = :pfx, pota_ref = :pota_ref, precedence = :precedence, prop_mode = :prop_mode, "
-                   "public_key = :public_key, qrzcom_qso_upload_date = :qrzcom_qso_upload_date, "
-                   "qrzcom_qso_upload_status = :qrzcom_qso_upload_status, qslmsg = :qslmsg, qslrdate = :qslrdate, "
-                   "qslsdate = :qslsdate, qsl_rcvd = :qsl_rcvd, qsl_sent = :qsl_sent, qsl_rcvd_via = :qsl_rcvd_via, "
-                   "qsl_sent_via = :qsl_sent_via, qsl_via = :qsl_via, qso_complete = :qso_complete, qso_random = :qso_random, "
-                   "qth = :qth, region = :region, rig = :rig, rx_pwr = :rx_pwr, sat_mode = :sat_mode, sat_name = :sat_name, "
-                   "sfi = :sfi, sig = :sig, sig_info = :sig_info, silent_key = :silent_key, skcc = :skcc, "
-                   "sota_ref = :sota_ref, srx_string = :srx_string, srx = :srx, stx_string = :stx_string, stx = :stx, "
-                   "state = :state, station_callsign = :station_callsign, submode = :submode, swl = :swl, uksmg = :uksmg, "
-                   "usaca_counties = :usaca_counties, ve_prov = :ve_prov, wwff_ref = :wwff_ref, vucc_grids = :vucc_grids, ten_ten = :ten_ten, "
-                   "tx_pwr = :tx_pwr, web = :web, qso_date_off = :qso_date_off, marked = :marked, lognumber = :lognumber "
-                   "WHERE id = :id");
-}
-
-*/
-
 int QSO::getBandIdFromBandName(bool _rxBand)
 {
     QSqlQuery query;
@@ -4099,7 +3938,8 @@ int QSO::getBandIdFromBandName(bool _rxBand)
     }
     return -1;
 }
-
+*/
+/*
 int QSO::getModeIdFromModeName()
 {
     // We need to save always the submode id
@@ -4158,250 +3998,6 @@ int QSO::getModeIdFromModeName()
     }
     return -3;
 }
-
-/*
-QSqlQuery QSO::getPreparedQuery(const QString &_s)
-{
-    QSet<QString> qsl_rcvd_dates_set;
-    qsl_rcvd_dates_set.insert("Y");
-    qsl_rcvd_dates_set.insert("I");
-    qsl_rcvd_dates_set.insert("V");
-
-    QSet<QString> qsl_sent_dates_set;
-    qsl_sent_dates_set.insert("Y");
-    qsl_sent_dates_set.insert("Q");
-    qsl_sent_dates_set.insert("I");
-
-    QSqlQuery query;
-
-    //qDebug() << Q_FUNC_INFO << " - Start ";
-    //qDebug() << Q_FUNC_INFO << " - queryString: " << _s;
-
-    query.clear ();
-    if (!query.prepare (_s))
-    {
-        //qDebug() << Q_FUNC_INFO << " - Query not prepared-3285";
-        query.clear ();
-        return query;
-    }
-    //qDebug() << Q_FUNC_INFO << " - Starting to bind values...";
-    //Utilities util(Q_FUNC_INFO);
-    query.bindValue(":qso_date", util->getDateTimeSQLiteStringFromDateTime (getDateTimeOn ()));
-    query.bindValue(":call", getCall());
-    query.bindValue(":rst_sent", getRSTTX());
-    query.bindValue(":rst_rcvd", getRSTRX());
-    query.bindValue(":bandid", getBandIdFromBandName(false));
-    query.bindValue(":modeid", getModeIdFromModeName());
-    query.bindValue(":cqz", getCQZone());
-    query.bindValue(":ituz", getItuZone());
-    query.bindValue(":dxcc", getDXCC());
-    query.bindValue(":address", getAddress());
-    //Adif adif(Q_FUNC_INFO);
-    if (adif->isValidAge(getAge()))
-        query.bindValue(":age", getAge());
-    query.bindValue(":altitude", getAltitude());
-    if (adif->isValidA_Index(getA_Index()))
-        query.bindValue(":a_index", getA_Index());
-    if (adif->isValidAnt_AZ(getAnt_az()))
-        query.bindValue(":ant_az", getAnt_az());
-    if (adif->isValidAnt_EL((getAnt_el())))
-        query.bindValue(":ant_el", getAnt_el());
-
-    query.bindValue(":ant_path", getAnt_Path());
-    query.bindValue(":arrl_sect", getARRL_Sect());
-    query.bindValue(":award_submitted", getAwardSubmitted ());
-    query.bindValue(":award_granted", getAwardGranted ());
-    query.bindValue(":band_rx", getBandIdFromBandName(true));
-    query.bindValue(":checkcontest", getCheck());
-    query.bindValue(":class", getClass());
-
-    query.bindValue(":cnty", getCounty());
-    query.bindValue(":comment", getComment());
-    query.bindValue(":cont", getContinent ());
-    query.bindValue(":contacted_op", getContactedOperator());
-    query.bindValue(":contest_id", getContestID());
-    query.bindValue(":country", getCountry());
-    query.bindValue(":credit_submitted", getCreditSubmitted());
-    query.bindValue(":credit_granted,", getCreditGranted());
-    query.bindValue(":darc_dok", getDarcDok ());
-    if (adif->isValidDistance(getDistance()))
-        query.bindValue(":distance", getDistance());
-    query.bindValue(":email", getEmail());
-    query.bindValue(":eq_call", getEQ_Call());
-
-
-    if (adif->isValidFISTS(getFists()))
-        query.bindValue(":fists", getFists ());
-    if (adif->isValidFISTS(getFistsCC()))
-        query.bindValue(":fists_cc", getFistsCC ());
-
-    query.bindValue(":force_init", util->boolToCharToSQLite (getForceInit()));
-    query.bindValue(":freq_tx", getFreqTX());
-    query.bindValue(":freq_rx", getFreqRX());
-    query.bindValue(":gridsquare", getGridSquare());
-    query.bindValue(":gridsquare_ext", getGridSquare_ext());
-
-    query.bindValue(":iota", getIOTA());
-    if (adif->isValidIOTA_islandID(getIotaID()))
-        query.bindValue(":iota_island_id", getIotaID());
-    if (adif->isValidK_Index(getK_Index()))
-        query.bindValue(":k_index", getK_Index());
-    query.bindValue(":lat", getLatitude());
-    query.bindValue(":lon", getLongitude());
-
-    query.bindValue(":clublog_qso_upload_date", util->getDateSQLiteStringFromDate(getClubLogDate()));
-    query.bindValue(":clublog_qso_upload_status", getClubLogStatus());
-
-    query.bindValue(":hrdlog_qso_upload_date", getHRDUpdateDate ());
-    query.bindValue(":hrdlog_qso_upload_status", getHRDLogStatus ());
-
-    query.bindValue(":hamlogeu_qso_upload_date", getHamLogEUUpdateDate());
-    query.bindValue(":hamlogeu_qso_upload_status", getHamLogEUStatus());
-    query.bindValue(":hamqth_qso_upload_date", getHamQTHUpdateDate());
-    query.bindValue(":hamqth_qso_upload_status", getHamQTHStatus());
-
-
-    query.bindValue(":eqsl_qsl_rcvd", getEQSLQSL_RCVD());
-    if (qsl_rcvd_dates_set.contains(getEQSLQSL_RCVD()))
-        query.bindValue(":eqsl_qslrdate", util->getDateSQLiteStringFromDate(getEQSLQSLRDate()));
-
-    //qDebug() << Q_FUNC_INFO << "- eqsl_qsl_sent: " << getEQSLQSL_SENT();
-    query.bindValue(":eqsl_qsl_sent", getEQSLQSL_SENT());
-
-    if (qsl_sent_dates_set.contains(getEQSLQSL_SENT()))
-        query.bindValue(":eqsl_qslsdate", util->getDateSQLiteStringFromDate(getEQSLQSLSDate()));
-
-    query.bindValue(":qsl_rcvd", getQSL_RCVD());
-    if (qsl_rcvd_dates_set.contains(getQSL_RCVD()))
-        query.bindValue(":qslrdate", util->getDateSQLiteStringFromDate(getQSLRDate()));
-
-    query.bindValue(":qsl_sent", getQSL_SENT());
-    if (qsl_sent_dates_set.contains(getQSL_SENT()))
-        query.bindValue(":qslsdate", util->getDateSQLiteStringFromDate(getQSLSDate()));
-
-    query.bindValue(":lotw_qsl_rcvd", getLoTWQSL_RCVD());
-    if (qsl_rcvd_dates_set.contains(getLoTWQSL_RCVD()))
-        query.bindValue(":lotw_qslrdate", util->getDateSQLiteStringFromDate(getLoTWQSLRDate()));
-
-    query.bindValue(":lotw_qsl_sent", getLoTWQSL_SENT());
-    if (qsl_sent_dates_set.contains(getLoTWQSL_SENT()))
-        query.bindValue(":lotw_qslsdate", util->getDateSQLiteStringFromDate(getLoTWQSLSDate()));
-
-
-    query.bindValue(":qrzcom_qso_upload_date", util->getDateSQLiteStringFromDate(getQRZCOMDate ()));
-    query.bindValue(":qrzcom_qso_upload_status", getQRZCOMStatus ());
-
-    if (adif->isValidNRBursts(getMaxBursts()))
-        query.bindValue(":max_bursts", getMaxBursts());
-    query.bindValue(":ms_shower", getMsShower());
-    query.bindValue(":my_altitude", getMyAltitude());
-    query.bindValue(":my_antenna", getMyAntenna());
-    query.bindValue(":my_arrl_sect", getMyARRL_Sect());
-    query.bindValue(":my_city", getMyCity());
-
-    query.bindValue(":my_cnty", getMyCounty());
-    query.bindValue(":my_country", getMyCountry());
-    query.bindValue(":my_cq_zone", getMyCQZone());
-    query.bindValue(":my_dxcc", getMyDXCC ());
-    query.bindValue(":my_fists", getMyFists ());
-    query.bindValue(":my_gridsquare", getMyGridSquare());
-    query.bindValue(":my_gridsquare_ext", getMyGridSquare_ext());
-    query.bindValue(":my_iota", getMyIOTA());
-    if (adif->isValidIOTA_islandID(getMyIotaID()))
-        query.bindValue(":my_iota_island_id", getMyIotaID());
-    query.bindValue(":my_itu_zone", getMyITUZone ());
-    query.bindValue(":my_lat", getMyLatitude());
-    query.bindValue(":my_lon", getMyLongitude());
-    query.bindValue(":my_name", getMyName());
-    query.bindValue(":my_pota_ref", getMyPOTA_Ref());
-
-    query.bindValue(":my_postal_code", getMyPostalCode ());
-    query.bindValue(":my_rig", getMyRig());
-
-    query.bindValue(":my_sig", getMySig());
-    query.bindValue(":my_sig_info", getMySigInfo());
-    query.bindValue(":my_sota_ref", getMySOTA_REF());
-    query.bindValue(":my_state", getMyState());
-    query.bindValue(":my_street", getMyStreet());
-    query.bindValue(":my_usaca_counties", getMyUsacaCounties ());
-    query.bindValue(":my_wwff_ref", getMyWWFF_Ref());
-    query.bindValue(":my_vucc_grids", getMyVUCCGrids());
-    query.bindValue(":name", getName());
-    query.bindValue(":notes", getNotes());
-    if (adif->isValidNRBursts(getNrBursts()))
-        query.bindValue(":nr_bursts", getNrBursts());
-    if (adif->isValidPings(getNrPings()))
-        query.bindValue(":nr_pings", getNrPings());
-    query.bindValue(":operator", getOperatorCallsign());
-    query.bindValue(":owner_callsign", getOwnerCallsign());
-    query.bindValue(":pfx", getPrefix());
-
-    query.bindValue(":pota_ref", getPOTA_Ref());
-    query.bindValue(":precedence", getPrecedence());
-    query.bindValue(":prop_mode", getPropMode());
-    query.bindValue(":public_key", getPublicKey());
-
-
-    query.bindValue(":qslmsg", getQSLMsg());
-
-
-    query.bindValue(":qsl_rcvd_via", getQSLRecVia());
-    query.bindValue(":qsl_sent_via", getQSLSentVia());
-    query.bindValue(":qsl_via", getQSLVia());
-    if (adif->isValidQSO_COMPLETE(getQSOComplete()))
-        query.bindValue(":qso_complete", adif->setQSO_COMPLETEToDB(getQSOComplete()));
-    query.bindValue(":qso_random", util->boolToCharToSQLite (getQSORandom()));
-    query.bindValue(":qth", getQTH());
-    query.bindValue(":region", getRegion ());
-    query.bindValue(":rig", getRig ());
-    if (adif->isValidPower(getRXPwr()))
-        query.bindValue(":rx_pwr", getRXPwr());
-    if (getPropMode() == "SAT")
-    {
-        query.bindValue(":sat_mode", getSatMode());
-        query.bindValue(":sat_name",getSatName());
-    }
-    if (adif->isValidSFI(getSFI()))
-        query.bindValue(":sfi", getSFI());
-    query.bindValue(":sig", getSIG());
-    query.bindValue(":sig_info", getSIG_INFO ());
-    query.bindValue(":silent_key", util->boolToCharToSQLite (getSilentKey ()));
-    query.bindValue(":skcc", getSkcc ());
-
-    query.bindValue(":sota_ref", getSOTA_REF());
-    query.bindValue(":srx_string", getSrxString());
-    if (adif->isValidSRX(getSrx()))
-        query.bindValue(":srx", getSrx());
-    query.bindValue(":stx_string", getStxString());
-    if (adif->isValidSTX(getStx()))
-        query.bindValue(":stx", getStx());
-    query.bindValue(":state", getState());
-    query.bindValue(":station_callsign", getStationCallsign());
-    // query.bindValue(":submode", getModeIdFromModeName());
-
-    query.bindValue(":swl", util->boolToCharToSQLite (getSwl()));
-    if (adif->isValidUKSMG(getUksmg()))
-        query.bindValue(":uksmg", getUksmg ());
-    query.bindValue(":usaca_counties", getUsacaCounties ());
-    query.bindValue(":ve_prov", getVeProv ());
-    query.bindValue(":wwff_ref", getWWFF_Ref());
-    query.bindValue(":vucc_grids", getVUCCGrids());
-    if (adif->isValidTenTen(getTenTen()))
-        query.bindValue(":ten_ten", getTenTen());
-    if (adif->isValidPower(getTXPwr()))
-        query.bindValue(":tx_pwr", getTXPwr());
-    query.bindValue(":web", getWeb());
-    query.bindValue(":qso_date_off", util->getDateTimeSQLiteStringFromDateTime(getDateTimeOff()));
-    query.bindValue(":lognumber", getLogId());
-
-    // qVariantList list = query.boundValues();
-    //for (int i = 0; i < list.size(); ++i)
-    //qDebug() << Q_FUNC_INFO << QString(": %1").arg(i) << "/ " << list.at(i).toString().toUtf8().data() << "\n";
-
-    //qDebug() << Q_FUNC_INFO << " - END";
-    return query;
-}
-
 */
 
 QString QSO::getADIF(ExportMode _em)
@@ -5106,6 +4702,7 @@ bool QSO::fromDB(int _qsoId)
 }
 
 */
+/*
 
 int QSO::getLastInsertedQSO()
 {
@@ -5129,6 +4726,7 @@ int QSO::getLastInsertedQSO()
     return id;
     //qDebug() << Q_FUNC_INFO << " - END";
 }
+*/
 
 void QSO::printQSO()
 { // This function is just to print inthe console the QSO fields for debug purposes

@@ -40,6 +40,12 @@
 #include <QtGlobal>
 #include "klogdefinitions.h"
 
+struct AdifMode {
+    QString mode;
+    QString cabrillo; // CW, PH, FM, RY, DG
+    QStringList submodes;
+};
+
 class Adif : public QObject {
     Q_OBJECT
     //friend class tst_Adif;
@@ -48,6 +54,7 @@ public:
     Adif(const QString &_parentName);
     ~Adif();
     //void init();
+    QList<AdifMode> getModeList() const;        // Return the full list of ADIF modes
     ADIFField setPair(const QString &_pair);
     bool isValidContinent(const QString &_s);
     QStringList getContinents();
@@ -74,7 +81,9 @@ public:
     bool isValidLogId(const int _b);            //>0
     //bool isValidAltitude (const double _s);       // > 10000 (10000 is a default value in KLog)
     bool isValidAntPath(const QString &_s);
-    bool isValidMode (const QString &_s);
+    bool isValidMode (const QString &_s) const;
+    bool isValidSubMode (const QString &_s) const;
+    QString getModeFromSubmode(const QString &_submode) const;
     bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
     QString getQSO_COMPLETEFromDB(const QString &_s);   // Translates the DB value into an ADIF value
     int setQSO_COMPLETEToDB(const QString &_s);         // Translates the ADIF to a DB value
@@ -87,7 +96,7 @@ public:
     void setLogLevel(DebugLogLevel _l);
     QString getADIFField(const QString &_fieldName, const QString &_data);
     QString getADIFBoolFromBool(const bool _b);             // Will produce the ADIF format if a bool is received
-    void setModes(const QStringList &_modes);            //TODO: Do not depend on external source to fill
+
 
     QStringList getQSOUploadStatus (bool _fullName = false);    // Returns the ADIF enumeration; fullname= true -> Yes-Upload
     QStringList getQSLSentStatus (bool _fullName = false);      // Returns the ADIF enumeration; fullname= true -> Yes-Sent
@@ -104,7 +113,7 @@ private:
     void setARRLSect();
     void setContinents();
     void setSponsorsList();
-
+    void setModes();
 
     bool isValidCall(const QString &_c);
 
@@ -112,8 +121,8 @@ private:
     DebugLogLevel logLevel;
     QHash<QString, QString> ADIFHash;   // Name, type
     QStringList notZeroFields;          // Numeral ADIF fields where having a Zero makes no sense
-
-    QStringList ARRL_sects, continents, sponsorsList, modes;
+    QList<AdifMode> modeList;          // List of modes/submodes, ...
+    QStringList ARRL_sects, continents, sponsorsList;
 };
 
 #endif // ADIF_H
