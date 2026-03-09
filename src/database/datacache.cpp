@@ -26,7 +26,7 @@
 #include "datacache.h"
 
 DataCache::DataCache() {
-    bandListIsBuild = false;
+    bandListIsBuilt = false;
 }
 
 DataCache::~DataCache() {};
@@ -40,7 +40,7 @@ void DataCache::addBand(int id, const QString &name, Frequency min, Frequency ma
         max,
     };
     bandList.append(entry);
-    bandListIsBuild = true;
+    bandListIsBuilt = true;
 }
 
 BandEntry DataCache::getBandFromFreq(Frequency freq) const
@@ -65,8 +65,12 @@ BandEntry DataCache::getBandFromName(const QString &name) const {
 }
 
 bool DataCache::isBandListOK() const {
-    return bandListIsBuild;
+    return bandListIsBuilt;
 }
+bool DataCache::isModeListOK() const {
+    return modeListIsBuilt;
+}
+
 
 BandEntry DataCache::getBandFromId(int id) const
 {
@@ -77,4 +81,38 @@ BandEntry DataCache::getBandFromId(int id) const
     }
     // Return empty/invalid entry if not found
     return BandEntry{-1, "", Frequency(0.0), Frequency(0.0)};
+}
+
+void DataCache::addMode(int id, const QString &submode, const QString &mode)
+{
+    ModeEntry entry = { id, submode.toUpper(), mode.toUpper() };
+    modeList.append(entry);
+    modeListIsBuilt = true;
+}
+
+ModeEntry DataCache::getModeFromSubmode(const QString &submode) const
+{
+    const QString upper = submode.toUpper();
+    for (const auto &m : modeList)
+        if (m.submode == upper)
+            return m;
+    return ModeEntry{-1, "", ""};
+}
+
+ModeEntry DataCache::getModeFromId(int id) const
+{
+    for (const auto &m : modeList)
+        if (m.id == id)
+            return m;
+    return ModeEntry{-1, "", ""};
+}
+
+int DataCache::getModeIdFromSubmode(const QString &submode) const
+{
+    return getModeFromSubmode(submode).id;
+}
+
+QString DataCache::getModeNameFromSubmode(const QString &submode) const
+{
+    return getModeFromSubmode(submode).mode;
 }

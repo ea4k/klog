@@ -39,11 +39,16 @@ struct BandEntry {
     Frequency minFreq;
     Frequency maxFreq;
 
-
     // Helper to check inclusion
     bool contains(Frequency freq) const { return (freq >= minFreq && freq <= maxFreq); }
     // Helper to handle "Not Found" state
     bool isValid() const { return !name.isEmpty(); }
+};
+
+struct ModeEntry {
+    int id;
+    QString submode;  // e.g. "USB", "FT8", "JT9C"
+    QString mode;     // e.g. "SSB", "FT8", "JT9"
 };
 
 class DataCache
@@ -61,9 +66,18 @@ public:
     BandEntry getBandFromName(const QString &name) const;
     BandEntry getBandFromId(int id) const;
 
+    void addMode(int id, const QString &submode, const QString &mode);
+    bool isModeListOK() const;
+
+    ModeEntry getModeFromSubmode(const QString &submode) const;
+    ModeEntry getModeFromId(int id) const;
+    int getModeIdFromSubmode(const QString &submode) const;  // quick shortcut
+    QString getModeNameFromSubmode(const QString &submode) const; // quick shortcut
+
 private:
     QList<BandEntry> bandList;
-    bool bandListIsBuild;
+    QList<ModeEntry> modeList;
+    bool bandListIsBuilt, modeListIsBuilt;
 };
 
 #endif // DATACACHE_H

@@ -7,9 +7,6 @@ ya están en el caché, lo devuelve como QSO nuevo.
   bool QSO::setLoTWRXQSL(const QString& data)
   bool QSO::setLoTWRXQSO(const QString& data)
 
-WIP: https://github.com/ea4k/klog/issues/858
-Test: bool DataProxy_SQLite::isThisFreqInBand(const QString &, const Frequency)
-TODO: Working on Database qhash (band-done, mode, dupeQSOs - DUPE = Callsign/Date/time(+- margin)/Band/mode)
 TODO: Hamlib is not always working
 TODO: void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
 TODO: Check if is properly readed when importing from LoTW
@@ -20,6 +17,7 @@ TODO: Isolate the functions from Utilities that return data (like getVersion) an
 a small class for that. Keep utilities not persistant.
 
 TBD
+- Enhancement: Band & Modes fully migrated to DataCache
 - Enhancement: Added the FT2 submode
 - Enhancement: Test on QSO cache class.
 - Enhancement: Complete ADIF->IsValidPOTA (Closes #717)

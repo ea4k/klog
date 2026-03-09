@@ -91,6 +91,7 @@ public:
     // CACHE & HASH functios
     bool createHashes();      // Creates a list of hashes for quick search (band/id & mode/id)
     void loadBandDataCache(); // Creates the bands cache
+    void loadModeDataCache(); // Creates the modes cache
 
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
@@ -410,7 +411,7 @@ private:
     QSqlQuery getPreparedQuery(const QString &_s, const QSO &_qso);  // Prepares the query to add QSOs
     void prepareStaticQueries();  // prepares the static query to save time in run time
     void bindQSOValues(QSqlQuery &query, const QSO &_qso);
-    void mapModeNameSubmode();                                      // Maps mode/Submode/id using submodeToName & nameToMainId
+    //void mapModeNameSubmode();                                      // Maps mode/Submode/id using submodeToName & nameToMainId
 
     // Helper function to simplify several functions
     QString getStringQueryForQSOsLists(const QString &_stationCallsign,
@@ -431,16 +432,16 @@ private:
 
     //KLOG_DEPRECATED QList<BandLimits> m_bandLimits;         // List to store all band limits, populated once on startup
     //KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash; // Move to DataCache
-    KLOG_DEPRECATED QHash<QString, int> bandIDs;          // Move to DataCache
-    KLOG_DEPRECATED QHash<QString, int> modeIDs;          // Move to DataCache
+    //KLOG_DEPRECATED QHash<QString, int> bandIDs;          // Move to DataCache
+    //KLOG_DEPRECATED QHash<QString, int> modeIDs;          // Move to DataCache
 
     DataCache m_cache; // Bands cache
 
-    KLOG_DEPRECATED QHash<int, QString> modeIdToName;         // Move to DataCache
-    KLOG_DEPRECATED QHash<QString, QList<int>> nameToModeIds; // Move to DataCache
+    //KLOG_DEPRECATED QHash<int, QString> modeIdToName;         // Move to DataCache
+    //KLOG_DEPRECATED QHash<QString, QList<int>> nameToModeIds; // Move to DataCache
 
     QMultiHash<QString, QsoInfo>
-        m_qsoCache; // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
+    m_qsoCache; // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
     QString generateGroupingKey(const QString &call, int bandId, int modeId);
     void addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId);
 

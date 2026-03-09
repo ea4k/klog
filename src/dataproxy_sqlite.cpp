@@ -79,14 +79,13 @@ DataProxy_SQLite::~DataProxy_SQLite()
 bool DataProxy_SQLite::createHashes()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-        loadBandDataCache();
-
-
-    modeIDs.clear();
-    modeIDs = db->getHashTableData(ModeData);
-    if (modeIDs.isEmpty())
+    loadBandDataCache();
+    loadModeDataCache();
+    if (!m_cache.isBandListOK())
         return false;
-    mapModeNameSubmode();
+    if (!m_cache.isModeListOK())
+        return false;
+
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -97,16 +96,28 @@ void DataProxy_SQLite::loadBandDataCache()
     Frequency fmin;
     Frequency fmax;
 
-            while (query.next()) {
-                    fmin.fromDouble(query.value(2).toDouble(), MHz);
-                    fmax.fromDouble(query.value(3).toDouble(), MHz);
-                    m_cache.addBand(
-                            query.value(0).toInt(),    // The existing BandID
-                            query.value(1).toString(), // Name
-                            fmin, // Min
-                            fmax  // Max
-                    );
-            }
+    while (query.next()) {
+        fmin.fromDouble(query.value(2).toDouble(), MHz);
+        fmax.fromDouble(query.value(3).toDouble(), MHz);
+        m_cache.addBand(
+            query.value(0).toInt(),    // The existing BandID
+            query.value(1).toString(), // Name
+            fmin, // Min
+            fmax  // Max
+        );
+    }
+}
+
+void DataProxy_SQLite::loadModeDataCache()
+{
+    QSqlQuery query("SELECT id, submode, name FROM mode");
+    while (query.next()) {
+        m_cache.addMode(
+            query.value(0).toInt(),    // id
+            query.value(1).toString(), // submode
+            query.value(2).toString()  // mode name
+        );
+    }
 }
 
 QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
@@ -260,13 +271,8 @@ void DataProxy_SQLite::createLogPanel(){
 int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_modeName.length()<2)
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return -4;
-    }
-    logEvent (Q_FUNC_INFO, "END", Debug);
-    return modeIDs.value(_modeName, -5);
+    if (_modeName.length() < 2) return -4;
+        return m_cache.getModeIdFromSubmode(_modeName);
     //return db->getModeIdFromSubMode(_modeName);
 }
 
@@ -341,25 +347,14 @@ QString DataProxy_SQLite::getNameFromBandId (const int _id)
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
 { //TODO: Use the hash
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-
-    // QHash::key(_id) performs a linear search to find the key (Name)
-    // associated with the value (ID). If not found, it returns an empty QString.
-    // Since the number of bands is small, this O(N) operation is very fast.
-    QString name = modeIDs.key(_id);
-
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    return name;
+    return m_cache.getModeFromId(_id).mode;
     //return db->getModeNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getSubModeFromId (const int _id)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    QString key = modeIDs.key(_id);
-    if (key.isEmpty())
-        return QString();
-    return key;
+    return m_cache.getModeFromId(_id).submode;
 }
 
 QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
@@ -3335,18 +3330,6 @@ int DataProxy_SQLite::isWorkedB4(const QString &_qrz, const int _currentLog)
 }
 
 
-void DataProxy_SQLite::mapModeNameSubmode()
-{
-    modeIdToName.clear();
-    nameToModeIds.clear();
-        QSqlQuery query("SELECT id, name FROM mode");
-        while (query.next()) {
-            int id = query.value(0).toInt();
-            QString name = query.value(1).toString();
-            modeIdToName[id] = name;
-            nameToModeIds[name].append(id);
-        }
-}
 
 int DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 {
