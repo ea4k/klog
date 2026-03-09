@@ -57,7 +57,8 @@ void SetupPageHamLib::stopHamlib ()
 void SetupPageHamLib::slotTestHamlib()
 {
    //qDebug() << Q_FUNC_INFO;
-    hamlib->stop ();
+    if (!hamlib->stop ())
+       return;
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
        //qDebug() << Q_FUNC_INFO << " - FLRig/NetRig";

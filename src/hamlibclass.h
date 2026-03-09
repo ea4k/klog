@@ -82,12 +82,12 @@ public:
     void setNetworkPort(const int _port);
 
     bool init(bool _active);
-    bool stop();
+    bool stop();                    // Returns true ehen stopped
     bool readRadio(bool _forceRead);
     bool isRunning();
     void initClass();
     void clean();
-    void checkErrorCountAndStop();
+    bool checkErrorCountAndStop();  // Returns True when hamlib is stopped
 
     //double getFrequency();
     //void showDebugLog(const QString &_func, const QString &_log);
@@ -159,7 +159,7 @@ private:
     int pollInterval; // Poll interval in mSecs
     int errorCount;   // Number of times that the rig has returned an
                       // error since last time OK.
-    bool connected;   // When we connect to the rig
+    //bool connected;   // When we connect to the rig
 
     bool readOnlyMode; // If true, KLog will not modify any parameter
                        // (freq/mode...) in the radio.
