@@ -1252,7 +1252,7 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
         button1->setText(dxcc1_prefix);
         button2->setText(dxcc2_prefix);
 
-        int ret;
+        //int ret;
 
         QMessageBox msgBox;
         msgBox.setWindowTitle(tr("KLog - Select correct entity"));
@@ -1260,18 +1260,19 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
 
         msgBox.addButton(button2, QMessageBox::AcceptRole);
         msgBox.addButton(button1, QMessageBox::ActionRole);
-        msgBox.addButton(QMessageBox::Cancel);
-        ret = msgBox.exec();
+        msgBox.addButton(QMessageBox::Cancel);        
+        msgBox.exec();
+        QAbstractButton *clicked = msgBox.clickedButton();
 
-        if (ret == QMessageBox::AcceptRole)
+        if (clicked == button2)
         {
             return dxcc_qso;
         }
-        else if (ret == QMessageBox::ActionRole)
+        else if (clicked == button1)
         {
             return dxcc_Call;
         }
-        else if (ret == QMessageBox::Cancel)
+        else
         {
             return -1;
         }

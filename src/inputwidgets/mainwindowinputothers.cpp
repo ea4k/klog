@@ -100,12 +100,12 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
 void MainWindowInputOthers::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
-
-    int qrzEntity = world->getQRZARRLId(qso.getCall());
-    if (world->selectEntity(qrzEntity, qso.getDXCC()>0))
-        setEntity(qrzEntity);
+    qDebug() << Q_FUNC_INFO << " - QSO DXCC: " << qso.getDXCC();
+    if (qso.getDXCC() > 0)
+        setEntity(qso.getDXCC());
     else
-    setEntity(qso.getDXCC());
+        setEntity(world->getQRZARRLId(qso.getCall()));
+
     setPropMode(qso.getPropMode(), false);
     setSOTA(qso.getSOTA_REF());
     setAge(qso.getAge());

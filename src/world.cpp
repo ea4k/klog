@@ -637,6 +637,12 @@ bool World::readCTYCSV(const QString &_worldFile)
             existingDXCCs.append(_entityNumber);
         }
 
+        QString prefixesToAdd = QString(); // To capture 3Y/b, FT/t prefixes
+        if (mPrefix.contains(QChar('/'), Qt::CaseInsensitive))
+        {
+            prefixesToAdd = mPrefix.toUpper();
+        }
+
         QString entName = stringList.at(1);
         int contId = dataProxy->getContinentIdFromContinentShortName(stringList.at(3));
         int cqz = stringList.at(4).toInt();
@@ -647,10 +653,12 @@ bool World::readCTYCSV(const QString &_worldFile)
 
        //qDebug() << Q_FUNC_INFO << ": NEW prefix: " << mPrefix;
         existingPrefixes.append(mPrefix);
+
+        prefixesToAdd = prefixesToAdd + " " + stringList.at(9);
         if (addEntity(entName, cqz, ituz, contId, lat, lon, utc, _entityNumber, mPrefix)) {
           //qDebug() << Q_FUNC_INFO << "Entity added:" << entName;
             // stringList.at(9) contains an space separated list of prefixes for that entity
-            addPrefixes(stringList.at(9), _entityNumber, cqz, ituz);             //TODO: Handle the error
+            addPrefixes(prefixesToAdd.trimmed(), _entityNumber, cqz, ituz);             //TODO: Handle the error
         } else {
           //qDebug() << Q_FUNC_INFO << "Entity not added:" << entName;
         }
