@@ -5225,7 +5225,7 @@ Frequency DataProxy_SQLite::getSatelliteUplink(const QString &_sat, int _pair)
         if (query.isValid())
         {
             aux = query.value(0).toString();
-            freq = getFreqFromRange(aux, _pair);
+            freq = getFreqFromRange(aux, _pair, MHz);
             //aux = freq.toQString();
         }
         else
@@ -5269,7 +5269,7 @@ Frequency DataProxy_SQLite::getSatelliteDownlink(const QString &_sat, int _pair)
         if (query.isValid())
         {
             aux = query.value(0).toString();
-            freq = getFreqFromRange(aux,_pair);
+            freq = getFreqFromRange(aux,_pair, MHz);
             //aux = freq.toQString();
         }
         else
@@ -5511,54 +5511,46 @@ QString DataProxy_SQLite::getSateliteArrlIdFromId(const int _id)
     return aux;
 }
 
-Frequency DataProxy_SQLite::getFreqFromRange(const QString &_fr, int _pair)
-{ //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
-    //qDebug()  << Q_FUNC_INFO << " - " << _fr;
-    QString fr1, fr2, aux;
-    double f1, f2;
-    fr1.clear();
-    fr2.clear();
-    //f1 = 0.0;
-    //f2 = 0.0;
+Frequency DataProxy_SQLite::getFreqFromRange(const QString &_fr, int _pair, FreqUnits freqUnits)
+{
+    qDebug() << Q_FUNC_INFO << " - Start";
     Frequency freq;
 
-    aux.clear();
-    aux = _fr;
+    if (_fr.trimmed().isEmpty())
+        return freq;
 
+    QString aux = _fr.trimmed();
+
+    // Step 1: Split the pairs if more than one
     if (aux.contains(','))
-    {   // Potentially somethink like: 435.030-435.456,146.180
-        if((_pair<0) || (_pair>1))
-        {
-            _pair = 0;
-        }
-             //qDebug()  << Q_FUNC_INFO << " - has several freqs: " << aux;
-        aux = aux.section(',', _pair, _pair);   // We select the selected package
-    }
-    if (aux.contains('-'))          // Potentially somethink like: 435.030-435.456
     {
-             //qDebug()  << Q_FUNC_INFO << " - has several freqs: " << aux;
-        fr2 = aux.section('-', 1, 1);   // We select the second freq
-        fr1 = aux.section('-', 0, 0);   // We select the first freq
+        const QStringList pairs = aux.split(',', Qt::SkipEmptyParts);
+        const int clampedPair = qBound(0, _pair, pairs.size() - 1);
+        aux = pairs.at(clampedPair).trimmed();
+    }
 
-             //qDebug()  << Q_FUNC_INFO << " - fr1: " << fr1;
-             //qDebug()  << Q_FUNC_INFO << " - fr2: " << fr2;
-        f1 = fr1.toDouble();
-        f2 = fr2.toDouble();
-             //qDebug()  << Q_FUNC_INFO << " - f1: " << QString::number(f1);
-             //qDebug()  << Q_FUNC_INFO << " - f2: " << QString::number(f2);
+    // Step 2: Return the mid frequency from the pair
+    if (aux.contains('-'))
+    {
+        const QString fr1str = aux.section('-', 0, 0).trimmed();
+        const QString fr2str = aux.section('-', 1, 1).trimmed();
 
-        f1 = (f2 + f1)/2;
-        freq.fromDouble(f1);
+        Frequency f1, f2;
+        if (!f1.fromQString(fr1str, freqUnits) || !f2.fromQString(fr2str, freqUnits))
+            return freq;
 
-             //qDebug()  << Q_FUNC_INFO << " - f1 after calc: " << QString::number(f1);
+        const double mid = qAbs(f1.toDouble(MHz) + f2.toDouble(MHz)) / 2.0;
+        freq.fromDouble(mid, MHz);
     }
     else
-    {   // It is only one freq 145.950 so this is what must be returned
-        freq.fromQString(aux, KHz);
-        //f1 = aux.toDouble();
+    {
+        // Only one freq, ensure the value is positive
+        bool ok;
+        const double val = qAbs(aux.toDouble(&ok));
+        if (ok && val > 0.0)
+            freq.fromDouble(val, freqUnits);
     }
 
-         //qDebug()  << Q_FUNC_INFO << " - Return: " << QString::number(f1);
     return freq;
 }
 

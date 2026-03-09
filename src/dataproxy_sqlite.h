@@ -400,7 +400,7 @@ private:
     bool m_queriesPrepared = false; // Pre-prepared query status
 
     QStringList sortBandIdBottonUp(const QStringList _qs);
-    Frequency getFreqFromRange(const QString &_fr, int _pair);            //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
+    Frequency getFreqFromRange(const QString &_fr, int _pair, FreqUnits FreUnits);  //May even receive: 145.900-146.00 and should return the mid in the range (145.950)
     QStringList getColumnNamesFromTable(const QString &_tableName);
     QString getStringQueryStationCallSign (const QString &_a);      // Creates part of a query regarding the station_call field
     QString getStringQueryMyGrid (const QString &_a);               // Creates part of a query regarding the my_gridsquare field
