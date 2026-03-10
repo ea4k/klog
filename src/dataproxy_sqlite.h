@@ -443,7 +443,6 @@ private:
     QMultiHash<QString, QsoInfo>
     m_qsoCache; // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
     QString generateGroupingKey(const QString &call, int bandId, int modeId);
-    void addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId);
 
 
     //bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database

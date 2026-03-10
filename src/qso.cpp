@@ -3506,39 +3506,34 @@ bool QSO::setLoTWRXQSO(const QString& data)
         return false;
     }
 
-    // Sets the QSO as sent
-    setLoTWQSL_SENT("Y");
-    setLoTWQSLSDate(parsedDate.date()); // Sent date (SDate)
+    if (getLoTWQSL_SENT() != "Y") {
+        setLoTWQSL_SENT("Y");
+        setLoTWQSLSDate(parsedDate.date());
+    }
      return true;
 }
 
 bool QSO::setLoTWRXQSL(const QString& data)
 {
     QString cleanData = data.trimmed();
-    if (cleanData.isEmpty()) {
+    if (cleanData.isEmpty())
         return false;
-    }
 
-    // First try
     QDateTime parsedDate = QDateTime::fromString(cleanData, "yyyy-MM-dd HH:mm:ss");
 
-    // If LoTW changes format
-    if (!parsedDate.isValid()) {
+    if (!parsedDate.isValid())
         parsedDate = QDateTime::fromString(cleanData, Qt::ISODate);
-    }
 
-    // 3. No valid, data reject
-    if (!parsedDate.isValid()) {
-       //qDebug() << Q_FUNC_INFO << " - Invalid APP_LoTW_RXQSL date: " << data;
+    if (!parsedDate.isValid())
         return false;
-    }
 
-    // RXQSL Confirmed!
     setLoTWQSL_RCVD("Y");
-    setLoTWQSLRDate(parsedDate.date()); // RDate = Received Date
+    setLoTWQSLRDate(parsedDate.date());
 
-    // Forcing the QSL sent for coherence
-    setLoTWQSL_SENT("Y");
+    if (getLoTWQSL_SENT() != "Y") {
+        setLoTWQSL_SENT("Y");
+        setLoTWQSLSDate(parsedDate.date()); // misma fecha como aproximación
+    }
 
     return true;
 }

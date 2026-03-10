@@ -3197,7 +3197,7 @@ bool DataProxy_SQLite::applyLoTWFieldsToQSO(const QSO &_lotwQso, const int _qsoI
 
     if (_lotwQso.getLoTWQSL_SENT() == "Y")
     {
-        setClauses << "lotw_qsl_sent = 'Y'";
+        setClauses << "lotw_qsl_sent = CASE WHEN lotw_qsl_sent != 'Y' THEN 'Y' ELSE lotw_qsl_sent END";
         if (_lotwQso.getLoTWQSLSDate().isValid())
             setClauses << QString("lotw_qslsdate = '%1'")
                               .arg(util.getDateSQLiteStringFromDate(_lotwQso.getLoTWQSLSDate()));
@@ -8776,16 +8776,6 @@ QString DataProxy_SQLite::generateGroupingKey(const QString &call, int bandId, i
             .arg(call.toUpper())
             .arg(bandId)
             .arg(modeId);
-}
-
-void DataProxy_SQLite::addToCache(int id, const QString &call, const QDateTime &dateTime, int bandId, int modeId)
-{
-   //qDebug() << Q_FUNC_INFO << " - Start";
-    QString key = generateGroupingKey(call, bandId, modeId);
-
-    // We save the pair: (ID, DateTime)
-    m_qsoCache.insert(key, qMakePair(id, dateTime));
-   //qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
 }
 
 int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newTime,

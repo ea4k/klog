@@ -1,19 +1,10 @@
 WIP: LoTW & QSO
 QSO seems not to be arriving properly to processQSO some times
-WIP-BUG: la importación creo que no añade/elimina las fechas y estados de lotw
-No se está añadiendo los QSOs al cache (DataProxy_SQLite::addToCache) por lo que luego al validar
-ya están en el caché, lo devuelve como QSO nuevo.
-
-  bool QSO::setLoTWRXQSL(const QString& data)
-  bool QSO::setLoTWRXQSO(const QString& data)
 
 TODO: Hamlib is not always working
-TODO: void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
 TODO: Check if is properly readed when importing from LoTW
 TODO: LoTW import ensure exiting QSOs are updated
 
-TODO: Isolate the functions from Utilities that return data (like getVersion) and
-a small class for that. Keep utilities not persistant.
 
 TBD
 - Enhancement: Split is now managed also from radio/UI
