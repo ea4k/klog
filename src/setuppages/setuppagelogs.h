@@ -54,6 +54,7 @@ public:
     void setDefaultOperators(const QString &_p);
     void saveSettings();
     void loadSettings();
+    bool hasSettingsChanged() const;
 
 private slots:
     void slotNewButtonClicked();
@@ -107,6 +108,7 @@ private:
     DataProxy_SQLite *dataProxy;
     int selectedLog;
     QString defaultStationCallSign, defaultOperators;
+    bool logsModified;
 };
 
 

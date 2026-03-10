@@ -324,17 +324,17 @@ bool SetupPageHamLib::setRigType(const QString &_radio)
     return false;
 }
 
-int SetupPageHamLib::getDataBits()
+int SetupPageHamLib::getDataBits() const
 {
     return serialConfigWidget->getDataBits ();
 }
 
-QString SetupPageHamLib::getFlowControl()
+QString SetupPageHamLib::getFlowControl() const
 {
     return serialConfigWidget->getFlowControl ();
 }
 
-QString SetupPageHamLib::getParity()
+QString SetupPageHamLib::getParity() const
 {
     return serialConfigWidget->getParity ();
 }
@@ -379,4 +379,37 @@ void SetupPageHamLib::loadSettings()
     activateHamlibCheckBox->setChecked (settings.value("HamlibActive", false).toBool ());
     readOnlyModeCheckBox->setChecked (settings.value("HamlibReadOnly", false).toBool ());
     settings.endGroup ();
+
+    snapshot.active      = activateHamlibCheckBox->isChecked();
+    snapshot.readOnly    = readOnlyModeCheckBox->isChecked();
+    snapshot.rigModelId  = hamlib->getModelIdFromName(rigTypeComboBox->currentText());
+    snapshot.pollRate    = pollIntervalQSpinBox->value();
+    snapshot.serialPort  = serialConfigWidget->getSerialPort();
+    snapshot.serialBauds = serialConfigWidget->getSerialBauds();
+    snapshot.dataBits    = getDataBits();
+    snapshot.stopBits    = serialConfigWidget->getStopBits();
+    snapshot.flowControl = serialConfigWidget->getFlowControl();
+    snapshot.parity      = serialConfigWidget->getParity();
+    snapshot.netAddress  = networkConfigWidget->getAddress();
+    snapshot.netPort     = networkConfigWidget->getPort();
  }
+
+bool SetupPageHamLib::hasSettingsChanged() const
+{
+    if (snapshot.active      != activateHamlibCheckBox->isChecked())         return true;
+    if (snapshot.readOnly    != readOnlyModeCheckBox->isChecked())            return true;
+    if (snapshot.rigModelId  != hamlib->getModelIdFromName(rigTypeComboBox->currentText())) return true;
+    if (snapshot.pollRate    != pollIntervalQSpinBox->value())                return true;
+    if (snapshot.serialPort  != serialConfigWidget->getSerialPort())          return true;
+    if (snapshot.serialBauds != serialConfigWidget->getSerialBauds())         return true;
+    if (snapshot.dataBits    != getDataBits() )                               return true;
+    if (snapshot.stopBits    != serialConfigWidget->getStopBits())            return true;
+    if (snapshot.flowControl != serialConfigWidget->getFlowControl())         return true;
+    if (snapshot.parity      != serialConfigWidget->getParity())              return true;
+    if (snapshot.netAddress  != networkConfigWidget->getAddress())            return true;
+    if (snapshot.netPort     != networkConfigWidget->getPort())               return true;
+    return false;
+}
+
+
+

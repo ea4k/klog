@@ -60,6 +60,7 @@ SetupPageSats::SetupPageSats(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     satsView->setCurrentIndex(satsModel->index(0, 0));
 
     lastSat = 0;
+    satsWereModified = false;
 
     newSatPushButton = new QPushButton(tr("&New"), this);
     editPushButton = new QPushButton(tr("&Edit"), this);
@@ -400,6 +401,9 @@ void SetupPageSats::updateSelectedSats()
     satsAvailable = readSats();
     satsModel->select();
 
+    if (lastSat > 0 || !satsAvailable.isEmpty())
+        satsWereModified = true;
+
     if (!satsAvailable.isEmpty())
     {
         currentSats->clear();
@@ -532,6 +536,8 @@ void SetupPageSats::slotImportButtonClicked()
     UpdateSatsData *updateSat = new UpdateSatsData(dataProxy, this);
     if (updateSat->satDataFileRead(fileName))
     {
+        satsModel->select();
+        updateSelectedSats();
          //qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED OK";
     }
     else
@@ -557,8 +563,7 @@ void SetupPageSats::slotImportButtonClicked()
             break;
         }
     }
-    satsModel->select();
-    updateSelectedSats();
+
 }
 
 void SetupPageSats::slotExportButtonClicked()
@@ -652,4 +657,11 @@ void SetupPageSats::slotExportButtonClicked()
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
      //qDebug() << "SetupPageSats::slotExportButtonClicked END";
+}
+
+void SetupPageSats::loadSettings(){satsWereModified = false;}
+
+bool SetupPageSats::hasSettingsChanged() const
+{
+    return satsWereModified;
 }

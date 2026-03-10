@@ -81,7 +81,7 @@ public:
 
     //void setDupeTime(const int _t);
     //int getDupeTime();
-
+    bool wasDBMoved() const;   // true if the user clicked Move DB
     bool areDBPathChangesApplied();
     void saveSettings();
     void loadSettings(const QString &_callingFunction);
@@ -91,7 +91,7 @@ private slots:
     void slotUseDefaultButtonStateChanged(int state);
     //void slotdefaultFileNameChanged();
     void slotDefaultFileNameLineEditChanged();
-    void slotcheckNewVersionCheckBoxClicked();
+    //void slotcheckNewVersionCheckBoxClicked();
     void slotDBButtonClicked();
     void slotDBLineEditChanged();
     void slotMoveDBButtonClicked();
@@ -117,7 +117,7 @@ private:
     QString klogDir, dbDirNew, dbDirCurrent; //TODO: To be removed when the defaultDir is saved in the config file
     QPalette palRight, palWrong; // To paint Text in red or black(normal)
 
-    bool dbPathApplied;
+    bool dbPathApplied, dbWasMoved;
 
     QComboBox *debugLogLevelCombo;
 };

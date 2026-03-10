@@ -67,6 +67,11 @@ public:
     void checkIfNewBandOrMode();
     void setLogLevel(const DebugLogLevel _sev);
     void loadDarkMode(); // Reads the config to setup the DarkMode
+    bool hamlibSettingsChanged() const;
+    int  getSelectedLog() const;
+    bool logsWereModified() const;
+    bool wasDBMoved() const;   // true si the user successfully clicked OK to move the DB
+    bool satelliteSettingsChanged() const;
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked

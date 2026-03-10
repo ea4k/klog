@@ -62,6 +62,7 @@ public:
     void stopHamlib();
     void saveSettings();
     void loadSettings();
+    bool hasSettingsChanged() const;
 
 public slots:
     //void slotScanPorts();
@@ -76,9 +77,9 @@ private:
 
     QStringList getAvailableSerialPorts();
 
-    int getDataBits();
-    QString getFlowControl();
-    QString getParity();
+    int getDataBits() const;
+    QString getFlowControl() const;
+    QString getParity() const;
 
     QTabWidget *tabWidget;
     HamLibSerialConfigWidget *serialConfigWidget;
@@ -94,6 +95,23 @@ private:
 
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
     bool networkRadio, hamlibTestOK;
+
+    // Snapshot of values at loadSettings() time, used by hasSettingsChanged()
+    struct HamlibSnapshot {
+        bool    active       = false;
+        bool    readOnly     = false;
+        int     rigModelId   = 0;
+        int     pollRate     = 2000;
+        QString serialPort;
+        int     serialBauds  = 9600;
+        int     dataBits     = 8;
+        QString stopBits;
+        QString flowControl;
+        QString parity;
+        QString netAddress;
+        int     netPort      = 4532;
+    } snapshot;
+
 };
 
 #endif // SETUPPAGEHAMLIB_H

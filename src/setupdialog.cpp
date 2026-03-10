@@ -396,6 +396,7 @@ bool SetupDialog::loadSettings(const QString &_callingFunction)
     UDPPage->loadSettings ();
      //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
     hamlibPage->loadSettings ();
+    satsPage->loadSettings();
     //qDebug() << Q_FUNC_INFO << " - 120 - END";
     return true;
 }
@@ -420,7 +421,7 @@ void SetupDialog::saveSettings()
 
 void SetupDialog::slotOkButtonClicked()
 {
-     //qDebug() << Q_FUNC_INFO ;
+    qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (!miscPage->areDBPathChangesApplied())
@@ -469,6 +470,7 @@ void SetupDialog::slotOkButtonClicked()
      //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving";
     QDialog::accept();
     logEvent(Q_FUNC_INFO, "END", Debug);
+    qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
      //qDebug() << "SetupDialog::slotOkButtonClicked - END";
     close();
 }
@@ -730,6 +732,12 @@ void SetupDialog::slotSetOperators(const QString &_p)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+
+bool SetupDialog::hamlibSettingsChanged() const
+{
+    return hamlibPage->hasSettingsChanged();
+}
+
 void SetupDialog::setLogLevel(const DebugLogLevel _sev)
 {
     logLevel = _sev;
@@ -745,6 +753,26 @@ void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString error
 void SetupDialog::slotFocusOK()
 {
     okButton->setFocus(Qt::OtherFocusReason);
+}
+
+int SetupDialog::getSelectedLog() const
+{
+    return logsPage->getSelectedLog();
+}
+
+bool SetupDialog::logsWereModified() const
+{
+    return logsPage->hasSettingsChanged();
+}
+
+bool SetupDialog::wasDBMoved() const
+{
+    return miscPage->wasDBMoved();
+}
+
+bool SetupDialog::satelliteSettingsChanged() const
+{
+    return satsPage->hasSettingsChanged();
 }
 
 void SetupDialog::showEvent(QShowEvent *event)

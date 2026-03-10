@@ -355,7 +355,7 @@ void Adif::setModes()
         {"DIGITALVOICE", "PH", {"C4FM", "DMR", "DSTAR", "FREEDV", "M17"}},
         {"DOMINO", "DG", {"DOM-M", "DOM4", "DOM5", "DOM8", "DOM11", "DOM16", "DOM22", "DOM44",
                           "DOM88", "DOMINOEX", "DOMINOF" }},
-        {"DNAMIC", "DG", {"VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600" }},
+        {"DYNAMIC", "DG", {"VARA HF", "VARA SATELLITE", "VARA FM 1200", "VARA FM 9600" }},
         {"FAX", "DG", {}},
         {"FM", "FM", {}},
         {"FSK441", "DG", {}},

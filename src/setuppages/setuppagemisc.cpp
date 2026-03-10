@@ -62,6 +62,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     dbPushButton = new QPushButton (tr("Browse"));
     moveDBPushButton = new QPushButton(tr("Move DB"));
     dbPathApplied = true;
+    dbWasMoved = false;
 
     createUI();
     createActions();
@@ -92,15 +93,11 @@ void SetupPageMisc::createUI()
     palRight.setColor(QPalette::Text, Qt::black);
 
     //TODO: To be removed when the defaultDir is saved in the config file
-    #ifdef Q_OS_WIN
-       //qDebug() << "WINDOWS DETECTED!" ;
+
     klogDir = util->getHomeDir();  // We create the \klog for the logs and data
     defaultFileName = klogDir+"/klog.adi";
-    #else
-       //qDebug() << "NO WINDOWS DETECTED!" ;
-    klogDir = util->getHomeDir();  // We create the ~/.klog for the logs and data
-    defaultFileName = klogDir+"/klog.adi";
-    #endif
+
+
     dbDirNew = klogDir;     // The new path where the DB is to be moved
     dbDirCurrent = dbDirNew;       // The path where the DB is hosted
 
@@ -218,7 +215,7 @@ void SetupPageMisc::createActions()
     connect(fileNameButton, SIGNAL(clicked() ), this, SLOT(slotOpenFileButtonClicked() ) );
     connect(useDefaultName, SIGNAL(stateChanged(int) ), this, SLOT(slotUseDefaultButtonStateChanged(int) ) );
     connect(defaultFileNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDefaultFileNameLineEditChanged() ) );
-    connect(checkNewVersionCheckBox, SIGNAL(clicked() ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
+    //connect(checkNewVersionCheckBox, SIGNAL(clicked() ), this, SLOT(slotcheckNewVersionCheckBoxClicked() ) );
     connect(dbPushButton, SIGNAL(clicked() ), this, SLOT(slotDBButtonClicked() ) );
     connect(dbPathLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotDBLineEditChanged() ) );
     connect(moveDBPushButton, SIGNAL(clicked() ), this, SLOT(slotMoveDBButtonClicked() ) );
@@ -340,18 +337,20 @@ void SetupPageMisc::setImperial(const QString &_t)
 
 void SetupPageMisc::slotUseDefaultButtonStateChanged(int state)
 {
-       //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged";
+    //qDebug() << "SetupPageMisc::slotUseDefaultButtonStateChanged";
+    defaultFileNameLineEdit->setEnabled(state != 0);
+    fileNameButton->setEnabled(state != 0);
 
-    if (state)
-    {
-        defaultFileNameLineEdit->setEnabled(true);
-        moveDBPushButton->setEnabled(true);
-    }
-    else
-    {
-        defaultFileNameLineEdit->setEnabled(false);
-        moveDBPushButton->setEnabled(false);
-    }
+    //if (state)
+    //{
+    //    defaultFileNameLineEdit->setEnabled(true);
+    //    moveDBPushButton->setEnabled(true);
+    //}
+    //else
+    //{
+    //    defaultFileNameLineEdit->setEnabled(false);
+    //    moveDBPushButton->setEnabled(false);
+    //}
 }
 
 QString SetupPageMisc::getSendQSLWhenRec()
@@ -395,21 +394,6 @@ QString SetupPageMisc::getCompleteWithPrevious()
 void SetupPageMisc::setCompleteWithPrevious(const QString &_t)
 {
     completeWithPreviousCheckBox->setChecked(util->trueOrFalse(_t));
-}
-
-
-
-void SetupPageMisc::slotcheckNewVersionCheckBoxClicked()
-{
-    if (checkNewVersionCheckBox->isChecked())
-    {
-        //provideCallCheckBox->setEnabled(true);
-    }
-    else
-    {
-        //provideCallCheckBox->setEnabled(false);
-        //provideCallCheckBox->setChecked(false);
-    }
 }
 
 QString SetupPageMisc::getCheckNewVersions()
@@ -471,7 +455,7 @@ void SetupPageMisc::slotDBButtonClicked()
                                                     dbDirCurrent,
                                                     QFileDialog::ShowDirsOnly
                                                     | QFileDialog::DontResolveSymlinks);
-    if (dir.length()>=1)
+    if (!dir.isEmpty())
     {
         dbDirNew = dir;
     }
@@ -492,14 +476,14 @@ void SetupPageMisc::slotDBButtonClicked()
 void SetupPageMisc::slotDBLineEditChanged()
 {
        //qDebug() << "SetupPageMisc::slotDBLineEditChanged: " << dbPathLineEdit->text();
-    QString aux;
-    aux = dbPathLineEdit->text();
+
+    const QString aux = dbPathLineEdit->text();
 
    if ( QFile::exists(aux) )
    {
        dbPathLineEdit->setToolTip(tr("This is the directory where DB (logbook.dat) will be saved."));
        dbPathLineEdit->setPalette(palRight);
-       dbDirNew = dbPathLineEdit->text();
+       dbDirNew = aux;
    }
    else
    {
@@ -537,24 +521,14 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         if (QFile::copy(source, target))
         {
             dbDirCurrent = dbDirNew;
-            if (QFile::remove(source))
-            {
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setText(tr("File moved"));
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.setDefaultButton(QMessageBox::Ok);
-                msgBox.exec();
-                dbPathApplied = true;
-            }
-            else
-            {
-                msgBox.setIcon(QMessageBox::Warning);
-                msgBox.setText(tr("File copied"));
-                msgBox.setStandardButtons(QMessageBox::Ok);
-                msgBox.setDefaultButton(QMessageBox::Ok);
-                msgBox.exec();
-                dbPathApplied = true;
-            }
+            const bool removed = QFile::remove(source);
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setText(removed ? tr("File moved") : tr("File copied"));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.exec();
+            dbPathApplied = true;
+            dbWasMoved = true;
         }
         else
         {
@@ -592,6 +566,11 @@ void SetupPageMisc::slotMoveDBButtonClicked()
         dbPathApplied = false;
         moveDBPushButton->setEnabled(true);
     }
+}
+
+bool SetupPageMisc::wasDBMoved() const
+{
+    return dbWasMoved;
 }
 
 bool SetupPageMisc::areDBPathChangesApplied()
@@ -653,6 +632,7 @@ void SetupPageMisc::saveSettings()
 void SetupPageMisc::loadSettings(const QString &_callingFunction)
 {
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
+    dbWasMoved = false; // Each time we open the settings, we need to setup this flag
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
     realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());

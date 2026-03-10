@@ -1971,7 +1971,8 @@ void MainWindow::slotElogQRZCOMAutoCheck()
 
 void MainWindow::slotExitFromSlotDialog(const int exitID)
 {
-        //qDebug() << "MainWindow::slotExitFromSlotDialog: " << QString::number(exitID) ;
+    //qDebug() << "MainWindow::slotExitFromSlotDialog: " << QString::number(exitID) ;
+    //qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (exitID == 2)
@@ -3246,62 +3247,77 @@ void MainWindow::openSetup(const int _page)
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-      //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s) << " - " << (QTime::currentTime()).toString ("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s) << " - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-    //bool restoreQSOConfig = false;
     if (_s == QDialog::Accepted)
     {
-         //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "Just before loadSettings", Debug);
         //readConfigData();
         configured = loadSettings ();
         applySettings ();
-          //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         reconfigureDXMarathonUI(manageDxMarathon);
         logEvent(Q_FUNC_INFO, "Just after loadSettings", Debug);
-          //qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" ;
+        qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" ;
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", Debug);
-          //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
-        logWindow->createlogPanel(currentLog);
-          //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        //logWindow->createlogPanel(currentLog);
+        // Reducing workload if nothing changed
+        const int newSelectedLog = setupDialog->getSelectedLog();
+        const bool logChanged    = (newSelectedLog != currentLog);
+        const bool logsModified  = setupDialog->logsWereModified();
+
+        if (logChanged || logsModified)
+        {
+            currentLog = newSelectedLog;
+            logWindow->createlogPanel(currentLog);
+            dataProxy->loadDuplicateCache(currentLog);
+        }
+        qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", Debug);
         //defineStationCallsign(stationCallsign);
-          //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
-   //qDebug() << "MainWindow::openSetup: before db->reConnect" ;
-        dataProxy->reconnectDB();
-        dataProxy->loadDuplicateCache(currentLog);
-
-          //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        qDebug() << "MainWindow::openSetup: before db->reConnect" ;
+        if (setupDialog->wasDBMoved())
+        {
+            dataProxy->reconnectDB();
+        }
+        qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
-          //qDebug() << "MainWindow::openSetup: after db->reConnect" ;
+        qDebug() << "MainWindow::openSetup: after db->reConnect" ;
     }
     else
     {
-         //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
-          //qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+        qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+        qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     }
-      //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (qsoInUI.getBackup())
     {
-          //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
-          //qDebug() << Q_FUNC_INFO << ": Restoring..." ;
+        qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
+        qDebug() << Q_FUNC_INFO << ": Restoring..." ;
         restoreCurrentQSO (QDialog::Accepted);
-          //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 022 - " ;
+        qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 022 - " ;
     }
     else
     {
-          //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qsoInUI..." ;
-          //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
+        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qsoInUI..." ;
+        qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
-      //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
-    hamlibActive = setHamlib(hamlibActive);
+    qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
+    // Only reinitialize if settings are changed.
+    if (setupDialog->hamlibSettingsChanged())
+    {
+        hamlibActive = setHamlib(hamlibActive);
+    }
 
-      //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
+    qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -3502,14 +3518,7 @@ bool MainWindow::applySettings()
 {
      //qDebug() << Q_FUNC_INFO << " - Start";
 
-    if ((useDefaultLogFileName) && (!defaultADIFLogFile.isEmpty()))
-    {
-        useDefaultLogFileName = true;
-    }
-    else
-    {
-        useDefaultLogFileName = false;
-    }
+    useDefaultLogFileName = useDefaultLogFileName && !defaultADIFLogFile.isEmpty();
 
     checkIfNewBandOrMode ();
     infoWidget->setImperialSystem(imperialSystem);
@@ -3539,7 +3548,7 @@ bool MainWindow::applySettings()
     {
         startServices();
     }
-    dataProxy->loadDuplicateCache(currentLog);
+    //dataProxy->loadDuplicateCache(currentLog);
 
       //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -3559,26 +3568,26 @@ void MainWindow::startServices()
 void MainWindow::checkIfNewBandOrMode()
 {//Checks the log to see if there is a QSO with a band/mode
 //that is not currently selected as active
-     //qDebug() << "MainWindow::checkIfNewBandOrMode - START " << QTime::currentTime().toString("hh:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " - START " << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!upAndRunning || modify)
         return;
     QString currentBand = mainQSOEntryWidget->getBand();
     QString currentMode = mainQSOEntryWidget->getMode();
     setupDialog->checkIfNewBandOrMode(); // Update the Setup dialog with new bands or modes
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - 1 " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 1 " << QTime::currentTime().toString("hh:mm:ss") ;
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - 2 " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 2 " << QTime::currentTime().toString("hh:mm:ss") ;
     QStringList modesInLog = dataProxy->getModesInLog(currentLog);
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - 3 " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 3 " << QTime::currentTime().toString("hh:mm:ss") ;
     QStringList qsTemp;
     qsTemp.clear();
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.1 " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 3.1 " << QTime::currentTime().toString("hh:mm:ss") ;
     bands << bandsInLog;
     bands.removeDuplicates();
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.2 " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 3.2 " << QTime::currentTime().toString("hh:mm:ss") ;
     qsTemp << dataProxy->sortBandNamesBottonUp(bands);
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - 3.3 " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - 3.3 " << QTime::currentTime().toString("hh:mm:ss") ;
     bands.clear();
     bands = qsTemp;
 
@@ -3586,21 +3595,21 @@ void MainWindow::checkIfNewBandOrMode()
     modes.removeDuplicates();
     modes.sort();
 
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - bands -" << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - bands - " << QString::number(bands.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") ;
     mainQSOEntryWidget->setBands(bands);
     satTabWidget->addBands(bands);
     mapWindow->setBands(bands);
 
-      //qDebug() << "MainWindow::checkIfNewBandOrMode - modes -" << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << " - modes - " << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") ;
     mainQSOEntryWidget->setModes(modes);
     mapWindow->setModes(modes);
 
 
-     //qDebug() << "MainWindow::checkIfNewBandOrMode - setting bands" << QTime::currentTime().toString("hh:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << " - setting bands"  << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
     dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
 
-     //qDebug() << "MainWindow::checkIfNewBandOrMode - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
+     //qDebug() << Q_FUNC_INFO << "  - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
     if (bands.contains(currentBand))
     {
         mainQSOEntryWidget->setBand(currentBand);
@@ -3621,7 +3630,7 @@ void MainWindow::checkIfNewBandOrMode()
     }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << "MainWindow::checkIfNewBandOrMode END " << QTime::currentTime().toString("hh:mm:ss") ;
+      //qDebug() << Q_FUNC_INFO << "  END " << QTime::currentTime().toString("hh:mm:ss") ;
 }
 
 void MainWindow::selectDefaultBand()

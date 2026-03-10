@@ -46,6 +46,8 @@ public:
     void createNewSat();
     void setDefaultStationCallsign (const QString &_p);
     void setDefaultOperators(const QString &_p);
+    bool hasSettingsChanged() const;
+    void loadSettings();
 
 private slots:
     void slotImportButtonClicked();
@@ -68,6 +70,7 @@ private:
 
     QStringList readSats();
     //bool readSatsFile();
+
 
     void createSatsPanel();
     void createSatsModel();
@@ -108,6 +111,7 @@ private:
 
     Utilities *util;
     SetupPageSatsNew *newSat;
+    bool satsWereModified;
 };
 
 

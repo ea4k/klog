@@ -38,7 +38,7 @@ SetupPageLogs::SetupPageLogs(DataProxy_SQLite *dp, QWidget *parent) : QWidget(pa
     selectedLog = -1;
     defaultStationCallSign.clear();
     logsAvailable.clear();
-
+    logsModified = false;   // initialise flag
     newLog = new SetupPageLogsNew(dataProxy);
     logsModel = new QSqlRelationalTableModel(this);
     logsView = new QTableView;
@@ -135,6 +135,7 @@ void SetupPageLogs::slotEditButtonClicked()
     int result = newLog->exec();
     if (result == QDialog::Accepted)
     {
+        logsModified = true;
         emit focusOK();
     }
 }
@@ -160,6 +161,7 @@ void SetupPageLogs::slotRemoveButtonClicked()
         if (sqlOk)
         {
                //qDebug() << "SetupPageLogs::slotRemoveButtonClicked (REMOVED: " << QString::number(selectedLog) << ")";
+            logsModified = true;
             logsModel->select();
             updateSelectedLogs();
             stringQuery = QString("DELETE FROM log WHERE lognumber='%1'").arg(selectedLog);
@@ -448,5 +450,11 @@ void SetupPageLogs::loadSettings()
     QModelIndex index = logsModel->index(selectedLog, 0);
     //qDebug() << Q_FUNC_INFO << " - 53";
     logsView->setCurrentIndex(index);
+    logsModified = false;
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+bool SetupPageLogs::hasSettingsChanged() const
+{
+    return logsModified;
 }
