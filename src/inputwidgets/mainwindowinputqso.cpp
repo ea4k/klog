@@ -481,7 +481,12 @@ void MainWindowInputQSO::setRXFreq(const Frequency &_ft)
 
 void MainWindowInputQSO::setSplit(const bool _split)
 {
+    splitCheckBox->blockSignals(true);
     splitCheckBox->setChecked(_split);
+    splitCheckBox->blockSignals(false);
+    // Sync the freq RX if the radio disables split
+    if (!_split)
+        rxFreqSpinBox->setValue(txFreqSpinBox->value());
 }
 
 double MainWindowInputQSO::getRXPwr()
@@ -733,18 +738,17 @@ void MainWindowInputQSO::slotFreqTXChanged(const double _f)
         //qDebug() << Q_FUNC_INFO << ": copying to RX Freq " ;
     }
    //qDebug() << Q_FUNC_INFO << " - END" ;
-    splitCheckBox->setChecked(txFreqSpinBox->value() != rxFreqSpinBox->value());
+    //splitCheckBox->setChecked(txFreqSpinBox->value() != rxFreqSpinBox->value());
     //setSplitCheckBox();
 }
 
 void MainWindowInputQSO::slotSplitClicked()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
-    if (!splitCheckBox->isChecked())
-    {
+    bool checked = splitCheckBox->isChecked();
+    if (!checked)
         rxFreqSpinBox->setValue(txFreqSpinBox->value());
-        //slotFreqRXChanged(rxFreqSpinBox->value());
-    }
+    emit splitChanged(checked);
 }
 
 void MainWindowInputQSO::slotFreqRXChanged(const double _f)

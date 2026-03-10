@@ -319,7 +319,7 @@ void tst_DataProxy::test_qsosCache()
     qso.setBand("20M");
     qso.setMode("SSB");
 
-    QDateTime qsoTime(QDate(2025, 5, 20), QTime(14, 30, 0), Qt::UTC);
+    QDateTime qsoTime(QDate(2025, 5, 20), QTime(14, 30, 0), QTimeZone::UTC);
     qso.setDateTimeOn(qsoTime);
 
     const int  testQsoId = 999;
@@ -367,7 +367,7 @@ void tst_DataProxy::test_addQSO()
     QSO qso;
     qso.clear();
     qso.setCall("EA4K");
-    qso.setDateTimeOn(QDateTime(QDate(2024, 3, 27), QTime(10, 0, 0), Qt::UTC));
+    qso.setDateTimeOn(QDateTime(QDate(2024, 3, 27), QTime(10, 0, 0), QTimeZone::UTC));
     qso.setBand("10M");
     qso.setMode("SSB");
     qso.setLogId(1);

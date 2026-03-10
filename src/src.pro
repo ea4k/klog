@@ -70,10 +70,10 @@ QT += core \
     widgets
 QT += location
 
-greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
-{
-    macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
-}
+#greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4)
+#{
+#    macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
+#}
 
 DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x050F00
 

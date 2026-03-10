@@ -804,6 +804,25 @@ void HamLibClass::setReadOnly(const bool _r)
     readOnlyMode = _r;
 }
 
+void HamLibClass::setSplit(const bool _split)
+{
+    logEvent(Q_FUNC_INFO, "Start", Debug);
+
+    if (!isRunning() || readOnlyMode)
+        return;
+
+    split_t split = _split ? RIG_SPLIT_ON : RIG_SPLIT_OFF;
+    int retcode = rig_set_split_vfo(my_rig, RIG_VFO_CURR, split, RIG_VFO_SUB);
+    if (retcode != RIG_OK)
+    {
+        errorManage(Q_FUNC_INFO, retcode);
+        return;
+    }
+
+    radioStatus.split = _split;
+    errorCount = 0;
+}
+
 void HamLibClass::setNetworkAddress(const QString &_address)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);

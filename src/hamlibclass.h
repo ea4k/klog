@@ -77,6 +77,8 @@ public:
     void setFreq(const Frequency &_fr, bool _TX=true);
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
+    void setSplit(const bool _split);
+
     bool isModeADIFMode(const QString &_m);
     void setNetworkAddress(const QString &_address);
     void setNetworkPort(const int _port);

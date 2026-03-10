@@ -164,6 +164,7 @@ private slots:
     void slotFreqTXChanged(const Frequency _fr);
     void slotFreqRXChanged(const Frequency _fr);
     void slotFreqTXChangedFromSat(const Frequency _fr);
+    void slotSplitChanged(bool _split); // From MainWindowInputQSO
     //void slotSplitCLicked();
 
     //void slotSearchBoxTextChanged();

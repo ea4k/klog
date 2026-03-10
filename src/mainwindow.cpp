@@ -615,6 +615,7 @@ void MainWindow::createActionsCommon(){
     connect(QSOTabWidget, SIGNAL(rxFreqChanged(Frequency)), this, SLOT(slotFreqRXChanged(Frequency))) ;
     connect(QSOTabWidget, SIGNAL(txFreqChanged(Frequency)), this, SLOT(slotFreqTXChanged(Frequency))) ;
     connect(QSOTabWidget, SIGNAL(handOverFocusSignal()), this, SLOT(slotTakeOverFocusToMainQSOInput() ));
+    connect(QSOTabWidget, &MainWindowInputQSO::splitChanged, this, &MainWindow::slotSplitChanged);
     connect(loggWinAct, SIGNAL(triggered()), this, SLOT(slotLogWinShow()));
 
     //Buttons Actions
@@ -5365,6 +5366,12 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainWindow::slotSplitChanged(bool _split)
+{
+    if (hamlibActive)
+           hamlib->setSplit(_split);
+}
+
 void MainWindow::slotFreqRXChanged(const Frequency _fr)
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
@@ -5852,6 +5859,7 @@ void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
     slotHamlibTXFreqChanged(_s.freq_VFO_TX);
     slotHamlibRXFreqChanged(_s.freq_VFO_RX);
     slotHamlibModeChanged(_s.mode_VFO_TX);
+    QSOTabWidget->setSplit(_s.split);
 }
 
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)

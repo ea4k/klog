@@ -391,7 +391,7 @@ private:
         return QDateTime(dt.date(), QTime(dt.time().hour(),
                                           dt.time().minute(),
                                           dt.time().second()),
-                         Qt::UTC);
+                         QTimeZone::UTC);
     }
 
     bool dbCreated;

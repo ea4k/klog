@@ -603,7 +603,7 @@ void SetupPageSats::slotExportButtonClicked()
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
     }
-    QDateTime *dateTime = new QDateTime();
+    //QDateTime *dateTime = new QDateTime();
     //dateTime->currentDateTime();
 
     queryString = "SELECT id, satarrlid, satname, uplink, downlink, satmode FROM satellites";
@@ -622,7 +622,8 @@ void SetupPageSats::slotExportButtonClicked()
 
         out << "<app_klog_data:4>SATS";
         out << "<app_klog_sats_references:" << QString::number((QString::number(satsN)).length()) << ">" << QString::number(satsN);
-        out << "<app_klog_sats_version:8>" << (dateTime->currentDateTime().date()).toString("yyyyMMdd");
+        //out << "<app_klog_sats_version:8>" << (dateTime->currentDateTime().date()).toString("yyyyMMdd");
+        out << "<app_klog_sats_version:8>" << QDateTime::currentDateTime().date().toString("yyyyMMdd");
         out << "<EOH>";
         QSqlRecord rec = query.record();
 

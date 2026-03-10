@@ -329,7 +329,7 @@ int SetupPageHamLib::getDataBits() const
     return serialConfigWidget->getDataBits ();
 }
 
-QString SetupPageHamLib::getFlowControl() const
+QString SetupPageHamLib::getFlowControl() const
 {
     return serialConfigWidget->getFlowControl ();
 }

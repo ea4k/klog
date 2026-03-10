@@ -57,10 +57,10 @@ enum DataTableHash {WorldData, BandData, ModeData};                 // Used by W
 //};
 
 struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
-    int dxcc;
-    QString mainprefix;
-    QString name;
-    QString isoname;
+    int dxcc            = -1;
+    QString mainprefix  = QString();
+    QString name        = QString();
+    QString isoname     = QString();
 
     bool operator<(const EntityData &other) const {
         return std::tie(dxcc, mainprefix, name, isoname) < std::tie(other.dxcc, other.mainprefix, other.name, other.isoname);
@@ -72,39 +72,39 @@ struct EntityData { // Used to pass a list of data from World to dxccstatuswidge
 };
 
 struct EntityStatus { // Used to pass a list of data from Awards to dxccstatuswidget
-    int dxcc;
-    int bandId;
-    int modeId;
-    QSOStatus status;   // status of this Entity in this band
-    int qsoId;          // QSOid that provides this status
-    int logId;          // Log where we are checking the status (TODO: This may be redundant as the qsoId may be used to get the log)
+    int dxcc            = -1;
+    int bandId          = -1;
+    int modeId          = -1;
+    QSOStatus status    = {};   // status of this Entity in this band
+    int qsoId           = -1;   // QSOid that provides this status
+    int logId           = -1;   // Log where we are checking the status (TODO: This may be redundant as the qsoId may be used to get the log)
 };
 
 struct Coordinate {
-    double lat;
-    double lon;
+    double lat      = 0.0;
+    double lon      = 0.0;
 };
 
 struct PrimarySubdivision { // Used to return data to MainWindow for each prefix
     QString name;
     QString shortName;
     QString prefix;
-    int cqz;
-    int ituz;
-    int dxcc;
+    int cqz             = -1;
+    int ituz            = -1;
+    int dxcc            = -1;
 };
 
 struct ADIFField {
     QString field;
     QString value;
-    bool valid;
+    bool valid      = false;
     // qChar type;
 };
 
 struct RadioStatus {
     Frequency freq_VFO_TX;
     Frequency freq_VFO_RX;
-    bool split;
+    bool split              = false;
     QString mode_VFO_TX;
     QString mode_VFO_RX;
 };

@@ -76,7 +76,7 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
 
     // relation() is available on QSqlRelationalTableModel; check if this column is relational
     // Note: even though fieldName is the base column ("dxcc"), the DisplayRole here is the related display column (e.g., entity.name)
-    if (!v.isValid() || (v.type() == QVariant::String && v.toString().isEmpty())) {
+    if (!v.isValid() || (v.typeId() == QMetaType::QString && v.toString().isEmpty())) {
         const QSqlRelation rel = relation(index.column());
         if (rel.isValid()) {
             // Specifically requested: show unknown for dxcc with no matching entity.

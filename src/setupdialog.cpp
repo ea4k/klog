@@ -197,6 +197,7 @@ void SetupDialog::setData(const QString &_softwareVersion, const QString &_calli
 {
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     //qDebug() << Q_FUNC_INFO << " - " << _softwareVersion << "/" << QString::number(_page);
+    Q_UNUSED(_callingFunction);
     logEvent(Q_FUNC_INFO, "Start", Debug);
     nolog = !(haveAtleastOneLog());
     firstTime = !_alreadyConfigured;
@@ -347,6 +348,7 @@ void SetupDialog::loadDarkMode()
 bool SetupDialog::loadSettings(const QString &_callingFunction)
 {
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
+    Q_UNUSED(_callingFunction);
     if (!QFile::exists(util->getCfgFile ()))
     {
         //qDebug() << Q_FUNC_INFO << " - Nothing to load";
@@ -478,6 +480,7 @@ void SetupDialog::slotOkButtonClicked()
 void SetupDialog::slotReadConfigData(const QString &_callingFunction)
 {
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
+    Q_UNUSED(_callingFunction);
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (firstTime)
     //if (!QFile::exists (util->getCfgFile ()))

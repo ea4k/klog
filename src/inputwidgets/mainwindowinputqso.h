@@ -99,6 +99,7 @@ signals:
     //void txFreqBeingChanged(bool _f);
     void txFreqChanged(Frequency _f);
     void handOverFocusSignal();
+    void splitChanged(bool _split);
     //void txFreqChangedForSat(double _f);
 
 private slots:
