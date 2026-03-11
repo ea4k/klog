@@ -377,8 +377,10 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
     int row = index.row();
     // qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
-
-        //qDebug() << "LogWindow::slotDoubleClickLog: n: " << QString::number (logModel->data(index, Qt::DisplayRole).toInt());
+    if (qsoID < 1)
+        return;
+    qDebug() << "LogWindow::slotDoubleClickLog:     n : " << QString::number (logModel->data(index, Qt::DisplayRole).toInt());
+    qDebug() << "LogWindow::slotDoubleClickLog: qsoId : " << qsoID;
         //qDebug() << "LogWindow::slotDoubleClickLog: emitted: " << QString::number (((logModel->index(row, Qt::DisplayRole)).data(0)).toInt());
 
     emit actionQSODoubleClicked(qsoID);

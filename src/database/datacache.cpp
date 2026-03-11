@@ -27,6 +27,7 @@
 
 DataCache::DataCache() {
     bandListIsBuilt = false;
+    modeListIsBuilt = false;
 }
 
 DataCache::~DataCache() {};
@@ -40,7 +41,7 @@ void DataCache::addBand(int id, const QString &name, Frequency min, Frequency ma
         max,
     };
     bandList.append(entry);
-    bandListIsBuilt = true;
+    bandListIsBuilt = true;    
 }
 
 BandEntry DataCache::getBandFromFreq(Frequency freq) const
@@ -54,9 +55,11 @@ BandEntry DataCache::getBandFromFreq(Frequency freq) const
     return BandEntry{-1, "", Frequency(0.0), Frequency(0.0)};
 }
 
-BandEntry DataCache::getBandFromName(const QString &name) const {
+BandEntry DataCache::getBandFromName(const QString &name) const
+{
+    const QString upper = name.toUpper();
     for (const auto &band : bandList) {
-        if (band.name == name  ) {
+        if (band.name == upper  ) {
             return band;
         }
     }
@@ -83,9 +86,11 @@ BandEntry DataCache::getBandFromId(int id) const
     return BandEntry{-1, "", Frequency(0.0), Frequency(0.0)};
 }
 
-void DataCache::addMode(int id, const QString &submode, const QString &mode)
+void DataCache::addMode(int id, const QString &submode, const QString &mode,
+                        const QString &cabrillo, bool deprecated)
 {
-    ModeEntry entry = { id, submode.toUpper(), mode.toUpper() };
+    ModeEntry entry = { id, submode.toUpper(), mode.toUpper(),
+                       cabrillo.toUpper(), deprecated };
     modeList.append(entry);
     modeListIsBuilt = true;
 }
@@ -115,4 +120,9 @@ int DataCache::getModeIdFromSubmode(const QString &submode) const
 QString DataCache::getModeNameFromSubmode(const QString &submode) const
 {
     return getModeFromSubmode(submode).mode;
+}
+
+bool DataCache::isModeDeprecated(const QString &submode) const
+{
+    return getModeFromSubmode(submode).deprecated;
 }

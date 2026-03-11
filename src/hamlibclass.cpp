@@ -217,13 +217,13 @@ bool HamLibClass::readMode()
     return true;
 }
 
-bool HamLibClass::readRadio(bool _forceRead)
+bool HamLibClass::readRadio()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    return readRadioInternal(_forceRead);
+    return readRadioInternal();
 }
 
-bool HamLibClass::readRadioInternal(bool _forceRead)
+bool HamLibClass::readRadioInternal()
 {
     logEvent(Q_FUNC_INFO, "Start", Debug);
     if (!my_rig || (rig_state != RigState::Connected) )
@@ -266,7 +266,7 @@ void HamLibClass::slotTimer()
         //qDebug() << Q_FUNC_INFO << ": Isn't running...";
         return;
     }
-    readRadioInternal(false); // We don't force the radio reading.
+    readRadioInternal(); // We don't force the radio reading.
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

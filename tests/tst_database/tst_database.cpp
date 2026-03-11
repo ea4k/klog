@@ -224,22 +224,6 @@ void tst_DataBase::test_DataInTables()
 void tst_DataBase::test_modes()
 {
     QCOMPARE(db->isTheDBCreated(), true);
-    QHash<QString, int> modeIDs;
-    modeIDs = db->getHashTableData(ModeData);
-
-    QString aux;
-    QStringList _modes = {"AM", "ARDOP", "TOR", "RTTY", "ATV", "CHIP", "CLO",
-                          "CONTESTI", "CW", "DIGITALVOICE", "DYNAMIC", "DOMINO", "FAX", "FM", "HELL",
-                          "MFSK", "FSK441", "FT8", "ISCAT", "JT4", "JT44", "JT65", "JT6M", "JT9",
-                          "MSK144", "MT63", "OLIVIA", "OPERA", "PAC", "PAX", "PKT", "PSK", "PSK2K",
-                          "Q15", "QRA64", "ROS", "RTTYM", "SSB", "SSTV", "T10", "THOR", "THRB", "V4",
-                          "VOI", "WINMOR", "WSPR"};
-    foreach(aux, _modes)
-    {
-        //qDebug() << aux << " / " << modeIDs.value(aux);
-        //QCOMPARE(modeIDs.value(aux)>0,true);
-        // qCOMPARE(db->getModeIdFromName(aux)>0, true);
-    }
 }
 
 
@@ -272,15 +256,6 @@ void tst_DataBase::test_subModes()
         "THOR50X2", "THOR100", "AMTORFEC", "GTOR", "NAVTEX", "SITORB", "THRBX", "THRBX1",
         "THRBX2", "THRBX4", "THROB1", "THROB2", "THROB4" };
 
-    QHash<QString, int> modeIDs;
-    modeIDs = db->getHashTableData(ModeData);
-
-    foreach(aux, _submodes)
-    {
-        //qDebug() << " - Testing: " << aux;
-        //QCOMPARE(modeIDs.value(aux)>0,true);
-        // qCOMPARE(db->getModeIdFromSubMode(aux)>0, true);
-    }
 }
 
 

@@ -114,8 +114,8 @@ bool World::readWorld()
     longPrefixes.clear();
     worldPrefixes.clear();
 
-    //worldPrefixes = dataProxy->getWorldData();
-    worldPrefixes = dataProxy->getHashTableData(WorldData);
+    worldPrefixes = dataProxy->getWorldData();
+    //worldPrefixes = dataProxy->getHashTableData(WorldData);
     specialCalls << dataProxy->getSpecialCallsigns();
     longPrefixes << dataProxy->getLongPrefixes();
 

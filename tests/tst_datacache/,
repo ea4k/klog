@@ -21,6 +21,7 @@ HEADERS += \
     ../../src/world.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/qso.h \
+    ##../../src/qsodatacache.h \
     ../../src/callsign.h \
     ../../src/utilities.h
 

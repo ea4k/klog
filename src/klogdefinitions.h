@@ -47,7 +47,7 @@ enum WJTXStatus {NewContinent, NewContinentInBand, NewContinentInMode,
                  NewCall, NewCallInBand, NewCallInMode };
 
 enum MouseClicks {NoClick, RightClick, SingleClick, DoubleClick};
-enum DataTableHash {WorldData, BandData, ModeData};                 // Used by World & DataProxy to select the table to build a Hash
+//enum DataTableHash {WorldData, BandData, ModeData};                 // Used by World & DataProxy to select the table to build a Hash
 
 //struct EntityData { // Used to pass a list of data from World to dxccstatuswidget
 //  int dxcc;

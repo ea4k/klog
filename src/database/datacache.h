@@ -49,10 +49,15 @@ struct ModeEntry {
     int id;
     QString submode;  // e.g. "USB", "FT8", "JT9C"
     QString mode;     // e.g. "SSB", "FT8", "JT9"
+    QString cabrillo = QString();
+    bool deprecated = false;
+    bool isValid() const { return !mode.isEmpty(); }
 };
 
 class DataCache
 {
+    friend class tst_DataCache;
+
 public:
     DataCache();
     ~DataCache();
@@ -66,13 +71,14 @@ public:
     BandEntry getBandFromName(const QString &name) const;
     BandEntry getBandFromId(int id) const;
 
-    void addMode(int id, const QString &submode, const QString &mode);
+    void addMode(int id, const QString &submode, const QString &mode, const QString &cabrillo, bool deprecated);
     bool isModeListOK() const;
 
     ModeEntry getModeFromSubmode(const QString &submode) const;
     ModeEntry getModeFromId(int id) const;
     int getModeIdFromSubmode(const QString &submode) const;  // quick shortcut
     QString getModeNameFromSubmode(const QString &submode) const; // quick shortcut
+    bool isModeDeprecated(const QString &submode) const;
 
 private:
     QList<BandEntry> bandList;

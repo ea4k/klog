@@ -85,7 +85,7 @@ public:
 
     bool init(bool _active);
     bool stop();
-    bool readRadio(bool _forceRead);
+    bool readRadio();
     bool isRunning();
     void initClass();
     void clean();
@@ -120,7 +120,7 @@ private:
     void cleanup();
     bool radioStatusChanged(const RadioStatus _old, const RadioStatus _new);
 
-    bool readRadioInternal(bool _forceRead);
+    bool readRadioInternal();
     void fillRigsList();
     static int addRigToList(const struct rig_caps* caps, void* data);
     QString hamlibMode2Mode(rmode_t _rmode);

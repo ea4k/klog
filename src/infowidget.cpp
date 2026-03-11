@@ -373,15 +373,12 @@ void InfoWidget::setImperialSystem (const  bool _imp)
 QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _entityId)
 { // Receives band name, Entity number (as a String)
    //qDebug() << Q_FUNC_INFO << ": " << _b << "/" << _q;
-    EntityStatus _entityStatus;
-    _entityStatus.dxcc  = _entityId;
-    _entityStatus.bandId    = _bandId;
-    _entityStatus.modeId    = -1;
-    _entityStatus.logId       = currentLog;
 
-    //TODO: Check if we can know the mode and replace the -1
-    //qDebug() << Q_FUNC_INFO << ": (Band/background-color): " << _b << (awards->getQRZDXStatusColor(_qs)).name(QColor::HexRgb) ;
-    return "* { background-color: " + (awards->getQRZDXStatusColor(_entityStatus)).name(QColor::HexRgb) + "; }";
+    if (_entityId <= 0 || _bandId <= 0)
+        return "* { background-color: " + awards->getDefaultColor().name(QColor::HexRgb) + "; }";
+
+    const QSOStatus status = awards->getDXCCStatusBand(_entityId, _bandId);
+    return "* { background-color: " + awards->getColorFromStatus(status).name(QColor::HexRgb) + "; }";
 }
 
 
@@ -522,22 +519,6 @@ void InfoWidget::showDistanceAndBearing(const QString &_locLocal, const QString 
         return ;
     }
 }
-
-//void InfoWidget::setLocalLocator(const QString &_loc)
-//{
-//    if (locator->isValidLocator(_loc))
-//    {
-//        localLocator = _loc;
-//    }
-//}
-
-//void InfoWidget::setDXLocator(const QString &_loc)
-//{
-//    if (locator->isValidLocator(_loc))
-//    {
-//        dxLocator = _loc;
-//    }
-//}
 
 double InfoWidget::getDistance(bool shortPath)
 { // Returns the distance in KM

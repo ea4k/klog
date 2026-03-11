@@ -368,7 +368,7 @@ bool SetupDialog::loadSettings(const QString &_callingFunction)
 
     QStringList listAux;
     listAux.clear();
-    listAux << "SSB" << "CW";
+    listAux << "FT8" << "SSB" << "CW";
     readActiveModes (settings.value("Modes", listAux).toStringList ());
     listAux.clear();
     listAux << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
@@ -423,7 +423,7 @@ void SetupDialog::saveSettings()
 
 void SetupDialog::slotOkButtonClicked()
 {
-    qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
+   //qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
     logEvent(Q_FUNC_INFO, "Start", Debug);
 
     if (!miscPage->areDBPathChangesApplied())
@@ -472,7 +472,7 @@ void SetupDialog::slotOkButtonClicked()
      //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving";
     QDialog::accept();
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
+   //qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
      //qDebug() << "SetupDialog::slotOkButtonClicked - END";
     close();
 }

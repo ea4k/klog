@@ -52,6 +52,8 @@ private slots:
     void test_primarySubdivisions();
     void test_qsosCache();
     void test_addQSO();
+    void test_bandClassification_data();
+    void test_bandClassification();
 
 private:
     DataProxy_SQLite *dataProxy;
@@ -223,7 +225,7 @@ void tst_DataProxy::test_bands()
 
     QVERIFY2( dataProxy->isVHF(dataProxy->getBandIdFromFreq(144.500)), "VHF 2M not identified");
     QVERIFY2(!dataProxy->isVHF(dataProxy->getBandIdFromFreq(14.300)),  "20M wrongly identified as VHF");
-    QVERIFY2( dataProxy->isVHF(dataProxy->getBandIdFromFreq(432.500)), "70CM not identified as VHF");
+    QVERIFY2(!dataProxy->isVHF(dataProxy->getBandIdFromFreq(432.500)), "70CM not identified as VHF");
 
     QVERIFY2( dataProxy->isWARC(dataProxy->getBandIdFromFreq(18.100)),  "17M WARC not identified");
     QVERIFY2( dataProxy->isWARC(dataProxy->getBandIdFromFreq(24.900)),  "12M WARC not identified");
@@ -374,6 +376,50 @@ void tst_DataProxy::test_addQSO()
 
     int id = dataProxy->addQSO(qso);
     QVERIFY2(id > 0, qPrintable(QString("addQSO returned %1").arg(id)));
+}
+
+void tst_DataProxy::test_bandClassification_data()
+{
+    QTest::addColumn<QString>("bandName");
+    QTest::addColumn<bool>("expectHF");
+    QTest::addColumn<bool>("expectWARC");
+    QTest::addColumn<bool>("expectVHF");
+    QTest::addColumn<bool>("expectUHF");
+
+    //                       name      HF       WARC     VHF      UHF
+    QTest::newRow("160M") << "160M" << true  << false << false << false;
+    QTest::newRow("80M")  << "80M"  << true  << false << false << false;
+    QTest::newRow("60M")  << "60M"  << true  << false << false << false; // falla con lógica por ID
+    QTest::newRow("40M")  << "40M"  << true  << false << false << false;
+    QTest::newRow("30M")  << "30M"  << true  << true  << false << false; // WARC
+    QTest::newRow("20M")  << "20M"  << true  << false << false << false;
+    QTest::newRow("17M")  << "17M"  << true  << true  << false << false; // WARC
+    QTest::newRow("15M")  << "15M"  << true  << false << false << false;
+    QTest::newRow("12M")  << "12M"  << true  << true  << false << false; // WARC
+    QTest::newRow("10M")  << "10M"  << true  << false << false << false;
+    QTest::newRow("6M")   << "6M"   << false << false << true  << false;
+    QTest::newRow("4M")   << "4M"   << false << false << true  << false;
+    QTest::newRow("2M")   << "2M"   << false << false << true  << false;
+    QTest::newRow("70CM") << "70CM" << false << false << false << true;
+    QTest::newRow("23CM") << "23CM" << false << false << false << true;
+    QTest::newRow("13CM") << "13CM" << false << false << false << true;
+}
+
+void tst_DataProxy::test_bandClassification()
+{
+    QFETCH(QString, bandName);
+    QFETCH(bool, expectHF);
+    QFETCH(bool, expectWARC);
+    QFETCH(bool, expectVHF);
+    QFETCH(bool, expectUHF);
+
+    const int id = dataProxy->getIdFromBandName(bandName);
+    QVERIFY2(id > 0, qPrintable(QString("Band '%1' not found in DB").arg(bandName)));
+
+    QCOMPARE(dataProxy->isHF(id),   expectHF);
+    QCOMPARE(dataProxy->isWARC(id), expectWARC);
+    QCOMPARE(dataProxy->isVHF(id),  expectVHF);
+    QCOMPARE(dataProxy->isUHF(id),  expectUHF);
 }
 
 QTEST_GUILESS_MAIN(tst_DataProxy)

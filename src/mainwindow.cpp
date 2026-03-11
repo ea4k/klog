@@ -2191,18 +2191,22 @@ void MainWindow::setCleaning(const bool _c)
 
 void MainWindow::slotClearButtonClicked(const QString &_func)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
+    qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
     Q_UNUSED(_func);
 
     bool needToRecover = modify;
     setCleaning(true);
+    int selectedQSOId = modifyingQSOid;
+
     yearChangedDuringModification = false;
     setModifying(false);
 
     currentEntity = -1;
     //dateTimeTemp = dateTime;
     modifyingQSOid = -1;
+    if (needToRecover)
+        modifyingQSOid = selectedQSOId;
 
     QSOTabWidget->setRSTToMode(mainQSOEntryWidget->getMode(), readingTheUI);
       //qDebug() << Q_FUNC_INFO << " - 10" ;
@@ -3248,7 +3252,7 @@ void MainWindow::openSetup(const int _page)
 
 void MainWindow::slotSetupDialogFinished (const int _s)
 {
-    qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s) << " - " << (QTime::currentTime()).toString ("HH:mm:ss");
+   //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s) << " - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (needToEnd)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
@@ -3256,17 +3260,17 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
     if (_s == QDialog::Accepted)
     {
-        qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "Just before loadSettings", Debug);
         //readConfigData();
         configured = loadSettings ();
         applySettings ();
-        qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         reconfigureDXMarathonUI(manageDxMarathon);
         logEvent(Q_FUNC_INFO, "Just after loadSettings", Debug);
-        qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" ;
+       //qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" ;
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", Debug);
-        qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         //logWindow->createlogPanel(currentLog);
         // Reducing workload if nothing changed
         const int newSelectedLog = setupDialog->getSelectedLog();
@@ -3279,46 +3283,46 @@ void MainWindow::slotSetupDialogFinished (const int _s)
             logWindow->createlogPanel(currentLog);
             dataProxy->loadDuplicateCache(currentLog);
         }
-        qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", Debug);
         //defineStationCallsign(stationCallsign);
-        qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
-        qDebug() << "MainWindow::openSetup: before db->reConnect" ;
+       //qDebug() << "MainWindow::openSetup: before db->reConnect" ;
         if (setupDialog->wasDBMoved())
         {
             dataProxy->reconnectDB();
         }
-        qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
-        qDebug() << "MainWindow::openSetup: after db->reConnect" ;
+       //qDebug() << "MainWindow::openSetup: after db->reConnect" ;
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
-        qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+       //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+       //qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     }
-    qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+   //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (qsoInUI.getBackup())
     {
-        qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
-        qDebug() << Q_FUNC_INFO << ": Restoring..." ;
+       //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
+       //qDebug() << Q_FUNC_INFO << ": Restoring..." ;
         restoreCurrentQSO (QDialog::Accepted);
-        qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 022 - " ;
+       //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 022 - " ;
     }
     else
     {
-        qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qsoInUI..." ;
-        qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
+       //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qsoInUI..." ;
+       //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
-    qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
+   //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
     // Only reinitialize if settings are changed.
     if (setupDialog->hamlibSettingsChanged())
     {
         hamlibActive = setHamlib(hamlibActive);
     }
 
-    qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
+   //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -3359,9 +3363,9 @@ void MainWindow::slotUpdateStatusBar(const QString &statusm)
 
 void MainWindow::slotDoubleClickLog(const int _qsoID)
 {
-   //qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) ;
+    qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) ;
     logEvent(Q_FUNC_INFO, "Start", Debug);
-    //int row = _qsoID.row();
+
 
     qsoToEdit(_qsoID);
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -3446,7 +3450,7 @@ bool MainWindow::setHamlib(const bool _b)
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib active";
         hamlib->init(true);
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ")  << Q_FUNC_INFO << ": After Hamlib active";
-        return hamlib->readRadio(true); // Forcing the radio update
+        return hamlib->readRadio(); // Forcing the radio update
     }
     else
     {
@@ -3891,7 +3895,7 @@ void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
     else
     {
         //qDebug() << Q_FUNC_INFO << " - > 0";
-        QString msg = QString(tr("KLog has exported %1 QSOs to the ADIF file: %2")).arg(QString::number(_n)).arg(_fn);
+        QString msg = QString(tr("KLog has exported %1 QSOs to the ADIF file: %2")).arg(QString::number(_n), _fn);
         msgBox.setText(msg);
     }
 
@@ -4475,14 +4479,15 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
     QSLTabWidget->setQSOData(_qso);
     eQSLTabWidget->setQSOData(_qso);
     myDataTabWidget->setQSOData(_qso);
-    satTabWidget->setQSOData(_qso);
     QSOTabWidget->setQSOData(_qso);
 }
 
 void MainWindow::qsoToEdit (const int _qso)
 {
-   //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
+   qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
    // Switching to manualmode on start is important to prevent modifyingQSOid to be overwritten.
+    if (_qso<1)
+        return;
     manualMode = true;      // We stop hamlib & wsjtx receiving data while editing a QSO
     mainQSOEntryWidget->setManualMode (manualMode);
 
@@ -4498,8 +4503,9 @@ void MainWindow::qsoToEdit (const int _qso)
        //qDebug() << Q_FUNC_INFO << ": SubMode " << backupQSO->getSubmode();
     }
    //qDebug() << Q_FUNC_INFO  << " - 005";
-    clearUIDX(true);
     readingTheUI = true;
+    clearUIDX(true);
+
 
     setModifying(true);
 
@@ -4521,24 +4527,18 @@ void MainWindow::qsoToEdit (const int _qso)
 
      //qDebug() << Q_FUNC_INFO << " - SATELLITE - satName" ;
     satTabWidget->setFillingToEdit(true);
-    //qDebug() << Q_FUNC_INFO << " - 055 ";
+    qDebug() << Q_FUNC_INFO << " - 055 modifyingQSOid: " << modifyingQSOid;
     QSO qsoE = dataProxy->fromDB(modifyingQSOid);
     //qDebug() << Q_FUNC_INFO << " - 056 ";
-   //qDebug() << Q_FUNC_INFO  << " - modifyingQSOid: " << modifyingQSOid;
-    //qsoE.fromDB();
-   //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getCall();
-   //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getMode();
-   //qDebug() << Q_FUNC_INFO  << " - QSO: " << qsoE.getSubmode();
 
     qsoInUI.copy(qsoE);
    //qDebug() << Q_FUNC_INFO  << " - m: " << (qsoE.getEQSLQSLSDate()).toString("yyyy-MM-dd");
     sendQSOToUI(qsoE);
 
     QString currentQrz = qsoE.getCall();
-    currentEntity = world->getQRZARRLId(currentQrz);
-
-
+    //currentEntity = world->getQRZARRLId(currentQrz);
     currentEntity = qsoE.getDXCC();
+
     infoLabel2->setText(world->getEntityName(currentEntity));
     infoWidget->showEntityInfo(currentEntity);
 
@@ -5975,7 +5975,7 @@ void MainWindow::slotManualMode(bool _enable)
     manualMode = _enable;
     if ((manualMode) && (hamlibActive))
     {
-        hamlib->readRadio(true);
+        hamlib->readRadio();
     }
 }
 

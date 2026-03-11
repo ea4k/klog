@@ -100,7 +100,7 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
 void MainWindowInputOthers::setQSOData(const QSO &_qso)
 {
     QSO qso(_qso);
-    qDebug() << Q_FUNC_INFO << " - QSO DXCC: " << qso.getDXCC();
+   //qDebug() << Q_FUNC_INFO << " - QSO DXCC: " << qso.getDXCC();
     if (qso.getDXCC() > 0)
         setEntity(qso.getDXCC());
     else

@@ -941,6 +941,17 @@ void Awards::setColors (const QColor &_newOne, const QColor &_needed, const QCol
 
 QColor Awards::getDefaultColor(){return defaultColor;}
 
+QColor Awards::getColorFromStatus(const QSOStatus &_status)
+{
+    switch (_status) {
+        case ATNO:      return newOneColor;
+        case needed:    return neededColor;
+        case worked:    return workedColor;
+        case confirmed: return confirmedColor;
+        default:        return defaultColor;
+    }
+}
+
 void Awards::recalculateAwards()
 {
     //qDebug() << Q_FUNC_INFO;

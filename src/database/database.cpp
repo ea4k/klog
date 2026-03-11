@@ -321,7 +321,7 @@ bool DataBase::createConnection(const QString &function, bool newDB)
     {
         //qDebug() << Q_FUNC_INFO << ": No Error, DB is open";
     }
-    //qDebug() << Q_FUNC_INFO << ": Going to run - updateBandHash " ;
+
 
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO <<  " - END";
@@ -824,169 +824,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
     return false;
 }
 
-int DataBase::getModeIdFromName(const QString &b)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << b ;
 
-    //qDebug() << Q_FUNC_INFO << ": " << b ;
-    QString band = b.toUpper();
-
-    QString queryString = QString("SELECT id FROM mode WHERE name= :mode");
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":mode", b);
-
-    bool sqlOK = query.exec();
-
-    if (!sqlOK)
-        return -1;
-    if (!query.next())
-        return -2;
-    if (!query.isValid())
-        return -3;
-
-    int v = (query.value(0)).toInt();
-    query.finish();
-    return v;
-}
-
-int DataBase::getModeIdFromSubMode(const QString &b)
-{
-    //qDebug() << Q_FUNC_INFO << ": " << b ;
-    //qDebug() << Q_FUNC_INFO << ": " << b ;
-    QString band = b.toUpper();
-
-    QString queryString = QString("SELECT id FROM mode WHERE submode= :submode");
-    QSqlQuery query;
-    query.prepare(queryString);
-    query.bindValue(":submode", b);
-
-    bool sqlOK = query.exec();
-
-    if (!sqlOK)
-        return -1;
-    if (!query.next())
-        return -2;
-    if (!query.isValid())
-        return -3;
-
-    int v = (query.value(0)).toInt();
-    query.finish();
-    return v;
-}
-
-
-QHash<QString, int> DataBase::getHashTableData(const DataTableHash _data)
-{//enum DataTableHash {World, Band, Mode};
-    //qDebug() << Q_FUNC_INFO << "Start";
-    QHash<QString, int> hash;
-    hash.clear();
-
-    QString queryString;
-    QSqlQuery query;
-    //query.setForwardOnly(true);
-    QString name;
-    switch (_data) {
-        case WorldData:
-        queryString = "SELECT prefix, dxcc FROM prefixesofentity";
-        break;
-        case BandData:
-        queryString = "SELECT name, id FROM band";
-        break;
-        case ModeData:
-        queryString = "SELECT submode, id FROM mode";
-        break;
-        default:
-        // should never be reached
-        return hash;
-    }
-
-    bool sqlOK = query.exec(queryString);
-
-    if (!sqlOK)
-    {
-        emit queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-       //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
-        return hash;
-    }
-    else
-    {
-        while ( (query.next()))
-        {
-            if (query.isValid())
-            {
-               //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
-                name = (query.value(0)).toString();
-                if (name.startsWith('='))
-                {
-                    name.remove(0,1);
-                }
-                hash.insert(name, (query.value(1)).toInt());
-            }
-            else
-            {
-                query.finish();
-                hash.clear();
-               //qDebug() << Q_FUNC_INFO << "END-FAIL - Query not valid";
-                return hash;
-            }
-        }
-    }
-    query.finish();
-    //qDebug() << Q_FUNC_INFO << "END";
-   //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(hash.count());
-    return hash;
-}
-
-int DataBase::getBandIdFromFreq(const QString &fr)
-{
-    //qDebug() << Q_FUNC_INFO << " - Start: " << fr ;
-    //Freq should be in MHz
- // qHash<int, Frequency> freqBandIDHash
-
-
-    QString queryString = QString("SELECT id FROM band WHERE lower <= '%1' and upper >= '%2'").arg(fr, fr);
-    QSqlQuery query;
-
-    bool sqlOK = query.exec(queryString);
-
-        //qDebug() << Q_FUNC_INFO << ": Query: " << query.lastQuery() ;
-    if (sqlOK)
-    {
-           //qDebug() << Q_FUNC_INFO << ": Query OK" ;
-        query.next();
-
-
-        if (query.isValid())
-        {
-                //qDebug() << Q_FUNC_INFO << ": Query OK - END" ;
-            return (query.value(0)).toInt();
-        }
-        else
-        {
-            query.finish();
-            return -1;
-        }
-    }
-    else
-    {
-        if (query.lastError().isValid())
-        {
-        }
-        else
-        {
-            //qDebug() << Q_FUNC_INFO << "  - Query NOK - Error NOT-VALID" ;
-        }
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().text(), query.lastError().text(), query.lastQuery());
-        query.finish();
-       return -2;
-    }
-    //qDebug() << Q_FUNC_INFO << "  - END";
-    // query.finish();
-    //return -3;
-}
 
 bool DataBase::unMarkAllQSO()
 {
@@ -1124,57 +962,6 @@ void DataBase::logBackup()
     }
 
     //qDebug() << Q_FUNC_INFO << " - END" ;
-}
-
-bool DataBase::updateBandHash()
-{
-        //qDebug() << Q_FUNC_INFO;
-
-    QString stringQuery = QString("SELECT id, name, lower FROM band");
-
-    bandIDHash.clear();
-
-    QSqlQuery query;
-    bool sqlOK = query.exec(stringQuery);
-
-    if (!sqlOK)
-    {
-        queryErrorManagement(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-       // emit debugLog(Q_FUNC_INFO, "1", 7);
-        return false;
-    }
-    QString     _bandName;
-    int         _bandId;
-    Frequency   _lowerfreq;
-
-
-    while (query.next())
-    {
-        if (query.isValid())
-        {
-            _bandName = (query.value(1)).toString();
-            _bandId = (query.value(0)).toInt();
-            _lowerfreq.fromDouble((query.value(2)).toDouble());
-
-            bandIDHash.insert(_bandId, _bandName);
-            freqBandIDHash.insert(_bandId, _lowerfreq);
-        }
-        else
-        {
-          //qDebug() << Q_FUNC_INFO << " Query not valid -'RETURN FALSE - END" ;
-          // QMessageBox::warning(0, QObject::tr("Database Error (DataBase::createTheBandQuickReference)"),
-          //                      query.lastError().text());
-            query.finish();
-           // emit debugLog(Q_FUNC_INFO, "2", 7);
-           return false;
-           //TODO: Manage this error, in case the query is NOK.
-        }
-              //qDebug() << Q_FUNC_INFO << " Go for the next one!" ;
-    }
-    query.finish();
-        //qDebug() << Q_FUNC_INFO << " - END" ;
-    return true;
 }
 
 bool DataBase::updateToLatest()
@@ -1432,7 +1219,7 @@ bool DataBase::updateTo005()
                                 callToUse = "N0CALL";
                             }
 
-                        stringQuery = QString("INSERT INTO logs (logdate, stationcall, logtype, logtypen) values('%1','%2','DX', '1')").arg(dateString).arg(callToUse);
+                        stringQuery = QString("INSERT INTO logs (logdate, stationcall, logtype, logtypen) values('%1','%2','DX', '1')").arg(dateString, callToUse);
                         sqlOk = execQuery(Q_FUNC_INFO, stringQuery);
 
 
@@ -2254,7 +2041,7 @@ bool DataBase::populateTableBand(const bool NoTmp)
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('630M', '0.472', '0.479', '630M')").arg(tableName));
     execQuery(Q_FUNC_INFO, QString("INSERT INTO %1 (name, lower, upper, cabrillo) VALUES ('2190M', '0.1357', '0.1378', '2190M')").arg(tableName));
 
-    updateBandHash();
+    //updateBandHash();
 
     //qDebug() << Q_FUNC_INFO << " - END";
     return true;
@@ -2417,7 +2204,7 @@ bool DataBase::updateTableLog(const int _version)
             return false;
         break;
     }
-    queryString = QString ("INSERT INTO logtemp (%1) SELECT %2 FROM log").arg(oldFields).arg(oldFields);
+    queryString = QString ("INSERT INTO logtemp (%1) SELECT %2 FROM log").arg(oldFields, oldFields);
     // Everything is ready, we can:
     //  - create the temp table for log,
     //  - move the data from the old table to the new one, taking into account the version
@@ -2648,7 +2435,16 @@ bool DataBase::updateModeIdFromSubModeId()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
     QHash<QString, int> modeIDs;
-    modeIDs = getHashTableData(ModeData);
+
+    QSqlQuery qMode;
+    if (!qMode.exec("SELECT submode, id FROM mode"))
+    {
+        queryErrorManagement(Q_FUNC_INFO, qMode.lastError().databaseText(),
+                             qMode.lastError().text(), qMode.lastQuery());
+        return false;
+    }
+    while (qMode.next())
+        modeIDs.insert(qMode.value(0).toString(), qMode.value(1).toInt());
 
     sqlOk = query.exec("SELECT modeid, id FROM log ORDER BY modeid");                                                   // STEP-1
 
@@ -2779,6 +2575,18 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 {
        //qDebug() << Q_FUNC_INFO  ;
 
+    QHash<int, QString> bandHash;
+    QSqlQuery qBand;
+    if (!qBand.exec("SELECT id, name FROM band"))
+    {
+        queryErrorManagement(Q_FUNC_INFO, qBand.lastError().databaseText(),
+                             qBand.lastError().text(), qBand.lastQuery());
+        return false;
+    }
+    while (qBand.next())
+        bandHash.insert(qBand.value(0).toInt(), qBand.value(1).toString());
+
+
     QString bandtxt = QString();
 
     bool cancel = false;
@@ -2816,7 +2624,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
     progress.setMaximum(qsos);
     progress.setWindowModality(Qt::WindowModal);
 
-    updateBandHash();
+    //updateBandHash();
     sqlOk = query.exec("SELECT bandid, id FROM log ORDER BY bandid DESC");
 
     if (sqlOk)
@@ -2840,7 +2648,7 @@ bool DataBase::updateBandIdTableLogToNewOnes()
 
                 bandFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
-                bandtxt = bandIDHash.value(bandFound);
+                bandtxt = bandHash.value(bandFound);
                 //bandtxt = getBandNameFromNumber(bandFound);
 
                      //qDebug() << Q_FUNC_INFO <<  " : band found: " << bandtxt ;

@@ -28,7 +28,6 @@
 
 
 #include <QString>
-//#include <QSqlQuery>
 #include <QDate>
 #include <QTime>
 #include <QObject>
@@ -36,7 +35,7 @@
 #include "klogdefinitions.h"
 #include "adif.h"
 #include "frequency.h"
-//#include "qsodatacache.h"
+
 
 class QSO : public QObject
 {
@@ -474,9 +473,6 @@ public:
 
 
     void clearQSLDateIfNeeded();                // Prevents a date when not ADIF compatible
-
-    //bool add();
-    //bool modify(const int _qsoId);
     bool isComplete() const;
     QString getADIF(ExportMode _em = ModeADIF);
 
@@ -500,19 +496,7 @@ private:
     bool isValidDateTime() const;
 
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
-
-    //KLOG_DEPRECATED int getBandIdFromBandName(bool _rxBand=false);   // if rxBand = true, it will chec the bandRX // To be moved to dataproxy_sqlite
-    //QString getBandNameFromBandId(int bandId);
-    //KLOG_DEPRECATED int getModeIdFromModeName();        // To be moved to dataproxy_sqlite           // It really returns submode
-    //QString getModeNameFromModeId(int _modeId, bool _submode=true);
-    //void setBandFromFreq(const double _fr, bool TX = true);
-    //enum QSOStatus {unknown, ATNO, needed, worked, confirmed, dupe};
-    //DataBase *db;
     void cleanMode(); // Cleans mode & submode
-    // Functions to update a QSO after downloading LoTW
-
-    //KLOG_DEPRECATED int findIdFromQSO(const QString &_qrz, const QDateTime &_datetime, const int _band, const int _mode); // Move to dataproxy
-
 
     int qsoId, logId, dxcc, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
@@ -546,24 +530,13 @@ private:
     bool keepComment, keepOther, keepMyData, keepSat, modifying, isValidDistance, forceInit, qso_random, swl;
     bool haveBand, haveMode, haveSubMode, haveDateTime, haveCall;
 
-    //QSODataCache *qdata;
     Utilities *util;
     Adif *adif;
     DebugLogLevel logLevel;
 
-
-   // DataProxy_SQLite *dataProxy;
     bool decltype_function(const QString& _c); //empty function to find correct typenames for mem_fn, DO NOT RENAME
     static QHash<QString, decltype(std::mem_fn(&QSO::decltype_function))> SetDataHash;
     void InitializeHash();
-
-
-
-    //KLOG_DEPRECATED bool setLoTWQSLRDate2(const QString& data);
-    //KLOG_DEPRECATED bool setLoTWQSLSDate1(const QString& data);
-    //KLOG_DEPRECATED bool setLoTWQSLSDate2(const QString& data);
-
-    //KLOG_DEPRECATED int getLastInsertedQSO();   // To be moved to dataproxy_sqlite // just a query to get the latest inserted QSO
 };
 
 #endif // QSO_H

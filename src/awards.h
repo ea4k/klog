@@ -92,6 +92,7 @@ public:
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     QColor getQRZDXStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
     QColor getDefaultColor();
+    QColor getColorFromStatus(const QSOStatus &_status);
 
     int getDXMarathonQSO(const int _year, const int _logNumber);
     int getDXMarathonDXCC(const int _year, const int _logNumber);

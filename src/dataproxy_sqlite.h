@@ -96,6 +96,8 @@ public:
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
     QStringList getModes(); // Returns the list of submodes
+    QStringList getSubModes();
+    QStringList getModesAndSubmodes();
     QStringList sortBandNamesBottonUp(const QStringList _qs);
     QStringList getBandIDs();
     QStringList getModesIDs();
@@ -380,7 +382,7 @@ public:
         return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), modeId, marginSeconds);
     }
 
-    QHash<QString, int> getHashTableData(const DataTableHash _data);
+    //QHash<QString, int> getHashTableData(const DataTableHash _data);
 
 
 private:

@@ -110,19 +110,16 @@ void DataProxy_SQLite::loadBandDataCache()
 
 void DataProxy_SQLite::loadModeDataCache()
 {
-    QSqlQuery query("SELECT id, submode, name FROM mode");
+    QSqlQuery query("SELECT id, submode, name, cabrillo, deprecated FROM mode");
     while (query.next()) {
         m_cache.addMode(
-            query.value(0).toInt(),    // id
-            query.value(1).toString(), // submode
-            query.value(2).toString()  // mode name
+            query.value(0).toInt(),     // id
+            query.value(1).toString(),  // submode
+            query.value(2).toString(),  // mode
+            query.value(3).toString(),  // cabrillo
+            query.value(4).toBool()     // deprecated
         );
     }
-}
-
-QHash<QString, int> DataProxy_SQLite::getHashTableData(const DataTableHash _data)
-{
-    return db->getHashTableData(_data);
 }
 
 void DataProxy_SQLite::setPKGVersion(const QString &_pkgVersion)
@@ -289,47 +286,8 @@ bool DataProxy_SQLite::isValidBand(const QString& _bandName)
 bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_sm.length()<2)
-    {
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return -3;
-    }
-    QSqlQuery query;
-    QString stQuery = QString("SELECT deprecated FROM mode WHERE submode='%1'").arg(_sm);
-    if (query.exec(stQuery))
-    {
-        query.next();
-        if (query.isValid())
-        {
-            if ( (query.value(0)).toInt() == 1 )
-            {
-                query.finish();
-                logEvent (Q_FUNC_INFO, "END-2", Debug);
-                return true;
-            }
-            else
-            {
-                query.finish();
-                logEvent (Q_FUNC_INFO, "END-3", Debug);
-                return false;
-            }
-        }
-        else
-        {
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-4", Debug);
-            return false; // In case we can't check, we don't state it as deprecated
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        logEvent (Q_FUNC_INFO, "END-5", Debug);
-        return false;   // In case we can't check, we don't state it as deprecated
-    }
-    logEvent (Q_FUNC_INFO, "END", Debug);
-    return false;
+    if (_sm.length() < 2) return false;
+    return m_cache.isModeDeprecated(_sm);
 }
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
@@ -360,35 +318,7 @@ QString DataProxy_SQLite::getSubModeFromId (const int _id)
 QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    QSqlQuery query;
-    QString queryString = QString("SELECT name FROM mode WHERE submode='%1'").arg(_sm.toUpper());
-    // qString queryString = QString("SELECT name, deprecated FROM mode WHERE submode='%1'").arg(_sm.toUpper());
-    bool sqlOK = query.exec(queryString);
-
-    if (sqlOK)
-    {
-        query.next();
-        if (query.isValid())
-        {
-            QString v = (query.value(0)).toString();
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-1", Debug);
-            return v;
-        }
-        else
-        {
-            query.finish();
-            logEvent (Q_FUNC_INFO, "END-2", Debug);
-            return QString();
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-        logEvent (Q_FUNC_INFO, "END-3", Debug);
-        return QString();
-    }
+    return m_cache.getModeNameFromSubmode(_sm);
 }
 
 //Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
@@ -534,13 +464,30 @@ QStringList DataProxy_SQLite::getBandNames()
         return QStringList();
     }
 }
-
 QStringList DataProxy_SQLite::getModes()
 {
     static Adif adif(Q_FUNC_INFO);
     QStringList result;
     for (const AdifMode &g : adif.getModeList())
+        result << g.mode;
+    return result;
+}
+
+QStringList DataProxy_SQLite::getSubModes()
+{
+    static Adif adif(Q_FUNC_INFO);
+    QStringList result;
+    for (const AdifMode &g : adif.getModeList())
         result << g.submodes;
+    return result;
+}
+
+QStringList DataProxy_SQLite::getModesAndSubmodes()
+{
+    static Adif adif(Q_FUNC_INFO);
+    QStringList result;
+    for (const AdifMode &g : adif.getModeList())
+        result << g.mode << g.submodes;
     return result;
 }
 
@@ -2858,18 +2805,22 @@ QSO DataProxy_SQLite::fromDB(const int _qsoId)
     // has a similar function
     // Make sure that all fields are included inbot functions until consolidated
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
-    QString queryString = "SELECT log.*, \
-        band.name AS band_name,          \
-        band_rx.name AS bandrx_name,     \
-        mode.name AS mode_name,          \
-        mode.submode AS submode_name     \
-            FROM log                     \
-                LEFT JOIN band ON log.bandid = band.id \
-              LEFT JOIN band AS band_rx ON log.band_rx = band_rx.id \
-              LEFT JOIN mode ON log.modeid = mode.id \
-              WHERE log.id = :idQSO";
+    if (_qsoId<1)
+        return QSO();
+
+    QString queryString = "SELECT log.*, "
+                          "t_band.name AS band_name, "
+                          "t_band_rx.name AS bandrx_name, "
+                          "t_mode.name AS mode_name, "
+                          "t_mode.submode AS submode_name "
+                          "FROM log "
+                          "LEFT JOIN band AS t_band ON log.bandid = t_band.id "
+                          "LEFT JOIN band AS t_band_rx ON log.band_rx = t_band_rx.id "
+                          "LEFT JOIN mode AS t_mode ON log.modeid = t_mode.id "
+                          "WHERE log.id = :idQSO";
+
 
     QSqlQuery query;
     query.prepare(queryString);
@@ -3341,58 +3292,30 @@ int DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 
 bool DataProxy_SQLite::isHF(const int _band)
 {// 160M is considered as HF
-    if ( (_band>=getIdFromBandName("10M")) && (_band<=getIdFromBandName("160M")) )
-    {
-            //qDebug() << Q_FUNC_INFO << " - TRUE";
-        return true;
-    }
-    else
-    {
-            //qDebug() << Q_FUNC_INFO << " - FALSE";
-        return false;
-    }
+    const BandEntry b = m_cache.getBandFromId(_band);
+
+    if (!b.isValid()) return false;
+      return b.minFreq >= Frequency(1.8, MHz) && b.maxFreq <= Frequency(30.0, MHz);
 }
 
 bool DataProxy_SQLite::isWARC(const int _band)
 {
-    if ( (_band==getIdFromBandName("12M")) || (_band==getIdFromBandName("17M")) || ((_band==getIdFromBandName("30M")) ) )
-    {
-             //qDebug() << Q_FUNC_INFO << " - tRUE";
-        return true;
-    }
-    else
-    {
-             //qDebug() << Q_FUNC_INFO << " - FALSE";
-        return false;
-    }
+    const QString name = m_cache.getBandFromId(_band).name;
+    return name == "30M" || name == "17M" || name == "12M";
 }
 
 bool DataProxy_SQLite::isVHF(const int _band)
 {
-    if (_band<=getIdFromBandName("6M"))
-    {
-            //qDebug() << Q_FUNC_INFO << " - TRUE";
-        return true;
-    }
-    else
-    {
-            //qDebug() << Q_FUNC_INFO << " - FALSE";
-        return false;
-    }
+    const BandEntry b = m_cache.getBandFromId(_band);
+    if (!b.isValid()) return false;
+    return b.minFreq >= Frequency(40.0, MHz) && b.maxFreq <= Frequency(300.0, MHz);
 }
 
 bool DataProxy_SQLite::isUHF(const int _band)
 {
-    if (_band<=getIdFromBandName("70CM"))
-    {
-            //qDebug() << Q_FUNC_INFO << " - TRUE";
-        return true;
-    }
-    else
-    {
-            //qDebug() << Q_FUNC_INFO << " - FALSE";
-        return false;
-    }
+    const BandEntry b = m_cache.getBandFromId(_band);
+    if (!b.isValid()) return false;
+    return b.minFreq >= Frequency(300.0, MHz) && b.maxFreq <= Frequency(3000.0, MHz);
 }
 
 QStringList DataProxy_SQLite::getOperatingYears(const int _currentLog)
@@ -5488,7 +5411,7 @@ QString DataProxy_SQLite::getSateliteArrlIdFromId(const int _id)
 
 Frequency DataProxy_SQLite::getFreqFromRange(const QString &_fr, int _pair, FreqUnits freqUnits)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     Frequency freq;
 
     if (_fr.trimmed().isEmpty())

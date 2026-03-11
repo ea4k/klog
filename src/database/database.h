@@ -77,16 +77,16 @@ public:
     //KLOG_DEPRECATED bool isValidMode (const QString &b, const bool _tmp=false);
 
     // qString getBandNameFromNumber(const int _n);
-    QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
+    //QHash<QString, int> getHashTableData(const DataTableHash _data);             //Returns a QHash from a Table (Band, Mode, World)
     // qString getModeNameFromNumber(const int _n, bool _tmp=false);
     // qString getSubModeNameFromNumber(const int _n, bool _tmp=false);
 
     //KLOG_DEPRECATED int getBandIdFromName(const QString &b);
-    KLOG_DEPRECATED int getModeIdFromName(const QString &b);
-    KLOG_DEPRECATED int getModeIdFromSubMode(const QString &b);
+    //KLOG_DEPRECATED int getModeIdFromName(const QString &b);
+    //KLOG_DEPRECATED int getModeIdFromSubMode(const QString &b);
 
 
-    KLOG_DEPRECATED int getBandIdFromFreq(const QString &fr); //Freq should be in MHz // Move to dataproxy
+    //KLOG_DEPRECATED int getBandIdFromFreq(const QString &fr); //Freq should be in MHz // Move to dataproxy
     // bool isThisFreqInBand(const QString &b, const QString &fr); //Freq should be in MHz // Move to dataproxy
 
     //Frequency getFreqFromBandId(const int _i);
@@ -154,7 +154,6 @@ private:
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
 
-    KLOG_DEPRECATED bool updateBandHash(); // Move this to datacache
     bool createTheModeQuickReference();
 
     //bool updateLog(); // Updates the log table
@@ -235,8 +234,8 @@ private:
     // qDateTime date;
 
 
-    QHash<int, QString> bandIDHash;
-    KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash;  // Validate if it is still needed, move to dataproxy
+    //KLOG_DEPRECATED QHash<int, QString> bandIDHash;
+    //KLOG_DEPRECATED QHash<int, Frequency> freqBandIDHash;  // Validate if it is still needed, move to dataproxy
 
 
     // qMap<QString, int> bandQMap;
