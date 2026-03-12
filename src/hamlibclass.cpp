@@ -162,7 +162,7 @@ bool HamLibClass::readFreq()
    {
       //qDebug() << Q_FUNC_INFO << " FREQ TX: " << (double) freq;
        radioStatus.freq_VFO_TX = Frequency ((double) freq, Hz);
-       errorCount = 0;
+       //errorCount = 0;
    }
    else
    {
@@ -174,7 +174,7 @@ bool HamLibClass::readFreq()
    {
       //qDebug() << Q_FUNC_INFO << " FREQ RX: " << (double) freq;
        radioStatus.freq_VFO_RX = Frequency ((double) freq, Hz);
-       errorCount = 0;
+       //errorCount = 0;
    }
    else
    {
@@ -196,7 +196,7 @@ bool HamLibClass::readMode()
     if (retcode == RIG_OK)
     {
         radioStatus.mode_VFO_TX = hamlibMode2Mode(rmode);
-        errorCount = 0;
+        //errorCount = 0;
     }
     else
     {
@@ -207,7 +207,7 @@ bool HamLibClass::readMode()
     if (retcode == RIG_OK)
     {
         radioStatus.mode_VFO_RX = hamlibMode2Mode(rmode);
-        errorCount = 0;
+        //errorCount = 0;
     }
     else
     {
@@ -231,7 +231,7 @@ bool HamLibClass::readSplit()
     if (retcode == RIG_OK)
     {
         radioStatus.split = (split == RIG_SPLIT_ON);
-        errorCount = 0;
+        //errorCount = 0;
     }
     else if (retcode == RIG_ENAVAIL || retcode == RIG_ENIMPL)
     {
@@ -261,19 +261,15 @@ bool HamLibClass::readRadioInternal()
     //reading = true;
 
     RadioStatus statusOld = radioStatus;
-    if(!readFreq())
-        return false;
+    if(!readFreq())   return false;
+    if (!readMode())  return false;
+    if (!readSplit()) return false;
 
-    if (!readMode())
-        return false;
-
-    if (!readSplit())
-        return false;
-
-    Utilities util(Q_FUNC_INFO);
+    //Utilities util(Q_FUNC_INFO);
    //qDebug() << Q_FUNC_INFO << " - RadioStatusChanged: " << util.boolToQString(radioStatusChanged(statusOld, radioStatus));
     //if (radioStatusChanged(statusOld, radioStatus))
-        emit radioStatusChanged(radioStatus);
+    errorCount = 0;
+    emit radioStatusChanged(radioStatus);
 
     //reading = false;
     return true;
@@ -337,7 +333,7 @@ void HamLibClass::setMode(const QString &_m)
         return;
     }
 
-    errorCount = 0;
+    //errorCount = 0;
     //qDebug() << "HamLibClass::setMode - END true ";
     return;
 }
@@ -779,7 +775,7 @@ void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
         return;
     }
 
-    errorCount = 0;
+    //errorCount = 0;
 }
 
 void HamLibClass::setRTS(const QString &_state)
@@ -853,7 +849,7 @@ void HamLibClass::setSplit(const bool _split)
     }
 
     radioStatus.split = _split;
-    errorCount = 0;
+    //errorCount = 0;
 }
 
 void HamLibClass::setNetworkAddress(const QString &_address)
@@ -884,85 +880,102 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
     Q_UNUSED(_func);
     if (RIG_OK == _errorcode)
     {
-        //qDebug() << Q_FUNC_INFO << " - RIG_OK";
+       //qDebug() << Q_FUNC_INFO << " - RIG_OK";
         return true;
     }
     switch (_errorcode)
     {
     case (RIG_EINVAL):
-        //qDebug() << Q_FUNC_INFO << ": Error: 1 invalid parameter";
+       //qDebug() << Q_FUNC_INFO << ": Error: 1 invalid parameter";
         break;
     case (RIG_ECONF):
-        //qDebug() << Q_FUNC_INFO << ": Error: 2 invalid configuration (serial,..) ";
+       //qDebug() << Q_FUNC_INFO << ": Error: 2 invalid configuration (serial,..) ";
         break;
     case (RIG_ENOMEM):
-        //qDebug() << Q_FUNC_INFO << ": Error: 3 memory shortage";
+       //qDebug() << Q_FUNC_INFO << ": Error: 3 memory shortage";
         break;
     case (RIG_ENIMPL):
-        //qDebug() << Q_FUNC_INFO << ": Error: 4 function not implemented, but will be ";
+       //qDebug() << Q_FUNC_INFO << ": Error: 4 function not implemented, but will be ";
         break;
     case (RIG_ETIMEOUT):
-        //qDebug() << Q_FUNC_INFO << ": Error: 5 communication timed ou";
+       //qDebug() << Q_FUNC_INFO << ": Error: 5 communication timed ou";
         break;
     case (RIG_EIO):
-        //qDebug() << Q_FUNC_INFO << ": Error: 6 IO error, including open failed";
+       //qDebug() << Q_FUNC_INFO << ": Error: 6 IO error, including open failed";
         break;
     case (RIG_EINTERNAL):
-        //qDebug() << Q_FUNC_INFO << ": Error: 7 Internal Hamlib error, huh!";
+       //qDebug() << Q_FUNC_INFO << ": Error: 7 Internal Hamlib error, huh!";
         break;
     case (RIG_ERJCTED):
-        //qDebug() << Q_FUNC_INFO << ": Error: 8 Command rejected by the rig";
+       //qDebug() << Q_FUNC_INFO << ": Error: 8 Command rejected by the rig";
         break;
     case (RIG_EPROTO):
-        //qDebug() << Q_FUNC_INFO << ": Error: 9 Protocol Error";
+       //qDebug() << Q_FUNC_INFO << ": Error: 9 Protocol Error";
         break;
     case (RIG_ETRUNC):
-        //qDebug() << Q_FUNC_INFO << ": Error: 10 Command performed, but arg truncated";
+       //qDebug() << Q_FUNC_INFO << ": Error: 10 Command performed, but arg truncated";
         break;
     case (RIG_ENAVAIL):
-        //qDebug() << Q_FUNC_INFO << ": Error: 11 Function not available";
+       //qDebug() << Q_FUNC_INFO << ": Error: 11 Function not available";
         break;
     case (RIG_ENTARGET):
-        //qDebug() << Q_FUNC_INFO << ": Error: 12 VFO not targetable";
+       //qDebug() << Q_FUNC_INFO << ": Error: 12 VFO not targetable";
         break;
     case (RIG_BUSERROR):
-        //qDebug() << Q_FUNC_INFO << ": Error: 13 Error talking on the bus";
+       //qDebug() << Q_FUNC_INFO << ": Error: 13 Error talking on the bus";
         break;
     case (RIG_BUSBUSY):
-        //qDebug() << Q_FUNC_INFO << ": Error: 14 Collision on the bus";
+       //qDebug() << Q_FUNC_INFO << ": Error: 14 Collision on the bus";
         break;
     case (RIG_EARG):
-        //qDebug() << Q_FUNC_INFO
-        // << ": Error: 15 NULL RIG handle or any invalid pointer parameter in get arg";
+       //qDebug() << Q_FUNC_INFO << ": Error: 15 NULL RIG handle or any invalid pointer parameter in get arg";
         break;
     case (RIG_EVFO):
-        //qDebug() << Q_FUNC_INFO << ": Error: 16 Invalid VFO";
+       //qDebug() << Q_FUNC_INFO << ": Error: 16 Invalid VFO";
         break;
     case (RIG_EDOM):
-        //qDebug() << Q_FUNC_INFO << ": Error: 17 Argument out of domain of func";
+       //qDebug() << Q_FUNC_INFO << ": Error: 17 Argument out of domain of func";
         break;
     default:
-        //qDebug() << Q_FUNC_INFO << ": Error: ?? Unknown error";
+       //qDebug() << Q_FUNC_INFO << ": Error: ?? Unknown error";
         break;
     }
     if (_errorcode == RIG_EINVAL || _errorcode == RIG_ENIMPL || _errorcode == RIG_ERJCTED \
             || _errorcode == RIG_ETRUNC || _errorcode == RIG_ENAVAIL || _errorcode == RIG_ENTARGET \
             || _errorcode == RIG_EVFO || _errorcode == RIG_EDOM)
     {
-        //qDebug() << Q_FUNC_INFO
+       //qDebug() << Q_FUNC_INFO ;
         // << ": Soft error: Invalid parameters - No reason to re-initialize the hardware";
     }
 
-    if (errorCount<10)
+    // Fatal communication errors: disconnect immediately after ERROR_THRESHOLD hits
+    const bool isSoftError = (
+        _errorcode == RIG_EINVAL   ||
+        _errorcode == RIG_ECONF    ||
+        _errorcode == RIG_ENIMPL   ||
+        _errorcode == RIG_ERJCTED  ||
+        _errorcode == RIG_ETRUNC   ||
+        _errorcode == RIG_ENAVAIL  ||
+        _errorcode == RIG_ENTARGET ||
+        _errorcode == RIG_EVFO     ||
+        _errorcode == RIG_EDOM
+    );
+
+    const int threshold = isSoftError ? SOFT_ERROR_THRESHOLD : ERROR_THRESHOLD;
+
+    if (errorCount < threshold)
     {
+       //qDebug() << Q_FUNC_INFO << " - Hamlib ERRORS: " <<  errorCount;
         errorCount++;
-        //qDebug() << Q_FUNC_INFO << ": RIG NOK for Mode: - " << QString::number(errorCount);
+        logEvent(Q_FUNC_INFO, QString("Error %1/%2 (code %3)")
+            .arg(errorCount).arg(threshold).arg(_errorcode), Warning);
         return false;
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": RIG NOK for Mode";
-        //qDebug() << Q_FUNC_INFO << ": Calling stop";
+       //qDebug() << Q_FUNC_INFO << " - Hamlib Disconnected!";
+        logEvent(Q_FUNC_INFO, "Error threshold reached, disconnecting rig", Error);
+        emit rigDisconnected();
         stop();
         return false;
     }

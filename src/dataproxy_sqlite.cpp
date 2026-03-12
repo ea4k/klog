@@ -2805,7 +2805,7 @@ QSO DataProxy_SQLite::fromDB(const int _qsoId)
     // has a similar function
     // Make sure that all fields are included inbot functions until consolidated
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _qsoId;
 
     if (_qsoId<1)
         return QSO();

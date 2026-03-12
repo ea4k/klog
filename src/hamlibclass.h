@@ -100,7 +100,7 @@ signals:
     void radioStatusChanged(RadioStatus);
     void freqTXChanged(Frequency newfreq);
     void modeChanged(QString newMode);
-    //void frequency(Frequency newfreq);
+    void rigDisconnected();   // Emitted when the rig stops responding
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
 
 public slots:
@@ -165,6 +165,8 @@ private:
     int pollInterval; // Poll interval in mSecs
     int errorCount;   // Number of times that the rig has returned an
                       // error since last time OK.
+    static constexpr int ERROR_THRESHOLD     = 3;  // Fatal comms errors before disconnect
+    static constexpr int SOFT_ERROR_THRESHOLD = 10; // Soft/config errors before disconnect
     bool connected;   // When we connect to the rig
 
     bool readOnlyMode; // If true, KLog will not modify any parameter

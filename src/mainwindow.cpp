@@ -54,17 +54,17 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     searchWidget = std::make_unique<SearchWidget>(&awards, world, this);
     logWindow = std::make_unique<LogWindow>(&awards, this);
 
-    qDebug() << " 001: " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 001: " << timer.elapsed() << "ms"; timer.restart();
 
     showKLogLogWidget = new ShowKLogLogWidget;
-    qDebug() << " 002 - showKLogLogWidget : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 002 - showKLogLogWidget : " << timer.elapsed() << "ms"; timer.restart();
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-    qDebug() << " 003 - UDPLogServer : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 003 - UDPLogServer : " << timer.elapsed() << "ms"; timer.restart();
     util = new Utilities(Q_FUNC_INFO);
-    qDebug() << " 004 - Util : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 004 - Util : " << timer.elapsed() << "ms"; timer.restart();
     backupQSO = new QSO;
-    qDebug() << " 005 - backupQSO : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 005 - backupQSO : " << timer.elapsed() << "ms"; timer.restart();
 
     logLevel = Info;
     dupeSlotInSeconds = 600;
@@ -77,82 +77,82 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     //dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
 
     world->create(util->getCTYFile());
-    qDebug() << " 006 - World : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 006 - World : " << timer.elapsed() << "ms"; timer.restart();
       //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
     hamlibConnectionAttempted = false;
     hamlib = new HamLibClass();
 
-    qDebug() << " 007 - hamlib : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 007 - hamlib : " << timer.elapsed() << "ms"; timer.restart();
       //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
 
 
       //qDebug() << Q_FUNC_INFO << ": AFTER dataproxy ";
     lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
-    qDebug() << " 008 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 008 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
       //qDebug() << Q_FUNC_INFO << ": AFTER lotwUtilities";
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
-    qDebug() << " 009 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 009 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     //qDebug() << Q_FUNC_INFO << ": AFTER eQSLUtilities";
     mapWindow = new MapWindowWidget(dataProxy, this);
-    qDebug() << " 010 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 010 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     mapWindow->init();
-    qDebug() << " 011 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 011 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     elogClublog = new eLogClubLog();
-    qDebug() << " 012 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 012 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
       //qDebug() << Q_FUNC_INFO << ": 00082: " << QTime::currentTime().toString("hh:mm:ss") ;
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
-    qDebug() << " 013 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 013 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
      //qDebug() << Q_FUNC_INFO << ": 00083: " << QTime::currentTime().toString("hh:mm:ss") ;
     updateSatsData = new UpdateSatsData(dataProxy);
-    qDebug() << "014 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << "014 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
      //qDebug() << Q_FUNC_INFO << ": 00084: " << QTime::currentTime().toString("hh:mm:ss") ;
     statsWidget = new StatisticsWidget(dataProxy);
-    qDebug() << " 015 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 015 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
     infoWidget = new InfoWidget(dataProxy, world, this);
-    qDebug() << " 016 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 016 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
      //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
     awardsWidget = new AwardsWidget(dataProxy, world, this);
-    qDebug() << " 017 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 017 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
-    qDebug() << " 018 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 018 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     tipsDialog = new TipsDialog();
-    qDebug() << " 019 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 019 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     downloadcty = new DownLoadCTY(util->getHomeDir (), softwareVersion);
-    qDebug() << " 020 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 020 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     statusBarMessage = tr("Starting KLog");
 
     setupDialog = new SetupDialog(dataProxy, world, this);
-    qDebug() << " 021 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 021 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
      //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
     satTabWidget = new MainWindowSatTab(dataProxy);
-    qDebug() << " 022 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 022 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
-    qDebug() << " 023 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 023 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     myDataTabWidget = new MainWindowMyDataTab(dataProxy);
-    qDebug() << " 024 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 024 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     commentTabWidget = new MainWindowInputComment();
-    qDebug() << " 025 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 025 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     othersTabWidget = new MainWindowInputOthers(dataProxy, world);
-    qDebug() << " 026 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 026 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
-    qDebug() << " 027 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 027 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
-    qDebug() << " 028 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 028 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
-    qDebug() << " 029 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 029 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     mainWidget = new QWidget(this);
-    qDebug() << " 030 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 030 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     dateTime = std::make_unique<QDateTime>();
     // UI DX
@@ -166,18 +166,18 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     }
 
     softUpdate = new SoftwareUpdate(softwareVersion);
-    qDebug() << " 031 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 031 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     filemanager = new FileManager(dataProxy, world);
-    qDebug() << " 032 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 032 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
 
     lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
-    qDebug() << " 033 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 033 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
-    qDebug() << " 034 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 034 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
-    qDebug() << " 035 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qDebug() << " 035 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qDebug() << Q_FUNC_INFO << ": END " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -724,7 +724,7 @@ void MainWindow::createActionsCommon(){
     //connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
 
     connect(hamlib, SIGNAL(radioStatusChanged(RadioStatus)), this, SLOT(slotHamlibUpdate(RadioStatus)));
-
+    connect(hamlib, &HamLibClass::rigDisconnected, this, &MainWindow::slotHamlibRigDisconnected);
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
     connect(adifLoTWExportWidget, SIGNAL(askingToClose()), this, SLOT(slotADIFExportClose()) );
@@ -2186,7 +2186,7 @@ void MainWindow::setCleaning(const bool _c)
 
 void MainWindow::slotClearButtonClicked(const QString &_func)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
+   //qDebug() << Q_FUNC_INFO << " - Start: " << _func ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     Q_UNUSED(_func);
 
@@ -3358,7 +3358,7 @@ void MainWindow::slotUpdateStatusBar(const QString &statusm)
 
 void MainWindow::slotDoubleClickLog(const int _qsoID)
 {
-    qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) ;
+   //qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(_qsoID) ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
 
@@ -3486,6 +3486,20 @@ void MainWindow::slotInitHamlib()
             "Please check the radio is on and the port settings are correct.\n"
             "You can reconfigure and test the connection in Setup → Hamlib."));
     }
+}
+
+void MainWindow::slotHamlibRigDisconnected()
+{
+    logEvent(Q_FUNC_INFO, "Rig disconnected", Warning);
+   //qDebug() << Q_FUNC_INFO ;
+    hamlibActive = false;
+
+    QMessageBox::warning(
+        this,
+        tr("Radio disconnected"),
+        tr("KLog lost communication with the radio.\n\n"
+           "Check that the radio is on and the cable is connected.\n"
+           "You can reconnect from Setup → Hamlib."));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
@@ -4504,7 +4518,7 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
 
 void MainWindow::qsoToEdit (const int _qso)
 {
-   qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
+  //qDebug() << Q_FUNC_INFO  << QString::number(_qso) ;
    // Switching to manualmode on start is important to prevent modifyingQSOid to be overwritten.
     if (_qso<1)
         return;
@@ -4547,7 +4561,7 @@ void MainWindow::qsoToEdit (const int _qso)
 
      //qDebug() << Q_FUNC_INFO << " - SATELLITE - satName" ;
     satTabWidget->setFillingToEdit(true);
-    qDebug() << Q_FUNC_INFO << " - 055 modifyingQSOid: " << modifyingQSOid;
+   //qDebug() << Q_FUNC_INFO << " - 055 modifyingQSOid: " << modifyingQSOid;
     QSO qsoE = dataProxy->fromDB(modifyingQSOid);
     //qDebug() << Q_FUNC_INFO << " - 056 ";
 

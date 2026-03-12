@@ -304,7 +304,7 @@ private slots:
     void slotHamlibModeChanged(const QString &_m);
     void slotHamlibUpdate(const RadioStatus &_s);
     void slotInitHamlib();
-    //void slotHamlibModeNotADIF();
+    void slotHamlibRigDisconnected();
 
     // PST Rotator
     //void slotRotatorShow();

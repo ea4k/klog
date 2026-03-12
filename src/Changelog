@@ -7,7 +7,8 @@ TODO: LoTW import ensure exiting QSOs are updated
 
 
 TBD
-- Enhancement: Split is now managed also from radio/UI
+- Enhancement: Start time optimizations.
+- Enhancement: Split is now managed also from radio/UI.
 - Enhancement: Optimized the exit from Setup to make it faster.
 - Enhancement: Band & Modes fully migrated to DataCache
 - Enhancement: Test on QSO cache class.
@@ -15,6 +16,8 @@ TBD
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
+- Bugfix: Program stops responding if rigctld communication lost (radio turned off) (Closes #877)
+- Bugfix: Hamlib is not init on start (Closes #823)
 - Bugfix: Primary subdivisions were not properly identified (DB schema error ).
 - Bugfix: Search was not working properly
 - Bugfix: CQZ was not properly defined for T9, 4N & YZ callsigns.
