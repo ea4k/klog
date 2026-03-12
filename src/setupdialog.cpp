@@ -170,7 +170,7 @@ SetupDialog::~SetupDialog()
 void SetupDialog::connectActions()
 {
      //qDebug() << Q_FUNC_INFO;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     connect(closeButton, SIGNAL(clicked()), this, SLOT(slotCancelButtonClicked()));
     connect(okButton, SIGNAL(clicked()), this, SLOT(slotOkButtonClicked()));
     connect (logsPage, SIGNAL(newLogData(QStringList)), this, SLOT(slotAnalyzeNewLogData(QStringList)));
@@ -198,7 +198,7 @@ void SetupDialog::setData(const QString &_softwareVersion, const QString &_calli
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     //qDebug() << Q_FUNC_INFO << " - " << _softwareVersion << "/" << QString::number(_page);
     Q_UNUSED(_callingFunction);
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     nolog = !(haveAtleastOneLog());
     firstTime = !_alreadyConfigured;
     if (firstTime)
@@ -224,7 +224,7 @@ void SetupDialog::setData(const QString &_softwareVersion, const QString &_calli
 void SetupDialog::setSoftVersion(const QString &_softwareVersion)
 {
      //qDebug() << "SetupDialog::setSoftVersion";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     version = _softwareVersion;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -233,7 +233,7 @@ void SetupDialog::setSoftVersion(const QString &_softwareVersion)
 void SetupDialog::setPage(const int _page)
 {
         //qDebug() << "SetupDialog::setPage("<<QString::number(_page) << ")";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     pageRequested = _page;
 
     if ((pageRequested==6) && (logsPageTabN>0))// The user is opening a new log
@@ -246,7 +246,7 @@ void SetupDialog::setPage(const int _page)
 void SetupDialog::slotCancelButtonClicked()
 {
        //qDebug() << "SetupDialog::slotCancelButtonClicked";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (firstTime || nolog)
     {
         if (nolog)
@@ -280,7 +280,7 @@ void SetupDialog::slotCancelButtonClicked()
 void SetupDialog::createIcons()
 {
         //qDebug() << "SetupDialog::createIcons";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QListWidgetItem *configButton = new QListWidgetItem(contentsWidget);
     configButton->setIcon(QIcon(":/images/config.png"));
     configButton->setText(tr("User data"));
@@ -332,7 +332,7 @@ void SetupDialog::createIcons()
 void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous)
 {
         //qDebug() << "SetupDialog::changePage";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (!current)
         current = previous;
 
@@ -424,7 +424,7 @@ void SetupDialog::saveSettings()
 void SetupDialog::slotOkButtonClicked()
 {
    //qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
     if (!miscPage->areDBPathChangesApplied())
     {
@@ -481,7 +481,7 @@ void SetupDialog::slotReadConfigData(const QString &_callingFunction)
 {
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;
     Q_UNUSED(_callingFunction);
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (firstTime)
     //if (!QFile::exists (util->getCfgFile ()))
     {
@@ -524,7 +524,7 @@ void SetupDialog::readActiveBands (const QStringList &actives)
     // bands used in the program
        //qDebug() << "SetupDialog::readActiveBands: " << actives << QT_ENDL;
 
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     bool atLeastOne = false;
 
     QStringList values = actives;
@@ -556,7 +556,7 @@ void SetupDialog::readActiveBands (const QStringList &actives)
 void SetupDialog::readActiveModes (const QStringList &actives)
 {
      //qDebug() << "SetupDialog::readActiveModes: " << actives;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
     bool atLeastOne = false;
     QStringList _amodes;
@@ -588,7 +588,7 @@ void SetupDialog::readActiveModes (const QStringList &actives)
 void SetupDialog::setDefaults()
 {
     //qDebug() <<  Q_FUNC_INFO << " - Start";
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     miscPage->setRealTime("TRUE");
     miscPage->setUTCTime("TRUE");
     miscPage->setImperial("FALSE"); //Metric system is the default
@@ -639,7 +639,7 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
 {
         //qDebug() << "SetupDialog::checkAndFixASCIIinADIF " << _data;
 //TODO: this function is also in the FileManager class. Maybe I should call that one and keep just one copy
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     ushort unicodeVal;
     QString st = _data;
     QString newString;
@@ -663,7 +663,7 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
 
 bool SetupDialog::haveAtleastOneLog()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
     return dataProxy->haveAtLeastOneLog();
     //logEvent(Q_FUNC_INFO, "END", Debug);
@@ -671,7 +671,7 @@ bool SetupDialog::haveAtleastOneLog()
 
 void SetupDialog::setClubLogActive(const bool _b)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     eLogPage->setClubLogActive(_b);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -679,7 +679,7 @@ void SetupDialog::setClubLogActive(const bool _b)
 void SetupDialog::checkIfNewBandOrMode()
 {
        //qDebug() << "SetupDialog::checkIfNewBandOrMode: logLevel: " << QString::number(logLevel);
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QStringList _items;
 
     _items.clear();
@@ -708,7 +708,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
        //qDebug() << "SetupDialog::slotAnalyzeNewLogData (length=" << QString::number(_qs.length()) << ")";
         //qDebug() << "SetupDialog::slotAnalyzeNewLogData";
  // We receive the station callsign and operators from the logs tab
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (_qs.length()!=2)
     {
         emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
@@ -722,7 +722,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
 void SetupDialog::slotSetStationCallSign(const QString &_p)
 {
         //qDebug() << "SetupDialog::slotSetStationCallSign: " << _p;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     logsPage->setDefaultStationCallsign(_p);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -730,7 +730,7 @@ void SetupDialog::slotSetStationCallSign(const QString &_p)
 void SetupDialog::slotSetOperators(const QString &_p)
 {
         //qDebug() << "SetupDialog::slotSetOperators: " << _p;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     logsPage->setDefaultOperators(_p);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -748,7 +748,7 @@ void SetupDialog::setLogLevel(const DebugLogLevel _sev)
 }
 
 void SetupDialog::slotQueryErrorManagement(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery)
-{   logEvent(Q_FUNC_INFO, "Start", Debug);
+{   logEvent(Q_FUNC_INFO, "Start", Devel);
     emit queryError(functionFailed, errorCodeS, nativeError, failedQuery);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

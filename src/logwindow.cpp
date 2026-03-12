@@ -150,21 +150,29 @@ void LogWindow::createlogPanel(const int _currentLog)
     currentLog = _currentLog;
     if (!logModel->createlogModel(currentLog))
     {
-      //qDebug() << Q_FUNC_INFO << " - ERROR creating model";
+        //qDebug() << Q_FUNC_INFO << " - ERROR creating model";
     }
 
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
 
     setColumnsOfLog(columns);
-    sortColumn(1);  //Initial sort by column 1 (date & time)
+    sortColumn(1);
 
     logView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    logView->resizeColumnsToContents();
+
+    // resizeColumnsToContents() recorre TODAS las filas del modelo para
+    // calcular el ancho, lo que con logbooks grandes tarda varios segundos.
+    // En su lugar asignamos un ancho fijo razonable por defecto y dejamos
+    // que el usuario pueda ajustarlo manualmente arrastrando las columnas.
+    logView->horizontalHeader()->setDefaultSectionSize(110);
+    logView->horizontalHeader()->setMinimumSectionSize(60);
+
     logView->horizontalHeader()->setStretchLastSection(true);
     logView->sortByColumn(1, Qt::DescendingOrder);
 
+    retoreColumsOrder();
     retoreColumsOrder();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -173,22 +181,26 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
 {
      //qDebug() << Q_FUNC_INFO << " - Start: Length: " << QString::number(_columns.length());
 
-    QString stringQuery;
-    stringQuery = QString("SELECT * FROM log LIMIT 1");
-    QSqlQuery query;
-    bool sqlOK = query.exec(stringQuery);
-    if (!sqlOK)
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-    }
-    QSqlRecord rec;
-    rec = query.record(); // Number of columns
-    int ncolumns = rec.count();
+    //QString stringQuery;
+    //stringQuery = QString("SELECT * FROM log LIMIT 1");
+    //QSqlQuery query;
+    //bool sqlOK = query.exec(stringQuery);
+    //if (!sqlOK)
+    //{
+    //    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+    //}
+    //QSqlRecord rec;
+    //rec = query.record(); // Number of columns
+    //int ncolumns = rec.count();
 
-    for (int i=0; i < ncolumns; i++)
-    {
+    //for (int i=0; i < ncolumns; i++)
+    //{
+    //    logView->setColumnHidden(i, true);
+    //}
+
+    int ncolumns = logModel->columnCount();
+    for (int i = 0; i < ncolumns; i++)
         logView->setColumnHidden(i, true);
-    }
 
     QString aux;
     //foreach(aux, columns)
@@ -221,18 +233,22 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
 void LogWindow::showColumn(const QString &_columnName)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    QString stringQuery;
-    stringQuery = QString("SELECT * FROM log LIMIT 1");
-    QSqlQuery query;
-    bool sqlOK = query.exec(stringQuery);
-    if (!sqlOK)
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-    }
-    QSqlRecord rec;
-    rec = query.record(); // Number of columns
-    int columns = rec.indexOf(_columnName);
-    logView->setColumnHidden(columns, false);
+    int col = logModel->record().indexOf(_columnName);
+    if (col >= 0)
+        logView->setColumnHidden(col, false);
+
+    //QString stringQuery;
+    //stringQuery = QString("SELECT * FROM log LIMIT 1");
+    //QSqlQuery query;
+    //bool sqlOK = query.exec(stringQuery);
+    //if (!sqlOK)
+    //{
+    //    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+    //}
+    //QSqlRecord rec;
+    //rec = query.record(); // Number of columns
+    //int columns = rec.indexOf(_columnName);
+    //logView->setColumnHidden(columns, false);
 }
 
 void LogWindow::refresh()

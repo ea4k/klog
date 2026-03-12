@@ -33,7 +33,7 @@
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO;
     timer = new QTimer(this);
     my_rig = nullptr;
@@ -47,7 +47,7 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 HamLibClass::~HamLibClass()
 {
     //qDebug() << Q_FUNC_INFO;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (timer)
         timer->stop();
    //qDebug() << Q_FUNC_INFO << " - END";
@@ -58,7 +58,7 @@ HamLibClass::~HamLibClass()
 void HamLibClass::initClass()
 {
     //qDebug() << Q_FUNC_INFO;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     strings.clear();
     fillRigsList();
     rig_set_debug(RIG_DEBUG_NONE);
@@ -70,7 +70,7 @@ void HamLibClass::initClass()
 
 void HamLibClass::clean()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO;
     myrig_model = 1;        //Dummy equipment
     bauds = 9600;
@@ -98,7 +98,7 @@ void HamLibClass::clean()
 
 void HamLibClass::cleanup()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
    //qDebug() << Q_FUNC_INFO << " - Start. Current State: " << static_cast<int>(rig_state);
 
@@ -140,8 +140,8 @@ void HamLibClass::cleanup()
 
 void HamLibClass::setPoll(const int _milsecs)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (_milsecs>0)
     {
         pollInterval = _milsecs;
@@ -151,7 +151,7 @@ void HamLibClass::setPoll(const int _milsecs)
 bool HamLibClass::readFreq()
 {
    //qDebug() << Q_FUNC_INFO;
-   logEvent(Q_FUNC_INFO, "Start", Debug);
+   logEvent(Q_FUNC_INFO, "Start", Devel);
 
    if (!my_rig || (rig_state != RigState::Connected) )
        return false;
@@ -187,7 +187,7 @@ bool HamLibClass::readFreq()
 bool HamLibClass::readMode()
 {
     //qDebug() << Q_FUNC_INFO;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (!my_rig || (rig_state != RigState::Connected) )
         return false;
 
@@ -217,15 +217,44 @@ bool HamLibClass::readMode()
     return true;
 }
 
+bool HamLibClass::readSplit()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+
+    if (!my_rig || (rig_state != RigState::Connected))
+        return false;
+
+    split_t split = RIG_SPLIT_OFF;
+    vfo_t tx_vfo = RIG_VFO_SUB;
+
+    int retcode = rig_get_split_vfo(my_rig, RIG_VFO_CURR, &split, &tx_vfo);
+    if (retcode == RIG_OK)
+    {
+        radioStatus.split = (split == RIG_SPLIT_ON);
+        errorCount = 0;
+    }
+    else if (retcode == RIG_ENAVAIL || retcode == RIG_ENIMPL)
+    {
+        // Some rigs don't support split query: treat as non-fatal, keep current state
+        logEvent(Q_FUNC_INFO, "Split query not supported by this rig, skipping", Warning);
+    }
+    else
+    {
+        return errorManage(Q_FUNC_INFO, retcode);
+    }
+    return true;
+}
+
+
 bool HamLibClass::readRadio()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     return readRadioInternal();
 }
 
 bool HamLibClass::readRadioInternal()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (!my_rig || (rig_state != RigState::Connected) )
         return false;
 
@@ -237,6 +266,10 @@ bool HamLibClass::readRadioInternal()
 
     if (!readMode())
         return false;
+
+    if (!readSplit())
+        return false;
+
     Utilities util(Q_FUNC_INFO);
    //qDebug() << Q_FUNC_INFO << " - RadioStatusChanged: " << util.boolToQString(radioStatusChanged(statusOld, radioStatus));
     //if (radioStatusChanged(statusOld, radioStatus))
@@ -259,7 +292,7 @@ bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _
 
 void HamLibClass::slotTimer()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO;
     if (!isRunning())
     {
@@ -272,7 +305,7 @@ void HamLibClass::slotTimer()
 
 void HamLibClass::setMode(const QString &_m)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setMode: " << _m;
     if ((!isRunning()) || (readOnlyMode))
     {
@@ -311,7 +344,7 @@ void HamLibClass::setMode(const QString &_m)
 
 bool HamLibClass::isModeADIFMode(const QString &_m)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QString _mode;
     _mode = _m.toUpper();
     if ((_mode == "AM") ||  (_mode == "CW") || (_mode == "FM") || (_mode == "LSB") ||
@@ -327,7 +360,7 @@ bool HamLibClass::isModeADIFMode(const QString &_m)
 
 QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     switch (_rmode)
     {
         case RIG_MODE_NONE:
@@ -382,7 +415,7 @@ QString HamLibClass::hamlibMode2Mode(rmode_t _rmode)
 
 rmode_t HamLibClass::mode2HamlibMode (const QString &_mode)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _mode;
     if (_mode == "USB")
     {
@@ -423,7 +456,7 @@ rmode_t HamLibClass::mode2HamlibMode (const QString &_mode)
 
 bool HamLibClass::stop()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << Q_FUNC_INFO << " - Start";
     cleanup();
    //qDebug() << Q_FUNC_INFO << " - END";
@@ -432,7 +465,7 @@ bool HamLibClass::stop()
 
 bool HamLibClass::init(bool _active)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << Q_FUNC_INFO << " - Start Initialization";
 
     // 1. BARRERA MEJORADA (Reconexión dinámica)
@@ -526,14 +559,14 @@ bool HamLibClass::init(bool _active)
 
 bool HamLibClass::isRunning()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     return (rig_state == RigState::Connected);
     //return connected;
 }
 
 void HamLibClass::fillRigsList()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::getRigList: StringsList before filling it: ";
     // Rutine to fill the rig combo boxes
     // Do not display debug codes when load the rig's
@@ -553,7 +586,7 @@ void HamLibClass::fillRigsList()
 
 QStringList HamLibClass::getRigList()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::getRigList: StringsList before filling it: ";
 
     //fillRigsList ();
@@ -565,7 +598,7 @@ QStringList HamLibClass::getRigList()
 
 int HamLibClass::addRigToList (const struct rig_caps *caps, void *data)
 {
-    //logEvent(Q_FUNC_INFO, "Start", Debug);
+    //logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::addRigToList" << caps->model_name;
     QString name;
     //qDebug() << "HamLibClass::addRigToList-10";
@@ -585,7 +618,7 @@ int HamLibClass::addRigToList (const struct rig_caps *caps, void *data)
 
 int HamLibClass::getModelIdFromName (const QString &_name)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //HamLibClass *r (HamLibClass *) data;
    int i = -1;
    i = rigName2RigId[_name];
@@ -595,7 +628,7 @@ int HamLibClass::getModelIdFromName (const QString &_name)
 
 QString HamLibClass::getNameFromModelId(const int _id)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::getNameFromModelId: " << QString::number(_id) << "/"
     // << rigId2RigName.value(_id);
     return rigId2RigName.value(_id);
@@ -603,7 +636,7 @@ QString HamLibClass::getNameFromModelId(const int _id)
 
 void HamLibClass::setModelId(const int _id)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setModelId: " << QString::number(_id);
     connected = false;
     rig_state = RigState::Disconnected;
@@ -612,7 +645,7 @@ void HamLibClass::setModelId(const int _id)
 
 void HamLibClass::setPort(const QString &_port)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setPort: " << _port;
     serialPort = _port;
     connected = false;
@@ -623,7 +656,7 @@ void HamLibClass::setPort(const QString &_port)
 
 void HamLibClass::setSpeed(const int _speed)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //TODO: Check that it is a valid speed
     bauds = _speed;
     connected = false;
@@ -633,7 +666,7 @@ void HamLibClass::setSpeed(const int _speed)
 
 void HamLibClass::setDataBits(const int _data)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": rec: " << QString::number(_data);
     if ((_data >= 5) && (_data <= 8))
     {
@@ -650,7 +683,7 @@ void HamLibClass::setDataBits(const int _data)
 
 void HamLibClass::setStop(const QString &_stop)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _stop;
 
     if (_stop == "OneStop")
@@ -675,7 +708,7 @@ void HamLibClass::setStop(const QString &_stop)
 
 void HamLibClass::setFlow(const QString &_flow)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _flow;
     flowControl = _flow.toUpper();
 
@@ -697,7 +730,7 @@ void HamLibClass::setFlow(const QString &_flow)
 
 void HamLibClass::setParity(const QString &_parity)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _parity;
     parity = _parity.toUpper();
     if (parity == "EVEN")
@@ -726,7 +759,7 @@ void HamLibClass::setParity(const QString &_parity)
 
 void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
     if (!isRunning() || readOnlyMode) {
         return;
@@ -734,7 +767,7 @@ void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
     //TODO: When split is disabled it does not detect the freq properly
     freq = _fr.toDouble(Hz);
 
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << "HamLibClass::setFreq" << (_TX ? "(TX):" : "(RX):") << freq;
 
     vfo_t target_vfo = _TX ? RIG_VFO_CURR : RIG_VFO_SUB;
@@ -751,7 +784,7 @@ void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
 
 void HamLibClass::setRTS(const QString &_state)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _state;
     if (shandshake == RIG_HANDSHAKE_HARDWARE)
     { // Note: An attempt to control the RTS signal in the HardwareControl mode will fail with error code
@@ -773,7 +806,7 @@ void HamLibClass::setRTS(const QString &_state)
 
 void HamLibClass::setDTR(const QString &_state)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _state;
     if (_state.toUpper() == "TRUE")
     {
@@ -789,7 +822,7 @@ void HamLibClass::setDTR(const QString &_state)
 
 void HamLibClass::checkErrorCountAndStop()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO;
     if (errorCount > 10)
     {
@@ -800,13 +833,13 @@ void HamLibClass::checkErrorCountAndStop()
 
 void HamLibClass::setReadOnly(const bool _r)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     readOnlyMode = _r;
 }
 
 void HamLibClass::setSplit(const bool _split)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
     if (!isRunning() || readOnlyMode)
         return;
@@ -825,7 +858,7 @@ void HamLibClass::setSplit(const bool _split)
 
 void HamLibClass::setNetworkAddress(const QString &_address)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _address;
     networkAddress = _address;
     connected = false;
@@ -834,7 +867,7 @@ void HamLibClass::setNetworkAddress(const QString &_address)
 
 void HamLibClass::setNetworkPort(const int _port)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_port);
     if ((_port>0) && (_port<65535))
     {
@@ -846,7 +879,7 @@ void HamLibClass::setNetworkPort(const int _port)
 
 bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _func << ": error: " << QString::number(_errorcode);
     Q_UNUSED(_func);
     if (RIG_OK == _errorcode)
@@ -937,7 +970,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
 
 bool HamLibClass::loadSettings()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");

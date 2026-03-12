@@ -134,7 +134,7 @@ QString DataProxy_SQLite::getPKGVersion()
 
 int DataProxy_SQLite::getHowManyQSOPerPropMode(const QString &_p, const int _logn)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QSqlQuery query;
     QString queryString;
     bool sqlOK;
@@ -298,7 +298,7 @@ int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
 { //TODO: Use the hash
-    //logEvent(Q_FUNC_INFO, "Start", Debug);
+    //logEvent(Q_FUNC_INFO, "Start", Devel);
     return m_cache.getBandFromId(_id).name;
 }
 
@@ -366,7 +366,7 @@ Frequency DataProxy_SQLite::getUpperLimitBandFromBandName(const QString &_sm)
 /*
 bool DataProxy_SQLite::loadBandLimits()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     m_bandLimits.clear();
 
     // Query ID, lower limit, and upper limit from the 'band' table
@@ -8719,7 +8719,7 @@ int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newT
 
 void DataProxy_SQLite::loadDuplicateCache(int logId)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << Q_FUNC_INFO << " - Start";
     clearDuplicateCache();
 

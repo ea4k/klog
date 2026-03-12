@@ -42,6 +42,8 @@ public:
     LogModel(DataProxy_SQLite *dp, QObject *parent);
     bool createlogModel(const int _i);
     bool setColumns(const QStringList &_columns);
+    void loadAllQSOs(const int _lognumber);
+
     QVariant data(const QModelIndex &index, int role) const;
 
 private:

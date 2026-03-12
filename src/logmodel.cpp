@@ -124,9 +124,16 @@ This should be coherent with the logview
 
     //qDebug() << Q_FUNC_INFO ;
 
-    QString stringQuery = QString("lognumber='%1'").arg(_i);
+    //QString stringQuery = QString("lognumber='%1'").arg(_i);
     // qSqlQuery query(stringQuery);
+
+    QString stringQuery = QString(
+        "id IN (SELECT id FROM log WHERE lognumber='%1' ORDER BY date DESC, time DESC LIMIT 500)"
+        ).arg(_i);
     setFilter(stringQuery);
+
+
+
     if (!setColumns(columns))
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on setColumns";
@@ -142,6 +149,13 @@ This should be coherent with the logview
   //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
+
+void LogModel::loadAllQSOs(const int _lognumber)
+{
+    setFilter(QString("lognumber='%1'").arg(_lognumber));
+    select();
+}
+
 
 bool LogModel::setColumns(const QStringList &_columns)
 {

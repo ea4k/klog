@@ -36,7 +36,7 @@ TipsDialog::TipsDialog(QWidget *parent): QDialog(parent)
 {
       //qDebug() << "TipsDialog::TipsDialog";
     logLevel = Info;  //7 Debug /0=emergency or no debug
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     tipTextQLabel = new QLabel;
     tipId = 1;
     tipMax = 19;
@@ -85,7 +85,7 @@ TipsDialog::~TipsDialog(){}
 
 void TipsDialog::slotPrevButtonClicked()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
     if (tipId>1)
     {
@@ -102,7 +102,7 @@ void TipsDialog::slotPrevButtonClicked()
 
 void TipsDialog::slotNextButtonClicked()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
     if (tipId<tipMax)
     {
@@ -118,14 +118,14 @@ void TipsDialog::slotNextButtonClicked()
 
 void TipsDialog::setLogLevel(const DebugLogLevel _sev)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     logLevel = _sev;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void TipsDialog::setTip(const int _t)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     switch (_t)
     {
     case 1:
@@ -209,7 +209,7 @@ void TipsDialog::setTip(const int _t)
 
 void TipsDialog::slotLinkActivated(const QString &_link)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
 
       //qDebug() << "TipsDialog::slotLinkActivated: " << _link;
     //Comprobar el enalce y activar el menu correspondiente

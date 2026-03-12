@@ -91,7 +91,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 
 DataBase::~DataBase()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     delete(util);
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -99,7 +99,7 @@ DataBase::~DataBase()
 
 QString DataBase::getSoftVersion()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QSqlQuery query;
 
     QString stringQuery ("SELECT MAX (softversion) FROM softwarecontrol");
@@ -133,7 +133,7 @@ QString DataBase::getSoftVersion()
 
 float DataBase::getDBVersion()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QSqlQuery query;
 
     QString stringQuery ("SELECT MAX (dbversion) FROM softwarecontrol");
@@ -183,7 +183,7 @@ QString DataBase::getDBName()
 
 QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << Q_FUNC_INFO << " - Start: " << _tableName;
     QSqlQuery query;
 
@@ -231,7 +231,7 @@ QStringList DataBase::getColumnNamesFromTable(const QString &_tableName)
 
 void DataBase::compress()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     // qSqlDatabase db = QSqlDatabase::database();
     if (!db.open()) { /* Flawfinder: ignore */
         QMessageBox::warning(nullptr, QObject::tr("Database Error"),
@@ -247,7 +247,7 @@ void DataBase::compress()
 
 bool DataBase::reConnect(const QString &_DBName)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << " - Start";
     db.close();
     dbName = _DBName;
@@ -266,7 +266,7 @@ bool DataBase::createConnection(const QString &function, bool newDB)
 {
     //qDebug() << Q_FUNC_INFO <<  " - Start";
     //qDebug() << Q_FUNC_INFO <<  " :" << function << "-" << QString::number(dbVersion) << "/" << softVersion ;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     Q_UNUSED(function);
     Q_UNUSED(newDB);
     QString stringQuery;
@@ -350,7 +350,7 @@ bool DataBase::setPragma()
 bool DataBase::isTheDBCreated()
 {
     //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(constrid)  ;
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     QSqlQuery query;
     int _num = 0;
     // qString stringQuery ("SELECT name FROM sqlite_sequence WHERE name='softwarecontrol'");
@@ -387,7 +387,7 @@ bool DataBase::isTheDBCreated()
 
 bool DataBase::recreateTableLog()
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (!createTableLog(false))         // Create modetemp
     {
@@ -437,7 +437,7 @@ bool DataBase::recreateTableLog()
 
 bool DataBase::createTableLog(bool temp)
 { //Creates a temporal table or the normal one.
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << " - Start" ;
     QString stringQuery = QString();
     if (temp)
@@ -1698,7 +1698,7 @@ bool DataBase::populateTableWithModes(const QStringList& submodes, const QString
 
 bool DataBase::populateTableMode(const bool NoTmp)
 {
-    logEvent(Q_FUNC_INFO, "Start", Debug);
+    logEvent(Q_FUNC_INFO, "Start", Devel);
     Adif adif(Q_FUNC_INFO);
     bool ok = true;
     for (const AdifMode &m : adif.getModeList())

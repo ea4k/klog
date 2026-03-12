@@ -38,6 +38,7 @@
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
+#include <QElapsedTimer>
 #ifdef KLOG_USE_VERSION_H
 #include "version.h"
 #endif
@@ -120,12 +121,15 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " -  " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
     QT_REQUIRE_VERSION(argc, argv, "6.0")
     //qDebug() << QT_VERSION_STR;
+    QElapsedTimer timer;
+    timer.start();
 
     QDir d1 = QDir();
     //qDebug() << Q_FUNC_INFO << " - STARTED: ";
     Utilities util(Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << " 001: " << timer.elapsed() << "ms"; timer.restart();
     QApplication app(argc, argv);
-
+    qDebug() << Q_FUNC_INFO << " 002: " << timer.elapsed() << "ms"; timer.restart();
     QString iconSt;
     iconSt = ":/img/klog.ico";
     QIcon KLogIcon(iconSt);
@@ -135,9 +139,8 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("klog.xyz");
     app.setApplicationVersion(QString(APP_VERSION));
     QString version = QCoreApplication::applicationVersion();
-
     QString pkgVersion = QString(APP_PKGVERSION);
-    //qDebug() << Q_FUNC_INFO << " -  -10 ";
+    qDebug() << Q_FUNC_INFO << " 010: " << timer.elapsed() << "ms"; timer.restart();
     //qDebug() << Q_FUNC_INFO << " - " << pkgVersion;
 
     // Now we check if the user is executing from the command line
@@ -160,7 +163,7 @@ int main(int argc, char *argv[])
         }
         return 0;
     }
-
+    qDebug() << Q_FUNC_INFO << " 020: " << timer.elapsed() << "ms"; timer.restart();
     /* Application Singleton
      *
      * We want to run only one instance of KLog application
@@ -182,7 +185,7 @@ int main(int argc, char *argv[])
 
     QSharedMemory sharedMemory("klogshm");  // Create a copy of the shared memory - Unique ID klogshm
     bool is_running;
-
+    qDebug() << Q_FUNC_INFO << " 030: " << timer.elapsed() << "ms"; timer.restart();
     /*
      * trying to attach a copy of the shared memory to an existing segment
      *
@@ -200,7 +203,7 @@ int main(int argc, char *argv[])
     }
 
     semaphore.release();
-
+    qDebug() << Q_FUNC_INFO << " 040: " << timer.elapsed() << "ms"; timer.restart();
     // If you already run one instance of the application, then we
     // inform the user about it
     // and complete the current instance of the application
@@ -222,6 +225,7 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
     QTranslator myappTranslator;
     loadTranslations(app, myappTranslator);
+    qDebug() << Q_FUNC_INFO << " 050: " << timer.elapsed() << "ms"; timer.restart();
 
 
     QString klogDir = util.getHomeDir();
@@ -243,20 +247,20 @@ int main(int argc, char *argv[])
 
     //qDebug() << Q_FUNC_INFO << " -  Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss") ;
     QPixmap pixmap(":img/klog_512x512.png");
-   //qDebug() << Q_FUNC_INFO << " - 51" << (QTime::currentTime()).toString("HH:mm:ss");
+   qDebug() << Q_FUNC_INFO << " 051: " << timer.elapsed() << "ms"; timer.restart();
     QSplashScreen splash(pixmap);
     //int firstTime = true;
     // If the KLog configuration file does not exist, we launch the wizard.
     if (!((QFile::exists(util.getCfgFile ()))))
     {
-        //qDebug() << Q_FUNC_INFO << " -  Starting wizard... ";
+        qDebug() << Q_FUNC_INFO << " 052: " << timer.elapsed() << "ms"; timer.restart();
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         wizard->exec();
     }
     else
     {   // KLog configuration file exists, let's look for the DB
-       //qDebug() << Q_FUNC_INFO << " -  Start of DB Activities" << (QTime::currentTime()).toString("HH:mm:ss");
+       qDebug() << Q_FUNC_INFO << " 060: " << timer.elapsed() << "ms"; timer.restart();
         //firstTime = false;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
        //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
@@ -278,44 +282,42 @@ int main(int argc, char *argv[])
         }
        //qDebug() << Q_FUNC_INFO << " - 98" << (QTime::currentTime()).toString("HH:mm:ss");
         db->~DataBase();
-       //qDebug() << Q_FUNC_INFO << " - 99" << (QTime::currentTime()).toString("HH:mm:ss");
+       qDebug() << Q_FUNC_INFO << " 069: " << timer.elapsed() << "ms"; timer.restart();
     }
-  //qDebug() << Q_FUNC_INFO << " - 100 - Show" << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " 070: " << timer.elapsed() << "ms"; timer.restart();
     splash.show();
    //qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
 
     splash.showMessage ("Creating the Data Base...");
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
+    qDebug() << Q_FUNC_INFO << " 071: " << timer.elapsed() << "ms"; timer.restart();
     World world(&dataProxy, Q_FUNC_INFO);
+    qDebug() << Q_FUNC_INFO << " 072: " << timer.elapsed() << "ms"; timer.restart();
     dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage("Creating window...");
-   //qDebug() << Q_FUNC_INFO << " - 102 " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " 080: " << timer.elapsed() << "ms"; timer.restart();
 
     MainWindow mw(&dataProxy, &world);
     splash.showMessage ("Initializing window...");
-    //qDebug() << Q_FUNC_INFO << " - 103 " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " 081: " << timer.elapsed() << "ms"; timer.restart();
 
     //qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.init();
 
-    //qDebug() << Q_FUNC_INFO << " - 105 " << (QTime::currentTime()).toString("HH:mm:ss");
-  splash.showMessage("Checking for new versions...");
-    //qDebug() << Q_FUNC_INFO << " - 106 " << (QTime::currentTime()).toString("HH:mm:ss");
-    mw.checkIfNewVersion();
-    //qDebug() << Q_FUNC_INFO << " - 107 " << (QTime::currentTime()).toString("HH:mm:ss");
-    splash.showMessage ("Checking if backup is needed...");
-    //qDebug() << Q_FUNC_INFO << " - 108 " << (QTime::currentTime()).toString("HH:mm:ss");
-    mw.recommendBackupIfNeeded();
-    //qDebug() << Q_FUNC_INFO << " - 109 " << (QTime::currentTime()).toString("HH:mm:ss");
+    qDebug() << Q_FUNC_INFO << " 082: " << timer.elapsed() << "ms"; timer.restart();
+    //splash.showMessage("Checking for new versions...");
+    //mw.checkIfNewVersion();
+    //qDebug() << Q_FUNC_INFO << " 083: " << timer.elapsed() << "ms"; timer.restart();
+    //splash.showMessage ("Checking if backup is needed...");
+    //qDebug() << Q_FUNC_INFO << " 084: " << timer.elapsed() << "ms"; timer.restart();
+    //mw.recommendBackupIfNeeded();
+    qDebug() << Q_FUNC_INFO << " 085: " << timer.elapsed() << "ms"; timer.restart();
     splash.showMessage ("Showing window...");
     //qDebug() << Q_FUNC_INFO << " - 110 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.show();
-     //qDebug() << Q_FUNC_INFO << " - 111 " << (QTime::currentTime()).toString("HH:mm:ss");
+     qDebug() << Q_FUNC_INFO << " 086: " << timer.elapsed() << "ms"; timer.restart();
     splash.finish(&mw);
-     //qDebug() << Q_FUNC_INFO << " - 112 " << (QTime::currentTime()).toString("HH:mm:ss");
-    //mw.showNotWar();
-    //qDebug() << Q_FUNC_INFO << " - 113 " << (QTime::currentTime()).toString("HH:mm:ss");
-    //qDebug() << Q_FUNC_INFO << " - END";
+
     return app.exec();
 }

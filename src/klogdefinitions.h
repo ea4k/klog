@@ -35,7 +35,16 @@ enum ExportMode {ModeLotW, ModeADIF, ModeClubLog, ModeEQSL, ModeQRZ};
 enum OnLineProvider {ClubLog, LoTW, eQSL, QRZ}; //, HamQTH, HRDLog
 enum OnlineErrorCode {Ok, Fail};
 enum OnlineErrorReason {Other, Auth, DupeQSO, WrongLogBook};
-enum DebugLogLevel {None, Info, Debug, Devel};
+enum DebugLogLevel {
+    None,       // No logging
+    Fatal,      // Non recuprable error. App can't continue
+    Error,      // Recuperable error, failed operation
+    Warning,    // Not normal situation
+    Info,       // Informational event (connection, disconnection, ...)
+    Debug,      // Debug for diagnostic
+    Devel       // Verbose entry (i.e. Start of each method)
+};
+
 enum ValidFieldsForStats {DXCC, GridSquare};
 enum FilesToDownload {CTY, Sats};
 enum QSOStatus {unknown, ATNO, needed, worked, confirmed};

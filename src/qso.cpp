@@ -1990,7 +1990,7 @@ double QSO::getTXPwr() const
 bool QSO::setOperatorCallsign(const QString &_c)
 {
     //qDebug() << Q_FUNC_INFO << "Start: " << _c;
-    //logEvent(Q_FUNC_INFO, "Start", Debug);
+    //logEvent(Q_FUNC_INFO, "Start", Devel);
     Callsign call(_c);
     if (call.isValid())
     {

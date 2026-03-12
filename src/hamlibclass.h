@@ -78,6 +78,7 @@ public:
     void setMode(const QString &_m);
     void setReadOnly(const bool _r);
     void setSplit(const bool _split);
+    bool readSplit();
 
     bool isModeADIFMode(const QString &_m);
     void setNetworkAddress(const QString &_address);

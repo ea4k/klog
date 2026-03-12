@@ -159,7 +159,7 @@ private slots:
     //void slotSRXTextChanged();
     //void slotSTXTextChanged();
     void slotUpdateLocator(QString _loc);
-    KLOG_DEPRECATED void slotLocatorTextChanged(const QString &_loc);
+    void slotLocatorTextChanged(const QString &_loc);
     //void slotMyLocatorTextChanged();
     void slotFreqTXChanged(const Frequency _fr);
     void slotFreqRXChanged(const Frequency _fr);
@@ -303,6 +303,7 @@ private slots:
     //void slotHamlibRXFreqChanged(const Frequency _f);
     void slotHamlibModeChanged(const QString &_m);
     void slotHamlibUpdate(const RadioStatus &_s);
+    void slotInitHamlib();
     //void slotHamlibModeNotADIF();
 
     // PST Rotator
@@ -382,6 +383,7 @@ private:
     bool hamlibActive;
     bool hamlibChangingMode;
     bool hamlibModeNotADIFSupported;
+    bool hamlibConnectionAttempted; // true after first deferred connection attempt
 
     //bool sendQSLByDefault;
     bool deleteAlwaysAdiFile;
