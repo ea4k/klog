@@ -37,7 +37,7 @@ HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
     //qDebug() << Q_FUNC_INFO;
     timer = new QTimer(this);
     my_rig = nullptr;
-    connected = false;
+    //connected = false;
     rig_state = RigState::Disconnected;
     //connect(timer, &QTimer::timeout, this, &HamLibClass::readRadioInternal);
 
@@ -78,7 +78,7 @@ void HamLibClass::clean()
     stopBits = 1;
     pollInterval = 300;
 
-    retcode = -1;
+    //retcode = -1;
     readOnlyMode = false;
     shandshake = RIG_HANDSHAKE_NONE;
     sparity = RIG_PARITY_NONE;
@@ -89,10 +89,13 @@ void HamLibClass::clean()
     networkAddress = "127.0.0.1";
     freq_old = 0.0;
     rig_state = RigState::Disconnected;
-    connected = false;
+    //onnected = false;
     errorCount = 0;
     justEmitted = false;
     reading = false;
+    currentVfo = RIG_VFO_CURR;
+    vfoQuerySupported = true;
+    splitQuerySupported = true;
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -129,10 +132,7 @@ void HamLibClass::cleanup()
        //qDebug() << Q_FUNC_INFO << " - 43";
     }
 
-   //qDebug() << Q_FUNC_INFO << " - 50";
-
-    // 4. Update status
-    connected = false; // To be removed when the rest of the class is updated
+   //qDebug() << Q_FUNC_INFO << " - 50";    
     rig_state = RigState::Disconnected;
 
    //qDebug() << Q_FUNC_INFO << " - END";
@@ -141,11 +141,69 @@ void HamLibClass::cleanup()
 void HamLibClass::setPoll(const int _milsecs)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    logEvent(Q_FUNC_INFO, "Start", Devel);
     if (_milsecs>0)
     {
         pollInterval = _milsecs;
     }
+}
+
+bool HamLibClass::readVFO()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+
+    if (!my_rig || (rig_state != RigState::Connected))
+        return false;
+
+    // If a previous call already determined that this rig does not support
+    // rig_get_vfo(), skip the call entirely to avoid pointless errors and
+    // log spam on every poll cycle.
+    if (!vfoQuerySupported)
+    {
+        currentVfo = RIG_VFO_CURR;
+        radioStatus.memoryMode = false;
+        radioStatus.memoryChannel = -1;
+        return true;
+    }
+
+    vfo_t vfo = RIG_VFO_CURR;
+    int retcode = rig_get_vfo(my_rig, &vfo);
+
+    if (retcode == RIG_OK)
+    {
+        currentVfo = vfo;
+        radioStatus.memoryMode = (vfo == RIG_VFO_MEM);
+
+        if (radioStatus.memoryMode)
+        {
+            logEvent(Q_FUNC_INFO, "Radio in memory mode", Debug);
+            int channel = 0;
+            if (rig_get_mem(my_rig, RIG_VFO_CURR, &channel) == RIG_OK)
+                radioStatus.memoryChannel = channel;
+        }
+        else
+        {
+            radioStatus.memoryChannel = -1;
+        }
+    }
+    else
+    {
+        // rig_get_vfo() failed. This is non-fatal: many rigs do not support
+        // this call (e.g. RIG_ENTARGET, RIG_ENAVAIL, RIG_ENIMPL are common).
+        // Any other unexpected error is also treated as non-fatal here because
+        // VFO querying is auxiliary — failing it must never interrupt the main
+        // polling cycle (freq/mode/split reads).
+        // We log once and disable future calls to avoid log spam.
+        logEvent(Q_FUNC_INFO,
+                 QString("rig_get_vfo failed (code %1) — "
+                         "VFO query disabled for this session").arg(retcode),
+                 Warning);
+        vfoQuerySupported = false;
+        currentVfo = RIG_VFO_CURR;
+        radioStatus.memoryMode = false;
+        radioStatus.memoryChannel = -1;
+    }
+
+    return true;
 }
 
 bool HamLibClass::readFreq()
@@ -153,35 +211,41 @@ bool HamLibClass::readFreq()
    //qDebug() << Q_FUNC_INFO;
    logEvent(Q_FUNC_INFO, "Start", Devel);
 
-   if (!my_rig || (rig_state != RigState::Connected) )
+    if (!my_rig || (rig_state != RigState::Connected) )
        return false;
 
+    const vfo_t vfoToRead = (currentVfo == RIG_VFO_MEM) ? RIG_VFO_MEM : RIG_VFO_CURR;
+    int retcode = rig_get_freq(my_rig, vfoToRead, &freq);
 
-   int retcode = rig_get_freq(my_rig, RIG_VFO_CURR, &freq);
-   if (retcode == RIG_OK)
-   {
-      //qDebug() << Q_FUNC_INFO << " FREQ TX: " << (double) freq;
-       radioStatus.freq_VFO_TX = Frequency ((double) freq, Hz);
-       //errorCount = 0;
-   }
-   else
-   {
+    if (retcode == RIG_OK)
+    {
+          //qDebug() << Q_FUNC_INFO << " FREQ TX: " << (double) freq;
+           radioStatus.freq_VFO_TX = Frequency ((double) freq, Hz);
+    }
+    else
+    {
+           //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
+           return errorManage(Q_FUNC_INFO, retcode);
+    }
+        // In memory mode there is no independent SUB VFO: RX = TX
+    if (currentVfo == RIG_VFO_MEM)
+    {
+        radioStatus.freq_VFO_RX = radioStatus.freq_VFO_TX;
+        return true;
+    }
+
+    retcode = rig_get_freq(my_rig, RIG_VFO_SUB, &freq);
+    if (retcode == RIG_OK)
+    {
+        //qDebug() << Q_FUNC_INFO << " FREQ RX: " << (double) freq;
+        radioStatus.freq_VFO_RX = Frequency ((double) freq, Hz);
+    }
+    else
+    {
        //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
        return errorManage(Q_FUNC_INFO, retcode);
-   }
-   retcode = rig_get_freq(my_rig, RIG_VFO_SUB, &freq);
-   if (retcode == RIG_OK)
-   {
-      //qDebug() << Q_FUNC_INFO << " FREQ RX: " << (double) freq;
-       radioStatus.freq_VFO_RX = Frequency ((double) freq, Hz);
-       //errorCount = 0;
-   }
-   else
-   {
-       //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
-       return errorManage(Q_FUNC_INFO, retcode);
-   }
-   return true;
+    }
+    return true;
 }
 
 bool HamLibClass::readMode()
@@ -191,23 +255,27 @@ bool HamLibClass::readMode()
     if (!my_rig || (rig_state != RigState::Connected) )
         return false;
 
-
-    int retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
+    const vfo_t vfoToRead = (currentVfo == RIG_VFO_MEM) ? RIG_VFO_MEM : RIG_VFO_CURR;
+    int retcode = rig_get_mode(my_rig, vfoToRead, &rmode, &width);
     if (retcode == RIG_OK)
     {
         radioStatus.mode_VFO_TX = hamlibMode2Mode(rmode);
-        //errorCount = 0;
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
         return errorManage(Q_FUNC_INFO, retcode);
     }
+    if (currentVfo == RIG_VFO_MEM)
+    {
+        radioStatus.mode_VFO_RX = radioStatus.mode_VFO_TX;
+        return true;
+    }
+
     retcode = rig_get_mode(my_rig, RIG_VFO_SUB, &rmode, &width);
     if (retcode == RIG_OK)
     {
         radioStatus.mode_VFO_RX = hamlibMode2Mode(rmode);
-        //errorCount = 0;
     }
     else
     {
@@ -223,6 +291,8 @@ bool HamLibClass::readSplit()
 
     if (!my_rig || (rig_state != RigState::Connected))
         return false;
+    if (!splitQuerySupported)
+        return true;
 
     split_t split = RIG_SPLIT_OFF;
     vfo_t tx_vfo = RIG_VFO_SUB;
@@ -231,12 +301,14 @@ bool HamLibClass::readSplit()
     if (retcode == RIG_OK)
     {
         radioStatus.split = (split == RIG_SPLIT_ON);
-        //errorCount = 0;
     }
     else if (retcode == RIG_ENAVAIL || retcode == RIG_ENIMPL)
     {
         // Some rigs don't support split query: treat as non-fatal, keep current state
-        logEvent(Q_FUNC_INFO, "Split query not supported by this rig, skipping", Warning);
+        logEvent(Q_FUNC_INFO,
+                 QString("rig_get_split_vfo not supported (code %1) — "
+                "split query disabled for this session").arg(retcode), Warning);
+        splitQuerySupported = false;
     }
     else
     {
@@ -258,18 +330,15 @@ bool HamLibClass::readRadioInternal()
     if (!my_rig || (rig_state != RigState::Connected) )
         return false;
 
-    //reading = true;
-
     RadioStatus statusOld = radioStatus;
+    if(!readVFO())   return false;
     if(!readFreq())   return false;
     if (!readMode())  return false;
     if (!readSplit()) return false;
 
-    //Utilities util(Q_FUNC_INFO);
-   //qDebug() << Q_FUNC_INFO << " - RadioStatusChanged: " << util.boolToQString(radioStatusChanged(statusOld, radioStatus));
-    //if (radioStatusChanged(statusOld, radioStatus))
     errorCount = 0;
-    emit radioStatusChanged(radioStatus);
+    if (radioStatusChanged(statusOld, radioStatus))
+        emit radioStatusChanged(radioStatus);
 
     //reading = false;
     return true;
@@ -279,6 +348,7 @@ bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _
 {
     return (
         _old.split != _new.split                ||
+        _old.memoryMode != _new.memoryMode      ||
         _old.freq_VFO_RX != _new.freq_VFO_RX    ||
         _old.freq_VFO_TX != _new.freq_VFO_TX    ||
         _old.mode_VFO_RX != _new.mode_VFO_RX    ||
@@ -310,7 +380,7 @@ void HamLibClass::setMode(const QString &_m)
     }
 
     // Check if we are already in a mode that should not be changed (CWR should not be changed to CW and so on)
-    retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
+    int retcode = rig_get_mode(my_rig, RIG_VFO_CURR, &rmode, &width);
     if (RIG_OK != retcode)
     {
         //qDebug() << "HamLibClass::setMode: ERROR: Could not get mode: ";
@@ -324,7 +394,6 @@ void HamLibClass::setMode(const QString &_m)
     }
 
     retcode = rig_set_mode(my_rig, RIG_VFO_CURR, mode2HamlibMode (_m), rig_passband_normal(my_rig, rig_parse_mode(_m.toLocal8Bit())));
-    //retcode = rig_set_mode(my_rig, RIG_VFO_CURR, rig_parse_mode(_m.toLocal8Bit()), rig_passband_normal(my_rig, rig_parse_mode(_m.toLocal8Bit())));
 
     if (RIG_OK != retcode)
     {
@@ -333,7 +402,6 @@ void HamLibClass::setMode(const QString &_m)
         return;
     }
 
-    //errorCount = 0;
     //qDebug() << "HamLibClass::setMode - END true ";
     return;
 }
@@ -531,7 +599,7 @@ bool HamLibClass::init(bool _active)
     if (retcode == RIG_OK) {
        //qDebug() << Q_FUNC_INFO << " - SUCCESS: Rig opened";
         rig_state = RigState::Connected;
-        connected = true;
+        //connected = true;
 
         // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
         if (_active && timer) {
@@ -542,7 +610,7 @@ bool HamLibClass::init(bool _active)
     } else {
        //qDebug() << Q_FUNC_INFO << " - ERROR: rig_open failed with code: " << retcode;
         rig_state = RigState::Error;
-        connected = false;
+        //connected = false;
 
         // Limpieza profunda tras fallo
         if (my_rig) {
@@ -634,9 +702,10 @@ void HamLibClass::setModelId(const int _id)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setModelId: " << QString::number(_id);
-    connected = false;
-    rig_state = RigState::Disconnected;
     myrig_model = _id;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
+
 }
 
 void HamLibClass::setPort(const QString &_port)
@@ -644,8 +713,8 @@ void HamLibClass::setPort(const QString &_port)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setPort: " << _port;
     serialPort = _port;
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
     //strncpy (my_rig->state.rigport.pathname, serialPort.toLocal8Bit().constData(), FILPATHLEN);
     // qstrncpy(myport.pathname, serialPort.toLocal8Bit().constData(), serialPort.length()+1);
 }
@@ -655,8 +724,9 @@ void HamLibClass::setSpeed(const int _speed)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //TODO: Check that it is a valid speed
     bauds = _speed;
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
+
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(bauds);
 }
 
@@ -672,8 +742,8 @@ void HamLibClass::setDataBits(const int _data)
     {
         dataBits = 8;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
     //qDebug() << Q_FUNC_INFO << ": final: " << QString::number(dataBits);
 }
 
@@ -698,8 +768,8 @@ void HamLibClass::setStop(const QString &_stop)
     {
        stopBits = -1;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 void HamLibClass::setFlow(const QString &_flow)
@@ -720,8 +790,8 @@ void HamLibClass::setFlow(const QString &_flow)
     {
         shandshake = RIG_HANDSHAKE_NONE;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 void HamLibClass::setParity(const QString &_parity)
@@ -749,8 +819,8 @@ void HamLibClass::setParity(const QString &_parity)
     {
         sparity = RIG_PARITY_NONE;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
@@ -763,7 +833,6 @@ void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
     //TODO: When split is disabled it does not detect the freq properly
     freq = _fr.toDouble(Hz);
 
-    logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << "HamLibClass::setFreq" << (_TX ? "(TX):" : "(RX):") << freq;
 
     vfo_t target_vfo = _TX ? RIG_VFO_CURR : RIG_VFO_SUB;
@@ -774,8 +843,6 @@ void HamLibClass::setFreq(const Frequency &_fr, bool _TX)
         errorManage(Q_FUNC_INFO, retcode);
         return;
     }
-
-    //errorCount = 0;
 }
 
 void HamLibClass::setRTS(const QString &_state)
@@ -796,8 +863,8 @@ void HamLibClass::setRTS(const QString &_state)
     {
         srts = RIG_SIGNAL_OFF;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 void HamLibClass::setDTR(const QString &_state)
@@ -812,15 +879,15 @@ void HamLibClass::setDTR(const QString &_state)
     {
         sdtr = RIG_SIGNAL_OFF;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 void HamLibClass::checkErrorCountAndStop()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO;
-    if (errorCount > 10)
+    if (errorCount > SOFT_ERROR_THRESHOLD)
     {
         //qDebug() << Q_FUNC_INFO << ": Error>10 - calling stop";
         stop();
@@ -848,8 +915,7 @@ void HamLibClass::setSplit(const bool _split)
         return;
     }
 
-    radioStatus.split = _split;
-    //errorCount = 0;
+    radioStatus.split = _split;    
 }
 
 void HamLibClass::setNetworkAddress(const QString &_address)
@@ -857,8 +923,8 @@ void HamLibClass::setNetworkAddress(const QString &_address)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << Q_FUNC_INFO << ": " << _address;
     networkAddress = _address;
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 void HamLibClass::setNetworkPort(const int _port)
@@ -869,8 +935,8 @@ void HamLibClass::setNetworkPort(const int _port)
     {
         networkPort = _port;
     }
-    connected = false;
-    rig_state = RigState::Disconnected;
+    if (rig_state != RigState::Connected)
+        rig_state = RigState::Disconnected;
 }
 
 bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
@@ -940,13 +1006,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
        //qDebug() << Q_FUNC_INFO << ": Error: ?? Unknown error";
         break;
     }
-    if (_errorcode == RIG_EINVAL || _errorcode == RIG_ENIMPL || _errorcode == RIG_ERJCTED \
-            || _errorcode == RIG_ETRUNC || _errorcode == RIG_ENAVAIL || _errorcode == RIG_ENTARGET \
-            || _errorcode == RIG_EVFO || _errorcode == RIG_EDOM)
-    {
-       //qDebug() << Q_FUNC_INFO ;
-        // << ": Soft error: Invalid parameters - No reason to re-initialize the hardware";
-    }
+
 
     // Fatal communication errors: disconnect immediately after ERROR_THRESHOLD hits
     const bool isSoftError = (
@@ -980,7 +1040,6 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
         return false;
     }
 }
-Probar los casos de radio encendida/apagada...
 
 bool HamLibClass::loadSettings()
 {

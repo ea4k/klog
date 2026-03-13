@@ -76,9 +76,10 @@ public:
 
     void setFreq(const Frequency &_fr, bool _TX=true);
     void setMode(const QString &_m);
+
     void setReadOnly(const bool _r);
     void setSplit(const bool _split);
-    bool readSplit();
+
 
     bool isModeADIFMode(const QString &_m);
     void setNetworkAddress(const QString &_address);
@@ -118,6 +119,8 @@ private:
 
     bool readFreq();
     bool readMode();
+    bool readVFO();                     //Reads the current VFO
+    bool readSplit();
     void cleanup();
     bool radioStatusChanged(const RadioStatus _old, const RadioStatus _new);
 
@@ -143,8 +146,9 @@ private:
     serial_parity_e sparity;
     serial_handshake_e shandshake;
     serial_control_state_e srts, sdtr;
+    vfo_t currentVfo;         // Cached result of rig_get_vfo(), updated each poll cycle
 
-    int retcode;                // generic return code from functions
+    //int retcode;                // generic return code from functions
 
     rig_model_t myrig_model;    // Integer radio model
     //hamlib_port_t myport;       // Hamlib port
@@ -167,13 +171,15 @@ private:
                       // error since last time OK.
     static constexpr int ERROR_THRESHOLD     = 3;  // Fatal comms errors before disconnect
     static constexpr int SOFT_ERROR_THRESHOLD = 10; // Soft/config errors before disconnect
-    bool connected;   // When we connect to the rig
+    //bool connected;   // When we connect to the rig
 
     bool readOnlyMode; // If true, KLog will not modify any parameter
                        // (freq/mode...) in the radio.
                        // KLog just will follow the radio.
     bool justEmitted;
     bool reading; // Just a semaphore to prevent several readings
+    bool vfoQuerySupported;
+    bool splitQuerySupported;
     RadioStatus radioStatus;
 };
 

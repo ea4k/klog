@@ -116,6 +116,8 @@ struct RadioStatus {
     bool split              = false;
     QString mode_VFO_TX;
     QString mode_VFO_RX;
+    bool memoryMode         = false;
+    int memoryChannel       = -1;
 };
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 2))

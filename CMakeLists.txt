@@ -31,7 +31,7 @@ endforeach()
 # Generate version.h into build/src (not source)
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/src")
 set(APP_VERSION "${PROJECT_VERSION}")
-set(APP_PKGVERSION "2.5-RC1")
+set(APP_PKGVERSION "2.5-RC2")
 #set(APP_PKGVERSION "2.4.2-RC3")
 
 configure_file(
@@ -88,7 +88,7 @@ qt_standard_project_setup() # Added from MacOS
 add_subdirectory(src)
 
 # Define an option to build tests (Default = OFF)
-option(BUILD_TESTING "Build the testing tree." ON)
+option(BUILD_TESTING "Build the testing tree." OFF)
 
 if(BUILD_TESTING)
     enable_testing()
