@@ -980,6 +980,7 @@ bool HamLibClass::errorManage(const QString &_func, const int _errorcode)
         return false;
     }
 }
+Probar los casos de radio encendida/apagada...
 
 bool HamLibClass::loadSettings()
 {
@@ -988,16 +989,16 @@ bool HamLibClass::loadSettings()
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
     setModelId(settings.value("HamLibRigType", 0).toInt());
-    setPort(settings.value ("HamlibSerialPort").toString());
-    setSpeed(settings.value ("HamlibSerialBauds", 9600).toInt ());
+    setPort(settings.value ("HamLibSerialPort").toString());
+    setSpeed(settings.value ("HamLibSerialBauds", 9600).toInt ());
     setDataBits(settings.value ("HamLibSerialDataBits", 8).toInt ());
     setStop(settings.value ("HamLibSerialStopBit", "OneStop").toString());
     setFlow(settings.value ("HamLibSerialFlowControl", "None").toString());
     setParity(settings.value ("HamLibSerialParity", "Even").toString());
-    setPoll(settings.value ("HamlibRigPollRate", 2000).toInt ());
-    setReadOnly(settings.value ("HamlibReadOnly", false).toBool ());
-    setNetworkAddress (settings.value ("HamlibNetAddress").toString());
-    setNetworkPort (settings.value ("HamlibNetPort", 4532).toInt ());
+    setPoll(settings.value ("HamLibRigPollRate", 2000).toInt ());
+    setReadOnly(settings.value ("HamLibReadOnly", false).toBool ());
+    setNetworkAddress (settings.value ("HamLibNetAddress").toString());
+    setNetworkPort (settings.value ("HamLibNetPort", 4532).toInt ());
     settings.endGroup ();
     if (pollInterval < 250)
         pollInterval = 250; // Limit saturation

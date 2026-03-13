@@ -3479,7 +3479,7 @@ void MainWindow::slotInitHamlib()
 
     if (!hamlibActive)
     {
-        logEvent(Q_FUNC_INFO, "Hamlib connection failed on startup", Warning);
+        logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
         QMessageBox::warning(this,
             tr("Radio connection failed"),
             tr("KLog could not connect to the radio at startup.\n\n"
@@ -3494,12 +3494,25 @@ void MainWindow::slotHamlibRigDisconnected()
    //qDebug() << Q_FUNC_INFO ;
     hamlibActive = false;
 
-    QMessageBox::warning(
-        this,
-        tr("Radio disconnected"),
-        tr("KLog lost communication with the radio.\n\n"
-           "Check that the radio is on and the cable is connected.\n"
-           "You can reconnect from Setup → Hamlib."));
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle(tr("Radio disconnected"));
+    msgBox.setText(tr("KLog lost communication with the radio."));
+    msgBox.setInformativeText(tr("Check that the radio is on and the cable is connected.\n\n"
+                             "Do you want KLog to try to connect automatically on next startup?"));
+    msgBox.addButton(tr("Yes, reconnect on startup"), QMessageBox::YesRole);
+    QPushButton *noButton = msgBox.addButton(tr("No, disable radio connection"), QMessageBox::NoRole);
+    msgBox.exec();
+
+    if (msgBox.clickedButton() == noButton)
+    {
+        QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+        settings.beginGroup("HamLib");
+        settings.setValue("HamLibActive", false);
+        settings.endGroup();
+        settings.sync();
+        logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after disconnection", Info);
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
@@ -6417,7 +6430,7 @@ bool MainWindow::loadSettings()
       //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
     settings.beginGroup ("HamLib");
 
-    hamlibActive = settings.value ("HamlibActive").toBool ();
+    hamlibActive = settings.value ("HamLibActive").toBool ();
     settings.endGroup ();
     hamlib->loadSettings();
 

@@ -479,19 +479,19 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if(tab =="HAMLIBSERIALPORT"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibSerialPort", value);
+        settings.setValue ("HamLibSerialPort", value);
         settings.endGroup ();
     }else if(tab =="HAMLIBSERIALBAUDS"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibSerialBauds", value.toInt ());
+        settings.setValue ("HamLibSerialBauds", value.toInt ());
         settings.endGroup ();
     }else if(tab =="HAMLIB"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibActive", util.trueOrFalse (value));
+        settings.setValue ("HamLibActive", util.trueOrFalse (value));
         settings.endGroup ();
     }else if(tab=="HAMLIBREADONLY"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibReadOnly", util.trueOrFalse (value));
+        settings.setValue ("HamLibReadOnly", util.trueOrFalse (value));
         settings.endGroup ();
     }else if(tab =="HAMLIBSERIALDATABITS"){
         settings.beginGroup ("HamLib");
@@ -511,15 +511,15 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.endGroup ();
     }else if (tab == "HAMLIBRIGPOLLRATE"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibRigPollRate", value.toInt ());
+        settings.setValue ("HamLibRigPollRate", value.toInt ());
         settings.endGroup ();
     }else if (tab == "HAMLIBNETADDRESS"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibNetAddress", value);
+        settings.setValue ("HamLibNetAddress", value);
         settings.endGroup ();
     }else if (tab == "HAMLIBNETPORT"){
         settings.beginGroup ("HamLib");
-        settings.setValue ("HamlibNetPort", value.toInt ());
+        settings.setValue ("HamLibNetPort", value.toInt ());
         settings.endGroup ();
     }else if(tab =="CLUBLOGACTIVE"){
         settings.beginGroup ("ClubLog");
