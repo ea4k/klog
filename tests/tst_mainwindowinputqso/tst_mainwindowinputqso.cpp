@@ -48,6 +48,7 @@ private slots:
     void test_RST2Modes();
     void test_GridLineEdit();
     void test_Cleaners();
+    void test_ApostropheInNameAndQTH();
 
 /*
 
@@ -259,6 +260,22 @@ void tst_MainWindowInputQSO::test_Cleaners()
     mainWindowInputQSO->clearDXLocator ();
     QVERIFY2(mainWindowInputQSO->getDXLocator () == "", "Wrong cleanDXLocator: Not removed Locator");
     */
+}
+
+void tst_MainWindowInputQSO::test_ApostropheInNameAndQTH()
+{
+    // Regression test for issue #328: apostrophes must be accepted and preserved
+    // in the Name and QTH input fields of the QSO entry widget.
+
+    // ASCII apostrophe in Name
+    mainWindowInputQSO->setName("O'Brien");
+    QVERIFY2(mainWindowInputQSO->getName() == "O'Brien",
+             "Name with apostrophe must be stored and returned unchanged");
+
+    // ASCII apostrophe in QTH
+    mainWindowInputQSO->setQTH("Cap d'Antibes");
+    QVERIFY2(mainWindowInputQSO->getQTH() == "Cap d'Antibes",
+             "QTH with apostrophe must be stored and returned unchanged");
 }
 
 QTEST_MAIN(tst_MainWindowInputQSO)

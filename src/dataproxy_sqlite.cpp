@@ -5745,23 +5745,28 @@ bool DataProxy_SQLite::addDXCCEntitySubdivision(const QString &_name, const QStr
 {
     //qDebug() << Q_FUNC_INFO << " - length: " << _name;
     // id / name / shortname / prefix / regionalgroup / regionalid / dxcc / cqz / ituz / start_date / end_date / deleted
-    QString queryString;
     QSqlQuery query;
     bool sqlOK = false;
         //Utilities util(Q_FUNC_INFO);
     //qDebug() << Q_FUNC_INFO << " - Importing: " << _regionalAward.getRegionalAwardRefName(i) ;
-    queryString = QString("INSERT INTO primary_subdivisions (name, shortname, prefix, regionalgroup, "
-                          "regionalid, dxcc, cqz, ituz, start_date, end_date, deleted) "
-                              "values ('%1','%2','%3', '%4','%5','%6', '%7','%8', '%9', '%10','%11')")
-                .arg(_name, _short ,_pref ,_group).arg(_regId, _dxcc)
-                .arg(_cq, _itu).arg(util->getDateSQLiteStringFromDate(_startDate))
-                .arg(util->getDateSQLiteStringFromDate(_endDate), util->boolToCharToSQLite(_deleted));
-
-    //.arg(_name).arg(_short).arg(_pref).arg(_group).arg(_regId).arg(_dxcc)
-    //            .arg(_cq).arg(_itu).arg(util->getDateSQLiteStringFromDate(_startDate))
-    //            .arg(util->getDateSQLiteStringFromDate(_endDate)).arg(util->boolToCharToSQLite(_deleted));
-
-    sqlOK = query.exec(queryString);
+    // Use a prepared statement to safely handle subdivision names that contain
+    // apostrophes (e.g. "L'Hospitalet de Llobregat"), preventing SQL injection.
+    query.prepare("INSERT INTO primary_subdivisions (name, shortname, prefix, regionalgroup, "
+                  "regionalid, dxcc, cqz, ituz, start_date, end_date, deleted) "
+                  "VALUES (:name, :shortname, :prefix, :regionalgroup, "
+                  ":regionalid, :dxcc, :cqz, :ituz, :start_date, :end_date, :deleted)");
+    query.bindValue(":name",         _name);
+    query.bindValue(":shortname",    _short);
+    query.bindValue(":prefix",       _pref);
+    query.bindValue(":regionalgroup",_group);
+    query.bindValue(":regionalid",   _regId);
+    query.bindValue(":dxcc",         _dxcc);
+    query.bindValue(":cqz",          _cq);
+    query.bindValue(":ituz",         _itu);
+    query.bindValue(":start_date",   util->getDateSQLiteStringFromDate(_startDate));
+    query.bindValue(":end_date",     util->getDateSQLiteStringFromDate(_endDate));
+    query.bindValue(":deleted",      util->boolToCharToSQLite(_deleted));
+    sqlOK = query.exec();
 
     if (sqlOK)
     {

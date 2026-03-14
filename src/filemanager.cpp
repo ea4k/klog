@@ -868,7 +868,16 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
 
         for (QString& field : fields)
         {
-            QString fieldToAnalyze = "<" + field.trimmed().toUpper();
+            // Only uppercase the ADIF field header (name:length), NOT the data value.
+            // Applying toUpper() to the whole field would corrupt string values such as
+            // contact names ("O'Brien" → "O'BRIEN") and QTH ("Cap d'Antibes" → "CAP D'ANTIBES").
+            QString trimmedField = field.trimmed();
+            int separatorPos = trimmedField.indexOf('>');
+            QString fieldToAnalyze;
+            if (separatorPos != -1)
+                fieldToAnalyze = "<" + trimmedField.left(separatorPos).toUpper() + ">" + trimmedField.mid(separatorPos + 1);
+            else
+                fieldToAnalyze = "<" + trimmedField.toUpper();
             if (fieldToAnalyze.contains("<EOR>") || fieldToAnalyze.contains("<APP_LOTW_EOF>"))
             {
                 qso.setLogId(logN);

@@ -122,7 +122,22 @@ struct ADIFField {
     QVERIFY2(pair.value == "2019-05-28 21:23:13", "Pair-value-2");
     QVERIFY2(pair.valid == true, "Pair-bool-2");
 
+    // Regression test for issue #328: apostrophes in NAME and QTH must be
+    // accepted and preserved exactly as-is (not stripped, not rejected).
+    pair = adif->setPair("<NAME:7>O'Brien");
+    QVERIFY2(pair.valid == true,          "Pair-apostrophe-name-valid");
+    QVERIFY2(pair.field == "NAME",        "Pair-apostrophe-name-field");
+    QVERIFY2(pair.value == "O'Brien",     "Pair-apostrophe-name-value");
 
+    pair = adif->setPair("<QTH:13>Cap d'Antibes");
+    QVERIFY2(pair.valid == true,              "Pair-apostrophe-qth-valid");
+    QVERIFY2(pair.field == "QTH",             "Pair-apostrophe-qth-field");
+    QVERIFY2(pair.value == "Cap d'Antibes",   "Pair-apostrophe-qth-value");
+
+    // NAME field with uppercase header (as produced after the fixed import)
+    pair = adif->setPair("<NAME:7>O'Brien");
+    QVERIFY2(pair.valid == true,      "Pair-apostrophe-upper-valid");
+    QVERIFY2(pair.value == "O'Brien", "Pair-apostrophe-upper-value");
 }
 
 QTEST_APPLESS_MAIN(tst_Adif)

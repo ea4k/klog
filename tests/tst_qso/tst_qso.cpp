@@ -54,6 +54,7 @@ private slots:
     //TODO: void test_LoTWImport();
     void test_Copy();
     void test_ModeManagement();
+    void test_ApostropheInNameAndQTH();
 
 private:
     QSO *qso;
@@ -450,6 +451,31 @@ void tst_QSO::test_Copy()
 
     QVERIFY2(qso2.getComment() == "QSO1-comment", "Wrong Comment in constructor copy");
     QVERIFY2(qso3.getComment() == "QSO1-comment", "Wrong Comment in copy");
+}
+
+void tst_QSO::test_ApostropheInNameAndQTH()
+{
+    // Regression test for issue #328: apostrophes must be accepted and preserved
+    // in the NAME (contact name) and QTH (contact city) fields.
+    QSO q;
+    q.clear();
+
+    // ASCII apostrophe (U+0027) in name
+    QVERIFY2(q.setName("O'Brien"),    "setName with apostrophe should return true");
+    QVERIFY2(q.getName() == "O'Brien", "getName should return the name with apostrophe intact");
+
+    // ASCII apostrophe in QTH
+    QVERIFY2(q.setQTH("Cap d'Antibes"),    "setQTH with apostrophe should return true");
+    QVERIFY2(q.getQTH() == "Cap d'Antibes", "getQTH should return QTH with apostrophe intact");
+
+    // setData path: verify that loading an ADIF pair with apostrophe works
+    QSO q2;
+    q2.clear();
+    q2.setData("<NAME:7>O'Brien", false);
+    QVERIFY2(q2.getName() == "O'Brien", "setData NAME with apostrophe should preserve value");
+
+    q2.setData("<QTH:13>Cap d'Antibes", false);
+    QVERIFY2(q2.getQTH() == "Cap d'Antibes", "setData QTH with apostrophe should preserve value");
 }
 
 // qTEST_APPLESS_MAIN(tst_QSO)
