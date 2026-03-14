@@ -59,9 +59,9 @@ void HamLibClass::initClass()
 {
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    rig_set_debug(RIG_DEBUG_ERR);
     strings.clear();
     fillRigsList();
-    rig_set_debug(RIG_DEBUG_NONE);
 
     connect(timer, &QTimer::timeout, this, &HamLibClass::slotTimer);
     clean();
@@ -530,6 +530,7 @@ bool HamLibClass::stop()
 bool HamLibClass::init(bool _active)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+
    //qDebug() << Q_FUNC_INFO << " - Start Initialization";
 
     // 1. BARRERA MEJORADA (Reconexión dinámica)
@@ -556,6 +557,8 @@ bool HamLibClass::init(bool _active)
         rig_state = RigState::Disconnected;
         return false;
     }
+    //rig_set_debug(RIG_DEBUG_NONE);
+
 
    //qDebug() << Q_FUNC_INFO << " - 20: Configuring port";
 

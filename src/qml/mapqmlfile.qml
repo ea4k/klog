@@ -192,11 +192,15 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        name: "osm"
-        PluginParameter {
-            name: "osm.mapping.custom.host"
-            value: "https://tile.openstreetmap.org/"
-        }
+          name: "osm"
+          PluginParameter {
+              name: "osm.mapping.custom.host"
+              value: "https://tile.openstreetmap.org/"
+          }
+          PluginParameter {
+              name: "osm.mapping.providersrepository.disabled"
+              value: "true"
+          }
     }
 
     Map {

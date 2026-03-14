@@ -28,6 +28,7 @@
 #include <QGeoCoordinate>
 #include <QGeoRectangle>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QStandardItemModel>
 #include "mapwidget.h"
 
@@ -40,8 +41,11 @@ MapWidget::MapWidget(QWidget *parent)
 
 MapWidget::~MapWidget()
 {
-    if (qmlView)
+    if (qmlView) {
         qmlView->setSource(QUrl());
+        qmlView->engine()->collectGarbage();
+        QCoreApplication::processEvents();
+    }
 }
 
 void MapWidget::init()
@@ -74,7 +78,7 @@ void MapWidget::createUI()
     qmlView->rootContext()->setContextProperty("circle_model",    &modelCircle);
     qmlView->rootContext()->setContextProperty("grid_model",      &modelGrid);
 
-    qmlView->setSource(QUrl("qrc:qml/mapqmlfile.qml"));
+    qmlView->setSource(QUrl(QStringLiteral("qrc:///qml/mapqmlfile.qml")));
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
