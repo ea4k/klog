@@ -53,6 +53,7 @@ public:
 private slots:
      void slotRecalculateAwardsButtonClicked();
      void slotOperatingYearComboBoxChanged();
+     void slotRefreshYearsComboBox();
 
 signals:
     //void actionQSODoubleClicked(const int _qsoid);

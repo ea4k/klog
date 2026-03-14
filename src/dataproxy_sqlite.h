@@ -446,7 +446,6 @@ private:
     m_qsoCache; // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
     QString generateGroupingKey(const QString &call, int bandId, int modeId);
 
-
     //bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
 
     // qSqlQuery preparedQuery;
@@ -457,6 +456,8 @@ signals:
     void qsoFound(const QStringList _qs); // Each: QString with format: Fieldname:value
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
+    void qsoDeleted(int qsoId);
+    void logChanged(); // General signal for log change
 };
 
 #endif //DATAPROXY_SQLITE_H

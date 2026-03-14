@@ -3207,6 +3207,8 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
     {
         query.finish();
         removeDuplicateCache(_qsoId);
+        emit qsoDeleted(_qsoId);  // Deleted QSO specificc QSO
+        emit logChanged();        // generic signal to trigger slotRefreshYearsComboBox
         return true;
     }
     else

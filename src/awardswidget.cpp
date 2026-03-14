@@ -54,7 +54,6 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *
     yearlyScoreLabelN = new QLabel();
 
     recalculateAwardsButton = new QPushButton;
-    operatingYearsComboBox = new QComboBox;
     dataProxy = dp;
     world = injectedWorld;
     awards = new Awards(dataProxy, world, Q_FUNC_INFO);
@@ -252,17 +251,17 @@ void AwardsWidget::createUI()
 
     connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
-
+    connect(dataProxy, &DataProxy_SQLite::logChanged, this, &AwardsWidget::slotRefreshYearsComboBox);
     emit debugLog (Q_FUNC_INFO, "END", Debug);
       //qDebug() << "AwardsWidget::createUI-END"  ;
 }
 
 void AwardsWidget::setManageDXMarathon(const bool _dx)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     manageDXMarathon = _dx;
     reconfigureDXMarathonUI(manageDXMarathon);
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
 }
 
 /*
@@ -321,7 +320,7 @@ void AwardsWidget::showAwards()
   WAZ
   Local
 */
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     checkIfValidLog();
     int _num = 0;
     // qSqlQuery query;
@@ -358,14 +357,14 @@ void AwardsWidget::showAwards()
     wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
 
     showDXMarathon(selectedYear);
-    emit debugLog(Q_FUNC_INFO, "END", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void AwardsWidget::showDXMarathon(const int _year)
 {
           //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Year: " << QString::number(_year);
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     int i = 0;
 
     i = awards->getDXMarathonQSO(_year, currentLog);
@@ -389,13 +388,13 @@ void AwardsWidget::showDXMarathon(const int _year)
         i = 0;
     }
     yearlyScoreQLCDNumber->display(i);
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
       //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: Score: " << QString::number(i);
 }
 
 void AwardsWidget::reconfigureDXMarathonUI(const bool _dxM)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     //dxClusterWidget->setDXMarathon(_dxM);
     if (_dxM)
     {
@@ -421,35 +420,35 @@ void AwardsWidget::reconfigureDXMarathonUI(const bool _dxM)
             yearlyScoreQLCDNumber->display(0);
         }
     }
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
 }
 
 void AwardsWidget::checkIfValidLog()
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     if (currentLog < 1)
     {
         emit requireCurrentLogSignal();
     }
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
 }
 
 void AwardsWidget::setLog(const int _log)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     if (_log >= 1)
     {
         currentLog = _log;
     }
 
     //TODO: Define an action when the log received is NOK
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
 }
 
 
 void AwardsWidget::setYear(const int _year)
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
     if (_year >= 1800)
     {
         selectedYear = _year;
@@ -463,12 +462,12 @@ void AwardsWidget::setYear(const int _year)
         //TODO: Define what to do when the year is NOK
         }
     }
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
 }
 
 void AwardsWidget::fillOperatingYears()
 {
-    emit debugLog(Q_FUNC_INFO, "Start", logLevel);
+
     emit requireCurrentLogSignal();
     emit requireCurrentYearSignal();
     operatingYearsComboBox->clear();
@@ -497,6 +496,13 @@ void AwardsWidget::fillOperatingYears()
 
            //qDebug() << "AwardsWidget::AwardsWidget: 18.5.2";
     }
-    emit debugLog(Q_FUNC_INFO, "End", logLevel);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
 }
 
+void AwardsWidget::slotRefreshYearsComboBox()
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
+    fillOperatingYears();  // reutiliza la lógica correcta y consistente
+    showAwards();          // refresca los LCD (contadores de QSOs, etc.)
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
+}
