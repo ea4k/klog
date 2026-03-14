@@ -249,6 +249,10 @@ bool DXClusterWidget::checkIfNeedsToBePrinted(EntityStatus _entityStatus)
         return false;
     }
 
+    if (!showworked && (_entityStatus.status == worked)) {
+        return false;
+    }
+
     if (!showhf && dataProxy->isHF(_entityStatus.bandId)) {
         return showwarc && dataProxy->isWARC(_entityStatus.bandId);
     }
@@ -353,6 +357,7 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
         _entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
 
         dxSpotColor = awards->getQRZDXStatusColor(_entityStatus);
+        _entityStatus.status = awards->getQSOStatus(awards->getDXStatus(_entityStatus));
 
         if (showDxMarathon && awards->isDXMarathonNeed(_entityStatus.dxcc, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog)) {
             stringToPrint += "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
