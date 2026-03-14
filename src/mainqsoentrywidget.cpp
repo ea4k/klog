@@ -527,10 +527,12 @@ void MainQSOEntryWidget::setInitialData()
     selectDefaultBand(true);
     selectDefaultMode(true);
 
-    dateEdit->setDate(QDate::currentDate());
-    timeEdit->setTime(QTime::currentTime());
+    //dateEdit->setDate(QDate::currentDate());
+    //timeEdit->setTime(QTime::currentTime());
 
     UTCTime = true;
+    displayLocal = false;
+    setDateAndTimeInternally();
     //   //qDebug()ime = true;
 
     timer->start(1000);
@@ -751,20 +753,12 @@ bool MainQSOEntryWidget::setQRZ(const QString &_qrz)
 bool MainQSOEntryWidget::setDateTime(const QDateTime _date)
 {
    //qDebug()<< Q_FUNC_INFO;
-    logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (_date.isValid())
-    {
-        dateEdit->setDate(_date.date());
-        timeEdit->setTime(_date.time());
-        logEvent (Q_FUNC_INFO, "END-1", Debug);
-        return true;
-    }
-    else
-    {
-          //qDebug() << Q_FUNC_INFO << ": - NO VALID DATE";
-        logEvent (Q_FUNC_INFO, "END-2", Debug);
-        return false;
-    }
+    if (!_date.isValid()) return false;
+    QDateTime utc = _date.toUTC();  // normalizar a UTC primero
+    QDateTime display = displayLocal ? utc.toLocalTime() : utc;
+    dateEdit->setDate(display.date());
+    timeEdit->setTime(display.time());
+    return true;
 }
 
 bool MainQSOEntryWidget::setTime(const QTime _time)
@@ -862,13 +856,12 @@ QDate MainQSOEntryWidget::getDate()
 QDateTime MainQSOEntryWidget::getDateTime()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-   //qDebug()<< Q_FUNC_INFO;
-    //logEvent (Q_FUNC_INFO, "END", Debug);
-    QDateTime dateTime;
-    dateTime.setDate(dateEdit->date());
-    dateTime.setTime(timeEdit->time());
-    logEvent (Q_FUNC_INFO, "END", Debug);
-    return dateTime;
+    if (displayLocal)
+    {
+        QDateTime dt(dateEdit->date(), timeEdit->time(), QTimeZone::LocalTime);
+        return dt.toUTC();
+    }
+    return QDateTime(dateEdit->date(), timeEdit->time(), QTimeZone::UTC);
 }
 
 QTime MainQSOEntryWidget::getTime()
@@ -933,6 +926,7 @@ void MainQSOEntryWidget::setUTC(const bool _utc)
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
     UTCTime = _utc;
+    displayLocal = !_utc;
     setDateAndTimeInternally();
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -978,17 +972,10 @@ void MainQSOEntryWidget::slotUpdateTime()
 void MainQSOEntryWidget::setDateAndTimeInternally()
 {
     //logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug()<< Q_FUNC_INFO;
-    QDateTime current = QDateTime::currentDateTime();
-
-    if (UTCTime)
-    {
-        current = current.toUTC();
-    }
-   //qDebug() << Q_FUNC_INFO << ": " << current.toString("hh:mm:ss");
-
-    dateEdit->setDate(current.date());
-    timeEdit->setTime(current.time());
+    QDateTime utcNow = QDateTime::currentDateTimeUtc();
+    QDateTime display = displayLocal ? utcNow.toLocalTime() : utcNow;
+    dateEdit->setDate(display.date());
+    timeEdit->setTime(display.time());
     //logEvent (Q_FUNC_INFO, "END", Debug);
 }
 

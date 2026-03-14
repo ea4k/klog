@@ -52,6 +52,10 @@ public:
     void setCurrentQRZ(const QString &_qrz);
     bool setDateTime(const QDateTime _date);
     bool setTime(const QTime _time);
+    void setDisplayLocal(const bool _local);  // Show local but save in UTC
+    bool getDisplayLocal() const;             //
+
+
     void setCleaning (const bool _c);
     bool isModeExisting(const QString &_m);
     bool isBandExisting(const QString &_b);
@@ -158,6 +162,7 @@ private:
 
     QTimer *timer;
     bool UTCTime, modify, realTime;
+    bool displayLocal; // To detect if the user wants to see UTC or local
     QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
     Utilities *util;
     QPalette::ColorRole enabledCR, disabledCR;

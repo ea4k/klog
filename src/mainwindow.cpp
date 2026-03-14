@@ -6356,7 +6356,7 @@ bool MainWindow::loadSettings()
     reportInfo = false;
     alwaysADIF = settings.value ("AlwaysADIF", true).toBool ();
     setLogLevel(util->stringToDebugLevel(settings.value ("DebugLog").toString ()));
-    mainQSOEntryWidget->setUTC(settings.value ("UTCTime", true).toBool ());
+    mainQSOEntryWidget->setUTC(settings.value("UTCTime", true).toBool());
 
     dupeSlotInSeconds = settings.value ("DuplicatedQSOSlot", 600).toInt ();
     filemanager->setDuplicatedQSOSlot(dupeSlotInSeconds);
