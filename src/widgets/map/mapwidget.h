@@ -27,7 +27,7 @@
  *****************************************************************************/
 #include <QObject>
 #include <QtWidgets>
-#include <QQuickView>
+#include <QQuickWidget>
 #include <QQuickItem>
 #include "../../locator.h"
 
@@ -37,6 +37,7 @@ class MapWidget : public QWidget
 
 public:
     MapWidget(QWidget *parent = nullptr);
+    ~MapWidget();
     void init();
 
     void setCenter(const Coordinate &_c);
@@ -57,7 +58,7 @@ private:
     // Build the global 2-letter Maidenhead field grid (drawn once, persistent)
     void paintFieldGrid();
 
-    QQuickView qmlView;
+    QQuickWidget *qmlView;
 
     // Models
     QStandardItemModel modelCircle;      // optional circle markers
@@ -69,17 +70,19 @@ private:
     QHash<int, QByteArray> rectangleRoles;
     QHash<int, QByteArray> gridRoles;
 
+
+
     // Roles (keep distinct spaces)
-    int CoordinateRole = Qt::UserRole + 1000;
+    static constexpr int CoordinateRole = Qt::UserRole + 1000;
 
     // For overlays (rectangles)
-    int NorthRole = Qt::UserRole + 1000;
-    int SouthRole = Qt::UserRole + 1001;
-    int ColorRole = Qt::UserRole + 1002;
+    static constexpr int NorthRole      = Qt::UserRole + 1100;
+    static constexpr int SouthRole      = Qt::UserRole + 1101;
+    static constexpr int ColorRole      = Qt::UserRole + 1102;
 
     // For grid rectangles
-    int GridNorthRole = Qt::UserRole + 1200;
-    int GridSouthRole = Qt::UserRole + 1201;
+    static constexpr int GridNorthRole  = Qt::UserRole + 1200;
+    static constexpr int GridSouthRole  = Qt::UserRole + 1201;
 
     Locator locator;
 };

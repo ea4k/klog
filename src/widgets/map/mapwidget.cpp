@@ -24,7 +24,7 @@
  *                                                                           *
  *****************************************************************************/
 
-#include <QQuickView>
+#include <QQuickWidget>
 #include <QGeoCoordinate>
 #include <QGeoRectangle>
 #include <QQmlContext>
@@ -32,8 +32,16 @@
 #include "mapwidget.h"
 
 MapWidget::MapWidget(QWidget *parent)
+    : QWidget(parent)
+    , qmlView(nullptr)
 {
-    Q_UNUSED(parent);
+    //Q_UNUSED(parent);
+}
+
+MapWidget::~MapWidget()
+{
+    if (qmlView)
+        qmlView->setSource(QUrl());
 }
 
 void MapWidget::init()
@@ -43,7 +51,8 @@ void MapWidget::init()
 
 void MapWidget::createUI()
 {
-    QWidget *container = QWidget::createWindowContainer(&qmlView, this);
+    qmlView = new QQuickWidget(this);
+    qmlView->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     // Circle roles
     circleRoles[CoordinateRole] = QByteArray("coordinate");
@@ -61,19 +70,17 @@ void MapWidget::createUI()
     modelGrid.setItemRoleNames(gridRoles);
 
     // Expose models to QML
-    qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
-    qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
-    qmlView.rootContext()->setContextProperty("grid_model", &modelGrid);
+    qmlView->rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+    qmlView->rootContext()->setContextProperty("circle_model",    &modelCircle);
+    qmlView->rootContext()->setContextProperty("grid_model",      &modelGrid);
 
-    qmlView.setSource(QUrl("qrc:qml/mapqmlfile.qml"));
-    qmlView.setResizeMode(QQuickView::SizeRootObjectToView);
+    qmlView->setSource(QUrl("qrc:qml/mapqmlfile.qml"));
 
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0,0,0,0);
-    layout->addWidget(container);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(qmlView);
     setLayout(layout);
 
-    // Paint the persistent global field grid as soon as the map is created
     paintFieldGrid();
 }
 
@@ -86,7 +93,9 @@ void MapWidget::clearDataLayers()
 
 void MapWidget::setCenter(const Coordinate &_c)
 {
-    QObject *object = qmlView.rootObject();
+    QObject *object = qmlView->rootObject();
+    if (!object) return;
+    //QObject *object = qmlView.rootObject();
     object->setProperty("zoom", 8.0);
     object->setProperty("lat", _c.lat);
     object->setProperty("lon", _c.lon);
@@ -94,7 +103,9 @@ void MapWidget::setCenter(const Coordinate &_c)
 
 void MapWidget::addLocator(const double lat1, const double lon1, const double lat2, const double lon2)
 {
-    QObject *object = qmlView.rootObject();
+    QObject *object = qmlView->rootObject();
+    if (!object) return;
+    //QObject *object = qmlView.rootObject();
     object->setProperty("locLat1", lat1);
     object->setProperty("locLon1", lon1);
     object->setProperty("locLat2", lat2);
@@ -103,7 +114,9 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 
 void MapWidget::addMarker(const Coordinate _coord)
 {
-    QObject *object = qmlView.rootObject();
+    QObject *object = qmlView->rootObject();
+    if (!object) return;
+    //QObject *object = qmlView.rootObject();
     QMetaObject::invokeMethod(object, "addMarker",
                               Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));
 }
@@ -113,7 +126,7 @@ void MapWidget::addQSO(const QString &_loc)
     if (!locator.isValidLocator(_loc))
         return;
 
-    qmlView.rootContext()->setContextProperty("circle_model", &modelCircle);
+    qmlView->rootContext()->setContextProperty("circle_model", &modelCircle);
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
     modelCircle.appendRow(item);
@@ -124,7 +137,7 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
     if (!locator.isValidLocator(_loc))
         return;
 
-    qmlView.rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+    qmlView->rootContext()->setContextProperty("rectangle_model", &modelRectangle);
 
     Coordinate _north = locator.getLocatorCorner(_loc, true);
     Coordinate _south = locator.getLocatorCorner(_loc, false);

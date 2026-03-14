@@ -32,6 +32,7 @@ import QtLocation
 import QtPositioning
 import QtQuick.Controls
 
+
 Rectangle {
     id: root
     width: 640
@@ -177,11 +178,11 @@ Rectangle {
         }
     }
 
-    Location { id: mapCenter }
+    //Location { id: mapCenter }
 
     function addMarker(latitude, longitude) {
         var Component = Qt.createComponent("qrc:qml/marker.qml")
-        var item = Component.createObject(Rectangle, {
+        var item = Component.createObject(map, {
             coordinate: QtPositioning.coordinate(latitude, longitude)
         })
         map.addMapItem(item)
@@ -202,7 +203,7 @@ Rectangle {
         id: map
         anchors.fill: parent
         plugin: mapPlugin
-        center: mapCenter.coordinate
+        center: QtPositioning.coordinate(0, 0)
         zoomLevel: 4
         activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
 

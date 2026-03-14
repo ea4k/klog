@@ -69,7 +69,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Charts
     Core
     Gui
- #   Location
+    Location
     Network
     Positioning
     PrintSupport

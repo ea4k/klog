@@ -25,6 +25,7 @@
 # *****************************************************************************/
 QT += core gui
 QT += qml quick
+QT += quickwidgets
 
 CONFIG += c++11
 CONFIG += app_bundle

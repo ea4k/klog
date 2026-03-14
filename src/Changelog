@@ -16,6 +16,7 @@ TBD
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
+- Buigfix: Segmentation fault (core dumped) when exiting Klog on Ubuntu 22.04 (Closes #468)
 - Bugfix: Program stops responding if rigctld communication lost (radio turned off) (Closes #877)
 - Bugfix: Hamlib is not init on start (Closes #823)
 - Bugfix: Primary subdivisions were not properly identified (DB schema error ).
