@@ -99,6 +99,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
    //qDebug() << " 011 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     elogClublog = new eLogClubLog();
+    elogClublog->setVersion(pkgVersion);
    //qDebug() << " 012 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
       //qDebug() << Q_FUNC_INFO << ": 00082: " << QTime::currentTime().toString("hh:mm:ss") ;
 
