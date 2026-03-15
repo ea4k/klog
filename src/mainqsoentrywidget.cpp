@@ -447,6 +447,7 @@ void MainQSOEntryWidget::clear()
     fillingQSO = false;
     setModify(false);
     //OKButton->setText(tr("&Add"));
+    lastQrz.clear();
     qrzLineEdit->clear();
     qrzLineEdit->setFocus(Qt::OtherFocusReason);
 
@@ -1164,7 +1165,7 @@ void MainQSOEntryWidget::slotDelayInputTimedOut()
     if( text != lastQrz)
     {
           //qDebug() << Q_FUNC_INFO << ": going for slotQRZTextChanged";
-        text = lastQrz;
+        lastQrz = text;
         slotQRZTextChanged();
     }
     logEvent (Q_FUNC_INFO, "END", Debug);

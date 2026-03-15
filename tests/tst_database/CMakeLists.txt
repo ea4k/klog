@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.30)
-project(tst_database)
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    cmake_minimum_required(VERSION 3.30)
+    project(tst_database)
+endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -30,7 +32,6 @@ add_executable(tst_database
         ../../src/database/db_adif_primary_subdvisions_data.cpp
         ../../src/database/database.cpp
 
-
     ${TEST_HEADERS}
     ../../src/database/database.h
     ../../src/database/datacache.h
@@ -58,4 +59,3 @@ target_link_libraries(tst_database PRIVATE
 
 # Register the test with CTest
 add_test(NAME tst_database COMMAND tst_database)
-
