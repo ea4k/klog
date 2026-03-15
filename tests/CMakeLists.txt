@@ -1,6 +1,3 @@
-cmake_minimum_required(VERSION 3.30)
-project(KLogTests)
-
 enable_testing()
 
 # Add each test subdirectory (tst_* folders)
