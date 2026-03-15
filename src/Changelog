@@ -16,6 +16,7 @@ TBD
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
+- Bugfix: The character ' is needed for some names and QTH and should be allowed. (Closes #328)
 - Bugfix: Check why clublog does not detect KLog in the stats (Closes #257)
 - Buigfix: Segmentation fault (core dumped) when exiting Klog on Ubuntu 22.04 (Closes #468)
 - Bugfix: The entity and status bar are not properly updated when a call is received from wsjtx (G6YRK) (Closes #242)
