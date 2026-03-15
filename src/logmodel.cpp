@@ -127,9 +127,7 @@ This should be coherent with the logview
     //QString stringQuery = QString("lognumber='%1'").arg(_i);
     // qSqlQuery query(stringQuery);
 
-    QString stringQuery = QString(
-        "id IN (SELECT id FROM log WHERE lognumber='%1' ORDER BY date DESC, time DESC LIMIT 500)"
-        ).arg(_i);
+    QString stringQuery = QString("lognumber='%1'").arg(_i);
     setFilter(stringQuery);
 
 

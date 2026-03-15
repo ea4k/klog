@@ -173,7 +173,6 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->sortByColumn(1, Qt::DescendingOrder);
 
     retoreColumsOrder();
-    retoreColumsOrder();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
