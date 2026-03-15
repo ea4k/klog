@@ -1,6 +1,6 @@
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     cmake_minimum_required(VERSION 3.30)
-    project(tst_database)
+    project(tst_datacache)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -16,7 +16,7 @@ file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_database
+add_executable(tst_datacache
     ${TEST_SOURCES}
         ../../src/adif.cpp
         ../../src/frequency.cpp
@@ -51,7 +51,7 @@ add_executable(tst_database
 )
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_database PRIVATE
+target_link_libraries(tst_datacache PRIVATE
     Qt6::Core
     Qt6::Test
     Qt6::Sql
@@ -59,5 +59,5 @@ target_link_libraries(tst_database PRIVATE
 )
 
 # Register the test with CTest
-add_test(NAME tst_database COMMAND tst_database)
+add_test(NAME tst_datacache COMMAND tst_datacache)
 

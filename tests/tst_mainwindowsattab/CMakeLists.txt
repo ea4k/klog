@@ -1,6 +1,6 @@
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     cmake_minimum_required(VERSION 3.30)
-    project(tst_mainwindosattab)
+    project(tst_mainwindowsattab)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
@@ -16,7 +16,7 @@ file(GLOB TEST_SOURCES "*.cpp")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_mainwindosattab
+add_executable(tst_mainwindowsattab
     ${TEST_SOURCES}
     ../../src/inputwidgets/mainwindowsattab.cpp
     ../../src/dataproxy_sqlite.cpp
@@ -54,7 +54,7 @@ add_executable(tst_mainwindosattab
 set(CMAKE_AUTOMOC ON)
 
 # Link with Qt6 Core and Test
-target_link_libraries(tst_mainwindosattab
+target_link_libraries(tst_mainwindowsattab
     Qt6::Core
     Qt6::Test
     Qt6::Sql
@@ -62,5 +62,5 @@ target_link_libraries(tst_mainwindosattab
 )
 
 # Register the test with CTest
-add_test(NAME tst_mainwindosattab COMMAND tst_mainwindosattab)
+add_test(NAME tst_mainwindowsattab COMMAND tst_mainwindowsattab)
 
