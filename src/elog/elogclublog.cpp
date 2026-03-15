@@ -42,6 +42,7 @@ eLogClubLog::eLogClubLog()
     //pass = QString();
     qsos.clear();
     api = "9467beee93377e82a276b0a777d388b5c933d044";
+    klogVersion = QString();
     currentQSO = -1;
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(slotQsoUploadFinished(QNetworkReply*)));
@@ -314,6 +315,8 @@ int eLogClubLog::sendDataParams(const QString &_clublogCall, const QUrlQuery &_p
 
     QNetworkRequest request(serviceUrl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    Utilities agentUtil(Q_FUNC_INFO);
+    request.setRawHeader("User-Agent", agentUtil.getAgent(klogVersion).toUtf8());
 
     //qDebug() << Q_FUNC_INFO << ": " << postData;
     manager->post(request, postData);
@@ -487,6 +490,11 @@ NOTES
 void eLogClubLog::setDefaultCallsign(const QString &_defaultStationCallsign)
 {
     stationCallsign = _defaultStationCallsign;
+}
+
+void eLogClubLog::setVersion(const QString &_version)
+{
+    klogVersion = _version;
 }
 
 int eLogClubLog::deleteQSO(QStringList _qso)
@@ -748,6 +756,7 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
     uploadingFile = true;
 
     QNetworkRequest request(serviceUrl);
+    request.setRawHeader("User-Agent", util.getAgent(klogVersion).toUtf8());
     manager->post(request, multiPart);
     //qDebug() << Q_FUNC_INFO << ": " << multiPart;
 

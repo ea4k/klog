@@ -46,6 +46,7 @@ public:
     ~eLogClubLog();
 
     void setDefaultCallsign(const QString &_defaultStationCallsign);
+    void setVersion(const QString &_version);
     int sendQSO(QStringList _qso);
 
     int deleteQSO(QStringList _qso);
@@ -55,14 +56,16 @@ public:
     void sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite);
     void loadSettings();
 
-private:
+protected:
     QString getClubLogAdif(const QStringList _q);
+
+private:
     //int sendData(const QString &_clublogCall, const QString &_q); //  Sends the data (http post) to ClubLog
     int sendDataParams(const QString &_clublogCall, const QUrlQuery &_params, bool _adding);
     QString prepareToTranslate(const QString &_m);       //  Get the message and put it in a tr to be able to translate it
 
 
-    QString email, pass, appPass, api, stationCallsign;
+    QString email, pass, appPass, api, stationCallsign, klogVersion;
 
     QNetworkAccessManager *manager;
     QNetworkReply* reply;
