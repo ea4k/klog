@@ -50,6 +50,8 @@ private slots:
     void test_Bands();
     void test_Modes();
     void test_QSOData();
+    void test_QRZSignalEmittedAfterClearAndResameCall();
+    void test_QRZSignalDebounce();
 
 private:
     DataProxy_SQLite *dataProxy;
@@ -180,6 +182,51 @@ void tst_MainQSOEntryWidget::test_QSOData()
 }
 
 */
+
+// Regression test for issue #242:
+// slotDelayInputTimedOut had "text = lastQrz" instead of "lastQrz = text",
+// which prevented lastQrz from being updated. As a consequence, after calling
+// clear() the same callsign would not fire currentQRZSignal again (once the
+// bug is properly fixed together with the lastQrz.clear() in clear()).
+void tst_MainQSOEntryWidget::test_QRZSignalEmittedAfterClearAndResameCall()
+{
+    QSignalSpy spy(mainQSOEntryWidget, &MainQSOEntryWidget::currentQRZSignal);
+
+    mainQSOEntryWidget->clear();
+    mainQSOEntryWidget->setQRZ("EA4K");
+    QTest::qWait(400); // wait for the 300 ms debounce timer
+
+    QVERIFY2(spy.count() > 0, "currentQRZSignal not emitted after first setQRZ");
+    int countAfterFirst = spy.count();
+
+    // Simulate what WSJT-X does: clear form (e.g. after logging a QSO) then
+    // send the same callsign again.  Without the fix the signal was not emitted
+    // the second time.
+    mainQSOEntryWidget->clear();
+    mainQSOEntryWidget->setQRZ("EA4K");
+    QTest::qWait(400);
+
+    QVERIFY2(spy.count() > countAfterFirst,
+             "currentQRZSignal not emitted after clear() + re-set of same callsign (regression #242)");
+}
+
+// Verify that distinct callsigns each trigger currentQRZSignal and that the
+// debounce mechanism (lastQrz) does not swallow a real change.
+void tst_MainQSOEntryWidget::test_QRZSignalDebounce()
+{
+    QSignalSpy spy(mainQSOEntryWidget, &MainQSOEntryWidget::currentQRZSignal);
+
+    mainQSOEntryWidget->clear();
+    mainQSOEntryWidget->setQRZ("W1AW");
+    QTest::qWait(400);
+    QVERIFY2(spy.count() > 0, "currentQRZSignal not emitted for W1AW");
+    int countAfterW1AW = spy.count();
+
+    mainQSOEntryWidget->clear();
+    mainQSOEntryWidget->setQRZ("EA4K");
+    QTest::qWait(400);
+    QVERIFY2(spy.count() > countAfterW1AW, "currentQRZSignal not emitted for EA4K after W1AW");
+}
 
 QTEST_MAIN(tst_MainQSOEntryWidget)
 
