@@ -241,6 +241,41 @@ Rectangle {
 
     FocusScope { anchors.fill: parent }
 
+    // Shown when the Qt6 Location geo-services plugin (OSM) is not available.
+    // This prevents the "Unable to assign [undefined] to QGeoMapType" error
+    // and gives the user an actionable message instead of a blank/broken map.
+    Rectangle {
+        id: mapUnavailableOverlay
+        anchors.fill: parent
+        // Visible once the map component has initialised and reports no map types
+        visible: false
+        color: "#1e1e2e"
+        z: 200
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 10
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Map not available")
+                color: "white"
+                font.bold: true
+                font.pixelSize: 18
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("The Qt6 Location geo-services plugin is missing.\n" +
+                            "Install the OSM plugin for your platform, e.g.:\n" +
+                            "  Debian/Ubuntu/Raspberry Pi OS: apt install qml6-module-qtlocation\n" +
+                            "  or: apt install qt6-declarative-dev")
+                color: "#aaaaaa"
+                font.pixelSize: 12
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+    }
+
     Plugin {
         id: mapPlugin
           name: "osm"
@@ -260,7 +295,9 @@ Rectangle {
         plugin: mapPlugin
         center: QtPositioning.coordinate(0, 0)
         zoomLevel: 4
-        activeMapType: supportedMapTypes[supportedMapTypes.length - 1]
+        // Note: activeMapType is set in Component.onCompleted to avoid
+        // "Unable to assign [undefined] to QGeoMapType" when the OSM plugin
+        // is not installed (e.g. Raspberry Pi without qt6-qtlocation plugins).
 
         // Helper: pan by screen pixels (dx, dy). Positive dx -> right, positive dy -> down.
         function panByPixels(dx, dy) {
@@ -340,7 +377,17 @@ Rectangle {
         onCenterChanged: function() {
             labelRebuildTimer.restart()
         }
-        Component.onCompleted: rebuildGridLabels()
+        Component.onCompleted: {
+            // Guard against empty supportedMapTypes (missing OSM plugin).
+            // Shows a user-friendly overlay instead of a QML binding error.
+            if (supportedMapTypes.length > 0) {
+                activeMapType = supportedMapTypes[supportedMapTypes.length - 1]
+                mapUnavailableOverlay.visible = false
+            } else {
+                mapUnavailableOverlay.visible = true
+            }
+            rebuildGridLabels()
+        }
 
         // =========================
         // Zoom controls (top-right)

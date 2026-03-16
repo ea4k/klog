@@ -35,10 +35,22 @@
 #include <QSystemSemaphore>
 #include <QSharedMemory>
 #include <QMessageBox>
+#include <QLoggingCategory>
 #include "startwizard.h"
 #include "mainwindow.h"
 #include "utilities.h"
 #include <QElapsedTimer>
+
+// Suppress verbose debug noise from third-party Qt platform plugins (e.g. qt6ct)
+// that unconditionally call qDebug() for every palette/hint query.
+static void klogMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    // Filter out the Qt6CTPlatformTheme palette/hint spam produced by qt6ct
+    if (msg.contains(QLatin1String("Qt6CTPlatformTheme")))
+        return;
+    // Forward everything else to Qt's default handler
+    qt_message_output(type, context, msg);
+}
 #ifdef KLOG_USE_VERSION_H
 #include "version.h"
 #endif
@@ -119,6 +131,7 @@ int main(int argc, char *argv[])
 {
     //qDebug() << Q_FUNC_INFO << " -  Start! ";
     //qDebug() << Q_FUNC_INFO << " -  " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
+    qInstallMessageHandler(klogMessageHandler);
     QT_REQUIRE_VERSION(argc, argv, "6.0")
     //qDebug() << QT_VERSION_STR;
     QElapsedTimer timer;

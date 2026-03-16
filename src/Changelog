@@ -7,6 +7,9 @@ TODO: LoTW import ensure exiting QSOs are updated
 
 
 TBD
+- Bugfix: qmake6 printed spurious "using private headers" PROJECT MESSAGE warnings caused by the quickwidgets and location Qt modules; suppressed with no_private_qt_headers_warning.
+- Bugfix: Map shows "The geoservices provider is not supported" and crashes with a QGeoMapType binding error on platforms where the Qt6 Location OSM plugin is not installed (e.g. Raspberry Pi); map now shows a user-friendly "not available" overlay instead (Closes #447)
+- Bugfix: Verbose Qt6CTPlatformTheme palette/hint debug messages from the qt6ct platform theme no longer pollute the console output.
 - Bugfix: DXCluster spots not shown on map; callsign and status colour now displayed correctly (Closes #581)
 - Enhancement: Start time optimizations.
 - Enhancement: Split is now managed also from radio/UI.
