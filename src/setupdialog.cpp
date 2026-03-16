@@ -341,7 +341,7 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
 }
 void SetupDialog::loadDarkMode()
 {// Reads the config to setup the DarkMode
-   //qDebug() << Q_FUNC_INFO;
+    //qDebug() << Q_FUNC_INFO;
     colorsPage->loadDarkMode ();
 }
 
@@ -405,29 +405,20 @@ bool SetupDialog::loadSettings(const QString &_callingFunction)
 
 void SetupDialog::saveSettings()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+     //qDebug() << Q_FUNC_INFO << " - Start";
     // qSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
     userDataPage->saveSettings();       // Groups done
-   //qDebug() << Q_FUNC_INFO << " - 01";
     bandModePage->saveSettings ();      // Groups done
-   //qDebug() << Q_FUNC_INFO << " - 02";
     logViewPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - 03";
     dxClusterPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - 04";
     miscPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - 05";
     colorsPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - 06";
     logsPage->saveSettings();
-   //qDebug() << Q_FUNC_INFO << " - 07";
     eLogPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - 08";
     UDPPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - 09";
     hamlibPage->saveSettings ();
-   //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupDialog::slotOkButtonClicked()
@@ -442,7 +433,7 @@ void SetupDialog::slotOkButtonClicked()
         msgBox.setText(tr("DB has not been moved to new path."));
         msgBox.setInformativeText(tr("Go to the Misc tab and click on Move DB\n or the DB will not be moved to the new location."));
         msgBox.exec();
-        emit debugLog (Q_FUNC_INFO, "END-1", Devel);
+        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return;
     }
     Callsign callsign(userDataPage->getMainCallsign());
@@ -454,13 +445,13 @@ void SetupDialog::slotOkButtonClicked()
         msgBox.setText(tr("You need to enter at least a valid callsign."));
         msgBox.setInformativeText(tr("Go to the User tab and enter valid callsign."));
         msgBox.exec();
-        emit debugLog (Q_FUNC_INFO, "END-2", Devel);
+        emit debugLog (Q_FUNC_INFO, "END-2", logLevel);
         return;
     }
 
     if (!haveAtleastOneLog())
     {
-       //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!";
+         //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!";
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You have not selected the kind of log you want."));
@@ -471,17 +462,21 @@ void SetupDialog::slotOkButtonClicked()
         logsPage->createNewLog();
         //emit newLogRequested(true); // Signal to be catched by logsPage true show new log
          //qDebug() << Q_FUNC_INFO << "END-3" ;
-        emit debugLog (Q_FUNC_INFO, "END-3", Devel);
+        emit debugLog (Q_FUNC_INFO, "END-3", logLevel);
         return;
     }
-   //qDebug() << "SetupDialog::slotOkButtonClicked - 10";
+     //qDebug() << "SetupDialog::slotOkButtonClicked - 10";
     saveSettings();
 
     hamlibPage->stopHamlib();
-   //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving";
-    logEvent(Q_FUNC_INFO, "END", Debug);
-    //close();
+     //qDebug() << "SetupDialog::slotOkButtonClicked - just before leaving";
     QDialog::accept();
+    logEvent(Q_FUNC_INFO, "END", Debug);
+   //qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
+     //qDebug() << "SetupDialog::slotOkButtonClicked - END";
+    // Note: close() after accept() is redundant and causes crashes on macOS
+    // because accept() already calls hide() which ends the native modal session.
+    // close();
 }
 
 void SetupDialog::slotReadConfigData(const QString &_callingFunction)
@@ -671,7 +666,7 @@ QString SetupDialog::checkAndFixASCIIinADIF(const QString &_data)
 bool SetupDialog::haveAtleastOneLog()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    emit debugLog (Q_FUNC_INFO, "END-1", Debug);
+    emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
     return dataProxy->haveAtLeastOneLog();
     //logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -718,7 +713,7 @@ void SetupDialog::slotAnalyzeNewLogData(const QStringList _qs)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     if (_qs.length()!=2)
     {
-        emit debugLog (Q_FUNC_INFO, "END-1", Debug);
+        emit debugLog (Q_FUNC_INFO, "END-1", logLevel);
         return;
     }
     userDataPage->setMainCallsign(_qs.at(0));
