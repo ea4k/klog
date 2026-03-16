@@ -47,6 +47,7 @@ private slots:
     void cleanupTestCase();
     void test_Constructor();
     void test_SatMode();
+    void test_SetQSOData();
 
 private:
     DataProxy_SQLite *dataProxy;
@@ -139,6 +140,95 @@ void tst_MainQSOEntryWidget::test_SatMode()
     QVERIFY2(mainWindowSattab->getSatMode() == "K/K", "1.25cm Mode not K");
 }
 
+
+void tst_MainQSOEntryWidget::test_SetQSOData()
+{
+    // Ensure satellite-relevant bands are available in the combo boxes
+    QStringList bands;
+    bands << "10M" << "2M" << "70CM" << "23CM";
+    mainWindowSattab->addBands(bands);
+
+    // ----------------------------------------------------------------
+    // Test 1 (regression #894): setQSOData must populate the tab even
+    // when satNameComboBox starts at index 0 (the "no satellite" state).
+    // The old code had an early return that prevented any data from
+    // being set.
+    // ----------------------------------------------------------------
+    mainWindowSattab->setNoSat();
+    QVERIFY2(mainWindowSattab->getSatName().isEmpty(),
+             "Pre-condition failed: sat name should be empty after setNoSat()");
+
+    QSO qso1;
+    qso1.setSatName("AO-51");
+    qso1.setSatMode("V/U");
+    qso1.setFreq(145.920);    // 2M uplink
+    qso1.setFreqRX(435.300);  // 70CM downlink
+
+    mainWindowSattab->setQSOData(qso1);
+
+    QVERIFY2(mainWindowSattab->getSatName() == "AO-51",
+             "Regression #894: sat name not populated when combo was at index 0");
+    QVERIFY2(mainWindowSattab->getSatMode() == "V/U",
+             "Regression #894: sat mode not populated when combo was at index 0");
+    QVERIFY2(mainWindowSattab->getRXFreq() == Frequency(435.300),
+             "Regression #894: downlink frequency not set by setQSOData");
+
+    // ----------------------------------------------------------------
+    // Test 2: different known satellite – verifies correct behaviour
+    // across consecutive calls and that each field is set independently.
+    // ----------------------------------------------------------------
+    mainWindowSattab->setNoSat();
+
+    QSO qso2;
+    qso2.setSatName("AO-7");
+    qso2.setSatMode("U/V");
+    qso2.setFreq(432.180);    // 70CM uplink
+    qso2.setFreqRX(145.920);  // 2M downlink
+
+    mainWindowSattab->setQSOData(qso2);
+
+    QVERIFY2(mainWindowSattab->getSatName() == "AO-7",
+             "Known satellite AO-7: name not populated by setQSOData");
+    QVERIFY2(mainWindowSattab->getSatMode() == "U/V",
+             "Known satellite AO-7: sat mode not populated");
+    QVERIFY2(mainWindowSattab->getRXFreq() == Frequency(145.920),
+             "Known satellite AO-7: downlink frequency not set");
+
+    // ----------------------------------------------------------------
+    // Test 3: satellite not in the database must be stored via the
+    // "Other" entry and be fully retrievable through getSatName().
+    // ----------------------------------------------------------------
+    mainWindowSattab->setNoSat();
+
+    QSO qso3;
+    qso3.setSatName("XO-99");
+    qso3.setSatMode("V/U");
+    qso3.setFreq(145.900);
+    qso3.setFreqRX(435.100);
+
+    mainWindowSattab->setQSOData(qso3);
+
+    QVERIFY2(mainWindowSattab->getSatName() == "XO-99",
+             "Unknown satellite: name not stored via the 'Other' combo entry");
+    QVERIFY2(mainWindowSattab->getSatMode() == "V/U",
+             "Unknown satellite: sat mode not populated");
+    QVERIFY2(mainWindowSattab->getRXFreq() == Frequency(435.100),
+             "Unknown satellite: downlink frequency not set");
+
+    // ----------------------------------------------------------------
+    // Test 4: QSO with no satellite data must not crash and must leave
+    // both satellite name and mode empty.
+    // ----------------------------------------------------------------
+    mainWindowSattab->setNoSat();
+
+    QSO qso4; // no satName, no satMode, no frequencies
+    mainWindowSattab->setQSOData(qso4);
+
+    QVERIFY2(mainWindowSattab->getSatName().isEmpty(),
+             "QSO with no satellite data should yield an empty satellite name");
+    QVERIFY2(mainWindowSattab->getSatMode().isEmpty(),
+             "QSO with no satellite data should yield an empty satellite mode");
+}
 
 QTEST_MAIN(tst_MainQSOEntryWidget)
 

@@ -80,11 +80,14 @@ QSO MainWindowSatTab::getQSOData(QSO _qso)
 
 void MainWindowSatTab::setQSOData(const QSO &_qso)
 {
-    if (satNameComboBox->currentIndex() == 0)
-        return;
+    // The combo box starts at index 0 before data is loaded; checking
+    // currentIndex() == 0 here would always prevent data from being
+    // populated when editing an existing satellite QSO.
     QSO qso(_qso);
     setSatName(qso.getSatName());
     setSatMode(qso.getSatMode());
+    setUpLinkFreq(Frequency(qso.getFreqTX()));
+    setDownLinkFreq(Frequency(qso.getFreqRX()));
 }
 
 void MainWindowSatTab::createUI()
