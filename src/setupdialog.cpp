@@ -474,7 +474,9 @@ void SetupDialog::slotOkButtonClicked()
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime();
      //qDebug() << "SetupDialog::slotOkButtonClicked - END";
-    close();
+    // Note: close() after accept() is redundant and causes crashes on macOS
+    // because accept() already calls hide() which ends the native modal session.
+    // close();
 }
 
 void SetupDialog::slotReadConfigData(const QString &_callingFunction)

@@ -315,7 +315,7 @@ void DXClusterWidget::slotClusterDataArrived()
         dxClusterString = dxClusterString.remove("\u0007\u0007");
     }
 
-    qDebug() << Q_FUNC_INFO << " - 020:" << dxClusterString;
+   //qDebug() << Q_FUNC_INFO << " - 020:" << dxClusterString;
     saveSpot(dxClusterString);
 
     TypeOfDXSpot typeOfSpot = parseReceivedData(dxClusterString);
