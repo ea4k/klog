@@ -695,7 +695,7 @@ void MainWindow::createActionsCommon(){
     connect(setupDialog, SIGNAL(queryError(QString, QString, QString, QString)), this, SLOT(slotQueryErrorManagement(QString, QString, QString, QString)) );
     connect(setupDialog, SIGNAL(exitSignal(int)), this, SLOT(slotExitFromSlotDialog(int)) );
     //connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
-    connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
+    connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)), Qt::QueuedConnection );
     connect(setupDialog, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)) );
 
     connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
