@@ -6390,7 +6390,6 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
     setColors(newOneColor, neededColor, workedColor, confirmedColor, defaultColor);
 
-    setupDialog->loadDarkMode ();
     setDarkMode(darkMode);
 
       //qDebug() << Q_FUNC_INFO << " - 70 - misc";
