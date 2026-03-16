@@ -131,7 +131,7 @@ private:
 
     bool updatingBands, updatingSat;
     bool qsoToEditInProcess;             // True just when MainWindow::qsoToEdit is being executed
-    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
+    QPalette palRed; // To paint Text in red (validation error)
 
     // qDoubleSpinBox *txFreqSpinBox, *rxFreqSpinBox;
     DataProxy_SQLite *dataProxy;
@@ -143,7 +143,6 @@ private:
     QString downLinkBand, upLinkBand;
 
     bool modifying;
-    bool getDarkMode();
 };
 
 #endif // MAINWINDOWSATTAB_H

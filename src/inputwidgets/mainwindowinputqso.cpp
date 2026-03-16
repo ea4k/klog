@@ -282,8 +282,6 @@ void MainWindowInputQSO::setDefaultData()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     palRed.setColor(QPalette::Text, Qt::red);
-    palBlack.setColor(QPalette::Text, Qt::black);
-    palWhite.setColor(QPalette::Text, Qt::white);
     completedWithPreviousName = false;
     completedWithPreviousQTH = false;
     completedWithPreviousLocator = false;
@@ -294,15 +292,6 @@ void MainWindowInputQSO::setDefaultData()
     freqTX = Frequency(0.0);
     freqRX = Frequency(0.0);
     modify = false;
-    readDarkMode();
-}
-
-void MainWindowInputQSO::readDarkMode()
-{
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    settings.beginGroup ("Colors");
-    setDarkMode(settings.value("DarkMode", false).toBool ());
-    settings.endGroup ();
 }
 
 void MainWindowInputQSO::clear()
@@ -620,75 +609,27 @@ void MainWindowInputQSO::setPaletteRightName(const bool _ok)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
-    {
-        if (darkMode)
-        {
-            nameLineEdit->setPalette (palWhite);
-        }
-        else
-        {
-            nameLineEdit->setPalette (palBlack);
-        }
-    }
+        nameLineEdit->unsetPalette();
     else
-    {
         nameLineEdit->setPalette (palRed);
-    }
 }
 
 void MainWindowInputQSO::setPaletteRightQTH(const bool _ok)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
-    {
-        if (darkMode)
-        {
-            qthLineEdit->setPalette (palWhite);
-        }
-        else
-        {
-            qthLineEdit->setPalette (palBlack);
-        }
-    }
+        qthLineEdit->unsetPalette();
     else
-    {
         qthLineEdit->setPalette (palRed);
-    }
 }
 
 void MainWindowInputQSO::setPaletteRightDXLocator(const bool _ok)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
-    {
-        if (darkMode)
-        {
-            locatorLineEdit->setPalette (palWhite);
-        }
-        else
-        {
-            locatorLineEdit->setPalette (palBlack);
-        }
-    }
+        locatorLineEdit->unsetPalette();
     else
-    {
         locatorLineEdit->setPalette (palRed);
-    }
-}
-
-void MainWindowInputQSO::setDarkMode (const bool _dm)
-{
-    darkMode = _dm;
-
-    if (darkMode) {
-        txFreqSpinBox->setPalette(palWhite);
-        rxFreqSpinBox->setPalette(palWhite);
-        //qDebug() << Q_FUNC_INFO << " - DarkMode: ON";
-    } else {
-        //qDebug() << Q_FUNC_INFO << " - DarkMode: OFF";
-        txFreqSpinBox->setPalette(palBlack);
-        rxFreqSpinBox->setPalette(palBlack);
-    }
 }
 
 void MainWindowInputQSO::setPropModeFromSat(const QString &_p)
@@ -718,13 +659,7 @@ void MainWindowInputQSO::slotFreqTXChanged(const double _f)
    int bandId = dataProxy->getBandIdFromFreq(f1);
    if (bandId > 1) { // If the freq belongs to one ham band
        txFreqSpinBox->setToolTip(tr("TX Frequency in MHz."));
-       if (darkMode) {
-           //qDebug() << Q_FUNC_INFO << " - We are in darkmode";
-           txFreqSpinBox->setPalette(palWhite);
-       } else {
-           //qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
-           txFreqSpinBox->setPalette(palBlack);
-       }
+       txFreqSpinBox->unsetPalette();
        //qDebug() << Q_FUNC_INFO << ": emitting: " << QString::number(_f);
         emit txFreqChanged (f1);
    } else {
@@ -764,13 +699,7 @@ void MainWindowInputQSO::slotFreqRXChanged(const double _f)
    freqRX = f1;
    int bandId = dataProxy->getBandIdFromFreq(f1);
    if (bandId > 1) { // If the freq belongs to one ham band
-       if (darkMode) {
-           //qDebug() << Q_FUNC_INFO << " - We are in darkmode";
-           rxFreqSpinBox->setPalette(palWhite);
-       } else {
-           //qDebug() << Q_FUNC_INFO << " - We are NOT in darkmode";
-           rxFreqSpinBox->setPalette(palBlack);
-       }
+       rxFreqSpinBox->unsetPalette();
        rxFreqSpinBox->setToolTip(tr("RX Frequency in MHz."));
        emit rxFreqChanged(Frequency(rxFreqSpinBox->value()));
     }

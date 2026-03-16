@@ -56,8 +56,6 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     satNameLineEdit->setEnabled(false);
     satOtherLabel->setEnabled(false);
     palRed.setColor(QPalette::Text, Qt::red);
-    palBlack.setColor(QPalette::Text, Qt::black);
-    palWhite.setColor(QPalette::Text, Qt::white);
 
     setDefaultBands(); //TODO: Check how the bands are included not to create an inconsistence with the selected (in the setup) bands
        //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"  ;
@@ -931,16 +929,4 @@ bool MainWindowSatTab::getKeep()
 //    return keepThisDataForNextQSOQcheckbox->isChecked();
 //}
 
-bool MainWindowSatTab::getDarkMode()
-{
-    //qDebug() << Q_FUNC_INFO << " - Start";
-    if (satNameLineEdit->palette().color (QPalette::Base) == "#646464")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
 

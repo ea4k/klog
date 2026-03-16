@@ -43,17 +43,14 @@ public:
     QString getWorkedColor();
     QString getConfirmedColor();
     QString getDefaultColor();
-    QString getDarkMode();
 
     void setNewOneColor(const QString &_c);
     void setNeededColor(const QString &_c);
     void setWorkedColor(const QString &_c);
     void setConfirmedColor(const QString &_c);
     void setDefaultColor(const QString &_c);
-    void setDarkMode(const bool _d);
     void saveSettings();
     void loadSettings();
-    void loadDarkMode(); // Reads the config to setup the DarkMode
 
 private slots:
     void slotNewOneColorButtonClicked();
@@ -63,13 +60,9 @@ private slots:
     void slotDefaultColorButtonClicked();
     void slotWSJTXButtonClicked();
     void slotKLogButtonClicked();
-    void slotSetDarkMode();
-signals:
-    void darkModeChanged(bool darkMode); // Signal to notify other widgets
 
 private:
     Utilities *util;
-    bool darkMode;
     void setDefaultColors();
     void setWSJTXColors();
     QColor giveColor (QColor c);
@@ -82,7 +75,6 @@ private:
     QPushButton *defaultColorButton;  // In this band
     QPushButton *wsjtxColorButton;  // In this band
     QPushButton *klogColorButton;  // In this band
-    QPushButton *darkModeButton;
 
     QColor color;
 /*

@@ -119,7 +119,7 @@ private:
 
     Utilities *util;
 
-    QPalette palRed, palBlack;
+    QPalette palRed;
 };
 
 #endif // SETUPPAGEELOG_H

@@ -44,7 +44,6 @@ class MainWindowInputOthers : public QWidget
 public:
     MainWindowInputOthers(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent = nullptr);
     ~MainWindowInputOthers();
-    void setDarkMode (const bool _dm);
     QSO getQSOData(QSO _qso);
     void setQSOData(const QSO &_qso);
     void setEntitiesList();
@@ -121,15 +120,12 @@ private:
     void setPaletteIOTA(const bool _ok);
 
     void updatePrimarySubdivisionsComboBox(QList<PrimarySubdivision> _subdivisions);
-    //bool getDarkMode();
-    void readDarkMode();
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
 
 
     Utilities *util;
     DataProxy_SQLite *dataProxy;
     World *world;
-    bool darkMode;
 
     QStringList  propModeList; // entitiesList,
     // qLabel *entityPrimLabel, *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel;
@@ -137,7 +133,7 @@ private:
     QLineEdit *iotaNumberLineEdit;
     QCheckBox *keepPropCheckBox, *showAllCheckBox;
 
-    QPalette palRed, palBlack, palWhite;
+    QPalette palRed;
     bool autoUpdating;
 
     QComboBox *userDefinedADIFComboBox;

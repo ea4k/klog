@@ -53,7 +53,6 @@ MainWindowMyDataTab::MainWindowMyDataTab(DataProxy_SQLite *dp, QWidget *parent) 
     myLocator   = QString();          // Defined in the configuration by the user, will be used if the user configured so in the setup
     util        = new Utilities(Q_FUNC_INFO);
     modify      = false;
-    darkMode    = false;
     createUI();
     setInitialADIFValues();
     myPower = 0;
@@ -71,13 +70,6 @@ MainWindowMyDataTab::~MainWindowMyDataTab()
     //delete(dataProxy);
 }
 
-void MainWindowMyDataTab::readDarkMode()
-{
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    settings.beginGroup ("Colors");
-    setDarkMode(settings.value("DarkMode", false).toBool ());
-    settings.endGroup ();
-}
 
 QSO MainWindowMyDataTab::getQSOData(QSO _qso)
 {
@@ -121,8 +113,6 @@ void MainWindowMyDataTab::createUI()
     //qDebug() << Q_FUNC_INFO;
     logEvent (Q_FUNC_INFO, "Start", Debug);
     palRed.setColor(QPalette::Text, Qt::red);
-    palBlack.setColor(QPalette::Text, Qt::black);
-    palWhite.setColor(QPalette::Text, Qt::white);
 
     myPowerSpinBox->setDecimals(2);
     myPowerSpinBox->setMaximum(9999);
@@ -171,7 +161,6 @@ void MainWindowMyDataTab::createUI()
     connect(myUserADIFComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotMyUserADIFComboBoxChanged() ) ) ;
 
     connect(myUserADIFLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSetCurrentMyUSerData() ) );
-    readDarkMode();
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -270,15 +259,7 @@ void MainWindowMyDataTab::slotMyLocatorTextChanged()
             myLocator = (myLocatorLineEdit->text()).toUpper();
         }
 
-        if (darkMode)
-        {
-            myLocatorLineEdit->setPalette(palWhite);
-        }
-        else
-        {
-            myLocatorLineEdit->setPalette(palBlack);
-        }
-
+        myLocatorLineEdit->unsetPalette();
         myLocatorLineEdit->setToolTip(tr("My QTH locator."));
         myLocatorLineEdit->setCursorPosition(cursorP);
         emit myLocChangedSignal(myLocatorLineEdit->text());
@@ -450,14 +431,7 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
     Callsign callsign(operatorLineEdit->text());
     if (callsign.isValid())
     {
-        if (darkMode)
-        {
-            operatorLineEdit->setPalette(palWhite);
-        }
-        else
-        {
-            operatorLineEdit->setPalette(palBlack);
-        }
+        operatorLineEdit->unsetPalette();
 
         if (!modify)
         {
@@ -478,25 +452,6 @@ void MainWindowMyDataTab::slotOperatorTextChanged()
     operatorLineEdit->setCursorPosition(cursorP);
 }
 
-void MainWindowMyDataTab::setDarkMode (const bool _dm)
-{
-    darkMode = _dm;
-    if (darkMode)
-    {
-        myLocatorLineEdit->setPalette(palWhite);
-        operatorLineEdit->setPalette(palWhite);
-        stationCallSignLineEdit->setPalette(palWhite);
-        myUserADIFLineEdit->setPalette(palWhite);
-    }
-    else
-    {
-        myLocatorLineEdit->setPalette(palBlack);
-        operatorLineEdit->setPalette(palBlack);
-        stationCallSignLineEdit->setPalette(palBlack);
-        myUserADIFLineEdit->setPalette(palBlack);
-    }
-}
-
 void MainWindowMyDataTab::slotStationCallSignTextChanged()
 {
     //qDebug() << Q_FUNC_INFO;
@@ -507,20 +462,9 @@ void MainWindowMyDataTab::slotStationCallSignTextChanged()
 
     Callsign callsign(stationCallSignLineEdit->text());
     if (callsign.isValid())
-    {
-     if (darkMode)
-        {
-            stationCallSignLineEdit->setPalette(palWhite);
-        }
-        else
-        {
-            stationCallSignLineEdit->setPalette(palBlack);
-        }
-    }
+        stationCallSignLineEdit->unsetPalette();
     else
-    {
         stationCallSignLineEdit->setPalette(palRed);
-    }
     stationCallSignLineEdit->setCursorPosition(cursorP);
 }
 
@@ -794,14 +738,7 @@ QString MainWindowMyDataTab::getMyWWFF_Ref()
 void MainWindowMyDataTab::setColorsForMyUserADIFLineEdit()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (darkMode)
-    {
-        myUserADIFLineEdit->setPalette(palWhite);
-    }
-    else
-    {
-        myUserADIFLineEdit->setPalette(palBlack);
-    }
+    myUserADIFLineEdit->unsetPalette();
 }
 
 void MainWindowMyDataTab::slotMyUserADIFComboBoxChanged()

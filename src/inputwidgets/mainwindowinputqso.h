@@ -45,7 +45,6 @@ class MainWindowInputQSO : public QWidget
 public:
     explicit MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent = nullptr);
     ~MainWindowInputQSO();
-    void setDarkMode (const bool _dm);
     void setPaletteRightName(const bool _ok);
     void setPaletteRightQTH(const bool _ok);
     void setPaletteRightDXLocator(const bool _ok);
@@ -114,9 +113,6 @@ private:
     bool eventFilter(QObject *object, QEvent *event);
     void createUI();
     void setDefaultData();
-    bool getDarkMode();
-    //oid setSplitCheckBox();
-    void readDarkMode();
 
 
     QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;
@@ -128,13 +124,12 @@ private:
     DataProxy_SQLite *dataProxy;
     Utilities *util;
 
-    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
+    QPalette palRed; // To paint Text in red (validation error)
 
     bool rxFreqBeingAutoChanged, txFreqBeingAutoChanged, isSATPropagation;
     QString propMode;
     Frequency freqTX, freqRX;
     bool modify, completedWithPreviousName, completedWithPreviousQTH, completedWithPreviousLocator;
-    bool darkMode;
      bool fillingQSO;        // TRUE just when a QSO is being written in the UI from a qsoToEdit
 };
 

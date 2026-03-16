@@ -35,7 +35,6 @@ SetupPageELog::SetupPageELog(QWidget *parent) : QWidget(parent)
     util = new Utilities(Q_FUNC_INFO);
 
     palRed.setColor(QPalette::Text, Qt::red);
-    palBlack.setColor(QPalette::Text, Qt::black);
 
     clubLogEmailLineEdit = new QLineEdit;
     clubLogPasswordLineEdit = new QLineEdit;
@@ -383,7 +382,7 @@ void SetupPageELog::slotQRZCallTextChanged()
     if (callsign.isValid())
     {
         //qDebug() << Q_FUNC_INFO << " -  -2.1";
-        QRZCOMUserLineEdit->setPalette(palBlack);
+        QRZCOMUserLineEdit->unsetPalette();
     }
     else
     {
@@ -409,7 +408,7 @@ void SetupPageELog::sloteQSLCallTextChanged()
     Callsign callsign(aux);
     if (callsign.isValid())
     {
-        eQSLUserLineEdit->setPalette(palBlack);
+        eQSLUserLineEdit->unsetPalette();
     }
     else
     {
@@ -438,7 +437,7 @@ void SetupPageELog::slotLoTWEmailDefineColor()
     Callsign callsign(aux);
     if (callsign.isValid())
     {
-        lotwUserLineEdit->setPalette(palBlack);
+        lotwUserLineEdit->unsetPalette();
     }
     else
     {
@@ -543,7 +542,7 @@ void SetupPageELog::slotPathLineEditChanged(const QString &_q)
 {
     if (QFile::exists(_q))
     {
-        lotwTQSLPathLineEdit->setPalette(palBlack);
+        lotwTQSLPathLineEdit->unsetPalette();
     }
     else
     {

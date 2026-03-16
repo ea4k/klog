@@ -89,7 +89,6 @@ public:
     void setFocusToOK();
     void setLogLevel (const DebugLogLevel _b);
     void clear();
-    bool getDarkMode();
 
 protected:
     //void keyPressEvent(QKeyEvent *event);
@@ -163,7 +162,7 @@ private:
     QTimer *timer;
     bool UTCTime, modify, realTime;
     bool displayLocal; // To detect if the user wants to see UTC or local
-    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
+    QPalette palRed; // To paint Text in red (validation error)
     Utilities *util;
     QPalette::ColorRole enabledCR, disabledCR;
 

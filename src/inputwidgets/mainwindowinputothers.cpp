@@ -138,11 +138,7 @@ void MainWindowInputOthers::createUI()
     sig         = QString();
     sig_info    = QString();
     wwff_ref    = QString();
-    darkMode    = false;
-
     palRed.setColor(QPalette::Text, Qt::red);
-    palBlack.setColor(QPalette::Text, Qt::black);
-    palWhite.setColor(QPalette::Text, Qt::white);
 
     QLabel *entityPrimLabel = new QLabel(tr("Primary Div"));
     QLabel *entitySecLabel  = new QLabel(tr("Secondary Div"));
@@ -221,7 +217,6 @@ void MainWindowInputOthers::createUI()
     iotaContinentComboBox->addItems(dataProxy->getContinentShortNames());
     iotaNumberLineEdit->setInputMask("000");
     iotaNumberLineEdit->setText("000");
-    readDarkMode();
     logEvent (Q_FUNC_INFO, "END", Debug);
 
     //qDebug() << Q_FUNC_INFO << ": (" << QString::number(this->size ().width ()) << "/" << QString::number(this->size ().height ()) << ")" ;
@@ -374,20 +369,9 @@ void MainWindowInputOthers::setPaletteIOTA(const bool _ok)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
     if (_ok)
-    {
-        if (darkMode)
-        {
-            iotaNumberLineEdit->setPalette (palWhite);
-        }
-        else
-        {
-            iotaNumberLineEdit->setPalette (palBlack);
-        }
-    }
+        iotaNumberLineEdit->unsetPalette();
     else
-    {
         iotaNumberLineEdit->setPalette (palRed);
-    }
 }
 
 
@@ -398,26 +382,6 @@ void MainWindowInputOthers::clearIOTA()
     iotaNumberLineEdit->setText("000");
     logEvent (Q_FUNC_INFO, "END", Debug);
     setPaletteIOTA(true);    //To avoid that 000 is considered wrong
-}
-
-void MainWindowInputOthers::setDarkMode (const bool _dm)
-{
-    darkMode = _dm;
-
-    if (darkMode)
-    {
-       //qDebug() << Q_FUNC_INFO << " - True";
-        iotaNumberLineEdit->setPalette(palWhite);
-        userDefinedADIFValueLineEdit->setPalette(palWhite);
-        iotaNumberLineEdit->setPalette(palWhite);
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " - False";
-        iotaNumberLineEdit->setPalette(palBlack);
-        userDefinedADIFValueLineEdit->setPalette(palBlack);
-        iotaNumberLineEdit->setPalette(palBlack);
-    }
 }
 
 bool MainWindowInputOthers::isIOTAModified()
@@ -444,14 +408,7 @@ void MainWindowInputOthers::setIOTA(const QString &_qs)
           //qDebug() << Q_FUNC_INFO << ": IOTA " << _qs;
         iotaContinentComboBox->setCurrentIndex( iotaContinentComboBox->findText(values.at(0) ) );
         iotaNumberLineEdit->setText(values.at(1));
-        if (darkMode)
-        {
-            iotaNumberLineEdit->setPalette(palWhite);
-        }
-        else
-        {
-            iotaNumberLineEdit->setPalette(palBlack);
-        }
+        iotaNumberLineEdit->unsetPalette();
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -1021,14 +978,7 @@ QString MainWindowInputOthers::getVUCCGrids()
 void MainWindowInputOthers::setColorsForUserDefinedADIFValueLineEdit()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    if (darkMode)
-    {
-        userDefinedADIFValueLineEdit->setPalette(palWhite);
-    }
-    else
-    {
-        userDefinedADIFValueLineEdit->setPalette(palBlack);
-    }
+    userDefinedADIFValueLineEdit->unsetPalette();
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -1152,15 +1102,6 @@ void MainWindowInputOthers::slotEntityNameComboBoxChanged()
     //entityPrimDivComboBox->clear();
     entityPrimDivComboBox->addItem("00-" + tr("None Identified") + " (000)");
 }
-
-void MainWindowInputOthers::readDarkMode()
-{
-    QSettings settings(util->getCfgFile (), QSettings::IniFormat);
-    settings.beginGroup ("Colors");
-    setDarkMode(settings.value("DarkMode", false).toBool ());
-    settings.endGroup ();
-}
-
 
 void MainWindowInputOthers::setLogLevel (const DebugLogLevel _l)
 {

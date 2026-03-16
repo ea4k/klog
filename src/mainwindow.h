@@ -331,11 +331,9 @@ private slots:
     void slotTakeOverFocusToMainQSOInput();
     void slotNewLogLevel(DebugLogLevel l);
     void slotQSO_SetMode(const QString _submode);
-    void slotDarkModeChanged(const bool _dm);
 
 private:
     //void setWidgetsOrder();
-    void setDarkMode(const bool _dm);
     void init_variables();      // Refactored from init()
     void checkDebugFile();      // Refactored from init()
     void checkExistingData();   // Refactored from init()
@@ -660,7 +658,7 @@ private:
     QString lotwSentDefault, qrzcomSentDefault, clublogSentDefault, eqslSentDefault;
     QString stx, srx;
 
-    QPalette palRed, palBlack; // To paint Text in red or black(normal)
+    QPalette palRed; // To paint Text in red (validation error)
     bool  alwaysADIF, needToSave, useDefaultLogFileName, upAndRunning, qrzSmallModDontCalculate, imperialSystem, sendQSLWhenRec, manageDxMarathon, completeWithPrevious, completedWithPreviousQTH, completedWithPreviousLocator, completedWithPreviousName, completedWithPreviousIOTA, completedWithPreviousQSLVia;
     // bool realTime, UTCTime;
     bool cleaning;

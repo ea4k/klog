@@ -179,8 +179,6 @@ void SetupDialog::connectActions()
     connect (userDataPage, SIGNAL(operatorsSignal(QString)), this, SLOT(slotSetOperators(QString)));
     connect (userDataPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
     connect (eLogPage, SIGNAL(enterKey()), this, SLOT(slotOkButtonClicked()));
-    connect (colorsPage, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)));
-
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -188,10 +186,6 @@ void SetupDialog::connectActions()
 //{
     //emit qrzcomAuto(_b);
 //}
-void SetupDialog::slotDarkModeChanged(const bool _dm)
-{
-    emit darkModeChanged(_dm);
-}
 
 void SetupDialog::setData(const QString &_softwareVersion, const QString &_callingFunction, const int _page, const bool _alreadyConfigured)
 {
@@ -339,12 +333,6 @@ void SetupDialog::changePage(QListWidgetItem *current, QListWidgetItem *previous
     pagesWidget->setCurrentIndex(contentsWidget->row(current));
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
-void SetupDialog::loadDarkMode()
-{// Reads the config to setup the DarkMode
-    //qDebug() << Q_FUNC_INFO;
-    colorsPage->loadDarkMode ();
-}
-
 bool SetupDialog::loadSettings(const QString &_callingFunction)
 {
     //qDebug() << Q_FUNC_INFO << " - Start - " << _callingFunction;

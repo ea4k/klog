@@ -50,7 +50,6 @@ public:
 
     QSO getQSOData(QSO _qso);
     void setQSOData(const QSO &_qso);
-    void setDarkMode (const bool _dm);
     void createUI();
 
     void setData(const QString &_stationCallsign, const QString &_operator, const QString &_myLocator);
@@ -123,8 +122,6 @@ private:
     bool setInitialADIFValues();
     void setColorsForMyUserADIFLineEdit();
     bool checkMyVUCC_GRIDS(const QString &_string);
-    void readDarkMode();
-    bool darkMode;
     QStringList adifValidTypes;
 
     QDoubleSpinBox *myPowerSpinBox;
@@ -136,7 +133,7 @@ private:
     QComboBox *myUserADIFComboBox;
     QCheckBox *keepThisDataForNextQSOQCheckbox;
 
-    QPalette palRed, palBlack, palWhite; // To paint Text in red or black(normal)
+    QPalette palRed; // To paint Text in red (validation error)
     Locator *locator;
     DataProxy_SQLite *dataProxy;
     Utilities *util;
