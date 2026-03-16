@@ -57,12 +57,27 @@ void MapWindowWidget::init()
     confirmedColor = Qt::black;
     defaultColor = Qt::black;
     createUI();
+    QSettings settings;
+    int expiryMin = settings.value("SpotExpiryMinutes", 15).toInt();
+    mapWidget->setSpotExpiryMinutes(expiryMin);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MapWindowWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color)
 {
     mapWidget->addMarker(_coord, _callsign, _color);
+}
+
+void MapWindowWidget::clearMarkers()
+{
+    mapWidget->clearMarkers();
+}
+
+void MapWindowWidget::setSpotExpiryMinutes(int minutes)
+{
+    QSettings settings;
+    settings.setValue("SpotExpiryMinutes", minutes);
+    mapWidget->setSpotExpiryMinutes(minutes);
 }
 
 void MapWindowWidget::createUI()

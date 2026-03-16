@@ -49,6 +49,10 @@ public:
     // Clears only data overlays (worked/confirmed rectangles and circles), NOT the base grid layer
     void clearDataLayers();
 
+    // DX spot markers
+    void clearMarkers();
+    void setSpotExpiryMinutes(int minutes);
+
 signals:
     void doAddMarker(double latitude, double longitude);
 
