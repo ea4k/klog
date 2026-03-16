@@ -357,6 +357,10 @@ void SetupPageLogs::slotAnalyzeNewLogData(const QStringList _qs)
     {
         logsModel->select();
         updateSelectedLogs();
+        // When creating a new log (not editing), update selectedLog to the newly created ID
+        // so getSelectedLog() returns a valid value and currentLog is not left at -1 (Closes #906)
+        if (_qs.at(4) == "0")
+            selectedLog = dataProxy->getMaxLogNumber();
     }
     else
     {
