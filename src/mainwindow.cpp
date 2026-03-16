@@ -3281,7 +3281,8 @@ void MainWindow::slotSetupDialogFinished (const int _s)
 
         if (logChanged || logsModified)
         {
-            currentLog = newSelectedLog;
+            if (newSelectedLog > 0)
+                currentLog = newSelectedLog;
             logWindow->createlogPanel(currentLog);
             dataProxy->loadDuplicateCache(currentLog);
         }
