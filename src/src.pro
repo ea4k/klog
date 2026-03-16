@@ -25,11 +25,14 @@
 # *****************************************************************************/
 QT += core gui
 QT += qml quick
-QT += quickwidgets
 
 CONFIG += c++11
 CONFIG += app_bundle
 CONFIG += static
+# Suppress the "using private headers" informational warning that Qt emits
+# when quickwidgets or location modules are used (they depend on Qt private
+# APIs internally; this is expected and does not affect the build).
+CONFIG += no_private_qt_headers_warning
 #CONFIG += console
 CONFIG -=depend_includepath
 #CONFIG += release

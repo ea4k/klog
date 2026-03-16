@@ -12,6 +12,7 @@ QT += testlib \
 
 CONFIG += qt console warn_on depend_includepath testcase
 CONFIG -= app_bundle
+CONFIG += no_private_qt_headers_warning
 RESOURCES += ../../src/klog.qrc
 
 TEMPLATE = app
