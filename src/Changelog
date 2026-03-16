@@ -35,6 +35,7 @@ TBD
 - Bugfix: Map Filter is not properly filtering (Closes #827)
 - Bugfix: Primary subdivisions table in DB allowed duplicated entries.
 - Bugfix: SAT mode saved as SAT when no SAT QSO is done (Closes #857)
+- Bugfix: Low contrast in tooltips when using dark mode or system dark themes (Closes #642)
 
 Feb 2026 - 2.4.3
 - Enhancement: Add the FT2 submode
