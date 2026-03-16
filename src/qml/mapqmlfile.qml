@@ -44,6 +44,8 @@ Rectangle {
     property alias lon: map.center.longitude
     property double oldZoom
 
+    signal spotDoubleClicked(string callsign, double frequencyMHz)
+
     // Pixel step for pan buttons
     property int panStepPx: 100
 
@@ -52,6 +54,32 @@ Rectangle {
     property var qsoLookup: null          // optional object with getCallsignByLocator(locator) function
     property string lastLocator: ""
     property string lastCallsign: ""
+
+    // DX spot markers: tracked list and expiry (default 15 min)
+    property var spotMarkers: []       // [ { item, addedAt }, ... ]
+    property int spotExpiryMs: 900000  // 15 minutes; set from C++ via setSpotExpiryMinutes()
+
+    // Periodic sweep to remove expired spot markers
+    Timer {
+        id: spotExpiryTimer
+        interval: 60000  // check every 60 s
+        repeat: true
+        running: true
+        onTriggered: {
+            var now = Date.now()
+            var remaining = []
+            for (var i = 0; i < root.spotMarkers.length; i++) {
+                var entry = root.spotMarkers[i]
+                if (now - entry.addedAt >= root.spotExpiryMs) {
+                    map.removeMapItem(entry.item)
+                    entry.item.destroy()
+                } else {
+                    remaining.push(entry)
+                }
+            }
+            root.spotMarkers = remaining
+        }
+    }
 
     // Zoom thresholds for label granularity
     property int labelZoom4: 7
@@ -180,22 +208,35 @@ Rectangle {
 
     //Location { id: mapCenter }
 
-    function addMarker(latitude, longitude, callsign, color) {
-        var component = Qt.createComponent("qrc:qml/marker.qml")
+    function addMarker(latitude, longitude, callsign, color, frequencyMHz) {
+        var component = Qt.createComponent("qrc:///qml/marker.qml")
         if (component.status !== Component.Ready) {
             console.warn("addMarker: failed to load marker.qml:", component.errorString())
             return
         }
         var item = component.createObject(map, {
             coordinate:  QtPositioning.coordinate(latitude, longitude),
-            text:        callsign || "",
-            markerColor: color    || "#FF0000"
+            text:        callsign      || "",
+            markerColor: color         || "#FF0000",
+            frequency:   frequencyMHz  || 0.0
         })
         if (item === null) {
             console.warn("addMarker: createObject returned null")
             return
         }
+        item.markerDoubleClicked.connect(function(cs, freq) {
+            root.spotDoubleClicked(cs, freq)
+        })
         map.addMapItem(item)
+        root.spotMarkers = root.spotMarkers.concat([{ item: item, addedAt: Date.now() }])
+    }
+
+    function clearMarkers() {
+        for (var i = 0; i < root.spotMarkers.length; i++) {
+            map.removeMapItem(root.spotMarkers[i].item)
+            root.spotMarkers[i].item.destroy()
+        }
+        root.spotMarkers = []
     }
 
     FocusScope { anchors.fill: parent }
@@ -334,6 +375,39 @@ Rectangle {
                     Text { text: "-"; color: "black"; anchors.centerIn: parent }
                     MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
                 }
+            }
+        }
+
+        // ================================
+        // Clear spots button (top-left)
+        // ================================
+        Rectangle {
+            id: clearSpotsButton
+            z: 100
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: 8
+            anchors.leftMargin: 8
+            width: 60
+            height: 26
+            radius: 5
+            color: clearArea.containsMouse ? "#cc2222" : "#882222"
+            border.color: "#ff4444"
+            visible: root.spotMarkers.length > 0
+
+            Text {
+                anchors.centerIn: parent
+                text: qsTr("Clear")
+                color: "white"
+                font.bold: true
+                font.pixelSize: 12
+            }
+
+            MouseArea {
+                id: clearArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: root.clearMarkers()
             }
         }
 

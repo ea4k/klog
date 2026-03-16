@@ -86,6 +86,13 @@ void MapWidget::createUI()
     setLayout(layout);
 
     paintFieldGrid();
+
+    // Forward the QML spotDoubleClicked signal as our own C++ signal
+    QObject *root = qmlView->rootObject();
+    if (root) {
+        connect(root, SIGNAL(spotDoubleClicked(QString,double)),
+                this, SIGNAL(spotDoubleClicked(QString,double)));
+    }
 }
 
 void MapWidget::clearDataLayers()
@@ -116,7 +123,21 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     object->setProperty("locLon2", lon2);
 }
 
-void MapWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color)
+void MapWidget::clearMarkers()
+{
+    QObject *object = qmlView->rootObject();
+    if (!object) return;
+    QMetaObject::invokeMethod(object, "clearMarkers");
+}
+
+void MapWidget::setSpotExpiryMinutes(int minutes)
+{
+    QObject *object = qmlView->rootObject();
+    if (!object) return;
+    object->setProperty("spotExpiryMs", minutes * 60 * 1000);
+}
+
+void MapWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color, double frequencyMHz)
 {
     QObject *object = qmlView->rootObject();
     if (!object) return;
@@ -124,7 +145,8 @@ void MapWidget::addMarker(const Coordinate _coord, const QString &_callsign, con
                               Q_ARG(QVariant, _coord.lat),
                               Q_ARG(QVariant, _coord.lon),
                               Q_ARG(QVariant, _callsign),
-                              Q_ARG(QVariant, _color.name()));
+                              Q_ARG(QVariant, _color.name()),
+                              Q_ARG(QVariant, frequencyMHz));
 }
 
 void MapWidget::addQSO(const QString &_loc)

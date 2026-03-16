@@ -1,9 +1,9 @@
 /***************************************************************************
-                          mapqmlfile.qml  -  description
-                             -------------------
-    begin                : May 2021
-    copyright            : (C) 2021 by Jaime Robles
-    email                : jaime@robles.es
+                         mapqmlfile.qml  -  description
+                            -------------------
+   begin                : May 2021
+   copyright            : (C) 2021 by Jaime Robles
+   email                : jaime@robles.es
  ***************************************************************************/
 
 /*****************************************************************************
@@ -25,19 +25,24 @@
  *****************************************************************************/
 import QtQuick
 import QtLocation
+import QtQuick.Controls
 
 MapQuickItem {
     id: marker
 
-    property alias text: locatorText.text
+    property alias text: pinTooltip.text
     property color markerColor: "#FF0000"
+    property double frequency: 0.0   // MHz
+
+    signal markerDoubleClicked(string callsign, double frequencyMHz)
 
     anchorPoint.x: pinHead.width / 2
     anchorPoint.y: pinHead.height / 2
 
-    sourceItem: Column {
-        id: pinColumn
-        spacing: 2
+    sourceItem: Item {
+        id: pinItem
+        width: pinHead.width
+        height: pinHead.height
 
         // Colored circle — the pin head, anchored to the coordinate
         Rectangle {
@@ -48,19 +53,21 @@ MapQuickItem {
             color: marker.markerColor
             border.color: Qt.darker(marker.markerColor, 1.6)
             border.width: 2
-            anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        // Callsign label below the pin
-        Text {
-            id: locatorText
-            font.pixelSize: 10
-            font.bold: true
-            color: "white"
-            style: Text.Outline
-            styleColor: "black"
-            horizontalAlignment: Text.AlignHCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+        // Hover + double-click area
+        MouseArea {
+            id: hoverArea
+            anchors.fill: parent
+            hoverEnabled: true
+            onDoubleClicked: marker.markerDoubleClicked(marker.text, marker.frequency)
+
+            ToolTip {
+                id: pinTooltip
+                visible: hoverArea.containsMouse && text.length > 0
+                delay: 200
+                timeout: 5000
+            }
         }
     }
 }

@@ -269,6 +269,7 @@ private slots:
     // CLUSTER
     void slotAnalyzeDxClusterSignal(const DXSpot &_spot);
     void slotDXClusterSpotArrived(const DXSpot &_spot);
+    void slotMapSpotDoubleClicked(const QString &callsign, double frequencyMHz);
 
     // CLUSTER
     //CLUBLOG
