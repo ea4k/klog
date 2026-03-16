@@ -181,7 +181,7 @@ Rectangle {
     //Location { id: mapCenter }
 
     function addMarker(latitude, longitude, callsign, color) {
-        var component = Qt.createComponent("qrc:qml/marker.qml")
+        var component = Qt.createComponent("qrc:///qml/marker.qml")
         if (component.status !== Component.Ready) {
             console.warn("addMarker: failed to load marker.qml:", component.errorString())
             return
