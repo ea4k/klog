@@ -116,13 +116,15 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
     object->setProperty("locLon2", lon2);
 }
 
-void MapWidget::addMarker(const Coordinate _coord)
+void MapWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color)
 {
     QObject *object = qmlView->rootObject();
     if (!object) return;
-    //QObject *object = qmlView.rootObject();
     QMetaObject::invokeMethod(object, "addMarker",
-                              Q_ARG(QVariant, _coord.lat), Q_ARG(QVariant, _coord.lon));
+                              Q_ARG(QVariant, _coord.lat),
+                              Q_ARG(QVariant, _coord.lon),
+                              Q_ARG(QVariant, _callsign),
+                              Q_ARG(QVariant, _color.name()));
 }
 
 void MapWidget::addQSO(const QString &_loc)

@@ -131,6 +131,11 @@ private slots:
     void test_setDXClusterServer_fallbackOnShortServer();
     void test_setDXClusterServer_fallbackOnZeroPort();
 
+    // N) Locator guard + fallback — regression for issue #581
+    void test_locatorGuard_emptyStringIsInvalid();
+    void test_locatorFallback_entityLocatorValidForKnownCall();
+    void test_locatorPrimary_getQRZLocatorValidForKnownCall();
+
 private:
     // Helper: build an EntityStatus with the given QSOStatus and bandId=-1.
     // bandId=-1 guarantees that no band-based filter can interfere with the
@@ -586,6 +591,62 @@ void tst_DXCluster::test_setDXClusterServer_fallbackOnZeroPort()
     widget->setDXClusterServer("valid.cluster.com", 0);
     QCOMPARE(widget->server,       QString("dxfun.com"));
     QCOMPARE(static_cast<int>(widget->port), 8000);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// N) Locator guard + fallback — regression for issue #581
+//
+// slotDXClusterSpotArrived() was fixed to:
+//   1. Accept an empty/invalid locator from getQRZLocator() and fall back to
+//      world->getLocator(world->getQRZARRLId(call)).
+//   2. Skip the map marker entirely when neither path yields a valid locator.
+//
+// These tests verify the two building blocks so that a future refactor cannot
+// silently break the guard without the tests catching it.
+// ─────────────────────────────────────────────────────────────────────────────
+
+void tst_DXCluster::test_locatorGuard_emptyStringIsInvalid()
+{
+    // The guard uses Locator::isValidLocator() to reject empty strings.
+    // An empty locator must never be sent to the map.
+    Locator locator;
+    QVERIFY2(!locator.isValidLocator(QString()),
+             "Empty string must not be a valid locator");
+    QVERIFY2(!locator.isValidLocator(""),
+             "Empty literal string must not be a valid locator");
+}
+
+void tst_DXCluster::test_locatorFallback_entityLocatorValidForKnownCall()
+{
+    // When getQRZLocator() returns nothing useful, the fallback path calls
+    // world->getLocator(world->getQRZARRLId(call)).
+    // For any well-known callsign the entity id must be positive and the
+    // resulting locator string must be non-empty and valid.
+    Locator locator;
+
+    // K1AA → entity 291 (United States)
+    int entityId = world->getQRZARRLId("K1AA");
+    QVERIFY2(entityId > 0, "getQRZARRLId must return a positive id for K1AA");
+
+    QString fallbackLocator = world->getLocator(entityId);
+    QVERIFY2(!fallbackLocator.isEmpty(),
+             "Entity locator must not be empty for a known DXCC entity");
+    QVERIFY2(locator.isValidLocator(fallbackLocator),
+             "Entity locator returned by world->getLocator() must be a valid Maidenhead locator");
+}
+
+void tst_DXCluster::test_locatorPrimary_getQRZLocatorValidForKnownCall()
+{
+    // The primary path calls world->getQRZLocator(call).
+    // For a well-known callsign it must return a valid Maidenhead locator so
+    // that the fallback is not needed.
+    Locator locator;
+
+    QString primaryLocator = world->getQRZLocator("EA4K");
+    QVERIFY2(!primaryLocator.isEmpty(),
+             "getQRZLocator must return a non-empty locator for a known callsign");
+    QVERIFY2(locator.isValidLocator(primaryLocator),
+             "getQRZLocator must return a valid Maidenhead locator for a known callsign");
 }
 
 QTEST_MAIN(tst_DXCluster)

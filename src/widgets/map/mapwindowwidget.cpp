@@ -60,12 +60,9 @@ void MapWindowWidget::init()
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MapWindowWidget::addMarker(const Coordinate _coord, const QString _loc)
+void MapWindowWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color)
 {
-    Q_UNUSED(_loc);
-    //qDebug() << Q_FUNC_INFO << QString(" %1 = %2/%3(lat/lon)").arg(_loc).arg(_coord.lat).arg(_coord.lon);
-    mapWidget->addMarker(_coord);
-    //qDebug() << Q_FUNC_INFO << " - END";
+    mapWidget->addMarker(_coord, _callsign, _color);
 }
 
 void MapWindowWidget::createUI()

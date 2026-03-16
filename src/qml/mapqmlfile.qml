@@ -180,14 +180,16 @@ Rectangle {
 
     //Location { id: mapCenter }
 
-    function addMarker(latitude, longitude) {
+    function addMarker(latitude, longitude, callsign, color) {
         var component = Qt.createComponent("qrc:qml/marker.qml")
         if (component.status !== Component.Ready) {
             console.warn("addMarker: failed to load marker.qml:", component.errorString())
             return
         }
         var item = component.createObject(map, {
-            coordinate: QtPositioning.coordinate(latitude, longitude)
+            coordinate:  QtPositioning.coordinate(latitude, longitude),
+            text:        callsign || "",
+            markerColor: color    || "#FF0000"
         })
         if (item === null) {
             console.warn("addMarker: createObject returned null")

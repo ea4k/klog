@@ -5198,12 +5198,32 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
         return;
     }
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    QString dxGrid = world->getQRZLocator (sp.getDxCall());
+
+    // Resolve locator: try the stored QRZ locator first; if absent or invalid,
+    // fall back to the entity-level coordinate from the world database.
     Locator locator;
-    Coordinate coord = locator.getLocatorCoordinate (dxGrid);
-      //qDebug() << Q_FUNC_INFO << QString("  %1: Locator: %2 - (lat/lon)=>(%3/%4)").arg(sp.getDxCall()).arg(dxGrid).arg(coord.lat).arg(coord.lon);
-      //qDebug() << "Lat: " << QString::number(coord.lat) << " - Lon: " << QString::number(coord.lon);
-    mapWindow->addMarker(coord, dxGrid);
+    QString dxGrid = world->getQRZLocator(sp.getDxCall());
+    if (dxGrid.isEmpty() || !locator.isValidLocator(dxGrid))
+    {
+        int entityId = world->getQRZARRLId(sp.getDxCall());
+        dxGrid = world->getLocator(entityId);
+        logEvent(Q_FUNC_INFO, "Using entity locator fallback for " + sp.getDxCall() + ": " + dxGrid, Debug);
+    }
+    if (dxGrid.isEmpty() || !locator.isValidLocator(dxGrid))
+    {
+        logEvent(Q_FUNC_INFO, "No valid locator for spot, skipping map marker: " + sp.getDxCall(), Warning);
+        return;
+    }
+
+    Coordinate coord = locator.getLocatorCoordinate(dxGrid);
+
+    EntityStatus _entityStatus;
+    _entityStatus.dxcc   = world->getQRZARRLId(sp.getDxCall());
+    _entityStatus.bandId = dataProxy->getBandIdFromFreq(sp.getFrequency().toDouble());
+    _entityStatus.logId  = currentLog;
+    QColor spotColor = awards->getQRZDXStatusColor(_entityStatus);
+
+    mapWindow->addMarker(coord, sp.getDxCall(), spotColor);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

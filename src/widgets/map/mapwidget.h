@@ -43,7 +43,7 @@ public:
     void setCenter(const Coordinate &_c);
     void addLocator(const double lat1, const double lon1, const double lat2, const double lon2);
     void addQSO(const QString &_loc);
-    void addMarker(const Coordinate _coord);
+    void addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color);
     void addLocator(const QString &_loc, const QColor &_color);
 
     // Clears only data overlays (worked/confirmed rectangles and circles), NOT the base grid layer
