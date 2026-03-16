@@ -42,7 +42,7 @@
 #include <QElapsedTimer>
 
 // Suppress verbose debug noise from third-party Qt platform plugins (e.g. qt6ct)
-// that unconditionally call qDebug() for every palette/hint query.
+// that unconditionally call//qDebug() for every palette/hint query.
 static void klogMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     // Filter out the Qt6CTPlatformTheme palette/hint spam produced by qt6ct
