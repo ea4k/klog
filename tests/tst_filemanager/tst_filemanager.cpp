@@ -26,6 +26,7 @@
  *****************************************************************************/
 
 #include <QtTest>
+#include <QSqlQuery>
 #include "../../src/world.h"
 #include "../../src/awards.h"
 #include "../../src/callsign.h"
@@ -47,97 +48,162 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_Constructor();
-    void test_ADIF_Import();
-
+    // Regression test for #903: lognumber must not be -1 after ADIF import
+    void test_ADIF_Import_setsCorrectLogNumber();
+    void test_ADIF_Import_invalidLogN_returnsError();
 
 private:
-    void createADIFFile();
-    void deleteADIFFile();
+    QString createADIFFile();
     DataProxy_SQLite *dataProxy;
     FileManager *fileManager;
-    DataBase *db;
     World *world;
+    Utilities *util;
     QString version;
+    QString realDbPath;
+    QString backupPath;
+    QString adifFilePath;
 };
 
 tst_FileManager::tst_FileManager()
+    : dataProxy(nullptr), fileManager(nullptr), world(nullptr), util(nullptr)
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
     version = "1.5";
-    //qDebug() << Q_FUNC_INFO << "001";
-    Utilities util(Q_FUNC_INFO);
-/*
-    db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-    //qDebug() << Q_FUNC_INFO << "- 003";
-    QCOMPARE(db->createConnection(Q_FUNC_INFO), true);
-
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    QStringList newLogq;
-    newLogq << "2025-02-01" << "EA4K" << "EA4K" << "Test-Log" << "1" << "0" ;
-
-    if (dataProxy->addNewLog(newLogq))
-    {
-       //qDebug() << Q_FUNC_INFO << " - New log created";
-    }
-    else
-    {
-        QFAIL("Could not create a log");
-    }
-
-*/
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
-    world = new World(dataProxy, Q_FUNC_INFO);
-    fileManager = new FileManager(dataProxy, world);
-    fileManager->init();
-
-    //qDebug() << Q_FUNC_INFO << "END";
 }
 
 tst_FileManager::~tst_FileManager(){}
 
 void tst_FileManager::initTestCase()
 {
-    createADIFFile();
+    util = new Utilities(Q_FUNC_INFO);
+    realDbPath = util->getKLogDBFile();
+    backupPath = realDbPath + ".tst_fm_backup";
+
+    // Back up any existing real DB so we don't corrupt user data
+    if (QFile::exists(realDbPath))
+        QVERIFY2(QFile::rename(realDbPath, backupPath), "Could not back up real user database");
+
+    // DataProxy_SQLite will create a fresh DB at realDbPath
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
+    QVERIFY2(dataProxy != nullptr, "DataProxy could not be created");
+
+    // Create log #1 so ADIF import has a valid target log
+    QSqlQuery q;
+    bool ok = q.exec("INSERT INTO logs (logdate, stationcall, operators, comment) "
+                     "VALUES ('2024-01-01', 'EA4K', 'EA4K', 'tst_filemanager')");
+    QVERIFY2(ok, "Could not create test log #1");
+    QVERIFY2(dataProxy->doesThisLogExist(1), "Log #1 must exist before running import tests");
+
+    world = new World(dataProxy, Q_FUNC_INFO);
+    fileManager = new FileManager(dataProxy, world);
+    fileManager->init();
+
+    adifFilePath = createADIFFile();
 }
 
-void tst_FileManager::cleanupTestCase(){}
-
-void tst_FileManager::test_Constructor()
+void tst_FileManager::cleanupTestCase()
 {
-    // qVERIFY(util->getVersion() == "0.0");
-    //qDebug() << "Testing the constructor" ;
+    delete fileManager;
+    fileManager = nullptr;
+    delete world;
+    world = nullptr;
+    delete dataProxy;
+    dataProxy = nullptr;
+    delete util;
+    util = nullptr;
+
+    // Remove the test ADIF file
+    if (!adifFilePath.isEmpty() && QFile::exists(adifFilePath))
+        QFile::remove(adifFilePath);
+
+    // Remove test DB
+    if (QFile::exists(realDbPath))
+        QFile::remove(realDbPath);
+
+    // Restore real user DB if it was backed up
+    if (QFile::exists(backupPath))
+        QFile::rename(backupPath, realDbPath);
 }
 
-void tst_FileManager::createADIFFile()
-{ // Creates an ADIF file
-   //qDebug() << Q_FUNC_INFO;
-    QFile file("test-adif.adi");
+QString tst_FileManager::createADIFFile()
+{
+    QString path = QDir::tempPath() + "/tst_filemanager_test.adi";
+    QFile file(path);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
-        QFAIL("Could not create the file");
+    {
+        QWARN("Could not create the ADIF test file");
+        return QString();
+    }
 
     QTextStream out(&file);
     out << "ADIF v3.1.0 Export from KLog\n";
-    out << "https://www.klog.xyz/klog\n";
-    out << "<PROGRAMVERSION:5>2.3.2\n";
-    out << "<PROGRAMID:4>KLOG <APP_KLOG_QSOS:5>40228<APP_KLOG_LOG_DATE_EXPORT:13>20231210-1534\n<EOH>\n";
-    out << "<CALL:4>EA4KV <QSO_DATE:8>20240828 <TIME_ON:6>014744 <FREQ:6>7.1971 <BAND:3>40M <BAND_RX:3>40M <MODE:3>SSB <STATION_CALLSIGN:4>EA4K <SRX:3>203 <STX:1>1 <CQZ:2>15 <ITUZ:2>28 <DXCC:3>281 <COMMENT:10>CQ-WPX-SSB <CONT:2>EU <CONTEST_ID:10>CQ-WPX-SSB <APP_KLOG_POINTS:1>2 <CLUBLOG_QSO_UPLOAD_DATE:8>20201019 <CLUBLOG_QSO_UPLOAD_STATUS:1>M <OPERATOR:5>EA4TV <RST_SENT:2>59 <RST_RCVD:2>59 <TX_PWR:3>900 <APP_KLOG_LOGN:1>1 <EOR>";
+    out << "<PROGRAMID:4>KLOG <APP_KLOG_QSOS:1>1<EOH>\n";
+    // One complete QSO record with all mandatory fields
+    out << "<CALL:4>EA4KV "
+        << "<QSO_DATE:8>20240828 "
+        << "<TIME_ON:6>014744 "
+        << "<BAND:3>40M "
+        << "<MODE:3>SSB "
+        << "<RST_SENT:2>59 "
+        << "<RST_RCVD:2>59 "
+        << "<EOR>\n";
     file.close();
+    return path;
 }
 
-void tst_FileManager::test_ADIF_Import()
+void tst_FileManager::test_Constructor()
 {
-    createADIFFile();
-    //int errorCode = fileManager->adifReadLog("test-adif.adi", "EA4K", 1);
-    //qDebug() << Q_FUNC_INFO << ": " << errorCode;
-    // qVERIFY2( errorCode == 1, "Import did not returned the right number of QSO");
-    //int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
+    QVERIFY2(fileManager != nullptr, "FileManager was not created");
 }
 
-void tst_FileManager::deleteADIFFile()
+// Regression test for GitHub issue #903:
+// After ADIF import, every imported QSO must have lognumber == logN (not -1).
+void tst_FileManager::test_ADIF_Import_setsCorrectLogNumber()
 {
-   //qDebug() << Q_FUNC_INFO;
-    QFile file("test-adif.adi");
-    // qVERIFY2(file.remove() == true, "test-adif-file could not be deleted");
+    QVERIFY2(!adifFilePath.isEmpty(), "ADIF file path is empty");
+    QVERIFY2(QFile::exists(adifFilePath), "ADIF test file does not exist");
+
+    int qsosBefore = dataProxy->getHowManyQSOInLog(1);
+
+    // Import into log #1
+    int imported = fileManager->adifReadLog(adifFilePath, "EA4K", 1);
+    QVERIFY2(imported > 0, qPrintable(QString("adifReadLog returned %1, expected > 0").arg(imported)));
+
+    int qsosAfter = dataProxy->getHowManyQSOInLog(1);
+    QVERIFY2(qsosAfter > qsosBefore, "No QSOs were added to log #1 after import");
+
+    // Verify the imported QSO has the correct lognumber — regression for #903
+    int lastId = dataProxy->getLastInsertedQSO();
+    QVERIFY2(lastId > 0, "Could not get last inserted QSO id");
+
+    QSO importedQso = dataProxy->fromDB(lastId);
+    QVERIFY2(importedQso.getLogId() == 1,
+             qPrintable(QString("Imported QSO lognumber is %1, expected 1 (regression #903)")
+                        .arg(importedQso.getLogId())));
+}
+
+// Regression test for GitHub issue #903:
+// Calling adifReadLog with an invalid (<=0) log number must fail immediately
+// without inserting any QSO with lognumber=-1 in the database.
+void tst_FileManager::test_ADIF_Import_invalidLogN_returnsError()
+{
+    QVERIFY2(!adifFilePath.isEmpty(), "ADIF file path is empty");
+
+    int qsosBefore = dataProxy->getHowManyQSOInLog(1);
+
+    // logN=-1 (the default) must be rejected
+    int result = fileManager->adifReadLog(adifFilePath, "EA4K", -1);
+    QVERIFY2(result < 0,
+             qPrintable(QString("adifReadLog with logN=-1 should return error, got %1").arg(result)));
+
+    // logN=0 must also be rejected
+    result = fileManager->adifReadLog(adifFilePath, "EA4K", 0);
+    QVERIFY2(result < 0,
+             qPrintable(QString("adifReadLog with logN=0 should return error, got %1").arg(result)));
+
+    // No QSOs should have been added to the database
+    int qsosAfter = dataProxy->getHowManyQSOInLog(1);
+    QVERIFY2(qsosAfter == qsosBefore,
+             "QSOs were unexpectedly inserted when logN was invalid (regression #903)");
 }
 
 

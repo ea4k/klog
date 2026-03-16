@@ -825,6 +825,9 @@ logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
 int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
     //qDebug() << Q_FUNC_INFO << " - " << tfileName;
+    if (logN <= 0)
+        return -3;  // Invalid log number — would store lognumber=-1 in DB (Closes #903)
+
     QFile file(tfileName);
     if (!file.exists())
         return -1;
