@@ -2283,6 +2283,11 @@ void MainWindow::clearUIDX(bool _full)
 void MainWindow::slotRefreshDXCCWidget()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (m_adifImporting)
+    {
+        logEvent(Q_FUNC_INFO, "END-skipped (adif import in progress)", Debug);
+        return;
+    }
     dxccStatusWidget->slotRefreshButtonClicked();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -3676,7 +3681,7 @@ void MainWindow::checkIfNewBandOrMode()
 
      //qDebug() << Q_FUNC_INFO << " - setting bands"  << QTime::currentTime().toString("hh:mm:ss") ;
     logEvent(Q_FUNC_INFO, "Setting bands", Debug);
-    dxccStatusWidget->setBands(Q_FUNC_INFO, bands, true);
+    dxccStatusWidget->setBands(Q_FUNC_INFO, bands, !m_adifImporting);
 
      //qDebug() << Q_FUNC_INFO << "  - currentBand: " << currentBand << QTime::currentTime().toString("hh:mm:ss") ;
     if (bands.contains(currentBand))
@@ -4514,12 +4519,13 @@ void MainWindow::slotADIFImport(){
             updateQSLRecAndSent();
             logWindow->refresh();
            //qDebug() << Q_FUNC_INFO << " -3";
+            m_adifImporting = true;
             checkIfNewBandOrMode();
            //qDebug() << Q_FUNC_INFO << " -4" ;
             awardsWidget->fillOperatingYears();
            //qDebug() << Q_FUNC_INFO << " -5" ;
+            m_adifImporting = false;
             slotShowAwards();
-            awardsWidget->showAwards();
            //qDebug() << Q_FUNC_INFO << " -6" ;
         }
         //qDebug() << Q_FUNC_INFO << " - 020";
@@ -5443,7 +5449,7 @@ void MainWindow::slotValidBandsReceived(const QStringList &_b)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
      //qDebug() << Q_FUNC_INFO ;
-    dxccStatusWidget->setBands(Q_FUNC_INFO, _b, true);
+    dxccStatusWidget->setBands(Q_FUNC_INFO, _b, !m_adifImporting);
     satTabWidget->addBands(_b);
     mapWindow->setBands(_b);
      //qDebug() << Q_FUNC_INFO << " - END" ;
