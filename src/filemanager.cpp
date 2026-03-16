@@ -825,6 +825,14 @@ logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
 int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
 {
     //qDebug() << Q_FUNC_INFO << " - " << tfileName;
+    if (logN <= 0)
+    {
+        // logN is invalid — fall back to the highest existing log so no QSOs are lost (Closes #903)
+        logN = dataProxy->getMaxLogNumber();
+        if (logN <= 0)
+            return -3;  // No logs exist at all — nothing we can do
+    }
+
     QFile file(tfileName);
     if (!file.exists())
         return -1;

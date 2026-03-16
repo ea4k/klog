@@ -27,6 +27,8 @@ TBD
 - Bugfix: Primary subdivisions were not properly identified (DB schema error ).
 - Bugfix: Search was not working properly
 - Bugfix: CQZ was not properly defined for T9, 4N & YZ callsigns.
+- Bugfix: On ADIF import, lognumber of imported QSOs was set to -1; now falls back to highest existing log so no QSOs are lost. (Closes #903)
+- Bugfix: KLog crashes when creating the first log because selectedLog was not updated after addNewLog. (Closes #906)
 - Bugfix: No Popup message when duplicted QSOs are detected on ADIF import. (Closes #848)
 - Bugfix: Check QRZ automatically is not saved (Closes #840)
 - Bugfix: Everytime TX Frequency changes, mode changes to USB. Removed that behaviour (Closes #842)
