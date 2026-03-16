@@ -26,34 +26,41 @@
 import QtQuick
 import QtLocation
 
-MapQuickItem{
+MapQuickItem {
     id: marker
-    anchorPoint.x: marker.width / 4
-    anchorPoint.y: marker.height
+
     property alias text: locatorText.text
-    //sourceItem: Image{
-    //    id: icon
-    //    source: "../img/marker.png"
-    //    sourceSize.width: 40
-    //    sourceSize.height: 40
-    //}
-    sourceItem: Rectangle{
-    id: rectaMap
-    Image{
-            id: icon
-            //source: "../img/marker.png"
-            source: "qrc:/img/marker.png"
-            sourceSize.width: 40
-            sourceSize.height: 40
+    property color markerColor: "#FF0000"
+
+    anchorPoint.x: pinHead.width / 2
+    anchorPoint.y: pinHead.height / 2
+
+    sourceItem: Column {
+        id: pinColumn
+        spacing: 2
+
+        // Colored circle — the pin head, anchored to the coordinate
+        Rectangle {
+            id: pinHead
+            width: 16
+            height: 16
+            radius: 8
+            color: marker.markerColor
+            border.color: Qt.darker(marker.markerColor, 1.6)
+            border.width: 2
+            anchors.horizontalCenter: parent.horizontalCenter
         }
-    Text{
-        id: locatorText
-        //text: 'IN80'
-        //width: rectaMap.width
-        color: focus?"red":"black"
-        anchors.top: icon.bottom
-        anchors.horizontalCenter: icon.horizontalCenter
-        horizontalAlignment: icon.AlignHCenter
-    }
+
+        // Callsign label below the pin
+        Text {
+            id: locatorText
+            font.pixelSize: 10
+            font.bold: true
+            color: "white"
+            style: Text.Outline
+            styleColor: "black"
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
 }

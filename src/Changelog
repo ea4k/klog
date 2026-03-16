@@ -7,6 +7,7 @@ TODO: LoTW import ensure exiting QSOs are updated
 
 
 TBD
+- Bugfix: DXCluster spots not shown on map; callsign and status colour now displayed correctly (Closes #581)
 - Enhancement: Start time optimizations.
 - Enhancement: Split is now managed also from radio/UI.
 - Enhancement: Optimized the exit from Setup to make it faster.
