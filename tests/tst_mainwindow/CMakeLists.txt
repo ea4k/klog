@@ -18,6 +18,7 @@ find_package(Qt6 REQUIRED COMPONENTS
   Positioning
   PrintSupport
   Quick
+  QuickWidgets
   SerialPort
   Sql
   Widgets
@@ -262,6 +263,7 @@ set(_tst_libs
   Qt6::Test
   Qt6::Sql
   Qt6::Widgets
+  Qt6::QuickWidgets
 )
 
 if(TARGET Hamlib::Hamlib)

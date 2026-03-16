@@ -13,10 +13,16 @@ file(GLOB TEST_HEADERS "*.h")
 add_executable(tst_elogclublog
     ${TEST_SOURCES}
     ../../src/elog/elogclublog.cpp
+    ../../src/adif.cpp
+    ../../src/callsign.cpp
+    ../../src/locator.cpp
     ../../src/utilities.cpp
 
     ${TEST_HEADERS}
     ../../src/elog/elogclublog.h
+    ../../src/adif.h
+    ../../src/callsign.h
+    ../../src/locator.h
     ../../src/utilities.h
     ../../src/klogdefinitions.h
 )

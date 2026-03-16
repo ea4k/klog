@@ -1,0 +1,91 @@
+#/***************************************************************************
+#                          tst_elogclublog.pro  -  description
+#                             -------------------
+#    begin                : Apr 2026
+#    copyright            : (C) 2026 by Jaime Robles
+#    email                : jaime@robles.es
+# ***************************************************************************/
+#
+#/****************************************************************************
+# * This file is part of Testing suite of KLog.                               *
+# *                                                                           *
+# *    KLog is free software: you can redistribute it and/or modify           *
+# *    it under the terms of the GNU General Public License as published by   *
+# *    the Free Software Foundation, either version 3 of the License, or      *
+# *    (at your option) any later version.                                    *
+# *                                                                           *
+# *    The testing suite of KLog is distributed in the hope that it will      *
+# *    be useful, but WITHOUT ANY WARRANTY; without even the implied          *
+# *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.       *
+# *    See the GNU General Public License for more details.                   *
+# *                                                                           *
+# *    You should have received a copy of the GNU General Public License      *
+# *    along with Testing suite of KLog.                                      *
+# *    If not, see <https://www.gnu.org/licenses/>.                           *
+# *                                                                           *
+# *****************************************************************************/
+QT += testlib \
+    core \
+    network \
+    widgets
+
+CONFIG += qt console warn_on depend_includepath testcase
+CONFIG -= app_bundle
+
+TEMPLATE = app
+
+HEADERS += \
+    ../../src/elog/elogclublog.h \
+    ../../src/adif.h \
+    ../../src/callsign.h \
+    ../../src/locator.h \
+    ../../src/utilities.h \
+    ../../src/klogdefinitions.h
+
+SOURCES += tst_elogclublog.cpp \
+    ../../src/adif.cpp \
+    ../../src/callsign.cpp \
+    ../../src/locator.cpp \
+    ../../src/elog/elogclublog.cpp \
+    ../../src/utilities.cpp
+
+isEmpty(QMAKE_LRELEASE) {
+    win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+    unix {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease-qt5 }
+    } else {
+        !exists($$QMAKE_LRELEASE) { QMAKE_LRELEASE = lrelease }
+    }
+}
+
+unix:!mac {
+    message(unix:!mac)
+    DEFINES += APP_LINUX
+    QMAKE_CXXFLAGS += -fmessage-length=0
+
+    INSTALLS += datafiles
+    LIBS += -lhamlib
+}
+
+macx: {
+    message(macx)
+    INCLUDEPATH +=/usr/local/include/
+    LIBS += -L"/usr/local/lib" -lhamlib
+}
+
+win32: {
+    message(windows)
+    contains(QT_ARCH, i386) {
+        message("32-bit")
+        LIBS += -L"$$PWD/../../libs/win32/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../libs/win32/hamlib/bin"
+        INCLUDEPATH += "$$PWD/../../libs/win32/hamlib/include/"
+    } else {
+        message("64-bit")
+        LIBS += -L"$$PWD/../../libs/win64/hamlib/lib/gcc" -lhamlib
+        LIBS += -L"$$PWD/../../libs/win64/hamlib/bin"
+        INCLUDEPATH += "$$PWD/../../libs/win64/hamlib/include/"
+    }
+}
+
