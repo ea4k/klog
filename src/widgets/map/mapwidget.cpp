@@ -122,7 +122,7 @@ void MapWidget::addMarker(const Coordinate _coord)
     if (!object) return;
     //QObject *object = qmlView.rootObject();
     QMetaObject::invokeMethod(object, "addMarker",
-                              Q_ARG(double, _coord.lat), Q_ARG(double, _coord.lon));
+                              Q_ARG(QVariant, _coord.lat), Q_ARG(QVariant, _coord.lon));
 }
 
 void MapWidget::addQSO(const QString &_loc)
