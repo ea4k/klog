@@ -261,11 +261,15 @@ void SetupPageColors::slotKLogButtonClicked()
 
 void SetupPageColors::loadDarkMode()
 {// Reads the config to setup the DarkMode
-    //qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
+   //qDebug() << Q_FUNC_INFO << " - 010";
     settings.beginGroup ("Colors");
+   //qDebug() << Q_FUNC_INFO << " - 020";
     setDarkMode (settings.value("DarkMode", false).toBool ());
+   //qDebug() << Q_FUNC_INFO << " - 030";
     settings.endGroup ();
+   //qDebug() << Q_FUNC_INFO << " - 040";
 }
 
 void SetupPageColors::slotSetDarkMode()

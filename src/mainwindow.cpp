@@ -3257,74 +3257,77 @@ void MainWindow::slotSetupDialogFinished (const int _s)
    //qDebug() << Q_FUNC_INFO << ": " <<  QString::number(_s) << " - " << (QTime::currentTime()).toString ("HH:mm:ss");
     if (needToEnd)
     {
+       //qDebug() << Q_FUNC_INFO << " - Need to end";
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
     if (_s == QDialog::Accepted)
     {
        //qDebug() << Q_FUNC_INFO << " - QDialog::Accepted - " << (QTime::currentTime()).toString ("HH:mm:ss");
-        logEvent(Q_FUNC_INFO, "Just before loadSettings", Debug);
-        //readConfigData();
+
         configured = loadSettings ();
         applySettings ();
        //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         reconfigureDXMarathonUI(manageDxMarathon);
-        logEvent(Q_FUNC_INFO, "Just after loadSettings", Debug);
-       //qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" ;
-        logEvent(Q_FUNC_INFO, "logmodel to be created-2", Debug);
        //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
-        //logWindow->createlogPanel(currentLog);
+
         // Reducing workload if nothing changed
         const int newSelectedLog = setupDialog->getSelectedLog();
         const bool logChanged    = (newSelectedLog != currentLog);
         const bool logsModified  = setupDialog->logsWereModified();
-
+       //qDebug() << Q_FUNC_INFO << " - 020";
         if (logChanged || logsModified)
         {
+          //qDebug() << Q_FUNC_INFO << " - 021";
             if (newSelectedLog > 0)
+            {
+               //qDebug() << Q_FUNC_INFO << " - 022";
                 currentLog = newSelectedLog;
+            }
+           //qDebug() << Q_FUNC_INFO << " - 023";
             logWindow->createlogPanel(currentLog);
+           //qDebug() << Q_FUNC_INFO << " - 024";
             dataProxy->loadDuplicateCache(currentLog);
+           //qDebug() << Q_FUNC_INFO << " - 025";
         }
-       //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
-        logEvent(Q_FUNC_INFO, "logmodel has been created-2", Debug);
+       //qDebug() << Q_FUNC_INFO << " - 026 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         //defineStationCallsign(stationCallsign);
-       //qDebug() << Q_FUNC_INFO << " - 013 - " << (QTime::currentTime()).toString ("HH:mm:ss");
-        logEvent(Q_FUNC_INFO, "before db->reConnect", Debug);
-       //qDebug() << "MainWindow::openSetup: before db->reConnect" ;
+       //qDebug() << Q_FUNC_INFO << " - 027 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         if (setupDialog->wasDBMoved())
         {
+           //qDebug() << Q_FUNC_INFO << " - 028";
             dataProxy->reconnectDB();
         }
-       //qDebug() << Q_FUNC_INFO << " - 014 - " << (QTime::currentTime()).toString ("HH:mm:ss");
-        logEvent(Q_FUNC_INFO, "after db->reConnect", Debug);
-       //qDebug() << "MainWindow::openSetup: after db->reConnect" ;
+      //qDebug() << Q_FUNC_INFO << " - 029";
+
     }
     else
     {
-       //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
+      //qDebug() << Q_FUNC_INFO << " - !QDialog::Accepted";
        //qDebug() << Q_FUNC_INFO << " - 019 - " << (QTime::currentTime()).toString ("HH:mm:ss");
     }
-   //qDebug() << Q_FUNC_INFO << " - 020 - " << (QTime::currentTime()).toString ("HH:mm:ss");
+  //qDebug() << Q_FUNC_INFO << " - 030";
     if (qsoInUI.getBackup())
     {
-       //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 021 - ";
+      //qDebug() << Q_FUNC_INFO << " - 032";
        //qDebug() << Q_FUNC_INFO << ": Restoring..." ;
         restoreCurrentQSO (QDialog::Accepted);
        //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 022 - " ;
     }
     else
     {
+       //qDebug() << Q_FUNC_INFO << " - 032";
        //qDebug() << "MainWindow::slotSetupDialogFinished: NO Restoring qsoInUI..." ;
        //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
-   //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
+  //qDebug() << Q_FUNC_INFO << " - 040";
     // Only reinitialize if settings are changed.
     if (setupDialog->hamlibSettingsChanged())
     {
+       //qDebug() << Q_FUNC_INFO << " - 041";
         hamlibActive = setHamlib(hamlibActive);
     }
-
+   //qDebug() << Q_FUNC_INFO << " - END";
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -4511,7 +4514,7 @@ void MainWindow::slotADIFImport(){
         }
     }
    //qDebug() << Q_FUNC_INFO << " - After QFileDialog: " << fileName;
-    qDebug() << Q_FUNC_INFO << " - CurentLog: " << currentLog;
+   //qDebug() << Q_FUNC_INFO << " - CurentLog: " << currentLog;
     if (!fileName.isNull())
     {
        //qDebug() << Q_FUNC_INFO << " - fileName is not Null 010";
@@ -6267,14 +6270,14 @@ void MainWindow::slotNewLogLevel(DebugLogLevel l)
 bool MainWindow::loadSettings()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-     //qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
 
-      //qDebug() << Q_FUNC_INFO << " - 10 - General";
+   //qDebug() << Q_FUNC_INFO << " - 10 - General";
     QString value = settings.value ("Version").toString ();
     if (softwareVersion!=value)
     {
-         //qDebug() << Q_FUNC_INFO << " - It seems it is a new version ";
+        //qDebug() << Q_FUNC_INFO << " - It seems it is a new version ";
          //qDebug() << Q_FUNC_INFO << QString("softwareversion: %1 / version: %2").arg(softwareVersion).arg(value);
         itIsANewversion = true;
     }
@@ -6282,10 +6285,10 @@ bool MainWindow::loadSettings()
 
     setWindowSize (settings.value ("MainWindowSize").toSize ());
 
-      //qDebug() << Q_FUNC_INFO << " - 20 - user";
+   //qDebug() << Q_FUNC_INFO << " - 20 - user";
     settings.beginGroup ("UserData");
     value = settings.value ("Callsign").toString ();
-     //qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
+    //qDebug() << Q_FUNC_INFO << " stationCallSign: " << value;
     Callsign callsign(value);
     if (callsign.isValid())
     {
@@ -6325,24 +6328,24 @@ bool MainWindow::loadSettings()
 
     eQSLTabWidget->loadSettings();
 
-      //qDebug() << Q_FUNC_INFO << " - 30 - modes";
+     //qDebug() << Q_FUNC_INFO << " - 30 - modes";
     settings.beginGroup ("BandMode");
     QStringList listAux;
     listAux.clear();
     listAux << "SSB" << "CW";
     readActiveModes (settings.value("Modes", listAux ).toStringList ());
 
-     //qDebug() << Q_FUNC_INFO << " - 31 - bands";
+    //qDebug() << Q_FUNC_INFO << " - 31 - bands";
     listAux.clear();
     listAux << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
     readActiveBands (settings.value("Bands", listAux).toStringList ());
     settings.endGroup ();
 
     logWindow->setColumns(settings.value ("LogViewFields").toStringList ());
-   //qDebug() << Q_FUNC_INFO << " - 41 - logs";
+  //qDebug() << Q_FUNC_INFO << " - 41 - logs";
 
 
-      //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
+     //qDebug() << Q_FUNC_INFO << " - 50 - dxcluster";
     settings.beginGroup ("DXCluster");
 
     // Get the server string from settings
@@ -6372,7 +6375,7 @@ bool MainWindow::loadSettings()
     dxClusterWidget->loadSettings ();
     settings.endGroup ();
 
-     //qDebug() << Q_FUNC_INFO << " - 60 - colors";
+    //qDebug() << Q_FUNC_INFO << " - 60 - colors";
     settings.beginGroup ("Colors");
     newOneColor = settings.value("NewOneColor").value<QColor>();
     neededColor = settings.value("NeededColor").value<QColor>();
@@ -6386,15 +6389,17 @@ bool MainWindow::loadSettings()
    //qDebug() << Q_FUNC_INFO << " - NeededColor:    " << neededColor.name(QColor::HexRgb);
    //qDebug() << Q_FUNC_INFO << " - WorkedColor:    " << workedColor.name(QColor::HexRgb);
    //qDebug() << Q_FUNC_INFO << " - ConfirmedColor: " << confirmedColor.name(QColor::HexRgb);
-   //qDebug() << Q_FUNC_INFO << " - DefaultColor:   " << defaultColor.name(QColor::HexRgb);
+  //qDebug() << Q_FUNC_INFO << " - DefaultColor:   " << defaultColor.name(QColor::HexRgb);
 
     settings.endGroup ();
+   //qDebug() << Q_FUNC_INFO << " - 61 - misc";
     setColors(newOneColor, neededColor, workedColor, confirmedColor, defaultColor);
-
-    setupDialog->loadDarkMode ();
+   //qDebug() << Q_FUNC_INFO << " - 62 - misc";
+    //setupDialog->loadDarkMode ();
+    //qDebug() << Q_FUNC_INFO << " - 63 - misc";
     setDarkMode(darkMode);
 
-      //qDebug() << Q_FUNC_INFO << " - 70 - misc";
+   //qDebug() << Q_FUNC_INFO << " - 70 - misc";
     settings.beginGroup ("Misc");
     mainQSOEntryWidget->setRealTime (settings.value ("RealTime", true).toBool ());
     mainQSOEntryWidget->setShowSeconds (settings.value ("ShowSeconds", false).toBool ());
@@ -6424,7 +6429,7 @@ bool MainWindow::loadSettings()
     //adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
     settings.endGroup ();
 
-      //qDebug() << Q_FUNC_INFO << " - 90 - elog";
+     //qDebug() << Q_FUNC_INFO << " - 90 - elog";
     settings.beginGroup ("ClubLog");
     clublogActive = settings.value ("ClubLogActive", false).toBool ();
     //setupDialog->setClubLogActive(clublogActive);
@@ -6461,12 +6466,12 @@ bool MainWindow::loadSettings()
     lotwUtilities->setPass(settings.value ("LoTWPass").toString ());
     settings.endGroup ();
 
-      //qDebug() << Q_FUNC_INFO << " - 50 - UDPServer";
+     //qDebug() << Q_FUNC_INFO << " - 50 - UDPServer";
 
     UDPLogServer->loadSettings ();
     settings.beginGroup ("UDPServer");
     UDPServerStart = settings.value ("UDPServer", false).toBool ();
-      //qDebug() << Q_FUNC_INFO << "UDPServer = " << util->boolToQString (UDPServerStart);
+     //qDebug() << Q_FUNC_INFO << "UDPServer = " << util->boolToQString (UDPServerStart);
     //UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
     //UDPLogServer->setPort(settings.value ("UDPServerPort", 2237).toInt ());
     infoTimeout = settings.value ("InfoTimeOut", 2000).toInt ();
@@ -6477,9 +6482,9 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
 
 
-      //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
+     //qDebug() << Q_FUNC_INFO << " - 110 - Sats";
 
-      //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
+     //qDebug() << Q_FUNC_INFO << " - 120 - HamLib";
     settings.beginGroup ("HamLib");
 
     hamlibActive = settings.value ("HamLibActive").toBool ();
@@ -6487,7 +6492,7 @@ bool MainWindow::loadSettings()
     hamlib->loadSettings();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-      //qDebug() << Q_FUNC_INFO << " - END";
+     //qDebug() << Q_FUNC_INFO << " - END";
     return true;
 }
 
