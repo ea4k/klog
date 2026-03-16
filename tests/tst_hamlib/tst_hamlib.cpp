@@ -29,6 +29,10 @@
 #include <QSignalSpy>
 #include <QDebug>
 #include <hamlib/rig.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <QSettings>
 #include "../../src/klogdefinitions.h"
 #include "../../src/hamlibclass.h"
 
@@ -399,6 +403,13 @@ void tst_Hamlib::test_LoadSettings_returnsTrue()
     // any value was previously written.
     HamLibClass h;
     QVERIFY(h.loadSettings());
+}
+
+void tst_Hamlib::test_start(){
+    // hamlib->initClass();
+    // hamlib->init(true);
+    // QVERIFY2(hamlib->init(true), "Hamlib failed in init(true)");
+    // QVERIFY2(hamlib->init(false), "Hamlib failed in init(false)");
 }
 
 QTEST_MAIN(tst_Hamlib)

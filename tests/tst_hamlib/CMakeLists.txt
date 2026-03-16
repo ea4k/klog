@@ -24,6 +24,7 @@ add_executable(tst_hamlib
     ${TEST_SOURCES}
     ${TEST_HEADERS}
     # Include necessary KLog source files
+    ../../src/adif.cpp
     ../../src/callsign.cpp
     ../../src/frequency.cpp
     ../../src/locator.cpp
@@ -32,6 +33,7 @@ add_executable(tst_hamlib
 
     # Include headers for MOC and reference
     ../../src/klogdefinitions.h
+    ../../src/adif.h
     ../../src/callsign.h
     ../../src/frequency.h
     ../../src/locator.h

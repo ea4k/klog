@@ -384,19 +384,13 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, const QStringList &
     }
     bandNames = filterValidBands(sortedBands);
 
-   //qDebug() << Q_FUNC_INFO << " - 100";
-    fillData();
-    return;
     resetDXCCView();
     updateDXCCViewHeaders();
 
-   //qDebug() << Q_FUNC_INFO << " - 120";
     if (_creating)
     {
-       //qDebug() << Q_FUNC_INFO << " - 121";
         update();
     }
-   //qDebug() << Q_FUNC_INFO << " - END";
 
     emit debugLog(Q_FUNC_INFO, "End", Debug);
 }
@@ -455,9 +449,8 @@ void DXCCStatusWidget::slotRefreshButtonClicked()
     //qDebug() << Q_FUNC_INFO << " - Start";
 
     //TODO: Define a way to show the status of the selected log or all the logs in the DB
-    if (dxccView->rowCount()<1)
+    if (bandNames.isEmpty())
     {
-        //qDebug() << Q_FUNC_INFO << " - rowcount <1";
         return;
     }
     // qStringList _bands = bandNames;
