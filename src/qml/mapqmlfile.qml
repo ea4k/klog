@@ -53,6 +53,32 @@ Rectangle {
     property string lastLocator: ""
     property string lastCallsign: ""
 
+    // DX spot markers: tracked list and expiry (default 15 min)
+    property var spotMarkers: []       // [ { item, addedAt }, ... ]
+    property int spotExpiryMs: 900000  // 15 minutes; set from C++ via setSpotExpiryMinutes()
+
+    // Periodic sweep to remove expired spot markers
+    Timer {
+        id: spotExpiryTimer
+        interval: 60000  // check every 60 s
+        repeat: true
+        running: true
+        onTriggered: {
+            var now = Date.now()
+            var remaining = []
+            for (var i = 0; i < root.spotMarkers.length; i++) {
+                var entry = root.spotMarkers[i]
+                if (now - entry.addedAt >= root.spotExpiryMs) {
+                    map.removeMapItem(entry.item)
+                    entry.item.destroy()
+                } else {
+                    remaining.push(entry)
+                }
+            }
+            root.spotMarkers = remaining
+        }
+    }
+
     // Zoom thresholds for label granularity
     property int labelZoom4: 7
     property int labelZoom6: 11
@@ -196,6 +222,15 @@ Rectangle {
             return
         }
         map.addMapItem(item)
+        root.spotMarkers = root.spotMarkers.concat([{ item: item, addedAt: Date.now() }])
+    }
+
+    function clearMarkers() {
+        for (var i = 0; i < root.spotMarkers.length; i++) {
+            map.removeMapItem(root.spotMarkers[i].item)
+            root.spotMarkers[i].item.destroy()
+        }
+        root.spotMarkers = []
     }
 
     FocusScope { anchors.fill: parent }
@@ -334,6 +369,39 @@ Rectangle {
                     Text { text: "-"; color: "black"; anchors.centerIn: parent }
                     MouseArea { anchors.fill: parent; onClicked: { oldZoom = zoom; zoom = oldZoom - 1 } }
                 }
+            }
+        }
+
+        // ================================
+        // Clear spots button (top-left)
+        // ================================
+        Rectangle {
+            id: clearSpotsButton
+            z: 100
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: 8
+            anchors.leftMargin: 8
+            width: 60
+            height: 26
+            radius: 5
+            color: clearArea.containsMouse ? "#cc2222" : "#882222"
+            border.color: "#ff4444"
+            visible: root.spotMarkers.length > 0
+
+            Text {
+                anchors.centerIn: parent
+                text: qsTr("Clear")
+                color: "white"
+                font.bold: true
+                font.pixelSize: 12
+            }
+
+            MouseArea {
+                id: clearArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: root.clearMarkers()
             }
         }
 

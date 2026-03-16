@@ -28,6 +28,7 @@
 #include <QObject>
 #include <QtWidgets>
 //#include <QWidget>
+#include <QSettings>
 #include "mapwidget.h"
 #include "../../klogdefinitions.h"
 #include "../../dataproxy_sqlite.h"
@@ -50,6 +51,8 @@ public:
     void appendLocators(const QStringList &_locators, const QColor &_color);
     void setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color);
+    void clearMarkers();
+    void setSpotExpiryMinutes(int minutes);
 
 private slots:
     void slotBandsComboBoxChanged();
