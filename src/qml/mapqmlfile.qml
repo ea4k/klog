@@ -97,8 +97,8 @@ Rectangle {
         var latSub = Math.floor(latRemain / (1.0 / 24.0));  // 0..23
         lonSub = Math.max(0, Math.min(23, lonSub));
         latSub = Math.max(0, Math.min(23, latSub));
-        var c5 = String.fromCharCode('A'.charCodeAt(0) + lonSub);
-        var c6 = String.fromCharCode('A'.charCodeAt(0) + latSub);
+        var c5 = String.fromCharCode('a'.charCodeAt(0) + lonSub);
+        var c6 = String.fromCharCode('a'.charCodeAt(0) + latSub);
         return c1 + c2 + c3 + c4 + c5 + c6
     }
 
@@ -181,10 +181,18 @@ Rectangle {
     //Location { id: mapCenter }
 
     function addMarker(latitude, longitude) {
-        var Component = Qt.createComponent("qrc:qml/marker.qml")
-        var item = Component.createObject(map, {
+        var component = Qt.createComponent("qrc:qml/marker.qml")
+        if (component.status !== Component.Ready) {
+            console.warn("addMarker: failed to load marker.qml:", component.errorString())
+            return
+        }
+        var item = component.createObject(map, {
             coordinate: QtPositioning.coordinate(latitude, longitude)
         })
+        if (item === null) {
+            console.warn("addMarker: createObject returned null")
+            return
+        }
         map.addMapItem(item)
     }
 

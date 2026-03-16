@@ -28,32 +28,26 @@ import QtLocation
 
 MapQuickItem{
     id: marker
-    anchorPoint.x: marker.width / 4
+    anchorPoint.x: marker.width / 2
     anchorPoint.y: marker.height
     property alias text: locatorText.text
-    //sourceItem: Image{
-    //    id: icon
-    //    source: "../img/marker.png"
-    //    sourceSize.width: 40
-    //    sourceSize.height: 40
-    //}
     sourceItem: Rectangle{
-    id: rectaMap
-    Image{
+        id: rectaMap
+        width: icon.sourceSize.width
+        height: icon.sourceSize.height + locatorText.height
+        color: "transparent"
+        Image{
             id: icon
-            //source: "../img/marker.png"
             source: "qrc:/img/marker.png"
             sourceSize.width: 40
             sourceSize.height: 40
         }
-    Text{
-        id: locatorText
-        //text: 'IN80'
-        //width: rectaMap.width
-        color: focus?"red":"black"
-        anchors.top: icon.bottom
-        anchors.horizontalCenter: icon.horizontalCenter
-        horizontalAlignment: icon.AlignHCenter
-    }
+        Text{
+            id: locatorText
+            color: "black"
+            anchors.top: icon.bottom
+            anchors.horizontalCenter: icon.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+        }
     }
 }
