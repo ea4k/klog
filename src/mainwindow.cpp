@@ -5221,7 +5221,7 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     _entityStatus.dxcc   = world->getQRZARRLId(sp.getDxCall());
     _entityStatus.bandId = dataProxy->getBandIdFromFreq(sp.getFrequency().toDouble());
     _entityStatus.logId  = currentLog;
-    QColor spotColor = awards->getQRZDXStatusColor(_entityStatus);
+    QColor spotColor = awards.getQRZDXStatusColor(_entityStatus);
 
     mapWindow->addMarker(coord, sp.getDxCall(), spotColor);
     logEvent(Q_FUNC_INFO, "END", Debug);
