@@ -44,6 +44,8 @@ Rectangle {
     property alias lon: map.center.longitude
     property double oldZoom
 
+    signal spotDoubleClicked(string callsign, double frequencyMHz)
+
     // Pixel step for pan buttons
     property int panStepPx: 100
 
@@ -206,7 +208,7 @@ Rectangle {
 
     //Location { id: mapCenter }
 
-    function addMarker(latitude, longitude, callsign, color) {
+    function addMarker(latitude, longitude, callsign, color, frequencyMHz) {
         var component = Qt.createComponent("qrc:///qml/marker.qml")
         if (component.status !== Component.Ready) {
             console.warn("addMarker: failed to load marker.qml:", component.errorString())
@@ -214,13 +216,17 @@ Rectangle {
         }
         var item = component.createObject(map, {
             coordinate:  QtPositioning.coordinate(latitude, longitude),
-            text:        callsign || "",
-            markerColor: color    || "#FF0000"
+            text:        callsign      || "",
+            markerColor: color         || "#FF0000",
+            frequency:   frequencyMHz  || 0.0
         })
         if (item === null) {
             console.warn("addMarker: createObject returned null")
             return
         }
+        item.markerDoubleClicked.connect(function(cs, freq) {
+            root.spotDoubleClicked(cs, freq)
+        })
         map.addMapItem(item)
         root.spotMarkers = root.spotMarkers.concat([{ item: item, addedAt: Date.now() }])
     }

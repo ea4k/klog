@@ -50,9 +50,12 @@ public:
     void addLocators(const QStringList &_locators, const QColor &_color);
     void appendLocators(const QStringList &_locators, const QColor &_color);
     void setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default);
-    void addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color);
+    void addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color, double frequencyMHz = 0.0);
     void clearMarkers();
     void setSpotExpiryMinutes(int minutes);
+
+signals:
+    void spotDoubleClicked(const QString &callsign, double frequencyMHz);
 
 private slots:
     void slotBandsComboBoxChanged();

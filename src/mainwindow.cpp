@@ -638,6 +638,7 @@ void MainWindow::createActionsCommon(){
     //CLUSTER
     connect(dxClusterWidget.get(), SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
     connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
+    connect(mapWindow, &MapWindowWidget::spotDoubleClicked, this, &MainWindow::slotMapSpotDoubleClicked);
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));
@@ -5224,7 +5225,7 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     _entityStatus.logId  = currentLog;
     QColor spotColor = awards.getQRZDXStatusColor(_entityStatus);
 
-    mapWindow->addMarker(coord, sp.getDxCall(), spotColor);
+    mapWindow->addMarker(coord, sp.getDxCall(), spotColor, sp.getFrequency().toDouble());
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5269,6 +5270,12 @@ void MainWindow::clusterSpotToLog(const QString &_call, Frequency _fr)
       //qDebug() << Q_FUNC_INFO << " - END "  ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
+
+void MainWindow::slotMapSpotDoubleClicked(const QString &callsign, double frequencyMHz)
+{
+    clusterSpotToLog(callsign, Frequency(frequencyMHz, MHz));
+}
+
 //DX-CLUSTER - DXCLUSTER
 
 void MainWindow::updateQSLRecAndSent()

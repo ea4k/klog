@@ -32,6 +32,9 @@ MapQuickItem {
 
     property alias text: pinTooltip.text
     property color markerColor: "#FF0000"
+    property double frequency: 0.0   // MHz
+
+    signal markerDoubleClicked(string callsign, double frequencyMHz)
 
     anchorPoint.x: pinHead.width / 2
     anchorPoint.y: pinHead.height / 2
@@ -52,11 +55,12 @@ MapQuickItem {
             border.width: 2
         }
 
-        // Hover area to show tooltip with the callsign
+        // Hover + double-click area
         MouseArea {
             id: hoverArea
             anchors.fill: parent
             hoverEnabled: true
+            onDoubleClicked: marker.markerDoubleClicked(marker.text, marker.frequency)
 
             ToolTip {
                 id: pinTooltip

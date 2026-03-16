@@ -63,9 +63,9 @@ void MapWindowWidget::init()
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void MapWindowWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color)
+void MapWindowWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color, double frequencyMHz)
 {
-    mapWidget->addMarker(_coord, _callsign, _color);
+    mapWidget->addMarker(_coord, _callsign, _color, frequencyMHz);
 }
 
 void MapWindowWidget::clearMarkers()
@@ -117,6 +117,7 @@ void MapWindowWidget::createUI()
     connect(propComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotPropComboBoxChanged()));
     connect(satNameComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
     connect(confirmedCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotConfirmedCheckBoxChanged()));
+    connect(mapWidget, &MapWidget::spotDoubleClicked, this, &MapWindowWidget::spotDoubleClicked);
 
     satNameComboBox->setEnabled(false);// Starts disable until propagation = SAT
     //qDebug() << Q_FUNC_INFO << "-END";
