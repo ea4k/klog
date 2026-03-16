@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../cmake")
 
 # 2. Find dependencies FIRST (before creating executables)
-find_package(Qt6 REQUIRED COMPONENTS Core Test Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Test Widgets)
 
 enable_testing()
 set(CMAKE_AUTOMOC ON)
@@ -70,7 +70,7 @@ if(NOT _hamlib_found AND UNIX AND NOT APPLE)
     set(_hamlib_found TRUE)
 endif()
 
-set(_tst_libs Qt6::Core Qt6::Test Qt6::Widgets)
+set(_tst_libs Qt6::Core Qt6::Gui Qt6::Test Qt6::Widgets)
 
 if(TARGET Hamlib::Hamlib)
     list(APPEND _tst_libs Hamlib::Hamlib)
