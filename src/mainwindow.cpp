@@ -3481,11 +3481,27 @@ void MainWindow::slotInitHamlib()
     if (!hamlibActive)
     {
         logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
-        QMessageBox::warning(this,
-            tr("Radio connection failed"),
-            tr("KLog could not connect to the radio at startup.\n\n"
-            "Please check the radio is on and the port settings are correct.\n"
-            "You can reconfigure and test the connection in Setup → Hamlib."));
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setWindowTitle(tr("Radio connection failed"));
+        msgBox.setText(tr("KLog could not connect to the radio at startup."));
+        msgBox.setInformativeText(tr("Please check the radio is on and the port settings are correct.\n"
+                                     "You can reconfigure and test the connection in Setup → Hamlib.\n\n"
+                                     "Do you want KLog to try to connect automatically on next startup?"));
+        msgBox.addButton(tr("Yes, reconnect on startup"), QMessageBox::YesRole);
+        QPushButton *noButton = msgBox.addButton(tr("No, disable radio connection"), QMessageBox::NoRole);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == noButton)
+        {
+            QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+            settings.beginGroup("HamLib");
+            settings.setValue("HamLibActive", false);
+            settings.endGroup();
+            settings.sync();
+            logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after startup failure", Info);
+        }
     }
 }
 
