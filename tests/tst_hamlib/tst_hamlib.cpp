@@ -405,13 +405,6 @@ void tst_Hamlib::test_LoadSettings_returnsTrue()
     QVERIFY(h.loadSettings());
 }
 
-void tst_Hamlib::test_start(){
-    // hamlib->initClass();
-    // hamlib->init(true);
-    // QVERIFY2(hamlib->init(true), "Hamlib failed in init(true)");
-    // QVERIFY2(hamlib->init(false), "Hamlib failed in init(false)");
-}
-
 QTEST_MAIN(tst_Hamlib)
 
 #include "tst_hamlib.moc"

@@ -38,6 +38,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/awards.h \
     ../../src/awarddxmarathon.h \
     ../../src/callsign.h \

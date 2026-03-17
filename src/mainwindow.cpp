@@ -4509,8 +4509,7 @@ void MainWindow::slotADIFImport(){
                                                              QFileDialog::DontUseNativeDialog);
         }
     }
-   //qDebug() << Q_FUNC_INFO << " - After QFileDialog: " << fileName;
-    qDebug() << Q_FUNC_INFO << " - CurentLog: " << currentLog;
+    //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
     if (!fileName.isNull())
     {
        //qDebug() << Q_FUNC_INFO << " - fileName is not Null 010";

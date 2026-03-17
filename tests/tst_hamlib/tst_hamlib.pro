@@ -7,6 +7,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 HEADERS += \
+    ../../src/adif.h \
     ../../src/klogdefinitions.h \
     ../../src/callsign.h \
     ../../src/frequency.h \
@@ -15,6 +16,7 @@ HEADERS += \
     ../../src/hamlibclass.h
 
 SOURCES +=  tst_hamlib.cpp \
+    ../../src/adif.cpp \
     ../../src/callsign.cpp \
     ../../src/frequency.cpp \
     ../../src/locator.cpp \
@@ -45,6 +47,15 @@ macx: {
     message(macx)
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
+}
+
+
+macx: {
+    message(macx)
+    INCLUDEPATH +=/usr/local/include/
+    LIBS += -L"/usr/local/lib" -lhamlib
+    INCLUDEPATH +=/opt/homebrew/Cellar/hamlib/4.6.5/include/
+    LIBS += -L"/opt/homebrew/Cellar/hamlib/4.6.5/lib" -lhamlib
 }
 
 win32: {
