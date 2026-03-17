@@ -56,7 +56,7 @@ HEADERS += \
     ../../src/inputwidgets/mainwindowinputeqsl.h \
     ../../src/inputwidgets/mainwindowinputqsl.h \
     ../../src/inputwidgets/mainwindowinputqso.h \
-    ../../src/elogclublog.h \
+    ../../src/elog/elogclublog.h \
     ../../src/downloadcty.h \
     ../../src/dxccstatuswidget.h \
     ../../src/awardswidget.h \
@@ -73,9 +73,10 @@ HEADERS += \
     ../../src/statisticswidget.h \
     ../../src/updatesatsdata.h \
     ../../src/hamlibclass.h \
-    ../../src/elogqrzlog.h \
-    ../../src/lotwutilities.h \
-    ../../src/eqslutilities.h \
+    ../../src/elog/elogqrzlog.h \
+    ../../src/elog/lotwutilities.h \
+    ../../src/elog/eqslutilities.h \
+    ../../src/database/datacache.h \
     ../../src/widgets/adiflotwexportwidget.h \
     ../../src/widgets/showadifimportwidget.h \
     ../../src/widgets/onlinemessagewidget.h \
@@ -135,7 +136,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/inputwidgets/mainwindowinputqsl.cpp \
     ../../src/inputwidgets/mainwindowinputqso.cpp \
     ../../src/mainqsoentrywidget.cpp \
-    ../../src/elogclublog.cpp \
+    ../../src/elog/elogclublog.cpp \
     ../../src/downloadcty.cpp \
     ../../src/dxccstatuswidget.cpp \
     ../../src/awardswidget.cpp \
@@ -152,9 +153,10 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/statisticswidget.cpp \
     ../../src/updatesatsdata.cpp \
     ../../src/hamlibclass.cpp \
-    ../../src/elogqrzlog.cpp \
-    ../../src/lotwutilities.cpp \
-    ../../src/eqslutilities.cpp \
+    ../../src/elog/elogqrzlog.cpp \
+    ../../src/elog/lotwutilities.cpp \
+    ../../src/elog/eqslutilities.cpp \
+    ../../src/database/datacache.cpp \
     ../../src/widgets/adiflotwexportwidget.cpp \
     ../../src/widgets/showadifimportwidget.cpp \
     ../../src/widgets/onlinemessagewidget.cpp \
@@ -219,6 +221,8 @@ macx: {
     CONFIG += c++11
     INCLUDEPATH +=/usr/local/include/
     LIBS += -L"/usr/local/lib" -lhamlib
+    INCLUDEPATH +=/opt/homebrew/Cellar/hamlib/4.6.5/include/
+    LIBS += -L"/opt/homebrew/Cellar/hamlib/4.6.5/lib" -lhamlib
 }
 
 #win32: {
