@@ -14,7 +14,6 @@ HEADERS += \
     ../../src/frequency.h \
     ../../src/qso.h \
     ../../src/global.h \
-    ../../src/callsign.h \
     ../../src/klogdefinitions.h \
     ../../src/locator.h \
     ../../src/dataproxy_sqlite.h \
@@ -26,19 +25,18 @@ HEADERS += \
     ../../src/adif.h
 
 SOURCES +=  tst_world.cpp \
-../../src/world.cpp \
-../../src/frequency.cpp \
-../../src/qso.cpp \
-../../src/callsign.cpp \
-../../src/locator.cpp \
-../../src/dataproxy_sqlite.cpp \
-../../src/utilities.cpp \
-../../src/database/database.cpp \
-../../src/database/datacache.cpp \
-../../src/database/queryexecutor.cpp \
-../../src/database/db_adif_primary_subdvisions_data.cpp \
-../../src/callsign.cpp \
-../../src/adif.cpp
+    ../../src/world.cpp \
+    ../../src/frequency.cpp \
+    ../../src/qso.cpp \
+    ../../src/callsign.cpp \
+    ../../src/locator.cpp \
+    ../../src/dataproxy_sqlite.cpp \
+    ../../src/utilities.cpp \
+    ../../src/database/database.cpp \
+    ../../src/database/datacache.cpp \
+    ../../src/database/queryexecutor.cpp \
+    ../../src/database/db_adif_primary_subdvisions_data.cpp \
+    ../../src/adif.cpp
 
 isEmpty(QMAKE_LRELEASE) {
     win32|os2:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
