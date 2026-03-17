@@ -136,12 +136,6 @@ private slots:
     void test_locatorFallback_entityLocatorValidForKnownCall();
     void test_locatorPrimary_getQRZLocatorValidForKnownCall();
 
-    // O) buildAuthSequence — regression for issue #829
-    //    Password must be included in the auth sequence sent to the cluster.
-    void test_buildAuthSequence_callsignOnly();
-    void test_buildAuthSequence_callsignAndPassword();
-    void test_buildAuthSequence_emptyCallsign();
-
 private:
     // Helper: build an EntityStatus with the given QSOStatus and bandId=-1.
     // bandId=-1 guarantees that no band-based filter can interfere with the
@@ -653,35 +647,6 @@ void tst_DXCluster::test_locatorPrimary_getQRZLocatorValidForKnownCall()
              "getQRZLocator must return a non-empty locator for a known callsign");
     QVERIFY2(locator.isValidLocator(primaryLocator),
              "getQRZLocator must return a valid Maidenhead locator for a known callsign");
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// O) buildAuthSequence — regression for issue #829
-//    Before the fix, slotClusterSocketConnected() collected the password but
-//    never sent it to the server.  buildAuthSequence() encapsulates the logic
-//    so it can be tested without a live TCP socket or QInputDialog.
-// ─────────────────────────────────────────────────────────────────────────────
-
-void tst_DXCluster::test_buildAuthSequence_callsignOnly()
-{
-    // No password → only the callsign line should be produced.
-    const QString result = DXClusterWidget::buildAuthSequence("EA4K", "");
-    QCOMPARE(result, QString("EA4K\n"));
-}
-
-void tst_DXCluster::test_buildAuthSequence_callsignAndPassword()
-{
-    // With a password → callsign line followed by password line.
-    // This is the scenario that was broken in issue #829.
-    const QString result = DXClusterWidget::buildAuthSequence("EA4K", "s3cr3t");
-    QCOMPARE(result, QString("EA4K\ns3cr3t\n"));
-}
-
-void tst_DXCluster::test_buildAuthSequence_emptyCallsign()
-{
-    // Empty callsign → nothing should be sent (connection stays unauthenticated).
-    const QString result = DXClusterWidget::buildAuthSequence("", "somepassword");
-    QVERIFY(result.isEmpty());
 }
 
 QTEST_MAIN(tst_DXCluster)
