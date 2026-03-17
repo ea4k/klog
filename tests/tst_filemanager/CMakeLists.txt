@@ -19,7 +19,7 @@ file(GLOB TEST_HEADERS "*.h")
 add_executable(tst_filemanager
     ${TEST_SOURCES}
     ../../src/adif.cpp
-    ../../src/database/db_adif_primary_subdvisions_data.cpp
+    ../../src/database/db_adif_primary_subdivisions_data.cpp
     ../../src/awards.cpp
     ../../src/awarddxmarathon.cpp
     ../../src/database/database.cpp
@@ -37,7 +37,7 @@ add_executable(tst_filemanager
 
     ${TEST_HEADERS}
     ../../src/adif.h
-    ../../src/database/db_adif_primary_subdvisions_data.h
+    ../../src/database/db_adif_primary_subdivisions_data.h
     ../../src/awards.h
     ../../src/awarddxmarathon.h
     ../../src/database/database.h

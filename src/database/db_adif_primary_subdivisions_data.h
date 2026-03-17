@@ -1,5 +1,5 @@
-#ifndef KLOG_DATABASE_DB_ADIF_PRIMARY_SUBDVISIONS_DATA_H
-#define KLOG_DATABASE_DB_ADIF_PRIMARY_SUBDVISIONS_DATA_H
+#ifndef KLOG_DATABASE_DB_ADIF_PRIMARY_SUBDIVISIONS_DATA_H
+#define KLOG_DATABASE_DB_ADIF_PRIMARY_SUBDIVISIONS_DATA_H
 /***************************************************************************
                           db_adif_primary_subdivisions_data.h  -  description
                              -------------------
@@ -70,4 +70,4 @@ private:
     bool add_Japan_339();   // Adds the data for Japan
 };
 
-#endif // DB_ADIF_PRIMARY_SUBDVISIONS_DATA_H
+#endif // DB_ADIF_PRIMARY_SUBDIVISIONS_DATA_H

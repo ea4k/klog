@@ -16,7 +16,7 @@ HEADERS += \
     ../../src/database/database.h \
     ../../src/database/datacache.h \
     ../../src/database/queryexecutor.h \
-    ../../src/database/db_adif_primary_subdvisions_data.h \
+    ../../src/database/db_adif_primary_subdivisions_data.h \
     ../../src/frequency.h \
     ../../src/qso.h \
     #../../src/qsodatacache.h \
@@ -32,7 +32,7 @@ SOURCES +=  tst_mainwindowinputothers.cpp \
     ../../src/database/database.cpp \
     ../../src/database/datacache.cpp \
     ../../src/database/queryexecutor.cpp \
-    ../../src/database/db_adif_primary_subdvisions_data.cpp \
+    ../../src/database/db_adif_primary_subdivisions_data.cpp \
     ../../src/frequency.cpp \
     ../../src/qso.cpp \
     #../../src/qsodatacache.cpp \

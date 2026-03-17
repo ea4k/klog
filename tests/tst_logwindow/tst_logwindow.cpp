@@ -28,7 +28,7 @@
 #include <QtTest>
 #include "../../src/awards.h"
 #include "../../src/callsign.h"
-//#include "../../src/database/db_adif_primary_subdvisions_data.h"
+//#include "../../src/database/db_adif_primary_subdivisions_data.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/awarddxmarathon.h"
 #include "../../src/logwindow.h"

@@ -103,7 +103,7 @@ HEADERS += setupdialog.h \
     charts/statssentconfirmedpiechartwidget.h \
     database/database.h \
     database/datacache.h \
-    database/db_adif_primary_subdvisions_data.h \
+    database/db_adif_primary_subdivisions_data.h \
     database/queryexecutor.h \
     dataproxy_sqlite.h \
     downloadcty.h \
@@ -189,7 +189,7 @@ SOURCES += main.cpp \
     charts/statsfieldperbandwidget.cpp \
     database/database.cpp \
     database/datacache.cpp \
-    database/db_adif_primary_subdvisions_data.cpp \
+    database/db_adif_primary_subdivisions_data.cpp \
     database/queryexecutor.cpp \
     dataproxy_sqlite.cpp \
     dxcluster/dxspot.cpp \

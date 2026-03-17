@@ -1,4 +1,4 @@
-#include "db_adif_primary_subdvisions_data.h"
+#include "db_adif_primary_subdivisions_data.h"
 
 DB_ADIF_Primary_Subdvisions_data::DB_ADIF_Primary_Subdvisions_data(const QString &_parentClass)
 {

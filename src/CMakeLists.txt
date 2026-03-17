@@ -29,7 +29,7 @@ set(KLOG_SOURCES
    callsign.cpp
    database/database.cpp
    database/datacache.cpp
-   database/db_adif_primary_subdvisions_data.cpp
+   database/db_adif_primary_subdivisions_data.cpp
    database/queryexecutor.cpp
    dataproxy_sqlite.cpp
    downloadcty.cpp
@@ -128,7 +128,7 @@ set(KLOG_HEADERS
    callsign.h
    database/database.h
    database/datacache.h
-   database/db_adif_primary_subdvisions_data.h
+   database/db_adif_primary_subdivisions_data.h
    database/queryexecutor.h
    dataproxy_sqlite.h
    downloadcty.h

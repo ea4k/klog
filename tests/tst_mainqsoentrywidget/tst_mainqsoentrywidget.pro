@@ -22,7 +22,7 @@ HEADERS += \
     ../../src/klogdefinitions.h \
     ../../src/database/database.h \
     ../../src/database/queryexecutor.h \
-    ../../src/database/db_adif_primary_subdvisions_data.h \
+    ../../src/database/db_adif_primary_subdivisions_data.h \
       ../../src/adif.h
 
 SOURCES +=  tst_mainqsoentrywidget.cpp \
@@ -37,7 +37,7 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/locator.cpp \
     ../../src/database/database.cpp \
     ../../src/database/queryexecutor.cpp \
-    ../../src/database/db_adif_primary_subdvisions_data.cpp \
+    ../../src/database/db_adif_primary_subdivisions_data.cpp \
     ../../src/adif.cpp
 
 

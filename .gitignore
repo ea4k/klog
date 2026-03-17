@@ -52,7 +52,7 @@ tests/tst_adif/uic_wrapper.sh
 tests/tst_database/moc_adif.cpp
 tests/tst_database/moc_database.cpp
 tests/tst_database/moc_dataproxy_sqlite.cpp
-tests/tst_database/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_database/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_database/moc_qso.cpp
 tests/tst_database/moc_queryexecutor.cpp
 tests/tst_database/moc_utilities.cpp
@@ -66,7 +66,7 @@ tests/tst_database/uic_wrapper.sh
 tests/tst_dataproxy/moc_adif.cpp
 tests/tst_dataproxy/moc_database.cpp
 tests/tst_dataproxy/moc_dataproxy_sqlite.cpp
-tests/tst_dataproxy/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_dataproxy/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_dataproxy/moc_qso.cpp
 tests/tst_dataproxy/moc_queryexecutor.cpp
 tests/tst_dataproxy/moc_utilities.cpp
@@ -98,7 +98,7 @@ tests/tst_main/uic_wrapper.sh
 tests/tst_mainqsoentrywidget/moc_adif.cpp
 tests/tst_mainqsoentrywidget/moc_database.cpp
 tests/tst_mainqsoentrywidget/moc_dataproxy_sqlite.cpp
-tests/tst_mainqsoentrywidget/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_mainqsoentrywidget/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_mainqsoentrywidget/moc_mainqsoentrywidget.cpp
 tests/tst_mainqsoentrywidget/moc_qso.cpp
 tests/tst_mainqsoentrywidget/moc_queryexecutor.cpp
@@ -116,7 +116,7 @@ tests/tst_mainwindow/uic_wrapper.sh
 tests/tst_mainwindowinputqso/moc_adif.cpp
 tests/tst_mainwindowinputqso/moc_database.cpp
 tests/tst_mainwindowinputqso/moc_dataproxy_sqlite.cpp
-tests/tst_mainwindowinputqso/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_mainwindowinputqso/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_mainwindowinputqso/moc_mainwindowinputqso.cpp
 tests/tst_mainwindowinputqso/moc_qso.cpp
 tests/tst_mainwindowinputqso/moc_queryexecutor.cpp
@@ -129,7 +129,7 @@ tests/tst_mainwindowinputqso/uic_wrapper.sh
 tests/tst_mainwindowsattab/moc_adif.cpp
 tests/tst_mainwindowsattab/moc_database.cpp
 tests/tst_mainwindowsattab/moc_dataproxy_sqlite.cpp
-tests/tst_mainwindowsattab/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_mainwindowsattab/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_mainwindowsattab/moc_mainwindowsattab.cpp
 tests/tst_mainwindowsattab/moc_qso.cpp
 tests/tst_mainwindowsattab/moc_queryexecutor.cpp
@@ -162,7 +162,7 @@ tests/tst_setuphamlibserialwidget/uic_wrapper.sh
 tests/tst_setuppageelog/moc_adif.cpp
 tests/tst_setuppageelog/moc_database.cpp
 tests/tst_setuppageelog/moc_dataproxy_sqlite.cpp
-tests/tst_setuppageelog/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_setuppageelog/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_setuppageelog/moc_qso.cpp
 tests/tst_setuppageelog/moc_queryexecutor.cpp
 tests/tst_setuppageelog/moc_setuppageelog.cpp
@@ -175,7 +175,7 @@ tests/tst_setuppageelog/uic_wrapper.sh
 tests/tst_utilities/moc_adif.cpp
 tests/tst_utilities/moc_database.cpp
 tests/tst_utilities/moc_dataproxy_sqlite.cpp
-tests/tst_utilities/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_utilities/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_utilities/moc_qso.cpp
 tests/tst_utilities/moc_queryexecutor.cpp
 tests/tst_utilities/moc_utilities.cpp
@@ -196,7 +196,7 @@ tests/tst_wizard/uic_wrapper.sh
 tests/tst_world/moc_adif.cpp
 tests/tst_world/moc_database.cpp
 tests/tst_world/moc_dataproxy_sqlite.cpp
-tests/tst_world/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_world/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_world/moc_qso.cpp
 tests/tst_world/moc_queryexecutor.cpp
 tests/tst_world/moc_utilities.cpp
@@ -209,7 +209,7 @@ tests/tst_world/uic_wrapper.sh
 tests/tst_mainwindowinputothers/moc_adif.cpp
 tests/tst_mainwindowinputothers/moc_database.cpp
 tests/tst_mainwindowinputothers/moc_dataproxy_sqlite.cpp
-tests/tst_mainwindowinputothers/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_mainwindowinputothers/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_mainwindowinputothers/moc_mainwindowinputothers.cpp
 tests/tst_mainwindowinputothers/moc_predefs.h
 tests/tst_mainwindowinputothers/moc_qso.cpp
@@ -263,7 +263,7 @@ tests/tst_logwindow/moc_awards.cpp
 tests/tst_logwindow/moc_callsign.cpp
 tests/tst_logwindow/moc_database.cpp
 tests/tst_logwindow/moc_dataproxy_sqlite.cpp
-tests/tst_logwindow/moc_db_adif_primary_subdvisions_data.cpp
+tests/tst_logwindow/moc_db_adif_primary_subdivisions_data.cpp
 tests/tst_logwindow/moc_filemanager.cpp
 tests/tst_logwindow/moc_frequency.cpp
 tests/tst_logwindow/moc_logmodel.cpp

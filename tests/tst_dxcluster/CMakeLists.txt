@@ -21,7 +21,7 @@ add_executable(tst_dxcluster
     ../../src/awarddxmarathon.cpp
     ../../src/callsign.cpp
     ../../src/database/datacache.cpp
-    ../../src/database/db_adif_primary_subdvisions_data.cpp
+    ../../src/database/db_adif_primary_subdivisions_data.cpp
     ../../src/database/database.cpp
     ../../src/database/queryexecutor.cpp
     ../../src/dataproxy_sqlite.cpp
@@ -40,7 +40,7 @@ add_executable(tst_dxcluster
     ../../src/awarddxmarathon.h
     ../../src/callsign.h
     ../../src/database/datacache.h
-    ../../src/database/db_adif_primary_subdvisions_data.h
+    ../../src/database/db_adif_primary_subdivisions_data.h
     ../../src/database/database.h
     ../../src/database/queryexecutor.h
     ../../src/dataproxy_sqlite.h

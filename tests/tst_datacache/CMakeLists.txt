@@ -27,7 +27,7 @@ add_executable(tst_datacache
         ../../src/callsign.cpp
         ../../src/database/datacache.cpp
         ../../src/database/queryexecutor.cpp
-        ../../src/database/db_adif_primary_subdvisions_data.cpp
+        ../../src/database/db_adif_primary_subdivisions_data.cpp
         ../../src/database/database.cpp
 
 
@@ -35,7 +35,7 @@ add_executable(tst_datacache
     ../../src/database/database.h
     ../../src/database/datacache.h
     ../../src/database/queryexecutor.h
-    ../../src/database/db_adif_primary_subdvisions_data.h
+    ../../src/database/db_adif_primary_subdivisions_data.h
     ../../src/global.h
     ../../src/adif.h
     ../../src/frequency.h
