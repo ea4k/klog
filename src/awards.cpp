@@ -1107,7 +1107,7 @@ int Awards::dxccStatusBand(const int _ent, const int _band, const int _logNumber
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_ent) << "/" << QString::number(_band);
 
         QSqlQuery query = QSqlQuery();
-        QString queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
+        QString queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND bandid='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_band)).arg(QString::number(_logNumber));
         int status = 0;
  //qDebug() << Q_FUNC_INFO << ": " << queryString;
         if (query.exec(queryString))
@@ -1150,7 +1150,7 @@ int Awards::dxccStatusMode(const int _ent, const int _mode, const int _logNumber
             return -1;
         }
         int status = 0;
-        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND modeid='%2' AND lognumber='%4' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
+        queryString = QString("SELECT DISTINCT qsl_rcvd, lotw_qsl_rcvd FROM log WHERE dxcc='%1' AND modeid='%2' AND lognumber='%3' ").arg(QString::number(_ent)).arg(QString::number(_mode)).arg(QString::number(_logNumber));
 
 
         if (query.exec(queryString))
@@ -1198,16 +1198,21 @@ bool Awards::updateDXCCStatus(const int _logNumber)
     {
         stringQuery = QString("SELECT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, lognumber, MIN(id) as id FROM log GROUP BY dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
     }
-    if (_logNumber>0)
+    if (_logNumber > 0)
     {
         if (!query.prepare(stringQuery))
             return false;
         query.bindValue(":lognumber", _logNumber);
+        if (!query.exec())
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+            query.finish();
+            return false;
+        }
     }
-
-
-    if (!executeQuery(query, stringQuery))
+    else
     {
+        if (!executeQuery(query, stringQuery))
             return false;
     }
 
