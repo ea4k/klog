@@ -40,6 +40,10 @@ HEADERS += \
     ../../src/setuppages/setuppageworldeditor.h \
     ../../src/aboutdialog.h \
     ../../src/callsign.h \
+    ../../src/elog/elogclublog.cpp \
+    ../../src/elog/elogqrzlog.cpp \
+    ../../src/elog/eqslutilities.cpp \
+    ../../src/elog/lotwutilities.cpp \
     ../../src/tipsdialog.h \
     ../../src/filemanager.h \
     ../../src/fileawardmanager.h \
@@ -57,7 +61,6 @@ HEADERS += \
     ../../src/inputwidgets/mainwindowinputeqsl.h \
     ../../src/inputwidgets/mainwindowinputqsl.h \
     ../../src/inputwidgets/mainwindowinputqso.h \
-    ../../src/elogclublog.h \
     ../../src/downloadcty.h \
     ../../src/dxccstatuswidget.h \
     ../../src/awardswidget.h \
@@ -74,9 +77,6 @@ HEADERS += \
     ../../src/statisticswidget.h \
     ../../src/updatesatsdata.h \
     ../../src/hamlibclass.h \
-    ../../src/elogqrzlog.h \
-    ../../src/lotwutilities.h \
-    ../../src/eqslutilities.h \
     ../../src/widgets/adiflotwexportwidget.h \
     ../../src/widgets/showadifimportwidget.h \
     ../../src/widgets/onlinemessagewidget.h \
@@ -86,13 +86,12 @@ HEADERS += \
     ../../src/mainwindow.h \
     ../../src/mainqsoentrywidget.h \
     ../../src/dataproxy_sqlite.h \
-    ../../src/database.h \
+    ../../src/database/database.h \
     ../../src/database/queryexecutor.h \
     ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/klogdefinitions.h \
     ../../src/utilities.h \
     ../../src/qso.h \
-    ../../src/qsodatacache.h \
     ../../src/charts/statsqsosperdxccbarchartwidget.h \
     ../../src/charts/statscqzperyearbarchartwidget.h \
     ../../src/charts/statsqsosperhourbarchartwidget.h \
@@ -136,7 +135,6 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/inputwidgets/mainwindowinputqsl.cpp \
     ../../src/inputwidgets/mainwindowinputqso.cpp \
     ../../src/mainqsoentrywidget.cpp \
-    ../../src/elogclublog.cpp \
     ../../src/downloadcty.cpp \
     ../../src/dxccstatuswidget.cpp \
     ../../src/awardswidget.cpp \
@@ -153,9 +151,10 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/statisticswidget.cpp \
     ../../src/updatesatsdata.cpp \
     ../../src/hamlibclass.cpp \
-    ../../src/elogqrzlog.cpp \
-    ../../src/lotwutilities.cpp \
-    ../../src/eqslutilities.cpp \
+    ../../src/elog/elogclublog.cpp \
+    ../../src/elog/elogqrzlog.cpp \
+    ../../src/elog/eqslutilities.cpp \
+    ../../src/elog/lotwutilities.cpp \
     ../../src/widgets/adiflotwexportwidget.cpp \
     ../../src/widgets/showadifimportwidget.cpp \
     ../../src/widgets/onlinemessagewidget.cpp \
@@ -164,7 +163,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/widgets/map/mapwidget.cpp \
     ../../src/mainwindow.cpp \
     ../../src/dataproxy_sqlite.cpp \
-    ../../src/database.cpp \
+    ../../src/database/database.cpp \
     ../../src/database/queryexecutor.cpp \
     ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/setuppages/hamlibnetworkconfigwidget.cpp \
@@ -188,7 +187,6 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/setuppages/setuppageworldeditor.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
-    ../../src/qsodatacache.cpp \
     ../../src/charts/statsqsosperdxccbarchartwidget.cpp \
     ../../src/charts/statscqzperyearbarchartwidget.cpp \
     ../../src/charts/statsqsosperhourbarchartwidget.cpp \

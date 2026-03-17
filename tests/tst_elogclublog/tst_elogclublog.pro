@@ -43,10 +43,10 @@ HEADERS += \
     ../../src/klogdefinitions.h
 
 SOURCES += tst_elogclublog.cpp \
+    ../../src/elog/elogclublog.cpp \
     ../../src/adif.cpp \
     ../../src/callsign.cpp \
     ../../src/locator.cpp \
-    ../../src/elog/elogclublog.cpp \
     ../../src/utilities.cpp
 
 isEmpty(QMAKE_LRELEASE) {
