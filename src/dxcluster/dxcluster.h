@@ -109,6 +109,7 @@ private:
     bool openFile();
     QString cleanSpotter(const QString _call);
     void addData(); //TO BE DELETED, JUST FOR TESTING PURPOSES
+    static QString buildAuthSequence(const QString &callsign, const QString &password);
 
     QTcpSocket *tcpSocket = nullptr;
     QListWidget *dxClusterListWidget;

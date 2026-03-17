@@ -158,6 +158,17 @@ void DXClusterWidget::setMyQRZ(const QString &_qrz)
     }
 }
 
+// static
+QString DXClusterWidget::buildAuthSequence(const QString &callsign, const QString &password)
+{
+    if (callsign.isEmpty())
+        return {};
+    QString seq = callsign + '\n';
+    if (!password.isEmpty())
+        seq += password + '\n';
+    return seq;
+}
+
 void DXClusterWidget::addData()
 {
    //qDebug() << Q_FUNC_INFO;
@@ -473,8 +484,9 @@ void DXClusterWidget::slotClusterSocketConnected()
         }
 
         QTextStream os(tcpSocket);
-        if (!callsignText.isEmpty()) {
-            os << callsignText << "\n";
+        const QString authSeq = buildAuthSequence(callsignText, passwordText);
+        if (!authSeq.isEmpty()) {
+            os << authSeq;
             sendButton->setText(tr("Disconnect"));
             clearButton->setText(tr("Clear"));
             dxClusterAlreadyConnected = true;
