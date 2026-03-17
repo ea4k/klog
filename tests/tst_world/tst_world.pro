@@ -11,6 +11,7 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/world.h \
+    ../../src/callsign.h \
     ../../src/frequency.h \
     ../../src/qso.h \
     ../../src/global.h \
