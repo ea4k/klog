@@ -57,7 +57,7 @@ HEADERS += \
     ../../src/inputwidgets/mainwindowinputeqsl.h \
     ../../src/inputwidgets/mainwindowinputqsl.h \
     ../../src/inputwidgets/mainwindowinputqso.h \
-    ../../src/elogclublog.h \
+    ../../src/elog/elogclublog.h \
     ../../src/downloadcty.h \
     ../../src/dxccstatuswidget.h \
     ../../src/awardswidget.h \
@@ -136,7 +136,7 @@ SOURCES +=  tst_mainwindow.cpp \
     ../../src/inputwidgets/mainwindowinputqsl.cpp \
     ../../src/inputwidgets/mainwindowinputqso.cpp \
     ../../src/mainqsoentrywidget.cpp \
-    ../../src/elogclublog.cpp \
+    ../../src/elog/elogclublog.cpp \
     ../../src/downloadcty.cpp \
     ../../src/dxccstatuswidget.cpp \
     ../../src/awardswidget.cpp \
