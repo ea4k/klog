@@ -30,7 +30,6 @@
 */
 
 #include <QObject>
-//#include "klogdefinitions.h"
 
 enum FreqUnits {Hz, KHz, MHz, GHz, THz};
 

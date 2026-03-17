@@ -84,7 +84,6 @@
 #include "../../src/setuppages/setuppagemisc.h"
 #include "../../src/utilities.h"
 #include "../../src/qso.h"
-#include "../../src/qsodatacache.h"
 #include "../../src/updatesettings.h"
 #include "../../src/world.h"
 

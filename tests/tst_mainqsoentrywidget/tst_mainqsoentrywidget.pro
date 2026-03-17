@@ -16,7 +16,6 @@ HEADERS += \
     ../../src/frequency.h \
     ../../src/utilities.h \
     ../../src/qso.h \
-    #../../src/qsodatacache.h \
     ../../src/callsign.h \
     ../../src/locator.h \
     ../../src/klogdefinitions.h \
@@ -32,7 +31,6 @@ SOURCES +=  tst_mainqsoentrywidget.cpp \
     ../../src/frequency.cpp \
     ../../src/utilities.cpp \
     ../../src/qso.cpp \
-    #../../src/qsodatacache.cpp \
     ../../src/callsign.cpp \
     ../../src/locator.cpp \
     ../../src/database/database.cpp \

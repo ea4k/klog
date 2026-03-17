@@ -29,7 +29,6 @@
 #include <QCoreApplication>
 
 #include "../../src/qso.h"
-#include "../../src/qsodatacache.h"
 #include "../../src/callsign.h"
 #include "../../src/klogdefinitions.h"
 #include "../../src/database/database.h"

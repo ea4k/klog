@@ -1,4 +1,5 @@
-QT += testlib
+QT += testlib \
+    sql
 
 DEFINES *= KLOG_TESTING
 CONFIG += qt console warn_on depend_includepath testcase

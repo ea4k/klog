@@ -13,14 +13,9 @@ TEMPLATE = app
 
 HEADERS += \
     ../../src/utilities.h \
-    ../../src/dataproxy_sqlite.h \
-    ../../src/database/database.h \
-    ../../src/database/datacache.h \
-    ../../src/database/queryexecutor.h \
-    ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/frequency.h \
     ../../src/qso.h \
-    #../../src/qsodatacache.h \
+    ../../src/global.h \
     ../../src/callsign.h \
     ../../src/klogdefinitions.h \
     ../../src/locator.h \
@@ -28,14 +23,8 @@ HEADERS += \
 
 SOURCES +=  tst_utilities.cpp \
     ../../src/utilities.cpp \
-    ../../src/dataproxy_sqlite.cpp \
-    ../../src/database/database.cpp \
-    ../../src/database/datacache.cpp \
-    ../../src/database/queryexecutor.cpp \
-    ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/frequency.cpp \
     ../../src/qso.cpp \
-    #../../src/qsodatacache.cpp \
     ../../src/callsign.cpp \
     ../../src/locator.cpp \
     ../../src/adif.cpp

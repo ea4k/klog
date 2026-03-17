@@ -26,6 +26,7 @@
 # *****************************************************************************/
 QT += testlib \
     core \
+    sql \
     network \
     widgets
 
@@ -40,6 +41,9 @@ HEADERS += \
     ../../src/callsign.h \
     ../../src/locator.h \
     ../../src/utilities.h \
+    ../../src/database/database.h \
+    ../../src/database/queryexecutor.h \
+    ../../src/database/db_adif_primary_subdvisions_data.h \
     ../../src/klogdefinitions.h
 
 SOURCES += tst_elogclublog.cpp \
@@ -47,6 +51,9 @@ SOURCES += tst_elogclublog.cpp \
     ../../src/adif.cpp \
     ../../src/callsign.cpp \
     ../../src/locator.cpp \
+    ../../src/database/database.cpp \
+    ../../src/database/queryexecutor.cpp \
+    ../../src/database/db_adif_primary_subdvisions_data.cpp \
     ../../src/utilities.cpp
 
 isEmpty(QMAKE_LRELEASE) {

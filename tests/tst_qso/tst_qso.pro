@@ -19,7 +19,6 @@ HEADERS += \
     ../../src/klogdefinitions.h \
     ../../src/locator.h \
     ../../src/qso.h \
-    #../../src/qsodatacache.h \
     ../../src/adif.h
 
 SOURCES +=  tst_qso.cpp \
@@ -31,7 +30,6 @@ SOURCES +=  tst_qso.cpp \
     ../../src/frequency.cpp \
     ../../src/locator.cpp \
     ../../src/qso.cpp \
-    #../../src/qsodatacache.cpp \
     ../../src/adif.cpp
 
 

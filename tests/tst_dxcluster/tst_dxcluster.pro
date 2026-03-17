@@ -54,7 +54,6 @@ HEADERS += \
     ../../src/klogdefinitions.h \
     ../../src/locator.h \
     ../../src/qso.h \
-    ../../src/qsodatacache.h \
     ../../src/utilities.h \
     ../../src/world.h
 
@@ -74,7 +73,6 @@ SOURCES += tst_dxcluster.cpp \
     ../../src/frequency.cpp \
     ../../src/locator.cpp \
     ../../src/qso.cpp \
-    ../../src/qsodatacache.cpp \
     ../../src/utilities.cpp \
     ../../src/world.cpp
 

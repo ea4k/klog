@@ -22,7 +22,6 @@ HEADERS += \
     ../../src/database/datacache.h \
     ../../src/dataproxy_sqlite.h \
     ../../src/qso.h \
-    #../../src/qsodatacache.h \
     ../../src/frequency.h \
     ../../src/callsign.h \
     ../../src/utilities.h \
@@ -38,7 +37,6 @@ SOURCES +=  tst_mainwindowsattab.cpp \
     ../../src/database/datacache.cpp \
     ../../src/dataproxy_sqlite.cpp \
     ../../src/qso.cpp \
-    #../../src/qsodatacache.cpp \
     ../../src/frequency.cpp \
     ../../src/callsign.cpp \
     ../../src/utilities.cpp \

@@ -30,7 +30,6 @@ HEADERS += \
     ../../src/logmodel.h \
     ../../src/logwindow.h \
     ../../src/qso.h \
-    ##../../src/qsodatacache.h \
     ../../src/world.h \
     ../../src/utilities.h
 
@@ -50,7 +49,6 @@ SOURCES += tst_logwindow.cpp \
     ../../src/logmodel.cpp \
     ../../src/logwindow.cpp \
     ../../src/qso.cpp \
-    ##../../src/qsodatacache.cpp \
     ../../src/world.cpp \
     ../../src/utilities.cpp
 
