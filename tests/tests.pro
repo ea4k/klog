@@ -30,32 +30,28 @@
 
 TEMPLATE=subdirs
 SUBDIRS=\
-   tst_dxcluster \
-   tst_wizard \
    tst_adif \
    tst_callsign \
-   tst_dxspot \
-   tst_frequency \
-   tst_utilities \
-   tst_mainqsoentrywidget \
-   tst_mainwindowsattab \
-   tst_dataproxy \
-   tst_database \
    tst_datacache \
+   tst_database \
+   tst_dataproxy \
    tst_dxcluster \
    tst_dxspot \
    tst_elogclublog \
    tst_filemanager \
+   tst_frequency \
    tst_hamlib \
    tst_locator \
    tst_logwindow \
    tst_mainqsoentrywidget \
    tst_mainwindow \
-   tst_mainwindowinputqso \
    tst_mainwindowinputothers \
+   tst_mainwindowinputqso \
    tst_mainwindowsattab \
    tst_qso \
    tst_setuphamlibnetworkwidget \
    tst_setuphamlibserialwidget \
    tst_setuppageelog \
+   tst_utilities \
+   tst_wizard \
    tst_world
