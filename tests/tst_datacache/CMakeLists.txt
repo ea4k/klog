@@ -23,7 +23,6 @@ add_executable(tst_datacache
         ../../src/world.cpp
         ../../src/dataproxy_sqlite.cpp
         ../../src/qso.cpp
-        ../../src/qsodatacache.cpp
         ../../src/callsign.cpp
         ../../src/database/datacache.cpp
         ../../src/database/queryexecutor.cpp
@@ -43,7 +42,6 @@ add_executable(tst_datacache
     ../../src/world.h
     ../../src/dataproxy_sqlite.h
     ../../src/qso.h
-    ../../src/qsodatacache.h
     ../../src/callsign.h
     ../../src/utilities.h
 )

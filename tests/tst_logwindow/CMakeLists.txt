@@ -33,7 +33,6 @@ add_executable(tst_logwindow
     ../../src/logmodel.cpp
     ../../src/logwindow.cpp
     ../../src/qso.cpp
-    ../../src/qsodatacache.cpp
     ../../src/world.cpp
     ../../src/utilities.cpp
 
@@ -53,7 +52,6 @@ add_executable(tst_logwindow
     ../../src/logmodel.h
     ../../src/logwindow.h
     ../../src/qso.h
-    ../../src/qsodatacache.h
     ../../src/world.h
     ../../src/utilities.h
 )

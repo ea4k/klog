@@ -14,9 +14,6 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/qrc_.*\\.cpp$")
 
 file(GLOB TEST_HEADERS "*.h")
 
-// To select the dxcluster testing functions in Awards
-target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)
-
 add_executable(tst_dxcluster
     ${TEST_SOURCES}
     ../../src/adif.cpp
@@ -34,7 +31,6 @@ add_executable(tst_dxcluster
     ../../src/frequency.cpp
     ../../src/locator.cpp
     ../../src/qso.cpp
-    ../../src/qsodatacache.cpp
     ../../src/utilities.cpp
     ../../src/world.cpp
 
@@ -54,7 +50,6 @@ add_executable(tst_dxcluster
     ../../src/klogdefinitions.h
     ../../src/locator.h
     ../../src/qso.h
-    ../../src/qsodatacache.h
     ../../src/utilities.h
     ../../src/world.h
 )
