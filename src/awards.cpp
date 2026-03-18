@@ -270,15 +270,15 @@ int Awards::getWAZConfirmed(const int _logNumber)
     }
 }
 
-QColor Awards::getQRZDXStatusColor(EntityStatus _entitystatus)
+QColor Awards::getEntityStatusColor(EntityStatus _entitystatus)
 {
 
-  qDebug() << Q_FUNC_INFO << " - Start: " ;
-  qDebug() << Q_FUNC_INFO << " - Entityd: " << _entitystatus.dxcc;
-  qDebug() << Q_FUNC_INFO << " - BandId:  " << _entitystatus.bandId;
-  qDebug() << Q_FUNC_INFO << " - ModeId:  " << _entitystatus.modeId;
-  qDebug() << Q_FUNC_INFO << " - Status:  " << _entitystatus.status;
-  qDebug() << Q_FUNC_INFO << " - Log:     " << _entitystatus.logId;
+  //qDebug() << Q_FUNC_INFO << " - Start: " ;
+  //qDebug() << Q_FUNC_INFO << " - Entityd: " << _entitystatus.dxcc;
+  //qDebug() << Q_FUNC_INFO << " - BandId:  " << _entitystatus.bandId;
+  //qDebug() << Q_FUNC_INFO << " - ModeId:  " << _entitystatus.modeId;
+  //qDebug() << Q_FUNC_INFO << " - Status:  " << _entitystatus.status;
+  //qDebug() << Q_FUNC_INFO << " - Log:     " << _entitystatus.logId;
 
     switch (_entitystatus.status)
     {
@@ -653,7 +653,7 @@ int Awards::processQueryResults(QSqlQuery &query)
         if (updateOrAddEntityStatus(ent)) {
             dxccStatusList.append(ent);
         }
-        printEntityStatus(Q_FUNC_INFO, ent);
+        //printEntityStatus(Q_FUNC_INFO, ent);
     }
     return qsos;
 }
@@ -765,22 +765,22 @@ void Awards::printEntityStatus(const QString &_callingFunction, const EntityStat
    //Q_UNUSED(_callingFunction);
    // Q_UNUSED(ent);
 
-  //qDebug() << Q_FUNC_INFO << " ------------------------------------------------------------------------------------";
-  //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - DXCC   : " << ent.dxcc;
-  //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Band   : " << ent.bandId;
-  //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Mode   : " << ent.modeId;
-  //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - QSOid  : " << ent.qsoId;
-  //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - LogId  : " << ent.logId;
-  //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Status : " << status2String(ent.status);
+ //qDebug() << Q_FUNC_INFO << " ------------------------------------------------------------------------------------";
+ //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - DXCC   : " << ent.dxcc;
+ //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Band   : " << ent.bandId;
+ //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Mode   : " << ent.modeId;
+ //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - QSOid  : " << ent.qsoId;
+ //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - LogId  : " << ent.logId;
+ //qDebug() << Q_FUNC_INFO << " - " <<  _callingFunction << " - Status : " << status2String(ent.status);
 //qDebug() << Q_FUNC_INFO << " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 }
 
 void Awards::printColors(const QString &_callingFunction)
 {
-    qDebug() << Q_FUNC_INFO << " - " << _callingFunction;
-    qDebug() << Q_FUNC_INFO << " - newOneColor:    " << newOneColor.name(QColor::HexRgb);
-    qDebug() << Q_FUNC_INFO << " - neededColor:    " << neededColor.name(QColor::HexRgb);
-    qDebug() << Q_FUNC_INFO << " - workedColor:    " << workedColor.name(QColor::HexRgb);
-    qDebug() << Q_FUNC_INFO << " - confirmedColor: " << confirmedColor.name(QColor::HexRgb);
-    qDebug() << Q_FUNC_INFO << " - defaultColor:   " << defaultColor.name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " - " << _callingFunction;
+   //qDebug() << Q_FUNC_INFO << " - newOneColor:    " << newOneColor.name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " - neededColor:    " << neededColor.name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " - workedColor:    " << workedColor.name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " - confirmedColor: " << confirmedColor.name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " - defaultColor:   " << defaultColor.name(QColor::HexRgb);
 }

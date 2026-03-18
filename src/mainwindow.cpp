@@ -478,7 +478,7 @@ void MainWindow::init()
     //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
        //qDebug() << Q_FUNC_INFO << " - 100";
     slotClearButtonClicked(Q_FUNC_INFO);
-    qDebug() << Q_FUNC_INFO << " - 110";
+   //qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
        //qDebug() << Q_FUNC_INFO << " - 120";
 
@@ -2068,7 +2068,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
     currentEntity = world->getQRZARRLId(_qrz);
-    qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
+   //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
@@ -2099,7 +2099,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
-    awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
+    //awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
 
     Locator locator;
    //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
@@ -2130,7 +2130,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
 
         _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc , _entityStatus.bandId, _entityStatus.modeId);
-        awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
+        //awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
 
         showStatusOfDXCC(_entityStatus);
         showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
@@ -4714,7 +4714,7 @@ void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
      //qDebug() << Q_FUNC_INFO << " - 40";
 
     slotShowInfoLabel(message);
-    qDebug() << Q_FUNC_INFO << " - 10";
+   //qDebug() << Q_FUNC_INFO << " - 10";
     infoWidget->showInfo(_entityStatus.dxcc);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -5219,7 +5219,7 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     _entityStatus.dxcc   = world->getQRZARRLId(sp.getDxCall());
     _entityStatus.bandId = dataProxy->getBandIdFromFreq(sp.getFrequency().toDouble());
     _entityStatus.logId  = currentLog;
-    QColor spotColor = awards.getQRZDXStatusColor(_entityStatus);
+    QColor spotColor = awards.getEntityStatusColor(_entityStatus);
 
     mapWindow->addMarker(coord, sp.getDxCall(), spotColor, sp.getFrequency().toDouble());
     logEvent(Q_FUNC_INFO, "END", Debug);

@@ -305,7 +305,7 @@ void DXClusterWidget::slotClusterDataArrived()
 {
    //qDebug() << Q_FUNC_INFO;
     QString dxClusterString = tcpSocket->readAll().trimmed().simplified();
-    qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
+   //qDebug() << Q_FUNC_INFO << " - 010:" << dxClusterString;
 
     if (dxClusterString.endsWith("\x07\x07\r\n"))
     {
@@ -367,7 +367,7 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
         _entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
         _entityStatus.status = awards->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
 
-        dxSpotColor = awards->getQRZDXStatusColor(_entityStatus);
+        dxSpotColor = awards->getEntityStatusColor(_entityStatus);
 
 
         if (showDxMarathon && awards->isDXMarathonNeed(_entityStatus.dxcc, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog)) {
@@ -644,7 +644,7 @@ TypeOfDXSpot DXClusterWidget::parseReceivedData(const QString _stringSpot)
 
 DXSpot DXClusterWidget::readItem(const QString _stringSpot)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
+   //qDebug() << Q_FUNC_INFO << ": " << _stringSpot;
     DXSpot spot;
     spot.clear();
     spot.setDateTime(QDateTime::currentDateTimeUtc());

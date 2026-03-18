@@ -139,15 +139,20 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
      {
          if ( index.column() == 2 )
          {
+           //qDebug() << Q_FUNC_INFO << " - DXCC:   " << index.siblingAtColumn(dxcc).data();
+           //qDebug() << Q_FUNC_INFO << " - BandId: " << index.siblingAtColumn(bandid).data();
+           //qDebug() << Q_FUNC_INFO << " - ModeId: " << index.siblingAtColumn(modeid).data();
+
+
              EntityStatus _entityStatus;
             _entityStatus.dxcc      = index.siblingAtColumn(dxcc).data().toInt();
-            _entityStatus.bandId    = index.siblingAtColumn(bandid).data().toInt();
-            _entityStatus.modeId    = index.siblingAtColumn(modeid).data().toInt();
+            _entityStatus.bandId    = dataProxy->getIdFromBandName(index.siblingAtColumn(bandid).data().toString());
+            _entityStatus.modeId    = dataProxy->getIdFromModeName(index.siblingAtColumn(modeid).data().toString());
             _entityStatus.logId     = index.siblingAtColumn(logn).data().toInt();
             _entityStatus.status    = award->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
+            //award->printEntityStatus(Q_FUNC_INFO, _entityStatus);
+            return QVariant( award->getEntityStatusColor(_entityStatus) );
 
-            return QVariant( award->getQRZDXStatusColor(_entityStatus) );
-            // return QVariant( QColor( Qt::red ) );
          }
          return QVariant( QColor( Qt::black ) );
      }

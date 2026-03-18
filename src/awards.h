@@ -83,7 +83,7 @@ public:
     QString status2Message(const QSOStatus &_status);
 
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
-    QColor getQRZDXStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
+    QColor getEntityStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
     QColor getDefaultColor();
     QColor getColorFromStatus(const QSOStatus &_status);
 

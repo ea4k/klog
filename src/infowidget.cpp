@@ -342,7 +342,7 @@ void InfoWidget::clear()
 
 void InfoWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-    qDebug() << Q_FUNC_INFO;
+   //qDebug() << Q_FUNC_INFO;
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
     clearBandLabels();
 }
@@ -372,7 +372,7 @@ void InfoWidget::setImperialSystem (const  bool _imp)
 
 QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _entityId)
 {
-    qDebug() << Q_FUNC_INFO << " - BandId/Entity: " << _bandId << "/" << _entityId;
+   //qDebug() << Q_FUNC_INFO << " - BandId/Entity: " << _bandId << "/" << _entityId;
     if (_entityId <= 0 || _bandId <= 0)
     {
         return "* { background-color: " + awards->getDefaultColor().name(QColor::HexRgb) + "; }";
@@ -380,8 +380,8 @@ QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _e
 
     const QSOStatus status = awards->getQSOStatus(_entityId, _bandId, -1);     //- -1 just to match bands, no modes
 
-    qDebug() << Q_FUNC_INFO << " -            Status: " << status;
-    qDebug() << Q_FUNC_INFO << " - Color from Status: " << awards->getColorFromStatus(status).name(QColor::HexRgb);
+   //qDebug() << Q_FUNC_INFO << " -            Status: " << status;
+   //qDebug() << Q_FUNC_INFO << " - Color from Status: " << awards->getColorFromStatus(status).name(QColor::HexRgb);
 
     return "* { background-color: " + awards->getColorFromStatus(status).name(QColor::HexRgb) + "; }";
 }
@@ -392,7 +392,7 @@ void InfoWidget::showInfo(const int _entity)
 { // Default values of _modeid & _log = -1
     //qDebug() << Q_FUNC_INFO << " - Start";
     //qDebug() << Q_FUNC_INFO << ": " << QString::number(_entity);
-    // qColor getQRZDXStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
+    // qColor getEntityStatusColor(const QStringList _qs); // Receives Entity, band, mode & log
     if (_entity <1)
     {
         //qDebug() << Q_FUNC_INFO << ": entity <1";
