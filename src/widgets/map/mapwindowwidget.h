@@ -49,7 +49,8 @@ public:
     void addLocator(const QString &_loc, const QColor &_color);
     void addLocators(const QStringList &_locators, const QColor &_color);
     void appendLocators(const QStringList &_locators, const QColor &_color);
-    void setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default);
+    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
+    //void setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color, double frequencyMHz = 0.0);
     void clearMarkers();
     void setSpotExpiryMinutes(int minutes);
@@ -82,6 +83,7 @@ private:
     QColor workedColor;
     QColor confirmedColor;
     QColor defaultColor;
+    QColor newOneColor, neededColor;
 };
 
 #endif // MAPWINDOWWIDGET_H

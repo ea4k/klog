@@ -492,8 +492,9 @@ private:
     StatisticsWidget *statsWidget;
     std::unique_ptr<DXCCStatusWidget> dxccStatusWidget; // Defined like this to send the same award instance
     std::unique_ptr<DXClusterWidget> dxClusterWidget;   // Defined like this to send the same award instance
-    std::unique_ptr<SearchWidget> searchWidget;        // Defined like this to send the same award instance
-    std::unique_ptr<LogWindow> logWindow;        // Defined like this to send the same award instance
+    std::unique_ptr<SearchWidget> searchWidget;         // Defined like this to send the same award instance
+    std::unique_ptr<LogWindow> logWindow;               // Defined like this to send the same award instance
+    std::unique_ptr<InfoWidget> infoWidget;               // Defined like this to send the same award instance
 
 
      //DXClusterWidget *dxClusterWidget;
@@ -631,7 +632,7 @@ private:
 
     AwardsWidget *awardsWidget;
     //SearchWidget *searchWidget;
-    InfoWidget *infoWidget;
+    //InfoWidget *infoWidget;
 
     //AdvancedSearchWidget *advancedSearchWidget;
 

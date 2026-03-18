@@ -26,14 +26,13 @@
 
 #include "infowidget.h"
 
-InfoWidget::InfoWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) :
-    QWidget(parent)
+InfoWidget::InfoWidget(Awards *awards, World *injectedWorld, QWidget *parent) :
+    QWidget(parent),
+    awards(awards) // Initialize Awards reference
 {
-       //qDebug() << "InfoWidget::InfoWidget: "  ;
-    dataProxy = dp;
+    //qDebug() << Q_FUNC_INFO << " - Start";
+    dataProxy = awards->dataProxy;
     world = injectedWorld;
-    awards = new Awards(dataProxy, world, Q_FUNC_INFO); //Just to know colors
-
     locator = new Locator();
     //world = new World(dataProxy, Q_FUNC_INFO);
 
@@ -343,6 +342,7 @@ void InfoWidget::clear()
 
 void InfoWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
+    qDebug() << Q_FUNC_INFO;
     awards->setColors (_newOne, _needed, _worked, _confirmed, _default);
     clearBandLabels();
 }
@@ -371,13 +371,18 @@ void InfoWidget::setImperialSystem (const  bool _imp)
 }
 
 QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _entityId)
-{ // Receives band name, Entity number (as a String)
-   //qDebug() << Q_FUNC_INFO << ": " << _b << "/" << _q;
-
+{
+    qDebug() << Q_FUNC_INFO << " - BandId/Entity: " << _bandId << "/" << _entityId;
     if (_entityId <= 0 || _bandId <= 0)
+    {
         return "* { background-color: " + awards->getDefaultColor().name(QColor::HexRgb) + "; }";
+    }
 
-    const QSOStatus status = awards->getDXCCStatusBand(_entityId, _bandId);
+    const QSOStatus status = awards->getQSOStatus(_entityId, _bandId, -1);     //- -1 just to match bands, no modes
+
+    qDebug() << Q_FUNC_INFO << " -            Status: " << status;
+    qDebug() << Q_FUNC_INFO << " - Color from Status: " << awards->getColorFromStatus(status).name(QColor::HexRgb);
+
     return "* { background-color: " + awards->getColorFromStatus(status).name(QColor::HexRgb) + "; }";
 }
 

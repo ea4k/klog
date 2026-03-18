@@ -84,7 +84,7 @@ struct EntityStatus { // Used to pass a list of data from Awards to dxccstatuswi
     int dxcc            = -1;
     int bandId          = -1;
     int modeId          = -1;
-    QSOStatus status    = {};   // status of this Entity in this band
+    QSOStatus status    = unknown;   // status of this Entity in this band & mode
     int qsoId           = -1;   // QSOid that provides this status
     int logId           = -1;   // Log where we are checking the status (TODO: This may be redundant as the qsoId may be used to get the log)
 };

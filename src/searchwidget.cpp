@@ -688,12 +688,12 @@ void SearchWidget::slotToolSearchNeededQSLRequested()
     searchWindow->slotToolSearchQSL(3);
 }
 
-void SearchWidget::setColors(const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
-{
+//void SearchWidget::setColors(const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+//{
    //qDebug() << Q_FUNC_INFO << " -  " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
     // Just to pass the colors to the awards class
-    searchWindow->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
-}
+    //searchWindow->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
+//}
 
 void SearchWidget::refresh()
 {

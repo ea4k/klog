@@ -35,13 +35,14 @@
  *
  * Fix:
  *   1. _entityStatus.status is now set via
- *      awards->getQSOStatus(awards->getDXStatus(_entityStatus))
+ *      awards->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId)
  *      after computing the spot colour.
  *   2. A missing `showworked` check was added to checkIfNeedsToBePrinted().
  *
  * These tests verify:
- *   A) Awards::getQSOStatus() correctly maps the integer returned by
- *      getDXStatus() to the QSOStatus enum, especially that 13 → confirmed.
+ *   A) Awards::getQSOStatus(dxcc, band, mode) correctly returns the right
+ *      QSOStatus by querying dxccStatusList, especially that a confirmed
+ *      entry returns confirmed (KEY for issue #886).
  *   B) DXClusterWidget::checkIfNeedsToBePrinted() filters confirmed spots
  *      when showconfirmed is false, and shows them when it is true.
  *   C) Same behaviour for worked spots and the showworked flag.
@@ -80,7 +81,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
 
-    // A) Awards::getQSOStatus() mapping — the function added to the fix
+    // A) Awards::getQSOStatus(dxcc, band, mode) — queries dxccStatusList
     void test_getQSOStatusMapping();
     void test_getQSOStatusMapping_data();
 
@@ -192,40 +193,94 @@ EntityStatus tst_DXCluster::makeStatus(QSOStatus status) const
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// A) Awards::getQSOStatus() mapping
+// A) Awards::getQSOStatus(dxcc, band, mode)
+//
+// The old API tested getDXStatus(int) → getQSOStatus(int), a chain that no
+// longer exists.  The new function queries dxccStatusList directly, so the
+// tests populate it via the KLOG_TESTING injection helpers and then verify
+// the output for each relevant combination.
+//
+// Required in awards.h (inside #ifdef KLOG_TESTING):
+//   void injectStatusForTest(const EntityStatus &es) { dxccStatusList.append(es); }
+//   void clearStatusForTest()                        { dxccStatusList.clear();    }
+//
+// Required in the test build system:
+//   CMake:  target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)
+//   qmake:  DEFINES += KLOG_TESTING
 // ─────────────────────────────────────────────────────────────────────────────
 
 void tst_DXCluster::test_getQSOStatusMapping_data()
 {
-    QTest::addColumn<int>("dxStatusInt");
+    QTest::addColumn<int>("dxcc");
+    QTest::addColumn<int>("band");
+    QTest::addColumn<int>("mode");
+    QTest::addColumn<int>("seedStatus");        // QSOStatus injected into the list
     QTest::addColumn<int>("expectedQsoStatus");
 
-    // The integer codes come from Awards::getDXStatus() comments.
-    // The critical mapping for issue #886 is 13 → confirmed.
-    QTest::newRow("0  → ATNO")      << 0  << static_cast<int>(ATNO);
-    QTest::newRow("1  → needed")    << 1  << static_cast<int>(needed);
-    QTest::newRow("2  → needed")    << 2  << static_cast<int>(needed);
-    QTest::newRow("3  → worked")    << 3  << static_cast<int>(worked);
-    QTest::newRow("4  → needed")    << 4  << static_cast<int>(needed);
-    QTest::newRow("5  → needed")    << 5  << static_cast<int>(needed);
-    QTest::newRow("6  → needed")    << 6  << static_cast<int>(needed);
-    QTest::newRow("7  → needed")    << 7  << static_cast<int>(needed);
-    QTest::newRow("8  → worked")    << 8  << static_cast<int>(worked);
-    QTest::newRow("9  → needed")    << 9  << static_cast<int>(needed);
-    QTest::newRow("10 → worked")    << 10 << static_cast<int>(worked);
-    QTest::newRow("11 → needed")    << 11 << static_cast<int>(needed);
-    QTest::newRow("12 → worked")    << 12 << static_cast<int>(worked);
-    QTest::newRow("13 → confirmed") << 13 << static_cast<int>(confirmed); // KEY: #886
-    QTest::newRow("-1 → unknown")   << -1 << static_cast<int>(unknown);
-    QTest::newRow("99 → unknown")   << 99 << static_cast<int>(unknown);
+    // The seed entry always has dxcc=1, bandId=3, modeId=1.
+    // Cases that query a different combination test the ATNO / needed paths.
+
+    // ── Invalid parameters ────────────────────────────────────────────────
+    QTest::newRow("invalid dxcc=0 → unknown")
+        << 0 << 3 << 1 << static_cast<int>(worked) << static_cast<int>(unknown);
+    QTest::newRow("invalid band=0 → unknown")
+        << 1 << 0 << 1 << static_cast<int>(worked) << static_cast<int>(unknown);
+
+    // ── Entity not in list ────────────────────────────────────────────────
+    QTest::newRow("unknown entity → ATNO")
+        << 999 << 3 << 1 << static_cast<int>(worked) << static_cast<int>(ATNO);
+
+    // ── Entity present, wrong band ────────────────────────────────────────
+    QTest::newRow("entity ok, wrong band → needed")
+        << 1 << 99 << 1 << static_cast<int>(worked) << static_cast<int>(needed);
+
+    // ── Entity+band present, wrong mode ───────────────────────────────────
+    QTest::newRow("entity+band ok, wrong mode → needed")
+        << 1 << 3 << 99 << static_cast<int>(worked) << static_cast<int>(needed);
+
+    // ── Exact match ───────────────────────────────────────────────────────
+    QTest::newRow("exact match worked → worked")
+        << 1 << 3 << 1 << static_cast<int>(worked) << static_cast<int>(worked);
+
+    // KEY for issue #886: confirmed entry must return confirmed
+    QTest::newRow("exact match confirmed → confirmed")
+        << 1 << 3 << 1 << static_cast<int>(confirmed) << static_cast<int>(confirmed);
+
+    // ── Mode ignored (mode < 0) ───────────────────────────────────────────
+    QTest::newRow("mode=-1 (ignored), worked → worked")
+        << 1 << 3 << -1 << static_cast<int>(worked) << static_cast<int>(worked);
+    QTest::newRow("mode=-1 (ignored), confirmed → confirmed")
+        << 1 << 3 << -1 << static_cast<int>(confirmed) << static_cast<int>(confirmed);
 }
 
 void tst_DXCluster::test_getQSOStatusMapping()
 {
-    QFETCH(int, dxStatusInt);
+    QFETCH(int, dxcc);
+    QFETCH(int, band);
+    QFETCH(int, mode);
+    QFETCH(int, seedStatus);
     QFETCH(int, expectedQsoStatus);
 
-    QSOStatus result = awards->getQSOStatus(dxStatusInt);
+    // Populate dxccStatusList with one known entry: dxcc=1, bandId=3, modeId=1.
+    // Cases that query a different dxcc / band / mode will miss the entry and
+    // exercise the ATNO / needed branches.
+    awards->clearStatusForTest();
+
+    // Do not inject for the "unknown entity" case (dxcc=999 would never match
+    // the seed dxcc=1 anyway, but skipping keeps the intent explicit).
+    if (dxcc > 0 && band > 0)
+    {
+        EntityStatus seed;
+        seed.dxcc   = 1;
+        seed.bandId = 3;
+        seed.modeId = 1;
+        seed.logId  = 1;
+        seed.qsoId  = 1;
+        seed.status = static_cast<QSOStatus>(seedStatus);
+        awards->injectStatusForTest(seed);
+    }
+
+    QSOStatus result = awards->getQSOStatus(dxcc, band, mode);
     QCOMPARE(static_cast<int>(result), expectedQsoStatus);
 }
 
@@ -247,7 +302,7 @@ void tst_DXCluster::test_confirmedSpotFilteredWhenFlagDisabled()
         /*showann*/     true,
         /*showwwv*/     true,
         /*showwcy*/     true
-    );
+        );
 
     EntityStatus es = makeStatus(confirmed);
     QVERIFY2(!widget->checkIfNeedsToBePrinted(es),
@@ -273,7 +328,7 @@ void tst_DXCluster::test_workedSpotFilteredWhenFlagDisabled()
         true, true, true,
         /*showworked*/ false,   // <-- the flag under test
         true, true, true, true
-    );
+        );
 
     EntityStatus es = makeStatus(worked);
     QVERIFY2(!widget->checkIfNeedsToBePrinted(es),
@@ -337,7 +392,7 @@ void tst_DXCluster::test_otherStatusesAlwaysShown()
         /*showworked*/    false,
         /*showconfirmed*/ false,
         true, true, true
-    );
+        );
 
     QFETCH(int, status);
     EntityStatus es = makeStatus(static_cast<QSOStatus>(status));

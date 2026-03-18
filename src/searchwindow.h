@@ -71,7 +71,7 @@ public:
     QList<int> getSelectedQSOs();
     void setNeedingQSL(bool const _q);
     void slotToolSearchQSL(const int actionQSL);
-    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
+    //void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
 
 
 

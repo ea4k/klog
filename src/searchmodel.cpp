@@ -105,7 +105,6 @@ This should be coherent with the treeview
     QString stringQuery = QString("lognumber='%1'").arg(_i);
     QSqlQuery query(stringQuery);
     setFilter(stringQuery);
-    //setColumnsToDX();
     select();
 }
 
@@ -113,67 +112,6 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
 {
     stationCallsignInHeader = _s;
 }
-
-/*
- void SearchModel::setColumnsToDX()
- {
-        //qDebug() << "SearchModel::setColumnsToDX" ;
-
-     QSqlQuery q;
-
-     // qString stringQuery = QString("SELECT call, qso_date, bandid, modeid, qsl_sent, qsl_rcvd, station_callsign, id FROM log LIMIT 1");
-     QString stringQuery = QString("SELECT * FROM log _dateLIMIT 1");
-
-     QSqlRecord rec; // = q.record();
-
-     int nameCol;
-
-     bool sqlOK = q.exec(stringQuery);
-     if (!sqlOK)
-     {
-         emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().nativeErrorCode(), q.lastQuery());
-
-     }
-    q.next();
-    rec = q.record(); // Number of columns
-    //qDebug() << "SearchModel::createSearchModel - query: " << q.lastQuery();
-    //qDebug() << "SearchModel::createSearchModel - columns: " << QString::number(rec.count());
-
-     nameCol = rec.indexOf("bandid");
-     setRelation(nameCol, QSqlRelation("band", "id", "name"));
-
-     nameCol = rec.indexOf("modeid");
-     setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
-
-     nameCol = rec.indexOf("qso_date");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Date/Time"));
-
-     nameCol = rec.indexOf("call");
-     setHeaderData(nameCol, Qt::Horizontal,tr("Call"));
-
-     nameCol = rec.indexOf("bandid");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Band"));
-
-     nameCol = rec.indexOf("modeid");
-     setHeaderData(nameCol, Qt::Horizontal, tr("Mode"));
-
-     nameCol = rec.indexOf("qsl_sent");
-     setHeaderData(nameCol, Qt::Horizontal, tr("QSL Sent"));
-
-     nameCol = rec.indexOf("qsl_rcvd");
-     setHeaderData(nameCol, Qt::Horizontal, tr("QSL Rcvd"));
-    if (stationCallsignInHeader)
-    {
-        nameCol = rec.indexOf("station_callsign");
-        setHeaderData(nameCol, Qt::Horizontal, tr("Station Callsign"));
-    }
-
-     nameCol = rec.indexOf("id");
-     //setHeaderData(nameCol, Qt::Horizontal, tr("ID"));
-
-     setSort(nameCol, Qt::AscendingOrder);
- }
-*/
 
 void SearchModel::setFilterString(const QString &_st)
  {
@@ -188,12 +126,12 @@ void SearchModel::setFilterString(const QString &_st)
      select();
  }
 
- void SearchModel::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
- {
+// void SearchModel::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+// {
         //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
      // Just to pass the colors to the awards class
-     award->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
- }
+//     award->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
+// }
 
 QVariant SearchModel::data( const QModelIndex &index, int role ) const
  {
@@ -202,10 +140,11 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
          if ( index.column() == 2 )
          {
              EntityStatus _entityStatus;
-            _entityStatus.dxcc  = index.siblingAtColumn(dxcc).data().toInt();
+            _entityStatus.dxcc      = index.siblingAtColumn(dxcc).data().toInt();
             _entityStatus.bandId    = index.siblingAtColumn(bandid).data().toInt();
             _entityStatus.modeId    = index.siblingAtColumn(modeid).data().toInt();
-            _entityStatus.logId       = index.siblingAtColumn(logn).data().toInt();
+            _entityStatus.logId     = index.siblingAtColumn(logn).data().toInt();
+            _entityStatus.status    = award->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
 
             return QVariant( award->getQRZDXStatusColor(_entityStatus) );
             // return QVariant( QColor( Qt::red ) );

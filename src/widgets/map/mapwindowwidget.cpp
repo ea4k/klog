@@ -53,9 +53,11 @@ MapWindowWidget::~MapWindowWidget()
 void MapWindowWidget::init()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    workedColor = Qt::black;
-    confirmedColor = Qt::black;
-    defaultColor = Qt::black;
+    workedColor     = Qt::black;
+    confirmedColor  = Qt::black;
+    defaultColor    = Qt::black;
+    newOneColor     = Qt::black;
+    neededColor     = Qt::black;
     createUI();
     QSettings settings;
     int expiryMin = settings.value("SpotExpiryMinutes", 15).toInt();
@@ -412,13 +414,15 @@ void MapWindowWidget::paintGlobalGrid()
     //qDebug() << Q_FUNC_INFO << " - Start";
     //qDebug() << Q_FUNC_INFO << " - END";
 }
-
-void MapWindowWidget::setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+void MapWindowWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+//void MapWindowWidget::setColors (const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    defaultColor = _default;
-    workedColor = _worked;
-    confirmedColor = _confirmed;
+    defaultColor    = _default;
+    workedColor     = _worked;
+    confirmedColor  = _confirmed;
+    newOneColor     = _newOne;
+    neededColor     = _needed;
     //qDebug() << " - DefaultColor: " << defaultColor.name(QColor::HexRgb);
     //qDebug() << " - WorkedColor: " << workedColor.name(QColor::HexRgb);
     //qDebug() << " - ConfirmedColor: " << confirmedColor.name(QColor::HexRgb);

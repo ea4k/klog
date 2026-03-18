@@ -37,7 +37,6 @@
 #include <QStringList>
 #include <QVariant>
 #include <QtGlobal>
-
 #include "world.h"
 #include "awarddxmarathon.h"
 #include "dataproxy_sqlite.h"
@@ -71,23 +70,17 @@ public:
     QList<EntityStatus> findEntityStatusByDXCC(int dxcc) const;
 
 
-    int getQSOsInLog(const int _logNumber);
-
     bool getIsDXCCConfirmed(const int _dxcc, const int _logNumber);
 
     QString checkIfValidIOTA(const QString &_tiota); //TODO: There is an equivalent function in the MainWindowInputOthers class. I should use only one!
 
-    int getEntityDXStatus (const int _enti, const int _bandid, int _modeid = -1, int _log = -1);
-    QString getQSOofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
-    int getQSOIdofAward (const int _enti, const int _bandid, const int _log, const bool _confirmed);
+    QString getQSOofAward (const int _enti, const int _bandid, const int _modeid, const int _log, const bool _confirmed);
+    int getQSOIdofAward (const int _enti, const int _bandid, const int _modeid, const int _log, const bool _confirmed);
 
-    int getDXStatus (EntityStatus _entitystatus);
-    QSOStatus getQSOStatus(const int &_status); // Needs to be called with the output of getDXStatus)
-    QString getDXStatusString (const int &_status); // Needs to be called with the output of getDXStatus
-
-
-    QSOStatus getDXCCStatusBand(const int _dxcc, const int _band);
+    //KLOG_DEPRECATED QSOStatus getDXCCStatusBand(const int _dxcc, const int _band);
+    QSOStatus getQSOStatus(const int _dxcc, const int _band, const int _mode);
     QString status2String(const QSOStatus &_status, bool shortString = true);             //TODO: Just for debug
+    QString status2Message(const QSOStatus &_status);
 
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     QColor getQRZDXStatusColor(EntityStatus _entitystatus); // Receives Entity, band, mode & log
@@ -99,6 +92,13 @@ public:
     int getDXMarathonCQ(const int _year, const int _logNumber);
     int getDXMarathonScore(const int _year, const int _logNumber);
     bool isDXMarathonNeed(const int _dxcc, const int _cq, const int _year, const int _logNumber);
+    void printEntityStatus(const QString &_callingFunction, const EntityStatus &ent);   // DEBUG only function prints to console
+    void printColors(const QString &_callingFunction);                                                                 // DEBUG only function prints to console
+
+#ifdef KLOG_TESTING
+    void injectStatusForTest(const EntityStatus &es) { dxccStatusList.append(es); }
+    void clearStatusForTest()                        { dxccStatusList.clear();    }
+#endif
 
     // Receives:  QStringList _qs;
     //_qs << QRZ << BandId << lognumber;
@@ -122,17 +122,17 @@ private:
     int setDXCCToQSO(const int _dxcc, const int _qsoid); // Defines the DXCC in a QSO
     int setCQToQSO(const int _cqz, const int _qsoid); // Defines the CQ zone in a QSO
 
-    int dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode); //-1 error / 0 Not worked / 1 worked / 2 confirmed
-    int dxccStatus(const int _ent, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    //int dxccStatusBandMode(const int _ent, const int _band, const int _mode, const int _logNumber, bool _checkingMode); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    //int dxccStatus(const int _ent, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
 
     bool executeQuery(QSqlQuery &query, const QString &stringQuery);    //Executes queries
 
     int processQueryResults(QSqlQuery &query);
-    QSOStatus getStatus(const QSqlQuery &query, const QSqlRecord &rec);     // Gets the status
+    QSOStatus getStatus(const QSqlQuery &query, const QSqlRecord &rec);     // Gets the _status
     void populateDXCCStatusMap();
     bool updateOrAddEntityStatus(const EntityStatus &ent);                  // Adds a new EntityStatus to the list or modifies a current status
     EntityStatus extractEntityStatus(QSqlQuery &query);                     // Extract an entity status from the query
-    void printEntityStatus(const QString &_callingFunction, const EntityStatus &ent);   // DEBUG only function prints to console
+
     /*
     _confirmed = 0     Set as Worked
     _cConfirmed = 1     Set as Confirmed
@@ -140,8 +140,8 @@ private:
 
 
     /**/
-    int dxccStatusBand(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
-    int dxccStatusMode(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    //int dxccStatusBand(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
+    //int dxccStatusMode(const int _ent, const int band, const int _logNumber); //-1 error / 0 Not worked / 1 worked / 2 confirmed
     /**/
 
     //int setAwardWAZst(const int _cqz, const int _band, const int _mode, const bool _confirmed, const int _logNumber, const int _qsoId);

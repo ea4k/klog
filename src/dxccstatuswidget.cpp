@@ -252,8 +252,10 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     for (int i=0; i < _ent.length()-1; i++)
     {
        //qDebug() << Q_FUNC_INFO << ": " << entity.mainprefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
-        int bandid = _ent.at(i);
-        QSOStatus qsoStatus = awards->getDXCCStatusBand(_dxcc, bandid);
+        int bandId = _ent.at(i);
+        int modeId = -1;            // TODO: Add a proposed mode, if possible.        
+        QSOStatus qsoStatus = awards->getQSOStatus(_dxcc, bandId, modeId);
+        //QSOStatus qsoStatus = awards->getDXCCStatusBand(_dxcc, bandid);
         QString qsoStatusString = awards->status2String(qsoStatus);
         if ((qsoStatus != QSOStatus::confirmed) && (qsoStatus != QSOStatus::worked))
             qsoStatusString = "-";
@@ -544,14 +546,15 @@ void DXCCStatusWidget::refresh()
                 QString band = dxccView->horizontalHeaderItem(column)->text();
                    //qDebug() << Q_FUNC_INFO << " - band: " << band;
                 int bandi = dataProxy->getIdFromBandName(band);
+                int modeId = -1;                //TODO: Add a proposed mode
                    //qDebug() << Q_FUNC_INFO << " - band: " << QString::number(bandi);
                 if (item->text() == "C")
                 {
-                    tip = awards->getQSOofAward(entiID, bandi, logNumber, true);
+                    tip = awards->getQSOofAward(entiID, bandi, modeId, logNumber, true);
                 }
                 else
                 {
-                    tip = awards->getQSOofAward(entiID, bandi, logNumber, false);
+                    tip = awards->getQSOofAward(entiID, bandi, modeId, logNumber, false);
                 }
 
                    //qDebug() << Q_FUNC_INFO << " - tip: " << tip;
@@ -582,8 +585,8 @@ void DXCCStatusWidget::refresh()
 void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
 {
     emit debugLog (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: " << ((item->data(0)).toString()).simplified();
-    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: " << item->text();
+    //qDebug() << Q_FUNC_INFO << ": " << ((item->data(0)).toString()).simplified();
+    //qDebug() << Q_FUNC_INFO << ": " << item->text();
    //qDebug() << Q_FUNC_INFO << " - Start";
     if (dxccView->rowCount()<1)
     {
@@ -602,12 +605,12 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
 
     QTableWidgetItem * it = new QTableWidgetItem(0);
 
-    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - Columns: " << QString::number(columns) ;
+    //qDebug() << Q_FUNC_INFO << ": - Columns: " << QString::number(columns) ;
 
     if (item)
     {
         row = dxccView->row(item);
-        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - row: "  << QString::number(row);
+        //qDebug() << Q_FUNC_INFO << ": - row: "  << QString::number(row);
 
         _entiNumb= dataProxy->getEntityIdFromMainPrefix(dxccView->item(dxccView->row(item),0)->text());
         if (_entiNumb<0)
@@ -615,47 +618,48 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
             _entiNumb= dataProxy->getEntityIdFromMainPrefix("*" + dxccView->item(dxccView->row(item),0)->text());
         }
        //_entiNumb = ((dxccView->item(row,0))->text()).toInt();
-          //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - EntityNumber: " << QString::number(_entiNumb);
+          //qDebug() << Q_FUNC_INFO << ": - EntityNumber: " << QString::number(_entiNumb);
 
        for (int i = 2; i < columns; ++i)
        {
-            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column: "  << QString::number(i);
-            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column header: " << (dxccView->horizontalHeaderItem(i))->text();
+            //qDebug() << Q_FUNC_INFO << ": - column: "  << QString::number(i);
+            //qDebug() << Q_FUNC_INFO << ": - column header: " << (dxccView->horizontalHeaderItem(i))->text();
             //entityName = (dxccView->item(row,i))->text() ;
-              //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - item: " ;
+              //qDebug() << Q_FUNC_INFO << ": - item: " ;
 
             it->setText(dxccView->item(row,i)->text());
-            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - column-txt: "  << it->text();
+            //qDebug() << Q_FUNC_INFO << ": - column-txt: "  << it->text();
 
             QString band = dxccView->horizontalHeaderItem(i)->text();
-            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << band;
+            //qDebug() << Q_FUNC_INFO << ": band: " << band;
             int bandi = dataProxy->getIdFromBandName(band);
-            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: band: " << QString::number(bandi);
+            int modeId = -1;    //TODO: Add a mode if possible
+            //qDebug() << Q_FUNC_INFO << ": band: " << QString::number(bandi);
             int qsoId = -1;
           if (item->text() == "C")
           {
-            qsoId = awards->getQSOIdofAward(_entiNumb, bandi, logNumber, true);
+            qsoId = awards->getQSOIdofAward(_entiNumb, bandi, modeId, logNumber, true);
           }
           else
           {
-            qsoId = awards->getQSOIdofAward(_entiNumb, bandi, logNumber, false);
+            qsoId = awards->getQSOIdofAward(_entiNumb, bandi, modeId, logNumber, false);
           }
 
-          //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: QSOid: " << QString::number(qsoId);
+          //qDebug() << Q_FUNC_INFO << ": QSOid: " << QString::number(qsoId);
           if (qsoId>0)
           {
               qsos.append(qsoId);
           }
         }
-        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of for" ;
+        //qDebug() << Q_FUNC_INFO << ": - END of for" ;
         if (!qsos.isEmpty())
         {
-            //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - qsos.length = " << QString::number(qsos.length()) ;
+            //qDebug() << Q_FUNC_INFO << ": - qsos.length = " << QString::number(qsos.length()) ;
             emit showQsos(qsos);
         }
-        //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: - END of column == 1" ;
+        //qDebug() << Q_FUNC_INFO << ": - END of column == 1" ;
     }
-    //qDebug() << "DXCCStatusWidget::slotItemDoubleClicked: END ";
+    //qDebug() << Q_FUNC_INFO << ": END ";
 }
 
 void DXCCStatusWidget::setMyLocator(const QString &_loc)

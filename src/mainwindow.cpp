@@ -53,6 +53,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     dxClusterWidget = std::make_unique<DXClusterWidget>(&awards, world, this);
     searchWidget = std::make_unique<SearchWidget>(&awards, world, this);
     logWindow = std::make_unique<LogWindow>(&awards, this);
+    infoWidget = std::make_unique<InfoWidget>(&awards, world, this);
 
    //qDebug() << " 001: " << timer.elapsed() << "ms"; timer.restart();
 
@@ -114,7 +115,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
-    infoWidget = new InfoWidget(dataProxy, world, this);
+
    //qDebug() << " 016 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
      //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
@@ -477,7 +478,7 @@ void MainWindow::init()
     //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
        //qDebug() << Q_FUNC_INFO << " - 100";
     slotClearButtonClicked(Q_FUNC_INFO);
-       //qDebug() << Q_FUNC_INFO << " - 110";
+    qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
        //qDebug() << Q_FUNC_INFO << " - 120";
 
@@ -2067,7 +2068,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     //qDebug()<< Q_FUNC_INFO << ": currentQRZ: " <<_qrz ;
 
     currentEntity = world->getQRZARRLId(_qrz);
-   //qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
+    qDebug()<< Q_FUNC_INFO << " - 50 - currentEntity: " << QString::number(currentEntity) ;
 
     logEvent(Q_FUNC_INFO, QString("Entity: %1").arg(currentEntity), Devel);
 
@@ -2098,6 +2099,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
+    awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
+
     Locator locator;
    //qDebug()<< Q_FUNC_INFO << ": 60 - currentEntity: " << QString::number(currentEntity) ;
     if ( locator.isValidLocator(QSOTabWidget->getDXLocator()))
@@ -2114,8 +2117,8 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
    //qDebug()<< Q_FUNC_INFO << " - c_qrz        : " << _qrz;
     othersTabWidget->setEntityAndPrefix(currentEntity, _qrz);
 
-         //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
-         //qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
+    //qDebug()<< Q_FUNC_INFO << ": Going to check the DXCC" ;
+    //qDebug()<< Q_FUNC_INFO << ": current/previous" << QString::number(currentEntity) << "/" << QString::number(previousEntity) ;
     if  ( (currentEntity != previousEntity) || ((infoLabel2->text()).length() < 1) || (InValidCharsInPrevCall) || (dx_CQz != dxE_CQz) || (dx_ITUz != dxE_ITUz))
     {
          //qDebug()<< Q_FUNC_INFO << ": currentEntity=" << QString::number(currentEntity) << "/previousEntity=" << QString::number(previousEntity)  ;
@@ -2125,7 +2128,9 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         infoLabel2->setText(world->getEntityName(currentEntity));
         infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
-         //qDebug()<< Q_FUNC_INFO << ": 70";
+
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc , _entityStatus.bandId, _entityStatus.modeId);
+        awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
 
         showStatusOfDXCC(_entityStatus);
         showDXMarathonNeeded(currentEntity, dx_CQz, mainQSOEntryWidget->getDate().year(), currentLog);
@@ -3578,15 +3583,15 @@ void MainWindow::slotOpenWiki()
 
 void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
 {
-    //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb) ;
-    //                             " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb) <<
-    //                            " / Default: " << _default.name(QColor::HexRgb);
-    searchWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
-    awards.setColors (_newOne, _needed, _worked, _confirmed, _default);
-    mapWindow->setColors (_worked, _confirmed, _default);
-    dxClusterWidget->setColors (_newOne, _needed, _worked, _confirmed, _default);
-    infoWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
-    dxccStatusWidget->setColors(_newOne, _needed, _worked, _confirmed, _default);
+    //qDebug() << Q_FUNC_INFO <<  "Confirmed: " << _newOne.name(QColor::HexRgb) << " /  Needed: " << _needed.name(QColor::HexRgb)
+    //                             << " / Worked: " << _worked.name(QColor::HexRgb) << " / Confirmed: " << _confirmed.name(QColor::HexRgb)
+    //                            << " / Default: " << _default.name(QColor::HexRgb);
+    //searchWidget->setColors     (_newOne, _needed, _worked, _confirmed, _default);
+    awards.setColors            (_newOne, _needed, _worked, _confirmed, _default);
+    mapWindow->setColors        (_newOne, _needed, _worked, _confirmed, _default);
+    dxClusterWidget->setColors  (_newOne, _needed, _worked, _confirmed, _default);
+    infoWidget->setColors       (_newOne, _needed, _worked, _confirmed, _default);
+    dxccStatusWidget->setColors (_newOne, _needed, _worked, _confirmed, _default);
 }
 
 bool MainWindow::applySettings()
@@ -3886,7 +3891,7 @@ void MainWindow::createUIDX()
     infoLabel1->setAlignment(Qt::AlignCenter);
     infoLabel2->setAlignment(Qt::AlignCenter);
 
-    dxUpRightTab->addTab(infoWidget, tr("Info"));
+    dxUpRightTab->addTab(infoWidget.get(), tr("Info"));
       //qDebug() << "MainWindow::createUIDX-100" ;
 
     reconfigureDXMarathonUI(manageDxMarathon);
@@ -4688,7 +4693,8 @@ void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
     3 - Confirmed
     */
      //qDebug() << Q_FUNC_INFO << " - 10";
-    if (_entityStatus.bandId <= 0) // is the status valid?
+
+    if ((_entityStatus.dxcc <= 0) || (_entityStatus.bandId <= 0))// is the status valid?
     {
          //qDebug() << Q_FUNC_INFO << " - 20";
         infoWidget->clear();
@@ -4700,20 +4706,17 @@ void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
     }
      //qDebug() << Q_FUNC_INFO << " - 30";
     // Set the status bar with the appropriate message
-    int status = awards.getDXStatus (_entityStatus);
+
 
      //qDebug() << Q_FUNC_INFO << " -  " << QString::number(status) ;
 
-    QString message = awards.getDXStatusString(status);
+    QString message = awards.status2Message(_entityStatus.status);
      //qDebug() << Q_FUNC_INFO << " - 40";
+
     slotShowInfoLabel(message);
-     //qDebug() << Q_FUNC_INFO << " - 10";
-    //infoLabel1->setText(message);
-    //infoWidget->showInfo((_qs.at(0)).toInt(), (_qs.at(1)).toInt(), (_qs.at(2)).toInt(), (_qs.at(3)).toInt() );
-     //qDebug() << Q_FUNC_INFO << " - 50";
+    qDebug() << Q_FUNC_INFO << " - 10";
     infoWidget->showInfo(_entityStatus.dxcc);
-     //qDebug() << Q_FUNC_INFO << " - 51";
-     //qDebug() << Q_FUNC_INFO << " - END-2" ;
+
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5159,18 +5162,6 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
     {
         clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     }
-
-    //int statusI = awards.getDXStatus (_entityStatus);
-
-    //proposedQSOs pQSO;
-
-    //pQSO.status = awards.getQSOStatus(statusI);
-    //Callsign callsign(spot.getDxCall());
-    //if (callsign.isValid())
-    //{
-    //    pQSO.call = spot.getDxCall();
-    //    dxClusterAssistant->newDXClusterSpot(pQSO);
-    //}
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

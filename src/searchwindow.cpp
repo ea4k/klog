@@ -786,46 +786,12 @@ void SearchWindow::slotQSLRecViaDirectMarkReqFromSearch()
     // Mark Sent, Bureau, date, update log.
 }
 
-/*
- void SearchWindow::qslRecViaBureauMarkReq(const int _qsoId)
-{
-    //qDebug() << "SearchWidget::qslRecViaBureau: " << QString::number(_qsoId) << "/" << QDate::currentDate();
-    dataProxy->qslRecViaBureau(_qsoId, QDate::currentDate(), true);
-    //qDebug() << "SearchWidget::qslRecViaBureau: END";
-}
-*/
 
-/*
-void SearchWindow::qslRecViaDirectMarkReq(const int _qsoId)
-{
-    //qDebug() << "SearchWidget::qslRecViaDirect: " << QString::number(_qsoId);
-    dataProxy->qslRecViaDirect(_qsoId, QDate::currentDate(), true);
-}
-*/
-/*
-void SearchWindow::colorTheList()
-{
-    //qDebug() << "SearchWidget::colorTheList: " << QString::number(treeView->model()->rowCount());
-    for (int i = 0; i < treeView->model()->rowCount(); i++)
-    {
-       // qString _qrz = ((searchModel->index( ( (qslRecViaDirectFromLogAct->data()).toInt()  ) , 0)).data(1).toString());
-       QString _qrz =  (searchModel->index(i, 2)).data(Qt::DisplayRole).toString();
 
-        // qColor getQRZDXStatusColor(const QStringList &_qs); // Receives Entity, band, mode & log
-       // qColor color = awards->getQRZDXStatusColor()
-
-       QColor color = QColor(Qt::blue);
-        //searchModel->setItemData(searchModel->index(i, 2), color);
-        //qDebug() << "SearchWidget::colorTheList: " << _qrz;
-    }
-
-}
-*/
-
-void SearchWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
-{
+//void SearchWindow::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)
+//{
        //qDebug() << "DXClusterWidget::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
     // Just to pass the colors to the awards class
-    searchModel->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
-}
+    //searchModel->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
+//}
 

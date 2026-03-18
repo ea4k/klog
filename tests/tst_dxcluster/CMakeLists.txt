@@ -14,6 +14,9 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/qrc_.*\\.cpp$")
 
 file(GLOB TEST_HEADERS "*.h")
 
+// To select the dxcluster testing functions in Awards
+target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)
+
 add_executable(tst_dxcluster
     ${TEST_SOURCES}
     ../../src/adif.cpp

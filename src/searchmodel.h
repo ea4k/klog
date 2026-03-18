@@ -45,7 +45,7 @@ public:
     void setFilterString(const QString &_st);
     void setStationCallsignInHeader(const bool _s);
     void update();
-    void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
+    //void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void setDXCCColumn(const int _i);
     void setBandIdColumn(const int _i);
     void setModeIdColumn(const int _i);
