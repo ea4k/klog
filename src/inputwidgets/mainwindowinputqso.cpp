@@ -98,31 +98,31 @@ void MainWindowInputQSO::createUI()
 
     QLabel *nameLabel = new QLabel(this);
     nameLabel->setText(tr("Name"));
-    nameLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    nameLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *qthLabel = new QLabel(this);
     qthLabel->setText(tr("QTH"));
-    qthLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    qthLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *locLabel = new QLabel(this);
     locLabel->setText(tr("DX Locator"));
-    locLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    locLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *rxPowerSpinBoxLabelN = new QLabel(this);
     rxPowerSpinBoxLabelN->setText(tr("Power(rx)"));
-    rxPowerSpinBoxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    rxPowerSpinBoxLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *rstLabelN = new QLabel(this);
     rstLabelN->setText(tr("RST"));
-    rstLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    rstLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *rstTxLabelN = new QLabel(this);
     rstTxLabelN->setText(tr("TX"));
-    rstTxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    rstTxLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *rstRxLabelN = new QLabel(this);
     rstRxLabelN->setText(tr("RX"));
-    rstRxLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    rstRxLabelN->setAlignment(Qt::AlignCenter);
 
     QHBoxLayout *RSTLabelsLayout = new QHBoxLayout;
     RSTLabelsLayout->addWidget (rstTxLabelN);
@@ -155,17 +155,17 @@ void MainWindowInputQSO::createUI()
 
     QLabel *freqLabelsN = new QLabel(this);
     freqLabelsN->setText(tr("Frequency"));
-    freqLabelsN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    freqLabelsN->setAlignment(Qt::AlignCenter);
     //freqLabelsN->setAlignment(Qt::AlignCenter);
 
     QLabel *txfreqLabelN = new QLabel(this);
     txfreqLabelN->setText(tr("TX"));
-    txfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    txfreqLabelN->setAlignment(Qt::AlignCenter);
     //txfreqLabelN->setAlignment(Qt::AlignLeft);
 
     QLabel *rxfreqLabelN = new QLabel(this);
     rxfreqLabelN->setText(tr("RX"));
-    rxfreqLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    rxfreqLabelN->setAlignment(Qt::AlignCenter);
     //rxfreqLabelN->setAlignment(Qt::AlignRight);
 
     QHBoxLayout *freqTXLayout = new QHBoxLayout;

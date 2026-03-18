@@ -21,11 +21,11 @@ void HamLibSerialConfigWidget::createUI()
     //qDebug() << Q_FUNC_INFO << " - 10";
     serialPortComboBox->addItems(serialPorts);
     serialPortLabel->setBuddy(serialPortComboBox);
-    serialPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    serialPortLabel->setAlignment(Qt::AlignCenter);
     QLabel *serialBaudsLabel = new QLabel(tr("Bauds"));
     serialBaudsLabel->setBuddy(serialBaudsComboBox);
     serialBaudsLabel->setToolTip(tr("Select the serial port speed."));
-    serialBaudsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    serialBaudsLabel->setAlignment(Qt::AlignCenter);
     //qDebug() << Q_FUNC_INFO << " - 50";
 
     serialPortLabel->setText (tr("Port"));
@@ -52,7 +52,7 @@ void HamLibSerialConfigWidget::createUI()
     QLabel *dataBitsLabel = new QLabel(tr("Data bits"));
     dataBitsLabel->setBuddy(dataBitsComboBox);
     dataBitsLabel->setToolTip(tr("Select the serial data bits."));
-    dataBitsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    dataBitsLabel->setAlignment(Qt::AlignCenter);
     dataBitsLabel->setEnabled(true);
 
     //qDebug() << Q_FUNC_INFO << " - 70";
@@ -62,7 +62,7 @@ void HamLibSerialConfigWidget::createUI()
     QLabel *flowControlLabel = new QLabel(tr("Flow control"));
     flowControlLabel->setBuddy(flowControlComboBox);
     flowControlLabel->setToolTip(tr("Select the serial flow control"));
-    flowControlLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    flowControlLabel->setAlignment(Qt::AlignCenter);
     flowControlLabel->setEnabled(true);
 
     //qDebug() << Q_FUNC_INFO << " - 80";
@@ -73,7 +73,7 @@ void HamLibSerialConfigWidget::createUI()
     QLabel *parityLabel = new QLabel(tr("Parity"));
     parityLabel->setBuddy(parityComboBox);
     parityLabel->setToolTip(tr("Select the serial parity."));
-    parityLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    parityLabel->setAlignment(Qt::AlignCenter);
     parityLabel->setEnabled(true);
 
     //qDebug() << Q_FUNC_INFO << " - 90";
@@ -84,7 +84,7 @@ void HamLibSerialConfigWidget::createUI()
     QLabel *stopBitsLabel = new QLabel(tr("Stop bits"));
     stopBitsLabel->setBuddy(stopBitsComboBox);
     stopBitsLabel->setToolTip(tr("Select the serial stop bits."));
-    stopBitsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    stopBitsLabel->setAlignment(Qt::AlignCenter);
     stopBitsLabel->setEnabled(true);
     //qDebug() << Q_FUNC_INFO << " - 100";
 

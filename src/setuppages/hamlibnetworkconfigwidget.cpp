@@ -19,13 +19,13 @@ void HamLibNetworkConfigWidget::createUI()
     QLabel *hostAddLabel = new QLabel(tr("Host/Address"));
     hostAddLabel->setBuddy(hostAddressLineEdit);
     hostAddLabel->setToolTip(tr("Enter the hostname or address of the radio."));
-    hostAddLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    hostAddLabel->setAlignment(Qt::AlignCenter);
     hostAddLabel->setEnabled(true);
 
     QLabel *portNetLabel = new QLabel(tr("Port"));
     portNetLabel->setBuddy(portQSpinBox);
     portNetLabel->setToolTip(tr("Enter the port of the radio."));
-    portNetLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    portNetLabel->setAlignment(Qt::AlignCenter);
     portNetLabel->setEnabled(true);
 
     QGridLayout *networkLayout = new QGridLayout;

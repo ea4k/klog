@@ -175,7 +175,7 @@ void SetupPageHamLib::createUI()
     QLabel *pollIntervalLabel = new QLabel(tr("Poll interval"));
     pollIntervalLabel->setBuddy(rigTypeComboBox);
     pollIntervalLabel->setToolTip(pollTip);
-    pollIntervalLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    pollIntervalLabel->setAlignment(Qt::AlignCenter);
     pollIntervalLabel->setEnabled(true);
 
     QHBoxLayout *pollIntervalLayout = new QHBoxLayout;
@@ -187,7 +187,7 @@ void SetupPageHamLib::createUI()
     QLabel *rigTypeLabel = new QLabel(tr("Radio"));
     rigTypeLabel->setBuddy(rigTypeComboBox);
     rigTypeLabel->setToolTip(tr("Select your rig."));
-    rigTypeLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    rigTypeLabel->setAlignment(Qt::AlignCenter);
     rigTypeLabel->setEnabled(true);
      //qDebug() << Q_FUNC_INFO << " - 25";
     QHBoxLayout *radioLayout = new QHBoxLayout;

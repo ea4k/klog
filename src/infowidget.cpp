@@ -93,53 +93,53 @@ void InfoWidget::createUI()
     bandLabel11->setText(tr("30M"));
     bandLabel12->setText(tr("70CM"));
 
-    bandLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel3->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel4->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel5->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel6->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel7->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel8->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel9->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel10->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel11->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    bandLabel12->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    bandLabel1->setAlignment(Qt::AlignCenter);
+    bandLabel2->setAlignment(Qt::AlignCenter);
+    bandLabel3->setAlignment(Qt::AlignCenter);
+    bandLabel4->setAlignment(Qt::AlignCenter);
+    bandLabel5->setAlignment(Qt::AlignCenter);
+    bandLabel6->setAlignment(Qt::AlignCenter);
+    bandLabel7->setAlignment(Qt::AlignCenter);
+    bandLabel8->setAlignment(Qt::AlignCenter);
+    bandLabel9->setAlignment(Qt::AlignCenter);
+    bandLabel10->setAlignment(Qt::AlignCenter);
+    bandLabel11->setAlignment(Qt::AlignCenter);
+    bandLabel12->setAlignment(Qt::AlignCenter);
 
     QLabel *continentLabelN = new QLabel(tr("Continent"));
-    continentLabelN->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
-    continentLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    continentLabelN->setAlignment(Qt::AlignCenter);
+    continentLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *prefixLabelN = new QLabel(tr("Prefix"));
-    prefixLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    prefixLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    prefixLabel->setAlignment(Qt::AlignCenter);
+    prefixLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *cqzLabelN = new QLabel(tr("CQ"));
-    cqzLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    cqzLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    cqzLabelN->setAlignment(Qt::AlignCenter);
+    cqzLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *ituzLabelN = new QLabel(tr("ITU"));
-    ituzLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    ituzLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    ituzLabelN->setAlignment(Qt::AlignCenter);
+    ituzLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *shortLabelN = new QLabel(tr("Short Path"));
-    shortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    shortLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *longLabelN = new QLabel(tr("Long Path"));
-    longLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    longLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *gradShortLabelN = new QLabel(tr("Deg"));
-    gradShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    gradShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    distShortLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    gradShortLabelN->setAlignment(Qt::AlignCenter);
+    gradShortLabel->setAlignment(Qt::AlignCenter);
+    distShortLabelN->setAlignment(Qt::AlignCenter);
 
     QLabel *gradLongLabelN = new QLabel(tr("Deg"));
-    gradLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    gradLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    distShortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    gradLongLabelN->setAlignment(Qt::AlignCenter);
+    gradLongLabel->setAlignment(Qt::AlignCenter);
+    distShortLabel->setAlignment(Qt::AlignCenter);
 
-    distLongLabelN->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    distLongLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    distLongLabelN->setAlignment(Qt::AlignCenter);
+    distLongLabel->setAlignment(Qt::AlignCenter);
 
     clear();
 

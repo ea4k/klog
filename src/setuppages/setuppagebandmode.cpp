@@ -40,11 +40,11 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
 
     QLabel *bandsLabel = new QLabel(bandsListWidget);
     bandsLabel->setText(tr("Bands"));
-    bandsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    bandsLabel->setAlignment(Qt::AlignCenter);
 
     QLabel *modesLabel = new QLabel(modesListWidget);
     modesLabel->setText(tr("Modes"));
-    modesLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    modesLabel->setAlignment(Qt::AlignCenter);
 
     addBands(dataProxy->getBandNames());
     addModes(dataProxy->getModesAndSubmodes());

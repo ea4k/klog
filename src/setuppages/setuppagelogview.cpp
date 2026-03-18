@@ -41,7 +41,7 @@ SetupPageLogView::SetupPageLogView(DataProxy_SQLite *dp, QWidget *parent) : QWid
 
     QLabel *fieldsLabel = new QLabel(fieldsListWidget);
     fieldsLabel->setText(tr("Fields"));
-    fieldsLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    fieldsLabel->setAlignment(Qt::AlignCenter);
 
     fLayout->addWidget(fieldsLabel);
     fLayout->addWidget(fieldsListWidget);

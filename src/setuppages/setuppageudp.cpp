@@ -96,7 +96,7 @@ void SetupPageUDP::createUI()
     QLabel *udpPortLabel = new QLabel(tr("UDP Port"));
     udpPortLabel->setBuddy(UDPServerPortSpinBox);
     udpPortLabel->setToolTip(labelTip);
-    udpPortLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    udpPortLabel->setAlignment(Qt::AlignCenter);
     udpPortLabel->setEnabled(true);
 
     QHBoxLayout *UDPPortLayout = new QHBoxLayout;
@@ -115,7 +115,7 @@ void SetupPageUDP::createUI()
     miliSecsSpinBox->setValue(defaultTimer);
     QLabel *miliSecsSpinBoxLabel = new QLabel(tr("QSOs notification timeout (milisecs)"));
     miliSecsSpinBox->setToolTip(tr("Miliseconds that the notification of QSOs received from WSJTX will be shown."));
-    miliSecsSpinBoxLabel->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    miliSecsSpinBoxLabel->setAlignment(Qt::AlignCenter);
     miliSecsSpinBoxLabel->setEnabled(true);
     miliSecsSpinBox->setEnabled(false);
 

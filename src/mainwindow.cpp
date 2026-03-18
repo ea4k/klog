@@ -3883,8 +3883,8 @@ void MainWindow::createUIDX()
     dxUpRightFixLayout->addWidget(infoLabel1);
     dxUpRightFixLayout->addWidget(infoLabel2);
 
-    infoLabel1->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
-    infoLabel2->setAlignment(Qt::AlignVCenter| Qt::AlignCenter);
+    infoLabel1->setAlignment(Qt::AlignCenter);
+    infoLabel2->setAlignment(Qt::AlignCenter);
 
     dxUpRightTab->addTab(infoWidget, tr("Info"));
       //qDebug() << "MainWindow::createUIDX-100" ;
