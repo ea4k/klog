@@ -269,12 +269,16 @@ bool UpdateSettings::processConfigLine(const QString &_line)
         settings.setValue ("SendEQSLByDefault", util.trueOrFalse (value));
         settings.endGroup ();
     }else if (tab=="DUPLICATEDQSOSLOT"){
-        if (value.toInt()>=0)
+        settings.beginGroup ("Misc");
+        if (value.toInt()>0)
         {
-            settings.beginGroup ("Misc");
-            settings.setValue ("DuplicatedQSOSlot", value.toInt());
-            settings.endGroup ();
+            settings.setValue ("DuplicatedQSOSlot", value.toInt());   
         }
+        else
+        {
+            settings.setValue ("DuplicatedQSOSlot", 600);
+        }
+        settings.endGroup ();
     }else if (tab == "CHECKVALIDCALLS"){
         settings.beginGroup ("Misc");
         settings.setValue ("CheckValidCalls", util.trueOrFalse (value));
