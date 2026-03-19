@@ -6,7 +6,7 @@ TODO: Check if is properly readed when importing from LoTW
 TODO: LoTW import ensure exiting QSOs are updated
 
 
-Mar 2025
+Mar 2026 - 2.5
 - Enhancement: Start time optimizations.
 - Enhancement: Split is now managed also from radio/UI.
 - Enhancement: Optimized the exit from Setup to make it faster.

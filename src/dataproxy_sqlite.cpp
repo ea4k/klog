@@ -2199,8 +2199,8 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
     if (!m_queriesPrepared)
     {
         emit queryError(Q_FUNC_INFO,
-                        tr("Queries could not be prepared"),
-                        tr("prepareStaticQueries() failed before addQSO"),
+                        "Queries could not be prepared",
+                        "prepareStaticQueries() failed before addQSO",
                         QString());
         return -2;
     }
