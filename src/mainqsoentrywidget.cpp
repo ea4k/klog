@@ -50,7 +50,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     timer = new QTimer(this);
     util = new Utilities(Q_FUNC_INFO);
     realTime = true;
-    duplicatedQSOSlotInSecs = 15;
+    duplicatedQSOSlotInSecs = 600;
     delayInputTimer = new QTimer;
     logLevel = None;
 

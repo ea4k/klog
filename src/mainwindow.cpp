@@ -4703,12 +4703,6 @@ void MainWindow::showStatusOfDXCC(EntityStatus _entityStatus)
     // Print the infoLabel1
     // Print/Color the band boxes/labels
 
-    /*
-    0 - New One
-    1 - Needed
-    2 - Worked
-    3 - Confirmed
-    */
      //qDebug() << Q_FUNC_INFO << " - 10";
 
     if ((_entityStatus.dxcc <= 0) || (_entityStatus.bandId <= 0))// is the status valid?
