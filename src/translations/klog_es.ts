@@ -629,7 +629,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="572"/>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -795,12 +795,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../database/database.cpp" line="2769"/>
         <source>KLog - DB update</source>
-        <translation type="unfinished">KLog - Actualización BBDD</translation>
+        <translation>KLog - Actualización BBDD</translation>
     </message>
     <message>
         <location filename="../database/database.cpp" line="2770"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
-        <translation type="unfinished">Cancelar esta actualización causará inconsistencia de datos y posible pérdida de datos. ¿Quiere cancelar?</translation>
+        <translation>Cancelar esta actualización causará inconsistencia de datos y posible pérdida de datos. ¿Quiere cancelar?</translation>
     </message>
 </context>
 <context>
@@ -813,12 +813,12 @@ Do you want to try again?</source>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="2255"/>
         <source>Queries could not be prepared</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="2256"/>
         <source>prepareStaticQueries() failed before addQSO</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4969"/>
@@ -888,7 +888,7 @@ Do you want to try again?</source>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5033"/>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5730"/>
@@ -1105,33 +1105,35 @@ Do you want to try again?</source>
         <location filename="../filemanager.cpp" line="893"/>
         <source>Importing ADIF file... 
 QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation>Importando fichero ADIF... 
+QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="922"/>
         <source>KLog - Import finished</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Importación terminada</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="923"/>
         <source>The ADIF file import has finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se terminó la importación del fichero ADIF.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="924"/>
         <source>Imported QSOs: %1
 Ignored duplicated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>QSOs importados:        %1
+Ignorados/duplicados: %2</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="936"/>
         <source>KLog - Duplicated QSOs!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSOs duplicados!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="937"/>
         <source>This file contains duplicated QSOs. Duplicated QSOs will not be imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Este fichero tiene QSOs duplicados. Los QSOs duplicados no se importarán</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="996"/>
@@ -2056,7 +2058,7 @@ Error: #2</translation>
         <location filename="../logmodel.cpp" line="85"/>
         <location filename="../logmodel.cpp" line="91"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
 </context>
 <context>
@@ -2539,7 +2541,7 @@ Error: #2</translation>
         <location filename="../mainwindow.cpp" line="1244"/>
         <source>Unknown</source>
         <comment>Keep it short, it&apos;s a button text</comment>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2602"/>
@@ -2707,7 +2709,9 @@ Error: #2</translation>
         <source>&lt;HTML&gt;&lt;body&gt;The following QSO data has been received to be logged:
 
 &lt;table&gt;&lt;tr&gt;&lt;TH&gt;Callsign:&lt;/TH&gt;&lt;TD&gt;%1&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Freq:&lt;/TH&gt;&lt;TD&gt;%2&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Mode:&lt;/TH&gt;&lt;TD&gt;%3&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Time On:&lt;/TH&gt;&lt;TD&gt;%4&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Time Off:&lt;/TH&gt;&lt;TD&gt;%5&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST TX:&lt;/TH&gt;&lt;TD&gt;%6&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST RX:&lt;/TH&gt;&lt;TD&gt;%7&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Comment:&lt;/TH&gt;&lt;TD&gt;%8&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;DX-Grid:&lt;/TH&gt;&lt;TD&gt;%9&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Local-Grid:&lt;/TH&gt;&lt;TD&gt;%10&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Station Callsign:&lt;/TH&gt;&lt;TD&gt;%11&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Operator Callsign:&lt;/TH&gt;&lt;TD&gt;%12&lt;/TD&gt;&lt;/TR&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;HTML&gt;&lt;body&gt;Los siguientes datos de QSO se han recibido para el log:
+
+&lt;table&gt;&lt;tr&gt;&lt;TH&gt;Indicativo:&lt;/TH&gt;&lt;TD&gt;%1&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Freq:&lt;/TH&gt;&lt;TD&gt;%2&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Modo:&lt;/TH&gt;&lt;TD&gt;%3&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Hora inicio:&lt;/TH&gt;&lt;TD&gt;%4&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Hora fin:&lt;/TH&gt;&lt;TD&gt;%5&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST TX:&lt;/TH&gt;&lt;TD&gt;%6&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST RX:&lt;/TH&gt;&lt;TD&gt;%7&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Comentario:&lt;/TH&gt;&lt;TD&gt;%8&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;DX-Grid:&lt;/TH&gt;&lt;TD&gt;%9&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Local-Grid:&lt;/TH&gt;&lt;TD&gt;%10&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Indicativo estación:&lt;/TH&gt;&lt;TD&gt;%11&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Indicativo operador:&lt;/TH&gt;&lt;TD&gt;%12&lt;/TD&gt;&lt;/TR&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6438"/>
