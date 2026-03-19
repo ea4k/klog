@@ -253,6 +253,7 @@ void MainWindow::init_variables()
     QRZCOMAutoCheckAct->setChecked(false);
     manualMode = false;
     qrzAutoChanging = false;
+    qrzcomResponseValid = false;
     changingBand = false;
     logEvents = true;
     //Default band/modes
@@ -1865,6 +1866,44 @@ void MainWindow::cleanQRZCOMreceivedDataFromUI()
 void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
 {
      //qDebug() << Q_FUNC_INFO << ": " << _t << "/" << _d ;
+
+   if (_t == "call")
+   {
+       // Validate that this response is for the callsign currently shown in the UI.
+       // This prevents a stale response (for a previously-typed callsign) from filling
+       // fields that belong to the current callsign.
+       qrzcomResponseValid = (_d.toUpper() == mainQSOEntryWidget->getQrz().toUpper());
+       return;
+   }
+   else if (_t == "error")
+   {
+         //qDebug() << Q_FUNC_INFO << " ERROR" << _t << "/" << _d ;
+       if (_d.contains("Not found: "))
+       {
+           cleanQRZCOMreceivedDataFromUI();
+     //qDebug() << Q_FUNC_INFO << ": call Not found" ;
+           slotUpdateStatusBar(tr("Call not found in QRZ.com"));
+           return;
+       }
+      QMessageBox msgBox;
+      msgBox.setIcon(QMessageBox::Warning);
+      msgBox.setWindowTitle(tr("KLog - QRZ.com error"));
+      QString aux = QString(tr("KLog has received an error from QRZ.com.") );
+      msgBox.setText(aux);
+      msgBox.setDetailedText(_d);
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setDefaultButton(QMessageBox::Ok);
+      msgBox.exec();
+      return;
+   }
+
+   // For data fields, only fill if the response belongs to the current callsign
+   if (!qrzcomResponseValid)
+   {
+       //qDebug() << Q_FUNC_INFO << ": Ignoring stale QRZ.com response for a different callsign" ;
+       return;
+   }
+
    if (_t == "name")
    {
        if (QSOTabWidget->getName().length()<1)
@@ -1900,26 +1939,6 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
    else if (_t == "qslmgr")
    {
         // qSLTabWidget->setQSLVia(_d);
-   }
-   else if (_t == "error")
-    {
-          //qDebug() << Q_FUNC_INFO << " ERROR" << _t << "/" << _d ;
-        if (_d.contains("Not found: "))
-        {
-            cleanQRZCOMreceivedDataFromUI();
-      //qDebug() << Q_FUNC_INFO << ": call Not found" ;
-            slotUpdateStatusBar(tr("Call not found in QRZ.com"));
-            return;
-        }
-       QMessageBox msgBox;
-       msgBox.setIcon(QMessageBox::Warning);
-       msgBox.setWindowTitle(tr("KLog - QRZ.com error"));
-       QString aux = QString(tr("KLog has received an error from QRZ.com.") );
-       msgBox.setText(aux);
-       msgBox.setDetailedText(_d);
-       msgBox.setStandardButtons(QMessageBox::Ok);
-       msgBox.setDefaultButton(QMessageBox::Ok);
-       msgBox.exec();
    }
    else
    {
@@ -2041,6 +2060,17 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         return;
     }
      //qDebug()<< Q_FUNC_INFO << " - 30" ;
+
+    // Query QRZ.com whenever the callsign changes, in both normal and modify (edit) mode.
+    // The response is validated against the current callsign in slotElogQRZCOMFoundData,
+    // so stale responses from a previously typed callsign are safely ignored.
+    if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length() > 2))
+    {
+        qrzcomResponseValid = false; // will be set true when the "call" response matches
+        cleanQRZCOMreceivedDataFromUI();
+        elogQRZcom->checkQRZ(_qrz);
+    }
+
     if (modify)
     {
         logEvent(Q_FUNC_INFO, "END-Modify", Devel);
@@ -2163,19 +2193,6 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
     {
          //qDebug()<< Q_FUNC_INFO << ": 180" ;
         searchWidget->setCallToSearch(_qrz);
-          //qDebug() << Q_FUNC_INFO << " qrz.length>2: " << _qrz;
-          //qDebug() << Q_FUNC_INFO << " qrzcomActive: " << util->boolToQString (qrzcomActive);
-          //qDebug() << Q_FUNC_INFO << " QRZCOMAutoCheckAct: " << util->boolToQString (QRZCOMAutoCheckAct->isChecked());
-
-        if (qrzcomActive && QRZCOMAutoCheckAct->isChecked() && (_qrz.length ()>2))
-        {
-         //qDebug()<< Q_FUNC_INFO << ": 185 Checking QRZ.com";
-            elogQRZcom->checkQRZ(_qrz);
-        }
-        else
-        {
-             //qDebug()<< Q_FUNC_INFO << ": 189 NOT checking QRZ.com";
-        }
     }
      //qDebug()<< Q_FUNC_INFO << ": 190" ;
    // qrzAutoChanging = false;

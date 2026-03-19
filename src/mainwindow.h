@@ -671,6 +671,7 @@ private:
     bool configured, modify;
     bool needToEnd; // Just to control if the software needs to end.
     bool qrzAutoChanging; //To remove the data coming from QRZ.com only when data is coming.
+    bool qrzcomResponseValid; // True when the QRZ.com response callsign matches the current UI callsign
     bool m_adifImporting = false; // True while processing post-ADIF-import updates, to prevent double DXCC refresh
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
 

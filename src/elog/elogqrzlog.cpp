@@ -200,6 +200,7 @@ void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
                 tdata = xml.readElementText();
                 if (!tdata.isEmpty())
                 {
+                    emit dataFoundSignal("call", tdata);
                    //qDebug() << Q_FUNC_INFO << " - CALL: " << tdata;
                 }
                 continue;
