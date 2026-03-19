@@ -620,7 +620,10 @@ void SetupPageMisc::saveSettings()
     settings.setValue ("SendEQSLByDefault", QVariant((sendEQSLByDefaultSearchCheckBox->isChecked())));
     settings.setValue ("DeleteAlwaysAdiFile", QVariant((deleteAlwaysAdiFileCheckBox->isChecked())));
     settings.setValue ("CheckValidCalls", QVariant((checkCallsCheckBox->isChecked())));
-    settings.setValue ("DuplicatedQSOSlot", dupeTimeLineEdit->text());
+    if (dupeTimeLineEdit->text().toInt()>1)
+        settings.setValue ("DuplicatedQSOSlot", dupeTimeLineEdit->text());
+    else
+        settings.setValue ("DuplicatedQSOSlot", 600);
     //settings.setValue ("ProvideInfo", QVariant((provideCallCheckBox->isChecked())));
 
     //stream << "PSTRotatorActive=" << interfacesWindowsPage->getSendToPSTRotator() << ";";
@@ -654,7 +657,10 @@ void SetupPageMisc::loadSettings(const QString &_callingFunction)
     setDefaultFileName(settings.value("DefaultADIFFile").toString ());
     setUseDefaultDBPath(settings.value("DBPath").toString ());
     setDebugLogLevel(settings.value("DebugLog").toString ());
-    dupeTimeLineEdit->setText (settings.value("DuplicatedQSOSlot", "600").toString ());
+    if (settings.value("DuplicatedQSOSlot", "600").toInt()>1)
+        dupeTimeLineEdit->setText (settings.value("DuplicatedQSOSlot", "600").toString ());
+    else
+        dupeTimeLineEdit->setText (QString::number(600));
     //qDebug() << Q_FUNC_INFO << " - DuplicatedQSOSlot: " << settings.value("DuplicatedQSOSlot").toString ();
     settings.endGroup ();
 }
