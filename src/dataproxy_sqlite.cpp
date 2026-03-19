@@ -3725,13 +3725,38 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     QString _queryST_logNumber = getStringQueryLogNumber (_logN);
 
     QString _query_justQueued;
-    if ((_justModified) && (_em == ModeLotW))
+    if (_em == ModeLotW)
     {
-        _query_justQueued = QString("lotw_qsl_sent='Q'");
+        if (_justModified)
+            _query_justQueued = QString("lotw_qsl_sent='Q'");
+        else
+            _query_justQueued = QString("((lotw_qsl_sent!='1') OR (lotw_qsl_sent IS NULL))");
+    }
+    else if (_em == ModeClubLog)
+    {
+        if (_justModified)
+            _query_justQueued = QString("clublog_qso_upload_status='M'");
+        else
+            _query_justQueued = QString("clublog_qso_upload_status!='M'");
+    }
+    else if (_em == ModeEQSL)
+    {
+        if (_justModified)
+            _query_justQueued = QString("eqsl_qsl_sent='Q'");
+        else
+            _query_justQueued = QString("eqsl_qsl_sent!='M'");
+    }
+    else if (_em == ModeQRZ)
+    {
+        if (_justModified)
+            _query_justQueued = QString("qrzcom_qso_upload_status='M'");
+        else
+            _query_justQueued = QString("qrzcom_qso_upload_status!='-'");
     }
     else
     {
-        _query_justQueued = QString("((lotw_qsl_sent!='1') OR (lotw_qsl_sent IS NULL))");
+        // ModeADIF or any other: no upload-status filter
+        _query_justQueued = QString("1=1");
     }
         //Utilities util(Q_FUNC_INFO);
         queryString = QString("SELECT DISTINCT my_gridsquare FROM log WHERE %1 AND ((my_gridsquare<>'') OR (my_gridsquare IS NOT NULL)) AND qso_date>='%2' AND qso_date<='%3' AND %4 %5").arg(_queryST_string).arg(util->getDateSQLiteStringFromDate(_startDate)).arg(util->getDateSQLiteStringFromDate(_endDate.addDays (1))).arg(_query_justQueued).arg(_queryST_logNumber);
