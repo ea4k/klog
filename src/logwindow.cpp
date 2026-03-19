@@ -232,7 +232,10 @@ void LogWindow::setColumnsOfLog(const QStringList &_columns)
 void LogWindow::showColumn(const QString &_columnName)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    int col = logModel->record().indexOf(_columnName);
+    // Use the raw table schema to find the column index. After QSqlRelationalTableModel::setRelation()
+    // is called for bandid/modeid, record() renames those fields to the display column from the
+    // related table (e.g. "name", "submode"), so record().indexOf("bandid") would return -1.
+    int col = QSqlDatabase::database().record("log").indexOf(_columnName);
     if (col >= 0)
         logView->setColumnHidden(col, false);
 

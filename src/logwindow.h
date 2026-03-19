@@ -31,6 +31,7 @@
 #include <QWidget>
 #include <QTableView>
 #include <QAction>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
