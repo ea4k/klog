@@ -589,10 +589,14 @@ bool Awards::updateDXCCStatus(const int _logNumber)
         if (!query.prepare(stringQuery))
             return false;
         query.bindValue(":lognumber", _logNumber);
+        if (!query.exec())
+        {
+            emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+            query.finish();
+            return false;
+        }
     }
-
-
-    if (!executeQuery(query, stringQuery))
+    else if (!executeQuery(query, stringQuery))
     {
         return false;
     }
