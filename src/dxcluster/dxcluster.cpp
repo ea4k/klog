@@ -122,7 +122,6 @@ void DXClusterWidget::init()
     dxSpotColor.setNamedColor("slategrey"); //To be replaced by .fromString in Qt6.6
 #endif
 
-    //dxSpotColor.setNamedColor("slategrey");
     dxClusterConnected = false;
     dxClusterAlreadyConnected = false;
     showDxMarathon = false;
@@ -353,8 +352,8 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
     QString stringToPrint = _stringSpot;
     DXSpot spot = readItem(stringToPrint);
 
-    EntityStatus _entityStatus;
-    _entityStatus.logId = currentLog;
+    //EntityStatus _entityStatus;
+    //_entityStatus.logId = currentLog;
 
     if (spot.isValid()) {
        //qDebug() << Q_FUNC_INFO << " - spot is Valid";
@@ -363,28 +362,33 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
        //qDebug() << Q_FUNC_INFO << " - Freq    : " << spot.getFrequency().toQString();
        //qDebug() << Q_FUNC_INFO << " - Comment : " << spot.getComment();
 
-        _entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
-        _entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
-        _entityStatus.status = awards->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
+        //_entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
+        //_entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
+        //_entityStatus.status = awards->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
 
-        dxSpotColor = awards->getEntityStatusColor(_entityStatus);
+        dxSpotColor = awards->getColorFromStatus(spot.getQSOStatus());
+        spot.setColor(dxSpotColor);
 
+        EntityStatus        entStatus;
+        entStatus.dxcc      = world->getQRZARRLId(spot.getDxCall());
+        entStatus.bandId    = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
+        entStatus.status    = spot.getQSOStatus();
 
-        if (showDxMarathon && awards->isDXMarathonNeed(_entityStatus.dxcc, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog)) {
+        if (showDxMarathon && awards->isDXMarathonNeed(entStatus.dxcc, world->getQRZCqz(spot.getDxCall()), QDateTime::currentDateTime().date().year(), currentLog)) {
             stringToPrint += "  ### Needed for DXMarathon - " + QString::number(QDateTime::currentDateTime().date().year()) + " ###";
         }
 
-        emit dxspotArrived(spot);
-        _entityStatus.modeId = -1;
 
-        if (!checkIfNeedsToBePrinted(_entityStatus)) {
+        if (!checkIfNeedsToBePrinted(entStatus)) {
             return;
         }
+        emit dxspotArrived(spot);
     }
     else
     {
        //qDebug() << Q_FUNC_INFO << " - spot is NOT Valid";
         dxSpotColor = awards->getDefaultColor();
+        spot.setColor(dxSpotColor);
     }
 
     int callPad = 15;
@@ -660,6 +664,9 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
         fields.removeFirst();
     }
 
+    EntityStatus entityStatus;
+    entityStatus.logId = currentLog;
+
     Frequency freq;
     if (fields.at(0) == "DX" && fields.at(1) == "de")
     {   //"DX de IC8CUQ: 14250.0 IZ3WUW tnx QSO 73! 1429Z"
@@ -676,8 +683,13 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
         if (freq.isValid())
         {
            //qDebug() << Q_FUNC_INFO << ": Freq is Valid";
-            spot.setFrequency(freq);
+            spot.setFrequency(freq);            
             spot.setDXCall(fields.at(4));
+            entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
+            entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
+            entityStatus.status = awards->getQSOStatus(entityStatus.dxcc, entityStatus.bandId, entityStatus.modeId);
+            spot.setQSOStatus(entityStatus.status);
+
 
             QString aux = fields.last();
             aux.chop(1);            
@@ -705,6 +717,11 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
         spot.setSHDX(true);
         spot.setFrequency(freq);
         spot.setDXCall(fields.at(1));
+        entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
+        entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
+        entityStatus.status = awards->getQSOStatus(entityStatus.dxcc, entityStatus.bandId, entityStatus.modeId);
+        spot.setQSOStatus(entityStatus.status);
+
         QString spotter = fields.last();
         spotter.remove("<");
         spot.setSpotter(spotter);

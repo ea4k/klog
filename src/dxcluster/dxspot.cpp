@@ -43,6 +43,9 @@ DXSpot::DXSpot(const DXSpot& other)
     dateTime    = other.dateTime;
     clickStatus = other.clickStatus;
     shdx        = other.shdx;
+    mode        = other.mode;
+    status      = other.status;
+    color       = other.color;
 }
 
 void DXSpot::clear()
@@ -51,8 +54,11 @@ void DXSpot::clear()
     freq.clear();
     spotter.clear();
     dateTime.currentDateTimeUtc();
+    mode.clear();
+    status      = unknown;
     clickStatus = NoClick;
     shdx        = false;
+    color       =  QColor::fromString(QAnyStringView(("slategrey")));
 }
 
 void DXSpot::operator=(DXSpot const &_other)
@@ -65,7 +71,9 @@ void DXSpot::operator=(DXSpot const &_other)
         dateTime    = _other.dateTime;
     clickStatus     = _other.clickStatus;
     shdx            = _other.shdx;
-
+    mode            = _other.mode;
+    status          = _other.status;
+    color           = _other.color;
 }
 
 bool DXSpot::isValid()
@@ -136,3 +144,12 @@ void DXSpot::setSHDX(bool _shdx)
 }
 
 bool DXSpot::getSHDX(){return shdx;}
+
+void DXSpot::setMode(const QString &m){mode = m;}
+QString DXSpot::getMode(){return mode;}
+
+void DXSpot::setQSOStatus(const QSOStatus &s){status = s;}
+QSOStatus DXSpot::getQSOStatus(){return status;}
+
+void DXSpot::setColor(const QColor &c){color = c;}
+QColor DXSpot::getColor(){return color;}

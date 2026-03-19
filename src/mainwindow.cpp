@@ -5176,20 +5176,6 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     if (!sp.isValid())
         return;
     Callsign callsign(sp.getDxCall());
-    //if (callsign.isValid())
-    //{
-    //   proposedQSOs pQSO;
-    //    pQSO.call = sp.getDxCall();
-    //    pQSO.status = ATNO;
-    //    pQSO.freq = sp.getFrequency();
-    //    dxClusterAssistant->newDXClusterSpot(pQSO);
-       //qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << pQSO.call;
-    //}
-    //else
-    //{
-         //qDebug() << Q_FUNC_INFO << ": DXCall not valid: " << sp.getDxCall();
-    //}
-
 
     if (!dxclusterSendSpotsToMap)
     {
@@ -5219,7 +5205,7 @@ void MainWindow::slotDXClusterSpotArrived(const DXSpot &_spot)
     _entityStatus.dxcc   = world->getQRZARRLId(sp.getDxCall());
     _entityStatus.bandId = dataProxy->getBandIdFromFreq(sp.getFrequency().toDouble());
     _entityStatus.logId  = currentLog;
-    QColor spotColor = awards.getEntityStatusColor(_entityStatus);
+    QColor spotColor = sp.getColor();
 
     mapWindow->addMarker(coord, sp.getDxCall(), spotColor, sp.getFrequency().toDouble());
     logEvent(Q_FUNC_INFO, "END", Debug);

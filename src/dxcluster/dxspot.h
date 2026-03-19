@@ -30,6 +30,7 @@
 */
 #include <QObject>
 #include <QDateTime>
+#include <QtGui/qcolor.h>
 #include "../klogdefinitions.h"
 #include "../frequency.h"
 
@@ -50,6 +51,7 @@ public:
 
     void setDXCall(const QString &c);
     QString getDxCall ();
+
     void setSpotter(const QString &c);
     QString getSpotter();
 
@@ -65,18 +67,31 @@ public:
     void setFrequency(Frequency f);
     Frequency getFrequency();
 
+    void setMode(const QString &m);
+    QString getMode();
+
+    void setQSOStatus(const QSOStatus &s);
+    QSOStatus getQSOStatus();
+
+    void setColor(const QColor &c);
+    QColor getColor();
+
+
     void setSHDX(bool _shdx);   // To know if the spot arrived from the dxcluster or was requested with a sh/dx
     bool getSHDX();
 
 signals:
 
 private:
-    QString dxcall;
-    Frequency freq;
-    QString spotter;
-    QString comment;
-    QDateTime dateTime;
-    bool shdx;
+    QString     dxcall;
+    Frequency   freq;
+    QString     mode;
+    QSOStatus   status;
+    QColor      color;
+    QString     spotter;
+    QString     comment;
+    QDateTime   dateTime;
+    bool        shdx;
     MouseClicks clickStatus;    
 };
 
