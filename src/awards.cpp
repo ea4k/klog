@@ -757,7 +757,7 @@ QString Awards::status2Message(const QSOStatus &_status)
         break;
     //break;
     default:
-       //qDebug() << Q_FUNC_INFO << " - Default";
+        qDebug() << Q_FUNC_INFO << " - Default: " << _status;
         QString msg = QString("Not identified: %1").arg(_status);
         //return QObject::tr("Not identified");
         return msg;
