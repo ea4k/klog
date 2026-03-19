@@ -163,6 +163,8 @@ private:
     bool noMoreQso;
     bool sendEQSLByDefault;  // When importing a log, if the QSO does not bring info about eQSL
                             // KLog sets or not a default value
+
+    QList<QSO> pendingLoTWNewQSOs;  // New QSOs from LoTW not found in log, pending user confirmation
     int duplicatedQSOSlotInSecs;
 
     //World *world;

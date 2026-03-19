@@ -833,6 +833,8 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
             return -3;  // No logs exist at all — nothing we can do
     }
 
+    pendingLoTWNewQSOs.clear();
+
     QFile file(tfileName);
     if (!file.exists())
         return -1;
@@ -933,6 +935,31 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     file.close();
     progress.setValue(qsos);
 
+    // Handle new QSOs found in LoTW that are not in the log
+    if (lotWDownloaded && !pendingLoTWNewQSOs.isEmpty())
+    {
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("KLog - LoTW import"));
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setText(tr("New QSOs found in LoTW"));
+        msgBox.setInformativeText(tr("%1 QSO(s) found in LoTW were not found in your log. Do you want to add them?").arg(pendingLoTWNewQSOs.count()));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        if (msgBox.exec() == QMessageBox::Yes)
+        {
+            dataProxy->beginTransaction();
+            for (QSO& pendingQso : pendingLoTWNewQSOs)
+            {
+                pendingQso.setQSOid(-1);
+                const int resultId = dataProxy->addQSO(pendingQso);
+                if (resultId > 0)
+                    validCount++;
+            }
+            dataProxy->commitTransaction();
+        }
+        pendingLoTWNewQSOs.clear();
+    }
+
     if (duplicateCount>0)
     {
         QMessageBox msgBox;
@@ -994,7 +1021,9 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
             dataProxy->applyLoTWFieldsToQSO(qso, duplicatedId);
             return duplicatedId;    // Done — no INSERT needed
         }
-        // QSO not in log yet → fall through to INSERT below
+        // QSO not in log yet → defer to user confirmation after full scan
+        pendingLoTWNewQSOs.append(qso);
+        return -5;  // Pending: waiting for user decision
     }
     else
     {
