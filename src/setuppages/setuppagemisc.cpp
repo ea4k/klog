@@ -646,7 +646,7 @@ void SetupPageMisc::loadSettings(const QString &_callingFunction)
     completeWithPreviousCheckBox->setChecked (settings.value("CompleteWithPrevious").toBool ());
     checkNewVersionCheckBox->setChecked (settings.value("CheckNewVersions").toBool ());
     useDxMarathonCheckBox->setChecked (settings.value("ManageDXMarathon").toBool ());
-    sendEQSLByDefaultSearchCheckBox->setChecked (settings.value("SendEQSLByDefault").toBool ());
+    sendEQSLByDefaultSearchCheckBox->setChecked (settings.value("SendEQSLByDefault", true).toBool ());
     deleteAlwaysAdiFileCheckBox->setChecked (settings.value("DeleteAlwaysAdiFile").toBool ());
     checkCallsCheckBox->setChecked (settings.value("CheckValidCalls").toBool ());
     //provideCallCheckBox->setChecked (settings.value("ProvideInfo").toBool ());
