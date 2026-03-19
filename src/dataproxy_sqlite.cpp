@@ -8751,7 +8751,16 @@ void DataProxy_SQLite::loadDuplicateCache(int logId)
             // Convert SQLite string to QDateTime
             //QDateTime datetime = util->getDateTimeFromSQLiteString(query.value(2).toString());
             int band = query.value(3).toInt();
-            int mode = query.value(4).toInt();
+
+            // Normalize the raw modeid from the DB to the parent-mode ID.
+            // Older KLog versions may have stored a submode ID (e.g. USB's ID)
+            // instead of the parent-mode ID (e.g. SSB's ID).  processQSO always
+            // uses the parent-mode ID (via getIdFromModeName(qso.getMode())), so
+            // we must use the same canonical ID here to avoid cache misses that
+            // cause LoTW QSOs to be re-inserted as duplicates (issue #924).
+            int rawModeId = query.value(4).toInt();
+            const QString parentModeName = m_cache.getModeFromId(rawModeId).mode;
+            int mode = parentModeName.isEmpty() ? rawModeId : getIdFromModeName(parentModeName);
 
             QDateTime datetime = normalizeForCache(
             util->getDateTimeFromSQLiteString(query.value(2).toString()));

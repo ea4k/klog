@@ -54,6 +54,11 @@ private slots:
     void test_ADIF_Import_invalidLogN_fallsBackToExistingLog();
     void test_ADIF_Import_noLogsExist_returnsError();
 
+    // Regression test for #924: LoTW import must not duplicate QSOs whose
+    // modeid in the DB is a submode ID (e.g. USB) rather than the parent-mode
+    // ID (e.g. SSB), as produced by older KLog versions.
+    void test_LoTW_Import_submodeModeNormalization();
+
 private:
     QString createADIFFile();
     DataProxy_SQLite *dataProxy;
@@ -247,6 +252,60 @@ void tst_FileManager::test_ADIF_Import_noLogsExist_returnsError()
         QFile::remove(emptyDbPath);
 }
 
+
+// Regression test for #924:
+// Older KLog versions stored the raw ADIF submode ID (e.g. USB's ID) in
+// log.modeid instead of the parent-mode ID (SSB's ID).  loadDuplicateCache
+// must normalise these to parent-mode IDs so that findDuplicateId can match
+// them against the parent-mode ID used by processQSO (after PR #916).
+// Without the fix, the cache miss caused LoTW to re-insert those QSOs as
+// duplicates (one with full data, one with only LoTW fields).
+void tst_FileManager::test_LoTW_Import_submodeModeNormalization()
+{
+    const int ssbId  = dataProxy->getIdFromModeName("SSB");
+    const int usbId  = dataProxy->getIdFromModeName("USB");
+    const int band40 = dataProxy->getIdFromBandName("40M");
+
+    QVERIFY2(ssbId > 0,  "SSB mode must exist in DB");
+    QVERIFY2(usbId > 0,  "USB mode must exist in DB");
+    QVERIFY2(ssbId != usbId,
+             "SSB and USB must have different IDs — if they are equal the "
+             "test is not exercising the right code path");
+    QVERIFY2(band40 > 0, "40M band must exist in DB");
+
+    // Insert a QSO row with the USB submode ID (simulating old KLog data).
+    QSqlQuery q;
+    const QString dtStr = "2024-07-01 10:00:00";
+    bool ok = q.exec(
+        QString("INSERT INTO log (call, qso_date, time_on, bandid, modeid, lognumber) "
+                "VALUES ('W1SUBMODE', '%1', '100000', %2, %3, 1)")
+        .arg(dtStr).arg(band40).arg(usbId));
+    QVERIFY2(ok, qPrintable("Failed to insert test QSO: " + q.lastError().text()));
+    int insertedId = q.lastInsertId().toInt();
+    QVERIFY2(insertedId > 0, "Inserted test QSO must have a valid row id");
+
+    // Load the duplicate cache.  After the fix, loadDuplicateCache normalises
+    // usbId → ssbId so the cache key matches what processQSO will compute.
+    dataProxy->loadDuplicateCache(1);
+
+    // processQSO always resolves mode via getIdFromModeName(qso.getMode())
+    // which returns ssbId for a QSO whose mode is "SSB" (the parent mode).
+    // findDuplicateId must find the pre-existing row despite its raw modeid
+    // being usbId rather than ssbId.
+    QDateTime qsoTime = QDateTime::fromString(dtStr, "yyyy-MM-dd HH:mm:ss");
+    qsoTime.setTimeSpec(Qt::UTC);
+    const int foundId = dataProxy->findDuplicateId("W1SUBMODE", qsoTime, band40, ssbId, 600);
+
+    QVERIFY2(foundId == insertedId,
+             qPrintable(
+                 QString("findDuplicateId returned %1, expected %2 — "
+                         "loadDuplicateCache did not normalise submode ID to "
+                         "parent-mode ID (regression #924)")
+                 .arg(foundId).arg(insertedId)));
+
+    // Cleanup: remove the synthetic row so it does not affect other tests.
+    q.exec(QString("DELETE FROM log WHERE id=%1").arg(insertedId));
+}
 
 QTEST_MAIN(tst_FileManager)
 

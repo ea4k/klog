@@ -1,5 +1,5 @@
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    cmake_minimum_required(VERSION 3.30)
+    cmake_minimum_required(VERSION 3.22)
     project(tst_filemanager)
 endif()
 
