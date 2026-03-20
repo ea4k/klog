@@ -1,11 +1,3 @@
-WIP: LoTW & QSO
-QSO seems not to be arriving properly to processQSO some times
-
-TODO: Hamlib is not always working
-TODO: Check if is properly readed when importing from LoTW
-TODO: LoTW import ensure exiting QSOs are updated
-
-
 Mar 2026 - 2.5
 - Enhancement: Start time optimizations.
 - Enhancement: Split is now managed also from radio/UI.
