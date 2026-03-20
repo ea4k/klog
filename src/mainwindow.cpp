@@ -1007,6 +1007,7 @@ void MainWindow::slotBandChanged (const QString &_b)
        //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " ;
     if (currentEntity>0)
     {
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
         showStatusOfDXCC(_entityStatus);
     }
     changingBand = false;
@@ -1035,6 +1036,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
+    _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
     showStatusOfDXCC(_entityStatus);
     if (!modify)
     {
@@ -4648,6 +4650,7 @@ void MainWindow::qsoToEdit (const int _qso)
     _entityStatus.logId     = currentLog;
 
    //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
+    _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
     showStatusOfDXCC(_entityStatus);
 
     readingTheUI = false;
@@ -5172,6 +5175,7 @@ void MainWindow::slotAnalyzeDxClusterSignal(const DXSpot &_spot)
         //(ql.at(1)).toDouble()
         _entityStatus.bandId = dataProxy->getBandIdFromFreq((spot.getFrequency().toDouble()));
         // qls << QRZ << BandId << ModeId << lognumber;
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
         showStatusOfDXCC(_entityStatus);
     }
     else if (spot.getClickStatus() == DoubleClick)
