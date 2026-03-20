@@ -4769,6 +4769,12 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
     dxClusterWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setCurrentMode(currentModeShown);
+    dxccStatusWidget->refresh();
+
+
+    awardsWidget->fillOperatingYears();
+    awardsWidget->showAwards();
+
 
     // Save the setting immediately so the Misc tab shows updated state on next open
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
