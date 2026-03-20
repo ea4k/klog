@@ -8,6 +8,7 @@ Mar 2026 - 2.5
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
+- Enhancement: Logs and stats are updated if other log is selected.
 - Bugfix: KLog does not follow the radio in read mode when leaving manual mode (Closes #417)
 - Bugfix: Some DXCC are missing (Closes #811)
 - Bugfix: DXCluster password not sent to server after callsign (Closes #829)
