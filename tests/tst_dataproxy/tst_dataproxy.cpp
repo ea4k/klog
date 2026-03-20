@@ -87,61 +87,12 @@ void tst_DataProxy::initTestCase()
 {
     // Remove any leftover DB from a previous crashed run
     if (QFile::exists(testDbPath))
-    {
-        QVERIFY2(QFile::remove(testDbPath),
-                 "Could not remove leftover test database");
-    }
+        QFile::remove(testDbPath);
 
     util = new Utilities(Q_FUNC_INFO);
 
-    // DataProxy_SQLite reads the DB path from Utilities::getKLogDBFile(), which
-    // in turn reads QSettings.  We override that by pointing QSettings at a
-    // temporary config that redirects the DB to our temp path.
-    // The cleanest way that does NOT touch user settings is to create the
-    // DataBase directly and hand it a known path.  DataProxy_SQLite exposes no
-    // such injection, so we use the same trick as tst_database: pass the path
-    // via a fresh Utilities object that writes it into a temp config.
-    //
-    // Simplest approach that works with the existing API: just redirect the DB
-    // file by creating the DataBase ourselves and replacing the file before
-    // DataProxy_SQLite opens it.  We do this by writing a minimal temp config
-    // that points DBPath at our temp dir.
-
-    QString tempCfg = QDir::tempPath() + "/tst_dataproxy_klogrc";
-    QSettings settings(tempCfg, QSettings::IniFormat);
-    settings.beginGroup("Misc");
-    settings.setValue("DBPath", QDir::tempPath() + "/");
-    settings.endGroup();
-    settings.sync();
-
-    // util->getCfgFile() is used internally – we cannot override it without
-    // subclassing Utilities. The simplest working solution is to pass the
-    // full DB path directly to DataBase and bypass DataProxy_SQLite's own
-    // construction, OR just accept the default path but use a DIFFERENT file
-    // name that we delete afterwards.
-    //
-    // Since the DataProxy_SQLite constructor always calls
-    //   db = new DataBase(Q_FUNC_INFO, version, util->getKLogDBFile())
-    // and getKLogDBFile() returns  <homeDir>/logbook.dat, we instead create
-    // the proxy with a version string that makes getKLogDBFile() resolve to
-    // our temp path by temporarily replacing the DB file name.
-    //
-    // The most practical solution given the current architecture: create the
-    // DataProxy using the standard path, but rename/restore the real DB around
-    // the test so we never corrupt user data.
-
-    QString realDbPath = util->getKLogDBFile();  // e.g. ~/.klog/logbook.dat
-    QString backupPath = realDbPath + ".tst_backup";
-
-    // If a real DB exists, back it up
-    if (QFile::exists(realDbPath))
-    {
-        QVERIFY2(QFile::rename(realDbPath, backupPath),
-                 "Could not back up the real user database");
-    }
-
-    // Now DataProxy_SQLite will create a FRESH database at realDbPath
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, "1.5");
+    // Use a dedicated temp DB — never touches the real user database
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, "1.5", testDbPath);
     QVERIFY2(dataProxy != nullptr, "DataProxy could not be created");
 
     // Create log #1 so QSOs can be inserted in test_addQSO
@@ -153,21 +104,11 @@ void tst_DataProxy::initTestCase()
 
 void tst_DataProxy::cleanupTestCase()
 {
-    // Close connections before deleting files
     delete dataProxy;
     dataProxy = nullptr;
 
-    Utilities tmpUtil(Q_FUNC_INFO);
-    QString realDbPath  = tmpUtil.getKLogDBFile();
-    QString backupPath  = realDbPath + ".tst_backup";
-
-    // Remove the test database
-    if (QFile::exists(realDbPath))
-        QFile::remove(realDbPath);
-
-    // Restore the real user database if it was backed up
-    if (QFile::exists(backupPath))
-        QFile::rename(backupPath, realDbPath);
+    if (QFile::exists(testDbPath))
+        QFile::remove(testDbPath);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

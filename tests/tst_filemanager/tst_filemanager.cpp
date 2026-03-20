@@ -61,8 +61,7 @@ private:
     World *world;
     Utilities *util;
     QString version;
-    QString realDbPath;
-    QString backupPath;
+    QString testDbPath;
     QString adifFilePath;
 };
 
@@ -70,6 +69,7 @@ tst_FileManager::tst_FileManager()
     : dataProxy(nullptr), fileManager(nullptr), world(nullptr), util(nullptr)
 {
     version = "1.5";
+    testDbPath = QDir::tempPath() + "/tst_filemanager_logbook.dat";
 }
 
 tst_FileManager::~tst_FileManager(){}
@@ -77,15 +77,13 @@ tst_FileManager::~tst_FileManager(){}
 void tst_FileManager::initTestCase()
 {
     util = new Utilities(Q_FUNC_INFO);
-    realDbPath = util->getKLogDBFile();
-    backupPath = realDbPath + ".tst_fm_backup";
 
-    // Back up any existing real DB so we don't corrupt user data
-    if (QFile::exists(realDbPath))
-        QVERIFY2(QFile::rename(realDbPath, backupPath), "Could not back up real user database");
+    // Remove any leftover DB from a previous crashed run
+    if (QFile::exists(testDbPath))
+        QFile::remove(testDbPath);
 
-    // DataProxy_SQLite will create a fresh DB at realDbPath
-    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version);
+    // Use a dedicated temp DB — never touches the real user database
+    dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, version, testDbPath);
     QVERIFY2(dataProxy != nullptr, "DataProxy could not be created");
 
     // Create log #1 so ADIF import has a valid target log
@@ -116,11 +114,8 @@ void tst_FileManager::cleanupTestCase()
     if (!adifFilePath.isEmpty() && QFile::exists(adifFilePath))
         QFile::remove(adifFilePath);
 
-    if (QFile::exists(realDbPath))
-        QFile::remove(realDbPath);
-
-    if (QFile::exists(backupPath))
-        QFile::rename(backupPath, realDbPath);
+    if (QFile::exists(testDbPath))
+        QFile::remove(testDbPath);
 }
 
 QString tst_FileManager::createADIFFile()
