@@ -16,6 +16,7 @@ Mar 2026 - 2.5
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
+- Bugfix: KLog does not follow the radio in read mode when leaving manual mode (Closes #417)
 - Bugfix: DXCluster password not sent to server after callsign (Closes #829)
 - Bugfix: qmake6 printed spurious "using private headers" PROJECT MESSAGE warnings caused by the quickwidgets and location Qt modules; suppressed with no_private_qt_headers_warning.
 - Bugfix: Map shows "The geoservices provider is not supported" and crashes with a QGeoMapType binding error on platforms where the Qt6 Location OSM plugin is not installed (e.g. Raspberry Pi); map now shows a user-friendly "not available" overlay instead (Closes #447)
