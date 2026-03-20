@@ -42,6 +42,7 @@ public:
     // qString getFields();
     void saveSettings();
     void loadSettings();
+    bool hasSettingsChanged() const;
 
 signals:
 
@@ -49,10 +50,11 @@ public slots:
 
 private:
     void addFields (QStringList _b); // read the available fields from the DB
-    QStringList getActiveFields();
+    QStringList getActiveFields() const;
     void setActiveFields(QStringList _q);
 
     QListWidget *fieldsListWidget;
+    QStringList initialFields;
 
     DataProxy_SQLite *dataProxy;
 };

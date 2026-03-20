@@ -65,15 +65,12 @@ void LogWindow::setColumns(const QStringList &_columns)
   //qDebug() << Q_FUNC_INFO << "llamando a filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
     logModel->setColumns(columns);
-    // Update column visibility in the view. This is needed when called from
-    // SetupDialog (column settings changed) without a log change, since in
-    // that case createlogPanel() is not called and setColumnsOfLog() would
-    // never run. If the view has not been initialized yet (before
-    // createlogPanel()), setModel() will reset hidden states anyway, so
-    // the call below is harmless.
-    if (logView->model() != nullptr)
-        setColumnsOfLog(columns);
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void LogWindow::refreshColumns()
+{
+    setColumnsOfLog(columns);
 }
 
 void LogWindow::sortColumn(const int _c)

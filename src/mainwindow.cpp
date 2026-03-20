@@ -3297,15 +3297,20 @@ void MainWindow::slotSetupDialogFinished (const int _s)
        //qDebug() << Q_FUNC_INFO << " - 011 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         //logWindow->createlogPanel(currentLog);
         // Reducing workload if nothing changed
-        const int newSelectedLog = setupDialog->getSelectedLog();
-        const bool logChanged    = (newSelectedLog != currentLog);
-        const bool logsModified  = setupDialog->logsWereModified();
+        const int newSelectedLog   = setupDialog->getSelectedLog();
+        const bool logChanged      = (newSelectedLog != currentLog);
+        const bool logsModified    = setupDialog->logsWereModified();
+        const bool columnsModified = setupDialog->logViewFieldsChanged();
 
         if (logChanged || logsModified)
         {
             currentLog = newSelectedLog;
             logWindow->createlogPanel(currentLog);
             dataProxy->loadDuplicateCache(currentLog);
+        }
+        else if (columnsModified)
+        {
+            logWindow->refreshColumns();
         }
        //qDebug() << Q_FUNC_INFO << " - 012 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         logEvent(Q_FUNC_INFO, "logmodel has been created-2", Debug);
