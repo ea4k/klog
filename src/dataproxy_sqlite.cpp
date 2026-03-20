@@ -68,6 +68,21 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
+DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion, const QString &_dbPath)
+{
+    (void)_parentFunction;
+    logLevel = None;
+    util = new Utilities(Q_FUNC_INFO);
+    util->setVersion(_softVersion);
+    db = new DataBase(Q_FUNC_INFO, _softVersion, _dbPath);
+    dbCreated = db->createConnection(Q_FUNC_INFO);
+    createHashes();
+    searching = false;
+    executionN = 0;
+    connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
 DataProxy_SQLite::~DataProxy_SQLite()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);

@@ -66,6 +66,7 @@ class DataProxy_SQLite : public QObject
 
 public:
     DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion="0.0");
+    DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion, const QString &_dbPath);
     ~DataProxy_SQLite();
     void setLogLevel (const DebugLogLevel _l);
     QString getSoftVersion();
