@@ -139,15 +139,10 @@ private:
     void writeADIFHeader(QTextStream &out, const ExportMode _em, const int _numberOfQsos);
 
 
-    //bool dbCreated;
-    //DataBase *db;
-
-    //float softwareVersion;
-    //DataProxy_SQLite *dataProxy;
     DataProxy_SQLite *dataProxy;//, *dataProxyPrepared;
-
     Utilities *util;
-    // qSO *qso;
+    World *world;
+    Awards *awards;
 
     bool rstTXDefault, rstRXDefault; // If true and a log is not including RST, 59 is automatically added
 
@@ -165,8 +160,7 @@ private:
                             // KLog sets or not a default value
     int duplicatedQSOSlotInSecs;
 
-    //World *world;
-    Awards *awards;
+
     // qSqlDatabase db;
 
     QHash<int, int> hashLogs;  // to create different logs when importing a ADIF file

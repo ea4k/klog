@@ -34,6 +34,7 @@ FileManager::FileManager(DataProxy_SQLite *dp, World *injectedWorld)
 {
      //qDebug() << Q_FUNC_INFO << " -3: Dir(2)" << _klogDir;
     dataProxy = dp;
+    world = injectedWorld;
     util = new Utilities(Q_FUNC_INFO);
     //util->setLongPrefixes(dataProxy->getLongPrefixes());
     //db = new DataBase(Q_FUNC_INFO, klogVersion, util->getKLogDBFile());
@@ -984,7 +985,10 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
 
     // 3. Duplicate check (in-memory cache, fast)
     const int duplicatedId = dataProxy->findDuplicateId(
-        qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
+    qso.getCall(), qso.getDateTimeOn(), bandId, modeId, duplicatedQSOSlotInSecs);
+
+    if (qso.getDXCC() < 1)
+        qso.setDXCC(world->getQRZARRLId(qso.getCall()));
 
     // 4. LoTW path: quirurgical UPDATE of only LoTW fields, no full SELECT+UPDATE
     if (qso.getLoTWUpdating())

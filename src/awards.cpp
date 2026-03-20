@@ -755,6 +755,10 @@ QString Awards::status2Message(const QSOStatus &_status)
        //qDebug() << Q_FUNC_INFO << " - Confirmed";
         return QObject::tr("Confirmed");
         break;
+    case unknown:
+        //qDebug() << Q_FUNC_INFO << " - Unknown";
+        return QObject::tr("Unknown!");
+        break;
     //break;
     default:
         qDebug() << Q_FUNC_INFO << " - Default: " << _status;
