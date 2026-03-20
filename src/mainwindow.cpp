@@ -3309,6 +3309,11 @@ void MainWindow::slotSetupDialogFinished (const int _s)
             currentLog = newSelectedLog;
             logWindow->createlogPanel(currentLog);
             dataProxy->loadDuplicateCache(currentLog);
+            awardsWidget->setLog(currentLog);
+            awardsWidget->fillOperatingYears();
+            awardsWidget->showAwards();
+            dxccStatusWidget->setCurrentLog(currentLog);
+            dxccStatusWidget->refresh();
         }
         else if (columnsModified)
         {
