@@ -50,10 +50,14 @@ public:
     void showAwards();
     void clear();
 
+    void setIncludeModeForNeeded(const bool _include);
+    bool getIncludeModeForNeeded();
+
 private slots:
      void slotRecalculateAwardsButtonClicked();
      void slotOperatingYearComboBoxChanged();
      void slotRefreshYearsComboBox();
+     void slotIncludeModeForNeededChanged(int state);
 
 signals:
     //void actionQSODoubleClicked(const int _qsoid);
@@ -62,6 +66,7 @@ signals:
     //void recalculateAwardsSignal();
     void requireCurrentLogSignal();
     void requireCurrentYearSignal();
+    void includeModeForNeededChanged(bool _include);
 
 private:
     void createUI();
@@ -71,6 +76,7 @@ private:
     void checkIfValidLog();
     void reconfigureDXMarathonUI(const bool _dxM);
 
+    QCheckBox *includeModeForNeededCheckBox;
     QLCDNumber *dxccConfirmedQLCDNumber, *dxccWorkedQLCDNumber,
                 *wazConfirmedQLCDNumber, *wazWorkedQLCDNumber,
                 *localConfirmedQLCDNumber, *localWorkedQLCDNumber,

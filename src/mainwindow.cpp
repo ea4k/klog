@@ -674,6 +674,7 @@ void MainWindow::createActionsCommon(){
 
     connect(awardsWidget, SIGNAL(requireCurrentLogSignal()), this, SLOT(slotAwardsWidgetSetLog()) );
     connect(awardsWidget, SIGNAL(requireCurrentYearSignal()), this, SLOT(slotAwardsWidgetSetYear()) );
+    connect(awardsWidget, &AwardsWidget::includeModeForNeededChanged, this, &MainWindow::slotIncludeModeForNeededChanged);
 
     //DXCCWIDGET TAB
     //connect(dxccStatusWidget, SIGNAL(showQso(int)), this, SLOT(slotShowQSOFromDXCCWidget(int) ) );
@@ -1007,7 +1008,7 @@ void MainWindow::slotBandChanged (const QString &_b)
        //qDebug() << "MainWindow:: - calling showStatusOfDXCC-02 " ;
     if (currentEntity>0)
     {
-        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
         showStatusOfDXCC(_entityStatus);
     }
     changingBand = false;
@@ -1029,6 +1030,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentModeShown = dataProxy->getIdFromModeName(_m);
     currentBand = currentBandShown;
     currentMode = currentModeShown;
+    infoWidget->setCurrentMode(currentModeShown);
 
     EntityStatus _entityStatus;
     _entityStatus.dxcc      = currentEntity;
@@ -1036,7 +1038,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     _entityStatus.modeId    = currentModeShown;
     _entityStatus.logId     = currentLog;
 
-    _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
+    _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
     showStatusOfDXCC(_entityStatus);
     if (!modify)
     {
@@ -2161,7 +2163,7 @@ void MainWindow::slotQRZTextChanged(QString _qrz)
         infoWidget->showEntityInfo(currentEntity, dx_CQz, dx_ITUz);
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), dxLocator);
 
-        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc , _entityStatus.bandId, _entityStatus.modeId);
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc , _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
         //awards.printEntityStatus(Q_FUNC_INFO, _entityStatus);
 
         showStatusOfDXCC(_entityStatus);
@@ -4650,7 +4652,7 @@ void MainWindow::qsoToEdit (const int _qso)
     _entityStatus.logId     = currentLog;
 
    //qDebug() << Q_FUNC_INFO << " - in default - 104"  ;
-    _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
+    _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
     showStatusOfDXCC(_entityStatus);
 
     readingTheUI = false;
@@ -4753,6 +4755,27 @@ void MainWindow::showDXMarathonNeeded(const int _dxcc, const int _cqz, const int
         slotShowInfoLabel(infoLabel1->text()+ tr(" - Needed for DXMarathon"));
         //infoLabel1->setText(infoLabel1->text()+ tr(" - Needed for DXMarathon"));
     }
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    manageMode = _include;
+    awards.setManageModes(manageMode);
+    infoWidget->setIncludeModeForNeeded(manageMode);
+    infoWidget->setCurrentMode(currentModeShown);
+    searchWidget->setIncludeModeForNeeded(manageMode);
+    dxClusterWidget->setIncludeModeForNeeded(manageMode);
+    dxccStatusWidget->setIncludeModeForNeeded(manageMode);
+    dxccStatusWidget->setCurrentMode(currentModeShown);
+
+    // Save the setting immediately so the Misc tab shows updated state on next open
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("Misc");
+    settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
+    settings.endGroup();
+
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -6398,6 +6421,8 @@ bool MainWindow::loadSettings()
     sendQSLWhenRec = (settings.value ("SendQSLWhenRec", true).toBool ());
     manageDxMarathon = (settings.value ("ManageDXMarathon", false).toBool ());
     awardsWidget->setManageDXMarathon (manageDxMarathon);
+    manageMode = (settings.value ("IncludeModeForNeeded", false).toBool ());
+    awardsWidget->setIncludeModeForNeeded (manageMode);
     searchWidget->setShowCallInSearch(settings.value ("ShowCallsignInSearch", true).toBool ());
     checkNewVersions = settings.value ("CheckNewVersions", true).toBool ();
     reportInfo = false;
@@ -6418,6 +6443,15 @@ bool MainWindow::loadSettings()
     //filemanager->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
     //adifLoTWExportWidget->setCallValidation(settings.value ("CheckValidCalls", true).toBool ());
     settings.endGroup ();
+
+    // Propagate IncludeModeForNeeded to all subwidgets
+    awards.setManageModes(manageMode);
+    infoWidget->setIncludeModeForNeeded(manageMode);
+    infoWidget->setCurrentMode(currentModeShown);
+    searchWidget->setIncludeModeForNeeded(manageMode);
+    dxClusterWidget->setIncludeModeForNeeded(manageMode);
+    dxccStatusWidget->setIncludeModeForNeeded(manageMode);
+    dxccStatusWidget->setCurrentMode(currentModeShown);
 
       //qDebug() << Q_FUNC_INFO << " - 90 - elog";
     settings.beginGroup ("ClubLog");

@@ -63,6 +63,8 @@ InfoWidget::InfoWidget(Awards *awards, World *injectedWorld, QWidget *parent) :
     distLongLabelN = new QLabel;
 
     imperialSystem=false;
+    includeModeForNeeded = false;
+    currentMode = -1;
     dxLocator.clear();
 
     createUI();
@@ -352,6 +354,16 @@ void InfoWidget::setCurrentLog(const int _log)
     currentLog = _log;
 }
 
+void InfoWidget::setIncludeModeForNeeded(const bool _include)
+{
+    includeModeForNeeded = _include;
+}
+
+void InfoWidget::setCurrentMode(const int _modeId)
+{
+    currentMode = _modeId;
+}
+
 void InfoWidget::setImperialSystem (const  bool _imp)
 {
     imperialSystem = _imp;
@@ -378,7 +390,8 @@ QString InfoWidget::getStyleColorToLabelFromBand(const int _bandId, const int _e
         return "* { background-color: " + awards->getDefaultColor().name(QColor::HexRgb) + "; }";
     }
 
-    const QSOStatus status = awards->getQSOStatus(_entityId, _bandId, -1);     //- -1 just to match bands, no modes
+    const int modeToCheck = includeModeForNeeded ? currentMode : -1;
+    const QSOStatus status = awards->getQSOStatus(_entityId, _bandId, modeToCheck);
 
    //qDebug() << Q_FUNC_INFO << " -            Status: " << status;
    //qDebug() << Q_FUNC_INFO << " - Color from Status: " << awards->getColorFromStatus(status).name(QColor::HexRgb);

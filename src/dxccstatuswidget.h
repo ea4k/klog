@@ -52,6 +52,8 @@ public:
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void setCurrentLog(const int _logN);
     void setMyLocator(const QString &_loc);
+    void setIncludeModeForNeeded(const bool _include);
+    void setCurrentMode(const int _modeId);
     void refresh();
 
 signals:
@@ -103,6 +105,8 @@ private:
     QStringList bandNames;//, validBands;
     int logNumber, tempLog; // log in use in the log / log to be used in the widget
     QString loc; // The locator of the user.
+    bool includeModeForNeeded;
+    int currentMode;
 
     QAction *showDXCCWikipediaAct;
     int currentLog;

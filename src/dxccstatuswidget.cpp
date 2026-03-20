@@ -63,6 +63,8 @@ DXCCStatusWidget::DXCCStatusWidget(Awards *awards, World *injectedWorld, QWidget
     logNumber = -1; // -1 means that ALL the logs will be used (if showAllLogsButton is not checked)
     tempLog = -1;   // -1 means that ALL the logs will be used
     loc = QString();
+    includeModeForNeeded = false;
+    currentMode = -1;
     refreshButton = new QPushButton;
 
     bandNames.clear();
@@ -253,7 +255,7 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     {
        //qDebug() << Q_FUNC_INFO << ": " << entity.mainprefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
         int bandId = _ent.at(i);
-        int modeId = -1;            // TODO: Add a proposed mode, if possible.        
+        int modeId = includeModeForNeeded ? currentMode : -1;
         QSOStatus qsoStatus = awards->getQSOStatus(_dxcc, bandId, modeId);
         //QSOStatus qsoStatus = awards->getDXCCStatusBand(_dxcc, bandid);
         QString qsoStatusString = awards->status2String(qsoStatus);
@@ -671,6 +673,16 @@ void DXCCStatusWidget::setMyLocator(const QString &_loc)
     {
         loc = l.toUpper();
     }
+}
+
+void DXCCStatusWidget::setIncludeModeForNeeded(const bool _include)
+{
+    includeModeForNeeded = _include;
+}
+
+void DXCCStatusWidget::setCurrentMode(const int _modeId)
+{
+    currentMode = _modeId;
 }
 
 void DXCCStatusWidget::setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default)

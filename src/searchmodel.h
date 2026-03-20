@@ -50,6 +50,7 @@ public:
     void setBandIdColumn(const int _i);
     void setModeIdColumn(const int _i);
     void setLogNColumn(const int _i);
+    void setIncludeModeForNeeded(const bool _include);
 
 private:
     //void setColumnsToDX();
@@ -58,6 +59,7 @@ private:
     Awards *award;
     DataProxy_SQLite *dataProxy;
     bool stationCallsignInHeader;
+    bool includeModeForNeeded;
     int dxcc, bandid, modeid, logn;
 signals:
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution

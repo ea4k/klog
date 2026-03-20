@@ -137,6 +137,7 @@ void DXClusterWidget::init()
     saveSpots = false;
     myQrz = QString();
     currentLog = 0;
+    includeModeForNeeded = false;
     server = "dxfun.com";
     port = quint16(8000);
     Utilities util(Q_FUNC_INFO);
@@ -577,6 +578,11 @@ void DXClusterWidget::setColors (const QColor &_newOne, const QColor &_needed, c
     awards->setColors(_newOne,  _needed, _worked,  _confirmed, _default);
 }
 
+void DXClusterWidget::setIncludeModeForNeeded(const bool _include)
+{
+    includeModeForNeeded = _include;
+}
+
 void DXClusterWidget::setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy )
 {
    //qDebug() << Q_FUNC_INFO;
@@ -687,12 +693,12 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
             spot.setDXCall(fields.at(4));
             entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
             entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
-            entityStatus.status = awards->getQSOStatus(entityStatus.dxcc, entityStatus.bandId, entityStatus.modeId);
+            entityStatus.status = awards->getQSOStatus(entityStatus.dxcc, entityStatus.bandId, includeModeForNeeded ? entityStatus.modeId : -1);
             spot.setQSOStatus(entityStatus.status);
 
 
             QString aux = fields.last();
-            aux.chop(1);            
+            aux.chop(1);
             QTime time = QTime::fromString(aux,"HHmm");
             QDateTime datetime = QDateTime::currentDateTime();
             datetime.setTime(time);
@@ -719,7 +725,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
         spot.setDXCall(fields.at(1));
         entityStatus.bandId = dataProxy->getBandIdFromFreq(spot.getFrequency().toDouble());
         entityStatus.dxcc = world->getQRZARRLId(spot.getDxCall());
-        entityStatus.status = awards->getQSOStatus(entityStatus.dxcc, entityStatus.bandId, entityStatus.modeId);
+        entityStatus.status = awards->getQSOStatus(entityStatus.dxcc, entityStatus.bandId, includeModeForNeeded ? entityStatus.modeId : -1);
         spot.setQSOStatus(entityStatus.status);
 
         QString spotter = fields.last();

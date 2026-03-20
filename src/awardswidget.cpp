@@ -54,6 +54,7 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *
     yearlyScoreLabelN = new QLabel();
 
     recalculateAwardsButton = new QPushButton;
+    includeModeForNeededCheckBox = new QCheckBox;
     dataProxy = dp;
     world = injectedWorld;
     awards = new Awards(dataProxy, world, Q_FUNC_INFO);
@@ -96,6 +97,9 @@ void AwardsWidget::createUI()
 
     recalculateAwardsButton = new QPushButton(tr("Recalculate"), this);
     recalculateAwardsButton->setToolTip(tr("Click to recalculate the award status."));
+    includeModeForNeededCheckBox->setText(tr("Check band && mode for needed"));
+    includeModeForNeededCheckBox->setChecked(false);
+    includeModeForNeededCheckBox->setToolTip(tr("If checked, KLog considers both band and mode when evaluating if a QSO is needed or confirmed."));
     operatingYearsComboBox->setToolTip(tr("Select the year you want to check."));
 
     QLabel *yearlyQSOsLabelN = new QLabel(tr("QSOs"));
@@ -239,6 +243,7 @@ void AwardsWidget::createUI()
       //qDebug() << "AwardsWidget::createUI-167"  ;
     dxUpRightAwardsTabLayout->addLayout(yearlyDLayout, 5, 1, 1, -1);
       //qDebug() << "AwardsWidget::createUI-168"  ;
+    dxUpRightAwardsTabLayout->addWidget(includeModeForNeededCheckBox, 6, 0);
     dxUpRightAwardsTabLayout->addWidget(recalculateAwardsButton, 6, 1);
 
       //qDebug() << "AwardsWidget::createUI-200"  ;
@@ -252,6 +257,7 @@ void AwardsWidget::createUI()
     connect(operatingYearsComboBox, SIGNAL(currentIndexChanged ( int)), this, SLOT(slotOperatingYearComboBoxChanged() ) ) ;
     connect(recalculateAwardsButton, SIGNAL(clicked()), this, SLOT(slotRecalculateAwardsButtonClicked() ) );
     connect(dataProxy, &DataProxy_SQLite::logChanged, this, &AwardsWidget::slotRefreshYearsComboBox);
+    connect(includeModeForNeededCheckBox, SIGNAL(stateChanged(int)), this, SLOT(slotIncludeModeForNeededChanged(int)));
     emit debugLog (Q_FUNC_INFO, "END", Debug);
       //qDebug() << "AwardsWidget::createUI-END"  ;
 }
@@ -505,4 +511,25 @@ void AwardsWidget::slotRefreshYearsComboBox()
     fillOperatingYears();  // reutiliza la lógica correcta y consistente
     showAwards();          // refresca los LCD (contadores de QSOs, etc.)
     emit debugLog(Q_FUNC_INFO, "End", Devel);
+}
+
+void AwardsWidget::slotIncludeModeForNeededChanged(int state)
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
+    emit includeModeForNeededChanged(state != 0);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
+}
+
+void AwardsWidget::setIncludeModeForNeeded(const bool _include)
+{
+    emit debugLog(Q_FUNC_INFO, "Start", Devel);
+    includeModeForNeededCheckBox->blockSignals(true);
+    includeModeForNeededCheckBox->setChecked(_include);
+    includeModeForNeededCheckBox->blockSignals(false);
+    emit debugLog(Q_FUNC_INFO, "End", Devel);
+}
+
+bool AwardsWidget::getIncludeModeForNeeded()
+{
+    return includeModeForNeededCheckBox->isChecked();
 }

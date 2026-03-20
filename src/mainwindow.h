@@ -203,6 +203,7 @@ private slots:
     void slotElogQRZCOMDisable(const bool _b);
 
     void slotShowAwards();
+    void slotIncludeModeForNeededChanged(const bool _include);
     void slotUpdateStatusBar(const QString &statusm);
     void setMainWindowTitle();
     void slotSetup(const int _page=0);

@@ -65,6 +65,7 @@ class DXClusterWidget : public QWidget
     void setSaveSpots (const bool _enable);
     void loadSettings();
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
+    void setIncludeModeForNeeded(const bool _include);
 
     void rightButtonFromLogMenu(const DXSpot &_spot);
 
@@ -137,6 +138,7 @@ private:
 
     QString myQrz;
     int currentLog;
+    bool includeModeForNeeded;
 
     QFile *saveSpotsFile;
     bool saveSpots; // write/save the spots to a file

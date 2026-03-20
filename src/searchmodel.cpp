@@ -33,6 +33,7 @@ SearchModel::SearchModel(Awards *awards, QObject *parent):
     //qDebug() << "SearchModel::SearchModel " ;
     dataProxy = awards->dataProxy;
     stationCallsignInHeader = true;
+    includeModeForNeeded = false;
     setTable("log");
     setEditStrategy(QSqlTableModel::OnFieldChange);
     dxcc = -1;
@@ -113,6 +114,11 @@ void SearchModel::setStationCallsignInHeader(const bool _s)
     stationCallsignInHeader = _s;
 }
 
+void SearchModel::setIncludeModeForNeeded(const bool _include)
+{
+    includeModeForNeeded = _include;
+}
+
 void SearchModel::setFilterString(const QString &_st)
  {
     //qDebug() << "SearchModel::setFilterString: " << _st;
@@ -149,7 +155,7 @@ QVariant SearchModel::data( const QModelIndex &index, int role ) const
             _entityStatus.bandId    = dataProxy->getIdFromBandName(index.siblingAtColumn(bandid).data().toString());
             _entityStatus.modeId    = dataProxy->getIdFromModeName(index.siblingAtColumn(modeid).data().toString());
             _entityStatus.logId     = index.siblingAtColumn(logn).data().toInt();
-            _entityStatus.status    = award->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, _entityStatus.modeId);
+            _entityStatus.status    = award->getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, includeModeForNeeded ? _entityStatus.modeId : -1);
             //award->printEntityStatus(Q_FUNC_INFO, _entityStatus);
             return QVariant( award->getEntityStatusColor(_entityStatus) );
 

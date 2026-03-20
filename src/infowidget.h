@@ -52,6 +52,8 @@ public:
     void setCurrentLog(const int _log);
     void setColors (const QColor &_newOne, const QColor &_needed, const QColor &_worked, const QColor &_confirmed, const QColor &_default);
     void setImperialSystem (const  bool _imp);
+    void setIncludeModeForNeeded(const bool _include);
+    void setCurrentMode(const int _modeId);
     void showInfo(const int _entity);
     void showDistanceAndBearing(const QString &_locLocal, const QString &_loc2);
     void showEntityInfo(const int _enti, int _cq=-1, int _itu=-1);
@@ -80,6 +82,8 @@ private:
 
     int currentLog;
     bool imperialSystem;
+    bool includeModeForNeeded;
+    int currentMode;
     QString dxLocator;
 };
 

@@ -57,6 +57,7 @@ public:
     void selectAll();
     void clearSelection();
     void setStationCallsignInHeader(const bool _h);
+    void setIncludeModeForNeeded(const bool _include);
 
 
     void qslSentViaBureau(const int _qsoId);    //Maybe this could be defined as private and call it with an action, if needed.
