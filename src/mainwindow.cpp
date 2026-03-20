@@ -6374,8 +6374,6 @@ bool MainWindow::loadSettings()
     workedColor = settings.value("WorkedColor").value<QColor>();
     confirmedColor = settings.value("ConfirmedColor").value<QColor>();
     defaultColor = settings.value("DefaultColor").value<QColor>();
-    bool darkMode = settings.value("DarkMode", false).toBool ();
-
    //qDebug() << Q_FUNC_INFO << " - NewOneColor:    " << newOneColor.name(QColor::HexRgb);
    //qDebug() << Q_FUNC_INFO << " - NewOneColor:    " << newOneColor.name();
    //qDebug() << Q_FUNC_INFO << " - NeededColor:    " << neededColor.name(QColor::HexRgb);
@@ -6386,7 +6384,7 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
     setColors(newOneColor, neededColor, workedColor, confirmedColor, defaultColor);
 
-    setDarkMode(darkMode);
+    setupDialog->loadDarkMode();
 
       //qDebug() << Q_FUNC_INFO << " - 70 - misc";
     settings.beginGroup ("Misc");
