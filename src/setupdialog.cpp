@@ -780,6 +780,11 @@ bool SetupDialog::satelliteSettingsChanged() const
     return satsPage->hasSettingsChanged();
 }
 
+bool SetupDialog::logViewFieldsChanged() const
+{
+    return logViewPage->hasSettingsChanged();
+}
+
 void SetupDialog::showEvent(QShowEvent *event)
 {
      //qDebug() << Q_FUNC_INFO;

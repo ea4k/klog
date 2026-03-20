@@ -99,7 +99,7 @@ void SetupPageLogView::addFields(QStringList _b)
     }
 }
 
-QStringList SetupPageLogView::getActiveFields()
+QStringList SetupPageLogView::getActiveFields() const
 {
     //qDebug() << Q_FUNC_INFO;
     QStringList activeFields;
@@ -180,5 +180,11 @@ void SetupPageLogView::loadSettings()
     foreach(aux, fields)
         humanLogNames.append(util.getLogColumnName(aux));
     setActiveFields(humanLogNames);
+    initialFields = humanLogNames;
    //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+bool SetupPageLogView::hasSettingsChanged() const
+{
+    return getActiveFields() != initialFields;
 }

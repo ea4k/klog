@@ -63,6 +63,7 @@ public:
     //void setProxyModel (const bool _p);
     void sortColumn(const int _c);
     void setColumns(const QStringList &_columns);
+    void refreshColumns();
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);

@@ -72,6 +72,7 @@ public:
     bool logsWereModified() const;
     bool wasDBMoved() const;   // true si the user successfully clicked OK to move the DB
     bool satelliteSettingsChanged() const;
+    bool logViewFieldsChanged() const;
 
 signals:
     void exitSignal(const int status); // 1 = OK, -1 = NOK, 2 = Cancel clicked

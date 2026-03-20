@@ -68,6 +68,11 @@ void LogWindow::setColumns(const QStringList &_columns)
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void LogWindow::refreshColumns()
+{
+    setColumnsOfLog(columns);
+}
+
 void LogWindow::sortColumn(const int _c)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
