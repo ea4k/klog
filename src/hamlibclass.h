@@ -88,6 +88,7 @@ public:
     bool init(bool _active);
     bool stop();
     bool readRadio();
+    void forceRead();
     bool isRunning();
     void initClass();
     void clean();

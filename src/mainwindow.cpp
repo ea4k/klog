@@ -6067,9 +6067,12 @@ void MainWindow::slotManualMode(bool _enable)
 {
       //qDebug() << Q_FUNC_INFO << ": " << util->boolToQString (_enable);
     manualMode = _enable;
-    if ((manualMode) && (hamlibActive))
+    if ((!manualMode) && (hamlibActive))
     {
-        hamlib->readRadio();
+        // Exiting manual mode: force a radio read and always emit the current
+        // status so the UI updates immediately, even if the radio values
+        // didn't change while polling was being ignored.
+        hamlib->forceRead();
     }
 }
 
