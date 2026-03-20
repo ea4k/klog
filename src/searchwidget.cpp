@@ -103,6 +103,11 @@ void SearchWidget::setShowCallInSearch(const bool _sh)
     searchWindow->setStationCallsignInHeader(stationCallSignShownInSearch);
 }
 
+void SearchWidget::setIncludeModeForNeeded(const bool _include)
+{
+    searchWindow->setIncludeModeForNeeded(_include);
+}
+
 
 
 void SearchWidget::setVersion (const QString &_version)

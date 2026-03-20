@@ -48,6 +48,7 @@ SetupPageMisc::SetupPageMisc(QWidget *parent) : QWidget(parent){
     checkNewVersionCheckBox = new QCheckBox(tr("&Check for new versions automatically"), this);
     //provideCallCheckBox = new QCheckBox(tr("&Provide Info for statistics"), this);
     useDxMarathonCheckBox = new QCheckBox(tr("Manage DX-Marathon"), this);
+    includeModeForNeededCheckBox = new QCheckBox(tr("Check band && mode for needed status"), this);
 
     //logSortCheckBox = new QCheckBox(tr("Sort log based in date && time"));
     sendEQSLByDefaultSearchCheckBox = new QCheckBox(tr("Mark sent eQSL && LoTW in new QSO as queued"));
@@ -128,6 +129,8 @@ void SetupPageMisc::createUI()
     checkCallsCheckBox->setEnabled (true);
     checkCallsCheckBox->setChecked (true);
     checkCallsCheckBox->setToolTip (tr("If you disable this checkbox KLog will not check callsigns to identify wrong callsigns."));
+    includeModeForNeededCheckBox->setChecked(false);
+    includeModeForNeededCheckBox->setToolTip(tr("If checked, KLog will consider both band and mode when evaluating if a QSO is needed or confirmed. If unchecked, only the band is taken into account."));
     sendQSLWhenRecCheckBox->setToolTip(tr("QSOs will be marked as pending to send a QSL if you receive the DX QSL and have not sent yours."));
     showStationCallWhenSearchCheckBox->setToolTip(tr("The search box will also show the callsign on the air to do the QSO."));
     //keepMyDataCheckBox->setToolTip(tr("All the data from the My Data tab will be used or data from the previous QSO will be maintained."));
@@ -199,6 +202,7 @@ void SetupPageMisc::createUI()
     mainLayout->addWidget(showStationCallWhenSearchCheckBox, 8, 0, 1, 1);
     mainLayout->addWidget(deleteAlwaysAdiFileCheckBox, 8, 1, 1, 1);
     mainLayout->addWidget (checkCallsCheckBox, 9, 0, 1, 1);
+    mainLayout->addWidget (includeModeForNeededCheckBox, 9, 1, 1, 1);
 
     setLayout(mainLayout);
 }
@@ -598,6 +602,16 @@ void SetupPageMisc::setCheckCalls(const bool &_t)
     checkCallsCheckBox->setChecked (_t);
 }
 
+bool SetupPageMisc::getIncludeModeForNeeded()
+{
+    return includeModeForNeededCheckBox->isChecked();
+}
+
+void SetupPageMisc::setIncludeModeForNeeded(const bool _t)
+{
+    includeModeForNeededCheckBox->setChecked(_t);
+}
+
 void SetupPageMisc::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO ;
@@ -620,6 +634,7 @@ void SetupPageMisc::saveSettings()
     settings.setValue ("SendEQSLByDefault", QVariant((sendEQSLByDefaultSearchCheckBox->isChecked())));
     settings.setValue ("DeleteAlwaysAdiFile", QVariant((deleteAlwaysAdiFileCheckBox->isChecked())));
     settings.setValue ("CheckValidCalls", QVariant((checkCallsCheckBox->isChecked())));
+    settings.setValue ("IncludeModeForNeeded", QVariant((includeModeForNeededCheckBox->isChecked())));
     if (dupeTimeLineEdit->text().toInt()>1)
         settings.setValue ("DuplicatedQSOSlot", dupeTimeLineEdit->text());
     else
@@ -652,6 +667,7 @@ void SetupPageMisc::loadSettings(const QString &_callingFunction)
     sendEQSLByDefaultSearchCheckBox->setChecked (settings.value("SendEQSLByDefault", true).toBool ());
     deleteAlwaysAdiFileCheckBox->setChecked (settings.value("DeleteAlwaysAdiFile").toBool ());
     checkCallsCheckBox->setChecked (settings.value("CheckValidCalls").toBool ());
+    includeModeForNeededCheckBox->setChecked (settings.value("IncludeModeForNeeded", false).toBool ());
     //provideCallCheckBox->setChecked (settings.value("ProvideInfo").toBool ());
 
     setDefaultFileName(settings.value("DefaultADIFFile").toString ());

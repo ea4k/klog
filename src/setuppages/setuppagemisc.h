@@ -78,6 +78,8 @@ public:
     QString getDeleteAlwaysAdiFile();
     bool getCheckCalls();
     void setCheckCalls(const bool &_t);
+    bool getIncludeModeForNeeded();
+    void setIncludeModeForNeeded(const bool _t);
 
     //void setDupeTime(const int _t);
     //int getDupeTime();
@@ -106,7 +108,7 @@ private:
 
     QCheckBox *realTimeCheckbox, *showSecondsCheckBox, *UTCCheckbox, *alwaysADIFCheckBox, *useDefaultName, *completeWithPreviousCheckBox;
     QCheckBox *imperialCheckBox, *sendQSLWhenRecCheckBox, *showStationCallWhenSearchCheckBox;
-    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *checkCallsCheckBox;
+    QCheckBox *checkNewVersionCheckBox, *provideCallCheckBox, *useDxMarathonCheckBox, *checkCallsCheckBox, *includeModeForNeededCheckBox;
     // qCheckBox *logSortCheckBox;
     QCheckBox *sendEQSLByDefaultSearchCheckBox, *deleteAlwaysAdiFileCheckBox;
     QString defaultFileName;

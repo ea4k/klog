@@ -131,6 +131,11 @@ void SearchWindow::setStationCallsignInHeader(const bool _h)
     setColumnsToDX();
 }
 
+void SearchWindow::setIncludeModeForNeeded(const bool _include)
+{
+    searchModel->setIncludeModeForNeeded(_include);
+}
+
 void SearchWindow::createlogPanel(const int _currentLog)
 {
       //qDebug() << "SearchWindow::createlogPanel: " << QString::number(_currentLog);

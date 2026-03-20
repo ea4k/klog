@@ -737,36 +737,45 @@ QString Awards::status2Message(const QSOStatus &_status)
 {
 
     //enum QSOStatus {unknown, ATNO, needed, worked, confirmed};
+    QString msg;
+
     switch (_status) {
     case ATNO:
        //qDebug() << Q_FUNC_INFO << " - ATNO";
-        return QObject::tr("New One, work it!");
+           msg = tr("New One, work it!");
         break;
     case needed:
        //qDebug() << Q_FUNC_INFO << " - Needed";
-        return QObject::tr("Needed, work it!");
-        //message = QObject::tr("1-Needed, work it!");
+        if (manageModes)
+            msg = tr("Needed (band/mode), work it!");
+        else
+            msg = tr("Needed, work it!");
         break;
     case worked:
        //qDebug() << Q_FUNC_INFO << " - Worked";
-        return QObject::tr("Worked but not confirmed");
+        if (manageModes)
+            msg = tr("Worked (band/mode) but not confirmed");
+        else
+            msg = tr("Worked but not confirmed");
         break;
     case confirmed:
        //qDebug() << Q_FUNC_INFO << " - Confirmed";
         return QObject::tr("Confirmed");
+       if (manageModes)
+           msg = tr("Confirmed (band/mode)");
+       else
+           msg = tr("Confirmed");
         break;
     case unknown:
         //qDebug() << Q_FUNC_INFO << " - Unknown";
-        return QObject::tr("Unknown!");
+        msg = tr("Unknown!");
         break;
     //break;
     default:
-        qDebug() << Q_FUNC_INFO << " - Default: " << _status;
-        QString msg = QString("Not identified: %1").arg(_status);
-        //return QObject::tr("Not identified");
-        return msg;
+        msg = tr("Not identified");
         break;
     }
+    return msg;
 }
 
 

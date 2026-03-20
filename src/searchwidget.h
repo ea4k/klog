@@ -47,6 +47,7 @@ public:
     //void setColors (const QString &_newOne, const QString &_needed, const QString &_worked, const QString &_confirmed, const QString &_default);
     void setVersion (const QString &_version); // Defines the KLog version to be written in the exported logs
     void setShowCallInSearch(const bool _sh);
+    void setIncludeModeForNeeded(const bool _include);
     void clear();
     void showQSO(const int _q);
     void showQSOs(QList<int> qsoIdList);
