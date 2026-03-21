@@ -4769,18 +4769,29 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
     dxClusterWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setCurrentMode(currentModeShown);
-    dxccStatusWidget->refresh();
-
-
-    awardsWidget->fillOperatingYears();
-    awardsWidget->showAwards();
-
-
     // Save the setting immediately so the Misc tab shows updated state on next open
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("Misc");
     settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
     settings.endGroup();
+
+    // Trigger immediate UI refresh
+    if (currentEntity > 0)
+    {
+        EntityStatus _entityStatus;
+        _entityStatus.dxcc   = currentEntity;
+        _entityStatus.bandId = currentBandShown;
+        _entityStatus.modeId = currentModeShown;
+        _entityStatus.logId  = currentLog;
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
+        showStatusOfDXCC(_entityStatus);  // updates infoLabel and infoWidget band colors
+    }
+
+    dxccStatusWidget->refresh();          // refresh DXCC tab colors
+    searchWidget->refresh();              // refresh Search tab QSO row colors
+    awardsWidget->fillOperatingYears();
+    awardsWidget->showAwards();           // recalculate Awards tab numbers
+    dxClusterWidget->clearSpots();        // clear cluster list; new spots will use updated mode setting
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

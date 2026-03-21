@@ -583,6 +583,11 @@ void DXClusterWidget::setIncludeModeForNeeded(const bool _include)
     includeModeForNeeded = _include;
 }
 
+void DXClusterWidget::clearSpots()
+{
+    dxClusterListWidget->clear();
+}
+
 void DXClusterWidget::setDXClusterSpotConfig(bool _showhf, bool _showvhf, bool _showwarc, bool _showworked, bool _showconfirmed, bool _showann, bool _showwwv, bool _showwcy )
 {
    //qDebug() << Q_FUNC_INFO;
