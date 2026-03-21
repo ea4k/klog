@@ -4789,10 +4789,10 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
     dxccStatusWidget->setCurrentMode(currentModeShown);
     awardsWidget->setCurrentMode(currentModeShown);
     // Save the setting immediately so the Misc tab shows updated state on next open
-    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-    settings.beginGroup("Misc");
-    settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
-    settings.endGroup();
+    //QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    //settings.beginGroup("Misc");
+    //settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
+    //settings.endGroup();
 
     // Trigger immediate UI refresh
     if (currentEntity > 0)
