@@ -1031,6 +1031,11 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentBand = currentBandShown;
     currentMode = currentModeShown;
     infoWidget->setCurrentMode(currentModeShown);
+    if (manageMode)
+    {
+        dxccStatusWidget->setCurrentMode(currentModeShown);
+        dxccStatusWidget->refresh();
+    }
 
     EntityStatus _entityStatus;
     _entityStatus.dxcc      = currentEntity;

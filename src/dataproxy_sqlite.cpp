@@ -336,6 +336,21 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
     return m_cache.getModeNameFromSubmode(_sm);
 }
 
+QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
+{
+    // Returns all mode IDs that share the same parent mode as _modeId
+    // e.g. for USB (parent=SSB) returns IDs of SSB, USB, LSB
+    const QString parentMode = m_cache.getModeFromId(_modeId).mode;
+    if (parentMode.isEmpty())
+        return QList<int>() << _modeId;
+
+    QList<int> ids;
+    QSqlQuery query(QString("SELECT id FROM mode WHERE name='%1'").arg(parentMode));
+    while (query.next())
+        ids << query.value(0).toInt();
+    return ids.isEmpty() ? (QList<int>() << _modeId) : ids;
+}
+
 //Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
 //{//getLowLimitBandFromBandId
 //    logEvent (Q_FUNC_INFO, "Start-End", Debug);
