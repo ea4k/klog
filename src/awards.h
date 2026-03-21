@@ -64,8 +64,8 @@ public:
     //void setAwards(const int _qsoId, bool modify);
     int getDXCCWorked(const int _logNumber);
     int getDXCCConfirmed(const int _logNumber);
-    int getWAZWorked(const int _logNumber);
-    int getWAZConfirmed(const int _logNumber);
+    int getWAZWorked(const int _logNumber, const QList<int> &modeIds = {});
+    int getWAZConfirmed(const int _logNumber, const QList<int> &modeIds = {});
     bool updateDXCCStatus(const int _logNumber=0);
     QList<EntityStatus> findEntityStatusByDXCC(int dxcc) const;
 

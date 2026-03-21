@@ -192,18 +192,25 @@ int Awards::getDXCCConfirmed(const int _logNumber)
     return dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", _logNumber);
 }
 
-int Awards::getWAZWorked(const int _logNumber)
+int Awards::getWAZWorked(const int _logNumber, const QList<int> &modeIds)
 {
        //qDebug() << "Awards::getWAZWorked (logNumber): " << QString::number(_logNumber);
+    QString modeFilter;
+    if (!modeIds.isEmpty())
+    {
+        QStringList parts;
+        for (int id : modeIds) parts << QString::number(id);
+        modeFilter = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+    }
     QSqlQuery query;
     QString stringQuery;
     if (dataProxy->doesThisLogExist(_logNumber))
     {
-        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND lognumber='%1')").arg(_logNumber);
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND lognumber='%1'%2)").arg(_logNumber).arg(modeFilter);
     }
     else
     {
-        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41')");
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41'%1)").arg(modeFilter);
     }
 
     bool sqlOK = query.exec(stringQuery);
@@ -230,20 +237,27 @@ int Awards::getWAZWorked(const int _logNumber)
     }
 }
 
-int Awards::getWAZConfirmed(const int _logNumber)
+int Awards::getWAZConfirmed(const int _logNumber, const QList<int> &modeIds)
 {
        //qDebug() << "Awards::getWAZConfirmed (logNumber): " << QString::number(_logNumber);
 
+    QString modeFilter;
+    if (!modeIds.isEmpty())
+    {
+        QStringList parts;
+        for (int id : modeIds) parts << QString::number(id);
+        modeFilter = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+    }
     QSqlQuery query;
     QString stringQuery;
     //Usar la siguiente para el confirmed
     if (dataProxy->doesThisLogExist(_logNumber))
     {
-        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND lognumber='%1')").arg(_logNumber);
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND lognumber='%1'%2)").arg(_logNumber).arg(modeFilter);
     }
     else
     {
-        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y'))");
+        stringQuery = QString("SELECT COUNT (cqz) FROM (SELECT DISTINCT cqz FROM log WHERE cqz!='' AND cqz>'0' AND cqz<'41' AND (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')%1)").arg(modeFilter);
     }
 
     bool sqlOK = query.exec(stringQuery);
