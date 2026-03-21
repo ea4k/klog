@@ -112,6 +112,7 @@ public:
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
+    QList<int> getModeGroupIds(const int _modeId); // Returns all mode IDs sharing the same parent mode
     // qString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
 

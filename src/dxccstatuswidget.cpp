@@ -255,8 +255,25 @@ void DXCCStatusWidget::addEntity(const QList<int> &_ent)
     {
        //qDebug() << Q_FUNC_INFO << ": " << entity.mainprefix << " - i = " << QString::number(i) << "/" << _ent.at(i);
         int bandId = _ent.at(i);
-        int modeId = includeModeForNeeded ? currentMode : -1;
-        QSOStatus qsoStatus = awards->getQSOStatus(_dxcc, bandId, modeId);
+        QSOStatus qsoStatus;
+        if (!includeModeForNeeded || currentMode < 0)
+        {
+            qsoStatus = awards->getQSOStatus(_dxcc, bandId, -1);
+        }
+        else
+        {
+            // Check all submodes of the parent mode (e.g. SSB includes USB, LSB, SSB)
+            qsoStatus = QSOStatus::unknown;
+            const QList<int> groupIds = dataProxy->getModeGroupIds(currentMode);
+            for (const int mId : groupIds)
+            {
+                QSOStatus s = awards->getQSOStatus(_dxcc, bandId, mId);
+                if (s > qsoStatus)
+                    qsoStatus = s;
+                if (qsoStatus == QSOStatus::confirmed)
+                    break;
+            }
+        }
         //QSOStatus qsoStatus = awards->getDXCCStatusBand(_dxcc, bandid);
         QString qsoStatusString = awards->status2String(qsoStatus);
         if ((qsoStatus != QSOStatus::confirmed) && (qsoStatus != QSOStatus::worked))
