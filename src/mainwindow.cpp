@@ -1031,6 +1031,13 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentBand = currentBandShown;
     currentMode = currentModeShown;
     infoWidget->setCurrentMode(currentModeShown);
+    if (manageMode)
+    {
+        dxccStatusWidget->setCurrentMode(currentModeShown);
+        dxccStatusWidget->refresh();
+        awardsWidget->setCurrentMode(currentModeShown);
+        awardsWidget->showAwards();
+    }
 
     EntityStatus _entityStatus;
     _entityStatus.dxcc      = currentEntity;
@@ -4767,6 +4774,12 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     manageMode = _include;
+    // Save the setting immediately so the Misc tab shows updated state on next open
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("Misc");
+    settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
+    settings.endGroup();
+
     awards.setManageModes(manageMode);
     infoWidget->setIncludeModeForNeeded(manageMode);
     infoWidget->setCurrentMode(currentModeShown);
@@ -4774,18 +4787,30 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
     dxClusterWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setCurrentMode(currentModeShown);
-    dxccStatusWidget->refresh();
-
-
-    awardsWidget->fillOperatingYears();
-    awardsWidget->showAwards();
-
-
+    awardsWidget->setCurrentMode(currentModeShown);
     // Save the setting immediately so the Misc tab shows updated state on next open
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("Misc");
     settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
     settings.endGroup();
+
+    // Trigger immediate UI refresh
+    if (currentEntity > 0)
+    {
+        EntityStatus _entityStatus;
+        _entityStatus.dxcc   = currentEntity;
+        _entityStatus.bandId = currentBandShown;
+        _entityStatus.modeId = currentModeShown;
+        _entityStatus.logId  = currentLog;
+        _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
+        showStatusOfDXCC(_entityStatus);  // updates infoLabel and infoWidget band colors
+    }
+
+    dxccStatusWidget->refresh();          // refresh DXCC tab colors
+    searchWidget->refresh();              // refresh Search tab QSO row colors
+    awardsWidget->fillOperatingYears();
+    awardsWidget->showAwards();           // recalculate Awards tab numbers
+    //dxClusterWidget->clearSpots();        // clear cluster list; new spots will use updated mode setting
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -6463,6 +6488,7 @@ bool MainWindow::loadSettings()
     dxClusterWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setCurrentMode(currentModeShown);
+    awardsWidget->setCurrentMode(currentModeShown);
 
       //qDebug() << Q_FUNC_INFO << " - 90 - elog";
     settings.beginGroup ("ClubLog");

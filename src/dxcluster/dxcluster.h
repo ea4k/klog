@@ -66,6 +66,7 @@ class DXClusterWidget : public QWidget
     void loadSettings();
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     void setIncludeModeForNeeded(const bool _include);
+    void clearSpots();
 
     void rightButtonFromLogMenu(const DXSpot &_spot);
 

@@ -29,6 +29,14 @@
 #include "adif.h"
 #include "locator.h"
 
+static QString buildModeInClause(const QList<int> &modeIds)
+{
+    if (modeIds.isEmpty()) return QString();
+    QStringList parts;
+    for (int id : modeIds) parts << QString::number(id);
+    return QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+}
+
 //#include <QDebug>
 
 DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString &_softVersion)
@@ -334,6 +342,21 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     return m_cache.getModeNameFromSubmode(_sm);
+}
+
+QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
+{
+    // Returns all mode IDs that share the same parent mode as _modeId
+    // e.g. for USB (parent=SSB) returns IDs of SSB, USB, LSB
+    const QString parentMode = m_cache.getModeFromId(_modeId).mode;
+    if (parentMode.isEmpty())
+        return QList<int>() << _modeId;
+
+    QList<int> ids;
+    QSqlQuery query(QString("SELECT id FROM mode WHERE name='%1'").arg(parentMode));
+    while (query.next())
+        ids << query.value(0).toInt();
+    return ids.isEmpty() ? (QList<int>() << _modeId) : ids;
 }
 
 //Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
@@ -4275,20 +4298,21 @@ QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
     }
 }
 
-int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
+int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber, const QList<int> &modeIds)
 {
        //qDebug() << Q_FUNC_INFO << " - " << QString::number(_year) << "/" << QString::number(_logNumber);
 
+    const QString modeFilter = buildModeInClause(modeIds);
     QSqlQuery query; //query.setForwardOnly(true);
     QString queryString;
     bool sqlOK;
     if (_logNumber < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log WHERE qso_date LIKE '%1%'").arg(_year);
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log WHERE qso_date LIKE '%1%'").arg(_year) + modeFilter;
     }
     else
     {
-        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year);
+        queryString = QString("SELECT COUNT (DISTINCT id) FROM log where lognumber='%1' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year) + modeFilter;
     }
 
     sqlOK = query.exec(queryString);
@@ -4320,20 +4344,21 @@ int DataProxy_SQLite::getQSOonYear(const int _year, const int _logNumber)
     }
 }
 
-int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber)
+int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber, const QList<int> &modeIds)
 {
          //qDebug() << Q_FUNC_INFO << " - " << QString::number(_year) << "/" << QString::number(_logNumber);
 
+    const QString modeFilter = buildModeInClause(modeIds);
     QSqlQuery query; //query.setForwardOnly(true);
     QString queryString;
     bool sqlOK;
     if (_logNumber < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND qso_date LIKE '%1%'").arg(_year);
+        queryString = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND qso_date LIKE '%1%'").arg(_year) + modeFilter;
     }
     else
     {
-        queryString = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND lognumber='%1' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year);
+        queryString = QString("SELECT COUNT (DISTINCT dxcc) FROM log WHERE dxcc>'0' AND lognumber='%1' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year) + modeFilter;
     }
 
     sqlOK = query.exec(queryString);
@@ -4365,19 +4390,20 @@ int DataProxy_SQLite::getDXCConYear(const int _year, const int _logNumber)
     }
 }
 
-int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber)
+int DataProxy_SQLite::getCQzonYear(const int _year, const int _logNumber, const QList<int> &modeIds)
 {
          //qDebug() << Q_FUNC_INFO << " - " << QString::number(_year);
+    const QString modeFilter = buildModeInClause(modeIds);
     QSqlQuery query; //query.setForwardOnly(true);
     QString queryString;
     bool sqlOK;
     if (_logNumber < 0)
     {
-        queryString = QString("SELECT COUNT (DISTINCT cqz) FROM log where qso_date LIKE '%1%' AND cqz>'0' AND cqz < '41'").arg(_year);
+        queryString = QString("SELECT COUNT (DISTINCT cqz) FROM log where qso_date LIKE '%1%' AND cqz>'0' AND cqz < '41'").arg(_year) + modeFilter;
     }
     else
     {
-        queryString = QString("SELECT COUNT (DISTINCT cqz) FROM log where lognumber='%1' AND cqz>'0' AND cqz<'41' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year);
+        queryString = QString("SELECT COUNT (DISTINCT cqz) FROM log where lognumber='%1' AND cqz>'0' AND cqz<'41' AND qso_date LIKE '%2%'").arg(_logNumber).arg(_year) + modeFilter;
     }
 
     sqlOK = query.exec(queryString);
@@ -6328,18 +6354,19 @@ bool DataProxy_SQLite::fillEmptyDXCCInTheLog()
 */
 
 
-int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
+int DataProxy_SQLite::getHowManyQSOInLog(const int _log, const QList<int> &modeIds)
 {
+    const QString modeFilter = buildModeInClause(modeIds);
     QString queryString = QString();
     QSqlQuery query;
     //query.setForwardOnly(true);
     if (_log < 0)
     {
-        queryString = QString("SELECT count(id) FROM log");
+        queryString = QString("SELECT count(id) FROM log WHERE 1=1%1").arg(modeFilter);
     }
     else
     {
-        queryString = QString("SELECT count(id) FROM log WHERE lognumber='%1'").arg(_log);
+        queryString = QString("SELECT count(id) FROM log WHERE lognumber='%1'%2").arg(_log).arg(modeFilter);
     }
 
     bool sqlOK = query.exec(queryString);
@@ -6367,21 +6394,22 @@ int DataProxy_SQLite::getHowManyQSOInLog(const int _log)
     }
 }
 
-int DataProxy_SQLite::getHowManyConfirmedQSLInLog(const int _log)
+int DataProxy_SQLite::getHowManyConfirmedQSLInLog(const int _log, const QList<int> &modeIds)
 {
     if (!doesThisLogExist(_log) && (_log>0))
     {
        return 0;
     }
+    const QString modeFilter = buildModeInClause(modeIds);
     QString queryString = QString();
     QSqlQuery query; //query.setForwardOnly(true);
     if (_log < 0)
     {
-        queryString = QString("SELECT count(id) FROM log WHERE (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')");
+        queryString = QString("SELECT count(id) FROM log WHERE (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y')%1").arg(modeFilter);
     }
     else
     {
-        queryString = QString("SELECT count(id) FROM log WHERE (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND lognumber='%1'").arg(_log);
+        queryString = QString("SELECT count(id) FROM log WHERE (qsl_rcvd='Y' OR lotw_qsl_rcvd='Y') AND lognumber='%1'%2").arg(_log).arg(modeFilter);
     }
 
     bool sqlOK = query.exec(queryString);
@@ -8611,7 +8639,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
     return _qsos;
 }
 
-int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode, int _log)
+int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode, int _log, const QList<int> &modeIds)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _band << "/" << _mode << "/" << QString::number(_log) ;
 
@@ -8656,6 +8684,15 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
     QString modeString = QString();
 
 
+   if (!modeIds.isEmpty())
+   {
+       // Use the provided mode IDs list (mode group, e.g. SSB includes USB/LSB/SSB)
+       QStringList parts;
+       for (int id : modeIds) parts << QString::number(id);
+       modeString = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+   }
+   else
+   {
    int modeId = getIdFromModeName(_mode);
    if (_mode.toUpper() == "ALL")
    {
@@ -8671,6 +8708,7 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
        //qDebug() << Q_FUNC_INFO << ": Mode not valid!" ;
        return 0;
    }
+   } // end of modeIds.isEmpty() block
 
     QString logString = QString();
     if (!(_log == -1))

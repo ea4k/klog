@@ -112,6 +112,7 @@ public:
 
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
+    QList<int> getModeGroupIds(const int _modeId); // Returns all mode IDs sharing the same parent mode
     // qString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
 
@@ -264,16 +265,16 @@ public:
 
 
     // Stats
-    int getQSOonYear(const int _year, const int _logNumber);
-    int getDXCConYear(const int _year, const int _logNumber);
-    int getCQzonYear(const int _year, const int _logNumber);
+    int getQSOonYear(const int _year, const int _logNumber, const QList<int> &modeIds = {});
+    int getDXCConYear(const int _year, const int _logNumber, const QList<int> &modeIds = {});
+    int getCQzonYear(const int _year, const int _logNumber, const QList<int> &modeIds = {});
     int getQSOsWithDXCC(const int _dxcc, const int _logNumber);
     int getQSOsAtHour(const int _hour, const int _log);
     int getQSOsAtHourOnBand(const int _hour, const int _band ,const int _log);
     int getQSOsOnMonth(const int _month, const int _log);
 
-    int getHowManyQSOInLog(const int _log);
-    int getHowManyConfirmedQSLInLog(const int _log);
+    int getHowManyQSOInLog(const int _log, const QList<int> &modeIds = {});
+    int getHowManyConfirmedQSLInLog(const int _log, const QList<int> &modeIds = {});
     int getHowManyQSLSentInLog(const int _log);
 
     int getQSOsWithContinent(const QString &_cont, const int _logNumber);
@@ -361,7 +362,7 @@ public:
     QList<QSO*> getGridStats(int _log=-1);
     QList<QSO*> getSatDXCCStats(int _log=-1);
 
-    int getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode = "ALL", int _log=-1);
+    int getFieldInBand(ValidFieldsForStats _field, const QString &_band, bool confirmedOnly, QString _mode = "ALL", int _log=-1, const QList<int> &modeIds = {});
     //bool queryPrepare(const QString &_query);
     //bool queryBind(const QString &_field, const QString &value);
     //bool queryExec();

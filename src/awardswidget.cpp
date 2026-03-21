@@ -58,6 +58,7 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *
     dataProxy = dp;
     world = injectedWorld;
     awards = new Awards(dataProxy, world, Q_FUNC_INFO);
+    currentMode = -1;
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
     //util = new Utilities(Q_FUNC_INFO);
 
@@ -322,17 +323,15 @@ void AwardsWidget::slotOperatingYearComboBoxChanged()
 void AwardsWidget::showAwards()
 { // Updates and show all the award status tab.
       //qDebug() << Q_FUNC_INFO << " - Start";
-/*
-  WAZ
-  Local
-*/
     emit debugLog(Q_FUNC_INFO, "Start", Devel);
     checkIfValidLog();
     int _num = 0;
-    // qSqlQuery query;
-    // qString aux;
 
-    _num = dataProxy->getHowManyQSOInLog(currentLog);
+    const QList<int> modeFilter = (includeModeForNeededCheckBox->isChecked() && currentMode >= 0)
+        ? dataProxy->getModeGroupIds(currentMode)
+        : QList<int>();
+
+    _num = dataProxy->getHowManyQSOInLog(currentLog, modeFilter);
     if (_num>99999)
     {
         qsoWorkedQLCDNumber->setDigitCount((QString::number(_num)).size());
@@ -343,8 +342,7 @@ void AwardsWidget::showAwards()
     }
     qsoWorkedQLCDNumber->display(_num);
 
-
-    _num = dataProxy->getHowManyConfirmedQSLInLog(currentLog);
+    _num = dataProxy->getHowManyConfirmedQSLInLog(currentLog, modeFilter);
     if (_num>99999)
     {
         qsoConfirmedQLCDNumber->setDigitCount((QString::number(_num)).size());
@@ -353,14 +351,12 @@ void AwardsWidget::showAwards()
     {
          qsoConfirmedQLCDNumber->setDigitCount(5);
     }
-
     qsoConfirmedQLCDNumber->display(_num);
-    //_num = 0;
 
-    dxccWorkedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", false, "ALL", currentLog));
-    dxccConfirmedQLCDNumber->display(dataProxy->getFieldInBand (DXCC, "ALL", true, "ALL", currentLog));
-    wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog));
-    wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog));
+    dxccWorkedQLCDNumber->display(dataProxy->getFieldInBand(DXCC, "ALL", false, "ALL", currentLog, modeFilter));
+    dxccConfirmedQLCDNumber->display(dataProxy->getFieldInBand(DXCC, "ALL", true, "ALL", currentLog, modeFilter));
+    wazWorkedQLCDNumber->display(awards->getWAZWorked(currentLog, modeFilter));
+    wazConfirmedQLCDNumber->display(awards->getWAZConfirmed(currentLog, modeFilter));
 
     showDXMarathon(selectedYear);
     emit debugLog(Q_FUNC_INFO, "End", Devel);
@@ -373,21 +369,27 @@ void AwardsWidget::showDXMarathon(const int _year)
     emit debugLog(Q_FUNC_INFO, "Start", Devel);
     int i = 0;
 
-    i = awards->getDXMarathonQSO(_year, currentLog);
+    const QList<int> modeFilter = (includeModeForNeededCheckBox->isChecked() && currentMode >= 0)
+        ? dataProxy->getModeGroupIds(currentMode)
+        : QList<int>();
+
+    i = dataProxy->getQSOonYear(_year, currentLog, modeFilter);
           //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: QSO: " << QString::number(i);
     yearlyQSOLCDNumber->display(i);
 
-    i = awards->getDXMarathonDXCC(_year, currentLog);
+    i = dataProxy->getDXCConYear(_year, currentLog, modeFilter);
           //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: DXCC: " << QString::number(i);
     yearlyDXCCQLCDNumber->display(i);
 
-    i = awards->getDXMarathonCQ(_year, currentLog);
+    i = dataProxy->getCQzonYear(_year, currentLog, modeFilter);
     yearlyCQQLCDNumber->display(i);
           //qDebug() << "AwardsWidget::AwardsWidget::showDXMarathon: CQ: " << QString::number(i);
 
     if (manageDXMarathon)
     {
-        i = awards->getDXMarathonScore(_year, currentLog);
+        // Score = DXCC + CQ (same formula as DXMarathon, now mode-filtered)
+        i = dataProxy->getDXCConYear(_year, currentLog, modeFilter)
+          + dataProxy->getCQzonYear(_year, currentLog, modeFilter);
     }
     else
     {
@@ -532,4 +534,9 @@ void AwardsWidget::setIncludeModeForNeeded(const bool _include)
 bool AwardsWidget::getIncludeModeForNeeded()
 {
     return includeModeForNeededCheckBox->isChecked();
+}
+
+void AwardsWidget::setCurrentMode(const int _modeId)
+{
+    currentMode = _modeId;
 }

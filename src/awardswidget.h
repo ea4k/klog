@@ -52,6 +52,7 @@ public:
 
     void setIncludeModeForNeeded(const bool _include);
     bool getIncludeModeForNeeded();
+    void setCurrentMode(const int _modeId);
 
 private slots:
      void slotRecalculateAwardsButtonClicked();
@@ -94,6 +95,7 @@ private:
 
     Awards *awards;
     World *world;
+    int currentMode;
 };
 
 #endif // AWARDSWIDGET_H
