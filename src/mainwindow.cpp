@@ -4762,6 +4762,12 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     manageMode = _include;
+    // Save the setting immediately so the Misc tab shows updated state on next open
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("Misc");
+    settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
+    settings.endGroup();
+
     awards.setManageModes(manageMode);
     infoWidget->setIncludeModeForNeeded(manageMode);
     infoWidget->setCurrentMode(currentModeShown);
@@ -4769,11 +4775,7 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
     dxClusterWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setIncludeModeForNeeded(manageMode);
     dxccStatusWidget->setCurrentMode(currentModeShown);
-    // Save the setting immediately so the Misc tab shows updated state on next open
-    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-    settings.beginGroup("Misc");
-    settings.setValue("IncludeModeForNeeded", QVariant(manageMode));
-    settings.endGroup();
+
 
     // Trigger immediate UI refresh
     if (currentEntity > 0)
@@ -4791,7 +4793,7 @@ void MainWindow::slotIncludeModeForNeededChanged(const bool _include)
     searchWidget->refresh();              // refresh Search tab QSO row colors
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();           // recalculate Awards tab numbers
-    dxClusterWidget->clearSpots();        // clear cluster list; new spots will use updated mode setting
+    //dxClusterWidget->clearSpots();        // clear cluster list; new spots will use updated mode setting
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
