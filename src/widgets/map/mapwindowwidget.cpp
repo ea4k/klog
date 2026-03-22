@@ -31,7 +31,10 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
     //qDebug() << Q_FUNC_INFO << "1";
+    locatorInfo = new LocatorInfoProvider(this);
+    locatorInfo->setDataProxy(dp);
     mapWidget = new MapWidget(this);
+    mapWidget->setLocatorInfoProvider(locatorInfo);
     //qDebug() << Q_FUNC_INFO << "2";
     propComboBox = new QComboBox;
     bandComboBox = new QComboBox;
@@ -120,6 +123,7 @@ void MapWindowWidget::createUI()
     connect(satNameComboBox, SIGNAL(currentTextChanged (QString)), this, SLOT(slotSatsComboBoxChanged()));
     connect(confirmedCheckBox, SIGNAL(checkStateChanged(Qt::CheckState)), this, SLOT(slotConfirmedCheckBoxChanged()));
     connect(mapWidget, &MapWidget::spotDoubleClicked, this, &MapWindowWidget::spotDoubleClicked);
+    connect(mapWidget, &MapWidget::editQSORequested, this, &MapWindowWidget::editQSORequested);
 
     satNameComboBox->setEnabled(false);// Starts disable until propagation = SAT
     //qDebug() << Q_FUNC_INFO << "-END";
@@ -210,6 +214,16 @@ void MapWindowWidget::showFiltered()
     {
         mapWidget->clearDataLayers();
         return;
+    }
+
+    // Sync the locator info provider with the current filter state
+    if (locatorInfo) {
+        QString satName = satNameComboBox->currentText();
+        locatorInfo->setFilter(bandComboBox->currentText(),
+                               modeComboBox->currentText(),
+                               getPropModeFromComboBox(),
+                               satName.section(' ', 0, 0),
+                               confirmedCheckBox->isChecked());
     }
 
     QStringList confirmedLocators;

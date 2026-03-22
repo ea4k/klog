@@ -1986,6 +1986,75 @@ QStringList DataProxy_SQLite::getFilteredLocators(const QString &_band, const QS
     return grids;
 }
 
+QVariantList DataProxy_SQLite::getQSOsForLocator(const QString &_locator, const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed)
+{
+    QVariantList result;
+    if (_locator.isEmpty())
+        return result;
+
+    QStringList where;
+    // Match locator prefix: exact match OR gridsquare starts with the given locator
+    where << "(l.gridsquare = :loc OR l.gridsquare LIKE :locprefix)";
+
+    const int bandId = getIdFromBandName(_band);
+    if (bandId > 0)
+        where << "l.bandid = :bandid";
+
+    const int modeId = getIdFromModeName(_mode);
+    if (modeId > 0)
+        where << "l.modeid = :modeid";
+
+    const bool propValid = isValidPropMode(_prop);
+    const bool isSat = (propValid && _prop == "SAT");
+    int satDbId = -1;
+    if (isSat)
+        satDbId = getDBSatId(_sat);
+
+    if (propValid) {
+        where << "l.prop_mode = :prop";
+        if (isSat && satDbId > 0)
+            where << "l.sat_name = :satname";
+    }
+
+    if (_confirmed)
+        where << "((l.qsl_rcvd = 'Y') OR (l.lotw_qsl_rcvd = 'Y'))";
+    else
+        where << "COALESCE(l.qsl_rcvd,'') <> 'x'";
+
+    QString sql = "SELECT DISTINCT l.id, l.call, b.name, m.name "
+                  "FROM log l "
+                  "JOIN band b ON l.bandid = b.id "
+                  "JOIN mode m ON l.modeid = m.id "
+                  "WHERE " + where.join(" AND ") +
+                  " ORDER BY l.call, b.name, m.name";
+
+    QSqlQuery query;
+    query.prepare(sql);
+    query.bindValue(":loc", _locator.toUpper());
+    query.bindValue(":locprefix", _locator.toUpper() + "%");
+    if (bandId > 0) query.bindValue(":bandid", bandId);
+    if (modeId > 0) query.bindValue(":modeid", modeId);
+    if (propValid)  query.bindValue(":prop", _prop);
+    if (isSat && satDbId > 0) query.bindValue(":satname", _sat);
+
+    if (!query.exec()) {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(),
+                        query.lastError().text(), query.executedQuery());
+        return result;
+    }
+
+    while (query.next()) {
+        QVariantMap row;
+        row["id"]       = query.value(0).toInt();
+        row["callsign"] = query.value(1).toString();
+        row["band"]     = query.value(2).toString();
+        row["mode"]     = query.value(3).toString();
+        result.append(row);
+    }
+    query.finish();
+    return result;
+}
+
 bool DataProxy_SQLite::QRZCOMModifyFullLog(const int _currentLog)
 {
     //qDebug() << Q_FUNC_INFO << " -" << QString::number(_currentLog);
