@@ -411,7 +411,7 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 
-    logModel->select();
+    //logModel->select();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
