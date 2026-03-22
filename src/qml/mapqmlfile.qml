@@ -97,34 +97,40 @@ Rectangle {
     // Dynamic model for grid labels
     ListModel { id: gridLabelModel }
 
-    // Tooltip state for locator hover
-    property bool   tooltipVisible: false
-    property real   tooltipX: 0
-    property real   tooltipY: 0
-    property string tooltipLocator: ""
+    // --- Tooltip state ---
+    // tooltipPinned : user clicked a locator → table stays fixed until click elsewhere / close
+    // locatorHovered: pointer is over a worked/confirmed grid square
+    // tooltipIsHovered: pointer is over the tooltip rectangle itself
+    property bool   tooltipPinned:    false
+    property bool   locatorHovered:   false
+    property bool   tooltipIsHovered: false
+    property real   tooltipX:         0
+    property real   tooltipY:         0
+    property string tooltipLocator:   ""
+    property string currentLocator:   ""   // locator currently loaded in tooltipModel
 
     // Model filled from C++ via locatorInfo.getQSOsForLocator()
     ListModel { id: tooltipModel }
 
-    function updateTooltip(mouseX, mouseY) {
-        if (typeof locatorInfo === "undefined" || locatorInfo === null) return
+    // Tooltip is visible when any of the three conditions holds AND there is data
+    // (computed directly on the Rectangle's visible property)
 
-        var coord = map.toCoordinate(Qt.point(mouseX, mouseY))
-        if (!coord.isValid) { tooltipVisible = false; return }
-
-        // Compute Maidenhead locator at 6-char precision from mouse coordinate
-        var loc6 = maidenhead(coord.latitude, coord.longitude, 6)
-
-        // Check visibility at 6/4/2 char precision
-        if (!locatorInfo.isLocatorVisible(loc6)) {
-            tooltipVisible = false
-            return
+    // Delay before hiding – lets the mouse travel from map to tooltip without flickering
+    Timer {
+        id: hideTooltipTimer
+        interval: 350
+        repeat: false
+        onTriggered: {
+            if (!root.locatorHovered && !root.tooltipIsHovered && !root.tooltipPinned) {
+                tooltipModel.clear()
+                root.currentLocator = ""
+            }
         }
+    }
 
-        tooltipX = mouseX
-        tooltipY = mouseY
-
-        // Only refetch if locator changed (avoids re-query on every tiny mouse move)
+    // Load QSO rows for a given locator into tooltipModel
+    function fetchLocatorData(loc6) {
+        if (typeof locatorInfo === "undefined" || locatorInfo === null) return
         var qsos = locatorInfo.getQSOsForLocator(loc6)
         tooltipModel.clear()
         for (var i = 0; i < qsos.length; i++) {
@@ -135,12 +141,8 @@ Rectangle {
                 mode:     qsos[i].mode
             })
         }
-        if (tooltipModel.count > 0) {
-            tooltipLocator = loc6
-            tooltipVisible = true
-        } else {
-            tooltipVisible = false
-        }
+        if (tooltipModel.count > 0)
+            root.tooltipLocator = loc6
     }
 
     // Maidenhead encoder for 2/4/6 length
@@ -473,21 +475,83 @@ Rectangle {
         }
 
         // ====================================================
-        // Invisible hover area for locator tooltip detection
+        // Locator hover detection – HoverHandler is composable:
+        // it does NOT steal events from DX spot markers or other items.
         // ====================================================
-        MouseArea {
-            id: locatorHoverArea
-            anchors.fill: parent
-            hoverEnabled: true
-            acceptedButtons: Qt.NoButton  // pass all clicks through to the map
-            propagateComposedEvents: true
-            z: 50
+        HoverHandler {
+            id: locatorHoverHandler
 
-            onPositionChanged: function(mouse) {
-                root.updateTooltip(mouse.x, mouse.y)
+            onPointChanged: {
+                if (!hovered) return
+                var pos  = point.position
+                var coord = map.toCoordinate(Qt.point(pos.x, pos.y))
+                if (!coord.isValid) { root.locatorHovered = false; return }
+
+                var loc6 = maidenhead(coord.latitude, coord.longitude, 6)
+
+                if (typeof locatorInfo !== "undefined" && locatorInfo !== null
+                        && locatorInfo.isLocatorVisible(loc6)) {
+                    root.locatorHovered = true
+                    hideTooltipTimer.stop()
+
+                    // Only update position + reload data when locator actually changes
+                    // (keeps tooltip stable while mouse moves within the same square)
+                    if (loc6 !== root.currentLocator) {
+                        root.currentLocator = loc6
+                        if (!root.tooltipPinned) {
+                            root.tooltipX = pos.x
+                            root.tooltipY = pos.y
+                            root.fetchLocatorData(loc6)
+                        }
+                    }
+                } else {
+                    root.locatorHovered = false
+                    if (!root.tooltipPinned)
+                        hideTooltipTimer.restart()
+                }
             }
-            onExited: {
-                root.tooltipVisible = false
+
+            onHoveredChanged: {
+                if (!hovered) {
+                    root.locatorHovered = false
+                    if (!root.tooltipPinned)
+                        hideTooltipTimer.restart()
+                }
+            }
+        }
+
+        // ====================================================
+        // Click-to-pin: TapHandler is composable with map panning
+        // (pan needs a drag; a short tap triggers onTapped only)
+        // ====================================================
+        TapHandler {
+            id: locatorTapHandler
+            acceptedButtons: Qt.LeftButton
+
+            onTapped: function(eventPoint) {
+                var pos   = eventPoint.position
+                var coord = map.toCoordinate(Qt.point(pos.x, pos.y))
+                if (!coord.isValid) { root.tooltipPinned = false; return }
+
+                var loc6 = maidenhead(coord.latitude, coord.longitude, 6)
+
+                if (typeof locatorInfo !== "undefined" && locatorInfo !== null
+                        && locatorInfo.isLocatorVisible(loc6)) {
+                    if (root.tooltipPinned && loc6 === root.currentLocator) {
+                        // Clicking the already-pinned locator unpins it
+                        root.tooltipPinned = false
+                    } else {
+                        // Pin tooltip at click position with fresh data
+                        root.tooltipX       = pos.x
+                        root.tooltipY       = pos.y
+                        root.currentLocator = loc6
+                        root.fetchLocatorData(loc6)
+                        root.tooltipPinned  = true
+                    }
+                } else {
+                    // Click on empty map area → unpin
+                    root.tooltipPinned = false
+                }
             }
         }
 
@@ -592,75 +656,141 @@ Rectangle {
                 MouseArea { anchors.fill: parent; onClicked: { map.panByPixels(root.panStepPx, 0) } }
             }
         }
+
+        // ── Mouse-wheel zoom ─────────────────────────────────────────────
+        // WheelHandler is composable: it doesn't block HoverHandler or panning.
+        WheelHandler {
+            id: mapWheelHandler
+            target: null   // handle the event ourselves; don't move any item
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            onWheel: function(event) {
+                var delta = event.angleDelta.y
+                if (delta > 0)
+                    map.zoomLevel = Math.min(map.zoomLevel + 1, map.maximumZoomLevel)
+                else if (delta < 0)
+                    map.zoomLevel = Math.max(map.zoomLevel - 1, map.minimumZoomLevel)
+            }
+        }
+
+        // ── Mouse click-drag pan ─────────────────────────────────────────
+        // DragHandler (mouse only) lets the user pan by dragging the map.
+        // acceptedDevices: Mouse ensures it does not fight touch gestures
+        // handled by MapGestureArea (pinch zoom, touch pan).
+        DragHandler {
+            id: mapDragHandler
+            target:          null
+            acceptedDevices: PointerDevice.Mouse
+            dragThreshold:   4
+
+            property point lastDragPos: Qt.point(0, 0)
+
+            onActiveChanged: {
+                if (active)
+                    lastDragPos = centroid.position
+            }
+            onCentroidChanged: {
+                if (!active) return
+                var dx = centroid.position.x - lastDragPos.x
+                var dy = centroid.position.y - lastDragPos.y
+                lastDragPos = centroid.position
+                map.panByPixels(-dx, -dy)
+            }
+        }
     }
 
     // ============================================================
-    // Locator hover tooltip: shown when mouse is over a worked/
-    // confirmed grid square. Double-click a row to edit the QSO.
+    // Locator info table
+    //   hover  → appears (stable position, doesn't follow mouse)
+    //   click  → pinned (red border + ✕ button; stays until
+    //             click elsewhere, same-locator click, or ✕)
+    //   double-click on a row → opens QSO editor
     // ============================================================
     Rectangle {
         id: locatorTooltip
-        visible: root.tooltipVisible && tooltipModel.count > 0
+
+        // Visible when hovering over a locator, hovering over the tooltip
+        // itself, or pinned – and the model has at least one row.
+        visible: (root.locatorHovered || root.tooltipIsHovered || root.tooltipPinned)
+                 && tooltipModel.count > 0
         z: 300
 
-        // Position near the cursor, clamped to stay within the window
+        // Position clamped so the table never goes off-screen.
+        // Only updated when a new locator is entered or pin is set.
         x: Math.min(root.tooltipX + 14, root.width  - width  - 4)
         y: Math.min(root.tooltipY + 14, root.height - height - 4)
 
         width: 280
-        // locator header(22) + col-headers(20) + QSO rows(22 each, max 10) + hint(16) + top+bottom margins(10)
+        // header(22) + col-header(20) + rows(22×N, max 10) + hint(16) + margins(10)
         height: 22 + 20 + Math.min(tooltipModel.count, 10) * 22 + 16 + 10
 
-        color: "#e8f0f8"
-        border.color: "#334466"
-        border.width: 1
+        color:        "#e8f0f8"
+        border.color: root.tooltipPinned ? "#cc3300" : "#334466"
+        border.width: root.tooltipPinned ? 2 : 1
         radius: 5
 
-        // Swallow mouse events so the tooltip doesn't accidentally hide itself
-        MouseArea { anchors.fill: parent; acceptedButtons: Qt.NoButton; hoverEnabled: true }
+        // HoverHandler keeps tooltipIsHovered true while mouse is inside –
+        // composable, doesn't block row clicks/double-clicks.
+        HoverHandler {
+            onHoveredChanged: {
+                root.tooltipIsHovered = hovered
+                if (!hovered && !root.locatorHovered && !root.tooltipPinned)
+                    hideTooltipTimer.restart()
+            }
+        }
 
         Column {
-            anchors {
-                top: parent.top; left: parent.left; right: parent.right
-                margins: 5
-            }
+            anchors { top: parent.top; left: parent.left; right: parent.right; margins: 5 }
             spacing: 0
 
-            // Header showing the locator
+            // ── Header bar ──────────────────────────────────────────
             Rectangle {
-                id: headerRow
                 width: parent.width
                 height: 22
-                color: "#334466"
+                color: root.tooltipPinned ? "#882200" : "#334466"
                 radius: 3
 
+                // Locator name (left-aligned)
                 Text {
-                    anchors.centerIn: parent
+                    anchors { left: parent.left; leftMargin: 6; verticalCenter: parent.verticalCenter }
+                    width: parent.width - (root.tooltipPinned ? 28 : 0)
                     text: root.tooltipLocator
                     color: "white"
                     font.bold: true
                     font.pixelSize: 12
+                    elide: Text.ElideRight
+                }
+
+                // ✕ close button – only visible when pinned
+                Rectangle {
+                    visible: root.tooltipPinned
+                    anchors { right: parent.right; rightMargin: 3; verticalCenter: parent.verticalCenter }
+                    width: 20; height: 18
+                    radius: 3
+                    color: closeBtn.containsMouse ? "#cc4400" : "transparent"
+                    Text { text: "✕"; color: "white"; anchors.centerIn: parent; font.pixelSize: 11 }
+                    MouseArea {
+                        id: closeBtn
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: root.tooltipPinned = false
+                    }
                 }
             }
 
-            // Column header row
+            // ── Column headers ───────────────────────────────────────
             Row {
                 width: parent.width
                 height: 20
                 spacing: 0
-
-                Rectangle { width: parent.width * 0.5; height: parent.height; color: "#c0cce0"
-                    Text { anchors.centerIn: parent; text: qsTr("Callsign"); font.bold: true; font.pixelSize: 11; color: "#222" }
-                }
+                Rectangle { width: parent.width * 0.5;  height: parent.height; color: "#c0cce0"
+                    Text { anchors.centerIn: parent; text: qsTr("Callsign"); font.bold: true; font.pixelSize: 11; color: "#222" } }
                 Rectangle { width: parent.width * 0.25; height: parent.height; color: "#c0cce0"
-                    Text { anchors.centerIn: parent; text: qsTr("Band"); font.bold: true; font.pixelSize: 11; color: "#222" }
-                }
+                    Text { anchors.centerIn: parent; text: qsTr("Band");     font.bold: true; font.pixelSize: 11; color: "#222" } }
                 Rectangle { width: parent.width * 0.25; height: parent.height; color: "#c0cce0"
-                    Text { anchors.centerIn: parent; text: qsTr("Mode"); font.bold: true; font.pixelSize: 11; color: "#222" }
-                }
+                    Text { anchors.centerIn: parent; text: qsTr("Mode");     font.bold: true; font.pixelSize: 11; color: "#222" } }
             }
 
-            // QSO rows
+            // ── QSO rows ─────────────────────────────────────────────
             ListView {
                 id: tooltipListView
                 width: parent.width
@@ -672,68 +802,57 @@ Rectangle {
                 delegate: Rectangle {
                     width: tooltipListView.width
                     height: 22
-                    color: index % 2 === 0 ? "#f0f4fa" : "#dce8f0"
+                    color: rowHover.containsMouse
+                           ? "#aabbdd"
+                           : (index % 2 === 0 ? "#f0f4fa" : "#dce8f0")
 
                     Row {
                         anchors.fill: parent
                         spacing: 0
-
                         Text {
-                            width: parent.width * 0.5
-                            height: parent.height
-                            text: model.callsign
-                            font.pixelSize: 11
-                            verticalAlignment: Text.AlignVCenter
-                            leftPadding: 4
+                            width: parent.width * 0.5; height: parent.height
+                            text: model.callsign; font.pixelSize: 11
+                            verticalAlignment: Text.AlignVCenter; leftPadding: 4
                             elide: Text.ElideRight
                         }
                         Text {
-                            width: parent.width * 0.25
-                            height: parent.height
-                            text: model.band
-                            font.pixelSize: 11
+                            width: parent.width * 0.25; height: parent.height
+                            text: model.band; font.pixelSize: 11
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             elide: Text.ElideRight
                         }
                         Text {
-                            width: parent.width * 0.25
-                            height: parent.height
-                            text: model.mode
-                            font.pixelSize: 11
+                            width: parent.width * 0.25; height: parent.height
+                            text: model.mode; font.pixelSize: 11
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             elide: Text.ElideRight
                         }
                     }
 
-                    // Highlight on hover
-                    Rectangle {
+                    MouseArea {
+                        id: rowHover
                         anchors.fill: parent
-                        color: rowHover.containsMouse ? "#aabbdd" : "transparent"
-                        MouseArea {
-                            id: rowHover
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onDoubleClicked: {
-                                root.editQSORequested(model.qsoId)
-                            }
-                        }
+                        hoverEnabled: true
+                        onDoubleClicked: root.editQSORequested(model.qsoId)
                     }
                 }
             }
 
-            // Hint text for double-click
+            // ── Bottom hint ───────────────────────────────────────────
             Text {
                 width: parent.width
-                text: qsTr("Double-click to edit")
+                text: root.tooltipPinned
+                      ? qsTr("Double-click to edit  |  click ✕ to close")
+                      : qsTr("Click to pin  •  Double-click to edit")
                 font.pixelSize: 9
                 color: "#667"
-                horizontalAlignment: Text.AlignRight
-                rightPadding: 4
+                horizontalAlignment: Text.AlignHCenter
                 topPadding: 2
             }
         }
     }
+
 }
 
