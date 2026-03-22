@@ -1184,8 +1184,6 @@ void MainWindow::actionsJustAfterAddingOneQSO(const QSO& _qso)
         //awards.setAwards(lastId);
     }
     logWindow->refresh();
-    if (modify)
-        logWindow->scrollToQSO(modifyingQSOid);
     //awards.updateDXCCStatus(-1);
     dxccStatusWidget->refresh();
     searchWidget->refresh();

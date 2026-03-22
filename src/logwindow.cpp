@@ -275,23 +275,6 @@ void LogWindow::refresh()
   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
-void LogWindow::scrollToQSO(int qsoId)
-{
-    // After a model reset (select()), the view scrolls back to row 0.
-    // This method finds the row for the given QSO id and scrolls to it
-    // so the edited QSO remains visible.
-    while (logModel->canFetchMore(QModelIndex()))
-        logModel->fetchMore(QModelIndex());
-
-    const QModelIndexList matches = logModel->match(
-        logModel->index(0, 0), Qt::DisplayRole, qsoId, 1, Qt::MatchExactly);
-    if (!matches.isEmpty())
-    {
-        logView->scrollTo(matches.first(), QAbstractItemView::PositionAtCenter);
-        logView->setCurrentIndex(matches.first());
-    }
-}
-
 void LogWindow::createActions()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";

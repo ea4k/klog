@@ -64,7 +64,6 @@ public:
     void sortColumn(const int _c);
     void setColumns(const QStringList &_columns);
     void refreshColumns();
-    void scrollToQSO(int qsoId);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
