@@ -30,6 +30,7 @@
 #include <QQuickWidget>
 #include <QQuickItem>
 #include "../../locator.h"
+#include "locatorinfoprovider.h"
 
 class MapWidget : public QWidget
 {
@@ -53,9 +54,13 @@ public:
     void clearMarkers();
     void setSpotExpiryMinutes(int minutes);
 
+    /** Provide the LocatorInfoProvider so it is accessible via QML context. */
+    void setLocatorInfoProvider(LocatorInfoProvider *provider);
+
 signals:
     void doAddMarker(double latitude, double longitude);
     void spotDoubleClicked(const QString &callsign, double frequencyMHz);
+    void editQSORequested(int qsoId);
 
 private:
     void createUI();
@@ -90,6 +95,7 @@ private:
     static constexpr int GridSouthRole  = Qt::UserRole + 1201;
 
     Locator locator;
+    LocatorInfoProvider *locatorInfoProvider = nullptr;
 };
 
 #endif // MAPWIDGET_H

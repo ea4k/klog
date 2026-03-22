@@ -28,6 +28,7 @@
  *****************************************************************************/
 #include <QString>
 #include <QStringList>
+#include <QVariant>
 #include <QObject>
 #include <QSqlQuery>
 #include <QPair>
@@ -184,6 +185,8 @@ public:
     QStringList getClubLogRealTimeFromId(const int _qsoId);
 
     QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
+    // Returns list of {id, callsign, band, mode} maps for QSOs matching a locator prefix and current filters
+    QVariantList getQSOsForLocator(const QString &_locator, const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
     //bool updateAwardWAZ();
     // QRZ.com
     bool QRZCOMModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to QRZ.com

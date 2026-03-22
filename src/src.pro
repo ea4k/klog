@@ -174,6 +174,7 @@ HEADERS += setupdialog.h \
     updatesatsdata.h \
     widgets/map/mapwidget.h \
     widgets/map/mapwindowwidget.h \
+    widgets/map/locatorinfoprovider.h \
     widgets/adiflotwexportwidget.h \
     widgets/showkloglogwidget.h \
     widgets/onlinemessagewidget.h \
@@ -226,6 +227,7 @@ SOURCES += main.cpp \
     #widgets/advancedsearch/advancedsearchwindow.cpp \
     widgets/map/mapwidget.cpp \
     widgets/map/mapwindowwidget.cpp \
+    widgets/map/locatorinfoprovider.cpp \
     widgets/onlinemessagewidget.cpp \
     widgets/showadifimportwidget.cpp \
     widgets/showkloglogwidget.cpp \
