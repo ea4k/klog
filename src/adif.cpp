@@ -730,10 +730,14 @@ QString Adif::getADIFDateStringFromLoTWDateTime(const QString &_lotwdatetime)
     // DateTime should have this format: YYYY-MM-DD HH:MM:SS
     // It returns a date on YYYYMMDD adif format
     QDateTime dateTime = QDateTime::fromString(_lotwdatetime, "yyyy-MM-dd HH:mm:ss");
-    if (!dateTime.isValid())
+    if (dateTime.isValid())
+        dateTime.setTimeZone(QTimeZone::UTC);
+    else
     {
         // Second try, just in case LoTW changes format
         dateTime = QDateTime::fromString(_lotwdatetime, Qt::ISODate);
+        if (dateTime.isValid())
+            dateTime.setTimeZone(QTimeZone::UTC);
     }
 
     if (dateTime.isValid())
