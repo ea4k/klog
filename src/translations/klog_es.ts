@@ -400,42 +400,42 @@
     <message>
         <location filename="../awards.cpp" line="759"/>
         <source>New One, work it!</source>
-        <translation type="unfinished">¡Nuevo, trabájelo!</translation>
+        <translation>¡Nuevo, trabájelo!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="764"/>
         <source>Needed (band/mode), work it!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Necesitado (banda/modo), trabájalo!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="766"/>
         <source>Needed, work it!</source>
-        <translation type="unfinished">¡Necesitado, trabájelo!</translation>
+        <translation>¡Necesitado, trabájalo!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="771"/>
         <source>Worked (band/mode) but not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Trabajado (banda/modo) pero no confirmado</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="773"/>
         <source>Worked but not confirmed</source>
-        <translation type="unfinished">Trabajado pero no confirmado</translation>
+        <translation>Trabajado pero no confirmado</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="779"/>
         <source>Confirmed (band/mode)</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmado (banda/modo)</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="785"/>
         <source>Unknown!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Desconocido!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="789"/>
         <source>Not identified</source>
-        <translation type="unfinished">No identificado</translation>
+        <translation>No identificado</translation>
     </message>
 </context>
 <context>
@@ -453,12 +453,12 @@
     <message>
         <location filename="../awardswidget.cpp" line="101"/>
         <source>Check band &amp;&amp; mode for needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar banda y modo</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="103"/>
         <source>If checked, KLog considers both band and mode when evaluating if a QSO is needed or confirmed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si se marca, KLog considerará la banda y el modo para evaluar si un QSO se neceita o está confirmado.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="104"/>
@@ -2718,12 +2718,12 @@ Error: #2</translation>
     <message>
         <location filename="../mainwindow.cpp" line="3536"/>
         <source>Radio connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Falló la conexión con la radio</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3537"/>
         <source>KLog could not connect to the radio at startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog no pudo conectar con la radio al inicio.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3538"/>
@@ -2731,36 +2731,41 @@ Error: #2</translation>
 You can reconfigure and test the connection in Setup → Hamlib.
 
 Do you want KLog to try to connect automatically on next startup?</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprueba que la radio está encendida y la configuración del puerto correcta.
+Puedes reconfigurar y probar la conexión en Preferencias→ Hamlib.
+
+¿Quieres que KLog intente reconectar la próxima vez?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3541"/>
         <location filename="../mainwindow.cpp" line="3569"/>
         <source>Yes, reconnect on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Si, recoonectar al empezar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3542"/>
         <location filename="../mainwindow.cpp" line="3570"/>
         <source>No, disable radio connection</source>
-        <translation type="unfinished"></translation>
+        <translation>No, deshabilitar la conexión</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3565"/>
         <source>Radio disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio desconectada</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3566"/>
         <source>KLog lost communication with the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog perdió la comunicación con la radio</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3567"/>
         <source>Check that the radio is on and the cable is connected.
 
 Do you want KLog to try to connect automatically on next startup?</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprueba que la radio está encendida y el cable conectado.
+
+¿Quieres que KLog intente conectar la próxima vez?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5674"/>
@@ -7365,7 +7370,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="51"/>
         <source>Check band &amp;&amp; mode for needed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar banda y modo para ver el estado</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="54"/>
@@ -7380,7 +7385,7 @@ El log no se abrirá.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="133"/>
         <source>If checked, KLog will consider both band and mode when evaluating if a QSO is needed or confirmed. If unchecked, only the band is taken into account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si se marca, KLog considerará bana y modo para evaluar si un QSO se necesita o está confirmado. Si se desmarca, sólo se tendrá en cuenta la banda.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="148"/>
@@ -9626,7 +9631,7 @@ Necesita una subscripción para usar esta funcionalidad.</translation>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="261"/>
         <source>Map not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa no disponible</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="268"/>
@@ -9634,12 +9639,15 @@ Necesita una subscripción para usar esta funcionalidad.</translation>
 Install the OSM plugin for your platform, e.g.:
   Debian/Ubuntu/Raspberry Pi OS: apt install qml6-module-qtlocation
   or: apt install qt6-declarative-dev</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta el pluging de Qt6 location para servicios de geolocalización
+Instala el plugin OSM de tu plataforma, ej:
+  Debian/Ubuntu/Raspberry Pi OS: apt install qml6-module-qtlocation
+  o: apt install qt6-declarative-dev</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="447"/>
         <source>Clear</source>
-        <translation type="unfinished">Limpiar</translation>
+        <translation>Limpiar</translation>
     </message>
 </context>
 </TS>
