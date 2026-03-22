@@ -134,59 +134,59 @@
     <message>
         <location filename="../adif.cpp" line="647"/>
         <source>Uploaded</source>
-        <translation type="unfinished">Pujat</translation>
+        <translation>Pujat</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="647"/>
         <source>Do not Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>No pugis</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="647"/>
         <source>Modified</source>
-        <translation type="unfinished">Modificat</translation>
+        <translation>Modificat</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="657"/>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation>Enviat</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="657"/>
         <source>Do not send</source>
-        <translation type="unfinished"></translation>
+        <translation>No enviïs</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="657"/>
         <location filename="../adif.cpp" line="667"/>
         <source>Requested</source>
-        <translation type="unfinished">Sol·licitat</translation>
+        <translation>Sol·licitat</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="657"/>
         <source>Queued</source>
-        <translation type="unfinished">En cua</translation>
+        <translation>En cua</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="657"/>
         <location filename="../adif.cpp" line="667"/>
         <source>Invalid/Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>No vàlid/Ignora</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="667"/>
         <source>Yes</source>
-        <translation type="unfinished">Sí</translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="667"/>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
     <message>
         <location filename="../adif.cpp" line="667"/>
         <source>Verified</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificat</translation>
     </message>
 </context>
 <context>
@@ -400,42 +400,42 @@
     <message>
         <location filename="../awards.cpp" line="759"/>
         <source>New One, work it!</source>
-        <translation type="unfinished">Un de nou, treballeu-ho!</translation>
+        <translation>Un de nou, treballeu-ho!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="764"/>
         <source>Needed (band/mode), work it!</source>
-        <translation type="unfinished"></translation>
+        <translation>Necessari (banda/mode), treballeu-ho!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="766"/>
         <source>Needed, work it!</source>
-        <translation type="unfinished">Necessari, treballeu-ho!</translation>
+        <translation>Necessari, treballeu-ho!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="771"/>
         <source>Worked (band/mode) but not confirmed</source>
-        <translation type="unfinished"></translation>
+        <translation>Treballat (banda/mode), però no confirmat</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="773"/>
         <source>Worked but not confirmed</source>
-        <translation type="unfinished">Treballat però no confirmat</translation>
+        <translation>Treballat però no confirmat</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="779"/>
         <source>Confirmed (band/mode)</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmat (banda/mode)</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="785"/>
         <source>Unknown!</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconegut!</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="789"/>
         <source>Not identified</source>
-        <translation type="unfinished">No identificat</translation>
+        <translation>No identificat</translation>
     </message>
 </context>
 <context>
@@ -453,12 +453,12 @@
     <message>
         <location filename="../awardswidget.cpp" line="101"/>
         <source>Check band &amp;&amp; mode for needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprova la banda i el mode per als necessaris</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="103"/>
         <source>If checked, KLog considers both band and mode when evaluating if a QSO is needed or confirmed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, el KLog considera tant la banda com el mode en l&apos;avaluaciót si un QSO és necessari o confirmat.</translation>
     </message>
     <message>
         <location filename="../awardswidget.cpp" line="104"/>
@@ -680,7 +680,8 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dxccstatuswidget.cpp" line="587"/>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;comentari de context&gt;</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -846,12 +847,12 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../database/database.cpp" line="2565"/>
         <source>KLog - DB update</source>
-        <translation type="unfinished">KLog - Actualitza la BD</translation>
+        <translation>KLog - Actualitza la BD</translation>
     </message>
     <message>
         <location filename="../database/database.cpp" line="2566"/>
         <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
-        <translation type="unfinished">La cancel·lació d&apos;aquesta actualització provocarà inconsistència de dades i possiblement pèrdua de dades. Encara voleu cancel·lar?</translation>
+        <translation>La cancel·lació d&apos;aquesta actualització provocarà inconsistència de dades i possiblement pèrdua de dades. Encara voleu cancel·lar?</translation>
     </message>
 </context>
 <context>
@@ -929,7 +930,8 @@ Voleu tornar-ho a intentar?</translation>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="4999"/>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;comentari de context&gt;</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="5696"/>
@@ -1192,39 +1194,42 @@ Voleu tornar-ho a intentar?</translation>
         <location filename="../filemanager.cpp" line="911"/>
         <source>Importing ADIF file... 
 QSO: </source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;està important un fitxer ADIF... 
+QSO: </translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="940"/>
         <source>KLog - Import finished</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - La importació ha finalitzat</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="941"/>
         <source>The ADIF file import has finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha finalitzat la importació del fitxer ADIF.</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="942"/>
         <source>Imported QSOs: %1
 Ignored duplicated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO importats: %1
+Duplicats ignorats: %2</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="954"/>
         <source>KLog - Duplicated QSOs!</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - QSO duplicats!</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="955"/>
         <source>This file contains duplicated QSOs. Duplicated QSOs will not be imported</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest fitxer conté QSO duplicats. Els QSO duplicats no s&apos;importaran</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1025"/>
         <source>You have canceled the file import. The file will be removed and no data will be imported.
 Do you still want to cancel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Heu cancel·lat la importació de fitxer. El fitxer s&apos;eliminarà i no s&apos;importarà cap dada.
+Encara voleu cancel·lar?</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="1648"/>
@@ -2095,7 +2100,7 @@ Error retornat: %2</translation>
         <location filename="../logmodel.cpp" line="85"/>
         <location filename="../logmodel.cpp" line="91"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconegut</translation>
+        <translation>Desconegut</translation>
     </message>
 </context>
 <context>
@@ -3283,7 +3288,7 @@ El KLog us recordarà que feu còpies de seguretat mensualment.
         <location filename="../mainwindow.cpp" line="1254"/>
         <source>Unknown</source>
         <comment>Keep it short, it&apos;s a button text</comment>
-        <translation type="unfinished">Desconegut</translation>
+        <translation>Desconegut</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1605"/>
@@ -3482,7 +3487,9 @@ Voleu que el KLog elimini aquest fitxer?</translation>
         <source>&lt;HTML&gt;&lt;body&gt;The following QSO data has been received to be logged:
 
 &lt;table&gt;&lt;tr&gt;&lt;TH&gt;Callsign:&lt;/TH&gt;&lt;TD&gt;%1&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Freq:&lt;/TH&gt;&lt;TD&gt;%2&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Mode:&lt;/TH&gt;&lt;TD&gt;%3&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Time On:&lt;/TH&gt;&lt;TD&gt;%4&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Time Off:&lt;/TH&gt;&lt;TD&gt;%5&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST TX:&lt;/TH&gt;&lt;TD&gt;%6&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST RX:&lt;/TH&gt;&lt;TD&gt;%7&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Comment:&lt;/TH&gt;&lt;TD&gt;%8&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;DX-Grid:&lt;/TH&gt;&lt;TD&gt;%9&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Local-Grid:&lt;/TH&gt;&lt;TD&gt;%10&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Station Callsign:&lt;/TH&gt;&lt;TD&gt;%11&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Operator Callsign:&lt;/TH&gt;&lt;TD&gt;%12&lt;/TD&gt;&lt;/TR&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;HTML&gt;&lt;body&gt;S&apos;han rebut les dades del QSO següent per a ser enregistrades:
+
+&lt;table&gt;&lt;tr&gt;&lt;TH&gt;Indicatiu:&lt;/TH&gt;&lt;TD&gt;%1&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Freq:&lt;/TH&gt;&lt;TD&gt;%2&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Mode:&lt;/TH&gt;&lt;TD&gt;%3&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Hora d&apos;inici:&lt;/TH&gt;&lt;TD&gt;%4&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Hora final:&lt;/TH&gt;&lt;TD&gt;%5&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST TX:&lt;/TH&gt;&lt;TD&gt;%6&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;RST RX:&lt;/TH&gt;&lt;TD&gt;%7&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Comentari:&lt;/TH&gt;&lt;TD&gt;%8&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Quadrícula DX:&lt;/TH&gt;&lt;TD&gt;%9&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Quadrícula local:&lt;/TH&gt;&lt;TD&gt;%10&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Indicatiu d&apos;estació:&lt;/TH&gt;&lt;TD&gt;%11&lt;/TD&gt;&lt;/TR&gt;&lt;TR&gt;&lt;TH&gt;Indicatiu d&apos;operador:&lt;/TH&gt;&lt;TD&gt;%12&lt;/TD&gt;&lt;/TR&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6603"/>
@@ -3879,12 +3886,12 @@ Mostreu el vostre desacord amb els vostres líders, o en les vostres xarxes soci
     <message>
         <location filename="../mainwindow.cpp" line="3536"/>
         <source>Radio connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha fallat la connexió de ràdio</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3537"/>
         <source>KLog could not connect to the radio at startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>El KLog no s&apos;ha pogut connectar a la ràdio a l&apos;inici.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3538"/>
@@ -3892,36 +3899,41 @@ Mostreu el vostre desacord amb els vostres líders, o en les vostres xarxes soci
 You can reconfigure and test the connection in Setup → Hamlib.
 
 Do you want KLog to try to connect automatically on next startup?</source>
-        <translation type="unfinished"></translation>
+        <translation>Comproveu que la ràdio estigui engegada i la configuració del port sigui correcta.
+Podeu reconfigurar i provar la connexió a Configuració  → Hamlib.
+
+Voleu que el KLog intenti connectar-se automàticament en el pròxim inici?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3541"/>
         <location filename="../mainwindow.cpp" line="3569"/>
         <source>Yes, reconnect on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Sí, reconnecta en iniciar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3542"/>
         <location filename="../mainwindow.cpp" line="3570"/>
         <source>No, disable radio connection</source>
-        <translation type="unfinished"></translation>
+        <translation>No, desactiva la connexió de ràdio</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3565"/>
         <source>Radio disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ràdio desconnectada</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3566"/>
         <source>KLog lost communication with the radio.</source>
-        <translation type="unfinished"></translation>
+        <translation>El KLog ha perdut la comunicació amb la ràdio.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3567"/>
         <source>Check that the radio is on and the cable is connected.
 
 Do you want KLog to try to connect automatically on next startup?</source>
-        <translation type="unfinished"></translation>
+        <translation>Comproveu que la ràdio estigui engegada i que el cable estigui connectat.
+
+Voleu que el KLog intenti connectar-se automàticament en el pròxim inici?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4094"/>
@@ -6742,7 +6754,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="46"/>
         <source>Default</source>
-        <translation type="unfinished">Predeterminat</translation>
+        <translation>Predeterminat</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="47"/>
@@ -6833,13 +6845,13 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <location filename="../setuppages/setuppageelog.cpp" line="94"/>
         <location filename="../setuppages/setuppageelog.cpp" line="95"/>
         <source>Select the default option for new QSOs in Clublog</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;opció predeterminada dels QSO nous a Clublog</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="124"/>
         <location filename="../setuppages/setuppageelog.cpp" line="125"/>
         <source>Select the default option for new QSOs in eQSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;opció predeterminada dels QSO nous a eQSL</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="136"/>
@@ -6905,7 +6917,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <location filename="../setuppages/setuppageelog.cpp" line="174"/>
         <location filename="../setuppages/setuppageelog.cpp" line="175"/>
         <source>Select the default option for new QSOs in QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;opció predeterminada dels QSO nous a QRZ.com</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="201"/>
@@ -6966,7 +6978,7 @@ Si no s&apos;especifica port, s&apos;usarà 41112 de forma predeterminada:</tran
         <location filename="../setuppages/setuppageelog.cpp" line="224"/>
         <location filename="../setuppages/setuppageelog.cpp" line="225"/>
         <source>Select the default option for new QSOs in LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccioneu l&apos;opció predeterminada dels QSO nous a LoTW</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageelog.cpp" line="533"/>
@@ -7367,7 +7379,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="51"/>
         <source>Check band &amp;&amp; mode for needed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprova la banda i el mode per als d&apos;estat necessari</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="54"/>
@@ -7382,7 +7394,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="133"/>
         <source>If checked, KLog will consider both band and mode when evaluating if a QSO is needed or confirmed. If unchecked, only the band is taken into account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si està marcat, el KLog considerarà tant la banda com el mode en l&apos;avaluació si es necessita o es confirma un QSO. Si no es marca, només es té en compte la banda.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="148"/>
@@ -8382,7 +8394,7 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="69"/>
         <source>&lt;center&gt;&lt;h2&gt;KLog new version (%1) is available! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;There is a new version of KLog available.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can get the new version from:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://github.com/ea4k/klog&gt;https://github.com/ea4k/klog&lt;/a&gt;&lt;/center&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;&lt;h2&gt;Hi ha una versió (%1) nova disponible del KLog! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;Hi ha una versió nova disponible del KLog.&lt;br&gt;&lt;br&gt;&lt;b&gt;Podeu aconseguir la versió nova a:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://github.com/ea4k/klog&gt;https://github.com/ea4k/klog&lt;/a&gt;&lt;/center&gt;</translation>
     </message>
     <message>
         <location filename="../softwareupdatedialog.cpp" line="73"/>
@@ -9128,17 +9140,17 @@ El registre no s&apos;obrirà.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="184"/>
         <source>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can join the development team by simply &lt;a href=https://github.com/ea4k/klog?tab=readme-ov-file#telegram-groups&gt;Contacting us&lt;/a&gt;?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 15:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu unir-vos a l&apos;equip de desenvolupament &lt;a href=https://github.com/ea4k/klog?tab=readme-ov-file#telegram-groups&gt;posant-vos en contacte amb nosaltres&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="187"/>
         <source>&lt;b&gt;Tip #16:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;That there are many ways to contribute to KLog and some of them are listed in the &lt;a href=https://github.com/ea4k/klog/issues&gt;KLog issues&lt;/a&gt; page?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 16:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;hi ha moltes maneres de col·laborar amb el KLog i varies estan llistades a la pàgina de &lt;a href=https://github.com/ea4k/klog/issues&gt;problemes del KLog&lt;/a&gt;?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="190"/>
         <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://github.com/ea4k/klog/tree/master/src/translations&gt;KLog Translations&lt;/a&gt; page.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Consell núm. 17:&lt;/b&gt;&lt;br&gt;Sabíeu que...&lt;br&gt;podeu ajudar a traduir el KLog al vostre idioma? Si us plau, vegeu la pàgina de &lt;a href=https://github.com/ea4k/klog/tree/master/src/translations&gt;traduccions del KLog&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="193"/>
@@ -9614,7 +9626,7 @@ Cal una subscripció a QRZ.com per a usar aquesta funcionalitat.</translation>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="261"/>
         <source>Map not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa no disponible</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="268"/>
@@ -9622,12 +9634,15 @@ Cal una subscripció a QRZ.com per a usar aquesta funcionalitat.</translation>
 Install the OSM plugin for your platform, e.g.:
   Debian/Ubuntu/Raspberry Pi OS: apt install qml6-module-qtlocation
   or: apt install qt6-declarative-dev</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta el connector de serveis de geolocalització de les Qt6.
+Instal·leu el connector OSM de la vostra plataforma, p. ex.:
+  Debian/Ubuntu/Raspberry Pi OS: apt install qml6-module-qtlocation
+  o: apt install qt6-declarative-dev</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="447"/>
         <source>Clear</source>
-        <translation type="unfinished">Neteja</translation>
+        <translation>Neteja</translation>
     </message>
 </context>
 </TS>
