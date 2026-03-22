@@ -53,7 +53,7 @@ void DXSpot::clear()
     dxcall.clear();
     freq.clear();
     spotter.clear();
-    dateTime.currentDateTimeUtc();
+    dateTime = QDateTime::currentDateTimeUtc();
     mode.clear();
     status      = unknown;
     clickStatus = NoClick;

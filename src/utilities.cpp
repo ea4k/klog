@@ -1230,7 +1230,10 @@ bool Utilities::isValidARRLSect(const QString &_s)
 
 QDateTime Utilities::getDateTimeFromSQLiteString(const QString &_s)
 {
-    return QDateTime::fromString(_s, "yyyy-MM-dd hh:mm:ss");
+    QDateTime dt = QDateTime::fromString(_s, "yyyy-MM-dd hh:mm:ss");
+    if (dt.isValid())
+        dt.setTimeZone(QTimeZone::UTC);
+    return dt;
 }
 
 QTime Utilities::getTimeFromSQLiteString(const QString &_s)

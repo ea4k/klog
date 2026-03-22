@@ -705,7 +705,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
             QString aux = fields.last();
             aux.chop(1);
             QTime time = QTime::fromString(aux,"HHmm");
-            QDateTime datetime = QDateTime::currentDateTime();
+            QDateTime datetime = QDateTime::currentDateTimeUtc();
             datetime.setTime(time);
             spot.setDateTime(datetime);
 
@@ -870,7 +870,7 @@ void DXClusterWidget::saveSpot(const QString &_spot)
     //qDebug() << "DXClusterWidget::saveSpot: File Open";
     Utilities util(Q_FUNC_INFO);
     QTextStream out(saveSpotsFile);
-    out << util.getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTime()) << " - " << _spot.simplified().toUtf8();
+    out << util.getDateTimeSQLiteStringFromDateTime(QDateTime::currentDateTimeUtc()) << " - " << _spot.simplified().toUtf8();
     out << Qt::endl;
     saveSpotsFile->close();
 }

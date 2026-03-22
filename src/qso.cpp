@@ -3488,11 +3488,10 @@ bool QSO::setLoTWRXQSO(const QString& data)
     if (cleanData.isEmpty()) return false;
 
     QDateTime parsedDate = QDateTime::fromString(cleanData, "yyyy-MM-dd HH:mm:ss");
-
-    if (!parsedDate.isValid()) {
-        // // Second try to import, in a different format
+    if (parsedDate.isValid())
+        parsedDate.setTimeZone(QTimeZone::UTC);
+    else
         parsedDate = QDateTime::fromString(cleanData, Qt::ISODate);
-    }
 
     if (!parsedDate.isValid()) {
        //qDebug() << Q_FUNC_INFO << " - Invalid APP_LoTW_RXQSO date: " << data;
@@ -3513,8 +3512,9 @@ bool QSO::setLoTWRXQSL(const QString& data)
         return false;
 
     QDateTime parsedDate = QDateTime::fromString(cleanData, "yyyy-MM-dd HH:mm:ss");
-
-    if (!parsedDate.isValid())
+    if (parsedDate.isValid())
+        parsedDate.setTimeZone(QTimeZone::UTC);
+    else
         parsedDate = QDateTime::fromString(cleanData, Qt::ISODate);
 
     if (!parsedDate.isValid())

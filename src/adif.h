@@ -38,6 +38,7 @@
 #include <QStringList>
 #include <QtDebug>
 #include <QtGlobal>
+#include <QTimeZone>
 #include "klogdefinitions.h"
 
 struct AdifMode {
