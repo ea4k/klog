@@ -411,7 +411,10 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
     //TODO: To be added to the logWindow and create an action that emist the QSO id to be edited
 
-    logModel->select();
+    // NOTE: logModel->select() was removed here. It triggered a heavy LEFT JOIN query
+    // (log ⟶ band ⟶ mode ⟶ entity) over all QSOs in the log synchronously on the UI thread
+    // right when the user opened the edit view, causing a noticeable delay. The log model
+    // is already refreshed after the QSO is saved via logWindow->refresh() in MainWindow.
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 

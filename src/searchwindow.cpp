@@ -352,7 +352,9 @@ void SearchWindow::slotDoubleClickLog(const QModelIndex & index)
 
     //TODO: To be added to the SearchWindow and create an action that emist the QSO id to be edited
 
-    searchModel->select();
+    // NOTE: searchModel->select() was removed here for the same reason as in LogWindow:
+    // there is no need to reload the model when opening the edit view; the refresh
+    // already happens after the QSO is saved.
 }
 
 bool SearchWindow::isQSLReceived(const int _qsoId)
