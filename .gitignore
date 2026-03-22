@@ -9,6 +9,7 @@ src/build
 src/CMakeFiles/*
 src/klog_autogen/*
 build
+build_cmake
 src/release
 src/Makefile*
 src/object_*
