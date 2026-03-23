@@ -63,16 +63,13 @@ jobs:
           $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
           $output = "hamlib.zip"
           Invoke-WebRequest -Uri $url -OutFile $output
-          
           if ((Get-Item $output).Length -lt 10000) {
              Write-Error "Download failed or file is corrupted."
              exit 1
           }
-
           Expand-Archive -Path $output -DestinationPath hamlib_temp -Force
           $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
-          
           Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
           choco install nsis -y
 
