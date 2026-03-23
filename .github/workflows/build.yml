@@ -60,6 +60,9 @@ jobs:
           $destPath = "$parentPath\libs\win64\hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
           Copy-Item -Path "hamlib_temp\hamlib-w64-4.7.0\*" -Destination "$destPath\" -Recurse -Force
+          # pthread.h required by hamlib/rig.h - copy from MSYS2 (pre-installed on GitHub Actions runners)
+          Copy-Item "C:\msys64\mingw64\include\pthread.h" "$destPath\include\pthread.h"
+          Copy-Item "C:\msys64\mingw64\include\sched.h" "$destPath\include\sched.h"
           choco install nsis -y
 
       - name: Setup MSVC (Windows)
