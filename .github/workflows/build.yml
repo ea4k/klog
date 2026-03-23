@@ -116,6 +116,23 @@ jobs:
         with:
           arch: x64
 
+      - name: Generate Hamlib import library for MSVC (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $destPath = "$(Split-Path $env:GITHUB_WORKSPACE -Parent)\libs\win64\hamlib"
+          $dll = Get-ChildItem "$destPath\bin" -Filter "libhamlib*.dll" | Select-Object -First 1
+          Write-Host "Generating .lib from: $($dll.FullName)"
+          # Parse dumpbin exports to build a .def file
+          $raw = & dumpbin /exports $dll.FullName
+          $exports = $raw | Where-Object { $_ -match '^\s+\d+\s+[0-9A-Fa-f]+\s+[0-9A-Fa-f]+\s+\S' } |
+                     ForEach-Object { ($_.Trim() -split '\s+')[3] } |
+                     Where-Object { $_ -and $_ -notmatch '^[0-9A-Fa-f]+$' }
+          @("LIBRARY $($dll.BaseName)", "EXPORTS") + $exports |
+            Set-Content "$destPath\lib\hamlib.def" -Encoding UTF8
+          lib /def:"$destPath\lib\hamlib.def" /out:"$destPath\lib\hamlib.lib" /machine:x64
+          Write-Host "hamlib.lib generated with $($exports.Count) exports"
+
       - name: Update Translations
         shell: bash
         run: |
@@ -131,7 +148,7 @@ jobs:
               -DCMAKE_BUILD_TYPE=Release \
               -DBUILD_TESTING=OFF \
               -DHamlib_INCLUDE_DIR="$HAMLIB_BASE/include" \
-              -DHamlib_LIBRARY="$HAMLIB_BASE/lib/libhamlib.dll.a"
+              -DHamlib_LIBRARY="$HAMLIB_BASE/lib/hamlib.lib"
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
           fi
