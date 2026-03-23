@@ -37,7 +37,7 @@ jobs:
           version: '6.7.2'
           arch: ${{ matrix.qt_arch }}
           # We must explicitly list all extra modules required by your CMakeLists.txt
-          modules: 'qtcharts qtlocation qtpositioning qtserialport qtqml qtquick qtquickwidgets'
+          modules: 'qtcharts qtlocation qtpositioning qtserialport'
           cache: true
 
       - name: Install Dependencies (Linux)
