@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-13          # FIX #7: macos-latest es ARM; macos-13 = Intel, compatible con clang_64
+          - os: macos-latest
             platform: macos
             qt_arch: clang_64
           - os: windows-latest
@@ -23,7 +23,7 @@ jobs:
             qt_arch: win64_msvc2019_64
           - os: ubuntu-latest
             platform: linux
-            qt_arch: gcc_64       # FIX #1: era linux_gcc_64, el arch correcto de aqtinstall es gcc_64
+            qt_arch: linux_gcc_64
 
     steps:
       - name: Checkout code
@@ -36,7 +36,7 @@ jobs:
         with:
           version: '6.7.2'
           arch: ${{ matrix.qt_arch }}
-          modules: 'qtcharts qtdeclarative qtlocation qtpositioning qtserialport'  # FIX #2: añadido qtdeclarative (Qml/Quick/QuickWidgets)
+          modules: 'qtcharts qtlocation qtpositioning qtserialport'
           cache: true
 
       - name: Install Dependencies (Linux)
@@ -56,7 +56,7 @@ jobs:
           $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
           Invoke-WebRequest -Uri $url -OutFile "hamlib.zip"
           Expand-Archive -Path "hamlib.zip" -DestinationPath "hamlib_temp" -Force
-          $parentPath = Split-Path $env:GITHUB_WORKSPACE -Parent   # FIX: resuelve el directorio padre de forma segura
+          $parentPath = Split-Path $env:GITHUB_WORKSPACE -Parent
           $destPath = "$parentPath\libs\win64\hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
           Copy-Item -Path "hamlib_temp\hamlib-w64-4.7.0\*" -Destination "$destPath\" -Recurse -Force
@@ -64,7 +64,7 @@ jobs:
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/vcpkg/master/ports/pthreads/sched.h" -OutFile "$destPath\include\sched.h"
           choco install nsis -y
 
-      - name: Setup MSVC (Windows)   # FIX #3: entorno MSVC necesario para que CMake encuentre el compilador
+      - name: Setup MSVC (Windows)
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -73,7 +73,6 @@ jobs:
       - name: Update Translations
         shell: bash
         run: |
-          # FIX #4: install-qt-action ya añade Qt al PATH; Qt6_DIR apunta a cmake, no a bin
           lupdate src/ -no-obsolete -ts src/translations/*.ts
           lrelease src/translations/*.ts
 
@@ -94,14 +93,14 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      - name: Deploy Qt (macOS)    # FIX #6: bundlea frameworks Qt en el .app antes de crear el DMG
+      - name: Deploy Qt (macOS)
         if: runner.os == 'macOS'
         shell: bash
         run: |
           APP=$(find build/bin -name "*.app" | head -1)
           macdeployqt "$APP"
 
-      - name: Deploy Qt (Windows)  # FIX #5: copia las DLLs de Qt junto al ejecutable antes del instalador NSIS
+      - name: Deploy Qt (Windows)
         if: runner.os == 'Windows'
         shell: bash
         run: |
@@ -135,6 +134,6 @@ jobs:
             build/*.tgz
           name: KLog ${{ github.ref_name }}
           draft: false
-          prerelease: ${{ contains(github.ref_name, 'RC') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}  # FIX #8: v2.5-RC3 se marcará automáticamente como pre-release
+          prerelease: ${{ contains(github.ref_name, 'RC') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
