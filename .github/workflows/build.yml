@@ -60,10 +60,53 @@ jobs:
           $destPath = "$parentPath\libs\win64\hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
           Copy-Item -Path "hamlib_temp\hamlib-w64-4.7.0\*" -Destination "$destPath\" -Recurse -Force
-          # pthread.h required by hamlib/rig.h - install winpthreads via MSYS2 then copy headers
-          C:\msys64\usr\bin\pacman.exe -Sy --noconfirm mingw-w64-x86_64-winpthreads-git
-          Get-ChildItem "C:\msys64\mingw64\include\pthread*.h" | Copy-Item -Destination "$destPath\include\"
-          Copy-Item "C:\msys64\mingw64\include\sched.h" "$destPath\include\sched.h"
+          # Replace MinGW pthread.h (which drags in GCC-specific headers) with a
+          # self-contained MSVC-compatible stub. klog only links against the hamlib
+          # DLL; it never calls pthreads directly, so just the type definitions suffice.
+          $pthread = @(
+            '#pragma once',
+            '#ifndef _PTHREAD_H',
+            '#define _PTHREAD_H',
+            '#include <windows.h>',
+            '#include <time.h>',
+            'typedef HANDLE pthread_t;',
+            'typedef CRITICAL_SECTION pthread_mutex_t;',
+            'typedef struct { CONDITION_VARIABLE cv; CRITICAL_SECTION cs; } pthread_cond_t;',
+            'typedef DWORD pthread_key_t;',
+            'typedef struct { SRWLOCK lock; } pthread_rwlock_t;',
+            'typedef struct { int detachstate; size_t stacksize; } pthread_attr_t;',
+            'typedef struct { int type; } pthread_mutexattr_t;',
+            'typedef struct { int dummy; } pthread_condattr_t;',
+            'typedef struct { int dummy; } pthread_rwlockattr_t;',
+            'typedef struct { int count; } pthread_barrier_t;',
+            'typedef struct { int dummy; } pthread_barrierattr_t;',
+            'typedef LONG pthread_spinlock_t;',
+            'typedef struct { volatile long done; } pthread_once_t;',
+            '#define PTHREAD_MUTEX_INITIALIZER { 0 }',
+            '#define PTHREAD_COND_INITIALIZER { 0 }',
+            '#define PTHREAD_RWLOCK_INITIALIZER { 0 }',
+            '#define PTHREAD_ONCE_INIT { 0 }',
+            '#define PTHREAD_MUTEX_RECURSIVE 1',
+            '#define PTHREAD_MUTEX_ERRORCHECK 2',
+            '#define PTHREAD_MUTEX_NORMAL 0',
+            '#define PTHREAD_CREATE_JOINABLE 0',
+            '#define PTHREAD_CREATE_DETACHED 1',
+            '#define PTHREAD_CANCEL_ENABLE 1',
+            '#define PTHREAD_CANCEL_DISABLE 0',
+            '#endif'
+          )
+          $pthread -join "`n" | Set-Content "$destPath\include\pthread.h" -Encoding UTF8
+          $sched = @(
+            '#pragma once',
+            '#ifndef _SCHED_H',
+            '#define _SCHED_H',
+            'struct sched_param { int sched_priority; };',
+            '#define SCHED_OTHER 0',
+            '#define SCHED_FIFO 1',
+            '#define SCHED_RR 2',
+            '#endif'
+          )
+          $sched -join "`n" | Set-Content "$destPath\include\sched.h" -Encoding UTF8
           choco install nsis -y
 
       - name: Setup MSVC (Windows)
