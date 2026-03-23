@@ -73,7 +73,6 @@ jobs:
           $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
           
-          # Copy the full content of the SDK
           Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
           choco install nsis -y
 
@@ -86,7 +85,6 @@ jobs:
       - name: Configure CMake
         shell: bash
         run: |
-          # Use absolute paths for Windows Hamlib to ensure detection
           if [[ "${{ runner.os }}" == "Windows" ]]; then
             cmake -S . -B build \
               -DCMAKE_BUILD_TYPE=Release \
