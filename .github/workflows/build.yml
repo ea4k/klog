@@ -70,6 +70,82 @@ jobs:
           }
 
           Expand-Archive -Path $output -DestinationPath hamlib_temp -Force
+          $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
+          if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
+          
+          # Copy the full content of the SDK
+          Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -name: Build and Package KLog
+
+on:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            platform: macos
+            qt_arch: clang_64
+          - os: windows-latest
+            platform: windows
+            qt_arch: win64_msvc2019_64
+          - os: ubuntu-latest
+            platform: linux
+            qt_arch: linux_gcc_64
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.7.2'
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qtcharts qtlocation qtpositioning qtserialport'
+          cache: true
+
+      - name: Install Dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgl1-mesa-dev \
+            libxkbcommon-dev \
+            build-essential \
+            ninja-build \
+            libxcb-cursor0 \
+            libhamlib-dev \
+            libudev-dev
+
+      - name: Install Dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: brew install hamlib
+
+      - name: Install Dependencies (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
+          $output = "hamlib.zip"
+          Invoke-WebRequest -Uri $url -OutFile $output
+          
+          if ((Get-Item $output).Length -lt 10000) {
+             Write-Error "Download failed or file is corrupted."
+             exit 1
+          }
+
+          Expand-Archive -Path $output -DestinationPath hamlib_temp -Force
           $destPath = "../libs/win64/hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
           Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
