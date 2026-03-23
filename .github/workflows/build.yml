@@ -1,4 +1,38 @@
-name: Build and Package KLog
+steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.7.2'
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qtcharts qtlocation qtpositioning qtserialport'
+          cache: true
+
+      - name: Install Dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-dev build-essential ninja-build libxcb-cursor0 libhamlib-dev
+
+      - name: Install Dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          # Homebrew ya tiene la fórmula estable de hamlib
+          brew install hamlib
+
+      - name: Install Dependencies (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          curl -L https://github.com/Hamlib/Hamlib/releases/download/4.5.5/hamlib-w64-4.5.5.p1.zip -o hamlib.zip
+          unzip hamlib.zip -d hamlib_temp
+          mkdir -p ../libs/win64/hamlib
+          cp -r hamlib_temp/hamlib-w64-4.5.5.p1/* ../libs/win64/hamlib/
+          choco install nsis -yname: Build and Package KLog
 
 on:
   push:
