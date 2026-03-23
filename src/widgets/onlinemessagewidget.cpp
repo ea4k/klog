@@ -168,7 +168,7 @@ QString OnlineMessageWidget::translate(QNetworkReply::NetworkError _error)
     case QNetworkReply::UnknownServerError:
         break;
     default:
-        return QString(tr("Not identified"));
+        return OnlineMessageWidget::tr("Not identified");
         break;
     }
     return QString::number(_error);

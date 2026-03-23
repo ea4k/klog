@@ -61,10 +61,6 @@
         <translation>KLogはとても小さなチームによって開発されており、あなたの参加が望まれています!</translation>
     </message>
     <message>
-        <source>At present, the data that is provided is the following:</source>
-        <translation type="vanished">今のところ、提供いただく情報は以下のものです:</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="123"/>
         <source>Translators bring KLog into your language. They are really an important part of the KLog development team.</source>
         <translation>翻訳者はKLogをあなたの言語で使えるようにします. 翻訳者はKLog開発チームの中でもとりわけ重要な役割を担います.</translation>
@@ -96,33 +92,9 @@
         <translation>翻訳者</translation>
     </message>
     <message>
-        <source>Privacy advisory</source>
-        <translation type="vanished">プライバシーについての勧告</translation>
-    </message>
-    <message>
-        <source>Callsign</source>
-        <translation type="vanished">コールサイン</translation>
-    </message>
-    <message>
-        <source>KLog version</source>
-        <translation type="vanished">KLogのバージョン</translation>
-    </message>
-    <message>
-        <source>Operating system</source>
-        <translation type="vanished">OSの情報</translation>
-    </message>
-    <message>
-        <source>Be aware that you can enable/disable this feature from the Misc tab in the Setup page.</source>
-        <translation type="vanished">この機能は、セットアップページの「Misc」タブで有効/無効を切り替えることができますので、ご注意ください。</translation>
-    </message>
-    <message>
         <location filename="../aboutdialog.cpp" line="182"/>
         <source>KLog</source>
         <translation>KLog</translation>
-    </message>
-    <message>
-        <source>Privacy</source>
-        <translation type="vanished">プライバシー</translation>
     </message>
 </context>
 <context>
@@ -279,14 +251,6 @@
         <location filename="../widgets/adiflotwexportwidget.cpp" line="658"/>
         <source>There are no queued QSOs.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">すべてのログ</translation>
-    </message>
-    <message>
-        <source>QSOs: </source>
-        <translation type="vanished">QSOs: </translation>
     </message>
     <message>
         <location filename="../widgets/adiflotwexportwidget.cpp" line="689"/>
@@ -787,10 +751,6 @@ Do you want to try again?</source>
 (カラのパスワードについてはエンターだけ押してください。）</translation>
     </message>
     <message>
-        <source>Not logged on, you may need to enter your callsign again.</source>
-        <translation type="vanished">ログオンしていません. もう一度、コールサインを入力してみてください.</translation>
-    </message>
-    <message>
         <location filename="../dxcluster/dxcluster.cpp" line="503"/>
         <source>Enter here the commands to be sent to the DX-Cluster server.</source>
         <translation>ここでは、DX-Clusterサーバーに送信するコマンドを入力します。</translation>
@@ -938,10 +898,6 @@ Do you want to try again?</source>
         <translation>マネージャー</translation>
     </message>
     <message>
-        <source>All QSOs have been updated with a DXCC and the Continent.</source>
-        <translation type="vanished">全てのQSOはDXCCと大陸が更新されています。</translation>
-    </message>
-    <message>
         <location filename="../dataproxy_sqlite.cpp" line="4959"/>
         <source>Field Aligned Irregularities</source>
         <comment>Common term in hamradio, do not translate if not sure</comment>
@@ -971,42 +927,6 @@ Do you want to try again?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation type="vanished">はい</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="vanished">いいえ</translation>
-    </message>
-    <message>
-        <source>Requested</source>
-        <translation type="vanished">リクエスト済み</translation>
-    </message>
-    <message>
-        <source>Ignore/Invalid</source>
-        <translation type="vanished">無視/無効</translation>
-    </message>
-    <message>
-        <source>Validated</source>
-        <translation type="vanished">検証済み</translation>
-    </message>
-    <message>
-        <source>Queued</source>
-        <translation type="vanished">待機中</translation>
-    </message>
-    <message>
-        <source>Uploaded</source>
-        <translation type="vanished">アップロード</translation>
-    </message>
-    <message>
-        <source>Do not upload</source>
-        <translation type="vanished">アップロードしない</translation>
-    </message>
-    <message>
-        <source>Modified</source>
-        <translation type="vanished">更新日</translation>
-    </message>
-    <message>
         <location filename="../dataproxy_sqlite.cpp" line="5700"/>
         <source>Direct</source>
         <translation type="unfinished">ダイレクト</translation>
@@ -1015,10 +935,6 @@ Do you want to try again?</source>
         <location filename="../dataproxy_sqlite.cpp" line="5704"/>
         <source>Electronic</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>KLog DXCC</source>
-        <translation type="vanished">KLog DXCC</translation>
     </message>
     <message>
         <location filename="../dataproxy_sqlite.cpp" line="8363"/>
@@ -1157,47 +1073,9 @@ Do you want to try again?</source>
         <translation>読込みの中止</translation>
     </message>
     <message>
-        <source>Reading LoTW file...</source>
-        <translation type="vanished">LoTWのファイルを読む...</translation>
-    </message>
-    <message>
-        <source>KLog - Log selection</source>
-        <translation type="vanished">KLog - ログの選択</translation>
-    </message>
-    <message>
-        <source>You have canceled the file import. The file will be removed and no data will be imported.</source>
-        <translation type="vanished">ファイルのインポートをキャンセルしました。ファイルは削除され、データはインポートされません。</translation>
-    </message>
-    <message>
-        <source>Exporting ADIF file...
- QSO: %1 / %2 </source>
-        <translation type="vanished">ADIF ファイルをエクスポートする...
- QSO: %1 / %2 </translation>
-    </message>
-    <message>
-        <source>Do you want to continue with the current file?</source>
-        <translation type="vanished">現在のファイルを継続して使用しますか？</translation>
-    </message>
-    <message>
-        <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-TX information.</source>
-        <translation type="vanished">このログのいくつかのQSO (例: %1) では、RST-TX情報が不足しているようです。</translation>
-    </message>
-    <message>
-        <source>If you select NO, maybe the QSO will not be imported.</source>
-        <translation type="vanished">NOを選択した場合、もしかしたらQSOがインポートされないかもしれません。</translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="156"/>
         <source>KLog - Error</source>
         <translation>KLog - エラー</translation>
-    </message>
-    <message>
-        <source>The selected log does not exist, please check it again.</source>
-        <translation type="vanished">選択したログが存在しないので、もう一度確認してください。</translation>
-    </message>
-    <message>
-        <source>The file %1 can&apos;t be opened.</source>
-        <translation type="vanished">ファイル%1 cを開くことができません。</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="911"/>
@@ -1313,14 +1191,6 @@ KLogにこのQSOをログに追加させますか？</translation>
         <translation>選択されたコールサイン（%1）は有効ではありません。ログをエクスポートするためにもう一度確認してください。</translation>
     </message>
     <message>
-        <source>There are no QSOs pending to be exported with that station callsign.</source>
-        <translation type="vanished">その局のコールサインでエクスポートするために保留されているQSOはありません。</translation>
-    </message>
-    <message>
-        <source>Export</source>
-        <translation type="vanished">エクスポート</translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="288"/>
         <location filename="../filemanager.cpp" line="483"/>
         <source>Export progress</source>
@@ -1342,77 +1212,6 @@ KLogにこのQSOをログに追加させますか？</translation>
         <translation>KLogがLoTWファイルを読めなかった</translation>
     </message>
     <message>
-        <source>Processing LoTW ADIF file...</source>
-        <translation type="vanished">LoTW ADIFファイルの処理...</translation>
-    </message>
-    <message>
-        <source>Abort processing</source>
-        <translation type="vanished">処理を中止する</translation>
-    </message>
-    <message>
-        <source>LoTW reading</source>
-        <translation type="vanished">LoTWの読み方</translation>
-    </message>
-    <message>
-        <source>KLog - Add new QSOs?</source>
-        <translation type="vanished">KLog - 新しいQSOを追加しますか？</translation>
-    </message>
-    <message>
-        <source>Do you want to add non existing QSOs to your local log?</source>
-        <translation type="vanished">既存のQSO以外のQSOをローカルログに追加したいですか？</translation>
-    </message>
-    <message>
-        <source>There are some QSOs in the LoTW log that are not in your local log.</source>
-        <translation type="vanished">LoTWのログには、あなたのローカルログにはないQSOがあります。</translation>
-    </message>
-    <message>
-        <source>Processing LoTW ADIF file......
- QSO: %1 / %2 </source>
-        <translation type="vanished">LoTW ADIFファイルの処理......
- QSO: %1 / %2 </translation>
-    </message>
-    <message>
-        <source>You have canceled the LoTW processing. The process will be stopped and your log may not be completely updated.</source>
-        <translation type="vanished">LoTWの処理をキャンセルしました。処理が停止されるため、ログが完全に更新されない場合があります。</translation>
-    </message>
-    <message>
-        <source>Importing LoTW ADIF file...</source>
-        <translation type="vanished">LoTW ADIFファイルのインポート...</translation>
-    </message>
-    <message>
-        <source>There is more than one log in this logfile.</source>
-        <translation type="vanished">このログファイルには、複数のログが存在します。</translation>
-    </message>
-    <message>
-        <source>All logs will be imported into the current log.</source>
-        <translation type="vanished">すべてのログが現在のログに取り込まれます。</translation>
-    </message>
-    <message>
-        <source>Do you want to continue?</source>
-        <translation type="vanished">続行しますか？</translation>
-    </message>
-    <message>
-        <source>Do you want to add dupe QSOs to your local log?</source>
-        <translation type="vanished">自分のローカルログに重複
-QSOを追加したいですか？</translation>
-    </message>
-    <message>
-        <source>There are some QSOs in this logfile that may be dupes as they have same call, band &amp; mode and a very close date.</source>
-        <translation type="vanished">このログファイルの中には、コール、バンド、モードが同じで、日付も非常に近いため、ダブっている可能性があるQSOもあります。</translation>
-    </message>
-    <message>
-        <source>Importing ADIF file...</source>
-        <translation type="vanished">ADIFファイルのインポート...</translation>
-    </message>
-    <message>
-        <source>KLog - Duplicated QSOs</source>
-        <translation type="vanished">KLog - 重複したQSO</translation>
-    </message>
-    <message>
-        <source>Click on Yes to add a default %1 for mode %2 to all QSOs with a similar problem.</source>
-        <translation type="vanished">「はい」をクリックすると、同様の問題を抱えるすべてのQSOにデフォルトの%1 forモード%2が追加されます。</translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="1275"/>
         <source>KLog has found one QSO without the Station Callsign defined.
 
@@ -1427,42 +1226,10 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Some QSOs of this log, (i.e.: %1) seems to lack RST-RX information.</source>
-        <translation type="vanished">このログのいくつかのQSO (例: %1) では、RST-RX情報が不足しているようです。</translation>
-    </message>
-    <message>
-        <source>KLog - Apply to all QSOs in this log?</source>
-        <translation type="vanished">KLog - このログのすべてのQSOに適用しますか？</translation>
-    </message>
-    <message>
-        <source>KLog - No Station callsign entered.</source>
-        <translation type="vanished">KLog - ステーションコールサインが入力されていません。</translation>
-    </message>
-    <message>
         <location filename="../filemanager.cpp" line="1276"/>
         <location filename="../filemanager.cpp" line="1281"/>
         <source>KLog - QSO without Station Callsign</source>
         <translation>KLog - 局のコールサインなしのQSO</translation>
-    </message>
-    <message>
-        <source>It seems that there are some duplicated QSOs in the ADIF file you are importing. Do you want to continue? (Duped QSOs will not be imported)</source>
-        <translation type="vanished">インポートしているADIFファイルの中に、重複するQSOがあるようです。このまま続けますか？(重複したQSOはインポートされません）。</translation>
-    </message>
-    <message>
-        <source>This QSO is not including the minimum data to consider a QSO as valid!</source>
-        <translation type="vanished">このQSOには、QSOを有効とみなすための最低限のデータが含まれていません！</translation>
-    </message>
-    <message>
-        <source>KLog: Not all required data found!</source>
-        <translation type="vanished">KLog; データの不足が見つかりました!</translation>
-    </message>
-    <message>
-        <source>KLog: No RST TX found!</source>
-        <translation type="vanished">KLog: RST TXが見つかりません!</translation>
-    </message>
-    <message>
-        <source>KLog: No RST RX found!</source>
-        <translation type="vanished">KLog: RST RXが見つかりません!</translation>
     </message>
 </context>
 <context>
@@ -1775,10 +1542,6 @@ Enter the Station Callsign that was used to do this QSO on %1:</source>
         <location filename="../startwizard.cpp" line="154"/>
         <source>This looks like it&apos;s the first time you&apos;ve run KLog on this computer.</source>
         <translation>このコンピューターでKLogを実行するのは初めてのようです.</translation>
-    </message>
-    <message>
-        <source>KLog is a free hamradio logging program that can run on GNU/Linux, macOS, and Windows.</source>
-        <translation type="vanished">KLogは、GNU/Linux、macOS、Windowsで動作するフリーのハムラジオログプログラムです。</translation>
     </message>
     <message>
         <location filename="../startwizard.cpp" line="155"/>
@@ -2371,10 +2134,6 @@ Error returned: %2</source>
         <translation>KLog</translation>
     </message>
     <message>
-        <source>It seems that you have never done a backup or exported your log to ADIF.</source>
-        <translation type="vanished">ログのバックアップやADIFへのエクスポートをしたことがないようですね。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="375"/>
         <source>It was not possible to open the debug file for writing. No debug log will be saved!</source>
         <translation>書き込み用のデバッグファイルを開くことができませんでした。デバッグログは保存されません</translation>
@@ -2395,27 +2154,9 @@ Error returned: %2</source>
         <translation>KLog - CTY.datの更新</translation>
     </message>
     <message>
-        <source>It seems that the latest backup you did is older than one month.</source>
-        <translation type="vanished">あなたが行った最新のバックアップは、1ヶ月よりも古いようです。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="786"/>
         <source>Log backup recommended!</source>
         <translation>ログのバックアップを推奨します。</translation>
-    </message>
-    <message>
-        <source>It is a good practice to backup your full log regularly to avoid loosing data in case of a problem.
-Once you export your log to an ADIF file, you should copy that file to a safe place, like an USB drive, cloud drive, another computer, ...
-
-KLog will remind you to backup on a monthly basis.
-
-</source>
-        <translation type="vanished">問題が発生したときにデータが失われないように、フルログを定期的にバックアップすることをお勧めします。
-ログをADIFファイルにエクスポートしたら、そのファイルをUSBドライブ、クラウドドライブ、別のコンピューターなど、安全な場所にコピーしてください...。
-
-KLogは毎月バックアップを取るように促してくれます。
-
-</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="803"/>
@@ -2434,10 +2175,6 @@ KLogは毎月バックアップを取るように促してくれます。
         <translation>使用可能</translation>
     </message>
     <message>
-        <source>An unexpected error ocurred when trying to add the QSO to your log. If the problem persists, please contact the developer for analysis: </source>
-        <translation type="vanished">QSOをログに追加しようとしたときに予期せぬエラーが発生しました。それでも問題が解決しない場合は、開発者に連絡して解析を依頼してください。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="1204"/>
         <source>KLog - Not valid call</source>
         <translation>KLog - 無効な通話</translation>
@@ -2446,30 +2183,6 @@ KLogは毎月バックアップを取るように促してくれます。
         <location filename="../mainwindow.cpp" line="1207"/>
         <source>Adding non-valid calls to the log may create problems when applying for awards, exporting ADIF files to other systems or applications.</source>
         <translation>有効でない通話をログに追加すると、アワードの申請やADIFファイルを他のシステムやアプリケーションにエクスポートする際に問題が発生することがあります。</translation>
-    </message>
-    <message>
-        <source>You have selected an entity:</source>
-        <translation type="vanished">エンティティを選択しました。</translation>
-    </message>
-    <message>
-        <source>that is different from the KLog proposed entity:</source>
-        <translation type="vanished">KLog提案のエンティティとは異なるものです。</translation>
-    </message>
-    <message>
-        <source>Click on the prefix of the correct entity or Cancel to edit the QSO again.</source>
-        <translation type="vanished">正しいエンティティのプレフィックスをクリックするか、「キャンセル」をクリックしてQSOを再度編集します。</translation>
-    </message>
-    <message>
-        <source>No DXCC</source>
-        <translation type="vanished">DXCCなし</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="vanished">なし</translation>
-    </message>
-    <message>
-        <source>Click on the prefix of the right entity or Cancel to correct.</source>
-        <translation type="vanished">正しいエンティティの接頭辞をクリックするか、修正する場合はキャンセルしてください。</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1568"/>
@@ -2633,10 +2346,6 @@ KLogは毎月バックアップを取るように促してくれます。
         <translation>KLog - ファイルが開かない</translation>
     </message>
     <message>
-        <source>KLog - Unexpected error</source>
-        <translation type="vanished">KLog - 予期せぬエラー</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="1269"/>
         <source>KLog - Select correct entity</source>
         <translation>KLog - 正しいエンティティの選択</translation>
@@ -2747,10 +2456,6 @@ KLogは毎月バックアップを取るように促してくれます。
         <location filename="../mainwindow.cpp" line="2677"/>
         <source>&amp;Help</source>
         <translation>ヘルプ</translation>
-    </message>
-    <message>
-        <source>Upload the queued QSOs to LoTW</source>
-        <translation type="vanished">キューイングされたQSOをLoTWにアップロードする</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="515"/>
@@ -3081,10 +2786,6 @@ LoTWにアップロードされた全てのQSOをSentとしてマークします
         <translation>このバージョンのKLogを初めてお使いになるようですね。</translation>
     </message>
     <message>
-        <source>The setup will be open to allow you to do any new setup you may need.</source>
-        <translation type="vanished">セットアップは、必要な新しいセットアップができるようにオープンにします。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="1473"/>
         <source>You have requested to delete the QSO with: %1</source>
         <translation type="unfinished"></translation>
@@ -3106,37 +2807,9 @@ LoTWにアップロードされた全てのQSOをSentとしてマークします
         <translation>エンティティデータベースの更新は、「ツール」→「アップデート cty.csv」</translation>
     </message>
     <message>
-        <source>Do you want to do it now?</source>
-        <translation type="vanished">今すぐにでもやりたいと思いますか？</translation>
-    </message>
-    <message>
-        <source>The backup was done successfully</source>
-        <translation type="vanished">バックアップは正常に行われました。</translation>
-    </message>
-    <message>
-        <source>KLog will remind you to backup your data again in aprox one month.</source>
-        <translation type="vanished">KLogは約1ヶ月後にデータのバックアップを促します。</translation>
-    </message>
-    <message>
-        <source>The backup was not properly done.</source>
-        <translation type="vanished">バックアップが適切に行われていなかった。</translation>
-    </message>
-    <message>
-        <source>It is recommended to backup your data periodically to prevent lose or corruption of your log.</source>
-        <translation type="vanished">ログの消失や破損を防ぐため、定期的にデータをバックアップすることをお勧めします。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="1205"/>
         <source>The callsign %1 is not a valid call. Do you really want to add this callsign to the log?</source>
         <translation>コールサイン %1 は有効なコールではありません。本当にこのコールサインをログに追加しますか？</translation>
-    </message>
-    <message>
-        <source>KLog - Not valid callsign</source>
-        <translation type="vanished">KLog - 無効なコールサイン</translation>
-    </message>
-    <message>
-        <source>The callsign %1 is not a valid callsign. Do you really want to add this callsign to the log?</source>
-        <translation type="vanished">コールサイン %1 は有効なコールサインではありません。本当にこのコールサインをログに追加しますか？</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1418"/>
@@ -3442,10 +3115,6 @@ KLogにそのファイルを削除させますか？</translation>
         <translation>LoTWツール ...</translation>
     </message>
     <message>
-        <source>Queue all QSLs from this log to be sent</source>
-        <translation type="vanished">このログからのすべてのQSLをキューに入れて送信する</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="2539"/>
         <source>Mark all non-sent QSOs in this log as queued to be uploaded.</source>
         <translation>このログのすべての未送信のQSOを、アップロード待ちとしてマークします。</translation>
@@ -3663,10 +3332,6 @@ UDP サーバが %1 に失敗しました。</translation>
         <translation>KLog - eQSL</translation>
     </message>
     <message>
-        <source>You need to select one station callsign to be able to send your log to eQSL.cc.</source>
-        <translation type="vanished">eQSL.ccにログを送信するためには、1局のコールサインを選択する必要があります。</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="4292"/>
         <location filename="../mainwindow.cpp" line="4335"/>
         <source>Select the Station Callsign to use when quering LoTW:</source>
@@ -3747,14 +3412,6 @@ SetupのLoTWタブを開いて、LoTWの接続を設定してください。</tr
         <location filename="../mainwindow.cpp" line="5088"/>
         <source>Printing the log ...</source>
         <translation>ログの印刷 ...</translation>
-    </message>
-    <message>
-        <source>Station Callsign</source>
-        <translation type="obsolete">無線局のコールサイン</translation>
-    </message>
-    <message>
-        <source>Operator Callsign</source>
-        <translation type="vanished">オペレーターのコールサイン</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5736"/>
@@ -3921,14 +3578,6 @@ KLogにそのファイルを削除させますか？</translation>
         <source>Printing the log...
  QSO: </source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following QSO data has been received from WSJT-X to be logged:</source>
-        <translation type="vanished">WSJT-Xから以下のQSOデータを受信しましたので、記録します。</translation>
-    </message>
-    <message>
-        <source>Freq</source>
-        <translation type="vanished">周波数</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5778"/>
@@ -4551,10 +4200,6 @@ Frequency is not in a hamradio band!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>My SOTA_Ref</source>
-        <translation type="vanished">私のSOTA_Ref</translation>
-    </message>
-    <message>
         <location filename="../inputwidgets/mainwindowmydatatab.cpp" line="549"/>
         <source>My VUCC_GRIDS</source>
         <translation>私のVUCC_GRIDS</translation>
@@ -4591,10 +4236,6 @@ Frequency is not in a hamradio band!</source>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="124"/>
         <source>DownLink band.</source>
         <translation>ダウンリンクバンド。</translation>
-    </message>
-    <message>
-        <source>Locator of the DX station. This box is synchronized with the Locator box in the QSO tab.</source>
-        <translation type="vanished">DXステーションのロケーター。このボックスは、QSOタブのロケーターボックスと同期しています。</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="127"/>
@@ -4635,26 +4276,6 @@ Frequency is not in a hamradio band!</source>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="444"/>
         <source>Please be aware that the satellite name will not be saved if it is not in the list, so that information may be lost!</source>
         <translation>リストにない場合は衛星名が保存されないため、情報が失われる可能性がありますのでご注意ください。</translation>
-    </message>
-    <message>
-        <source>RX Frequency in MHz.
-Frequency is not in a hamradio band!</source>
-        <translation type="vanished">RXの周波数（MHz）です。
-周波数はハムラジオのバンドではありません。</translation>
-    </message>
-    <message>
-        <source>RX Frequency in MHz.</source>
-        <translation type="vanished">RX周波数（MHz）。</translation>
-    </message>
-    <message>
-        <source>TX Frequency in MHz.
-Frequency is not in a hamradio band!</source>
-        <translation type="vanished">TXの周波数（MHz）です。
-周波数はハムラジオのバンドではありません。</translation>
-    </message>
-    <message>
-        <source>TX Frequency in MHz.</source>
-        <translation type="vanished">TX周波数（MHz）。</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="115"/>
@@ -4740,8 +4361,9 @@ Frequency is not in a hamradio band!</source>
         <translation>サーバから次のエラーが返されました: %1</translation>
     </message>
     <message>
+        <location filename="../widgets/onlinemessagewidget.cpp" line="171"/>
         <source>Not identified</source>
-        <translation type="obsolete">不明</translation>
+        <translation type="unfinished">不明</translation>
     </message>
 </context>
 <context>
@@ -4829,7 +4451,7 @@ Frequency is not in a hamradio band!</source>
     </message>
     <message>
         <location filename="../database/database.cpp" line="1211"/>
-        <location filename="../utilities.cpp" line="1536"/>
+        <location filename="../utilities.cpp" line="1539"/>
         <source>Station Callsign</source>
         <translation>無線局のコールサイン</translation>
     </message>
@@ -4839,30 +4461,6 @@ Frequency is not in a hamradio band!</source>
         <location filename="../world.cpp" line="984"/>
         <source>QSO: </source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Canceling this update will cause data inconsistencies and possibly data loss. Do you still want to cancel?</source>
-        <translation type="vanished">更新を中止するとデータに矛盾が生じたり、データが失われる可能性があります. &#x3000;更新を中止しますか？</translation>
-    </message>
-    <message>
-        <source>Progress: </source>
-        <translation type="vanished">進捗状況: </translation>
-    </message>
-    <message>
-        <source>Updating DXCC award information...</source>
-        <translation type="vanished">DXCCアワード情報の更新...</translation>
-    </message>
-    <message>
-        <source>Updating DXCC Award information...</source>
-        <translation type="vanished">DXCCアワード情報の更新...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ award information...</source>
-        <translation type="vanished">WAZアワード情報の更新...</translation>
-    </message>
-    <message>
-        <source>Updating WAZ Award information...</source>
-        <translation type="vanished">WAZアワード情報の更新...</translation>
     </message>
     <message>
         <location filename="../database/database.cpp" line="2434"/>
@@ -4906,33 +4504,9 @@ OKをクリックすると、KLogが終了します。</translation>
         <translation>バンドの情報を更新しています...</translation>
     </message>
     <message>
-        <source>Updating bands information in %1 status...</source>
-        <translation type="vanished">%1 用のバンドの情報を更新しています...</translation>
-    </message>
-    <message>
-        <source>Updating mode information in %1 status...</source>
-        <translation type="vanished">%1 用のモードの情報を更新しています...</translation>
-    </message>
-    <message>
-        <source>New One, work it!</source>
-        <translation type="vanished">New Oneです. 交信すべし!</translation>
-    </message>
-    <message>
-        <source>Needed, work it!</source>
-        <translation type="vanished">交信すべし!</translation>
-    </message>
-    <message>
-        <source>Worked but not confirmed</source>
-        <translation type="vanished">交信済だが未コンファーム</translation>
-    </message>
-    <message>
         <location filename="../awards.cpp" line="777"/>
         <source>Confirmed</source>
         <translation>コンファーム済</translation>
-    </message>
-    <message>
-        <source>Not identified</source>
-        <translation type="vanished">不明</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="227"/>
@@ -4943,34 +4517,6 @@ OKをクリックすると、KLogが終了します。</translation>
         <location filename="../main.cpp" line="228"/>
         <source>It is allowed to run only one instance.</source>
         <translation>1つのインスタンスのみを実行することができます。</translation>
-    </message>
-    <message>
-        <source>Install wizard was canceled before completing...</source>
-        <translation type="vanished">インストールウィザードは操作完了前に中断されました...</translation>
-    </message>
-    <message>
-        <source>Do you want to remove the KLog dir from your disk?</source>
-        <translation type="vanished">KLog ディレクトリーをディスクドライブから削除しますか?</translation>
-    </message>
-    <message>
-        <source>Your KLog dir has been removed</source>
-        <translation type="vanished">KLog ディレクトリは削除されました</translation>
-    </message>
-    <message>
-        <source>I could not remove your KLog dir. You should do it manually if you want it removed from your hard disk.</source>
-        <translation type="vanished">KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください.</translation>
-    </message>
-    <message>
-        <source>Your KLog dir could not be removed. You should do it manually if you want it removed from your hard disk.</source>
-        <translation type="vanished">KLog ディレクトリーが削除できませんでした. ハードディスクから削除したい場合は手動で削除してください.</translation>
-    </message>
-    <message>
-        <source>Remember that your KLog dir is on your system...</source>
-        <translation type="vanished">KLog ディレクトリーはシステム中に残ったままです...</translation>
-    </message>
-    <message>
-        <source>Thank you for running KLog!</source>
-        <translation type="vanished">KLogを使用してくださりありがとうございます!</translation>
     </message>
     <message>
         <location filename="../world.cpp" line="942"/>
@@ -4998,738 +4544,738 @@ OKをクリックすると、KLogが終了します。</translation>
         <translation>KLog - 有効なコールサインが見つかりません。</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1404"/>
+        <location filename="../utilities.cpp" line="1407"/>
         <source>Altitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1405"/>
+        <location filename="../utilities.cpp" line="1408"/>
         <source>Date</source>
         <translation type="unfinished">日付</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1406"/>
+        <location filename="../utilities.cpp" line="1409"/>
         <source>Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1407"/>
+        <location filename="../utilities.cpp" line="1410"/>
         <source>RSTtx</source>
         <translation type="unfinished">送信RST</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1408"/>
+        <location filename="../utilities.cpp" line="1411"/>
         <source>RSTrx</source>
         <translation type="unfinished">受信RST</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1409"/>
+        <location filename="../utilities.cpp" line="1412"/>
         <source>Band</source>
         <translation type="unfinished">バンド</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1410"/>
+        <location filename="../utilities.cpp" line="1413"/>
         <source>Comment</source>
         <translation type="unfinished">コメント</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1411"/>
+        <location filename="../utilities.cpp" line="1414"/>
         <source>Mode</source>
         <translation type="unfinished">モード</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1412"/>
+        <location filename="../utilities.cpp" line="1415"/>
         <source>CQz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1413"/>
+        <location filename="../utilities.cpp" line="1416"/>
         <source>ITUz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1414"/>
+        <location filename="../utilities.cpp" line="1417"/>
         <source>DXCC</source>
         <translation type="unfinished">DXCC</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1415"/>
+        <location filename="../utilities.cpp" line="1418"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1416"/>
+        <location filename="../utilities.cpp" line="1419"/>
         <source>Age</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1417"/>
+        <location filename="../utilities.cpp" line="1420"/>
         <source>County</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1418"/>
+        <location filename="../utilities.cpp" line="1421"/>
         <source>A_Index</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1419"/>
+        <location filename="../utilities.cpp" line="1422"/>
         <source>Ant_Az</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1420"/>
+        <location filename="../utilities.cpp" line="1423"/>
         <source>Ant_El</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1421"/>
+        <location filename="../utilities.cpp" line="1424"/>
         <source>Ant_Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1422"/>
+        <location filename="../utilities.cpp" line="1425"/>
         <source>ARRL_SECT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1423"/>
+        <location filename="../utilities.cpp" line="1426"/>
         <source>Award_Submitted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1424"/>
+        <location filename="../utilities.cpp" line="1427"/>
         <source>Award_granted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1425"/>
+        <location filename="../utilities.cpp" line="1428"/>
         <source>Band_RX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1426"/>
+        <location filename="../utilities.cpp" line="1429"/>
         <source>CheckContest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1427"/>
+        <location filename="../utilities.cpp" line="1430"/>
         <source>Class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1429"/>
+        <location filename="../utilities.cpp" line="1432"/>
         <source>ClubLog status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1430"/>
+        <location filename="../utilities.cpp" line="1433"/>
         <source>Continent</source>
         <translation type="unfinished">大陸名</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1432"/>
+        <location filename="../utilities.cpp" line="1435"/>
         <source>Contest Id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1433"/>
+        <location filename="../utilities.cpp" line="1436"/>
         <source>Country</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1434"/>
+        <location filename="../utilities.cpp" line="1437"/>
         <source>Credit Submitted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1435"/>
+        <location filename="../utilities.cpp" line="1438"/>
         <source>Credit granted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1444"/>
+        <location filename="../utilities.cpp" line="1447"/>
         <source>Fists</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1445"/>
+        <location filename="../utilities.cpp" line="1448"/>
         <source>Fists CC</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1477"/>
+        <location filename="../utilities.cpp" line="1480"/>
         <source>My Fists</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1499"/>
+        <location filename="../utilities.cpp" line="1502"/>
         <source>Nr bursts</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1500"/>
+        <location filename="../utilities.cpp" line="1503"/>
         <source>Nr pings</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1524"/>
+        <location filename="../utilities.cpp" line="1527"/>
         <source>Sat mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1538"/>
+        <location filename="../utilities.cpp" line="1541"/>
         <source>SWL</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1543"/>
+        <location filename="../utilities.cpp" line="1546"/>
         <source>Ten-Ten</source>
         <comment>Do not translate, it is a hamradio group name.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1437"/>
+        <location filename="../utilities.cpp" line="1440"/>
         <source>Distance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1428"/>
+        <location filename="../utilities.cpp" line="1431"/>
         <source>ClubLog SDate</source>
         <comment>Date when it was sent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1431"/>
+        <location filename="../utilities.cpp" line="1434"/>
         <source>Contacted_Op</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1436"/>
+        <location filename="../utilities.cpp" line="1439"/>
         <source>Darc Dok</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1438"/>
+        <location filename="../utilities.cpp" line="1441"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1439"/>
+        <location filename="../utilities.cpp" line="1442"/>
         <source>EQ_Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1440"/>
+        <location filename="../utilities.cpp" line="1443"/>
         <source>eQSL RDate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1442"/>
+        <location filename="../utilities.cpp" line="1445"/>
         <source>eQSL Rcvd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1443"/>
+        <location filename="../utilities.cpp" line="1446"/>
         <source>eQSL Sent</source>
         <translation type="unfinished">eQSL送付</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1446"/>
+        <location filename="../utilities.cpp" line="1449"/>
         <source>Force Init</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1447"/>
+        <location filename="../utilities.cpp" line="1450"/>
         <source>Freq</source>
         <translation>周波数</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1448"/>
+        <location filename="../utilities.cpp" line="1451"/>
         <source>Freq RX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1449"/>
+        <location filename="../utilities.cpp" line="1452"/>
         <source>Gridsquare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1454"/>
+        <location filename="../utilities.cpp" line="1457"/>
         <source>HRDLog status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1457"/>
+        <location filename="../utilities.cpp" line="1460"/>
         <source>IOTA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1458"/>
+        <location filename="../utilities.cpp" line="1461"/>
         <source>IOTA Island id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1459"/>
+        <location filename="../utilities.cpp" line="1462"/>
         <source>K Index</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1460"/>
+        <location filename="../utilities.cpp" line="1463"/>
         <source>Lat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1461"/>
+        <location filename="../utilities.cpp" line="1464"/>
         <source>Lon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1462"/>
+        <location filename="../utilities.cpp" line="1465"/>
         <source>LoTW RDate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1464"/>
+        <location filename="../utilities.cpp" line="1467"/>
         <source>LoTW Rcvd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1465"/>
+        <location filename="../utilities.cpp" line="1468"/>
         <source>LoTW Sent</source>
         <translation type="unfinished">LoTW送信</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1467"/>
+        <location filename="../utilities.cpp" line="1470"/>
         <source>Max Bursts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1468"/>
+        <location filename="../utilities.cpp" line="1471"/>
         <source>MS Shower</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1470"/>
+        <location filename="../utilities.cpp" line="1473"/>
         <source>My Antenna</source>
         <translation type="unfinished">私のアンテナ</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1472"/>
+        <location filename="../utilities.cpp" line="1475"/>
         <source>My City</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1473"/>
+        <location filename="../utilities.cpp" line="1476"/>
         <source>My Cnty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1474"/>
+        <location filename="../utilities.cpp" line="1477"/>
         <source>My Country</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1475"/>
+        <location filename="../utilities.cpp" line="1478"/>
         <source>My CQz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1476"/>
+        <location filename="../utilities.cpp" line="1479"/>
         <source>My DXCC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1478"/>
+        <location filename="../utilities.cpp" line="1481"/>
         <source>My Gridsquare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1480"/>
+        <location filename="../utilities.cpp" line="1483"/>
         <source>My IOTA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1481"/>
+        <location filename="../utilities.cpp" line="1484"/>
         <source>My IOTA island id</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1482"/>
+        <location filename="../utilities.cpp" line="1485"/>
         <source>My ITUz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1483"/>
+        <location filename="../utilities.cpp" line="1486"/>
         <source>My Lat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1484"/>
+        <location filename="../utilities.cpp" line="1487"/>
         <source>My Lon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1485"/>
+        <location filename="../utilities.cpp" line="1488"/>
         <source>My Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1486"/>
+        <location filename="../utilities.cpp" line="1489"/>
         <source>My Postal code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1488"/>
+        <location filename="../utilities.cpp" line="1491"/>
         <source>My Rig</source>
         <translation type="unfinished">私のリグ</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1489"/>
+        <location filename="../utilities.cpp" line="1492"/>
         <source>My Sig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1490"/>
+        <location filename="../utilities.cpp" line="1493"/>
         <source>My Sig Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1441"/>
+        <location filename="../utilities.cpp" line="1444"/>
         <source>eQSL SDate</source>
         <comment>Date when it was sent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1450"/>
+        <location filename="../utilities.cpp" line="1453"/>
         <source>Gridsquare ext</source>
         <comment>Extended gridsquare</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1451"/>
+        <location filename="../utilities.cpp" line="1454"/>
         <source>HamLog status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1452"/>
+        <location filename="../utilities.cpp" line="1455"/>
         <source>HamLog SDate</source>
         <comment>Date when it was sent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1453"/>
+        <location filename="../utilities.cpp" line="1456"/>
         <source>HRDLog SDate</source>
         <comment>Date when it was sent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1455"/>
+        <location filename="../utilities.cpp" line="1458"/>
         <source>HamQTH status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1456"/>
+        <location filename="../utilities.cpp" line="1459"/>
         <source>HamQTH SDate</source>
         <comment>Date when it was sent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1463"/>
+        <location filename="../utilities.cpp" line="1466"/>
         <source>LoTW SDate</source>
         <comment>Date when it was sent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1466"/>
+        <location filename="../utilities.cpp" line="1469"/>
         <source>Marcado</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1469"/>
+        <location filename="../utilities.cpp" line="1472"/>
         <source>My Altitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1471"/>
+        <location filename="../utilities.cpp" line="1474"/>
         <source>My ARRL Sect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1479"/>
+        <location filename="../utilities.cpp" line="1482"/>
         <source>My Gridsquare Ext</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1487"/>
+        <location filename="../utilities.cpp" line="1490"/>
         <source>My POTA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1491"/>
+        <location filename="../utilities.cpp" line="1494"/>
         <source>My SOTA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1492"/>
+        <location filename="../utilities.cpp" line="1495"/>
         <source>My State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1493"/>
+        <location filename="../utilities.cpp" line="1496"/>
         <source>My Street</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1494"/>
+        <location filename="../utilities.cpp" line="1497"/>
         <source>My USACA counties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1495"/>
+        <location filename="../utilities.cpp" line="1498"/>
         <source>My VUCC grids</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1496"/>
+        <location filename="../utilities.cpp" line="1499"/>
         <source>My WWFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1497"/>
+        <location filename="../utilities.cpp" line="1500"/>
         <source>Name</source>
         <translation type="unfinished">名前</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1498"/>
+        <location filename="../utilities.cpp" line="1501"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1501"/>
+        <location filename="../utilities.cpp" line="1504"/>
         <source>Operator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1502"/>
+        <location filename="../utilities.cpp" line="1505"/>
         <source>Owner Callsign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1503"/>
+        <location filename="../utilities.cpp" line="1506"/>
         <source>POTA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1504"/>
+        <location filename="../utilities.cpp" line="1507"/>
         <source>Pfx</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1505"/>
+        <location filename="../utilities.cpp" line="1508"/>
         <source>Precedence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1506"/>
+        <location filename="../utilities.cpp" line="1509"/>
         <source>Prop Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1507"/>
+        <location filename="../utilities.cpp" line="1510"/>
         <source>Public Key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1508"/>
+        <location filename="../utilities.cpp" line="1511"/>
         <source>QRZcom SDate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1509"/>
+        <location filename="../utilities.cpp" line="1512"/>
         <source>QRZcom status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1510"/>
+        <location filename="../utilities.cpp" line="1513"/>
         <source>QSL msg</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1511"/>
+        <location filename="../utilities.cpp" line="1514"/>
         <source>QSL RDate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1512"/>
+        <location filename="../utilities.cpp" line="1515"/>
         <source>QSL SDate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1513"/>
+        <location filename="../utilities.cpp" line="1516"/>
         <source>QSL Rcvd</source>
         <translation type="unfinished">QSL受領状況</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1514"/>
+        <location filename="../utilities.cpp" line="1517"/>
         <source>QSL Sent</source>
         <translation type="unfinished">QSL送付</translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1515"/>
+        <location filename="../utilities.cpp" line="1518"/>
         <source>QSL rcvd via</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1516"/>
+        <location filename="../utilities.cpp" line="1519"/>
         <source>QSL sent via</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1517"/>
+        <location filename="../utilities.cpp" line="1520"/>
         <source>QSL via</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1518"/>
+        <location filename="../utilities.cpp" line="1521"/>
         <source>QSO complete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1519"/>
+        <location filename="../utilities.cpp" line="1522"/>
         <source>QSO random</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1520"/>
+        <location filename="../utilities.cpp" line="1523"/>
         <source>QTH</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1521"/>
+        <location filename="../utilities.cpp" line="1524"/>
         <source>Region</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1522"/>
+        <location filename="../utilities.cpp" line="1525"/>
         <source>Rig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1523"/>
+        <location filename="../utilities.cpp" line="1526"/>
         <source>RX Pwr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1525"/>
+        <location filename="../utilities.cpp" line="1528"/>
         <source>Sat name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1526"/>
+        <location filename="../utilities.cpp" line="1529"/>
         <source>SFI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1527"/>
+        <location filename="../utilities.cpp" line="1530"/>
         <source>Sig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1528"/>
+        <location filename="../utilities.cpp" line="1531"/>
         <source>Sig Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1529"/>
+        <location filename="../utilities.cpp" line="1532"/>
         <source>Silent key</source>
         <comment>Do not translate if unsure, common hamradio term.</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1530"/>
+        <location filename="../utilities.cpp" line="1533"/>
         <source>SKCC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1531"/>
+        <location filename="../utilities.cpp" line="1534"/>
         <source>SOTA Ref</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1532"/>
+        <location filename="../utilities.cpp" line="1535"/>
         <source>SRX String</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1533"/>
+        <location filename="../utilities.cpp" line="1536"/>
         <source>SRX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1534"/>
+        <location filename="../utilities.cpp" line="1537"/>
         <source>STX String</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1535"/>
+        <location filename="../utilities.cpp" line="1538"/>
         <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1537"/>
+        <location filename="../utilities.cpp" line="1540"/>
         <source>Submode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1539"/>
+        <location filename="../utilities.cpp" line="1542"/>
         <source>UKSMG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1540"/>
+        <location filename="../utilities.cpp" line="1543"/>
         <source>USACA counties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1541"/>
+        <location filename="../utilities.cpp" line="1544"/>
         <source>VE prov</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1542"/>
+        <location filename="../utilities.cpp" line="1545"/>
         <source>VUCC grids</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1544"/>
+        <location filename="../utilities.cpp" line="1547"/>
         <source>TX Pwr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1545"/>
+        <location filename="../utilities.cpp" line="1548"/>
         <source>Web</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1546"/>
+        <location filename="../utilities.cpp" line="1549"/>
         <source>WWFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1547"/>
+        <location filename="../utilities.cpp" line="1550"/>
         <source>QSO Date off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utilities.cpp" line="1548"/>
+        <location filename="../utilities.cpp" line="1551"/>
         <source>Log number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6882,10 +6428,6 @@ If no port is specified, 41112 will be used by default:</source>
         <translation>次のエラーコードが発生しました:</translation>
     </message>
     <message>
-        <source>Log has not been removed. (#3)</source>
-        <translation type="vanished">ログが削除されませんでした(#3)</translation>
-    </message>
-    <message>
         <location filename="../setuppages/setuppagelogs.cpp" line="172"/>
         <source>Log has not been removed. (#2)</source>
         <translation>ログが削除されませんでした(#2)</translation>
@@ -7060,10 +6602,6 @@ The log will not be opened.</source>
         <translation>DX-Marathonの管理</translation>
     </message>
     <message>
-        <source>Activate the application debug log</source>
-        <translation type="vanished">アプリケーションデバッグログの有効化</translation>
-    </message>
-    <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="55"/>
         <source>&amp;Delete always temp ADIF file after uploading QSOs</source>
         <translation>QSOをアップロードした後、常に一時的なADIFファイルを削除する。</translation>
@@ -7084,10 +6622,6 @@ The log will not be opened.</source>
         <translation>検索ボックスには、QSOを行うためのコールサインも表示されます。</translation>
     </message>
     <message>
-        <source>If new version checking is selected, KLog will send the developer your callsign, KLog version and Operating system to help in improving KLog.</source>
-        <translation type="vanished">新しいバージョンのチェックが選択された場合、KLogは開発者にあなたのコールサイン、KLogのバージョン、オペレーティングシステムを送信し、KLogの改善に役立てます。</translation>
-    </message>
-    <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="139"/>
         <source>Check it for Imperial system (Miles instead of Kilometers).</source>
         <translation>インペリアル方式（キロメーターではなくマイル）になっているか確認してください。</translation>
@@ -7106,10 +6640,6 @@ The log will not be opened.</source>
         <location filename="../setuppages/setuppagemisc.cpp" line="146"/>
         <source>This is the default file where ADIF data will be saved.</source>
         <translation>ADIF形式でファイルを保存するときのデフォルトのファイル名.</translation>
-    </message>
-    <message>
-        <source>Activates the application debug log. This may be useful if something is not working as expected. A debug file will be created in the KLog directory.</source>
-        <translation type="vanished">アプリケーションのデバッグログを有効にします。この機能は、何かが期待通りに動作しない場合に役立ちます。KLogディレクトリにデバッグファイルが作成されます。</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="153"/>
@@ -7150,10 +6680,6 @@ The log will not be opened.</source>
         <location filename="../setuppages/setuppagemisc.cpp" line="137"/>
         <source>Check if there is a new release of KLog available every time you start KLog.</source>
         <translation>KLogの起動時に新しいバージョンがリリースされているかをチェックします.</translation>
-    </message>
-    <message>
-        <source>&amp;Provide Info for statistics</source>
-        <translation type="vanished">統計情報を提供する (&amp;P)</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagemisc.cpp" line="54"/>
@@ -8161,10 +7687,6 @@ The log will not be opened.</source>
         <translation>KLogの更新</translation>
     </message>
     <message>
-        <source>&lt;center&gt;&lt;h2&gt;KLog new version (%1) is available! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;There is a new version of KLog available.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can get the new version from:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://www.klog.xyz&gt;https://www.klog.xyz&lt;/a&gt;&lt;/center&gt;</source>
-        <translation type="vanished">&lt;center&gt;&lt;h2&gt;KLogの新バージョン(%1)が公開されました。 &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;KLogの新バージョンがあります。&lt;br&gt;&lt;br&gt;&lt;b&gt;から新バージョンを入手することができます。&lt;br&gt;&lt;br&gt;&lt;center&gt;&amp;lt;a href=https://www.klog.xyz&amp;gt;https://www.klog.xyz&lt;/a&gt;&lt;/center&gt;</translation>
-    </message>
-    <message>
         <location filename="../softwareupdatedialog.cpp" line="69"/>
         <source>&lt;center&gt;&lt;h2&gt;KLog new version (%1) is available! &lt;/h2&gt;&lt;/center&gt;&lt;br&gt;There is a new version of KLog available.&lt;br&gt;&lt;br&gt;&lt;b&gt;You can get the new version from:&lt;br&gt;&lt;br&gt;&lt;center&gt;&lt;a href=https://github.com/ea4k/klog&gt;https://github.com/ea4k/klog&lt;/a&gt;&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
@@ -8983,18 +8505,6 @@ The log will not be opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Tip #15:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can join the development team by simply &lt;a href=https://www.klog.xyz/contact&gt;Contacting us&lt;/a&gt;?</source>
-        <translation type="vanished">&lt;b&gt;ヒント #15&lt;/b&gt;&lt;br&gt;あなたは知っていますか...&lt;br&gt;&lt;a&gt;あなたは、単に&amp;lt;a href=https://www.klog.xyz/contact&amp;gt;お問い合わせ&amp;lt;/a&amp;gt;開発チームに参加することができ&lt;/a&gt;ますか？&lt;/br&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #16:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;That there are many ways to contribute to KLog and some of them are listed in the &lt;a href=https://www.klog.xyz/contrib&gt;KLog Contribute&lt;/a&gt; page?</source>
-        <translation type="vanished">&lt;b&gt;ヒント #16&lt;/b&gt;&lt;br&gt;知っていますか...&lt;br&gt;&lt;a&gt;KLogに貢献する方法はたくさんあり、そのうちのいくつかは&amp;lt;a href=https://www.klog.xyz/contrib&amp;gt;KLog Contribute&lt;/a&gt;&amp;lt;/a&amp;gt;のページ&lt;a&gt;に掲載さ&lt;/a&gt;れています。&lt;/br&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Tip #17:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can support translating KLog into your language? Please check &lt;a href=https://www.klog.xyz/contrib/translations&gt;KLog Translations&lt;/a&gt; page.</source>
-        <translation type="vanished">&lt;b&gt;ヒント #17&lt;/b&gt;&lt;br&gt;あなたは知っていますか...&lt;br&gt;&lt;a&gt;KLogのあなたの言語への翻訳をサポートすることができます。&amp;lt;a href=https://www.klog.xyz/contrib/translations&amp;gt;KLog 翻訳&lt;/a&gt;ページ&amp;lt;/a&amp;gt;&lt;a&gt;をご覧ください&lt;/a&gt;。&lt;/br&gt;</translation>
-    </message>
-    <message>
         <location filename="../tipsdialog.cpp" line="193"/>
         <source>&lt;b&gt;Tip #18:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can double-click on an entity name in the DXCC table and all the QSOs with that DXCC Entity will be shown in the search box?</source>
         <translation>&lt;b&gt;ヒント #18&lt;/b&gt;&lt;br&gt;知っていますか...&lt;br&gt;DXCCテーブルのエンティティ名をダブルクリックすると、そのDXCCエンティティを使用したすべてのQSOが検索ボックスに表示されることを？&lt;/br&gt;</translation>
@@ -9048,14 +8558,6 @@ The log will not be opened.</source>
 </context>
 <context>
     <name>World</name>
-    <message>
-        <source>Entity</source>
-        <translation type="vanished">エンティティ</translation>
-    </message>
-    <message>
-        <source>Continent</source>
-        <translation type="vanished">大陸名</translation>
-    </message>
     <message>
         <location filename="../world.cpp" line="589"/>
         <source>Abort reading</source>

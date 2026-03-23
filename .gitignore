@@ -3,6 +3,8 @@ klog.dir/*
 CMakeFiles/*
 *~
 *.user
+build
+build_macos
 KLog.pro.user*
 src/.qmake.stash
 src/build

@@ -38,6 +38,7 @@ add_executable(tst_dxspot
 target_link_libraries(tst_dxspot
     Qt6::Core
     Qt6::Test
+    Qt6::Gui
 )
 
 # Register the test with CTest
