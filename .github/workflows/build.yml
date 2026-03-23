@@ -62,9 +62,8 @@ jobs:
           Copy-Item -Path "hamlib_temp\hamlib-w64-4.7.0\*" -Destination "$destPath\" -Recurse -Force
           # pthread.h required by hamlib/rig.h - install winpthreads via MSYS2 then copy headers
           C:\msys64\usr\bin\pacman.exe -Sy --noconfirm mingw-w64-x86_64-winpthreads-git
-          Copy-Item "C:\msys64\mingw64\include\pthread.h" "$destPath\include\pthread.h"
+          Get-ChildItem "C:\msys64\mingw64\include\pthread*.h" | Copy-Item -Destination "$destPath\include\"
           Copy-Item "C:\msys64\mingw64\include\sched.h" "$destPath\include\sched.h"
-          Copy-Item "C:\msys64\mingw64\include\pthread_compat.h" "$destPath\include\pthread_compat.h"
           choco install nsis -y
 
       - name: Setup MSVC (Windows)
