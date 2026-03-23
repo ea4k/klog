@@ -20,10 +20,10 @@ jobs:
             qt_arch: clang_64
           - os: windows-latest
             platform: windows
-            qt_arch: win64_msvc2019_64 # Updated for Win64
+            qt_arch: win64_msvc2019_64
           - os: ubuntu-latest
             platform: linux
-            qt_arch: linux_gcc_64      # This is the key fix for Ubuntu
+            qt_arch: linux_gcc_64
 
     steps:
       - name: Checkout code
@@ -34,15 +34,17 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          version: '6.7.2' # Stable version for CI
+          version: '6.7.2'
           arch: ${{ matrix.qt_arch }}
+          # We must explicitly list all extra modules required by your CMakeLists.txt
+          modules: 'qtcharts qtlocation qtpositioning qtserialport qtqml qtquick qtquickwidgets'
           cache: true
 
       - name: Install Dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-dev build-essential ninja-build
+          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-dev build-essential ninja-build libxcb-cursor0
 
       - name: Install NSIS (Windows)
         if: runner.os == 'Windows'
@@ -51,6 +53,7 @@ jobs:
       - name: Update Translations
         shell: bash
         run: |
+          # Use the Qt path provided by the action
           lupdate src/ -no-obsolete -ts src/translations/*.ts
           lrelease src/translations/*.ts
 
