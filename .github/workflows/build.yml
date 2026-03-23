@@ -18,15 +18,12 @@ jobs:
           - os: macos-latest
             platform: macos
             qt_arch: clang_64
-            cpack_generator: DragNDrop
           - os: windows-latest
             platform: windows
             qt_arch: win64_msvc2019_64
-            cpack_generator: NSIS
           - os: ubuntu-latest
             platform: linux
             qt_arch: linux_gcc_64
-            cpack_generator: TGZ
 
     steps:
       - name: Checkout code
@@ -56,40 +53,85 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          # Hamlib 4.7.0
           $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
           Invoke-WebRequest -Uri $url -OutFile "hamlib.zip"
           Expand-Archive -Path "hamlib.zip" -DestinationPath "hamlib_temp" -Force
-          $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
+          $parentPath = Split-Path $env:GITHUB_WORKSPACE -Parent
+          $destPath = "$parentPath\libs\win64\hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
-          Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
-          
-          # Fix para el error pthread.h: Descargar pthreads para win32
-          # Esto coloca la cabecera donde el compilador la busca
-          $pthreadUrl = "https://github.com/gerardog/pthreads-win32/archive/refs/heads/master.zip"
-          Invoke-WebRequest -Uri $pthreadUrl -OutFile "pthreads.zip"
-          Expand-Archive -Path "pthreads.zip" -DestinationPath "pthreads_temp" -Force
-          Copy-Item -Path "pthreads_temp/pthreads-win32-master/pthread.h" -Destination "$destPath/include/" -Force
-          Copy-Item -Path "pthreads_temp/pthreads-win32-master/sched.h" -Destination "$destPath/include/" -Force
-          
+          Copy-Item -Path "hamlib_temp\hamlib-w64-4.7.0\*" -Destination "$destPath\" -Recurse -Force
+          # Replace MinGW pthread.h (which drags in GCC-specific headers) with a
+          # self-contained MSVC-compatible stub. klog only links against the hamlib
+          # DLL; it never calls pthreads directly, so just the type definitions suffice.
+          $pthread = @(
+            '#pragma once',
+            '#ifndef _PTHREAD_H',
+            '#define _PTHREAD_H',
+            '#include <windows.h>',
+            '#include <time.h>',
+            'typedef HANDLE pthread_t;',
+            'typedef CRITICAL_SECTION pthread_mutex_t;',
+            'typedef struct { CONDITION_VARIABLE cv; CRITICAL_SECTION cs; } pthread_cond_t;',
+            'typedef DWORD pthread_key_t;',
+            'typedef struct { SRWLOCK lock; } pthread_rwlock_t;',
+            'typedef struct { int detachstate; size_t stacksize; } pthread_attr_t;',
+            'typedef struct { int type; } pthread_mutexattr_t;',
+            'typedef struct { int dummy; } pthread_condattr_t;',
+            'typedef struct { int dummy; } pthread_rwlockattr_t;',
+            'typedef struct { int count; } pthread_barrier_t;',
+            'typedef struct { int dummy; } pthread_barrierattr_t;',
+            'typedef LONG pthread_spinlock_t;',
+            'typedef struct { volatile long done; } pthread_once_t;',
+            '#define PTHREAD_MUTEX_INITIALIZER { 0 }',
+            '#define PTHREAD_COND_INITIALIZER { 0 }',
+            '#define PTHREAD_RWLOCK_INITIALIZER { 0 }',
+            '#define PTHREAD_ONCE_INIT { 0 }',
+            '#define PTHREAD_MUTEX_RECURSIVE 1',
+            '#define PTHREAD_MUTEX_ERRORCHECK 2',
+            '#define PTHREAD_MUTEX_NORMAL 0',
+            '#define PTHREAD_CREATE_JOINABLE 0',
+            '#define PTHREAD_CREATE_DETACHED 1',
+            '#define PTHREAD_CANCEL_ENABLE 1',
+            '#define PTHREAD_CANCEL_DISABLE 0',
+            '#endif'
+          )
+          $pthread -join "`n" | Set-Content "$destPath\include\pthread.h" -Encoding UTF8
+          $sched = @(
+            '#pragma once',
+            '#ifndef _SCHED_H',
+            '#define _SCHED_H',
+            'struct sched_param { int sched_priority; };',
+            '#define SCHED_OTHER 0',
+            '#define SCHED_FIFO 1',
+            '#define SCHED_RR 2',
+            '#endif'
+          )
+          $sched -join "`n" | Set-Content "$destPath\include\sched.h" -Encoding UTF8
+
           choco install nsis -y
+
+      - name: Setup MSVC (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
 
       - name: Update Translations
         shell: bash
         run: |
-          export PATH=$PATH:${{ env.Qt6_DIR }}/bin
           lupdate src/ -no-obsolete -ts src/translations/*.ts
           lrelease src/translations/*.ts
 
       - name: Configure CMake
         shell: bash
         run: |
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            HAMLIB_BASE="$(dirname "$GITHUB_WORKSPACE")/libs/win64/hamlib"
             cmake -S . -B build \
               -DCMAKE_BUILD_TYPE=Release \
               -DBUILD_TESTING=OFF \
-              -DHamlib_INCLUDE_DIR="$GITHUB_WORKSPACE/../libs/win64/hamlib/include" \
-              -DHamlib_LIBRARY="$GITHUB_WORKSPACE/../libs/win64/hamlib/lib/libhamlib.dll.a"
+              -DHamlib_INCLUDE_DIR="$HAMLIB_BASE/include" \
+              -DHamlib_LIBRARY="$HAMLIB_BASE/lib/libhamlib.dll.a"
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
           fi
@@ -97,11 +139,25 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
+      - name: Deploy Qt (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          APP=$(find build/bin -name "*.app" | head -1)
+          macdeployqt "$APP"
+
+      - name: Deploy Qt (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          EXE=$(find build/bin -name "*.exe" | head -1)
+          windeployqt --release "$EXE"
+
       - name: Package
         shell: bash
         run: |
           cd build
-          cpack -G ${{ matrix.cpack_generator }} -C Release
+          cpack -C Release
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
@@ -111,6 +167,7 @@ jobs:
             build/*.dmg
             build/*.exe
             build/*.tar.gz
+            build/*.tgz
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
@@ -120,8 +177,9 @@ jobs:
             build/*.dmg
             build/*.exe
             build/*.tar.gz
+            build/*.tgz
           name: KLog ${{ github.ref_name }}
           draft: false
-          prerelease: false
+          prerelease: ${{ contains(github.ref_name, 'RC') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

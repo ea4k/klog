@@ -38,7 +38,9 @@
 #include <QtSerialPort/QSerialPort>
 #include <hamlib/rig.h>
 #include <stdio.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include <stdlib.h>
 #include <QSettings>
 #include "klogdefinitions.h"
