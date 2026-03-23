@@ -107,6 +107,7 @@ jobs:
             '#endif'
           )
           $sched -join "`n" | Set-Content "$destPath\include\sched.h" -Encoding UTF8
+
           choco install nsis -y
 
       - name: Setup MSVC (Windows)
