@@ -16,7 +16,7 @@ steps:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-dev build-essential ninja-build libxcb-cursor0 libhamlib-dev
+          sudo apt-get install -y libgl1-mesa-dev libudev-dev libxkbcommon-dev build-essential ninja-build libxcb-cursor0 libhamlib-dev
 
       - name: Install Dependencies (macOS)
         if: runner.os == 'macOS'
