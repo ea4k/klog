@@ -365,9 +365,8 @@ elseif(WIN32)
     # Place the file in the same folder thn klog.exe
     # (Normalmente es el directorio base '.' o 'bin' dependiendo de tu setup)
     install(TARGETS klog
-       RUNTIME
-       RUNTIME_DEPENDENCIES
-       DESTINATION .
+        BUNDLE DESTINATION .
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
     install(FILES ${KLOG_DOC} DESTINATION .)
     install(FILES ${QM_FILES} DESTINATION translations)
