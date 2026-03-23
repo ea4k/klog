@@ -53,24 +53,27 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          # Hamlib SDK
           $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
           Invoke-WebRequest -Uri $url -OutFile "hamlib.zip"
           Expand-Archive -Path "hamlib.zip" -DestinationPath "hamlib_temp" -Force
-          $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
+          $parentPath = Split-Path $env:GITHUB_WORKSPACE -Parent
+          $destPath = "$parentPath\libs\win64\hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
-          Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
-          
-          # Fix for Missing pthread.h - Stable URLs from vcpkg
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/vcpkg/master/ports/pthreads/pthread.h" -OutFile "$destPath/include/pthread.h"
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/vcpkg/master/ports/pthreads/sched.h" -OutFile "$destPath/include/sched.h"
-          
+          Copy-Item -Path "hamlib_temp\hamlib-w64-4.7.0\*" -Destination "$destPath\" -Recurse -Force
+          # pthread.h required by hamlib/rig.h - copy from MSYS2 (pre-installed on GitHub Actions runners)
+          Copy-Item "C:\msys64\mingw64\include\pthread.h" "$destPath\include\pthread.h"
+          Copy-Item "C:\msys64\mingw64\include\sched.h" "$destPath\include\sched.h"
           choco install nsis -y
+
+      - name: Setup MSVC (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
 
       - name: Update Translations
         shell: bash
         run: |
-          export PATH=$PATH:${{ env.Qt6_DIR }}/bin
           lupdate src/ -no-obsolete -ts src/translations/*.ts
           lrelease src/translations/*.ts
 
@@ -78,13 +81,32 @@ jobs:
         shell: bash
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DHamlib_INCLUDE_DIR="$GITHUB_WORKSPACE/../libs/win64/hamlib/include" -DHamlib_LIBRARY="$GITHUB_WORKSPACE/../libs/win64/hamlib/lib/libhamlib.dll.a"
+            HAMLIB_BASE="$(dirname "$GITHUB_WORKSPACE")/libs/win64/hamlib"
+            cmake -S . -B build \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DBUILD_TESTING=OFF \
+              -DHamlib_INCLUDE_DIR="$HAMLIB_BASE/include" \
+              -DHamlib_LIBRARY="$HAMLIB_BASE/lib/libhamlib.dll.a"
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
           fi
 
       - name: Build
         run: cmake --build build --config Release
+
+      - name: Deploy Qt (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          APP=$(find build/bin -name "*.app" | head -1)
+          macdeployqt "$APP"
+
+      - name: Deploy Qt (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          EXE=$(find build/bin -name "*.exe" | head -1)
+          windeployqt --release "$EXE"
 
       - name: Package
         shell: bash
@@ -113,89 +135,6 @@ jobs:
             build/*.tgz
           name: KLog ${{ github.ref_name }}
           draft: false
-          prerelease: false
+          prerelease: ${{ contains(github.ref_name, 'RC') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}name: Build and Package KLog
-
-on:
-  push:
-    branches: [ master, main ]
-    tags: [ 'v*' ]
-  pull_request:
-    branches: [ master, main ]
-
-jobs:
-  build:
-    name: Build on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-latest
-            platform: macos
-            qt_arch: clang_64
-          - os: windows-latest
-            platform: windows
-            qt_arch: win64_msvc2019_64
-          - os: ubuntu-latest
-            platform: linux
-            qt_arch: linux_gcc_64
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
-        with:
-          version: '6.7.2'
-          arch: ${{ matrix.qt_arch }}
-          modules: 'qtcharts qtlocation qtpositioning qtserialport'
-          cache: true
-
-      - name: Install Dependencies (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-dev build-essential ninja-build libxcb-cursor0 libhamlib-dev libudev-dev
-
-      - name: Install Dependencies (macOS)
-        if: runner.os == 'macOS'
-        run: brew install hamlib
-
-      - name: Install Dependencies (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          # Download and extract Hamlib 4.7.0 SDK for Windows
-          $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
-          Invoke-WebRequest -Uri $url -OutFile "hamlib.zip"
-          Expand-Archive -Path "hamlib.zip" -DestinationPath "hamlib_temp" -Force
-          $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
-          if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
-          Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
-          
-          # Fix for Missing pthread.h (Error C1083) on Windows MSVC
-          # These headers are required for hamlib/rig.h to compile
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pthreads-win32/pthreads-win32/master/pthread.h" -OutFile "$destPath/include/pthread.h"
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pthreads-win32/pthreads-win32/master/sched.h" -OutFile "$destPath/include/sched.h"
-          
-          choco install nsis -y
-
-      - name: Update Translations
-        shell: bash
-        run: |
-          # Add Qt binaries to PATH and process .ts files
-          export PATH=$PATH:${{ env.Qt6_DIR }}/bin
-          lupdate src/ -no-obsolete -ts src/translations/*.ts
-          lrelease src/translations/*.ts
-
-      - name: Configure CMake
-        shell: bash
-        run: |
-          # Inject Hamlib paths manually for Windows to ensure discovery in the custom folder
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
-            cmake -S . -B build \
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
