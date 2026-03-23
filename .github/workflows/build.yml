@@ -18,12 +18,15 @@ jobs:
           - os: macos-latest
             platform: macos
             qt_arch: clang_64
+            cpack_generator: DragNDrop
           - os: windows-latest
             platform: windows
             qt_arch: win64_msvc2019_64
+            cpack_generator: NSIS
           - os: ubuntu-latest
             platform: linux
             qt_arch: linux_gcc_64
+            cpack_generator: TGZ
 
     steps:
       - name: Checkout code
@@ -53,19 +56,28 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          # Hamlib 4.7.0
           $url = "https://github.com/Hamlib/Hamlib/releases/download/4.7.0/hamlib-w64-4.7.0.zip"
-          $output = "hamlib.zip"
-          Invoke-WebRequest -Uri $url -OutFile $output
-          if ((Get-Item $output).Length -lt 10000) { exit 1 }
-          Expand-Archive -Path $output -DestinationPath hamlib_temp -Force
+          Invoke-WebRequest -Uri $url -OutFile "hamlib.zip"
+          Expand-Archive -Path "hamlib.zip" -DestinationPath "hamlib_temp" -Force
           $destPath = "$env:GITHUB_WORKSPACE/../libs/win64/hamlib"
           if (!(Test-Path $destPath)) { New-Item -ItemType Directory -Path $destPath -Force }
           Copy-Item -Path "hamlib_temp/hamlib-w64-4.7.0/*" -Destination "$destPath/" -Recurse -Force
+          
+          # Fix para el error pthread.h: Descargar pthreads para win32
+          # Esto coloca la cabecera donde el compilador la busca
+          $pthreadUrl = "https://github.com/gerardog/pthreads-win32/archive/refs/heads/master.zip"
+          Invoke-WebRequest -Uri $pthreadUrl -OutFile "pthreads.zip"
+          Expand-Archive -Path "pthreads.zip" -DestinationPath "pthreads_temp" -Force
+          Copy-Item -Path "pthreads_temp/pthreads-win32-master/pthread.h" -Destination "$destPath/include/" -Force
+          Copy-Item -Path "pthreads_temp/pthreads-win32-master/sched.h" -Destination "$destPath/include/" -Force
+          
           choco install nsis -y
 
       - name: Update Translations
         shell: bash
         run: |
+          export PATH=$PATH:${{ env.Qt6_DIR }}/bin
           lupdate src/ -no-obsolete -ts src/translations/*.ts
           lrelease src/translations/*.ts
 
@@ -89,7 +101,7 @@ jobs:
         shell: bash
         run: |
           cd build
-          cpack -C Release
+          cpack -G ${{ matrix.cpack_generator }} -C Release
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
