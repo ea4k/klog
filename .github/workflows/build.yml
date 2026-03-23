@@ -108,7 +108,7 @@ jobs:
 
       - name: Package
         shell: bash
-        run: |
+        run: | 
           cd build
           cpack -C Release
 
