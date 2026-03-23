@@ -1810,7 +1810,7 @@ QString QSO::getMySOTA_REF() const
 
 bool QSO::setMyRig(const QString &_c)
 {
-    if (_c.length ()<!1)
+    if (_c.length ()<1)
         return false;
     my_rig = _c;
     return true;
