@@ -1,0 +1,85 @@
+name: Build and Package KLog
+
+on:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            platform: macos
+            qt_arch: clang_64
+          - os: windows-latest
+            platform: windows
+            qt_arch: msvc2019_64
+          - os: ubuntu-latest
+            platform: linux
+            qt_arch: gcc_64
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.7.0' # Stable version for CI
+          arch: ${{ matrix.qt_arch }}
+          cache: true
+
+      - name: Install Dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-dev build-essential ninja-build
+
+      - name: Install NSIS (Windows)
+        if: runner.os == 'Windows'
+        run: choco install nsis -y
+
+      - name: Update Translations
+        shell: bash
+        run: |
+          lupdate src/ -no-obsolete -ts src/translations/*.ts
+          lrelease src/translations/*.ts
+
+      - name: Configure CMake
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTING=ON
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Run Tests
+        shell: bash
+        run: |
+          cd build
+          ctest --output-on-failure -C Release
+
+      - name: Package
+        shell: bash
+        run: |
+          cd build
+          cpack -C Release
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: KLog-${{ matrix.platform }}-package
+          path: |
+            build/*.dmg
+            build/*.exe
+            build/*.tar.gz
