@@ -104,13 +104,16 @@ private slots:
     void slotMultipleQSLRecViaDirectFromLog();
     void slotQSOsQRZUploadFromLog();
     void slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
+    void slotOnSectionResized(int logicalIndex, int oldSize, int newSize);
 
-private:    
+private:
     void createUI();
     void createActionsCommon();
     void createActions();
     void retoreColumsOrder();
     void saveColumnOrder();
+    void saveColumnWidths();
+    void restoreColumnWidths();
     void deleteQSO(const int _qsoID);
     void rightButtonFromLogMenu(const int trow);
     void rightButtonMultipleFromLogMenu();
@@ -157,6 +160,7 @@ private:
     // qAction *moveToAnotherLog; // MOves the selected QSOs to another log.
 
     int currentLog;
+    bool m_blockWidthSave;
 
     Utilities *util;
     QStringList columns;

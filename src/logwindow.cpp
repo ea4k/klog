@@ -41,6 +41,7 @@ LogWindow::LogWindow(Awards *awards, QWidget *parent)
     columns.clear();
 
     currentLog = -1;
+    m_blockWidthSave = false;
 
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
@@ -152,6 +153,7 @@ void LogWindow::setDefaultData()
 void LogWindow::createlogPanel(const int _currentLog)
 {
     //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
+    m_blockWidthSave = true;
     currentLog = _currentLog;
     if (!logModel->createlogModel(currentLog))
     {
@@ -178,6 +180,8 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->sortByColumn(1, Qt::DescendingOrder);
 
     retoreColumsOrder();
+    restoreColumnWidths();
+    m_blockWidthSave = false;
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -290,6 +294,7 @@ void LogWindow::createActionsCommon()
     connect(logView, SIGNAL(customContextMenuRequested( const QPoint& ) ), this, SLOT(slotRighButtonFromLog( const QPoint& ) ) );
     connect(logView, SIGNAL(doubleClicked ( const QModelIndex& ) ), this, SLOT(slotDoubleClickLog( const QModelIndex& ) ) );
     connect(logView->horizontalHeader(), &QHeaderView::sectionMoved, this, &LogWindow::slotOnSectionMoved);
+    connect(logView->horizontalHeader(), &QHeaderView::sectionResized, this, &LogWindow::slotOnSectionResized);
 
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -849,6 +854,49 @@ void LogWindow::saveColumnOrder()
     settings.beginGroup("LogWindow");
     settings.setValue("ColumnOrder", QVariant::fromValue(columnOrder));
     settings.endGroup();
+}
+
+void LogWindow::slotOnSectionResized(int logicalIndex, int oldSize, int newSize)
+{
+    Q_UNUSED(logicalIndex);
+    Q_UNUSED(oldSize);
+    Q_UNUSED(newSize);
+
+    if (m_blockWidthSave)
+        return;
+
+    saveColumnWidths();
+}
+
+void LogWindow::saveColumnWidths()
+{
+    QHeaderView *header = logView->horizontalHeader();
+    QStringList widths;
+    for (int i = 0; i < header->count(); ++i) {
+        widths.append(QString::number(header->sectionSize(i)));
+    }
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("LogWindow");
+    settings.setValue("ColumnWidths", widths);
+    settings.endGroup();
+}
+
+void LogWindow::restoreColumnWidths()
+{
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("LogWindow");
+    QStringList widths = settings.value("ColumnWidths").toStringList();
+    settings.endGroup();
+
+    QHeaderView *header = logView->horizontalHeader();
+    if (widths.size() != header->count())
+        return;
+
+    for (int i = 0; i < widths.size(); ++i) {
+        int w = widths[i].toInt();
+        if (w > 0)
+            header->resizeSection(i, w);
+    }
 }
 
 QStringList LogWindow::getOrderedVisibleHeaders() const
