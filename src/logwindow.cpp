@@ -153,6 +153,7 @@ void LogWindow::setDefaultData()
 void LogWindow::createlogPanel(const int _currentLog)
 {
     //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
+    m_blockWidthSave = true;
     currentLog = _currentLog;
     if (!logModel->createlogModel(currentLog))
     {
@@ -172,7 +173,6 @@ void LogWindow::createlogPanel(const int _currentLog)
     // calcular el ancho, lo que con logbooks grandes tarda varios segundos.
     // En su lugar asignamos un ancho fijo razonable por defecto y dejamos
     // que el usuario pueda ajustarlo manualmente arrastrando las columnas.
-    m_blockWidthSave = true;
     logView->horizontalHeader()->setDefaultSectionSize(110);
     logView->horizontalHeader()->setMinimumSectionSize(60);
 
