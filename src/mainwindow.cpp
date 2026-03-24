@@ -641,6 +641,7 @@ void MainWindow::createActionsCommon(){
     connect(dxClusterWidget.get(), SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
     connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
     connect(mapWindow, &MapWindowWidget::spotDoubleClicked, this, &MainWindow::slotMapSpotDoubleClicked);
+    connect(mapWindow, &MapWindowWidget::editQSORequested, this, &MainWindow::qsoToEdit);
 
     // CLUBLOG
     connect (elogClublog, SIGNAL (showMessage(QString)), this, SLOT (slotElogClubLogShowMessage(QString)));

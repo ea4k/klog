@@ -78,6 +78,9 @@ void MapWidget::createUI()
     qmlView->rootContext()->setContextProperty("circle_model",    &modelCircle);
     qmlView->rootContext()->setContextProperty("grid_model",      &modelGrid);
 
+    // Expose locatorInfoProvider (may be null until setLocatorInfoProvider is called)
+    qmlView->rootContext()->setContextProperty("locatorInfo", locatorInfoProvider);
+
     qmlView->setSource(QUrl(QStringLiteral("qrc:///qml/mapqmlfile.qml")));
 
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -87,18 +90,29 @@ void MapWidget::createUI()
 
     paintFieldGrid();
 
-    // Forward the QML spotDoubleClicked signal as our own C++ signal
+    // Forward the QML signals as our own C++ signals
     QObject *root = qmlView->rootObject();
     if (root) {
         connect(root, SIGNAL(spotDoubleClicked(QString,double)),
                 this, SIGNAL(spotDoubleClicked(QString,double)));
+        connect(root, SIGNAL(editQSORequested(int)),
+                this, SIGNAL(editQSORequested(int)));
     }
+}
+
+void MapWidget::setLocatorInfoProvider(LocatorInfoProvider *provider)
+{
+    locatorInfoProvider = provider;
+    if (qmlView)
+        qmlView->rootContext()->setContextProperty("locatorInfo", locatorInfoProvider);
 }
 
 void MapWidget::clearDataLayers()
 {
     // Only clear overlays; keep grid_model intact so the grid stays visible
     modelRectangle.clear();
+    if (locatorInfoProvider)
+        locatorInfoProvider->clearVisibleLocators();
     // modelCircle.clear(); // Uncomment if you want to clear markers as part of "data layers"
 }
 
@@ -181,6 +195,9 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
         item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
         item->setData(QVariant::fromValue(_color), ColorRole);
         modelRectangle.appendRow(item);
+
+        if (locatorInfoProvider)
+            locatorInfoProvider->addVisibleLocator(_loc);
     }
 }
 

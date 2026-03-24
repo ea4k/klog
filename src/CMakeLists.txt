@@ -116,6 +116,7 @@ set(KLOG_SOURCES
    widgets/showkloglogwidget.cpp
    widgets/map/mapwidget.cpp
    widgets/map/mapwindowwidget.cpp
+   widgets/map/locatorinfoprovider.cpp
    klog.rc
 )
 
@@ -218,6 +219,7 @@ set(KLOG_HEADERS
    widgets/showkloglogwidget.h
    widgets/map/mapwidget.h
    widgets/map/mapwindowwidget.h
+   widgets/map/locatorinfoprovider.h
 )
 
 set(KLOG_DOC

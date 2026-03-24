@@ -30,6 +30,7 @@
 //#include <QWidget>
 #include <QSettings>
 #include "mapwidget.h"
+#include "locatorinfoprovider.h"
 #include "../../klogdefinitions.h"
 #include "../../dataproxy_sqlite.h"
 #include "../../locator.h"
@@ -57,6 +58,7 @@ public:
 
 signals:
     void spotDoubleClicked(const QString &callsign, double frequencyMHz);
+    void editQSORequested(int qsoId);
 
 private slots:
     void slotBandsComboBoxChanged();
@@ -77,6 +79,7 @@ private:
 
     DataProxy_SQLite *dataProxy;
     MapWidget *mapWidget;
+    LocatorInfoProvider *locatorInfo;
     QComboBox *propComboBox, *bandComboBox, *modeComboBox, *satNameComboBox;
     QCheckBox *confirmedCheckBox;//, *locatorsCheckBox;
 
