@@ -62,4 +62,6 @@ target_link_libraries(tst_dxcluster
     Qt6::Widgets
 )
 
+target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)
+
 add_test(NAME tst_dxcluster COMMAND tst_dxcluster)
