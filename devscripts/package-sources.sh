@@ -1,23 +1,7 @@
 #!/bin/bash
-# package-sources.sh
-# Create KLog source tarball for distribution (Debian, Mint, etc.)
-# Works on Linux and macOS (bash)
-#
-# Usage:
-#   ./devscripts/package-sources.sh
-#   ./devscripts/package-sources.sh [GIT_REF]   # e.g. HEAD, v2.5, a1b2c3d
-#
-# Output: klog-<version>.tar.gz or klog-<version>-rc<n>.tar.gz
-#         (created in the current working directory)
-#
-# Version is read from CMakeLists.txt:
-#   project(KLog VERSION x.y ...)         → base version
-#   set(APP_PKGVERSION "x.y")             → final release  → klog-x.y.tar.gz
-#   set(APP_PKGVERSION "x.y-RC3")         → release candidate → klog-x.y-rc3.tar.gz
-#
 #***************************************************************************
-#    begin                : mar 2025
-#    copyright            : (C) 2025 by Jaime Robles
+#    begin                : mar 2026
+#    copyright            : (C) 2026 by Jaime Robles
 #    email                : jaime@robles.es
 #***************************************************************************
 #*****************************************************************************
@@ -37,6 +21,22 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.          *
 # *                                                                            *
 #*****************************************************************************
+# package-sources.sh
+# Create KLog source tarball for distribution (Debian, Mint, etc.)
+# Works on Linux and macOS (bash)
+#
+# Usage:
+#   ./devscripts/package-sources.sh
+#   ./devscripts/package-sources.sh [GIT_REF]   # e.g. HEAD, v2.5, a1b2c3d
+#
+# Output: klog-<version>.tar.gz or klog-<version>-rc<n>.tar.gz
+#         (created in the current working directory)
+#
+# Version is read from CMakeLists.txt:
+#   project(KLog VERSION x.y ...)         → base version
+#   set(APP_PKGVERSION "x.y")             → final release  → klog-x.y.tar.gz
+#   set(APP_PKGVERSION "x.y-RC3")         → release candidate → klog-x.y-rc3.tar.gz
+#
 
 set -euo pipefail
 
