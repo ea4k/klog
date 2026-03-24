@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find Qt6 Core and Test modules
-find_package(Qt6 REQUIRED COMPONENTS Core Test)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Test)
 # Enable AUTOMOC before add_executable
 set(CMAKE_AUTOMOC ON)
 
@@ -37,6 +37,7 @@ add_executable(tst_dxspot
 # Link with Qt6 Core and Test
 target_link_libraries(tst_dxspot
     Qt6::Core
+    Qt6::Gui
     Qt6::Test
 )
 
