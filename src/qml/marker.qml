@@ -50,35 +50,30 @@ MapQuickItem {
             width: 16
             height: 16
             radius: 8
-            color: marker.markerColor
+            color: Qt.rgba(marker.markerColor.r, marker.markerColor.g, marker.markerColor.b,
+                           Math.min(1.0, marker.markerColor.a + 0.15))
             border.color: Qt.darker(marker.markerColor, 1.6)
             border.width: 2
         }
 
-        // Callsign label: shown for 5s on arrival, or while hovering
-        Rectangle {
-            id: callsignBubble
+        // Callsign label: shown for 10s on arrival, or while hovering
+        Text {
+            id: callsignText
             visible: marker.text.length > 0 && (arrivalTimer.running || hoverArea.containsMouse)
-            color: Qt.rgba(0, 0, 0, 0.72)
-            radius: 3
+            text: marker.text
+            color: "black"
+            style: Text.Outline
+            styleColor: "white"
+            font.pixelSize: 12
+            font.bold: true
             x: pinHead.width + 5
             y: (pinHead.height - height) / 2
-            width: callsignText.width + 8
-            height: callsignText.height + 6
-
-            Text {
-                id: callsignText
-                anchors.centerIn: parent
-                text: marker.text
-                color: "white"
-                font.pixelSize: 11
-            }
         }
 
-        // Auto-hide timer: starts when the marker is created, runs 5 seconds
+        // Auto-hide timer: starts when the marker is created, runs 10 seconds
         Timer {
             id: arrivalTimer
-            interval: 5000
+            interval: 10000
             running: true
             repeat: false
         }
