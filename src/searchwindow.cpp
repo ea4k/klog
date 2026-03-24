@@ -352,7 +352,7 @@ void SearchWindow::slotDoubleClickLog(const QModelIndex & index)
 
     //TODO: To be added to the SearchWindow and create an action that emist the QSO id to be edited
 
-    searchModel->select();
+    //searchModel->select();
 }
 
 bool SearchWindow::isQSLReceived(const int _qsoId)

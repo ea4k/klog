@@ -30,7 +30,7 @@ import QtQuick.Controls
 MapQuickItem {
     id: marker
 
-    property alias text: pinTooltip.text
+    property string text: ""
     property color markerColor: "#FF0000"
     property double frequency: 0.0   // MHz
 
@@ -50,9 +50,32 @@ MapQuickItem {
             width: 16
             height: 16
             radius: 8
-            color: marker.markerColor
+            color: Qt.rgba(marker.markerColor.r, marker.markerColor.g, marker.markerColor.b,
+                           Math.min(1.0, marker.markerColor.a + 0.15))
             border.color: Qt.darker(marker.markerColor, 1.6)
             border.width: 2
+        }
+
+        // Callsign label: shown for 10s on arrival, or while hovering
+        Text {
+            id: callsignText
+            visible: marker.text.length > 0 && (arrivalTimer.running || hoverArea.containsMouse)
+            text: marker.text
+            color: "black"
+            style: Text.Outline
+            styleColor: "white"
+            font.pixelSize: 12
+            font.bold: true
+            x: pinHead.width + 5
+            y: (pinHead.height - height) / 2
+        }
+
+        // Auto-hide timer: starts when the marker is created, runs 10 seconds
+        Timer {
+            id: arrivalTimer
+            interval: 10000
+            running: true
+            repeat: false
         }
 
         // Hover + double-click area
@@ -61,13 +84,6 @@ MapQuickItem {
             anchors.fill: parent
             hoverEnabled: true
             onDoubleClicked: marker.markerDoubleClicked(marker.text, marker.frequency)
-
-            ToolTip {
-                id: pinTooltip
-                visible: hoverArea.containsMouse && text.length > 0
-                delay: 200
-                timeout: 5000
-            }
         }
     }
 }

@@ -41,7 +41,7 @@ Mar 2026 - 2.5
 - Bugfix: Primary subdivisions table in DB allowed duplicated entries.
 - Bugfix: SAT mode saved as SAT when no SAT QSO is done (Closes #857)
 - Bugfix: Low contrast in tooltips when using dark mode or system dark themes (Closes #642)
-- Translations: Spanish (EA4K).
+- Translations: Catalan (TNX Txema), Italian (TNX IU5HIU), Latvian (TNX YL3GBC & YL3AUG), Spanish (EA4K).
 
 Feb 2026 - 2.4.3
 - Enhancement: Add the FT2 submode
