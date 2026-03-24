@@ -7,3 +7,4 @@
 .pre-commit-config.yaml     export-ignore
 appveyor.yml                export-ignore
 lgtm.yml                    export-ignore
+devscripts/                 export-ignore
