@@ -82,6 +82,7 @@ add_executable(tst_mainwindow
   ../../src/widgets/showadifimportwidget.cpp
   ../../src/widgets/onlinemessagewidget.cpp
   ../../src/widgets/showkloglogwidget.cpp
+  ../../src/widgets/map/locatorinfoprovider.cpp
   ../../src/widgets/map/mapwindowwidget.cpp
   ../../src/widgets/map/mapwidget.cpp
   ../../src/mainwindow.cpp
@@ -195,6 +196,7 @@ add_executable(tst_mainwindow
   ../../src/widgets/showadifimportwidget.h
   ../../src/widgets/onlinemessagewidget.h
   ../../src/widgets/showkloglogwidget.h
+  ../../src/widgets/map/locatorinfoprovider.h
   ../../src/widgets/map/mapwindowwidget.h
   ../../src/widgets/map/mapwidget.h
   ../../src/mainwindow.h
