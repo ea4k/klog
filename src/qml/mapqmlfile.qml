@@ -218,7 +218,8 @@ Rectangle {
             coordinate:  QtPositioning.coordinate(latitude, longitude),
             text:        callsign      || "",
             markerColor: color         || "#FF0000",
-            frequency:   frequencyMHz  || 0.0
+            frequency:   frequencyMHz  || 0.0,
+            z:           5
         })
         if (item === null) {
             console.warn("addMarker: createObject returned null")
@@ -307,22 +308,9 @@ Rectangle {
             map.center = targetCoord
         }
 
-        // Base GRID (2-letter fields) - persistent, thin borders, transparent fill (from C++)
-        MapItemView {
-            z: 0
-            model: grid_model
-            delegate: MapRectangle {
-                topLeft     : model.north
-                bottomRight : model.south
-                color       : "transparent"
-                border.width: 1
-                border.color: "#808080"
-            }
-        }
-
         // Data overlays (worked/confirmed) - semi-transparent fills (from C++)
         MapItemView {
-            z: 1
+            z: 0
             model: rectangle_model
             delegate: MapRectangle {
                 topLeft     : model.north
@@ -330,6 +318,19 @@ Rectangle {
                 color       : model.color
                 border.width: 2
                 border.color: "#000000"
+            }
+        }
+
+        // Base GRID (2-letter fields) - persistent, thin borders, transparent fill (from C++)
+        MapItemView {
+            z: 1
+            model: grid_model
+            delegate: MapRectangle {
+                topLeft     : model.north
+                bottomRight : model.south
+                color       : "transparent"
+                border.width: 1
+                border.color: "#808080"
             }
         }
 
