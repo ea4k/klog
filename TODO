@@ -1,3 +1,22 @@
+/*========== START Qt6 migration:
+**
+void tst_MainWindow::test_focusOrder()
+Test: // qApplication::setActiveWindow(mainWindow);
+I had to replace previews line.
+
+**
+void DataBase::compress()
+qsqldatabase::exec is deprecated
+
+**
+void eLogQrzLog::parseXMLAnswer(QXmlStreamReader &xml)
+{ // Next line was commented out as it returns q QStringView instead of a QString
+    //showDebugLog (Q_FUNC_INFO, QString("Start: " + xml.text()));
+
+=============== END of Qt6 migration
+
+
+
 BUG: KLog needs to update the Entity DB is shown on every start
 
 KLog should update ALWAYS when receiving from LoTW the QSL_LOTW_rcvd or add the QSO if not in local log.
@@ -152,7 +171,7 @@ BUG:
 Clublog:
 void MainWindow::slotQRZReturnPressed()
 _x = elogClublog->deleteQSO(clublogPrevQSO);
-_x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSO))
+_x = elogClublog->sendQSO(dataProxy->getClubLogRealTimeFromId(modifyingQSOid))
 It runs so fast and not serialized that at the end sometimes the QSO is deleted but not created afterwards
 
 
@@ -306,7 +325,7 @@ Mode U
 Mode U/V -> B
 </SATELLITE SUPPORT>
 
-TODO: Code a way to sort the bands/modes in the "setuppagebandsmodes.cpp
+TODO: Code a way to sort the bands/modes in the setuppagebandsmodes.cpp
 
 TODO: Create an "updateKLog" class to manage all the release updates
 so there is a way to detect the version of KLog and upgrade the DB to the latest.
@@ -322,7 +341,6 @@ TODO: Add color support: messages for slotQRZTextChanged
 
 TODO: SetupPageColors: Check the style in the buttons as the rounds are lost when I change the color!!
 
-TODO: MainWindow::processConfigLine:  add support for the cluster data.
 TODO: Check when to connect the DXCluster and when no, it tries twice or more...
 
 TODO: Awards: make a function to calculate the total.
@@ -391,7 +409,6 @@ DONE: Color support: Calculate a color for the search results.
 DONE: Color support: Calculate a color for the DXCluster.
 DONE: TODO: Colors: Reconfigure the colors needs KLog to be restarted.
 DONE: Working on the dxCluster: Color support, identify the different kind of lines... DX de, normal spots, comments, ...
-DONE: Working on setAwardDXCC: When adding if a pair is already entered but we are going to add a confirmed status, modify it.
 DONE: Right click on log to show a to edit QSO.
 DONE: Right click on log to show a QSL received.
 DONE: Right click on log to remove a QSO.
@@ -416,4 +433,4 @@ DONE: TODO: DXCluster: Connect, disconnect and connect again does not work
 DONE: TODO: Add a field in Mainwindow to manage RX_PWR
 DONE: TODO: slotclearbuttons->Colors to default
 DONE: GUI: Add in the input box a combobox to change the DXCC
-
+*/

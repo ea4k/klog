@@ -205,7 +205,6 @@ set(KLOG_HEADERS
    setuppages/setuppagelogs.h
    setuppages/setuppagelogsnew.h
    setuppages/setuppagelogview.h
-   setuppages/setuppagemisc.h
    setuppages/setuppagesats.h
    setuppages/setuppagesatsnew.h
    setuppages/setuppagesubdivisionnew.h
@@ -223,20 +222,20 @@ set(KLOG_HEADERS
 )
 
 set(KLOG_DOC
-   AUTHORS
-   Changelog
-   COPYING
-   INSTALL-es.txt
-   INSTALL-linux
-   INSTALL-macOS.txt
-   INSTALL-win.txt
-   INSTALL.txt
+   ../AUTHORS
+   ../Changelog
+   ../COPYING
+   ../INSTALL-es.txt
+   ../INSTALL-linux
+   ../INSTALL-macOS.txt
+   ../INSTALL-win.txt
+   ../INSTALL.txt
+   ../NEWS
+   ../README
+   ../README-DEVEL
+   ../TODO
+   ../TROUBLESHOUTING
    klog.1
-   NEWS
-   README
-   README-DEVEL
-   TODO
-   TROUBLESHOUTING
 )
 
 find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
