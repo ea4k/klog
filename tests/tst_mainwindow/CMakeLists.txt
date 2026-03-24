@@ -44,6 +44,7 @@ add_executable(tst_mainwindow
   ../../src/filemanager.cpp
   ../../src/fileawardmanager.cpp
   ../../src/locator.cpp
+  ../../src/widgets/map/locatorinfoprovider.cpp
   ../../src/dxcluster/dxcluster.cpp
   ../../src/dxcluster/dxclusterassistant.cpp
   ../../src/dxcluster/dxspot.cpp
@@ -158,6 +159,7 @@ add_executable(tst_mainwindow
   ../../src/filemanager.h
   ../../src/fileawardmanager.h
   ../../src/locator.h
+  ../../src/widgets/map/locatorinfoprovider.h
   ../../src/dxcluster/dxcluster.h
   ../../src/dxcluster/dxclusterassistant.h
   ../../src/dxcluster/dxspot.h
