@@ -7,8 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Core Network Test Widgets)
 set(CMAKE_AUTOMOC ON)
 
-add_compile_definitions(KLOG_TESTING)
-
 file(GLOB TEST_SOURCES "*.cpp")
 list(FILTER TEST_SOURCES EXCLUDE REGEX "/moc_.*\\.cpp$")
 list(FILTER TEST_SOURCES EXCLUDE REGEX "/ui_.*\\.cpp$")
@@ -63,5 +61,7 @@ target_link_libraries(tst_dxcluster
     Qt6::Test
     Qt6::Widgets
 )
+
+target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)
 
 add_test(NAME tst_dxcluster COMMAND tst_dxcluster)
