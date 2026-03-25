@@ -1,10 +1,10 @@
 #!/bin/bash
 # Script to deploy the macOS package
-# Must be executed in the build directory of KLog
+# Must be executed from the devscripts directory of KLog
 #***************************************************************************
-#			
-#                         macOSDeploy.sh
-#						  -------------------
+#
+#                         macOSDeploy-cmake.sh
+#                          -------------------
 #    begin                : jan 2021
 #    copyright            : (C) 2021 by Jaime Robles
 #    email                : jaime@robles.es
@@ -26,37 +26,44 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 # *****************************************************************************/
-export CXXFLAGS=-std=c++11
-export PATH=$HOME/Qt/Tools/Ninja:$PATH
-#KLOG_VERSION="$1"
-#KLOG_VERSION=$(grep "PKGVERSION =" src.pro |awk '{print $3}')
-KLOG_VERSION=$(grep "project(KLog VERSION" ../CMakeLists.txt |awk '{print $3}')
-echo "KLOG Packaging KLog-$KLOG_VERSION"
-cd ..
-KLOG_SOURCES="../src"
-QTDIRi=$HOME"/Qt"
-QTDIRbin=$HOME"/Qt/6.7.3/macos/bin/"
-echo "KLOG CLEANING and preparing to the new build"
-rm -Rf KLog.app
-rm -Rf build 
-/usr/bin/make clean
-echo "KLOG CMAKE phase starting"
-"$QTDIRi"/Tools/CMake/CMake.app/Contents/bin/cmake -S . -B build -G "Ninja" -DQt6_DIR=$HOME/Qt/6.6.3/macos/lib/cmake/Qt6
-echo "KLOG BUILD phase starting"
-"$QTDIRi"/Tools/CMake/Cmake.app/Contents/bin/cmake --build build -j 4
-echo "KLOG BUILD done"
-mkdir KLog.app
-mkdir -p KLog.app/Contents/PlugIns/sqldrivers
-cp build/bin/klog KLog.app/Contents/MacOS/KLog
-cp "$QTDIRi"/plugins/sqldrivers/libqsqlite.dylib KLog.app/Contents/PlugIns/sqldrivers
-mkdir -p KLog.app/Contents/MacOS/translations
-#$QTDIRi/bin/lupdate src.pro
-#$QTDIRi/bin/lrelease src.pro
-#cp "$KLOG_SOURCES"/translations/*.qm KLog.app/Contents/MacOS/translations/
-cp /usr/local/lib/libhamlib.4.dylib KLog.app/Contents/MacOS/
-chmod +w KLog.app/Contents/MacOS/libhamlib.4.dylib
-install_name_tool -id @executable_path/libhamlib.4.dylib KLog.app/Contents/MacOS/libhamlib.4.dylib
-install_name_tool -change /usr/local/lib/libhamlib.4.dylib @executable_path/libhamlib.4.dylib KLog.app/Contents/MacOS/klog
-"$QTDIRbin"macdeployqt6 KLog.app/ -qmldir=src/qml/ -dmg
-mv KLog.dmg KLog-"$KLOG_VERSION".dmg
-echo "You can find the dmg file in this folder... enjoy KLog!"
+
+set -e
+
+DEVSCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(dirname "$DEVSCRIPTS_DIR")"
+
+# --- Read version from CMakeLists.txt ---
+KLOG_VERSION=$(grep 'APP_PKGVERSION' "$PROJECT_DIR/CMakeLists.txt" | sed 's/.*"\(.*\)".*/\1/')
+echo "Packaging KLog $KLOG_VERSION"
+
+# --- Qt environment ---
+QT_VERSION="6.7.3"
+QT_DIR="$HOME/Qt/$QT_VERSION/macos"
+export PATH="$HOME/Qt/Tools/Ninja:$QT_DIR/bin:$PATH"
+CMAKE_BIN="$HOME/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
+
+# --- Clean previous build ---
+echo "[1/4] Cleaning..."
+rm -rf "$PROJECT_DIR/build"
+
+# --- CMake configure ---
+echo "[2/4] Configuring with CMake..."
+"$CMAKE_BIN" -S "$PROJECT_DIR" -B "$PROJECT_DIR/build" \
+    -G "Ninja" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_PREFIX_PATH="$QT_DIR"
+
+# --- Build ---
+echo "[3/4] Building..."
+"$CMAKE_BIN" --build "$PROJECT_DIR/build" -j 4
+
+# --- Deploy and package ---
+echo "[4/4] Deploying Qt and creating DMG..."
+APP="$PROJECT_DIR/build/bin/klog.app"
+macdeployqt6 "$APP" -qmldir="$PROJECT_DIR/src/qml" -dmg
+
+mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION.dmg"
+
+echo ""
+echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION.dmg"
