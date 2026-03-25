@@ -32,12 +32,15 @@ set -e
 DEVSCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$DEVSCRIPTS_DIR")"
 
-# --- Read version from CMakeLists.txt ---
+# --- Read version: APP_PKGVERSION takes priority over PROJECT VERSION ---
 KLOG_VERSION=$(grep 'APP_PKGVERSION' "$PROJECT_DIR/CMakeLists.txt" | sed 's/.*"\(.*\)".*/\1/')
+if [ -z "$KLOG_VERSION" ]; then
+    KLOG_VERSION=$(grep 'project(KLog VERSION' "$PROJECT_DIR/CMakeLists.txt" | awk '{print $3}')
+fi
 echo "Packaging KLog $KLOG_VERSION"
 
 # --- Qt environment ---
-QT_VERSION="6.7.3"
+QT_VERSION="6.10.2"
 QT_DIR="$HOME/Qt/$QT_VERSION/macos"
 export PATH="$HOME/Qt/Tools/Ninja:$QT_DIR/bin:$PATH"
 CMAKE_BIN="$HOME/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
@@ -58,10 +61,13 @@ echo "[2/4] Configuring with CMake..."
 echo "[3/4] Building..."
 "$CMAKE_BIN" --build "$PROJECT_DIR/build" -j 4
 
-# --- Deploy and package ---
+# --- Deploy Qt into the bundle and create DMG ---
 echo "[4/4] Deploying Qt and creating DMG..."
 APP="$PROJECT_DIR/build/bin/klog.app"
-macdeployqt6 "$APP" -qmldir="$PROJECT_DIR/src/qml" -dmg
+
+"$QT_DIR/bin/macdeployqt6" "$APP" \
+    -qmldir="$PROJECT_DIR/src/qml" \
+    -dmg
 
 mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION.dmg"
 
