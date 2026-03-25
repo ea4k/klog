@@ -67,6 +67,7 @@ APP="$PROJECT_DIR/build/bin/klog.app"
 
 "$QT_DIR/bin/macdeployqt6" "$APP" \
     -qmldir="$PROJECT_DIR/src/qml" \
+    -codesign="-" \
     -dmg
 
 mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION.dmg"
