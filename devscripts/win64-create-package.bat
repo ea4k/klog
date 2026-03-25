@@ -35,6 +35,10 @@ set PATH=%PATH%;C:\Qt\6.8.3\mingw_64\bin;C:\Qt\Tools\mingw1310_64\bin
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin
 set PATH=%PATH%;C:\Qt\Tools\CMake_64\bin;C:\Qt\Tools\Ninja
 
+rem --- Dependency paths ---
+set HAMLIB_DIR=C:\hamlib-w64-4.7.0
+set OPENSSL_DIR=C:\Qt\Tools\OpenSSLv3\Win_x64
+
 rem --- Read PKGVERSION from CMakeLists.txt ---
 set KLOGDEVELVERSION=unknown
 for /f "delims=" %%v in ('powershell -NoProfile -Command "([regex]::Match((gc ..\CMakeLists.txt -Raw),'APP_PKGVERSION\s+""([^""]+)""')).Groups[1].Value"') do set KLOGDEVELVERSION=%%v
@@ -69,13 +73,13 @@ if %errorlevel% neq 0 (
 rem --- [3/4] Prepare release directory ---
 echo [3/4] Preparing release directory...
 mkdir src\release
-xcopy /Y /F build\bin\klog.exe src\release\
+copy /Y build\bin\klog.exe src\release\
 
 rem --- Copy OpenSSL and Hamlib DLLs ---
 rem :: OpenSSL DLLs must match the version used to build Qt.
 rem :: Check main.cpp for the SSL version details.
-copy /Y ..\libs\win64\openssl\*.dll src\release\
-copy /Y ..\libs\win64\hamlib\bin\*.dll src\release\
+copy /Y "%OPENSSL_DIR%\bin\*.dll" src\release\
+copy /Y "%HAMLIB_DIR%\bin\*.dll" src\release\
 
 rem --- Deploy Qt runtime ---
 windeployqt6 --dir src\release --release --compiler-runtime --qmldir src\qml src\release\klog.exe
