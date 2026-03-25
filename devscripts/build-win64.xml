@@ -4,9 +4,9 @@
     <version>${env(KLOGDEVELVERSION)}</version>
     <windows64bitMode>1</windows64bitMode>
     <installerFilename>${product_shortname}-${product_version}-win64.${platform_exec_suffix}</installerFilename>
-    <readmeFile>../src/README</readmeFile>
-    <licenseFile>../src/COPYING</licenseFile>
-    <htmlLicenseFile>../src/gpl-3.0-standalone.html</htmlLicenseFile>
+    <readmeFile>../README</readmeFile>
+    <licenseFile>../COPYING</licenseFile>
+    <htmlLicenseFile>../gpl-3.0-standalone.html</htmlLicenseFile>
     <leftImage>../images/klog.iconset/icon_512x512.png</leftImage>
     <logoImage>../images/klog.iconset/icon_512x512.png</logoImage>
     <splashImage>../images/klog_splash.png</splashImage>
