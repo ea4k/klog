@@ -27,7 +27,7 @@ rem *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         
 rem *                                                                           *
 rem *****************************************************************************
 
-SETLOCAL EnableDelayedExpansion
+SETLOCAL
 
 rem --- Environment setup ---
 echo Setting up environment for Qt usage...
