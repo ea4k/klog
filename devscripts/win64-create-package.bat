@@ -40,8 +40,9 @@ set HAMLIB_DIR=C:\hamlib-w64-4.7.0
 set OPENSSL_DIR=C:\Qt\Tools\OpenSSLv3\Win_x64
 
 rem --- Read PKGVERSION from CMakeLists.txt ---
+rem :: Splits line  set(APP_PKGVERSION "x.y")  by " and takes token 2
 set KLOGDEVELVERSION=unknown
-for /f "delims=" %%v in ('powershell -NoProfile -Command "([regex]::Match((gc ..\CMakeLists.txt -Raw),'APP_PKGVERSION\s+""([^""]+)""')).Groups[1].Value"') do set KLOGDEVELVERSION=%%v
+for /f "tokens=2 delims=^"" %%v in ('findstr /C:"APP_PKGVERSION" ..\CMakeLists.txt') do set KLOGDEVELVERSION=%%v
 echo Building KLog %KLOGDEVELVERSION%
 
 rem --- Clean previous installer from devscripts ---
