@@ -1,56 +1,35 @@
 # --- Debug: confirm this Find module is being used ---
 message(STATUS "[KLog] Using FindHamlib.cmake from: ${CMAKE_CURRENT_LIST_FILE}")
 
-set(HAMLIB_ROOT "" CACHE PATH "Root directory of a Hamlib installation (Windows), e.g. C:/Program Files/hamlib-w64-<ver>")
+set(HAMLIB_ROOT "" CACHE PATH "Root directory of a Hamlib installation (Windows), e.g. r/Program Files/hamlib-w64-<ver>")
 
 # Default hints for all platforms
-
-
-#if (WIN32)
-#  message(STATUS "Win32 detected in FindHamlib.cmake")
-#  set(Hamlib_INCLUDE_DIR "C:/Program Files/hamlib-w64-4.6.3/include")
-#  find_library(Hamlib_LIBRARY
-#    NAMES hamlib libhamlib hamlib-4 usb gcc_s winpthread
-#    PATHS "C:/Program Files/hamlib-w64-4.6.3/lib/gcc/"
-#    NO_DEFAULT_PATH
-#  )
-#  if(NOT Hamlib_LIBRARY)
-#    message(FATAL_ERROR "Hamlib library not found in C:/Program Files/hamlib-w64-4.6.3/bin")
-#  else()
-#    message(STATUS "Hamlib library found: ${Hamlib_LIBRARY}")
-#  endif()
-#endif ()
 
 
 # On Windows, auto-discover typical installers under Program Files without requiring a version
 if(WIN32)
   message(STATUS "Win32 detected in FindHamlib.cmake")
-  set(HAMLIB_ROOT "C:/Users/radio/Documents/GitHub/libs/win64/hamlib")
-  set(_hamlib_hints
-    $ENV{HAMLIB_ROOT}
-    ${HAMLIB_ROOT}
-  )
 
   set(_hamlib_win_roots)
 
-  if(HAMLIB_ROOT)
-    list(APPEND _hamlib_win_roots "${HAMLIB_ROOT}")
-  endif()
+  # 1. Explicit env variable takes highest priority
   if(DEFINED ENV{HAMLIB_ROOT})
     list(APPEND _hamlib_win_roots "$ENV{HAMLIB_ROOT}")
   endif()
 
-  # Typical installers: hamlib-w64-<version>
-  file(GLOB _pf      "C:/Program Files/hamlib-w64-*")
-  file(GLOB _pf_x86  "C:/Program Files (x86)/hamlib-w64-*")
+  # 2. HAMLIB_ROOT passed via CMake (e.g. from root CMakeLists.txt or -DHAMLIB_ROOT=)
+  if(HAMLIB_ROOT)
+    list(APPEND _hamlib_win_roots "${HAMLIB_ROOT}")
+  endif()
 
+  # 3. Standard installer locations: C:/hamlib-w64-<version>
+  file(GLOB _pf      "C:/hamlib-w64-*")
+  file(GLOB _pf_x86  "C:/hamlib-w64-*")
   list(APPEND _hamlib_win_roots ${_pf} ${_pf_x86})
+
   list(REMOVE_DUPLICATES _hamlib_win_roots)
 
-  # Prefer these Windows roots by putting them first
-  if(_hamlib_win_roots)
-    list(PREPEND _hamlib_hints ${_hamlib_win_roots})
-  endif()
+  set(_hamlib_hints ${_hamlib_win_roots})
 endif()
 
 # --- Recursive search for headers ---
@@ -72,9 +51,6 @@ find_library(Hamlib_LIBRARY
 )
 
 include (LibFindMacros)
-
-# Allow users to hint the install root on Windows (only used on WIN32)
-set(HAMLIB_ROOT "" CACHE PATH "Root directory of a Hamlib installation (Windows), e.g. C:/Program Files/hamlib-<ver>")
 
 libfind_pkg_detect (Hamlib hamlib
   FIND_PATH hamlib/rig.h PATH_SUFFIXES hamlib

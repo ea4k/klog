@@ -43,12 +43,6 @@ configure_file(
 # OS Detection and Hamlib path setup for Windows
 if(WIN32)
     message(STATUS "Operating System: Windows")
-    # Get absolute path for local Hamlib libraries on Windows
-    get_filename_component(HAMLIB_LOCAL_PATH "${CMAKE_SOURCE_DIR}/../libs/win64/hamlib" ABSOLUTE)
-    if(EXISTS "${HAMLIB_LOCAL_PATH}")
-        set(HAMLIB_ROOT "${HAMLIB_LOCAL_PATH}")
-        message(STATUS "Generic Windows Libs path found: ${HAMLIB_ROOT}")
-    endif()
 elseif(APPLE)
     message(STATUS "Operating System: macOS")
 elseif(UNIX)

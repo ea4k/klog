@@ -42,16 +42,16 @@
                     <platforms>all</platforms>
                     <distributionFileList>
                         <distributionFile>
-                            <origin>../src/TODO</origin>
+                            <origin>../TODO</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/AUTHORS</origin>
+                            <origin>../AUTHORS</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/Changelog</origin>
+                            <origin>../Changelog</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/COPYING</origin>
+                            <origin>../COPYING</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../src/gpl-3.0-standalone.html</origin>
@@ -60,10 +60,10 @@
                             <origin>../images/klog.ico</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/NEWS</origin>
+                            <origin>../NEWS</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/README</origin>
+                            <origin>../README</origin>
                         </distributionFile>
 						<distributionFile>
 							<allowWildcards>1</allowWildcards>
