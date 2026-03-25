@@ -54,7 +54,7 @@
                             <origin>../COPYING</origin>
                         </distributionFile>
                         <distributionFile>
-                            <origin>../src/gpl-3.0-standalone.html</origin>
+                            <origin>../gpl-3.0-standalone.html</origin>
                         </distributionFile>
                         <distributionFile>
                             <origin>../images/klog.ico</origin>
