@@ -41,7 +41,11 @@ set OPENSSL_DIR=C:\Qt\Tools\OpenSSLv3\Win_x64
 
 rem --- Read PKGVERSION from CMakeLists.txt ---
 set KLOGDEVELVERSION=unknown
-for /f "delims=" %%v in ('powershell -NoProfile -Command "([regex]::Match((gc ..\CMakeLists.txt -Raw),'APP_PKGVERSION\s+""([^""]+)""')).Groups[1].Value"') do set KLOGDEVELVERSION=%%v
+rem for /f "delims=" %%v in ('powershell -NoProfile -Command "([regex]::Match((gc ..\CMakeLists.txt -Raw),'APP_PKGVERSION\s+""([^""]+)""')).Groups[1].Value"') do set KLOGDEVELVERSION=%%v
+rem for /f "tokens=2 delims=^"" %%v in ('findstr /C:"APP_PKGVERSION" ..\CMakeLists.txt') do set KLOGDEVELVERSION=%%v
+for /f "tokens=3 delims=( " %%v in ('type ..\CMakeLists.txt ^| find "APP_PKGVERSION"') do set _KLOGVER=%%v
+if defined _KLOGVER set KLOGDEVELVERSION=%_KLOGVER:~1,-2%
+
 echo Building KLog %KLOGDEVELVERSION%
 
 rem --- Clean previous installer from devscripts ---
