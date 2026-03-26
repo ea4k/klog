@@ -355,7 +355,10 @@ if(APPLE)
     set_source_files_properties(${KLOG_DOC} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${QM_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/translations)
     target_sources(klog PRIVATE ${QM_FILES})
-    set_target_properties(klog PROPERTIES MACOSX_BUNDLE_ICON_FILE klog.icns)
+    set_target_properties(klog PROPERTIES
+        MACOSX_BUNDLE_BUNDLE_NAME        "KLog"
+        MACOSX_BUNDLE_ICON_FILE          klog.icns
+    )
 
    set_source_files_properties(klog.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
   target_sources(klog PRIVATE klog.icns)
