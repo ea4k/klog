@@ -1,11 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
-project(KLog VERSION 2.5 LANGUAGES CXX)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-# Set the C++ standard
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 
 # Platform-specific settings
 if(WIN32)
@@ -147,7 +140,7 @@ set(KLOG_HEADERS
    klogdefinitions.h
    locator.h
    logmodel.h
-   logwindow.h 
+   logwindow.h
    mainqsoentrywidget.h
    mainwindow.h
    qso.h
@@ -166,8 +159,6 @@ set(KLOG_HEADERS
    updatesettings.h
    utilities.h
    world.h
-   global.h
-   klogdefinitions.h
    charts/statscqzperyearbarchartwidget.h
    charts/statsdxccsonsatswidget.h
    charts/statsentitiesperyearbarchartwidget.h
@@ -205,6 +196,7 @@ set(KLOG_HEADERS
    setuppages/setuppagelogs.h
    setuppages/setuppagelogsnew.h
    setuppages/setuppagelogview.h
+   setuppages/setuppagemisc.h
    setuppages/setuppagesats.h
    setuppages/setuppagesatsnew.h
    setuppages/setuppagesubdivisionnew.h
@@ -235,10 +227,13 @@ set(KLOG_DOC
    ../README-DEVEL
    ../TODO
    ../TROUBLESHOUTING
-   klog.1
 )
 
-find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
+set(KLOG_MAN
+    klog.1
+)
+
+find_package(Qt6 QUIET COMPONENTS LinguistTools)
 
 # Translation files
 set(KLOG_TS_FILES
@@ -260,36 +255,39 @@ set(KLOG_TS_FILES
     translations/klog_uk.ts
 )
 
-qt_add_translations(klog
-    TS_FILES ${KLOG_TS_FILES}
-    QM_FILES_OUTPUT_VARIABLE QM_FILES
-)
-
-
-# Add executable
-
-add_executable(klog WIN32 MACOSX_BUNDLE
-    ${KLOG_SOURCES}
-    ${KLOG_HEADERS} 
-    ${SRC_UI}
-    ${SRC_QRC}
-    ${KLOG_DOC}
-    ${KLOG_TS_FILES}
-)
-
-source_group("Documentation" FILES ${KLOG_DOC})
-
-source_group("Translations" FILES ${KLOG_TS_FILES})
-source_group("UI Forms" FILES ${SRC_UI})
-source_group("Resources" FILES ${SRC_QRC})
-
-# Ensure the generated version.h is visible
-target_include_directories(klog PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-
 # Qt MOC/UIC/RCC
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
+
+# Add executable
+add_executable(klog WIN32 MACOSX_BUNDLE
+    ${KLOG_SOURCES}
+    ${KLOG_HEADERS}
+    ${SRC_UI}
+    ${SRC_QRC}
+    ${KLOG_DOC}
+    ${KLOG_MAN}
+    ${KLOG_TS_FILES}
+)
+
+source_group("Documentation" FILES ${KLOG_DOC})
+source_group("Man Pages"     FILES ${KLOG_MAN})
+source_group("Translations"  FILES ${KLOG_TS_FILES})
+source_group("UI Forms"      FILES ${SRC_UI})
+source_group("Resources"     FILES ${SRC_QRC})
+
+# Ensure the generated version.h is visible
+target_include_directories(klog PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+if(Qt6LinguistTools_FOUND)
+    qt_add_translations(klog
+        TS_FILES ${KLOG_TS_FILES}
+        QM_FILES_OUTPUT_VARIABLE QM_FILES
+    )
+else()
+    message(STATUS "Qt6 LinguistTools not found - skipping translations (install qt6-tools-dev qt6-l10n-tools)")
+endif()
 
 # Link Qt6 libraries
 target_link_libraries(klog
@@ -310,7 +308,7 @@ target_link_libraries(klog
 )
 
 # Prefer a config package if available (e.g., Homebrew/macOS or user-provided)
-find_package (Hamlib REQUIRED)
+find_package(Hamlib REQUIRED)
 #find_package(Hamlib CONFIG QUIET)
 if(Hamlib_FOUND)
     set(_hamlib_found TRUE)
@@ -348,9 +346,8 @@ else()
     )
 endif()
 
-
 if(APPLE)
-    install(TARGETS klog BUNDLE DESTINATION . )
+    install(TARGETS klog BUNDLE DESTINATION .)
     set_source_files_properties(${KLOG_DOC} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${QM_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/translations)
     target_sources(klog PRIVATE ${QM_FILES})
@@ -364,11 +361,7 @@ if(APPLE)
     set_source_files_properties(klog.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     target_sources(klog PRIVATE klog.icns)
 
-
-
 elseif(WIN32)
-    # Place the file in the same folder thn klog.exe
-    # (Normalmente es el directorio base '.' o 'bin' dependiendo de tu setup)
     install(TARGETS klog
         BUNDLE DESTINATION .
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -376,13 +369,15 @@ elseif(WIN32)
     install(FILES ${KLOG_DOC} DESTINATION .)
     install(FILES ${QM_FILES} DESTINATION translations)
 
- else()
-     install(TARGETS klog RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-     install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog)
-     if(QM_FILES)
-         install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
-     endif()
- endif()
+else()
+    install(TARGETS klog RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog)
+    install(FILES ${KLOG_MAN} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+    if(QM_FILES)
+        install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
+    endif()
+
+endif()
 
 # Other platform-specific stuff (icons, etc)
 if(WIN32)
@@ -390,5 +385,3 @@ if(WIN32)
 elseif(APPLE)
     # Set MacOS bundle properties if any
 endif()
-
-
