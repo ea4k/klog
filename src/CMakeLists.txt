@@ -233,7 +233,7 @@ set(KLOG_DOC
    TROUBLESHOUTING
 )
 
-find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
+find_package(Qt6 QUIET COMPONENTS LinguistTools)
 
 # Translation files
 set(KLOG_TS_FILES
@@ -255,10 +255,14 @@ set(KLOG_TS_FILES
     translations/klog_uk.ts
 )
 
-qt_add_translations(klog
-    TS_FILES ${KLOG_TS_FILES}
-    QM_FILES_OUTPUT_VARIABLE QM_FILES
-)
+if(Qt6LinguistTools_FOUND)
+    qt_add_translations(klog
+        TS_FILES ${KLOG_TS_FILES}
+        QM_FILES_OUTPUT_VARIABLE QM_FILES
+    )
+else()
+    message(STATUS "Qt6 LinguistTools not found - skipping translations (install qt6-tools-dev qt6-l10n-tools)")
+endif()
 
 
 # Add executable
