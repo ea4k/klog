@@ -201,7 +201,7 @@ MainWindow::~MainWindow()
     //delete(elogClublog);
     delete(downloadcty);
     //delete(world);
-    delete(mapWindow);
+    //delete(mapWindow); // Qt parent-child: owned by this, auto-deleted
     //delete(locator);
     //delete(qso);
     delete(backupQSO);

@@ -74,9 +74,7 @@ InfoWidget::InfoWidget(Awards *awards, World *injectedWorld, QWidget *parent) :
 
 InfoWidget::~InfoWidget()
 {
-    delete(awards);
     delete(locator);
-    //delete(world);
 }
 
 void InfoWidget::createUI()
