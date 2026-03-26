@@ -378,9 +378,11 @@ elseif(WIN32)
     install(FILES ${QM_FILES} DESTINATION translations)
 
 else()
-    # System standard (eg. /usr/local/share/doc/KLog/)
+    install(TARGETS klog RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
     install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DOCDIR})
-    install(FILES ${QM_FILES} DESTINATION share/klog/translations)
+    if(QM_FILES)
+        install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
+    endif()
 
 endif()
 
