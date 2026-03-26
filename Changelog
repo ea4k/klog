@@ -1,4 +1,6 @@
 Mar 2026 - 2.5
+- New feature: Spots are sent to the map with the starts color and callsign.
+- New feature: Mouse shows in the map the QSOs providng that Locator.
 - Enhancement: Modes are now used to calculate needs & stats if selected.
 - Enhancement: Start time optimizations.
 - Enhancement: Split is now managed also from radio/UI.
@@ -10,6 +12,9 @@ Mar 2026 - 2.5
 - Enhancement: List view fields order and sorting (Closes #678)
 - Enhancement: Created a QHash to speed up the execution reducing database access.
 - Enhancement: Logs and stats are updated if other log is selected.
+- Enhancement: Save & restore the width of the columns of the logview (Closes #925)
+- Bugfix: UTC time is not correctly shown on QSO tab (Closes #933)
+- Bugfix: klog-2.5-RC3 hamlib rigctld looping between VFOs continually. (Closes #947)
 - Bugfix: KLog does not follow the radio in read mode when leaving manual mode (Closes #417)
 - Bugfix: Some DXCC are missing (Closes #811)
 - Bugfix: DXCluster password not sent to server after callsign (Closes #829)

@@ -20,8 +20,7 @@ There are dependencies to build KLog and dependencies to run KLog.
 The dependencies to build KLog are:
 	cmake, qt6-tools-dev-tools, qt6-base-dev, libqt6charts6-dev, qt6-serialport-dev, 
 	libhamlib++-dev, qmake6, libqt6sql6-sqlite, libhamlib-dev,  qt6-location-dev,
-	qt6-positioning-dev, qt6-l10n-tools, qt6-declarative-private-dev
-
+	qt6-positioning-dev, qt6-l10n-tools, qt6-declarative-private-dev, qt6-tools-dev
 
 The dependencies to run KLog once installed are:
     libqt6serialport6, libqt6sql6-sqlite, qml6-module-qtlocation, qml6-module-qtquick-window, 
