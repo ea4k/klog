@@ -48,6 +48,8 @@ static void klogMessageHandler(QtMsgType type, const QMessageLogContext &context
     // Filter out the Qt6CTPlatformTheme palette/hint spam produced by qt6ct
     if (msg.contains(QLatin1String("Qt6CTPlatformTheme")))
         return;
+    if (msg.contains(QLatin1String("QThreadStorage")))
+        return;
     // Forward everything else to Qt's default handler
     qt_message_output(type, context, msg);
 }
