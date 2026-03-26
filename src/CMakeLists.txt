@@ -350,22 +350,20 @@ endif()
 
 
 if(APPLE)
-    # Place the files in KLog.app/Contents/Resources/
-    # Instalar el binario principal
-    install(TARGETS klog BUNDLE  DESTINATION . )
+    install(TARGETS klog BUNDLE DESTINATION . )
     set_source_files_properties(${KLOG_DOC} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set_source_files_properties(${QM_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/translations)
     target_sources(klog PRIVATE ${QM_FILES})
-    # set_target_properties(klog PROPERTIES MACOSX_BUNDLE_ICON_FILE klog.icns)
     set_target_properties(klog PROPERTIES
-        MACOSX_BUNDLE_BUNDLE_NAME "KLog"
-        MACOSX_BUNDLE_BUNDLE_VERSION "${APP_PKGVERSION}"
-        MACOSX_BUNDLE_SHORT_VERSION_STRING "${APP_PKGVERSION}"
-        MACOSX_BUNDLE_GUI_IDENTIFIER "es.ea4k.klog"
+        MACOSX_BUNDLE_BUNDLE_NAME             "KLog"
+        MACOSX_BUNDLE_ICON_FILE               klog.icns
+        MACOSX_BUNDLE_BUNDLE_VERSION          "${APP_PKGVERSION}"
+        MACOSX_BUNDLE_SHORT_VERSION_STRING    "${APP_PKGVERSION}"
+        MACOSX_BUNDLE_GUI_IDENTIFIER          "es.ea4k.klog"
     )
+    set_source_files_properties(klog.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    target_sources(klog PRIVATE klog.icns)
 
-   set_source_files_properties(klog.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-  target_sources(klog PRIVATE klog.icns)
 
 
 elseif(WIN32)
@@ -378,12 +376,13 @@ elseif(WIN32)
     install(FILES ${KLOG_DOC} DESTINATION .)
     install(FILES ${QM_FILES} DESTINATION translations)
 
-else()
-    # System standard (eg. /usr/local/share/doc/KLog/)
-    install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DOCDIR})
-    install(FILES ${QM_FILES} DESTINATION share/klog/translations)
-
-endif()
+ else()
+     install(TARGETS klog RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+     install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog)
+     if(QM_FILES)
+         install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
+     endif()
+ endif()
 
 # Other platform-specific stuff (icons, etc)
 if(WIN32)
