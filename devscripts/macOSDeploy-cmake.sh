@@ -55,7 +55,8 @@ echo "[2/4] Configuring with CMake..."
     -G "Ninja" \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTING=OFF \
-    -DCMAKE_PREFIX_PATH="$QT_DIR"
+    -DCMAKE_PREFIX_PATH="$QT_DIR" \
+    -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
 
 # --- Build ---
 echo "[3/4] Building..."
