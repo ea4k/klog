@@ -227,8 +227,11 @@ bool HamLibClass::readFreq()
            //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
            return errorManage(Q_FUNC_INFO, retcode);
     }
-        // In memory mode there is no independent SUB VFO: RX = TX
-    if (currentVfo == RIG_VFO_MEM)
+        // Only query the SUB VFO when split is active; otherwise RX = TX.
+        // Querying RIG_VFO_SUB on many rigs (especially via rigctld) causes
+        // the radio to physically switch VFOs back and forth every poll cycle,
+        // which is the "looping between VFOs" bug reported in issue #947.
+    if (currentVfo == RIG_VFO_MEM || !radioStatus.split)
     {
         radioStatus.freq_VFO_RX = radioStatus.freq_VFO_TX;
         return true;
@@ -266,7 +269,7 @@ bool HamLibClass::readMode()
         //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
         return errorManage(Q_FUNC_INFO, retcode);
     }
-    if (currentVfo == RIG_VFO_MEM)
+    if (currentVfo == RIG_VFO_MEM || !radioStatus.split)
     {
         radioStatus.mode_VFO_RX = radioStatus.mode_VFO_TX;
         return true;
@@ -341,9 +344,9 @@ bool HamLibClass::readRadioInternal()
 
     RadioStatus statusOld = radioStatus;
     if(!readVFO())   return false;
+    if (!readSplit()) return false;
     if(!readFreq())   return false;
     if (!readMode())  return false;
-    if (!readSplit()) return false;
 
     errorCount = 0;
     if (radioStatusChanged(statusOld, radioStatus))
