@@ -55,7 +55,7 @@ eLogClubLog::eLogClubLog()
 eLogClubLog::~eLogClubLog()
 {
     //delete(util);
-    delete(manager);
+    manager->deleteLater();
           //qDebug()<< "eLogClubLog::~eLogClubLog" ;
 }
 

@@ -72,7 +72,7 @@ LoTWUtilities::~LoTWUtilities()
     delete(file);
     delete(pDialog);
     delete(calendar);
-    delete(manager);
+    manager->deleteLater();
       //qDebug() << Q_FUNC_INFO << " - END" ;
 }
 

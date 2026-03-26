@@ -41,7 +41,7 @@ DownLoadCTY::DownLoadCTY(const QString &_klogDir, const QString &_klogVersion) :
     klogDir = _klogDir;
     result = -1;  // Error unknown
 
-    manager = new QNetworkAccessManager;
+    manager = new QNetworkAccessManager(this);
     request = new QNetworkRequest;
     //request->setUrl(QUrl("https://www.country-files.com/cty/cty.csv"));
     request->setUrl(QUrl("https://www.country-files.com/bigcty/cty.csv"));
@@ -63,7 +63,7 @@ DownLoadCTY::~DownLoadCTY()
 {
     //delete(util);
     delete(request);
-    delete(manager);
+    manager->deleteLater();
     delete(url);
 
    //qDebug() << "DownLoadCTY::~DownLoadCTY" ;
