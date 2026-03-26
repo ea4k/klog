@@ -151,19 +151,10 @@ void SetupDialog::init(const QString &_softwareVersion, const int _page, const b
 SetupDialog::~SetupDialog()
 {
      //qDebug() << Q_FUNC_INFO ;
+    // Page widgets (userDataPage, bandModePage, etc.) are owned by tabWidget via addTab()
+    // and will be deleted automatically by Qt's parent-child mechanism. Explicit deletion
+    // here would cause a double-free crash ("free(): invalid pointer") on Linux.
     delete(locator);
-    delete(userDataPage);
-    delete(bandModePage);
-    delete(dxClusterPage);
-    delete(miscPage);
-    delete(worldEditorPage);
-    delete(logsPage);
-    delete(eLogPage);
-    delete(colorsPage);
-    delete(UDPPage);
-    delete(satsPage);
-    delete(hamlibPage);
-    delete(logViewPage);
     delete(util);
 }
 
