@@ -68,6 +68,8 @@ If everything goes OK, you should have the klog executable in the folder.
 
     cmake --install build --prefix /usr
 
+or simply via sudo: sudo cmake --install build --prefix /usr
+
 Now you are done. Just execute klog and enjoy!
 
 
