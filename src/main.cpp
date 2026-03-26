@@ -270,6 +270,7 @@ int main(int argc, char *argv[])
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         wizard->exec();
+        delete wizard;
     }
     else
     {   // KLog configuration file exists, let's look for the DB
@@ -294,7 +295,7 @@ int main(int argc, char *argv[])
            //qDebug() << Q_FUNC_INFO << " - DB Updated";
         }
        //qDebug() << Q_FUNC_INFO << " - 98" << (QTime::currentTime()).toString("HH:mm:ss");
-        db->~DataBase();
+        delete db;
       //qDebug() << Q_FUNC_INFO << " 069: " << timer.elapsed() << "ms"; timer.restart();
     }
    //qDebug() << Q_FUNC_INFO << " 070: " << timer.elapsed() << "ms"; timer.restart();
