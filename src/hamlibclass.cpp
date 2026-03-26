@@ -228,7 +228,7 @@ bool HamLibClass::readFreq()
            return errorManage(Q_FUNC_INFO, retcode);
     }
         // In memory mode there is no independent SUB VFO: RX = TX
-    if (currentVfo == RIG_VFO_MEM)
+    if (currentVfo == RIG_VFO_MEM || !radioStatus.split)
     {
         radioStatus.freq_VFO_RX = radioStatus.freq_VFO_TX;
         return true;
@@ -266,7 +266,7 @@ bool HamLibClass::readMode()
         //qDebug() << Q_FUNC_INFO << " error on readFreq - END";
         return errorManage(Q_FUNC_INFO, retcode);
     }
-    if (currentVfo == RIG_VFO_MEM)
+    if (currentVfo == RIG_VFO_MEM || !radioStatus.split)
     {
         radioStatus.mode_VFO_RX = radioStatus.mode_VFO_TX;
         return true;
@@ -340,10 +340,10 @@ bool HamLibClass::readRadioInternal()
         return false;
 
     RadioStatus statusOld = radioStatus;
-    if(!readVFO())   return false;
+    if(!readVFO())    return false;
+    if(!readSplit())  return false;
     if(!readFreq())   return false;
     if (!readMode())  return false;
-    if (!readSplit()) return false;
 
     errorCount = 0;
     if (radioStatusChanged(statusOld, radioStatus))
