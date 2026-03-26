@@ -34,6 +34,7 @@
 #include "updatesettings.h"
 //#include "database.h"
 #include "mainwindow.h"
+#include <QCoreApplication>
 #include <QElapsedTimer>
 
 
@@ -200,6 +201,10 @@ MainWindow::~MainWindow()
     delete(elogQRZcom);
     //delete(elogClublog);
     delete(downloadcty);
+    delete(softUpdate);
+    // Process pending deleteLater() calls from network managers
+    // to avoid QThreadStorage warnings on exit
+    QCoreApplication::processEvents();
     //delete(world);
     //delete(mapWindow); // Qt parent-child: owned by this, auto-deleted
     //delete(locator);
@@ -210,7 +215,6 @@ MainWindow::~MainWindow()
     //delete(dateTime);
     //delete(dateTimeTemp);
     //delete(awards);
-    delete(softUpdate);
     delete(filemanager);
     //delete(fileAwardManager);
     delete(util);
