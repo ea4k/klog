@@ -69,4 +69,5 @@ target_link_libraries(tst_logwindow
 
 # Register the test with CTest
 add_test(NAME tst_logwindow COMMAND tst_logwindow)
+set_tests_properties(tst_logwindow PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

@@ -36,4 +36,5 @@ target_link_libraries(tst_frequency
 
 # Register the test with CTest
 add_test(NAME tst_frequency COMMAND tst_frequency)
+set_tests_properties(tst_frequency PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

@@ -34,4 +34,5 @@ target_link_libraries(tst_setuphamlibnetworkwidget
 
 # Register the test with CTest
 add_test(NAME tst_setuphamlibnetworkwidget COMMAND tst_setuphamlibnetworkwidget)
+set_tests_properties(tst_setuphamlibnetworkwidget PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

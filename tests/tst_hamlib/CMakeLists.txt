@@ -92,3 +92,4 @@ target_link_libraries(tst_hamlib PRIVATE ${_tst_libs})
 
 # 6. Register the test
 add_test(NAME tst_hamlib COMMAND tst_hamlib)
+set_tests_properties(tst_hamlib PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")

@@ -35,3 +35,4 @@ target_link_libraries(tst_elogclublog
 )
 
 add_test(NAME tst_elogclublog COMMAND tst_elogclublog)
+set_tests_properties(tst_elogclublog PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")

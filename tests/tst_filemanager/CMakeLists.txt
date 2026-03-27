@@ -65,4 +65,5 @@ target_link_libraries(tst_filemanager
 
 # Register the test with CTest
 add_test(NAME tst_filemanager COMMAND tst_filemanager)
+set_tests_properties(tst_filemanager PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

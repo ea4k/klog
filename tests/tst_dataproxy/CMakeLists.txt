@@ -56,4 +56,5 @@ target_link_libraries(tst_dataproxy
 
 # Register the test with CTest
 add_test(NAME tst_dataproxy COMMAND tst_dataproxy)
+set_tests_properties(tst_dataproxy PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

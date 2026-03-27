@@ -43,4 +43,5 @@ target_link_libraries(tst_dxspot
 
 # Register the test with CTest
 add_test(NAME tst_dxspot COMMAND tst_dxspot)
+set_tests_properties(tst_dxspot PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

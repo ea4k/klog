@@ -54,4 +54,5 @@ target_link_libraries(tst_qso
 
 # Register the test with CTest
 add_test(NAME tst_qso COMMAND tst_qso)
+set_tests_properties(tst_qso PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

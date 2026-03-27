@@ -60,4 +60,5 @@ target_link_libraries(tst_mainqsoentrywidget
 
 # Register the test with CTest
 add_test(NAME tst_mainqsoentrywidget COMMAND tst_mainqsoentrywidget)
+set_tests_properties(tst_mainqsoentrywidget PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

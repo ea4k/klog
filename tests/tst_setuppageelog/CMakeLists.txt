@@ -57,4 +57,5 @@ target_link_libraries(tst_setuppageelog
 
 # Register the test with CTest
 add_test(NAME tst_setuppageelog COMMAND tst_setuppageelog)
+set_tests_properties(tst_setuppageelog PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

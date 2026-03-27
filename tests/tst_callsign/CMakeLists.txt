@@ -33,4 +33,5 @@ target_link_libraries(tst_callsign
 
 # Register the test with CTest
 add_test(NAME tst_callsign COMMAND tst_callsign)
+set_tests_properties(tst_callsign PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
