@@ -425,7 +425,9 @@ else()
     #   ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps/klog.svg
     install(FILES ${KLOG_ICON}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
+        RENAME klog.png
     )
+
 
  install(FILES klog.svg
      DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps
