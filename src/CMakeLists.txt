@@ -385,7 +385,7 @@ else()
 
     # freedesktop integration files — only defined and used on Linux
     set(KLOG_DESKTOP  klog.desktop)
-    set(KLOG_ICON     klog.png)
+    set(KLOG_ICON     img/klog_256x256.png)
     set(KLOG_METAINFO klog.metainfo.xml)
 
     # Binary: /usr/bin/klog
