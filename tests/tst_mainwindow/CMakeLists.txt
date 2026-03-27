@@ -282,6 +282,11 @@ else()
   )
 endif()
 
+target_include_directories(tst_mainwindow PRIVATE
+    ../../src
+    ${CMAKE_BINARY_DIR}/src
+)
+
 target_link_libraries(tst_mainwindow PRIVATE ${_tst_libs})
 
 # Register the test with CTest

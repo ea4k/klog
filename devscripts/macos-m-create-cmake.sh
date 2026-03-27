@@ -45,6 +45,10 @@ QT_DIR="$HOME/Qt/$QT_VERSION/macos"
 export PATH="$HOME/Qt/Tools/Ninja:$QT_DIR/bin:$PATH"
 CMAKE_BIN="$HOME/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
 
+# --- Bundle name must match OUTPUT_NAME set in src/CMakeLists.txt ---
+APP_NAME="KLog"
+APP="$PROJECT_DIR/build/bin/${APP_NAME}.app"
+
 # --- Clean previous build ---
 echo "[1/4] Cleaning..."
 rm -rf "$PROJECT_DIR/build"
@@ -70,7 +74,8 @@ APP="$PROJECT_DIR/build/bin/klog.app"
 	-codesign="-" \
     -dmg
 
-mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION.dmg"
+# macdeployqt6 names the DMG after the .app: KLog.dmg
+mv "$PROJECT_DIR/build/bin/${APP_NAME}.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION.dmg"
 
 echo ""
 echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION.dmg"
