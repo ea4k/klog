@@ -186,13 +186,17 @@ void tst_FileManager::test_ADIF_Import_invalidLogN_fallsBackToExistingLog()
     int maxLog = dataProxy->getMaxLogNumber();
     QVERIFY2(maxLog > 0, "There must be at least one log for the fallback test");
 
+    // Remove QSOs left by previous tests so the import is not treated as a
+    // duplicate.  adifReadLog shows a blocking QMessageBox when it finds
+    // duplicates, which hangs the test in a headless (offscreen) environment.
+    QSqlQuery cleanup;
+    cleanup.exec("DELETE FROM log");
+
     int qsosBefore = dataProxy->getHowManyQSOInLog(maxLog);
 
     // logN=-1: adifReadLog must fall back to the highest existing log, not reject
     int imported = fileManager->adifReadLog(adifFilePath, "EA4K", -1);
-    // The call may return -2 (duplicate) if the QSO was already imported in
-    // the previous test; what matters is it did NOT return -3 (no-logs error)
-    // and that no QSO got stored with lognumber=-1.
+    // The call must return >0 (the fallback succeeded and the QSO was imported).
     QVERIFY2(imported != -3,
              "adifReadLog returned -3 (no logs), but a log exists — fallback failed (#903)");
 
