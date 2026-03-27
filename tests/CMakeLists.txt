@@ -12,3 +12,8 @@ endforeach()
 
 # Custom target to build all tests at once: cmake --build build --target build_tests
 add_custom_target(build_tests DEPENDS ${ALL_TEST_TARGETS})
+
+# Use offscreen platform so tests work without a display server (e.g. Debian build)
+foreach(target ${ALL_TEST_TARGETS})
+    set_tests_properties(${target} PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+endforeach()
