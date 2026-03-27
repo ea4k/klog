@@ -56,4 +56,5 @@ target_link_libraries(tst_datacache PRIVATE
 
 # Register the test with CTest
 add_test(NAME tst_datacache COMMAND tst_datacache)
+set_tests_properties(tst_datacache PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

@@ -35,4 +35,5 @@ target_link_libraries(tst_setuphamlibserialwidget
 
 # Register the test with CTest
 add_test(NAME tst_setuphamlibserialwidget COMMAND tst_setuphamlibserialwidget)
+set_tests_properties(tst_setuphamlibserialwidget PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

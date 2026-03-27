@@ -65,3 +65,4 @@ target_link_libraries(tst_dxcluster
 target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)
 
 add_test(NAME tst_dxcluster COMMAND tst_dxcluster)
+set_tests_properties(tst_dxcluster PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")

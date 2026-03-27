@@ -35,4 +35,5 @@ target_link_libraries(tst_adif
 
 # Register the test with CTest
 add_test(NAME tst_adif COMMAND tst_adif)
+set_tests_properties(tst_adif PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 

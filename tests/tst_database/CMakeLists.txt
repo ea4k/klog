@@ -57,3 +57,4 @@ target_link_libraries(tst_database PRIVATE
 
 # Register the test with CTest
 add_test(NAME tst_database COMMAND tst_database)
+set_tests_properties(tst_database PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")

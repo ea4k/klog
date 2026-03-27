@@ -59,4 +59,5 @@ target_link_libraries(tst_mainwindowinputqso
 
 # Register the test with CTest
 add_test(NAME tst_mainwindowinputqso COMMAND tst_mainwindowinputqso)
+set_tests_properties(tst_mainwindowinputqso PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
