@@ -1,10 +1,10 @@
 [Desktop Entry]
 Name=KLog
 GenericName=Ham Radio Logger
-Comment=Amateur radio logging program
+Comment=Amateur radio logging multiplatform program
 Exec=klog
 Icon=klog
 Terminal=false
 Type=Application
 Categories=Utility;HamRadio;
-Keywords=ham;radio;amateur;log;qso;adif;
+Keywords=hamradio,ham;radio;amateur;log;qso;adif;
