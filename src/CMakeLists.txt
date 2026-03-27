@@ -427,6 +427,11 @@ else()
         DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
     )
 
+ install(FILES klog.svg
+     DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps
+   )
+
+
     # AppStream metainfo: /usr/share/metainfo/klog.metainfo.xml
     # Required to appear in GNOME Software, KDE Discover, and future Debian
     # software catalogs. Debian Package Tracker warning: no-metainfo (active).
