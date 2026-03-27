@@ -62,6 +62,19 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 qt_standard_project_setup()
 
+# Standard GNU/FHS install paths.
+# Provides: CMAKE_INSTALL_BINDIR, CMAKE_INSTALL_DATADIR,
+#           CMAKE_INSTALL_MANDIR, CMAKE_INSTALL_DOCDIR, etc.
+if(UNIX AND NOT APPLE)
+    include(GNUInstallDirs)
+    # Debian Policy §12.3: docs must live under share/doc/<lowercase-package>.
+    # Override the CMake default, which would use PROJECT_NAME = "KLog" (uppercase).
+    set(CMAKE_INSTALL_DOCDIR "${CMAKE_INSTALL_DATADIR}/doc/klog"
+    CACHE PATH "Documentation root (FHS: share/doc/klog)")
+endif()
+
+
+
 # --- BUILD TARGETS ---
 add_subdirectory(src)
 
@@ -72,12 +85,22 @@ if(BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
+
 # --- CPACK CONFIGURATION ---
-set(CPACK_PACKAGE_NAME "KLog")
+# Naming convention:
+#   Linux  : klog-<version>  (lowercase, Debian Policy §2.1)
+#   Windows: KLog-<version>  (mixed case, matches application name)
+#   macOS  : KLog-<version>  (mixed case, matches bundle name)
+if(UNIX AND NOT APPLE)
+    set(CPACK_PACKAGE_NAME "klog")
+else()
+    set(CPACK_PACKAGE_NAME "KLog")
+endif()
+
 set(CPACK_PACKAGE_VENDOR "Jaime Robles")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "KLog - The Ham Radio Logging Program")
-set(CPACK_PACKAGE_HOMEPAGE_URL "https://www.klog.xyz")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/ea4k/klog")
 set(CPACK_PACKAGE_CONTACT "jaime@robles.es")
 
 # Platform-specific installers

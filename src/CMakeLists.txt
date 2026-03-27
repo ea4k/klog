@@ -219,14 +219,19 @@ set(KLOG_DOC
    ../COPYING
    ../INSTALL-es.txt
    ../INSTALL-linux
-   ../INSTALL-macOS.txt
-   ../INSTALL-win.txt
    ../INSTALL.txt
    ../NEWS
    ../README
    ../README-DEVEL
    ../TODO
    ../TROUBLESHOUTING
+)
+
+# Documentation files relevant only on Linux/generic installs
+# (excluded from macOS bundle and Windows installer)
+set(KLOG_DOC_LINUX
+   ../INSTALL-es.txt
+   ../INSTALL-linux
 )
 
 set(KLOG_MAN
@@ -271,7 +276,7 @@ add_executable(klog WIN32 MACOSX_BUNDLE
     ${KLOG_TS_FILES}
 )
 
-source_group("Documentation" FILES ${KLOG_DOC})
+source_group("Documentation" FILES ${KLOG_DOC} ${KLOG_DOC_LINUX})
 source_group("Man Pages"     FILES ${KLOG_MAN})
 source_group("Translations"  FILES ${KLOG_TS_FILES})
 source_group("UI Forms"      FILES ${SRC_UI})
@@ -362,21 +367,69 @@ if(APPLE)
     target_sources(klog PRIVATE klog.icns)
 
 elseif(WIN32)
+   # --- Windows installer ---
+   # Binary goes to the root installation folder alongside docs and translations.
+   install(TARGETS klog
+       BUNDLE  DESTINATION .
+       RUNTIME DESTINATION .
+   )
+   install(FILES ${KLOG_DOC} DESTINATION .)
+   install(FILES ${QM_FILES} DESTINATION translations)
+else()
+   # =========================================================================
+    # Linux / Unix install — FHS + Debian Policy compliant
+    # =========================================================================
+
+    # freedesktop integration files — only defined and used on Linux
+    set(KLOG_DESKTOP  klog.desktop)
+    set(KLOG_ICON     klog.png)
+    set(KLOG_METAINFO klog.metainfo.xml)
+
+    # Binary: /usr/bin/klog
     install(TARGETS klog
-        BUNDLE DESTINATION .
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
-    install(FILES ${KLOG_DOC} DESTINATION .)
-    install(FILES ${QM_FILES} DESTINATION translations)
 
-else()
-    install(TARGETS klog RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-    install(FILES ${KLOG_DOC} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog)
-    install(FILES ${KLOG_MAN} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+    # Documentation: /usr/share/doc/klog/
+    # Debian Policy §12.3: all package docs go under /usr/share/doc/<package>.
+    # Only install docs relevant on Linux; exclude Windows/macOS install guides.
+    install(FILES ${KLOG_DOC} ${KLOG_DOC_LINUX}
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}
+    )
+
+    # Man page: /usr/share/man/man1/
+    install(FILES ${KLOG_MAN}
+        DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+    )
+
+    # Translations (arch-independent runtime data): /usr/share/klog/translations/
+    # FHS: /usr/share/<package> is for arch-independent data, NOT documentation.
     if(QM_FILES)
-        install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
+        install(FILES ${QM_FILES}
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations
+        )
     endif()
 
+    # Desktop entry: /usr/share/applications/klog.desktop
+    # Required by Debian Policy §9.6 and freedesktop.org for desktop integration.
+    install(FILES ${KLOG_DESKTOP}
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+    )
+
+    # Application icon: /usr/share/pixmaps/klog.png
+    # Legacy path; compatible with all desktop environments.
+    # If a scalable SVG is added in the future, also install to:
+    #   ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps/klog.svg
+    install(FILES ${KLOG_ICON}
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
+    )
+
+    # AppStream metainfo: /usr/share/metainfo/klog.metainfo.xml
+    # Required to appear in GNOME Software, KDE Discover, and future Debian
+    # software catalogs. Debian Package Tracker warning: no-metainfo (active).
+    install(FILES ${KLOG_METAINFO}
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
+    )
 endif()
 
 # Other platform-specific stuff (icons, etc)
