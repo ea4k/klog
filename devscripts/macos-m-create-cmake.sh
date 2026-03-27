@@ -67,7 +67,6 @@ echo "[3/4] Building..."
 
 # --- Deploy Qt into the bundle and create DMG ---
 echo "[4/4] Deploying Qt and creating DMG..."
-APP="$PROJECT_DIR/build/bin/klog.app"
 
 "$QT_DIR/bin/macdeployqt6" "$APP" \
     -qmldir="$PROJECT_DIR/src/qml" \
