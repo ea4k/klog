@@ -385,7 +385,7 @@ else()
 
     # freedesktop integration files — only defined and used on Linux
     set(KLOG_DESKTOP  klog.desktop)
-    set(KLOG_ICON     klog.png)
+    set(KLOG_ICON     img/klog_256x256.png)
     set(KLOG_METAINFO klog.metainfo.xml)
 
     # Binary: /usr/bin/klog
@@ -419,17 +419,17 @@ else()
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
     )
 
-    # Application icon: /usr/share/pixmaps/klog.png
+    # Application icon (raster): /usr/share/pixmaps/klog.png
     # Legacy path; compatible with all desktop environments.
-    # If a scalable SVG is added in the future, also install to:
-    #   ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps/klog.svg
     install(FILES ${KLOG_ICON}
         DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
+        RENAME klog.png
     )
 
- install(FILES klog.svg
-     DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps
-   )
+    # Application icon (scalable): /usr/share/icons/hicolor/scalable/apps/klog.svg
+    install(FILES klog.svg
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps
+    )
 
 
     # AppStream metainfo: /usr/share/metainfo/klog.metainfo.xml
