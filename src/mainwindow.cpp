@@ -3498,7 +3498,8 @@ bool MainWindow::setHamlib(const bool _b)
     if (_b)
     {
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib active";
-        hamlib->init(true);
+        if (!hamlib->init(true))
+            return false;
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ")  << Q_FUNC_INFO << ": After Hamlib active";
         return hamlib->readRadio(); // Forcing the radio update
     }
@@ -3534,6 +3535,7 @@ void MainWindow::slotInitHamlib()
 
     if (!hamlibActive)
     {
+        hamlib->stop();  // Stop polling timer so it doesn't trigger a second "lost communication" dialog
         logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
 
         QMessageBox msgBox;
