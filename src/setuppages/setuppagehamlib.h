@@ -68,6 +68,7 @@ public slots:
     //void slotScanPorts();
     void slotRadioComboBoxChanged(QString _r);
     void slotTestHamlib();
+    void slotRadioStatusChanged(RadioStatus _status);
 
 private:
     void createUI();
@@ -87,6 +88,7 @@ private:
     QComboBox *rigTypeComboBox;
 
     QPushButton  *testHamlibPushButton;
+    QLabel *freqDisplayLabel;
 
     QSpinBox *pollIntervalQSpinBox;
     int pollMin, pollMax, rigctlport;

@@ -39,6 +39,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     networkConfigWidget = new HamLibNetworkConfigWidget;
 
     testHamlibPushButton = new QPushButton();
+    freqDisplayLabel = new QLabel("000.000.00");
 
     rigTypeComboBox = new QComboBox;
     pollIntervalQSpinBox = new QSpinBox;
@@ -52,12 +53,14 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 void SetupPageHamLib::stopHamlib ()
 {
     hamlib->stop();
+    freqDisplayLabel->setText("000.000.00");
 }
 
 void SetupPageHamLib::slotTestHamlib()
 {
    //qDebug() << Q_FUNC_INFO;
     hamlib->stop ();
+    freqDisplayLabel->setText("000.000.00");
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
        //qDebug() << Q_FUNC_INFO << " - FLRig/NetRig";
@@ -78,11 +81,18 @@ void SetupPageHamLib::slotTestHamlib()
     }
 
     hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
-    hamlib->setPoll (2000);
+    hamlib->setPoll (pollIntervalQSpinBox->value ());
    //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
-    setTestResult (hamlib->init(true));
-    hamlib->stop ();
+    bool ok = hamlib->init(true);
+    setTestResult (ok);
+    if (!ok)
+        hamlib->stop ();
    //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void SetupPageHamLib::slotRadioStatusChanged(RadioStatus _status)
+{
+    freqDisplayLabel->setText(_status.freq_VFO_RX.toQString());
 }
 
 void SetupPageHamLib::setTestResult(const bool _ok)
@@ -163,6 +173,13 @@ void SetupPageHamLib::createUI()
     testHamlibPushButton->setText (tr("Test"));
     testHamlibPushButton->setToolTip (tr("Click to test the connection to the radio"));
 
+    QFont freqFont("Courier");
+    freqFont.setPointSize(14);
+    freqFont.setBold(true);
+    freqDisplayLabel->setFont(freqFont);
+    freqDisplayLabel->setAlignment(Qt::AlignCenter);
+    freqDisplayLabel->setToolTip(tr("Shows the frequency read from the radio while connected"));
+
     setRig();
 
     QString pollTip = QString(tr("Defines the interval to poll the radio in msecs."));
@@ -207,8 +224,9 @@ void SetupPageHamLib::createUI()
 
     QGridLayout *mLayout = new QGridLayout;
     // qVBoxLayout *mLayout = new QVBoxLayout;
-    mLayout->addLayout(checkBoxLayout, 0, 1);
-    mLayout->addLayout (radioLayout, 1, 0);
+    mLayout->addLayout(checkBoxLayout, 0, 0);
+    mLayout->addWidget(freqDisplayLabel, 0, 1);
+    mLayout->addLayout (radioLayout, 1, 0, 1, -1);
     mLayout->addWidget (tabWidget, 2, 0, 2, -1);
     //mLayout->addWidget (networkConfigWidget, 2, 1);
 
@@ -226,6 +244,9 @@ void SetupPageHamLib::createUI()
 
     connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
     connect(rigTypeComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
+    connect(hamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChanged),
+            this, &SetupPageHamLib::slotRadioStatusChanged);
+    connect(hamlib, &HamLibClass::rigDisconnected, this, [this]{ freqDisplayLabel->setText("000.000.00"); });
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
