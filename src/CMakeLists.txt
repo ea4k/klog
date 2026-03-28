@@ -224,14 +224,23 @@ set(KLOG_DOC
    ../README
    ../README-DEVEL
    ../TODO
-   ../TROUBLESHOUTING
+   ../TROUBLESHOOTING
 )
 
-# Documentation files relevant only on Linux/generic installs
-# (excluded from macOS bundle and Windows installer)
+# Documentation files relevant only on Linux/generic for user
+# (excluded from macOS bundle and Windows installer and INSTALL files)
 set(KLOG_DOC_LINUX
-   ../INSTALL-es.txt
-   ../INSTALL-linux
+    ../AUTHORS
+    ../Changelog
+    ../NEWS
+    ../README
+    ../README-DEVEL
+    ../TODO
+    ../TROUBLESHOOTING
+)
+
+install(FILES ${KLOG_DOC_LINUX}
+    DESTINATION ${CMAKE_INSTALL_DOCDIR}
 )
 
 set(KLOG_MAN
