@@ -68,9 +68,10 @@ qt_standard_project_setup()
 if(UNIX AND NOT APPLE)
     include(GNUInstallDirs)
     # Debian Policy §12.3: docs must live under share/doc/<lowercase-package>.
-    # Override the CMake default, which would use PROJECT_NAME = "KLog" (uppercase).
-    set(CMAKE_INSTALL_DOCDIR "${CMAKE_INSTALL_DATADIR}/doc/klog"
-    CACHE PATH "Documentation root (FHS: share/doc/klog)")
+    # GNUInstallDirs already cached CMAKE_INSTALL_DOCDIR with PROJECT_NAME
+    # ("KLog", uppercase).  A plain set() shadows the cache value so the
+    # lowercase "klog" is always used regardless of cache state.
+    set(CMAKE_INSTALL_DOCDIR "${CMAKE_INSTALL_DATADIR}/doc/klog")
 endif()
 
 
