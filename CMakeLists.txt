@@ -69,8 +69,7 @@ if(UNIX AND NOT APPLE)
     include(GNUInstallDirs)
     # Debian Policy §12.3: docs must live under share/doc/<lowercase-package>.
     # Override the CMake default, which would use PROJECT_NAME = "KLog" (uppercase).
-    set(CMAKE_INSTALL_DOCDIR "${CMAKE_INSTALL_DATADIR}/doc/klog"
-    CACHE PATH "Documentation root (FHS: share/doc/klog)")
+    set(CMAKE_INSTALL_DOCDIR "${CMAKE_INSTALL_DATADIR}/doc/klog")
 endif()
 
 
