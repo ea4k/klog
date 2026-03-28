@@ -92,7 +92,10 @@ void SetupPageHamLib::slotTestHamlib()
 
 void SetupPageHamLib::slotRadioStatusChanged(RadioStatus _status)
 {
-    freqDisplayLabel->setText(_status.freq_VFO_RX.toQString());
+    QString text = _status.freq_VFO_RX.toQString();
+    if (!_status.mode_VFO_RX.isEmpty())
+        text += " / " + _status.mode_VFO_RX;
+    freqDisplayLabel->setText(text);
 }
 
 void SetupPageHamLib::setTestResult(const bool _ok)
@@ -191,44 +194,37 @@ void SetupPageHamLib::createUI()
      //showDebugLog->setMaximum(pollMax);
      //qDebug() << Q_FUNC_INFO << " - 15";
     QLabel *pollIntervalLabel = new QLabel(tr("Poll interval"));
-    pollIntervalLabel->setBuddy(rigTypeComboBox);
+    pollIntervalLabel->setBuddy(pollIntervalQSpinBox);
     pollIntervalLabel->setToolTip(pollTip);
     pollIntervalLabel->setAlignment(Qt::AlignCenter);
     pollIntervalLabel->setEnabled(true);
-
-    QHBoxLayout *pollIntervalLayout = new QHBoxLayout;
-    pollIntervalLayout->addWidget(pollIntervalLabel);
-    pollIntervalLayout->addWidget(pollIntervalQSpinBox);
 
      //qDebug() << Q_FUNC_INFO << " - 24";
 
     QLabel *rigTypeLabel = new QLabel(tr("Radio"));
     rigTypeLabel->setBuddy(rigTypeComboBox);
     rigTypeLabel->setToolTip(tr("Select your rig."));
-    rigTypeLabel->setAlignment(Qt::AlignCenter);
+    rigTypeLabel->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     rigTypeLabel->setEnabled(true);
-     //qDebug() << Q_FUNC_INFO << " - 25";
-    QHBoxLayout *radioLayout = new QHBoxLayout;
-    radioLayout->addWidget (rigTypeLabel);
-    radioLayout->addWidget (rigTypeComboBox);
-    radioLayout->addLayout (pollIntervalLayout);
-    radioLayout->addWidget (testHamlibPushButton);
-    //radioLayout->addWidget (dataFromRigLineEdit);
-     //qDebug() << Q_FUNC_INFO << " - 30";
-    QHBoxLayout *checkBoxLayout = new QHBoxLayout;
-    checkBoxLayout->addWidget(activateHamlibCheckBox);
-    checkBoxLayout->addWidget(readOnlyModeCheckBox);
-     //qDebug() << Q_FUNC_INFO << " - 35";
+
     tabWidget->addTab (serialConfigWidget, tr("Serial"));
     tabWidget->addTab (networkConfigWidget, tr("Network"));
 
+    // Row 0: Radio | combobox | Poll interval | spinbox | [Test]
+    // Row 1:                  | Activate       | Read-Only | [freq/mode]
+    // Row 2+: tabWidget (full width)
     QGridLayout *mLayout = new QGridLayout;
-    // qVBoxLayout *mLayout = new QVBoxLayout;
-    mLayout->addLayout(checkBoxLayout, 0, 0);
-    mLayout->addWidget(freqDisplayLabel, 0, 1);
-    mLayout->addLayout (radioLayout, 1, 0, 1, -1);
-    mLayout->addWidget (tabWidget, 2, 0, 2, -1);
-    //mLayout->addWidget (networkConfigWidget, 2, 1);
+    mLayout->addWidget(rigTypeLabel,           0, 0);
+    mLayout->addWidget(rigTypeComboBox,        0, 1);
+    mLayout->addWidget(pollIntervalLabel,      0, 2);
+    mLayout->addWidget(pollIntervalQSpinBox,   0, 3);
+    mLayout->addWidget(testHamlibPushButton,   0, 4);
+
+    mLayout->addWidget(activateHamlibCheckBox, 1, 2);
+    mLayout->addWidget(readOnlyModeCheckBox,   1, 3);
+    mLayout->addWidget(freqDisplayLabel,       1, 4);
+
+    mLayout->addWidget(tabWidget,              2, 0, 1, -1);
 
      //qDebug() << Q_FUNC_INFO << " - 199";
     setLayout(mLayout);
