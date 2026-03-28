@@ -84,6 +84,8 @@ void SetupPageHamLib::slotTestHamlib()
     hamlib->setPoll (pollIntervalQSpinBox->value ());
    //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
     bool ok = hamlib->init(true);
+    if (ok)
+        ok = hamlib->readRadio();
     setTestResult (ok);
     if (!ok)
         hamlib->stop ();
