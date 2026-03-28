@@ -264,6 +264,8 @@ int main(int argc, char *argv[])
     QPixmap pixmap(":img/klog_512x512.png");
   //qDebug() << Q_FUNC_INFO << " 051: " << timer.elapsed() << "ms"; timer.restart();
     QSplashScreen splash(pixmap);
+    splash.show();
+    QApplication::processEvents();
     //int firstTime = true;
     // If the KLog configuration file does not exist, we launch the wizard.
     if (!((QFile::exists(util.getCfgFile ()))))
@@ -301,21 +303,26 @@ int main(int argc, char *argv[])
       //qDebug() << Q_FUNC_INFO << " 069: " << timer.elapsed() << "ms"; timer.restart();
     }
    //qDebug() << Q_FUNC_INFO << " 070: " << timer.elapsed() << "ms"; timer.restart();
-    splash.show();
+
    //qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
 
     splash.showMessage ("Creating the Data Base...");
+    QApplication::processEvents();
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
+    QApplication::processEvents();
+
    //qDebug() << Q_FUNC_INFO << " 071: " << timer.elapsed() << "ms"; timer.restart();
     World world(&dataProxy, Q_FUNC_INFO);
    //qDebug() << Q_FUNC_INFO << " 072: " << timer.elapsed() << "ms"; timer.restart();
     dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage("Creating window...");
+    QApplication::processEvents();
    //qDebug() << Q_FUNC_INFO << " 080: " << timer.elapsed() << "ms"; timer.restart();
 
     MainWindow mw(&dataProxy, &world);
     splash.showMessage ("Initializing window...");
+    QApplication::processEvents();
    //qDebug() << Q_FUNC_INFO << " 081: " << timer.elapsed() << "ms"; timer.restart();
 
     //qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
@@ -330,6 +337,7 @@ int main(int argc, char *argv[])
     //mw.recommendBackupIfNeeded();
    //qDebug() << Q_FUNC_INFO << " 085: " << timer.elapsed() << "ms"; timer.restart();
     splash.showMessage ("Showing window...");
+    QApplication::processEvents();
     //qDebug() << Q_FUNC_INFO << " - 110 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.show();
     //qDebug() << Q_FUNC_INFO << " 086: " << timer.elapsed() << "ms"; timer.restart();
