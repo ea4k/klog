@@ -266,6 +266,9 @@ int main(int argc, char *argv[])
     QSplashScreen splash(pixmap);
     splash.show();
     QApplication::processEvents();
+
+    splash.showMessage("Checking database...");
+    QApplication::processEvents();
     //int firstTime = true;
     // If the KLog configuration file does not exist, we launch the wizard.
     if (!((QFile::exists(util.getCfgFile ()))))
