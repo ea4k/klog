@@ -39,10 +39,12 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     networkConfigWidget = new HamLibNetworkConfigWidget;
 
     testHamlibPushButton = new QPushButton();
-    freqDisplayLabel = new QLabel("000.000.00");
+    defaultFreqMode = tr("000.000 / %1").arg(tr("Mode"));
+    freqDisplayLabel = new QLabel(defaultFreqMode);
 
     rigTypeComboBox = new QComboBox;
     pollIntervalQSpinBox = new QSpinBox;
+
 
     createUI();
     setDefaults();
@@ -53,14 +55,14 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 void SetupPageHamLib::stopHamlib ()
 {
     hamlib->stop();
-    freqDisplayLabel->setText("000.000.00");
+    freqDisplayLabel->setText(defaultFreqMode);
 }
 
 void SetupPageHamLib::slotTestHamlib()
 {
    //qDebug() << Q_FUNC_INFO;
     hamlib->stop ();
-    freqDisplayLabel->setText("000.000.00");
+    freqDisplayLabel->setText(defaultFreqMode);
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
     {
        //qDebug() << Q_FUNC_INFO << " - FLRig/NetRig";
@@ -244,7 +246,7 @@ void SetupPageHamLib::createUI()
     connect(rigTypeComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
     connect(hamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChanged),
             this, &SetupPageHamLib::slotRadioStatusChanged);
-    connect(hamlib, &HamLibClass::rigDisconnected, this, [this]{ freqDisplayLabel->setText("000.000.00"); });
+    connect(hamlib, &HamLibClass::rigDisconnected, this, [this]{ freqDisplayLabel->setText(defaultFreqMode); });
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 

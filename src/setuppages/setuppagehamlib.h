@@ -32,7 +32,6 @@
 #include <QSerialPortInfo>
 #include "../hamlibclass.h"
 #include "../dataproxy_sqlite.h"
-#include "../utilities.h"
 #include "hamlibserialconfigwidget.h"
 #include "hamlibnetworkconfigwidget.h"
 #include <hamlib/rig.h>
@@ -92,6 +91,7 @@ private:
 
     QSpinBox *pollIntervalQSpinBox;
     int pollMin, pollMax, rigctlport;
+    QString defaultFreqMode;
 
     HamLibClass *hamlib;
 
