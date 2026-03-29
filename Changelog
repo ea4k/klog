@@ -1,11 +1,12 @@
 Mar 2026 - 2.5
 - New feature: Spots are sent to the map with the starts color and callsign.
-- New feature: Mouse shows in the map the QSOs providng that Locator.
+- New feature: Mouse shows in the map the QSOs providing that Locator.
+- Enhancement: Evolution to CMake build system only. QMake deprecation.
 - Enhancement: Modes are now used to calculate needs & stats if selected.
 - Enhancement: Start time optimizations.
 - Enhancement: Split is now managed also from radio/UI.
 - Enhancement: Optimized the exit from Setup to make it faster.
-- Enhancement: Band & Modes fully migrated to DataCache
+- Enhancement: Band & Modes fully migrated to DataCache.
 - Enhancement: Test on QSO cache class.
 - Enhancement: Complete ADIF->IsValidPOTA (Closes #717)
 - Enhancement: Complete ADIF->IsValidWWFF (Closes #718)
