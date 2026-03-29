@@ -608,6 +608,10 @@ bool HamLibClass::init(bool _active)
 
    //qDebug() << Q_FUNC_INFO << " - 30: Opening connection";
 
+    // Reduce the default timeout (typically 2000 ms) so that a powered-off
+    // radio is detected faster and the UI is not blocked for too long.
+    rig_set_conf(my_rig, rig_token_lookup(my_rig, "timeout"), "500");
+
     // 4. Abrir la conexión real
     int retcode = rig_open(my_rig);
 

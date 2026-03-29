@@ -172,7 +172,7 @@ private:
     int pollInterval; // Poll interval in mSecs
     int errorCount;   // Number of times that the rig has returned an
                       // error since last time OK.
-    static constexpr int ERROR_THRESHOLD     = 3;  // Fatal comms errors before disconnect
+    static constexpr int ERROR_THRESHOLD     = 1;  // Fatal comms errors before disconnect
     static constexpr int SOFT_ERROR_THRESHOLD = 10; // Soft/config errors before disconnect
     //bool connected;   // When we connect to the rig
 

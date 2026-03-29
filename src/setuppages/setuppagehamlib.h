@@ -32,7 +32,6 @@
 #include <QSerialPortInfo>
 #include "../hamlibclass.h"
 #include "../dataproxy_sqlite.h"
-#include "../utilities.h"
 #include "hamlibserialconfigwidget.h"
 #include "hamlibnetworkconfigwidget.h"
 #include <hamlib/rig.h>
@@ -63,11 +62,13 @@ public:
     void saveSettings();
     void loadSettings();
     bool hasSettingsChanged() const;
+    bool wasTestRun() const;
 
 public slots:
     //void slotScanPorts();
     void slotRadioComboBoxChanged(QString _r);
     void slotTestHamlib();
+    void slotRadioStatusChanged(RadioStatus _status);
 
 private:
     void createUI();
@@ -87,14 +88,16 @@ private:
     QComboBox *rigTypeComboBox;
 
     QPushButton  *testHamlibPushButton;
+    QLabel *freqDisplayLabel;
 
     QSpinBox *pollIntervalQSpinBox;
     int pollMin, pollMax, rigctlport;
+    QString defaultFreqMode;
 
     HamLibClass *hamlib;
 
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
-    bool networkRadio, hamlibTestOK;
+    bool networkRadio, hamlibTestOK, testWasRun;
 
     // Snapshot of values at loadSettings() time, used by hasSettingsChanged()
     struct HamlibSnapshot {

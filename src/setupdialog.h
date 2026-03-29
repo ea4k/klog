@@ -68,6 +68,7 @@ public:
     void setLogLevel(const DebugLogLevel _sev);
     void loadDarkMode(); // Reads the config to setup the DarkMode
     bool hamlibSettingsChanged() const;
+    bool hamlibTestWasRun() const;
     int  getSelectedLog() const;
     bool logsWereModified() const;
     bool wasDBMoved() const;   // true si the user successfully clicked OK to move the DB
