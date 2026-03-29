@@ -29,6 +29,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     Q_UNUSED(dp);
     //qDebug() << Q_FUNC_INFO ;
     hamlibTestOK = false;
+    testWasRun = false;
     hamlib = new HamLibClass();
 
     activateHamlibCheckBox = new QCheckBox();
@@ -58,9 +59,15 @@ void SetupPageHamLib::stopHamlib ()
     freqDisplayLabel->setText(defaultFreqMode);
 }
 
+bool SetupPageHamLib::wasTestRun() const
+{
+    return testWasRun;
+}
+
 void SetupPageHamLib::slotTestHamlib()
 {
    //qDebug() << Q_FUNC_INFO;
+    testWasRun = true;
     hamlib->stop ();
     freqDisplayLabel->setText(defaultFreqMode);
     if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
@@ -341,6 +348,7 @@ void SetupPageHamLib::saveSettings()
 void SetupPageHamLib::loadSettings()
 {
     //qDebug() << Q_FUNC_INFO;
+    testWasRun = false;
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");

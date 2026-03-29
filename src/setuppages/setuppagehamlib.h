@@ -62,6 +62,7 @@ public:
     void saveSettings();
     void loadSettings();
     bool hasSettingsChanged() const;
+    bool wasTestRun() const;
 
 public slots:
     //void slotScanPorts();
@@ -96,7 +97,7 @@ private:
     HamLibClass *hamlib;
 
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
-    bool networkRadio, hamlibTestOK;
+    bool networkRadio, hamlibTestOK, testWasRun;
 
     // Snapshot of values at loadSettings() time, used by hasSettingsChanged()
     struct HamlibSnapshot {

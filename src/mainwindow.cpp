@@ -3244,7 +3244,6 @@ void MainWindow::openSetup(const int _page)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //int result = -1;
      //qDebug() << Q_FUNC_INFO << " - 000 - " << (QTime::currentTime()).toString("HH:mm:ss");
-    hamlib->stop();
      //qDebug() << Q_FUNC_INFO << " - 001 - " << (QTime::currentTime()).toString("HH:mm:ss");
     if (!needToEnd)
     {
@@ -3366,8 +3365,9 @@ void MainWindow::slotSetupDialogFinished (const int _s)
        //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
-    // Only reinitialize if settings are changed.
-    if (setupDialog->hamlibSettingsChanged())
+    // Reinitialize hamlib only if settings changed or the test button was used
+    // (the test connects a second hamlib instance which may disrupt the live session).
+    if (setupDialog->hamlibSettingsChanged() || setupDialog->hamlibTestWasRun())
     {
         hamlibActive = setHamlib(hamlibActive);
     }
