@@ -192,9 +192,20 @@ int main(int argc, char *argv[])
     // so you need to get rid of the garbage
     QSharedMemory nix_fix_shared_memory("klogshm");
 
-    if (nix_fix_shared_memory.attach())
+    if (!nix_fix_shared_memory.create(1))
     {
-        nix_fix_shared_memory.detach(); // if there is no running instance then it remove the orphaned shared memory
+        // create failed - if the segment already exists (orphaned from a previous crash
+        // or unclean exit), we need to attach to it and then detach to release it
+        if (nix_fix_shared_memory.error() == QSharedMemory::AlreadyExists)
+        {
+            nix_fix_shared_memory.attach();
+            nix_fix_shared_memory.detach();
+        }
+    }
+    else
+    {
+        // create succeeded (no orphan existed), detach so main singleton logic can work
+        nix_fix_shared_memory.detach();
     }
 #endif
 
