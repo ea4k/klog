@@ -241,9 +241,8 @@ set(KLOG_DOC_LINUX
    ../TROUBLESHOOTING
 )
 
-install(FILES ${KLOG_DOC_LINUX}
-   DESTINATION ${CMAKE_INSTALL_DOCDIR}
-)
+# Linux docs are installed inside the platform-specific else() block below;
+# macOS and Windows handle their own doc sets in their respective branches.
 
 set(KLOG_MAN
     klog.1
@@ -407,7 +406,7 @@ else()
     # Documentation: /usr/share/doc/klog/
     # Debian Policy §12.3: all package docs go under /usr/share/doc/<package>.
     # Only install docs relevant on Linux; exclude Windows/macOS install guides.
-    install(FILES ${KLOG_DOC} ${KLOG_DOC_LINUX}
+    install(FILES ${KLOG_DOC_LINUX}
         DESTINATION ${CMAKE_INSTALL_DOCDIR}
     )
 
