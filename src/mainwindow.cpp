@@ -165,7 +165,8 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 
     if (needToEnd)
     {
-       exit(0);
+       QApplication::quit();
+       return;
     }
 
     softUpdate = new SoftwareUpdate(softwareVersion);

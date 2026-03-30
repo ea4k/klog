@@ -26,6 +26,7 @@
 
 #include "database.h"
 #include "../adif.h"
+#include <QApplication>
 #include "db_adif_primary_subdvisions_data.h"
 //#include <qDebug>
 
@@ -976,8 +977,8 @@ bool DataBase::updateToLatest()
     if (requiresManualUpgrade())
     {
         //qDebug() << Q_FUNC_INFO << " requires" ;
-        exit(1);
-        //return false;
+        QApplication::quit();
+        return false;
     }
     //qDebug() << Q_FUNC_INFO << " - Let's update!";
     return updateTo028();
