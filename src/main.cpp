@@ -187,9 +187,10 @@ int main(int argc, char *argv[])
     QSystemSemaphore semaphore("klogapp", 1);  // create semaphore with unique ID klogapp
     semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
 
-#ifndef KLOG_Q_OS_WIN
-    // in linux / unix shared memory is not freed when the application terminates abnormally,
-    // so you need to get rid of the garbage
+#ifndef Q_OS_WIN
+    // On Linux/Unix/macOS, POSIX shared memory is not freed when the application
+    // terminates abnormally, so we need to clean up orphaned segments.
+    // On Windows, the OS handles shared memory cleanup automatically.
     QSharedMemory nix_fix_shared_memory("klogshm");
 
     if (!nix_fix_shared_memory.create(1))
