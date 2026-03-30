@@ -27,8 +27,9 @@
  *****************************************************************************/
 #include <QObject>
 #include <QtWidgets>
-#include <QQuickWidget>
 #include <QQuickItem>
+#include <QQuickView>
+#include <QQuickWidget>
 #include "../../locator.h"
 #include "locatorinfoprovider.h"
 
@@ -68,7 +69,16 @@ private:
     // Build the global 2-letter Maidenhead field grid (drawn once, persistent)
     void paintFieldGrid();
 
-    QQuickWidget *qmlView;
+    // Exactly one of these is non-null after init(), chosen at runtime:
+    //   m_quickView   — Wayland: real native window, pointer events work
+    //   m_quickWidget — X11 / Windows / macOS: FBO compositing works
+    QQuickView   *m_quickView   = nullptr;
+    QQuickWidget *m_quickWidget = nullptr;
+
+    // Convenience helpers — dispatch to whichever pointer is active
+    QQmlContext *qmlContext() const;
+    QObject     *qmlRoot()    const;
+    QQmlEngine  *qmlEngine()  const;
 
     // Models
     QStandardItemModel modelCircle;      // optional circle markers

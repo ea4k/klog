@@ -680,7 +680,6 @@ Rectangle {
         DragHandler {
             id: mapDragHandler
             target:          null
-            acceptedDevices: PointerDevice.Mouse
             dragThreshold:   4
 
             property point lastDragPos: Qt.point(0, 0)

@@ -24,7 +24,9 @@
  *                                                                           *
  *****************************************************************************/
 
+#include <QQuickView>
 #include <QQuickWidget>
+#include <QGuiApplication>
 #include <QGeoCoordinate>
 #include <QGeoRectangle>
 #include <QQmlContext>
@@ -34,18 +36,36 @@
 
 MapWidget::MapWidget(QWidget *parent)
     : QWidget(parent)
-    , qmlView(nullptr)
 {
     //Q_UNUSED(parent);
 }
 
 MapWidget::~MapWidget()
 {
-    if (qmlView) {
-        qmlView->setSource(QUrl());
-        qmlView->engine()->collectGarbage();
+    if (m_quickView || m_quickWidget) {
+        if (m_quickView)   m_quickView->setSource(QUrl());
+        else               m_quickWidget->setSource(QUrl());
+        qmlEngine()->collectGarbage();
         QCoreApplication::processEvents();
     }
+}
+
+QQmlContext *MapWidget::qmlContext() const
+{
+    return m_quickView ? m_quickView->rootContext()
+                       : m_quickWidget->rootContext();
+}
+
+QObject *MapWidget::qmlRoot() const
+{
+    return m_quickView ? m_quickView->rootObject()
+                       : m_quickWidget->rootObject();
+}
+
+QQmlEngine *MapWidget::qmlEngine() const
+{
+    return m_quickView ? m_quickView->engine()
+                       : m_quickWidget->engine();
 }
 
 void MapWidget::init()
@@ -55,8 +75,21 @@ void MapWidget::init()
 
 void MapWidget::createUI()
 {
-    qmlView = new QQuickWidget(this);
-    qmlView->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    // QQuickWidget renders into an offscreen FBO: on Wayland the compositor
+    // never registers that surface as an input target, so pointer handlers
+    // (DragHandler, TapHandler, HoverHandler) in QML never receive events.
+    // QQuickView + createWindowContainer creates a real native window that
+    // the Wayland compositor routes input into correctly.
+    // On X11 / Windows / macOS QQuickWidget is used because it composes
+    // cleanly with the widget stack (no z-ordering or clipping issues).
+    const bool isWayland = QGuiApplication::platformName() == QLatin1String("wayland");
+    if (isWayland) {
+        m_quickView = new QQuickView();
+        m_quickView->setResizeMode(QQuickView::SizeRootObjectToView);
+    } else {
+        m_quickWidget = new QQuickWidget(this);
+        m_quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+    }
 
     // Circle roles
     circleRoles[CoordinateRole] = QByteArray("coordinate");
@@ -74,24 +107,35 @@ void MapWidget::createUI()
     modelGrid.setItemRoleNames(gridRoles);
 
     // Expose models to QML
-    qmlView->rootContext()->setContextProperty("rectangle_model", &modelRectangle);
-    qmlView->rootContext()->setContextProperty("circle_model",    &modelCircle);
-    qmlView->rootContext()->setContextProperty("grid_model",      &modelGrid);
+    qmlContext()->setContextProperty("rectangle_model", &modelRectangle);
+    qmlContext()->setContextProperty("circle_model",    &modelCircle);
+    qmlContext()->setContextProperty("grid_model",      &modelGrid);
 
     // Expose locatorInfoProvider (may be null until setLocatorInfoProvider is called)
-    qmlView->rootContext()->setContextProperty("locatorInfo", locatorInfoProvider);
+    qmlContext()->setContextProperty("locatorInfo", locatorInfoProvider);
 
-    qmlView->setSource(QUrl(QStringLiteral("qrc:///qml/mapqmlfile.qml")));
+    if (m_quickView)   m_quickView->setSource(QUrl(QStringLiteral("qrc:///qml/mapqmlfile.qml")));
+    else               m_quickWidget->setSource(QUrl(QStringLiteral("qrc:///qml/mapqmlfile.qml")));
+
+    QWidget *viewWidget;
+    if (m_quickView) {
+        QWidget *container = QWidget::createWindowContainer(m_quickView, this);
+        container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        container->setFocusPolicy(Qt::StrongFocus);
+        viewWidget = container;
+    } else {
+        viewWidget = m_quickWidget;
+    }
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(qmlView);
+    layout->addWidget(viewWidget);
     setLayout(layout);
 
     paintFieldGrid();
 
     // Forward the QML signals as our own C++ signals
-    QObject *root = qmlView->rootObject();
+    QObject *root = qmlRoot();
     if (root) {
         connect(root, SIGNAL(spotDoubleClicked(QString,double)),
                 this, SIGNAL(spotDoubleClicked(QString,double)));
@@ -103,8 +147,8 @@ void MapWidget::createUI()
 void MapWidget::setLocatorInfoProvider(LocatorInfoProvider *provider)
 {
     locatorInfoProvider = provider;
-    if (qmlView)
-        qmlView->rootContext()->setContextProperty("locatorInfo", locatorInfoProvider);
+    if (m_quickView || m_quickWidget)
+        qmlContext()->setContextProperty("locatorInfo", locatorInfoProvider);
 }
 
 void MapWidget::clearDataLayers()
@@ -118,7 +162,7 @@ void MapWidget::clearDataLayers()
 
 void MapWidget::setCenter(const Coordinate &_c)
 {
-    QObject *object = qmlView->rootObject();
+    QObject *object = qmlRoot();
     if (!object) return;
     //QObject *object = qmlView.rootObject();
     object->setProperty("zoom", 8.0);
@@ -128,7 +172,7 @@ void MapWidget::setCenter(const Coordinate &_c)
 
 void MapWidget::addLocator(const double lat1, const double lon1, const double lat2, const double lon2)
 {
-    QObject *object = qmlView->rootObject();
+    QObject *object = qmlRoot();
     if (!object) return;
     //QObject *object = qmlView.rootObject();
     object->setProperty("locLat1", lat1);
@@ -139,21 +183,21 @@ void MapWidget::addLocator(const double lat1, const double lon1, const double la
 
 void MapWidget::clearMarkers()
 {
-    QObject *object = qmlView->rootObject();
+    QObject *object = qmlRoot();
     if (!object) return;
     QMetaObject::invokeMethod(object, "clearMarkers");
 }
 
 void MapWidget::setSpotExpiryMinutes(int minutes)
 {
-    QObject *object = qmlView->rootObject();
+    QObject *object = qmlRoot();
     if (!object) return;
     object->setProperty("spotExpiryMs", minutes * 60 * 1000);
 }
 
 void MapWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color, double frequencyMHz)
 {
-    QObject *object = qmlView->rootObject();
+    QObject *object = qmlRoot();
     if (!object) return;
     QMetaObject::invokeMethod(object, "addMarker",
                               Q_ARG(QVariant, _coord.lat),
@@ -168,7 +212,7 @@ void MapWidget::addQSO(const QString &_loc)
     if (!locator.isValidLocator(_loc))
         return;
 
-    qmlView->rootContext()->setContextProperty("circle_model", &modelCircle);
+    qmlContext()->setContextProperty("circle_model", &modelCircle);
     QStandardItem *item = new QStandardItem;
     item->setData(QVariant::fromValue(QGeoCoordinate(locator.getLat(_loc), locator.getLon(_loc))), CoordinateRole);
     modelCircle.appendRow(item);
@@ -179,7 +223,7 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
     if (!locator.isValidLocator(_loc))
         return;
 
-    qmlView->rootContext()->setContextProperty("rectangle_model", &modelRectangle);
+    qmlContext()->setContextProperty("rectangle_model", &modelRectangle);
 
     Coordinate _north = locator.getLocatorCorner(_loc, true);
     Coordinate _south = locator.getLocatorCorner(_loc, false);

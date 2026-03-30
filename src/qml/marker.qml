@@ -78,11 +78,14 @@ MapQuickItem {
             repeat: false
         }
 
-        // Hover + double-click area
+        // Hover + double-click area.
+        // propagateComposedEvents lets a drag that starts on a marker bubble
+        // up to the map's DragHandler so panning still works from any position.
         MouseArea {
             id: hoverArea
             anchors.fill: parent
             hoverEnabled: true
+            propagateComposedEvents: true
             onDoubleClicked: marker.markerDoubleClicked(marker.text, marker.frequency)
         }
     }
