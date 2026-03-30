@@ -2045,7 +2045,7 @@ void MainWindow::exitQuestion()
     //maybeSave();
             saveWindowsSize();
             close();
-            exit(0);
+            QApplication::quit();
         default:
     // should never be reached
         break;
