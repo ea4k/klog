@@ -97,18 +97,33 @@ void loadTranslations(QApplication &app, QTranslator &myappTranslator)
 {
     Utilities util(Q_FUNC_INFO);
     QString translationPath, translationPath2;
-    QString language = (QLocale::system().name()).left(2);
+
+    // On macOS, QLocale::system().name() returns the regional format locale (e.g. "en_US")
+    // which may differ from the UI language set in System Preferences. Using uiLanguages()
+    // reads the AppleLanguages preference and correctly reflects the user's display language.
+#if defined(Q_OS_MACOS)
+    QStringList uiLangs = QLocale::system().uiLanguages();
+    QString language = uiLangs.isEmpty() ? QLocale::system().name().left(2) : uiLangs.first().left(2);
+#else
+    QString language = QLocale::system().name().left(2);
+#endif
     bool missingTranslation = true;
+
+    qDebug() << Q_FUNC_INFO << " . Language: " << language;
 
 // Check possible translation paths
 #if defined(Q_OS_WIN)
     translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
 #elif defined(Q_OS_MACOS)
-    translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
+    translationPath = QCoreApplication::applicationDirPath() + "/../Resources/translations/klog_" + language + ".qm";
+    translationPath2 = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
 #else
     translationPath = "/usr/share/klog/translations/klog_" + language + ".qm";
     translationPath2 = util.getHomeDir() + "/translations/klog_" + language + ".qm";
 #endif
+
+    qDebug() << Q_FUNC_INFO << " . translationPath : " << translationPath;
+    qDebug() << Q_FUNC_INFO << " . translationPath2: " << translationPath2;
 
     if (myappTranslator.load(translationPath) || myappTranslator.load(translationPath2))
     {
