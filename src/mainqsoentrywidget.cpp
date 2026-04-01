@@ -241,6 +241,12 @@ void MainQSOEntryWidget::slotQRZTextChanged()
    //qDebug()<< Q_FUNC_INFO << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######";
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
+    if (cleaning || fillingQSO)
+    {
+        logEvent (Q_FUNC_INFO, "END - cleaning or fillingQSO", Debug);
+        return;
+    }
+
     if ((qrzLineEdit->text()).length()<1)
     {
          //qDebug() << Q_FUNC_INFO << ": qrz length <1";
@@ -252,12 +258,6 @@ void MainQSOEntryWidget::slotQRZTextChanged()
     int cursorP = qrzLineEdit->cursorPosition();
      //qDebug()<< Q_FUNC_INFO << ": cursor position: " << QString::number(cursorP);
     qrzLineEdit->setText((qrzLineEdit->text()).toUpper());
-    if (cleaning)
-    {
-          //qDebug() << Q_FUNC_INFO << ": Cleaning - END";
-        logEvent (Q_FUNC_INFO, "END-2", Debug);
-        return;
-    }
 
     if (qrzAutoChanging)
     {
@@ -1135,7 +1135,7 @@ void MainQSOEntryWidget::slotStartDelayInputTimer()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
-    if (cleaning)
+    if (cleaning || fillingQSO)
     {
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;

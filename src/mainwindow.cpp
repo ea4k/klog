@@ -4625,6 +4625,7 @@ void MainWindow::qsoToEdit (const int _qso)
     }
    //qDebug() << Q_FUNC_INFO  << " - 005";
     readingTheUI = true;
+    setCleaning(true);
     clearUIDX(true);
 
 
@@ -4674,6 +4675,7 @@ void MainWindow::qsoToEdit (const int _qso)
     _entityStatus.status    = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
     showStatusOfDXCC(_entityStatus);
 
+    setCleaning(false);
     readingTheUI = false;
     satTabWidget->setFillingToEdit(false);
    //qDebug() << Q_FUNC_INFO << " - END" ;
