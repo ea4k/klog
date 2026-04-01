@@ -241,6 +241,12 @@ void MainQSOEntryWidget::slotQRZTextChanged()
    //qDebug()<< Q_FUNC_INFO << qrzLineEdit->text() << " / Length: " << QString::number((qrzLineEdit->text()).size()) << "###### START ######";
     logEvent (Q_FUNC_INFO, "Start", Debug);
 
+    if (fillingQSO)
+    {
+        logEvent (Q_FUNC_INFO, "END - fillingQSO", Debug);
+        return;
+    }
+
     if ((qrzLineEdit->text()).length()<1)
     {
          //qDebug() << Q_FUNC_INFO << ": qrz length <1";
@@ -1135,7 +1141,7 @@ void MainQSOEntryWidget::slotStartDelayInputTimer()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
-    if (cleaning)
+    if (cleaning || fillingQSO)
     {
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return;
