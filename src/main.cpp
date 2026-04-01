@@ -92,42 +92,65 @@ int showErrorUpdatingTheDB()
     return -1;
 }
 
-// Function to handle missing translation files
 void loadTranslations(QApplication &app, QTranslator &myappTranslator)
 {
-    Utilities util(Q_FUNC_INFO);
-    QString translationPath, translationPath2;
-    QString language = (QLocale::system().name()).left(2);
-    bool missingTranslation = true;
+    // Detect UI language.
+    // On macOS, QLocale::system().name() returns the regional-format locale
+    // (e.g. "en_US") which may differ from the display language set in
+    // System Preferences. uiLanguages() reads AppleLanguages and is
+    // reliable on all platforms.
+    QString language;
+    QStringList uiLangs = QLocale::system().uiLanguages();
+    if (!uiLangs.isEmpty())
+        language = uiLangs.first().left(2).toLower();
+    else
+        language = QLocale::system().name().left(2).toLower();
 
-// Check possible translation paths
-#if defined(Q_OS_WIN)
-    translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
-#elif defined(Q_OS_MACOS)
-    translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
+    qDebug() << Q_FUNC_INFO << "Language:" << language;
+
+    if (language == "en")
+        return; // English is built-in; no translation file needed.
+
+    QString fileName = "klog_" + language + ".qm";
+    QStringList searchPaths;
+
+#if defined(Q_OS_MACOS)
+    // .app bundle: KLog.app/Contents/Resources/translations/
+    // (CMakeLists: MACOSX_PACKAGE_LOCATION Resources/translations)
+    searchPaths << QCoreApplication::applicationDirPath() + "/../Resources/translations";
+#elif defined(Q_OS_WIN)
+    // Alongside the .exe (CMakeLists: DESTINATION translations)
+    searchPaths << QCoreApplication::applicationDirPath() + "/translations";
 #else
-    translationPath = "/usr/share/klog/translations/klog_" + language + ".qm";
-    translationPath2 = util.getHomeDir() + "/translations/klog_" + language + ".qm";
+    // Linux FHS (CMakeLists: DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
+    searchPaths << QCoreApplication::applicationDirPath() + "/../share/klog/translations";
+    searchPaths << "/usr/share/klog/translations";
+    searchPaths << "/usr/local/share/klog/translations";
 #endif
+    // Fallback for development builds on every platform
+    searchPaths << QCoreApplication::applicationDirPath() + "/translations";
+    searchPaths << QCoreApplication::applicationDirPath() + "/../src/translations";
 
-    if (myappTranslator.load(translationPath) || myappTranslator.load(translationPath2))
+    for (const QString &dir : searchPaths)
     {
-        missingTranslation = false;
+        qDebug() << Q_FUNC_INFO << "Trying:" << QDir(dir).filePath(fileName);
+        if (QDir(dir).exists(fileName) && myappTranslator.load(fileName, dir))
+        {
+            qDebug() << Q_FUNC_INFO << "Loaded from:" << dir;
+            app.installTranslator(&myappTranslator);
+            return;
+        }
     }
 
-    if (missingTranslation && language != "en")
-    {
-        QMessageBox::warning(nullptr,
-                             "KLog",
-                             QString("No translation files for your language were found. KLog will "
-                                     "be shown in English.\n")
-                                 + QString("If you have the klog_%1.qm file for your language, "
-                                           "copy it to the translations folder and restart KLog.")
-                                       .arg(language));
-    }
-
-    app.installTranslator(&myappTranslator);
+    QMessageBox::warning(nullptr,
+                         "KLog",
+                         QString("No translation files for your language were found. "
+                                 "KLog will be shown in English.\n"
+                                 "If you have the %1 file for your language, "
+                                 "copy it to the translations folder and restart KLog.")
+                             .arg(fileName));
 }
+
 
 int main(int argc, char *argv[])
 {
