@@ -95,50 +95,65 @@ int showErrorUpdatingTheDB()
 // Function to handle missing translation files
 void loadTranslations(QApplication &app, QTranslator &myappTranslator)
 {
-    Utilities util(Q_FUNC_INFO);
-    QString translationPath, translationPath2;
-
-    // On macOS, QLocale::system().name() returns the regional format locale (e.g. "en_US")
-    // which may differ from the UI language set in System Preferences. Using uiLanguages()
-    // reads the AppleLanguages preference and correctly reflects the user's display language.
-#if defined(Q_OS_MACOS)
+    // Detect UI language using uiLanguages() which returns BCP47 tags
+    // (e.g. "es-ES", "fr") ordered by user preference.
+    // On macOS this reads AppleLanguages, avoiding the classic pitfall
+    // where QLocale::system().name() returns the regional-format locale
+    // (e.g. "en_US") instead of the display language.
+    QString language;
     QStringList uiLangs = QLocale::system().uiLanguages();
-    QString language = uiLangs.isEmpty() ? QLocale::system().name().left(2) : uiLangs.first().left(2);
-#else
-    QString language = QLocale::system().name().left(2);
-#endif
-    bool missingTranslation = true;
+    if (!uiLangs.isEmpty())
+        language = uiLangs.first().left(2);
+    else
+        language = QLocale::system().name().left(2);
 
-    qDebug() << Q_FUNC_INFO << " . Language: " << language;
+    qDebug() << Q_FUNC_INFO << "Language:" << language;
 
-// Check possible translation paths
-#if defined(Q_OS_WIN)
-    translationPath = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
-#elif defined(Q_OS_MACOS)
-    translationPath = QCoreApplication::applicationDirPath() + "/../Resources/translations/klog_" + language + ".qm";
-    translationPath2 = QCoreApplication::applicationDirPath() + "/translations/klog_" + language + ".qm";
-#else
-    translationPath = "/usr/share/klog/translations/klog_" + language + ".qm";
-    translationPath2 = util.getHomeDir() + "/translations/klog_" + language + ".qm";
-#endif
-
-    qDebug() << Q_FUNC_INFO << " . translationPath : " << translationPath;
-    qDebug() << Q_FUNC_INFO << " . translationPath2: " << translationPath2;
-
-    if (myappTranslator.load(translationPath) || myappTranslator.load(translationPath2))
+    if (language == "en")
     {
-        missingTranslation = false;
+        // English is the built-in language; no translation file needed.
+        return;
     }
 
-    if (missingTranslation && language != "en")
+    // Build candidate paths matching each platform's install layout
+    // (see CMakeLists.txt install rules for QM_FILES).
+    QString fileName = "klog_" + language + ".qm";
+    QStringList searchPaths;
+
+#if defined(Q_OS_MACOS)
+    // .app bundle: klog.app/Contents/Resources/translations/
+    searchPaths << QCoreApplication::applicationDirPath() + "/../Resources/translations/" + fileName;
+#elif defined(Q_OS_WIN)
+    // Next to the .exe: translations/
+    searchPaths << QCoreApplication::applicationDirPath() + "/translations/" + fileName;
+#else
+    // FHS: /usr/share/klog/translations/
+    searchPaths << "/usr/share/klog/translations/" + fileName;
+#endif
+    // Fallback for development builds on every platform
+    searchPaths << QCoreApplication::applicationDirPath() + "/translations/" + fileName;
+
+    bool loaded = false;
+    for (const QString &path : searchPaths)
+    {
+        qDebug() << Q_FUNC_INFO << "Trying:" << path;
+        if (myappTranslator.load(path))
+        {
+            qDebug() << Q_FUNC_INFO << "Loaded:" << path;
+            loaded = true;
+            break;
+        }
+    }
+
+    if (!loaded)
     {
         QMessageBox::warning(nullptr,
                              "KLog",
-                             QString("No translation files for your language were found. KLog will "
-                                     "be shown in English.\n")
-                                 + QString("If you have the klog_%1.qm file for your language, "
-                                           "copy it to the translations folder and restart KLog.")
-                                       .arg(language));
+                             QString("No translation files for your language were found. "
+                                     "KLog will be shown in English.\n"
+                                     "If you have the %1 file for your language, "
+                                     "copy it to the translations folder and restart KLog.")
+                                 .arg(fileName));
     }
 
     app.installTranslator(&myappTranslator);
