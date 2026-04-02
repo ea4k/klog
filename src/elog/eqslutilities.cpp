@@ -215,19 +215,19 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
 
     QByteArray blob;
 
-
-    QFile *file = new QFile(_file);
-    if (file->open(QIODevice::ReadOnly)) /* Flawfinder: ignore */
+    QFile file(_file);
+    if (file.open(QIODevice::ReadOnly)) /* Flawfinder: ignore */
     {
-         blob = file->readAll();
+         blob = file.readAll();
         //qDebug()<< Q_FUNC_INFO << " FILE OPEN: " << blob;
     }
     else
     {
         //qDebug()<< Q_FUNC_INFO << " ERROR File not opened";
+        delete multiPart;
         return;
     }
-    file->close();
+    file.close();
     // The rest of the form goes as usual
     //qDebug()<< Q_FUNC_INFO << " e: " << user;
     //qDebug()<< Q_FUNC_INFO << " pass: " << pass;
@@ -243,6 +243,7 @@ void eQSLUtilities::sendLogFile(const QString &_file, QList<int> _qso)
         pass = QInputDialog::getText(nullptr, tr("KLog - eQSL.cc password needed"), tr("Please enter your eQSL.cc password: "), QLineEdit::Password, "", &ok);
         if (!ok)
         {
+            delete multiPart;
             return;
         }
     }

@@ -692,19 +692,19 @@ void eLogClubLog::sendLogFile(const QString &_file, QList<int> _qso, bool _overw
 
     QByteArray blob;
 
-    // qFile *file = new QFile("_file");
     Utilities util(Q_FUNC_INFO);
-    QFile *file = new QFile(util.getClubLogFile());
-    if (file->open(QIODevice::ReadOnly))        /* Flawfinder: ignore */
+    QFile file(util.getClubLogFile());
+    if (file.open(QIODevice::ReadOnly))        /* Flawfinder: ignore */
     {
-         blob = file->readAll();
+         blob = file.readAll();
     }
     else
     {
            //qDebug()<< Q_FUNC_INFO << ":  ERROR File not opened";
+        delete multiPart;
         return;
     }
-    file->close();
+    file.close();
     // The rest of the form goes as usual
     //qDebug()<< Q_FUNC_INFO << ": email: " << email;
     //qDebug()<< Q_FUNC_INFO << ": apPass: " << appPass;
