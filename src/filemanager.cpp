@@ -571,7 +571,7 @@ bool FileManager::adifLogExportMarked(const QString& _fileName)
     return adifLogExportToFile(_fileName, 0, true, false, false);
 }
 
-int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
+int FileManager::adifLoTWReadLog(const QString& fileName, const int logN)
 {
     //qDebug() << Q_FUNC_INFO << " - " << fileName;
    // qSO qso(Q_FUNC_INFO);
