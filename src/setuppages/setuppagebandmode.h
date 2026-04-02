@@ -60,7 +60,6 @@ private:
     QListWidget *bandsListWidget, *modesListWidget;
 
     DataProxy_SQLite *dataProxy;
-    Utilities *util;
 };
 
 #endif // SETUPPAGEBANDMODE_H
