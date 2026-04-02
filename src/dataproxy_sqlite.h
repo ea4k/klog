@@ -94,6 +94,7 @@ public:
     bool createHashes();      // Creates a list of hashes for quick search (band/id & mode/id)
     void loadBandDataCache(); // Creates the bands cache
     void loadModeDataCache(); // Creates the modes cache
+    void loadEntityDataCache(); // Creates the Entitycache
 
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
@@ -442,7 +443,7 @@ private:
     //KLOG_DEPRECATED QHash<QString, int> bandIDs;          // Move to DataCache
     //KLOG_DEPRECATED QHash<QString, int> modeIDs;          // Move to DataCache
 
-    DataCache m_cache; // Bands cache
+    DataCache m_cache; // Bands/Modes/Entity cache
 
     //KLOG_DEPRECATED QHash<int, QString> modeIdToName;         // Move to DataCache
     //KLOG_DEPRECATED QHash<QString, QList<int>> nameToModeIds; // Move to DataCache

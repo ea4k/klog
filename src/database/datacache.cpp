@@ -70,10 +70,14 @@ BandEntry DataCache::getBandFromName(const QString &name) const
 bool DataCache::isBandListOK() const {
     return bandListIsBuilt;
 }
+
 bool DataCache::isModeListOK() const {
     return modeListIsBuilt;
 }
 
+bool DataCache::isEntityListOK() const {
+    return entityListIsBuilt;
+}
 
 BandEntry DataCache::getBandFromId(int id) const
 {
@@ -125,4 +129,27 @@ QString DataCache::getModeNameFromSubmode(const QString &submode) const
 bool DataCache::isModeDeprecated(const QString &submode) const
 {
     return getModeFromSubmode(submode).deprecated;
+}
+
+void DataCache::addEntity(int dxcc, const QString &name)
+{
+    EntityEntry entry = {
+        dxcc,
+        name.toUpper()
+    };
+    entityList.append(entry);
+    entityListIsBuilt = true;
+}
+
+EntityEntry DataCache::getEntityFromDXCC(int dxcc) const
+{
+    for (const auto &e : entityList)
+        if (e.dxcc == dxcc)
+            return e;
+    return EntityEntry{-1, ""};
+}
+
+QString DataCache::getEntityNameFromDXCC(int dxcc) const
+{
+    return getEntityFromDXCC(dxcc).name;
 }

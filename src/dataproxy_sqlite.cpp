@@ -106,11 +106,13 @@ bool DataProxy_SQLite::createHashes()
     logEvent (Q_FUNC_INFO, "Start", Debug);
     loadBandDataCache();
     loadModeDataCache();
+    loadEntityDataCache();
     if (!m_cache.isBandListOK())
         return false;
     if (!m_cache.isModeListOK())
         return false;
-
+    if (!m_cache.isEntityListOK())
+        return false;
     logEvent (Q_FUNC_INFO, "END", Debug);
     return true;
 }
@@ -143,6 +145,17 @@ void DataProxy_SQLite::loadModeDataCache()
             query.value(2).toString(),  // mode
             query.value(3).toString(),  // cabrillo
             query.value(4).toBool()     // deprecated
+        );
+    }
+}
+
+void DataProxy_SQLite::loadEntityDataCache()
+{
+    QSqlQuery query("SELECT dxcc, name FROM entity");
+    while (query.next()) {
+        m_cache.addEntity(
+            query.value(0).toInt(),     // dxcc
+            query.value(1).toString()  // name
         );
     }
 }
@@ -7251,6 +7264,9 @@ int DataProxy_SQLite::getITUzFromEntity(const int _n)
 QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 {
   //qDebug() << Q_FUNC_INFO << " - " << QString::number(_n);
+    logEvent (Q_FUNC_INFO, "Start", Debug);
+    return m_cache.getEntityNameFromDXCC(_n);
+ /*
 
     QSqlQuery query; //query.setForwardOnly(true);
     QString queryString = QString("SELECT name FROM entity WHERE dxcc='%1'").arg(_n);
@@ -7316,7 +7332,7 @@ QString DataProxy_SQLite::getEntityNameFromId(const int _n)
         query.finish();
         return QString();
     }
-    //return QString();
+    */
 }
 
 int DataProxy_SQLite::getEntityIdFromName(const QString &_e)
@@ -8464,84 +8480,76 @@ bool DataProxy_SQLite::showInvalidCallMessage(const QString &_call){
 
 QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
 {
-    //qDebug() << Q_FUNC_INFO << ": log = " << QString::number(_log);
-
     QList<QSO*> _qsos;
     QString stringQuery;
+
     if (doesThisLogExist(_log))
     {
-        //qDebug() << Q_FUNC_INFO << ": log exists " ;
-        stringQuery = QString("SELECT call, qso_date, band.name, mode.submode, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id AND lognumber='%1' ORDER BY entity.name").arg(_log);
-        //stringQuery = QString("SELECT call, qso_date, band.name, mode.name, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id AND lognumber='%1' ORDER BY entity.name").arg(_log);
+        // Añadimos AS bandname, AS modename, AS entityname y AS dxcc
+        stringQuery = QString("SELECT call, qso_date, band.name AS bandname, mode.submode AS modename, entity.name AS entityname, log.dxcc AS dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name FROM log, entity, band, mode WHERE log.dxcc <>'' AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id AND lognumber='%1' ORDER BY entity.name").arg(_log);
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << ": log does not exist " ;
-        stringQuery = QString("SELECT call, qso_date, band.name, mode.submode, entity.name, log.dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name from log, entity, band, mode where log.dxcc <>''  AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id ORDER BY entity.name");
+        stringQuery = QString("SELECT call, qso_date, band.name AS bandname, mode.submode AS modename, entity.name AS entityname, log.dxcc AS dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name FROM log, entity, band, mode WHERE log.dxcc <>'' AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id ORDER BY entity.name");
     }
 
     QSqlQuery query;
-    //query.setForwardOnly(true);
     bool sqlOK = query.exec(stringQuery);
+
     if (!sqlOK)
     {
-        //qDebug() << Q_FUNC_INFO << ":  Query NOK";
-        //qDebug() << Q_FUNC_INFO << ":  " << query.lastError().databaseText();
-        //qDebug() << Q_FUNC_INFO << ":  " << query.lastQuery();
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return _qsos;
     }
-    else
+
+    while(query.next())
     {
-                //Utilities util(Q_FUNC_INFO);
-        while(query.next())
+        if (query.isValid())
         {
-            if (query.isValid())
-            {
-                int nameCol;
-                QSO *_qso = new QSO;
-                _qso->clear();
+            int nameCol;
+            QSO *_qso = new QSO;
+            _qso->clear();
 
-                QSqlRecord rec = query.record();
-                nameCol = rec.indexOf("call");
-                _qso->setCall((query.value(nameCol)).toString());
+            QSqlRecord rec = query.record();
 
-                nameCol = rec.indexOf("qso_date");
+            nameCol = rec.indexOf("call");
+            _qso->setCall(query.value(nameCol).toString());
 
-                                _qso->setDateTimeOn (util->getDateTimeFromSQLiteString((query.value(nameCol)).toString()));
+            nameCol = rec.indexOf("qso_date");
+            _qso->setDateTimeOn (util->getDateTimeFromSQLiteString(query.value(nameCol).toString()));
 
-                nameCol = rec.indexOf("bandid");
-                //qDebug() << Q_FUNC_INFO << " - bandid" << QString::number((query.value(nameCol)).toInt());
-                _qso->setBand(query.value(nameCol).toString());
+            // CORRECCIÓN 1: Usamos el alias "bandname"
+            nameCol = rec.indexOf("bandname");
+            _qso->setBand(query.value(nameCol).toString());
 
-                //nameCol = rec.indexOf("modeid");
-                //qDebug() << Q_FUNC_INFO << ": modeid" << QString::number((query.value(nameCol)).toInt());
-                _qso->setMode(query.value(3).toString());
-                //_qso->setSubmode(query.value(3).toString());  // SetMode sets also submode
-                nameCol = rec.indexOf("sat_name");
-                _qso->setSatName((query.value(nameCol)).toString());
+            // CORRECCIÓN 2: Usamos el alias "modename" en lugar de un índice fijo (3)
+            nameCol = rec.indexOf("modename");
+            _qso->setMode(query.value(nameCol).toString());
 
-                nameCol = rec.indexOf("log.dxcc");
-                _qso->setDXCC((query.value(nameCol)).toInt());
+            nameCol = rec.indexOf("sat_name");
+            _qso->setSatName(query.value(nameCol).toString());
 
-                nameCol = rec.indexOf("lotw_qsl_rcvd");
-                _qso->setLoTWQSL_RCVD((query.value(nameCol)).toString());
+            // CORRECCIÓN 3: Usamos el alias "dxcc" en lugar de "log.dxcc"
+            nameCol = rec.indexOf("dxcc");
+            _qso->setDXCC(query.value(nameCol).toInt());
 
-                nameCol = rec.indexOf("qsl_rcvd");
-                _qso->setQSL_RCVD((query.value(nameCol)).toString());
+            nameCol = rec.indexOf("lotw_qsl_rcvd");
+            _qso->setLoTWQSL_RCVD(query.value(nameCol).toString());
 
-                _qsos.append(_qso);
-            }
-            else
-            {
-                _qsos.clear();
-                query.finish();
-                return _qsos;
-            }
+            nameCol = rec.indexOf("qsl_rcvd");
+            _qso->setQSL_RCVD(query.value(nameCol).toString());
+
+            _qsos.append(_qso);
+        }
+        else
+        {
+            _qsos.clear();
+            query.finish();
+            return _qsos;
         }
     }
-    //qDebug() << Q_FUNC_INFO << "- END";
+
     return _qsos;
 }
 

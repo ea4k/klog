@@ -54,6 +54,11 @@ struct ModeEntry {
     bool isValid() const { return !mode.isEmpty(); }
 };
 
+struct EntityEntry {
+    int dxcc;
+    QString name;
+};
+
 class DataCache
 {
     friend class tst_DataCache;
@@ -80,10 +85,16 @@ public:
     QString getModeNameFromSubmode(const QString &submode) const; // quick shortcut
     bool isModeDeprecated(const QString &submode) const;
 
+    void addEntity(int dxcc, const QString &name);
+    EntityEntry getEntityFromDXCC(int dxcc) const;     // quick shortcut
+    QString getEntityNameFromDXCC(int dxcc) const;     // quick shortcut
+    bool isEntityListOK() const;
+
 private:
     QList<BandEntry> bandList;
     QList<ModeEntry> modeList;
-    bool bandListIsBuilt, modeListIsBuilt;
+    QList<EntityEntry> entityList;
+    bool bandListIsBuilt, modeListIsBuilt, entityListIsBuilt;
 };
 
 #endif // DATACACHE_H
