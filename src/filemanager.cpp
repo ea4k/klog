@@ -630,7 +630,7 @@ int FileManager::adifLoTWReadLog2(const QString& fileName, const int logN)
             pos = file.pos();
         }
     }
-    file.seek(pos);
+    file.close();
     //qDebug() << Q_FUNC_INFO << " - END" ;
     return adifReadLog(fileName, stationCallSign, logN);
 }
@@ -929,7 +929,10 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
         }
     }
 
-    dataProxy->commitTransaction();
+    if (noMoreQSO)
+        dataProxy->rollbackTransaction();
+    else
+        dataProxy->commitTransaction();
     dataProxy->clearDuplicateCache();
     file.close();
     progress.setValue(qsos);
