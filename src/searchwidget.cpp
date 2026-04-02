@@ -74,6 +74,7 @@ SearchWidget::~SearchWidget()
     //delete(awards);
     delete(util);
     delete(filemanager);
+    delete(delayInputTimer);
     //delete(world);
 }
 
