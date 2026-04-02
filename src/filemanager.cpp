@@ -48,6 +48,7 @@ FileManager::~FileManager()
 {
     //delete(db);
     delete(awards);
+    delete(util);
     //delete(world);
 }
 

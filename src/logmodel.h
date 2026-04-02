@@ -40,6 +40,7 @@ class LogModel : public QSqlRelationalTableModel
     Q_OBJECT
 public:
     LogModel(DataProxy_SQLite *dp, QObject *parent);
+    ~LogModel();
     bool createlogModel(const int _i);
     bool setColumns(const QStringList &_columns);
     void loadAllQSOs(const int _lognumber);

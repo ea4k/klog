@@ -71,7 +71,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     //loadBandLimits();
     searching = false;
     executionN = 0;
-    connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
+    connections = connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
     //qDebug() << Q_FUNC_INFO << " - END";
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
@@ -87,14 +87,16 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     createHashes();
     searching = false;
     executionN = 0;
-    connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
+    connections = connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 DataProxy_SQLite::~DataProxy_SQLite()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //delete(util);
+    delete(util);
+    disconnect(connections);
+    delete(db);
     //delete(qso);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }

@@ -452,7 +452,7 @@ private:
     QString generateGroupingKey(const QString &call, int bandId, int modeId);
 
     //bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
-
+    QMetaObject::Connection connections;    // To track the connection so its possible to disconnect
     // qSqlQuery preparedQuery;
     // qSqlRelationalTableModel *logModel;
 private slots:
