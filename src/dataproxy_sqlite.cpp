@@ -94,9 +94,14 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
 DataProxy_SQLite::~DataProxy_SQLite()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //delete(util);
     //delete(qso);
-    logEvent (Q_FUNC_INFO, "END", Debug);
+    // Disconnect db signals before deleting to avoid callbacks into a partially destroyed object
+    if (db)
+        disconnect(db, nullptr, this, nullptr);
+    delete(db);
+    db = nullptr;
+    delete(util);
+    util = nullptr;
 }
 
 bool DataProxy_SQLite::createHashes()
@@ -8533,6 +8538,7 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
             }
             else
             {
+                qDeleteAll(_qsos);
                 _qsos.clear();
                 query.finish();
                 return _qsos;
@@ -8610,6 +8616,7 @@ QList<QSO *> DataProxy_SQLite::getGridStats(int _log)
             }
             else
             {
+                qDeleteAll(_qsos);
                 _qsos.clear();
                 query.finish();
                 return _qsos;
@@ -8697,6 +8704,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
             }
             else
             {
+                qDeleteAll(_qsos);
                 _qsos.clear();
                 query.finish();
                 return _qsos;

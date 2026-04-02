@@ -182,6 +182,8 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
          }
          numberLabel->setText(QString::number(number));
      }
+     qDeleteAll(_qsos);
+     _qsos.clear();
 }
 
 void StatsDXCCOnSatsWidget::slotConfirmedClicked()
