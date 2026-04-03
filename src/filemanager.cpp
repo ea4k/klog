@@ -205,6 +205,8 @@ QList<int> FileManager::adifLogExportReturnList(const QString& _fileName, const 
     if (adifQSOsExport(_fileName, queryString, _qsos, _em))
     {
         //qDebug() << Q_FUNC_INFO << " - true";
+        if ((_qsos.size() == 1) && (_qsos.at(0) == -1))
+            return dataProxy->getQSOsAll();
         return _qsos;
     }
     else
