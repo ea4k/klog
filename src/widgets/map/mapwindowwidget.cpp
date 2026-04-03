@@ -32,11 +32,11 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     dataProxy = dp;
     // Initialize colors to safe defaults here so that setColors() calls that
     // arrive before showEvent() (i.e. before init()) are preserved.
-    workedColor     = Qt::black;
-    confirmedColor  = Qt::black;
-    defaultColor    = Qt::black;
-    newOneColor     = Qt::black;
-    neededColor     = Qt::black;
+    workedColor    = KLOG_COLOR_WORKED;
+    confirmedColor = KLOG_COLOR_CONFIRMED;
+    defaultColor   = KLOG_COLOR_DEFAULT;
+    newOneColor    = KLOG_COLOR_NEW_ONE;
+    neededColor    = KLOG_COLOR_NEEDED;
     //qDebug() << Q_FUNC_INFO << "1";
     locatorInfo = new LocatorInfoProvider(this);
     locatorInfo->setDataProxy(dp);
@@ -277,7 +277,7 @@ void MapWindowWidget::showFiltered()
     if (!confirmedShortLocators.isEmpty())
     {
         color = confirmedColor;
-        color.setAlpha(127);
+        color.setAlpha(KLOG_LOCATOR_ALPHA);
         addLocators(confirmedShortLocators, color);
     }
     else
@@ -321,7 +321,7 @@ void MapWindowWidget::showFiltered()
         if (!workedLocators.isEmpty())
         {
             color = workedColor;
-            color.setAlpha(127);
+            color.setAlpha(KLOG_LOCATOR_ALPHA);
             appendLocators(workedLocators, color);
         }
     }

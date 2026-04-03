@@ -346,11 +346,11 @@ void MainWindow::init_variables()
 
     clublogAnswer = -1;
    //qDebug() << Q_FUNC_INFO << " - Changing colors to default";
-       defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
-       neededColor.fromString(QAnyStringView("yellow"));
-       workedColor.fromString(QAnyStringView("blue"));
-       confirmedColor.fromString(QAnyStringView("red"));
-       newOneColor.fromString(QAnyStringView("green"));
+       defaultColor   = KLOG_COLOR_DEFAULT;
+       neededColor    = KLOG_COLOR_NEEDED;
+       workedColor    = KLOG_COLOR_WORKED;
+       confirmedColor = KLOG_COLOR_CONFIRMED;
+       newOneColor    = KLOG_COLOR_NEW_ONE;
 
    //qDebug() << Q_FUNC_INFO << " - END";
 }

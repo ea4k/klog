@@ -30,6 +30,7 @@
 //#include <QPalette>
 #include <QtWidgets>
 #include "../utilities.h"
+#include "../klogdefinitions.h"
 
 class SetupPageColors : public QWidget {
     Q_OBJECT
