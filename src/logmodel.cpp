@@ -33,7 +33,6 @@ const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
     // ... add more column validators here ...
 };
 
-
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
      //qDebug() << Q_FUNC_INFO ;
