@@ -1,6 +1,7 @@
 TBD 2026 - 2.5.1
 - Bugfix: Drag gesture in map was not properly working in some archs. (TNX G4MKT)
 - Bugfix: Translations are not found/loaded in macOS (#969)
+- Enhancement: Entity dxcc to name queries speed up.
 
 Mar 2026 - 2.5
 - New feature: Spots are sent to the map with the starts color and callsign.

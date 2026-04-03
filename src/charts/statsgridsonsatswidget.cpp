@@ -170,8 +170,10 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
                 tableWidget->setItem(tableWidget->rowCount()-1, 6, new QTableWidgetItem(qslStatus) );
             }
         }
+
         numberLabel->setText(QString::number(number));
     }
+    qDeleteAll(_qsos);
     tableWidget->sortItems(4, Qt::AscendingOrder);
     qDeleteAll(_qsos);
     _qsos.clear();

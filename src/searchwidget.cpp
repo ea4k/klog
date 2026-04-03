@@ -671,7 +671,6 @@ void SearchWidget::slotSearchExportButtonClicked()
     {
         //No items were selected
     }
-
    //qDebug() << Q_FUNC_INFO << " - unmarking...";
 }
 void SearchWidget::searchToolNeededQSLToSend()

@@ -2803,23 +2803,14 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     }
 }
 
-/*
- void MainWindow::slotLoTWTest()
-{
-         //qDebug() << "MainWindow::slotLoTWTest: "  ;
-     slotLoTWDownloadedFileProcess("lotwimport.adi");
-         //qDebug() << "MainWindow::slotLoTWTest - END"  ;
-}
-*/
-
 void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
        //qDebug() << Q_FUNC_INFO << _fn ;
     // qList<int> a;
     //a.clear();
-    //a.append(filemanager->adifLoTWReadLog2(_fn, currentLog));
-    int added_qsos = filemanager->adifLoTWReadLog2(_fn, currentLog);
+    //a.append(filemanager->adifLoTWReadLog(_fn, currentLog));
+    int added_qsos = filemanager->adifLoTWReadLog(_fn, currentLog);
     QString aux;
     QMessageBox msgBox;
     msgBox.setWindowTitle(tr("KLog - LoTW"));

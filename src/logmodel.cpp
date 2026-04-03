@@ -56,6 +56,11 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+LogModel::~LogModel()
+{
+    delete(util);
+}
+
 QVariant LogModel::data(const QModelIndex &index, int role) const
 { // Used to check if the data to be shown in the logview table must or not be shown
   // Depending on the data validation. Check: ValidationFunc above

@@ -108,7 +108,8 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
      {
          tableWidget->removeRow(tableWidget->rowCount()-1);
      }
-
+     bool onlyLeo       = onlyLEOSatCheckBox->isChecked();
+     bool confirmedOnly = confirmedOnlyCheckBox->isChecked();
      log = _log;
      QList<QSO*> _qsos;
      _qsos.clear();
@@ -152,11 +153,11 @@ void StatsDXCCOnSatsWidget::prepareChart(const int _log)
                  confirmed = false;
              }
 
-             if (confirmedOnlyCheckBox->isChecked() && !confirmed)
+             if (confirmedOnly && !confirmed)
              {
                  printThisOne = false;
              }
-             if ((onlyLEOSatCheckBox->isChecked()) && (satName == "QO-100") )
+             if (onlyLeo && (satName == "QO-100") )
              {
                  printThisOne = false;
              }

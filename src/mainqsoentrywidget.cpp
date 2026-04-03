@@ -451,6 +451,7 @@ void MainQSOEntryWidget::clear()
     lastQrz.clear();
     qrzLineEdit->clear();
     qrzLineEdit->setFocus(Qt::OtherFocusReason);
+    qrzgroupBox->setTitle(tr("Callsign"));
 
     //cleaning = false;
      //qDebug() << Q_FUNC_INFO << " - END";
@@ -911,7 +912,9 @@ void MainQSOEntryWidget::setManualMode(const bool _manualMode)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
+    manualModeCheckBox->blockSignals(true);
     manualModeCheckBox->setChecked (_manualMode);
+    manualModeCheckBox->blockSignals(false);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
