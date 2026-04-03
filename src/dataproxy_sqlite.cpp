@@ -28,6 +28,9 @@
 #include "callsign.h"
 #include "adif.h"
 #include "locator.h"
+#include <QtConcurrent>
+#include <QSqlDatabase>
+#include <QThread>
 
 static QString buildModeInClause(const QList<int> &modeIds)
 {
@@ -60,15 +63,10 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     //qDebug() << Q_FUNC_INFO << " - 49";
 
     dbCreated = db->createConnection(Q_FUNC_INFO);
-    //qDebug() << Q_FUNC_INFO << " - 50";
 
-     //qDebug() << Q_FUNC_INFO << " - 51";
-        //util->setSpecialCalls(getSpecialCallsigns());
-     //qDebug() << Q_FUNC_INFO << " - 52";
-    //qso = new QSO;
-    //qDebug() << Q_FUNC_INFO << " - 53";
-    createHashes();
-    //loadBandLimits();
+    // [PROPOSAL-6] Launch cache loading in a background thread using its own SQLite connection.
+    // ensureCacheReady() (called lazily from any cache-using method) will wait for it to finish.
+    m_cacheFuture = QtConcurrent::run(&DataProxy_SQLite::loadCacheBG, util->getKLogDBFile());
     searching = false;
     executionN = 0;
     connections = connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)) );
@@ -84,7 +82,7 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
     util->setVersion(_softVersion);
     db = new DataBase(Q_FUNC_INFO, _softVersion, _dbPath);
     dbCreated = db->createConnection(Q_FUNC_INFO);
-    createHashes();
+    m_cacheFuture = QtConcurrent::run(&DataProxy_SQLite::loadCacheBG, _dbPath);
     searching = false;
     executionN = 0;
     connections = connect(db, SIGNAL(debugLog(QString, QString, DebugLogLevel)), this, SLOT(slotCaptureDebugLogs(QString, QString, DebugLogLevel)));
@@ -101,6 +99,88 @@ DataProxy_SQLite::~DataProxy_SQLite()
     delete db;
     delete util;
 }
+
+// ---------------------------------------------------------------------------
+// Background cache loader (Proposal 6)
+// Opens its own named SQLite connection so it can run safely in a worker thread.
+// ---------------------------------------------------------------------------
+DataProxy_SQLite::CacheLoadResult DataProxy_SQLite::loadCacheBG(const QString &dbPath)
+{
+    CacheLoadResult result;
+    const QString connName = QString("klog_cache_bg_%1")
+                                 .arg(reinterpret_cast<quintptr>(QThread::currentThread()), 0, 16);
+    {
+        QSqlDatabase bgDb = QSqlDatabase::addDatabase("QSQLITE", connName);
+        bgDb.setDatabaseName(dbPath);
+        if (!bgDb.open()) {
+            QSqlDatabase::removeDatabase(connName);
+            qWarning() << "[KLOG-TIMING] loadCacheBG: failed to open DB at" << dbPath;
+            return result;
+        }
+
+        QSqlQuery q(bgDb);
+
+        if (q.exec("SELECT id, name, lower, upper FROM band")) {
+            while (q.next()) {
+                Frequency fmin, fmax;
+                fmin.fromDouble(q.value(2).toDouble(), MHz);
+                fmax.fromDouble(q.value(3).toDouble(), MHz);
+                BandEntry be;
+                be.id = q.value(0).toInt();
+                be.name = q.value(1).toString();
+                be.minFreq = fmin;
+                be.maxFreq = fmax;
+                result.bands.append(be);
+            }
+        }
+
+        if (q.exec("SELECT id, submode, name, cabrillo, deprecated FROM mode")) {
+            while (q.next()) {
+                ModeEntry me;
+                me.id       = q.value(0).toInt();
+                me.submode  = q.value(1).toString();
+                me.mode     = q.value(2).toString();
+                me.cabrillo = q.value(3).toString();
+                me.deprecated = q.value(4).toBool();
+                result.modes.append(me);
+            }
+        }
+
+        if (q.exec("SELECT dxcc, name FROM entity")) {
+            while (q.next()) {
+                EntityEntry ee;
+                ee.dxcc = q.value(0).toInt();
+                ee.name = q.value(1).toString();
+                result.entities.append(ee);
+            }
+        }
+
+        result.ok = !result.bands.isEmpty() && !result.modes.isEmpty();
+        bgDb.close();
+    }
+    QSqlDatabase::removeDatabase(connName);
+    return result;
+}
+
+// Called by every public method that reads m_cache.
+// On first call, waits for the background thread (usually already done) and populates m_cache.
+void DataProxy_SQLite::ensureCacheReady()
+{
+    if (m_cachePopulated) return;
+    m_cachePopulated = true;
+    const CacheLoadResult data = m_cacheFuture.result(); // blocks only if BG not finished yet
+    for (const auto &b : data.bands)
+        m_cache.addBand(b.id, b.name, b.minFreq, b.maxFreq);
+    for (const auto &m : data.modes)
+        m_cache.addMode(m.id, m.submode, m.mode, m.cabrillo, m.deprecated);
+    for (const auto &e : data.entities)
+        m_cache.addEntity(e.dxcc, e.name);
+    qInfo() << "[KLOG-TIMING] ensureCacheReady: cache populated"
+            << "(bands:" << data.bands.size()
+            << "modes:" << data.modes.size()
+            << "entities:" << data.entities.size() << ")";
+}
+// ---------------------------------------------------------------------------
 
 bool DataProxy_SQLite::createHashes()
 {
@@ -308,8 +388,8 @@ int DataProxy_SQLite::getIdFromModeName(const QString& _modeName)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_modeName.length() < 2) return -4;
-        return m_cache.getModeIdFromSubmode(_modeName);
-    //return db->getModeIdFromSubMode(_modeName);
+    ensureCacheReady();
+    return m_cache.getModeIdFromSubmode(_modeName);
 }
 
 bool DataProxy_SQLite::isValidMode(const QString& _modeName)
@@ -326,37 +406,40 @@ bool DataProxy_SQLite::isModeDeprecated (const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     if (_sm.length() < 2) return false;
+    ensureCacheReady();
     return m_cache.isModeDeprecated(_sm);
 }
 
 int DataProxy_SQLite::getIdFromBandName(const QString& _bandName)
 {
-    //logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getBandFromName(_bandName).id;
 }
 
 QString DataProxy_SQLite::getNameFromBandId (const int _id)
-{ //TODO: Use the hash
-    //logEvent(Q_FUNC_INFO, "Start", Devel);
+{
+    ensureCacheReady();
     return m_cache.getBandFromId(_id).name;
 }
 
 QString DataProxy_SQLite::getNameFromModeId (const int _id)
-{ //TODO: Use the hash
+{
     logEvent (Q_FUNC_INFO, "Start-End", Debug);
+    ensureCacheReady();
     return m_cache.getModeFromId(_id).mode;
-    //return db->getModeNameFromNumber(_id);
 }
 
 QString DataProxy_SQLite::getSubModeFromId (const int _id)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getModeFromId(_id).submode;
 }
 
 QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getModeNameFromSubmode(_sm);
 }
 
@@ -364,6 +447,7 @@ QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
 {
     // Returns all mode IDs that share the same parent mode as _modeId
     // e.g. for USB (parent=SSB) returns IDs of SSB, USB, LSB
+    ensureCacheReady();
     const QString parentMode = m_cache.getModeFromId(_modeId).mode;
     if (parentMode.isEmpty())
         return QList<int>() << _modeId;
@@ -384,36 +468,36 @@ QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
 
 int DataProxy_SQLite::getBandIdFromFreq(const Frequency _n)
 {
-    // Replaced the heavy SQL query with a fast in-memory lookup.
-
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getBandFromFreq (_n).id;
 }
-
-
 
 QString DataProxy_SQLite::getBandNameFromFreq(const Frequency _n)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-        return m_cache.getBandFromFreq(_n).name;
+    ensureCacheReady();
+    return m_cache.getBandFromFreq(_n).name;
 }
 
 Frequency DataProxy_SQLite::getLowLimitBandFromBandName(const QString &_sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getBandFromName(_sm).minFreq;
 }
 
 Frequency DataProxy_SQLite::getLowLimitBandFromBandId(const int _sm)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getBandFromId(_sm).minFreq;
 }
 
 Frequency DataProxy_SQLite::getUpperLimitBandFromBandName(const QString &_sm)
 {
-    //qDebug() << Q_FUNC_INFO << ": " << _sm;
-        return m_cache.getBandFromName(_sm).maxFreq;
+    ensureCacheReady();
+    return m_cache.getBandFromName(_sm).maxFreq;
 }
 
 
@@ -460,8 +544,7 @@ bool DataProxy_SQLite::loadBandLimits()
 
 bool DataProxy_SQLite::isThisFreqInBand(const QString &_band, const Frequency _fr)
 {
-    //qDebug() << Q_FUNC_INFO << " - Band: " << _band;
-    //qDebug() << Q_FUNC_INFO << " - BandC: " << m_cache.getBandFromFreq(_fr).name;
+    ensureCacheReady();
     return (m_cache.getBandFromFreq(_fr).name == _band );
 }
 
@@ -3416,21 +3499,23 @@ int DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 }
 
 bool DataProxy_SQLite::isHF(const int _band)
-{// 160M is considered as HF
+{
+    ensureCacheReady();
     const BandEntry b = m_cache.getBandFromId(_band);
-
     if (!b.isValid()) return false;
-      return b.minFreq >= Frequency(1.8, MHz) && b.maxFreq <= Frequency(30.0, MHz);
+    return b.minFreq >= Frequency(1.8, MHz) && b.maxFreq <= Frequency(30.0, MHz);
 }
 
 bool DataProxy_SQLite::isWARC(const int _band)
 {
+    ensureCacheReady();
     const QString name = m_cache.getBandFromId(_band).name;
     return name == "30M" || name == "17M" || name == "12M";
 }
 
 bool DataProxy_SQLite::isVHF(const int _band)
 {
+    ensureCacheReady();
     const BandEntry b = m_cache.getBandFromId(_band);
     if (!b.isValid()) return false;
     return b.minFreq >= Frequency(40.0, MHz) && b.maxFreq <= Frequency(300.0, MHz);
@@ -3438,6 +3523,7 @@ bool DataProxy_SQLite::isVHF(const int _band)
 
 bool DataProxy_SQLite::isUHF(const int _band)
 {
+    ensureCacheReady();
     const BandEntry b = m_cache.getBandFromId(_band);
     if (!b.isValid()) return false;
     return b.minFreq >= Frequency(300.0, MHz) && b.maxFreq <= Frequency(3000.0, MHz);
@@ -7264,8 +7350,8 @@ int DataProxy_SQLite::getITUzFromEntity(const int _n)
 
 QString DataProxy_SQLite::getEntityNameFromId(const int _n)
 {
-  //qDebug() << Q_FUNC_INFO << " - " << QString::number(_n);
     logEvent (Q_FUNC_INFO, "Start", Debug);
+    ensureCacheReady();
     return m_cache.getEntityNameFromDXCC(_n);
  /*
 

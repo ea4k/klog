@@ -448,9 +448,11 @@ void MainWindow::init()
 
     dxClusterWidget->setCurrentLog(currentLog);
 
-    checkVersions();
-    // [PROPOSAL-8] checkVersions(): network request at startup, consider deferring
-    qInfo() << "[KLOG-TIMING] init() 08 - checkVersions() [PROPOSAL-8 candidate]:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    // [PROPOSAL-8] Defer checkVersions(): the DNS resolution + first TCP connect of
+    // QNetworkAccessManager::get() was blocking the main thread briefly at startup.
+    // Firing after the event loop starts lets the window appear first.
+    QTimer::singleShot(0, this, &MainWindow::checkVersions);
+    qInfo() << "[KLOG-TIMING] init() 08 - checkVersions() deferred to event loop [PROPOSAL-8 done]:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());

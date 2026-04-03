@@ -308,6 +308,7 @@ endif()
 target_link_libraries(klog
   PRIVATE
     Qt6::Charts
+    Qt6::Concurrent
     Qt6::Core
     Qt6::Gui
     Qt6::Location

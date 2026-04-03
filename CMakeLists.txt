@@ -56,7 +56,7 @@ endif()
 
 # Find required Qt6 modules
 find_package(Qt6 REQUIRED COMPONENTS
-    Charts Core Gui Location Network Positioning
+    Charts Concurrent Core Gui Location Network Positioning
     PrintSupport Qml Quick QuickWidgets SerialPort Sql Widgets
 )
 
