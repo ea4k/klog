@@ -102,11 +102,11 @@ SetupPageColors::~SetupPageColors()
 
 void SetupPageColors::setDefaultColors()
 {
-    setNewOneColor("#FF0000");
-    setNeededColor("#FF8C00");
-    setWorkedColor("#FFD700");
-    setConfirmedColor("#32CD32");
-    setDefaultColor("#00BFFF");
+    setNewOneColor(KLOG_COLOR_NEW_ONE.name());
+    setNeededColor(KLOG_COLOR_NEEDED.name());
+    setWorkedColor(KLOG_COLOR_WORKED.name());
+    setConfirmedColor(KLOG_COLOR_CONFIRMED.name());
+    setDefaultColor(KLOG_COLOR_DEFAULT.name());
 }
 
 void SetupPageColors::setWSJTXColors()
@@ -352,12 +352,11 @@ void SetupPageColors::loadSettings()
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Colors");
 
-    setNewOneColor (settings.value("NewOneColor", "#FF0000").toString ());
-    //settings.value("interval").toInt();
-    setNeededColor (settings.value("NeededColor", "#FF8C00").toString ());
-    setWorkedColor (settings.value("WorkedColor", "#FFD700").toString ());
-    setConfirmedColor (settings.value("ConfirmedColor", "#32CD32").toString ());
-    setDefaultColor (settings.value("DefaultColor", "#00BFFF").toString ());
+    setNewOneColor (settings.value("NewOneColor", KLOG_COLOR_NEW_ONE.name()).toString ());
+    setNeededColor (settings.value("NeededColor", KLOG_COLOR_NEEDED.name()).toString ());
+    setWorkedColor (settings.value("WorkedColor", KLOG_COLOR_WORKED.name()).toString ());
+    setConfirmedColor (settings.value("ConfirmedColor", KLOG_COLOR_CONFIRMED.name()).toString ());
+    setDefaultColor (settings.value("DefaultColor", KLOG_COLOR_DEFAULT.name()).toString ());
     setDarkMode (settings.value("DarkMode", false).toBool ());
     settings.endGroup ();
 }

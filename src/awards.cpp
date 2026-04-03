@@ -50,11 +50,11 @@ Awards::Awards(DataProxy_SQLite *dp, World *injectedWorld, const QString &_paren
     //"Awards::setColors: " << _newOne << "/" << _needed << "/" << _worked << "/" << _confirmed << "/" << _default;
     //Awards::setColors:  "#ff0000" / "#ff8c00" / "#ffd700" / "#32cd32" / "#00bfff"
 
-    newOneColor = Qt::black;
-    neededColor = Qt::black;
-    workedColor = Qt::black;
-    confirmedColor = Qt::black;
-    defaultColor = Qt::black;
+    newOneColor   = KLOG_COLOR_NEW_ONE;
+    neededColor   = KLOG_COLOR_NEEDED;
+    workedColor   = KLOG_COLOR_WORKED;
+    confirmedColor = KLOG_COLOR_CONFIRMED;
+    defaultColor  = KLOG_COLOR_DEFAULT;
 
     dxccWorked.clear();
     dxccConfirmed.clear();
