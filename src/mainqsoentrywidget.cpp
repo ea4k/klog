@@ -1087,50 +1087,41 @@ void MainQSOEntryWidget::setDuplicatedQSOSlot (const int _secs)
 
 void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 {
-   //qDebug()<< Q_FUNC_INFO;
-    Q_UNUSED(_func);
-#ifdef QT_DEBUG
-    //qDebug() << Q_FUNC_INFO << "(" << _func << ")";
-#else
-#endif
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    //qDebug() << Q_FUNC_INFO << " - " << _func;
-    //qDebug() << Q_FUNC_INFO << " - " << qrzLineEdit->text();
+
     Callsign call(qrzLineEdit->text());
     if (!call.isValid())
         return;
-    //qDebug() << Q_FUNC_INFO << " - 20";
+
     QDateTime _dateTime;
     _dateTime.setDate(dateEdit->date());
     _dateTime.setTime(timeEdit->time());
-    //qDebug() << Q_FUNC_INFO << " - 30";
+
     QSO q;
     q.setCall(qrzLineEdit->text());
     q.setDateTimeOn(_dateTime);
     q.setBand(bandComboBox->currentText());
     q.setMode(modeComboBox->currentText());
-    //qDebug() << Q_FUNC_INFO << " - 35";
+
     if (!q.isValid())
     {
-        //qDebug() << Q_FUNC_INFO << " - QSO not valid!";
+        qDebug() << Q_FUNC_INFO << " - QSO not valid!";
         return;
     }
-    //qDebug() << Q_FUNC_INFO << " - 40";
-
-    if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs) < 1) || modify)
+    // If we have a valid ID (>= 1) AND we are not modifying (modify == false)
+    if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs) >= 1) && !modify)
     {
-        //qDebug() << Q_FUNC_INFO << " - 41";
-         //qDebug() << Q_FUNC_INFO << " - DUPE ";
-         //qDebug() << Q_FUNC_INFO << " - Modify: " << util->boolToQString(modify);
-        qrzgroupBox->setTitle(tr("Callsign"));
+        qDebug() << Q_FUNC_INFO << " - DUPE DETECTED";
+        qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common word for hams. Do not translate if not sure"));
+        qrzgroupBox->setStyleSheet("QGroupBox::title { color: red; font-weight: bold; }");
     }
     else
     {
-        //qDebug() << Q_FUNC_INFO << " - 42";
-        //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
-        qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common world for hams. Do not translate of not sure"));
+        qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
+        qrzgroupBox->setTitle(tr("Callsign"));
+        qrzgroupBox->setStyleSheet("");
     }
-    //qDebug() << Q_FUNC_INFO << " - END";
+
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
