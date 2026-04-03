@@ -97,7 +97,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     //qDebug() << Q_FUNC_INFO << ": AFTER eQSLUtilities";
     mapWindow = new MapWindowWidget(dataProxy, this);
    //qDebug() << " 010 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-    mapWindow->init();
+    // init() is deferred: MapWindowWidget initializes lazily on first show (showEvent)
    //qDebug() << " 011 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
 
     elogClublog = new eLogClubLog();

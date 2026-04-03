@@ -135,6 +135,8 @@ private:
     //int progressBarPosition;
 
     bool created, read;
+    bool worldLoaded = false;
+    void ensureWorldLoaded();
     // qString klogVersion;
     int cqz, ituz;//, numberOfEntities;
     QString entityName;
