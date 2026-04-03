@@ -7844,51 +7844,28 @@ bool DataProxy_SQLite::getFreqHashData()
 
 QHash<QString, int> DataProxy_SQLite::getWorldData()
 {
-    //qDebug() << Q_FUNC_INFO << "Start";
     QHash<QString, int> world;
-    world.clear();
-
-    QString queryString;
     QSqlQuery query;
-    //query.setForwardOnly(true);
-    QString pref;
+    query.setForwardOnly(true);
 
-    queryString = "SELECT prefix, dxcc FROM prefixesofentity";
-    bool sqlOK = query.exec(queryString);
+    // Lets see how many prefixes do we have
+    QSqlQuery countQuery("SELECT COUNT(*) FROM prefixesofentity");
+    if (countQuery.next()) {
+        world.reserve(countQuery.value(0).toInt());
+    }
 
-    if (!sqlOK)
-    {
+    // Optimized query
+    QString queryString = "SELECT CASE WHEN substr(prefix, 1, 1) = '=' THEN substr(prefix, 2) ELSE prefix END, dxcc FROM prefixesofentity";
+
+    if (!query.exec(queryString)) {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-        query.finish();
-       //qDebug() << Q_FUNC_INFO << "END-FAIL-1 - !sqlOK";
         return world;
     }
-    else
-    {
-        while ( (query.next()))
-        {
-            if (query.isValid())
-            {
-               //qDebug() << Q_FUNC_INFO << QString("Pref/Ent = %1/%2").arg((query.value(0)).toString()).arg((query.value(1)).toInt());
-                pref = (query.value(0)).toString();
-                if (pref.startsWith('='))
-                {
-                    pref.remove(0,1);
-                }
-                world.insert(pref, (query.value(1)).toInt());
-            }
-            else
-            {
-                query.finish();
-                world.clear();
-               //qDebug() << Q_FUNC_INFO << "END-FAIL - Query not valid";
-                return world;
-            }
-        }
+
+    while (query.next()) {
+        world.insert(query.value(0).toString(), query.value(1).toInt());
     }
-    query.finish();
-    //qDebug() << Q_FUNC_INFO << "END";
-   //qDebug() << Q_FUNC_INFO << ": count: " << QString::number(world.count());
+
     return world;
 }
 
