@@ -450,6 +450,7 @@ void MainQSOEntryWidget::clear()
     lastQrz.clear();
     qrzLineEdit->clear();
     qrzLineEdit->setFocus(Qt::OtherFocusReason);
+    qrzgroupBox->setTitle(tr("Callsign"));
 
     //cleaning = false;
      //qDebug() << Q_FUNC_INFO << " - END";
