@@ -33,10 +33,6 @@ const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
     // ... add more column validators here ...
 };
 
-LogModel::~LogModel()
-{
-    delete util;
-}
 
 LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableModel(parent)
 {
@@ -58,7 +54,7 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
 
 LogModel::~LogModel()
 {
-    delete(util);
+    delete util;
 }
 
 QVariant LogModel::data(const QModelIndex &index, int role) const
