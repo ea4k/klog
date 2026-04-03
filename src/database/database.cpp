@@ -72,6 +72,7 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
     softVersion = _softVersion;
     //inMemoryOnly = inmemoryonly;
     latestReaded = 0.0f;
+    exe = nullptr;
     util = new Utilities(Q_FUNC_INFO);
     util->setVersion(softVersion);
 
@@ -92,7 +93,8 @@ DataBase::DataBase(const QString &_parentClass, const QString &_softVersion, con
 DataBase::~DataBase()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    delete(util);
+    delete exe;
+    delete util;
     logEvent(Q_FUNC_INFO, "END", Debug);
     //qDebug() << Q_FUNC_INFO << " - Start";
 }

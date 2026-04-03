@@ -120,10 +120,10 @@ private:
 
     QString parentName;
     DebugLogLevel logLevel;
-    QHash<QString, QString> ADIFHash;   // Name, type
-    QStringList notZeroFields;          // Numeral ADIF fields where having a Zero makes no sense
-    QList<AdifMode> modeList;          // List of modes/submodes, ...
-    QStringList ARRL_sects, continents, sponsorsList;
+    static QHash<QString, QString> ADIFHash;   // Name, type (shared across all instances)
+    static QStringList notZeroFields;          // Numeral ADIF fields where having a Zero makes no sense (shared)
+    static QList<AdifMode> modeList;           // List of modes/submodes (shared across all instances)
+    static QStringList ARRL_sects, continents, sponsorsList; // Validation data (shared across all instances)
 };
 
 #endif // ADIF_H

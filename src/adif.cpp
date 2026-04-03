@@ -27,16 +27,30 @@
 #include "adif.h"
 #include "callsign.h"
 
+// Static member definitions — data is shared across all Adif instances
+QHash<QString, QString> Adif::ADIFHash;
+QStringList Adif::notZeroFields;
+QList<AdifMode> Adif::modeList;
+QStringList Adif::ARRL_sects;
+QStringList Adif::continents;
+QStringList Adif::sponsorsList;
+
 Adif::Adif(const QString &_parentName) : QObject(nullptr),
     parentName(_parentName),
     logLevel(Info)
 {
     parentName = _parentName;
-    setARRLSect();
-    setContinents();
-    setSponsorsList();
-    setModes();
-    InitializeHash();
+    // Initialize static data only once, on first construction
+    static bool s_initialized = false;
+    if (!s_initialized)
+    {
+        s_initialized = true;
+        setARRLSect();
+        setContinents();
+        setSponsorsList();
+        setModes();
+        InitializeHash();
+    }
     //qDebug() << Q_FUNC_INFO << " (" << _parentName << ")";
     //init();
 }
