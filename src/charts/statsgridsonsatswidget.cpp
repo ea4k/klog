@@ -175,6 +175,8 @@ void StatsGridsOnSatsWidget::prepareChart(const int _log)
     }
     qDeleteAll(_qsos);
     tableWidget->sortItems(4, Qt::AscendingOrder);
+    qDeleteAll(_qsos);
+    _qsos.clear();
 }
 
 void StatsGridsOnSatsWidget::slotConfirmedClicked()

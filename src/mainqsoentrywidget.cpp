@@ -65,6 +65,7 @@ MainQSOEntryWidget::~MainQSOEntryWidget()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     delete(util);
+    delete(delayInputTimer);
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 

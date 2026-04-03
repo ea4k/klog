@@ -294,11 +294,15 @@ void DXClusterWidget::setCurrentLog(const int _log)
 
 void DXClusterWidget::addItemToClusterList(const QString &text, const QColor &color)
 {
+    static const int MaxClusterItems = 1000;
     QListWidgetItem *item = new QListWidgetItem();
     item->setForeground(QBrush(color));
     item->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     item->setText(text);
     dxClusterListWidget->insertItem(0, item);
+    // Trim oldest entries to prevent unbounded memory growth
+    while (dxClusterListWidget->count() > MaxClusterItems)
+        delete dxClusterListWidget->takeItem(dxClusterListWidget->count() - 1);
 }
 
 void DXClusterWidget::slotClusterDataArrived()
