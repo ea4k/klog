@@ -38,8 +38,8 @@ inline const QColor KLOG_COLOR_WORKED    { QColor("#FFD700") };  // Gold     –
 inline const QColor KLOG_COLOR_CONFIRMED { QColor("#32CD32") };  // Lime     – Confirmed
 inline const QColor KLOG_COLOR_DEFAULT   { QColor("#00BFFF") };  // Sky blue – Default / unknown
 
-// Alpha value for locator overlays on the map: ~60% opaque (40% transparent).
-inline constexpr int KLOG_LOCATOR_ALPHA = 153;
+// Alpha value for locator overlays on the map: ~31% opaque (69% transparent).
+inline constexpr int KLOG_LOCATOR_ALPHA = 80;
 
 //using namespace std;
 
