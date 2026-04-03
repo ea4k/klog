@@ -29,7 +29,38 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdarg.h>
+#include <QDebug>
 #include "utilities.h"
+
+// Redirect Hamlib's internal debug output (which normally goes to stderr)
+// through Qt's message system so it is handled uniformly by klogMessageHandler.
+static int hamlibDebugCallback(enum rig_debug_level_e debug_level,
+                               rig_ptr_t /*user_data*/,
+                               const char *fmt,
+                               va_list ap)
+{
+    char buf[1024];
+    vsnprintf(buf, sizeof(buf), fmt, ap);
+    // Strip trailing newline that Hamlib appends to every message
+    int len = static_cast<int>(strlen(buf));
+    if (len > 0 && buf[len - 1] == '\n')
+        buf[len - 1] = '\0';
+
+    switch (debug_level) {
+    case RIG_DEBUG_BUG:
+    case RIG_DEBUG_ERR:
+        qWarning() << "[Hamlib]" << buf;
+        break;
+    case RIG_DEBUG_WARN:
+        qWarning() << "[Hamlib]" << buf;
+        break;
+    default:
+        qDebug() << "[Hamlib]" << buf;
+        break;
+    }
+    return 0;
+}
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
@@ -60,6 +91,9 @@ void HamLibClass::initClass()
     //qDebug() << Q_FUNC_INFO;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     rig_set_debug(RIG_DEBUG_ERR);
+    // Route Hamlib debug output through Qt's message system instead of raw stderr,
+    // so messages are formatted consistently and can be filtered by klogMessageHandler.
+    rig_set_debug_callback(hamlibDebugCallback, nullptr);
     strings.clear();
     fillRigsList();
 

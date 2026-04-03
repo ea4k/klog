@@ -50,6 +50,13 @@ static void klogMessageHandler(QtMsgType type, const QMessageLogContext &context
         return;
     if (msg.contains(QLatin1String("QThreadStorage")))
         return;
+    // Filter out Qt Location's "geoservices provider is not supported" warning.
+    // This is emitted by Qt when the OSM plugin (qml6-module-qtlocation) is not
+    // installed (common on Raspberry Pi). KLog already shows a user-friendly
+    // overlay in the map widget in this case, so the raw Qt warning is redundant
+    // noise in the console output.
+    if (msg.contains(QLatin1String("geoservices provider")))
+        return;
     // Forward everything else to Qt's default handler
     qt_message_output(type, context, msg);
 }
