@@ -94,11 +94,12 @@ DataProxy_SQLite::DataProxy_SQLite(const QString &_parentFunction, const QString
 DataProxy_SQLite::~DataProxy_SQLite()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
-    delete(util);
-    disconnect(connections);
-    delete(db);
-    //delete(qso);
-    logEvent (Q_FUNC_INFO, "END", Debug);
+     // Disconnect db signals before deleting to avoid callbacks into a
+    // partially-destroyed object (db emits debugLog during teardown).
+    if (db)
+        disconnect(db, nullptr, this, nullptr);
+    delete db;
+    delete util;
 }
 
 bool DataProxy_SQLite::createHashes()
@@ -8485,7 +8486,6 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
 
     if (doesThisLogExist(_log))
     {
-        // Añadimos AS bandname, AS modename, AS entityname y AS dxcc
         stringQuery = QString("SELECT call, qso_date, band.name AS bandname, mode.submode AS modename, entity.name AS entityname, log.dxcc AS dxcc, lotw_qsl_rcvd, qsl_rcvd, sat_name FROM log, entity, band, mode WHERE log.dxcc <>'' AND sat_name <>'' AND log.dxcc=entity.dxcc AND log.bandid=band.id AND log.modeid=mode.id AND lognumber='%1' ORDER BY entity.name").arg(_log);
     }
     else
@@ -8494,64 +8494,41 @@ QList<QSO*> DataProxy_SQLite::getSatDXCCStats(int _log)
     }
 
     QSqlQuery query;
-    bool sqlOK = query.exec(stringQuery);
-
-    if (!sqlOK)
+    if (!query.exec(stringQuery))
     {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         query.finish();
         return _qsos;
     }
 
-    while(query.next())
+    while (query.next())
     {
-        if (query.isValid())
+        if (!query.isValid())
         {
-            int nameCol;
-            QSO *_qso = new QSO;
-            _qso->clear();
-
-            QSqlRecord rec = query.record();
-
-            nameCol = rec.indexOf("call");
-            _qso->setCall(query.value(nameCol).toString());
-
-            nameCol = rec.indexOf("qso_date");
-            _qso->setDateTimeOn (util->getDateTimeFromSQLiteString(query.value(nameCol).toString()));
-
-            // CORRECCIÓN 1: Usamos el alias "bandname"
-            nameCol = rec.indexOf("bandname");
-            _qso->setBand(query.value(nameCol).toString());
-
-            // CORRECCIÓN 2: Usamos el alias "modename" en lugar de un índice fijo (3)
-            nameCol = rec.indexOf("modename");
-            _qso->setMode(query.value(nameCol).toString());
-
-            nameCol = rec.indexOf("sat_name");
-            _qso->setSatName(query.value(nameCol).toString());
-
-            // CORRECCIÓN 3: Usamos el alias "dxcc" en lugar de "log.dxcc"
-            nameCol = rec.indexOf("dxcc");
-            _qso->setDXCC(query.value(nameCol).toInt());
-
-            nameCol = rec.indexOf("lotw_qsl_rcvd");
-            _qso->setLoTWQSL_RCVD(query.value(nameCol).toString());
-
-            nameCol = rec.indexOf("qsl_rcvd");
-            _qso->setQSL_RCVD(query.value(nameCol).toString());
-
-            _qsos.append(_qso);
-        }
-        else
-        {
+            qDeleteAll(_qsos);
             _qsos.clear();
             query.finish();
             return _qsos;
         }
+
+        QSO *_qso = new QSO;
+        QSqlRecord rec = query.record();
+
+        _qso->setCall(query.value(rec.indexOf("call")).toString());
+        _qso->setDateTimeOn(util->getDateTimeFromSQLiteString(query.value(rec.indexOf("qso_date")).toString()));
+        _qso->setBand(query.value(rec.indexOf("bandname")).toString());
+        _qso->setMode(query.value(rec.indexOf("modename")).toString());
+        _qso->setSatName(query.value(rec.indexOf("sat_name")).toString());
+        _qso->setDXCC(query.value(rec.indexOf("dxcc")).toInt());
+        _qso->setLoTWQSL_RCVD(query.value(rec.indexOf("lotw_qsl_rcvd")).toString());
+        _qso->setQSL_RCVD(query.value(rec.indexOf("qsl_rcvd")).toString());
+
+        _qsos.append(_qso);
     }
 
     return _qsos;
 }
+
 
 QList<QSO *> DataProxy_SQLite::getGridStats(int _log)
 {
@@ -8620,6 +8597,7 @@ QList<QSO *> DataProxy_SQLite::getGridStats(int _log)
             }
             else
             {
+                qDeleteAll(_qsos);
                 _qsos.clear();
                 query.finish();
                 return _qsos;
@@ -8707,6 +8685,7 @@ QList<QSO *> DataProxy_SQLite::getSatGridStats(int _log)
             }
             else
             {
+                qDeleteAll(_qsos);
                 _qsos.clear();
                 query.finish();
                 return _qsos;

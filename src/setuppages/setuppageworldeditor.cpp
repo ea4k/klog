@@ -134,6 +134,7 @@ SetupPageWorldEditor::~SetupPageWorldEditor()
        //qDebug() << "SetupPageWorldEditor::~SetupPageWorldEditor" ;
     //delete(world);
     delete(setupEntityDialog);
+    delete(util);
 }
 
 void SetupPageWorldEditor::createWorldPanel()
