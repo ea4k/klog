@@ -30,6 +30,13 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     Q_UNUSED(parent);
     //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
+    // Initialize colors to safe defaults here so that setColors() calls that
+    // arrive before showEvent() (i.e. before init()) are preserved.
+    workedColor     = Qt::black;
+    confirmedColor  = Qt::black;
+    defaultColor    = Qt::black;
+    newOneColor     = Qt::black;
+    neededColor     = Qt::black;
     //qDebug() << Q_FUNC_INFO << "1";
     locatorInfo = new LocatorInfoProvider(this);
     locatorInfo->setDataProxy(dp);
@@ -56,11 +63,9 @@ MapWindowWidget::~MapWindowWidget()
 void MapWindowWidget::init()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    workedColor     = Qt::black;
-    confirmedColor  = Qt::black;
-    defaultColor    = Qt::black;
-    newOneColor     = Qt::black;
-    neededColor     = Qt::black;
+    // Colors are intentionally NOT reset here: they are initialized in the
+    // constructor and may already hold values set by setColors() before
+    // showEvent() fires (lazy init). Resetting here would discard those values.
     createUI();
     QSettings settings;
     int expiryMin = settings.value("SpotExpiryMinutes", 15).toInt();
