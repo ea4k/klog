@@ -183,8 +183,6 @@ void DataProxy_SQLite::ensureCacheReady()
 // ---------------------------------------------------------------------------
 
 // DEPRECATED: replaced by loadCacheBG() + ensureCacheReady() (background-thread loading).
-// Kept for reference only; do not call.
-[[deprecated("Replaced by loadCacheBG() + ensureCacheReady(). Do not call.")]]
 bool DataProxy_SQLite::createHashes()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);

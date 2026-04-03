@@ -93,8 +93,7 @@ public:
 
     //int getModeIdFromSubModeId(const int _sm);
     // CACHE & HASH functions — superseded by loadCacheBG() + ensureCacheReady() (background thread)
-    [[deprecated("Replaced by loadCacheBG() + ensureCacheReady(). Do not call.")]]
-    bool createHashes();
+    KLOG_DEPRECATED bool createHashes();
     void loadBandDataCache();   // internal: called only by createHashes()
     void loadModeDataCache();   // internal: called only by createHashes()
     void loadEntityDataCache(); // internal: called only by createHashes()

@@ -47,8 +47,7 @@ public:
     void setBands(QStringList _bands);
     void setModes(QStringList _modes);
     void setCenter(const Coordinate &_c);
-    [[deprecated("Empty stub, never called. Use addLocator() instead.")]]
-    void addQSO(const QString &_loc);
+    KLOG_DEPRECATED void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
     void addLocators(const QStringList &_locators, const QColor &_color);
     void appendLocators(const QStringList &_locators, const QColor &_color);
@@ -75,13 +74,11 @@ protected:
 
 private:
     void createUI();
-    [[deprecated("Empty stub, never called.")]]
-    void paintGlobalGrid();
+    KLOG_DEPRECATED void paintGlobalGrid();
     void setPropModes();
     void setSatNames();
     void showFiltered();
-    [[deprecated("Declared but never defined or called. Use Locator::getShortLocators() instead.")]]
-    QString getShortLocators (const int _length);
+    KLOG_DEPRECATED QString getShortLocators (const int _length);
     QString getPropModeFromComboBox();
 
     DataProxy_SQLite *dataProxy;
