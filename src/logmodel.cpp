@@ -53,7 +53,7 @@ LogModel::LogModel(DataProxy_SQLite *dp, QObject *parent):QSqlRelationalTableMod
 
 LogModel::~LogModel()
 {
-    delete(util);
+    delete util;
 }
 
 QVariant LogModel::data(const QModelIndex &index, int role) const
