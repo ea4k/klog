@@ -92,11 +92,12 @@ public:
     bool isValidBand(const QString& _bandName);
 
     //int getModeIdFromSubModeId(const int _sm);
-    // CACHE & HASH functios
-    bool createHashes();      // Creates a list of hashes for quick search (band/id & mode/id)
-    void loadBandDataCache(); // Creates the bands cache
-    void loadModeDataCache(); // Creates the modes cache
-    void loadEntityDataCache(); // Creates the Entitycache
+    // CACHE & HASH functions — superseded by loadCacheBG() + ensureCacheReady() (background thread)
+    [[deprecated("Replaced by loadCacheBG() + ensureCacheReady(). Do not call.")]]
+    bool createHashes();
+    void loadBandDataCache();   // internal: called only by createHashes()
+    void loadModeDataCache();   // internal: called only by createHashes()
+    void loadEntityDataCache(); // internal: called only by createHashes()
 
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
