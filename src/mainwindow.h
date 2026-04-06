@@ -183,7 +183,7 @@ private slots:
     void sloteQSLLogUpload();
     void slotElogEQSLModifyCurrentLog();
 
-    void slotOKButtonClicked();
+    //void slotOKButtonClicked();
 
     void slotClearButtonClicked(const QString &_func);
     void slotBandChanged (const QString &_b);

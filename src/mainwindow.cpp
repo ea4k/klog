@@ -1038,13 +1038,15 @@ void MainWindow::slotModeChanged (const QString &_m)
       //qDebug() << Q_FUNC_INFO << " - " << mainQSOEntryWidget->getMode() ;
 }
 
-void MainWindow::slotOKButtonClicked()
+/*
+ void MainWindow::slotOKButtonClicked()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
    //qDebug() << Q_FUNC_INFO << " - Start";
     slotQRZReturnPressed();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
+*/
 
 void MainWindow::slotQRZReturnPressed()
 {
@@ -1071,7 +1073,8 @@ void MainWindow::slotQRZReturnPressed()
     }
 
     //int addedOK = qsoInUI.toDB(modifyingQSOid);
-    qsoInUI.setQSOid(modifyingQSOid);
+    if (modify)
+        qsoInUI.setQSOid(modifyingQSOid);
     int addedOK = dataProxy->addQSO(qsoInUI);
    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
@@ -2240,11 +2243,11 @@ void MainWindow::slotClearButtonClicked(const QString &_func)
     else
     {
           //qDebug() << Q_FUNC_INFO << " - 40" ;
-        clearUIDX();                    // Clear the UI
-        qsoInUI.clear();                   // Clear the QSO
+        clearUIDX();                    // Clear the UI        
         statusBar()->clearMessage();
           //qDebug() << Q_FUNC_INFO << ": NOT recovening the previous status...";
     }
+    qsoInUI.clear();                   // Clear the QSO
       //qDebug() << Q_FUNC_INFO << " - currentMode = " << QString::number(currentMode) ;
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << Q_FUNC_INFO << " - END" ;
@@ -6260,6 +6263,7 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     satTabWidget->setKeep (backupQSO->getKeepSatTab ());
     backupQSO->setBackup (false);
     backupQSO->clear();
+
       //qDebug() << Q_FUNC_INFO << " - END";
 }
 

@@ -1,6 +1,7 @@
 TBD 2026 - 2.5.1
 - Bugfix: Drag gesture in map was not properly working in some archs. (TNX G4MKT)
-- Bugfix: Translations are not found/loaded in macOS (#969)
+- Bugfix: Translations are not found/loaded in macOS (Closes #969)
+- Bugfix: Double click makes next QSO to overwrite the edited one (Closes #983)
 - Enhancement: Entity dxcc to name queries speed up.
 - Enhancement: Memory leaks improvement.
 
