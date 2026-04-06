@@ -176,9 +176,9 @@ void DataProxy_SQLite::ensureCacheReady()
     for (const auto &e : data.entities)
         m_cache.addEntity(e.dxcc, e.name);
    //qInfo() << "[KLOG-TIMING] ensureCacheReady: cache populated"
-            << "(bands:" << data.bands.size()
-            << "modes:" << data.modes.size()
-            << "entities:" << data.entities.size() << ")";
+            //<< "(bands:" << data.bands.size()
+            //<< "modes:" << data.modes.size()
+            //<< "entities:" << data.entities.size() << ")";
 }
 // ---------------------------------------------------------------------------
 
