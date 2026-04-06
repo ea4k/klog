@@ -237,7 +237,7 @@ void MapWidget::addLocator(const QString &_loc, const QColor &_color)
         QStandardItem *item = new QStandardItem;
         item->setData(QVariant::fromValue(QGeoCoordinate(_north.lat, _north.lon)), NorthRole);
         item->setData(QVariant::fromValue(QGeoCoordinate(_south.lat, _south.lon)), SouthRole);
-        item->setData(QVariant::fromValue(_color), ColorRole);
+        item->setData(_color.name(QColor::HexArgb), ColorRole);
         modelRectangle.appendRow(item);
 
         if (locatorInfoProvider)

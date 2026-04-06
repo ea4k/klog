@@ -30,6 +30,13 @@ MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
     Q_UNUSED(parent);
     //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
+    // Initialize colors to safe defaults here so that setColors() calls that
+    // arrive before showEvent() (i.e. before init()) are preserved.
+    workedColor    = KLOG_COLOR_WORKED;
+    confirmedColor = KLOG_COLOR_CONFIRMED;
+    defaultColor   = KLOG_COLOR_DEFAULT;
+    newOneColor    = KLOG_COLOR_NEW_ONE;
+    neededColor    = KLOG_COLOR_NEEDED;
     //qDebug() << Q_FUNC_INFO << "1";
     locatorInfo = new LocatorInfoProvider(this);
     locatorInfo->setDataProxy(dp);
@@ -56,11 +63,9 @@ MapWindowWidget::~MapWindowWidget()
 void MapWindowWidget::init()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
-    workedColor     = Qt::black;
-    confirmedColor  = Qt::black;
-    defaultColor    = Qt::black;
-    newOneColor     = Qt::black;
-    neededColor     = Qt::black;
+    // Colors are intentionally NOT reset here: they are initialized in the
+    // constructor and may already hold values set by setColors() before
+    // showEvent() fires (lazy init). Resetting here would discard those values.
     createUI();
     QSettings settings;
     int expiryMin = settings.value("SpotExpiryMinutes", 15).toInt();
@@ -68,13 +73,28 @@ void MapWindowWidget::init()
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void MapWindowWidget::showEvent(QShowEvent *event)
+{
+    if (!m_initialized) {
+        m_initialized = true;
+        init();
+        if (m_hasPendingCenter) {
+            mapWidget->setCenter(m_pendingCenter);
+            m_hasPendingCenter = false;
+        }
+    }
+    QWidget::showEvent(event);
+}
+
 void MapWindowWidget::addMarker(const Coordinate _coord, const QString &_callsign, const QColor &_color, double frequencyMHz)
 {
+    if (!m_initialized) return;
     mapWidget->addMarker(_coord, _callsign, _color, frequencyMHz);
 }
 
 void MapWindowWidget::clearMarkers()
 {
+    if (!m_initialized) return;
     mapWidget->clearMarkers();
 }
 
@@ -82,6 +102,7 @@ void MapWindowWidget::setSpotExpiryMinutes(int minutes)
 {
     QSettings settings;
     settings.setValue("SpotExpiryMinutes", minutes);
+    if (!m_initialized) return;
     mapWidget->setSpotExpiryMinutes(minutes);
 }
 
@@ -132,6 +153,11 @@ void MapWindowWidget::createUI()
 void MapWindowWidget::setCenter(const Coordinate &_c)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
+    if (!m_initialized) {
+        m_pendingCenter = _c;
+        m_hasPendingCenter = true;
+        return;
+    }
     mapWidget->setCenter(_c);
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -208,6 +234,7 @@ void MapWindowWidget::setSatNames()
 void MapWindowWidget::showFiltered()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
+    if (!m_initialized) return;
     // Always keep the grid visible; only manage overlays here.
     // If the "None - Show nothing" band is selected, just clear overlays and return.
     if (bandComboBox->currentIndex() == 0)
@@ -250,7 +277,7 @@ void MapWindowWidget::showFiltered()
     if (!confirmedShortLocators.isEmpty())
     {
         color = confirmedColor;
-        color.setAlpha(127);
+        color.setAlpha(KLOG_LOCATOR_ALPHA);
         addLocators(confirmedShortLocators, color);
     }
     else
@@ -294,7 +321,7 @@ void MapWindowWidget::showFiltered()
         if (!workedLocators.isEmpty())
         {
             color = workedColor;
-            color.setAlpha(127);
+            color.setAlpha(KLOG_LOCATOR_ALPHA);
             appendLocators(workedLocators, color);
         }
     }
@@ -365,6 +392,7 @@ void MapWindowWidget::addQSO(const QString &_loc)
 void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
 {
     //qDebug() << Q_FUNC_INFO << ": " << _loc;
+    if (!m_initialized) return;
     //if (!locator.isValidLocator(_loc))
     //{
     //    return;
@@ -376,6 +404,7 @@ void MapWindowWidget::addLocator(const QString &_loc, const QColor &_color)
 void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_color)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
+    if (!m_initialized) return;
     // Clear only overlays; keep the persistent grid
     mapWidget->clearDataLayers();
     foreach(QString i, _locators)
@@ -392,6 +421,7 @@ void MapWindowWidget::addLocators(const QStringList &_locators, const QColor &_c
 void MapWindowWidget::appendLocators(const QStringList &_locators, const QColor &_color)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
+    if (!m_initialized) return;
     foreach(const QString &i, _locators)
     {
         //mapWidget->addLocator(i, confirmedColor);

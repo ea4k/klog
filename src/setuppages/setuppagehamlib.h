@@ -30,6 +30,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <QSerialPortInfo>
+#include <QShowEvent>
 #include "../hamlibclass.h"
 #include "../dataproxy_sqlite.h"
 #include "hamlibserialconfigwidget.h"
@@ -98,7 +99,12 @@ private:
 
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
     bool networkRadio, hamlibTestOK, testWasRun;
+    bool m_rigsLoaded = false;
 
+protected:
+    void showEvent(QShowEvent *event) override;
+
+private:
     // Snapshot of values at loadSettings() time, used by hasSettingsChanged()
     struct HamlibSnapshot {
         bool    active       = false;

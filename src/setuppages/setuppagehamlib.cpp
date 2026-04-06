@@ -194,8 +194,6 @@ void SetupPageHamLib::createUI()
     freqDisplayLabel->setAlignment(Qt::AlignCenter);
     freqDisplayLabel->setToolTip(tr("Shows the frequency read from the radio while connected"));
 
-    setRig();
-
     QString pollTip = QString(tr("Defines the interval to poll the radio in msecs."));
 
     pollIntervalQSpinBox->setToolTip(pollTip);
@@ -280,8 +278,6 @@ void SetupPageHamLib::setRig()
 void SetupPageHamLib::setDefaults()
 {
      //qDebug() << Q_FUNC_INFO;
-    hamlib->initClass();
-
     rigctlport = 4532;
     networkRadio = false;
 
@@ -292,6 +288,16 @@ void SetupPageHamLib::setDefaults()
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+
+void SetupPageHamLib::showEvent(QShowEvent *event)
+{
+    if (!m_rigsLoaded) {
+        m_rigsLoaded = true;
+        setRig();        // calls hamlib->initClass() + fills combo from getRigList()
+        loadSettings();  // re-apply saved settings now that combo is populated
+    }
+    QWidget::showEvent(event);
+}
 
 bool SetupPageHamLib::setRigType(const QString &_radio)
 {

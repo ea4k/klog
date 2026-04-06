@@ -34,6 +34,8 @@
 #include <QPair>
 #include <QMultiHash>
 #include <QDateTime>
+#include <QFuture>
+#include <QList>
 
 #include "global.h"
 #include "database/database.h"
@@ -90,11 +92,11 @@ public:
     bool isValidBand(const QString& _bandName);
 
     //int getModeIdFromSubModeId(const int _sm);
-    // CACHE & HASH functios
-    bool createHashes();      // Creates a list of hashes for quick search (band/id & mode/id)
-    void loadBandDataCache(); // Creates the bands cache
-    void loadModeDataCache(); // Creates the modes cache
-    void loadEntityDataCache(); // Creates the Entitycache
+    // CACHE & HASH functions — superseded by loadCacheBG() + ensureCacheReady() (background thread)
+    KLOG_DEPRECATED bool createHashes();
+    void loadBandDataCache();   // internal: called only by createHashes()
+    void loadModeDataCache();   // internal: called only by createHashes()
+    void loadEntityDataCache(); // internal: called only by createHashes()
 
     QStringList getFields();
     //KLOG_DEPRECATED QStringList getBands();
@@ -443,7 +445,19 @@ private:
     //KLOG_DEPRECATED QHash<QString, int> bandIDs;          // Move to DataCache
     //KLOG_DEPRECATED QHash<QString, int> modeIDs;          // Move to DataCache
 
-    DataCache m_cache; // Bands/Modes/Entity cache
+    DataCache m_cache; // Bands/Modes/Entity cache — populated lazily via ensureCacheReady()
+
+    // Background cache loading (Proposal 6)
+    struct CacheLoadResult {
+        QList<BandEntry> bands;
+        QList<ModeEntry> modes;
+        QList<EntityEntry> entities;
+        bool ok = false;
+    };
+    static CacheLoadResult loadCacheBG(const QString &dbPath); // Runs in a worker thread
+    void ensureCacheReady();   // Waits for background load and populates m_cache (idempotent)
+    QFuture<CacheLoadResult> m_cacheFuture;
+    bool m_cachePopulated = false;
 
     //KLOG_DEPRECATED QHash<int, QString> modeIdToName;         // Move to DataCache
     //KLOG_DEPRECATED QHash<QString, QList<int>> nameToModeIds; // Move to DataCache

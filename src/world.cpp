@@ -47,9 +47,9 @@ World::World(DataProxy_SQLite *dp, const QString &_parentFunction)
     lon = 0.0;
     utc = 0.0;
     locator = new Locator();
-    created = false;    
+    created = false;
     dataProxy = dp;
-    read = readWorld();
+    read = false; // readWorld() is deferred: called lazily on first prefix/callsign lookup
     util = new Utilities(Q_FUNC_INFO);
    //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -59,6 +59,14 @@ World::~World()
    //qDebug() << Q_FUNC_INFO;
     delete(locator);
     delete(util);
+}
+
+void World::ensureWorldLoaded()
+{
+    if (!worldLoaded) {
+        worldLoaded = true;
+        read = readWorld();
+    }
 }
 
 bool World::readEntities()
@@ -82,6 +90,7 @@ bool World::readEntities()
 EntityData World::getEntityDataFromDXCC(const int _dxcc)
 {
    //qDebug() << Q_FUNC_INFO << ": " << QString::number(_dxcc);
+    ensureWorldLoaded();
     for (auto it = entities.constBegin(); it != entities.constEnd(); ++it) {
         if (it.value() == _dxcc) {
             return it.key();
@@ -314,6 +323,7 @@ int World::getEntityItuz(const int _enti)
 int World::getQRZARRLId(const QString &_qrz)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    ensureWorldLoaded();
     QString  call = _qrz.toUpper();
     Callsign callsign(call);
     if (!callsign.isValidPrefix())
@@ -887,12 +897,14 @@ bool World::hasSpecialEntities()
 bool World::isAKnownCall(const QString &_callsign)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _callsign;
+    ensureWorldLoaded();
     return specialCalls.contains(_callsign);
 }
 
 bool World::isAKnownPrefix(const QString &_prefix)
 {
    //qDebug() << Q_FUNC_INFO << ": " << _prefix;
+    ensureWorldLoaded();
     return longPrefixes.contains(_prefix);
 }
 

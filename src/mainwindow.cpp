@@ -34,6 +34,8 @@
 #include "updatesettings.h"
 //#include "database.h"
 #include "mainwindow.h"
+#include "aboutdialog.h"
+#include "tipsdialog.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 
@@ -56,17 +58,17 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     logWindow = std::make_unique<LogWindow>(&awards, this);
     infoWidget = std::make_unique<InfoWidget>(&awards, world, this);
 
-   //qDebug() << " 001: " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 001 - initial widgets (DXCCStatus/DXCluster/Search/Log/Info):" << timer.elapsed() << "ms"; timer.restart();
 
     showKLogLogWidget = new ShowKLogLogWidget;
-   //qDebug() << " 002 - showKLogLogWidget : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 002 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-   //qDebug() << " 003 - UDPLogServer : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 003 - ShowErrorDialog + UDPServer:" << timer.elapsed() << "ms"; timer.restart();
     util = new Utilities(Q_FUNC_INFO);
-   //qDebug() << " 004 - Util : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 004 - Utilities:" << timer.elapsed() << "ms"; timer.restart();
     backupQSO = new QSO;
-   //qDebug() << " 005 - backupQSO : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 005 - QSO backup:" << timer.elapsed() << "ms"; timer.restart();
 
     logLevel = Info;
     dupeSlotInSeconds = 600;
@@ -75,87 +77,70 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 
     QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
-       //qDebug() << "MainWindow::MainWindow: Debug File: "<<  util->getDebugLogFile() ;
-    //dataProxy = new DataProxy_SQLite(Q_FUNC_INFO, softwareVersion);
-
     world->create(util->getCTYFile());
-   //qDebug() << " 006 - World : " << timer.elapsed() << "ms"; timer.restart();
-      //qDebug() << Q_FUNC_INFO << ": BEFORE HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qInfo() << "[KLOG-TIMING] ctor 006 - world->create() (CTY file, only slow on 1st run):" << timer.elapsed() << "ms"; timer.restart();
+
     hamlibConnectionAttempted = false;
     hamlib = new HamLibClass();
+    // [PROPOSAL-3] HamLibClass ctor: consider lazy-init (defer fillRigsList until config dialog opens)
+   //qInfo() << "[KLOG-TIMING] ctor 007 - HamLibClass ctor [PROPOSAL-3 candidate]:" << timer.elapsed() << "ms"; timer.restart();
 
-   //qDebug() << " 007 - hamlib : " << timer.elapsed() << "ms"; timer.restart();
-      //qDebug() << Q_FUNC_INFO << ": AFTER HAMLIB " << QTime::currentTime().toString("hh:mm:ss") ;
-
-
-      //qDebug() << Q_FUNC_INFO << ": AFTER dataproxy ";
     lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
-   //qDebug() << " 008 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-      //qDebug() << Q_FUNC_INFO << ": AFTER lotwUtilities";
+   //qInfo() << "[KLOG-TIMING] ctor 008 - LoTWUtilities:" << timer.elapsed() << "ms"; timer.restart();
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
-   //qDebug() << " 009 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-    //qDebug() << Q_FUNC_INFO << ": AFTER eQSLUtilities";
+   //qInfo() << "[KLOG-TIMING] ctor 009 - eQSLUtilities:" << timer.elapsed() << "ms"; timer.restart();
     mapWindow = new MapWindowWidget(dataProxy, this);
-   //qDebug() << " 010 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-    mapWindow->init();
-   //qDebug() << " 011 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+    // init() is deferred: MapWindowWidget initializes lazily on first show (showEvent)
+   //qInfo() << "[KLOG-TIMING] ctor 010 - MapWindowWidget ctor (init deferred to first show) [PROPOSAL-1 done]:" << timer.elapsed() << "ms"; timer.restart();
 
     elogClublog = new eLogClubLog();
     elogClublog->setVersion(pkgVersion);
-   //qDebug() << " 012 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-      //qDebug() << Q_FUNC_INFO << ": 00082: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qInfo() << "[KLOG-TIMING] ctor 012 - eLogClubLog:" << timer.elapsed() << "ms"; timer.restart();
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
-   //qDebug() << " 013 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-     //qDebug() << Q_FUNC_INFO << ": 00083: " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qInfo() << "[KLOG-TIMING] ctor 013 - eLogQrzLog:" << timer.elapsed() << "ms"; timer.restart();
     updateSatsData = new UpdateSatsData(dataProxy);
-   //qDebug() << "014 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-     //qDebug() << Q_FUNC_INFO << ": 00084: " << QTime::currentTime().toString("hh:mm:ss") ;
-    statsWidget = new StatisticsWidget(dataProxy);
-   //qDebug() << " 015 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 014 - UpdateSatsData:" << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-5] StatisticsWidget: lazy-init, created on first slotShowStats() call
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
-   //qDebug() << " 016 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-
-     //qDebug() << Q_FUNC_INFO << ": 00088: " << QTime::currentTime().toString("hh:mm:ss") ;
     awardsWidget = new AwardsWidget(dataProxy, world, this);
-   //qDebug() << " 017 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-5] AwardsWidget: consider lazy-init
+   //qInfo() << "[KLOG-TIMING] ctor 017 - AwardsWidget [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
 
-    aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
-   //qDebug() << " 018 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-    tipsDialog = new TipsDialog();
-   //qDebug() << " 019 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-5] AboutDialog: lazy-init, created on first slotHelpAboutAction() call
+    // [PROPOSAL-5] TipsDialog: lazy-init via ensureTipsDialog()
 
     downloadcty = new DownLoadCTY(util->getHomeDir (), softwareVersion);
-   //qDebug() << " 020 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 020 - DownLoadCTY:" << timer.elapsed() << "ms"; timer.restart();
 
     statusBarMessage = tr("Starting KLog");
 
     setupDialog = new SetupDialog(dataProxy, world, this);
-   //qDebug() << " 021 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-5] SetupDialog: only opened on demand (or first run)
+   //qInfo() << "[KLOG-TIMING] ctor 021 - SetupDialog [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
 
-     //qDebug() << Q_FUNC_INFO << ": satTabWidget to be created " ;
     satTabWidget = new MainWindowSatTab(dataProxy);
-   //qDebug() << " 022 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 022 - MainWindowSatTab:" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
-   //qDebug() << " 023 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 023 - MainWindowInputQSO:" << timer.elapsed() << "ms"; timer.restart();
     myDataTabWidget = new MainWindowMyDataTab(dataProxy);
-   //qDebug() << " 024 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 024 - MainWindowMyDataTab:" << timer.elapsed() << "ms"; timer.restart();
     commentTabWidget = new MainWindowInputComment();
-   //qDebug() << " 025 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 025 - MainWindowInputComment:" << timer.elapsed() << "ms"; timer.restart();
     othersTabWidget = new MainWindowInputOthers(dataProxy, world);
-   //qDebug() << " 026 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 026 - MainWindowInputOthers:" << timer.elapsed() << "ms"; timer.restart();
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
-   //qDebug() << " 027 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 027 - MainWindowInputEQSL:" << timer.elapsed() << "ms"; timer.restart();
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
-   //qDebug() << " 028 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 028 - MainWindowInputQSL:" << timer.elapsed() << "ms"; timer.restart();
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
-   //qDebug() << " 029 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 029 - MainQSOEntryWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     mainWidget = new QWidget(this);
-   //qDebug() << " 030 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 030 - mainWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     dateTime = std::make_unique<QDateTime>();
     // UI DX
@@ -169,21 +154,19 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     }
 
     softUpdate = new SoftwareUpdate(softwareVersion);
-   //qDebug() << " 031 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 031 - SoftwareUpdate:" << timer.elapsed() << "ms"; timer.restart();
 
     filemanager = new FileManager(dataProxy, world);
-   //qDebug() << " 032 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
-
+   //qInfo() << "[KLOG-TIMING] ctor 032 - FileManager:" << timer.elapsed() << "ms"; timer.restart();
 
     lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
-   //qDebug() << " 033 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
-   //qDebug() << " 034 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 034 - AdifLoTWExportWidget:" << timer.elapsed() << "ms"; timer.restart();
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
-   //qDebug() << " 035 - lotwUtilities : " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] ctor 035 - ShowAdifImportWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-   //qDebug() << Q_FUNC_INFO << ": END " << QTime::currentTime().toString("hh:mm:ss") ;
+   //qInfo() << "[KLOG-TIMING] ctor TOTAL:" << timer.elapsed() << "ms";
 }
 
 MainWindow::~MainWindow()
@@ -253,6 +236,9 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init_variables()
 {
      //qDebug() << Q_FUNC_INFO << " - Start";
+    aboutDialog  = nullptr;
+    tipsDialog   = nullptr;
+    statsWidget  = nullptr;
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     manualMode = false;
@@ -359,11 +345,11 @@ void MainWindow::init_variables()
 
     clublogAnswer = -1;
    //qDebug() << Q_FUNC_INFO << " - Changing colors to default";
-       defaultColor.fromString(QAnyStringView("slategrey")); //To be replaced by .fromString in Qt6.6
-       neededColor.fromString(QAnyStringView("yellow"));
-       workedColor.fromString(QAnyStringView("blue"));
-       confirmedColor.fromString(QAnyStringView("red"));
-       newOneColor.fromString(QAnyStringView("green"));
+       defaultColor   = KLOG_COLOR_DEFAULT;
+       neededColor    = KLOG_COLOR_NEEDED;
+       workedColor    = KLOG_COLOR_WORKED;
+       confirmedColor = KLOG_COLOR_CONFIRMED;
+       newOneColor    = KLOG_COLOR_NEW_ONE;
 
    //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -412,88 +398,82 @@ void MainWindow::checkHomeDir()
 
 void MainWindow::init()
 {
-    //qDebug() << Q_FUNC_INFO << " - Start - " << (QTime::currentTime()).toString("HH:mm:ss") ;
+    QElapsedTimer initTimer;
+    initTimer.start();
+   //qInfo() << "[KLOG-TIMING] init() START";
+
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     checkHomeDir();
     checkDebugFile();
 
-     //qDebug() << Q_FUNC_INFO << " -  00" ;
-
     setupDialog->init(softwareVersion, 0, configured);
-     //qDebug() << Q_FUNC_INFO << " -  01" ;
+   //qInfo() << "[KLOG-TIMING] init() 01 - setupDialog->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     filemanager->init();
+   //qInfo() << "[KLOG-TIMING] init() 02 - filemanager->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
+
     init_variables();
 
     hamlib->initClass();
+    // [PROPOSAL-3] hamlib->initClass() loads ALL radio models from HamLib: defer until config dialog
+   //qInfo() << "[KLOG-TIMING] init() 03 - hamlib->initClass() [PROPOSAL-3 candidate]:" << initTimer.elapsed() << "ms"; initTimer.restart();
+
     qsoInUI.clear();
-
     setCleaning(false);
-
-     //qDebug() << Q_FUNC_INFO << " -  10" ;
-
     dxClusterWidget->init();
-
     setModifying(false);
-        //qDebug() << Q_FUNC_INFO << " -  50" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     checkExistingData();
+   //qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData() (CTY file check):" << initTimer.elapsed() << "ms"; initTimer.restart();
+
     readSettingsFile();
+   //qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-     //qDebug() << Q_FUNC_INFO << " -  70" << (QTime::currentTime()).toString("HH:mm:ss") ;
-
-       //qDebug() << Q_FUNC_INFO << " -  71" << (QTime::currentTime()).toString("HH:mm:ss") ;
     logWindow->createlogPanel(currentLog);
-        //qDebug() << Q_FUNC_INFO << " -  72" << (QTime::currentTime()).toString("HH:mm:ss") ;
+   //qInfo() << "[KLOG-TIMING] init() 06 - logWindow->createlogPanel():" << initTimer.elapsed() << "ms"; initTimer.restart();
+
     awards.setManageModes(manageMode);
-        //qDebug() << Q_FUNC_INFO << " -  73" << (QTime::currentTime()).toString("HH:mm:ss") ;
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
-            //qDebug() << Q_FUNC_INFO << " -  73.1" << (QTime::currentTime()).toString("HH:mm:ss") ;
         openSetup(6);
-            //qDebug() << Q_FUNC_INFO << " -  73.2" << (QTime::currentTime()).toString("HH:mm:ss") ;
     }
-        //qDebug() << Q_FUNC_INFO << " -  74" << (QTime::currentTime()).toString("HH:mm:ss") ;
 
     awardsWidget->fillOperatingYears();
     awardsWidget->showAwards();
     awardsWidget->setManageDXMarathon(manageDxMarathon);
+    // [PROPOSAL-5] awardsWidget fill/show: DB queries for statistics, could be deferred
+   //qInfo() << "[KLOG-TIMING] init() 07 - awardsWidget fill+show [PROPOSAL-5 candidate]:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     dxClusterWidget->setCurrentLog(currentLog);
-    //dxClusterAssistant->init();
 
-     //qDebug() << Q_FUNC_INFO << " -  80" << (QTime::currentTime()).toString("HH:mm:ss") ;
-     //qDebug() << Q_FUNC_INFO << ": calling Software update ..." << (QTime::currentTime()).toString("HH:mm:ss") ;
-    checkVersions();
+    // [PROPOSAL-8] Defer checkVersions(): the DNS resolution + first TCP connect of
+    // QNetworkAccessManager::get() was blocking the main thread briefly at startup.
+    // Firing after the event loop starts lets the window appear first.
+    QTimer::singleShot(0, this, &MainWindow::checkVersions);
+   //qInfo() << "[KLOG-TIMING] init() 08 - checkVersions() deferred to event loop [PROPOSAL-8 done]:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-     //qDebug() << Q_FUNC_INFO << " -  90" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
-     //qDebug() << Q_FUNC_INFO << " -  91" << (QTime::currentTime()).toString("HH:mm:ss") ;
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
-     //qDebug() << Q_FUNC_INFO << " -  92" << (QTime::currentTime()).toString("HH:mm:ss") ;
-
     currentBand = currentBandShown;
     currentMode = currentModeShown;
 
     timerInfoBars = new QTimer(this);
 
-    //qDebug() << Q_FUNC_INFO << " - Calling createUI" << (QTime::currentTime()).toString("HH:mm:ss") ;
     createUI();
-    //qDebug() << Q_FUNC_INFO << " - Calling slotClearButtonClicked" << (QTime::currentTime()).toString("HH:mm:ss") ;
-       //qDebug() << Q_FUNC_INFO << " - 100";
+   //qInfo() << "[KLOG-TIMING] init() 09 - createUI() (menus, actions, layout):" << initTimer.elapsed() << "ms"; initTimer.restart();
+
     slotClearButtonClicked(Q_FUNC_INFO);
-   //qDebug() << Q_FUNC_INFO << " - 110";
     infoWidget->showInfo(-1);
-       //qDebug() << Q_FUNC_INFO << " - 120";
 
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
-       //qDebug() << Q_FUNC_INFO << " - 130";
 
-    applySettings ();
-    //qDebug() << Q_FUNC_INFO << " - END" << (QTime::currentTime()).toString("HH:mm:ss") ;
+    applySettings();
+   //qInfo() << "[KLOG-TIMING] init() 10 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
+
     logEvent(Q_FUNC_INFO, "END", Debug);
+   //qInfo() << "[KLOG-TIMING] init() TOTAL:" << initTimer.elapsed() << "ms";
 }
 
 void MainWindow::checkExistingData()
@@ -584,9 +564,6 @@ void MainWindow::connectDebugLogActions()
             this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
-
-    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
             this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
     connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
@@ -705,16 +682,6 @@ void MainWindow::createActionsCommon(){
     //connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
     connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
     connect(setupDialog, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)) );
-
-    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
-    connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()) );
-    connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
-    connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()) );
-    connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
-    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
-    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
-    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
-    connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 
     // SATELLITES TAB
     //connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
@@ -3139,6 +3106,8 @@ void MainWindow::slotHelpAboutAction()
    //                "Find the last release at https://jaime.robles.es/klog."));
 
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!aboutDialog)
+        aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
     aboutDialog->exec();
     logEvent(Q_FUNC_INFO, "END", Debug);
     //helpAboutDialog->exec();
@@ -3147,10 +3116,29 @@ void MainWindow::slotTipsAction()
 {
       //qDebug() << Q_FUNC_INFO ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    ensureTipsDialog();
     tipsDialog->exec();
 
 
     logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::ensureTipsDialog()
+{
+    if (tipsDialog)
+        return;
+    tipsDialog = new TipsDialog();
+    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)));
+    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()));
+    connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()));
+    connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()));
+    connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()));
+    connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
+    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
+    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
+    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
+    connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 }
 
 void MainWindow::slotHelpCheckUpdatesAction()
@@ -5005,6 +4993,8 @@ void MainWindow::slotUpdateSATSDAT()
 void MainWindow::slotShowStats()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!statsWidget)
+        statsWidget = new StatisticsWidget(dataProxy);
     statsWidget->show();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -6286,7 +6276,8 @@ void MainWindow::setLogLevel(const DebugLogLevel _sev)
     settings.setValue ("DebugLog",util->debugLevelToString (logLevel));
     settings.endGroup ();
 
-    tipsDialog->setLogLevel(logLevel);
+    if (tipsDialog)
+        tipsDialog->setLogLevel(logLevel);
     dataProxy->setLogLevel(logLevel);
     mainQSOEntryWidget->setLogLevel(logLevel);
     util->setLogLevel(logLevel);

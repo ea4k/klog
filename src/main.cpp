@@ -335,26 +335,31 @@ int main(int argc, char *argv[])
     splash.showMessage ("Creating the Data Base...");
     QApplication::processEvents();
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
+    // [PROPOSAL-6] DataProxy_SQLite ctor calls createHashes() loading band/mode/entity caches
+   //qInfo() << "[KLOG-TIMING] main 071 - DataProxy_SQLite ctor [PROPOSAL-6 candidate]:" << timer.elapsed() << "ms"; timer.restart();
     QApplication::processEvents();
 
-   //qDebug() << Q_FUNC_INFO << " 071: " << timer.elapsed() << "ms"; timer.restart();
     World world(&dataProxy, Q_FUNC_INFO);
-   //qDebug() << Q_FUNC_INFO << " 072: " << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-2] World ctor: readWorld() now deferred to first callsign lookup (lazy)
+   //qInfo() << "[KLOG-TIMING] main 072 - World ctor [PROPOSAL-2 done, readWorld() deferred]:" << timer.elapsed() << "ms"; timer.restart();
     dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage("Creating window...");
     QApplication::processEvents();
-   //qDebug() << Q_FUNC_INFO << " 080: " << timer.elapsed() << "ms"; timer.restart();
 
     MainWindow mw(&dataProxy, &world);
-    splash.showMessage ("Initializing window...");
+    // [PROPOSALS 1,3,5] MainWindow ctor: MapWidget deferred (P1), HamLib ctor (P3), dialogs (P5)
+   //qInfo() << "[KLOG-TIMING] main 081 - MainWindow ctor:" << timer.elapsed() << "ms"; timer.restart();
+    splash.showMessage("Showing window...");
     QApplication::processEvents();
-   //qDebug() << Q_FUNC_INFO << " 081: " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] main 086 - mw.show() (window shown before init for perceived performance):"; timer.restart();
+    mw.show();
+    splash.finish(&mw);
+    QApplication::processEvents();  // let window paint before init starts
+   //qInfo() << "[KLOG-TIMING] main 087 - after mw.show(), starting mw.init():" << timer.elapsed() << "ms"; timer.restart();
 
-    //qDebug() << Q_FUNC_INFO << " - 104 " << (QTime::currentTime()).toString("HH:mm:ss");
     mw.init();
-
-   //qDebug() << Q_FUNC_INFO << " 082: " << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] main 088 - mw.init() complete:" << timer.elapsed() << "ms"; timer.restart();
     //splash.showMessage("Checking for new versions...");
     //mw.checkIfNewVersion();
     //qDebug() << Q_FUNC_INFO << " 083: " << timer.elapsed() << "ms"; timer.restart();
@@ -362,12 +367,6 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " 084: " << timer.elapsed() << "ms"; timer.restart();
     //mw.recommendBackupIfNeeded();
    //qDebug() << Q_FUNC_INFO << " 085: " << timer.elapsed() << "ms"; timer.restart();
-    splash.showMessage ("Showing window...");
-    QApplication::processEvents();
-    //qDebug() << Q_FUNC_INFO << " - 110 " << (QTime::currentTime()).toString("HH:mm:ss");
-    mw.show();
-    //qDebug() << Q_FUNC_INFO << " 086: " << timer.elapsed() << "ms"; timer.restart();
-    splash.finish(&mw);
 
     return app.exec();
 }

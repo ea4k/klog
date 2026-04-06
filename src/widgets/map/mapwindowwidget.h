@@ -29,6 +29,7 @@
 #include <QtWidgets>
 //#include <QWidget>
 #include <QSettings>
+#include <QShowEvent>
 #include "mapwidget.h"
 #include "locatorinfoprovider.h"
 #include "../../klogdefinitions.h"
@@ -46,7 +47,7 @@ public:
     void setBands(QStringList _bands);
     void setModes(QStringList _modes);
     void setCenter(const Coordinate &_c);
-    void addQSO(const QString &_loc);
+    KLOG_DEPRECATED void addQSO(const QString &_loc);
     void addLocator(const QString &_loc, const QColor &_color);
     void addLocators(const QStringList &_locators, const QColor &_color);
     void appendLocators(const QStringList &_locators, const QColor &_color);
@@ -68,13 +69,16 @@ private slots:
     void slotConfirmedCheckBoxChanged();
     //void slotLocatorsCheckBoxChanged();
 
+protected:
+    void showEvent(QShowEvent *event) override;
+
 private:
     void createUI();
-    void paintGlobalGrid();
+    KLOG_DEPRECATED void paintGlobalGrid();
     void setPropModes();
     void setSatNames();
     void showFiltered();
-    QString getShortLocators (const int _length);
+    KLOG_DEPRECATED QString getShortLocators (const int _length);
     QString getPropModeFromComboBox();
 
     DataProxy_SQLite *dataProxy;
@@ -87,6 +91,10 @@ private:
     QColor confirmedColor;
     QColor defaultColor;
     QColor newOneColor, neededColor;
+
+    bool m_initialized = false;
+    Coordinate m_pendingCenter;
+    bool m_hasPendingCenter = false;
 };
 
 #endif // MAPWINDOWWIDGET_H
