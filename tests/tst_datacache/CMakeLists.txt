@@ -49,6 +49,7 @@ add_executable(tst_datacache
 # Link with Qt6 Core and Test
 target_link_libraries(tst_datacache PRIVATE
     Qt6::Core
+    Qt6::Concurrent
     Qt6::Test
     Qt6::Sql
     Qt6::Widgets

@@ -138,6 +138,7 @@ set(KLOG_HEADERS
    hamlibclass.h
    infowidget.h
    klogdefinitions.h
+   klogcolors.h
    locator.h
    logmodel.h
    logwindow.h

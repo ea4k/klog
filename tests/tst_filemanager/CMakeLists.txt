@@ -58,6 +58,7 @@ set(CMAKE_AUTOMOC ON)
 # Link with Qt6 Core and Test
 target_link_libraries(tst_filemanager
     Qt6::Core
+    Qt6::Concurrent
     Qt6::Test
     Qt6::Sql
     Qt6::Widgets

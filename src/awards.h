@@ -41,6 +41,7 @@
 #include "awarddxmarathon.h"
 #include "dataproxy_sqlite.h"
 #include "klogdefinitions.h"
+#include "klogcolors.h"
 
 class QProgressDialog;
 

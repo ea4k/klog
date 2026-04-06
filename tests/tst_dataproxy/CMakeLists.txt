@@ -49,6 +49,7 @@ add_executable(tst_dataproxy
 # Link with Qt6 Core and Test
 target_link_libraries(tst_dataproxy
     Qt6::Core
+    Qt6::Concurrent
     Qt6::Test
     Qt6::Sql
     Qt6::Widgets

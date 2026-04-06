@@ -60,6 +60,7 @@ target_link_libraries(tst_dxcluster
     Qt6::Sql
     Qt6::Test
     Qt6::Widgets
+    Qt6::Concurrent
 )
 
 target_compile_definitions(tst_dxcluster PRIVATE KLOG_TESTING)

@@ -35,6 +35,7 @@
 #include "../../klogdefinitions.h"
 #include "../../dataproxy_sqlite.h"
 #include "../../locator.h"
+#include "../../klogcolors.h"
 
 class MapWindowWidget : public QWidget
 {

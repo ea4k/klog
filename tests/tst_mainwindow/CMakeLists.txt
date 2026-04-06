@@ -206,6 +206,7 @@ add_executable(tst_mainwindow
   ../../src/database/datacache.h
   ../../src/database/queryexecutor.h
   ../../src/database/db_adif_primary_subdvisions_data.h
+  ../../src/klogcolors.h
   ../../src/klogdefinitions.h
   ../../src/utilities.h
   ../../src/qso.h
@@ -254,6 +255,7 @@ endif()
 # Collect link libraries and link once using the keyword signature
 set(_tst_libs
   Qt6::Core
+  Qt6::Concurrent
   Qt6::Charts
   Qt6::Network
   Qt6::Positioning
