@@ -61,7 +61,7 @@ void HamLibClass::initClass()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     rig_set_debug(RIG_DEBUG_ERR);
     strings.clear();
-    fillRigsList();
+    // fillRigsList() removed — rig list now loaded lazily on first getRigList() call
 
     connect(timer, &QTimer::timeout, this, &HamLibClass::slotTimer);
     clean();
@@ -649,6 +649,8 @@ bool HamLibClass::isRunning()
 
 void HamLibClass::fillRigsList()
 {
+    if (m_rigsLoaded)
+        return;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::getRigList: StringsList before filling it: ";
     // Rutine to fill the rig combo boxes
@@ -665,6 +667,7 @@ void HamLibClass::fillRigsList()
     rig_list_foreach(addRigToList, this);
     //qDebug() << "HamLibClass::getRigList-11";
     strings.sort();
+    m_rigsLoaded = true;
 }
 
 QStringList HamLibClass::getRigList()
@@ -672,8 +675,7 @@ QStringList HamLibClass::getRigList()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::getRigList: StringsList before filling it: ";
 
-    //fillRigsList ();
-    //strings.sort();
+    fillRigsList();  // loads only on first call (guarded by m_rigsLoaded)
     //qDebug() << "HamLibClass::getRigList-12 - Strings length: "
     //<< QString::number(strings.length());
     return strings;

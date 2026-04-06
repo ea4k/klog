@@ -34,6 +34,8 @@
 #include "updatesettings.h"
 //#include "database.h"
 #include "mainwindow.h"
+#include "aboutdialog.h"
+#include "tipsdialog.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
 
@@ -99,9 +101,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     qInfo() << "[KLOG-TIMING] ctor 013 - eLogQrzLog:" << timer.elapsed() << "ms"; timer.restart();
     updateSatsData = new UpdateSatsData(dataProxy);
     qInfo() << "[KLOG-TIMING] ctor 014 - UpdateSatsData:" << timer.elapsed() << "ms"; timer.restart();
-    statsWidget = new StatisticsWidget(dataProxy);
-    // [PROPOSAL-5] StatisticsWidget: consider lazy-init (never shown at startup)
-    qInfo() << "[KLOG-TIMING] ctor 015 - StatisticsWidget [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-5] StatisticsWidget: lazy-init, created on first slotShowStats() call
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
@@ -110,12 +110,8 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     // [PROPOSAL-5] AwardsWidget: consider lazy-init
     qInfo() << "[KLOG-TIMING] ctor 017 - AwardsWidget [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
 
-    aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
-    // [PROPOSAL-5] AboutDialog: only shown on demand
-    qInfo() << "[KLOG-TIMING] ctor 018 - AboutDialog [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
-    tipsDialog = new TipsDialog();
-    // [PROPOSAL-5] TipsDialog: only shown on demand
-    qInfo() << "[KLOG-TIMING] ctor 019 - TipsDialog [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    // [PROPOSAL-5] AboutDialog: lazy-init, created on first slotHelpAboutAction() call
+    // [PROPOSAL-5] TipsDialog: lazy-init via ensureTipsDialog()
 
     downloadcty = new DownLoadCTY(util->getHomeDir (), softwareVersion);
     qInfo() << "[KLOG-TIMING] ctor 020 - DownLoadCTY:" << timer.elapsed() << "ms"; timer.restart();
@@ -240,6 +236,9 @@ void MainWindow::setWindowSize(const QSize &_size)
 void MainWindow::init_variables()
 {
      //qDebug() << Q_FUNC_INFO << " - Start";
+    aboutDialog  = nullptr;
+    tipsDialog   = nullptr;
+    statsWidget  = nullptr;
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     manualMode = false;
@@ -567,9 +566,6 @@ void MainWindow::connectDebugLogActions()
     connect(awardsWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
             this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
-    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
-            this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
-
     connect(othersTabWidget, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
             this, SLOT(logEvent(QString, QString, DebugLogLevel)) );
 
@@ -686,16 +682,6 @@ void MainWindow::createActionsCommon(){
     //connect(setupDialog, SIGNAL(qrzcomAuto(bool)), this, SLOT(slotElogQRZCOMAutoCheckFromSetup(bool)) );
     connect(setupDialog, SIGNAL(finished(int)), this, SLOT(slotSetupDialogFinished(int)) );
     connect(setupDialog, SIGNAL(darkModeChanged(bool)), this, SLOT(slotDarkModeChanged(bool)) );
-
-    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()) );
-    connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()) );
-    connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()) );
-    connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()) );
-    connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
-    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
-    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
-    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
-    connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 
     // SATELLITES TAB
     //connect(satTabWidget, SIGNAL(newBandsToBeAdded(QStringList)), this, SLOT(slotDefineNewBands(QStringList)) );
@@ -3120,6 +3106,8 @@ void MainWindow::slotHelpAboutAction()
    //                "Find the last release at https://jaime.robles.es/klog."));
 
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!aboutDialog)
+        aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
     aboutDialog->exec();
     logEvent(Q_FUNC_INFO, "END", Debug);
     //helpAboutDialog->exec();
@@ -3128,10 +3116,29 @@ void MainWindow::slotTipsAction()
 {
       //qDebug() << Q_FUNC_INFO ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    ensureTipsDialog();
     tipsDialog->exec();
 
 
     logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::ensureTipsDialog()
+{
+    if (tipsDialog)
+        return;
+    tipsDialog = new TipsDialog();
+    connect(tipsDialog, SIGNAL(debugLog(QString, QString, DebugLogLevel)),
+            this, SLOT(logEvent(QString, QString, DebugLogLevel)));
+    connect(tipsDialog, SIGNAL(findQSL2QSOSignal()), this, SLOT(slotSearchToolNeededQSLToSend()));
+    connect(tipsDialog, SIGNAL(fillInDXCCSignal()), this, SLOT(slotFillEmptyDXCCInTheLog()));
+    connect(tipsDialog, SIGNAL(fillInQSOSignal()), this, SLOT(fillQSOData()));
+    connect(tipsDialog, SIGNAL(fileExportToPrintSignal()), this, SLOT(slotRQSLExport()));
+    connect(tipsDialog, SIGNAL(fileOpenKLogFolderSignal()), this, SLOT(slotOpenKLogFolder()));
+    connect(tipsDialog, SIGNAL(toolSendPendingQSLSignal()), this, SLOT(slotToolSearchRequestedQSLToSend()));
+    connect(tipsDialog, SIGNAL(toolRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLPendingToReceive()));
+    connect(tipsDialog, SIGNAL(toolRecRecPendingQSLSignal()), this, SLOT(slotToolSearchNeededQSLRequested()));
+    connect(tipsDialog, SIGNAL(toolsUploadLoTWSignal()), this, SLOT(slotLoTWExport()));
 }
 
 void MainWindow::slotHelpCheckUpdatesAction()
@@ -4986,6 +4993,8 @@ void MainWindow::slotUpdateSATSDAT()
 void MainWindow::slotShowStats()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!statsWidget)
+        statsWidget = new StatisticsWidget(dataProxy);
     statsWidget->show();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -6267,7 +6276,8 @@ void MainWindow::setLogLevel(const DebugLogLevel _sev)
     settings.setValue ("DebugLog",util->debugLevelToString (logLevel));
     settings.endGroup ();
 
-    tipsDialog->setLogLevel(logLevel);
+    if (tipsDialog)
+        tipsDialog->setLogLevel(logLevel);
     dataProxy->setLogLevel(logLevel);
     mainQSOEntryWidget->setLogLevel(logLevel);
     util->setLogLevel(logLevel);

@@ -350,11 +350,16 @@ int main(int argc, char *argv[])
     MainWindow mw(&dataProxy, &world);
     // [PROPOSALS 1,3,5] MainWindow ctor: MapWidget deferred (P1), HamLib ctor (P3), dialogs (P5)
     qInfo() << "[KLOG-TIMING] main 081 - MainWindow ctor:" << timer.elapsed() << "ms"; timer.restart();
-    splash.showMessage ("Initializing window...");
+    splash.showMessage("Showing window...");
     QApplication::processEvents();
+    qInfo() << "[KLOG-TIMING] main 086 - mw.show() (window shown before init for perceived performance):"; timer.restart();
+    mw.show();
+    splash.finish(&mw);
+    QApplication::processEvents();  // let window paint before init starts
+    qInfo() << "[KLOG-TIMING] main 087 - after mw.show(), starting mw.init():" << timer.elapsed() << "ms"; timer.restart();
 
     mw.init();
-    qInfo() << "[KLOG-TIMING] main 082 - mw.init():" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] main 088 - mw.init() complete:" << timer.elapsed() << "ms"; timer.restart();
     //splash.showMessage("Checking for new versions...");
     //mw.checkIfNewVersion();
     //qDebug() << Q_FUNC_INFO << " 083: " << timer.elapsed() << "ms"; timer.restart();
@@ -362,12 +367,6 @@ int main(int argc, char *argv[])
     //qDebug() << Q_FUNC_INFO << " 084: " << timer.elapsed() << "ms"; timer.restart();
     //mw.recommendBackupIfNeeded();
    //qDebug() << Q_FUNC_INFO << " 085: " << timer.elapsed() << "ms"; timer.restart();
-    splash.showMessage ("Showing window...");
-    QApplication::processEvents();
-    qInfo() << "[KLOG-TIMING] main 086 - mw.show() (note: MapWidget init fires here on 1st show):" << timer.elapsed() << "ms"; timer.restart();
-    mw.show();
-    qInfo() << "[KLOG-TIMING] main 087 - after mw.show() (MapWidget QML+grid loaded):" << timer.elapsed() << "ms";
-    splash.finish(&mw);
 
     return app.exec();
 }

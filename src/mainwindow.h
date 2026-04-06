@@ -35,8 +35,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include "setupdialog.h"
-#include "aboutdialog.h"
-#include "tipsdialog.h"
+class AboutDialog;
+class TipsDialog;
 #include "world.h"
 #include "filemanager.h"
 //#include "fileawardmanager.h"
@@ -358,6 +358,7 @@ private:
     bool setUDPServer(const bool _b);
     bool askToAddQSOReceived(const QSO &_qso);  // Shows a message with the data of the QSO
 
+    void ensureTipsDialog();
     void setLogLevel(const DebugLogLevel _sev);
     //void fileExportLoTW(const QString &_st, const QString &_grid, const QDate &_startDate, const QDate &_endDate);
     void fileExportLoTW2(const QString &_call, QList<int> _qsos);

@@ -183,6 +183,7 @@ private:
     bool reading; // Just a semaphore to prevent several readings
     bool vfoQuerySupported;
     bool splitQuerySupported;
+    bool m_rigsLoaded = false;
     RadioStatus radioStatus;
 };
 
