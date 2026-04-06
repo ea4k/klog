@@ -1071,7 +1071,8 @@ void MainWindow::slotQRZReturnPressed()
     }
 
     //int addedOK = qsoInUI.toDB(modifyingQSOid);
-    qsoInUI.setQSOid(modifyingQSOid);
+    if (modify)
+        qsoInUI.setQSOid(modifyingQSOid);
     int addedOK = dataProxy->addQSO(qsoInUI);
    //qDebug() << Q_FUNC_INFO << ": id: " <<  QString::number(addedOK);
     if (addedOK>0)
