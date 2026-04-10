@@ -462,9 +462,15 @@ private:
     //KLOG_DEPRECATED QHash<int, QString> modeIdToName;         // Move to DataCache
     //KLOG_DEPRECATED QHash<QString, QList<int>> nameToModeIds; // Move to DataCache
 
+    using DupeCacheData = QMultiHash<QString, QsoInfo>;
+    static DupeCacheData loadDupeCacheBG(const QString &dbPath, int logId);
+    void ensureDupeCacheReady();
+    QFuture<DupeCacheData> m_dupeCacheFuture;
+    bool m_dupeCacheLoading = false;
+
     QMultiHash<QString, QsoInfo>
     m_qsoCache; // List for DUPES The String is the "hash" created generateGroupingKey IDs vs QDateTime
-    QString generateGroupingKey(const QString &call, int bandId, int modeId);
+    static QString generateGroupingKey(const QString &call, int bandId, int modeId);
 
     //bool loadBandLimits();                  // Function to populate the m_bandLimits list from the database
     QMetaObject::Connection connections;    // To track the connection so its possible to disconnect
