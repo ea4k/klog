@@ -3655,7 +3655,7 @@ bool MainWindow::applySettings()
     {
         startServices();
     }
-    //dataProxy->loadDuplicateCache(currentLog);
+    dataProxy->loadDuplicateCache(currentLog);
 
       //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);

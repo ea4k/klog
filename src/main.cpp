@@ -211,12 +211,12 @@ int main(int argc, char *argv[])
     semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
 
 #ifndef KLOG_Q_OS_WIN
-    // in linux / unix shared memory is not freed when the application terminates abnormally,
-    // so you need to get rid of the garbage
     QSharedMemory nix_fix_shared_memory("klogshm");
-
-    if (nix_fix_shared_memory.attach())
+    if (nix_fix_shared_memory.error() == QSharedMemory::AlreadyExists)
     {
+    // if the failure is caused by the shm segment already existing we need
+    // to attach to it before detaching from it.
+        nix_fix_shared_memory.attach();
         nix_fix_shared_memory.detach(); // if there is no running instance then it remove the orphaned shared memory
     }
 #endif

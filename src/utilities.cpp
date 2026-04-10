@@ -1233,7 +1233,7 @@ QDateTime Utilities::getDateTimeFromSQLiteString(const QString &_s)
     QDateTime dt = QDateTime::fromString(_s, "yyyy-MM-dd hh:mm:ss");
     if (dt.isValid())
         dt.setTimeZone(QTimeZone::UTC);
-    return dt;
+    return QDateTime(dt.date(), dt.time(), QTimeZone::UTC);
 }
 
 QTime Utilities::getTimeFromSQLiteString(const QString &_s)
