@@ -1098,7 +1098,10 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
         return;
     }
 
-    QDateTime _dateTime(dateEdit->date(), timeEdit->time(), QTimeZone::UTC);
+    QDateTime _dateTime;
+    QDateTime(dateEdit->date(), timeEdit->time(), QTimeZone::UTC);
+    _dateTime.setDate(dateEdit->date());
+    _dateTime.setTime(timeEdit->time());
 
     QSO q;
     q.setCall(qrzLineEdit->text());
