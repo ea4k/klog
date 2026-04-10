@@ -3428,6 +3428,7 @@ bool DataProxy_SQLite::deleteQSO(const int _qsoId)
 
 void DataProxy_SQLite::removeDuplicateCache(int _qsoId)
 {
+    ensureDupeCacheReady();
    //qDebug() << Q_FUNC_INFO << " - Start: Deleting QSO from cache: " << _qsoId;
    //qDebug() << Q_FUNC_INFO << " - Start - " << QString("Cached %1 entries").arg(m_qsoCache.count()) ;
     auto it = m_qsoCache.begin();
@@ -8886,9 +8887,10 @@ QString DataProxy_SQLite::generateGroupingKey(const QString &call, int bandId, i
 int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newTime,
                                        int bandId, int modeId, int marginSeconds)
 {
+    ensureDupeCacheReady();
     QString key = generateGroupingKey(call, bandId, modeId);
     QList<QsoInfo> potentialDupes = m_qsoCache.values(key);
-    const QDateTime normalizedNew = normalizeForCache(newTime);  // ← normalizar
+    const QDateTime normalizedNew = normalizeForCache(newTime);
 
     for (const QsoInfo &info : std::as_const(potentialDupes))
     {
@@ -8902,71 +8904,70 @@ int DataProxy_SQLite::findDuplicateId(const QString &call, const QDateTime &newT
 void DataProxy_SQLite::loadDuplicateCache(int logId)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-   //qDebug() << Q_FUNC_INFO << " - Start";
-    clearDuplicateCache();
-
-    // Select only necessary fields.
-    // Optimization: query.value(index) is faster with explicit column names.
-    QString queryString = "SELECT id, call, qso_date, bandid, modeid FROM log";
-    if (logId > 0)
-    {
-        queryString += QString(" WHERE lognumber=%1").arg(logId);
-    }
-
-    QSqlQuery query;
-    query.setForwardOnly(true);
-
-    if (query.exec(queryString))
-    {
-                //Utilities util(Q_FUNC_INFO);
-        while (query.next())
-        {
-            int id = query.value(0).toInt();
-            QString call = query.value(1).toString();
-            // Convert SQLite string to QDateTime
-            //QDateTime datetime = util->getDateTimeFromSQLiteString(query.value(2).toString());
-            int band = query.value(3).toInt();
-            int mode = query.value(4).toInt();
-
-            QDateTime datetime = normalizeForCache(
-            util->getDateTimeFromSQLiteString(query.value(2).toString()));
-            if (datetime.isValid()) {
-                QString key = generateGroupingKey(call, band, mode);
-                QsoInfo qsoInfo(id, datetime);
-
-                // QMultiHash::insert does NOT overwrite.
-                // It appends the value to the list of values for this key.
-                m_qsoCache.insert(key, qsoInfo);
-            }
-        }
-    }
-    else
-    {
-        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-    }
-   //qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
-    logEvent(Q_FUNC_INFO, QString("End - Cached %1 entries").arg(m_qsoCache.count()), Debug);
+    m_dupeCacheLoading = true;
+    m_qsoCache.clear();
+    m_dupeCacheFuture = QtConcurrent::run(
+        &DataProxy_SQLite::loadDupeCacheBG, util->getKLogDBFile(), logId);
+    logEvent(Q_FUNC_INFO, "END - background load launched", Debug);
 }
 
-void DataProxy_SQLite::addDuplicateCache (int _qsoId, const QSO &qso, const int _bandId, const int _modeId)
+DataProxy_SQLite::DupeCacheData
+DataProxy_SQLite::loadDupeCacheBG(const QString &dbPath, int logId)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
-    //int bandId = getIdFromBandName(qso.getBand());
-    //int modeId = getIdFromModeName(qso.getMode());
-        // qString date = util->getDateTimeSQLiteStringFromDateTime(qso.getDateTimeOn());
-    QString key = generateGroupingKey(qso.getCall(), _bandId, _modeId);
-    QsoInfo qsoInfo(_qsoId, normalizeForCache(qso.getDateTimeOn()));  // ← normalizar
-    m_qsoCache.insert(key, qsoInfo);
+    DupeCacheData result;
+    const QString connName = QString("klog_dupe_bg_%1")
+        .arg(reinterpret_cast<quintptr>(QThread::currentThread()), 0, 16);
+    {
+        QSqlDatabase bgDb = QSqlDatabase::addDatabase("QSQLITE", connName);
+        bgDb.setDatabaseName(dbPath);
+        if (!bgDb.open()) {
+            QSqlDatabase::removeDatabase(connName);
+            qWarning() << Q_FUNC_INFO << "failed to open DB:" << dbPath;
+            return result;
+        }
+        QString queryString = "SELECT id, call, qso_date, bandid, modeid FROM log";
+        if (logId > 0)
+            queryString += QString(" WHERE lognumber=%1").arg(logId);
+        QSqlQuery q(bgDb);
+        q.setForwardOnly(true);
+        if (q.exec(queryString)) {
+            Utilities util(Q_FUNC_INFO);
+            while (q.next()) {
+                const int id   = q.value(0).toInt();
+                const QString call = q.value(1).toString();
+                const int band = q.value(3).toInt();
+                const int mode = q.value(4).toInt();
+                const QDateTime dt = normalizeForCache(
+                    util.getDateTimeFromSQLiteString(q.value(2).toString()));
+                if (dt.isValid())
+                    result.insert(generateGroupingKey(call, band, mode), QsoInfo(id, dt));
+            }
+        }
+        bgDb.close();
+    }
+    QSqlDatabase::removeDatabase(connName);
+    return result;
+}
 
-   //qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
-    //qDebug() << Q_FUNC_INFO << "Key: " << key;
+void DataProxy_SQLite::ensureDupeCacheReady()
+{
+    if (!m_dupeCacheLoading) return;
+    m_dupeCacheLoading = false;
+    m_qsoCache = m_dupeCacheFuture.result(); // bloquea solo si el hilo BG no acabó aún
+    logEvent(Q_FUNC_INFO, QString("Cache populated: %1 entries").arg(m_qsoCache.count()), Debug);
+}
+
+void DataProxy_SQLite::addDuplicateCache(int _qsoId, const QSO &qso, const int _bandId, const int _modeId)
+{
+    ensureDupeCacheReady();
+    QString key = generateGroupingKey(qso.getCall(), _bandId, _modeId);
+    m_qsoCache.insert(key, QsoInfo(_qsoId, normalizeForCache(qso.getDateTimeOn())));
 }
 
 void DataProxy_SQLite::clearDuplicateCache()
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    m_dupeCacheLoading = false; // descarta cualquier carga BG pendiente
     m_qsoCache.clear();
-   //qDebug() << Q_FUNC_INFO << " - END - " << QString("End - Cached %1 entries").arg(m_qsoCache.count()) ;
 }
 
 bool DataProxy_SQLite::beginTransaction()

@@ -472,6 +472,7 @@ void MainWindow::init()
     applySettings();
    //qInfo() << "[KLOG-TIMING] init() 10 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
+    dataProxy->loadDuplicateCache(currentLog); // async: lanza hilo BG y vuelve inmediatamente
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qInfo() << "[KLOG-TIMING] init() TOTAL:" << initTimer.elapsed() << "ms";
 }
@@ -3655,7 +3656,6 @@ bool MainWindow::applySettings()
     {
         startServices();
     }
-    //dataProxy->loadDuplicateCache(currentLog);
 
       //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
