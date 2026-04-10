@@ -1092,7 +1092,11 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 
     Callsign call(qrzLineEdit->text());
     if (!call.isValid())
+    {
+        qrzgroupBox->setTitle(tr("Callsign"));
+        qrzgroupBox->setStyleSheet("");
         return;
+    }
 
     QDateTime _dateTime(dateEdit->date(), timeEdit->time(), QTimeZone::UTC);
 
@@ -1105,6 +1109,8 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     if (!q.isValid())
     {
         qDebug() << Q_FUNC_INFO << " - QSO not valid!";
+        qrzgroupBox->setTitle(tr("Callsign"));
+        qrzgroupBox->setStyleSheet("");
         return;
     }
     // If we have a valid ID (>= 1) AND we are not modifying (modify == false)
