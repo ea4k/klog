@@ -5817,6 +5817,12 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
+    Callsign callsign(_dxcall);
+    if (!callsign.isValid())
+        return;
+    callsign(_de_call);
+    if (!callsign.isValid())
+        return;
       //qDebug() << Q_FUNC_INFO << " type: " << QString::number(_type) ;
       //qDebug() << Q_FUNC_INFO << " dxcall: " << _dxcall ;
       //qDebug() << Q_FUNC_INFO << " freq: " << QString::number(_freq/1000000) ;
@@ -5831,6 +5837,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
     {
         noMoreModeErrorShown = checkIfNewMode(_mode);
     }
+    Locator locator;
 
     switch (_type)
     {
@@ -5840,6 +5847,7 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
         case 1:
       //qDebug() << "MainWindow::slotStatusFromUDPServer: -   type = " << QString::number(_type) << " - OUT - Status" ;
              //qDebug() << Q_FUNC_INFO << " - calling setQRZ-3" ;
+
              mainQSOEntryWidget->setQRZ(_dxcall);
              if ((!noMoreModeErrorShown) && (dataProxy->getIdFromModeName(_mode)>0) )
              {
@@ -5849,13 +5857,15 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
        //qDebug() << "MainWindow::slotWSJXstatusFromUDPServer updating txFreqSpinBox" << QString::number(_freq) ;
              QSOTabWidget->setTXFreq (_freq);
              QSOTabWidget->setRXFreq (_freq);
-             if (!_dx_grid.isEmpty())
-             {
+            if (locator.isValidLocator(_dx_grid))
                 slotUpdateLocator(_dx_grid);
-             }
-            QSOTabWidget->setRSTTX (_report);
-             myDataTabWidget->setMyLocator(_de_grid);
-             myDataTabWidget->setStationCallsign(_de_call.toUpper());
+            if (!_report.isEmpty())
+                QSOTabWidget->setRSTTX (_report);
+
+            if(locator.isValidLocator(_de_grid))
+                myDataTabWidget->setMyLocator(_de_grid);
+
+            myDataTabWidget->setStationCallsign(_de_call.toUpper());
 
      //TODO: Check what to do with _de_call -> Check if _de_call == station callsign and update if needed.
      //TODO: Check what to do with _de_grid -> Check if _de_grid == My Grid and update if needed.
