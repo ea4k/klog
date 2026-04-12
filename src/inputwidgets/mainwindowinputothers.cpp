@@ -842,7 +842,7 @@ void MainWindowInputOthers::setEntity(const int _entity)
 
 void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString &_qrz)
 {
-    qDebug() << Q_FUNC_INFO << " - Start: " << _entity << "/" << _qrz;
+    qDebug() << Q_FUNC_INFO << " - Start: " << QString::number(_entity) << "/" << _qrz;
     if (_entity<=0)
     {
        qDebug() << Q_FUNC_INFO << " -  10";
@@ -865,6 +865,9 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     QString hostFullPrefix          = callsign.getHostFullPrefix();               // The default is that showAll is not checked. Main prefix+ the area
     QString hostPrefix              = callsign.getHostPrefix();                   // The default is that showAll is not checked
 
+
+    Callsign entityCall(prefixFromEntityNumber);    // To check if the prefixFromEntity is the main or not (EA->main, AM-> nor main, it should be EA)
+    QString prefixForSubdivision = prefixFromEntityNumber;
 
     qDebug() << Q_FUNC_INFO << " - Before: hostPrefix:              " << hostPrefix;
     qDebug() << Q_FUNC_INFO << " - Before: prefixFromEntityNumber:  " << prefixFromEntityNumber;
@@ -902,7 +905,7 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
         if (primarySubdivisions.isEmpty() && hostFullPrefix != hostPrefix)
         {
             qDebug() << Q_FUNC_INFO << " -  50";
-            qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostFullPrefix, running for the main prefix";
+            qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
             primarySubdivisions = dataProxy->getPrimarySubDivisions(currentInt, hostPrefix);
             currentPref = hostPrefix;
             if (primarySubdivisions.isEmpty())
@@ -918,7 +921,7 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
 
 
     qDebug() << Q_FUNC_INFO << " - 60";
-    qDebug() << Q_FUNC_INFO << " - count: " << primarySubdivisions.count();
+    qDebug() << Q_FUNC_INFO << " - count: " << QString::number(primarySubdivisions.count());
     if (primarySubdivisions.isEmpty())
     {
         qDebug() << Q_FUNC_INFO << " - END - 61";
