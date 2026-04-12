@@ -30,7 +30,6 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     //qDebug() << Q_FUNC_INFO ;
     hamlibTestOK = false;
     testWasRun = false;
-    hamlib = new HamLibClass();
 
     activateHamlibCheckBox = new QCheckBox();
     readOnlyModeCheckBox = new QCheckBox();
@@ -55,8 +54,10 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
 
 void SetupPageHamLib::stopHamlib ()
 {
-    hamlib->stop();
-    freqDisplayLabel->setText(defaultFreqMode);
+    // No-op: the live hamlib connection is owned exclusively by MainWindow.
+    // SetupDialog calls this on OK/Cancel, but with the single-connection design
+    // stopping it here would kill the radio link whenever the dialog is closed.
+    // MainWindow handles re-init when settings actually change.
 }
 
 bool SetupPageHamLib::wasTestRun() const
@@ -64,40 +65,49 @@ bool SetupPageHamLib::wasTestRun() const
     return testWasRun;
 }
 
+void SetupPageHamLib::setLiveHamlib(HamLibClass *liveHamlib)
+{
+    if (!liveHamlib || liveHamlib == m_liveHamlib)
+        return;
+    m_liveHamlib = liveHamlib;
+    connect(m_liveHamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChanged),
+            this, &SetupPageHamLib::slotRadioStatusChanged);
+    connect(m_liveHamlib, &HamLibClass::rigDisconnected, this, [this]{
+        freqDisplayLabel->setText(defaultFreqMode);
+        setTestResult(false);
+    });
+}
+
 void SetupPageHamLib::slotTestHamlib()
 {
    //qDebug() << Q_FUNC_INFO;
     testWasRun = true;
-    hamlib->stop ();
+    if (!m_liveHamlib) {
+        setTestResult(false);
+        return;
+    }
+    // Apply the form's current settings to the live hamlib, then reconnect.
+    if ((rigTypeComboBox->currentText().contains("NET rigctl")) || (rigTypeComboBox->currentText().contains("FLRig"))) {
+        m_liveHamlib->setNetworkPort(networkConfigWidget->getPort());
+        m_liveHamlib->setNetworkAddress(networkConfigWidget->getAddress());
+    } else {
+        m_liveHamlib->setPort(serialConfigWidget->getSerialPort());
+        m_liveHamlib->setSpeed(serialConfigWidget->getSerialBauds());
+        m_liveHamlib->setParity(serialConfigWidget->getParity());
+        m_liveHamlib->setFlow(serialConfigWidget->getFlowControl());
+        m_liveHamlib->setStop(serialConfigWidget->getStopBits());
+        m_liveHamlib->setDataBits(serialConfigWidget->getDataBits());
+    }
+    m_liveHamlib->setModelId(m_liveHamlib->getModelIdFromName(rigTypeComboBox->currentText()));
+    m_liveHamlib->setPoll(pollIntervalQSpinBox->value());
+    m_liveHamlib->stop();
     freqDisplayLabel->setText(defaultFreqMode);
-    if ((rigTypeComboBox->currentText ().contains ("NET rigctl"))  || (rigTypeComboBox->currentText ().contains ("FLRig")))
-    {
-       //qDebug() << Q_FUNC_INFO << " - FLRig/NetRig";
-        hamlib->setNetworkPort (networkConfigWidget->getPort ());
-        hamlib->setNetworkAddress (networkConfigWidget->getAddress ());
-    }
-    else
-    {
-       //qDebug() << Q_FUNC_INFO << " - Serial rig";
-        hamlib->setPort (serialConfigWidget->getSerialPort ());
-        hamlib->setSpeed (serialConfigWidget->getSerialBauds ());
-        hamlib->setParity(serialConfigWidget->getParity ());
-        hamlib->setFlow(serialConfigWidget->getFlowControl ());
-        hamlib->setStop(serialConfigWidget->getStopBits ());
-       //qDebug() << Q_FUNC_INFO << " - 50";
-        hamlib->setDataBits(serialConfigWidget->getDataBits ());
-       //qDebug() << Q_FUNC_INFO << " - 51";
-    }
-
-    hamlib->setModelId (hamlib->getModelIdFromName (rigTypeComboBox->currentText ()));
-    hamlib->setPoll (pollIntervalQSpinBox->value ());
-   //qDebug() << Q_FUNC_INFO << " - Calling hamlib->init";
-    bool ok = hamlib->init(true);
+    bool ok = m_liveHamlib->init(true);
     if (ok)
-        ok = hamlib->readRadio();
-    setTestResult (ok);
+        ok = m_liveHamlib->readRadio();
+    setTestResult(ok);
     if (!ok)
-        hamlib->stop ();
+        m_liveHamlib->stop();
    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -112,30 +122,28 @@ void SetupPageHamLib::slotRadioStatusChanged(RadioStatus _status)
 void SetupPageHamLib::setTestResult(const bool _ok)
 {
     //qDebug() << Q_FUNC_INFO ;
-    QPalette pal = testHamlibPushButton->palette();
-
     if (_ok )
     {
         //qDebug() << Q_FUNC_INFO << " - OK";
         testHamlibPushButton->setText (tr("Test: OK"));
-        pal.setColor(QPalette::Button, QColor(Qt::green));
+        // Use stylesheet so the green colour survives Qt's disabled-button rendering.
+        // QPalette alone is overridden by system/GTK themes on some Linux desktops.
+        testHamlibPushButton->setStyleSheet(
+            "QPushButton { background-color: #00cc00; color: black; }"
+            "QPushButton:disabled { background-color: #00cc00; color: black; }");
+        testHamlibPushButton->setEnabled(false);  // connected — nothing to test
         activateHamlibCheckBox->setEnabled (true);
-         //qDebug() << Q_FUNC_INFO << " - before reading freq";
-        //double freq = hamlib->getFrequency ();
-         //qDebug() << Q_FUNC_INFO << " - after reading freq";
-        //dataFromRigLineEdit->setText (QString::number(freq));
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << " - NOK";
         testHamlibPushButton->setText (tr("Test: NOK"));
-        pal.setColor(QPalette::Button, QColor(Qt::red));
+        testHamlibPushButton->setStyleSheet(
+            "QPushButton { background-color: #ff4444; color: white; }");
+        testHamlibPushButton->setEnabled(true);   // not connected — allow retry
         activateHamlibCheckBox->setChecked (false);
         activateHamlibCheckBox->setEnabled (false);
     }
-
-    testHamlibPushButton->setPalette(pal);
-    testHamlibPushButton->update();
     //qDebug() << Q_FUNC_INFO << " - NOK END";
 }
 
@@ -249,28 +257,21 @@ void SetupPageHamLib::createUI()
 
     connect(testHamlibPushButton, SIGNAL(clicked(bool)), this, SLOT(slotTestHamlib()) );
     connect(rigTypeComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(slotRadioComboBoxChanged(QString)) );
-    connect(hamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChanged),
-            this, &SetupPageHamLib::slotRadioStatusChanged);
-    connect(hamlib, &HamLibClass::rigDisconnected, this, [this]{ freqDisplayLabel->setText(defaultFreqMode); });
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void SetupPageHamLib::setRig()
 {
      //qDebug() << Q_FUNC_INFO;
-    // Rutine to fill the rig combo boxes
-    // Do not display debug codes when load the rig's
-    QStringList rigs;
-    rigs.clear();
-     //qDebug() << Q_FUNC_INFO << " - 10";
-    hamlib->initClass();
-    rigs << hamlib->getRigList();
+    if (!m_liveHamlib) return;
+    // getRigList() lazy-loads the rig database on first call (no initClass() needed).
+    QStringList rigs = m_liveHamlib->getRigList();
      //qDebug() << Q_FUNC_INFO << " - rigs: " << QString::number(rigs.length())<< QT_ENDL;
+    rigTypeComboBox->blockSignals(true);
     rigTypeComboBox->clear ();
     rigTypeComboBox->addItems (rigs);
     rigTypeComboBox->setCurrentIndex(0);
-    //rigTypeComboBox->clear();
-    //rigTypeComboBox->addItems(rigs);
+    rigTypeComboBox->blockSignals(false);
      //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -296,12 +297,17 @@ void SetupPageHamLib::showEvent(QShowEvent *event)
         setRig();        // calls hamlib->initClass() + fills combo from getRigList()
         loadSettings();  // re-apply saved settings now that combo is populated
     }
+    // Reflect the live connection state each time the tab becomes visible.
+    // Uses the read-only live pointer if available; does not touch the test hamlib.
+    if (m_liveHamlib)
+        setTestResult(m_liveHamlib->isRunning());
     QWidget::showEvent(event);
 }
 
 bool SetupPageHamLib::setRigType(const QString &_radio)
 {
-    int _index = rigTypeComboBox->findText(hamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
+    if (!m_liveHamlib) return false;
+    int _index = rigTypeComboBox->findText(m_liveHamlib->getNameFromModelId(_radio.toInt()), Qt::MatchFlag::MatchExactly);
        //qDebug() << "SetupPageHamLib::setRig: After: "  << QString::number(_index) ;
     if (_index >= 0)
     {
@@ -338,7 +344,7 @@ void SetupPageHamLib::saveSettings()
     settings.beginGroup ("HamLib");
     settings.setValue ("HamLibActive", QVariant((activateHamlibCheckBox->isChecked())));
     settings.setValue ("HamLibReadOnly", QVariant((readOnlyModeCheckBox->isChecked())));
-    settings.setValue ("HamLibRigType", hamlib->getModelIdFromName(rigTypeComboBox->currentText ()));
+    settings.setValue ("HamLibRigType", m_liveHamlib ? m_liveHamlib->getModelIdFromName(rigTypeComboBox->currentText()) : -1);
     settings.setValue ("HamLibRigPollRate", QString::number(pollIntervalQSpinBox->value ()));
     settings.setValue ("HamLibSerialPort", serialConfigWidget->getSerialPort ());
     settings.setValue ("HamLibSerialBauds", QString::number(serialConfigWidget->getSerialBauds ()));
@@ -358,7 +364,11 @@ void SetupPageHamLib::loadSettings()
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
+    // Block combo signals during load so slotRadioComboBoxChanged does not call
+    // setTestResult(false) and clobber the connection state indicator.
+    rigTypeComboBox->blockSignals(true);
     setRigType (settings.value("HamLibRigType").toString());
+    rigTypeComboBox->blockSignals(false);
     pollIntervalQSpinBox->setValue(settings.value("HamLibRigPollRate", 2000).toInt ());
     serialConfigWidget->setSerialPort (settings.value("HamLibSerialPort").toString());
     serialConfigWidget->setSerialBauds (settings.value("HamLibSerialBauds", 9600).toInt ());
@@ -374,7 +384,7 @@ void SetupPageHamLib::loadSettings()
 
     snapshot.active      = activateHamlibCheckBox->isChecked();
     snapshot.readOnly    = readOnlyModeCheckBox->isChecked();
-    snapshot.rigModelId  = hamlib->getModelIdFromName(rigTypeComboBox->currentText());
+    snapshot.rigModelId  = m_liveHamlib ? m_liveHamlib->getModelIdFromName(rigTypeComboBox->currentText()) : -1;
     snapshot.pollRate    = pollIntervalQSpinBox->value();
     snapshot.serialPort  = serialConfigWidget->getSerialPort();
     snapshot.serialBauds = serialConfigWidget->getSerialBauds();
@@ -390,7 +400,7 @@ bool SetupPageHamLib::hasSettingsChanged() const
 {
     if (snapshot.active      != activateHamlibCheckBox->isChecked())         return true;
     if (snapshot.readOnly    != readOnlyModeCheckBox->isChecked())            return true;
-    if (snapshot.rigModelId  != hamlib->getModelIdFromName(rigTypeComboBox->currentText())) return true;
+    if (snapshot.rigModelId  != (m_liveHamlib ? m_liveHamlib->getModelIdFromName(rigTypeComboBox->currentText()) : -1)) return true;
     if (snapshot.pollRate    != pollIntervalQSpinBox->value())                return true;
     if (snapshot.serialPort  != serialConfigWidget->getSerialPort())          return true;
     if (snapshot.serialBauds != serialConfigWidget->getSerialBauds())         return true;
