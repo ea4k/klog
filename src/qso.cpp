@@ -309,7 +309,7 @@ void QSO::operator=(QSO const &_other)
     hamqth_status   = _other.hamqth_status;
 
     eqsl_qsl_sent   = _other.eqsl_qsl_sent;
-    eqsl_qsl_rcvd   = _other.eqsl_qsl_sent;
+    eqsl_qsl_rcvd   = _other.eqsl_qsl_rcvd;
     comment         = _other.comment;
     address         = _other.address;
     ant_path        = _other.ant_path;
