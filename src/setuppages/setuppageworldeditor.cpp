@@ -27,6 +27,86 @@
 #include "setuppageworldeditor.h"
 #include "../callsign.h"
 
+// ---------------------------------------------------------------------------
+// AddSpecialCallsignDialog implementation
+// ---------------------------------------------------------------------------
+
+AddSpecialCallsignDialog::AddSpecialCallsignDialog(World *w, QWidget *parent)
+    : QDialog(parent), world(w)
+{
+    setWindowTitle(tr("Add Special Callsign"));
+
+    callLineEdit = new QLineEdit(this);
+    callLineEdit->setPlaceholderText(tr("e.g. RI1ANY"));
+
+    entityCombo = new QComboBox(this);
+    {
+        QSqlQuery q;
+        q.setForwardOnly(true);
+        if (q.exec("SELECT name, dxcc FROM entity WHERE (deleted IS NULL OR deleted=0) ORDER BY name"))
+        {
+            while (q.next())
+                entityCombo->addItem(q.value(0).toString(), q.value(1).toInt());
+        }
+    }
+
+    cqzCheck = new QCheckBox(tr("Override CQ Zone:"), this);
+    cqzSpin  = new QSpinBox(this);
+    cqzSpin->setRange(1, 40);
+    cqzSpin->setEnabled(false);
+    connect(cqzCheck, &QCheckBox::toggled, cqzSpin, &QSpinBox::setEnabled);
+
+    ituzCheck = new QCheckBox(tr("Override ITU Zone:"), this);
+    ituzSpin  = new QSpinBox(this);
+    ituzSpin->setRange(1, 90);
+    ituzSpin->setEnabled(false);
+    connect(ituzCheck, &QCheckBox::toggled, ituzSpin, &QSpinBox::setEnabled);
+
+    // Proper slot — fires every time the entity combo changes
+    connect(entityCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &AddSpecialCallsignDialog::slotEntityChanged);
+
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+    auto *cqzRow = new QHBoxLayout;
+    cqzRow->addWidget(cqzCheck);
+    cqzRow->addWidget(cqzSpin);
+    cqzRow->addStretch();
+
+    auto *ituzRow = new QHBoxLayout;
+    ituzRow->addWidget(ituzCheck);
+    ituzRow->addWidget(ituzSpin);
+    ituzRow->addStretch();
+
+    auto *form = new QFormLayout;
+    form->addRow(tr("Callsign:"), callLineEdit);
+    form->addRow(tr("Entity:"),   entityCombo);
+    form->addRow(cqzRow);
+    form->addRow(ituzRow);
+    form->addRow(buttonBox);
+
+    setLayout(form);
+
+    // Populate zone spinboxes with the first entity's defaults
+    slotEntityChanged(0);
+}
+
+void AddSpecialCallsignDialog::slotEntityChanged(int /*index*/)
+{
+    const int dxcc = entityCombo->currentData().toInt();
+    const int cq   = world->getEntityCqz(dxcc);
+    const int itu  = world->getEntityItuz(dxcc);
+    if (cq  > 0) cqzSpin->setValue(cq);
+    if (itu > 0) ituzSpin->setValue(itu);
+}
+
+QString AddSpecialCallsignDialog::callsign()     const { return callLineEdit->text().toUpper().trimmed(); }
+int     AddSpecialCallsignDialog::selectedDxcc() const { return entityCombo->currentData().toInt(); }
+int     AddSpecialCallsignDialog::cqz()          const { return cqzCheck->isChecked()  ? cqzSpin->value()  : -1; }
+int     AddSpecialCallsignDialog::ituz()         const { return ituzCheck->isChecked() ? ituzSpin->value() : -1; }
+
 SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
@@ -410,74 +490,11 @@ void SetupPageWorldEditor::refreshSpecialCallsignsTable()
 
 void SetupPageWorldEditor::slotAddSpecialCallsignClicked()
 {
-    QDialog dialog(this);
-    dialog.setWindowTitle(tr("Add Special Callsign"));
-
-    QFormLayout *form = new QFormLayout;
-
-    QLineEdit *callLineEdit = new QLineEdit(&dialog);
-    callLineEdit->setPlaceholderText(tr("e.g. RI1ANY"));
-    form->addRow(tr("Callsign:"), callLineEdit);
-
-    QComboBox *entityCombo = new QComboBox(&dialog);
-    {
-        QSqlQuery q;
-        q.setForwardOnly(true);
-        if (q.exec("SELECT name, dxcc FROM entity WHERE (deleted IS NULL OR deleted=0) ORDER BY name"))
-        {
-            while (q.next())
-                entityCombo->addItem(q.value(0).toString(), q.value(1).toInt());
-        }
-    }
-    form->addRow(tr("Entity:"), entityCombo);
-
-    // CQ Zone override
-    QCheckBox *cqzCheck   = new QCheckBox(tr("Override CQ Zone:"), &dialog);
-    QSpinBox  *cqzSpin    = new QSpinBox(&dialog);
-    cqzSpin->setRange(1, 40);
-    cqzSpin->setEnabled(false);
-    connect(cqzCheck, &QCheckBox::toggled, cqzSpin, &QSpinBox::setEnabled);
-    QHBoxLayout *cqzRow = new QHBoxLayout;
-    cqzRow->addWidget(cqzCheck);
-    cqzRow->addWidget(cqzSpin);
-    cqzRow->addStretch();
-    form->addRow(cqzRow);
-
-    // ITU Zone override
-    QCheckBox *ituzCheck  = new QCheckBox(tr("Override ITU Zone:"), &dialog);
-    QSpinBox  *ituzSpin   = new QSpinBox(&dialog);
-    ituzSpin->setRange(1, 90);
-    ituzSpin->setEnabled(false);
-    connect(ituzCheck, &QCheckBox::toggled, ituzSpin, &QSpinBox::setEnabled);
-    QHBoxLayout *ituzRow = new QHBoxLayout;
-    ituzRow->addWidget(ituzCheck);
-    ituzRow->addWidget(ituzSpin);
-    ituzRow->addStretch();
-    form->addRow(ituzRow);
-
-    // When entity changes, pre-fill the spinboxes with that entity's default zones
-    auto updateZoneDefaults = [&]() {
-        const int dxccSel = entityCombo->currentData().toInt();
-        cqzSpin->setValue(world->getEntityCqz(dxccSel));
-        ituzSpin->setValue(world->getEntityItuz(dxccSel));
-    };
-    connect(entityCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            [&](int) { updateZoneDefaults(); });
-    updateZoneDefaults();
-
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
-    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
-    form->addRow(buttonBox);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
-    mainLayout->addLayout(form);
-    dialog.setLayout(mainLayout);
-
-    if (dialog.exec() != QDialog::Accepted)
+    AddSpecialCallsignDialog dlg(world, this);
+    if (dlg.exec() != QDialog::Accepted)
         return;
 
-    const QString call = callLineEdit->text().toUpper().trimmed();
+    const QString call = dlg.callsign();
     if (call.isEmpty())
         return;
 
@@ -489,10 +506,7 @@ void SetupPageWorldEditor::slotAddSpecialCallsignClicked()
         return;
     }
 
-    const int dxcc = entityCombo->currentData().toInt();
-    const int cqz  = cqzCheck->isChecked()  ? cqzSpin->value()  : -1;
-    const int ituz = ituzCheck->isChecked() ? ituzSpin->value() : -1;
-    if (!dataProxy->addSpecialCallsign(call, dxcc, cqz, ituz))
+    if (!dataProxy->addSpecialCallsign(call, dlg.selectedDxcc(), dlg.cqz(), dlg.ituz()))
     {
         QMessageBox::warning(this, tr("Error"),
                              tr("Could not add the special callsign. It may already exist."));
