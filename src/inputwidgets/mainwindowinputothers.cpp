@@ -893,7 +893,6 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
 
     qDebug() << Q_FUNC_INFO << " -  40";
     QList<PrimarySubdivision> primarySubdivisions;
-    primarySubdivisions.clear();
 
     if (showAllCheckBox->isChecked())
     {
@@ -903,7 +902,7 @@ void MainWindowInputOthers::setEntityAndPrefix(const int _entity, const QString 
     {
         primarySubdivisions = dataProxy->getPrimarySubDivisions(currentInt, hostFullPrefix);
         currentPref = hostFullPrefix;
-        if (primarySubdivisions.isEmpty())
+        if (primarySubdivisions.isEmpty() && hostFullPrefix != hostPrefix)
         {
             qDebug() << Q_FUNC_INFO << " -  50";
             qDebug() << Q_FUNC_INFO << " - primarySubdivisions is empty with hostPrefix, running for the main prefix";
