@@ -77,7 +77,9 @@ QSO MainWindowInputEQSL::getQSOData(QSO _qso)
     qso.setEQSLQSLRDate(getEQSLRecDate());
     qso.setEQSLQSLSDate(getEQSLSenDate());
     qso.setLoTWQSLRDate(getLOTWRecDate());
-    qso.setLoTWQSLSDate(getLOTWSenDate());
+    // LOTW_QSLSDATE = date the QSO was uploaded to LoTW; only valid when actually sent (Y) or ignored (I)
+    if (getLOTWSenStatus() == "Y" || getLOTWSenStatus() == "I")
+        qso.setLoTWQSLSDate(getLOTWSenDate());
     qso.setQRZCOMDate(getQRZCOMDate());
 
     return qso;
@@ -471,37 +473,27 @@ void MainWindowInputEQSL::slotLotwSentComboBoxChanged()
    //qDebug() << Q_FUNC_INFO << " - Start: ";
 
     int i = lotwSentComboBox->currentIndex();
-//{Y, N, R, I, V}
-    //(QSLSDATE is only valid if QSL_SENT is Y-0, Q-3, or I-4)
-    // Y-Yes = 0
+//{Y, N, R, Q, I}
+    // LOTW_QSLSDATE = date the QSO was uploaded to LoTW; only valid for Y and I
+    // Y-Sent = 0
     // N-No = 1
     // R-Requested = 2
-    // Q-Queued = 3
+    // Q-Queued = 3 (not yet uploaded, no date)
     // I-Ignore = 4
     switch (i)
     {
-        case 0:
+        case 0: // Y - Sent: date is the actual upload date
             lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
-        case 2:
-            lotwSentQDateEdit->setVisible(true);
-            lotwSentQDateEdit->setEnabled(true);
-            lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
-        break;
-        case 3:
-            lotwSentQDateEdit->setVisible(true);
-            lotwSentQDateEdit->setEnabled(true);
-            lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
-        break;
-        case 4:
+        case 4: // I - Ignore
             lotwSentQDateEdit->setVisible(true);
             lotwSentQDateEdit->setEnabled(true);
             lotwSentQDateEdit->setDate((QDateTime::currentDateTime()).date());
         break;
 
-        default: //NO
+        default: // N, R, Q - not yet uploaded, no date
             //lotwSentQDateEdit->setVisible(false);
             lotwSentQDateEdit->setEnabled(false);
         break;
