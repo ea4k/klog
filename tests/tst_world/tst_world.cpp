@@ -47,6 +47,7 @@ private slots:
     void test_EntityIdentification();
     //void test_ZonesIdentification();
     void test_SeveralIdentification();
+    void test_SharedPrefixEntityIdentification();
 /*
 
     QString getQRZEntityName(const QString &_qrz);
@@ -205,6 +206,40 @@ void tst_World::test_SeveralIdentification()
     QVERIFY2(world->getLocator(281) == "IN80GH", "Locator for 281 not properly identified");
 }
 
+
+void tst_World::test_SharedPrefixEntityIdentification()
+{
+    // Regression test for: getQRZARRLId("CE9") returning 241 (South Shetland Islands)
+    // instead of 13 (Antarctica).
+    //
+    // Root cause: the prefixesofentity table schema uses UNIQUE(prefix, dxcc) rather
+    // than UNIQUE(prefix), so the same prefix can appear for multiple entities.
+    // getWorldData() has no ORDER BY and uses QHash::insert() which silently overwrites
+    // duplicate keys — the last-loaded row wins.  Since South Shetland Islands (241)
+    // appears after Antarctica (13) in cty.csv, CE9->241 overwrites CE9->13 in the
+    // QHash, causing the wrong entity to be returned.
+    //
+    // CE9 is Antarctica's main prefix (field 0 in cty.csv).  It also appears in South
+    // Shetland Islands' prefix list (field 9).  CE9 must resolve to Antarctica.
+
+    // CE9 is Antarctica's main prefix — must NOT resolve to South Shetland Islands
+    QVERIFY2(world->getQRZARRLId("CE9") != 241,
+             "CE9 must NOT resolve to South Shetland Islands (241) — regression detected");
+    QVERIFY2(world->getQRZARRLId("CE9") == 13,
+             "CE9 should resolve to Antarctica (13)");
+
+    // Callsigns using the CE9 prefix must also resolve to Antarctica
+    QVERIFY2(world->getQRZARRLId("CE9AA") == 13,
+             "CE9AA should resolve to Antarctica (13)");
+
+    // KC4 is an exclusive Antarctica prefix (US Antarctic stations); confirms entity 13
+    QVERIFY2(world->getQRZARRLId("KC4AA") == 13,
+             "KC4AA should resolve to Antarctica (13)");
+
+    // South Shetland Islands must still be reachable via its own main prefix VP8/h
+    QVERIFY2(world->getQRZARRLId("VP8/S") == 241,
+             "VP8/S should resolve to South Shetland Islands (241)");
+}
 
 QTEST_GUILESS_MAIN(tst_World)
 
