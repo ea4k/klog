@@ -322,28 +322,34 @@ int World::getEntityItuz(const int _enti)
 
 int World::getQRZARRLId(const QString &_qrz)
 {
-   //qDebug() << Q_FUNC_INFO << ": " << _qrz;
+    qDebug() << Q_FUNC_INFO << ": " << _qrz;
     ensureWorldLoaded();
     QString  call = _qrz.toUpper();
     Callsign callsign(call);
     if (!callsign.isValidPrefix())
+    {
+        qDebug() << Q_FUNC_INFO << " - END -1 -1";
         return -1;
+    }
     // Lets look for the full call to identify special callsigns
     int entID = worldPrefixes.value(call, -1);
+    qDebug() << Q_FUNC_INFO << " - entID-1:  " << entID;
     if (entID > 0)
         return entID;
 
     QString prefix = callsign.getHostFullPrefix();
-   //qDebug() << Q_FUNC_INFO << " - prefix: " << prefix;
+    qDebug() << Q_FUNC_INFO << " - prefix: " << prefix;
     entID = worldPrefixes.value(prefix, -2);
+    qDebug() << Q_FUNC_INFO << " - entID-2:  " << entID;
     while ((prefix.length()>1) && (entID<=0))
     {
-       //qDebug() << Q_FUNC_INFO << " - " << QString("Pref: %1 / EntID: %2").arg(prefix).arg(entID);
+        qDebug() << Q_FUNC_INFO << " - " << QString("Pref: %1 / EntID: %2").arg(prefix).arg(entID);
         prefix.chop(1);
         entID = worldPrefixes.value(prefix, -3);
-       //qDebug() << Q_FUNC_INFO << " - " << QString("New Pref: %1 / New EntID: %2").arg(prefix).arg(entID);
+        qDebug() << Q_FUNC_INFO << " - entID-3:  " << entID;
+        qDebug() << Q_FUNC_INFO << " - " << QString("New Pref: %1 / New EntID: %2").arg(prefix).arg(entID);
     }
-   //qDebug() << Q_FUNC_INFO << " - " << QString("Callsign: %1 / Final EntID: %2").arg(_qrz).arg(entID);
+    qDebug() << Q_FUNC_INFO << " - " << QString("Callsign: %1 / Final EntID: %2").arg(_qrz).arg(entID);
     return entID;
 }
 
