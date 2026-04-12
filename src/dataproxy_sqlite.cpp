@@ -7847,8 +7847,6 @@ bool DataProxy_SQLite::getFreqHashData()
 QHash<QString, int> DataProxy_SQLite::getWorldData()
 {
     QHash<QString, int> world;
-    QSqlQuery query;
-    query.setForwardOnly(true);
 
     // Lets see how many prefixes do we have
     QSqlQuery countQuery("SELECT COUNT(*) FROM prefixesofentity");
@@ -7856,17 +7854,32 @@ QHash<QString, int> DataProxy_SQLite::getWorldData()
         world.reserve(countQuery.value(0).toInt());
     }
 
-    // Optimized query
-    QString queryString = "SELECT CASE WHEN substr(prefix, 1, 1) = '=' THEN substr(prefix, 2) ELSE prefix END, dxcc FROM prefixesofentity";
-
-    if (!query.exec(queryString)) {
+    // Phase 1: load all sub-prefix entries. When a prefix maps to multiple entities
+    // (e.g. CE9 appears in both Antarctica and South Shetland Islands), the last row
+    // loaded wins — which is non-deterministic. Phase 2 below corrects this.
+    QSqlQuery query;
+    query.setForwardOnly(true);
+    const QString subPrefixQuery = "SELECT CASE WHEN substr(prefix, 1, 1) = '=' "
+                                   "THEN substr(prefix, 2) ELSE prefix END, dxcc "
+                                   "FROM prefixesofentity";
+    if (!query.exec(subPrefixQuery)) {
         emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
         return world;
     }
-
-    while (query.next()) {
+    while (query.next())
         world.insert(query.value(0).toString(), query.value(1).toInt());
+
+    // Phase 2: overwrite with each entity's canonical main prefix so it always wins
+    // over any alias entry loaded in phase 1 (e.g. CE9 → 13 Antarctica overwrites
+    // CE9 → 241 South Shetland Islands).
+    QSqlQuery mainPrefixQuery;
+    mainPrefixQuery.setForwardOnly(true);
+    if (!mainPrefixQuery.exec("SELECT mainprefix, dxcc FROM entity WHERE mainprefix != ''")) {
+        emit queryError(Q_FUNC_INFO, mainPrefixQuery.lastError().databaseText(), mainPrefixQuery.lastError().text(), mainPrefixQuery.lastQuery());
+        return world;
     }
+    while (mainPrefixQuery.next())
+        world.insert(mainPrefixQuery.value(0).toString(), mainPrefixQuery.value(1).toInt());
 
     return world;
 }
