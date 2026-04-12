@@ -659,7 +659,7 @@ void QSO::clear()
     check = QString();
     clase = QString();
     clublogQSOUpdateDate = QDate();
-    clublog_status = QString();
+    clublog_status = "N";
     county = QString();
     comment = QString();
     continent = QString();
@@ -677,7 +677,7 @@ void QSO::clear()
     contacted_owner = QString();
     eQSLRDate = QDate();
     eQSLSDate = QDate();
-    eqsl_qsl_rcvd = QString();
+    eqsl_qsl_rcvd = "N";
     eqsl_qsl_sent = QString();
     fists = -1;
     fists_cc = -1;
@@ -688,10 +688,10 @@ void QSO::clear()
     gridsquare_ext = QString();
     operatorCall = QString();
     hrdlogUploadDate = QDate();
-    hrdlog_status = QString();
-    hamlogeu_status = QString();
+    hrdlog_status = "N";
+    hamlogeu_status = "N";
     hamlogeuUpdateDate = QDate();
-    hamqth_status = QString();
+    hamqth_status = "N";
     hamqthUpdateDate = QDate();
     iota = QString();
     iota_ID = -1;
@@ -701,7 +701,7 @@ void QSO::clear()
     longitude = QString();
     QSLLoTWRDate = QDate();
     QSLLoTWSDate = QDate();
-    lotw_qsl_rcvd = QString();
+    lotw_qsl_rcvd = "N";
     lotw_qsl_sent = QString();
     max_bursts = 0;
     mode = QString();
@@ -747,11 +747,11 @@ void QSO::clear()
     propMode = QString();
     public_key = QString();
     QRZComDate = QDate();
-    QRZCom_status = QString();
+    QRZCom_status = "N";
     qslmsg = QString();
     QSLRDate = QDate();
     QSLSDate = QDate();
-    qsl_rcvd = QString();
+    qsl_rcvd = "N";
     qsl_sent = QString();
     qslSenVia = QString();
     qslRecVia = QString();
@@ -1568,7 +1568,7 @@ void QSO::setDefaultEQSLSentServices(const bool _send)
         {
             setLoTWQSL_SENT ("Q");
         }
-        if ((getClubLogStatus ()).isEmpty())
+        if ((getClubLogStatus ()).isEmpty() || getClubLogStatus () == "N")
         {
             setClubLogStatus ("M");
         }
@@ -1577,7 +1577,7 @@ void QSO::setDefaultEQSLSentServices(const bool _send)
         {
             setEQSLQSL_SENT ("Q");
         }
-        if ((getQRZCOMStatus ()).isEmpty())
+        if ((getQRZCOMStatus ()).isEmpty() || getQRZCOMStatus () == "N")
         {
             setQRZCOMStatus ("M");
         }
