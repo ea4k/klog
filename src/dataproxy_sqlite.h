@@ -255,8 +255,15 @@ public:
     QString getEntityPrefixes(const int _enti);
     QStringList getLongPrefixes();
     QStringList getSpecialCallsigns();
-    QList<QPair<QString, int>> getSpecialCallsignPairs();
-    bool addSpecialCallsign(const QString &callsign, int dxccId);
+
+    struct SpecialCallsignInfo {
+        QString callsign;
+        int dxcc;
+        int cqz;
+        int ituz;
+    };
+    QList<SpecialCallsignInfo> getSpecialCallsignPairs();
+    bool addSpecialCallsign(const QString &callsign, int dxccId, int cqz = -1, int ituz = -1);
     bool removeSpecialCallsign(const QString &callsign);
     QHash<QString, int> getWorldData();
     //bool getFreqHashData();

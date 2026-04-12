@@ -360,8 +360,8 @@ void SetupPageWorldEditor::createSpecialCallsignsPanel()
     specialCallsignsGroup = new QGroupBox(tr("Special Callsigns"));
     specialCallsignsGroup->setToolTip(tr("Callsigns not in the CTY data that should map to a specific DXCC entity (e.g. expedition callsigns like RI1ANY for Antarctica)."));
 
-    specialCallsignsTable = new QTableWidget(0, 2, specialCallsignsGroup);
-    specialCallsignsTable->setHorizontalHeaderLabels({tr("Callsign"), tr("Entity")});
+    specialCallsignsTable = new QTableWidget(0, 4, specialCallsignsGroup);
+    specialCallsignsTable->setHorizontalHeaderLabels({tr("Callsign"), tr("Entity"), tr("CQ Zone"), tr("ITU Zone")});
     specialCallsignsTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     specialCallsignsTable->setSelectionMode(QAbstractItemView::SingleSelection);
     specialCallsignsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -392,16 +392,19 @@ void SetupPageWorldEditor::createSpecialCallsignsPanel()
 void SetupPageWorldEditor::refreshSpecialCallsignsTable()
 {
     specialCallsignsTable->setRowCount(0);
-    const auto pairs = dataProxy->getSpecialCallsignPairs();
-    for (const auto &p : pairs)
+    const auto entries = dataProxy->getSpecialCallsignPairs();
+    for (const auto &e : entries)
     {
         const int row = specialCallsignsTable->rowCount();
         specialCallsignsTable->insertRow(row);
-        specialCallsignsTable->setItem(row, 0, new QTableWidgetItem(p.first));
-        const QString entityName = world->getEntityName(p.second);
-        specialCallsignsTable->setItem(row, 1, new QTableWidgetItem(entityName));
+        specialCallsignsTable->setItem(row, 0, new QTableWidgetItem(e.callsign));
+        specialCallsignsTable->setItem(row, 1, new QTableWidgetItem(world->getEntityName(e.dxcc)));
+        specialCallsignsTable->setItem(row, 2, new QTableWidgetItem(QString::number(e.cqz)));
+        specialCallsignsTable->setItem(row, 3, new QTableWidgetItem(QString::number(e.ituz)));
     }
     specialCallsignsTable->resizeColumnToContents(0);
+    specialCallsignsTable->resizeColumnToContents(2);
+    specialCallsignsTable->resizeColumnToContents(3);
     removeSpecialButton->setEnabled(false);
 }
 
@@ -428,6 +431,40 @@ void SetupPageWorldEditor::slotAddSpecialCallsignClicked()
     }
     form->addRow(tr("Entity:"), entityCombo);
 
+    // CQ Zone override
+    QCheckBox *cqzCheck   = new QCheckBox(tr("Override CQ Zone:"), &dialog);
+    QSpinBox  *cqzSpin    = new QSpinBox(&dialog);
+    cqzSpin->setRange(1, 40);
+    cqzSpin->setEnabled(false);
+    connect(cqzCheck, &QCheckBox::toggled, cqzSpin, &QSpinBox::setEnabled);
+    QHBoxLayout *cqzRow = new QHBoxLayout;
+    cqzRow->addWidget(cqzCheck);
+    cqzRow->addWidget(cqzSpin);
+    cqzRow->addStretch();
+    form->addRow(cqzRow);
+
+    // ITU Zone override
+    QCheckBox *ituzCheck  = new QCheckBox(tr("Override ITU Zone:"), &dialog);
+    QSpinBox  *ituzSpin   = new QSpinBox(&dialog);
+    ituzSpin->setRange(1, 90);
+    ituzSpin->setEnabled(false);
+    connect(ituzCheck, &QCheckBox::toggled, ituzSpin, &QSpinBox::setEnabled);
+    QHBoxLayout *ituzRow = new QHBoxLayout;
+    ituzRow->addWidget(ituzCheck);
+    ituzRow->addWidget(ituzSpin);
+    ituzRow->addStretch();
+    form->addRow(ituzRow);
+
+    // When entity changes, pre-fill the spinboxes with that entity's default zones
+    auto updateZoneDefaults = [&]() {
+        const int dxccSel = entityCombo->currentData().toInt();
+        cqzSpin->setValue(world->getEntityCqz(dxccSel));
+        ituzSpin->setValue(world->getEntityItuz(dxccSel));
+    };
+    connect(entityCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            [&](int) { updateZoneDefaults(); });
+    updateZoneDefaults();
+
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
     connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
@@ -453,7 +490,9 @@ void SetupPageWorldEditor::slotAddSpecialCallsignClicked()
     }
 
     const int dxcc = entityCombo->currentData().toInt();
-    if (!dataProxy->addSpecialCallsign(call, dxcc))
+    const int cqz  = cqzCheck->isChecked()  ? cqzSpin->value()  : -1;
+    const int ituz = ituzCheck->isChecked() ? ituzSpin->value() : -1;
+    if (!dataProxy->addSpecialCallsign(call, dxcc, cqz, ituz))
     {
         QMessageBox::warning(this, tr("Error"),
                              tr("Could not add the special callsign. It may already exist."));

@@ -7800,15 +7800,22 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
     return qs;
 }
 
-QList<QPair<QString, int>> DataProxy_SQLite::getSpecialCallsignPairs()
+QList<DataProxy_SQLite::SpecialCallsignInfo> DataProxy_SQLite::getSpecialCallsignPairs()
 {
-    QList<QPair<QString, int>> result;
+    QList<SpecialCallsignInfo> result;
     QSqlQuery query;
     query.setForwardOnly(true);
-    if (query.exec("SELECT substr(prefix, 2), dxcc FROM prefixesofentity WHERE prefix LIKE '=%' ORDER BY prefix"))
+    if (query.exec("SELECT substr(prefix, 2), dxcc, cqz, ituz FROM prefixesofentity WHERE prefix LIKE '=%' ORDER BY prefix"))
     {
         while (query.next())
-            result.append({query.value(0).toString(), query.value(1).toInt()});
+        {
+            SpecialCallsignInfo info;
+            info.callsign = query.value(0).toString();
+            info.dxcc     = query.value(1).toInt();
+            info.cqz      = query.value(2).toInt();
+            info.ituz     = query.value(3).toInt();
+            result.append(info);
+        }
     }
     else
     {
@@ -7817,10 +7824,11 @@ QList<QPair<QString, int>> DataProxy_SQLite::getSpecialCallsignPairs()
     return result;
 }
 
-bool DataProxy_SQLite::addSpecialCallsign(const QString &callsign, int dxccId)
+bool DataProxy_SQLite::addSpecialCallsign(const QString &callsign, int dxccId, int cqz, int ituz)
 {
-    const int cqz  = getCQzFromEntity(dxccId);
-    const int ituz = getITUzFromEntity(dxccId);
+    // If a zone is not provided (< 1), fall back to the entity's default
+    if (cqz  < 1) cqz  = getCQzFromEntity(dxccId);
+    if (ituz < 1) ituz = getITUzFromEntity(dxccId);
     if (cqz < 0 || ituz < 0)
         return false;
 
