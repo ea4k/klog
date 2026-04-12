@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "setuppageworldeditor.h"
+#include "../callsign.h"
 
 SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent)
 {
@@ -88,10 +89,13 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     buttonsLayout->addWidget(editEntityPushButton);
     buttonsLayout->addWidget(delEntityPushButton);
 
+    createSpecialCallsignsPanel();
+
     QVBoxLayout *layout = new QVBoxLayout;
 
     layout->addWidget(worldView);
     layout->addLayout(buttonsLayout);
+    layout->addWidget(specialCallsignsGroup);
    //qDebug() << Q_FUNC_INFO << " - 50";
     setLayout(layout);
 
@@ -245,6 +249,9 @@ void SetupPageWorldEditor::createActions()
 
     connect(loadWorldPushButton, SIGNAL(clicked()), this, SLOT(slotImportWorldButtonClicked()) );
 
+    connect(addSpecialButton,    &QPushButton::clicked, this, &SetupPageWorldEditor::slotAddSpecialCallsignClicked);
+    connect(removeSpecialButton, &QPushButton::clicked, this, &SetupPageWorldEditor::slotRemoveSpecialCallsignClicked);
+
 
 
 
@@ -344,7 +351,141 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
         msgBox.setText(tr("Entities information has not been updated."));
     }
     msgBox.exec();
+    refreshSpecialCallsignsTable();
        //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked - END";
+}
+
+void SetupPageWorldEditor::createSpecialCallsignsPanel()
+{
+    specialCallsignsGroup = new QGroupBox(tr("Special Callsigns"));
+    specialCallsignsGroup->setToolTip(tr("Callsigns not in the CTY data that should map to a specific DXCC entity (e.g. expedition callsigns like RI1ANY for Antarctica)."));
+
+    specialCallsignsTable = new QTableWidget(0, 2, specialCallsignsGroup);
+    specialCallsignsTable->setHorizontalHeaderLabels({tr("Callsign"), tr("Entity")});
+    specialCallsignsTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    specialCallsignsTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    specialCallsignsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    specialCallsignsTable->horizontalHeader()->setStretchLastSection(true);
+    specialCallsignsTable->verticalHeader()->setVisible(false);
+
+    addSpecialButton    = new QPushButton(tr("Add"));
+    removeSpecialButton = new QPushButton(tr("Remove"));
+    removeSpecialButton->setEnabled(false);
+
+    connect(specialCallsignsTable, &QTableWidget::itemSelectionChanged, this, [this]() {
+        removeSpecialButton->setEnabled(!specialCallsignsTable->selectedItems().isEmpty());
+    });
+
+    QHBoxLayout *btnLayout = new QHBoxLayout;
+    btnLayout->addStretch();
+    btnLayout->addWidget(addSpecialButton);
+    btnLayout->addWidget(removeSpecialButton);
+
+    QVBoxLayout *groupLayout = new QVBoxLayout;
+    groupLayout->addWidget(specialCallsignsTable);
+    groupLayout->addLayout(btnLayout);
+    specialCallsignsGroup->setLayout(groupLayout);
+
+    refreshSpecialCallsignsTable();
+}
+
+void SetupPageWorldEditor::refreshSpecialCallsignsTable()
+{
+    specialCallsignsTable->setRowCount(0);
+    const auto pairs = dataProxy->getSpecialCallsignPairs();
+    for (const auto &p : pairs)
+    {
+        const int row = specialCallsignsTable->rowCount();
+        specialCallsignsTable->insertRow(row);
+        specialCallsignsTable->setItem(row, 0, new QTableWidgetItem(p.first));
+        const QString entityName = world->getEntityName(p.second);
+        specialCallsignsTable->setItem(row, 1, new QTableWidgetItem(entityName));
+    }
+    specialCallsignsTable->resizeColumnToContents(0);
+    removeSpecialButton->setEnabled(false);
+}
+
+void SetupPageWorldEditor::slotAddSpecialCallsignClicked()
+{
+    QDialog dialog(this);
+    dialog.setWindowTitle(tr("Add Special Callsign"));
+
+    QFormLayout *form = new QFormLayout;
+
+    QLineEdit *callLineEdit = new QLineEdit(&dialog);
+    callLineEdit->setPlaceholderText(tr("e.g. RI1ANY"));
+    form->addRow(tr("Callsign:"), callLineEdit);
+
+    QComboBox *entityCombo = new QComboBox(&dialog);
+    {
+        QSqlQuery q;
+        q.setForwardOnly(true);
+        if (q.exec("SELECT name, dxcc FROM entity WHERE (deleted IS NULL OR deleted=0) ORDER BY name"))
+        {
+            while (q.next())
+                entityCombo->addItem(q.value(0).toString(), q.value(1).toInt());
+        }
+    }
+    form->addRow(tr("Entity:"), entityCombo);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+    form->addRow(buttonBox);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
+    mainLayout->addLayout(form);
+    dialog.setLayout(mainLayout);
+
+    if (dialog.exec() != QDialog::Accepted)
+        return;
+
+    const QString call = callLineEdit->text().toUpper().trimmed();
+    if (call.isEmpty())
+        return;
+
+    Callsign cs(call);
+    if (!cs.isValid())
+    {
+        QMessageBox::warning(this, tr("Invalid Callsign"),
+                             tr("'%1' is not a valid callsign.").arg(call));
+        return;
+    }
+
+    const int dxcc = entityCombo->currentData().toInt();
+    if (!dataProxy->addSpecialCallsign(call, dxcc))
+    {
+        QMessageBox::warning(this, tr("Error"),
+                             tr("Could not add the special callsign. It may already exist."));
+        return;
+    }
+
+    world->readWorld();
+    refreshSpecialCallsignsTable();
+}
+
+void SetupPageWorldEditor::slotRemoveSpecialCallsignClicked()
+{
+    const int row = specialCallsignsTable->currentRow();
+    if (row < 0)
+        return;
+
+    const QString call = specialCallsignsTable->item(row, 0)->text();
+    const int ret = QMessageBox::question(this, tr("Remove Special Callsign"),
+                                          tr("Remove '%1' from the special callsigns list?").arg(call));
+    if (ret != QMessageBox::Yes)
+        return;
+
+    if (dataProxy->removeSpecialCallsign(call))
+    {
+        world->readWorld();
+        refreshSpecialCallsignsTable();
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Error"),
+                             tr("Could not remove the special callsign '%1'.").arg(call));
+    }
 }
 
 

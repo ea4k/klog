@@ -61,6 +61,8 @@ private slots:
     void slotAnalyzeEntityAddedSignal(const QStringList _qs);
 
     void slotImportWorldButtonClicked();
+    void slotAddSpecialCallsignClicked();
+    void slotRemoveSpecialCallsignClicked();
 
 private:
     World *world;
@@ -71,12 +73,17 @@ private:
     void createWorldModel();
     void createActions();
     bool isWorldEmpty();
+    void createSpecialCallsignsPanel();
+    void refreshSpecialCallsignsTable();
 
     QSqlRelationalTableModel *worldModel;
     QWidget *worldPanel;
     QTableView *worldView;
     QTreeWidget *searchResultsTreeWidget;
 
+    QGroupBox   *specialCallsignsGroup;
+    QTableWidget *specialCallsignsTable;
+    QPushButton *addSpecialButton, *removeSpecialButton;
 
     QPushButton *addEntityPushButton, *delEntityPushButton, *editEntityPushButton, *exportWorldPushButton, *loadWorldPushButton;
 

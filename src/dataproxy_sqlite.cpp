@@ -7800,6 +7800,59 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
     return qs;
 }
 
+QList<QPair<QString, int>> DataProxy_SQLite::getSpecialCallsignPairs()
+{
+    QList<QPair<QString, int>> result;
+    QSqlQuery query;
+    query.setForwardOnly(true);
+    if (query.exec("SELECT substr(prefix, 2), dxcc FROM prefixesofentity WHERE prefix LIKE '=%' ORDER BY prefix"))
+    {
+        while (query.next())
+            result.append({query.value(0).toString(), query.value(1).toInt()});
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+    }
+    return result;
+}
+
+bool DataProxy_SQLite::addSpecialCallsign(const QString &callsign, int dxccId)
+{
+    const int cqz  = getCQzFromEntity(dxccId);
+    const int ituz = getITUzFromEntity(dxccId);
+    if (cqz < 0 || ituz < 0)
+        return false;
+
+    const QString prefix = "=" + callsign.toUpper();
+    QSqlQuery query;
+    query.prepare("INSERT OR REPLACE INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?)");
+    query.addBindValue(prefix);
+    query.addBindValue(dxccId);
+    query.addBindValue(cqz);
+    query.addBindValue(ituz);
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return false;
+    }
+    return true;
+}
+
+bool DataProxy_SQLite::removeSpecialCallsign(const QString &callsign)
+{
+    const QString prefix = "=" + callsign.toUpper();
+    QSqlQuery query;
+    query.prepare("DELETE FROM prefixesofentity WHERE prefix = ?");
+    query.addBindValue(prefix);
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return false;
+    }
+    return query.numRowsAffected() > 0;
+}
+
 /*
 bool DataProxy_SQLite::getFreqHashData()
 {
