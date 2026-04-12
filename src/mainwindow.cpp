@@ -473,6 +473,15 @@ void MainWindow::init()
    //qInfo() << "[KLOG-TIMING] init() 10 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     dataProxy->loadDuplicateCache(currentLog); // async: lanza hilo BG y vuelve inmediatamente
+
+    // If the window was shown before init() ran (Proposal 4 startup ordering),
+    // showEvent() fired while upAndRunning was still false and skipped scheduling
+    // slotInitHamlib.  Catch that case here so Hamlib always auto-connects.
+    if (!hamlibConnectionAttempted) {
+        hamlibConnectionAttempted = true;
+        QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
+    }
+
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qInfo() << "[KLOG-TIMING] init() TOTAL:" << initTimer.elapsed() << "ms";
 }
