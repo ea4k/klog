@@ -78,7 +78,7 @@ endif()
 add_subdirectory(src)
 
 # Option to enable/disable tests
-option(BUILD_TESTING "Build the testing tree." OFF)
+option(BUILD_TESTING "Build the testing tree." ON)
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
