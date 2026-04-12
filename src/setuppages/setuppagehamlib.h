@@ -64,6 +64,7 @@ public:
     void loadSettings();
     bool hasSettingsChanged() const;
     bool wasTestRun() const;
+    void setLiveHamlib(HamLibClass *live);
 
 public slots:
     //void slotScanPorts();
@@ -96,6 +97,7 @@ private:
     QString defaultFreqMode;
 
     HamLibClass *hamlib;
+    HamLibClass *m_liveHamlib = nullptr;
 
     QCheckBox *activateHamlibCheckBox, *readOnlyModeCheckBox; //, *RTSCheckBox, *DTRCheckBox;
     bool networkRadio, hamlibTestOK, testWasRun;

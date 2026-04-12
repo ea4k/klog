@@ -289,12 +289,27 @@ void SetupPageHamLib::setDefaults()
 }
 
 
+void SetupPageHamLib::setLiveHamlib(HamLibClass *live)
+{
+    m_liveHamlib = live;
+    if (m_liveHamlib) {
+        connect(m_liveHamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChanged),
+                this, &SetupPageHamLib::slotRadioStatusChanged);
+        connect(m_liveHamlib, &HamLibClass::rigDisconnected,
+                this, [this]{ freqDisplayLabel->setText(defaultFreqMode); });
+    }
+}
+
 void SetupPageHamLib::showEvent(QShowEvent *event)
 {
     if (!m_rigsLoaded) {
         m_rigsLoaded = true;
         setRig();        // calls hamlib->initClass() + fills combo from getRigList()
         loadSettings();  // re-apply saved settings now that combo is populated
+    }
+    if (m_liveHamlib && m_liveHamlib->isRunning()) {
+        setTestResult(true);
+        m_liveHamlib->forceRead();
     }
     QWidget::showEvent(event);
 }

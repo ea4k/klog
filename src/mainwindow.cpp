@@ -121,6 +121,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     setupDialog = new SetupDialog(dataProxy, world, this);
     // [PROPOSAL-5] SetupDialog: only opened on demand (or first run)
    //qInfo() << "[KLOG-TIMING] ctor 021 - SetupDialog [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    setupDialog->setLiveHamlib(hamlib);
 
     satTabWidget = new MainWindowSatTab(dataProxy);
    //qInfo() << "[KLOG-TIMING] ctor 022 - MainWindowSatTab:" << timer.elapsed() << "ms"; timer.restart();
