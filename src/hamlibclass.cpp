@@ -296,6 +296,10 @@ bool HamLibClass::readSplit()
         return false;
     if (!splitQuerySupported)
         return true;
+    // Memory-channel mode: split is not applicable and some rigs switch VFOs
+    // to answer the query, causing display flickering.  Skip it entirely.
+    if (currentVfo == RIG_VFO_MEM)
+        return true;
 
     split_t split = RIG_SPLIT_OFF;
     vfo_t tx_vfo = RIG_VFO_SUB;
@@ -619,6 +623,49 @@ bool HamLibClass::init(bool _active)
        //qDebug() << Q_FUNC_INFO << " - SUCCESS: Rig opened";
         rig_state = RigState::Connected;
         //connected = true;
+
+        // Probe whether rig_get_split_vfo switches the active VFO as a side-effect.
+        // Some rigs (e.g. older Kenwood TS-450S) implement this query by physically
+        // toggling to the TX VFO and back, causing the display to flicker to a
+        // different band/frequency on every poll cycle (related to issue #947).
+        // We detect this by comparing the current VFO and frequency before and after
+        // the probe call.  If they differ we restore immediately and disable split
+        // polling for this session so normal operation is never disturbed.
+        {
+            vfo_t  vfoBefore   = RIG_VFO_NONE;
+            freq_t freqBefore  = 0;
+            const bool vfoReadOk  = (rig_get_vfo (my_rig, &vfoBefore)              == RIG_OK);
+            const bool freqReadOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqBefore) == RIG_OK);
+
+            split_t probeSplt  = RIG_SPLIT_OFF;
+            vfo_t   probeTxVfo = RIG_VFO_SUB;
+            const int probeRet = rig_get_split_vfo(my_rig, RIG_VFO_CURR, &probeSplt, &probeTxVfo);
+
+            if (probeRet == RIG_ENAVAIL || probeRet == RIG_ENIMPL)
+            {
+                splitQuerySupported = false;
+                logEvent(Q_FUNC_INFO,
+                         "rig_get_split_vfo not supported — split polling disabled.", Warning);
+            }
+            else if (probeRet == RIG_OK && freqReadOk)
+            {
+                freq_t freqAfter = 0;
+                if (rig_get_freq(my_rig, RIG_VFO_CURR, &freqAfter) == RIG_OK
+                    && freqAfter != freqBefore)
+                {
+                    // The split query switched VFOs — restore and disable split polling.
+                    if (vfoReadOk)
+                        rig_set_vfo(my_rig, vfoBefore);
+                    splitQuerySupported = false;
+                    logEvent(Q_FUNC_INFO,
+                             QString("rig_get_split_vfo caused a VFO switch (freq %1 → %2 Hz) — "
+                                     "split polling disabled to prevent display flickering.")
+                                 .arg(freqBefore).arg(freqAfter),
+                             Warning);
+                }
+                // else: no VFO side-effect detected; splitQuerySupported stays true
+            }
+        }
 
         // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
         if (_active && timer) {
