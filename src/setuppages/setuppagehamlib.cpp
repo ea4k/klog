@@ -113,7 +113,7 @@ void SetupPageHamLib::slotTestHamlib()
 
 void SetupPageHamLib::slotRadioStatusChanged(RadioStatus _status)
 {
-    QString text = _status.freq_VFO_RX.toQString();
+    QString text = QString("%1").arg(_status.freq_VFO_RX.toDouble(MHz), 0, 'f', 4);
     if (!_status.mode_VFO_RX.isEmpty())
         text += " / " + _status.mode_VFO_RX;
     freqDisplayLabel->setText(text);
