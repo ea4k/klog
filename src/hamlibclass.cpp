@@ -553,6 +553,61 @@ bool HamLibClass::stop()
     return false;
 }
 
+void HamLibClass::probeSplitVfoSideEffect()
+{
+    // Probe whether rig_get_split_vfo switches the active VFO as a side-effect.
+    // Some rigs (e.g. older Kenwood TS-450S) implement this query by physically
+    // toggling to the TX VFO and back, causing the display to flicker to a
+    // different band/frequency on every poll cycle (related to issue #947).
+    // We detect this by comparing the VFO state and frequency before and after
+    // the probe call.  If either changed we restore immediately and disable split
+    // polling for this session so normal operation is never disturbed.
+    vfo_t  vfoBefore   = RIG_VFO_NONE;
+    freq_t freqBefore  = 0;
+    const bool vfoReadOk  = (rig_get_vfo (my_rig, &vfoBefore)               == RIG_OK);
+    const bool freqReadOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqBefore) == RIG_OK);
+
+    split_t probeSplt  = RIG_SPLIT_OFF;
+    vfo_t   probeTxVfo = RIG_VFO_SUB;
+    const int probeRet = rig_get_split_vfo(my_rig, RIG_VFO_CURR, &probeSplt, &probeTxVfo);
+
+    if (probeRet == RIG_ENAVAIL || probeRet == RIG_ENIMPL)
+    {
+        splitQuerySupported = false;
+        logEvent(Q_FUNC_INFO,
+                 "rig_get_split_vfo not supported — split polling disabled.", Warning);
+        return;
+    }
+
+    if (probeRet != RIG_OK)
+        return; // unexpected error — leave splitQuerySupported unchanged
+
+    // Check for VFO side-effects using both VFO state and frequency.
+    // Using both makes detection robust even when one read failed due to
+    // rigctld contention with another application sharing the daemon.
+    vfo_t  vfoAfter  = RIG_VFO_NONE;
+    freq_t freqAfter = 0;
+    const bool vfoAfterOk  = (rig_get_vfo (my_rig, &vfoAfter)                == RIG_OK);
+    const bool freqAfterOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqAfter) == RIG_OK);
+
+    const bool vfoChanged  = (vfoReadOk  && vfoAfterOk  && vfoAfter  != vfoBefore);
+    const bool freqChanged = (freqReadOk && freqAfterOk && freqAfter != freqBefore);
+
+    if (vfoChanged || freqChanged)
+    {
+        if (vfoReadOk)
+            rig_set_vfo(my_rig, vfoBefore);
+        splitQuerySupported = false;
+        logEvent(Q_FUNC_INFO,
+                 QString("rig_get_split_vfo caused a VFO/freq change "
+                         "(vfo %1->%2, freq %3->%4 Hz) — "
+                         "split polling disabled to prevent display flickering.")
+                     .arg(vfoBefore).arg(vfoAfter).arg(freqBefore).arg(freqAfter),
+                 Warning);
+    }
+    // else: no VFO side-effect detected; splitQuerySupported stays true
+}
+
 bool HamLibClass::init(bool _active)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
@@ -634,60 +689,7 @@ bool HamLibClass::init(bool _active)
         rig_state = RigState::Connected;
         //connected = true;
 
-        // Probe whether rig_get_split_vfo switches the active VFO as a side-effect.
-        // Some rigs (e.g. older Kenwood TS-450S) implement this query by physically
-        // toggling to the TX VFO and back, causing the display to flicker to a
-        // different band/frequency on every poll cycle (related to issue #947).
-        // We detect this by comparing the current VFO and frequency before and after
-        // the probe call.  If they differ we restore immediately and disable split
-        // polling for this session so normal operation is never disturbed.
-        {
-            vfo_t  vfoBefore   = RIG_VFO_NONE;
-            freq_t freqBefore  = 0;
-            const bool vfoReadOk  = (rig_get_vfo (my_rig, &vfoBefore)              == RIG_OK);
-            const bool freqReadOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqBefore) == RIG_OK);
-
-            split_t probeSplt  = RIG_SPLIT_OFF;
-            vfo_t   probeTxVfo = RIG_VFO_SUB;
-            const int probeRet = rig_get_split_vfo(my_rig, RIG_VFO_CURR, &probeSplt, &probeTxVfo);
-
-            if (probeRet == RIG_ENAVAIL || probeRet == RIG_ENIMPL)
-            {
-                splitQuerySupported = false;
-                logEvent(Q_FUNC_INFO,
-                         "rig_get_split_vfo not supported — split polling disabled.", Warning);
-            }
-            else if (probeRet == RIG_OK)
-            {
-                // Check for VFO side-effects using both VFO state and frequency.
-                // Some rigs (e.g. Kenwood TS-450S) physically switch VFOs to answer
-                // this query, so either the active VFO or the reported frequency (or
-                // both) will change.  Using both checks makes detection robust even
-                // when one of the pre-probe reads failed due to rigctld contention.
-                vfo_t  vfoAfter  = RIG_VFO_NONE;
-                freq_t freqAfter = 0;
-                const bool vfoAfterOk  = (rig_get_vfo (my_rig, &vfoAfter)                == RIG_OK);
-                const bool freqAfterOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqAfter) == RIG_OK);
-
-                const bool vfoChanged  = (vfoReadOk  && vfoAfterOk  && vfoAfter  != vfoBefore);
-                const bool freqChanged = (freqReadOk && freqAfterOk && freqAfter != freqBefore);
-
-                if (vfoChanged || freqChanged)
-                {
-                    // The split query switched VFOs — restore and disable split polling.
-                    if (vfoReadOk)
-                        rig_set_vfo(my_rig, vfoBefore);
-                    splitQuerySupported = false;
-                    logEvent(Q_FUNC_INFO,
-                             QString("rig_get_split_vfo caused a VFO/freq change "
-                                     "(vfo %1->%2, freq %3->%4 Hz) — "
-                                     "split polling disabled to prevent display flickering.")
-                                 .arg(vfoBefore).arg(vfoAfter).arg(freqBefore).arg(freqAfter),
-                             Warning);
-                }
-                // else: no VFO side-effect detected; splitQuerySupported stays true
-            }
-        }
+        probeSplitVfoSideEffect();
 
         // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
         if (_active && timer) {
