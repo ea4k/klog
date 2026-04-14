@@ -187,20 +187,30 @@ bool HamLibClass::readVFO()
     }
     else
     {
-        // rig_get_vfo() failed. This is non-fatal: many rigs do not support
-        // this call (e.g. RIG_ENTARGET, RIG_ENAVAIL, RIG_ENIMPL are common).
-        // Any other unexpected error is also treated as non-fatal here because
-        // VFO querying is auxiliary — failing it must never interrupt the main
-        // polling cycle (freq/mode/split reads).
-        // We log once and disable future calls to avoid log spam.
-        logEvent(Q_FUNC_INFO,
-                 QString("rig_get_vfo failed (code %1) — "
-                         "VFO query disabled for this session").arg(retcode),
-                 Warning);
-        vfoQuerySupported = false;
-        currentVfo = RIG_VFO_CURR;
-        radioStatus.memoryMode = false;
-        radioStatus.memoryChannel = -1;
+        if (retcode == RIG_ENAVAIL || retcode == RIG_ENIMPL)
+        {
+            // Rig does not support rig_get_vfo() at all — disable permanently
+            // to avoid log spam on every poll cycle.
+            logEvent(Q_FUNC_INFO,
+                     QString("rig_get_vfo not supported (code %1) — "
+                             "VFO query disabled for this session").arg(retcode),
+                     Warning);
+            vfoQuerySupported = false;
+            currentVfo = RIG_VFO_CURR;
+            radioStatus.memoryMode = false;
+            radioStatus.memoryChannel = -1;
+        }
+        else
+        {
+            // Transient error (e.g. rigctld busy, timeout due to shared rigctld
+            // with another application).  Do not permanently disable VFO querying
+            // or reset currentVfo — the memory-channel guard in readSplit() must
+            // continue to function correctly on the next poll cycle.
+            logEvent(Q_FUNC_INFO,
+                     QString("rig_get_vfo transient error (code %1) — "
+                             "retaining last known VFO state").arg(retcode),
+                     Warning);
+        }
     }
 
     return true;
@@ -647,20 +657,32 @@ bool HamLibClass::init(bool _active)
                 logEvent(Q_FUNC_INFO,
                          "rig_get_split_vfo not supported — split polling disabled.", Warning);
             }
-            else if (probeRet == RIG_OK && freqReadOk)
+            else if (probeRet == RIG_OK)
             {
+                // Check for VFO side-effects using both VFO state and frequency.
+                // Some rigs (e.g. Kenwood TS-450S) physically switch VFOs to answer
+                // this query, so either the active VFO or the reported frequency (or
+                // both) will change.  Using both checks makes detection robust even
+                // when one of the pre-probe reads failed due to rigctld contention.
+                vfo_t  vfoAfter  = RIG_VFO_NONE;
                 freq_t freqAfter = 0;
-                if (rig_get_freq(my_rig, RIG_VFO_CURR, &freqAfter) == RIG_OK
-                    && freqAfter != freqBefore)
+                const bool vfoAfterOk  = (rig_get_vfo (my_rig, &vfoAfter)                == RIG_OK);
+                const bool freqAfterOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqAfter) == RIG_OK);
+
+                const bool vfoChanged  = (vfoReadOk  && vfoAfterOk  && vfoAfter  != vfoBefore);
+                const bool freqChanged = (freqReadOk && freqAfterOk && freqAfter != freqBefore);
+
+                if (vfoChanged || freqChanged)
                 {
                     // The split query switched VFOs — restore and disable split polling.
                     if (vfoReadOk)
                         rig_set_vfo(my_rig, vfoBefore);
                     splitQuerySupported = false;
                     logEvent(Q_FUNC_INFO,
-                             QString("rig_get_split_vfo caused a VFO switch (freq %1 → %2 Hz) — "
+                             QString("rig_get_split_vfo caused a VFO/freq change "
+                                     "(vfo %1->%2, freq %3->%4 Hz) — "
                                      "split polling disabled to prevent display flickering.")
-                                 .arg(freqBefore).arg(freqAfter),
+                                 .arg(vfoBefore).arg(vfoAfter).arg(freqBefore).arg(freqAfter),
                              Warning);
                 }
                 // else: no VFO side-effect detected; splitQuerySupported stays true
