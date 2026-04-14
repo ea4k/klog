@@ -141,7 +141,6 @@ void SetupPageHamLib::setTestResult(const bool _ok)
         testHamlibPushButton->setStyleSheet(
             "QPushButton { background-color: #ff4444; color: white; }");
         testHamlibPushButton->setEnabled(true);   // not connected — allow retry
-        activateHamlibCheckBox->setChecked (false);
         activateHamlibCheckBox->setEnabled (false);
     }
     //qDebug() << Q_FUNC_INFO << " - NOK END";
