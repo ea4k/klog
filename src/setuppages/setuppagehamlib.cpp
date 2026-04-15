@@ -39,7 +39,7 @@ SetupPageHamLib::SetupPageHamLib(DataProxy_SQLite *dp, QWidget *parent) : QWidge
     networkConfigWidget = new HamLibNetworkConfigWidget;
 
     testHamlibPushButton = new QPushButton();
-    defaultFreqMode = tr("000.000 / %1").arg(tr("Mode"));
+    defaultFreqMode = tr("000.0000 / %1").arg(tr("Mode"));
     freqDisplayLabel = new QLabel(defaultFreqMode);
 
     rigTypeComboBox = new QComboBox;
