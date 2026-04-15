@@ -1,0 +1,34 @@
+alias: "Notificación Telegram: Estado Calefacción"
+description: >
+  Envía un mensaje de Telegram cuando la caldera Netatmo arranca (heating)
+  o se detiene (idle). Usa el atributo hvac_action porque es el que refleja
+  si la caldera está quemando gas, independientemente del modo del termostato.
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: climate.termostato_netatmo   # <-- Cambia por tu entidad real
+    attribute: hvac_action
+    to: "heating"
+    id: "encendida"
+  - platform: state
+    entity_id: climate.termostato_netatmo   # <-- Cambia por tu entidad real
+    attribute: hvac_action
+    to: "idle"
+    id: "apagada"
+
+condition: []
+
+action:
+  - service: notify.telegram                # <-- Cambia por tu servicio Telegram
+    data:
+      message: >
+        {% if trigger.id == "encendida" %}
+        🔥 La calefacción se ha ENCENDIDO.
+        Temperatura actual: {{ state_attr('climate.termostato_netatmo', 'current_temperature') }}°C
+        Temperatura objetivo: {{ state_attr('climate.termostato_netatmo', 'temperature') }}°C
+        {% else %}
+        ❄️ La calefacción se ha APAGADO.
+        Temperatura actual: {{ state_attr('climate.termostato_netatmo', 'current_temperature') }}°C
+        Temperatura objetivo: {{ state_attr('climate.termostato_netatmo', 'temperature') }}°C
+        {% endif %}
