@@ -5663,12 +5663,9 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     mainQSOEntryWidget->setFreezeTime(true);
     mainQSOEntryWidget->setDateTime(udpArrivalTime);
 
-    // Populate form fields from the incoming QSO so that:
-    // (a) the confirmation dialog shows complete data, and
-    // (b) any field FreeDV did not send (e.g. name) can be filled by the
-    //     QRZ.com "Check always" lookup before the save reads them back.
-    // QRZ only overwrites fields that are empty (see slotElogQRZCOMFoundData),
-    // so setting name here prevents QRZ from replacing a name FreeDV did send.
+    // Populate form fields from the incoming QSO.  QRZ only overwrites fields
+    // that are empty (see slotElogQRZCOMFoundData), so setting name/comment
+    // here prevents QRZ from replacing values FreeDV already sent.
     if (!_qso.getComment().isEmpty())
         commentTabWidget->setData(_qso.getComment());
     if (!_qso.getName().isEmpty())
@@ -5679,11 +5676,20 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
         QSOTabWidget->setRSTRX(_qso.getRSTRX());
 
     if (!wsjtxAutoLog)
-        if (!askToAddQSOReceived(_qso))
-        {
-            mainQSOEntryWidget->setFreezeTime(false);
-            return;
-        }
+    {
+        // Manual-add mode: populate the entry form so the user can review and
+        // edit before clicking Add.  The clock is already frozen at arrival
+        // time above; it will unfreeze when the form is cleared (Add or Clear).
+        // Do NOT call addQSO here — the normal Add button path saves the QSO.
+        mainQSOEntryWidget->setQRZ(_qso.getCall());
+        const QString udpBand = dataProxy->getBandNameFromFreq(_qso.getFreqTX());
+        if (!udpBand.isEmpty())
+            mainQSOEntryWidget->setBand(udpBand);
+        const QString udpMode = _qso.getSubmode().isEmpty() ? _qso.getMode() : _qso.getSubmode();
+        if (!udpMode.isEmpty())
+            mainQSOEntryWidget->setMode(udpMode);
+        return;
+    }
    //qDebug() << Q_FUNC_INFO << "010";
     QSO q;
    //qDebug() << Q_FUNC_INFO << "020";

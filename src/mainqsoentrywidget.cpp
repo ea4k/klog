@@ -446,6 +446,7 @@ void MainQSOEntryWidget::clear()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO;
+    freezeTime = false;
     fillingQSO = false;
     setModify(false);
     //OKButton->setText(tr("&Add"));
