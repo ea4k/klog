@@ -5695,6 +5695,11 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     if (!q.getDateTimeOn().isValid())
         q.setDateTimeOn(udpArrivalTime);
 
+    // The QSOLogged packet carries frequency but not band name.  Derive the
+    // band from the frequency so that isComplete() passes and addQSO() succeeds.
+    if (q.getBand().isEmpty())
+        q.setBand(dataProxy->getBandNameFromFreq(q.getFreqTX()));
+
     // Supplement fields that _qso lacked but the form may now have
     // (e.g. name filled in by QRZ.com after the form was populated above).
     if (q.getName().isEmpty())
