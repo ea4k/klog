@@ -74,6 +74,7 @@ public:
 
     void setRealTime(const bool _realTime);
     bool getRealTime();
+    void setFreezeTime(const bool _freeze);  // Pause/resume the auto-update clock without touching the realtime checkbox
     void setManualMode(const bool _manualMode);
     bool getManualMode();
 
@@ -174,6 +175,8 @@ private:
     DebugLogLevel logLevel;
     bool modifyingBands;
     bool fillingQSO;        // TRUE just when a QSO is being written in the UI from a qsoToEdit
+    bool freezeTime;        // TRUE while a UDP QSO is pending — suppresses slotUpdateTime so the
+                            // UDP-supplied date/time is shown without touching the realtime checkbox
 };
 
 #endif // MAINQSOENTRYWIDGET_H

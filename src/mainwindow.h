@@ -676,6 +676,10 @@ private:
     bool qrzcomResponseValid; // True when the QRZ.com response callsign matches the current UI callsign
     bool m_adifImporting = false; // True while processing post-ADIF-import updates, to prevent double DXCC refresh
     QString mainQRZ, stationCallsign, operatorQRZ, dxLocator;
+    QString udpLoggedName;    // Name from the most recently UDP-logged QSO (e.g. FreeDV)
+    QString udpLoggedLocator; // Locator from the most recently UDP-logged QSO
+    QString udpLoggedCall;    // Callsign of that QSO — used to match against the current UI callsign
+    bool udpSavedRealTime;    // Real-time checkbox state saved when a UDP QSO freezes the clock
 
     int my_CQz, my_ITUz;
     int defaultMode, defaultBand, currentMode, currentModeShown, currentBand, currentBandShown;
