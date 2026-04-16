@@ -265,6 +265,7 @@ void LogWindow::showColumn(const QString &_columnName)
 void LogWindow::refresh()
 {
   //qDebug() << Q_FUNC_INFO << " - Start";
+    logModel->setSort(1, Qt::DescendingOrder);
     if (!logModel->select())
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
