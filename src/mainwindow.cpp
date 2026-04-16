@@ -5650,12 +5650,18 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     udpLoggedName    = _qso.getName();
     udpLoggedLocator = _qso.getGridSquare();
 
-    // Freeze the real-time clock and show the QSO time from the UDP packet so the
-    // displayed time does not drift while the user reviews before clicking Add.
+    // FreeDV does not populate time_on in its QSOLogged packet, so capture the
+    // packet arrival time now as the best available QSO timestamp.
+    const QDateTime udpArrivalTime = _qso.getDateTimeOn().isValid()
+                                     ? _qso.getDateTimeOn()
+                                     : QDateTime::currentDateTimeUtc();
+
+    // Freeze the real-time clock at the packet arrival time so the displayed
+    // time does not drift while the user reviews before clicking Add.
     // Use setFreezeTime() rather than setRealTime(false) so that the realtime
     // checkbox state and settings are left untouched.
     mainQSOEntryWidget->setFreezeTime(true);
-    mainQSOEntryWidget->setDateTime(_qso.getDateTimeOn());
+    mainQSOEntryWidget->setDateTime(udpArrivalTime);
 
     // Populate form fields from the incoming QSO so that:
     // (a) the confirmation dialog shows complete data, and
@@ -5683,6 +5689,11 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
    //qDebug() << Q_FUNC_INFO << "020";
     q.copy(_qso);
     q.setLogId(currentLog);
+
+    // If the packet did not carry a valid time_on, stamp the QSO with the
+    // packet arrival time captured above so the DB record is correct.
+    if (!q.getDateTimeOn().isValid())
+        q.setDateTimeOn(udpArrivalTime);
 
     // Supplement fields that _qso lacked but the form may now have
     // (e.g. name filled in by QRZ.com after the form was populated above).
