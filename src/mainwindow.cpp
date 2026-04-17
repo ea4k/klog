@@ -5638,121 +5638,94 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-    void MainWindow::slotQSOReceived(const QSO &_qso)
+void MainWindow::slotQSOReceived(const QSO &_qso)
 {
-    //qDebug() <<  Q_FUNC_INFO << " - Start";
-    //logEvent(Q_FUNC_INFO, "Start", Devel);
-
-    // Latch UDP-sourced fields immediately so that cleanQRZCOMreceivedDataFromUI()
-    // can restore them if a QRZ.com lookup fires before or after the form is populated.
     udpLoggedCall    = _qso.getCall();
     udpLoggedName    = _qso.getName();
     udpLoggedLocator = _qso.getGridSquare();
 
-    // FreeDV does not populate time_on in its QSOLogged packet, so capture the
-    // packet arrival time now as the best available QSO timestamp.
     const QDateTime udpArrivalTime = _qso.getDateTimeOn().isValid()
                                      ? _qso.getDateTimeOn()
                                      : QDateTime::currentDateTimeUtc();
 
     if (!wsjtxAutoLog)
-    {
-        // Don't overwrite a QSO the user is currently editing or a manual-mode session.
-        if (modify || manualMode)
-            return;
+        populateFormFromUDPQso(_qso, udpArrivalTime);
+    else
+        autoLogUDPQso(_qso, udpArrivalTime);
 
-        // Manual-add mode: freeze the clock at packet arrival time and populate the
-        // entry form so the user can review and edit before clicking Add.
-        // The clock unfreezes when the form is cleared (Add or Clear).
-        // Do NOT call addQSO here — the normal Add button path saves the QSO.
-        mainQSOEntryWidget->setFreezeTime(true);
-        mainQSOEntryWidget->setDateTime(udpArrivalTime);
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
 
-        // Populate form fields.  QRZ only overwrites empty fields (see
-        // slotElogQRZCOMFoundData), so setting name/comment/RST here preserves
-        // values that FreeDV already provided against QRZ.com overwriting them.
-        if (!_qso.getComment().isEmpty())
-            commentTabWidget->setData(_qso.getComment());
-        if (!_qso.getName().isEmpty())
-            QSOTabWidget->setName(_qso.getName());
-        if (!_qso.getRSTTX().isEmpty())
-            QSOTabWidget->setRSTTX(_qso.getRSTTX());
-        if (!_qso.getRSTRX().isEmpty())
-            QSOTabWidget->setRSTRX(_qso.getRSTRX());
-
-        mainQSOEntryWidget->setQRZ(_qso.getCall());
-        const QString udpBand = dataProxy->getBandNameFromFreq(_qso.getFreqTX());
-        if (!udpBand.isEmpty())
-            mainQSOEntryWidget->setBand(udpBand);
-        const QString udpMode = _qso.getSubmode().isEmpty() ? _qso.getMode() : _qso.getSubmode();
-        if (!udpMode.isEmpty())
-            mainQSOEntryWidget->setMode(udpMode);
+void MainWindow::populateFormFromUDPQso(const QSO &_qso, const QDateTime &_arrivalTime)
+{
+    // Don't overwrite a QSO the user is currently editing or a manual-mode session.
+    if (modify || manualMode)
         return;
-    }
 
-    // Auto-log path: save directly to DB without touching the form.
-   //qDebug() << Q_FUNC_INFO << "010";
+    // Freeze the clock at packet arrival time and populate the entry form so the
+    // user can review and edit before clicking Add.  The clock unfreezes when the
+    // form is cleared (Add or Clear).
+    mainQSOEntryWidget->setFreezeTime(true);
+    mainQSOEntryWidget->setDateTime(_arrivalTime);
+
+    // QRZ only overwrites empty fields (see slotElogQRZCOMFoundData), so setting
+    // name/comment/RST here preserves values that FreeDV already provided.
+    if (!_qso.getComment().isEmpty())
+        commentTabWidget->setData(_qso.getComment());
+    if (!_qso.getName().isEmpty())
+        QSOTabWidget->setName(_qso.getName());
+    if (!_qso.getRSTTX().isEmpty())
+        QSOTabWidget->setRSTTX(_qso.getRSTTX());
+    if (!_qso.getRSTRX().isEmpty())
+        QSOTabWidget->setRSTRX(_qso.getRSTRX());
+
+    mainQSOEntryWidget->setQRZ(_qso.getCall());
+    const QString udpBand = dataProxy->getBandNameFromFreq(_qso.getFreqTX());
+    if (!udpBand.isEmpty())
+        mainQSOEntryWidget->setBand(udpBand);
+    const QString udpMode = _qso.getSubmode().isEmpty() ? _qso.getMode() : _qso.getSubmode();
+    if (!udpMode.isEmpty())
+        mainQSOEntryWidget->setMode(udpMode);
+}
+
+void MainWindow::autoLogUDPQso(const QSO &_qso, const QDateTime &_arrivalTime)
+{
     QSO q;
-   //qDebug() << Q_FUNC_INFO << "020";
     q.copy(_qso);
     q.setLogId(currentLog);
 
-    // If the packet did not carry a valid time_on, stamp the QSO with the
-    // packet arrival time captured above so the DB record is correct.
     if (!q.getDateTimeOn().isValid())
-        q.setDateTimeOn(udpArrivalTime);
+        q.setDateTimeOn(_arrivalTime);
 
-    // The QSOLogged packet carries frequency but not band name.  Derive the
-    // band from the frequency so that isComplete() passes and addQSO() succeeds.
     if (q.getBand().isEmpty())
         q.setBand(dataProxy->getBandNameFromFreq(q.getFreqTX()));
 
-   //qDebug() << Q_FUNC_INFO << "030";
-   //qDebug() << Q_FUNC_INFO << "Call: " << q.getCall();
-   //qDebug() << Q_FUNC_INFO << "Mode: " << q.getMode();
-
     int dxcc = world->getQRZARRLId(q.getCall());
-     //qDebug() << Q_FUNC_INFO << "040";
-    dxcc = util->getNormalizedDXCCValue (dxcc);
-     //qDebug() << Q_FUNC_INFO << "050";
+    dxcc = util->getNormalizedDXCCValue(dxcc);
     q.setDXCC(dxcc);
     q.setClubLogStatus(clublogSentDefault);
     q.setLoTWQSL_SENT(lotwSentDefault);
     q.setEQSLQSL_SENT(eqslSentDefault);
     q.setQRZCOMStatus(qrzcomSentDefault);
-     //qDebug() << Q_FUNC_INFO << "060";
 
     if (!showWSJTXDuplicatedMSG(q))
         return;
 
-     //qDebug() << Q_FUNC_INFO << "070";
     int addedQSO = dataProxy->addQSO(q);
-   //qDebug() << Q_FUNC_INFO << "addedQSO: " << addedQSO;
-    if (addedQSO>0)
+    if (addedQSO > 0)
     {
-         //qDebug() << Q_FUNC_INFO << "090";
-         //qDebug() <<  Q_FUNC_INFO << " - QSO added: " << QString::number(addedQSO);
         actionsJustAfterAddingOneQSO(q);
         slotShowInfoLabel(tr("QSO logged from WSJT-X:"));
         infoLabel2->setText(q.getCall() + " - " + dataProxy->getBandNameFromFreq(q.getFreqTX()) + "/" + q.getSubmode());
-        // Remember UDP-sourced name and locator so they are preferred over QRZ.com
-        // for the same callsign after the form is cleared.
         udpLoggedCall    = q.getCall();
         udpLoggedName    = q.getName();
         udpLoggedLocator = q.getGridSquare();
         slotClearButtonClicked(Q_FUNC_INFO);
-        // Directly restore name/locator into the now-cleared form so the user
-        // can see who they just worked.  cleanQRZCOMreceivedDataFromUI() will
-        // also restore them if QRZ fires for the same callsign, but that path
-        // depends on a Status packet arriving — this one is unconditional.
         if (!udpLoggedName.isEmpty())
             QSOTabWidget->setName(udpLoggedName);
         if (!udpLoggedLocator.isEmpty())
             QSOTabWidget->setDXLocator(udpLoggedLocator);
     }
-
-     //qDebug() <<  Q_FUNC_INFO << " - END";
-    logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 bool MainWindow::askToAddQSOReceived(const QSO &_qso)

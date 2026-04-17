@@ -357,6 +357,8 @@ private:
     bool setHamlib(const bool _b);
     bool setUDPServer(const bool _b);
     bool askToAddQSOReceived(const QSO &_qso);  // Shows a message with the data of the QSO
+    void populateFormFromUDPQso(const QSO &_qso, const QDateTime &_arrivalTime);
+    void autoLogUDPQso(const QSO &_qso, const QDateTime &_arrivalTime);
 
     void ensureTipsDialog();
     void setLogLevel(const DebugLogLevel _sev);
