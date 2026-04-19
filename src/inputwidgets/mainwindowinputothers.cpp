@@ -79,7 +79,7 @@ QSO MainWindowInputOthers::getQSOData(QSO _qso)
 {
     QSO qso = _qso;
 
-    qso.setDXCC(getEntity() % 1000);
+    qso.setDXCC(getEntity());
    //qDebug() << Q_FUNC_INFO << " - DXCC: " << qso.getDXCC();
     qso.setState(getState());
     // qso.setCounty()           //TODO: Related to entitySecDivComboBox when implemented

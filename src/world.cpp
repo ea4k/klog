@@ -443,11 +443,11 @@ int World::selectEntity(const int _ent1, const int _ent2)
     if (_ent1 == _ent2 && _ent1 > 0)
         return _ent1;
 
-    // Case I(248) vs IT9(2248)
+    // Case I(248) vs IT9(1248): prefer the more specific sub-entity
     int higher = std::max(_ent1, _ent2);
     int lower  = std::min(_ent1, _ent2);
     if (higher % 1000 == lower)
-        return lower;
+        return higher;
 
     return -1;
 }
