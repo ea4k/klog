@@ -3936,11 +3936,12 @@ QString QSO::getADIFStandard()
         adifStr.append(adif->getADIFField ("ITUZ", QString::number(itu_zone) ));
 
     {
-        int adifDxcc = (dxcc >= 1000) ? (dxcc % 1000) : dxcc;
+        int adifDxcc   = (dxcc >= 1000) ? (dxcc % 1000) : dxcc;
+        int klogExport = (dxcc >= 1000) ? dxcc : klogDxcc;
         if (adif->isValidDXCC(adifDxcc) && adifDxcc > 0)
             adifStr.append(adif->getADIFField("DXCC", QString::number(adifDxcc)));
-        if (dxcc >= 1000)
-            adifStr.append(adif->getADIFField("APP_KLOG_DXCC", QString::number(dxcc)));
+        if (klogExport >= 1000)
+            adifStr.append(adif->getADIFField("APP_KLOG_DXCC", QString::number(klogExport)));
     }
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
@@ -4237,11 +4238,12 @@ QString QSO::getADIFClubLog()
     adifStr.append(adif->getADIFField ("QSO_DATE",  util->getADIFDateFromQDateTime(qso_dateTime)));
     adifStr.append(adif->getADIFField ("TIME_ON",  util->getADIFTimeFromQDateTime(qso_dateTime)));
     {
-        int adifDxcc = (dxcc >= 1000) ? (dxcc % 1000) : dxcc;
+        int adifDxcc   = (dxcc >= 1000) ? (dxcc % 1000) : dxcc;
+        int klogExport = (dxcc >= 1000) ? dxcc : klogDxcc;
         if (adif->isValidDXCC(adifDxcc) && adifDxcc > 0)
             adifStr.append(adif->getADIFField("DXCC", QString::number(adifDxcc)));
-        if (dxcc >= 1000)
-            adifStr.append(adif->getADIFField("APP_KLOG_DXCC", QString::number(dxcc)));
+        if (klogExport >= 1000)
+            adifStr.append(adif->getADIFField("APP_KLOG_DXCC", QString::number(klogExport)));
     }
     adifStr.append(adif->getADIFField ("credit_granted", credit_granted ));
     adifStr.append(adif->getADIFField ("lotw_qsl_rcvd", lotw_qsl_rcvd));

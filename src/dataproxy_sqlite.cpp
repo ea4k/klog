@@ -8406,6 +8406,27 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setDXCC((getADIFValueFromRec(rec, "dxcc")).toInt());
     //qDebug() << Q_FUNC_INFO << ":  - 100";
 
+    // For QSOs stored with the base DXCC (e.g. 248 for Italy), check whether
+    // the callsign prefix maps to a KLog sub-entity (e.g. 1248 for Sicily)
+    // so that APP_KLOG_DXCC can be emitted on export.
+    {
+        int storedDxcc = qso.getDXCC();
+        if (storedDxcc > 0 && storedDxcc < 1000)
+        {
+            QSqlQuery klookQuery;
+            klookQuery.prepare(
+                "SELECT dxcc FROM prefixesofentity "
+                "WHERE dxcc >= 1000 AND dxcc % 1000 = :base "
+                "AND :call LIKE prefix || '%' "
+                "ORDER BY length(prefix) DESC LIMIT 1"
+            );
+            klookQuery.bindValue(":base", storedDxcc);
+            klookQuery.bindValue(":call", qso.getCall().toUpper());
+            if (klookQuery.exec() && klookQuery.next())
+                qso.setKlogDxcc(klookQuery.value(0).toInt());
+        }
+    }
+
     qso.setAddress(getADIFValueFromRec(rec, "address"));
     qso.setAge((getADIFValueFromRec(rec, "age")).toDouble());
 
