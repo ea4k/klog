@@ -7861,6 +7861,26 @@ bool DataProxy_SQLite::removeSpecialCallsign(const QString &callsign)
     return query.numRowsAffected() > 0;
 }
 
+int DataProxy_SQLite::getKLogSubEntityForCallsign(const QString &callsign, int baseDxcc)
+{
+    // Inverse of the +1000 loop in World::readCTYCSV(): given the ARRL DXCC
+    // (e.g. 248 for Italy), find the longest prefix in prefixesofentity whose
+    // dxcc is a KLog sub-entity (>= 1000 and % 1000 == baseDxcc) and which the
+    // callsign begins with. Returns 0 if no sub-entity applies.
+    if (callsign.isEmpty() || baseDxcc <= 0 || baseDxcc >= 1000)
+        return 0;
+    QSqlQuery q;
+    q.prepare("SELECT dxcc FROM prefixesofentity "
+              "WHERE dxcc >= 1000 AND dxcc % 1000 = :base "
+              "AND :call LIKE prefix || '%' "
+              "ORDER BY length(prefix) DESC LIMIT 1");
+    q.bindValue(":base", baseDxcc);
+    q.bindValue(":call", callsign.toUpper());
+    if (q.exec() && q.next())
+        return q.value(0).toInt();
+    return 0;
+}
+
 /*
 bool DataProxy_SQLite::getFreqHashData()
 {
@@ -8410,21 +8430,9 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     // the callsign prefix maps to a KLog sub-entity (e.g. 1248 for Sicily)
     // so that APP_KLOG_DXCC can be emitted on export.
     {
-        int storedDxcc = qso.getDXCC();
-        if (storedDxcc > 0 && storedDxcc < 1000)
-        {
-            QSqlQuery klookQuery;
-            klookQuery.prepare(
-                "SELECT dxcc FROM prefixesofentity "
-                "WHERE dxcc >= 1000 AND dxcc % 1000 = :base "
-                "AND :call LIKE prefix || '%' "
-                "ORDER BY length(prefix) DESC LIMIT 1"
-            );
-            klookQuery.bindValue(":base", storedDxcc);
-            klookQuery.bindValue(":call", qso.getCall().toUpper());
-            if (klookQuery.exec() && klookQuery.next())
-                qso.setKlogDxcc(klookQuery.value(0).toInt());
-        }
+        int sub = getKLogSubEntityForCallsign(qso.getCall(), qso.getDXCC());
+        if (sub > 0)
+            qso.setKlogDxcc(sub);
     }
 
     qso.setAddress(getADIFValueFromRec(rec, "address"));

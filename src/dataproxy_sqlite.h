@@ -265,6 +265,10 @@ public:
     QList<SpecialCallsignInfo> getSpecialCallsignPairs();
     bool addSpecialCallsign(const QString &callsign, int dxccId, int cqz = -1, int ituz = -1);
     bool removeSpecialCallsign(const QString &callsign);
+    // Mirror of the +1000 logic in World::readCTYCSV(): given a callsign and its
+    // base ARRL DXCC, look up prefixesofentity to find the KLog sub-entity
+    // (id >= 1000 whose id % 1000 matches the base). Returns 0 if none found.
+    int getKLogSubEntityForCallsign(const QString &callsign, int baseDxcc);
     QHash<QString, int> getWorldData();
     //bool getFreqHashData();
 
