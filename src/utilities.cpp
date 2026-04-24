@@ -1214,8 +1214,14 @@ bool Utilities::isValidDateTimeFromString(const QString &_s)
 }
 
 bool Utilities::isValidDXCC(const int _d)
-{//TODO: Look for a better way to check, taking into account how KLog is identifiying the DXCC
-    return (((_d > 0) && (_d < 523))  || (_d == 1206) || (_d == 1279) || (_d == 1248) || (_d == 2248) || (_d == 1259) || (_d == 1390));
+{
+    if (_d <= 0)
+        return false;
+    if (_d < 523)
+        return true;
+    // KLog special entities: base DXCC + i*1000 (i >= 1)
+    int base = _d % 1000;
+    return (base > 0 && base < 523);
 }
 
 bool Utilities::isValidAntPath(const QString &_s)

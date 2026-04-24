@@ -173,6 +173,9 @@ public:
     // Others Tab
     bool setDXCC(const int _i);
     int getDXCC() const;
+    bool setKlogDxcc(const int _i);
+    bool setKlogDxcc(const QString &data);
+    int  getKlogDxcc() const;
     bool setPropMode(const QString &_c);
     QString getPropMode() const;
     bool setSOTA_REF(const QString &_c);
@@ -498,7 +501,7 @@ private:
     void logEvent(const QString &_func, const QString &_msg, DebugLogLevel _level);
     void cleanMode(); // Cleans mode & submode
 
-    int qsoId, logId, dxcc, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
+    int qsoId, logId, dxcc, klogDxcc, k_index, cqz, fists, fists_cc, my_fists, iota_ID, itu_zone, nr_bursts, max_bursts, nr_pings, my_cqz, my_itu_zone, my_dxcc, my_iota_ID, srx, stx, uksmg;
     int ten_ten, sfi;
     double pwr_rx, pwr_tx, age, ant_el, ant_az, distance, altitude, my_altitude, a_index;
     Frequency freq_tx, freq_rx;
