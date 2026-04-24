@@ -46,6 +46,30 @@ enum
     WORLD_Cont = 5
 };
 
+// ---------------------------------------------------------------------------
+// Dialog for adding a special callsign override
+// ---------------------------------------------------------------------------
+class AddSpecialCallsignDialog : public QDialog {
+    Q_OBJECT
+public:
+    explicit AddSpecialCallsignDialog(World *w, QWidget *parent = nullptr);
+
+    QString callsign()     const;
+    int     selectedDxcc() const;
+    int     cqz()          const;   // -1 = use entity default
+    int     ituz()         const;   // -1 = use entity default
+
+private slots:
+    void slotEntityChanged(int index);
+
+private:
+    World     *world;
+    QLineEdit *callLineEdit;
+    QComboBox *entityCombo;
+    QCheckBox *cqzCheck,  *ituzCheck;
+    QSpinBox  *cqzSpin,   *ituzSpin;
+};
+
 class SetupPageWorldEditor : public QWidget {
     Q_OBJECT
 
@@ -61,6 +85,8 @@ private slots:
     void slotAnalyzeEntityAddedSignal(const QStringList _qs);
 
     void slotImportWorldButtonClicked();
+    void slotAddSpecialCallsignClicked();
+    void slotRemoveSpecialCallsignClicked();
 
 private:
     World *world;
@@ -71,12 +97,17 @@ private:
     void createWorldModel();
     void createActions();
     bool isWorldEmpty();
+    void createSpecialCallsignsPanel();
+    void refreshSpecialCallsignsTable();
 
     QSqlRelationalTableModel *worldModel;
     QWidget *worldPanel;
     QTableView *worldView;
     QTreeWidget *searchResultsTreeWidget;
 
+    QGroupBox   *specialCallsignsGroup;
+    QTableWidget *specialCallsignsTable;
+    QPushButton *addSpecialButton, *removeSpecialButton;
 
     QPushButton *addEntityPushButton, *delEntityPushButton, *editEntityPushButton, *exportWorldPushButton, *loadWorldPushButton;
 

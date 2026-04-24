@@ -5623,11 +5623,8 @@ void MainWindow::slotShowQSOsFromDXCCWidget(QList<int> _qsos)
    //qDebug() << Q_FUNC_INFO << "Call: " << q.getCall();
    //qDebug() << Q_FUNC_INFO << "Mode: " << q.getMode();
 
-    int dxcc = world->getQRZARRLId(q.getCall());
-     //qDebug() << Q_FUNC_INFO << "040";
-    dxcc = util->getNormalizedDXCCValue (dxcc);
+    q.setDXCC(world->getQRZARRLId(q.getCall()));
      //qDebug() << Q_FUNC_INFO << "050";
-    q.setDXCC(dxcc);
     q.setClubLogStatus(clublogSentDefault);
     q.setLoTWQSL_SENT(lotwSentDefault);
     q.setEQSLQSL_SENT(eqslSentDefault);

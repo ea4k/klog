@@ -996,6 +996,15 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     if (qso.getDXCC() < 1)
         qso.setDXCC(world->getQRZARRLId(qso.getCall()));
 
+    // Restore KLog sub-entity (e.g. 1248 for Sicily) from APP_KLOG_DXCC if the
+    // value is consistent with the standard DXCC and matches the callsign prefix.
+    {
+        int kd = qso.getKlogDxcc();
+        int d  = qso.getDXCC();
+        if (kd >= 1000 && d > 0 && kd % 1000 == d && world->getQRZARRLId(qso.getCall()) == kd)
+            qso.setDXCC(kd);
+    }
+
     // 4. LoTW path: quirurgical UPDATE of only LoTW fields, no full SELECT+UPDATE
     if (qso.getLoTWUpdating())
     {
