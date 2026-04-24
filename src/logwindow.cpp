@@ -276,7 +276,6 @@ void LogWindow::refresh()
     int sortSection = logView->horizontalHeader()->sortIndicatorSection();
     if (sortSection >= 0)
         logModel->setSort(sortSection, logView->horizontalHeader()->sortIndicatorOrder());
-
     if (!logModel->select())
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
