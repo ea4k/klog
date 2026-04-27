@@ -50,6 +50,7 @@ MainQSOEntryWidget::MainQSOEntryWidget(DataProxy_SQLite *dp, QWidget *parent) : 
     timer = new QTimer(this);
     util = new Utilities(Q_FUNC_INFO);
     realTime = true;
+    freezeTime = false;
     duplicatedQSOSlotInSecs = 600;
     delayInputTimer = new QTimer;
     logLevel = None;
@@ -445,6 +446,7 @@ void MainQSOEntryWidget::clear()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO;
+    freezeTime = false;
     fillingQSO = false;
     setModify(false);
     //OKButton->setText(tr("&Add"));
@@ -908,6 +910,11 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
     logEvent (Q_FUNC_INFO, "END", Debug);
 }
 
+void MainQSOEntryWidget::setFreezeTime(const bool _freeze)
+{
+    freezeTime = _freeze;
+}
+
 void MainQSOEntryWidget::setManualMode(const bool _manualMode)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
@@ -966,7 +973,7 @@ void MainQSOEntryWidget::slotUpdateTime()
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug()<< Q_FUNC_INFO;
-    if ( (!modify) && (realtimeCheckBox->isChecked())  )
+    if ( (!modify) && (realtimeCheckBox->isChecked()) && (!freezeTime) )
     {
        //qDebug()<< Q_FUNC_INFO << ":  Real Time & update";
         setDateAndTimeInternally();

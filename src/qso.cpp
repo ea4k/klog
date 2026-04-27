@@ -98,6 +98,7 @@ QSO::QSO(const QSO &other)
     darc_dok = other.darc_dok;
     distance = other.distance;
     dxcc = other.dxcc;
+    klogDxcc = other.klogDxcc;
     email = other.email;
     ownerCall = other.ownerCall;
     contacted_owner = other.contacted_owner;
@@ -234,6 +235,7 @@ void QSO::operator=(QSO const &_other)
     qsoId           = _other.qsoId;
     logId           = _other.logId;
     dxcc            = _other.dxcc;
+    klogDxcc        = _other.klogDxcc;
     a_index         = _other.a_index;
     k_index         = _other.k_index;
     cqz             = _other.cqz;
@@ -446,6 +448,7 @@ bool QSO::copy(const QSO& other)
     setDarcDok(other.darc_dok);
     setDistance(other.distance);
     setDXCC(other.dxcc);
+    klogDxcc = other.klogDxcc;
     setEmail(other.email);
     setOwnerCallsign(other.ownerCall);
     setContactedOperator(other.contacted_op);
@@ -672,6 +675,7 @@ void QSO::clear()
     darc_dok = QString();
     distance = -1.0;
     dxcc = 0;
+    klogDxcc = 0;
     email = QString();
     ownerCall = QString();
     contacted_owner = QString();
@@ -1759,6 +1763,23 @@ bool QSO::setDXCC(const int _i)
 int QSO::getDXCC() const
 {
     return dxcc;
+}
+
+bool QSO::setKlogDxcc(const int _i)
+{
+    if (_i >= 1000 && _i % 1000 > 0)
+        klogDxcc = _i;
+    return true;
+}
+
+bool QSO::setKlogDxcc(const QString &data)
+{
+    return setKlogDxcc(data.toInt());
+}
+
+int QSO::getKlogDxcc() const
+{
+    return klogDxcc;
 }
 
 bool QSO::setPropMode(const QString &_c)
@@ -3580,6 +3601,7 @@ void QSO::InitializeHash() {
         {"DARC_DOK", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setDarcDok)},
         {"DISTANCE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setDistance)},
         {"DXCC", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setDXCC)},
+        {"APP_KLOG_DXCC", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setKlogDxcc)},
         {"EMAIL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setEmail)},
         {"EQ_CALL", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setOwnerCallsign)},
         {"EQSL_QSLRDATE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setEQSLQSLRDate)},
@@ -3913,8 +3935,14 @@ QString QSO::getADIFStandard()
     if (adif->isValidITUz(itu_zone))
         adifStr.append(adif->getADIFField ("ITUZ", QString::number(itu_zone) ));
 
-    if (adif->isValidDXCC(dxcc) && (dxcc>0))
-        adifStr.append(adif->getADIFField ("DXCC",  QString::number(dxcc)));
+    {
+        int adifDxcc   = (dxcc >= 1000) ? (dxcc % 1000) : dxcc;
+        int klogExport = (dxcc >= 1000) ? dxcc : klogDxcc;
+        if (adif->isValidDXCC(adifDxcc) && adifDxcc > 0)
+            adifStr.append(adif->getADIFField("DXCC", QString::number(adifDxcc)));
+        if (klogExport >= 1000)
+            adifStr.append(adif->getADIFField("APP_KLOG_DXCC", QString::number(klogExport)));
+    }
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
         adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
@@ -4209,8 +4237,14 @@ QString QSO::getADIFClubLog()
     //Utilities util(Q_FUNC_INFO);
     adifStr.append(adif->getADIFField ("QSO_DATE",  util->getADIFDateFromQDateTime(qso_dateTime)));
     adifStr.append(adif->getADIFField ("TIME_ON",  util->getADIFTimeFromQDateTime(qso_dateTime)));
-    if (adif->isValidDXCC(dxcc) && (dxcc>0))
-        adifStr.append(adif->getADIFField ("DXCC",  QString::number(dxcc)));
+    {
+        int adifDxcc   = (dxcc >= 1000) ? (dxcc % 1000) : dxcc;
+        int klogExport = (dxcc >= 1000) ? dxcc : klogDxcc;
+        if (adif->isValidDXCC(adifDxcc) && adifDxcc > 0)
+            adifStr.append(adif->getADIFField("DXCC", QString::number(adifDxcc)));
+        if (klogExport >= 1000)
+            adifStr.append(adif->getADIFField("APP_KLOG_DXCC", QString::number(klogExport)));
+    }
     adifStr.append(adif->getADIFField ("credit_granted", credit_granted ));
     adifStr.append(adif->getADIFField ("lotw_qsl_rcvd", lotw_qsl_rcvd));
     adifStr.append(adif->getADIFField ("qsl_rcvd", getQSL_RCVD()));

@@ -265,6 +265,17 @@ void LogWindow::showColumn(const QString &_columnName)
 void LogWindow::refresh()
 {
   //qDebug() << Q_FUNC_INFO << " - Start";
+    // Re-apply the view's current sort indicator to the model before selecting.
+    // LogModel::setColumns() (called whenever columns are reconfigured, e.g. when
+    // the settings dialog is shown) resets the model's ORDER BY to "id ASC".
+    // If the log did not change, createlogPanel() is not re-run, so the sort is
+    // never restored — the next select() would return rows in the wrong order,
+    // placing newly saved QSOs at the bottom instead of the top.
+    // The header's sort indicator is not affected by setColumns(), so it always
+    // reflects the last sort the user (or createlogPanel) requested.
+    int sortSection = logView->horizontalHeader()->sortIndicatorSection();
+    if (sortSection >= 0)
+        logModel->setSort(sortSection, logView->horizontalHeader()->sortIndicatorOrder());
     if (!logModel->select())
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";

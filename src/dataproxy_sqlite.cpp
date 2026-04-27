@@ -7800,6 +7800,87 @@ QStringList DataProxy_SQLite::getSpecialCallsigns()
     return qs;
 }
 
+QList<DataProxy_SQLite::SpecialCallsignInfo> DataProxy_SQLite::getSpecialCallsignPairs()
+{
+    QList<SpecialCallsignInfo> result;
+    QSqlQuery query;
+    query.setForwardOnly(true);
+    if (query.exec("SELECT substr(prefix, 2), dxcc, cqz, ituz FROM prefixesofentity WHERE prefix LIKE '=%' ORDER BY prefix"))
+    {
+        while (query.next())
+        {
+            SpecialCallsignInfo info;
+            info.callsign = query.value(0).toString();
+            info.dxcc     = query.value(1).toInt();
+            info.cqz      = query.value(2).toInt();
+            info.ituz     = query.value(3).toInt();
+            result.append(info);
+        }
+    }
+    else
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+    }
+    return result;
+}
+
+bool DataProxy_SQLite::addSpecialCallsign(const QString &callsign, int dxccId, int cqz, int ituz)
+{
+    // If a zone is not provided (< 1), fall back to the entity's default
+    if (cqz  < 1) cqz  = getCQzFromEntity(dxccId);
+    if (ituz < 1) ituz = getITUzFromEntity(dxccId);
+    if (cqz < 0 || ituz < 0)
+        return false;
+
+    const QString prefix = "=" + callsign.toUpper();
+    QSqlQuery query;
+    query.prepare("INSERT OR REPLACE INTO prefixesofentity (prefix, dxcc, cqz, ituz) VALUES (?, ?, ?, ?)");
+    query.addBindValue(prefix);
+    query.addBindValue(dxccId);
+    query.addBindValue(cqz);
+    query.addBindValue(ituz);
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return false;
+    }
+    return true;
+}
+
+bool DataProxy_SQLite::removeSpecialCallsign(const QString &callsign)
+{
+    const QString prefix = "=" + callsign.toUpper();
+    QSqlQuery query;
+    query.prepare("DELETE FROM prefixesofentity WHERE prefix = ?");
+    query.addBindValue(prefix);
+    if (!query.exec())
+    {
+        emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+        return false;
+    }
+    return query.numRowsAffected() > 0;
+}
+
+int DataProxy_SQLite::getKLogSubEntityForCallsign(const QString &callsign, int baseDxcc)
+{
+    // Inverse of the +1000 loop in World::readCTYCSV(): given the ARRL DXCC
+    // (e.g. 248 for Italy), find the longest prefix in prefixesofentity whose
+    // dxcc is a KLog sub-entity (>= 1000 and % 1000 == baseDxcc) and which the
+    // callsign begins with. Returns 0 if no sub-entity applies.
+    if (callsign.isEmpty() || baseDxcc <= 0 || baseDxcc >= 1000)
+        return 0;
+    QSqlQuery q;
+    q.prepare("SELECT dxcc FROM prefixesofentity "
+              "WHERE dxcc >= 1000 AND dxcc % 1000 = :base "
+              "AND :call LIKE prefix || '%' "
+              "ORDER BY length(prefix) DESC LIMIT 1");
+    q.bindValue(":base", baseDxcc);
+    q.bindValue(":call", callsign.toUpper());
+    if (q.exec() && q.next())
+        return q.value(0).toInt();
+    return 0;
+}
+
 /*
 bool DataProxy_SQLite::getFreqHashData()
 {
@@ -8344,6 +8425,15 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setItuZone((getADIFValueFromRec(rec, "ituz")).toInt());
     qso.setDXCC((getADIFValueFromRec(rec, "dxcc")).toInt());
     //qDebug() << Q_FUNC_INFO << ":  - 100";
+
+    // For QSOs stored with the base DXCC (e.g. 248 for Italy), check whether
+    // the callsign prefix maps to a KLog sub-entity (e.g. 1248 for Sicily)
+    // so that APP_KLOG_DXCC can be emitted on export.
+    {
+        int sub = getKLogSubEntityForCallsign(qso.getCall(), qso.getDXCC());
+        if (sub > 0)
+            qso.setKlogDxcc(sub);
+    }
 
     qso.setAddress(getADIFValueFromRec(rec, "address"));
     qso.setAge((getADIFValueFromRec(rec, "age")).toDouble());
