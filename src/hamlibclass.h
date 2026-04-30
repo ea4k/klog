@@ -124,6 +124,7 @@ private:
     bool readMode();
     bool readVFO();                     //Reads the current VFO
     bool readSplit();
+    void probeSplitVfoSideEffect();     //Probe for rig_get_split_vfo VFO side-effects at connect time
     void cleanup();
     bool radioStatusChanged(const RadioStatus _old, const RadioStatus _new);
 

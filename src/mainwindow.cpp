@@ -119,6 +119,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     statusBarMessage = tr("Starting KLog");
 
     setupDialog = new SetupDialog(dataProxy, world, this);
+    setupDialog->setLiveHamlib(hamlib); // read-only display reference — Test button still uses its own local instance
     // [PROPOSAL-5] SetupDialog: only opened on demand (or first run)
    //qInfo() << "[KLOG-TIMING] ctor 021 - SetupDialog [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
 
@@ -477,6 +478,15 @@ void MainWindow::init()
    //qInfo() << "[KLOG-TIMING] init() 10 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     dataProxy->loadDuplicateCache(currentLog); // async: lanza hilo BG y vuelve inmediatamente
+
+    // If the window was shown before init() ran (Proposal 4 startup ordering),
+    // showEvent() fired while upAndRunning was still false and skipped scheduling
+    // slotInitHamlib.  Catch that case here so Hamlib always auto-connects.
+    if (!hamlibConnectionAttempted) {
+        hamlibConnectionAttempted = true;
+        QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
+    }
+
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qInfo() << "[KLOG-TIMING] init() TOTAL:" << initTimer.elapsed() << "ms";
 }
