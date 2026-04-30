@@ -739,6 +739,11 @@ bool SetupDialog::hamlibTestWasRun() const
     return hamlibPage->wasTestRun();
 }
 
+void SetupDialog::setLiveHamlib(HamLibClass *liveHamlib)
+{
+    hamlibPage->setLiveHamlib(liveHamlib);
+}
+
 void SetupDialog::setLogLevel(const DebugLogLevel _sev)
 {
     logLevel = _sev;
