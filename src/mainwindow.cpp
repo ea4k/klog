@@ -479,12 +479,17 @@ void MainWindow::init()
 
     dataProxy->loadDuplicateCache(currentLog); // async: lanza hilo BG y vuelve inmediatamente
 
-    // If the window was shown before init() ran (Proposal 4 startup ordering),
-    // showEvent() fired while upAndRunning was still false and skipped scheduling
-    // slotInitHamlib.  Catch that case here so Hamlib always auto-connects.
+    // Schedule post-startup actions here so they run regardless of whether the
+    // window was shown before or after init() (Proposal 4 startup ordering).
+    // showEvent() used to handle this, but the hamlibConnectionAttempted flag
+    // is now set here first, making that block unreachable.
+    // Delay slotInitHamlib so the window is fully painted before hamlib blocks
+    // the main thread on a TCP connection attempt.
     if (!hamlibConnectionAttempted) {
         hamlibConnectionAttempted = true;
-        QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
+        QTimer::singleShot(100,  this, &MainWindow::checkIfNewVersion);
+        QTimer::singleShot(200,  this, &MainWindow::recommendBackupIfNeeded);
+        QTimer::singleShot(500,  this, &MainWindow::slotInitHamlib);
     }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -3542,14 +3547,6 @@ void MainWindow::showEvent(QShowEvent *event)
       //qDebug() << Q_FUNC_INFO ;
     (void)event;
     setWindowSize(windowSize);
-    if (!hamlibConnectionAttempted && upAndRunning)
-    {
-        hamlibConnectionAttempted = true;
-        QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
-        QTimer::singleShot(100, this, &MainWindow::checkIfNewVersion);
-        QTimer::singleShot(200, this, &MainWindow::recommendBackupIfNeeded);
-        QTimer::singleShot(300, this, [this]{ checkVersions(); }); //
-    }
 }
 
 void MainWindow::slotInitHamlib()
