@@ -407,58 +407,62 @@ void MainWindow::init()
 {
     QElapsedTimer initTimer;
     initTimer.start();
-   //qInfo() << "[KLOG-TIMING] init() START";
+    qInfo() << "[KLOG-TIMING] init() START";
 
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     checkHomeDir();
     checkDebugFile();
+    qInfo() << "[KLOG-TIMING] init() 00 - checkHomeDir+checkDebugFile:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     setupDialog->init(softwareVersion, 0, configured);
-   //qInfo() << "[KLOG-TIMING] init() 01 - setupDialog->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 01 - setupDialog->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     filemanager->init();
-   //qInfo() << "[KLOG-TIMING] init() 02 - filemanager->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 02 - filemanager->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     init_variables();
+    qInfo() << "[KLOG-TIMING] init() 02b - init_variables():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     hamlib->initClass();
-    // [PROPOSAL-3] hamlib->initClass() loads ALL radio models from HamLib: defer until config dialog
-   //qInfo() << "[KLOG-TIMING] init() 03 - hamlib->initClass() [PROPOSAL-3 candidate]:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 03 - hamlib->initClass():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     qsoInUI.clear();
     setCleaning(false);
     dxClusterWidget->init();
     setModifying(false);
+    qInfo() << "[KLOG-TIMING] init() 03b - dxClusterWidget->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     checkExistingData();
-   //qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData() (CTY file check):" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     readSettingsFile();
-   //qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     awards.setManageModes(manageMode);
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
         openSetup(6);
     }
+    qInfo() << "[KLOG-TIMING] init() 05b - awards+getNumberOfManagedLogs():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     // [PROPOSAL-5/6] Defer DB-heavy work to after the event loop starts so the
     // window paints before these queries run.
     QTimer::singleShot(0, this, [this]{
+        QElapsedTimer t; t.start();
         logWindow->createlogPanel(currentLog);
+        qInfo() << "[KLOG-TIMING] deferred - logWindow->createlogPanel():" << t.elapsed() << "ms"; t.restart();
         awardsWidget->setManageDXMarathon(manageDxMarathon);
         awardsWidget->fillOperatingYears();
         awardsWidget->showAwards();
+        qInfo() << "[KLOG-TIMING] deferred - awardsWidget fill+show:" << t.elapsed() << "ms";
     });
 
     dxClusterWidget->setCurrentLog(currentLog);
+    qInfo() << "[KLOG-TIMING] init() 06 - dxClusterWidget->setCurrentLog():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-    // [PROPOSAL-8] Defer checkVersions(): the DNS resolution + first TCP connect of
-    // QNetworkAccessManager::get() was blocking the main thread briefly at startup.
-    // Firing after the event loop starts lets the window appear first.
     QTimer::singleShot(0, this, &MainWindow::checkVersions);
-   //qInfo() << "[KLOG-TIMING] init() 08 - checkVersions() deferred to event loop [PROPOSAL-8 done]:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 07 - checkVersions() deferred:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
@@ -468,18 +472,20 @@ void MainWindow::init()
     timerInfoBars = new QTimer(this);
 
     createUI();
-   //qInfo() << "[KLOG-TIMING] init() 09 - createUI() (menus, actions, layout):" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 08 - createUI():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     slotClearButtonClicked(Q_FUNC_INFO);
     infoWidget->showInfo(-1);
+    qInfo() << "[KLOG-TIMING] init() 08b - slotClearButtonClicked+showInfo():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
 
     applySettings();
-   //qInfo() << "[KLOG-TIMING] init() 10 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    qInfo() << "[KLOG-TIMING] init() 09 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-    dataProxy->loadDuplicateCache(currentLog); // async: lanza hilo BG y vuelve inmediatamente
+    dataProxy->loadDuplicateCache(currentLog);
+    qInfo() << "[KLOG-TIMING] init() 10 - loadDuplicateCache() (async):" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     // Schedule post-startup actions here so they run regardless of whether the
     // window was shown before or after init() (Proposal 4 startup ordering).
@@ -492,9 +498,10 @@ void MainWindow::init()
         QTimer::singleShot(100,  this, &MainWindow::checkIfNewVersion);
         QTimer::singleShot(500,  this, &MainWindow::slotInitHamlib);
     }
+    qInfo() << "[KLOG-TIMING] init() 11 - post-startup timers scheduled:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-   //qInfo() << "[KLOG-TIMING] init() TOTAL:" << initTimer.elapsed() << "ms";
+    qInfo() << "[KLOG-TIMING] init() TOTAL (synchronous):" << initTimer.elapsed() << "ms";
 }
 
 void MainWindow::checkExistingData()
