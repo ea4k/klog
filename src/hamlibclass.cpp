@@ -691,9 +691,12 @@ bool HamLibClass::init(bool _active)
 
         probeSplitVfoSideEffect();
 
-        // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
+        // Start the polling timer on the main thread — init() may be called
+        // from a background thread (QtConcurrent), and QTimer::start() is
+        // not thread-safe.
         if (_active && timer) {
-            timer->start(pollInterval);
+            QMetaObject::invokeMethod(timer, [this]{ timer->start(pollInterval); },
+                                      Qt::QueuedConnection);
         }
         return true;
 

@@ -30,6 +30,8 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
+#include <QtConcurrent>
+#include <QFutureWatcher>
 #include "callsign.h"
 #include "updatesettings.h"
 //#include "database.h"
@@ -3392,10 +3394,18 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     }
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
     // Reinitialize hamlib only if settings changed or the test button was used.
-    // Deferred so the settings dialog closes visually before the TCP reconnect blocks.
+    // Run in a background thread so the UI is not blocked by the TCP reconnect.
     if (setupDialog->hamlibSettingsChanged() || setupDialog->hamlibTestWasRun())
     {
-        QTimer::singleShot(0, this, [this]{ hamlibActive = setHamlib(hamlibActive); });
+        const bool active = hamlibActive;
+        auto *watcher = new QFutureWatcher<bool>(this);
+        connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
+            hamlibActive = watcher->result();
+            watcher->deleteLater();
+        });
+        watcher->setFuture(QtConcurrent::run([this, active]() -> bool {
+            return setHamlib(active);
+        }));
     }
 
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
@@ -3548,38 +3558,55 @@ void MainWindow::showEvent(QShowEvent *event)
 void MainWindow::slotInitHamlib()
 {
     if (!hamlibActive)
-        return;
-    hamlibActive = setHamlib(true);
-
-    if (!hamlibActive)
     {
-        hamlib->stop();  // Stop polling timer so it doesn't trigger a second "lost communication" dialog
-        logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
-
-        QMessageBox msgBox(this);
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("Radio connection failed"));
-        msgBox.setText(tr("KLog could not connect to the radio at startup."));
-        msgBox.setInformativeText(tr("Please check the radio is on and the port settings are correct.\n"
-                                     "You can reconfigure and test the connection in Setup → Hamlib.\n\n"
-                                     "Do you want KLog to try to connect automatically on next startup?"));
-        msgBox.addButton(tr("Yes, reconnect on startup"), QMessageBox::YesRole);
-        QPushButton *noButton = msgBox.addButton(tr("No, disable radio connection"), QMessageBox::NoRole);
-        msgBox.exec();
-
-        if (msgBox.clickedButton() == noButton)
-        {
-            QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-            settings.beginGroup("HamLib");
-            settings.setValue("HamLibActive", false);
-            settings.endGroup();
-            settings.sync();
-            logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after startup failure", Info);
-        }
+        QTimer::singleShot(0, this, &MainWindow::recommendBackupIfNeeded);
+        return;
     }
-    // Show the backup reminder after hamlib has finished connecting (or failing),
-    // so the two dialogs never overlap inside each other's event loop.
-    QTimer::singleShot(0, this, &MainWindow::recommendBackupIfNeeded);
+
+    // Run the blocking TCP connection in a background thread so the UI
+    // stays responsive. timer->start() inside init() is posted back to
+    // the main thread via QMetaObject::invokeMethod (QueuedConnection).
+    auto *watcher = new QFutureWatcher<bool>(this);
+    connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]()
+    {
+        hamlibActive = watcher->result();
+        watcher->deleteLater();
+
+        if (!hamlibActive)
+        {
+            hamlib->stop();
+            logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
+
+            QMessageBox msgBox(this);
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setWindowTitle(tr("Radio connection failed"));
+            msgBox.setText(tr("KLog could not connect to the radio at startup."));
+            msgBox.setInformativeText(tr("Please check the radio is on and the port settings are correct.\n"
+                                         "You can reconfigure and test the connection in Setup → Hamlib.\n\n"
+                                         "Do you want KLog to try to connect automatically on next startup?"));
+            msgBox.addButton(tr("Yes, reconnect on startup"), QMessageBox::YesRole);
+            QPushButton *noButton = msgBox.addButton(tr("No, disable radio connection"), QMessageBox::NoRole);
+            msgBox.exec();
+
+            if (msgBox.clickedButton() == noButton)
+            {
+                QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+                settings.beginGroup("HamLib");
+                settings.setValue("HamLibActive", false);
+                settings.endGroup();
+                settings.sync();
+                logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after startup failure", Info);
+            }
+        }
+
+        // Show the backup reminder after hamlib finishes (success or failure)
+        // so the two dialogs are always sequential, never nested.
+        QTimer::singleShot(0, this, &MainWindow::recommendBackupIfNeeded);
+    });
+
+    watcher->setFuture(QtConcurrent::run([this]() -> bool {
+        return setHamlib(true);
+    }));
 }
 
 void MainWindow::slotHamlibRigDisconnected()
