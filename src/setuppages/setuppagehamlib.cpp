@@ -129,9 +129,8 @@ void SetupPageHamLib::setTestResult(const bool _ok)
         // Use stylesheet so the green colour survives Qt's disabled-button rendering.
         // QPalette alone is overridden by system/GTK themes on some Linux desktops.
         testHamlibPushButton->setStyleSheet(
-            "QPushButton { background-color: #00cc00; color: black; }"
-            "QPushButton:disabled { background-color: #00cc00; color: black; }");
-        testHamlibPushButton->setEnabled(false);  // connected — nothing to test
+            "QPushButton { background-color: #00cc00; color: black; }");
+        testHamlibPushButton->setEnabled(true);
         activateHamlibCheckBox->setEnabled (true);
     }
     else
