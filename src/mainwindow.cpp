@@ -3563,7 +3563,7 @@ void MainWindow::slotInitHamlib()
         hamlib->stop();  // Stop polling timer so it doesn't trigger a second "lost communication" dialog
         logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
 
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("Radio connection failed"));
         msgBox.setText(tr("KLog could not connect to the radio at startup."));
@@ -3592,7 +3592,7 @@ void MainWindow::slotHamlibRigDisconnected()
    //qDebug() << Q_FUNC_INFO ;
     hamlibActive = false;
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle(tr("Radio disconnected"));
     msgBox.setText(tr("KLog lost communication with the radio."));
