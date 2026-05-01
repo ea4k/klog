@@ -104,7 +104,7 @@ void SetupPageHamLib::slotTestHamlib()
     freqDisplayLabel->setText(defaultFreqMode);
     bool ok = m_liveHamlib->init(true);
     if (ok)
-        ok = m_liveHamlib->readRadio();
+        ok = m_liveHamlib->forceRead();
     setTestResult(ok);
     if (!ok)
         m_liveHamlib->stop();
