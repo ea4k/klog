@@ -488,7 +488,6 @@ void MainWindow::init()
     if (!hamlibConnectionAttempted) {
         hamlibConnectionAttempted = true;
         QTimer::singleShot(100,  this, &MainWindow::checkIfNewVersion);
-        QTimer::singleShot(200,  this, &MainWindow::recommendBackupIfNeeded);
         QTimer::singleShot(500,  this, &MainWindow::slotInitHamlib);
     }
 
@@ -770,11 +769,8 @@ void MainWindow::recommendBackupIfNeeded()
     if (backupNeeded)
     {
           //qDebug() << Q_FUNC_INFO << " -  We need to backup"  << (QTime::currentTime()).toString(" HH:mm:ss")  ;
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
-
-        //msg = msg + tr("Do you want to backup your logs now?");
-        //msgBox.setText(msg);
         msgBox.setWindowTitle(tr("Log backup recommended!"));
         msgBox.setText(msg);
 
@@ -3395,11 +3391,11 @@ void MainWindow::slotSetupDialogFinished (const int _s)
        //qDebug()<< (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 023 - ";
     }
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - 030 - " ;
-    // Reinitialize hamlib only if settings changed or the test button was used
-    // (the test connects a second hamlib instance which may disrupt the live session).
+    // Reinitialize hamlib only if settings changed or the test button was used.
+    // Deferred so the settings dialog closes visually before the TCP reconnect blocks.
     if (setupDialog->hamlibSettingsChanged() || setupDialog->hamlibTestWasRun())
     {
-        hamlibActive = setHamlib(hamlibActive);
+        QTimer::singleShot(0, this, [this]{ hamlibActive = setHamlib(hamlibActive); });
     }
 
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
@@ -3581,6 +3577,9 @@ void MainWindow::slotInitHamlib()
             logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after startup failure", Info);
         }
     }
+    // Show the backup reminder after hamlib has finished connecting (or failing),
+    // so the two dialogs never overlap inside each other's event loop.
+    QTimer::singleShot(0, this, &MainWindow::recommendBackupIfNeeded);
 }
 
 void MainWindow::slotHamlibRigDisconnected()
