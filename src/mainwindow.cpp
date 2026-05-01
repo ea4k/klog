@@ -437,20 +437,20 @@ void MainWindow::init()
     readSettingsFile();
    //qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-    logWindow->createlogPanel(currentLog);
-   //qInfo() << "[KLOG-TIMING] init() 06 - logWindow->createlogPanel():" << initTimer.elapsed() << "ms"; initTimer.restart();
-
     awards.setManageModes(manageMode);
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
         openSetup(6);
     }
 
-    awardsWidget->fillOperatingYears();
-    awardsWidget->showAwards();
-    awardsWidget->setManageDXMarathon(manageDxMarathon);
-    // [PROPOSAL-5] awardsWidget fill/show: DB queries for statistics, could be deferred
-   //qInfo() << "[KLOG-TIMING] init() 07 - awardsWidget fill+show [PROPOSAL-5 candidate]:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    // [PROPOSAL-5/6] Defer DB-heavy work to after the event loop starts so the
+    // window paints before these queries run.
+    QTimer::singleShot(0, this, [this]{
+        logWindow->createlogPanel(currentLog);
+        awardsWidget->setManageDXMarathon(manageDxMarathon);
+        awardsWidget->fillOperatingYears();
+        awardsWidget->showAwards();
+    });
 
     dxClusterWidget->setCurrentLog(currentLog);
 
@@ -3400,8 +3400,15 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         const bool active = hamlibActive;
         auto *watcher = new QFutureWatcher<bool>(this);
         connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
-            hamlibActive = watcher->result();
+            const bool connected = watcher->result();
             watcher->deleteLater();
+            if (connected) {
+                hamlib->startPolling();
+                hamlibActive = hamlib->forceRead();
+            } else {
+                hamlibActive = false;
+                hamlib->stop();
+            }
         });
         watcher->setFuture(QtConcurrent::run([this, active]() -> bool {
             return setHamlib(active);
@@ -3534,10 +3541,9 @@ bool MainWindow::setHamlib(const bool _b)
     if (_b)
     {
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib active";
-        if (!hamlib->init(true))
-            return false;
-          //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ")  << Q_FUNC_INFO << ": After Hamlib active";
-        return hamlib->readRadio(); // Forcing the radio update
+        // Only the blocking TCP connect runs here (may be called from background thread).
+        // startPolling() and forceRead() are called by the caller on the main thread.
+        return hamlib->init(true);
     }
     else
     {
@@ -3569,8 +3575,20 @@ void MainWindow::slotInitHamlib()
     auto *watcher = new QFutureWatcher<bool>(this);
     connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]()
     {
-        hamlibActive = watcher->result();
+        const bool connected = watcher->result();
         watcher->deleteLater();
+
+        if (connected)
+        {
+            // Start polling timer and do initial read on the main thread —
+            // both are unsafe to call from the background thread.
+            hamlib->startPolling();
+            hamlibActive = hamlib->forceRead();
+        }
+        else
+        {
+            hamlibActive = false;
+        }
 
         if (!hamlibActive)
         {

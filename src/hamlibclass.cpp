@@ -350,6 +350,12 @@ bool HamLibClass::forceRead()
     return readRadioInternal();
 }
 
+void HamLibClass::startPolling()
+{
+    if (timer && rig_state == RigState::Connected)
+        timer->start(pollInterval);
+}
+
 bool HamLibClass::readRadioInternal()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
@@ -691,13 +697,9 @@ bool HamLibClass::init(bool _active)
 
         probeSplitVfoSideEffect();
 
-        // Start the polling timer on the main thread — init() may be called
-        // from a background thread (QtConcurrent), and QTimer::start() is
-        // not thread-safe.
-        if (_active && timer) {
-            QMetaObject::invokeMethod(timer, [this]{ timer->start(pollInterval); },
-                                      Qt::QueuedConnection);
-        }
+        // Polling is started separately via startPolling() on the main thread
+        // so that init() can safely run in a background thread without touching
+        // QTimer from a non-owner thread.
         return true;
 
     } else {
