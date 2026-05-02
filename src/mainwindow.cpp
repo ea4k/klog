@@ -48,8 +48,6 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 {
     QElapsedTimer timer;
     timer.start();
-
-    dataProxy = dp;
     world = injectedWorld;
 
     softwareVersion = dataProxy->getSoftVersion();
@@ -728,7 +726,7 @@ void MainWindow::createActionsCommon(){
     //connect(hamlib, SIGNAL(freqTXChanged(Frequency)), this, SLOT(slotHamlibTXFreqChanged(Frequency)) );
     //connect(hamlib, SIGNAL(modeChanged(QString)), this, SLOT(slotHamlibModeChanged(QString)) );
 
-    connect(hamlib, SIGNAL(radioStatusChanged(RadioStatus)), this, SLOT(slotHamlibUpdate(RadioStatus)));
+    connect(hamlib, SIGNAL(radioStatusChangedSignal(RadioStatus)), this, SLOT(slotHamlibUpdate(RadioStatus)));
     connect(hamlib, &HamLibClass::rigDisconnected, this, &MainWindow::slotHamlibRigDisconnected);
     connect(lotwUtilities, SIGNAL(actionProcessLoTWDownloadedFile(QString)), this, SLOT(slotLoTWDownloadedFileProcess(QString)) );
     connect(adifLoTWExportWidget, SIGNAL(qsosToSend(QString, QList<int>, ExportMode)), this, SLOT(slotADIFExportSelection(QString, QList<int>, ExportMode)) );
@@ -6136,13 +6134,22 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
 {
-   //qDebug() << Q_FUNC_INFO << " - Start";
+    qDebug() << Q_FUNC_INFO << " - Start";
+    QElapsedTimer timer;
+    timer.start();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget->setSplit(!(_s.freq_VFO_TX == _s.freq_VFO_RX));
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020" << timer.elapsed() << "ms"; timer.restart();
    //qDebug() << Q_FUNC_INFO << " - Split: " << util->boolToQString(_s.freq_VFO_TX == _s.freq_VFO_RX);
     slotHamlibTXFreqChanged(_s.freq_VFO_TX);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030" << timer.elapsed() << "ms"; timer.restart();
     slotHamlibRXFreqChanged(_s.freq_VFO_RX);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040" << timer.elapsed() << "ms"; timer.restart();
     slotHamlibModeChanged(_s.mode_VFO_TX);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 050" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget->setSplit(_s.split);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
@@ -6176,39 +6183,49 @@ void MainWindow::slotHamlibRXFreqChanged(const Frequency _f)
 void MainWindow::slotHamlibModeChanged(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    QElapsedTimer timer;
+    timer.start();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 000 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     if (manualMode)
     {
         return;
     }
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     if (_m.length()<2)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     if ((mainQSOEntryWidget->getMode()).toUpper() == _m.toUpper())
     {
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 021 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
         return;
     }
-
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     hamlibChangingMode = true;
     if (checkIfNewMode(_m))
     {
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 031 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
         hamlibChangingMode = false;
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return;
     }
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     if (mainQSOEntryWidget->isModeExisting(_m))
     {
-       //qDebug() << "slotHamlibModeChanged: Mode in the Combobox: " ;
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 041 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+        //qDebug() << _FUNC_INFO << " Mode in the Combobox: " ;
         mainQSOEntryWidget->setMode(_m);
-        //modeComboBox->setCurrentIndex(modeComboBox->findText(_m, Qt::MatchCaseSensitive));
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 042 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     }
     else
     {
-          //qDebug() << "MainWindow::slotHamlibModeChanged: Mode not found in combobox" << _m ;
+          qDebug() << Q_FUNC_INFO << " Mode not found in combobox" << _m ;
     }
     hamlibChangingMode = false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 099 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

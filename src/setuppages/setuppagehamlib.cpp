@@ -70,7 +70,7 @@ void SetupPageHamLib::setLiveHamlib(HamLibClass *liveHamlib)
     if (!liveHamlib || liveHamlib == m_liveHamlib)
         return;
     m_liveHamlib = liveHamlib;
-    connect(m_liveHamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChanged),
+    connect(m_liveHamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChangedSignal),
             this, &SetupPageHamLib::slotRadioStatusChanged);
     connect(m_liveHamlib, &HamLibClass::rigDisconnected, this, [this]{
         freqDisplayLabel->setText(defaultFreqMode);

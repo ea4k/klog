@@ -102,7 +102,7 @@ public:
     bool loadSettings();
 
 signals:
-    void radioStatusChanged(RadioStatus);
+    void radioStatusChangedSignal(RadioStatus);
     void freqTXChanged(Frequency newfreq);
     void modeChanged(QString newMode);
     void rigDisconnected();   // Emitted when the rig stops responding

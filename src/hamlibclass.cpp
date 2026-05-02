@@ -378,7 +378,7 @@ bool HamLibClass::readRadioInternal()
 
     errorCount = 0;
     if (radioStatusChanged(statusOld, radioStatus))
-        emit radioStatusChanged(radioStatus);
+        emit radioStatusChangedSignal(radioStatus);
     qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
     //reading = false;
     return true;
