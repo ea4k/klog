@@ -5886,12 +5886,15 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
 {
         //qDebug() << "MainWindow::checkIfNewMode: " << _mode ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    if (dataProxy->getIdFromModeName(_mode)<0)
+    QElapsedTimer _cit; _cit.start();
+    const int modeId = dataProxy->getIdFromModeName(_mode);
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] getIdFromModeName(" << _mode << "):" << _cit.elapsed() << "ms → id=" << modeId;
+    if (modeId<0)
     {// The mode is not existing; it is not an accepted mode for KLog
      // TODO: Show an error to the user
           //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode ;
 
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - Non-supported mode"));
 
         msgBox.setIcon(QMessageBox::Warning);
@@ -6137,12 +6140,18 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
+    QElapsedTimer t; t.start();
     QSOTabWidget->setSplit(!(_s.freq_VFO_TX == _s.freq_VFO_RX));
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] 010 setSplit1:" << t.elapsed() << "ms"; t.restart();
    //qDebug() << Q_FUNC_INFO << " - Split: " << util->boolToQString(_s.freq_VFO_TX == _s.freq_VFO_RX);
     slotHamlibTXFreqChanged(_s.freq_VFO_TX);
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] 020 slotHamlibTXFreqChanged:" << t.elapsed() << "ms"; t.restart();
     slotHamlibRXFreqChanged(_s.freq_VFO_RX);
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] 030 slotHamlibRXFreqChanged:" << t.elapsed() << "ms"; t.restart();
     slotHamlibModeChanged(_s.mode_VFO_TX);
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] 040 slotHamlibModeChanged:" << t.elapsed() << "ms"; t.restart();
     QSOTabWidget->setSplit(_s.split);
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] 050 setSplit2:" << t.elapsed() << "ms";
 }
 
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
@@ -6192,12 +6201,15 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     }
 
     hamlibChangingMode = true;
+    { QElapsedTimer _t; _t.start();
     if (checkIfNewMode(_m))
     {
         hamlibChangingMode = false;
+        qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] checkIfNewMode(true):" << _t.elapsed() << "ms";
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return;
     }
+    qInfo() << Q_FUNC_INFO << "[KLOG-TIMING] checkIfNewMode(false):" << _t.elapsed() << "ms"; }
     if (mainQSOEntryWidget->isModeExisting(_m))
     {
        //qDebug() << "slotHamlibModeChanged: Mode in the Combobox: " ;
