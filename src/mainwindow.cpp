@@ -48,6 +48,8 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 {
     QElapsedTimer timer;
     timer.start();
+    qInfo() << "[KLOG-TIMING] ctor START";
+    dataProxy = dp;
     world = injectedWorld;
 
     softwareVersion = dataProxy->getSoftVersion();
@@ -58,7 +60,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     logWindow = std::make_unique<LogWindow>(&awards, this);
     infoWidget = std::make_unique<InfoWidget>(&awards, world, this);
 
-   //qInfo() << "[KLOG-TIMING] ctor 001 - initial widgets (DXCCStatus/DXCluster/Search/Log/Info):" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] ctor 001:" << timer.elapsed() << "ms"; timer.restart();
 
     showKLogLogWidget = new ShowKLogLogWidget;
    //qInfo() << "[KLOG-TIMING] ctor 002 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
@@ -78,12 +80,11 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
     world->create(util->getCTYFile());
-   //qInfo() << "[KLOG-TIMING] ctor 006 - world->create() (CTY file, only slow on 1st run):" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] ctor 006 world->create():" << timer.elapsed() << "ms"; timer.restart();
 
     hamlibConnectionAttempted = false;
     hamlib = new HamLibClass();
-    // [PROPOSAL-3] HamLibClass ctor: consider lazy-init (defer fillRigsList until config dialog opens)
-   //qInfo() << "[KLOG-TIMING] ctor 007 - HamLibClass ctor [PROPOSAL-3 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] ctor 007 HamLibClass:" << timer.elapsed() << "ms"; timer.restart();
 
     lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
    //qInfo() << "[KLOG-TIMING] ctor 008 - LoTWUtilities:" << timer.elapsed() << "ms"; timer.restart();
@@ -107,8 +108,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     infoLabel2 = new QLabel(tr("DX Entity"));
 
     awardsWidget = new AwardsWidget(dataProxy, world, this);
-    // [PROPOSAL-5] AwardsWidget: consider lazy-init
-   //qInfo() << "[KLOG-TIMING] ctor 017 - AwardsWidget [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] ctor 017 AwardsWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     // [PROPOSAL-5] AboutDialog: lazy-init, created on first slotHelpAboutAction() call
     // [PROPOSAL-5] TipsDialog: lazy-init via ensureTipsDialog()
@@ -120,8 +120,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 
     setupDialog = new SetupDialog(dataProxy, world, this);
     setupDialog->setLiveHamlib(hamlib); // read-only display reference — Test button still uses its own local instance
-    // [PROPOSAL-5] SetupDialog: only opened on demand (or first run)
-   //qInfo() << "[KLOG-TIMING] ctor 021 - SetupDialog [PROPOSAL-5 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] ctor 021 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
 
     satTabWidget = new MainWindowSatTab(dataProxy);
    //qInfo() << "[KLOG-TIMING] ctor 022 - MainWindowSatTab:" << timer.elapsed() << "ms"; timer.restart();
@@ -167,7 +166,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
    //qInfo() << "[KLOG-TIMING] ctor 035 - ShowAdifImportWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-   //qInfo() << "[KLOG-TIMING] ctor TOTAL:" << timer.elapsed() << "ms";
+    qInfo() << "[KLOG-TIMING] ctor TOTAL:" << timer.elapsed() << "ms";
 }
 
 MainWindow::~MainWindow()
@@ -5884,12 +5883,15 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
 {
         //qDebug() << "MainWindow::checkIfNewMode: " << _mode ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    if (dataProxy->getIdFromModeName(_mode)<0)
+    QElapsedTimer _cit; _cit.start();
+    const int modeId = dataProxy->getIdFromModeName(_mode);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] getIdFromModeName(" << _mode << "):" << _cit.elapsed() << "ms id=" << modeId;
+    if (modeId<0)
     {// The mode is not existing; it is not an accepted mode for KLog
      // TODO: Show an error to the user
           //qDebug() << "MainWindow::checkIfNewMode: Mode not valid! - " << _mode ;
 
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - Non-supported mode"));
 
         msgBox.setIcon(QMessageBox::Warning);
