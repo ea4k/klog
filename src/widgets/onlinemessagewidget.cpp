@@ -76,7 +76,7 @@ int OnlineMessageWidget::showMessage(QNetworkReply::NetworkError _error, OnLineP
         return -100;
     }
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     if (_onlineError == OnlineErrorCode::Ok)
     {
       msgBox.setIcon(QMessageBox::Warning);

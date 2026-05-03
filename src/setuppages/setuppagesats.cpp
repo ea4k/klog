@@ -543,7 +543,7 @@ void SetupPageSats::slotImportButtonClicked()
     else
     {
          //qDebug() << "SetupPageSats::slotImportButtonClicked IMPORTED NOK";
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog warning"));
         QString aux = QString();

@@ -372,7 +372,7 @@ void SetupPageSatsNew::slotOKButtonClicked()
     }
     else
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("Some of the data you have entered is not correct; the satellite can't be added."));
         msgBox.exec();

@@ -280,7 +280,7 @@ void LogWindow::refresh()
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
       //qDebug() << Q_FUNC_INFO << " - Error refreshing log:" << logModel->lastError().text();
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setText(tr("There was a problem with the log, please restart KLog and contact the development team if the error persist."));
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setStandardButtons(QMessageBox::Ok);

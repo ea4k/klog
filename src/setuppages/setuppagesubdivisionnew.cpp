@@ -547,7 +547,7 @@ void SetupPageSubdivisionNew::slotOKButtonClicked()
     stationCallsign = stationCallsignLineEdit->text();
     if (stationCallsign.length()<3)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter a valid callsign in the Station Callsign box.\nThe log will not be opened."));
         msgBox.exec();
@@ -676,7 +676,7 @@ void SetupPageSubdivisionNew::slotOKButtonClicked()
    // typeContest = getSelectedTypeContest();
     if (typeContest < 0)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You selected an invalid combination.\nThe log will not be opened."));
         msgBox.exec();

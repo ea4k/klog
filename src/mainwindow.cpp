@@ -1040,7 +1040,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     }
 
     // qString _modeSeen = mainQSOEntryWidget->getMode();
-    if (hamlibActive && !manualMode && !hamlibChangingMod)
+    if (hamlibActive && !manualMode && !hamlibChangingMode)
     {
         hamlib->setMode(mainQSOEntryWidget->getMode());
     }
@@ -2788,7 +2788,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     // qString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    QMessageBox msgConfirm;
+    QMessageBox msgConfirm(this);
     msgConfirm.setIcon(QMessageBox::Question);
     msgConfirm.setWindowTitle(tr("KLog - LoTW"));
     msgConfirm.setText(tr("Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
@@ -2856,7 +2856,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     // qString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    QMessageBox msgConfirm;
+    QMessageBox msgConfirm(this);
     msgConfirm.setIcon(QMessageBox::Question);
     msgConfirm.setWindowTitle(tr("KLog - LoTW"));
     msgConfirm.setText(tr("Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
