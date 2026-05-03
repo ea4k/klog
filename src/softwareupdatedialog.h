@@ -33,7 +33,7 @@ class SoftwareUpdateDialog: public QDialog
 {
     Q_OBJECT
 public:
-    SoftwareUpdateDialog();
+    explicit SoftwareUpdateDialog(QWidget *parent = nullptr);
     ~SoftwareUpdateDialog();
     void setVersion(const QString tversion, const bool updateNeeded);
 

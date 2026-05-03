@@ -395,6 +395,13 @@ void HamLibClass::slotTimer()
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void HamLibClass::startPolling()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (timer && rig_state == RigState::Connected)
+        timer->start(pollInterval);
+}
+
 void HamLibClass::setMode(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
@@ -691,11 +698,6 @@ bool HamLibClass::init(bool _active)
         //connected = true;
 
         probeSplitVfoSideEffect();
-
-        // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
-        if (_active && timer) {
-            timer->start(pollInterval);
-        }
         return true;
 
     } else {

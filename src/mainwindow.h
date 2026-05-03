@@ -31,6 +31,8 @@
 #include <QPrintDialog>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QtConcurrent>
+#include <QFutureWatcher>
 #include <QtAlgorithms>
 #include <QDesktopServices>
 #include <QUrl>

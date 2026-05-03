@@ -103,8 +103,10 @@ void SetupPageHamLib::slotTestHamlib()
     m_liveHamlib->stop();
     freqDisplayLabel->setText(defaultFreqMode);
     bool ok = m_liveHamlib->init(true);
-    if (ok)
+    if (ok) {
+        m_liveHamlib->startPolling();
         ok = m_liveHamlib->forceRead();
+    }
     setTestResult(ok);
     if (!ok)
         m_liveHamlib->stop();

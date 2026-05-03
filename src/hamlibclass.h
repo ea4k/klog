@@ -109,6 +109,7 @@ signals:
 
 public slots:
     void slotTimer();
+    void startPolling();
 
 
 private:
