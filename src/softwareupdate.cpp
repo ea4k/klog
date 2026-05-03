@@ -26,11 +26,11 @@
 
 #include "softwareupdate.h"
 
-SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion) : QObject(nullptr)
+SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion, QWidget *parent) : QObject(parent)
 {
       //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion;
     util = new Utilities(Q_FUNC_INFO);
-    updateDialog = new SoftwareUpdateDialog();
+    updateDialog = new SoftwareUpdateDialog(parent);
     latestVersion = "0.0";
     repositoryFound = false;
     url = new QUrl;
@@ -127,8 +127,8 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
                 {
                     //qDebug() << "SoftwareUpdate::slotDownloadFinished checkupdates should update!" ;
                     updateDialog->setVersion(latestVersion, true);
+                    updateDialog->show();
                 }
-                updateDialog->show();
                 latestVersion = klogVersion;
                 repositoryFound = false;
             }

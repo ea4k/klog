@@ -154,7 +154,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
        exit(0);
     }
 
-    softUpdate = new SoftwareUpdate(softwareVersion);
+    softUpdate = new SoftwareUpdate(softwareVersion, this);
    //qInfo() << "[KLOG-TIMING] ctor 031 - SoftwareUpdate:" << timer.elapsed() << "ms"; timer.restart();
 
     filemanager = new FileManager(dataProxy, world);

@@ -43,7 +43,7 @@ class SoftwareUpdate: public QObject {
     Q_OBJECT
 
 public:
-    SoftwareUpdate(const QString &_klogVersion);
+    explicit SoftwareUpdate(const QString &_klogVersion, QWidget *parent = nullptr);
     ~SoftwareUpdate();
 
     void addCall(const QString &_call);

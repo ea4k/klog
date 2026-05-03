@@ -28,7 +28,7 @@
 
 //#include <QDebug>
 
-SoftwareUpdateDialog::SoftwareUpdateDialog()
+SoftwareUpdateDialog::SoftwareUpdateDialog(QWidget *parent) : QDialog(parent)
 {
       //qDebug() << "SoftwareUpdateDialog::SoftwareUpdateDialog" ;
 
@@ -92,10 +92,14 @@ void SoftwareUpdateDialog::slotAcceptButtonClicked()
 void SoftwareUpdateDialog::keyPressEvent(QKeyEvent *event)
 {
     //qDebug() << "SoftwareUpdateDialog::keyPressEvent" ;
-
-    if (event->key()>=0)
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter ||
+        event->key() == Qt::Key_Escape)
     {
         slotAcceptButtonClicked();
+    }
+    else
+    {
+        QDialog::keyPressEvent(event);
     }
     //qDebug() << "SoftwareUpdateDialog::keyPressEvent END" ;
 }
