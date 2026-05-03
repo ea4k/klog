@@ -341,13 +341,13 @@ bool HamLibClass::readRadio()
     return readRadioInternal();
 }
 
-void HamLibClass::forceRead()
+bool HamLibClass::forceRead()
 {
     // Reset cached status so the next read always emits radioStatusChanged,
     // even if the radio values haven't changed since the last poll.
     logEvent(Q_FUNC_INFO, "Start", Devel);
     radioStatus = RadioStatus();
-    readRadioInternal();
+    return readRadioInternal();
 }
 
 bool HamLibClass::readRadioInternal()
@@ -399,6 +399,7 @@ void HamLibClass::setMode(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setMode: " << _m;
+    if (_m.isEmpty()) return;
     if ((!isRunning()) || (readOnlyMode))
     {
         //qDebug() << Q_FUNC_INFO << ": Not running or RO";

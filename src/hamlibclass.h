@@ -90,7 +90,7 @@ public:
     bool init(bool _active);
     bool stop();
     bool readRadio();
-    void forceRead();
+    bool forceRead();
     bool isRunning();
     void initClass();
     void clean();
@@ -109,6 +109,7 @@ signals:
 
 public slots:
     void slotTimer();
+
 
 private:
     enum class RigState {
