@@ -1047,7 +1047,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     }
 
     // qString _modeSeen = mainQSOEntryWidget->getMode();
-    if (hamlibActive && !manualMode)
+    if (hamlibActive && !manualMode && !hamlibChangingMode)
     {
         hamlib->setMode(mainQSOEntryWidget->getMode());
     }
@@ -5923,7 +5923,8 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
         //noMoreModeErrorShown = false;
         //TODO: Add the new mode to the list of active modes
           //qDebug() << "MainWindow::checkIfNewMode: VALID NEW MODE: Adding... - " << _mode ;
-        addNewValidMode(_mode);
+        if (!mainQSOEntryWidget->isModeExisting(_mode))
+            addNewValidMode(_mode);
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
     return false;

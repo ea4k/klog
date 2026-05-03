@@ -414,6 +414,8 @@ void HamLibClass::setMode(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setMode: " << _m;
+    if (_m.isEmpty())
+        return;
     if ((!isRunning()) || (readOnlyMode))
     {
         //qDebug() << Q_FUNC_INFO << ": Not running or RO";
