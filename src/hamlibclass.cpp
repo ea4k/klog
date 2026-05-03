@@ -707,10 +707,6 @@ bool HamLibClass::init(bool _active)
         //connected = true;
 
         probeSplitVfoSideEffect();
-
-        // Polling is started separately via startPolling() on the main thread
-        // so that init() can safely run in a background thread without touching
-        // QTimer from a non-owner thread.
         return true;
 
     } else {

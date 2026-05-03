@@ -496,7 +496,6 @@ void MainWindow::init()
         QTimer::singleShot(500,  this, &MainWindow::slotInitHamlib);
     }
     qInfo() << "[KLOG-TIMING] init() 11 - post-startup timers scheduled:" << initTimer.elapsed() << "ms"; initTimer.restart();
-
     logEvent(Q_FUNC_INFO, "END", Debug);
     qInfo() << "[KLOG-TIMING] init() TOTAL (synchronous):" << initTimer.elapsed() << "ms";
 }

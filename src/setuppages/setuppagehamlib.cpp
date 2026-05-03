@@ -71,6 +71,7 @@ void SetupPageHamLib::setLiveHamlib(HamLibClass *liveHamlib)
         return;
     m_liveHamlib = liveHamlib;
     connect(m_liveHamlib, static_cast<void (HamLibClass::*)(RadioStatus)>(&HamLibClass::radioStatusChangedSignal),
+
             this, &SetupPageHamLib::slotRadioStatusChanged);
     connect(m_liveHamlib, &HamLibClass::rigDisconnected, this, [this]{
         freqDisplayLabel->setText(defaultFreqMode);
@@ -104,7 +105,7 @@ void SetupPageHamLib::slotTestHamlib()
     freqDisplayLabel->setText(defaultFreqMode);
     bool ok = m_liveHamlib->init(true);
     if (ok)
-        ok = m_liveHamlib->forceRead();
+        ok = m_liveHamlib->readRadio();
     setTestResult(ok);
     if (!ok)
         m_liveHamlib->stop();
@@ -131,6 +132,7 @@ void SetupPageHamLib::setTestResult(const bool _ok)
         testHamlibPushButton->setStyleSheet(
             "QPushButton { background-color: #00cc00; color: black; }");
         testHamlibPushButton->setEnabled(true);
+
         activateHamlibCheckBox->setEnabled (true);
     }
     else
