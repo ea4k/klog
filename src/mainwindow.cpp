@@ -3394,7 +3394,34 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     // (the test connects a second hamlib instance which may disrupt the live session).
     if (setupDialog->hamlibSettingsChanged() || setupDialog->hamlibTestWasRun())
     {
-        hamlibActive = setHamlib(hamlibActive);
+        const bool shouldConnect = hamlibActive;
+        if (shouldConnect)
+        {
+            // Run the blocking TCP reconnect in background so the main window
+            // is not frozen while hamlib establishes the new connection.
+            auto *watcher = new QFutureWatcher<bool>(this);
+            connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
+                const bool ok = watcher->result();
+                watcher->deleteLater();
+                hamlibActive = ok;
+                if (ok)
+                {
+                    hamlib->startPolling();
+                    hamlib->forceRead();
+                }
+            });
+            QFuture<bool> future = QtConcurrent::run([this]() {
+                if (!upAndRunning)
+                    return false;
+                return hamlib->init(true);
+            });
+            watcher->setFuture(future);
+        }
+        else
+        {
+            hamlib->init(false);
+            hamlibActive = false;
+        }
     }
 
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
@@ -3526,6 +3553,7 @@ bool MainWindow::setHamlib(const bool _b)
         if (!hamlib->init(true))
             return false;
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ")  << Q_FUNC_INFO << ": After Hamlib active";
+        hamlib->startPolling();
         return hamlib->readRadio(); // Forcing the radio update
     }
     else
@@ -3547,7 +3575,7 @@ void MainWindow::showEvent(QShowEvent *event)
         hamlibConnectionAttempted = true;
         QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
         QTimer::singleShot(100, this, &MainWindow::checkIfNewVersion);
-        QTimer::singleShot(200, this, &MainWindow::recommendBackupIfNeeded);
+        // recommendBackupIfNeeded is called from slotInitHamlib once hamlib init completes
         QTimer::singleShot(300, this, [this]{ checkVersions(); }); //
     }
 }
@@ -3555,35 +3583,63 @@ void MainWindow::showEvent(QShowEvent *event)
 void MainWindow::slotInitHamlib()
 {
     if (!hamlibActive)
-        return;
-    hamlibActive = setHamlib(true);
-
-    if (!hamlibActive)
     {
-        hamlib->stop();  // Stop polling timer so it doesn't trigger a second "lost communication" dialog
-        logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
-
-        QMessageBox msgBox(this);
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle(tr("Radio connection failed"));
-        msgBox.setText(tr("KLog could not connect to the radio at startup."));
-        msgBox.setInformativeText(tr("Please check the radio is on and the port settings are correct.\n"
-                                     "You can reconfigure and test the connection in Setup → Hamlib.\n\n"
-                                     "Do you want KLog to try to connect automatically on next startup?"));
-        msgBox.addButton(tr("Yes, reconnect on startup"), QMessageBox::YesRole);
-        QPushButton *noButton = msgBox.addButton(tr("No, disable radio connection"), QMessageBox::NoRole);
-        msgBox.exec();
-
-        if (msgBox.clickedButton() == noButton)
-        {
-            QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-            settings.beginGroup("HamLib");
-            settings.setValue("HamLibActive", false);
-            settings.endGroup();
-            settings.sync();
-            logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after startup failure", Info);
-        }
+        // Hamlib not configured — still fire the deferred startup tasks
+        recommendBackupIfNeeded();
+        return;
     }
+
+    // Run the blocking TCP connect in a background thread so the UI stays
+    // responsive while hamlib is establishing the connection.
+    auto *watcher = new QFutureWatcher<bool>(this);
+    connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
+        const bool ok = watcher->result();
+        watcher->deleteLater();
+
+        hamlibActive = ok;
+        if (ok)
+        {
+            // Timer must be started on the main thread (QTimer affinity).
+            hamlib->startPolling();
+            hamlib->forceRead();
+        }
+        else
+        {
+            hamlib->stop();
+            logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
+
+            QMessageBox msgBox(this);
+            msgBox.setIcon(QMessageBox::Warning);
+            msgBox.setWindowTitle(tr("Radio connection failed"));
+            msgBox.setText(tr("KLog could not connect to the radio at startup."));
+            msgBox.setInformativeText(tr("Please check the radio is on and the port settings are correct.\n"
+                                         "You can reconfigure and test the connection in Setup → Hamlib.\n\n"
+                                         "Do you want KLog to try to connect automatically on next startup?"));
+            msgBox.addButton(tr("Yes, reconnect on startup"), QMessageBox::YesRole);
+            QPushButton *noButton = msgBox.addButton(tr("No, disable radio connection"), QMessageBox::NoRole);
+            msgBox.exec();
+
+            if (msgBox.clickedButton() == noButton)
+            {
+                QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+                settings.beginGroup("HamLib");
+                settings.setValue("HamLibActive", false);
+                settings.endGroup();
+                settings.sync();
+                logEvent(Q_FUNC_INFO, "HamLibActive set to false by user after startup failure", Info);
+            }
+        }
+
+        // Always fire deferred startup tasks after hamlib init (success or failure).
+        recommendBackupIfNeeded();
+    });
+
+    QFuture<bool> future = QtConcurrent::run([this]() {
+        if (!upAndRunning)
+            return false;
+        return hamlib->init(true);
+    });
+    watcher->setFuture(future);
 }
 
 void MainWindow::slotHamlibRigDisconnected()
