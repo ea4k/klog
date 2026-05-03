@@ -2740,7 +2740,7 @@ Puedes reconfigurar y probar la conexión en Preferencias→ Hamlib.
         <location filename="../mainwindow.cpp" line="3541"/>
         <location filename="../mainwindow.cpp" line="3569"/>
         <source>Yes, reconnect on startup</source>
-        <translation>Si, recoonectar al empezar</translation>
+        <translation type="unfinished">Si, reconectar al empezar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3542"/>

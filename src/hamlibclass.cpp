@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "utilities.h"
+#include <QElapsedTimer>
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
@@ -341,37 +342,51 @@ bool HamLibClass::readRadio()
     return readRadioInternal();
 }
 
-void HamLibClass::forceRead()
+bool HamLibClass::forceRead()
 {
     // Reset cached status so the next read always emits radioStatusChanged,
     // even if the radio values haven't changed since the last poll.
     logEvent(Q_FUNC_INFO, "Start", Devel);
     radioStatus = RadioStatus();
-    readRadioInternal();
+    return readRadioInternal();
+}
+
+void HamLibClass::startPolling()
+{
+    if (timer && rig_state == RigState::Connected)
+        timer->start(pollInterval);
 }
 
 bool HamLibClass::readRadioInternal()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    QElapsedTimer timer;
+    timer.start();
+    qDebug() << Q_FUNC_INFO;
     if (!my_rig || (rig_state != RigState::Connected) )
         return false;
-
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010" << timer.elapsed() << "ms"; timer.restart();
     RadioStatus statusOld = radioStatus;
     if(!readVFO())   return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020" << timer.elapsed() << "ms"; timer.restart();
     if (!readSplit()) return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030" << timer.elapsed() << "ms"; timer.restart();
     if(!readFreq())   return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040" << timer.elapsed() << "ms"; timer.restart();
     if (!readMode())  return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 050" << timer.elapsed() << "ms"; timer.restart();
 
     errorCount = 0;
     if (radioStatusChanged(statusOld, radioStatus))
-        emit radioStatusChanged(radioStatus);
-
+        emit radioStatusChangedSignal(radioStatus);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
     //reading = false;
     return true;
 }
 
 bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _new)
 {
+    qDebug() << Q_FUNC_INFO << " - 000";
     return (
         _old.split != _new.split                ||
         _old.memoryMode != _new.memoryMode      ||
@@ -385,20 +400,22 @@ bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _
 void HamLibClass::slotTimer()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     if (!isRunning())
     {
-        //qDebug() << Q_FUNC_INFO << ": Isn't running...";
+        qDebug() << Q_FUNC_INFO << ": Isn't running...";
         return;
     }
     readRadioInternal(); // We don't force the radio reading.
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void HamLibClass::setMode(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setMode: " << _m;
+    if (_m.isEmpty())
+        return;
     if ((!isRunning()) || (readOnlyMode))
     {
         //qDebug() << Q_FUNC_INFO << ": Not running or RO";
@@ -690,11 +707,6 @@ bool HamLibClass::init(bool _active)
         //connected = true;
 
         probeSplitVfoSideEffect();
-
-        // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
-        if (_active && timer) {
-            timer->start(pollInterval);
-        }
         return true;
 
     } else {

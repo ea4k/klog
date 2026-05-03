@@ -90,7 +90,8 @@ public:
     bool init(bool _active);
     bool stop();
     bool readRadio();
-    void forceRead();
+    bool forceRead();
+    void startPolling();   // start polling timer on main thread after background init
     bool isRunning();
     void initClass();
     void clean();
@@ -101,7 +102,7 @@ public:
     bool loadSettings();
 
 signals:
-    void radioStatusChanged(RadioStatus);
+    void radioStatusChangedSignal(RadioStatus);
     void freqTXChanged(Frequency newfreq);
     void modeChanged(QString newMode);
     void rigDisconnected();   // Emitted when the rig stops responding
