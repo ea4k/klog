@@ -6187,47 +6187,47 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     QElapsedTimer timer;
     timer.start();
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 000 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 000 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     if (manualMode)
     {
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     if (_m.length()<2)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
 
     if ((mainQSOEntryWidget->getMode()).toUpper() == _m.toUpper())
     {
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 021 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 021 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     hamlibChangingMode = true;
     if (checkIfNewMode(_m))
     {
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 031 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 031 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
         hamlibChangingMode = false;
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     if (mainQSOEntryWidget->isModeExisting(_m))
     {
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 041 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 041 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
         //qDebug() << _FUNC_INFO << " Mode in the Combobox: " ;
         mainQSOEntryWidget->setMode(_m);
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 042 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 042 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     }
     else
     {
           qDebug() << Q_FUNC_INFO << " Mode not found in combobox" << _m ;
     }
     hamlibChangingMode = false;
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 099 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 099 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
