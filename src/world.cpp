@@ -580,37 +580,25 @@ bool World::readCTYCSV(const QString &_worldFile)
   //qDebug() << Q_FUNC_INFO << "File found:" << _worldFile;
 
     QTextStream in(&file);
-    int numberOfLines = 0;
 
-    // First pass: count lines
-    while (!in.atEnd()) {
-        in.readLine();
-        numberOfLines++;
-    }
-
-  //qDebug() << Q_FUNC_INFO << "Number of lines:" << numberOfLines;
-
-    // Reset the file position
-    file.seek(0);
-    in.seek(0);
-
-// Initialize progress dialog
+// Use indeterminate progress (no need to count lines with a first pass)
 #ifndef KLOG_TESTING
-    QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, numberOfLines);
+    QProgressDialog progress(tr("Reading cty.csv..."), tr("Abort reading"), 0, 0);
     progress.setWindowModality(Qt::ApplicationModal);
 #endif
 
-    int progressBarPosition = 0;
     QStringList stringList, stringListPrefixes;
+
+    // Wrap all entity + prefix inserts in a single transaction for a large
+    // speedup on slow storage (SD card, HDD) where each commit forces an fsync.
+    dataProxy->beginTransaction();
 
     while (!in.atEnd()) {
 #ifndef KLOG_TESTING
-        progress.setValue(progressBarPosition);
         if (progress.wasCanceled())
             break;
 #endif
 
-        progressBarPosition++;
         stringList.clear();
         stringListPrefixes.clear();
 
@@ -676,16 +664,10 @@ bool World::readCTYCSV(const QString &_worldFile)
 #ifndef KLOG_TESTING
         progress.setLabelText("Reading cty.csv ... \nNow reading " + mPrefix + " data");
 #endif
-      //qDebug() << Q_FUNC_INFO << "Progress bar position:" << progressBarPosition;
+      //qDebug() << Q_FUNC_INFO << "Reading cty.csv...";
     }
 
-#ifndef KLOG_TESTING
-    progress.setValue(numberOfLines);
-#endif
-
-    if (created) {
-        dataProxy->updateISONames();
-    }
+    dataProxy->commitTransaction();
 
     return true;
 }
@@ -725,9 +707,8 @@ bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>
     query.prepare(
         "INSERT INTO prefixesofentity (prefix, dxcc, cqz, ituz) "
         "VALUES (:pref, :dxcc, :cqz, :ituz)");
-    dataProxy->beginTransaction();
-    // qSqlDatabase::database().transaction();  // Start the transaction
 
+    // Transaction is managed by the caller (readCTYCSV) for bulk performance.
     foreach (const auto &prefix, pairPrefixes)
     {
         query.bindValue(":pref", prefix.first);
@@ -738,13 +719,9 @@ bool World::insertPrefixes(const QList<QPair<QString, QPair<int, QPair<int, int>
         if (!query.exec())
         {
             emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
-            dataProxy->rollbackTransaction();
-            // qSqlDatabase::database().rollback();  // Rollback transaction on error
             return false;
         }
     }
-    dataProxy->commitTransaction();
-    // qSqlDatabase::database().commit();  // Commit the transaction
     return true;
 }
 
