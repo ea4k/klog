@@ -25,6 +25,7 @@
  *****************************************************************************/
 #include "dxccstatuswidget.h"
 #include <type_traits>  // Include this header to use std::as_const
+#include <QTimer>
 //#include <QDebug>
 
 /*
@@ -410,7 +411,7 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, const QStringList &
 
     if (_creating)
     {
-        update();
+        QTimer::singleShot(0, this, [this]() { update(); });
     }
 
     emit debugLog(Q_FUNC_INFO, "End", Debug);
