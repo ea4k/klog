@@ -240,6 +240,14 @@ int main(int argc, char *argv[])
         is_running = false;
     }
 
+    // On macOS, QCoreApplication::quit() routes through NSApplication and may
+    // call system exit() without unwinding the C++ stack, so ~QSharedMemory()
+    // would never run. Explicitly detach in aboutToQuit so the segment is always
+    // released before the event loop exits, regardless of exit path.
+    QObject::connect(&app, &QCoreApplication::aboutToQuit, [&sharedMemory]() {
+        sharedMemory.detach();
+    });
+
     semaphore.release();
    //qDebug() << Q_FUNC_INFO << " 040: " << timer.elapsed() << "ms"; timer.restart();
     // If you already run one instance of the application, then we

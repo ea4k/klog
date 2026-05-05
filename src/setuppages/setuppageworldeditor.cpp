@@ -26,6 +26,7 @@
 
 #include "setuppageworldeditor.h"
 #include "../callsign.h"
+#include <QElapsedTimer>
 
 // ---------------------------------------------------------------------------
 // AddSpecialCallsignDialog implementation
@@ -110,28 +111,28 @@ int     AddSpecialCallsignDialog::ituz()         const { return ituzCheck->isChe
 SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
-    //worldPanel = new QWidget;
+    QElapsedTimer _t; _t.start();
     dataProxy = dp;
-   //qDebug() << Q_FUNC_INFO << " - 00";
-   // world = new World(dataProxy, Q_FUNC_INFO);
     world = injectedWorld;
-   //qDebug() << Q_FUNC_INFO << " - 01";
     util = new Utilities(Q_FUNC_INFO);
-   //qDebug() << Q_FUNC_INFO << " - 02";
+    qInfo() << "[KLOG-TIMING] WorldEditor 01 - Utilities:" << _t.restart() << "ms";
 
     setupEntityDialog = new SetupEntityDialog();
-   //qDebug() << Q_FUNC_INFO << " - 03";
+    qInfo() << "[KLOG-TIMING] WorldEditor 02 - SetupEntityDialog:" << _t.restart() << "ms";
+
     worldModel = new QSqlRelationalTableModel(this);
-   //qDebug() << Q_FUNC_INFO << " - 04";
+    qInfo() << "[KLOG-TIMING] WorldEditor 03 - QSqlRelationalTableModel ctor:" << _t.restart() << "ms";
+
     worldView = new QTableView;
     worldView->setContextMenuPolicy(Qt::CustomContextMenu);
     worldView->setSortingEnabled(true);
-   //qDebug() << Q_FUNC_INFO << " - 10";
-    createWorldModel();
-    createWorldPanel();
-   //qDebug() << Q_FUNC_INFO << " - 20";
+    qInfo() << "[KLOG-TIMING] WorldEditor 04 - QTableView:" << _t.restart() << "ms";
 
-    worldView->setCurrentIndex(worldModel->index(0, 0));
+    createWorldModel();
+    qInfo() << "[KLOG-TIMING] WorldEditor 05 - createWorldModel:" << _t.restart() << "ms";
+
+    createWorldPanel();
+    qInfo() << "[KLOG-TIMING] WorldEditor 06 - createWorldPanel:" << _t.restart() << "ms";
 
     addEntityPushButton = new QPushButton;
     delEntityPushButton = new QPushButton;
@@ -169,18 +170,17 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     buttonsLayout->addWidget(editEntityPushButton);
     buttonsLayout->addWidget(delEntityPushButton);
 
-    createSpecialCallsignsPanel();
+    qInfo() << "[KLOG-TIMING] WorldEditor 07 - buttons:" << _t.restart() << "ms";
 
     QVBoxLayout *layout = new QVBoxLayout;
-
     layout->addWidget(worldView);
     layout->addLayout(buttonsLayout);
-    layout->addWidget(specialCallsignsGroup);
-   //qDebug() << Q_FUNC_INFO << " - 50";
+    // specialCallsignsGroup is created lazily in ensurePopulated()
     setLayout(layout);
 
     createActions();
-   //qDebug() << Q_FUNC_INFO << " - 52";
+    qInfo() << "[KLOG-TIMING] WorldEditor 08 - layout+createActions:" << _t.restart() << "ms";
+
     if (isWorldEmpty())
     {
        //qDebug() << Q_FUNC_INFO << " - 53";
@@ -195,8 +195,6 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
             msgBox.exec();
            //qDebug() << Q_FUNC_INFO << " - 65";
             world->recreate(ctyfile);
-           //qDebug() << Q_FUNC_INFO << " - 66";
-            worldModel->select();
            //qDebug() << Q_FUNC_INFO << " - 67";
             //slotImportWorldButtonClicked();
         }
@@ -221,12 +219,32 @@ SetupPageWorldEditor::~SetupPageWorldEditor()
     delete(util);
 }
 
+void SetupPageWorldEditor::showEvent(QShowEvent *event)
+{
+    QWidget::showEvent(event);
+    ensurePopulated();
+}
+
+void SetupPageWorldEditor::ensurePopulated()
+{
+    if (m_populated)
+        return;
+    m_populated = true;
+
+    createSpecialCallsignsPanel();
+    qobject_cast<QVBoxLayout *>(layout())->addWidget(specialCallsignsGroup);
+    connect(addSpecialButton,    &QPushButton::clicked, this, &SetupPageWorldEditor::slotAddSpecialCallsignClicked);
+    connect(removeSpecialButton, &QPushButton::clicked, this, &SetupPageWorldEditor::slotRemoveSpecialCallsignClicked);
+
+    worldModel->select();
+    worldView->setCurrentIndex(worldModel->index(0, 0));
+}
+
 void SetupPageWorldEditor::createWorldPanel()
 {
     worldView->setModel(worldModel);
-    QString stringQuery = QString("SELECT * FROM entity");
-    QSqlQuery query(stringQuery);
-    QSqlRecord rec = query.record(); // Number of columns
+    // Use schema metadata — avoids fetching any rows at startup
+    QSqlRecord rec = QSqlDatabase::database().record("entity");
     int columns = rec.count();
 
     for (int i = 0; i < columns; i++ ){
@@ -278,14 +296,11 @@ void SetupPageWorldEditor::createWorldModel()
 
 */
 
-    QString stringQuery = QString("SELECT * FROM entity");
-    QSqlQuery q(stringQuery);
-    QSqlRecord rec = q.record();
-
     int nameCol;
 
-    //worldModel = new QSqlRelationalTableModel(this);
     worldModel->setTable("entity");
+    // Use schema metadata — avoids fetching any rows at startup
+    QSqlRecord rec = QSqlDatabase::database().record("entity");
     worldModel->setEditStrategy(QSqlTableModel::OnFieldChange);
 
     nameCol = rec.indexOf("mainprefix");
@@ -297,6 +312,7 @@ void SetupPageWorldEditor::createWorldModel()
     nameCol = rec.indexOf("dxcc");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ARRL ID"));
     nameCol = rec.indexOf("continent");
+    worldModel->setRelation(nameCol, QSqlRelation("continent", "id", "shortname"));
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Continent"));
     nameCol = rec.indexOf("cqz");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("CQ Zone"));
@@ -316,8 +332,7 @@ void SetupPageWorldEditor::createWorldModel()
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Since Date"));
     nameCol = rec.indexOf("todate");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("To Date"));
-
-    worldModel->select();
+    // select() is deferred to ensurePopulated(), called on first showEvent
 }
 
 void SetupPageWorldEditor::createActions()
@@ -328,9 +343,8 @@ void SetupPageWorldEditor::createActions()
     connect(editEntityPushButton, SIGNAL(clicked()), this, SLOT(slotEditButtonClicked()) );
 
     connect(loadWorldPushButton, SIGNAL(clicked()), this, SLOT(slotImportWorldButtonClicked()) );
-
-    connect(addSpecialButton,    &QPushButton::clicked, this, &SetupPageWorldEditor::slotAddSpecialCallsignClicked);
-    connect(removeSpecialButton, &QPushButton::clicked, this, &SetupPageWorldEditor::slotRemoveSpecialCallsignClicked);
+    // addSpecialButton / removeSpecialButton are connected in ensurePopulated()
+    // after createSpecialCallsignsPanel() creates them
 
 
 

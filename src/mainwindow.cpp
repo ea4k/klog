@@ -173,10 +173,13 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 MainWindow::~MainWindow()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    QElapsedTimer _dtorT; _dtorT.start();
+    qInfo() << "[KLOG-TIMING] ~MainWindow START";
 
     if (hamlibActive)
     {
         hamlib->stop();
+        qInfo() << "[KLOG-TIMING] ~MainWindow 01 - hamlib->stop():" << _dtorT.restart() << "ms";
     }
 
     delete(showErrorDialog);
@@ -186,9 +189,11 @@ MainWindow::~MainWindow()
     //delete(elogClublog);
     delete(downloadcty);
     delete(softUpdate);
+    qInfo() << "[KLOG-TIMING] ~MainWindow 02 - delete network/update objects:" << _dtorT.restart() << "ms";
     // Process pending deleteLater() calls from network managers
     // to avoid QThreadStorage warnings on exit
     QCoreApplication::processEvents();
+    qInfo() << "[KLOG-TIMING] ~MainWindow 03 - processEvents:" << _dtorT.restart() << "ms";
     //delete(world);
     //delete(mapWindow); // Qt parent-child: owned by this, auto-deleted
     //delete(locator);
@@ -202,6 +207,7 @@ MainWindow::~MainWindow()
     delete(filemanager);
     //delete(fileAwardManager);
     delete(util);
+    qInfo() << "[KLOG-TIMING] ~MainWindow 04 - delete remaining objects:" << _dtorT.restart() << "ms";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -432,7 +438,8 @@ void MainWindow::init()
     qInfo() << "[KLOG-TIMING] init() 03b - dxClusterWidget->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     checkExistingData();
-    qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    dataProxy->unMarkAllQSO();
+    qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData()+unMarkAllQSO:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     readSettingsFile();
     qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
@@ -2050,9 +2057,11 @@ void MainWindow::exitQuestion()
   // Ok was clicked
         logEvent(Q_FUNC_INFO, "Exiting KLog!", Debug);
     //maybeSave();
-            saveWindowsSize();
+            // saveWindowsSize() is called inside closeEvent() — no need to call it here too
+            qInfo() << "[KLOG-TIMING] exitQuestion - user confirmed exit, calling close()";
             close();
-            exit(0);
+            qInfo() << "[KLOG-TIMING] exitQuestion - close() returned, calling QCoreApplication::quit()";
+            QCoreApplication::quit();
         default:
     // should never be reached
         break;
@@ -2355,19 +2364,25 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
        //qDebug() << Q_FUNC_INFO ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    QElapsedTimer _closeT; _closeT.start();
+    qInfo() << "[KLOG-TIMING] closeEvent START";
     saveWindowsSize();
+    qInfo() << "[KLOG-TIMING] closeEvent 01 - saveWindowsSize:" << _closeT.restart() << "ms";
     if (maybeSave())
     {
    //qDebug() << Q_FUNC_INFO << " saving needed" ;
-        dataProxy->unMarkAllQSO();
-        dataProxy->compressDB();
+        qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave:" << _closeT.restart() << "ms";
+        // unMarkAllQSO() moved to init() at startup — no need to repeat on exit
+        // compressDB() (VACUUM) removed: SQLite doesn't need VACUUM on every exit
         event->accept();
     }
     else
     {
    //qDebug() << Q_FUNC_INFO << " not saving needed" ;
+        qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave (cancelled):" << _closeT.restart() << "ms";
         event->ignore();
     }
+    qInfo() << "[KLOG-TIMING] closeEvent TOTAL:" << _closeT.elapsed() << "ms";
        //qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
