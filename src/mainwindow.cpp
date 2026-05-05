@@ -437,7 +437,8 @@ void MainWindow::init()
     qInfo() << "[KLOG-TIMING] init() 03b - dxClusterWidget->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     checkExistingData();
-    qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    dataProxy->unMarkAllQSO();
+    qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData()+unMarkAllQSO:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     readSettingsFile();
     qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
@@ -2055,7 +2056,7 @@ void MainWindow::exitQuestion()
   // Ok was clicked
         logEvent(Q_FUNC_INFO, "Exiting KLog!", Debug);
     //maybeSave();
-            saveWindowsSize();
+            // saveWindowsSize() is called inside closeEvent() — no need to call it here too
             qInfo() << "[KLOG-TIMING] exitQuestion - user confirmed exit, calling close()";
             close();
             qInfo() << "[KLOG-TIMING] exitQuestion - close() returned, calling exit(0)";
@@ -2370,10 +2371,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
    //qDebug() << Q_FUNC_INFO << " saving needed" ;
         qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave:" << _closeT.restart() << "ms";
-        dataProxy->unMarkAllQSO();
-        qInfo() << "[KLOG-TIMING] closeEvent 03 - unMarkAllQSO:" << _closeT.restart() << "ms";
-        dataProxy->compressDB();
-        qInfo() << "[KLOG-TIMING] closeEvent 04 - compressDB (VACUUM):" << _closeT.restart() << "ms";
+        // unMarkAllQSO() moved to init() at startup — no need to repeat on exit
+        // compressDB() (VACUUM) removed: SQLite doesn't need VACUUM on every exit
         event->accept();
     }
     else

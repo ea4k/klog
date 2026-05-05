@@ -197,7 +197,7 @@ void SetupPageHamLib::createUI()
     testHamlibPushButton->setText (tr("Test"));
     testHamlibPushButton->setToolTip (tr("Click to test the connection to the radio"));
 
-    QFont freqFont("Courier");
+    QFont freqFont("Courier New");
     freqFont.setPointSize(14);
     freqFont.setBold(true);
     freqDisplayLabel->setFont(freqFont);
