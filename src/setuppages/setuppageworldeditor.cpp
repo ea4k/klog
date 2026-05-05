@@ -26,6 +26,7 @@
 
 #include "setuppageworldeditor.h"
 #include "../callsign.h"
+#include <QElapsedTimer>
 
 // ---------------------------------------------------------------------------
 // AddSpecialCallsignDialog implementation
@@ -110,26 +111,28 @@ int     AddSpecialCallsignDialog::ituz()         const { return ituzCheck->isChe
 SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent) : QWidget(parent)
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
-    //worldPanel = new QWidget;
+    QElapsedTimer _t; _t.start();
     dataProxy = dp;
-   //qDebug() << Q_FUNC_INFO << " - 00";
-   // world = new World(dataProxy, Q_FUNC_INFO);
     world = injectedWorld;
-   //qDebug() << Q_FUNC_INFO << " - 01";
     util = new Utilities(Q_FUNC_INFO);
-   //qDebug() << Q_FUNC_INFO << " - 02";
+    qInfo() << "[KLOG-TIMING] WorldEditor 01 - Utilities:" << _t.restart() << "ms";
 
     setupEntityDialog = new SetupEntityDialog();
-   //qDebug() << Q_FUNC_INFO << " - 03";
+    qInfo() << "[KLOG-TIMING] WorldEditor 02 - SetupEntityDialog:" << _t.restart() << "ms";
+
     worldModel = new QSqlRelationalTableModel(this);
-   //qDebug() << Q_FUNC_INFO << " - 04";
+    qInfo() << "[KLOG-TIMING] WorldEditor 03 - QSqlRelationalTableModel ctor:" << _t.restart() << "ms";
+
     worldView = new QTableView;
     worldView->setContextMenuPolicy(Qt::CustomContextMenu);
     worldView->setSortingEnabled(true);
-   //qDebug() << Q_FUNC_INFO << " - 10";
+    qInfo() << "[KLOG-TIMING] WorldEditor 04 - QTableView:" << _t.restart() << "ms";
+
     createWorldModel();
+    qInfo() << "[KLOG-TIMING] WorldEditor 05 - createWorldModel:" << _t.restart() << "ms";
+
     createWorldPanel();
-   //qDebug() << Q_FUNC_INFO << " - 20";
+    qInfo() << "[KLOG-TIMING] WorldEditor 06 - createWorldPanel:" << _t.restart() << "ms";
 
     addEntityPushButton = new QPushButton;
     delEntityPushButton = new QPushButton;
@@ -168,17 +171,18 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     buttonsLayout->addWidget(delEntityPushButton);
 
     createSpecialCallsignsPanel();
+    qInfo() << "[KLOG-TIMING] WorldEditor 07 - buttons+createSpecialCallsignsPanel:" << _t.restart() << "ms";
 
     QVBoxLayout *layout = new QVBoxLayout;
 
     layout->addWidget(worldView);
     layout->addLayout(buttonsLayout);
     layout->addWidget(specialCallsignsGroup);
-   //qDebug() << Q_FUNC_INFO << " - 50";
     setLayout(layout);
 
     createActions();
-   //qDebug() << Q_FUNC_INFO << " - 52";
+    qInfo() << "[KLOG-TIMING] WorldEditor 08 - layout+createActions:" << _t.restart() << "ms";
+
     if (isWorldEmpty())
     {
        //qDebug() << Q_FUNC_INFO << " - 53";
