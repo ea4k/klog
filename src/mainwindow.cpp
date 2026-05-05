@@ -119,6 +119,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     statusBarMessage = tr("Starting KLog");
 
     setupDialog = new SetupDialog(dataProxy, world, this);
+    qInfo() << "[KLOG-TIMING] ctor 020.5 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
     setupDialog->setLiveHamlib(hamlib); // read-only display reference — Test button still uses its own local instance
     qInfo() << "[KLOG-TIMING] ctor 021 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
 
