@@ -829,7 +829,7 @@ bool DataBase::recreateTablePrimarySubdivisions()
 bool DataBase::unMarkAllQSO()
 {
     //qDebug() << Q_FUNC_INFO;
-    QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE 1");
+    QString stringQuery = QString("UPDATE log SET marked = 'N' WHERE marked != 'N'");
     return execQuery(Q_FUNC_INFO, stringQuery);
 }
 
