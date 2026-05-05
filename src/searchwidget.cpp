@@ -252,7 +252,7 @@ void SearchWidget::slotQsoDeleteFromSearch(const int _qsoId)
     {
         QString message = QString(tr("You have requested to delete the QSO with: %1").arg(_qrz));
 
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setText(message);
         msgBox.setInformativeText(tr("Are you sure?"));

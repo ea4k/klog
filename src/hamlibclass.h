@@ -91,7 +91,6 @@ public:
     bool stop();
     bool readRadio();
     bool forceRead();
-    void startPolling();   // start polling timer on main thread after background init
     bool isRunning();
     void initClass();
     void clean();
@@ -110,6 +109,8 @@ signals:
 
 public slots:
     void slotTimer();
+    void startPolling();
+
 
 private:
     enum class RigState {

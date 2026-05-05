@@ -511,7 +511,7 @@ void SetupPageMisc::slotMoveDBButtonClicked()
 {
     QString source = dbDirCurrent + "/logbook.dat";
     QString target = dbDirNew + "/logbook.dat";
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setWindowTitle(tr("KLog - Move DB"));
 
        //qDebug() << "SetupPageMisc::slotMoveDBButtonClicked (source): " << source;

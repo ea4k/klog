@@ -242,7 +242,7 @@ void SetupDialog::slotCancelButtonClicked()
     {
         if (nolog)
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::Yes);
@@ -419,7 +419,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!miscPage->areDBPathChangesApplied())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("DB has not been moved to new path."));
         msgBox.setInformativeText(tr("Go to the Misc tab and click on Move DB\n or the DB will not be moved to the new location."));
@@ -431,7 +431,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!callsign.isValid())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid callsign."));
         msgBox.setInformativeText(tr("Go to the User tab and enter valid callsign."));
@@ -443,7 +443,7 @@ void SetupDialog::slotOkButtonClicked()
     if (!haveAtleastOneLog())
     {
          //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!";
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You have not selected the kind of log you want."));
         msgBox.setInformativeText(tr("You will be redirected to the Log tab.\nPlease add and select the kind of log you want to use."));

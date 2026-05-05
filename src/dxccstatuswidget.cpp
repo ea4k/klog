@@ -132,7 +132,7 @@ void DXCCStatusWidget::createUI()
 void DXCCStatusWidget::handleDXCCStatusUpdateFailure()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setText(tr("It seems that the DXCC status in your database is not updated and KLog can't find any dxcc information. You can try to fix this by updating the log."));
     msgBox.setInformativeText(tr("Do you want to update your DXCC status?"));

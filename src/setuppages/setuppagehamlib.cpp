@@ -104,8 +104,10 @@ void SetupPageHamLib::slotTestHamlib()
     m_liveHamlib->stop();
     freqDisplayLabel->setText(defaultFreqMode);
     bool ok = m_liveHamlib->init(true);
-    if (ok)
-        ok = m_liveHamlib->readRadio();
+    if (ok) {
+        m_liveHamlib->startPolling();
+        ok = m_liveHamlib->forceRead();
+    }
     setTestResult(ok);
     if (!ok)
         m_liveHamlib->stop();
@@ -130,9 +132,9 @@ void SetupPageHamLib::setTestResult(const bool _ok)
         // Use stylesheet so the green colour survives Qt's disabled-button rendering.
         // QPalette alone is overridden by system/GTK themes on some Linux desktops.
         testHamlibPushButton->setStyleSheet(
-            "QPushButton { background-color: #00cc00; color: black; }");
-        testHamlibPushButton->setEnabled(true);
-
+            "QPushButton { background-color: #00cc00; color: black; }"
+            "QPushButton:disabled { background-color: #00cc00; color: black; }");
+        //testHamlibPushButton->setEnabled(false);  // connected — nothing to test
         activateHamlibCheckBox->setEnabled (true);
     }
     else

@@ -351,12 +351,6 @@ bool HamLibClass::forceRead()
     return readRadioInternal();
 }
 
-void HamLibClass::startPolling()
-{
-    if (timer && rig_state == RigState::Connected)
-        timer->start(pollInterval);
-}
-
 bool HamLibClass::readRadioInternal()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
@@ -410,12 +404,18 @@ void HamLibClass::slotTimer()
     qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void HamLibClass::startPolling()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (timer && rig_state == RigState::Connected)
+        timer->start(pollInterval);
+}
+
 void HamLibClass::setMode(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setMode: " << _m;
-    if (_m.isEmpty())
-        return;
+    if (_m.isEmpty()) return;
     if ((!isRunning()) || (readOnlyMode))
     {
         //qDebug() << Q_FUNC_INFO << ": Not running or RO";

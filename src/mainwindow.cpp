@@ -153,7 +153,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
        exit(0);
     }
 
-    softUpdate = new SoftwareUpdate(softwareVersion);
+    softUpdate = new SoftwareUpdate(softwareVersion, this);
    //qInfo() << "[KLOG-TIMING] ctor 031 - SoftwareUpdate:" << timer.elapsed() << "ms"; timer.restart();
 
     filemanager = new FileManager(dataProxy, world);
@@ -363,7 +363,7 @@ void MainWindow::checkDebugFile()
     QFile debugFile(util->getDebugLogFile());
     if (!debugFile.open(QIODevice::WriteOnly | QIODevice::Text)) /* Flawfinder: ignore */
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - File not open"));
         QString aux = tr("It was not possible to open the debug file for writing. No debug log will be saved!");
@@ -387,7 +387,7 @@ void MainWindow::checkHomeDir()
         {
             if (!QDir::setCurrent ( util->getHomeDir () ))
             {
-                QMessageBox msgBox;
+                QMessageBox msgBox(this);
                 msgBox.setIcon(QMessageBox::Warning);
                 msgBox.setWindowTitle(tr("KLog - KLog folder not found"));
                 QString aux = tr("It was not possible to define the KLog folder. Some functions may not work properly!");
@@ -516,7 +516,7 @@ void MainWindow::checkExistingData()
         //world->create(ctyDatFile);
          //qDebug() << Q_FUNC_INFO << " -  4" ;
 
-       QMessageBox msgBox;
+       QMessageBox msgBox(this);
        msgBox.setIcon(QMessageBox::Question);
 
        msgBox.setWindowTitle(tr("KLog - CTY.dat update"));
@@ -792,7 +792,7 @@ void MainWindow::recommendBackupIfNeeded()
             case QMessageBox::Yes:
             QString filename = util->getBackupADIFile();
       //qDebug() << Q_FUNC_INFO << " -  Backup to: " << filename << (QTime::currentTime()).toString(" HH:mm:ss")   ;
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setWindowTitle(tr("KLog - Backup"));
             if (filemanager->adifLogExport(filename, 0)) // 0 will save ALL the logs)
             {
@@ -822,7 +822,7 @@ void MainWindow::checkIfNewVersion()
     {
         if (util->getVersion() == "2.2")
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog - New version detected!"));
             msgBox.setText(tr("This version of KLog requires that the DXCC database is updated."));
@@ -830,7 +830,7 @@ void MainWindow::checkIfNewVersion()
             msgBox.exec();
             slotWorldReload(true);
         }
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setWindowTitle(tr("KLog - New version detected!"));
         msgBox.setText(tr("It seems that you are running this version of KLog for the first time."));
@@ -1195,7 +1195,7 @@ bool MainWindow::checkValidCallBeforeAddingToLog(const QString &_call)
     Callsign callsign(_call);
     if (!callsign.isValid())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - Not valid call"));
         QString aux = QString(tr("The callsign %1 is not a valid call. Do you really want to add this callsign to the log?") ).arg(_call);
@@ -1261,7 +1261,7 @@ int MainWindow::checkDXCCBeforeAddingToLog(const int dxcc_Call, const int dxcc_q
 
         //int ret;
 
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - Select correct entity"));
         msgBox.setText(message);
 
@@ -1412,7 +1412,7 @@ void MainWindow::slotQSOsDelete(QList<int> _qsos)
     //}
 
     QString message = QString(tr("You have requested to delete several QSOs "));
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setText(message);
     msgBox.setDetailedText(tr("This operation shall remove definitely all the selected QSO and associated data and you will not be able to recover it again."));
@@ -1468,7 +1468,7 @@ void MainWindow::slotQSODelete(const int _id)
     {
         QString message = QString(tr("You have requested to delete the QSO with: %1").arg(_qrz));
 
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setText(message);
         msgBox.setInformativeText(tr("Are you sure?"));
@@ -1557,7 +1557,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
 {
     logEvent(Q_FUNC_INFO, "Start: " + QString::number(_error) + "/" + QString::number(_qsos.length ()), Debug);
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     if (_error != QNetworkReply::NoError)
     {
         msgBox.setIcon(QMessageBox::Warning);
@@ -1595,7 +1595,7 @@ void MainWindow::slotElogClubLogFileUploaded (QNetworkReply::NetworkError _error
          // TODO: Check if QSOS where sent
         if (!uploadedToClubLog)
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setWindowTitle(tr("KLog - ClubLog"));
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setText(tr("There was an error while updating to Yes the ClubLog QSO upload information."));
@@ -1674,7 +1674,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
 {
     logEvent(Q_FUNC_INFO, "Start: " + QString::number(_error) , Debug);
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     if (_error != QNetworkReply::NoError)
     {
         msgBox.setIcon(QMessageBox::Warning);
@@ -1712,7 +1712,7 @@ void MainWindow::slotElogEQSLFileUploaded (QNetworkReply::NetworkError _error, Q
          // TODO: Check if QSOS where sent
         if (!uploadedToeQSL)
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setWindowTitle(tr("KLog - eQSL"));
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setText(tr("There was an error while updating to Yes the eQSL QSO upload information."));
@@ -1769,7 +1769,7 @@ void MainWindow::slotElogQRZCOMDisable(const bool _b)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     if ((_b) && (elogQRZcom->getSubscription ()))
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - QRZ.com warning"));
         msgBox.setText(tr("QRZ.com has returned a non-subcribed error and queries to QRZ.com will be disabled."));
@@ -1792,7 +1792,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
        //qDebug() << "MainWindow::slotElogQRZCOMLogUploaded: " << QString::number(_error) ;
     logEvent(Q_FUNC_INFO, "Start: " + QString::number(_error) , Debug);
 
-       QMessageBox msgBox;
+       QMessageBox msgBox(this);
    if (_error != QNetworkReply::NoError)
    {
        msgBox.setIcon(QMessageBox::Warning);
@@ -1831,7 +1831,7 @@ void MainWindow::slotElogQRZCOMLogUploaded (QNetworkReply::NetworkError _error, 
         // TODO: Check if QSOS where sent
        if (!uploadedToeQSL)
        {
-           QMessageBox msgBox;
+           QMessageBox msgBox(this);
            msgBox.setWindowTitle(tr("KLog - QRZ.com"));
            msgBox.setIcon(QMessageBox::Warning);
            msgBox.setText(tr("There was an error while updating to Yes the QRZ.com QSO upload information."));
@@ -1902,7 +1902,7 @@ void MainWindow::slotElogQRZCOMFoundData(const QString &_t, const QString & _d)
            slotUpdateStatusBar(tr("Call not found in QRZ.com"));
            return;
        }
-      QMessageBox msgBox;
+      QMessageBox msgBox(this);
       msgBox.setIcon(QMessageBox::Warning);
       msgBox.setWindowTitle(tr("KLog - QRZ.com error"));
       QString aux = QString(tr("KLog has received an error from QRZ.com.") );
@@ -1985,7 +1985,7 @@ void MainWindow::slotElogQRZCOMCheckThisCall()
 void MainWindow::showMessageToEnableTheOnlineService(const OnLineProvider _service)
 {
     QString aux = util->getOnlineServiceName(_service);
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle(tr("KLog - %1").arg(aux));
     msgBox.setText(tr("You need to activate the %1 service in the eLog preferences.").arg(aux) );
@@ -2035,7 +2035,7 @@ void MainWindow::exitQuestion()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
         //qDebug() << "MainWindow::exitQuestion"  ;
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog - Exit"));
     QString aux = QString(tr("Do you really want to exit KLog?") );
@@ -2393,7 +2393,7 @@ bool MainWindow::maybeSave()
                     logEvent(Q_FUNC_INFO, "END-1", Debug);
               //qDebug() << Q_FUNC_INFO << " - Use default file name" ;
 
-                    QMessageBox msgBox;
+                    QMessageBox msgBox(this);
                     msgBox.setWindowTitle(tr("KLog - ADIF export"));
                     msgBox.setInformativeText(tr("It is important to export to ADIF and save a copy as a backup."));
                     if (filemanager->adifLogExport(defaultADIFLogFile, currentLog)) // 0 will save ALL the logs)
@@ -2794,7 +2794,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     // qString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    QMessageBox msgConfirm;
+    QMessageBox msgConfirm(this);
     msgConfirm.setIcon(QMessageBox::Question);
     msgConfirm.setWindowTitle(tr("KLog - LoTW"));
     msgConfirm.setText(tr("Do you really want to mark ALL the QSOs of this log to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
@@ -2804,7 +2804,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
 
     if (i == QMessageBox::Yes)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         if(dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), currentLog))
         {
@@ -2813,7 +2813,7 @@ void MainWindow::slotToolLoTWMarkAllQueuedThisLog()
         }
         else
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setIcon(QMessageBox::Warning);
             msgBox.setText(tr("There was a problem to mark all pending QSOs of this log as queued for LoTW!") );
         }
@@ -2831,7 +2831,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
     //a.append(filemanager->adifLoTWReadLog(_fn, currentLog));
     int added_qsos = filemanager->adifLoTWReadLog(_fn, currentLog);
     QString aux;
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setWindowTitle(tr("KLog - LoTW"));
     //qDebug() << Q_FUNC_INFO << " - QSOs added: " << added_qsos;
     if (added_qsos>0)
@@ -2862,7 +2862,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     // qString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
 
-    QMessageBox msgConfirm;
+    QMessageBox msgConfirm(this);
     msgConfirm.setIcon(QMessageBox::Question);
     msgConfirm.setWindowTitle(tr("KLog - LoTW"));
     msgConfirm.setText(tr("Do you really want to mark ALL pending QSOs to be UPLOADED? Must be done ONLY IF THIS IS YOUR FIRST TIME uploading these QSOs to LoTW."));
@@ -2872,7 +2872,7 @@ void MainWindow::slotToolLoTWMarkAllQueued()
 
     if (i == QMessageBox::Yes)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
 
         if (dataProxy->lotwSentQueue(mainQSOEntryWidget->getDate(), -1))
@@ -2901,7 +2901,7 @@ bool MainWindow::callTQSL(const QString &_filename, const QString &_call)
     arguments  << QString("-c %1").arg(_call) << "-u" << _filename;
     int ok = -1;
     QString msg;
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle(tr("KLog - TQSL"));
 
@@ -3030,7 +3030,7 @@ QString MainWindow::selectStationCallsign()
              }
              else
              {
-                QMessageBox msgBox;
+                QMessageBox msgBox(this);
                 msgBox.setIcon(QMessageBox::Warning);
                 msgBox.setWindowTitle(tr("KLog - No station selected"));
                  QString aux = QString(tr("No station callsign has been selected and therefore no log will be marked") );
@@ -3057,7 +3057,7 @@ void MainWindow::slotToolLoTWMarkAllYesThisLog()
 {
           //qDebug() << Q_FUNC_INFO ;
         // qString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         logEvent(Q_FUNC_INFO, "Start", Devel);
         if(dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), currentLog, "ALL"))
@@ -3082,7 +3082,7 @@ void MainWindow::slotToolLoTWMarkAllYes()
     QString stationCallToUse = selectStationCallsign();
 
     // qString tdate = util->getDateSQLiteStringFromDate(mainQSOEntryWidget->getDate());
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setWindowTitle(tr("KLog - LoTW"));
 
     if (dataProxy->lotwSentYes(mainQSOEntryWidget->getDate(), -1, stationCallToUse))
@@ -3221,7 +3221,7 @@ void MainWindow::slotShowSoftUpdateResults(const bool _b)
         if (_b == false)
         {
                  //qDebug() << Q_FUNC_INFO << " UPDATE NOT NEEDED" ;
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setWindowTitle(tr("KLog - Update checking result"));
             msgBox.setText(tr("Congratulations!") + "\n\n" + tr("You already have the latest version."));
@@ -3400,22 +3400,34 @@ void MainWindow::slotSetupDialogFinished (const int _s)
     // Run in a background thread so the UI is not blocked by the TCP reconnect.
     if (setupDialog->hamlibSettingsChanged() || setupDialog->hamlibTestWasRun())
     {
-        const bool active = hamlibActive;
-        auto *watcher = new QFutureWatcher<bool>(this);
-        connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
-            const bool connected = watcher->result();
-            watcher->deleteLater();
-            if (connected) {
-                hamlib->startPolling();
-                hamlibActive = hamlib->forceRead();
-            } else {
-                hamlibActive = false;
-                hamlib->stop();
-            }
-        });
-        watcher->setFuture(QtConcurrent::run([this, active]() -> bool {
-            return setHamlib(active);
-        }));
+        const bool shouldConnect = hamlibActive;
+        if (shouldConnect)
+        {
+            // Run the blocking TCP reconnect in background so the main window
+            // is not frozen while hamlib establishes the new connection.
+            auto *watcher = new QFutureWatcher<bool>(this);
+            connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
+                const bool ok = watcher->result();
+                watcher->deleteLater();
+                hamlibActive = ok;
+                if (ok)
+                {
+                    hamlib->startPolling();
+                    hamlib->forceRead();
+                }
+            });
+            QFuture<bool> future = QtConcurrent::run([this]() {
+                if (!upAndRunning)
+                    return false;
+                return hamlib->init(true);
+            });
+            watcher->setFuture(future);
+        }
+        else
+        {
+            hamlib->init(false);
+            hamlibActive = false;
+        }
     }
 
    //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss") << Q_FUNC_INFO << " - END";
@@ -3544,9 +3556,11 @@ bool MainWindow::setHamlib(const bool _b)
     if (_b)
     {
           //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ") << Q_FUNC_INFO << ": Hamlib active";
-        // Only the blocking TCP connect runs here (may be called from background thread).
-        // startPolling() and forceRead() are called by the caller on the main thread.
-        return hamlib->init(true);
+        if (!hamlib->init(true))
+            return false;
+          //qDebug() << (QTime::currentTime()).toString ("HH:mm:ss - ")  << Q_FUNC_INFO << ": After Hamlib active";
+        hamlib->startPolling();
+        return hamlib->readRadio(); // Forcing the radio update
     }
     else
     {
@@ -3562,38 +3576,40 @@ void MainWindow::showEvent(QShowEvent *event)
       //qDebug() << Q_FUNC_INFO ;
     (void)event;
     setWindowSize(windowSize);
+    if (!hamlibConnectionAttempted && upAndRunning)
+    {
+        hamlibConnectionAttempted = true;
+        QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
+        QTimer::singleShot(100, this, &MainWindow::checkIfNewVersion);
+        // recommendBackupIfNeeded is called from slotInitHamlib once hamlib init completes
+        QTimer::singleShot(300, this, [this]{ checkVersions(); }); //
+    }
 }
 
 void MainWindow::slotInitHamlib()
 {
     if (!hamlibActive)
     {
-        QTimer::singleShot(0, this, &MainWindow::recommendBackupIfNeeded);
+        // Hamlib not configured — still fire the deferred startup tasks
+        recommendBackupIfNeeded();
         return;
     }
 
-    // Run the blocking TCP connection in a background thread so the UI
-    // stays responsive. timer->start() inside init() is posted back to
-    // the main thread via QMetaObject::invokeMethod (QueuedConnection).
+    // Run the blocking TCP connect in a background thread so the UI stays
+    // responsive while hamlib is establishing the connection.
     auto *watcher = new QFutureWatcher<bool>(this);
-    connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]()
-    {
-        const bool connected = watcher->result();
+    connect(watcher, &QFutureWatcher<bool>::finished, this, [this, watcher]() {
+        const bool ok = watcher->result();
         watcher->deleteLater();
 
-        if (connected)
+        hamlibActive = ok;
+        if (ok)
         {
-            // Start polling timer and do initial read on the main thread —
-            // both are unsafe to call from the background thread.
+            // Timer must be started on the main thread (QTimer affinity).
             hamlib->startPolling();
-            hamlibActive = hamlib->forceRead();
+            hamlib->forceRead();
         }
         else
-        {
-            hamlibActive = false;
-        }
-
-        if (!hamlibActive)
         {
             hamlib->stop();
             logEvent(Q_FUNC_INFO, "HamLib connection failed on startup", Warning);
@@ -3620,14 +3636,16 @@ void MainWindow::slotInitHamlib()
             }
         }
 
-        // Show the backup reminder after hamlib finishes (success or failure)
-        // so the two dialogs are always sequential, never nested.
-        QTimer::singleShot(0, this, &MainWindow::recommendBackupIfNeeded);
+        // Always fire deferred startup tasks after hamlib init (success or failure).
+        recommendBackupIfNeeded();
     });
 
-    watcher->setFuture(QtConcurrent::run([this]() -> bool {
-        return setHamlib(true);
-    }));
+    QFuture<bool> future = QtConcurrent::run([this]() {
+        if (!upAndRunning)
+            return false;
+        return hamlib->init(true);
+    });
+    watcher->setFuture(future);
 }
 
 void MainWindow::slotHamlibRigDisconnected()
@@ -4072,7 +4090,7 @@ void MainWindow::slotADIFExport()
 void MainWindow::showNumberOfSavedQSO(const QString &_fn, const int _n)
 {
     //qDebug() << Q_FUNC_INFO << _fn << "/" << QString::number(_n) ;
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Information);
     msgBox.setWindowTitle(tr("KLog - ADIF export"));
     if (_n <= 0)
@@ -4131,7 +4149,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
         //TODO SHOW MESSAGE Asking for at least one QSO and exit
     }
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     Callsign callsign(_call);
     if (!callsign.isValid())
     {
@@ -4177,7 +4195,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 
            if (!uploadedToLoTW)
            {
-               QMessageBox msgBox;
+               QMessageBox msgBox(this);
                msgBox.setWindowTitle(tr("KLog - LoTW"));
                msgBox.setIcon(QMessageBox::Warning);
                msgBox.setText(tr("There was an error while updating to Yes the LoTW QSL sent information."));
@@ -4217,7 +4235,7 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
 void MainWindow::fileExportClubLog2(const QString &_call, QList<int> _qsos)
 {
    //qDebug() << Q_FUNC_INFO << QString(" - Start: %1 / QSOs: %2" ).arg(_call).arg(_qsos.length ());
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     Callsign callsign(_call);
     if (!callsign.isValid())
     {
@@ -4285,7 +4303,7 @@ void MainWindow::fileExportEQSL2(const QString &_call, QList<int> _qsos)
     if (qsos.count() <= 0)
     { // TODO: Check if errors should be managed.
         //qDebug() << Q_FUNC_INFO << " -  NO QSOs" ;
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - ClubLog"));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("The selection you have done does not include any QSO."));
@@ -4379,7 +4397,7 @@ void MainWindow::slotLoTWDownload()
 
     if (!lotwUtilities->getIsReady())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("Please check the LoTW setup"));
@@ -4422,7 +4440,7 @@ void MainWindow::slotLoTWFullDownload()
 
     if (!lotwUtilities->getIsReady())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("Please check the LoTW setup"));
@@ -4450,7 +4468,7 @@ void MainWindow::slotElogClubLogModifyCurrentLog()
     int i = msgConfirm.exec();
     if (i == QMessageBox::Yes)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         if (dataProxy->clublogModifyFullLog(currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
@@ -4480,7 +4498,7 @@ void MainWindow::slotElogEQSLModifyCurrentLog()
     int i = msgConfirm.exec();
     if (i == QMessageBox::Yes)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         if (dataProxy->eQSLModifyFullLog(currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
@@ -4510,7 +4528,7 @@ void MainWindow::slotElogQRZCOMModifyCurrentLog()
     int i = msgConfirm.exec();
     if (i == QMessageBox::Yes)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         if (dataProxy->QRZCOMModifyFullLog(currentLog))
         {
             msgBox.setIcon(QMessageBox::Information);
@@ -4571,7 +4589,7 @@ void MainWindow::slotQRZCOMLogUpload()
 
     if (!qrzcomSubscriber)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - QRZ.com"));
         msgBox.setText(tr("To upload QSOs you need a qrz.com subscription. If you have one, go to Setup->QRZ.com tab to enable it.") );
@@ -4582,7 +4600,7 @@ void MainWindow::slotQRZCOMLogUpload()
 
     if (!elogQRZcom->hasLogBookKey())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setWindowTitle(tr("KLog - QRZ.com"));
         msgBox.setText(tr("You need to define a proper API Key for your QRZ.com logbook in the eLog preferences.") );
@@ -5785,7 +5803,7 @@ void MainWindow::autoLogUDPQso(const QSO &_qso, const QDateTime &_arrivalTime)
 bool MainWindow::askToAddQSOReceived(const QSO &_qso)
 {
    //qDebug() <<  Q_FUNC_INFO << " - Start";
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setWindowTitle(tr("KLog - QSO received - NEW"));
     msgBox.setTextFormat(Qt::RichText);
@@ -5848,7 +5866,7 @@ bool MainWindow::showWSJTXDuplicatedMSG(const QSO &_qso)
     if (!((dataProxy->isThisQSODuplicated(q, dupeSlotInSeconds)) > 0))
         return true;
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setWindowTitle(tr("KLog - WSJTX Dupe QSO"));
 
     msgBox.setIcon(QMessageBox::Warning);
@@ -5919,9 +5937,6 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
     }
     else
     {
-        //noMoreModeErrorShown = false;
-        //TODO: Add the new mode to the list of active modes
-          //qDebug() << "MainWindow::checkIfNewMode: VALID NEW MODE: Adding... - " << _mode ;
         if (!mainQSOEntryWidget->isModeExisting(_mode))
             addNewValidMode(_mode);
     }
@@ -6052,7 +6067,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
 
     if (nativeError.toInt() == 2067)
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         if (functionFailed == "int QSO::toDB(int)")
         {
@@ -6088,7 +6103,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     //showErrorDialog->setModal(true);
         showErrorDialog->exec();
     }
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setWindowTitle(tr("KLog - Show errors"));
     msgBox.setIcon(QMessageBox::Question);
     aux = tr("Do you want to keep showing errors?");
@@ -6749,7 +6764,7 @@ void MainWindow::selectTheLog(const int _i)
         }
         else
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setIcon(QMessageBox::Critical);
             QString aux = tr("It seems that there are no QSOs in the database.") + "\n\n" + tr("If you are sure that the database contains QSOs and KLog is not able to find them, please contact the developers (see About KLog) for help.");
             msgBox.setText(aux);

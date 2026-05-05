@@ -186,7 +186,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
        //qDebug() << Q_FUNC_INFO << " - 53";
         QString ctyfile = util->getCTYFile();
        //qDebug() << Q_FUNC_INFO << " - 54";
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         if (QFile::exists(ctyfile))
         {
            //qDebug() << Q_FUNC_INFO << " - 60";
@@ -416,7 +416,7 @@ void SetupPageWorldEditor::slotImportWorldButtonClicked()
     worldFile.clear();
     worldFile = QFileDialog::getOpenFileName(this, tr("Open File"), klogDir, tr("BigCTY (*.csv)"));
 
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
        //qDebug() << "SetupPageWorldEditor::slotImportWorldButtonClicked: " << worldFile;
 
     if (world->recreate(worldFile) )
