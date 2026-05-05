@@ -131,8 +131,6 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     createWorldPanel();
    //qDebug() << Q_FUNC_INFO << " - 20";
 
-    worldView->setCurrentIndex(worldModel->index(0, 0));
-
     addEntityPushButton = new QPushButton;
     delEntityPushButton = new QPushButton;
     editEntityPushButton = new QPushButton;
@@ -197,6 +195,8 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
             world->recreate(ctyfile);
            //qDebug() << Q_FUNC_INFO << " - 66";
             worldModel->select();
+            worldView->setCurrentIndex(worldModel->index(0, 0));
+            m_populated = true;
            //qDebug() << Q_FUNC_INFO << " - 67";
             //slotImportWorldButtonClicked();
         }
@@ -221,12 +221,26 @@ SetupPageWorldEditor::~SetupPageWorldEditor()
     delete(util);
 }
 
+void SetupPageWorldEditor::showEvent(QShowEvent *event)
+{
+    QWidget::showEvent(event);
+    ensurePopulated();
+}
+
+void SetupPageWorldEditor::ensurePopulated()
+{
+    if (m_populated)
+        return;
+    m_populated = true;
+    worldModel->select();
+    worldView->setCurrentIndex(worldModel->index(0, 0));
+}
+
 void SetupPageWorldEditor::createWorldPanel()
 {
     worldView->setModel(worldModel);
-    QString stringQuery = QString("SELECT * FROM entity");
-    QSqlQuery query(stringQuery);
-    QSqlRecord rec = query.record(); // Number of columns
+    // Use schema metadata — avoids fetching any rows at startup
+    QSqlRecord rec = QSqlDatabase::database().record("entity");
     int columns = rec.count();
 
     for (int i = 0; i < columns; i++ ){
@@ -278,14 +292,11 @@ void SetupPageWorldEditor::createWorldModel()
 
 */
 
-    QString stringQuery = QString("SELECT * FROM entity");
-    QSqlQuery q(stringQuery);
-    QSqlRecord rec = q.record();
-
     int nameCol;
 
-    //worldModel = new QSqlRelationalTableModel(this);
     worldModel->setTable("entity");
+    // Use schema metadata — avoids fetching any rows at startup
+    QSqlRecord rec = QSqlDatabase::database().record("entity");
     worldModel->setEditStrategy(QSqlTableModel::OnFieldChange);
 
     nameCol = rec.indexOf("mainprefix");
@@ -316,8 +327,7 @@ void SetupPageWorldEditor::createWorldModel()
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Since Date"));
     nameCol = rec.indexOf("todate");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("To Date"));
-
-    worldModel->select();
+    // select() is deferred to ensurePopulated(), called on first showEvent
 }
 
 void SetupPageWorldEditor::createActions()

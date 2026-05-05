@@ -77,6 +77,9 @@ public:
     SetupPageWorldEditor(DataProxy_SQLite *dp, World *injectedWorld, QWidget *parent=nullptr);
     ~SetupPageWorldEditor();
 
+protected:
+    void showEvent(QShowEvent *event) override;
+
 private slots:
     void slotAddButtonClicked();
     void slotDelButtonClicked();
@@ -92,6 +95,9 @@ private:
     World *world;
     Utilities *util;
     DataProxy_SQLite *dataProxy;
+
+    bool m_populated = false;
+    void ensurePopulated();
 
     void createWorldPanel();
     void createWorldModel();
