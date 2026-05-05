@@ -211,13 +211,13 @@ int main(int argc, char *argv[])
     semaphore.acquire();                       // Raise the semaphore, barring other instances to work with shared memory
 
 #ifndef KLOG_Q_OS_WIN
-    QSharedMemory nix_fix_shared_memory("klogshm");
-    if (nix_fix_shared_memory.error() == QSharedMemory::AlreadyExists)
+    // On Linux/Unix, a crashed process leaves its shared memory segment in /dev/shm.
+    // Unconditionally attach then detach: if an orphaned segment exists it is released;
+    // if no segment exists, attach() fails silently and detach() is a no-op.
     {
-    // if the failure is caused by the shm segment already existing we need
-    // to attach to it before detaching from it.
+        QSharedMemory nix_fix_shared_memory("klogshm");
         nix_fix_shared_memory.attach();
-        nix_fix_shared_memory.detach(); // if there is no running instance then it remove the orphaned shared memory
+        nix_fix_shared_memory.detach();
     }
 #endif
 
