@@ -1,3 +1,6 @@
+# Normalize line endings on commit for all text files
+* text=auto
+
 # Files excluded from `git archive` (source tarballs)
 # These are development/CI artifacts not needed to build KLog
 
