@@ -2059,8 +2059,8 @@ void MainWindow::exitQuestion()
             // saveWindowsSize() is called inside closeEvent() — no need to call it here too
             qInfo() << "[KLOG-TIMING] exitQuestion - user confirmed exit, calling close()";
             close();
-            qInfo() << "[KLOG-TIMING] exitQuestion - close() returned, calling exit(0)";
-            exit(0);
+            qInfo() << "[KLOG-TIMING] exitQuestion - close() returned, calling QCoreApplication::quit()";
+            QCoreApplication::quit();
         default:
     // should never be reached
         break;
