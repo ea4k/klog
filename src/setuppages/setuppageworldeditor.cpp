@@ -170,14 +170,12 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     buttonsLayout->addWidget(editEntityPushButton);
     buttonsLayout->addWidget(delEntityPushButton);
 
-    createSpecialCallsignsPanel();
-    qInfo() << "[KLOG-TIMING] WorldEditor 07 - buttons+createSpecialCallsignsPanel:" << _t.restart() << "ms";
+    qInfo() << "[KLOG-TIMING] WorldEditor 07 - buttons:" << _t.restart() << "ms";
 
     QVBoxLayout *layout = new QVBoxLayout;
-
     layout->addWidget(worldView);
     layout->addLayout(buttonsLayout);
-    layout->addWidget(specialCallsignsGroup);
+    // specialCallsignsGroup is created lazily in ensurePopulated()
     setLayout(layout);
 
     createActions();
@@ -197,10 +195,6 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
             msgBox.exec();
            //qDebug() << Q_FUNC_INFO << " - 65";
             world->recreate(ctyfile);
-           //qDebug() << Q_FUNC_INFO << " - 66";
-            worldModel->select();
-            worldView->setCurrentIndex(worldModel->index(0, 0));
-            m_populated = true;
            //qDebug() << Q_FUNC_INFO << " - 67";
             //slotImportWorldButtonClicked();
         }
@@ -236,6 +230,12 @@ void SetupPageWorldEditor::ensurePopulated()
     if (m_populated)
         return;
     m_populated = true;
+
+    createSpecialCallsignsPanel();
+    qobject_cast<QVBoxLayout *>(layout())->addWidget(specialCallsignsGroup);
+    connect(addSpecialButton,    &QPushButton::clicked, this, &SetupPageWorldEditor::slotAddSpecialCallsignClicked);
+    connect(removeSpecialButton, &QPushButton::clicked, this, &SetupPageWorldEditor::slotRemoveSpecialCallsignClicked);
+
     worldModel->select();
     worldView->setCurrentIndex(worldModel->index(0, 0));
 }
@@ -312,6 +312,7 @@ void SetupPageWorldEditor::createWorldModel()
     nameCol = rec.indexOf("dxcc");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("ARRL ID"));
     nameCol = rec.indexOf("continent");
+    worldModel->setRelation(nameCol, QSqlRelation("continent", "id", "shortname"));
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("Continent"));
     nameCol = rec.indexOf("cqz");
     worldModel->setHeaderData(nameCol, Qt::Horizontal, tr("CQ Zone"));
@@ -342,9 +343,8 @@ void SetupPageWorldEditor::createActions()
     connect(editEntityPushButton, SIGNAL(clicked()), this, SLOT(slotEditButtonClicked()) );
 
     connect(loadWorldPushButton, SIGNAL(clicked()), this, SLOT(slotImportWorldButtonClicked()) );
-
-    connect(addSpecialButton,    &QPushButton::clicked, this, &SetupPageWorldEditor::slotAddSpecialCallsignClicked);
-    connect(removeSpecialButton, &QPushButton::clicked, this, &SetupPageWorldEditor::slotRemoveSpecialCallsignClicked);
+    // addSpecialButton / removeSpecialButton are connected in ensurePopulated()
+    // after createSpecialCallsignsPanel() creates them
 
 
 
