@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
     });
 
     semaphore.release();
-   //qDebug() << Q_FUNC_INFO << " 040: " << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] main 040 -:" << timer.elapsed() << "ms"; timer.restart();
     // If you already run one instance of the application, then we
     // inform the user about it
     // and complete the current instance of the application
@@ -272,18 +272,17 @@ int main(int argc, char *argv[])
     QApplication::processEvents();
 
     // Load translations
-    //qDebug() << Q_FUNC_INFO << " -  Start of translation activities: "
+    qInfo() << "[KLOG-TIMING] main 041 -:" << timer.elapsed() << "ms"; timer.restart();
     //         << (QTime::currentTime()).toString("HH:mm:ss");
     //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
     QTranslator myappTranslator;
     loadTranslations(app, myappTranslator);
-   //qDebug() << Q_FUNC_INFO << " 050: " << timer.elapsed() << "ms"; timer.restart();
+   qInfo() << "[KLOG-TIMING] main 050 -:" << timer.elapsed() << "ms"; timer.restart();
 
 
     QString klogDir = util.getHomeDir();
 
     //qDebug() << Q_FUNC_INFO << " - 10";
-    //qDebug() << Q_FUNC_INFO << " - Setting klog dir: " << (QTime::currentTime()).toString("HH:mm:ss")<< QT_ENDL;;
     // First step when running KLog, if the KLog folder does not exist, KLog creates it
     if (!QDir::setCurrent (klogDir) ){
     //qDebug() << Q_FUNC_INFO << " - KLogDir does not exist.... creating ";
@@ -295,28 +294,30 @@ int main(int argc, char *argv[])
             }
         }
     }
-    //qDebug() << Q_FUNC_INFO << " -  Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss");
+    qInfo() << "[KLOG-TIMING] main 051 -:" << timer.elapsed() << "ms"; timer.restart();
 
     splash.showMessage("Checking database...");
     QApplication::processEvents();
     //int firstTime = true;
     // If the KLog configuration file does not exist, we launch the wizard.
+    qInfo() << "[KLOG-TIMING] main 060 -:" << timer.elapsed() << "ms"; timer.restart();
     if (!((QFile::exists(util.getCfgFile ()))))
     {
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         wizard->exec();
         delete wizard;
+        qInfo() << "[KLOG-TIMING] main 061 -:" << timer.elapsed() << "ms"; timer.restart();
     }
     else
-    {   // KLog configuration file exists, let's look for the DB
-      //qDebug() << Q_FUNC_INFO << " 060: " << timer.elapsed() << "ms"; timer.restart();
+    {   // KLog configuration file exists, let's look for the DB      
         //firstTime = false;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-       //qDebug() << Q_FUNC_INFO << " -  After Start of DB Activities";
+       qInfo() << "[KLOG-TIMING] main 065 -:" << timer.elapsed() << "ms"; timer.restart();
         if (!db->createConnection(Q_FUNC_INFO))
         {
            //qDebug() << Q_FUNC_INFO << " - Conection not created";
+            qInfo() << "[KLOG-TIMING] main 066 -:" << timer.elapsed() << "ms"; timer.restart();
             return showNoDB();
             //return -1; // Exits with an error; no DB has been created
         }
@@ -327,12 +328,12 @@ int main(int argc, char *argv[])
             {
                //qDebug() << Q_FUNC_INFO << " - DB NOT Updated";
             }
-
+            qInfo() << "[KLOG-TIMING] main 067 -:" << timer.elapsed() << "ms"; timer.restart();
            //qDebug() << Q_FUNC_INFO << " - DB Updated";
         }
         delete db;
     }
-
+    qInfo() << "[KLOG-TIMING] main 069 -:" << timer.elapsed() << "ms"; timer.restart();
     splash.showMessage ("Creating the Data Base...");
     QApplication::processEvents();
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);    
@@ -361,13 +362,6 @@ int main(int argc, char *argv[])
 
     mw.show();
     splash.finish(&mw);
-    //splash.showMessage("Checking for new versions...");
-    //mw.checkIfNewVersion();
-    //qDebug() << Q_FUNC_INFO << " 083: " << timer.elapsed() << "ms"; timer.restart();
-    //splash.showMessage ("Checking if backup is needed...");
-    //qDebug() << Q_FUNC_INFO << " 084: " << timer.elapsed() << "ms"; timer.restart();
-    //mw.recommendBackupIfNeeded();
-   //qDebug() << Q_FUNC_INFO << " 085: " << timer.elapsed() << "ms"; timer.restart();
 
     return app.exec();
 }
