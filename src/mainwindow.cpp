@@ -79,7 +79,23 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 
     QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
-    world->create(util->getCTYFile());
+    {
+        const QString ctyFile = util->getCTYFile();
+        bool needsCreate = (world->getHowManyEntities() < 1);
+        if (!needsCreate)
+        {
+            QSettings s(util->getCfgFile(), QSettings::IniFormat);
+            QDateTime stored = s.value("world/ctyFileDate").toDateTime();
+            QDateTime current = QFileInfo(ctyFile).lastModified();
+            needsCreate = (stored != current);
+        }
+        if (needsCreate)
+        {
+            world->create(ctyFile);
+            QSettings s(util->getCfgFile(), QSettings::IniFormat);
+            s.setValue("world/ctyFileDate", QFileInfo(ctyFile).lastModified());
+        }
+    }
     qInfo() << "[KLOG-TIMING] ctor 006 world->create():" << timer.elapsed() << "ms"; timer.restart();
 
     hamlibConnectionAttempted = false;
