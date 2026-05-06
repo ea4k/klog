@@ -303,7 +303,6 @@ int main(int argc, char *argv[])
     // If the KLog configuration file does not exist, we launch the wizard.
     if (!((QFile::exists(util.getCfgFile ()))))
     {
-       //qDebug() << Q_FUNC_INFO << " 052: " << timer.elapsed() << "ms"; timer.restart();
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         wizard->exec();
@@ -331,38 +330,31 @@ int main(int argc, char *argv[])
 
            //qDebug() << Q_FUNC_INFO << " - DB Updated";
         }
-       //qDebug() << Q_FUNC_INFO << " - 98" << (QTime::currentTime()).toString("HH:mm:ss");
         delete db;
-      //qDebug() << Q_FUNC_INFO << " 069: " << timer.elapsed() << "ms"; timer.restart();
     }
-   //qDebug() << Q_FUNC_INFO << " 070: " << timer.elapsed() << "ms"; timer.restart();
-
-   //qDebug() << Q_FUNC_INFO << " - 101 " << (QTime::currentTime()).toString("HH:mm:ss");
 
     splash.showMessage ("Creating the Data Base...");
     QApplication::processEvents();
-    DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);
-    // [PROPOSAL-6] DataProxy_SQLite ctor calls createHashes() loading band/mode/entity caches
-   //qInfo() << "[KLOG-TIMING] main 071 - DataProxy_SQLite ctor [PROPOSAL-6 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);    
+    qInfo() << "[KLOG-TIMING] main 071 - DataProxy_SQLite ctor [PROPOSAL-6 candidate]:" << timer.elapsed() << "ms"; timer.restart();
     QApplication::processEvents();
 
     World world(&dataProxy, Q_FUNC_INFO);
-    // [PROPOSAL-2] World ctor: readWorld() now deferred to first callsign lookup (lazy)
-   //qInfo() << "[KLOG-TIMING] main 072 - World ctor [PROPOSAL-2 done, readWorld() deferred]:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] main 072 - World ctor [PROPOSAL-2 done, readWorld() deferred]:" << timer.elapsed() << "ms"; timer.restart();
     dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage("Creating window...");
     QApplication::processEvents();
 
     MainWindow mw(&dataProxy, &world);
-    // [PROPOSALS 1,3,5] MainWindow ctor: MapWidget deferred (P1), HamLib ctor (P3), dialogs (P5)
-   //qInfo() << "[KLOG-TIMING] main 081 - MainWindow ctor:" << timer.elapsed() << "ms"; timer.restart();
+
+    qInfo() << "[KLOG-TIMING] main 081 - MainWindow ctor:" << timer.elapsed() << "ms"; timer.restart();
 
     splash.showMessage("Initializing...");
     QApplication::processEvents();
 
     mw.init();
-   //qInfo() << "[KLOG-TIMING] main 088 - mw.init() complete:" << timer.elapsed() << "ms"; timer.restart();
+    qInfo() << "[KLOG-TIMING] main 088 - mw.init() complete:" << timer.elapsed() << "ms"; timer.restart();
 
     splash.showMessage("Showing window...");
     QApplication::processEvents();
