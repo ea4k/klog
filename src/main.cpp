@@ -202,6 +202,15 @@ int main(int argc, char *argv[])
         return 0;
     }
    //qDebug() << Q_FUNC_INFO << " 020: " << timer.elapsed() << "ms"; timer.restart();
+
+    // Start the splash show() as early as possible so macOS begins Quartz
+    // compositor initialisation (the ~1 s first-window cost) while the
+    // singleton check below runs. processEvents() is called after the check
+    // so by then the compositor has had a head start.
+    QPixmap pixmap(":img/klog_512x512.png");
+    QSplashScreen splash(pixmap);
+    splash.show();
+
     /* Application Singleton
      *
      * We want to run only one instance of KLog application
@@ -255,6 +264,7 @@ int main(int argc, char *argv[])
     // and complete the current instance of the application
     if (is_running)
     {
+        splash.close();
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(QObject::tr("KLog is already running.") + "\n" +
@@ -265,10 +275,8 @@ int main(int argc, char *argv[])
 
     // END OF Application Singleton
 
-    // Show the splash as early as possible so it covers translations, dir setup and DB checks.
-    QPixmap pixmap(":img/klog_512x512.png");
-    QSplashScreen splash(pixmap);
-    splash.show();
+    // Flush events now. By this point macOS has had the singleton-check time
+    // (~93 ms) to advance Quartz initialisation, so the block here is shorter.
     QApplication::processEvents();
 
     // Load translations
