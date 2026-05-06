@@ -3595,10 +3595,10 @@ void MainWindow::showEvent(QShowEvent *event)
     if (!hamlibConnectionAttempted && upAndRunning)
     {
         hamlibConnectionAttempted = true;
-        QTimer::singleShot(0, this, &MainWindow::slotInitHamlib);
-        QTimer::singleShot(100, this, &MainWindow::checkIfNewVersion);
+        QTimer::singleShot(500, this, &MainWindow::slotInitHamlib);
+        QTimer::singleShot(600, this, &MainWindow::checkIfNewVersion);
         // recommendBackupIfNeeded is called from slotInitHamlib once hamlib init completes
-        QTimer::singleShot(300, this, [this]{ checkVersions(); }); //
+        QTimer::singleShot(800, this, [this]{ checkVersions(); });
     }
 }
 
