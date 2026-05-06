@@ -265,6 +265,12 @@ int main(int argc, char *argv[])
 
     // END OF Application Singleton
 
+    // Show the splash as early as possible so it covers translations, dir setup and DB checks.
+    QPixmap pixmap(":img/klog_512x512.png");
+    QSplashScreen splash(pixmap);
+    splash.show();
+    QApplication::processEvents();
+
     // Load translations
     //qDebug() << Q_FUNC_INFO << " -  Start of translation activities: "
     //         << (QTime::currentTime()).toString("HH:mm:ss");
@@ -290,13 +296,6 @@ int main(int argc, char *argv[])
         }
     }
     //qDebug() << Q_FUNC_INFO << " -  Setting klog dir - finished: " << (QTime::currentTime()).toString("HH:mm:ss");
-
-    //qDebug() << Q_FUNC_INFO << " -  Setting config file: " << (QTime::currentTime()).toString("HH:mm:ss") ;
-    QPixmap pixmap(":img/klog_512x512.png");
-  //qDebug() << Q_FUNC_INFO << " 051: " << timer.elapsed() << "ms"; timer.restart();
-    QSplashScreen splash(pixmap);
-    splash.show();
-    QApplication::processEvents();
 
     splash.showMessage("Checking database...");
     QApplication::processEvents();
