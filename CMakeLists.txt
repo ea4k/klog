@@ -32,7 +32,6 @@ endforeach()
 # Generate version.h into the build directory
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/src")
 set(APP_VERSION "${PROJECT_VERSION}")
-#set(APP_PKGVERSION "2.5.1-alpha")
 set(APP_PKGVERSION "2.5.1-RC1")
 
 configure_file(
