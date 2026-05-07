@@ -6,6 +6,14 @@ TBD 2026 - 2.5.1
 - Enhancement: Entity dxcc to name queries speed up.
 - Enhancement: Memory leaks improvement.
 - Enhancement: FreeDV UDP QSOLogged integration improvements (Closes #990)(TNX G4MKT)
+- BugFix: Export to ADIF shows just 1 exported QSO. (Closes #977)
+- BugFix: Double click on log clears UI but does not show QSO. (Closes #968)
+- BugFix: KLog 2.5 not clearing shared memory objects on exit. (Closes #961)
+- BugFix: Unable to upload the queued QSOs to Clublog/eQSL after LOTW Upload. (Closes #543)
+- BugFix: Qrz.com error 99. (Closes #733)
+- BugFix: Does not use the right logbook if not in the default folder on Windows. (Closes #706)
+- BugFix: KLog does not talk with FLRig. (Closes #382)
+- BugFix: WSJTX and KLog can't get data from radio at the same time. (Closes #352)
 
 Mar 2026 - 2.5
 - New feature: Spots are sent to the map with the starts color and callsign.
