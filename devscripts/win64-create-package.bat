@@ -35,6 +35,10 @@ set PATH=%PATH%;C:\Qt\6.8.3\mingw_64\bin;C:\Qt\Tools\mingw1310_64\bin
 set PATH=%PATH%;C:\Program Files\InstallBuilder Enterprise 23.10.1\bin
 set PATH=%PATH%;C:\Qt\Tools\CMake_64\bin;C:\Qt\Tools\Ninja
 
+rem --- Force MinGW compiler, ignore any LLVM/Clang in PATH ---
+set CC=C:\Qt\Tools\mingw1310_64\bin\gcc.exe
+set CXX=C:\Qt\Tools\mingw1310_64\bin\g++.exe
+
 rem --- Dependency paths ---
 set HAMLIB_DIR=C:\hamlib-w64-4.7.0
 set OPENSSL_DIR=C:\Qt\Tools\OpenSSLv3\Win_x64
@@ -60,7 +64,12 @@ rmdir /S /Q src\release 2>nul
 
 rem --- [1/4] CMake configure ---
 echo [1/4] Configuring with CMake...
-cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
+cmake -S . -B build -G "Ninja" ^
+    -DCMAKE_BUILD_TYPE=Release ^
+    -DBUILD_TESTING=OFF ^
+    -DCMAKE_C_COMPILER=C:/Qt/Tools/mingw1310_64/bin/gcc.exe ^
+    -DCMAKE_CXX_COMPILER=C:/Qt/Tools/mingw1310_64/bin/g++.exe
+
 if %errorlevel% neq 0 (
     echo ERROR: CMake configuration failed
     exit /b 1
