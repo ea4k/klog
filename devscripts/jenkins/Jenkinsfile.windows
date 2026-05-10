@@ -93,10 +93,10 @@ pipeline {
             steps {
                 bat '''
                     echo === Installer file ===
-                    dir devscripts\\klog-*win64*.exe
+                    dir devscripts\\*win64*.exe
 
                     echo === SHA256 checksum ===
-                    powershell -Command "Get-FileHash devscripts\\klog-*win64*.exe -Algorithm SHA256 | Format-List"
+                    powershell -Command "Get-FileHash devscripts\\*win64*.exe -Algorithm SHA256 | Format-List"
                 '''
             }
         }
@@ -111,7 +111,7 @@ pipeline {
                             > "%%f.sha256"
                     )
                 '''
-                archiveArtifacts artifacts: 'devscripts\\klog-*win64*.exe, devscripts\\*.sha256',
+                archiveArtifacts artifacts: 'devscripts\\*win64*.exe, devscripts\\*.sha256',
                                  fingerprint: true
                 echo "Build successful — installer archived"
             }
