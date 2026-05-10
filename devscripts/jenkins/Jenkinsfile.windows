@@ -12,34 +12,29 @@
 //   Build Triggers:              (none — trigger manually with Build Now)
 //
 // Credentials required in Jenkins:
-//   esxi-ssh             SSH username + private key for ESXi root access
+//   esxi-ssh             SSH username + private key RSA for ESXi root access
 //   esxi-host            Secret text — ESXi host IP
 //   esxi-vmid-windows    Secret text — VM ID of the Windows build agent
-//   win64-agent-secret   Secret text — Jenkins agent secret for win64-devel
 //
 // Requirements on the win64-devel agent VM:
 //   - Qt 6.8.3 with MinGW installed under C:\Qt\
 //   - CMake and Ninja available under C:\Qt\Tools\
 //   - Hamlib and OpenSSL DLLs in the paths expected by the .bat script
 //   - InstallBuilder Enterprise installed
-//   - Java installed and agent.jar in C:\jenkins-agent\
+//   - Java installed, agent.jar and WinSW service running in C:\jenkins-agent\
 // ─────────────────────────────────────────────────────────────────────────────
 
 pipeline {
-    // The pipeline starts on the Jenkins controller (to power on the VM),
-    // then moves to the win64-devel agent for the actual build.
     agent none
 
     environment {
-        AGENT_LABEL           = 'win64-devel'
-        // Maximum minutes to wait for the Windows agent to come online
-        AGENT_TIMEOUT_MINUTES = '10'
+        AGENT_LABEL = 'win64-devel'
     }
 
     stages {
 
         stage('Power on Windows VM') {
-            agent { label 'built-in' }   // Runs on the Jenkins controller
+            agent { label 'built-in' }
             steps {
                 withCredentials([
                     sshUserPrivateKey(
@@ -51,19 +46,24 @@ pipeline {
                     string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
                 ]) {
                     sh '''
-                        echo "=== Checking current VM power state ==="
-                        ssh -i "$SSH_KEY" \
+                        STATE=$(ssh -i "$SSH_KEY" \
                             -o StrictHostKeyChecking=no \
                             -o BatchMode=yes \
                             "$SSH_USER"@"$ESXI_HOST" \
-                            "vim-cmd vmsvc/power.getstate $ESXI_VM_ID"
+                            "vim-cmd vmsvc/power.getstate $ESXI_VM_ID")
+                        echo "Current VM state: $STATE"
 
-                        echo "=== Powering on VM ==="
-                        ssh -i "$SSH_KEY" \
-                            -o StrictHostKeyChecking=no \
-                            -o BatchMode=yes \
-                            "$SSH_USER"@"$ESXI_HOST" \
-                            "vim-cmd vmsvc/power.on $ESXI_VM_ID"
+                        if echo "$STATE" | grep -q "Powered on"; then
+                            echo "VM is already powered on, skipping"
+                        else
+                            echo "Powering on VM..."
+                            ssh -i "$SSH_KEY" \
+                                -o StrictHostKeyChecking=no \
+                                -o BatchMode=yes \
+                                "$SSH_USER"@"$ESXI_HOST" \
+                                "vim-cmd vmsvc/power.on $ESXI_VM_ID"
+                            echo "Power on command sent"
+                        fi
                     '''
                 }
             }
@@ -72,27 +72,15 @@ pipeline {
         stage('Wait for agent') {
             agent { label 'built-in' }
             steps {
-                // Poll Jenkins until the win64-devel node comes online,
-                // or fail after AGENT_TIMEOUT_MINUTES minutes.
-                timeout(time: "${AGENT_TIMEOUT_MINUTES}".toInteger(), unit: 'MINUTES') {
-                    waitUntil(initialRecurrencePeriod: 15000) {
-                        script {
-                            def node = Jenkins.instance.getNode("${AGENT_LABEL}")
-                            def computer = node?.toComputer()
-                            return computer?.isOnline() ?: false
-                        }
-                    }
-                }
-                echo "Agent ${AGENT_LABEL} is online"
+                echo "Waiting for Windows VM to boot and agent to connect..."
+                sleep time: 30, unit: 'SECONDS'
+                echo "Done waiting — proceeding to build"
             }
         }
 
         stage('Build & Package') {
-            agent { label "${AGENT_LABEL}" }  // Runs on the Windows VM
+            agent { label "${AGENT_LABEL}" }
             steps {
-                // Run the existing Windows build script from the devscripts directory.
-                // The script handles: clean, cmake configure, build,
-                // windeployqt6, and InstallBuilder installer generation.
                 bat '''
                     cd devscripts
                     call win64-create-package.bat
@@ -116,7 +104,6 @@ pipeline {
         stage('Archive artifacts') {
             agent { label "${AGENT_LABEL}" }
             steps {
-                // Generate SHA256 checksum file
                 bat '''
                     for %%f in (devscripts\\klog-*win64*.exe) do (
                         powershell -Command ^
@@ -130,12 +117,11 @@ pipeline {
             }
         }
 
-    }
-
-    post {
-        always {
-            // Always shut down the VM, whether the build succeeded or failed.
-            node('built-in') {
+        stage('Shutdown VM') {
+            // Always runs at the end of a successful build.
+            // In case of failure the post{} block handles the shutdown.
+            agent { label 'built-in' }
+            steps {
                 withCredentials([
                     sshUserPrivateKey(
                         credentialsId:    'esxi-ssh',
@@ -147,6 +133,44 @@ pipeline {
                 ]) {
                     sh '''
                         echo "=== Shutting down VM ==="
+                        # Graceful shutdown first, hard power off as fallback
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.shutdown $ESXI_VM_ID" || \
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.off $ESXI_VM_ID"
+                        echo "Shutdown command sent"
+                    '''
+                }
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "Windows build finished successfully"
+        }
+        failure {
+            // If the build failed before the Shutdown VM stage ran,
+            // shut down the VM from here as well.
+            node('built-in') {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',         variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        echo "=== Build failed — shutting down VM ==="
                         ssh -i "$SSH_KEY" \
                             -o StrictHostKeyChecking=no \
                             -o BatchMode=yes \
@@ -158,17 +182,8 @@ pipeline {
                             "$SSH_USER"@"$ESXI_HOST" \
                             "vim-cmd vmsvc/power.off $ESXI_VM_ID"
                     '''
-                    // power.shutdown sends a graceful ACPI shutdown signal.
-                    // power.off is the fallback (hard power off) in case the
-                    // guest OS does not respond to the shutdown signal.
                 }
             }
-            cleanWs()
-        }
-        success {
-            echo "Windows build finished successfully"
-        }
-        failure {
             echo "Windows build failed — VM has been powered off"
         }
     }
