@@ -15,14 +15,13 @@
 //   esxi-ssh             SSH username + private key RSA for ESXi root access
 //   esxi-host            Secret text — ESXi host IP
 //   esxi-vmid-windows    Secret text — VM ID of the Windows build agent
-//   win64-agent-secret   Secret text — Jenkins agent secret for win64-devel
 //
 // Requirements on the win64-devel agent VM:
 //   - Qt 6.8.3 with MinGW installed under C:\Qt\
 //   - CMake and Ninja available under C:\Qt\Tools\
 //   - Hamlib and OpenSSL DLLs in the paths expected by the .bat script
 //   - InstallBuilder Enterprise installed
-//   - Java installed and agent.jar in C:\jenkins-agent\
+//   - Java installed, agent.jar and WinSW service running in C:\jenkins-agent\
 // ─────────────────────────────────────────────────────────────────────────────
 
 pipeline {
@@ -30,7 +29,10 @@ pipeline {
 
     environment {
         AGENT_LABEL           = 'win64-devel'
-        AGENT_TIMEOUT_MINUTES = '10'
+        // How long to wait for the Windows agent to come online (seconds)
+        AGENT_WAIT_SECONDS    = '300'
+        // How many seconds to sleep between each online check
+        AGENT_POLL_SECONDS    = '15'
     }
 
     stages {
@@ -48,17 +50,15 @@ pipeline {
                     string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
                 ]) {
                     sh '''
-                        # Check current power state
                         STATE=$(ssh -i "$SSH_KEY" \
                             -o StrictHostKeyChecking=no \
                             -o BatchMode=yes \
                             "$SSH_USER"@"$ESXI_HOST" \
                             "vim-cmd vmsvc/power.getstate $ESXI_VM_ID")
-                        echo "Current state: $STATE"
+                        echo "Current VM state: $STATE"
 
-                        # Only power on if the VM is not already powered on
                         if echo "$STATE" | grep -q "Powered on"; then
-                            echo "VM is already powered on, skipping power on"
+                            echo "VM is already powered on, skipping"
                         else
                             echo "Powering on VM..."
                             ssh -i "$SSH_KEY" \
@@ -66,6 +66,7 @@ pipeline {
                                 -o BatchMode=yes \
                                 "$SSH_USER"@"$ESXI_HOST" \
                                 "vim-cmd vmsvc/power.on $ESXI_VM_ID"
+                            echo "Power on command sent"
                         fi
                     '''
                 }
@@ -75,16 +76,28 @@ pipeline {
         stage('Wait for agent') {
             agent { label 'built-in' }
             steps {
-                timeout(time: "${AGENT_TIMEOUT_MINUTES}".toInteger(), unit: 'MINUTES') {
-                    waitUntil(initialRecurrencePeriod: 15000) {
-                        script {
-                            def node = Jenkins.instance.getNode("${AGENT_LABEL}")
-                            def computer = node?.toComputer()
-                            return computer?.isOnline() ?: false
+                // Poll the Jenkins agent status without using Jenkins.instance
+                // (blocked by the script sandbox).
+                // Instead we use the built-in 'node' availability check:
+                // retry every AGENT_POLL_SECONDS until the agent accepts work
+                // or AGENT_WAIT_SECONDS is exceeded.
+                timeout(time: "${AGENT_WAIT_SECONDS}".toInteger(), unit: 'SECONDS') {
+                    script {
+                        def agentOnline = false
+                        while (!agentOnline) {
+                            try {
+                                // Try to allocate the node — succeeds only when online
+                                node("${AGENT_LABEL}") {
+                                    echo "Agent ${AGENT_LABEL} is online"
+                                    agentOnline = true
+                                }
+                            } catch (e) {
+                                echo "Agent not yet available, retrying in ${AGENT_POLL_SECONDS}s..."
+                                sleep "${AGENT_POLL_SECONDS}".toInteger()
+                            }
                         }
                     }
                 }
-                echo "Agent ${AGENT_LABEL} is online"
             }
         }
 
@@ -127,13 +140,10 @@ pipeline {
             }
         }
 
-    }
-
-    post {
-        always {
-            // Shut down the VM whether the build succeeded or failed.
-            // cleanWs() requires a node context so we wrap everything in node()
-            node('built-in') {
+        stage('Shutdown VM') {
+            // Always runs — moved out of post{} to avoid the node context issue
+            agent { label 'built-in' }
+            steps {
                 withCredentials([
                     sshUserPrivateKey(
                         credentialsId:    'esxi-ssh',
@@ -145,7 +155,44 @@ pipeline {
                 ]) {
                     sh '''
                         echo "=== Shutting down VM ==="
-                        # Try graceful shutdown first, hard power off as fallback
+                        # Graceful shutdown first, hard power off as fallback
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.shutdown $ESXI_VM_ID" || \
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.off $ESXI_VM_ID"
+                        echo "Shutdown command sent"
+                    '''
+                }
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "Windows build finished successfully"
+        }
+        failure {
+            // If the build failed before the Shutdown VM stage ran,
+            // try to shut down the VM from here as well.
+            node('built-in') {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',         variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        echo "=== Build failed — shutting down VM ==="
                         ssh -i "$SSH_KEY" \
                             -o StrictHostKeyChecking=no \
                             -o BatchMode=yes \
@@ -158,13 +205,7 @@ pipeline {
                             "vim-cmd vmsvc/power.off $ESXI_VM_ID"
                     '''
                 }
-                cleanWs()
             }
-        }
-        success {
-            echo "Windows build finished successfully"
-        }
-        failure {
             echo "Windows build failed — VM has been powered off"
         }
     }
