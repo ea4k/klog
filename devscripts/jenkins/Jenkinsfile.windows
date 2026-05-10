@@ -1,0 +1,190 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// KLog — Windows 64-bit installer builder
+//
+// Powers on the Windows VM on ESXi, waits for the Jenkins agent to come
+// online, builds the KLog installer, archives it, then shuts the VM down.
+//
+// Jenkins job configuration:
+//   Pipeline → Definition:       Pipeline script from SCM
+//   Pipeline → SCM:              Git
+//   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.windows
+//   Additional Behaviours:       Fetch tags  ✓
+//   Build Triggers:              (none — trigger manually with Build Now)
+//
+// Credentials required in Jenkins:
+//   esxi-ssh             SSH username + private key RSA for ESXi root access
+//   esxi-host            Secret text — ESXi host IP
+//   esxi-vmid-windows    Secret text — VM ID of the Windows build agent
+//
+// Requirements on the win64-devel agent VM:
+//   - Qt 6.8.3 with MinGW installed under C:\Qt\
+//   - CMake and Ninja available under C:\Qt\Tools\
+//   - Hamlib and OpenSSL DLLs in the paths expected by the .bat script
+//   - InstallBuilder Enterprise installed
+//   - Java installed, agent.jar and WinSW service running in C:\jenkins-agent\
+// ─────────────────────────────────────────────────────────────────────────────
+
+pipeline {
+    agent none
+
+    environment {
+        AGENT_LABEL = 'win64-devel'
+    }
+
+    stages {
+
+        stage('Power on Windows VM') {
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',         variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        STATE=$(ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.getstate $ESXI_VM_ID")
+                        echo "Current VM state: $STATE"
+
+                        if echo "$STATE" | grep -q "Powered on"; then
+                            echo "VM is already powered on, skipping"
+                        else
+                            echo "Powering on VM..."
+                            ssh -i "$SSH_KEY" \
+                                -o StrictHostKeyChecking=no \
+                                -o BatchMode=yes \
+                                "$SSH_USER"@"$ESXI_HOST" \
+                                "vim-cmd vmsvc/power.on $ESXI_VM_ID"
+                            echo "Power on command sent"
+                        fi
+                    '''
+                }
+            }
+        }
+
+        stage('Wait for agent') {
+            agent { label 'built-in' }
+            steps {
+                echo "Waiting for Windows VM to boot and agent to connect..."
+                sleep time: 30, unit: 'SECONDS'
+                echo "Done waiting — proceeding to build"
+            }
+        }
+
+        stage('Build & Package') {
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                bat '''
+                    cd devscripts
+                    call win64-create-package.bat
+                '''
+            }
+        }
+
+        stage('Verify') {
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                bat '''
+                    echo === Installer file ===
+                    dir devscripts\\klog-*win64*.exe
+
+                    echo === SHA256 checksum ===
+                    powershell -Command "Get-FileHash devscripts\\klog-*win64*.exe -Algorithm SHA256 | Format-List"
+                '''
+            }
+        }
+
+        stage('Archive artifacts') {
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                bat '''
+                    for %%f in (devscripts\\klog-*win64*.exe) do (
+                        powershell -Command ^
+                            "(Get-FileHash '%%f' -Algorithm SHA256).Hash + '  %%f'" ^
+                            > "%%f.sha256"
+                    )
+                '''
+                archiveArtifacts artifacts: 'devscripts\\klog-*win64*.exe, devscripts\\*.sha256',
+                                 fingerprint: true
+                echo "Build successful — installer archived"
+            }
+        }
+
+        stage('Shutdown VM') {
+            // Always runs at the end of a successful build.
+            // In case of failure the post{} block handles the shutdown.
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',         variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        echo "=== Shutting down VM ==="
+                        # Graceful shutdown first, hard power off as fallback
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.shutdown $ESXI_VM_ID" || \
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.off $ESXI_VM_ID"
+                        echo "Shutdown command sent"
+                    '''
+                }
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "Windows build finished successfully"
+        }
+        failure {
+            // If the build failed before the Shutdown VM stage ran,
+            // shut down the VM from here as well.
+            node('built-in') {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',         variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-windows', variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        echo "=== Build failed — shutting down VM ==="
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.shutdown $ESXI_VM_ID" || \
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.off $ESXI_VM_ID"
+                    '''
+                }
+            }
+            echo "Windows build failed — VM has been powered off"
+        }
+    }
+}
