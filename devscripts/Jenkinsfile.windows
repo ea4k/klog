@@ -28,11 +28,7 @@ pipeline {
     agent none
 
     environment {
-        AGENT_LABEL           = 'win64-devel'
-        // How long to wait for the Windows agent to come online (seconds)
-        AGENT_WAIT_SECONDS    = '300'
-        // How many seconds to sleep between each online check
-        AGENT_POLL_SECONDS    = '15'
+        AGENT_LABEL = 'win64-devel'
     }
 
     stages {
@@ -76,28 +72,9 @@ pipeline {
         stage('Wait for agent') {
             agent { label 'built-in' }
             steps {
-                // Poll the Jenkins agent status without using Jenkins.instance
-                // (blocked by the script sandbox).
-                // Instead we use the built-in 'node' availability check:
-                // retry every AGENT_POLL_SECONDS until the agent accepts work
-                // or AGENT_WAIT_SECONDS is exceeded.
-                timeout(time: "${AGENT_WAIT_SECONDS}".toInteger(), unit: 'SECONDS') {
-                    script {
-                        def agentOnline = false
-                        while (!agentOnline) {
-                            try {
-                                // Try to allocate the node — succeeds only when online
-                                node("${AGENT_LABEL}") {
-                                    echo "Agent ${AGENT_LABEL} is online"
-                                    agentOnline = true
-                                }
-                            } catch (e) {
-                                echo "Agent not yet available, retrying in ${AGENT_POLL_SECONDS}s..."
-                                sleep "${AGENT_POLL_SECONDS}".toInteger()
-                            }
-                        }
-                    }
-                }
+                echo "Waiting for Windows VM to boot and agent to connect..."
+                sleep time: 30, unit: 'SECONDS'
+                echo "Done waiting — proceeding to build"
             }
         }
 
@@ -141,7 +118,8 @@ pipeline {
         }
 
         stage('Shutdown VM') {
-            // Always runs — moved out of post{} to avoid the node context issue
+            // Always runs at the end of a successful build.
+            // In case of failure the post{} block handles the shutdown.
             agent { label 'built-in' }
             steps {
                 withCredentials([
@@ -180,7 +158,7 @@ pipeline {
         }
         failure {
             // If the build failed before the Shutdown VM stage ran,
-            // try to shut down the VM from here as well.
+            // shut down the VM from here as well.
             node('built-in') {
                 withCredentials([
                     sshUserPrivateKey(
