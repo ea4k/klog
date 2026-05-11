@@ -338,7 +338,8 @@ void SetupPageHamLib::saveSettings()
     settings.beginGroup ("HamLib");
     settings.setValue ("HamLibActive", QVariant((activateHamlibCheckBox->isChecked())));
     settings.setValue ("HamLibReadOnly", QVariant((readOnlyModeCheckBox->isChecked())));
-    settings.setValue ("HamLibRigType", hamlib->getModelIdFromName(rigTypeComboBox->currentText ()));
+    if (m_rigsLoaded)
+        settings.setValue ("HamLibRigType", hamlib->getModelIdFromName(rigTypeComboBox->currentText ()));
     settings.setValue ("HamLibRigPollRate", QString::number(pollIntervalQSpinBox->value ()));
     settings.setValue ("HamLibSerialPort", serialConfigWidget->getSerialPort ());
     settings.setValue ("HamLibSerialBauds", QString::number(serialConfigWidget->getSerialBauds ()));
