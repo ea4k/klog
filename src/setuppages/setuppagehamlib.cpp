@@ -359,7 +359,9 @@ void SetupPageHamLib::loadSettings()
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
+    rigTypeComboBox->blockSignals(true);
     setRigType (settings.value("HamLibRigType").toString());
+    rigTypeComboBox->blockSignals(false);
     pollIntervalQSpinBox->setValue(settings.value("HamLibRigPollRate", 2000).toInt ());
     serialConfigWidget->setSerialPort (settings.value("HamLibSerialPort").toString());
     serialConfigWidget->setSerialBauds (settings.value("HamLibSerialBauds", 9600).toInt ());
@@ -369,7 +371,10 @@ void SetupPageHamLib::loadSettings()
     serialConfigWidget->setParity(settings.value("HamLibSerialParity", "Even").toString());
     networkConfigWidget->setAddress (settings.value("HamLibNetAddress", "localhost").toString());
     networkConfigWidget->setPort (settings.value("HamLibNetPort", 4532).toInt ());
-    activateHamlibCheckBox->setChecked (settings.value("HamLibActive", false).toBool ());
+    const bool wasActive = settings.value("HamLibActive", false).toBool();
+    activateHamlibCheckBox->setChecked (wasActive);
+    if (wasActive)
+        activateHamlibCheckBox->setEnabled(true);
     readOnlyModeCheckBox->setChecked (settings.value("HamLibReadOnly", false).toBool ());
     settings.endGroup ();
 
