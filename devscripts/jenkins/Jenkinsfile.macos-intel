@@ -2,18 +2,12 @@
 // KLog — macOS DMG builder (x86_64 / Intel)
 //
 // Builds KLog and produces a distributable DMG using macdeployqt6.
-// Wraps the logic in devscripts/macos-x86-create-cmake.sh.
-//
-// The build script reads two environment variables to allow reuse across
-// architectures without duplicating logic:
-//
-//   KLOG_QT_VERSION   Qt version to use         (default: 6.7.3)
-//   KLOG_ARCH_SUFFIX  Suffix appended to DMG     (default: empty)
+// Calls devscripts/macos-create-intel.sh which handles the full build.
 //
 // Jenkins job configuration:
 //   Pipeline → Definition:       Pipeline script from SCM
 //   Pipeline → SCM:              Git
-//   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.macos
+//   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.macos-intel
 //   Additional Behaviours:       Fetch tags  ✓
 //   Build Triggers:              (none — trigger manually with Build Now)
 //
@@ -30,27 +24,15 @@ pipeline {
     }
 
     environment {
-        APP_NAME         = 'KLog'
-        // Qt version — Intel requires 6.7.3
-        // Apple Silicon Jenkinsfile will override this with 6.10.2
-        KLOG_QT_VERSION  = '6.7.3'
-        QT_DIR           = "${HOME}/Qt/${KLOG_QT_VERSION}/macos"
-        CMAKE_BIN        = "${HOME}/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
-        // Suffix appended to the DMG filename to identify the architecture.
-        // The build script reads KLOG_ARCH_SUFFIX and appends it before .dmg.
-        // When run manually outside Jenkins (no env var set) it falls back to
-        // an empty string, keeping backward compatibility.
-        KLOG_ARCH_SUFFIX = '-intel'
-        // Version is read from CMakeLists.txt by the build script,
-        // but we also expose it here for the archive step.
-        VERSION          = sh(
+        APP_NAME = 'KLog'
+        VERSION  = sh(
             script: """
                 grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
                 grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
             """,
             returnStdout: true
         ).trim()
-        DMG_NAME         = "${APP_NAME}-${VERSION}${KLOG_ARCH_SUFFIX}.dmg"
+        DMG_NAME = "${APP_NAME}-${VERSION}-intel.dmg"
     }
 
     stages {
@@ -60,25 +42,18 @@ pipeline {
                 echo "Application : ${APP_NAME}"
                 echo "Version     : ${VERSION}"
                 echo "DMG         : ${DMG_NAME}"
-                echo "Qt version  : ${KLOG_QT_VERSION}"
                 echo "Commit      : ${GIT_COMMIT}"
                 echo "Branch      : ${GIT_BRANCH}"
-                echo "Qt dir      : ${QT_DIR}"
                 sh 'sw_vers'
-                sh '"${CMAKE_BIN}" --version'
             }
         }
 
         stage('Build & Package') {
             steps {
-                // Run the existing build script from the devscripts directory.
-                // The script reads KLOG_QT_VERSION and KLOG_ARCH_SUFFIX from
-                // the environment to select the right Qt installation and
-                // name the output DMG correctly.
                 sh '''
                     export PATH="/usr/local/bin:$PATH"
                     cd devscripts
-                    bash macos-x86-create-cmake.sh
+                    bash macos-create-intel.sh
                 '''
             }
         }
@@ -106,7 +81,7 @@ pipeline {
             echo "Build successful: ${DMG_NAME}"
         }
         failure {
-            echo "Build failed: could not generate macOS DMG"
+            echo "Build failed: could not generate macOS Intel DMG"
         }
         cleanup {
             sh 'rm -rf build'
