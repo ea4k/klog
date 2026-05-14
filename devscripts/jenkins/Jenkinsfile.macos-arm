@@ -4,6 +4,12 @@
 // Builds KLog and produces a distributable DMG using macdeployqt6.
 // Wraps the logic in devscripts/macos-x86-create-cmake.sh.
 //
+// The build script reads two environment variables to allow reuse across
+// architectures without duplicating logic:
+//
+//   KLOG_QT_VERSION   Qt version to use         (default: 6.7.3)
+//   KLOG_ARCH_SUFFIX  Suffix appended to DMG     (default: empty)
+//
 // Jenkins job configuration:
 //   Pipeline → Definition:       Pipeline script from SCM
 //   Pipeline → SCM:              Git
@@ -14,30 +20,37 @@
 // Requirements on the mac-intel agent:
 //   - Qt 6.7.3 installed via Qt Online Installer under ~/Qt/
 //   - Xcode and Xcode Command Line Tools installed
-//   - Homebrew available (for ninja if needed)
+//   - Homebrew available with ninja installed (brew install ninja)
 //   - Java installed (required by the Jenkins agent)
 // ─────────────────────────────────────────────────────────────────────────────
 
 pipeline {
     agent {
-        label 'mac-intel'   // Runs exclusively on the Mac Intel node
+        label 'mac-intel'
     }
 
     environment {
-        APP_NAME    = 'KLog'
-        QT_VERSION  = '6.7.3'
-        QT_DIR      = "${HOME}/Qt/${QT_VERSION}/macos"
-        CMAKE_BIN   = "${HOME}/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
+        APP_NAME         = 'KLog'
+        // Qt version — Intel requires 6.7.3
+        // Apple Silicon Jenkinsfile will override this with 6.10.2
+        KLOG_QT_VERSION  = '6.7.3'
+        QT_DIR           = "${HOME}/Qt/${KLOG_QT_VERSION}/macos"
+        CMAKE_BIN        = "${HOME}/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
+        // Suffix appended to the DMG filename to identify the architecture.
+        // The build script reads KLOG_ARCH_SUFFIX and appends it before .dmg.
+        // When run manually outside Jenkins (no env var set) it falls back to
+        // an empty string, keeping backward compatibility.
+        KLOG_ARCH_SUFFIX = '-intel'
         // Version is read from CMakeLists.txt by the build script,
         // but we also expose it here for the archive step.
-        VERSION     = sh(
+        VERSION          = sh(
             script: """
                 grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
                 grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
             """,
             returnStdout: true
         ).trim()
-        DMG_NAME    = "${APP_NAME}-${VERSION}.dmg"
+        DMG_NAME         = "${APP_NAME}-${VERSION}${KLOG_ARCH_SUFFIX}.dmg"
     }
 
     stages {
@@ -47,10 +60,11 @@ pipeline {
                 echo "Application : ${APP_NAME}"
                 echo "Version     : ${VERSION}"
                 echo "DMG         : ${DMG_NAME}"
+                echo "Qt version  : ${KLOG_QT_VERSION}"
                 echo "Commit      : ${GIT_COMMIT}"
                 echo "Branch      : ${GIT_BRANCH}"
                 echo "Qt dir      : ${QT_DIR}"
-                sh 'sw_vers'                        // macOS version info
+                sh 'sw_vers'
                 sh '"${CMAKE_BIN}" --version'
             }
         }
@@ -58,8 +72,11 @@ pipeline {
         stage('Build & Package') {
             steps {
                 // Run the existing build script from the devscripts directory.
-                // The script handles: clean, cmake configure, build, macdeployqt, dmg.
+                // The script reads KLOG_QT_VERSION and KLOG_ARCH_SUFFIX from
+                // the environment to select the right Qt installation and
+                // name the output DMG correctly.
                 sh '''
+                    export PATH="/usr/local/bin:$PATH"
                     cd devscripts
                     bash macos-x86-create-cmake.sh
                 '''
@@ -83,7 +100,6 @@ pipeline {
 
     post {
         success {
-            // Save DMG and checksum as downloadable Jenkins artifacts
             sh 'shasum -a 256 devscripts/${DMG_NAME} > devscripts/${DMG_NAME}.sha256'
             archiveArtifacts artifacts: 'devscripts/*.dmg, devscripts/*.sha256',
                              fingerprint: true
@@ -93,8 +109,6 @@ pipeline {
             echo "Build failed: could not generate macOS DMG"
         }
         cleanup {
-            // Remove the build directory to keep the agent workspace clean.
-            // The DMG has already been archived so it is safe to delete.
             sh 'rm -rf build'
             cleanWs()
         }
