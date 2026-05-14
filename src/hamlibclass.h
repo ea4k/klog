@@ -90,7 +90,7 @@ public:
     bool init(bool _active);
     bool stop();
     bool readRadio();
-    void forceRead();
+    bool forceRead();
     bool isRunning();
     void initClass();
     void clean();
@@ -101,7 +101,7 @@ public:
     bool loadSettings();
 
 signals:
-    void radioStatusChanged(RadioStatus);
+    void radioStatusChangedSignal(RadioStatus);
     void freqTXChanged(Frequency newfreq);
     void modeChanged(QString newMode);
     void rigDisconnected();   // Emitted when the rig stops responding
@@ -109,6 +109,8 @@ signals:
 
 public slots:
     void slotTimer();
+    void startPolling();
+
 
 private:
     enum class RigState {
@@ -124,6 +126,7 @@ private:
     bool readMode();
     bool readVFO();                     //Reads the current VFO
     bool readSplit();
+    void probeSplitVfoSideEffect();     //Probe for rig_get_split_vfo VFO side-effects at connect time
     void cleanup();
     bool radioStatusChanged(const RadioStatus _old, const RadioStatus _new);
 

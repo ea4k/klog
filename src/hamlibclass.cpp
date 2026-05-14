@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "utilities.h"
+#include <QElapsedTimer>
 
 HamLibClass::HamLibClass(QObject *parent) : QObject(parent)
 {
@@ -187,20 +188,30 @@ bool HamLibClass::readVFO()
     }
     else
     {
-        // rig_get_vfo() failed. This is non-fatal: many rigs do not support
-        // this call (e.g. RIG_ENTARGET, RIG_ENAVAIL, RIG_ENIMPL are common).
-        // Any other unexpected error is also treated as non-fatal here because
-        // VFO querying is auxiliary — failing it must never interrupt the main
-        // polling cycle (freq/mode/split reads).
-        // We log once and disable future calls to avoid log spam.
-        logEvent(Q_FUNC_INFO,
-                 QString("rig_get_vfo failed (code %1) — "
-                         "VFO query disabled for this session").arg(retcode),
-                 Warning);
-        vfoQuerySupported = false;
-        currentVfo = RIG_VFO_CURR;
-        radioStatus.memoryMode = false;
-        radioStatus.memoryChannel = -1;
+        if (retcode == RIG_ENAVAIL || retcode == RIG_ENIMPL)
+        {
+            // Rig does not support rig_get_vfo() at all — disable permanently
+            // to avoid log spam on every poll cycle.
+            logEvent(Q_FUNC_INFO,
+                     QString("rig_get_vfo not supported (code %1) — "
+                             "VFO query disabled for this session").arg(retcode),
+                     Warning);
+            vfoQuerySupported = false;
+            currentVfo = RIG_VFO_CURR;
+            radioStatus.memoryMode = false;
+            radioStatus.memoryChannel = -1;
+        }
+        else
+        {
+            // Transient error (e.g. rigctld busy, timeout due to shared rigctld
+            // with another application).  Do not permanently disable VFO querying
+            // or reset currentVfo — the memory-channel guard in readSplit() must
+            // continue to function correctly on the next poll cycle.
+            logEvent(Q_FUNC_INFO,
+                     QString("rig_get_vfo transient error (code %1) — "
+                             "retaining last known VFO state").arg(retcode),
+                     Warning);
+        }
     }
 
     return true;
@@ -296,6 +307,10 @@ bool HamLibClass::readSplit()
         return false;
     if (!splitQuerySupported)
         return true;
+    // Memory-channel mode: split is not applicable and some rigs switch VFOs
+    // to answer the query, causing display flickering.  Skip it entirely.
+    if (currentVfo == RIG_VFO_MEM)
+        return true;
 
     split_t split = RIG_SPLIT_OFF;
     vfo_t tx_vfo = RIG_VFO_SUB;
@@ -327,37 +342,45 @@ bool HamLibClass::readRadio()
     return readRadioInternal();
 }
 
-void HamLibClass::forceRead()
+bool HamLibClass::forceRead()
 {
     // Reset cached status so the next read always emits radioStatusChanged,
     // even if the radio values haven't changed since the last poll.
     logEvent(Q_FUNC_INFO, "Start", Devel);
     radioStatus = RadioStatus();
-    readRadioInternal();
+    return readRadioInternal();
 }
 
 bool HamLibClass::readRadioInternal()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    QElapsedTimer timer;
+    timer.start();
+    qDebug() << Q_FUNC_INFO;
     if (!my_rig || (rig_state != RigState::Connected) )
         return false;
-
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010" << timer.elapsed() << "ms"; timer.restart();
     RadioStatus statusOld = radioStatus;
     if(!readVFO())   return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020" << timer.elapsed() << "ms"; timer.restart();
     if (!readSplit()) return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030" << timer.elapsed() << "ms"; timer.restart();
     if(!readFreq())   return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040" << timer.elapsed() << "ms"; timer.restart();
     if (!readMode())  return false;
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 050" << timer.elapsed() << "ms"; timer.restart();
 
     errorCount = 0;
     if (radioStatusChanged(statusOld, radioStatus))
-        emit radioStatusChanged(radioStatus);
-
+        emit radioStatusChangedSignal(radioStatus);
+    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
     //reading = false;
     return true;
 }
 
 bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _new)
 {
+    qDebug() << Q_FUNC_INFO << " - 000";
     return (
         _old.split != _new.split                ||
         _old.memoryMode != _new.memoryMode      ||
@@ -371,20 +394,28 @@ bool HamLibClass::radioStatusChanged(const RadioStatus _old, const RadioStatus _
 void HamLibClass::slotTimer()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    //qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     if (!isRunning())
     {
-        //qDebug() << Q_FUNC_INFO << ": Isn't running...";
+        qDebug() << Q_FUNC_INFO << ": Isn't running...";
         return;
     }
     readRadioInternal(); // We don't force the radio reading.
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void HamLibClass::startPolling()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (timer && rig_state == RigState::Connected)
+        timer->start(pollInterval);
 }
 
 void HamLibClass::setMode(const QString &_m)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     //qDebug() << "HamLibClass::setMode: " << _m;
+    if (_m.isEmpty()) return;
     if ((!isRunning()) || (readOnlyMode))
     {
         //qDebug() << Q_FUNC_INFO << ": Not running or RO";
@@ -539,6 +570,61 @@ bool HamLibClass::stop()
     return false;
 }
 
+void HamLibClass::probeSplitVfoSideEffect()
+{
+    // Probe whether rig_get_split_vfo switches the active VFO as a side-effect.
+    // Some rigs (e.g. older Kenwood TS-450S) implement this query by physically
+    // toggling to the TX VFO and back, causing the display to flicker to a
+    // different band/frequency on every poll cycle (related to issue #947).
+    // We detect this by comparing the VFO state and frequency before and after
+    // the probe call.  If either changed we restore immediately and disable split
+    // polling for this session so normal operation is never disturbed.
+    vfo_t  vfoBefore   = RIG_VFO_NONE;
+    freq_t freqBefore  = 0;
+    const bool vfoReadOk  = (rig_get_vfo (my_rig, &vfoBefore)               == RIG_OK);
+    const bool freqReadOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqBefore) == RIG_OK);
+
+    split_t probeSplt  = RIG_SPLIT_OFF;
+    vfo_t   probeTxVfo = RIG_VFO_SUB;
+    const int probeRet = rig_get_split_vfo(my_rig, RIG_VFO_CURR, &probeSplt, &probeTxVfo);
+
+    if (probeRet == RIG_ENAVAIL || probeRet == RIG_ENIMPL)
+    {
+        splitQuerySupported = false;
+        logEvent(Q_FUNC_INFO,
+                 "rig_get_split_vfo not supported — split polling disabled.", Warning);
+        return;
+    }
+
+    if (probeRet != RIG_OK)
+        return; // unexpected error — leave splitQuerySupported unchanged
+
+    // Check for VFO side-effects using both VFO state and frequency.
+    // Using both makes detection robust even when one read failed due to
+    // rigctld contention with another application sharing the daemon.
+    vfo_t  vfoAfter  = RIG_VFO_NONE;
+    freq_t freqAfter = 0;
+    const bool vfoAfterOk  = (rig_get_vfo (my_rig, &vfoAfter)                == RIG_OK);
+    const bool freqAfterOk = (rig_get_freq(my_rig, RIG_VFO_CURR, &freqAfter) == RIG_OK);
+
+    const bool vfoChanged  = (vfoReadOk  && vfoAfterOk  && vfoAfter  != vfoBefore);
+    const bool freqChanged = (freqReadOk && freqAfterOk && freqAfter != freqBefore);
+
+    if (vfoChanged || freqChanged)
+    {
+        if (vfoReadOk)
+            rig_set_vfo(my_rig, vfoBefore);
+        splitQuerySupported = false;
+        logEvent(Q_FUNC_INFO,
+                 QString("rig_get_split_vfo caused a VFO/freq change "
+                         "(vfo %1->%2, freq %3->%4 Hz) — "
+                         "split polling disabled to prevent display flickering.")
+                     .arg(vfoBefore).arg(vfoAfter).arg(freqBefore).arg(freqAfter),
+                 Warning);
+    }
+    // else: no VFO side-effect detected; splitQuerySupported stays true
+}
+
 bool HamLibClass::init(bool _active)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
@@ -620,10 +706,7 @@ bool HamLibClass::init(bool _active)
         rig_state = RigState::Connected;
         //connected = true;
 
-        // ¡IMPORTANTE! Iniciar el polling si la conexión tuvo éxito
-        if (_active && timer) {
-            timer->start(pollInterval);
-        }
+        probeSplitVfoSideEffect();
         return true;
 
     } else {

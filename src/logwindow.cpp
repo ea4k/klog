@@ -25,6 +25,7 @@
  *****************************************************************************/
 
 #include "logwindow.h"
+#include <QElapsedTimer>
 
 
 LogWindow::LogWindow(Awards *awards, QWidget *parent)
@@ -153,34 +154,45 @@ void LogWindow::setDefaultData()
 void LogWindow::createlogPanel(const int _currentLog)
 {
     //qDebug() << Q_FUNC_INFO << " - Start : " << QString::number(_currentLog);
+    QElapsedTimer _t; _t.start();
     m_blockWidthSave = true;
     currentLog = _currentLog;
+
+    // createlogModel sets sort to qso_date DESC before select(), so only ONE
+    // SQL query is issued here. Do NOT call sortColumn() or sortByColumn() after
+    // this — those would each trigger an extra select().
     if (!logModel->createlogModel(currentLog))
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR creating model";
     }
+    qInfo() << "[KLOG-TIMING] createlogPanel 01 - createlogModel (select):" << _t.restart() << "ms";
 
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
+    qInfo() << "[KLOG-TIMING] createlogPanel 02 - setModel+setCurrentIndex:" << _t.restart() << "ms";
 
     setColumnsOfLog(columns);
-    sortColumn(1);
+    qInfo() << "[KLOG-TIMING] createlogPanel 03 - setColumnsOfLog:" << _t.restart() << "ms";
 
     logView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-    // resizeColumnsToContents() recorre TODAS las filas del modelo para
-    // calcular el ancho, lo que con logbooks grandes tarda varios segundos.
-    // En su lugar asignamos un ancho fijo razonable por defecto y dejamos
-    // que el usuario pueda ajustarlo manualmente arrastrando las columnas.
     logView->horizontalHeader()->setDefaultSectionSize(110);
     logView->horizontalHeader()->setMinimumSectionSize(60);
-
     logView->horizontalHeader()->setStretchLastSection(true);
-    logView->sortByColumn(1, Qt::DescendingOrder);
+
+    // Set the sort indicator without triggering a re-select: the model already
+    // sorted by qso_date DESC in createlogModel(). Block header signals so
+    // setSortIndicator does not emit sortIndicatorChanged → sortByColumn → select.
+    logView->horizontalHeader()->blockSignals(true);
+    logView->horizontalHeader()->setSortIndicator(1, Qt::DescendingOrder);
+    logView->horizontalHeader()->blockSignals(false);
+    qInfo() << "[KLOG-TIMING] createlogPanel 04 - selection+header setup:" << _t.restart() << "ms";
 
     retoreColumsOrder();
+    qInfo() << "[KLOG-TIMING] createlogPanel 05 - retoreColumsOrder:" << _t.restart() << "ms";
     restoreColumnWidths();
+    qInfo() << "[KLOG-TIMING] createlogPanel 06 - restoreColumnWidths:" << _t.restart() << "ms";
+
     m_blockWidthSave = false;
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -280,7 +292,7 @@ void LogWindow::refresh()
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR on select()";
       //qDebug() << Q_FUNC_INFO << " - Error refreshing log:" << logModel->lastError().text();
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setText(tr("There was a problem with the log, please restart KLog and contact the development team if the error persist."));
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setStandardButtons(QMessageBox::Ok);

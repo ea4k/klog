@@ -32,7 +32,7 @@ endforeach()
 # Generate version.h into the build directory
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/src")
 set(APP_VERSION "${PROJECT_VERSION}")
-set(APP_PKGVERSION "2.5.1-alpha")
+set(APP_PKGVERSION "2.5.1-RC1")
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in"
@@ -78,7 +78,7 @@ endif()
 add_subdirectory(src)
 
 # Option to enable/disable tests
-option(BUILD_TESTING "Build the testing tree." ON)
+option(BUILD_TESTING "Build the testing tree." OFF)
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)

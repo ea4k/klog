@@ -25,6 +25,7 @@
  *****************************************************************************/
 #include "dxccstatuswidget.h"
 #include <type_traits>  // Include this header to use std::as_const
+#include <QTimer>
 //#include <QDebug>
 
 /*
@@ -132,7 +133,7 @@ void DXCCStatusWidget::createUI()
 void DXCCStatusWidget::handleDXCCStatusUpdateFailure()
 {
    //qDebug() << Q_FUNC_INFO << " - Start";
-    QMessageBox msgBox;
+    QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Question);
     msgBox.setText(tr("It seems that the DXCC status in your database is not updated and KLog can't find any dxcc information. You can try to fix this by updating the log."));
     msgBox.setInformativeText(tr("Do you want to update your DXCC status?"));
@@ -410,7 +411,7 @@ void DXCCStatusWidget::setBands(const QString &_callingFunc, const QStringList &
 
     if (_creating)
     {
-        update();
+        QTimer::singleShot(0, this, [this]() { update(); });
     }
 
     emit debugLog(Q_FUNC_INFO, "End", Debug);

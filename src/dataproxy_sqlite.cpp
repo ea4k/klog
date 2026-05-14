@@ -3936,9 +3936,26 @@ QStringList DataProxy_SQLite::getGridsToBeSent(const QString &_stationCallsign, 
     QString _queryST_logNumber = getStringQueryLogNumber (_logN);
 
     QString _query_justQueued;
-    if ((_justModified) && (_em == ModeLotW))
+    if (_justModified)
     {
-        _query_justQueued = QString("lotw_qsl_sent='Q'");
+        switch (_em)
+        {
+            case ModeLotW:
+                _query_justQueued = QString("lotw_qsl_sent='Q'");
+            break;
+            case ModeClubLog:
+                _query_justQueued = QString("clublog_qso_upload_status='M'");
+            break;
+            case ModeEQSL:
+                _query_justQueued = QString("eqsl_qsl_sent='Q'");
+            break;
+            case ModeQRZ:
+                _query_justQueued = QString("qrzcom_qso_upload_status='M'");
+            break;
+            default:
+                _query_justQueued = QString("((lotw_qsl_sent!='1') OR (lotw_qsl_sent IS NULL))");
+            break;
+        }
     }
     else
     {

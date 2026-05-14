@@ -1,0 +1,109 @@
+//***************************************************************************
+//                          Jenkinsfile.sources  -  description
+//                             -------------------
+//    begin                : may 2026
+//    copyright            : (C) 2026 by Jaime Robles
+//    email                : jaime@robles.es
+// ***************************************************************************/
+
+//*****************************************************************************
+// * This file is part of KLog.                                                *
+// *                                                                           *
+// *    KLog is free software: you can redistribute it and/or modify           *
+// *    it under the terms of the GNU General Public License as published by   *
+// *    the Free Software Foundation, either version 3 of the License, or      *
+// *    (at your option) any later version.                                    *
+// *                                                                           *
+// *    KLog is distributed in the hope that it will be useful,                *
+// *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+// *    GNU General Public License for more details.                           *
+// *                                                                           *
+// *    You should have received a copy of the GNU General Public License      *
+// *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+// *                                                                           *
+// *****************************************************************************/
+// ─────────────────────────────────────────────────────────────────────────────
+// KLog — Source tarball builder
+//
+// Generates a source tar.gz from the repository HEAD.
+//
+// Jenkins job configuration:
+//   Pipeline → Definition:       Pipeline script from SCM
+//   Pipeline → SCM:              Git
+//   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.sources
+//   Additional Behaviours:       Fetch tags  ✓
+//   Build Triggers:              (none — trigger manually with Build Now)
+// ─────────────────────────────────────────────────────────────────────────────
+
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = 'klog'
+        // Get the version from the latest repository tag (e.g. v2.1 → 2.1).
+        // Falls back to 'dev' if no tag is found.
+        VERSION  = sh(
+            script: "git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo 'dev'",
+            returnStdout: true
+        ).trim()
+        ARCHIVE_NAME = "${APP_NAME}-${VERSION}.tar.gz"
+    }
+
+    stages {
+
+        stage('Info') {
+            steps {
+                echo "Application : ${APP_NAME}"
+                echo "Version     : ${VERSION}"
+                echo "Archive     : ${ARCHIVE_NAME}"
+                echo "Commit      : ${GIT_COMMIT}"
+                echo "Branch      : ${GIT_BRANCH}"
+            }
+        }
+
+        stage('Source tarball') {
+            steps {
+                sh '''
+                    git archive \
+                        --format=tar.gz \
+                        --prefix=${APP_NAME}-${VERSION}/ \
+                        -o ${ARCHIVE_NAME} \
+                        HEAD
+                '''
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh '''
+                    echo "=== Archive contents (first 20 entries) ==="
+                    tar -tzf ${ARCHIVE_NAME} | head -20
+                    echo "..."
+                    echo ""
+                    echo "=== File size ==="
+                    ls -lh ${ARCHIVE_NAME}
+                    echo ""
+                    echo "=== SHA256 checksum ==="
+                    sha256sum ${ARCHIVE_NAME}
+                '''
+            }
+        }
+
+    }
+
+    post {
+        success {
+            // Save the tarball and its checksum as downloadable Jenkins artifacts
+            sh 'sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256'
+            archiveArtifacts artifacts: '*.tar.gz, *.sha256', fingerprint: true
+            echo "Build successful: ${ARCHIVE_NAME}"
+        }
+        failure {
+            echo "Build failed: could not generate source tarball"
+        }
+        cleanup {
+            cleanWs()
+        }
+    }
+}

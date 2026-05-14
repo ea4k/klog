@@ -25,6 +25,8 @@
  *****************************************************************************/
 
 #include "logmodel.h"
+#include <QSqlDatabase>
+#include <QElapsedTimer>
 
 const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
     { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc >= 0) && (dxcc <= 530)); } },
@@ -172,27 +174,15 @@ bool LogModel::setColumns(const QStringList &_columns)
      //qDebug() << Q_FUNC_INFO << " - calling filterValidFields";
     columns << dataProxy->filterValidFields(_columns);
 
-     QSqlQuery q;
-     QString stringQuery = QString("SELECT * from log LIMIT 1");
-     QSqlRecord rec; // = q.record();
-
+     // Use schema metadata — avoids SELECT * FROM log just to get field names
+     QSqlRecord rec = QSqlDatabase::database().record("log");
      int nameCol;
 
-     if (!q.exec(stringQuery))
+     if (rec.isEmpty())
      {
-        emit queryError(Q_FUNC_INFO, q.lastError().databaseText(), q.lastError().nativeErrorCode(), q.lastQuery());
-        //qDebug() << Q_FUNC_INFO << " - END - 1";
+        //qDebug() << Q_FUNC_INFO << " - END - 1 (empty record)";
         return false;
      }
-
-     //if (!q.next())
-     //{
-     //    //qDebug() << Q_FUNC_INFO << " - END - 2";
-     //    return false;
-     //}
-     rec = q.record(); // Number of columns
-
-     //qDebug() <<Q_FUNC_INFO << ": - columns: " << QString::number(rec.count());
 
      if (_columns.contains("bandid"))
      {
@@ -218,14 +208,10 @@ bool LogModel::setColumns(const QStringList &_columns)
          setRelation(nameCol, QSqlRelation("entity", "dxcc", "name"));
      }
 
-     //if (_columns.contains("qso_complete"))
-     //{
-     //    nameCol = rec.indexOf("qso_complete");
-     //    setRelation(nameCol, QSqlRelation("qso_complete_enumeration", "id", "shortname"));
-     //}
-
-     nameCol = rec.indexOf("id");
-     setSort(nameCol, Qt::AscendingOrder);
+     // Sort by date descending so the first select() already has the correct order,
+     // avoiding the extra re-select that sortByColumn() would otherwise trigger.
+     nameCol = rec.indexOf("qso_date");
+     setSort(nameCol, Qt::DescendingOrder);
      QString aux;
 
      foreach(aux, columns)

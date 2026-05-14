@@ -32,6 +32,8 @@ set -e
 DEVSCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$DEVSCRIPTS_DIR")"
 
+export PATH="/usr/local/bin:$PATH"
+
 # --- Read version: APP_PKGVERSION takes priority over PROJECT VERSION ---
 KLOG_VERSION=$(grep 'APP_PKGVERSION' "$PROJECT_DIR/CMakeLists.txt" | sed 's/.*"\(.*\)".*/\1/')
 if [ -z "$KLOG_VERSION" ]; then

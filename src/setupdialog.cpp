@@ -27,6 +27,7 @@
 #include "setupdialog.h"
 #include "callsign.h"
 
+#include <QElapsedTimer>
 //#include <QDebug>
 
 /*
@@ -39,40 +40,49 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *pa
      //qDebug() << Q_FUNC_INFO ;
 
     Q_UNUSED(parent);
-    //contentsWidget->update();
-    //pagesWidget->update();
+    QElapsedTimer _t; _t.start();
+
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
-
-     //qDebug() << Q_FUNC_INFO << ": 01";
-
     locator = new Locator();
     tabWidget = new QTabWidget;
-     //qDebug() << Q_FUNC_INFO << ": 01.0";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 01 - Utilities+Locator+QTabWidget:" << _t.restart() << "ms";
+
     userDataPage = new SetupPageUserDataPage(dataProxy, injectedWorld);
-     //qDebug() << Q_FUNC_INFO << ": 01.10";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 02 - SetupPageUserDataPage:" << _t.restart() << "ms";
+
     bandModePage = new SetupPageBandMode(dataProxy, this);
-     //qDebug() << Q_FUNC_INFO << ": 01.20";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 03 - SetupPageBandMode:" << _t.restart() << "ms";
+
     dxClusterPage = new SetupPageDxCluster(this);
-     //qDebug() << Q_FUNC_INFO << ": 01.30";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 04 - SetupPageDxCluster:" << _t.restart() << "ms";
+
     colorsPage = new SetupPageColors(this);
-     //qDebug() << Q_FUNC_INFO << ": 01.40";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 05 - SetupPageColors:" << _t.restart() << "ms";
+
     miscPage = new SetupPageMisc(this);
-     //qDebug() << Q_FUNC_INFO << ": 01.50";
-    worldEditorPage = new SetupPageWorldEditor (dataProxy, injectedWorld, this);
-     //qDebug() << Q_FUNC_INFO << ": 01.60";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 06 - SetupPageMisc:" << _t.restart() << "ms";
+
+    worldEditorPage = new SetupPageWorldEditor(dataProxy, injectedWorld, this);
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 07 - SetupPageWorldEditor:" << _t.restart() << "ms";
+
     logsPage = new SetupPageLogs(dataProxy, this);
-     //qDebug() << Q_FUNC_INFO << ": 01.70";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 08 - SetupPageLogs:" << _t.restart() << "ms";
+
     eLogPage = new SetupPageELog(this);
-     //qDebug() << Q_FUNC_INFO << ": 01.80";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 09 - SetupPageELog:" << _t.restart() << "ms";
+
     UDPPage = new SetupPageUDP(this);
-     //qDebug() << Q_FUNC_INFO << ": 01.90";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 10 - SetupPageUDP:" << _t.restart() << "ms";
+
     satsPage = new SetupPageSats(dataProxy, this);
-     //qDebug() << Q_FUNC_INFO << ": 01.100";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 11 - SetupPageSats:" << _t.restart() << "ms";
+
     hamlibPage = new SetupPageHamLib(dataProxy, this);
-     //qDebug() << Q_FUNC_INFO << ": 01.101";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 12 - SetupPageHamLib:" << _t.restart() << "ms";
+
     logViewPage = new SetupPageLogView(dataProxy, this);
-     //qDebug() << Q_FUNC_INFO << ": 02";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 13 - SetupPageLogView:" << _t.restart() << "ms";
 
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -85,9 +95,8 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *pa
     tabWidget->addTab(eLogPage, tr("eLog"));
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
-     //qDebug() << Q_FUNC_INFO << ": 02.100";
-    tabWidget->addTab(hamlibPage, tr ("HamLib"));
-     //qDebug() << "SetupDialog::SetupDialog 03";
+    tabWidget->addTab(hamlibPage, tr("HamLib"));
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 14 - addTab x12:" << _t.restart() << "ms";
 
     closeButton = new QPushButton(tr("Cancel"));
     okButton = new QPushButton(tr("OK"));
@@ -104,11 +113,9 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *pa
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addLayout(buttonsLayout);
 
-     //qDebug() << Q_FUNC_INFO << ": 04";
-
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
-    //qDebug() << Q_FUNC_INFO << " - END";
+    qInfo() << "[KLOG-TIMING] SetupDialog ctor 15 - layout+setWindowTitle:" << _t.restart() << "ms";
 }
 
 void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)
@@ -242,7 +249,7 @@ void SetupDialog::slotCancelButtonClicked()
     {
         if (nolog)
         {
-            QMessageBox msgBox;
+            QMessageBox msgBox(this);
             msgBox.setIcon(QMessageBox::Information);
             msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
             msgBox.setDefaultButton(QMessageBox::Yes);
@@ -419,7 +426,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!miscPage->areDBPathChangesApplied())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText(tr("DB has not been moved to new path."));
         msgBox.setInformativeText(tr("Go to the Misc tab and click on Move DB\n or the DB will not be moved to the new location."));
@@ -431,7 +438,7 @@ void SetupDialog::slotOkButtonClicked()
 
     if (!callsign.isValid())
     {
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You need to enter at least a valid callsign."));
         msgBox.setInformativeText(tr("Go to the User tab and enter valid callsign."));
@@ -443,7 +450,7 @@ void SetupDialog::slotOkButtonClicked()
     if (!haveAtleastOneLog())
     {
          //qDebug() << "SetupDialog::slotOkButtonClicked - NO LOG!";
-        QMessageBox msgBox;
+        QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText(tr("You have not selected the kind of log you want."));
         msgBox.setInformativeText(tr("You will be redirected to the Log tab.\nPlease add and select the kind of log you want to use."));
@@ -737,6 +744,11 @@ bool SetupDialog::hamlibSettingsChanged() const
 bool SetupDialog::hamlibTestWasRun() const
 {
     return hamlibPage->wasTestRun();
+}
+
+void SetupDialog::setLiveHamlib(HamLibClass *liveHamlib)
+{
+    hamlibPage->setLiveHamlib(liveHamlib);
 }
 
 void SetupDialog::setLogLevel(const DebugLogLevel _sev)
