@@ -903,7 +903,7 @@ void MainQSOEntryWidget::setRealTime(const bool _realTime)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
-    // qDebug << Q_FUNC_INFO << ": " << util->boolToQString (_realTime);
+    ////qDebug << Q_FUNC_INFO << ": " << util->boolToQString (_realTime);
 
     realTime = _realTime;
     realtimeCheckBox->setChecked(realTime);
@@ -1118,7 +1118,7 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
 
     if (!q.isValid())
     {
-        qDebug() << Q_FUNC_INFO << " - QSO not valid!";
+       //qDebug() << Q_FUNC_INFO << " - QSO not valid!";
         qrzgroupBox->setTitle(tr("Callsign"));
         qrzgroupBox->setStyleSheet("");
         return;
@@ -1126,13 +1126,13 @@ void MainQSOEntryWidget::checkIfDupe(const QString &_func)
     // If we have a valid ID (>= 1) AND we are not modifying (modify == false)
     if ((dataProxy->isThisQSODuplicated(q, duplicatedQSOSlotInSecs) >= 1) && !modify)
     {
-        qDebug() << Q_FUNC_INFO << " - DUPE DETECTED";
+       //qDebug() << Q_FUNC_INFO << " - DUPE DETECTED";
         qrzgroupBox->setTitle(tr("DUPE", "Translator: DUPE is a common word for hams. Do not translate if not sure"));
         qrzgroupBox->setStyleSheet("QGroupBox::title { color: red; font-weight: bold; }");
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
+       //qDebug() << Q_FUNC_INFO << " - NOT DUPE ";
         qrzgroupBox->setTitle(tr("Callsign"));
         qrzgroupBox->setStyleSheet("");
     }

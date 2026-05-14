@@ -1,4 +1,4 @@
-TBD 2026 - 2.5.1
+May 2026 - 2.5.1
 - Enhancement: Entity dxcc to name queries speed up.
 - Enhancement: Memory leaks improvement.
 - Enhancement: FreeDV UDP QSOLogged integration improvements (Closes #990)(TNX G4MKT)

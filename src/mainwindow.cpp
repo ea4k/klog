@@ -3699,7 +3699,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
             slotOpenWiki();
         break;
     case Qt::Key_F4:
-    // qDebug << "MainWindow::keyPressEvent: F4"  ;
+    ////qDebug << "MainWindow::keyPressEvent: F4"  ;
             mainQSOEntryWidget->toggleRealTime ();
         break;
 
@@ -6157,7 +6157,7 @@ void MainWindow::slotDefineNewBands (const QStringList _bands)
 
 void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
 {
-    qDebug() << Q_FUNC_INFO << " - Start";
+   //qDebug() << Q_FUNC_INFO << " - Start";
     QElapsedTimer timer;
     timer.start();
     qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010" << timer.elapsed() << "ms"; timer.restart();
@@ -6172,7 +6172,7 @@ void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
     qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 050" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget->setSplit(_s.split);
     qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
-    qDebug() << Q_FUNC_INFO << " - END";
+   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
 void MainWindow::slotHamlibTXFreqChanged(const Frequency _f)
@@ -6245,7 +6245,7 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     }
     else
     {
-          qDebug() << Q_FUNC_INFO << " Mode not found in combobox" << _m ;
+         //qDebug() << Q_FUNC_INFO << " Mode not found in combobox" << _m ;
     }
     hamlibChangingMode = false;
     qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 099 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();

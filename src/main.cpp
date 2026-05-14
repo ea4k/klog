@@ -106,7 +106,7 @@ void loadTranslations(QApplication &app, QTranslator &myappTranslator)
     else
         language = QLocale::system().name().left(2).toLower();
 
-    qDebug() << Q_FUNC_INFO << "Language:" << language;
+   //qDebug() << Q_FUNC_INFO << "Language:" << language;
 
     if (language == "en")
         return; // English is built-in; no translation file needed.
@@ -133,10 +133,10 @@ void loadTranslations(QApplication &app, QTranslator &myappTranslator)
 
     for (const QString &dir : searchPaths)
     {
-        qDebug() << Q_FUNC_INFO << "Trying:" << QDir(dir).filePath(fileName);
+       //qDebug() << Q_FUNC_INFO << "Trying:" << QDir(dir).filePath(fileName);
         if (QDir(dir).exists(fileName) && myappTranslator.load(fileName, dir))
         {
-            qDebug() << Q_FUNC_INFO << "Loaded from:" << dir;
+           //qDebug() << Q_FUNC_INFO << "Loaded from:" << dir;
             app.installTranslator(&myappTranslator);
             return;
         }

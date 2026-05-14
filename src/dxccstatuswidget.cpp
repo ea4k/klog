@@ -99,7 +99,7 @@ void DXCCStatusWidget::createUI()
     //qDebug() << Q_FUNC_INFO << " - 11";
 
     dxccView->setContextMenuPolicy(Qt::CustomContextMenu);
-    // qDebug << Q_FUNC_INFO << " - 12 - setting column count: " << QString::number(numberOfColumns);
+    ////qDebug << Q_FUNC_INFO << " - 12 - setting column count: " << QString::number(numberOfColumns);
     dxccView->setColumnCount(numberOfColumns);
     //qDebug() << Q_FUNC_INFO << " - 13";
     dxccView->horizontalHeader()->setStretchLastSection(true);
@@ -461,7 +461,7 @@ void DXCCStatusWidget::setDefaultBands()
 
     setBands(Q_FUNC_INFO, bandNames, false);
     //fillData();
-    // qDebug << "DXCCStatusWidget::setDefaultBands - END";
+    ////qDebug << "DXCCStatusWidget::setDefaultBands - END";
     emit debugLog (Q_FUNC_INFO, "END", Debug);
 }
 
@@ -512,8 +512,8 @@ void DXCCStatusWidget::refresh()
  void DXCCStatusWidget::slotItemEntered(QTableWidgetItem  * item )
  { // For the time being, this function just defines the tooltip for the item.
 
-    // qDebug << Q_FUNC_INFO << " - " << ((item->data(0)).toString()).simplified();
-    // qDebug << Q_FUNC_INFO << " - " << item->text();
+    ////qDebug << Q_FUNC_INFO << " - " << ((item->data(0)).toString()).simplified();
+    ////qDebug << Q_FUNC_INFO << " - " << item->text();
    //qDebug() << Q_FUNC_INFO << " - Start";
      emit debugLog (Q_FUNC_INFO, "Start", Debug);
     if (dxccView->rowCount()<1)
