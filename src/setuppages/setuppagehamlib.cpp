@@ -346,7 +346,8 @@ void SetupPageHamLib::saveSettings()
     settings.beginGroup ("HamLib");
     settings.setValue ("HamLibActive", QVariant((activateHamlibCheckBox->isChecked())));
     settings.setValue ("HamLibReadOnly", QVariant((readOnlyModeCheckBox->isChecked())));
-    settings.setValue ("HamLibRigType", m_liveHamlib ? m_liveHamlib->getModelIdFromName(rigTypeComboBox->currentText()) : -1);
+    if (m_rigsLoaded)
+        settings.setValue ("HamLibRigType", hamlib->getModelIdFromName(rigTypeComboBox->currentText ()));
     settings.setValue ("HamLibRigPollRate", QString::number(pollIntervalQSpinBox->value ()));
     settings.setValue ("HamLibSerialPort", serialConfigWidget->getSerialPort ());
     settings.setValue ("HamLibSerialBauds", QString::number(serialConfigWidget->getSerialBauds ()));
@@ -366,8 +367,6 @@ void SetupPageHamLib::loadSettings()
     Utilities util(Q_FUNC_INFO);
     QSettings settings(util.getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("HamLib");
-    // Block combo signals during load so slotRadioComboBoxChanged does not call
-    // setTestResult(false) and clobber the connection state indicator.
     rigTypeComboBox->blockSignals(true);
     setRigType (settings.value("HamLibRigType").toString());
     rigTypeComboBox->blockSignals(false);
@@ -380,7 +379,10 @@ void SetupPageHamLib::loadSettings()
     serialConfigWidget->setParity(settings.value("HamLibSerialParity", "Even").toString());
     networkConfigWidget->setAddress (settings.value("HamLibNetAddress", "localhost").toString());
     networkConfigWidget->setPort (settings.value("HamLibNetPort", 4532).toInt ());
-    activateHamlibCheckBox->setChecked (settings.value("HamLibActive", false).toBool ());
+    const bool wasActive = settings.value("HamLibActive", false).toBool();
+    activateHamlibCheckBox->setChecked (wasActive);
+    if (wasActive)
+        activateHamlibCheckBox->setEnabled(true);
     readOnlyModeCheckBox->setChecked (settings.value("HamLibReadOnly", false).toBool ());
     settings.endGroup ();
 
