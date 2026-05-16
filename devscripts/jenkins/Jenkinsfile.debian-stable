@@ -1,0 +1,223 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// KLog — Debian stable .deb package builder
+//
+// Powers on the Debian stable VM on ESXi, builds the KLog .deb package
+// using CPack, uploads it to the NAS, then shuts the VM down.
+// Calls devscripts/debian-stable-create-package.sh which handles the build.
+//
+// Jenkins job configuration:
+//   Pipeline → Definition:       Pipeline script from SCM
+//   Pipeline → SCM:              Git
+//   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.debian-stable
+//   Additional Behaviours:       Fetch tags  ✓
+//   Build Triggers:              (none — trigger manually with Build Now)
+//
+// Credentials required in Jenkins:
+//   esxi-ssh                SSH username + private key RSA for ESXi root access
+//   esxi-host               Secret text — ESXi host IP
+//   esxi-vmid-debian-stable Secret text — VM ID of the Debian stable build agent
+//   debian-stable-ssh       SSH username + private key for Debian stable agent
+//   nas-host                Secret text — NAS host IP
+//   nas-user                Secret text — NAS username
+//   nas-password            Secret text — NAS password
+//
+// Requirements on the debian-stable agent VM:
+//   - Qt6 development packages installed via apt
+//   - cmake and ninja-build installed
+//   - Java 21 installed (required by the Jenkins agent)
+// ─────────────────────────────────────────────────────────────────────────────
+
+pipeline {
+    agent none
+
+    environment {
+        AGENT_LABEL = 'debian-stable'
+    }
+
+    stages {
+
+        stage('Power on Debian VM') {
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',                variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-debian-stable',  variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        STATE=$(ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.getstate $ESXI_VM_ID")
+                        echo "Current VM state: $STATE"
+
+                        if echo "$STATE" | grep -q "Powered on"; then
+                            echo "VM is already powered on, skipping"
+                        else
+                            echo "Powering on VM..."
+                            ssh -i "$SSH_KEY" \
+                                -o StrictHostKeyChecking=no \
+                                -o BatchMode=yes \
+                                "$SSH_USER"@"$ESXI_HOST" \
+                                "vim-cmd vmsvc/power.on $ESXI_VM_ID"
+                            echo "Power on command sent"
+                        fi
+                    '''
+                }
+            }
+        }
+
+        stage('Wait for agent') {
+            agent { label 'built-in' }
+            steps {
+                echo "Waiting for Debian VM to boot and agent to connect..."
+                sleep time: 30, unit: 'SECONDS'
+                echo "Done waiting — proceeding to build"
+            }
+        }
+
+        stage('Info') {
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                script {
+                    env.ARCH    = sh(script: 'dpkg --print-architecture', returnStdout: true).trim()
+                    env.VERSION = sh(
+                        script: """
+                            grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
+                            grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
+                        """,
+                        returnStdout: true
+                    ).trim()
+                    env.DEB_NAME = "klog_${env.VERSION}_${env.ARCH}.deb"
+                }
+                echo "Application  : klog"
+                echo "Version      : ${env.VERSION}"
+                echo "Architecture : ${env.ARCH}"
+                echo "Package      : ${env.DEB_NAME}"
+                echo "Commit       : ${GIT_COMMIT}"
+                echo "Branch       : ${GIT_BRANCH}"
+                sh 'cmake --version'
+                sh 'ninja --version'
+            }
+        }
+
+        stage('Build & Package') {
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                sh '''
+                    cd devscripts
+                    bash debian-stable-create-package.sh
+                '''
+            }
+        }
+
+        stage('Verify') {
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                sh '''
+                    echo "=== Package file ==="
+                    ls -lh devscripts/${DEB_NAME}
+
+                    echo ""
+                    echo "=== Package info ==="
+                    dpkg-deb --info devscripts/${DEB_NAME}
+
+                    echo ""
+                    echo "=== Package contents ==="
+                    dpkg-deb --contents devscripts/${DEB_NAME}
+
+                    echo ""
+                    echo "=== SHA256 checksum ==="
+                    sha256sum devscripts/${DEB_NAME}
+                '''
+            }
+        }
+
+        stage('Upload to NAS') {
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
+                    string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
+                    string(credentialsId: 'nas-password', variable: 'NAS_PASS')
+                ]) {
+                    sh '''
+                        smbclient //"$NAS_HOST"/Local \
+                            -U "$NAS_USER"%"$NAS_PASS" \
+                            -c "put devscripts/${DEB_NAME} Subir/${DEB_NAME}"
+                    '''
+                }
+            }
+        }
+
+        stage('Shutdown VM') {
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',                variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-debian-stable',  variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        echo "=== Shutting down VM ==="
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.shutdown $ESXI_VM_ID" || \
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.off $ESXI_VM_ID"
+                        echo "Shutdown command sent"
+                    '''
+                }
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "Debian stable build finished successfully"
+        }
+        failure {
+            node('built-in') {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId:    'esxi-ssh',
+                        keyFileVariable:  'SSH_KEY',
+                        usernameVariable: 'SSH_USER'
+                    ),
+                    string(credentialsId: 'esxi-host',                variable: 'ESXI_HOST'),
+                    string(credentialsId: 'esxi-vmid-debian-stable',  variable: 'ESXI_VM_ID')
+                ]) {
+                    sh '''
+                        echo "=== Build failed — shutting down VM ==="
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.shutdown $ESXI_VM_ID" || \
+                        ssh -i "$SSH_KEY" \
+                            -o StrictHostKeyChecking=no \
+                            -o BatchMode=yes \
+                            "$SSH_USER"@"$ESXI_HOST" \
+                            "vim-cmd vmsvc/power.off $ESXI_VM_ID"
+                    '''
+                }
+            }
+            echo "Debian stable build failed — VM has been powered off"
+        }
+    }
+}
