@@ -78,7 +78,7 @@ endif()
 add_subdirectory(src)
 
 # Option to enable/disable tests
-option(BUILD_TESTING "Build the testing tree." OFF)
+option(BUILD_TESTING "Build the testing tree." ON)
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
@@ -108,7 +108,27 @@ if(WIN32)
 elseif(APPLE)
     set(CPACK_GENERATOR "DragNDrop")
 else()
-    set(CPACK_GENERATOR "TGZ")
+    set(CPACK_GENERATOR "DEB;TGZ")
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jaime Robles <jaime@robles.es>")
+    set(CPACK_DEBIAN_PACKAGE_SECTION "hamradio")
+    set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/ea4k/klog")
+    set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS
+        "libqt6core6t64 | libqt6core6, \
+         libqt6gui6, \
+         libqt6widgets6, \
+         libqt6network6, \
+         libqt6charts6, \
+         libqt6serialport6, \
+         libqt6sql6-sqlite, \
+         libqt6location6, \
+         libqt6positioning6, \
+         libqt6qml6, \
+         libqt6quick6, \
+         qml6-module-qtlocation, \
+         qml6-module-qtquick-window, \
+         qml6-module-qtquick, \
+         qml6-module-qtquick-controls")
 endif()
 
 # License file configuration
