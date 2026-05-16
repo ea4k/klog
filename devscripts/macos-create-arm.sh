@@ -74,7 +74,7 @@ echo "[4/4] Deploying Qt and creating DMG..."
     -dmg
 
 # macdeployqt6 names the DMG after the .app: KLog.dmg
-mv "$PROJECT_DIR/build/bin/${APP_NAME}.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION-arm.dmg"
+mv "$PROJECT_DIR/build/bin/${APP_NAME}.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION-arm64.dmg"
 
 echo ""
-echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION.dmg"
+echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION-arm64.dmg"
