@@ -92,6 +92,25 @@ pipeline {
 
     }
 
+        stage('Upload to NAS') {
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
+                    string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
+                    string(credentialsId: 'nas-password', variable: 'NAS_PASS')
+                ]) {
+                    sh '''
+                        smbclient //"$NAS_HOST"/Local \
+                            -U "$NAS_USER"%"$NAS_PASS" \
+                            -c "put devscripts/${DMG_NAME} Subir/${DMG_NAME}"
+                    '''
+                }
+            }
+        }
+
+    }
+
     post {
         success {
             // Save the tarball and its checksum as downloadable Jenkins artifacts

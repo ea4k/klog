@@ -72,7 +72,7 @@ APP="$PROJECT_DIR/build/bin/klog.app"
 	-codesign="-" \
     -dmg
 
-mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION.dmg"
+mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION-intel.dmg"
 
 echo ""
-echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION-x86.dmg"
+echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION-intel.dmg"
