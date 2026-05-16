@@ -12,6 +12,11 @@
 //   Additional Behaviours:       Fetch tags  ✓
 //   Build Triggers:              (none — trigger manually with Build Now)
 //
+// Credentials required in Jenkins:
+//   nas-host      Secret text — NAS host IP
+//   nas-user      Secret text — NAS username
+//   nas-password  Secret text — NAS password
+//
 // Requirements on the raspbian agent:
 //   - Qt6 development packages installed via apt
 //   - cmake and ninja-build installed
@@ -82,8 +87,6 @@ pipeline {
             }
         }
 
-    }
-
         stage('Upload to NAS') {
             agent { label 'built-in' }
             steps {
@@ -95,7 +98,7 @@ pipeline {
                     sh '''
                         smbclient //"$NAS_HOST"/Local \
                             -U "$NAS_USER"%"$NAS_PASS" \
-                            -c "put devscripts/${DMG_NAME} Subir/${DMG_NAME}"
+                            -c "put devscripts/${DEB_NAME} Subir/${DEB_NAME}"
                     '''
                 }
             }

@@ -15,6 +15,9 @@
 //   esxi-ssh             SSH username + private key RSA for ESXi root access
 //   esxi-host            Secret text — ESXi host IP
 //   esxi-vmid-windows    Secret text — VM ID of the Windows build agent
+//   nas-host             Secret text — NAS host IP
+//   nas-user             Secret text — NAS username
+//   nas-password         Secret text — NAS password
 //
 // Requirements on the win64-devel agent VM:
 //   - Qt 6.8.3 with MinGW installed under C:\Qt\
@@ -105,7 +108,7 @@ pipeline {
             agent { label "${AGENT_LABEL}" }
             steps {
                 bat '''
-                    for %%f in (devscripts\\klog-*win64*.exe) do (
+                    for %%f in (devscripts\\*win64*.exe) do (
                         powershell -Command ^
                             "(Get-FileHash '%%f' -Algorithm SHA256).Hash + '  %%f'" ^
                             > "%%f.sha256"
@@ -117,9 +120,27 @@ pipeline {
             }
         }
 
+        stage('Upload to NAS') {
+            agent { label 'built-in' }
+            steps {
+                withCredentials([
+                    string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
+                    string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
+                    string(credentialsId: 'nas-password', variable: 'NAS_PASS')
+                ]) {
+                    sh '''
+                        for f in $(find ${WORKSPACE}/devscripts -name "*win64*.exe"); do
+                            fname=$(basename "$f")
+                            smbclient //"$NAS_HOST"/Local \
+                                -U "$NAS_USER"%"$NAS_PASS" \
+                                -c "put $f Subir/$fname"
+                        done
+                    '''
+                }
+            }
+        }
+
         stage('Shutdown VM') {
-            // Always runs at the end of a successful build.
-            // In case of failure the post{} block handles the shutdown.
             agent { label 'built-in' }
             steps {
                 withCredentials([
@@ -133,7 +154,6 @@ pipeline {
                 ]) {
                     sh '''
                         echo "=== Shutting down VM ==="
-                        # Graceful shutdown first, hard power off as fallback
                         ssh -i "$SSH_KEY" \
                             -o StrictHostKeyChecking=no \
                             -o BatchMode=yes \
@@ -152,32 +172,11 @@ pipeline {
 
     }
 
-        stage('Upload to NAS') {
-            agent { label 'built-in' }
-            steps {
-                withCredentials([
-                    string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
-                    string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
-                    string(credentialsId: 'nas-password', variable: 'NAS_PASS')
-                ]) {
-                    sh '''
-                        smbclient //"$NAS_HOST"/Local \
-                            -U "$NAS_USER"%"$NAS_PASS" \
-                            -c "put devscripts/${DMG_NAME} Subir/${DMG_NAME}"
-                    '''
-                }
-            }
-        }
-
-    }
-
     post {
         success {
             echo "Windows build finished successfully"
         }
         failure {
-            // If the build failed before the Shutdown VM stage ran,
-            // shut down the VM from here as well.
             node('built-in') {
                 withCredentials([
                     sshUserPrivateKey(

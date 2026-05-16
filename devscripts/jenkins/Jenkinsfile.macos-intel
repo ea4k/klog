@@ -11,6 +11,11 @@
 //   Additional Behaviours:       Fetch tags  ✓
 //   Build Triggers:              (none — trigger manually with Build Now)
 //
+// Credentials required in Jenkins:
+//   nas-host      Secret text — NAS host IP
+//   nas-user      Secret text — NAS username
+//   nas-password  Secret text — NAS password
+//
 // Requirements on the mac-intel agent:
 //   - Qt 6.7.3 installed via Qt Online Installer under ~/Qt/
 //   - Xcode and Xcode Command Line Tools installed
@@ -70,8 +75,6 @@ pipeline {
                 '''
             }
         }
-
-    }
 
         stage('Upload to NAS') {
             agent { label 'built-in' }
