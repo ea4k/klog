@@ -1,28 +1,3 @@
-//***************************************************************************
-//                          Jenkinsfile.sources  -  description
-//                             -------------------
-//    begin                : may 2026
-//    copyright            : (C) 2026 by Jaime Robles
-//    email                : jaime@robles.es
-// ***************************************************************************/
-
-//*****************************************************************************
-// * This file is part of KLog.                                                *
-// *                                                                           *
-// *    KLog is free software: you can redistribute it and/or modify           *
-// *    it under the terms of the GNU General Public License as published by   *
-// *    the Free Software Foundation, either version 3 of the License, or      *
-// *    (at your option) any later version.                                    *
-// *                                                                           *
-// *    KLog is distributed in the hope that it will be useful,                *
-// *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
-// *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
-// *    GNU General Public License for more details.                           *
-// *                                                                           *
-// *    You should have received a copy of the GNU General Public License      *
-// *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
-// *                                                                           *
-// *****************************************************************************/
 // ─────────────────────────────────────────────────────────────────────────────
 // KLog — Source tarball builder
 //
@@ -34,11 +9,16 @@
 //   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.sources
 //   Additional Behaviours:       Fetch tags  ✓
 //   Build Triggers:              (none — trigger manually with Build Now)
+//
+// Credentials required in Jenkins:
+//   nas-host      Secret text — NAS host IP
+//   nas-user      Secret text — NAS username
+//   nas-password  Secret text — NAS password
 // ─────────────────────────────────────────────────────────────────────────────
-
+ 
 pipeline {
     agent any
-
+ 
     environment {
         APP_NAME = 'klog'
         // Get the version from the latest repository tag (e.g. v2.1 → 2.1).
@@ -49,9 +29,9 @@ pipeline {
         ).trim()
         ARCHIVE_NAME = "${APP_NAME}-${VERSION}.tar.gz"
     }
-
+ 
     stages {
-
+ 
         stage('Info') {
             steps {
                 echo "Application : ${APP_NAME}"
@@ -61,7 +41,7 @@ pipeline {
                 echo "Branch      : ${GIT_BRANCH}"
             }
         }
-
+ 
         stage('Source tarball') {
             steps {
                 sh '''
@@ -73,7 +53,7 @@ pipeline {
                 '''
             }
         }
-
+ 
         stage('Verify') {
             steps {
                 sh '''
@@ -89,11 +69,8 @@ pipeline {
                 '''
             }
         }
-
-    }
-
+ 
         stage('Upload to NAS') {
-            agent { label 'built-in' }
             steps {
                 withCredentials([
                     string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
@@ -103,14 +80,14 @@ pipeline {
                     sh '''
                         smbclient //"$NAS_HOST"/Local \
                             -U "$NAS_USER"%"$NAS_PASS" \
-                            -c "put devscripts/${DMG_NAME} Subir/${DMG_NAME}"
+                            -c "put ${ARCHIVE_NAME} Subir/${ARCHIVE_NAME}"
                     '''
                 }
             }
         }
-
+ 
     }
-
+ 
     post {
         success {
             // Save the tarball and its checksum as downloadable Jenkins artifacts
@@ -126,3 +103,4 @@ pipeline {
         }
     }
 }
+ 
