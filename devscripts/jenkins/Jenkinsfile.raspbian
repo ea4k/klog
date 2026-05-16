@@ -1,0 +1,102 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// KLog — Raspbian .deb package builder
+//
+// Builds KLog natively on the Raspberry Pi and produces an installable
+// .deb package using CPack.
+// Calls devscripts/raspbian-create-package.sh which handles the full build.
+//
+// Jenkins job configuration:
+//   Pipeline → Definition:       Pipeline script from SCM
+//   Pipeline → SCM:              Git
+//   Pipeline → Script Path:      devscripts/jenkins/Jenkinsfile.raspbian
+//   Additional Behaviours:       Fetch tags  ✓
+//   Build Triggers:              (none — trigger manually with Build Now)
+//
+// Requirements on the raspbian agent:
+//   - Qt6 development packages installed via apt
+//   - cmake and ninja-build installed
+//   - Java 21 installed (required by the Jenkins agent)
+// ─────────────────────────────────────────────────────────────────────────────
+
+pipeline {
+    agent {
+        label 'raspbian'
+    }
+
+    environment {
+        APP_NAME = 'klog'
+        ARCH     = sh(script: 'dpkg --print-architecture', returnStdout: true).trim()
+        VERSION  = sh(
+            script: """
+                grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
+                grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
+            """,
+            returnStdout: true
+        ).trim()
+        DEB_NAME = "${APP_NAME}_${VERSION}_${ARCH}.deb"
+    }
+
+    stages {
+
+        stage('Info') {
+            steps {
+                echo "Application  : ${APP_NAME}"
+                echo "Version      : ${VERSION}"
+                echo "Architecture : ${ARCH}"
+                echo "Package      : ${DEB_NAME}"
+                echo "Commit       : ${GIT_COMMIT}"
+                echo "Branch       : ${GIT_BRANCH}"
+                sh 'cmake --version'
+                sh 'ninja --version'
+                sh 'dpkg --print-architecture'
+            }
+        }
+
+        stage('Build & Package') {
+            steps {
+                sh '''
+                    cd devscripts
+                    bash raspbian-create-package.sh
+                '''
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                sh '''
+                    echo "=== Package file ==="
+                    ls -lh devscripts/${DEB_NAME}
+
+                    echo ""
+                    echo "=== Package info ==="
+                    dpkg-deb --info devscripts/${DEB_NAME}
+
+                    echo ""
+                    echo "=== Package contents ==="
+                    dpkg-deb --contents devscripts/${DEB_NAME}
+
+                    echo ""
+                    echo "=== SHA256 checksum ==="
+                    sha256sum devscripts/${DEB_NAME}
+                '''
+            }
+        }
+
+    }
+
+    post {
+        success {
+            sh 'sha256sum devscripts/${DEB_NAME} > devscripts/${DEB_NAME}.sha256'
+            archiveArtifacts artifacts: 'devscripts/*.deb, devscripts/*.sha256',
+                             fingerprint: true
+            echo "Build successful: ${DEB_NAME}"
+        }
+        failure {
+            echo "Build failed: could not generate Raspbian .deb package"
+        }
+        cleanup {
+            sh 'rm -rf build'
+            cleanWs()
+        }
+    }
+}
