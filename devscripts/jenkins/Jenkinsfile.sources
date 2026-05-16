@@ -23,10 +23,13 @@ pipeline {
         APP_NAME = 'klog'
         // Get the version from the latest repository tag (e.g. v2.1 → 2.1).
         // Falls back to 'dev' if no tag is found.
-        VERSION  = sh(
-            script: "git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo 'dev'",
-            returnStdout: true
-        ).trim()
+	VERSION = sh(
+	    script: """
+	        grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
+	        grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
+	    """,
+	    returnStdout: true
+	).trim()
         ARCHIVE_NAME = "${APP_NAME}-${VERSION}.tar.gz"
     }
  
