@@ -1,8 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // KLog — Windows 64-bit installer builder
 //
-// Powers on the Windows VM on ESXi, waits for the Jenkins agent to come
-// online, builds the KLog installer, archives it, then shuts the VM down.
+// Powers on the Windows VM on ESXi, builds the KLog installer,
+// uploads it to the NAS, then shuts the VM down.
 //
 // Jenkins job configuration:
 //   Pipeline → Definition:       Pipeline script from SCM
@@ -88,6 +88,7 @@ pipeline {
                     cd devscripts
                     call win64-create-package.bat
                 '''
+                stash name: 'exe-windows', includes: 'devscripts\\*win64*.exe'
             }
         }
 
@@ -97,7 +98,6 @@ pipeline {
                 bat '''
                     echo === Installer file ===
                     dir devscripts\\*win64*.exe
-
                     echo === SHA256 checksum ===
                     powershell -Command "Get-FileHash devscripts\\*win64*.exe -Algorithm SHA256 | Format-List"
                 '''
@@ -120,36 +120,26 @@ pipeline {
             }
         }
 
-	stage('Upload to NAS') {
-	    agent { label 'built-in' }
-	    steps {
-	        withCredentials([
-	            string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
-	            string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
-	            string(credentialsId: 'nas-password', variable: 'NAS_PASS')
-	        ]) {
-	            sh '''
-	                # The .exe was archived by Jenkins — retrieve it from the
-	                # archived artifacts directory on the controller
-	                EXE=$(find /var/lib/jenkins/jobs/klog-windows/builds \
-	                    -name "*win64*.exe" \
-	                    -newer /tmp \
-	                    -print -quit 2>/dev/null)
-	
-	                if [ -n "$EXE" ]; then
-	                    fname=$(basename "$EXE")
-	                    smbclient //"$NAS_HOST"/Local \
-	                        -U "$NAS_USER"%"$NAS_PASS" \
-	                        -c "put $EXE Subir/$fname"
-	                else
-	                    echo "ERROR: installer not found in archived artifacts"
-	                    exit 1
-	                fi
-	            '''
-	        }
-	    }
-	}
-
+        stage('Upload to NAS') {
+            agent { label 'built-in' }
+            steps {
+                unstash 'exe-windows'
+                withCredentials([
+                    string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
+                    string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
+                    string(credentialsId: 'nas-password', variable: 'NAS_PASS')
+                ]) {
+                    sh '''
+                        for f in devscripts/*win64*.exe; do
+                            fname=$(basename "$f")
+                            smbclient //"$NAS_HOST"/Local \
+                                -U "$NAS_USER"%"$NAS_PASS" \
+                                -c "put $f Subir/$fname"
+                        done
+                    '''
+                }
+            }
+        }
 
         stage('Shutdown VM') {
             agent { label 'built-in' }

@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // KLog — Source tarball builder
 //
-// Generates a source tar.gz from the repository HEAD.
+// Generates a source tar.gz from the repository HEAD and uploads it to NAS.
 //
 // Jenkins job configuration:
 //   Pipeline → Definition:       Pipeline script from SCM
@@ -15,26 +15,24 @@
 //   nas-user      Secret text — NAS username
 //   nas-password  Secret text — NAS password
 // ─────────────────────────────────────────────────────────────────────────────
- 
+
 pipeline {
     agent { label 'built-in' }
- 
+
     environment {
         APP_NAME = 'klog'
-        // Get the version from the latest repository tag (e.g. v2.1 → 2.1).
-        // Falls back to 'dev' if no tag is found.
-	VERSION = sh(
-	    script: """
-	        grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
-	        grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
-	    """,
-	    returnStdout: true
-	).trim()
+        VERSION  = sh(
+            script: """
+                grep 'APP_PKGVERSION' CMakeLists.txt | sed 's/.*\\"\\(.*\\)\\".*/\\1/' || \
+                grep 'project(KLog VERSION' CMakeLists.txt | awk '{print \$3}'
+            """,
+            returnStdout: true
+        ).trim()
         ARCHIVE_NAME = "${APP_NAME}-${VERSION}.tar.gz"
     }
- 
+
     stages {
- 
+
         stage('Info') {
             steps {
                 echo "Application : ${APP_NAME}"
@@ -44,7 +42,7 @@ pipeline {
                 echo "Branch      : ${GIT_BRANCH}"
             }
         }
- 
+
         stage('Source tarball') {
             steps {
                 sh '''
@@ -54,9 +52,10 @@ pipeline {
                         -o ${ARCHIVE_NAME} \
                         HEAD
                 '''
+                stash name: 'source-tarball', includes: "${ARCHIVE_NAME}"
             }
         }
- 
+
         stage('Verify') {
             steps {
                 sh '''
@@ -72,9 +71,10 @@ pipeline {
                 '''
             }
         }
- 
+
         stage('Upload to NAS') {
             steps {
+                unstash 'source-tarball'
                 withCredentials([
                     string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
                     string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
@@ -88,12 +88,11 @@ pipeline {
                 }
             }
         }
- 
+
     }
- 
+
     post {
         success {
-            // Save the tarball and its checksum as downloadable Jenkins artifacts
             sh 'sha256sum ${ARCHIVE_NAME} > ${ARCHIVE_NAME}.sha256'
             archiveArtifacts artifacts: '*.tar.gz, *.sha256', fingerprint: true
             echo "Build successful: ${ARCHIVE_NAME}"
@@ -106,4 +105,3 @@ pipeline {
         }
     }
 }
- 

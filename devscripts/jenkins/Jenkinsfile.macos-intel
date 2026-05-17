@@ -1,9 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // KLog — macOS DMG builder (x86_64 / Intel)
 //
-// Builds KLog and produces a distributable DMG using macdeployqt6.
-// Calls devscripts/macos-create-intel.sh which handles the full build.
-//
 // Jenkins job configuration:
 //   Pipeline → Definition:       Pipeline script from SCM
 //   Pipeline → SCM:              Git
@@ -60,6 +57,7 @@ pipeline {
                     cd devscripts
                     bash macos-create-intel.sh
                 '''
+                stash name: 'dmg-intel', includes: "devscripts/${DMG_NAME}"
             }
         }
 
@@ -68,7 +66,6 @@ pipeline {
                 sh '''
                     echo "=== DMG file ==="
                     ls -lh devscripts/${DMG_NAME}
-
                     echo ""
                     echo "=== SHA256 checksum ==="
                     shasum -a 256 devscripts/${DMG_NAME}
@@ -79,6 +76,7 @@ pipeline {
         stage('Upload to NAS') {
             agent { label 'built-in' }
             steps {
+                unstash 'dmg-intel'
                 withCredentials([
                     string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
                     string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
