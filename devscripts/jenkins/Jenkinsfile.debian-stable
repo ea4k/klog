@@ -3,7 +3,6 @@
 //
 // Powers on the Debian stable VM on ESXi, builds the KLog .deb package
 // using CPack, uploads it to the NAS, then shuts the VM down.
-// Calls devscripts/debian-stable-create-package.sh which handles the build.
 //
 // Jenkins job configuration:
 //   Pipeline → Definition:       Pipeline script from SCM
@@ -16,7 +15,6 @@
 //   esxi-ssh                SSH username + private key RSA for ESXi root access
 //   esxi-host               Secret text — ESXi host IP
 //   esxi-vmid-debian-stable Secret text — VM ID of the Debian stable build agent
-//   debian-stable-ssh       SSH username + private key for Debian stable agent
 //   nas-host                Secret text — NAS host IP
 //   nas-user                Secret text — NAS username
 //   nas-password            Secret text — NAS password
@@ -113,6 +111,7 @@ pipeline {
                     cd devscripts
                     bash debian-stable-create-package.sh
                 '''
+                stash name: 'deb-debian-stable', includes: "devscripts/${DEB_NAME}"
             }
         }
 
@@ -122,15 +121,9 @@ pipeline {
                 sh '''
                     echo "=== Package file ==="
                     ls -lh devscripts/${DEB_NAME}
-
                     echo ""
                     echo "=== Package info ==="
                     dpkg-deb --info devscripts/${DEB_NAME}
-
-                    echo ""
-                    echo "=== Package contents ==="
-                    dpkg-deb --contents devscripts/${DEB_NAME}
-
                     echo ""
                     echo "=== SHA256 checksum ==="
                     sha256sum devscripts/${DEB_NAME}
@@ -141,6 +134,7 @@ pipeline {
         stage('Upload to NAS') {
             agent { label 'built-in' }
             steps {
+                unstash 'deb-debian-stable'
                 withCredentials([
                     string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
                     string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
