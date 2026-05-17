@@ -120,25 +120,36 @@ pipeline {
             }
         }
 
-        stage('Upload to NAS') {
-            agent { label 'built-in' }
-            steps {
-                withCredentials([
-                    string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
-                    string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
-                    string(credentialsId: 'nas-password', variable: 'NAS_PASS')
-                ]) {
-                    sh '''
-                        for f in $(find ${WORKSPACE}/devscripts -name "*win64*.exe"); do
-                            fname=$(basename "$f")
-                            smbclient //"$NAS_HOST"/Local \
-                                -U "$NAS_USER"%"$NAS_PASS" \
-                                -c "put $f Subir/$fname"
-                        done
-                    '''
-                }
-            }
-        }
+	stage('Upload to NAS') {
+	    agent { label 'built-in' }
+	    steps {
+	        withCredentials([
+	            string(credentialsId: 'nas-host',     variable: 'NAS_HOST'),
+	            string(credentialsId: 'nas-user',     variable: 'NAS_USER'),
+	            string(credentialsId: 'nas-password', variable: 'NAS_PASS')
+	        ]) {
+	            sh '''
+	                # The .exe was archived by Jenkins — retrieve it from the
+	                # archived artifacts directory on the controller
+	                EXE=$(find /var/lib/jenkins/jobs/klog-windows/builds \
+	                    -name "*win64*.exe" \
+	                    -newer /tmp \
+	                    -print -quit 2>/dev/null)
+	
+	                if [ -n "$EXE" ]; then
+	                    fname=$(basename "$EXE")
+	                    smbclient //"$NAS_HOST"/Local \
+	                        -U "$NAS_USER"%"$NAS_PASS" \
+	                        -c "put $EXE Subir/$fname"
+	                else
+	                    echo "ERROR: installer not found in archived artifacts"
+	                    exit 1
+	                fi
+	            '''
+	        }
+	    }
+	}
+
 
         stage('Shutdown VM') {
             agent { label 'built-in' }
