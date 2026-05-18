@@ -74,7 +74,7 @@ pipeline {
             agent { label 'built-in' }
             steps {
                 echo "Waiting for Debian VM to boot and agent to connect..."
-                sleep time: 30, unit: 'SECONDS'
+                sleep time: 60, unit: 'SECONDS'
                 echo "Done waiting — proceeding to build"
             }
         }
