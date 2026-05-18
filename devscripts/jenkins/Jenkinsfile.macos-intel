@@ -50,16 +50,19 @@ pipeline {
             }
         }
 
-        stage('Build & Package') {
-            steps {
-                sh '''
-                    export PATH="/usr/local/bin:$PATH"
-                    cd devscripts
-                    bash macos-create-intel.sh
-                '''
-                stash name: 'dmg-intel', includes: "devscripts/${DMG_NAME}"
-            }
-        }
+	stage('Build & Package') {
+	    options {
+	        timeout(time: 60, unit: 'MINUTES')
+	    }
+	    steps {
+	        sh '''
+	            export PATH="/usr/local/bin:$PATH"
+	            cd devscripts
+	            bash macos-create-intel.sh
+	        '''
+	        stash name: 'dmg-intel', includes: "devscripts/${DMG_NAME}"
+	    }
+	}
 
         stage('Verify') {
             steps {

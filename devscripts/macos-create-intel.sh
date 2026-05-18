@@ -61,7 +61,7 @@ echo "[2/4] Configuring with CMake..."
 
 # --- Build ---
 echo "[3/4] Building..."
-"$CMAKE_BIN" --build "$PROJECT_DIR/build" -j 4
+"$CMAKE_BIN" --build "$PROJECT_DIR/build" -j 2
 
 # --- Deploy Qt into the bundle and create DMG ---
 echo "[4/4] Deploying Qt and creating DMG..."
