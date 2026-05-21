@@ -165,14 +165,14 @@ void LogWindow::createlogPanel(const int _currentLog)
     {
         //qDebug() << Q_FUNC_INFO << " - ERROR creating model";
     }
-    qInfo() << "[KLOG-TIMING] createlogPanel 01 - createlogModel (select):" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] createlogPanel 01 - createlogModel (select):" << _t.restart() << "ms";
 
     logView->setModel(logModel);
     logView->setCurrentIndex(logModel->index(0, 0));
-    qInfo() << "[KLOG-TIMING] createlogPanel 02 - setModel+setCurrentIndex:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] createlogPanel 02 - setModel+setCurrentIndex:" << _t.restart() << "ms";
 
     setColumnsOfLog(columns);
-    qInfo() << "[KLOG-TIMING] createlogPanel 03 - setColumnsOfLog:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] createlogPanel 03 - setColumnsOfLog:" << _t.restart() << "ms";
 
     logView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     logView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -186,12 +186,12 @@ void LogWindow::createlogPanel(const int _currentLog)
     logView->horizontalHeader()->blockSignals(true);
     logView->horizontalHeader()->setSortIndicator(1, Qt::DescendingOrder);
     logView->horizontalHeader()->blockSignals(false);
-    qInfo() << "[KLOG-TIMING] createlogPanel 04 - selection+header setup:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] createlogPanel 04 - selection+header setup:" << _t.restart() << "ms";
 
     retoreColumsOrder();
-    qInfo() << "[KLOG-TIMING] createlogPanel 05 - retoreColumsOrder:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] createlogPanel 05 - retoreColumsOrder:" << _t.restart() << "ms";
     restoreColumnWidths();
-    qInfo() << "[KLOG-TIMING] createlogPanel 06 - restoreColumnWidths:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] createlogPanel 06 - restoreColumnWidths:" << _t.restart() << "ms";
 
     m_blockWidthSave = false;
     //qDebug() << Q_FUNC_INFO << " - END";

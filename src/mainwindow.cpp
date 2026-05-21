@@ -48,7 +48,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
 {
     QElapsedTimer timer;
     timer.start();
-    qInfo() << "[KLOG-TIMING] ctor START";
+    //qInfo() << "[KLOG-TIMING] ctor START";
     dataProxy = dp;
     world = injectedWorld;
 
@@ -60,17 +60,17 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     logWindow = std::make_unique<LogWindow>(&awards, this);
     infoWidget = std::make_unique<InfoWidget>(&awards, world, this);
 
-    qInfo() << "[KLOG-TIMING] ctor 001:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] ctor 001:" << timer.elapsed() << "ms"; timer.restart();
 
     showKLogLogWidget = new ShowKLogLogWidget;
-   //qInfo() << "[KLOG-TIMING] ctor 002 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 002 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
-   //qInfo() << "[KLOG-TIMING] ctor 003 - ShowErrorDialog + UDPServer:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 003 - ShowErrorDialog + UDPServer:" << timer.elapsed() << "ms"; timer.restart();
     util = new Utilities(Q_FUNC_INFO);
-   //qInfo() << "[KLOG-TIMING] ctor 004 - Utilities:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 004 - Utilities:" << timer.elapsed() << "ms"; timer.restart();
     backupQSO = new QSO;
-   //qInfo() << "[KLOG-TIMING] ctor 005 - QSO backup:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 005 - QSO backup:" << timer.elapsed() << "ms"; timer.restart();
 
     logLevel = Info;
     dupeSlotInSeconds = 600;
@@ -80,68 +80,68 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     QRZCOMAutoCheckAct = new QAction(tr("Always check the current callsign in QRZ.com"), this);
 
     world->create(util->getCTYFile());
-    qInfo() << "[KLOG-TIMING] ctor 006 world->create():" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] ctor 006 world->create():" << timer.elapsed() << "ms"; timer.restart();
 
     hamlibConnectionAttempted = false;
     hamlib = new HamLibClass();
-    qInfo() << "[KLOG-TIMING] ctor 007 HamLibClass:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] ctor 007 HamLibClass:" << timer.elapsed() << "ms"; timer.restart();
 
     lotwUtilities = new LoTWUtilities(util->getHomeDir (), softwareVersion, Q_FUNC_INFO, dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 008 - LoTWUtilities:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 008 - LoTWUtilities:" << timer.elapsed() << "ms"; timer.restart();
     eqslUtilities = new eQSLUtilities(Q_FUNC_INFO);
-   //qInfo() << "[KLOG-TIMING] ctor 009 - eQSLUtilities:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 009 - eQSLUtilities:" << timer.elapsed() << "ms"; timer.restart();
     mapWindow = new MapWindowWidget(dataProxy, this);
     // init() is deferred: MapWindowWidget initializes lazily on first show (showEvent)
-   //qInfo() << "[KLOG-TIMING] ctor 010 - MapWindowWidget ctor (init deferred to first show) [PROPOSAL-1 done]:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 010 - MapWindowWidget ctor (init deferred to first show) [PROPOSAL-1 done]:" << timer.elapsed() << "ms"; timer.restart();
 
     elogClublog = new eLogClubLog();
     elogClublog->setVersion(pkgVersion);
-   //qInfo() << "[KLOG-TIMING] ctor 012 - eLogClubLog:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 012 - eLogClubLog:" << timer.elapsed() << "ms"; timer.restart();
 
     elogQRZcom = new eLogQrzLog(dataProxy, Q_FUNC_INFO, softwareVersion);
-   //qInfo() << "[KLOG-TIMING] ctor 013 - eLogQrzLog:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 013 - eLogQrzLog:" << timer.elapsed() << "ms"; timer.restart();
     updateSatsData = new UpdateSatsData(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 014 - UpdateSatsData:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 014 - UpdateSatsData:" << timer.elapsed() << "ms"; timer.restart();
     // [PROPOSAL-5] StatisticsWidget: lazy-init, created on first slotShowStats() call
 
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
     awardsWidget = new AwardsWidget(dataProxy, world, this);
-    qInfo() << "[KLOG-TIMING] ctor 017 AwardsWidget:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] ctor 017 AwardsWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     // [PROPOSAL-5] AboutDialog: lazy-init, created on first slotHelpAboutAction() call
     // [PROPOSAL-5] TipsDialog: lazy-init via ensureTipsDialog()
 
     downloadcty = new DownLoadCTY(util->getHomeDir (), softwareVersion);
-   //qInfo() << "[KLOG-TIMING] ctor 020 - DownLoadCTY:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 020 - DownLoadCTY:" << timer.elapsed() << "ms"; timer.restart();
 
     statusBarMessage = tr("Starting KLog");
 
     setupDialog = new SetupDialog(dataProxy, world, this);
-    qInfo() << "[KLOG-TIMING] ctor 020.5 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] ctor 020.5 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
     setupDialog->setLiveHamlib(hamlib); // read-only display reference — Test button still uses its own local instance
-    qInfo() << "[KLOG-TIMING] ctor 021 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] ctor 021 SetupDialog:" << timer.elapsed() << "ms"; timer.restart();
 
     satTabWidget = new MainWindowSatTab(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 022 - MainWindowSatTab:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 022 - MainWindowSatTab:" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget = new MainWindowInputQSO(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 023 - MainWindowInputQSO:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 023 - MainWindowInputQSO:" << timer.elapsed() << "ms"; timer.restart();
     myDataTabWidget = new MainWindowMyDataTab(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 024 - MainWindowMyDataTab:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 024 - MainWindowMyDataTab:" << timer.elapsed() << "ms"; timer.restart();
     commentTabWidget = new MainWindowInputComment();
-   //qInfo() << "[KLOG-TIMING] ctor 025 - MainWindowInputComment:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 025 - MainWindowInputComment:" << timer.elapsed() << "ms"; timer.restart();
     othersTabWidget = new MainWindowInputOthers(dataProxy, world);
-   //qInfo() << "[KLOG-TIMING] ctor 026 - MainWindowInputOthers:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 026 - MainWindowInputOthers:" << timer.elapsed() << "ms"; timer.restart();
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 027 - MainWindowInputEQSL:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 027 - MainWindowInputEQSL:" << timer.elapsed() << "ms"; timer.restart();
     QSLTabWidget = new MainWindowInputQSL(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 028 - MainWindowInputQSL:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 028 - MainWindowInputQSL:" << timer.elapsed() << "ms"; timer.restart();
     mainQSOEntryWidget = new MainQSOEntryWidget(dataProxy);
-   //qInfo() << "[KLOG-TIMING] ctor 029 - MainQSOEntryWidget:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 029 - MainQSOEntryWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     mainWidget = new QWidget(this);
-   //qInfo() << "[KLOG-TIMING] ctor 030 - mainWidget:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 030 - mainWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     dateTime = std::make_unique<QDateTime>();
     // UI DX
@@ -155,31 +155,31 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     }
 
     softUpdate = new SoftwareUpdate(softwareVersion, this);
-   //qInfo() << "[KLOG-TIMING] ctor 031 - SoftwareUpdate:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 031 - SoftwareUpdate:" << timer.elapsed() << "ms"; timer.restart();
 
     filemanager = new FileManager(dataProxy, world);
-   //qInfo() << "[KLOG-TIMING] ctor 032 - FileManager:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 032 - FileManager:" << timer.elapsed() << "ms"; timer.restart();
 
     lotwCallTQSL = new QAction(tr("Upload queued QSOs to LoTW"), this);
     adifLoTWExportWidget = new AdifLoTWExportWidget(dataProxy, Q_FUNC_INFO);
-   //qInfo() << "[KLOG-TIMING] ctor 034 - AdifLoTWExportWidget:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 034 - AdifLoTWExportWidget:" << timer.elapsed() << "ms"; timer.restart();
     showAdifImportWidget = new ShowAdifImportWidget(dataProxy, Q_FUNC_INFO);
-   //qInfo() << "[KLOG-TIMING] ctor 035 - ShowAdifImportWidget:" << timer.elapsed() << "ms"; timer.restart();
+   ////qInfo() << "[KLOG-TIMING] ctor 035 - ShowAdifImportWidget:" << timer.elapsed() << "ms"; timer.restart();
 
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qInfo() << "[KLOG-TIMING] ctor TOTAL:" << timer.elapsed() << "ms";
+    //qInfo() << "[KLOG-TIMING] ctor TOTAL:" << timer.elapsed() << "ms";
 }
 
 MainWindow::~MainWindow()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     QElapsedTimer _dtorT; _dtorT.start();
-    qInfo() << "[KLOG-TIMING] ~MainWindow START";
+    //qInfo() << "[KLOG-TIMING] ~MainWindow START";
 
     if (hamlibActive)
     {
         hamlib->stop();
-        qInfo() << "[KLOG-TIMING] ~MainWindow 01 - hamlib->stop():" << _dtorT.restart() << "ms";
+        //qInfo() << "[KLOG-TIMING] ~MainWindow 01 - hamlib->stop():" << _dtorT.restart() << "ms";
     }
 
     delete(showErrorDialog);
@@ -189,11 +189,11 @@ MainWindow::~MainWindow()
     //delete(elogClublog);
     delete(downloadcty);
     delete(softUpdate);
-    qInfo() << "[KLOG-TIMING] ~MainWindow 02 - delete network/update objects:" << _dtorT.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] ~MainWindow 02 - delete network/update objects:" << _dtorT.restart() << "ms";
     // Process pending deleteLater() calls from network managers
     // to avoid QThreadStorage warnings on exit
     QCoreApplication::processEvents();
-    qInfo() << "[KLOG-TIMING] ~MainWindow 03 - processEvents:" << _dtorT.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] ~MainWindow 03 - processEvents:" << _dtorT.restart() << "ms";
     //delete(world);
     //delete(mapWindow); // Qt parent-child: owned by this, auto-deleted
     //delete(locator);
@@ -207,7 +207,7 @@ MainWindow::~MainWindow()
     delete(filemanager);
     //delete(fileAwardManager);
     delete(util);
-    qInfo() << "[KLOG-TIMING] ~MainWindow 04 - delete remaining objects:" << _dtorT.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] ~MainWindow 04 - delete remaining objects:" << _dtorT.restart() << "ms";
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -411,63 +411,63 @@ void MainWindow::init()
 {
     QElapsedTimer initTimer;
     initTimer.start();
-    qInfo() << "[KLOG-TIMING] init() START";
+    //qInfo() << "[KLOG-TIMING] init() START";
 
     logLevel = Debug;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     checkHomeDir();
     checkDebugFile();
-    qInfo() << "[KLOG-TIMING] init() 00 - checkHomeDir+checkDebugFile:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 00 - checkHomeDir+checkDebugFile:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     setupDialog->init(softwareVersion, 0, configured);
-    qInfo() << "[KLOG-TIMING] init() 01 - setupDialog->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 01 - setupDialog->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     filemanager->init();
-    qInfo() << "[KLOG-TIMING] init() 02 - filemanager->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 02 - filemanager->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     init_variables();
-    qInfo() << "[KLOG-TIMING] init() 02b - init_variables():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 02b - init_variables():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     hamlib->initClass();
-    qInfo() << "[KLOG-TIMING] init() 03 - hamlib->initClass():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 03 - hamlib->initClass():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     qsoInUI.clear();
     setCleaning(false);
     dxClusterWidget->init();
     setModifying(false);
-    qInfo() << "[KLOG-TIMING] init() 03b - dxClusterWidget->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 03b - dxClusterWidget->init():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     checkExistingData();
     dataProxy->unMarkAllQSO();
-    qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData()+unMarkAllQSO:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 04 - checkExistingData()+unMarkAllQSO:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     readSettingsFile();
-    qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 05 - readSettingsFile():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     awards.setManageModes(manageMode);
     if (dataProxy->getNumberOfManagedLogs()<1)
     {
         openSetup(6);
     }
-    qInfo() << "[KLOG-TIMING] init() 05b - awards+getNumberOfManagedLogs():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 05b - awards+getNumberOfManagedLogs():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     // [PROPOSAL-5/6] Defer DB-heavy work to after the event loop starts so the
     // window paints before these queries run.
     QTimer::singleShot(0, this, [this]{
         QElapsedTimer t; t.start();
         logWindow->createlogPanel(currentLog);
-        qInfo() << "[KLOG-TIMING] deferred - logWindow->createlogPanel():" << t.elapsed() << "ms"; t.restart();
+        //qInfo() << "[KLOG-TIMING] deferred - logWindow->createlogPanel():" << t.elapsed() << "ms"; t.restart();
         awardsWidget->setManageDXMarathon(manageDxMarathon);
         awardsWidget->fillOperatingYears();
         awardsWidget->showAwards();
-        qInfo() << "[KLOG-TIMING] deferred - awardsWidget fill+show:" << t.elapsed() << "ms";
+        //qInfo() << "[KLOG-TIMING] deferred - awardsWidget fill+show:" << t.elapsed() << "ms";
     });
 
     dxClusterWidget->setCurrentLog(currentLog);
-    qInfo() << "[KLOG-TIMING] init() 06 - dxClusterWidget->setCurrentLog():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 06 - dxClusterWidget->setCurrentLog():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     QTimer::singleShot(0, this, &MainWindow::checkVersions);
-    qInfo() << "[KLOG-TIMING] init() 07 - checkVersions() deferred:" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 07 - checkVersions() deferred:" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     currentBandShown = dataProxy->getIdFromBandName(mainQSOEntryWidget->getBand());
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
@@ -477,25 +477,25 @@ void MainWindow::init()
     timerInfoBars = new QTimer(this);
 
     createUI();
-    qInfo() << "[KLOG-TIMING] init() 08 - createUI():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 08 - createUI():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     slotClearButtonClicked(Q_FUNC_INFO);
     infoWidget->showInfo(-1);
-    qInfo() << "[KLOG-TIMING] init() 08b - slotClearButtonClicked+showInfo():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 08b - slotClearButtonClicked+showInfo():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     upAndRunning = true;
     mainQSOEntryWidget->setUpAndRunning(upAndRunning);
 
     applySettings();
-    qInfo() << "[KLOG-TIMING] init() 09 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 09 - applySettings():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     dataProxy->loadDuplicateCache(currentLog);
-    qInfo() << "[KLOG-TIMING] init() 10 - loadDuplicateCache() (async):" << initTimer.elapsed() << "ms"; initTimer.restart();
+    //qInfo() << "[KLOG-TIMING] init() 10 - loadDuplicateCache() (async):" << initTimer.elapsed() << "ms"; initTimer.restart();
 
     // Post-startup timers are scheduled from showEvent() once the window is
     // actually visible, so the delays are measured from that point.
     logEvent(Q_FUNC_INFO, "END", Debug);
-    qInfo() << "[KLOG-TIMING] init() TOTAL (synchronous):" << initTimer.elapsed() << "ms";
+    //qInfo() << "[KLOG-TIMING] init() TOTAL (synchronous):" << initTimer.elapsed() << "ms";
 }
 
 void MainWindow::checkExistingData()
@@ -2048,9 +2048,9 @@ void MainWindow::exitQuestion()
         logEvent(Q_FUNC_INFO, "Exiting KLog!", Debug);
     //maybeSave();
             // saveWindowsSize() is called inside closeEvent() — no need to call it here too
-            qInfo() << "[KLOG-TIMING] exitQuestion - user confirmed exit, calling close()";
+            //qInfo() << "[KLOG-TIMING] exitQuestion - user confirmed exit, calling close()";
             close();
-            qInfo() << "[KLOG-TIMING] exitQuestion - close() returned, calling QCoreApplication::quit()";
+            //qInfo() << "[KLOG-TIMING] exitQuestion - close() returned, calling QCoreApplication::quit()";
             QCoreApplication::quit();
         default:
     // should never be reached
@@ -2355,13 +2355,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
        //qDebug() << Q_FUNC_INFO ;
     logEvent(Q_FUNC_INFO, "Start", Devel);
     QElapsedTimer _closeT; _closeT.start();
-    qInfo() << "[KLOG-TIMING] closeEvent START";
+    //qInfo() << "[KLOG-TIMING] closeEvent START";
     saveWindowsSize();
-    qInfo() << "[KLOG-TIMING] closeEvent 01 - saveWindowsSize:" << _closeT.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] closeEvent 01 - saveWindowsSize:" << _closeT.restart() << "ms";
     if (maybeSave())
     {
    //qDebug() << Q_FUNC_INFO << " saving needed" ;
-        qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave:" << _closeT.restart() << "ms";
+        //qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave:" << _closeT.restart() << "ms";
         // unMarkAllQSO() moved to init() at startup — no need to repeat on exit
         // compressDB() (VACUUM) removed: SQLite doesn't need VACUUM on every exit
         event->accept();
@@ -2369,10 +2369,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
     else
     {
    //qDebug() << Q_FUNC_INFO << " not saving needed" ;
-        qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave (cancelled):" << _closeT.restart() << "ms";
+        //qInfo() << "[KLOG-TIMING] closeEvent 02 - maybeSave (cancelled):" << _closeT.restart() << "ms";
         event->ignore();
     }
-    qInfo() << "[KLOG-TIMING] closeEvent TOTAL:" << _closeT.elapsed() << "ms";
+    //qInfo() << "[KLOG-TIMING] closeEvent TOTAL:" << _closeT.elapsed() << "ms";
        //qDebug() << Q_FUNC_INFO << " - END" ;
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -5908,7 +5908,7 @@ bool MainWindow::checkIfNewMode(const QString &_mode)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     QElapsedTimer _cit; _cit.start();
     const int modeId = dataProxy->getIdFromModeName(_mode);
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] getIdFromModeName(" << _mode << "):" << _cit.elapsed() << "ms id=" << modeId;
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] getIdFromModeName(" << _mode << "):" << _cit.elapsed() << "ms id=" << modeId;
     if (modeId<0)
     {// The mode is not existing; it is not an accepted mode for KLog
      // TODO: Show an error to the user
@@ -6160,18 +6160,18 @@ void MainWindow::slotHamlibUpdate(const RadioStatus &_s)
    //qDebug() << Q_FUNC_INFO << " - Start";
     QElapsedTimer timer;
     timer.start();
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget->setSplit(!(_s.freq_VFO_TX == _s.freq_VFO_RX));
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020" << timer.elapsed() << "ms"; timer.restart();
    //qDebug() << Q_FUNC_INFO << " - Split: " << util->boolToQString(_s.freq_VFO_TX == _s.freq_VFO_RX);
     slotHamlibTXFreqChanged(_s.freq_VFO_TX);
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030" << timer.elapsed() << "ms"; timer.restart();
     slotHamlibRXFreqChanged(_s.freq_VFO_RX);
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040" << timer.elapsed() << "ms"; timer.restart();
     slotHamlibModeChanged(_s.mode_VFO_TX);
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 050" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 050" << timer.elapsed() << "ms"; timer.restart();
     QSOTabWidget->setSplit(_s.split);
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 060" << timer.elapsed() << "ms"; timer.restart();
    //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -6208,47 +6208,47 @@ void MainWindow::slotHamlibModeChanged(const QString &_m)
     logEvent(Q_FUNC_INFO, "Start", Devel);
     QElapsedTimer timer;
     timer.start();
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 000 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 000 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     if (manualMode)
     {
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 010 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     if (_m.length()<2)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 020 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
 
     if ((mainQSOEntryWidget->getMode()).toUpper() == _m.toUpper())
     {
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 021 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+        //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 021 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 030 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     hamlibChangingMode = true;
     if (checkIfNewMode(_m))
     {
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 031 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+        //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 031 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
         hamlibChangingMode = false;
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return;
     }
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 040 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     if (mainQSOEntryWidget->isModeExisting(_m))
     {
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 041 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+        //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 041 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
         //qDebug() << _FUNC_INFO << " Mode in the Combobox: " ;
         mainQSOEntryWidget->setMode(_m);
-        qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 042 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+        //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 042 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     }
     else
     {
          //qDebug() << Q_FUNC_INFO << " Mode not found in combobox" << _m ;
     }
     hamlibChangingMode = false;
-    qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 099 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << Q_FUNC_INFO << " [KLOG-TIMING] 099 " << Q_FUNC_INFO << " - "  << timer.elapsed() << "ms"; timer.restart();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

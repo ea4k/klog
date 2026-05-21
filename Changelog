@@ -1,3 +1,6 @@
+May 2026 - 2.5.2
+- Bugfix: Debug messages are shown in the console (Close #1005)
+
 May 2026 - 2.5.1
 - Enhancement: Entity dxcc to name queries speed up.
 - Enhancement: Memory leaks improvement.

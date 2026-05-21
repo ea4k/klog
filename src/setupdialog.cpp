@@ -46,43 +46,43 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *pa
     util = new Utilities(Q_FUNC_INFO);
     locator = new Locator();
     tabWidget = new QTabWidget;
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 01 - Utilities+Locator+QTabWidget:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 01 - Utilities+Locator+QTabWidget:" << _t.restart() << "ms";
 
     userDataPage = new SetupPageUserDataPage(dataProxy, injectedWorld);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 02 - SetupPageUserDataPage:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 02 - SetupPageUserDataPage:" << _t.restart() << "ms";
 
     bandModePage = new SetupPageBandMode(dataProxy, this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 03 - SetupPageBandMode:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 03 - SetupPageBandMode:" << _t.restart() << "ms";
 
     dxClusterPage = new SetupPageDxCluster(this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 04 - SetupPageDxCluster:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 04 - SetupPageDxCluster:" << _t.restart() << "ms";
 
     colorsPage = new SetupPageColors(this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 05 - SetupPageColors:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 05 - SetupPageColors:" << _t.restart() << "ms";
 
     miscPage = new SetupPageMisc(this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 06 - SetupPageMisc:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 06 - SetupPageMisc:" << _t.restart() << "ms";
 
     worldEditorPage = new SetupPageWorldEditor(dataProxy, injectedWorld, this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 07 - SetupPageWorldEditor:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 07 - SetupPageWorldEditor:" << _t.restart() << "ms";
 
     logsPage = new SetupPageLogs(dataProxy, this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 08 - SetupPageLogs:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 08 - SetupPageLogs:" << _t.restart() << "ms";
 
     eLogPage = new SetupPageELog(this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 09 - SetupPageELog:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 09 - SetupPageELog:" << _t.restart() << "ms";
 
     UDPPage = new SetupPageUDP(this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 10 - SetupPageUDP:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 10 - SetupPageUDP:" << _t.restart() << "ms";
 
     satsPage = new SetupPageSats(dataProxy, this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 11 - SetupPageSats:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 11 - SetupPageSats:" << _t.restart() << "ms";
 
     hamlibPage = new SetupPageHamLib(dataProxy, this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 12 - SetupPageHamLib:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 12 - SetupPageHamLib:" << _t.restart() << "ms";
 
     logViewPage = new SetupPageLogView(dataProxy, this);
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 13 - SetupPageLogView:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 13 - SetupPageLogView:" << _t.restart() << "ms";
 
     tabWidget->addTab(userDataPage, tr("User data"));
     tabWidget->addTab(bandModePage, tr("Bands/Modes"));
@@ -96,7 +96,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *pa
     tabWidget->addTab(UDPPage, tr("WSJT-X"));
     tabWidget->addTab(satsPage , tr("Satellites"));
     tabWidget->addTab(hamlibPage, tr("HamLib"));
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 14 - addTab x12:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 14 - addTab x12:" << _t.restart() << "ms";
 
     closeButton = new QPushButton(tr("Cancel"));
     okButton = new QPushButton(tr("OK"));
@@ -115,7 +115,7 @@ SetupDialog::SetupDialog(DataProxy_SQLite *dp, World *injectedWorld, QWidget *pa
 
     setLayout(mainLayout);
     setWindowTitle(tr("Settings"));
-    qInfo() << "[KLOG-TIMING] SetupDialog ctor 15 - layout+setWindowTitle:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] SetupDialog ctor 15 - layout+setWindowTitle:" << _t.restart() << "ms";
 }
 
 void SetupDialog::init(const QString &_softwareVersion, const int _page, const bool _alreadyConfigured)

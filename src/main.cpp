@@ -258,7 +258,7 @@ int main(int argc, char *argv[])
     });
 
     semaphore.release();
-    qInfo() << "[KLOG-TIMING] main 040 -:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 040 -:" << timer.elapsed() << "ms"; timer.restart();
     // If you already run one instance of the application, then we
     // inform the user about it
     // and complete the current instance of the application
@@ -280,12 +280,12 @@ int main(int argc, char *argv[])
     QApplication::processEvents();
 
     // Load translations
-    qInfo() << "[KLOG-TIMING] main 041 -:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 041 -:" << timer.elapsed() << "ms"; timer.restart();
     //         << (QTime::currentTime()).toString("HH:mm:ss");
     //qDebug() << Q_FUNC_INFO << " -  Detected language: " << (QLocale::system().name()).left(2) << ".qm";
     QTranslator myappTranslator;
     loadTranslations(app, myappTranslator);
-   qInfo() << "[KLOG-TIMING] main 050 -:" << timer.elapsed() << "ms"; timer.restart();
+   //qInfo() << "[KLOG-TIMING] main 050 -:" << timer.elapsed() << "ms"; timer.restart();
 
 
     QString klogDir = util.getHomeDir();
@@ -302,30 +302,30 @@ int main(int argc, char *argv[])
             }
         }
     }
-    qInfo() << "[KLOG-TIMING] main 051 -:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 051 -:" << timer.elapsed() << "ms"; timer.restart();
 
     splash.showMessage("Checking database...");
     QApplication::processEvents();
     //int firstTime = true;
     // If the KLog configuration file does not exist, we launch the wizard.
-    qInfo() << "[KLOG-TIMING] main 060 -:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 060 -:" << timer.elapsed() << "ms"; timer.restart();
     if (!((QFile::exists(util.getCfgFile ()))))
     {
         StartWizard *wizard = new StartWizard(klogDir, version);
         wizard->setModal(true);
         wizard->exec();
         delete wizard;
-        qInfo() << "[KLOG-TIMING] main 061 -:" << timer.elapsed() << "ms"; timer.restart();
+        //qInfo() << "[KLOG-TIMING] main 061 -:" << timer.elapsed() << "ms"; timer.restart();
     }
     else
     {   // KLog configuration file exists, let's look for the DB      
         //firstTime = false;
         DataBase *db = new DataBase(Q_FUNC_INFO, version, util.getKLogDBFile());
-       qInfo() << "[KLOG-TIMING] main 065 -:" << timer.elapsed() << "ms"; timer.restart();
+       //qInfo() << "[KLOG-TIMING] main 065 -:" << timer.elapsed() << "ms"; timer.restart();
         if (!db->createConnection(Q_FUNC_INFO))
         {
            //qDebug() << Q_FUNC_INFO << " - Conection not created";
-            qInfo() << "[KLOG-TIMING] main 066 -:" << timer.elapsed() << "ms"; timer.restart();
+            //qInfo() << "[KLOG-TIMING] main 066 -:" << timer.elapsed() << "ms"; timer.restart();
             return showNoDB();
             //return -1; // Exits with an error; no DB has been created
         }
@@ -336,20 +336,20 @@ int main(int argc, char *argv[])
             {
                //qDebug() << Q_FUNC_INFO << " - DB NOT Updated";
             }
-            qInfo() << "[KLOG-TIMING] main 067 -:" << timer.elapsed() << "ms"; timer.restart();
+            //qInfo() << "[KLOG-TIMING] main 067 -:" << timer.elapsed() << "ms"; timer.restart();
            //qDebug() << Q_FUNC_INFO << " - DB Updated";
         }
         delete db;
     }
-    qInfo() << "[KLOG-TIMING] main 069 -:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 069 -:" << timer.elapsed() << "ms"; timer.restart();
     splash.showMessage ("Creating the Data Base...");
     QApplication::processEvents();
     DataProxy_SQLite dataProxy (Q_FUNC_INFO, version);    
-    qInfo() << "[KLOG-TIMING] main 071 - DataProxy_SQLite ctor [PROPOSAL-6 candidate]:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 071 - DataProxy_SQLite ctor [PROPOSAL-6 candidate]:" << timer.elapsed() << "ms"; timer.restart();
     QApplication::processEvents();
 
     World world(&dataProxy, Q_FUNC_INFO);
-    qInfo() << "[KLOG-TIMING] main 072 - World ctor [PROPOSAL-2 done, readWorld() deferred]:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 072 - World ctor [PROPOSAL-2 done, readWorld() deferred]:" << timer.elapsed() << "ms"; timer.restart();
     dataProxy.setPKGVersion(pkgVersion);
 
     splash.showMessage("Creating window...");
@@ -357,13 +357,13 @@ int main(int argc, char *argv[])
 
     MainWindow mw(&dataProxy, &world);
 
-    qInfo() << "[KLOG-TIMING] main 081 - MainWindow ctor:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 081 - MainWindow ctor:" << timer.elapsed() << "ms"; timer.restart();
 
     splash.showMessage("Initializing...");
     QApplication::processEvents();
 
     mw.init();
-    qInfo() << "[KLOG-TIMING] main 088 - mw.init() complete:" << timer.elapsed() << "ms"; timer.restart();
+    //qInfo() << "[KLOG-TIMING] main 088 - mw.init() complete:" << timer.elapsed() << "ms"; timer.restart();
 
     splash.showMessage("Showing window...");
     QApplication::processEvents();

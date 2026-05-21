@@ -115,24 +115,24 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     dataProxy = dp;
     world = injectedWorld;
     util = new Utilities(Q_FUNC_INFO);
-    qInfo() << "[KLOG-TIMING] WorldEditor 01 - Utilities:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 01 - Utilities:" << _t.restart() << "ms";
 
     setupEntityDialog = new SetupEntityDialog();
-    qInfo() << "[KLOG-TIMING] WorldEditor 02 - SetupEntityDialog:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 02 - SetupEntityDialog:" << _t.restart() << "ms";
 
     worldModel = new QSqlRelationalTableModel(this);
-    qInfo() << "[KLOG-TIMING] WorldEditor 03 - QSqlRelationalTableModel ctor:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 03 - QSqlRelationalTableModel ctor:" << _t.restart() << "ms";
 
     worldView = new QTableView;
     worldView->setContextMenuPolicy(Qt::CustomContextMenu);
     worldView->setSortingEnabled(true);
-    qInfo() << "[KLOG-TIMING] WorldEditor 04 - QTableView:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 04 - QTableView:" << _t.restart() << "ms";
 
     createWorldModel();
-    qInfo() << "[KLOG-TIMING] WorldEditor 05 - createWorldModel:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 05 - createWorldModel:" << _t.restart() << "ms";
 
     createWorldPanel();
-    qInfo() << "[KLOG-TIMING] WorldEditor 06 - createWorldPanel:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 06 - createWorldPanel:" << _t.restart() << "ms";
 
     addEntityPushButton = new QPushButton;
     delEntityPushButton = new QPushButton;
@@ -170,7 +170,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     buttonsLayout->addWidget(editEntityPushButton);
     buttonsLayout->addWidget(delEntityPushButton);
 
-    qInfo() << "[KLOG-TIMING] WorldEditor 07 - buttons:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 07 - buttons:" << _t.restart() << "ms";
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(worldView);
@@ -179,7 +179,7 @@ SetupPageWorldEditor::SetupPageWorldEditor(DataProxy_SQLite *dp, World *injected
     setLayout(layout);
 
     createActions();
-    qInfo() << "[KLOG-TIMING] WorldEditor 08 - layout+createActions:" << _t.restart() << "ms";
+    //qInfo() << "[KLOG-TIMING] WorldEditor 08 - layout+createActions:" << _t.restart() << "ms";
 
     if (isWorldEmpty())
     {

@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
-project(KLog VERSION 2.5.1 LANGUAGES CXX)
+project(KLog VERSION 2.5.2 LANGUAGES CXX)
+set(APP_PKGVERSION "2.5.2")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_compile_definitions(KLOG_USE_VERSION_H)
@@ -32,7 +33,7 @@ endforeach()
 # Generate version.h into the build directory
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/src")
 set(APP_VERSION "${PROJECT_VERSION}")
-set(APP_PKGVERSION "2.5.1")
+
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in"
