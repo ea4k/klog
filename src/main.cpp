@@ -41,14 +41,22 @@
 #include "utilities.h"
 #include <QElapsedTimer>
 
+// Set to true when the user passes --debug on the command line.
+static bool klogDebugEnabled = false;
+
 // Suppress verbose debug noise from third-party Qt platform plugins (e.g. qt6ct)
-// that unconditionally call//qDebug() for every palette/hint query.
+// that unconditionally call qDebug() for every palette/hint query.
+// In non-debug mode, QtDebugMsg and QtInfoMsg are silenced so timing probes and
+// other developer messages are never shown in normal releases.
 static void klogMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     // Filter out the Qt6CTPlatformTheme palette/hint spam produced by qt6ct
     if (msg.contains(QLatin1String("Qt6CTPlatformTheme")))
         return;
     if (msg.contains(QLatin1String("QThreadStorage")))
+        return;
+    // Suppress debug/info output unless --debug was passed at startup
+    if (!klogDebugEnabled && (type == QtDebugMsg || type == QtInfoMsg))
         return;
     // Forward everything else to Qt's default handler
     qt_message_output(type, context, msg);
@@ -154,6 +162,14 @@ void loadTranslations(QApplication &app, QTranslator &myappTranslator)
 
 int main(int argc, char *argv[])
 {
+    // Scan raw argv before QApplication so the message handler is already
+    // configured from the very first Qt message.
+    for (int i = 1; i < argc; ++i) {
+        if (strcmp(argv[i], "--debug") == 0 || strcmp(argv[i], "-debug") == 0) {
+            klogDebugEnabled = true;
+            break;
+        }
+    }
     //qDebug() << Q_FUNC_INFO << " -  Start! ";
     //qDebug() << Q_FUNC_INFO << " -  " << QSslSocket::supportsSsl() << QSslSocket::sslLibraryBuildVersionString() << QSslSocket::sslLibraryVersionString();
     qInstallMessageHandler(klogMessageHandler);
@@ -194,12 +210,16 @@ int main(int argc, char *argv[])
         {
             cout << "Version: KLog-" << app.applicationVersion()
                  << " - pkg: " << pkgVersion << "\n";
+            return 0;
         }
-        else
+        // --debug is handled silently above; let the app start normally.
+        const bool onlyDebugFlag = (arguments.size() == 2 &&
+                                    (arguments.contains("--debug") || arguments.contains("-debug")));
+        if (!onlyDebugFlag)
         {
             util.printCommandHelp();
+            return 0;
         }
-        return 0;
     }
    //qDebug() << Q_FUNC_INFO << " 020: " << timer.elapsed() << "ms"; timer.restart();
 
