@@ -302,6 +302,12 @@ void LogWindow::refresh()
   //qDebug() << Q_FUNC_INFO << " - END";
 }
 
+void LogWindow::scrollToTop()
+{
+    if (logModel->rowCount() > 0)
+        logView->setCurrentIndex(logModel->index(0, 0));
+}
+
 void LogWindow::createActions()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";

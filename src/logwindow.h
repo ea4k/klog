@@ -52,6 +52,7 @@ public:
     void createlogPanel(const int _currentLog);
     void clear();
     void refresh();
+    void scrollToTop();
     void setCurrentLog(const int _currentLog);
 
     void qslSentViaBureau(const int _qsoId);    //Maybe this could be defined as private and call it with an action, if needed.
