@@ -6070,21 +6070,21 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
     }
     QString aux;
     bool showDebug = true;
-
+    QString klogversion = QString("KLog-%").arg(softwareVersion);
     if (nativeError.toInt() == 2067)
     {
         QMessageBox msgBox(this);
         msgBox.setIcon(QMessageBox::Warning);
         if (functionFailed == "int QSO::toDB(int)")
         {
-                msgBox.setWindowTitle(tr("KLog - QSO Dupe"));
+                msgBox.setWindowTitle(tr("% - QSO Dupe").arg(klogversion));
                 msgBox.setText(tr("A dupe QSO has been detected in the file and will not be added to the log."));
                 msgBox.setInformativeText(tr("Please check the QSO information file and ensure it is properly added.") );
                 showDebug = false;
         }
         else if (functionFailed == "virtual bool DataProxy_SQLite::addSatellite(QString, QString, QString, QString, QString)")
         {
-            msgBox.setWindowTitle(tr("KLog - Duplicated satellite"));
+            msgBox.setWindowTitle(tr("% - Duplicated satellite").arg(klogversion));
             msgBox.setText(tr("A duplicated satellite has been detected in the file and will not be imported."));
             msgBox.setInformativeText(tr("Please check the satellite information file and ensure it is properly populated.") + "\n" + tr("Now you will see a more detailed error that can be used for debugging..."));
         }
@@ -6096,7 +6096,7 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
         // TODO: An error on DB has been detected.
         // KLog should suggest to export ALL the data to an ADIF file to prevent any log lose
 
-        aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=mailto:klog@groups.io>klog@groups.io</a>)" + tr("for analysis:") + "<br>";
+        aux = "<br><b>" + tr("An unexpected error ocurred!!") + "</b><br><br>" + tr("If the problem persists, please contact the developers") + "(<a href=https://t.me/klogdevel>KLog-devel telegram group</a>)" + tr("for analysis:") + "<br>";
         QString errorMSG =  "<ul>"
                         "<li><b>" + tr("Error in function") + ":</b> " + functionFailed + "</li>" +
                         "<li><b>" + tr("Native Error") +":</b> " + nativeError + "</li>" +
@@ -6110,7 +6110,8 @@ void MainWindow::slotQueryErrorManagement(QString functionFailed, QString errorC
         showErrorDialog->exec();
     }
     QMessageBox msgBox(this);
-    msgBox.setWindowTitle(tr("KLog - Show errors"));
+    //QString klogversion = QString("KLog-%").arg(softwareVersion);
+    msgBox.setWindowTitle(tr("% - Show errors").arg(klogversion));
     msgBox.setIcon(QMessageBox::Question);
     aux = tr("Do you want to keep showing errors?");
     msgBox.setText(aux);

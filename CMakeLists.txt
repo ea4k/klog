@@ -80,11 +80,31 @@ add_subdirectory(src)
 
 # Option to enable/disable tests
 option(BUILD_TESTING "Build the testing tree." ON)
+if(NOT BUILD_TESTING)
+    message(WARNING "BUILD_TESTING OFF")
+endif()
 if(BUILD_TESTING)
     enable_testing()
     add_subdirectory(tests)
 endif()
 
+# Add this right after
+option(KLOG_COVERAGE "Enable test coverage instrumentation" ON)
+
+if(KLOG_COVERAGE)
+    if(NOT BUILD_TESTING)
+        message(WARNING "KLOG_COVERAGE=ON but BUILD_TESTING=OFF — no tests to cover")
+    endif()
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        add_compile_options(--coverage -fprofile-arcs -ftest-coverage)
+        add_link_options(--coverage)
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        add_compile_options(-fprofile-instr-generate -fcoverage-mapping)
+        add_link_options(-fprofile-instr-generate)
+    else()
+        message(WARNING "KLOG_COVERAGE=ON but compiler ${CMAKE_CXX_COMPILER_ID} is not supported")
+    endif()
+endif()
 
 # --- CPACK CONFIGURATION ---
 # Naming convention:

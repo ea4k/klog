@@ -31,7 +31,7 @@ QSO::QSO(QObject *parent)
     : QObject(parent)
 {
     //startT = QTime::currentTime();
-   //qDebug() << Q_FUNC_INFO << " - " << startT.msec();
+    //qDebug() << Q_FUNC_INFO << " - " << state.msec();
     clear();
     logLevel = None;
     qsoId = -1;
