@@ -305,7 +305,9 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipText, Qt::white);
         qApp->setPalette(p);
         qApp->setStyleSheet("QToolTip { color: white; background-color: #353535; border: 1px solid #aaaaaa; } "
-                            "QLineEdit:focus { background-color: #665500; color: #ffffff; }");
+                            "QLineEdit:focus { background-color: #665500; color: #ffffff; } "
+                            "QDoubleSpinBox:focus { background-color: #665500; color: #ffffff; } "
+                            "QCheckBox:focus { background-color: #665500; color: #ffffff; }");
         darkModeButton->setText(tr("Light Mode"));
         //darkMode = true;
     }
@@ -326,7 +328,9 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
         qApp->setStyleSheet("QToolTip { color: black; background-color: white; border: 1px solid #aaaaaa; } "
-                            "QLineEdit:focus { background-color: #cce5ff; color: #000000; }");
+                            "QLineEdit:focus { background-color: #cce5ff; color: #000000; } "
+                            "QDoubleSpinBox:focus { background-color: #cce5ff; color: #000000; } "
+                            "QCheckBox:focus { background-color: #cce5ff; color: #000000; }");
         darkModeButton->setText(tr("Dark Mode"));
         //darkMode = false;
     }
