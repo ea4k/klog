@@ -168,6 +168,7 @@ int main(int argc, char *argv[])
    //qDebug() << Q_FUNC_INFO << " 001: " << timer.elapsed() << "ms"; timer.restart();
     QApplication app(argc, argv);
    //qDebug() << Q_FUNC_INFO << " 002: " << timer.elapsed() << "ms"; timer.restart();
+    app.setStyleSheet("QLineEdit:focus { background-color: #cce5ff; color: #000000; }");
     QString iconSt;
     iconSt = ":/img/klog.ico";
     QIcon KLogIcon(iconSt);

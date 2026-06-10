@@ -304,7 +304,8 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipBase, QColor(53,53,53));
         p.setColor(QPalette::ToolTipText, Qt::white);
         qApp->setPalette(p);
-        qApp->setStyleSheet("QToolTip { color: white; background-color: #353535; border: 1px solid #aaaaaa; }");
+        qApp->setStyleSheet("QToolTip { color: white; background-color: #353535; border: 1px solid #aaaaaa; } "
+                            "QLineEdit:focus { background-color: #887200; color: #ffffff; }");
         darkModeButton->setText(tr("Light Mode"));
         //darkMode = true;
     }
@@ -324,7 +325,8 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipBase, Qt::white);
         p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
-        qApp->setStyleSheet("QToolTip { color: black; background-color: white; border: 1px solid #aaaaaa; }");
+        qApp->setStyleSheet("QToolTip { color: black; background-color: white; border: 1px solid #aaaaaa; } "
+                            "QLineEdit:focus { background-color: #cce5ff; color: #000000; }");
         darkModeButton->setText(tr("Dark Mode"));
         //darkMode = false;
     }
