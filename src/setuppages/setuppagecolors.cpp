@@ -305,7 +305,7 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipText, Qt::white);
         qApp->setPalette(p);
         qApp->setStyleSheet("QToolTip { color: white; background-color: #353535; border: 1px solid #aaaaaa; } "
-                            "QLineEdit:focus { background-color: #887200; color: #ffffff; }");
+                            "QLineEdit:focus { background-color: #443900; color: #ffffff; }");
         darkModeButton->setText(tr("Light Mode"));
         //darkMode = true;
     }
