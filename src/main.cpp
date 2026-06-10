@@ -173,7 +173,8 @@ int main(int argc, char *argv[])
                       "QCheckBox:focus { background-color: #cce5ff; color: #000000; } "
                       "QDateEdit:focus { background-color: #cce5ff; color: #000000; } "
                       "QTimeEdit:focus { background-color: #cce5ff; color: #000000; } "
-                      "QPushButton:focus { background-color: #cce5ff; color: #000000; }");
+                      "QPushButton:focus { background-color: #cce5ff; color: #000000; } "
+                      "QComboBox:focus { background-color: #cce5ff; color: #000000; }");
     QString iconSt;
     iconSt = ":/img/klog.ico";
     QIcon KLogIcon(iconSt);
