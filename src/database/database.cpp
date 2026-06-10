@@ -432,7 +432,12 @@ bool DataBase::recreateTableLog()
         return false;
     }
     //qDebug() << Q_FUNC_INFO << " - 50";
-    return execQuery(Q_FUNC_INFO, "ALTER TABLE logtemp RENAME TO log");
+    if (!execQuery(Q_FUNC_INFO, "ALTER TABLE logtemp RENAME TO log"))
+    {
+        return false;
+    }
+    // The indexes were dropped together with the old log table.
+    return createLogTableIndexes();
 }
 
 bool DataBase::createTableLog(bool temp)
@@ -626,6 +631,14 @@ bool DataBase::createTableLog(bool temp)
     if (execQuery(Q_FUNC_INFO, stringQuery))
     {
         //qDebug() << Q_FUNC_INFO << ": Query OK";
+        if (temp)
+        { // Indexes are only created on the real log table, not on logtemp.
+            if (!createLogTableIndexes())
+            {
+                logEvent(Q_FUNC_INFO, "END-3", Debug);
+                return false;
+            }
+        }
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return true;
     }
@@ -635,6 +648,31 @@ bool DataBase::createTableLog(bool temp)
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
+}
+
+bool DataBase::createLogTableIndexes()
+{ // Indexes covering the WHERE clauses of the hot queries (import dupe checks,
+  // awards/DXCC status, per-log filtering). IF NOT EXISTS makes it safe to call
+  // on databases that already have them.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    const QStringList indexQueries = {
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_call_band_mode ON log (call, bandid, modeid)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_lognumber ON log (lognumber)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_lognumber_band ON log (lognumber, bandid)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_dxcc ON log (dxcc)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_qso_date ON log (qso_date)")
+    };
+
+    for (const QString &indexQuery : indexQueries)
+    {
+        if (!execQuery(Q_FUNC_INFO, indexQuery))
+        {
+            logEvent(Q_FUNC_INFO, "END-1", Debug);
+            return false;
+        }
+    }
+    logEvent(Q_FUNC_INFO, "END", Debug);
+    return true;
 }
 
 bool DataBase::createDataBase()
@@ -969,7 +1007,7 @@ bool DataBase::updateToLatest()
 /*
  * With the DB updates, the function that is called from here should be also updated.
  * The updateXXX are recursive calls that calls the previous one.
- * Update float DBVersionf = 0.028f; in database.h to the latest version!
+ * Update float DBVersionf = 0.029f; in database.h to the latest version!
  * To rebuild the Mode table and add new modes
  */
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -980,7 +1018,7 @@ bool DataBase::updateToLatest()
         //return false;
     }
     //qDebug() << Q_FUNC_INFO << " - Let's update!";
-    return updateTo028();
+    return updateTo029();
 }
 
 
@@ -4595,6 +4633,32 @@ bool DataBase::updateTo028()
         return false;
 
     return updateDBVersion(softVersion, "0.028");
+}
+
+bool DataBase::updateTo029()
+{
+    // Updates the DB to 0.029:
+    // Adds indexes to the log table to speed up queries
+    // (import dupe checks, awards/DXCC status, per-log filtering)
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
+    latestReaded = getDBVersion();
+    if (latestReaded >= 0.029f)
+    {
+        //qDebug() << Q_FUNC_INFO << " - I am in 029" ;
+        return true;
+    }
+
+    if (!updateTo028())
+        return false;
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!createLogTableIndexes())
+        return false;
+
+    return updateDBVersion(softVersion, "0.029");
 }
 
 int DataBase::getNumberOfQsos(const int _logNumber)

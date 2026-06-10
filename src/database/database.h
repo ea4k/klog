@@ -44,7 +44,7 @@
 #include "../klogdefinitions.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.028f; // This is the latest version of the DB.
+const float DBVersionf = 0.029f; // This is the latest version of the DB.
 
 class DataBase : public QObject
 {
@@ -150,6 +150,7 @@ private:
     bool updateTo026(); // KLog-2.4: Recreates entity to make UTC a real & add new ADIF fields
     bool updateTo027(); // KLog-2.4.2: Recreates entity to make UTC a real & add new ADIF fields
     bool updateTo028(); // KLog-2.4.3: Adds FT2 submode
+    bool updateTo029(); // KLog-2.5.3: Adds indexes to the log table to speed up queries
 
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
@@ -159,6 +160,7 @@ private:
     //bool updateLog(); // Updates the log table
     bool recreateTableLog();
     bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
+    bool createLogTableIndexes();           // Creates the indexes of the log table (CREATE INDEX IF NOT EXISTS)
     bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
     bool createTableEntity(const bool NoTmp);
     bool recreateTableEntity();
