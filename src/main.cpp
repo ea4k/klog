@@ -172,7 +172,8 @@ int main(int argc, char *argv[])
                       "QDoubleSpinBox:focus { background-color: #cce5ff; color: #000000; } "
                       "QCheckBox:focus { background-color: #cce5ff; color: #000000; } "
                       "QDateEdit:focus { background-color: #cce5ff; color: #000000; } "
-                      "QTimeEdit:focus { background-color: #cce5ff; color: #000000; }");
+                      "QTimeEdit:focus { background-color: #cce5ff; color: #000000; } "
+                      "QPushButton:focus { background-color: #cce5ff; color: #000000; }");
     QString iconSt;
     iconSt = ":/img/klog.ico";
     QIcon KLogIcon(iconSt);

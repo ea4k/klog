@@ -309,7 +309,8 @@ void SetupPageColors::setDarkMode(const bool _d)
                             "QDoubleSpinBox:focus { background-color: #665500; color: #ffffff; } "
                             "QCheckBox:focus { background-color: #665500; color: #ffffff; } "
                             "QDateEdit:focus { background-color: #665500; color: #ffffff; } "
-                            "QTimeEdit:focus { background-color: #665500; color: #ffffff; }");
+                            "QTimeEdit:focus { background-color: #665500; color: #ffffff; } "
+                            "QPushButton:focus { background-color: #665500; color: #ffffff; }");
         darkModeButton->setText(tr("Light Mode"));
         //darkMode = true;
     }
@@ -334,7 +335,8 @@ void SetupPageColors::setDarkMode(const bool _d)
                             "QDoubleSpinBox:focus { background-color: #cce5ff; color: #000000; } "
                             "QCheckBox:focus { background-color: #cce5ff; color: #000000; } "
                             "QDateEdit:focus { background-color: #cce5ff; color: #000000; } "
-                            "QTimeEdit:focus { background-color: #cce5ff; color: #000000; }");
+                            "QTimeEdit:focus { background-color: #cce5ff; color: #000000; } "
+                            "QPushButton:focus { background-color: #cce5ff; color: #000000; }");
         darkModeButton->setText(tr("Dark Mode"));
         //darkMode = false;
     }
