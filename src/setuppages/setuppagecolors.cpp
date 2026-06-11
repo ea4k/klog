@@ -304,7 +304,14 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipBase, QColor(53,53,53));
         p.setColor(QPalette::ToolTipText, Qt::white);
         qApp->setPalette(p);
-        qApp->setStyleSheet("QToolTip { color: white; background-color: #353535; border: 1px solid #aaaaaa; }");
+        qApp->setStyleSheet("QToolTip { color: white; background-color: #353535; border: 1px solid #aaaaaa; } "
+                            "QLineEdit:focus { background-color: #665500; color: #ffffff; } "
+                            "QDoubleSpinBox:focus { background-color: #665500; color: #ffffff; } "
+                            "QCheckBox:focus { background-color: #665500; color: #ffffff; } "
+                            "QDateEdit:focus { background-color: #665500; color: #ffffff; } "
+                            "QTimeEdit:focus { background-color: #665500; color: #ffffff; } "
+                            "QPushButton:focus { background-color: #665500; color: #ffffff; } "
+                            "QComboBox:focus { background-color: #665500; color: #ffffff; }");
         darkModeButton->setText(tr("Light Mode"));
         //darkMode = true;
     }
@@ -324,7 +331,14 @@ void SetupPageColors::setDarkMode(const bool _d)
         p.setColor(QPalette::ToolTipBase, Qt::white);
         p.setColor(QPalette::ToolTipText, Qt::black);
         qApp->setPalette(p);
-        qApp->setStyleSheet("QToolTip { color: black; background-color: white; border: 1px solid #aaaaaa; }");
+        qApp->setStyleSheet("QToolTip { color: black; background-color: white; border: 1px solid #aaaaaa; } "
+                            "QLineEdit:focus { background-color: #cce5ff; color: #000000; } "
+                            "QDoubleSpinBox:focus { background-color: #cce5ff; color: #000000; } "
+                            "QCheckBox:focus { background-color: #cce5ff; color: #000000; } "
+                            "QDateEdit:focus { background-color: #cce5ff; color: #000000; } "
+                            "QTimeEdit:focus { background-color: #cce5ff; color: #000000; } "
+                            "QPushButton:focus { background-color: #cce5ff; color: #000000; } "
+                            "QComboBox:focus { background-color: #cce5ff; color: #000000; }");
         darkModeButton->setText(tr("Dark Mode"));
         //darkMode = false;
     }
