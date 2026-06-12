@@ -250,6 +250,7 @@ private slots:
     void slotAboutQt();
     void slotTipsAction();
     void slotDebugAction();
+    void slotLanguageActionTriggered(QAction *action);
 
     // MainQSOEntryWidget
     void slotShowInfoLabel(const QString &_m);
@@ -410,6 +411,7 @@ private:
     void clearBandLabels();
 
     void createMenusCommon();
+    void createLanguageMenu();
     void createActionsCommon();
     void connectDebugLogActions();  // Connects the log actions from other classes
 
@@ -530,6 +532,7 @@ private:
     // qMenu *lotwMarkAllInThisLogAsQueuedMenu;
     QMenu *viewMenu;
     // qMenu *setupMenu;
+    QMenu *languageMenu;
     QMenu *helpMenu;
 
     // qAction *TestAct;       // Action for testing purposes only

@@ -26,6 +26,7 @@
 #include "utilities.h"
 #include "callsign.h"
 #include <QRegularExpression>
+#include <QCoreApplication>
 //bool c;
 Utilities::Utilities(const QString &_parentName)
 {
@@ -581,6 +582,49 @@ QString Utilities::getCfgFile()
     return getHomeDir() + "/klogrc";
 
 #endif
+}
+
+QStringList Utilities::getTranslationSearchPaths()
+{
+    QStringList searchPaths;
+#if defined(Q_OS_MACOS)
+    // .app bundle: KLog.app/Contents/Resources/translations/
+    // (CMakeLists: MACOSX_PACKAGE_LOCATION Resources/translations)
+    searchPaths << QCoreApplication::applicationDirPath() + "/../Resources/translations";
+#elif defined(Q_OS_WIN)
+    // Alongside the .exe (CMakeLists: DESTINATION translations)
+    searchPaths << QCoreApplication::applicationDirPath() + "/translations";
+#else
+    // Linux FHS (CMakeLists: DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
+    searchPaths << QCoreApplication::applicationDirPath() + "/../share/klog/translations";
+    searchPaths << "/usr/share/klog/translations";
+    searchPaths << "/usr/local/share/klog/translations";
+#endif
+    // Fallback for development builds on every platform
+    searchPaths << QCoreApplication::applicationDirPath() + "/translations";
+    searchPaths << QCoreApplication::applicationDirPath() + "/../src/translations";
+    // qt_add_translations generates the .qm files in <build>/src in development builds
+    searchPaths << QCoreApplication::applicationDirPath() + "/../src";
+    return searchPaths;
+}
+
+QStringList Utilities::getAvailableLanguages()
+{
+    QStringList languages;
+    languages << "en"; // English is built-in; no translation file needed.
+    const QStringList paths = getTranslationSearchPaths();
+    for (const QString &dir : paths)
+    {
+        const QStringList files = QDir(dir).entryList(QStringList("klog_*.qm"), QDir::Files);
+        for (const QString &file : files)
+        {   // klog_<code>.qm
+            QString code = file.mid(5, file.length() - 8).toLower();
+            if (!code.isEmpty() && !languages.contains(code))
+                languages << code;
+        }
+    }
+    languages.sort();
+    return languages;
 }
 
 QString Utilities::getDebugLogFile()
