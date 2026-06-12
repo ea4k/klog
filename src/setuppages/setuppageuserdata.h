@@ -132,6 +132,7 @@ private:
 
     //Personal Tab
     QLineEdit *nameLineEdit;
+    QComboBox *languageComboBox;
     QTextEdit *addressTextEdit;
     QLineEdit *address1LineEdit;
     QLineEdit *address2LineEdit;

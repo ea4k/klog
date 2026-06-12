@@ -2701,7 +2701,7 @@ void MainWindow::createMenusCommon()
 
     //setupMenu = menuBar()->addMenu(tr("Setup"));
 
-    createLanguageMenu();
+
 
     //TODO: To be added once the help dialog has been implemented
     helpMenu = menuBar()->addMenu(tr("&Help"));
@@ -2743,66 +2743,6 @@ void MainWindow::createMenusCommon()
     //updateAct->setMenuRole(QAction::ApplicationSpecificRole);
     connect(updateAct, SIGNAL(triggered()), this, SLOT(slotHelpCheckUpdatesAction()));
  }
-
-void MainWindow::createLanguageMenu()
-{
-    logEvent(Q_FUNC_INFO, "Start", Devel);
-    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-    QString currentLanguage = settings.value("Language", "auto").toString().toLower();
-
-    languageMenu = menuBar()->addMenu(tr("&Language"));
-    QActionGroup *languageActionGroup = new QActionGroup(this);
-    languageActionGroup->setExclusive(true);
-
-    QAction *autoAct = new QAction(tr("System default"), this);
-    autoAct->setCheckable(true);
-    autoAct->setData("auto");
-    autoAct->setToolTip(tr("Use the language of the operating system."));
-    languageActionGroup->addAction(autoAct);
-    languageMenu->addAction(autoAct);
-    languageMenu->addSeparator();
-
-    const QStringList languages = util->getAvailableLanguages();
-    for (const QString &code : languages)
-    {
-        QLocale locale(code);
-        QString name = locale.nativeLanguageName();
-        if (name.isEmpty())
-            name = code;
-        else
-            name[0] = name.at(0).toUpper();
-        QAction *languageAct = new QAction(name, this);
-        languageAct->setCheckable(true);
-        languageAct->setData(code);
-        languageActionGroup->addAction(languageAct);
-        languageMenu->addAction(languageAct);
-        if (code == currentLanguage)
-            languageAct->setChecked(true);
-    }
-    // If the configured language is not installed (or it is "auto"), fall back to System default.
-    if (!languageActionGroup->checkedAction())
-        autoAct->setChecked(true);
-
-    connect(languageActionGroup, SIGNAL(triggered(QAction*)), this, SLOT(slotLanguageActionTriggered(QAction*)));
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
-void MainWindow::slotLanguageActionTriggered(QAction *action)
-{
-    logEvent(Q_FUNC_INFO, "Start", Devel);
-    if (action == nullptr)
-        return;
-    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
-    QString newLanguage = action->data().toString();
-    QString currentLanguage = settings.value("Language", "auto").toString().toLower();
-    if (newLanguage != currentLanguage)
-    {
-        settings.setValue("Language", newLanguage);
-        QMessageBox::information(this, tr("KLog - Language"),
-                                 tr("The language change will take effect the next time you start KLog."));
-    }
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
 
 void MainWindow::slotDebugAction()
 {
