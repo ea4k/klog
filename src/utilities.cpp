@@ -26,6 +26,8 @@
 #include "utilities.h"
 #include "callsign.h"
 #include <QRegularExpression>
+// Qt headers are not in cppcheck's include path on the CI; silence the false positive.
+// cppcheck-suppress missingIncludeSystem
 #include <QCoreApplication>
 //bool c;
 Utilities::Utilities(const QString &_parentName)
