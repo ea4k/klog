@@ -77,7 +77,6 @@ set(KLOG_SOURCES
    dxcluster/dxclusterassistant.cpp
    dxcluster/dxcluster.cpp
    dxcluster/dxspot.cpp
-   inputwidgets/mainwindowinputcomment.cpp
    inputwidgets/mainwindowinputeqsl.cpp
    inputwidgets/mainwindowinputothers.cpp
    inputwidgets/mainwindowinputqsl.cpp
@@ -179,7 +178,6 @@ set(KLOG_HEADERS
    dxcluster/dxclusterassistant.h
    dxcluster/dxcluster.h
    dxcluster/dxspot.h
-   inputwidgets/mainwindowinputcomment.h
    inputwidgets/mainwindowinputeqsl.h
    inputwidgets/mainwindowinputothers.h
    inputwidgets/mainwindowinputqsl.h
