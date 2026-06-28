@@ -107,6 +107,13 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
+    newGridLabel = new QLabel;
+    newGridLabel->setText(tr("New Grid Locator"));
+    newGridLabel->setToolTip(tr("This grid is new on this band."));
+    newGridLabel->setStyleSheet("QLabel { color : red; font-weight : bold; }");
+    newGridLabel->setAlignment(Qt::AlignCenter);
+    newGridLabel->setVisible(false);
+
     awardsWidget = new AwardsWidget(dataProxy, world, this);
     //qInfo() << "[KLOG-TIMING] ctor 017 AwardsWidget:" << timer.elapsed() << "ms"; timer.restart();
 
@@ -1002,6 +1009,7 @@ void MainWindow::slotBandChanged (const QString &_b)
         _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
         showStatusOfDXCC(_entityStatus);
     }
+    checkNewGrid();
     changingBand = false;
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::slotBandChanged: END" ;
@@ -4021,8 +4029,12 @@ void MainWindow::createUIDX()
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
 
+    QHBoxLayout *dxStatusLayout = new QHBoxLayout;
+    dxStatusLayout->addWidget(infoLabel1, 1);                    // takes the available width
+    dxStatusLayout->addWidget(newGridLabel, 0, Qt::AlignRight);  // glued to the right frame
+
     QVBoxLayout *dxUpRightFixLayout = new QVBoxLayout;
-    dxUpRightFixLayout->addWidget(infoLabel1);
+    dxUpRightFixLayout->addLayout(dxStatusLayout);
     dxUpRightFixLayout->addWidget(infoLabel2);
 
     infoLabel1->setAlignment(Qt::AlignCenter);
@@ -4794,6 +4806,34 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
     {
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), _loc);
     }
+    checkNewGrid();
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::checkNewGrid()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    const QString loc = QSOTabWidget->getDXLocator();
+    Locator locator;
+    if (!locator.isValidLocator(loc) || loc.length() < 4)
+    {
+        newGridLabel->setVisible(false);
+        logEvent(Q_FUNC_INFO, "END-1", Debug);
+        return;
+    }
+    const QString bandName = mainQSOEntryWidget->getBand();
+    const int bandId = dataProxy->getIdFromBandName(bandName);
+    const QString grid4 = loc.left(4).toUpper();
+    // Satellite QSOs are tracked apart from terrestrial bands.
+    const QString prop = othersTabWidget->getPropModeFromComboBox();
+    const bool isSat = (prop.trimmed().toUpper() == "SAT");
+    // When editing a QSO, exclude it from the count so its own grid does not mask a "new" status.
+    const int excludeId = modify ? modifyingQSOid : -1;
+    const bool isNew = dataProxy->isNewGridOnBand(grid4, bandId, currentLog, prop, excludeId);
+    if (isNew)
+        newGridLabel->setText(isSat ? tr("New Locator on Sats")
+                                    : tr("New Locator on %1 Band").arg(bandName));
+    newGridLabel->setVisible(isNew);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5521,6 +5561,7 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 
     othersTabWidget->setPropMode(_p, _keep);
     QSOTabWidget->setPropModeFromSat(_p);
+    checkNewGrid();
     logEvent(Q_FUNC_INFO, "END", Debug);
     //int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
     //propModeComboBox->setCurrentIndex(indexC);
@@ -5534,6 +5575,7 @@ void MainWindow::slotSetPropModeFromOther(const QString &_p)
          //qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
         satTabWidget->setNoSat();
     }
+    checkNewGrid();
 }
 
 void MainWindow::clearIfNotCompleted()

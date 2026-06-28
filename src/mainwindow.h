@@ -429,6 +429,7 @@ private:
     //bool checkContest();
     void showStatusOfDXCC(EntityStatus _entityStatus);
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
+    void checkNewGrid();    // Updates the "New Grid" label depending on the DX locator and current band
 
     bool createConnection();
     void openSetup(const int _page=0);
@@ -611,6 +612,7 @@ private:
     // UI DX
     // qLabel *entitySecLabel, *iotaAwardLabel, *entityNameLabel, *propModeLabel; //entityPrimLabel
     QLabel *infoLabel1, *infoLabel2, *dxMarathonLabelN, *dxMarathonTopScoreLabelN;
+    QLabel *newGridLabel;       // Red "New Grid Locator" indicator shown next to the DX entity status
 
     QString lotwTQSLpath;
 
