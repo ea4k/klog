@@ -6,7 +6,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="44"/>
         <source>About KLog</source>
-        <translation type="unfinished">Klosg DXCC</translation>
+        <translation>Klosg DXCC</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="51"/>
@@ -116,7 +116,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="130"/>
         <source>At present, the data that is provided is the following:</source>
-        <translation type="unfinished">Šobrīd sniegtie dati ir šādi:</translation>
+        <translation>Šobrīd sniegtie dati ir šādi:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="131"/>
