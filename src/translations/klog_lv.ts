@@ -8321,17 +8321,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="69"/>
         <source>Sent - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosūtīts – %1</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="70"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Apstiprināti – %2</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="85"/>
         <source>Sent / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosūtīts / apstiprināts</translation>
     </message>
 </context>
 <context>
@@ -8339,17 +8339,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="73"/>
         <source>Worked, not confirmed - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts, bet nav apstiprināts – %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="74"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Apstiprināti – %2</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="89"/>
         <source>Worked / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts / apstiprināts</translation>
     </message>
 </context>
 <context>
@@ -8357,17 +8357,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="69"/>
         <source>Worked - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts – %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="70"/>
         <source>Sent - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosūtītas – %2</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="86"/>
         <source>Worked / Sent status</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts / nosūtīts</translation>
     </message>
 </context>
 <context>
