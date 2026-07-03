@@ -6392,7 +6392,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogview.cpp" line="43"/>
         <source>Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Lauki</translation>
     </message>
 </context>
 <context>
