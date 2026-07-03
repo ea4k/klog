@@ -6,7 +6,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="44"/>
         <source>About KLog</source>
-        <translation type="unfinished">Klosg DXCC</translation>
+        <translation>Klosg DXCC</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="51"/>
@@ -116,7 +116,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="130"/>
         <source>At present, the data that is provided is the following:</source>
-        <translation type="unfinished">Šobrīd sniegtie dati ir šādi:</translation>
+        <translation>Šobrīd sniegtie dati ir šādi:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="131"/>
@@ -8592,7 +8592,7 @@ The log will not be opened.</source>
         <location filename="../elogclublog.cpp" line="94"/>
         <location filename="../elogclublog.cpp" line="176"/>
         <source>Host not found!</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveris nav atrasts!</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="100"/>
@@ -8615,12 +8615,12 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="105"/>
         <source>It seems to be a CREDENTIALS ERROR; check your email and password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka tā ir akreditācijas datu kļūda; pārbaudiet savu e-pastu un paroli.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="108"/>
         <source>It seems that your ClubLog credentials are not correct.</source>
-        <translation type="unfinished"></translation>
+        <translation>Šķiet, ka jūsu ClubLog akreditācijas dati nav pareizi.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="109"/>
@@ -8801,7 +8801,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogqrzlog.cpp" line="317"/>
         <source>You are not subscribed to QRZ.com.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jums nav QRZ.com abonementa.</translation>
     </message>
     <message>
         <location filename="../elogqrzlog.cpp" line="618"/>
