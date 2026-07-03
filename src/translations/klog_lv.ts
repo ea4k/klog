@@ -4345,12 +4345,12 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="39"/>
         <source>The server returned the following error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveris atgrieza šādu kļūdu: %1</translation>
     </message>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="171"/>
         <source>Not identified</source>
-        <translation type="unfinished"></translation>
+        <translation>Nav atpazīts</translation>
     </message>
 </context>
 <context>
@@ -5875,7 +5875,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setuppagebandmode.cpp" line="42"/>
         <source>Bands</source>
-        <translation type="unfinished">Diapazons</translation>
+        <translation>Diapazoni</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagebandmode.cpp" line="46"/>
