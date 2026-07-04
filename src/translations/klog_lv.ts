@@ -370,7 +370,7 @@
         <location filename="../awards.cpp" line="1312"/>
         <source>ATNO</source>
         <comment>All Time New One, Do not translate</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pirmreizējs DXCC sakars</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1315"/>
@@ -381,7 +381,7 @@
     <message>
         <location filename="../awards.cpp" line="1316"/>
         <source>Needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepieciešams</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1319"/>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../awards.cpp" line="1329"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezināms</translation>
     </message>
 </context>
 <context>
