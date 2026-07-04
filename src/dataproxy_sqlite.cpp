@@ -2401,6 +2401,13 @@ int DataProxy_SQLite::addQSO(QSO &_qso)
     if (!_qso.isComplete())
         return -1;
     _qso.clearQSLDateIfNeeded();
+    if ((_qso.getCQZone() <= 0) && (_qso.getDXCC() > 0))
+    {
+        const int entityCQz = getCQzFromEntity(_qso.getDXCC());
+        if (entityCQz > 0)
+            _qso.setCQZone(entityCQz);
+    }
+
 
     prepareStaticQueries();
     if (!m_queriesPrepared)
