@@ -1,6 +1,10 @@
 May 2026 - 2.5.2
 - Bugfix: Debug messages are shown in the console (Close #1005)
 - Enhancement: Color the QLineEdit that has the focus (Close #3) (TNX EA5WA)
+- Enhancement: Move Comment field from Comment tab to QSO tab (Closes #1020) (TNX EA5WA)
+- New feature: Selection of language (Closes #9) (TNX EA5WA)
+- New feature: Set CQ zone from DXCC when adding QSO (TNX YL3GBC)
+- Translations: Latvian (TNX YL3GBC & YL3AUG)
 
 May 2026 - 2.5.1
 - Enhancement: Entity dxcc to name queries speed up.
