@@ -370,7 +370,7 @@
         <location filename="../awards.cpp" line="1312"/>
         <source>ATNO</source>
         <comment>All Time New One, Do not translate</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pirmreizējs DXCC sakars</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1315"/>
@@ -381,7 +381,7 @@
     <message>
         <location filename="../awards.cpp" line="1316"/>
         <source>Needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepieciešams</translation>
     </message>
     <message>
         <location filename="../awards.cpp" line="1319"/>
@@ -414,7 +414,7 @@
     <message>
         <location filename="../awards.cpp" line="1329"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezināms</translation>
     </message>
 </context>
 <context>
@@ -4345,12 +4345,12 @@ Frequency is not in a hamradio band!</source>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="39"/>
         <source>The server returned the following error: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveris atgrieza šādu kļūdu: %1</translation>
     </message>
     <message>
         <location filename="../widgets/onlinemessagewidget.cpp" line="171"/>
         <source>Not identified</source>
-        <translation type="unfinished"></translation>
+        <translation>Nav atpazīts</translation>
     </message>
 </context>
 <context>
@@ -5875,7 +5875,7 @@ Please add and select the kind of log you want to use.</source>
     <message>
         <location filename="../setuppages/setuppagebandmode.cpp" line="42"/>
         <source>Bands</source>
-        <translation type="unfinished">Diapazons</translation>
+        <translation>Diapazoni</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagebandmode.cpp" line="46"/>
@@ -6392,7 +6392,7 @@ If no port is specified, 41112 will be used by default:</source>
     <message>
         <location filename="../setuppages/setuppagelogview.cpp" line="43"/>
         <source>Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Lauki</translation>
     </message>
 </context>
 <context>
@@ -8321,17 +8321,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="69"/>
         <source>Sent - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosūtīts – %1</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="70"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Apstiprināti – %2</translation>
     </message>
     <message>
         <location filename="../charts/statssentconfirmedpiechartwidget.cpp" line="85"/>
         <source>Sent / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosūtīts / apstiprināts</translation>
     </message>
 </context>
 <context>
@@ -8339,17 +8339,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="73"/>
         <source>Worked, not confirmed - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts, bet nav apstiprināts – %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="74"/>
         <source>Confirmed - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Apstiprināti – %2</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedconfirmedpiechartwidget.cpp" line="89"/>
         <source>Worked / Confirmed status</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts / apstiprināts</translation>
     </message>
 </context>
 <context>
@@ -8357,17 +8357,17 @@ The log will not be opened.</source>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="69"/>
         <source>Worked - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts – %1</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="70"/>
         <source>Sent - %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosūtītas – %2</translation>
     </message>
     <message>
         <location filename="../charts/statsworkedsentpiechartwidget.cpp" line="86"/>
         <source>Worked / Sent status</source>
-        <translation type="unfinished"></translation>
+        <translation>Nostrādāts / nosūtīts</translation>
     </message>
 </context>
 <context>
