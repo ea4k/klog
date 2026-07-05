@@ -8625,7 +8625,7 @@ The log will not be opened.</source>
     <message>
         <location filename="../elogclublog.cpp" line="109"/>
         <source>Please check your credentials in the setup. ClubLog uploads will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lūdzu, pārbaudiet savus pieteikšanās datus iestatījumos. ClubLog augšupielāde tiks atspējota.</translation>
     </message>
     <message>
         <location filename="../elogclublog.cpp" line="133"/>
