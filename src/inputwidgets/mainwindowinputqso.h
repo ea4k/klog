@@ -81,6 +81,11 @@ public:
     void setModifying(const bool _m);
     void receiveFocus();
 
+    QString getComment();
+    void setComment(const QString &_st);
+    bool getKeepComment();
+    void setKeepComment(bool _b);
+
     void clear();
     void cleanQRZCOM(const bool _dataFromQRZCOM);
     void clearName();
@@ -120,8 +125,10 @@ private:
 
 
     QLineEdit *rstTXLineEdit, *rstRXLineEdit, *qthLineEdit, *locatorLineEdit, *nameLineEdit;
+    QLineEdit *commentLineEdit;
     QDoubleSpinBox *rxPowerSpinBox,  *txFreqSpinBox, *rxFreqSpinBox;
     QCheckBox *splitCheckBox;
+    QCheckBox *keepCommentCheckBox;
 
     //Locator *locator;
 
