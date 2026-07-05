@@ -55,7 +55,6 @@
 #include "../../src/frequency.h"
 #include "../../src/hamlibclass.h"
 #include "../../src/infowidget.h"
-#include "../../src/inputwidgets/mainwindowinputcomment.h"
 #include "../../src/inputwidgets/mainwindowinputeqsl.h"
 #include "../../src/inputwidgets/mainwindowinputothers.h"
 #include "../../src/inputwidgets/mainwindowinputqsl.h"

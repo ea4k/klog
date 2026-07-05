@@ -129,8 +129,6 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
    ////qInfo() << "[KLOG-TIMING] ctor 023 - MainWindowInputQSO:" << timer.elapsed() << "ms"; timer.restart();
     myDataTabWidget = new MainWindowMyDataTab(dataProxy);
    ////qInfo() << "[KLOG-TIMING] ctor 024 - MainWindowMyDataTab:" << timer.elapsed() << "ms"; timer.restart();
-    commentTabWidget = new MainWindowInputComment();
-   ////qInfo() << "[KLOG-TIMING] ctor 025 - MainWindowInputComment:" << timer.elapsed() << "ms"; timer.restart();
     othersTabWidget = new MainWindowInputOthers(dataProxy, world);
    ////qInfo() << "[KLOG-TIMING] ctor 026 - MainWindowInputOthers:" << timer.elapsed() << "ms"; timer.restart();
     eQSLTabWidget = new MainWindowInputEQSL(dataProxy);
@@ -1299,7 +1297,6 @@ void MainWindow::getQSODataFromUI()
     //qDebug() << Q_FUNC_INFO << " -  001";
     qsoInUI = QSOTabWidget->getQSOData(qsoInUI);
     //qDebug() << Q_FUNC_INFO << " -  002";
-    qsoInUI = commentTabWidget->getQSOData(qsoInUI);
     //qDebug() << Q_FUNC_INFO << " -  003";
     qsoInUI = othersTabWidget->getQSOData(qsoInUI);
     //qDebug() << Q_FUNC_INFO << " -  004";
@@ -2309,7 +2306,6 @@ void MainWindow::clearUIDX(bool _full)
 
     mainQSOEntryWidget->clear();
     QSOTabWidget->clear();
-    commentTabWidget->clear(_full);
     infoLabel1->clear();
     infoLabel2->clear();
 
@@ -4006,7 +4002,6 @@ void MainWindow::createUIDX()
     dxUpLeftTab->addTab (QSOTabWidget, tr("QSO"));
     dxUpLeftTab->addTab(QSLTabWidget, tr("QSL"));
     dxUpLeftTab->addTab(eQSLTabWidget, tr("eQSL"));
-    dxUpLeftTab->addTab(commentTabWidget, tr("Comment"));
 
     dxUpLeftTab->addTab(othersTabWidget, tr("Others"));
 
@@ -4686,7 +4681,6 @@ void MainWindow::sendQSOToUI(const QSO &_qso)
    //qDebug() << Q_FUNC_INFO << ": " << _qso.getMode();
    //qDebug() << Q_FUNC_INFO << ": " << _qso.getSubmode();
     mainQSOEntryWidget->setQSOData(_qso);
-    commentTabWidget->setQSOData(_qso);
     satTabWidget->setQSOData(_qso);
     othersTabWidget->setQSOData(_qso);
     QSLTabWidget->setQSOData(_qso);
@@ -5749,7 +5743,7 @@ void MainWindow::populateFormFromUDPQso(const QSO &_qso, const QDateTime &_arriv
     // QRZ only overwrites empty fields (see slotElogQRZCOMFoundData), so setting
     // name/comment/RST here preserves values that FreeDV already provided.
     if (!_qso.getComment().isEmpty())
-        commentTabWidget->setData(_qso.getComment());
+        QSOTabWidget->setComment(_qso.getComment());
     if (!_qso.getName().isEmpty())
         QSOTabWidget->setName(_qso.getName());
     if (!_qso.getRSTTX().isEmpty())
@@ -6319,7 +6313,7 @@ void MainWindow::backupCurrentQSO()
     backupQSO->setManualMode (mainQSOEntryWidget->getManualMode());
     backupQSO->setLogId (currentLog);
 
-    backupQSO->setKeepComment (commentTabWidget->getKeep ());
+    backupQSO->setKeepComment (QSOTabWidget->getKeepComment ());
     backupQSO->setKeepOthers (othersTabWidget->getKeep ());
     backupQSO->setKeepMyData (myDataTabWidget->getKeep ());
     backupQSO->setKeepSatTab (satTabWidget->getKeep ());
@@ -6388,9 +6382,8 @@ void MainWindow::restoreCurrentQSO(const bool restoreConfig)
     eQSLTabWidget->setQRZCOMStatus (backupQSO->getQRZCOMStatus ());
     eQSLTabWidget->setQRZCOMDate (backupQSO->getQRZCOMDate ());
 
-    // MainWindowInputComment
-    commentTabWidget->setData (backupQSO->getComment ());
-    commentTabWidget->setKeep (backupQSO->getKeepComment ());
+    QSOTabWidget->setComment (backupQSO->getComment ());
+    QSOTabWidget->setKeepComment (backupQSO->getKeepComment ());
 
     // MainWindowInputOthers
 
