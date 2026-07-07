@@ -67,7 +67,22 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *inject
    provinceLineEdit = new QLineEdit;
    countryLineEdit = new QLineEdit;
 
+   languageComboBox = new QComboBox;
+   languageComboBox->addItem(tr("System default"), "auto");
+   const QStringList languages = util->getAvailableLanguages();
+   for (const QString &code : languages)
+   {
+       QLocale langLocale(code);
+       QString langName = langLocale.nativeLanguageName();
+       if (langName.isEmpty())
+           langName = code;
+       else
+           langName[0] = langName.at(0).toUpper();
+       languageComboBox->addItem(langName, code);
+   }
+
    nameLineEdit->setToolTip(tr("Enter your name."));
+   languageComboBox->setToolTip(tr("Select the language of the KLog user interface. 'System default' uses the language of the operating system."));
    address1LineEdit->setToolTip(tr("Enter your address - 1st line."));
    address2LineEdit->setToolTip(tr("Enter your address - 2nd line."));
    address3LineEdit->setToolTip(tr("Enter your address - 3rd line."));
@@ -78,6 +93,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *inject
    countryLineEdit->setToolTip(tr("Enter your country."));
 
    QLabel *nameLabel = new QLabel(tr("&Name"));
+   QLabel *languageLabel = new QLabel(tr("Lang&uage"));
    QLabel *addressLabel = new QLabel(tr("&Address"));
    QLabel *cityLabel = new QLabel(tr("Cit&y"));
    QLabel *zipLabel = new QLabel(tr("&Zip Code"));
@@ -85,6 +101,7 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *inject
    QLabel *countryLabel = new QLabel(tr("Countr&y"));
 
    nameLabel->setBuddy(nameLineEdit);
+   languageLabel->setBuddy(languageComboBox);
    addressLabel->setBuddy(address1LineEdit);
    cityLabel->setBuddy(cityLineEdit);
    zipLabel->setBuddy(zipLineEdit);
@@ -98,6 +115,8 @@ SetupPageUserDataPage::SetupPageUserDataPage(DataProxy_SQLite *dp, World *inject
 
    personalLayout->addWidget(nameLabel, 0, 0);
    personalLayout->addWidget(nameLineEdit, 1, 0);
+   personalLayout->addWidget(languageLabel, 0, 2);
+   personalLayout->addWidget(languageComboBox, 1, 2);
    personalLayout->addWidget(addressLabel, 2, 0);
    personalLayout->addWidget(address1LineEdit, 3, 0, 1, 2);
    personalLayout->addWidget(address2LineEdit, 4, 0, 1, 2);
@@ -717,6 +736,15 @@ void SetupPageUserDataPage::saveSettings()
     settings.setValue ("Antenna3",getAntenna3());
     settings.setValue ("Power", getPower ());
     settings.endGroup ();
+
+    // The language is a top level setting as it is read in main.cpp before the UI exists.
+    QString newLanguage = languageComboBox->currentData().toString();
+    if (settings.value("Language", "auto").toString().toLower() != newLanguage)
+    {
+        settings.setValue("Language", newLanguage);
+        QMessageBox::information(this, tr("KLog - Language"),
+                                 tr("The language change will take effect the next time you start KLog."));
+    }
     //qDebug() << Q_FUNC_INFO << " - END";
 }
 
@@ -748,4 +776,8 @@ void SetupPageUserDataPage::loadSettings()
     ant3LineEdit->setText (settings.value ("Antenna3").toString ());
     myPowerSpinBox->setValue(settings.value ("Power").toDouble ());
     settings.endGroup ();
+
+    // The language is a top level setting as it is read in main.cpp before the UI exists.
+    int langIndex = languageComboBox->findData(settings.value("Language", "auto").toString().toLower());
+    languageComboBox->setCurrentIndex(qMax(0, langIndex));
 }

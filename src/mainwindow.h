@@ -51,7 +51,6 @@ class TipsDialog;
 #include "awards.h"
 #include "inputwidgets/mainwindowsattab.h"
 #include "inputwidgets/mainwindowmydatatab.h"
-#include "inputwidgets/mainwindowinputcomment.h"
 #include "inputwidgets/mainwindowinputothers.h"
 #include "inputwidgets/mainwindowinputeqsl.h"
 #include "inputwidgets/mainwindowinputqsl.h"
@@ -631,7 +630,6 @@ private:
     bool manualMode;                    // If true, hamlib and WSJTX are not updatind the interface
     MainWindowSatTab *satTabWidget;
     MainWindowMyDataTab *myDataTabWidget;
-    MainWindowInputComment *commentTabWidget;
     MainWindowInputOthers *othersTabWidget;
     MainWindowInputEQSL *eQSLTabWidget;
     MainWindowInputQSL *QSLTabWidget;

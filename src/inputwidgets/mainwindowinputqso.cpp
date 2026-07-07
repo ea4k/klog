@@ -45,6 +45,8 @@ MainWindowInputQSO::MainWindowInputQSO(DataProxy_SQLite *dp, QWidget *parent) :
     rxFreqSpinBox = new QDoubleSpinBox;
     splitCheckBox = new QCheckBox;
     rxPowerSpinBox = new QDoubleSpinBox;
+    commentLineEdit = new QLineEdit;
+    keepCommentCheckBox = new QCheckBox;
     dataProxy = dp;
 
     createUI();
@@ -76,6 +78,8 @@ void MainWindowInputQSO::createUI()
     nameLineEdit->setToolTip(tr("Name of the contacted operator."));
     qthLineEdit->setToolTip(tr("QTH of the contacted station."));
     locatorLineEdit->setToolTip(tr("Locator of the contacted station."));
+    commentLineEdit->setToolTip(tr("Add a comment for this QSO."));
+    keepCommentCheckBox->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
 
     rxPowerSpinBox->setDecimals(2);
     rxPowerSpinBox->setMaximum(9999);
@@ -209,14 +213,34 @@ void MainWindowInputQSO::createUI()
     rxPwrLayout->addWidget(rxPowerSpinBoxLabelN);
     rxPwrLayout->addWidget(rxPowerSpinBox);
 
+    QLabel *commentLabel = new QLabel(this);
+    commentLabel->setText(tr("Comment"));
+    commentLabel->setAlignment(Qt::AlignCenter);
+
+    QLabel *keepCommentLabel = new QLabel(this);
+    keepCommentLabel->setText(tr("Keep"));
+    keepCommentLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
+    keepCommentLabel->setToolTip(tr("Data entered in this tab will be copied into the next QSO."));
+
+    QHBoxLayout *commentFieldHLayout = new QHBoxLayout;
+    commentFieldHLayout->addWidget(commentLineEdit, 1);
+    commentFieldHLayout->addWidget(keepCommentLabel);
+    commentFieldHLayout->addWidget(keepCommentCheckBox);
+
+    QVBoxLayout *commentLayout = new QVBoxLayout;
+    commentLayout->addWidget(commentLabel);
+    commentLayout->addLayout(commentFieldHLayout);
+
     QHBoxLayout *namePwrHLayout = new QHBoxLayout;
-    namePwrHLayout->addLayout(nameLayout);
-    namePwrHLayout->addLayout(rxPwrLayout);
+    namePwrHLayout->addLayout(nameLayout, 1);
+    namePwrHLayout->addLayout(rxPwrLayout, 1);
 
     QVBoxLayout *namePwrLayout = new QVBoxLayout;
     namePwrLayout->addStretch(1);
     namePwrLayout->addLayout(namePwrHLayout);
-    namePwrLayout->addStretch(5);
+    namePwrLayout->addStretch(1);
+    namePwrLayout->addLayout(commentLayout);
+    namePwrLayout->addStretch(1);
 
     QVBoxLayout *qsoInputTabWidgetMainLayout = new QVBoxLayout;
     qsoInputTabWidgetMainLayout->addLayout(rstfreqLayout);
@@ -240,6 +264,27 @@ void MainWindowInputQSO::createUI()
     QWidget::setTabOrder (nameLineEdit, qthLineEdit);
     QWidget::setTabOrder (qthLineEdit, locatorLineEdit);
     QWidget::setTabOrder (locatorLineEdit, rxPowerSpinBox);
+    QWidget::setTabOrder (rxPowerSpinBox, commentLineEdit);
+}
+
+QString MainWindowInputQSO::getComment()
+{
+    return commentLineEdit->text();
+}
+
+void MainWindowInputQSO::setComment(const QString &_st)
+{
+    commentLineEdit->setText(_st);
+}
+
+bool MainWindowInputQSO::getKeepComment()
+{
+    return keepCommentCheckBox->isChecked();
+}
+
+void MainWindowInputQSO::setKeepComment(bool _b)
+{
+    keepCommentCheckBox->setChecked(_b);
 }
 
 QSO MainWindowInputQSO::getQSOData(QSO _qso)
@@ -254,6 +299,7 @@ QSO MainWindowInputQSO::getQSOData(QSO _qso)
     qso.setFreqRX(getRXFreq().toDouble());
     qso.setBandRX(dataProxy->getBandNameFromFreq(getRXFreq().toDouble()));
     qso.setRXPwr(getRXPwr());
+    qso.setComment(getComment());
     setRSTToMode(qso.getSubmode(), true);
 
     qso.setBandRX (dataProxy->getBandNameFromFreq (getRXFreq()));
@@ -275,6 +321,7 @@ void MainWindowInputQSO::setQSOData(const QSO &_qso)
     setTXFreq(qso.getFreqTX());
     setRXFreq(qso.getFreqRX());
     setRXPwr(qso.getRXPwr());
+    setComment(qso.getComment());
     fillingQSO = false;
 }
 
@@ -312,6 +359,8 @@ void MainWindowInputQSO::clear()
     nameLineEdit->clear();
     locatorLineEdit->clear();
     rxPowerSpinBox->setValue(0);
+    if (!keepCommentCheckBox->isChecked())
+        commentLineEdit->clear();
     modify = false;
     fillingQSO = false;
 }

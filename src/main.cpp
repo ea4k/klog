@@ -94,17 +94,26 @@ int showErrorUpdatingTheDB()
 
 void loadTranslations(QApplication &app, QTranslator &myappTranslator)
 {
-    // Detect UI language.
-    // On macOS, QLocale::system().name() returns the regional-format locale
-    // (e.g. "en_US") which may differ from the display language set in
-    // System Preferences. uiLanguages() reads AppleLanguages and is
-    // reliable on all platforms.
-    QString language;
-    QStringList uiLangs = QLocale::system().uiLanguages();
-    if (!uiLangs.isEmpty())
-        language = uiLangs.first().left(2).toLower();
-    else
-        language = QLocale::system().name().left(2).toLower();
+    Utilities util(Q_FUNC_INFO);
+
+    // The user may have selected a fixed language in the Language menu.
+    // "auto" (the default) follows the operating system language.
+    QSettings settings(util.getCfgFile(), QSettings::IniFormat);
+    QString language = settings.value("Language", "auto").toString().toLower();
+
+    if ((language == "auto") || language.isEmpty())
+    {
+        // Detect UI language.
+        // On macOS, QLocale::system().name() returns the regional-format locale
+        // (e.g. "en_US") which may differ from the display language set in
+        // System Preferences. uiLanguages() reads AppleLanguages and is
+        // reliable on all platforms.
+        QStringList uiLangs = QLocale::system().uiLanguages();
+        if (!uiLangs.isEmpty())
+            language = uiLangs.first().left(2).toLower();
+        else
+            language = QLocale::system().name().left(2).toLower();
+    }
 
    //qDebug() << Q_FUNC_INFO << "Language:" << language;
 
@@ -112,24 +121,7 @@ void loadTranslations(QApplication &app, QTranslator &myappTranslator)
         return; // English is built-in; no translation file needed.
 
     QString fileName = "klog_" + language + ".qm";
-    QStringList searchPaths;
-
-#if defined(Q_OS_MACOS)
-    // .app bundle: KLog.app/Contents/Resources/translations/
-    // (CMakeLists: MACOSX_PACKAGE_LOCATION Resources/translations)
-    searchPaths << QCoreApplication::applicationDirPath() + "/../Resources/translations";
-#elif defined(Q_OS_WIN)
-    // Alongside the .exe (CMakeLists: DESTINATION translations)
-    searchPaths << QCoreApplication::applicationDirPath() + "/translations";
-#else
-    // Linux FHS (CMakeLists: DESTINATION ${CMAKE_INSTALL_DATADIR}/klog/translations)
-    searchPaths << QCoreApplication::applicationDirPath() + "/../share/klog/translations";
-    searchPaths << "/usr/share/klog/translations";
-    searchPaths << "/usr/local/share/klog/translations";
-#endif
-    // Fallback for development builds on every platform
-    searchPaths << QCoreApplication::applicationDirPath() + "/translations";
-    searchPaths << QCoreApplication::applicationDirPath() + "/../src/translations";
+    const QStringList searchPaths = util.getTranslationSearchPaths();
 
     for (const QString &dir : searchPaths)
     {
