@@ -108,7 +108,7 @@ void MainWindowInputQSO::createUI()
     qthLabel->setText(tr("QTH"));
     qthLabel->setAlignment(Qt::AlignCenter);
 
-    QLabel *locLabel = new QLabel(this);
+    locLabel = new QLabel(this);
     locLabel->setText(tr("DX Locator"));
     locLabel->setAlignment(Qt::AlignCenter);
 
@@ -361,6 +361,7 @@ void MainWindowInputQSO::clear()
     rxPowerSpinBox->setValue(0);
     if (!keepCommentCheckBox->isChecked())
         commentLineEdit->clear();
+    setNewGrid(false);
     modify = false;
     fillingQSO = false;
 }
@@ -395,6 +396,25 @@ void MainWindowInputQSO::clearDXLocator()
    //qDebug() << Q_FUNC_INFO << " - Start";
     locatorLineEdit->clear ();
     completedWithPreviousLocator = false;
+    setNewGrid(false);
+}
+
+void MainWindowInputQSO::setNewGrid(const bool _new, const QString &_text)
+{
+   //qDebug() << Q_FUNC_INFO << " - " << _new << _text;
+    // While a new grid is being entered, the DX Locator label turns into a red
+    // "New Locator..." (text supplied by the caller, which knows the band/prop)
+    // until the QSO is saved (or the grid is no longer new).
+    if (_new)
+    {
+        locLabel->setText(_text);
+        locLabel->setStyleSheet("QLabel { color : red; font-weight : bold; }");
+    }
+    else
+    {
+        locLabel->setText(tr("DX Locator"));
+        locLabel->setStyleSheet(QString());
+    }
 }
 
 void MainWindowInputQSO::slotReturnPressed()

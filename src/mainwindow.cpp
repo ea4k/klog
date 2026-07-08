@@ -107,13 +107,6 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
     infoLabel1 = new QLabel(tr("Status bar ..."));
     infoLabel2 = new QLabel(tr("DX Entity"));
 
-    newGridLabel = new QLabel;
-    // Kept always visible (empty when not applicable) so its layout cell stays
-    // reserved and the DX entity label remains centered on the full width.
-    newGridLabel->setToolTip(tr("This grid is new on this band."));
-    newGridLabel->setStyleSheet("QLabel { color : red; font-weight : bold; }");
-    newGridLabel->setAlignment(Qt::AlignCenter);
-
     awardsWidget = new AwardsWidget(dataProxy, world, this);
     //qInfo() << "[KLOG-TIMING] ctor 017 AwardsWidget:" << timer.elapsed() << "ms"; timer.restart();
 
@@ -4024,27 +4017,12 @@ void MainWindow::createUIDX()
     upLeftSplitter->addWidget(dxUpLeftTab);
     upLeftSplitter->setOrientation(Qt::Vertical);
 
-    // Single row: status (left), DX entity (center) and New Locator (right),
-    // each on an equal-stretch cell so the entity stays centered on the full width.
-    QHBoxLayout *dxStatusLayout = new QHBoxLayout;
-    dxStatusLayout->addWidget(infoLabel1, 1);
-    dxStatusLayout->addWidget(infoLabel2, 1);
-    dxStatusLayout->addWidget(newGridLabel, 1);
-
     QVBoxLayout *dxUpRightFixLayout = new QVBoxLayout;
-    dxUpRightFixLayout->addLayout(dxStatusLayout);
+    dxUpRightFixLayout->addWidget(infoLabel1);
+    dxUpRightFixLayout->addWidget(infoLabel2);
 
-    infoLabel1->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    infoLabel1->setAlignment(Qt::AlignCenter);
     infoLabel2->setAlignment(Qt::AlignCenter);
-    newGridLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-
-    // Make the DX entity name stand out with a slightly bigger font.
-    QFont entityFont = infoLabel2->font();
-    if (entityFont.pointSizeF() > 0)
-        entityFont.setPointSizeF(entityFont.pointSizeF() + 4);
-    else
-        entityFont.setPointSize(14);
-    infoLabel2->setFont(entityFont);
 
     dxUpRightTab->addTab(infoWidget.get(), tr("Info"));
       //qDebug() << "MainWindow::createUIDX-100" ;
@@ -4822,7 +4800,7 @@ void MainWindow::checkNewGrid()
     Locator locator;
     if (!locator.isValidLocator(loc) || loc.length() < 4)
     {
-        newGridLabel->clear();      // empty text keeps the cell reserved (entity stays centered)
+        QSOTabWidget->setNewGrid(false);
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
     }
@@ -4836,10 +4814,10 @@ void MainWindow::checkNewGrid()
     const int excludeId = modify ? modifyingQSOid : -1;
     const bool isNew = dataProxy->isNewGridOnBand(grid4, bandId, currentLog, prop, excludeId);
     if (isNew)
-        newGridLabel->setText(isSat ? tr("New Locator on Sats")
-                                    : tr("New Locator on %1 Band").arg(bandName));
+        QSOTabWidget->setNewGrid(true, isSat ? tr("New Locator on Sats")
+                                             : tr("New Locator on %1 Band").arg(bandName));
     else
-        newGridLabel->clear();
+        QSOTabWidget->setNewGrid(false);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
