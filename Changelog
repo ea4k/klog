@@ -4,6 +4,7 @@ May 2026 - 2.5.2
 - Enhancement: Move Comment field from Comment tab to QSO tab (Closes #1020) (TNX EA5WA)
 - New feature: Selection of language (Closes #9) (TNX EA5WA)
 - New feature: Set CQ zone from DXCC when adding QSO (TNX YL3GBC)
+- New feature: Show a "New Locator" indicator when the DX locator is new on the current band or via satellite (Closes #1035) (TNX EA5WA)
 - Translations: Latvian (TNX YL3GBC & YL3AUG)
 
 May 2026 - 2.5.1
