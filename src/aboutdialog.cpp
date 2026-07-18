@@ -119,7 +119,7 @@ AboutDialog::AboutDialog(const QString &tversion, const QString &pkgVersion, QWi
     QString translator_es = QString("<tr><td>Spanish</td>") + QString("<td>Jaime Robles</td>") + QString("<td><a href=\"https://www.qrz.com/db/ea4k\">EA4K</a></td></tr>");
     QString translator_uk = QString("<tr><td>Ukrainian</td>") + QString("<td>Mykola Papirovsky and Volodymyr Karpenko</td>") + QString("<td><a href=\"https://www.qrz.com/db/ur6qv\">UR6QV</a> and <a href=\"https://www.qrz.com/db/ur3qjw\">UR3QJW</a></td></tr>");
     QString translator_ru = QString("<tr><td>Rusian</td>") + QString("<td>Arnis Armans</td>") + QString("<td><a href=\"https://www.qrz.com/db/yl3gbc\">YL3GBC</a></td></tr>");
-    QString translator_lv = QString("<tr><td>Latvian</td>") + QString("<td>Arnis Armans and Gabriels Breidaks</td>") + QString("<td><a href=\"https://www.qrz.com/db/yl3gbc\">YL3GBC</a> and <a href=\"https://www.qrz.com/db/yl3aug\">YL3AUG</a></td></tr>");
+    QString translator_lv = QString(R"(<tr><td>Latvian</td><td>Arnis Armans and Gabriels Breidaks</td><td><a href="https://www.qrz.com/db/yl3gbc">YL3GBC</a> and <a href="https://www.qrz.com/db/yl3aug">YL3AUG</a></td></tr>)");
 
     QString translatorsText = tr("Translators bring KLog into your language. They are really an important part of the KLog development team.") + "<br><br>" + tr("If KLog is still not in your language and you want to help us, you are welcome to contact us through the <a href=https://t.me/klogdevel>KLog-devel telegram group</a>!");
     QString translators = "<center><h2>" + tr("Translators") + "</h2></center><br>" + translatorsText + "<br><table>"
