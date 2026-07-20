@@ -190,6 +190,11 @@ public:
     QStringList getFilteredLocators(const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
     // Returns list of {id, callsign, band, mode} maps for QSOs matching a locator prefix and current filters
     QVariantList getQSOsForLocator(const QString &_locator, const QString &_band, const QString &_mode, const QString &_prop, const QString &_sat, bool _confirmed = false);
+    // Returns true if no QSO in the given log already has a gridsquare starting with _grid (4-char field).
+    // When _prop is "SAT" the check is band-independent and only considers satellite QSOs (separate stats);
+    // otherwise it is restricted to _bandId and excludes satellite QSOs.
+    // _excludeQsoId lets the caller ignore one QSO (e.g. the one being edited); pass -1 to exclude none.
+    bool isNewGridOnBand(const QString &_grid, const int _bandId, const int _logNumber, const QString &_prop, const int _excludeQsoId = -1);
     //bool updateAwardWAZ();
     // QRZ.com
     bool QRZCOMModifyFullLog(const int _currentLog); // Mark all the log as modified to be sent to QRZ.com

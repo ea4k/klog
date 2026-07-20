@@ -2155,6 +2155,65 @@ QVariantList DataProxy_SQLite::getQSOsForLocator(const QString &_locator, const 
     return result;
 }
 
+bool DataProxy_SQLite::isNewGridOnBand(const QString &_grid, const int _bandId, const int _logNumber, const QString &_prop, const int _excludeQsoId)
+{
+    //qDebug() << Q_FUNC_INFO << " - grid: " << _grid << " bandId: " << _bandId << " log: " << _logNumber << " prop: " << _prop << " exclude: " << _excludeQsoId;
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+
+    const QString grid = _grid.trimmed().toUpper();
+    const bool isSat = (_prop.trimmed().toUpper() == "SAT");
+
+    // Satellite stats are kept apart and are not band-dependent; terrestrial needs a valid band.
+    if (grid.isEmpty() || _logNumber < 0 || (!isSat && _bandId <= 0))
+    {
+        logEvent(Q_FUNC_INFO, "END-1", Debug);
+        return false;
+    }
+
+    QStringList where;
+    where << "lognumber = :lognumber" << "UPPER(gridsquare) LIKE :gridprefix";
+    if (isSat)
+    {
+        // Count only satellite QSOs, regardless of band (separate statistics).
+        where << "prop_mode = 'SAT'";
+    }
+    else
+    {
+        // Count QSOs on this band, excluding any made via satellite.
+        where << "bandid = :bandid" << "COALESCE(prop_mode,'') <> 'SAT'";
+    }
+    if (_excludeQsoId > 0)
+        where << "id <> :excludeid";
+
+    const QString queryString = "SELECT COUNT(id) FROM log WHERE " + where.join(" AND ");
+
+    QSqlQuery query;
+    if (!query.prepare(queryString))
+    {
+        logEvent(Q_FUNC_INFO, "END-2", Debug);
+        return false;
+    }
+    query.bindValue(":lognumber", _logNumber);
+    query.bindValue(":gridprefix", grid + "%");
+    if (!isSat)
+        query.bindValue(":bandid", _bandId);
+    if (_excludeQsoId > 0)
+        query.bindValue(":excludeid", _excludeQsoId);
+
+    if (query.exec() && query.next() && query.isValid())
+    {
+        const int count = query.value(0).toInt();
+        query.finish();
+        logEvent(Q_FUNC_INFO, "END-3", Debug);
+        return (count == 0);
+    }
+
+    emit queryError(Q_FUNC_INFO, query.lastError().databaseText(), query.lastError().text(), query.lastQuery());
+    query.finish();
+    logEvent(Q_FUNC_INFO, "END-4", Debug);
+    return false;
+}
+
 bool DataProxy_SQLite::QRZCOMModifyFullLog(const int _currentLog)
 {
     //qDebug() << Q_FUNC_INFO << " -" << QString::number(_currentLog);

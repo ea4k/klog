@@ -1000,6 +1000,7 @@ void MainWindow::slotBandChanged (const QString &_b)
         _entityStatus.status = awards.getQSOStatus(_entityStatus.dxcc, _entityStatus.bandId, manageMode ? _entityStatus.modeId : -1);
         showStatusOfDXCC(_entityStatus);
     }
+    checkNewGrid();
     changingBand = false;
     logEvent(Q_FUNC_INFO, "END", Debug);
       //qDebug() << "MainWindow::slotBandChanged: END" ;
@@ -4788,6 +4789,35 @@ void MainWindow::slotLocatorTextChanged(const QString &_loc)
     {
         infoWidget->showDistanceAndBearing(myDataTabWidget->getMyLocator(), _loc);
     }
+    checkNewGrid();
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::checkNewGrid()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    const QString loc = QSOTabWidget->getDXLocator();
+    Locator locator;
+    if (!locator.isValidLocator(loc) || loc.length() < 4)
+    {
+        QSOTabWidget->setNewGrid(false);
+        logEvent(Q_FUNC_INFO, "END-1", Debug);
+        return;
+    }
+    const QString bandName = mainQSOEntryWidget->getBand();
+    const int bandId = dataProxy->getIdFromBandName(bandName);
+    const QString grid4 = loc.left(4).toUpper();
+    // Satellite QSOs are tracked apart from terrestrial bands.
+    const QString prop = othersTabWidget->getPropModeFromComboBox();
+    const bool isSat = (prop.trimmed().toUpper() == "SAT");
+    // When editing a QSO, exclude it from the count so its own grid does not mask a "new" status.
+    const int excludeId = modify ? modifyingQSOid : -1;
+    const bool isNew = dataProxy->isNewGridOnBand(grid4, bandId, currentLog, prop, excludeId);
+    if (isNew)
+        QSOTabWidget->setNewGrid(true, isSat ? tr("New Locator on Sats")
+                                             : tr("New Locator on %1 Band").arg(bandName));
+    else
+        QSOTabWidget->setNewGrid(false);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5515,6 +5545,7 @@ void MainWindow::slotSetPropModeFromSat(const QString &_p, bool _keep)
 
     othersTabWidget->setPropMode(_p, _keep);
     QSOTabWidget->setPropModeFromSat(_p);
+    checkNewGrid();
     logEvent(Q_FUNC_INFO, "END", Debug);
     //int indexC = propModeComboBox->findText(" - " + _p + " - ", Qt::MatchContains);
     //propModeComboBox->setCurrentIndex(indexC);
@@ -5528,6 +5559,7 @@ void MainWindow::slotSetPropModeFromOther(const QString &_p)
          //qDebug() << Q_FUNC_INFO << ": Is NOT SAT propagation mode";
         satTabWidget->setNoSat();
     }
+    checkNewGrid();
 }
 
 void MainWindow::clearIfNotCompleted()

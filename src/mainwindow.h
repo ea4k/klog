@@ -428,6 +428,7 @@ private:
     //bool checkContest();
     void showStatusOfDXCC(EntityStatus _entityStatus);
     void showDXMarathonNeeded(const int _dxcc, const int _cqz, const int _year, const int _log);
+    void checkNewGrid();    // Updates the QSO tab "New Locator" label depending on the DX locator, band and prop mode
 
     bool createConnection();
     void openSetup(const int _page=0);
