@@ -66,6 +66,19 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
         return QSqlRelationalTableModel::data(index, role);
 
     QString columnName = this->record().fieldName(index.column());
+    if (columnName == "band_rx")
+    {
+        QVariant raw = QSqlRelationalTableModel::data(index, role);
+        bool ok = false;
+        const int bandId = raw.toInt(&ok);
+        if (ok && bandId > 0)
+        {
+            const QString name = dataProxy->getNameFromBandId(bandId);
+            if (!name.isEmpty())
+                return name;
+        }
+        return QVariant();   // empty cell for no/invalid RX band, instead of a meaningless id
+    }
 
     // Validation: optionally hide invalid values for some columns
     auto it = s_validationRules.find(columnName);

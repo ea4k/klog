@@ -380,8 +380,23 @@ void SetupPageDxCluster::loadSettings()
     settings.endArray();
 
     setDxclusterServersComboBox(servers);
+
+    // Guarantee the default server is always available, so it can be shown and
+    // selected even on first run when nothing has been saved yet (init() is not
+    // guaranteed to have run before loadSettings()).
+    if (dxclusterServersComboBox->count() < 1)
+    {
+        dxclusterServersComboBox->addItem("dxfun.com:8000");
+    }
+
     QString aux = settings.value ("DXClusterServerToUse").toString ();
-    //qDebug() << Q_FUNC_INFO << ": " << aux;
-    dxclusterServersComboBox->setCurrentIndex(dxclusterServersComboBox->findText(aux));
+    int index = dxclusterServersComboBox->findText(aux);
+    if (index < 0)
+    {   // No server saved yet (first run) or the saved one is gone:
+        // fall back to the first available server so one is always selected.
+        index = 0;
+    }
+    dxclusterServersComboBox->setCurrentIndex(index);
+
     settings.endGroup ();
 }
