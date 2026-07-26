@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
-project(KLog VERSION 2.5.2 LANGUAGES CXX)
-set(APP_PKGVERSION "2.5.2")
+project(KLog VERSION 2.5.3 LANGUAGES CXX)
+set(APP_PKGVERSION "2.5.3-RC1")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_compile_definitions(KLOG_USE_VERSION_H)
