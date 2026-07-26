@@ -91,7 +91,7 @@ pipeline {
                         """,
                         returnStdout: true
                     ).trim()
-                    env.DEB_NAME = "klog_${env.VERSION}_${env.ARCH}.deb"
+                    env.DEB_NAME = "klog_${env.VERSION}_debian-stable_${env.ARCH}.deb"
                 }
                 echo "Application  : klog"
                 echo "Version      : ${env.VERSION}"
