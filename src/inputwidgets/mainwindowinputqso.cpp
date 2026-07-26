@@ -318,8 +318,38 @@ void MainWindowInputQSO::setQSOData(const QSO &_qso)
     setQTH(qso.getQTH());
     setRSTRX(qso.getRSTRX());
     setRSTTX(qso.getRSTTX());
-    setTXFreq(qso.getFreqTX());
-    setRXFreq(qso.getFreqRX());
+    // --- Reconcile TX/RX frequency & band before showing them ---
+    // (A QSO logged with band_rx but no freq_rx must not display RX = 0.00.)
+    Frequency freqTXv(qso.getFreqTX());
+    Frequency freqRXv(qso.getFreqRX());
+
+    // TX: a valid frequency wins; otherwise the stored band defines it.
+    if (dataProxy->getBandIdFromFreq(freqTXv) <= 1)      // freqTX missing / out of band
+    {
+        if (dataProxy->isValidBand(qso.getBand()))
+            freqTXv = dataProxy->getLowLimitBandFromBandName(qso.getBand());
+    }
+
+    // RX: a valid frequency wins; otherwise derive it.
+    if (dataProxy->getBandIdFromFreq(freqRXv) <= 1)      // freqRX missing / out of band
+    {
+        if (dataProxy->isValidBand(qso.getBandRX()) &&
+            (qso.getBandRX() != qso.getBand()))
+        {
+            // RX band is a *different* valid band → derive RX freq from the RX band.
+            freqRXv = dataProxy->getLowLimitBandFromBandName(qso.getBandRX());
+        }
+        else
+        {
+            // RX band missing or equal to TX band → mirror the TX frequency.
+            freqRXv = freqTXv;
+        }
+    }
+
+    setTXFreq(freqTXv);
+    setRXFreq(freqRXv);
+    //setTXFreq(qso.getFreqTX());
+    //setRXFreq(qso.getFreqRX());
     setRXPwr(qso.getRXPwr());
     setComment(qso.getComment());
     fillingQSO = false;
