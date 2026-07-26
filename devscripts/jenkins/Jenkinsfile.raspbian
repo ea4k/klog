@@ -34,7 +34,7 @@ pipeline {
             """,
             returnStdout: true
         ).trim()
-        DEB_NAME = "${APP_NAME}_${VERSION}_${ARCH}.deb"
+        DEB_NAME = "${APP_NAME}_${VERSION}_raspberrypi_${ARCH}.deb"
     }
 
     stages {
