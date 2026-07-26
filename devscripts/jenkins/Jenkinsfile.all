@@ -26,13 +26,13 @@ pipeline {
                     }
                 }
 
-                stage('macOS Intel') {
-                    steps {
-                        build job: 'klog-macos-intel',
-                              wait: true,
-                              propagate: true
-                    }
-                }
+//                stage('macOS Intel') {
+//                    steps {
+//                        build job: 'klog-macos-intel',
+//                              wait: true,
+//                              propagate: true
+//                    }
+//                }
 
                 stage('macOS ARM') {
                     steps {
