@@ -1,0 +1,74 @@
+// devscripts/jenkins/Jenkinsfile.all
+// Orquestador — lanza todos los builds en paralelo
+// y espera a que terminen todos antes de reportar el resultado.
+
+pipeline {
+    agent { label 'built-in' }
+
+    stages {
+
+        stage('Build all platforms') {
+            parallel {
+
+                stage('Sources') {
+                    steps {
+                        build job: 'klog-sources',
+                              wait: true,
+                              propagate: true
+                    }
+                }
+
+                stage('Windows') {
+                    steps {
+                        build job: 'klog-windows',
+                              wait: true,
+                              propagate: true
+                    }
+                }
+
+                stage('macOS Intel') {
+                    steps {
+                        build job: 'klog-macos-intel',
+                              wait: true,
+                              propagate: true
+                    }
+                }
+
+                stage('macOS ARM') {
+                    steps {
+                        build job: 'klog-macos-arm',
+                              wait: true,
+                              propagate: true
+                    }
+                }
+
+                stage('Raspbian') {
+                    steps {
+                        build job: 'klog-raspbian',
+                              wait: true,
+                              propagate: true
+                    }
+                }
+
+                stage('Debian stable') {
+                    steps {
+                        build job: 'klog-debian-stable',
+                              wait: true,
+                              propagate: true
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "All platform builds completed successfully"
+        }
+        failure {
+            echo "One or more platform builds failed"
+        }
+    }
+}
