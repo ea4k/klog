@@ -78,11 +78,16 @@ cmake --build "$PROJECT_DIR/build" -j "$(nproc)"
 echo "[4/4] Generating .deb package with CPack..."
 cd "$PROJECT_DIR/build"
 cpack -G DEB
- 
-CPACK_NAME="klog_${KLOG_VERSION}_${ARCH}.deb"
-FINAL_NAME="klog_${KLOG_VERSION}_raspberrypi_${ARCH}.deb"
 
-mv "$PROJECT_DIR/build/${CPACK_NAME}" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
+# --- Find whatever CPack generated and rename it ---
+CPACK_DEB=$(find "$PROJECT_DIR/build" -maxdepth 1 -name "*.deb" | head -1)
+if [ -z "$CPACK_DEB" ]; then
+    echo "ERROR: CPack did not generate any .deb file"
+    exit 1
+fi
+
+FINAL_NAME="klog_${KLOG_VERSION}_raspberrypi_${ARCH}.deb"
+mv "$CPACK_DEB" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
 
 echo ""
 echo "Done! KLog $KLOG_VERSION -> devscripts/$FINAL_NAME"
