@@ -54,9 +54,6 @@ echo "Building KLog $KLOG_VERSION .deb package for Debian stable"
 ARCH=$(dpkg --print-architecture)
 echo "Architecture: $ARCH"
 
-# --- Expected output filename ---
-DEB_NAME="klog_${KLOG_VERSION}_${ARCH}.deb"
-
 # --- Clean previous build ---
 echo "[1/4] Cleaning..."
 rm -rf "$PROJECT_DIR/build"
@@ -79,12 +76,15 @@ echo "[4/4] Generating .deb package with CPack..."
 cd "$PROJECT_DIR/build"
 cpack -G DEB
 
-# --- Move .deb to devscripts directory ---
-# Al final del script, sustituye el mv existente por este:
-CPACK_NAME="klog_${KLOG_VERSION}_${ARCH}.deb"
-FINAL_NAME="klog_${KLOG_VERSION}-debian-stable_${ARCH}.deb"
+# --- Find whatever CPack generated and rename it ---
+CPACK_DEB=$(find "$PROJECT_DIR/build" -maxdepth 1 -name "*.deb" | head -1)
+if [ -z "$CPACK_DEB" ]; then
+    echo "ERROR: CPack did not generate any .deb file"
+    exit 1
+fi
 
-mv "$PROJECT_DIR/build/${CPACK_NAME}" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
+FINAL_NAME="klog_${KLOG_VERSION}_debian-stable_${ARCH}.deb"
+mv "$CPACK_DEB" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
 
 echo ""
 echo "Done! KLog $KLOG_VERSION -> devscripts/$FINAL_NAME"

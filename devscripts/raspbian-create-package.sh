@@ -36,44 +36,41 @@
 # *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
 # *                                                                           *
 #*****************************************************************************/
- 
+
 set -e
- 
+
 DEVSCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$DEVSCRIPTS_DIR")"
- 
+
 # --- Read version from CMakeLists.txt ---
 KLOG_VERSION=$(grep 'APP_PKGVERSION' "$PROJECT_DIR/CMakeLists.txt" | sed 's/.*"\(.*\)".*/\1/')
 if [ -z "$KLOG_VERSION" ]; then
     KLOG_VERSION=$(grep 'project(KLog VERSION' "$PROJECT_DIR/CMakeLists.txt" | awk '{print $3}')
 fi
- 
+
 echo "Building KLog $KLOG_VERSION .deb package"
- 
+
 # --- Detect architecture ---
 ARCH=$(dpkg --print-architecture)
 echo "Architecture: $ARCH"
- 
-# --- Expected output filename ---
-DEB_NAME="klog_${KLOG_VERSION}_${ARCH}.deb"
- 
+
 # --- Clean previous build ---
 echo "[1/4] Cleaning..."
 rm -rf "$PROJECT_DIR/build"
 rm -f "$DEVSCRIPTS_DIR"/klog_*.deb
 rm -f "$DEVSCRIPTS_DIR"/klog_*.tar.gz
- 
+
 # --- CMake configure ---
 echo "[2/4] Configuring with CMake..."
 cmake -S "$PROJECT_DIR" -B "$PROJECT_DIR/build" \
     -G "Ninja" \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_TESTING=OFF
- 
+
 # --- Build ---
 echo "[3/4] Building..."
 cmake --build "$PROJECT_DIR/build" -j "$(nproc)"
- 
+
 # --- Generate .deb with CPack ---
 echo "[4/4] Generating .deb package with CPack..."
 cd "$PROJECT_DIR/build"
