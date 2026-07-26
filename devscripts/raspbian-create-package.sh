@@ -79,8 +79,10 @@ echo "[4/4] Generating .deb package with CPack..."
 cd "$PROJECT_DIR/build"
 cpack -G DEB
  
-# --- Move .deb to devscripts directory ---
-mv "$PROJECT_DIR/build/"*.deb "$DEVSCRIPTS_DIR/$DEB_NAME"
- 
+CPACK_NAME="klog_${KLOG_VERSION}_${ARCH}.deb"
+FINAL_NAME="klog_${KLOG_VERSION}_raspberrypi_${ARCH}.deb"
+
+mv "$PROJECT_DIR/build/${CPACK_NAME}" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
+
 echo ""
-echo "Done! KLog $KLOG_VERSION -> devscripts/$DEB_NAME"
+echo "Done! KLog $KLOG_VERSION -> devscripts/$FINAL_NAME"

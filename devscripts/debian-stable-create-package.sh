@@ -80,7 +80,11 @@ cd "$PROJECT_DIR/build"
 cpack -G DEB
 
 # --- Move .deb to devscripts directory ---
-mv "$PROJECT_DIR/build/"*.deb "$DEVSCRIPTS_DIR/$DEB_NAME"
+# Al final del script, sustituye el mv existente por este:
+CPACK_NAME="klog_${KLOG_VERSION}_${ARCH}.deb"
+FINAL_NAME="klog_${KLOG_VERSION}-debian-stable_${ARCH}.deb"
+
+mv "$PROJECT_DIR/build/${CPACK_NAME}" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
 
 echo ""
-echo "Done! KLog $KLOG_VERSION -> devscripts/$DEB_NAME"
+echo "Done! KLog $KLOG_VERSION -> devscripts/$FINAL_NAME"
