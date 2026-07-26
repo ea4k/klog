@@ -1,4 +1,4 @@
-TBD - 2.5.x
+July 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.
 - Bugfix: Default DXCluster server is not shown in the combobox after first installation (Closes #1043)
 - Enhancement: Color the QLineEdit that has the focus (Close #3) (TNX EA5WA)
