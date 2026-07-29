@@ -374,7 +374,7 @@ if(APPLE)
            MACOSX_BUNDLE_ICON_FILE               klog.icns
            MACOSX_BUNDLE_BUNDLE_VERSION          "${APP_PKGVERSION}"
            MACOSX_BUNDLE_SHORT_VERSION_STRING    "${APP_PKGVERSION}"
-           MACOSX_BUNDLE_GUI_IDENTIFIER          "es.ea4k.klog"
+           MACOSX_BUNDLE_GUI_IDENTIFIER          "io.github.ea4k.klog"
        )
     set_source_files_properties(klog.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     target_sources(klog PRIVATE klog.icns)

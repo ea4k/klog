@@ -65,14 +65,18 @@ echo "[3/4] Building..."
 
 # --- Deploy Qt into the bundle and create DMG ---
 echo "[4/4] Deploying Qt and creating DMG..."
-APP="$PROJECT_DIR/build/bin/klog.app"
+# Add after the version detection block
+APP_NAME="KLog"
+APP="$PROJECT_DIR/build/bin/${APP_NAME}.app"
+
+echo "[4/4] Deploying Qt and creating DMG..."
 
 "$QT_DIR/bin/macdeployqt6" "$APP" \
     -qmldir="$PROJECT_DIR/src/qml" \
-	-codesign="-" \
+    -codesign="-" \
     -dmg
 
-mv "$PROJECT_DIR/build/bin/klog.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION-intel.dmg"
+mv "$PROJECT_DIR/build/bin/${APP_NAME}.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION-intel.dmg"
 
 echo ""
 echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION-intel.dmg"
