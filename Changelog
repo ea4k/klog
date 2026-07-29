@@ -1,5 +1,6 @@
 TBD - 2.5.4
 - Enhancement: KLog can import many ADI files in one single operation by simply selecting them.
+- Bugfix: Fix BAND_RX export when RX band is empty (TNX YL3GBC)
 
 July 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.
