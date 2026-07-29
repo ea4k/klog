@@ -909,14 +909,10 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                     validCount++;
                 else if (result == -2)
                 {
-                    if (duplicateCount<1)
-                    {
-                        // Hide the (application-modal) progress dialog while asking,
-                        // otherwise it stays on top and blocks the duplicates message.
-                        progress.hide();
-                        showDuplicatedQSOFoundInLog();
-                        progress.show();
-                    }
+                    // Just count duplicates here. We do NOT pop a warning in the
+                    // middle of the import: it would fight with the application-modal
+                    // progress dialog (each dialog ends up blocking the other). The
+                    // duplicates are reported once at the end, in the summary below.
                     duplicateCount++;
                 }
 
