@@ -4632,9 +4632,26 @@ void MainWindow::slotADIFImport(){
    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
-    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
-                                                     util->getHomeDir(),
-                                                     "ADIF (*.adi *.adif)");
+    QStringList fileNames;
+    if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS)
+    {
+        // The native macOS file dialog was found to misbehave (returning no files),
+        // so on macOS we use the non-native dialog directly. This keeps that
+        // workaround while opening a single dialog: previously the native dialog
+        // was opened first and a non-native one was reopened whenever the result
+        // was empty, which also fired on a plain cancel and popped a second dialog.
+        fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
+                                                         util->getHomeDir(),
+                                                         "ADIF (*.adi *.adif)",
+                                                         nullptr,
+                                                         QFileDialog::DontUseNativeDialog);
+    }
+    else
+    {
+        fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
+                                                         util->getHomeDir(),
+                                                         "ADIF (*.adi *.adif)");
+    }
     // An empty list means the user cancelled (or selected nothing): just abort.
     // Do NOT reopen another file dialog here, otherwise cancelling immediately
     // pops up a second selection dialog.
