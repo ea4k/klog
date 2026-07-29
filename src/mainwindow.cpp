@@ -40,7 +40,7 @@
 #include "tipsdialog.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
-#include <utility>  // std::as_const
+#include <QFileInfo>
 
 
 MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
@@ -4650,17 +4650,32 @@ void MainWindow::slotADIFImport(){
     }
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
     int totalLoggedQSOs = 0;
-    for (const QString &fileName : std::as_const(fileNames))
+    const int fileCount = fileNames.count();
+    for (int fileIndex = 0; fileIndex < fileCount; fileIndex++)
     {
+        const QString fileName = fileNames.at(fileIndex);
         if (fileName.isNull())
             continue;
+
+        // When importing more than one file, announce the file we are about to
+        // import (X/Y and its name) before starting to read it.
+        if (fileCount > 1)
+            statusBar()->showMessage(tr("Importing file %1/%2: %3")
+                                         .arg(fileIndex + 1)
+                                         .arg(fileCount)
+                                         .arg(QFileInfo(fileName).fileName()));
+
        //qDebug() << Q_FUNC_INFO << " - fileName is not Null 010";
-        int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog);  // Empty StationCallsign by default
+        // Empty StationCallsign by default; pass file index (1-based) and total so
+        // the import progress dialog shows "File X/Y" and the file name.
+        int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog, fileIndex + 1, fileCount);
        //qDebug() << Q_FUNC_INFO << " - loggedQSOs: " << loggedQSOs;
         if (loggedQSOs>0)
             totalLoggedQSOs += loggedQSOs;
         //qDebug() << Q_FUNC_INFO << " - 020";
     }
+    if (fileCount > 1)
+        statusBar()->showMessage(tr("Import of %1 files finished.").arg(fileCount), 5000);
     if (totalLoggedQSOs>0)
     {
         updateQSLRecAndSent();

@@ -25,6 +25,7 @@
  *****************************************************************************/
 #include "filemanager.h"
 #include "callsign.h"
+#include <QFileInfo>
 //#include <QDebug>
 
 
@@ -826,7 +827,7 @@ logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
     return fileInfo;
 }
 
-int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
+int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN, int fileIndex, int fileCount)
 {
     //qDebug() << Q_FUNC_INFO << " - " << tfileName;
     if (logN <= 0)
@@ -851,8 +852,16 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
         return -2;
 
+    // When importing several files at once, show which file (X/Y) and its name
+    // both in the progress dialog title and prepended to every progress message.
+    QString fileProgressPrefix;
+    if (fileCount > 1)
+        fileProgressPrefix = tr("File %1/%2: %3").arg(fileIndex).arg(fileCount).arg(QFileInfo(tfileName).fileName()) + "\n";
+
     file.seek(pos);
-    QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
+    QProgressDialog progress(fileProgressPrefix + tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
+    if (fileCount > 1)
+        progress.setWindowTitle(tr("KLog - Importing file %1/%2").arg(fileIndex).arg(fileCount));
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setAutoClose(true);
 
@@ -911,7 +920,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                 {
                     if (startTime.secsTo(QTime::currentTime()) >0)
                         //progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i, qsos, i / startTime.secsTo(QTime::currentTime()));
-                        progress.setLabelText(tr("Importing ADIF file... \nQSO: ") + QString::number(i) + "/" + QString::number(qsos) + "\n" + "Speed: " + QString::number(i / startTime.secsTo(QTime::currentTime())) + " " "QSOs/sec");
+                        progress.setLabelText(fileProgressPrefix + tr("Importing ADIF file... \nQSO: ") + QString::number(i) + "/" + QString::number(qsos) + "\n" + "Speed: " + QString::number(i / startTime.secsTo(QTime::currentTime())) + " " "QSOs/sec");
                     //progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
                     progress.setValue(i);
                 }

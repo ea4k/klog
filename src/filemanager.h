@@ -79,7 +79,7 @@ public:
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     //bool adifReadLog(const QString& tfileName, const int logN);
-    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1);
+    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1, int fileIndex = 0, int fileCount = 0);
     int adifLoTWReadLog(const QString& fileName, const int logN);
     // qList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     // qList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
