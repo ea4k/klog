@@ -76,6 +76,12 @@ public:
     //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
     //FileManager(DataProxy_SQLite *dp, const QString &_softVersion);
     ~FileManager();
+
+    // Value returned by adifReadLog when the user aborts the import from the
+    // progress dialog. When importing several files, the caller must stop the
+    // whole process (not just the current file) upon receiving it.
+    static const int ADIF_IMPORT_CANCELLED = -4;
+
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     //bool adifReadLog(const QString& tfileName, const int logN);

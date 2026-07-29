@@ -4650,6 +4650,7 @@ void MainWindow::slotADIFImport(){
     }
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
     int totalLoggedQSOs = 0;
+    bool importCancelled = false;
     const int fileCount = fileNames.count();
     for (int fileIndex = 0; fileIndex < fileCount; fileIndex++)
     {
@@ -4670,11 +4671,20 @@ void MainWindow::slotADIFImport(){
         // the import progress dialog shows "File X/Y" and the file name.
         int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog, fileIndex + 1, fileCount);
        //qDebug() << Q_FUNC_INFO << " - loggedQSOs: " << loggedQSOs;
+        if (loggedQSOs == FileManager::ADIF_IMPORT_CANCELLED)
+        {
+            // The user aborted from the progress dialog: cancel the whole import
+            // process, not only the current file. Do not import any remaining file.
+            importCancelled = true;
+            break;
+        }
         if (loggedQSOs>0)
             totalLoggedQSOs += loggedQSOs;
         //qDebug() << Q_FUNC_INFO << " - 020";
     }
-    if (fileCount > 1)
+    if (importCancelled)
+        statusBar()->showMessage(tr("Import cancelled by the user."), 5000);
+    else if (fileCount > 1)
         statusBar()->showMessage(tr("Import of %1 files finished.").arg(fileCount), 5000);
     if (totalLoggedQSOs>0)
     {

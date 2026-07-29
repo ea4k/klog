@@ -910,7 +910,13 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                 else if (result == -2)
                 {
                     if (duplicateCount<1)
+                    {
+                        // Hide the (application-modal) progress dialog while asking,
+                        // otherwise it stays on top and blocks the duplicates message.
+                        progress.hide();
                         showDuplicatedQSOFoundInLog();
+                        progress.show();
+                    }
                     duplicateCount++;
                 }
 
@@ -948,6 +954,12 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     dataProxy->clearDuplicateCache();
     file.close();
     progress.setValue(qsos);
+
+    // The user cancelled: nothing from this file was imported (rolled back) and,
+    // when importing several files, the whole process must be aborted. Return the
+    // cancel sentinel so the caller stops instead of moving on to the next file.
+    if (noMoreQSO)
+        return ADIF_IMPORT_CANCELLED;
 
     if (duplicateCount>0)
     {
