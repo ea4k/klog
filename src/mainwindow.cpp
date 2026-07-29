@@ -40,6 +40,7 @@
 #include "tipsdialog.h"
 #include <QCoreApplication>
 #include <QElapsedTimer>
+#include <utility>  // std::as_const
 
 
 MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
@@ -4631,16 +4632,16 @@ void MainWindow::slotADIFImport(){
    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
                                                      util->getHomeDir(),
                                                      "ADIF (*.adi *.adif)");
-    if (fileName.isNull())
+    if (fileNames.isEmpty())
     {
         int OSVersion = QOperatingSystemVersion::currentType();
         if (OSVersion == QOperatingSystemVersion::MacOS)
         {
            //qDebug() << Q_FUNC_INFO << " - Failed to read with MacOS Dialog";
-            fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+            fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
                                                              util->getHomeDir(),
                                                              "ADIF (*.adi *.adif)",
                                                              nullptr,
@@ -4648,26 +4649,31 @@ void MainWindow::slotADIFImport(){
         }
     }
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
-    if (!fileName.isNull())
+    int totalLoggedQSOs = 0;
+    for (const QString &fileName : std::as_const(fileNames))
     {
+        if (fileName.isNull())
+            continue;
        //qDebug() << Q_FUNC_INFO << " - fileName is not Null 010";
         int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog);  // Empty StationCallsign by default
        //qDebug() << Q_FUNC_INFO << " - loggedQSOs: " << loggedQSOs;
         if (loggedQSOs>0)
-        {
-            updateQSLRecAndSent();
-            logWindow->refresh();
-           //qDebug() << Q_FUNC_INFO << " -3";
-            m_adifImporting = true;
-            checkIfNewBandOrMode();
-           //qDebug() << Q_FUNC_INFO << " -4" ;
-            awardsWidget->fillOperatingYears();
-           //qDebug() << Q_FUNC_INFO << " -5" ;
-            m_adifImporting = false;
-            slotShowAwards();
-           //qDebug() << Q_FUNC_INFO << " -6" ;
-        }
+            totalLoggedQSOs += loggedQSOs;
         //qDebug() << Q_FUNC_INFO << " - 020";
+    }
+    if (totalLoggedQSOs>0)
+    {
+        updateQSLRecAndSent();
+        logWindow->refresh();
+       //qDebug() << Q_FUNC_INFO << " -3";
+        m_adifImporting = true;
+        checkIfNewBandOrMode();
+       //qDebug() << Q_FUNC_INFO << " -4" ;
+        awardsWidget->fillOperatingYears();
+       //qDebug() << Q_FUNC_INFO << " -5" ;
+        m_adifImporting = false;
+        slotShowAwards();
+       //qDebug() << Q_FUNC_INFO << " -6" ;
     }
     logEvent(Q_FUNC_INFO, "END", Debug);
    //qDebug() << Q_FUNC_INFO << " - END";
