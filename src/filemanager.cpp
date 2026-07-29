@@ -25,6 +25,7 @@
  *****************************************************************************/
 #include "filemanager.h"
 #include "callsign.h"
+#include <QFileInfo>
 //#include <QDebug>
 
 
@@ -63,6 +64,7 @@ void FileManager::init()
     //constrid = 2;
     ignoreUnknownAlways = false;
     usePreviousStationCallsignAnswerAlways = false;
+    duplicatedQSOWarningShownInBatch = false;
     duplicatedQSOSlotInSecs = 600;
     sendEQSLByDefault = false;
     //dbCreated = false;
@@ -826,9 +828,19 @@ logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
     return fileInfo;
 }
 
-int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN)
+int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN, int fileIndex, int fileCount, int *importedOut, int *ignoredOut)
 {
     //qDebug() << Q_FUNC_INFO << " - " << tfileName;
+    if (importedOut != nullptr)
+        *importedOut = 0;
+    if (ignoredOut != nullptr)
+        *ignoredOut = 0;
+
+    // Reset the batch-wide "duplicated QSOs found" warning flag at the start of a
+    // batch (first file, or a single-file import) so the warning is shown once.
+    if (fileIndex <= 1)
+        duplicatedQSOWarningShownInBatch = false;
+
     if (logN <= 0)
     {
         // logN is invalid — fall back to the highest existing log so no QSOs are lost (Closes #903)
@@ -851,8 +863,16 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) /* Flawfinder: ignore */
         return -2;
 
+    // When importing several files at once, show which file (X/Y) and its name
+    // both in the progress dialog title and prepended to every progress message.
+    QString fileProgressPrefix;
+    if (fileCount > 1)
+        fileProgressPrefix = tr("File %1/%2: %3").arg(fileIndex).arg(fileCount).arg(QFileInfo(tfileName).fileName()) + "\n";
+
     file.seek(pos);
-    QProgressDialog progress(tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
+    QProgressDialog progress(fileProgressPrefix + tr("Reading ADIF file..."), tr("Abort reading"), 0, qsos, this);
+    if (fileCount > 1)
+        progress.setWindowTitle(tr("KLog - Importing file %1/%2").arg(fileIndex).arg(fileCount));
     progress.setWindowModality(Qt::ApplicationModal);
     progress.setAutoClose(true);
 
@@ -900,8 +920,15 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                     validCount++;
                 else if (result == -2)
                 {
-                    if (duplicateCount<1)
-                        showDuplicatedQSOFoundInLog();
+                    // Warn only once for the whole batch, the first time a duplicate
+                    // is found. The box is parented to the progress dialog so it shows
+                    // modally on top of it instead of the two modal dialogs blocking
+                    // each other.
+                    if (!duplicatedQSOWarningShownInBatch)
+                    {
+                        showDuplicatedQSOFoundInLog(&progress);
+                        duplicatedQSOWarningShownInBatch = true;
+                    }
                     duplicateCount++;
                 }
 
@@ -911,7 +938,7 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                 {
                     if (startTime.secsTo(QTime::currentTime()) >0)
                         //progressText = QString("Importing ADIF file ... \nQSO: %1 / %2 \nSpeed: %3 QSOs/sec").arg(i, qsos, i / startTime.secsTo(QTime::currentTime()));
-                        progress.setLabelText(tr("Importing ADIF file... \nQSO: ") + QString::number(i) + "/" + QString::number(qsos) + "\n" + "Speed: " + QString::number(i / startTime.secsTo(QTime::currentTime())) + " " "QSOs/sec");
+                        progress.setLabelText(fileProgressPrefix + tr("Importing ADIF file... \nQSO: ") + QString::number(i) + "/" + QString::number(qsos) + "\n" + "Speed: " + QString::number(i / startTime.secsTo(QTime::currentTime())) + " " "QSOs/sec");
                     //progress.setLabelText(tr("Importing ADIF file...") + "\n" + tr(" QSO: ") + QString::number(i) + "/" + QString::number(qsos));
                     progress.setValue(i);
                 }
@@ -940,23 +967,28 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     file.close();
     progress.setValue(qsos);
 
-    if (duplicateCount>0)
-    {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - Import finished"));
-        msgBox.setText(tr("The ADIF file import has finished."));
-        QString info = tr("Imported QSOs: %1\nIgnored duplicated: %2").arg(validCount).arg(duplicateCount);
-        msgBox.setInformativeText(info);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();// == QMessageBox::AcceptRole;
-    }
+    // The user cancelled: nothing from this file was imported (rolled back) and,
+    // when importing several files, the whole process must be aborted. Return the
+    // cancel sentinel so the caller stops instead of moving on to the next file.
+    if (noMoreQSO)
+        return ADIF_IMPORT_CANCELLED;
+
+    // Report per-file counters to the caller, which is in charge of the per-file
+    // summary, the "continue with the next file?" question and the global tally.
+    if (importedOut != nullptr)
+        *importedOut = validCount;
+    if (ignoredOut != nullptr)
+        *ignoredOut = duplicateCount;
 
     return i;
 }
 
-void FileManager::showDuplicatedQSOFoundInLog()
+void FileManager::showDuplicatedQSOFoundInLog(QWidget *parent)
 {
-    QMessageBox msgBox;
+    // Parent the box to the (application-modal) progress dialog so it is shown
+    // modally on top of it. Without a parent the two modal dialogs fight for the
+    // top position and one ends up blocking the other.
+    QMessageBox msgBox(parent);
     msgBox.setWindowTitle(tr("KLog - Duplicated QSOs!"));
     msgBox.setText(tr("This file contains duplicated QSOs. Duplicated QSOs will not be imported"));
     msgBox.setStandardButtons(QMessageBox::Ok);

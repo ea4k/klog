@@ -76,10 +76,19 @@ public:
     //FileManager(DataProxy_SQLite *dp, const QString &_klogDir);
     //FileManager(DataProxy_SQLite *dp, const QString &_softVersion);
     ~FileManager();
+
+    // Value returned by adifReadLog when the user aborts the import from the
+    // progress dialog. When importing several files, the caller must stop the
+    // whole process (not just the current file) upon receiving it.
+    static const int ADIF_IMPORT_CANCELLED = -4;
+
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     //bool adifReadLog(const QString& tfileName, const int logN);
-    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1);
+    // importedOut/ignoredOut, when non-null, receive the number of QSOs imported
+    // and the number ignored as duplicates for this file (0 when the import was
+    // cancelled and rolled back).
+    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1, int fileIndex = 0, int fileCount = 0, int *importedOut = nullptr, int *ignoredOut = nullptr);
     int adifLoTWReadLog(const QString& fileName, const int logN);
     // qList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     // qList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
@@ -118,7 +127,7 @@ private:
     bool writeBackupDate();
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
     bool showInvalidCallMessage(const QString &_call);
-    void showDuplicatedQSOFoundInLog();
+    void showDuplicatedQSOFoundInLog(QWidget *parent = nullptr);
     void showError (const QString &_txt);
     bool handleCancel();                        // Used in FileManager::adifReadLog
     int processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog
@@ -155,6 +164,8 @@ private:
 
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
     bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
+    bool duplicatedQSOWarningShownInBatch;   // When importing several ADIF files, the "duplicated QSOs found"
+                                             // warning is shown only once for the whole batch.
     bool noMoreQso;
     bool sendEQSLByDefault;  // When importing a log, if the QSO does not bring info about eQSL
                             // KLog sets or not a default value
