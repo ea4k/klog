@@ -396,7 +396,7 @@ else()
     # freedesktop integration files — only defined and used on Linux
     set(KLOG_DESKTOP  io.github.ea4k.klog.desktop)
     set(KLOG_ICON     img/klog_256x256.png)
-    set(KLOG_METAINFO io.github.ea4k.klog.metainfo.xml)
+    #set(KLOG_METAINFO io.github.ea4k.klog.metainfo.xml)
 
     # Binary: /usr/bin/klog
     install(TARGETS klog
@@ -447,9 +447,9 @@ else()
     # AppStream metainfo: /usr/share/metainfo/klog.metainfo.xml
     # Required to appear in GNOME Software, KDE Discover, and future Debian
     # software catalogs. Debian Package Tracker warning: no-metainfo (active).
-    install(FILES ${KLOG_METAINFO}
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
-    )
+    #install(FILES ${KLOG_METAINFO}
+    #    DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
+    #)
 endif()
 
 # Other platform-specific stuff (icons, etc)
