@@ -458,3 +458,17 @@ if(WIN32)
 elseif(APPLE)
     # Set MacOS bundle properties if any
 endif()
+
+# Get today's date for the release entry
+string(TIMESTAMP KLOG_BUILD_DATE "%Y-%m-%d")
+
+# Generate metainfo from template
+configure_file(
+    io.github.ea4k.klog.metainfo.xml.in
+    io.github.ea4k.klog.metainfo.xml
+    @ONLY
+)
+
+# Install the generated file
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/io.github.ea4k.klog.metainfo.xml
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)

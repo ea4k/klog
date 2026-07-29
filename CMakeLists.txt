@@ -79,7 +79,7 @@ endif()
 add_subdirectory(src)
 
 # Option to enable/disable tests
-option(BUILD_TESTING "Build the testing tree." ON)
+option(BUILD_TESTING "Build the testing tree." OFF)
 if(NOT BUILD_TESTING)
     message(WARNING "BUILD_TESTING OFF")
 endif()

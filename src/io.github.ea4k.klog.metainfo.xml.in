@@ -13,7 +13,7 @@
   </developer>
 
   <description>
-    <!-- keep your existing description -->
+        <p>KLog is a multiplatform free software that runs in GNU/Linux, macOS and Windows. KLog provides general purpose Hamradio DX logging support.</p>
   </description>
 
   <!-- desktop-id must match the actual .desktop filename -->
@@ -30,21 +30,34 @@
     <category>HamRadio</category>
   </categories>
 
-  <keywords>
-    <!-- keep your existing keywords -->
+<keywords>
+    <keyword>hamradio</keyword>
+    <keyword>ham</keyword>
+    <keyword>amateur radio</keyword>
+    <keyword>logger</keyword>
+    <keyword>logbook</keyword>
+    <keyword>adif</keyword>
+    <keyword>qsl</keyword>
+    <keyword>dxcc</keyword>
+    <keyword>qso</keyword>
+    <keyword>dx</keyword>
+    
+    <keyword xml:lang="es">radioaficion</keyword>
+    <keyword xml:lang="es">radioaficionado</keyword>
+    <keyword xml:lang="es">libro de guardia</keyword>
+    <keyword xml:lang="es">registro</keyword>
+    <keyword xml:lang="es">contactos</keyword>
   </keywords>
-
-  <screenshots>
+    <screenshots>
     <screenshot type="default">
       <caption>KLog main window showing the QSO entry and log view</caption>
-      <!-- use a stable URL, not user-images.githubusercontent.com -->
-      <image>https://www.klog.xyz/screenshots/klog-main.png</image>
+      <image>https://user-images.githubusercontent.com/29511627/103910279-f1009b80-5104-11eb-9b30-83e436528c56.png</image>
     </screenshot>
   </screenshots>
 
   <releases>
     <!-- must match actual package version -->
-    <release version="2.5.3" date="2026-07-29">
+    <release version="@APP_PKGVERSION@" date="@KLOG_BUILD_DATE@">
       <description>
         <p>New Release.</p>
       </description>
