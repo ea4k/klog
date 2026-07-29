@@ -4662,7 +4662,10 @@ void MainWindow::slotADIFImport(){
         return;
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
     int totalLoggedQSOs = 0;
-    bool importCancelled = false;
+    int globalImported = 0;   // Imported QSOs across all files in this batch
+    int globalIgnored = 0;    // Ignored (duplicated) QSOs across all files in this batch
+    bool importCancelled = false;   // Aborted from the progress dialog (current file rolled back)
+    bool importStopped = false;     // User chose not to continue with the next file
     const int fileCount = fileNames.count();
     for (int fileIndex = 0; fileIndex < fileCount; fileIndex++)
     {
@@ -4680,8 +4683,11 @@ void MainWindow::slotADIFImport(){
 
        //qDebug() << Q_FUNC_INFO << " - fileName is not Null 010";
         // Empty StationCallsign by default; pass file index (1-based) and total so
-        // the import progress dialog shows "File X/Y" and the file name.
-        int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog, fileIndex + 1, fileCount);
+        // the import progress dialog shows "File X/Y" and the file name. The
+        // per-file imported/ignored counters come back through the out-params.
+        int importedThisFile = 0;
+        int ignoredThisFile = 0;
+        int loggedQSOs = filemanager->adifReadLog(fileName, QString(), currentLog, fileIndex + 1, fileCount, &importedThisFile, &ignoredThisFile);
        //qDebug() << Q_FUNC_INFO << " - loggedQSOs: " << loggedQSOs;
         if (loggedQSOs == FileManager::ADIF_IMPORT_CANCELLED)
         {
@@ -4692,12 +4698,69 @@ void MainWindow::slotADIFImport(){
         }
         if (loggedQSOs>0)
             totalLoggedQSOs += loggedQSOs;
+        globalImported += importedThisFile;
+        globalIgnored  += ignoredThisFile;
         //qDebug() << Q_FUNC_INFO << " - 020";
+
+        // Is there another (non-null) file to import after this one?
+        bool moreFilesToCome = false;
+        for (int j = fileIndex + 1; j < fileCount; j++)
+        {
+            if (!fileNames.at(j).isNull())
+            {
+                moreFilesToCome = true;
+                break;
+            }
+        }
+
+        // Between files, summarise this file and ask whether to continue with the
+        // next one. If the user says no, the already-imported files are kept and
+        // the batch stops here.
+        if (moreFilesToCome)
+        {
+            QMessageBox msgBox(this);
+            msgBox.setWindowTitle(tr("KLog - File import finished"));
+            msgBox.setText(tr("The import of the ADIF file has finished."));
+            msgBox.setInformativeText(tr("Imported QSOs: %1\nIgnored duplicated: %2\n\nDo you want to continue importing the next file?")
+                                          .arg(importedThisFile).arg(ignoredThisFile));
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::Yes);
+            if (msgBox.exec() == QMessageBox::No)
+            {
+                importStopped = true;
+                break;
+            }
+        }
     }
+
     if (importCancelled)
+    {
         statusBar()->showMessage(tr("Import cancelled by the user."), 5000);
+    }
     else if (fileCount > 1)
+    {
+        // Final summary for the whole batch, with the global imported/ignored tally.
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle(tr("KLog - Import finished"));
+        msgBox.setText(importStopped ? tr("The ADIF import has been stopped.")
+                                     : tr("The ADIF import has finished."));
+        msgBox.setInformativeText(tr("Total imported QSOs: %1\nTotal ignored duplicated: %2")
+                                      .arg(globalImported).arg(globalIgnored));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
         statusBar()->showMessage(tr("Import of %1 files finished.").arg(fileCount), 5000);
+    }
+    else if (globalIgnored > 0)
+    {
+        // Single file: keep showing a summary when there were duplicates.
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle(tr("KLog - Import finished"));
+        msgBox.setText(tr("The ADIF file import has finished."));
+        msgBox.setInformativeText(tr("Imported QSOs: %1\nIgnored duplicated: %2")
+                                      .arg(globalImported).arg(globalIgnored));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+    }
     if (totalLoggedQSOs>0)
     {
         updateQSLRecAndSent();

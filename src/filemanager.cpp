@@ -64,6 +64,7 @@ void FileManager::init()
     //constrid = 2;
     ignoreUnknownAlways = false;
     usePreviousStationCallsignAnswerAlways = false;
+    duplicatedQSOWarningShownInBatch = false;
     duplicatedQSOSlotInSecs = 600;
     sendEQSLByDefault = false;
     //dbCreated = false;
@@ -827,9 +828,19 @@ logfileInfo FileManager::getADIFFIleInfo(QFile & _f)
     return fileInfo;
 }
 
-int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN, int fileIndex, int fileCount)
+int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign, int logN, int fileIndex, int fileCount, int *importedOut, int *ignoredOut)
 {
     //qDebug() << Q_FUNC_INFO << " - " << tfileName;
+    if (importedOut != nullptr)
+        *importedOut = 0;
+    if (ignoredOut != nullptr)
+        *ignoredOut = 0;
+
+    // Reset the batch-wide "duplicated QSOs found" warning flag at the start of a
+    // batch (first file, or a single-file import) so the warning is shown once.
+    if (fileIndex <= 1)
+        duplicatedQSOWarningShownInBatch = false;
+
     if (logN <= 0)
     {
         // logN is invalid — fall back to the highest existing log so no QSOs are lost (Closes #903)
@@ -909,11 +920,15 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                     validCount++;
                 else if (result == -2)
                 {
-                    // Warn once, the first time a duplicate is found in this file.
-                    // The box is parented to the progress dialog so it shows modally
-                    // on top of it instead of the two modal dialogs blocking each other.
-                    if (duplicateCount<1)
+                    // Warn only once for the whole batch, the first time a duplicate
+                    // is found. The box is parented to the progress dialog so it shows
+                    // modally on top of it instead of the two modal dialogs blocking
+                    // each other.
+                    if (!duplicatedQSOWarningShownInBatch)
+                    {
                         showDuplicatedQSOFoundInLog(&progress);
+                        duplicatedQSOWarningShownInBatch = true;
+                    }
                     duplicateCount++;
                 }
 
@@ -958,16 +973,12 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     if (noMoreQSO)
         return ADIF_IMPORT_CANCELLED;
 
-    if (duplicateCount>0)
-    {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle(tr("KLog - Import finished"));
-        msgBox.setText(tr("The ADIF file import has finished."));
-        QString info = tr("Imported QSOs: %1\nIgnored duplicated: %2").arg(validCount).arg(duplicateCount);
-        msgBox.setInformativeText(info);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();// == QMessageBox::AcceptRole;
-    }
+    // Report per-file counters to the caller, which is in charge of the per-file
+    // summary, the "continue with the next file?" question and the global tally.
+    if (importedOut != nullptr)
+        *importedOut = validCount;
+    if (ignoredOut != nullptr)
+        *ignoredOut = duplicateCount;
 
     return i;
 }

@@ -85,7 +85,10 @@ public:
     void init();
     //bool readAdif(const QString& tfileName, const int logN);
     //bool adifReadLog(const QString& tfileName, const int logN);
-    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1, int fileIndex = 0, int fileCount = 0);
+    // importedOut/ignoredOut, when non-null, receive the number of QSOs imported
+    // and the number ignored as duplicates for this file (0 when the import was
+    // cancelled and rolled back).
+    int adifReadLog(const QString& tfileName, QString _stationCallsign = QString(), int logN = -1, int fileIndex = 0, int fileCount = 0, int *importedOut = nullptr, int *ignoredOut = nullptr);
     int adifLoTWReadLog(const QString& fileName, const int logN);
     // qList<int> adifLoTWLogExport(const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN);
     // qList<int> (const QString& _fileName, const QString &_callsign, const QDate &_startDate, const QDate &_endDate, const int _logN, const bool LoTWOnly);
@@ -161,6 +164,8 @@ private:
 
     bool ignoreUnknownAlways;   // When importing ADIF, ignore all unknown fields.
     bool usePreviousStationCallsignAnswerAlways;   // When importing ADIF, ignore all unknown fields.
+    bool duplicatedQSOWarningShownInBatch;   // When importing several ADIF files, the "duplicated QSOs found"
+                                             // warning is shown only once for the whole batch.
     bool noMoreQso;
     bool sendEQSLByDefault;  // When importing a log, if the QSO does not bring info about eQSL
                             // KLog sets or not a default value
