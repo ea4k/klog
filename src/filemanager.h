@@ -124,7 +124,7 @@ private:
     bool writeBackupDate();
     bool getStationCallsignFromUser(const QString &_qrzDX, const QDate &_dt);
     bool showInvalidCallMessage(const QString &_call);
-    void showDuplicatedQSOFoundInLog();
+    void showDuplicatedQSOFoundInLog(QWidget *parent = nullptr);
     void showError (const QString &_txt);
     bool handleCancel();                        // Used in FileManager::adifReadLog
     int processQSO(QSO& qso, const QString& _stationCallsign); // Used in FileManager::adifReadLog

@@ -909,10 +909,11 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
                     validCount++;
                 else if (result == -2)
                 {
-                    // Just count duplicates here. We do NOT pop a warning in the
-                    // middle of the import: it would fight with the application-modal
-                    // progress dialog (each dialog ends up blocking the other). The
-                    // duplicates are reported once at the end, in the summary below.
+                    // Warn once, the first time a duplicate is found in this file.
+                    // The box is parented to the progress dialog so it shows modally
+                    // on top of it instead of the two modal dialogs blocking each other.
+                    if (duplicateCount<1)
+                        showDuplicatedQSOFoundInLog(&progress);
                     duplicateCount++;
                 }
 
@@ -971,9 +972,12 @@ int FileManager::adifReadLog(const QString& tfileName, QString _stationCallsign,
     return i;
 }
 
-void FileManager::showDuplicatedQSOFoundInLog()
+void FileManager::showDuplicatedQSOFoundInLog(QWidget *parent)
 {
-    QMessageBox msgBox;
+    // Parent the box to the (application-modal) progress dialog so it is shown
+    // modally on top of it. Without a parent the two modal dialogs fight for the
+    // top position and one ends up blocking the other.
+    QMessageBox msgBox(parent);
     msgBox.setWindowTitle(tr("KLog - Duplicated QSOs!"));
     msgBox.setText(tr("This file contains duplicated QSOs. Duplicated QSOs will not be imported"));
     msgBox.setStandardButtons(QMessageBox::Ok);
