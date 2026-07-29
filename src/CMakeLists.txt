@@ -394,9 +394,9 @@ else()
     # =========================================================================
 
     # freedesktop integration files — only defined and used on Linux
-    set(KLOG_DESKTOP  klog.desktop)
+    set(KLOG_DESKTOP  io.github.ea4k.klog.desktop)
     set(KLOG_ICON     img/klog_256x256.png)
-    set(KLOG_METAINFO klog.metainfo.xml)
+    set(KLOG_METAINFO io.github.ea4k.klog.metainfo.xml)
 
     # Binary: /usr/bin/klog
     install(TARGETS klog
