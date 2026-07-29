@@ -4632,29 +4632,32 @@ void MainWindow::slotADIFImport(){
    //qDebug() << Q_FUNC_INFO << " - Start";
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
+    // Use the native file dialog (via a QFileDialog instance so we can tell a
+    // cancel from an empty result). When the user cancels, exec() returns
+    // Rejected and we abort. Only when the dialog was accepted but returned no
+    // files -a bug seen with the native macOS dialog- do we retry with the
+    // non-native dialog. This keeps the macOS workaround without reopening a
+    // second dialog on a plain cancel.
     QStringList fileNames;
-    if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS)
+    QFileDialog dialog(this, tr("Open File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+    dialog.setFileMode(QFileDialog::ExistingFiles);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    if (dialog.exec() == QDialog::Accepted)
     {
-        // The native macOS file dialog was found to misbehave (returning no files),
-        // so on macOS we use the non-native dialog directly. This keeps that
-        // workaround while opening a single dialog: previously the native dialog
-        // was opened first and a non-native one was reopened whenever the result
-        // was empty, which also fired on a plain cancel and popped a second dialog.
-        fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
-                                                         util->getHomeDir(),
-                                                         "ADIF (*.adi *.adif)",
-                                                         nullptr,
-                                                         QFileDialog::DontUseNativeDialog);
+        fileNames = dialog.selectedFiles();
+        if (fileNames.isEmpty() &&
+            QOperatingSystemVersion::currentType() == QOperatingSystemVersion::MacOS)
+        {
+           //qDebug() << Q_FUNC_INFO << " - Native macOS dialog returned no files, retrying non-native";
+            QFileDialog fallback(this, tr("Open File"), util->getHomeDir(), "ADIF (*.adi *.adif)");
+            fallback.setFileMode(QFileDialog::ExistingFiles);
+            fallback.setAcceptMode(QFileDialog::AcceptOpen);
+            fallback.setOption(QFileDialog::DontUseNativeDialog, true);
+            if (fallback.exec() == QDialog::Accepted)
+                fileNames = fallback.selectedFiles();
+        }
     }
-    else
-    {
-        fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
-                                                         util->getHomeDir(),
-                                                         "ADIF (*.adi *.adif)");
-    }
-    // An empty list means the user cancelled (or selected nothing): just abort.
-    // Do NOT reopen another file dialog here, otherwise cancelling immediately
-    // pops up a second selection dialog.
+    // Empty here means the user cancelled (or selected nothing): just abort.
     if (fileNames.isEmpty())
         return;
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
