@@ -4635,19 +4635,11 @@ void MainWindow::slotADIFImport(){
     QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
                                                      util->getHomeDir(),
                                                      "ADIF (*.adi *.adif)");
+    // An empty list means the user cancelled (or selected nothing): just abort.
+    // Do NOT reopen another file dialog here, otherwise cancelling immediately
+    // pops up a second selection dialog.
     if (fileNames.isEmpty())
-    {
-        int OSVersion = QOperatingSystemVersion::currentType();
-        if (OSVersion == QOperatingSystemVersion::MacOS)
-        {
-           //qDebug() << Q_FUNC_INFO << " - Failed to read with MacOS Dialog";
-            fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),
-                                                             util->getHomeDir(),
-                                                             "ADIF (*.adi *.adif)",
-                                                             nullptr,
-                                                             QFileDialog::DontUseNativeDialog);
-        }
-    }
+        return;
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
     int totalLoggedQSOs = 0;
     bool importCancelled = false;
