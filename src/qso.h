@@ -490,9 +490,6 @@ signals:
 private:
     // qTime startT;
     QString getADIFStandard();
-    QString getADIFLoTW();
-    QString getADIFClubLog();
-    QString getADIFeQSL();
 
 
     bool isValidCall() const;
