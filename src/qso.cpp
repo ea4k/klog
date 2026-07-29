@@ -3923,7 +3923,7 @@ QString QSO::getADIFStandard()
     adifStr.append(adif->getADIFField ("RST_RCVD", RST_rx));
     adifStr.append(adif->getADIFField ("RST_SENT",  RST_tx));
     adifStr.append(adif->getADIFField ("BAND",  band));
-    if (QString::compare(band, band_rx) != 0)
+    if ((!band_rx.trimmed().isEmpty()) && (band_rx.trimmed() != "0") && (QString::compare(band, band_rx) != 0))
         adifStr.append(adif->getADIFField ("BAND_RX",  band_rx));
     adifStr.append(adif->getADIFField ("MODE",  mode));
     if (QString::compare(mode, submode) != 0)
@@ -4193,7 +4193,7 @@ QString QSO::getADIFLoTW()
     adifStr.append(adif->getADIFField ("MODE",  mode));
 
     adifStr.append(adif->getADIFField ("BAND",  band));
-    if (QString::compare(band, band_rx) != 0)
+    if ((!band_rx.trimmed().isEmpty()) && (band_rx.trimmed() != "0") && (QString::compare(band, band_rx) != 0))
         adifStr.append(adif->getADIFField ("BAND_RX",  band_rx));
 
     if (!qso_dateTime.isValid())
@@ -4228,7 +4228,7 @@ QString QSO::getADIFClubLog()
     if (freq_tx.isValid())
         adifStr.append(adif->getADIFField ("freq",  freq_tx.toQString()));
     adifStr.append(adif->getADIFField ("BAND",  band));
-    if (QString::compare(band, band_rx) != 0)
+    if ((!band_rx.trimmed().isEmpty()) && (band_rx.trimmed() != "0") && (QString::compare(band, band_rx) != 0))
         adifStr.append(adif->getADIFField ("BAND_RX",  band_rx));
     adifStr.append(adif->getADIFField ("MODE",  mode));
 
