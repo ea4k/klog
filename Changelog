@@ -1,3 +1,6 @@
+TBD - 2.5.4
+- Enhancement: KLog can import many ADI files in one single operation by simply selecting them.
+
 July 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.
 - Bugfix: Default DXCluster server is not shown in the combobox after first installation (Closes #1043)
