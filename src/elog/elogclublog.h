@@ -55,6 +55,7 @@ public:
 
     void sendLogFile(const QString &_file, QList<int> _qso, bool _overwrite);
     void loadSettings();
+    QString getAPIKey() const { return api; }   // KLog's ClubLog application key
 
 protected:
     QString getClubLogAdif(const QStringList _q);

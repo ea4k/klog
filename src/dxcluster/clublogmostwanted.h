@@ -35,6 +35,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QTimer>
+#include <QUrl>
 #include <functional>
 
 class ClubLogMostWanted : public QObject
@@ -64,6 +65,10 @@ public:
     void setUrl(const QString &_url);
     void setKLogVersion(const QString &_version);   // Used for the User-Agent header
 
+    // ClubLog only serves the JSON list when an application API key is
+    // passed (the bare URL returns an HTML page, which parse() rejects).
+    void setApiKey(const QString &_apiKey);
+
     // ClubLog publishes the list as rank -> prefix; the resolver maps a
     // prefix to a DXCC entity id (injected to keep this class decoupled
     // from World/DataProxy and hermetically testable).
@@ -86,6 +91,7 @@ private slots:
 
 private:
     bool parse(const QByteArray &data);    // Fills ranks; false if nothing usable
+    QUrl buildFetchUrl() const;            // url + api key query parameter
     bool loadFromCache();
     void saveToCache(const QByteArray &data);
     bool isStale() const;
@@ -93,6 +99,7 @@ private:
     QHash<int, int> ranks;                 // DXCC entity id -> rank (1 = most wanted)
     QDateTime lastUpdate;                  // UTC; when the held data was fetched
     QString url;
+    QString apiKey;
     QString klogVersion;
     QString cacheFile;
     std::function<int(const QString &)> prefixResolver;

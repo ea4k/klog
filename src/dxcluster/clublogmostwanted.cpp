@@ -34,6 +34,7 @@
 #include <QJsonValue>
 #include <QNetworkRequest>
 #include <QUrl>
+#include <QUrlQuery>
 
 ClubLogMostWanted::ClubLogMostWanted(QObject *parent) : QObject(parent)
 {
@@ -64,6 +65,23 @@ void ClubLogMostWanted::setKLogVersion(const QString &_version)
     klogVersion = _version;
 }
 
+void ClubLogMostWanted::setApiKey(const QString &_apiKey)
+{
+    apiKey = _apiKey;
+}
+
+QUrl ClubLogMostWanted::buildFetchUrl() const
+{
+    QUrl fetchUrl(url);
+    if (!apiKey.isEmpty())
+    {
+        QUrlQuery query(fetchUrl);
+        query.addQueryItem("api", apiKey);
+        fetchUrl.setQuery(query);
+    }
+    return fetchUrl;
+}
+
 void ClubLogMostWanted::setPrefixResolver(std::function<int(const QString &)> _resolver)
 {
     prefixResolver = _resolver;
@@ -78,7 +96,7 @@ void ClubLogMostWanted::setCacheFile(const QString &_filePath)
 
 void ClubLogMostWanted::fetch()
 {
-    QNetworkRequest request{QUrl(url)};
+    QNetworkRequest request{buildFetchUrl()};
     request.setRawHeader("User-Agent", QString("KLog-%1").arg(klogVersion).toUtf8());
     manager->get(request);
 }

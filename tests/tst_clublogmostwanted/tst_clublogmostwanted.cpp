@@ -45,7 +45,26 @@ private slots:
     void test_Threshold();
     void test_Staleness();
     void test_CacheRoundTrip();
+    void test_FetchUrl();
 };
+
+void tst_ClubLogMostWanted::test_FetchUrl()
+{
+    ClubLogMostWanted mw;
+    // Without an API key the URL is used as-is
+    QCOMPARE(mw.buildFetchUrl().toString(), QStringLiteral("https://clublog.org/mostwanted.php"));
+
+    // The API key is appended as the api query parameter (ClubLog only
+    // serves JSON when it is present)
+    mw.setApiKey("abc123");
+    QCOMPARE(mw.buildFetchUrl().toString(),
+             QStringLiteral("https://clublog.org/mostwanted.php?api=abc123"));
+
+    // An injected URL keeps its own parameters and still gets the key
+    mw.setUrl("https://clublog.org/mostwanted.php?call=EA4K");
+    QCOMPARE(mw.buildFetchUrl().toString(),
+             QStringLiteral("https://clublog.org/mostwanted.php?call=EA4K&api=abc123"));
+}
 
 void tst_ClubLogMostWanted::test_Defaults()
 {
