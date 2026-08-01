@@ -87,6 +87,9 @@ private slots:
     void test_MostActiveBandCountsAllSpots();
     void test_MostActiveBandIgnoresViewFilters();
     void test_BandToBeUsesManagedSpotScores();
+    void test_BandToBeFollowsHiddenSpots();
+    void test_BandToBeFollowsBandFilter();
+    void test_BandToBeFollowsWorkedQSO();
     void test_ActivityPrunedByAge();
 
     // Columns
@@ -459,6 +462,65 @@ void tst_DXClusterAssistant::test_BandToBeUsesManagedSpotScores()
 
     QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)),
              "Band to be must pick the band with the highest cumulative score");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsHiddenSpots()
+{
+    // 40M wins only thanks to a single high-value spot
+    addScored("EA1AAA", band20, 500);
+    addScored("EA2BBB", band20, 500);
+    addScored("EA3CCC", band40, 1200);
+    QString name20 = dataProxy->getNameFromBandId(band20);
+    QString name40 = dataProxy->getNameFromBandId(band40);
+    QVERIFY(widget->bandToBeLabel->text().contains(name40));
+
+    // Hiding that spot removes its value: 20M becomes the band to be
+    widget->hideSpotCall("EA3CCC");
+    QVERIFY2(widget->bandToBeLabel->text().contains(name20),
+             "Band to be must be recalculated with the shown spots when one is hidden");
+
+    // Restoring it brings 40M back
+    widget->clearHiddenSpots();
+    QVERIFY(widget->bandToBeLabel->text().contains(name40));
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsBandFilter()
+{
+    addScored("EA1AAA", band20, 500);
+    addScored("EA2BBB", band40, 1200);
+    QString name20 = dataProxy->getNameFromBandId(band20);
+    QVERIFY(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)));
+
+    // A band the user filtered out offers no reachable value
+    widget->disabledBands.insert(band40);
+    widget->applyViewFilters();
+    QVERIFY2(widget->bandToBeLabel->text().contains(name20),
+             "A filtered-out band must not be proposed as the band to be");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsWorkedQSO()
+{
+    addScored("EA1AAA", band20, 500);
+    addScored("EA2BBB", band40, 1200);
+    QString name20 = dataProxy->getNameFromBandId(band20);
+    QVERIFY(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)));
+
+    // Working/confirming the 40M station: the engine discards the spot on the
+    // next recalculation, which must move the band to be to 20M.
+    awards->clearStatusForTest();
+    EntityStatus es;
+    es.dxcc   = 100;          // The DXCC every test spot carries
+    es.bandId = band40;
+    es.modeId = -1;
+    es.status = confirmed;
+    awards->injectStatusForTest(es);
+
+    widget->recalculateAll();
+    awards->clearStatusForTest();
+
+    QCOMPARE(widget->model->spotCount(), 1);   // The confirmed spot is gone
+    QVERIFY2(widget->bandToBeLabel->text().contains(name20),
+             "Band to be must be recalculated after a QSO is worked");
 }
 
 void tst_DXClusterAssistant::test_ActivityPrunedByAge()

@@ -632,9 +632,8 @@ void DXClusterAssistant::updateBandSummary()
         return;
 
     // Most active band counts ALL the spots arriving from the DXCluster
-    // within the age window — needed or not (#860). Band to be only weighs
-    // the needed spots the widget manages, through their scores (#796).
-    // View filters affect neither metric.
+    // within the age window — needed or not, and regardless of any view
+    // filter (#860): it is raw cluster activity.
     int mostActiveBand = -1;
     int bestCount = 0;
     for (auto it = bandActivity.constBegin(); it != bandActivity.constEnd(); ++it)
@@ -646,10 +645,16 @@ void DXClusterAssistant::updateBandSummary()
         }
     }
 
-    QHash<int, int> scorePerBand;   // bandId -> cumulative score of needed spots
+    // Band to be weighs the score the user can still get on each band, so it
+    // only counts the spots actually shown (#796): hiding a spot, filtering
+    // a band or a spotter continent, and working or confirming a QSO (which
+    // drops the spot in recalculateAll) all change what is achievable.
+    QHash<int, int> scorePerBand;   // bandId -> cumulative score of shown spots
     for (int i = 0; i < model->spotCount(); i++)
     {
         DXSpot spot = model->spotAt(i);
+        if (!spotIsShown(spot))
+            continue;
         scorePerBand[spot.getBandId()] += spot.getScore();
     }
 
@@ -920,6 +925,22 @@ void DXClusterAssistant::applyViewFilters()
         proxy->invalidate();
     }
     updateBandSummary();
+}
+
+bool DXClusterAssistant::spotIsShown(DXSpot _spot) const
+{
+    // Mirror of DXAssistantProxyModel::filterAcceptsRow
+    if (hiddenCalls.contains(_spot.getDxCall()))
+        return false;
+    if (disabledBands.contains(_spot.getBandId()))
+        return false;
+    if (onlyMyContinentSpotters && (engine != nullptr))
+    {
+        QString userContinent = engine->getUserContinent();
+        if (!userContinent.isEmpty() && (_spot.getSpotterContinent() != userContinent))
+            return false;
+    }
+    return true;
 }
 
 void DXClusterAssistant::hideSpotCall(const QString &_call)

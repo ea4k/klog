@@ -185,6 +185,7 @@ private:
     void applyViewFilters();          // Push filter state to the proxy and refresh the summary
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit
+    bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
 
     Awards *awards;
     World *world;
