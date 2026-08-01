@@ -86,6 +86,8 @@ public:
     void setUserContinent(const QString &_continent);
     QString getUserContinent() const;
 
+    void setMostWanted(ClubLogMostWanted *_mostWanted);   // May be null: rank 0
+
     void setCheckMode(bool _check);   // Runtime switch behind DX_ASSISTANT_CHECK_MODE
     bool getCheckMode() const;
 

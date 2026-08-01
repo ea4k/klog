@@ -53,6 +53,11 @@ QString DXAssistantEngine::getUserContinent() const
     return userContinent;
 }
 
+void DXAssistantEngine::setMostWanted(ClubLogMostWanted *_mostWanted)
+{
+    mostWanted = _mostWanted;
+}
+
 void DXAssistantEngine::setCheckMode(bool _check)
 {
     checkMode = _check;

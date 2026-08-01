@@ -665,6 +665,7 @@ private:
     ClubLogMostWanted *clubLogMostWanted;
     QString myContinent;                      // Derived once at startup from the station callsign
     bool dxAssistantEnabled;
+    bool clubLogMostWantedEnabled;
     // </DX-ASSISTANT>
 
     // </UI>

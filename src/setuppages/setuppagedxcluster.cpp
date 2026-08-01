@@ -108,6 +108,33 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     miscVBoxLayout->addStretch(1);
     miscGroupBox->setLayout(miscVBoxLayout);
 
+    // TODO (DX Assistant): When score weights, TTL, and MOST_WANTED_THRESHOLD
+    // are made user-configurable, add the corresponding spinboxes / sliders here.
+    // Keys to use:
+    //   DXAssistant/spotTTLMinutes        (int,  default SPOT_TTL_MINUTES)
+    //   DXAssistant/mostWantedThreshold   (int,  default MOST_WANTED_THRESHOLD)
+    //   DXAssistant/scoreATNO             (int,  default SCORE_ATNO)
+    //   DXAssistant/scoreNotWorkedBand    (int,  default SCORE_NOT_WORKED_BAND)
+    //   ... etc.
+    dxAssistantEnabledCheckbox = new QCheckBox;
+    dxAssistantClubLogMWCheckbox = new QCheckBox;
+    dxAssistantEnabledCheckbox->setAutoExclusive(false);
+    dxAssistantClubLogMWCheckbox->setAutoExclusive(false);
+    dxAssistantEnabledCheckbox->setChecked(false);
+    dxAssistantClubLogMWCheckbox->setChecked(false);
+    dxAssistantEnabledCheckbox->setText(tr("Enable DX Assistant"));
+    dxAssistantEnabledCheckbox->setToolTip(tr("Shows a prioritised list of DXCluster spots scored against your own log (Tools->DX Assistant)."));
+    dxAssistantClubLogMWCheckbox->setText(tr("Enable ClubLog Most Wanted integration"));
+    dxAssistantClubLogMWCheckbox->setToolTip(tr("Downloads the ClubLog Most Wanted list monthly and uses it to break ties between spots with the same score."));
+
+    QGroupBox *dxAssistantGroupBox = new QGroupBox(tr("DX Assistant"));
+
+    QVBoxLayout *dxAssistantVBoxLayout = new QVBoxLayout;
+    dxAssistantVBoxLayout->addWidget(dxAssistantEnabledCheckbox);
+    dxAssistantVBoxLayout->addWidget(dxAssistantClubLogMWCheckbox);
+    dxAssistantVBoxLayout->addStretch(1);
+    dxAssistantGroupBox->setLayout(dxAssistantVBoxLayout);
+
     QGroupBox *messagesGroupBox = new QGroupBox(tr("Messages"));
 
     QVBoxLayout *messagesVBoxLayout = new QVBoxLayout;
@@ -134,6 +161,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     mainLayout->addWidget(spotsGroupBox, 1, 0);
     mainLayout->addWidget(messagesGroupBox, 1, 1);
     mainLayout->addWidget(miscGroupBox, 2, 0, 1, -1);
+    mainLayout->addWidget(dxAssistantGroupBox, 3, 0, 1, -1);
 
     setLayout(mainLayout);
 
@@ -350,6 +378,11 @@ void SetupPageDxCluster::saveSettings()
     settings.setValue ("DXClusterSave", QVariant((saveAllDXClusterDataQCheckbox->isChecked())));
     settings.setValue ("DXClusterSendToMap", QVariant((sendSpotsToMapCheckbox->isChecked())));
     settings.endGroup ();
+
+    settings.beginGroup ("DXAssistant");
+    settings.setValue ("enabled", QVariant((dxAssistantEnabledCheckbox->isChecked())));
+    settings.setValue ("clublogMostWantedEnabled", QVariant((dxAssistantClubLogMWCheckbox->isChecked())));
+    settings.endGroup ();
 }
 
 void SetupPageDxCluster::loadSettings()
@@ -398,5 +431,10 @@ void SetupPageDxCluster::loadSettings()
     }
     dxclusterServersComboBox->setCurrentIndex(index);
 
+    settings.endGroup ();
+
+    settings.beginGroup ("DXAssistant");
+    dxAssistantEnabledCheckbox->setChecked (settings.value("enabled", false).toBool ());
+    dxAssistantClubLogMWCheckbox->setChecked (settings.value("clublogMostWantedEnabled", false).toBool ());
     settings.endGroup ();
 }

@@ -248,7 +248,8 @@ void MainWindow::init_variables()
     dxClusterAssistant = nullptr;
     dxAssistantEngine  = nullptr;
     clubLogMostWanted  = nullptr;
-    dxAssistantEnabled = true;
+    dxAssistantEnabled = false;
+    clubLogMostWantedEnabled = false;
     myContinent = QString();
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
@@ -3792,43 +3793,53 @@ void MainWindow::initDXAssistant()
 
     dxClusterAssistantAct->setVisible(dxAssistantEnabled);
     if (!dxAssistantEnabled)
-    {
+    {   // Already-created objects stay idle: the slots guard on the flag
         logEvent(Q_FUNC_INFO, "END - Disabled in settings", Debug);
-        return;
-    }
-    if (dxAssistantEngine != nullptr)
-    {   // Already initialised (e.g. re-entering after the Setup dialog)
-        myContinent = world->getQRZContinentShortName(mainQRZ);
-        dxAssistantEngine->setUserContinent(myContinent);
-        logEvent(Q_FUNC_INFO, "END - Already initialised", Debug);
         return;
     }
 
     myContinent = world->getQRZContinentShortName(mainQRZ);
 
-    clubLogMostWanted = new ClubLogMostWanted(this);
-    clubLogMostWanted->setKLogVersion(softwareVersion);
-    clubLogMostWanted->setPrefixResolver([this](const QString &_prefix)
+    if (clubLogMostWantedEnabled && (clubLogMostWanted == nullptr))
     {
-        return world->getQRZARRLId(_prefix);
-    });
-    // Loads any cached list immediately; the fetch below is skipped while
-    // the cache is younger than the TTL.
-    clubLogMostWanted->setCacheFile(util->getHomeDir() + "/clublog_mostwanted.json");
-    clubLogMostWanted->fetchIfStale();
+        clubLogMostWanted = new ClubLogMostWanted(this);
+        clubLogMostWanted->setKLogVersion(softwareVersion);
+        clubLogMostWanted->setPrefixResolver([this](const QString &_prefix)
+        {
+            return world->getQRZARRLId(_prefix);
+        });
+        // Loads any cached list immediately; the fetch below is skipped while
+        // the cache is younger than the TTL.
+        clubLogMostWanted->setCacheFile(util->getHomeDir() + "/clublog_mostwanted.json");
+        clubLogMostWanted->fetchIfStale();
 
-    dxAssistantEngine = new DXAssistantEngine(&awards, world, dataProxy,
-                                              clubLogMostWanted, myContinent, this);
+        // ClubLog most-wanted list refreshed -> recalculate
+        connect(clubLogMostWanted, SIGNAL(mostWantedUpdated()),
+                this, SLOT(slotDXAssistantRecalculate()));
+    }
+    // The integration can be toggled in the Setup dialog: a null pointer
+    // simply yields rank 0 for every entity.
+    ClubLogMostWanted *mostWantedInUse = clubLogMostWantedEnabled ? clubLogMostWanted : nullptr;
 
-    // New cluster spot -> score it -> feed the assistant
-    connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)),
-            this, SLOT(slotDXAssistantNewSpot(DXSpot)));
-    // New QSO logged -> recalculate all spot scores
-    connect(&awards, SIGNAL(awardDXCCUpdated()),
-            this, SLOT(slotDXAssistantRecalculate()));
-    // ClubLog most-wanted list refreshed -> recalculate
-    connect(clubLogMostWanted, SIGNAL(mostWantedUpdated()),
-            this, SLOT(slotDXAssistantRecalculate()));
+    if (dxAssistantEngine == nullptr)
+    {
+        dxAssistantEngine = new DXAssistantEngine(&awards, world, dataProxy,
+                                                  mostWantedInUse, myContinent, this);
+
+        // New cluster spot -> score it -> feed the assistant
+        connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)),
+                this, SLOT(slotDXAssistantNewSpot(DXSpot)));
+        // New QSO logged -> recalculate all spot scores
+        connect(&awards, SIGNAL(awardDXCCUpdated()),
+                this, SLOT(slotDXAssistantRecalculate()));
+    }
+    else
+    {   // Re-entering after the Setup dialog: refresh what may have changed
+        dxAssistantEngine->setUserContinent(myContinent);
+        dxAssistantEngine->setMostWanted(mostWantedInUse);
+    }
+    if (dxClusterAssistant != nullptr)
+        dxClusterAssistant->setEngine(dxAssistantEngine);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -6796,7 +6807,8 @@ bool MainWindow::loadSettings()
     settings.endGroup ();
 
     settings.beginGroup ("DXAssistant");
-    dxAssistantEnabled = settings.value("Enabled", true).toBool();
+    dxAssistantEnabled = settings.value("enabled", false).toBool();
+    clubLogMostWantedEnabled = settings.value("clublogMostWantedEnabled", false).toBool();
     settings.endGroup ();
 
     eQSLTabWidget->loadSettings();
