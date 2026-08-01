@@ -75,6 +75,7 @@ set(KLOG_SOURCES
    charts/statsworkedconfirmedpiechartwidget.cpp
    charts/statsworkedsentpiechartwidget.cpp
    dxcluster/clublogmostwanted.cpp
+   dxcluster/dxassistantengine.cpp
    dxcluster/dxclusterassistant.cpp
    dxcluster/dxcluster.cpp
    dxcluster/dxspot.cpp
@@ -177,6 +178,7 @@ set(KLOG_HEADERS
    charts/statsworkedconfirmedpiechartwidget.h
    charts/statsworkedsentpiechartwidget.h
    dxcluster/clublogmostwanted.h
+   dxcluster/dxassistantengine.h
    dxcluster/dxclusterassistant.h
    dxcluster/dxcluster.h
    dxcluster/dxspot.h

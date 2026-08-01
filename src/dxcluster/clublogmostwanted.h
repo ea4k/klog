@@ -41,6 +41,7 @@ class ClubLogMostWanted : public QObject
 {
     Q_OBJECT
     friend class tst_ClubLogMostWanted;
+    friend class tst_DXAssistantEngine;
 
 public:
     // Only top-N entities participate in tiebreaking
