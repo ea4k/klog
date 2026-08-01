@@ -245,6 +245,12 @@ void MainWindow::init_variables()
     aboutDialog  = nullptr;
     tipsDialog   = nullptr;
     statsWidget  = nullptr;
+    dxClusterAssistant = nullptr;
+    dxAssistantEngine  = nullptr;
+    clubLogMostWanted  = nullptr;
+    dxAssistantEnabled = false;
+    clubLogMostWantedEnabled = false;
+    myContinent = QString();
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
     manualMode = false;
@@ -477,6 +483,8 @@ void MainWindow::init()
 
     createUI();
     //qInfo() << "[KLOG-TIMING] init() 08 - createUI():" << initTimer.elapsed() << "ms"; initTimer.restart();
+
+    initDXAssistant();   // Needs the settings (readSettingsFile) and the Tools menu (createUI)
 
     slotClearButtonClicked(Q_FUNC_INFO);
     infoWidget->showInfo(-1);
@@ -869,10 +877,6 @@ void MainWindow::slotShowMap()
     //mapWindow->addLocators(a, QColor(0, 0, 255, 127));
 }
 
-//void MainWindow::slotShowDXClusterAssistant()
-//{
-    //dxClusterAssistant->show();
-//}
 void MainWindow::setMainWindowTitle()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -2676,10 +2680,10 @@ void MainWindow::createMenusCommon()
     connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
     showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    //dxClusterAssistantAct = new QAction (tr("DXCluster Assistant"), this);
-    //toolMenu->addAction(dxClusterAssistantAct);
-    //connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
-    //dxClusterAssistantAct->setToolTip(tr("Show the statistics of your radio activity."));
+    dxClusterAssistantAct = new QAction (tr("DX Assistant"), this);
+    toolMenu->addAction(dxClusterAssistantAct);
+    connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
+    dxClusterAssistantAct->setToolTip(tr("Show the DX Assistant - prioritised list of workable spots."));
 
 
      //qDebug() << "MainWindow::createMenusCommon before" ;
@@ -3341,6 +3345,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         applySettings ();
        //qDebug() << Q_FUNC_INFO << " - 010 - " << (QTime::currentTime()).toString ("HH:mm:ss");
         reconfigureDXMarathonUI(manageDxMarathon);
+        initDXAssistant();   // The station callsign or the enabled flag may have changed
         logEvent(Q_FUNC_INFO, "Just after loadSettings", Debug);
        //qDebug() << "MainWindow::slotSetupDialogFinished: logmodel to be created-2" ;
         logEvent(Q_FUNC_INFO, "logmodel to be created-2", Debug);
@@ -3728,6 +3733,8 @@ void MainWindow::setColors (const QColor &_newOne, const QColor &_needed, const 
     dxClusterWidget->setColors  (_newOne, _needed, _worked, _confirmed, _default);
     infoWidget->setColors       (_newOne, _needed, _worked, _confirmed, _default);
     dxccStatusWidget->setColors (_newOne, _needed, _worked, _confirmed, _default);
+    if (dxClusterAssistant != nullptr)
+        dxClusterAssistant->setColors(_newOne, _needed, _worked);
 }
 
 bool MainWindow::applySettings()
@@ -3777,6 +3784,70 @@ void MainWindow::startServices()
 
     //hamlibActive = setHamlib(hamlibActive);
     setUDPServer(UDPServerStart);
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::initDXAssistant()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+
+    // The menu action is always visible; clicking it while the feature is
+    // disabled explains how to enable it (slotShowDXClusterAssistant).
+    if (!dxAssistantEnabled)
+    {   // Already-created objects stay idle: the slots guard on the flag
+        logEvent(Q_FUNC_INFO, "END - Disabled in settings", Debug);
+        return;
+    }
+
+    myContinent = world->getQRZContinentShortName(mainQRZ);
+
+    if (clubLogMostWantedEnabled && (clubLogMostWanted == nullptr))
+    {
+        clubLogMostWanted = new ClubLogMostWanted(this);
+        clubLogMostWanted->setKLogVersion(softwareVersion);
+        clubLogMostWanted->setPrefixResolver([this](const QString &_prefix)
+        {
+            return world->getQRZARRLId(_prefix);
+        });
+        // Loads any cached list immediately; the fetch below is skipped while
+        // the cache is younger than the TTL.
+        clubLogMostWanted->setCacheFile(util->getHomeDir() + "/clublog_mostwanted.json");
+        clubLogMostWanted->fetchIfStale();
+
+        // ClubLog most-wanted list refreshed -> recalculate
+        connect(clubLogMostWanted, SIGNAL(mostWantedUpdated()),
+                this, SLOT(slotDXAssistantRecalculate()));
+        // Surface silent download/parse failures in the KLog debug log
+        connect(clubLogMostWanted, &ClubLogMostWanted::fetchFailed,
+                this, [this](const QString &_reason)
+        {
+            logEvent("ClubLogMostWanted", _reason, Warning);
+        });
+    }
+    // The integration can be toggled in the Setup dialog: a null pointer
+    // simply yields rank 0 for every entity.
+    ClubLogMostWanted *mostWantedInUse = clubLogMostWantedEnabled ? clubLogMostWanted : nullptr;
+
+    if (dxAssistantEngine == nullptr)
+    {
+        dxAssistantEngine = new DXAssistantEngine(&awards, world, dataProxy,
+                                                  mostWantedInUse, myContinent, this);
+
+        // New cluster spot -> score it -> feed the assistant
+        connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)),
+                this, SLOT(slotDXAssistantNewSpot(DXSpot)));
+        // New QSO logged -> recalculate all spot scores
+        connect(&awards, SIGNAL(awardDXCCUpdated()),
+                this, SLOT(slotDXAssistantRecalculate()));
+    }
+    else
+    {   // Re-entering after the Setup dialog: refresh what may have changed
+        dxAssistantEngine->setUserContinent(myContinent);
+        dxAssistantEngine->setMostWanted(mostWantedInUse);
+    }
+    if (dxClusterAssistant != nullptr)
+        dxClusterAssistant->setEngine(dxAssistantEngine);
+
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
@@ -5242,6 +5313,74 @@ void MainWindow::slotShowStats()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
+void MainWindow::slotShowDXClusterAssistant()
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!dxAssistantEnabled)
+    {
+        QMessageBox::information(this, tr("KLog - DX Assistant"),
+                                 tr("The DX Assistant is not enabled.\n\n"
+                                    "To start receiving a prioritised list of workable spots, "
+                                    "enable it in Setup, in the DXCluster page "
+                                    "(check 'Enable DX Assistant')."));
+        return;
+    }
+    if (!dxClusterAssistant)
+    {   // Lazy-init, created on first Tools->DX Assistant (like StatisticsWidget)
+        dxClusterAssistant = new DXClusterAssistant(&awards, world, dataProxy,
+                                                    Q_FUNC_INFO, this);
+        dxClusterAssistant->init();
+        dxClusterAssistant->setEngine(dxAssistantEngine);
+        dxClusterAssistant->setColors(newOneColor, neededColor, workedColor);
+        connect(dxClusterAssistant, SIGNAL(spotSendToUI(DXSpot)),
+                this, SLOT(slotDXAssistantSendSpotToUI(DXSpot)));
+        connect(dxClusterAssistant, SIGNAL(spotLogDirectly(DXSpot)),
+                this, SLOT(slotDXAssistantLogSpot(DXSpot)));
+    }
+    dxClusterAssistant->show();
+    dxClusterAssistant->raise();
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantNewSpot(const DXSpot &_spot)
+{
+    // Called for every arriving DXCluster spot; scoring only makes sense
+    // once the assistant window exists to show the result.
+    if (!dxAssistantEnabled || (dxAssistantEngine == nullptr) || (dxClusterAssistant == nullptr))
+        return;
+
+    DXSpot spot = _spot;
+    bool workable = dxAssistantEngine->score(spot);
+    // Every spot counts towards "Most active band", even the discarded ones
+    dxClusterAssistant->registerBandActivity(spot);
+    if (workable)
+        dxClusterAssistant->addOrUpdateSpot(spot);
+}
+
+void MainWindow::slotDXAssistantRecalculate()
+{
+    // Called after Awards update or ClubLog list refresh
+    if (dxClusterAssistant != nullptr)
+        dxClusterAssistant->recalculateAll();
+}
+
+void MainWindow::slotDXAssistantSendSpotToUI(const DXSpot &_spot)
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    DXSpot spot = _spot;
+    clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantLogSpot(const DXSpot &_spot)
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    DXSpot spot = _spot;
+    clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
+    slotQRZReturnPressed();   // Logs the QSO immediately, without user interaction
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
 void MainWindow::slotWorldReload(const bool _b)
 {
          //qDebug() << "MainWindow::slotWorldReload" ;
@@ -6682,6 +6821,11 @@ bool MainWindow::loadSettings()
 
     settings.beginGroup ("LoTW");
     lotwSentDefault = settings.value("LoTWSentDefault", "Q").toString();
+    settings.endGroup ();
+
+    settings.beginGroup ("DXAssistant");
+    dxAssistantEnabled = settings.value("enabled", false).toBool();
+    clubLogMostWantedEnabled = settings.value("clublogMostWantedEnabled", false).toBool();
     settings.endGroup ();
 
     eQSLTabWidget->loadSettings();

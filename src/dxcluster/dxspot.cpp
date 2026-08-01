@@ -46,6 +46,13 @@ DXSpot::DXSpot(const DXSpot& other)
     mode        = other.mode;
     status      = other.status;
     color       = other.color;
+    dxcc             = other.dxcc;
+    bandId           = other.bandId;
+    spotterContinent = other.spotterContinent;
+    score            = other.score;
+    statusBand       = other.statusBand;
+    mostWantedRank   = other.mostWantedRank;
+    hidden           = other.hidden;
 }
 
 void DXSpot::clear()
@@ -59,6 +66,13 @@ void DXSpot::clear()
     clickStatus = NoClick;
     shdx        = false;
     color       =  QColor::fromString(QAnyStringView(("slategrey")));
+    dxcc             = -1;
+    bandId           = -1;
+    spotterContinent.clear();
+    score            = -1;
+    statusBand       = unknown;
+    mostWantedRank   = 0;
+    hidden           = false;
 }
 
 void DXSpot::operator=(DXSpot const &_other)
@@ -74,6 +88,13 @@ void DXSpot::operator=(DXSpot const &_other)
     mode            = _other.mode;
     status          = _other.status;
     color           = _other.color;
+    dxcc             = _other.dxcc;
+    bandId           = _other.bandId;
+    spotterContinent = _other.spotterContinent;
+    score            = _other.score;
+    statusBand       = _other.statusBand;
+    mostWantedRank   = _other.mostWantedRank;
+    hidden           = _other.hidden;
 }
 
 bool DXSpot::isValid()
@@ -153,3 +174,24 @@ QSOStatus DXSpot::getQSOStatus(){return status;}
 
 void DXSpot::setColor(const QColor &c){color = c;}
 QColor DXSpot::getColor(){return color;}
+
+void DXSpot::setDXCC(int _dxcc){dxcc = _dxcc;}
+int DXSpot::getDXCC(){return dxcc;}
+
+void DXSpot::setBandId(int _bandId){bandId = _bandId;}
+int DXSpot::getBandId(){return bandId;}
+
+void DXSpot::setSpotterContinent(const QString &_c){spotterContinent = _c;}
+QString DXSpot::getSpotterContinent(){return spotterContinent;}
+
+void DXSpot::setScore(int _score){score = _score;}
+int DXSpot::getScore(){return score;}
+
+void DXSpot::setStatusBand(const QSOStatus &_s){statusBand = _s;}
+QSOStatus DXSpot::getStatusBand(){return statusBand;}
+
+void DXSpot::setMostWantedRank(int _rank){mostWantedRank = _rank;}
+int DXSpot::getMostWantedRank(){return mostWantedRank;}
+
+void DXSpot::setHidden(bool _h){hidden = _h;}
+bool DXSpot::getHidden(){return hidden;}

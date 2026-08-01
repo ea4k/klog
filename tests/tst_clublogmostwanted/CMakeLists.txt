@@ -1,13 +1,13 @@
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     cmake_minimum_required(VERSION 3.30)
-    project(tst_dxspot)
+    project(tst_clublogmostwanted)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find Qt6 Core, Gui (QColor in dxspot.h) and Test modules
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Test)
+# Find Qt6 Core, Network and Test modules
+find_package(Qt6 REQUIRED COMPONENTS Core Network Test)
 # Enable AUTOMOC before add_executable
 set(CMAKE_AUTOMOC ON)
 
@@ -21,27 +21,21 @@ list(FILTER TEST_SOURCES EXCLUDE REGEX "/qrc_.*\\.cpp$")
 file(GLOB TEST_HEADERS "*.h")
 
 # Create the test executable
-add_executable(tst_dxspot
+add_executable(tst_clublogmostwanted
     ${TEST_SOURCES}
-    ../../src/frequency.cpp
-    ../../src/callsign.cpp
-    ../../src/dxcluster/dxspot.cpp
+    ../../src/dxcluster/clublogmostwanted.cpp
 
     ${TEST_HEADERS}
-    ../../src/frequency.h
-    ../../src/callsign.h
-    ../../src/dxcluster/dxspot.h
-    ../../src/klogdefinitions.h
+    ../../src/dxcluster/clublogmostwanted.h
 )
 
-# Link with Qt6 Core and Test
-target_link_libraries(tst_dxspot
+# Link with Qt6 Core, Network and Test
+target_link_libraries(tst_clublogmostwanted
     Qt6::Core
+    Qt6::Network
     Qt6::Test
-    Qt6::Gui
 )
 
 # Register the test with CTest
-add_test(NAME tst_dxspot COMMAND tst_dxspot)
-set_tests_properties(tst_dxspot PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
-
+add_test(NAME tst_clublogmostwanted COMMAND tst_clublogmostwanted)
+set_tests_properties(tst_clublogmostwanted PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")

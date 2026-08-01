@@ -71,6 +71,9 @@ private:
 
     QCheckBox *saveAllDXClusterDataQCheckbox;
 
+    QCheckBox *dxAssistantEnabledCheckbox;
+    QCheckBox *dxAssistantClubLogMWCheckbox;
+
     Utilities *util;
     // qStringList dxClusterServers;
 };

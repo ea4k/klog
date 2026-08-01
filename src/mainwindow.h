@@ -46,7 +46,9 @@ class TipsDialog;
 //#include "locator.h"
 #include "dxcluster/dxcluster.h"
 #include "dxcluster/dxspot.h"
-//#include "dxcluster/dxclusterassistant.h"
+#include "dxcluster/dxclusterassistant.h"
+#include "dxcluster/dxassistantengine.h"
+#include "dxcluster/clublogmostwanted.h"
 #include "frequency.h"
 #include "awards.h"
 #include "inputwidgets/mainwindowsattab.h"
@@ -230,6 +232,14 @@ private slots:
     void slotUpdateSATSDAT();
     void slotShowStats();
 
+    // <DX-ASSISTANT>
+    void slotShowDXClusterAssistant();
+    void slotDXAssistantNewSpot(const DXSpot &_spot);
+    void slotDXAssistantRecalculate();
+    void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
+    void slotDXAssistantLogSpot(const DXSpot &_spot);
+    // </DX-ASSISTANT>
+
     void slotWorldReload(const bool _b);
 
     void slotExitFromSlotDialog(const int exitID);
@@ -318,9 +328,6 @@ private slots:
     //void slotShowQSOFromDXCCWidget(const int _q);
     void slotShowQSOsFromDXCCWidget(QList<int> _qsos);
 
-    // DXCLUSTER ASSISTANT
-    //void slotShowDXClusterAssistant();
-
     //UDP Server (WXJT-x)
     void slotWSJXstatusFromUDPServer(const int _type, const QString &_dxcall, const double _freq, const QString &_mode,
                                  const QString &_report, const QString &_de_call, const QString &_de_grid,
@@ -347,6 +354,7 @@ private:
     void checkHomeDir();        // Refactored from init()
     bool showWSJTXDuplicatedMSG(const QSO &_qso);  //Shows an error if the QSO received from WSJTX is dupe.
     void startServices();
+    void initDXAssistant();
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -602,7 +610,7 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
     QAction *showMapAct;
-    // qAction *dxClusterAssistantAct;
+    QAction *dxClusterAssistantAct;
 
     QStringList bands;
     QStringList modes;
@@ -651,7 +659,14 @@ private:
     bool dxClusterShowHF, dxClusterShowVHF, dxClusterShowWARC, dxClusterShowWorked, dxClusterShowConfirmed, dxClusterShowAnn, dxClusterShowWWV, dxClusterShowWCY;
     // </CLUSTER>
 
-   // DXClusterAssistant *dxClusterAssistant;
+    // <DX-ASSISTANT>
+    DXClusterAssistant *dxClusterAssistant;   // Lazy-created on first Tools->DX Assistant
+    DXAssistantEngine *dxAssistantEngine;
+    ClubLogMostWanted *clubLogMostWanted;
+    QString myContinent;                      // Derived once at startup from the station callsign
+    bool dxAssistantEnabled;
+    bool clubLogMostWantedEnabled;
+    // </DX-ASSISTANT>
 
     // </UI>
     int infoTimeout; // timeout that temporary info will stay in the infobars

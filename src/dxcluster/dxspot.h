@@ -80,6 +80,28 @@ public:
     void setSHDX(bool _shdx);   // To know if the spot arrived from the dxcluster or was requested with a sh/dx
     bool getSHDX();
 
+    // --- DX Assistant fields ---
+    void setDXCC(int _dxcc);
+    int getDXCC();
+
+    void setBandId(int _bandId);
+    int getBandId();
+
+    void setSpotterContinent(const QString &_c);
+    QString getSpotterContinent();
+
+    void setScore(int _score);
+    int getScore();
+
+    void setStatusBand(const QSOStatus &_s);
+    QSOStatus getStatusBand();
+
+    void setMostWantedRank(int _rank);
+    int getMostWantedRank();
+
+    void setHidden(bool _h);
+    bool getHidden();
+
 signals:
 
 private:
@@ -92,7 +114,23 @@ private:
     QString     comment;
     QDateTime   dateTime;
     bool        shdx;
-    MouseClicks clickStatus;    
+    MouseClicks clickStatus;
+
+    // --- DX Assistant fields ---
+    // All default to safe values; ignored by any code that does not use them.
+
+    // Resolved at receive time (avoids re-parsing callsign+freq on every rescore)
+    int         dxcc             = -1;
+    int         bandId           = -1;
+    QString     spotterContinent;        // Short name: "EU", "NA", ... empty if unknown
+
+    // Scoring (populated by DXAssistantEngine; -1 = not yet scored / discard)
+    int         score            = -1;
+    QSOStatus   statusBand       = unknown;  // Status on this band, mode-agnostic
+    int         mostWantedRank   = 0;        // 0 = not in top-N most-wanted list
+
+    // UI state (used by DXClusterAssistant only)
+    bool        hidden           = false;    // Per-session; never persisted to disk
 };
 
 #endif // KLOG_CLUSTER_DXSPOT_H
