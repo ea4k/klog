@@ -82,8 +82,11 @@ public:
     // Fetch only if the data currently held is missing or older than the TTL.
     void fetchIfStale();
 
+    QString getLastError() const;          // Why the last fetch/parse failed; empty if none
+
 signals:
     void mostWantedUpdated();              // Emitted after a successful parse
+    void fetchFailed(const QString &reason);   // Network or parse failure (old data kept)
 
 private slots:
     void slotDownloadFinished(QNetworkReply *reply);
@@ -102,6 +105,7 @@ private:
     QString apiKey;
     QString klogVersion;
     QString cacheFile;
+    QString lastError;
     std::function<int(const QString &)> prefixResolver;
     QNetworkAccessManager *manager;
     QTimer *dailyTimer;                    // A 30-day interval overflows QTimer's int

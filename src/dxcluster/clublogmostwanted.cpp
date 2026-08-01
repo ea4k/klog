@@ -35,6 +35,7 @@
 #include <QNetworkRequest>
 #include <QUrl>
 #include <QUrlQuery>
+#include <QDebug>
 
 ClubLogMostWanted::ClubLogMostWanted(QObject *parent) : QObject(parent)
 {
@@ -135,18 +136,35 @@ QDateTime ClubLogMostWanted::getLastUpdate() const
     return lastUpdate;
 }
 
+QString ClubLogMostWanted::getLastError() const
+{
+    return lastError;
+}
+
 void ClubLogMostWanted::slotDownloadFinished(QNetworkReply *reply)
 {
     reply->deleteLater();
     if (reply->error() != QNetworkReply::NoError)
     {   // Keep whatever data we already have; getRank keeps answering (0 if none)
+        lastError = QString("Network error fetching the Most Wanted list: %1").arg(reply->errorString());
+        qWarning() << "ClubLogMostWanted:" << lastError;
+        emit fetchFailed(lastError);
         return;
     }
 
     QByteArray data = reply->readAll();
     if (!parse(data))
+    {
+        int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        lastError = QString("Could not parse the Most Wanted response (HTTP %1): %2 [%3...]")
+                        .arg(status).arg(lastError,
+                                         QString::fromUtf8(data.left(80)).simplified());
+        qWarning() << "ClubLogMostWanted:" << lastError;
+        emit fetchFailed(lastError);
         return;
+    }
 
+    lastError.clear();
     lastUpdate = QDateTime::currentDateTimeUtc();
     if (!cacheFile.isEmpty())
         saveToCache(data);
@@ -167,9 +185,14 @@ bool ClubLogMostWanted::parse(const QByteArray &data)
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
     if (parseError.error != QJsonParseError::NoError)
+    {
+        lastError = QString("not valid JSON (%1)").arg(parseError.errorString());
         return false;
+    }
 
     QHash<int, int> newRanks;
+    int entriesSeen = 0;
+    bool resolverMissing = false;
 
     if (doc.isObject())
     {
@@ -181,11 +204,15 @@ bool ClubLogMostWanted::parse(const QByteArray &data)
             if (!rankOk || rank <= 0)
                 continue;
 
+            entriesSeen++;
             int dxcc = -1;
             if (it.value().isString())
             {
                 if (!prefixResolver)
+                {
+                    resolverMissing = true;
                     continue;
+                }
                 dxcc = prefixResolver(it.value().toString());
             }
             else if (it.value().isObject())
@@ -209,6 +236,7 @@ bool ClubLogMostWanted::parse(const QByteArray &data)
             if (!value.isObject())
                 continue;
             QJsonObject entity = value.toObject();
+            entriesSeen++;
             int dxcc = entity.value("dxcc").toInt(-1);
             int rank = entity.value("rank").toInt(-1);
             if (dxcc > 0 && rank > 0 &&
@@ -218,7 +246,15 @@ bool ClubLogMostWanted::parse(const QByteArray &data)
     }
 
     if (newRanks.isEmpty())
+    {
+        if (resolverMissing)
+            lastError = QString("no prefix resolver set to map the %1 prefixes to DXCC ids").arg(entriesSeen);
+        else if (entriesSeen > 0)
+            lastError = QString("none of the %1 entries resolved to a DXCC id").arg(entriesSeen);
+        else
+            lastError = "the response contained no usable entries";
         return false;
+    }
 
     ranks = newRanks;
     return true;

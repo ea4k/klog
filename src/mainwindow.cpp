@@ -3820,6 +3820,12 @@ void MainWindow::initDXAssistant()
         // ClubLog most-wanted list refreshed -> recalculate
         connect(clubLogMostWanted, SIGNAL(mostWantedUpdated()),
                 this, SLOT(slotDXAssistantRecalculate()));
+        // Surface silent download/parse failures in the KLog debug log
+        connect(clubLogMostWanted, &ClubLogMostWanted::fetchFailed,
+                this, [this](const QString &_reason)
+        {
+            logEvent("ClubLogMostWanted", _reason, Warning);
+        });
     }
     // The integration can be toggled in the Setup dialog: a null pointer
     // simply yields rank 0 for every entity.
