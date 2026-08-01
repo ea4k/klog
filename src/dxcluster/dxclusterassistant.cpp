@@ -668,6 +668,11 @@ void DXClusterAssistant::updateBandSummary()
             bandToBe = it.key();
         }
     }
+    if (bandToBe < 0)
+    {   // Nothing to gain anywhere (no shown spots): point the user at the
+        // band where the DX is actually happening.
+        bandToBe = mostActiveBand;
+    }
 
     QString mostActiveName = ((mostActiveBand > 0) && (dataProxy != nullptr))
                                  ? dataProxy->getNameFromBandId(mostActiveBand) : QString();

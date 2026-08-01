@@ -94,6 +94,8 @@ private slots:
     void test_BandToBeFollowsExpiredSpot();
     void test_BandToBeFollowsTTLChange();
     void test_BandToBeFollowsMaxSpotsChange();
+    void test_BandToBeFallsBackToMostActiveBand();
+    void test_BandToBeEmptyWithoutAnyData();
     void test_ActivityPrunedByAge();
 
     // Columns
@@ -589,6 +591,35 @@ void tst_DXClusterAssistant::test_BandToBeFollowsMaxSpotsChange()
     QCOMPARE(widget->model->spotCount(), 2);
     QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)),
              "Band to be must be recalculated when the max number of spots changes");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFallsBackToMostActiveBand()
+{
+    // Cluster activity on 40M, but every spot there is already confirmed so
+    // none of them is workable: there is no score to gain anywhere.
+    for (int i = 1; i <= 3; i++)
+        widget->registerBandActivity(makeSpot(QString("EA%1AAA").arg(i), band40, -1));
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    QString name40 = dataProxy->getNameFromBandId(band40);
+    QVERIFY(widget->mostActiveBandLabel->text().contains(name40));
+    QVERIFY2(widget->bandToBeLabel->text().contains(name40),
+             "Without spots to score, Band to be must fall back to the most active band");
+
+    // A workable spot elsewhere takes precedence again
+    widget->registerBandActivity(makeSpot("EA9ZZZ", band20, 700));
+    addScored("EA9ZZZ", band20, 700);
+    QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band20)),
+             "A band with reachable score must win over the fallback");
+    QVERIFY2(widget->mostActiveBandLabel->text().contains(name40),
+             "Most active band must still follow raw activity");
+}
+
+void tst_DXClusterAssistant::test_BandToBeEmptyWithoutAnyData()
+{
+    // No spots and no activity at all: both labels show the em dash
+    QVERIFY(widget->mostActiveBandLabel->text().contains(QStringLiteral("—")));
+    QVERIFY(widget->bandToBeLabel->text().contains(QStringLiteral("—")));
 }
 
 void tst_DXClusterAssistant::test_ActivityPrunedByAge()
