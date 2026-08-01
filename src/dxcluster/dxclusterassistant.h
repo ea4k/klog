@@ -53,7 +53,8 @@ class DXAssistantSpotModel : public QAbstractTableModel
 public:
     enum Column
     {
-        ColScore = 0,
+        ColPriority = 0,   // 1 = most valuable spot; recomputed on every change
+        ColScore,
         ColDXCall,
         ColCountry,
         ColFrequency,
@@ -93,11 +94,14 @@ public:
 
     void refreshAges();                 // Update the Age column (called every minute)
     void removeOlderThan(int _minutes); // Drop spots past the TTL
+    int worstSpotRow() const;           // Lowest score (tiebreak included); -1 if empty
 
 private:
     QSOStatus effectiveStatus(const DXSpot &_spot) const;
     QString statusText(const DXSpot &_spot) const;
     QVariant sortValue(const DXSpot &_spot, int _column) const;
+    int priorityOfSpot(const DXSpot &_spot) const;   // 1-based; ties share the number
+    void refreshPriorities();
 
     QList<DXSpot> spots;
     World *world;
@@ -149,9 +153,12 @@ public:
     void setEngine(DXAssistantEngine *_engine);
     void setColors(const QColor &_newOne, const QColor &_needed, const QColor &_worked);
 
+    static constexpr int MAX_SPOTS_DEFAULT = 25;   // Cap on managed spots
+
     void addOrUpdateSpot(const DXSpot &_spot);
     void recalculateAll();      // Called after QSO logged or Most Wanted updated
     void setTTL(int _minutes);
+    void setMaxSpots(int _max);
     void clearHiddenSpots();
     void updateBandSummary();   // Refresh "Most active band" / "Band to be"
 
@@ -171,8 +178,8 @@ private:
     void hideSpotCall(const QString &_call);
     bool spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const;
     void updateClearHiddenButton();
-    void applyViewFilters();          // Push filter state to the proxy and refresh
-    bool spotIsVisible(DXSpot _spot) const;   // Same rules the proxy applies
+    void applyViewFilters();          // Push filter state to the proxy and refresh the summary
+    void enforceMaxSpots();           // Evict the lowest-value spots over the cap
 
     Awards *awards;
     World *world;
@@ -191,6 +198,7 @@ private:
     QSet<int> disabledBands;     // Bands the user filtered out of the view
     bool onlyMyContinentSpotters;
     int ttlMinutes;
+    int maxSpots;
 };
 
 #endif // KLOG_CLUSTER_DXCLUSTERASSISTANT_H

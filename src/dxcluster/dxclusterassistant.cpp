@@ -35,6 +35,21 @@ email                : jaime@robles.es
 // DXAssistantSpotModel
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Value ordering shared by the Priority column, the sort tiebreak and the
+// max-spots eviction: higher score first, then the ClubLog Most Wanted rank
+// (lower rank first, unranked last).
+static int mwTieValue(int _rank)
+{
+    return (_rank > 0) ? (std::numeric_limits<int>::max() - _rank) : 0;
+}
+
+static bool isBetterSpot(DXSpot _a, DXSpot _b)
+{
+    if (_a.getScore() != _b.getScore())
+        return _a.getScore() > _b.getScore();
+    return mwTieValue(_a.getMostWantedRank()) > mwTieValue(_b.getMostWantedRank());
+}
+
 DXAssistantSpotModel::DXAssistantSpotModel(World *_world, QObject *parent)
     : QAbstractTableModel(parent)
 {
@@ -62,6 +77,7 @@ QVariant DXAssistantSpotModel::headerData(int section, Qt::Orientation orientati
 
     switch (section)
     {
+    case ColPriority:  return tr("Priority");
     case ColScore:     return tr("Score");
     case ColDXCall:    return tr("DX Call");
     case ColCountry:   return tr("Country");
@@ -111,6 +127,7 @@ QVariant DXAssistantSpotModel::sortValue(const DXSpot &_spot, int _column) const
     DXSpot spot(_spot);
     switch (_column)
     {
+    case ColPriority:  return priorityOfSpot(spot);
     case ColScore:     return spot.getScore();
     case ColDXCall:    return spot.getDxCall();
     case ColCountry:   return (world != nullptr) ? world->getEntityName(spot.getDXCC())
@@ -169,6 +186,8 @@ QVariant DXAssistantSpotModel::data(const QModelIndex &index, int role) const
 
     switch (index.column())
     {
+    case ColPriority:
+        return priorityOfSpot(spot);
     case ColScore:
         return spot.getScore();
     case ColDXCall:
@@ -225,11 +244,42 @@ DXSpot DXAssistantSpotModel::spotAt(int _row) const
     return spots.at(_row);
 }
 
+int DXAssistantSpotModel::priorityOfSpot(const DXSpot &_spot) const
+{
+    // 1 + number of strictly better spots; equally valuable spots share the
+    // same priority number
+    int better = 0;
+    for (const DXSpot &other : spots)
+    {
+        if (isBetterSpot(other, _spot))
+            better++;
+    }
+    return better + 1;
+}
+
+void DXAssistantSpotModel::refreshPriorities()
+{
+    if (!spots.isEmpty())
+        emit dataChanged(index(0, ColPriority), index(spots.count() - 1, ColPriority));
+}
+
+int DXAssistantSpotModel::worstSpotRow() const
+{
+    int worst = -1;
+    for (int i = 0; i < spots.count(); i++)
+    {
+        if ((worst < 0) || isBetterSpot(spots.at(worst), spots.at(i)))
+            worst = i;
+    }
+    return worst;
+}
+
 void DXAssistantSpotModel::addSpot(const DXSpot &_spot)
 {
     beginInsertRows(QModelIndex(), spots.count(), spots.count());
     spots.append(_spot);
     endInsertRows();
+    refreshPriorities();
 }
 
 void DXAssistantSpotModel::replaceSpot(int _row, const DXSpot &_spot)
@@ -238,6 +288,7 @@ void DXAssistantSpotModel::replaceSpot(int _row, const DXSpot &_spot)
         return;
     spots[_row] = _spot;
     emit dataChanged(index(_row, 0), index(_row, ColumnCount - 1));
+    refreshPriorities();
 }
 
 void DXAssistantSpotModel::removeSpotAt(int _row)
@@ -247,6 +298,7 @@ void DXAssistantSpotModel::removeSpotAt(int _row)
     beginRemoveRows(QModelIndex(), _row, _row);
     spots.removeAt(_row);
     endRemoveRows();
+    refreshPriorities();
 }
 
 int DXAssistantSpotModel::spotCount() const
@@ -383,6 +435,7 @@ DXClusterAssistant::DXClusterAssistant(Awards *_awards, World *_world,
     bandToBeLabel = nullptr;
     ttlTimer   = nullptr;
     ttlMinutes = SPOT_TTL_MINUTES;
+    maxSpots   = MAX_SPOTS_DEFAULT;
     onlyMyContinentSpotters = false;
 
     // Floating independent window even when a parent keeps the lifetime
@@ -419,7 +472,12 @@ bool DXClusterAssistant::createUI()
     tableView->setContextMenuPolicy(Qt::CustomContextMenu);
     tableView->verticalHeader()->setVisible(false);
     tableView->horizontalHeader()->setStretchLastSection(true);
-    tableView->setColumnHidden(DXAssistantSpotModel::ColMode, true);   // Hidden for the time being
+    // Hidden by default: the Priority column condenses the score and the MW
+    // rank, and most cluster spots carry no mode. All three can be brought
+    // back through the header's Show columns menu.
+    tableView->setColumnHidden(DXAssistantSpotModel::ColScore, true);
+    tableView->setColumnHidden(DXAssistantSpotModel::ColMWRank, true);
+    tableView->setColumnHidden(DXAssistantSpotModel::ColMode, true);
     tableView->horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(tableView, &QTableView::doubleClicked,
@@ -494,6 +552,7 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     if (row < 0)
     {
         model->addSpot(spot);
+        enforceMaxSpots();
         updateBandSummary();
         return;
     }
@@ -541,16 +600,16 @@ void DXClusterAssistant::updateBandSummary()
     if ((mostActiveBandLabel == nullptr) || (bandToBeLabel == nullptr) || (model == nullptr))
         return;
 
-    // Both metrics are derived from the TTL-filtered, deduplicated spot list
-    // already held by the widget — no extra data source (#796 / #860).
+    // Both metrics are derived from the full managed spot list — view filters
+    // (hidden calls, band filter, continent toggle) deliberately do NOT
+    // affect them: Most active band reflects raw DXCluster activity, and
+    // Band to be reflects the total score available per band (#796 / #860).
     QHash<int, int> countPerBand;   // bandId -> spot count
     QHash<int, int> scorePerBand;   // bandId -> cumulative score
 
     for (int i = 0; i < model->spotCount(); i++)
     {
         DXSpot spot = model->spotAt(i);
-        if (!spotIsVisible(spot))
-            continue;
         countPerBand[spot.getBandId()]++;
         scorePerBand[spot.getBandId()] += spot.getScore();
     }
@@ -595,6 +654,29 @@ void DXClusterAssistant::setTTL(int _minutes)
 {
     if (_minutes > 0)
         ttlMinutes = _minutes;
+}
+
+void DXClusterAssistant::setMaxSpots(int _max)
+{
+    if (_max > 0)
+    {
+        maxSpots = _max;
+        enforceMaxSpots();
+        updateBandSummary();
+    }
+}
+
+void DXClusterAssistant::enforceMaxSpots()
+{
+    if (model == nullptr)
+        return;
+    while (model->spotCount() > maxSpots)
+    {   // Evict the least valuable spot (lowest score, tiebreak included)
+        int worst = model->worstSpotRow();
+        if (worst < 0)
+            break;
+        model->removeSpotAt(worst);
+    }
 }
 
 void DXClusterAssistant::clearHiddenSpots()
@@ -746,6 +828,18 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
         ageActions.insert(act, option.first);
     }
 
+    // 6 - Max number of spots
+    QMenu *maxSpotsMenu = menu.addMenu(tr("Max number of spots"));
+    const QList<int> maxSpotsOptions = { 10, 25, 50, 75, 100, 200, 500 };
+    QHash<QAction *, int> maxSpotsActions;
+    for (int option : maxSpotsOptions)
+    {
+        QAction *act = maxSpotsMenu->addAction(QString::number(option));
+        act->setCheckable(true);
+        act->setChecked(maxSpots == option);
+        maxSpotsActions.insert(act, option);
+    }
+
     QAction *chosen = menu.exec(header->mapToGlobal(_pos));
     if (chosen == nullptr)
         return;
@@ -782,6 +876,10 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
         setTTL(ageActions.value(chosen));
         slotTimerTick();   // Apply the new age limit right away
     }
+    else if (maxSpotsActions.contains(chosen))
+    {
+        setMaxSpots(maxSpotsActions.value(chosen));
+    }
 }
 
 void DXClusterAssistant::applyViewFilters()
@@ -793,23 +891,6 @@ void DXClusterAssistant::applyViewFilters()
         proxy->invalidate();
     }
     updateBandSummary();
-}
-
-bool DXClusterAssistant::spotIsVisible(DXSpot _spot) const
-{
-    // Mirror of the proxy's filterAcceptsRow, used by the band summary so it
-    // only reflects what the user actually sees.
-    if (hiddenCalls.contains(_spot.getDxCall()))
-        return false;
-    if (disabledBands.contains(_spot.getBandId()))
-        return false;
-    if (onlyMyContinentSpotters && (engine != nullptr))
-    {
-        QString userContinent = engine->getUserContinent();
-        if (!userContinent.isEmpty() && (_spot.getSpotterContinent() != userContinent))
-            return false;
-    }
-    return true;
 }
 
 void DXClusterAssistant::hideSpotCall(const QString &_call)
