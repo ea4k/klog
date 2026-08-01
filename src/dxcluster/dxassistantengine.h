@@ -62,6 +62,14 @@ public:
     static constexpr int SCORE_SAME_CONTINENT_BONUS    = 100;
     static constexpr int SCORE_DIFF_CONTINENT_PENALTY  = -50;
 
+    // ClubLog Most Wanted modifier: the rarer the entity worldwide, the more
+    // points, so the user can see that one spot is more valuable than
+    // another. The maximum (rank 1) is kept below 50 so the DXCC category
+    // ladder can never be reordered: adjacent categories are 200 points
+    // apart and the continent modifier already spreads spots by 150.
+    static constexpr int SCORE_MOST_WANTED_MAX         = 40;
+    static constexpr int MOST_WANTED_RANK_SPAN         = 340;  // ~ number of DXCC entities
+
     // Mode awareness default. Future: loaded from QSettings
     static constexpr bool DX_ASSISTANT_CHECK_MODE      = true;
 
@@ -97,6 +105,7 @@ private:
     int scoreDXCC(int dxcc, int bandId, int modeId,
                   QSOStatus &outStatusBand, QSOStatus &outStatusBandMode) const;
     int scoreContinentModifier(const QString &spotterContinent) const;
+    int scoreMostWanted(int rank) const;
     // Future: int scoreCQZone(int cqz) const;
     // Future: int scoreITUZone(int ituz) const;
 

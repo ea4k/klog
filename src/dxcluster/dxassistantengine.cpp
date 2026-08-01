@@ -125,7 +125,8 @@ bool DXAssistantEngine::rescore(DXSpot &spot) const
         return false;
     }
 
-    spot.setScore(baseScore + scoreContinentModifier(spot.getSpotterContinent()));
+    spot.setScore(baseScore + scoreContinentModifier(spot.getSpotterContinent())
+                            + scoreMostWanted(spot.getMostWantedRank()));
     return true;
 }
 
@@ -168,6 +169,16 @@ int DXAssistantEngine::scoreContinentModifier(const QString &spotterContinent) c
     if (!spotterContinent.isEmpty() && (spotterContinent == userContinent))
         return SCORE_SAME_CONTINENT_BONUS;
     return SCORE_DIFF_CONTINENT_PENALTY;   // Different or unknown continent
+}
+
+int DXAssistantEngine::scoreMostWanted(int rank) const
+{
+    // Linear over the rank span: rank 1 earns SCORE_MOST_WANTED_MAX and the
+    // bonus fades to 0 for the most common entities. Unranked (no data or
+    // integration disabled) earns nothing.
+    if ((rank <= 0) || (rank > MOST_WANTED_RANK_SPAN))
+        return 0;
+    return (SCORE_MOST_WANTED_MAX * (MOST_WANTED_RANK_SPAN - rank + 1)) / MOST_WANTED_RANK_SPAN;
 }
 
 int DXAssistantEngine::resolveModeId(const QString &mode) const

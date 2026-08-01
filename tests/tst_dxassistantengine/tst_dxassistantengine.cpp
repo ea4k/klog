@@ -74,9 +74,9 @@ private slots:
     void test_DifferentContinentPenalty();
     void test_UnknownContinentPenalty();
 
-    // Most Wanted tiebreaker
-    void test_MostWantedRankStoredNotScored();
-    void test_MostWantedTiebreakerData();
+    // Most Wanted scoring modifier
+    void test_MostWantedRankAddsPoints();
+    void test_MostWantedSeparatesEqualCategories();
     void test_NullMostWantedPointer();
 
     // rescore() transitions after new QSOs
@@ -132,6 +132,7 @@ void tst_DXAssistantEngine::cleanupTestCase()
 void tst_DXAssistantEngine::cleanup()
 {
     awards->clearStatusForTest();
+    mostWanted->ranks.clear();   // Ranks now score points: isolate the tests
     engine->setCheckMode(true);
 }
 
@@ -272,32 +273,48 @@ void tst_DXAssistantEngine::test_UnknownContinentPenalty()
                                   + DXAssistantEngine::SCORE_DIFF_CONTINENT_PENALTY);
 }
 
-void tst_DXAssistantEngine::test_MostWantedRankStoredNotScored()
+void tst_DXAssistantEngine::test_MostWantedRankAddsPoints()
 {
     QVERIFY(mostWanted->parse(R"([{"dxcc":100,"rank":5}])"));
     DXSpot spot = makeSpot(100, 3, "EU");
     QVERIFY(engine->rescore(spot));
     QCOMPARE(spot.getMostWantedRank(), 5);
-    // The rank must NOT modify the numeric score
+
+    // The rank earns points: linear from SCORE_MOST_WANTED_MAX (rank 1)
+    // down to 0 across the rank span
+    int expectedBonus = (DXAssistantEngine::SCORE_MOST_WANTED_MAX
+                         * (DXAssistantEngine::MOST_WANTED_RANK_SPAN - 5 + 1))
+                        / DXAssistantEngine::MOST_WANTED_RANK_SPAN;
+    QVERIFY(expectedBonus > 0);
+    QVERIFY(expectedBonus <= DXAssistantEngine::SCORE_MOST_WANTED_MAX);
     QCOMPARE(spot.getScore(), DXAssistantEngine::SCORE_ATNO
-                                  + DXAssistantEngine::SCORE_SAME_CONTINENT_BONUS);
+                                  + DXAssistantEngine::SCORE_SAME_CONTINENT_BONUS
+                                  + expectedBonus);
+
+    // The bonus can never reorder the DXCC category ladder: worst case is
+    // max bonus + same-continent vs no bonus + different-continent, which
+    // must stay below the 200-point category gap
+    QVERIFY(DXAssistantEngine::SCORE_MOST_WANTED_MAX
+                + DXAssistantEngine::SCORE_SAME_CONTINENT_BONUS
+                - DXAssistantEngine::SCORE_DIFF_CONTINENT_PENALTY
+            < DXAssistantEngine::SCORE_NOT_WORKED_BAND_MODE
+                - DXAssistantEngine::SCORE_WORKED_UNCONFIRMED_BAND);
 }
 
-void tst_DXAssistantEngine::test_MostWantedTiebreakerData()
+void tst_DXAssistantEngine::test_MostWantedSeparatesEqualCategories()
 {
     QVERIFY(mostWanted->parse(R"([{"dxcc":100,"rank":5},{"dxcc":200,"rank":75}])"));
-    DXSpot inThreshold  = makeSpot(100, 3, "EU");
-    DXSpot outThreshold = makeSpot(200, 3, "EU");
-    QVERIFY(engine->rescore(inThreshold));
-    QVERIFY(engine->rescore(outThreshold));
+    DXSpot rare   = makeSpot(100, 3, "EU");
+    DXSpot common = makeSpot(200, 3, "EU");
+    QVERIFY(engine->rescore(rare));
+    QVERIFY(engine->rescore(common));
 
-    // Both spots are ATNO with the same continent: identical scores...
-    QCOMPARE(inThreshold.getScore(), outThreshold.getScore());
-    // ...so the widget breaks the tie with the stored rank + threshold check
-    QCOMPARE(inThreshold.getMostWantedRank(), 5);
-    QCOMPARE(outThreshold.getMostWantedRank(), 75);
-    QVERIFY(mostWanted->isInThreshold(100));
-    QVERIFY(!mostWanted->isInThreshold(200));
+    // Both spots are ATNO with the same continent: the Most Wanted rank
+    // makes the rarer one visibly more valuable
+    QVERIFY2(rare.getScore() > common.getScore(),
+             "A more wanted entity must score higher than a less wanted one");
+    QCOMPARE(rare.getMostWantedRank(), 5);
+    QCOMPARE(common.getMostWantedRank(), 75);
 }
 
 void tst_DXAssistantEngine::test_NullMostWantedPointer()
