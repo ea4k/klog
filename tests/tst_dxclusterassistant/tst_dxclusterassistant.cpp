@@ -90,6 +90,10 @@ private slots:
     void test_BandToBeFollowsHiddenSpots();
     void test_BandToBeFollowsBandFilter();
     void test_BandToBeFollowsWorkedQSO();
+    void test_BandToBeUsesScoreNotPriority();
+    void test_BandToBeFollowsExpiredSpot();
+    void test_BandToBeFollowsTTLChange();
+    void test_BandToBeFollowsMaxSpotsChange();
     void test_ActivityPrunedByAge();
 
     // Columns
@@ -521,6 +525,70 @@ void tst_DXClusterAssistant::test_BandToBeFollowsWorkedQSO()
     QCOMPARE(widget->model->spotCount(), 1);   // The confirmed spot is gone
     QVERIFY2(widget->bandToBeLabel->text().contains(name20),
              "Band to be must be recalculated after a QSO is worked");
+}
+
+void tst_DXClusterAssistant::test_BandToBeUsesScoreNotPriority()
+{
+    // 40M holds the single best spot, so it owns priority 1. 20M holds three
+    // lesser spots whose scores add up to more. Band to be must follow the
+    // cumulative score (20M), not the position in the priority ranking.
+    addScored("EA1AAA", band40, 1200);   // priority 1
+    addScored("EA2BBB", band20, 600);
+    addScored("EA3CCC", band20, 600);
+    addScored("EA4DDD", band20, 600);    // 1800 total on 20M
+
+    QCOMPARE(widget->model->priorityOfSpot(widget->model->spotAt(0)), 1);
+    QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band20)),
+             "Band to be must weigh the accumulated score, not the best priority");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsExpiredSpot()
+{
+    addScored("EA1AAA", band20, 500);
+    DXSpot leader = makeSpot("EA2BBB", band40, 1200);
+    widget->addOrUpdateSpot(leader);
+    QVERIFY(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)));
+
+    // Age the 40M spot past the TTL and let the timer tick expire it
+    DXSpot aged = widget->model->spotAt(1);
+    aged.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 45));
+    widget->model->replaceSpot(1, aged);
+    widget->slotTimerTick();
+
+    QCOMPARE(widget->model->spotCount(), 1);
+    QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band20)),
+             "Band to be must be recalculated when a spot expires");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsTTLChange()
+{
+    addScored("EA1AAA", band20, 500);
+    DXSpot older = makeSpot("EA2BBB", band40, 1200);
+    older.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 20));   // 20 min old
+    widget->addOrUpdateSpot(older);
+    QVERIFY(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)));
+
+    // Shortening the max age to 15 minutes expires the 40M spot right away
+    widget->setTTL(15);
+    QCOMPARE(widget->model->spotCount(), 1);
+    QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band20)),
+             "Band to be must be recalculated when the max age changes");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsMaxSpotsChange()
+{
+    // 20M wins on accumulated score while all three of its spots are kept
+    addScored("EA1AAA", band40, 1000);
+    addScored("EA2BBB", band20, 600);
+    addScored("EA3CCC", band20, 600);
+    addScored("EA4DDD", band20, 600);
+    QVERIFY(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band20)));
+
+    // Capping the list at 2 evicts two of the 20M spots, so 40M takes over
+    widget->setMaxSpots(2);
+    QCOMPARE(widget->model->spotCount(), 2);
+    QVERIFY2(widget->bandToBeLabel->text().contains(dataProxy->getNameFromBandId(band40)),
+             "Band to be must be recalculated when the max number of spots changes");
 }
 
 void tst_DXClusterAssistant::test_ActivityPrunedByAge()

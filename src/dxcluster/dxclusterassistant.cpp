@@ -685,8 +685,18 @@ void DXClusterAssistant::updateBandSummary()
 
 void DXClusterAssistant::setTTL(int _minutes)
 {
-    if (_minutes > 0)
-        ttlMinutes = _minutes;
+    if (_minutes <= 0)
+        return;
+    ttlMinutes = _minutes;
+    // Apply the new age limit at once: spots and raw activity beyond it are
+    // dropped and both band metrics follow.
+    if (model != nullptr)
+    {
+        model->removeOlderThan(ttlMinutes);
+        model->refreshAges();
+    }
+    pruneBandActivity();
+    updateBandSummary();
 }
 
 void DXClusterAssistant::setMaxSpots(int _max)
@@ -907,8 +917,7 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
     }
     else if (ageActions.contains(chosen))
     {
-        setTTL(ageActions.value(chosen));
-        slotTimerTick();   // Apply the new age limit right away
+        setTTL(ageActions.value(chosen));   // Purges over-age spots and refreshes
     }
     else if (maxSpotsActions.contains(chosen))
     {
