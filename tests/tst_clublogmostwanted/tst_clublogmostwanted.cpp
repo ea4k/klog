@@ -98,14 +98,23 @@ void tst_ClubLogMostWanted::test_ParseArrayFormat()
 
 void tst_ClubLogMostWanted::test_ParseAdifNumberFormat()
 {
-    // The documented ClubLog shape (mostwanted.php?api=1): rank -> ADIF DXCC
-    // number. No prefix resolver needed.
+    // The real ClubLog shape (mostwanted.php?api=1), verified in the field:
+    // rank -> ADIF DXCC number as a numeric string. No prefix resolver needed.
     ClubLogMostWanted mw;
-    QByteArray data = R"({"1":344,"2":246,"3":"247"})";   // Numbers or numeric strings
+    QByteArray data = R"({"1":"344","2":"123","3":"138","4":"217","5":"131"})";
     QVERIFY2(mw.parse(data), "rank -> ADIF number format should parse");
-    QVERIFY2(mw.getRank(344) == 1, "Rank of DXCC 344 should be 1");
-    QVERIFY2(mw.getRank(246) == 2, "Rank of DXCC 246 should be 2");
-    QVERIFY2(mw.getRank(247) == 3, "Numeric-string DXCC ids should also parse");
+    QVERIFY2(mw.getRank(344) == 1, "DXCC 344 (North Korea) should rank 1");
+    QVERIFY2(mw.getRank(123) == 2, "DXCC 123 (Johnston I.) should rank 2");
+    QVERIFY2(mw.getRank(138) == 3, "DXCC 138 should rank 3");
+    QVERIFY2(mw.getRank(217) == 4, "DXCC 217 should rank 4");
+    QVERIFY2(mw.getRank(131) == 5, "DXCC 131 should rank 5");
+    QVERIFY2(mw.getRank(100) == 0, "Unlisted DXCC should rank 0");
+
+    // Plain JSON numbers must keep working too, in case ClubLog ever stops
+    // quoting the values
+    ClubLogMostWanted mw2;
+    QVERIFY2(mw2.parse(R"({"1":344,"2":123})"), "Unquoted numbers should parse");
+    QVERIFY2(mw2.getRank(344) == 1, "Unquoted DXCC 344 should rank 1");
 }
 
 void tst_ClubLogMostWanted::test_ParsePlainArrayFormat()
