@@ -5350,7 +5350,10 @@ void MainWindow::slotDXAssistantNewSpot(const DXSpot &_spot)
         return;
 
     DXSpot spot = _spot;
-    if (dxAssistantEngine->score(spot))
+    bool workable = dxAssistantEngine->score(spot);
+    // Every spot counts towards "Most active band", even the discarded ones
+    dxClusterAssistant->registerBandActivity(spot);
+    if (workable)
         dxClusterAssistant->addOrUpdateSpot(spot);
 }
 

@@ -579,6 +579,37 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     updateBandSummary();
 }
 
+void DXClusterAssistant::registerBandActivity(DXSpot _spot)
+{
+    int bandId = _spot.getBandId();
+    if ((bandId <= 0) && (dataProxy != nullptr))
+    {   // Discarded spots may arrive with the band unresolved
+        bandId = dataProxy->getBandIdFromFreq(_spot.getFrequency());
+    }
+    if (bandId <= 0)
+        return;
+
+    QDateTime when = _spot.getDateTime().isValid() ? _spot.getDateTime().toUTC()
+                                                   : QDateTime::currentDateTimeUtc();
+    bandActivity[bandId].append(when);
+    pruneBandActivity();
+    updateBandSummary();
+}
+
+void DXClusterAssistant::pruneBandActivity()
+{
+    QDateTime limit = QDateTime::currentDateTimeUtc().addSecs(-qint64(ttlMinutes) * 60);
+    for (auto it = bandActivity.begin(); it != bandActivity.end(); )
+    {
+        QList<QDateTime> &times = it.value();
+        times.removeIf([&limit](const QDateTime &t) { return t < limit; });
+        if (times.isEmpty())
+            it = bandActivity.erase(it);
+        else
+            ++it;
+    }
+}
+
 void DXClusterAssistant::recalculateAll()
 {
     if ((model == nullptr) || (engine == nullptr))
@@ -600,29 +631,26 @@ void DXClusterAssistant::updateBandSummary()
     if ((mostActiveBandLabel == nullptr) || (bandToBeLabel == nullptr) || (model == nullptr))
         return;
 
-    // Both metrics are derived from the full managed spot list — view filters
-    // (hidden calls, band filter, continent toggle) deliberately do NOT
-    // affect them: Most active band reflects raw DXCluster activity, and
-    // Band to be reflects the total score available per band (#796 / #860).
-    QHash<int, int> countPerBand;   // bandId -> spot count
-    QHash<int, int> scorePerBand;   // bandId -> cumulative score
+    // Most active band counts ALL the spots arriving from the DXCluster
+    // within the age window — needed or not (#860). Band to be only weighs
+    // the needed spots the widget manages, through their scores (#796).
+    // View filters affect neither metric.
+    int mostActiveBand = -1;
+    int bestCount = 0;
+    for (auto it = bandActivity.constBegin(); it != bandActivity.constEnd(); ++it)
+    {
+        if (it.value().count() > bestCount)
+        {
+            bestCount = it.value().count();
+            mostActiveBand = it.key();
+        }
+    }
 
+    QHash<int, int> scorePerBand;   // bandId -> cumulative score of needed spots
     for (int i = 0; i < model->spotCount(); i++)
     {
         DXSpot spot = model->spotAt(i);
-        countPerBand[spot.getBandId()]++;
         scorePerBand[spot.getBandId()] += spot.getScore();
-    }
-
-    int mostActiveBand = -1;   // argmax(countPerBand): raw cluster activity
-    int bestCount = 0;
-    for (auto it = countPerBand.constBegin(); it != countPerBand.constEnd(); ++it)
-    {
-        if (it.value() > bestCount)
-        {
-            bestCount = it.value();
-            mostActiveBand = it.key();
-        }
     }
 
     int bandToBe = -1;         // argmax(scorePerBand): personal value
@@ -694,6 +722,7 @@ void DXClusterAssistant::slotTimerTick()
         return;
     model->removeOlderThan(ttlMinutes);
     model->refreshAges();
+    pruneBandActivity();
     updateBandSummary();
 }
 

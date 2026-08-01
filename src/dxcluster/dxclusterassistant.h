@@ -156,6 +156,10 @@ public:
     static constexpr int MAX_SPOTS_DEFAULT = 25;   // Cap on managed spots
 
     void addOrUpdateSpot(const DXSpot &_spot);
+    // Called for EVERY spot arriving from the DXCluster, including the ones
+    // the engine discards (already confirmed, unresolvable, over the cap):
+    // feeds the raw activity tally behind "Most active band".
+    void registerBandActivity(DXSpot _spot);
     void recalculateAll();      // Called after QSO logged or Most Wanted updated
     void setTTL(int _minutes);
     void setMaxSpots(int _max);
@@ -180,6 +184,7 @@ private:
     void updateClearHiddenButton();
     void applyViewFilters();          // Push filter state to the proxy and refresh the summary
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
+    void pruneBandActivity();         // Drop raw-activity entries past the age limit
 
     Awards *awards;
     World *world;
@@ -196,6 +201,7 @@ private:
 
     QSet<QString> hiddenCalls;   // Per-session only; never persisted to disk
     QSet<int> disabledBands;     // Bands the user filtered out of the view
+    QHash<int, QList<QDateTime>> bandActivity;   // bandId -> raw spot arrival times
     bool onlyMyContinentSpotters;
     int ttlMinutes;
     int maxSpots;
