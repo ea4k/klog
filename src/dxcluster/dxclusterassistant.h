@@ -102,7 +102,7 @@ private:
 };
 
 // Proxy: hides per-session hidden calls and breaks score ties with the
-// ClubLog Most Wanted rank (lower rank first, in-threshold entities only).
+// ClubLog Most Wanted rank (lower rank first; unranked entities last).
 class DXAssistantProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT

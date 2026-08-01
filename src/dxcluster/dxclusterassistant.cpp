@@ -25,7 +25,6 @@ email                : jaime@robles.es
 *****************************************************************************/
 #include "dxclusterassistant.h"
 #include "dxassistantengine.h"
-#include "clublogmostwanted.h"
 #include "../world.h"
 #include "../dataproxy_sqlite.h"
 
@@ -302,15 +301,14 @@ bool DXAssistantProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &s
 
 int DXAssistantProxyModel::tieBreakValue(const QModelIndex &index) const
 {
-    // Bigger is better. In-threshold entities beat everything else, and among
-    // them a lower Most Wanted rank wins; entities outside the threshold (or
-    // unranked) do not take part in tiebreaking.
+    // Bigger is better. Every entity takes part in tiebreaking: a lower Most
+    // Wanted rank (more wanted worldwide) wins, and any ranked entity beats
+    // an unranked one. The SortRole already maps "unranked" to INT_MAX, so
+    // inverting it yields exactly that ordering.
     QModelIndex rankIdx = sourceModel()->index(index.row(), DXAssistantSpotModel::ColMWRank,
                                                index.parent());
     int rank = sourceModel()->data(rankIdx, DXAssistantSpotModel::SortRole).toInt();
-    if ((rank > 0) && (rank <= ClubLogMostWanted::MOST_WANTED_THRESHOLD))
-        return ClubLogMostWanted::MOST_WANTED_THRESHOLD - rank + 1;
-    return 0;
+    return std::numeric_limits<int>::max() - rank;
 }
 
 bool DXAssistantProxyModel::lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const

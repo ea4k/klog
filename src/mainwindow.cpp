@@ -3791,7 +3791,8 @@ void MainWindow::initDXAssistant()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
-    dxClusterAssistantAct->setVisible(dxAssistantEnabled);
+    // The menu action is always visible; clicking it while the feature is
+    // disabled explains how to enable it (slotShowDXClusterAssistant).
     if (!dxAssistantEnabled)
     {   // Already-created objects stay idle: the slots guard on the flag
         logEvent(Q_FUNC_INFO, "END - Disabled in settings", Debug);
@@ -5310,7 +5311,14 @@ void MainWindow::slotShowDXClusterAssistant()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     if (!dxAssistantEnabled)
+    {
+        QMessageBox::information(this, tr("KLog - DX Assistant"),
+                                 tr("The DX Assistant is not enabled.\n\n"
+                                    "To start receiving a prioritised list of workable spots, "
+                                    "enable it in Setup, in the DXCluster page "
+                                    "(check 'Enable DX Assistant')."));
         return;
+    }
     if (!dxClusterAssistant)
     {   // Lazy-init, created on first Tools->DX Assistant (like StatisticsWidget)
         dxClusterAssistant = new DXClusterAssistant(&awards, world, dataProxy,
