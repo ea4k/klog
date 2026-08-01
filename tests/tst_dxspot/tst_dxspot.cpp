@@ -48,6 +48,8 @@ private slots:
     void cleanupTestCase(); //will be called after the last test function was executed.
     void test_Constructors();
     void test_Basic();
+    void test_DXAssistantFields();
+    void test_DXAssistantFieldsCopy();
 
 
 private:
@@ -109,6 +111,84 @@ void tst_DXSpot::test_Basic()
 
     spot->setClickStatus(DoubleClick);
     QVERIFY2(spot->getClickStatus() == DoubleClick, "Click Status 3 not working");
+}
+
+void tst_DXSpot::test_DXAssistantFields()
+{
+    DXSpot spot1;
+    // Defaults
+    QVERIFY2(spot1.getDXCC() == -1, "dxcc default not working");
+    QVERIFY2(spot1.getBandId() == -1, "bandId default not working");
+    QVERIFY2(spot1.getSpotterContinent().isEmpty(), "spotterContinent default not working");
+    QVERIFY2(spot1.getScore() == -1, "score default not working");
+    QVERIFY2(spot1.getStatusBand() == unknown, "statusBand default not working");
+    QVERIFY2(spot1.getMostWantedRank() == 0, "mostWantedRank default not working");
+    QVERIFY2(!spot1.getHidden(), "hidden default not working");
+
+    // Setters/getters
+    spot1.setDXCC(281);
+    QVERIFY2(spot1.getDXCC() == 281, "dxcc not working");
+
+    spot1.setBandId(5);
+    QVERIFY2(spot1.getBandId() == 5, "bandId not working");
+
+    spot1.setSpotterContinent("EU");
+    QVERIFY2(spot1.getSpotterContinent() == "EU", "spotterContinent not working");
+
+    spot1.setScore(1000);
+    QVERIFY2(spot1.getScore() == 1000, "score not working");
+
+    spot1.setStatusBand(needed);
+    QVERIFY2(spot1.getStatusBand() == needed, "statusBand not working");
+
+    spot1.setMostWantedRank(42);
+    QVERIFY2(spot1.getMostWantedRank() == 42, "mostWantedRank not working");
+
+    spot1.setHidden(true);
+    QVERIFY2(spot1.getHidden(), "hidden not working");
+
+    // clear() resets them
+    spot1.clear();
+    QVERIFY2(spot1.getDXCC() == -1, "dxcc not reset by clear");
+    QVERIFY2(spot1.getBandId() == -1, "bandId not reset by clear");
+    QVERIFY2(spot1.getSpotterContinent().isEmpty(), "spotterContinent not reset by clear");
+    QVERIFY2(spot1.getScore() == -1, "score not reset by clear");
+    QVERIFY2(spot1.getStatusBand() == unknown, "statusBand not reset by clear");
+    QVERIFY2(spot1.getMostWantedRank() == 0, "mostWantedRank not reset by clear");
+    QVERIFY2(!spot1.getHidden(), "hidden not reset by clear");
+}
+
+void tst_DXSpot::test_DXAssistantFieldsCopy()
+{
+    DXSpot spot1;
+    spot1.setDXCC(281);
+    spot1.setBandId(5);
+    spot1.setSpotterContinent("NA");
+    spot1.setScore(800);
+    spot1.setStatusBand(worked);
+    spot1.setMostWantedRank(7);
+    spot1.setHidden(true);
+
+    // Copy constructor
+    DXSpot spot2(spot1);
+    QVERIFY2(spot2.getDXCC() == 281, "dxcc not copied by copy constructor");
+    QVERIFY2(spot2.getBandId() == 5, "bandId not copied by copy constructor");
+    QVERIFY2(spot2.getSpotterContinent() == "NA", "spotterContinent not copied by copy constructor");
+    QVERIFY2(spot2.getScore() == 800, "score not copied by copy constructor");
+    QVERIFY2(spot2.getStatusBand() == worked, "statusBand not copied by copy constructor");
+    QVERIFY2(spot2.getMostWantedRank() == 7, "mostWantedRank not copied by copy constructor");
+    QVERIFY2(spot2.getHidden(), "hidden not copied by copy constructor");
+
+    // Assignment operator
+    DXSpot spot3;
+    spot3 = spot1;
+    QVERIFY2(spot3.getDXCC() == 281, "dxcc not copied by operator=");
+    QVERIFY2(spot3.getBandId() == 5, "bandId not copied by operator=");
+    QVERIFY2(spot3.getSpotterContinent() == "NA", "spotterContinent not copied by operator=");
+    QVERIFY2(spot3.getScore() == 800, "score not copied by operator=");
+    QVERIFY2(spot3.getStatusBand() == worked, "statusBand not copied by operator=");
+    QVERIFY2(spot3.getMostWantedRank() == 7, "mostWantedRank not copied by operator=");
+    QVERIFY2(spot3.getHidden(), "hidden not copied by operator=");
 }
 
 QTEST_APPLESS_MAIN(tst_DXSpot)

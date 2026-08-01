@@ -6,8 +6,8 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find Qt6 Core and Test modules
-find_package(Qt6 REQUIRED COMPONENTS Core Test)
+# Find Qt6 Core, Gui (QColor in dxspot.h) and Test modules
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Test)
 # Enable AUTOMOC before add_executable
 set(CMAKE_AUTOMOC ON)
 
