@@ -66,9 +66,12 @@ public:
     };
 
     // SortRole carries the raw sortable value; CallRole the DX callsign
-    // (used by the proxy filter to hide spots).
+    // (used by the proxy filter to hide spots); BandIdRole and
+    // SpotterContinentRole feed the band and continent view filters.
     static constexpr int SortRole = Qt::UserRole;
     static constexpr int CallRole = Qt::UserRole + 1;
+    static constexpr int BandIdRole = Qt::UserRole + 2;
+    static constexpr int SpotterContinentRole = Qt::UserRole + 3;
 
     explicit DXAssistantSpotModel(World *_world, QObject *parent = nullptr);
 
@@ -111,6 +114,8 @@ class DXAssistantProxyModel : public QSortFilterProxyModel
 public:
     explicit DXAssistantProxyModel(QObject *parent = nullptr);
     void setHiddenCalls(const QSet<QString> *_calls);
+    void setDisabledBands(const QSet<int> *_bands);
+    void setOnlyContinent(bool _enabled, const QString &_continent);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
@@ -119,6 +124,9 @@ protected:
 private:
     int tieBreakValue(const QModelIndex &index) const;
     const QSet<QString> *hiddenCalls;
+    const QSet<int> *disabledBands;
+    bool onlyMyContinent;
+    QString userContinent;
 };
 
 class DXClusterAssistant : public QWidget
@@ -155,6 +163,7 @@ private slots:
     void slotTimerTick();
     void slotDoubleClicked(const QModelIndex &_index);
     void slotContextMenu(const QPoint &_pos);
+    void slotHeaderContextMenu(const QPoint &_pos);
     void slotClearHiddenClicked();
 
 private:
@@ -162,6 +171,8 @@ private:
     void hideSpotCall(const QString &_call);
     bool spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const;
     void updateClearHiddenButton();
+    void applyViewFilters();          // Push filter state to the proxy and refresh
+    bool spotIsVisible(DXSpot _spot) const;   // Same rules the proxy applies
 
     Awards *awards;
     World *world;
@@ -177,6 +188,8 @@ private:
     QTimer *ttlTimer;
 
     QSet<QString> hiddenCalls;   // Per-session only; never persisted to disk
+    QSet<int> disabledBands;     // Bands the user filtered out of the view
+    bool onlyMyContinentSpotters;
     int ttlMinutes;
 };
 
