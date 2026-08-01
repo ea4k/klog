@@ -3805,9 +3805,6 @@ void MainWindow::initDXAssistant()
     {
         clubLogMostWanted = new ClubLogMostWanted(this);
         clubLogMostWanted->setKLogVersion(softwareVersion);
-        // ClubLog only serves the Most Wanted JSON with an application API
-        // key; the bare URL returns HTML and no ranks would ever load.
-        clubLogMostWanted->setApiKey(elogClublog->getAPIKey());
         clubLogMostWanted->setPrefixResolver([this](const QString &_prefix)
         {
             return world->getQRZARRLId(_prefix);

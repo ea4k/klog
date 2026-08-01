@@ -40,6 +40,11 @@
 ClubLogMostWanted::ClubLogMostWanted(QObject *parent) : QObject(parent)
 {
     url         = "https://clublog.org/mostwanted.php";
+    // ClubLog serves the list as JSON with the literal api=1 parameter, no
+    // account or key needed (see the Most Wanted List JSON API article on
+    // clublog.freshdesk.com). setApiKey() can override it if ClubLog ever
+    // requires a real key here.
+    apiKey      = "1";
     klogVersion = QString();
     manager     = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
@@ -178,9 +183,12 @@ void ClubLogMostWanted::slotDailyCheck()
 
 bool ClubLogMostWanted::parse(const QByteArray &data)
 {
-    // ClubLog publishes the Most Wanted list as JSON. Two shapes are accepted:
-    //  - an object mapping rank to prefix: {"1":"P5","2":"3Y/B", ...}
-    //    (prefixes are mapped to DXCC ids through the injected resolver)
+    // ClubLog publishes the Most Wanted list (mostwanted.php?api=1) as a JSON
+    // object mapping rank to the entity's ADIF DXCC number, e.g.
+    // {"1":344,"2":246, ...} (values may arrive as numbers or numeric
+    // strings). Also accepted, for robustness against format changes:
+    //  - non-numeric string values treated as prefixes and mapped to DXCC
+    //    ids through the injected resolver: {"1":"P5", ...}
     //  - an array of objects carrying the entity id: [{"dxcc":344,"rank":1}, ...]
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
@@ -206,14 +214,27 @@ bool ClubLogMostWanted::parse(const QByteArray &data)
 
             entriesSeen++;
             int dxcc = -1;
-            if (it.value().isString())
+            if (it.value().isDouble())
+            {   // Documented shape: rank -> ADIF DXCC number
+                dxcc = it.value().toInt(-1);
+            }
+            else if (it.value().isString())
             {
-                if (!prefixResolver)
+                bool numericOk = false;
+                int numeric = it.value().toString().toInt(&numericOk);
+                if (numericOk)
+                {   // ADIF DXCC number serialised as a string
+                    dxcc = numeric;
+                }
+                else if (prefixResolver)
+                {   // Prefix: resolve to a DXCC id
+                    dxcc = prefixResolver(it.value().toString());
+                }
+                else
                 {
                     resolverMissing = true;
                     continue;
                 }
-                dxcc = prefixResolver(it.value().toString());
             }
             else if (it.value().isObject())
             {
@@ -231,14 +252,24 @@ bool ClubLogMostWanted::parse(const QByteArray &data)
     else if (doc.isArray())
     {
         const QJsonArray array = doc.array();
-        for (const QJsonValue &value : array)
+        for (int i = 0; i < array.count(); i++)
         {
-            if (!value.isObject())
-                continue;
-            QJsonObject entity = value.toObject();
-            entriesSeen++;
-            int dxcc = entity.value("dxcc").toInt(-1);
-            int rank = entity.value("rank").toInt(-1);
+            const QJsonValue value = array.at(i);
+            int dxcc = -1;
+            int rank = -1;
+            if (value.isObject())
+            {
+                QJsonObject entity = value.toObject();
+                entriesSeen++;
+                dxcc = entity.value("dxcc").toInt(-1);
+                rank = entity.value("rank").toInt(-1);
+            }
+            else if (value.isDouble() || value.isString())
+            {   // Plain array of ADIF DXCC numbers: the rank is the position
+                entriesSeen++;
+                dxcc = value.isDouble() ? value.toInt(-1) : value.toString().toInt();
+                rank = i + 1;
+            }
             if (dxcc > 0 && rank > 0 &&
                 (!newRanks.contains(dxcc) || rank < newRanks.value(dxcc)))
                 newRanks.insert(dxcc, rank);

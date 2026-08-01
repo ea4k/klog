@@ -38,6 +38,8 @@ private slots:
     void test_Defaults();
     void test_Constants();
     void test_ParseArrayFormat();
+    void test_ParseAdifNumberFormat();
+    void test_ParsePlainArrayFormat();
     void test_ParsePrefixFormat();
     void test_ParsePrefixFormatWithoutResolver();
     void test_ParseInvalidData();
@@ -51,11 +53,12 @@ private slots:
 void tst_ClubLogMostWanted::test_FetchUrl()
 {
     ClubLogMostWanted mw;
-    // Without an API key the URL is used as-is
-    QCOMPARE(mw.buildFetchUrl().toString(), QStringLiteral("https://clublog.org/mostwanted.php"));
+    // ClubLog serves the JSON with the literal api=1 parameter (no key
+    // needed), which is the default
+    QCOMPARE(mw.buildFetchUrl().toString(),
+             QStringLiteral("https://clublog.org/mostwanted.php?api=1"));
 
-    // The API key is appended as the api query parameter (ClubLog only
-    // serves JSON when it is present)
+    // A real key can replace the default if ClubLog ever requires one
     mw.setApiKey("abc123");
     QCOMPARE(mw.buildFetchUrl().toString(),
              QStringLiteral("https://clublog.org/mostwanted.php?api=abc123"));
@@ -91,6 +94,29 @@ void tst_ClubLogMostWanted::test_ParseArrayFormat()
     QVERIFY2(mw.getRank(24) == 2, "Rank of DXCC 24 should be 2");
     QVERIFY2(mw.getRank(247) == 13, "Rank of DXCC 247 should be 13");
     QVERIFY2(mw.getRank(100) == 0, "Unlisted DXCC should rank 0");
+}
+
+void tst_ClubLogMostWanted::test_ParseAdifNumberFormat()
+{
+    // The documented ClubLog shape (mostwanted.php?api=1): rank -> ADIF DXCC
+    // number. No prefix resolver needed.
+    ClubLogMostWanted mw;
+    QByteArray data = R"({"1":344,"2":246,"3":"247"})";   // Numbers or numeric strings
+    QVERIFY2(mw.parse(data), "rank -> ADIF number format should parse");
+    QVERIFY2(mw.getRank(344) == 1, "Rank of DXCC 344 should be 1");
+    QVERIFY2(mw.getRank(246) == 2, "Rank of DXCC 246 should be 2");
+    QVERIFY2(mw.getRank(247) == 3, "Numeric-string DXCC ids should also parse");
+}
+
+void tst_ClubLogMostWanted::test_ParsePlainArrayFormat()
+{
+    // Plain array of ADIF DXCC numbers: the position gives the rank
+    ClubLogMostWanted mw;
+    QByteArray data = R"([344,246,"247"])";
+    QVERIFY2(mw.parse(data), "Plain array of ADIF numbers should parse");
+    QVERIFY2(mw.getRank(344) == 1, "First entry should rank 1");
+    QVERIFY2(mw.getRank(246) == 2, "Second entry should rank 2");
+    QVERIFY2(mw.getRank(247) == 3, "Numeric strings should also parse");
 }
 
 void tst_ClubLogMostWanted::test_ParsePrefixFormat()
