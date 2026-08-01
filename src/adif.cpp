@@ -693,6 +693,12 @@ QString Adif::getADIFField(const QString &_fieldName, const QString &_data)
     if (fieldN == "DISTANCE" )
         if (_data.toDouble() <= 0.0)
             return QString();
+    // A band is never "0": drop BAND/BAND_RX placeholders so no export path
+    // (ADIF file or online logbook) can emit an invalid band. Keeping this
+    // rule here means every caller benefits from it in one single place.
+    if ((fieldN == "BAND") || (fieldN == "BAND_RX"))
+        if (_data.trimmed() == "0")
+            return QString();
     //qDebug() << Q_FUNC_INFO << " - Returning: " << QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
     return QString ("<%1:%2>%3 ").arg(fieldN).arg(_data.length ()).arg(_data);
 }
