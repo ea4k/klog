@@ -27,6 +27,7 @@ email                : jaime@robles.es
 #include "dxassistantengine.h"
 #include "clublogmostwanted.h"
 #include "../world.h"
+#include "../dataproxy_sqlite.h"
 
 #include <QDesktopServices>
 #include <QUrl>
@@ -343,6 +344,8 @@ DXClusterAssistant::DXClusterAssistant(Awards *_awards, World *_world,
     proxy      = nullptr;
     tableView  = nullptr;
     clearHiddenButton = nullptr;
+    mostActiveBandLabel = nullptr;
+    bandToBeLabel = nullptr;
     ttlTimer   = nullptr;
     ttlMinutes = SPOT_TTL_MINUTES;
 
@@ -395,10 +398,24 @@ bool DXClusterAssistant::createUI()
     buttonLayout->addStretch();
     buttonLayout->addWidget(clearHiddenButton);
 
+    // Summary bar pinned above the spot table (#796 / #860)
+    mostActiveBandLabel = new QLabel(this);
+    mostActiveBandLabel->setToolTip(tr("The band where most DX spots are arriving right now."));
+    bandToBeLabel = new QLabel(this);
+    bandToBeLabel->setToolTip(tr("The band where you have the most to gain, based on your log."));
+
+    QHBoxLayout *summaryLayout = new QHBoxLayout;
+    summaryLayout->addWidget(mostActiveBandLabel);
+    summaryLayout->addStretch();
+    summaryLayout->addWidget(bandToBeLabel);
+
     QVBoxLayout *layout = new QVBoxLayout;
+    layout->addLayout(summaryLayout);
     layout->addWidget(tableView);
     layout->addLayout(buttonLayout);
     setLayout(layout);
+
+    updateBandSummary();
 
     ttlTimer = new QTimer(this);
     ttlTimer->setInterval(60 * 1000);
@@ -436,6 +453,7 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     if (row < 0)
     {
         model->addSpot(spot);
+        updateBandSummary();
         return;
     }
 
@@ -449,6 +467,7 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     if (newSame && !oldSame)
     {
         model->replaceSpot(row, spot);
+        updateBandSummary();
         return;
     }
 
@@ -457,6 +476,7 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     existing.setSpotterContinent(spot.getSpotterContinent());
     existing.setComment(spot.getComment());
     model->replaceSpot(row, existing);
+    updateBandSummary();
 }
 
 void DXClusterAssistant::recalculateAll()
@@ -472,6 +492,62 @@ void DXClusterAssistant::recalculateAll()
         else
             model->removeSpotAt(i);   // Just confirmed (or no longer resolvable)
     }
+    updateBandSummary();
+}
+
+void DXClusterAssistant::updateBandSummary()
+{
+    if ((mostActiveBandLabel == nullptr) || (bandToBeLabel == nullptr) || (model == nullptr))
+        return;
+
+    // Both metrics are derived from the TTL-filtered, deduplicated spot list
+    // already held by the widget — no extra data source (#796 / #860).
+    QHash<int, int> countPerBand;   // bandId -> spot count
+    QHash<int, int> scorePerBand;   // bandId -> cumulative score
+
+    for (int i = 0; i < model->spotCount(); i++)
+    {
+        DXSpot spot = model->spotAt(i);
+        if (hiddenCalls.contains(spot.getDxCall()))
+            continue;
+        countPerBand[spot.getBandId()]++;
+        scorePerBand[spot.getBandId()] += spot.getScore();
+    }
+
+    int mostActiveBand = -1;   // argmax(countPerBand): raw cluster activity
+    int bestCount = 0;
+    for (auto it = countPerBand.constBegin(); it != countPerBand.constEnd(); ++it)
+    {
+        if (it.value() > bestCount)
+        {
+            bestCount = it.value();
+            mostActiveBand = it.key();
+        }
+    }
+
+    int bandToBe = -1;         // argmax(scorePerBand): personal value
+    int bestScore = 0;
+    for (auto it = scorePerBand.constBegin(); it != scorePerBand.constEnd(); ++it)
+    {
+        if (it.value() > bestScore)
+        {
+            bestScore = it.value();
+            bandToBe = it.key();
+        }
+    }
+
+    QString mostActiveName = ((mostActiveBand > 0) && (dataProxy != nullptr))
+                                 ? dataProxy->getNameFromBandId(mostActiveBand) : QString();
+    QString bandToBeName   = ((bandToBe > 0) && (dataProxy != nullptr))
+                                 ? dataProxy->getNameFromBandId(bandToBe) : QString();
+
+    if (mostActiveName.isEmpty())
+        mostActiveName = QStringLiteral("—");
+    if (bandToBeName.isEmpty())
+        bandToBeName = QStringLiteral("—");
+
+    mostActiveBandLabel->setText(tr("Most active band: %1").arg(mostActiveName));
+    bandToBeLabel->setText(tr("Band to be: %1").arg(bandToBeName));
 }
 
 void DXClusterAssistant::setTTL(int _minutes)
@@ -486,6 +562,7 @@ void DXClusterAssistant::clearHiddenSpots()
     if (proxy != nullptr)
         proxy->invalidate();
     updateClearHiddenButton();
+    updateBandSummary();
 }
 
 void DXClusterAssistant::slotTimerTick()
@@ -494,6 +571,7 @@ void DXClusterAssistant::slotTimerTick()
         return;
     model->removeOlderThan(ttlMinutes);
     model->refreshAges();
+    updateBandSummary();
 }
 
 bool DXClusterAssistant::spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const
@@ -553,6 +631,7 @@ void DXClusterAssistant::hideSpotCall(const QString &_call)
     if (proxy != nullptr)
         proxy->invalidate();
     updateClearHiddenButton();
+    updateBandSummary();
 }
 
 void DXClusterAssistant::slotClearHiddenClicked()

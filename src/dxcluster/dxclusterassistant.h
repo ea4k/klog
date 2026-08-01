@@ -145,6 +145,7 @@ public:
     void recalculateAll();      // Called after QSO logged or Most Wanted updated
     void setTTL(int _minutes);
     void clearHiddenSpots();
+    void updateBandSummary();   // Refresh "Most active band" / "Band to be"
 
 signals:
     void spotSendToUI(const DXSpot &_spot);    // Fill the main QSO entry form
@@ -171,6 +172,8 @@ private:
     DXAssistantProxyModel *proxy;
     QTableView *tableView;
     QPushButton *clearHiddenButton;
+    QLabel *mostActiveBandLabel;   // Band with most spots: raw cluster activity (#860)
+    QLabel *bandToBeLabel;         // Band with highest cumulative score (#796)
     QTimer *ttlTimer;
 
     QSet<QString> hiddenCalls;   // Per-session only; never persisted to disk
