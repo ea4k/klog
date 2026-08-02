@@ -1,5 +1,5 @@
 TBD - 2.5.4
-- New feature: KLog can send the QSOs that are logged to a KLogServer (https://github.com/ea4k/klogserver) through its UDP interface, as an ADIF record with all the ADIF fields that have data. It is configured in Settings->WSJT-X->KLogServer (server and port) and can be enabled/disabled with a checkbox.
+- New feature: KLog can send the QSOs that are logged to a KLogServer (https://github.com/ea4k/klogserver) through its UDP interface, as an ADIF record with all the ADIF fields that have data. The datagram has the same layout that WSJT-X uses, with the magic number 1999030602 that identifies KLog as the sender. It is configured in Settings->WSJT-X->KLogServer (server and port) and can be enabled/disabled with a checkbox.
 - New feature: DX Assistant, a floating window (Tools->DX Assistant) showing a live, prioritised list of DXCluster spots scored against your own log, with a Priority column, per-session spot hiding, band/spotter-continent filters, configurable max age and max number of spots (Closes #1009, #1010, #1011, #1012, #1013, #1014, #1015, #1016, #1017, #1018)
 - New feature: The DX Assistant shows the most active band and the "band to be" (Closes #796, #860, #1019)
 - Enhancement: KLog can import many ADI files in one single operation by simply selecting them.

@@ -28,11 +28,19 @@
 
 // Sends the QSOs that are logged in KLog to a KLogServer instance.
 //
-// The QSO travels as a plain ADIF record (the very same one that KLog writes
-// when exporting to a file, so all the ADIF fields with data are sent) in a
-// single UDP datagram. KLogServer listens in the same way it listens for
-// WSJT-X or N1MM data and appends the record to its ADIF file.
+// The QSO travels as an ADIF record (the very same one that KLog writes when
+// exporting to a file, so all the ADIF fields with data are sent) in a single
+// UDP datagram. The datagram has the same layout that WSJT-X uses, and that
+// KLogServer already parses:
+//
+//     magic (quint32) | schema (quint32) | type (quint32) | id (QByteArray)
+//
+// followed by the payload of the message, that for an ADIFLogged message is
+// the ADIF record as a QByteArray. Everything is big endian, as WSJT-X does.
+// The magic number is the one that identifies KLog as the sender, so
+// KLogServer can tell KLog datagrams from the WSJT-X or N1MM ones.
 
+#include <QDataStream>
 #include <QHostAddress>
 #include <QHostInfo>
 #include <QObject>
@@ -47,6 +55,18 @@ class UDPClient : public QObject
     Q_OBJECT
 
 public:
+    // Identifies a datagram sent by KLog, as 2914831322 identifies a WSJT-X one
+    static constexpr quint32 magicNumber = 1999030602;
+    // Schema of the datagram, following the WSJT-X numbering
+    static constexpr quint32 schemaNumber = 3;
+
+    // Messages that KLog sends. The numbers are the ones that WSJT-X uses for
+    // the equivalent messages, as the layout of the datagram is the same one.
+    enum MessageType
+    {
+        ADIFLogged = 12     // A logged QSO, as an ADIF record
+    };
+
     explicit UDPClient(QObject *parent = nullptr);
     ~UDPClient();
 
@@ -75,6 +95,7 @@ private slots:
     void slotHostInfoReceived(const QHostInfo &_hostInfo);
 
 private:
+    QByteArray buildDatagram(const QString &_adif) const;
     bool queueOrSend(const QByteArray &_datagram);
     bool writeDatagram(const QByteArray &_datagram);
     void resolveServer();

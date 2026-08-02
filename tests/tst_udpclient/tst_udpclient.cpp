@@ -50,11 +50,14 @@ private slots:
     void test_NotSentWithoutServer();
     void test_NotSentWhenQSOIsIncomplete();
     void test_SendQSO();
+    void test_DatagramFormat();
     void test_SendQSOToHostname();
 
 private:
     QSO completeQSO();
     QByteArray waitForDatagram();
+    // Reads the ADIF record out of a datagram, checking its header
+    QString waitForADIF();
 
     UDPClient *client;
     QUdpSocket *server;    // Plays the role of KLogServer
@@ -109,6 +112,28 @@ QByteArray tst_UDPClient::waitForDatagram()
     return datagram;
 }
 
+QString tst_UDPClient::waitForADIF()
+{   // The datagram has the same layout as the WSJT-X ones, with KLog's magic
+    const QByteArray datagram = waitForDatagram();
+    if (datagram.isEmpty())
+        return QString();
+
+    quint32 magic = 0;
+    quint32 schema = 0;
+    quint32 type = 0;
+    QByteArray id;
+    QByteArray adif;
+
+    QDataStream in(datagram);
+    in.setVersion(16);
+    in.setByteOrder(QDataStream::BigEndian);
+    in >> magic >> schema >> type >> id >> adif;
+
+    if (magic != UDPClient::magicNumber)
+        return QString();
+    return QString::fromUtf8(adif);
+}
+
 void tst_UDPClient::test_Defaults()
 {
     UDPClient defaultClient;
@@ -157,7 +182,7 @@ void tst_UDPClient::test_SendQSO()
 {
     QVERIFY(client->sendQSO(completeQSO()));
 
-    const QString received = QString::fromUtf8(waitForDatagram());
+    const QString received = waitForADIF();
     QVERIFY2(!received.isEmpty(), "No datagram was received");
     QVERIFY(received.contains("<CALL:4>EA4K"));
     QVERIFY(received.contains("<QSO_DATE:8>20260802"));
@@ -169,12 +194,40 @@ void tst_UDPClient::test_SendQSO()
     QVERIFY(received.contains("<EOR>"));
 }
 
+void tst_UDPClient::test_DatagramFormat()
+{   // KLog frames the ADIF record the same way WSJT-X frames its messages, so
+    // the magic number is what tells KLogServer who is sending the QSO.
+    QVERIFY(client->sendQSO(completeQSO()));
+    const QByteArray datagram = waitForDatagram();
+    QVERIFY2(!datagram.isEmpty(), "No datagram was received");
+
+    quint32 magic = 0;
+    quint32 schema = 0;
+    quint32 type = 0;
+    QByteArray id;
+    QByteArray adif;
+
+    QDataStream in(datagram);
+    in.setVersion(16);
+    in.setByteOrder(QDataStream::BigEndian);
+    in >> magic >> schema >> type >> id >> adif;
+
+    QCOMPARE(magic, quint32(1999030602));   // KLog, not WSJT-X (2914831322)
+    QCOMPARE(magic, UDPClient::magicNumber);
+    QCOMPARE(schema, quint32(3));
+    QCOMPARE(type, quint32(UDPClient::ADIFLogged));
+    QCOMPARE(id, QByteArray("KLog"));
+    QVERIFY(adif.contains("<CALL:4>EA4K"));
+    QVERIFY(adif.contains("<EOR>"));
+    QCOMPARE(in.status(), QDataStream::Ok);
+}
+
 void tst_UDPClient::test_SendQSOToHostname()
 {   // A hostname needs to be resolved before the datagram can be sent
     client->setServer("localhost");
     QVERIFY(client->sendQSO(completeQSO()));
 
-    const QString received = QString::fromUtf8(waitForDatagram());
+    const QString received = waitForADIF();
     QVERIFY2(!received.isEmpty(), "No datagram was received");
     QVERIFY(received.contains("<CALL:4>EA4K"));
     client->setServer("127.0.0.1");

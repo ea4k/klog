@@ -118,7 +118,18 @@ bool UDPClient::sendADIF(const QString &_adif)
         emit errorSending(tr("KLogServer: No server has been defined, the QSO has not been sent."));
         return false;
     }
-    return queueOrSend(_adif.toUtf8());
+    return queueOrSend(buildDatagram(_adif));
+}
+
+QByteArray UDPClient::buildDatagram(const QString &_adif) const
+{
+    QByteArray datagram;
+    QDataStream out(&datagram, QIODevice::WriteOnly);
+    out.setVersion(16);     // Qt_5_4, the stream version used by the schema 3
+    out.setByteOrder(QDataStream::BigEndian);
+    out << magicNumber << schemaNumber << static_cast<quint32>(ADIFLogged)
+        << QByteArray("KLog") << _adif.toUtf8();
+    return datagram;
 }
 
 bool UDPClient::queueOrSend(const QByteArray &_datagram)
