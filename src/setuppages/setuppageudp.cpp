@@ -37,6 +37,10 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     UDPServerPortSpinBox = new QSpinBox;
     miliSecsSpinBox = new QSpinBox;
     networkInterfacesComboBox = new QComboBox;
+
+    sendToKLogServerCheckBox = new QCheckBox(tr("Send logged QSOs to KLogServer"), this);
+    klogServerAddressLineEdit = new QLineEdit(this);
+    klogServerPortSpinBox = new QSpinBox;
     //qDebug() << "SetupPageUDP::SetupPageUDP: 1";
     util = new Utilities(Q_FUNC_INFO);
 
@@ -136,8 +140,50 @@ void SetupPageUDP::createUI()
     layout->addWidget(UDPServerCheckBox);
     layout->addLayout(gridLayout);
     layout->addLayout(checkLayout);
+    layout->addWidget(createKLogServerGroupBox());
 
     setLayout(layout);
+}
+
+QGroupBox *SetupPageUDP::createKLogServerGroupBox()
+{
+    // KLogServer (https://github.com/ea4k/klogserver) listens for QSO data in an
+    // UDP port, the same way KLog does for WSJT-X. KLog sends there every QSO
+    // that is logged, as an ADIF record with all the fields that have data.
+    QGroupBox *groupBox = new QGroupBox(tr("KLogServer"), this);
+
+    sendToKLogServerCheckBox->setToolTip(tr("KLog will send the QSOs that are logged to a KLogServer, that can be used as a backup of your log."));
+    sendToKLogServerCheckBox->setChecked(false);
+
+    QString addressTip = tr("IP address or hostname of the host running KLogServer.");
+    klogServerAddressLineEdit->setToolTip(addressTip);
+    klogServerAddressLineEdit->setPlaceholderText(tr("localhost"));
+    QLabel *addressLabel = new QLabel(tr("Server"));
+    addressLabel->setBuddy(klogServerAddressLineEdit);
+    addressLabel->setToolTip(addressTip);
+
+    QString portTip = tr("UDP port where KLogServer is listening. Default port is 2237.");
+    klogServerPortSpinBox->setToolTip(portTip);
+    klogServerPortSpinBox->setMinimum(1);
+    klogServerPortSpinBox->setMaximum(65535);
+    klogServerPortSpinBox->setValue(defaultport);
+    QLabel *portLabel = new QLabel(tr("Port"));
+    portLabel->setBuddy(klogServerPortSpinBox);
+    portLabel->setToolTip(portTip);
+
+    QHBoxLayout *serverLayout = new QHBoxLayout;
+    serverLayout->addWidget(addressLabel);
+    serverLayout->addWidget(klogServerAddressLineEdit);
+    serverLayout->addWidget(portLabel);
+    serverLayout->addWidget(klogServerPortSpinBox);
+
+    QVBoxLayout *groupLayout = new QVBoxLayout;
+    groupLayout->addWidget(sendToKLogServerCheckBox);
+    groupLayout->addLayout(serverLayout);
+    groupBox->setLayout(groupLayout);
+
+    slotSendToKLogServerCheckBoxClicked();
+    return groupBox;
 }
 
 void SetupPageUDP::createActions()
@@ -146,6 +192,14 @@ void SetupPageUDP::createActions()
     //connect(logAutomaticallyWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotAutoLogFromWSJTCheckBoxClicked() ) );
     //connect(realDataFromWSJTXCheckbox, SIGNAL(clicked () ), this, SLOT(slotRealFromWSJTCheckBoxClicked() ) );
     connect(UDPServerCheckBox, SIGNAL(clicked()), this, SLOT(slotUDPServerCheckBoxClicked() ) );
+    connect(sendToKLogServerCheckBox, SIGNAL(clicked()), this, SLOT(slotSendToKLogServerCheckBoxClicked() ) );
+}
+
+void SetupPageUDP::slotSendToKLogServerCheckBoxClicked()
+{
+    const bool sending = sendToKLogServerCheckBox->isChecked();
+    klogServerAddressLineEdit->setEnabled(sending);
+    klogServerPortSpinBox->setEnabled(sending);
 }
 
 void SetupPageUDP::slotUDPServerCheckBoxClicked()
@@ -336,6 +390,40 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
     }
 }
 
+QString SetupPageUDP::getSendToKLogServer()
+{
+    return util->boolToQString(sendToKLogServerCheckBox->isChecked());
+}
+
+void SetupPageUDP::setSendToKLogServer(const bool _t)
+{
+    sendToKLogServerCheckBox->setChecked(_t);
+    slotSendToKLogServerCheckBoxClicked();
+}
+
+QString SetupPageUDP::getKLogServerAddress()
+{
+    return klogServerAddressLineEdit->text().trimmed();
+}
+
+void SetupPageUDP::setKLogServerAddress(const QString &_t)
+{
+    klogServerAddressLineEdit->setText(_t.trimmed());
+}
+
+QString SetupPageUDP::getKLogServerPort()
+{
+    return QString::number(klogServerPortSpinBox->value());
+}
+
+void SetupPageUDP::setKLogServerPort(const int _t)
+{
+    if ((_t > 0) && (_t <= 65535))
+        klogServerPortSpinBox->setValue(_t);
+    else
+        klogServerPortSpinBox->setValue(defaultport);
+}
+
 void SetupPageUDP::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -348,6 +436,12 @@ void SetupPageUDP::saveSettings()
     settings.setValue ("LogAutoFromWSJTX", QVariant((logAutomaticallyWSJTXCheckbox->isChecked())));
     settings.setValue ("RealTimeFromWSJTX", QVariant((realDataFromWSJTXCheckbox->isChecked())));
     settings.setValue ("InfoTimeOut", miliSecsSpinBox->value());
+    settings.endGroup ();
+
+    settings.beginGroup ("KLogServer");
+    settings.setValue ("SendToKLogServer", QVariant((sendToKLogServerCheckBox->isChecked())));
+    settings.setValue ("KLogServerAddress", getKLogServerAddress());
+    settings.setValue ("KLogServerPort", klogServerPortSpinBox->value());
     settings.endGroup ();
     //qDebug() << Q_FUNC_INFO << " - END";
 }
@@ -364,5 +458,11 @@ void SetupPageUDP::loadSettings()
     logAutomaticallyWSJTXCheckbox->setChecked(settings.value("LogAutoFromWSJTX").toBool ());
     realDataFromWSJTXCheckbox->setChecked(settings.value("RealTimeFromWSJTX").toBool ());
     setTimeout(settings.value("InfoTimeOut").toInt ());
+    settings.endGroup ();
+
+    settings.beginGroup ("KLogServer");
+    setKLogServerAddress (settings.value("KLogServerAddress").toString ());
+    setKLogServerPort (settings.value("KLogServerPort", defaultport).toInt ());
+    setSendToKLogServer (settings.value("SendToKLogServer", false).toBool ());
     settings.endGroup ();
 }

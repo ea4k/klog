@@ -72,6 +72,7 @@ class TipsDialog;
 #include "infowidget.h"
 #include "showerrordialog.h"
 #include "udpserver.h"
+#include "udpclient.h"
 #include "statisticswidget.h"
 #include "updatesatsdata.h"
 #include "hamlibclass.h"
@@ -518,6 +519,7 @@ private:
     //LogModel *logModel;
     //LogWindow *logWindow;
     UDPServer *UDPLogServer;
+    UDPClient *klogServerClient;    // Sends the logged QSOs to KLogServer
 
     ShowErrorDialog *showErrorDialog;
 

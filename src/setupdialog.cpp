@@ -609,6 +609,9 @@ void SetupDialog::setDefaults()
     UDPPage->setLogFromWSJTx(false);
     UDPPage->setReaDataFromWSJTx(false);
     UDPPage->setAutoLogFromWSJTx(false);
+    UDPPage->setSendToKLogServer(false);
+    UDPPage->setKLogServerAddress(QString());
+    UDPPage->setKLogServerPort(2237);
     //interfacesWindowsPage->setSendToPSTRotator("FALSE");
     //interfacesWindowsPage->setPSTRotatorUDPServer("locahost");
     //interfacesWindowsPage->setPSTRotatorUDPServerPort("12040");

@@ -67,6 +67,7 @@ MainWindow::MainWindow(DataProxy_SQLite *dp, World *injectedWorld):
    ////qInfo() << "[KLOG-TIMING] ctor 002 - ShowKLogLogWidget:" << timer.elapsed() << "ms"; timer.restart();
     showErrorDialog = new ShowErrorDialog();
     UDPLogServer = new UDPServer();
+    klogServerClient = new UDPClient(this);
    ////qInfo() << "[KLOG-TIMING] ctor 003 - ShowErrorDialog + UDPServer:" << timer.elapsed() << "ms"; timer.restart();
     util = new Utilities(Q_FUNC_INFO);
    ////qInfo() << "[KLOG-TIMING] ctor 004 - Utilities:" << timer.elapsed() << "ms"; timer.restart();
@@ -1180,6 +1181,10 @@ void MainWindow::actionsJustAfterAddingOneQSO(const QSO& _qso)
         //qDebug() << Q_FUNC_INFO << " -  Lastid < 0 "<< QString::number(lastId) ;
         }
         //awards.setAwards(lastId);
+        // Send the QSO to KLogServer, if enabled. Only new QSOs are sent:
+        // KLogServer appends the records it receives to an ADIF file, so
+        // sending a modified QSO again would just duplicate it there.
+        klogServerClient->sendQSO(_qso);
     }
     logWindow->refresh();
     //awards.updateDXCCStatus(-1);
@@ -6978,6 +6983,7 @@ bool MainWindow::loadSettings()
       //qDebug() << Q_FUNC_INFO << " - 50 - UDPServer";
 
     UDPLogServer->loadSettings ();
+    klogServerClient->loadSettings ();
     settings.beginGroup ("UDPServer");
     UDPServerStart = settings.value ("UDPServer", false).toBool ();
       //qDebug() << Q_FUNC_INFO << "UDPServer = " << util->boolToQString (UDPServerStart);

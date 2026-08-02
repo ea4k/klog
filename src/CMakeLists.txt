@@ -53,6 +53,7 @@ set(KLOG_SOURCES
    startwizard.cpp
    statisticswidget.cpp
    tipsdialog.cpp
+   udpclient.cpp
    udpserver.cpp
    updatesatsdata.cpp
    updatesettings.cpp
@@ -156,6 +157,7 @@ set(KLOG_HEADERS
    startwizard.h
    statisticswidget.h
    tipsdialog.h
+   udpclient.h
    udpserver.h
    updatesatsdata.h
    updatesettings.h

@@ -47,6 +47,11 @@ public:
     void setTimeout(const int _t);
     void setNetworkInterface(const QString &_t);
 
+    // KLogServer: KLog sends the QSOs that are logged to a KLogServer instance
+    void setSendToKLogServer(const bool _t);
+    void setKLogServerAddress(const QString &_t);
+    void setKLogServerPort(const int _t);
+
     QString getLogFromWSJTx();
     QString getAutoLogFromWSJTx();
     QString getReaDataFromWSJTx();
@@ -54,6 +59,9 @@ public:
     QString getUDPServer();
     //int getTimeout();
     QString getNetworkInterface();
+    QString getSendToKLogServer();
+    QString getKLogServerAddress();
+    QString getKLogServerPort();
     void saveSettings();
     void loadSettings();
 
@@ -61,12 +69,17 @@ private:
     void createUI();
     void createActions();
     void fillNetworkInterfaceComboBox();
+    QGroupBox *createKLogServerGroupBox();
 
     QCheckBox *logFromWSJTXCheckbox, *logAutomaticallyWSJTXCheckbox, *realDataFromWSJTXCheckbox, *UDPServerCheckBox;
     // qLineEdit *wsjtxIPAddress, *wsjtxPortNumber;
     QSpinBox *UDPServerPortSpinBox;
     QSpinBox *miliSecsSpinBox;
     QComboBox *networkInterfacesComboBox;
+
+    QCheckBox *sendToKLogServerCheckBox;
+    QLineEdit *klogServerAddressLineEdit;
+    QSpinBox *klogServerPortSpinBox;
 
     int defaultport, defaultTimer;
     Utilities *util;
@@ -80,6 +93,7 @@ public slots:
     //void slotAutoLogFromWSJTCheckBoxClicked();
     //void slotRealFromWSJTCheckBoxClicked();
     void slotUDPServerCheckBoxClicked();
+    void slotSendToKLogServerCheckBoxClicked();
 };
 
 #endif // SETUPPAGEUDP_H
