@@ -26,11 +26,13 @@ email                : jaime@robles.es
 *                                                                           *
 *****************************************************************************/
 
-// The DX Assistant widget: a floating independent window that shows the
-// live, prioritised list of DXCluster spots scored by DXAssistantEngine
-// against the user's own log. Spots the user cannot "improve" (already
-// confirmed in band+mode) never reach this widget — the engine discards
-// them beforehand.
+// The DX Assistant widget: an embeddable panel that shows the live,
+// prioritised list of DXCluster spots scored by DXAssistantEngine against
+// the user's own log. Spots the user cannot "improve" (already confirmed
+// in band+mode) never reach this widget — the engine discards them
+// beforehand.
+// MainWindow hosts it as a tab of the upper-right tab widget; the class
+// sets no window flags of its own, so it can be embedded in any layout.
 
 #include <QtWidgets>
 #include <QAbstractTableModel>

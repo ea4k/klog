@@ -355,6 +355,7 @@ private:
     bool showWSJTXDuplicatedMSG(const QSO &_qso);  //Shows an error if the QSO received from WSJTX is dupe.
     void startServices();
     void initDXAssistant();
+    void reconfigureDXAssistantUI(const bool _enabled);  // Adds/removes the DX Assistant tab
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -660,7 +661,7 @@ private:
     // </CLUSTER>
 
     // <DX-ASSISTANT>
-    DXClusterAssistant *dxClusterAssistant;   // Lazy-created on first Tools->DX Assistant
+    DXClusterAssistant *dxClusterAssistant;   // Tab of dxUpRightTab; created when the feature is enabled
     DXAssistantEngine *dxAssistantEngine;
     ClubLogMostWanted *clubLogMostWanted;
     QString myContinent;                      // Derived once at startup from the station callsign

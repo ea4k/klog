@@ -245,6 +245,7 @@ void MainWindow::init_variables()
     aboutDialog  = nullptr;
     tipsDialog   = nullptr;
     statsWidget  = nullptr;
+    dxUpRightTab = nullptr;   // Created in createUIDX(); hosts the DX Assistant tab
     dxClusterAssistant = nullptr;
     dxAssistantEngine  = nullptr;
     clubLogMostWanted  = nullptr;
@@ -2683,7 +2684,7 @@ void MainWindow::createMenusCommon()
     dxClusterAssistantAct = new QAction (tr("DX Assistant"), this);
     toolMenu->addAction(dxClusterAssistantAct);
     connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
-    dxClusterAssistantAct->setToolTip(tr("Show the DX Assistant - prioritised list of workable spots."));
+    dxClusterAssistantAct->setToolTip(tr("Go to the DX Assistant tab - prioritised list of workable spots."));
 
 
      //qDebug() << "MainWindow::createMenusCommon before" ;
@@ -3795,6 +3796,7 @@ void MainWindow::initDXAssistant()
     // disabled explains how to enable it (slotShowDXClusterAssistant).
     if (!dxAssistantEnabled)
     {   // Already-created objects stay idle: the slots guard on the flag
+        reconfigureDXAssistantUI(false);   // Drops the tab if it was there
         logEvent(Q_FUNC_INFO, "END - Disabled in settings", Debug);
         return;
     }
@@ -3845,8 +3847,57 @@ void MainWindow::initDXAssistant()
         dxAssistantEngine->setUserContinent(myContinent);
         dxAssistantEngine->setMostWanted(mostWantedInUse);
     }
+    reconfigureDXAssistantUI(true);   // Creates the widget and shows its tab
     if (dxClusterAssistant != nullptr)
         dxClusterAssistant->setEngine(dxAssistantEngine);
+
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+// Keeps the DX Assistant tab of dxUpRightTab in sync with the enabled flag.
+// The widget itself is never destroyed once created: disabling the feature
+// only removes its tab, so re-enabling it brings back the spots it holds.
+void MainWindow::reconfigureDXAssistantUI(const bool _enabled)
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (dxUpRightTab == nullptr)
+    {   // createUIDX() has not run yet; initDXAssistant() will call us again
+        logEvent(Q_FUNC_INFO, "END - No UI yet", Debug);
+        return;
+    }
+
+    if (!_enabled)
+    {
+        if (dxClusterAssistant != nullptr)
+        {
+            const int tabIndex = dxUpRightTab->indexOf(dxClusterAssistant);
+            if (tabIndex >= 0)
+                dxUpRightTab->removeTab(tabIndex);
+            // removeTab() does not reparent the page: adopt it explicitly so
+            // it does not linger on top of the tab widget.
+            dxClusterAssistant->setParent(this);
+            dxClusterAssistant->hide();
+        }
+        logEvent(Q_FUNC_INFO, "END - Disabled", Debug);
+        return;
+    }
+
+    if (dxClusterAssistant == nullptr)
+    {
+        dxClusterAssistant = new DXClusterAssistant(&awards, world, dataProxy,
+                                                    Q_FUNC_INFO, this);
+        dxClusterAssistant->init();
+        dxClusterAssistant->setColors(newOneColor, neededColor, workedColor);
+        connect(dxClusterAssistant, SIGNAL(spotSendToUI(DXSpot)),
+                this, SLOT(slotDXAssistantSendSpotToUI(DXSpot)));
+        connect(dxClusterAssistant, SIGNAL(spotLogDirectly(DXSpot)),
+                this, SLOT(slotDXAssistantLogSpot(DXSpot)));
+    }
+
+    if (dxUpRightTab->indexOf(dxClusterAssistant) < 0)
+    {   // addTab() takes care of the page visibility; no explicit show()
+        dxUpRightTab->addTab(dxClusterAssistant, tr("DX Assistant"));
+    }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
@@ -5325,27 +5376,25 @@ void MainWindow::slotShowDXClusterAssistant()
                                     "(check 'Enable DX Assistant')."));
         return;
     }
-    if (!dxClusterAssistant)
-    {   // Lazy-init, created on first Tools->DX Assistant (like StatisticsWidget)
-        dxClusterAssistant = new DXClusterAssistant(&awards, world, dataProxy,
-                                                    Q_FUNC_INFO, this);
-        dxClusterAssistant->init();
-        dxClusterAssistant->setEngine(dxAssistantEngine);
-        dxClusterAssistant->setColors(newOneColor, neededColor, workedColor);
-        connect(dxClusterAssistant, SIGNAL(spotSendToUI(DXSpot)),
-                this, SLOT(slotDXAssistantSendSpotToUI(DXSpot)));
-        connect(dxClusterAssistant, SIGNAL(spotLogDirectly(DXSpot)),
-                this, SLOT(slotDXAssistantLogSpot(DXSpot)));
+    if (dxClusterAssistant == nullptr)
+    {   // Normally already created by initDXAssistant(); this covers the
+        // case where the tab was never built (e.g. no engine yet).
+        reconfigureDXAssistantUI(true);
+        if (dxClusterAssistant != nullptr)
+            dxClusterAssistant->setEngine(dxAssistantEngine);
     }
-    dxClusterAssistant->show();
-    dxClusterAssistant->raise();
+    // The DX Assistant is a tab of the upper-right tab widget: bring it to
+    // the front instead of opening a separate window.
+    const int tabIndex = dxUpRightTab->indexOf(dxClusterAssistant);
+    if (tabIndex >= 0)
+        dxUpRightTab->setCurrentIndex(tabIndex);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
 void MainWindow::slotDXAssistantNewSpot(const DXSpot &_spot)
 {
     // Called for every arriving DXCluster spot; scoring only makes sense
-    // once the assistant window exists to show the result.
+    // once the assistant tab exists to show the result.
     if (!dxAssistantEnabled || (dxAssistantEngine == nullptr) || (dxClusterAssistant == nullptr))
         return;
 

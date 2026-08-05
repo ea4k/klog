@@ -438,8 +438,8 @@ DXClusterAssistant::DXClusterAssistant(Awards *_awards, World *_world,
     maxSpots   = MAX_SPOTS_DEFAULT;
     onlyMyContinentSpotters = false;
 
-    // Floating independent window even when a parent keeps the lifetime
-    setWindowFlags(Qt::Window);
+    // No window flags: the widget lives as a tab page of the main window.
+    // The title is kept for accessibility and for any future undocking.
     setWindowTitle(tr("DX Assistant"));
 }
 
@@ -521,7 +521,7 @@ bool DXClusterAssistant::createUI()
     connect(ttlTimer, &QTimer::timeout, this, &DXClusterAssistant::slotTimerTick);
     ttlTimer->start();
 
-    resize(700, 400);
+    // No resize() here: as a tab page the size comes from the host layout.
     return true;
 }
 

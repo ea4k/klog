@@ -101,6 +101,10 @@ private slots:
     // Columns
     void test_DefaultHiddenColumns();
 
+    // Embedding (the widget lives in a tab of MainWindow's dxUpRightTab)
+    void test_IsNotATopLevelWindowWhenParented();
+    void test_EmbedsAndDetachesAsATabPage();
+
 private:
     DXSpot makeSpot(const QString &_call, int _bandId, int _score,
                     const QString &_continent = "EU", int _mwRank = 0,
@@ -653,6 +657,42 @@ void tst_DXClusterAssistant::test_DefaultHiddenColumns()
              "Mode must be hidden by default");
     // Priority is the first column
     QCOMPARE(static_cast<int>(DXAssistantSpotModel::ColPriority), 0);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Embedding
+// ─────────────────────────────────────────────────────────────────────────────
+
+void tst_DXClusterAssistant::test_IsNotATopLevelWindowWhenParented()
+{
+    // The widget must set no window flags of its own: given a parent it has
+    // to behave as a plain child widget so it can be put inside a tab.
+    QWidget host;
+    DXClusterAssistant embedded(awards, world, dataProxy, Q_FUNC_INFO, &host);
+    QVERIFY(embedded.init());
+    QVERIFY2(!embedded.isWindow(), "The DX Assistant must not be a top-level window");
+    QCOMPARE(embedded.parentWidget(), &host);
+}
+
+void tst_DXClusterAssistant::test_EmbedsAndDetachesAsATabPage()
+{
+    QTabWidget tabWidget;
+    DXClusterAssistant *embedded = new DXClusterAssistant(awards, world, dataProxy,
+                                                          Q_FUNC_INFO, &tabWidget);
+    QVERIFY(embedded->init());
+
+    const int index = tabWidget.addTab(embedded, "DX Assistant");
+    QCOMPARE(tabWidget.indexOf(embedded), index);
+    QCOMPARE(tabWidget.widget(index), static_cast<QWidget *>(embedded));
+    QCOMPARE(tabWidget.tabText(index), QString("DX Assistant"));
+
+    // Disabling the feature only removes the tab; the page survives, which is
+    // what lets MainWindow bring back the spots it holds when re-enabled.
+    tabWidget.removeTab(index);
+    QCOMPARE(tabWidget.indexOf(embedded), -1);
+    QCOMPARE(tabWidget.count(), 0);
+    embedded->setParent(nullptr);
+    delete embedded;
 }
 
 QTEST_MAIN(tst_DXClusterAssistant)
