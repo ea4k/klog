@@ -67,6 +67,9 @@ class DXClusterWidget : public QWidget
     void setDXClusterServer(const QString &clusterToConnect, const int portToConnect);
     void setIncludeModeForNeeded(const bool _include);
     void clearSpots();
+    // Reflects the DX Assistant state on the "DX A" button. Called by
+    // MainWindow, which owns the setting: it never emits back.
+    void setDXAssistantEnabled(const bool _enabled);
 
     void rightButtonFromLogMenu(const DXSpot &_spot);
 
@@ -93,6 +96,7 @@ signals:
     void dxspotArrived(const QString &_call, const Frequency &_f);
     void dxspotArrived(const DXSpot &_sp);
     //void dxspot(const QString &_spot); // The text string to be saved
+    void dxAssistantEnabledChanged(const bool _enabled);   // "DX A" button clicked
 
 private:
     Awards *awards; // Reference to the Awards instance
@@ -118,6 +122,7 @@ private:
     QLineEdit *inputCommand;
     QPushButton *sendButton;
     QPushButton *clearButton;
+    QPushButton *dxAssistantButton;   // Checkable: enables/disables the DX Assistant
 
     bool dxClusterConnected;
     bool dxClusterAlreadyConnected;

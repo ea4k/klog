@@ -237,6 +237,7 @@ private slots:
     void slotDXAssistantRecalculate();
     void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
     void slotDXAssistantLogSpot(const DXSpot &_spot);
+    void slotDXAssistantEnabledChanged(const bool _enabled);   // "DX A" button
     void slotDXAssistantQSY(const DXSpot &_spot);
     void slotDXAssistantSpotsToMap(const QList<DXSpot> &_spots);
     // </DX-ASSISTANT>

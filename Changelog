@@ -1,6 +1,7 @@
 TBD - 2.5.4
 - New feature: DX Assistant, a tab in the upper-right panel (enable it in Setup, in the DXCluster page) showing a live, prioritised list of DXCluster spots scored against your own log, with a Priority column, per-session spot hiding, band/spotter-continent filters, configurable max age and max number of spots (Closes #1009, #1010, #1011, #1012, #1013, #1014, #1015, #1016, #1017, #1018)
 - New feature: The DX Assistant shows the most active band and the "band to be" (Closes #796, #860, #1019)
+- Enhancement: A "DX A" button in the DXCluster widget, next to Clear, enables and disables the DX Assistant without going through Setup.
 - Enhancement: The DX Assistant has a single context menu, reachable from both the spot list and the column header, replacing the two separate menus and the "Clear hidden spots" button (which now gives its space to the spot table). It adds Copy Callsign, a "Follow my band" filter that tracks the band you are working on, Status and DXCC filters, a spotter filter with My continent / My DXCC / ALL, "QSY to this freq" when a radio is connected, Clear all, Show to map and Refresh.
 - Enhancement: KLog can import many ADI files in one single operation by simply selecting them.
 - Bugfix: Fix BAND_RX export when RX band is empty (TNX YL3GBC)

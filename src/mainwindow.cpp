@@ -651,6 +651,8 @@ void MainWindow::createActionsCommon(){
     //CLUSTER
     connect(dxClusterWidget.get(), SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
     connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
+    connect(dxClusterWidget.get(), &DXClusterWidget::dxAssistantEnabledChanged,
+            this, &MainWindow::slotDXAssistantEnabledChanged);
     connect(mapWindow, &MapWindowWidget::spotDoubleClicked, this, &MainWindow::slotMapSpotDoubleClicked);
     connect(mapWindow, &MapWindowWidget::editQSORequested, this, &MainWindow::qsoToEdit);
 
@@ -3864,6 +3866,10 @@ void MainWindow::initDXAssistant()
 void MainWindow::reconfigureDXAssistantUI(const bool _enabled)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
+    // The "DX A" button follows the setting wherever it was changed from:
+    // this button, the Setup dialog, or the config file at startup.
+    dxClusterWidget->setDXAssistantEnabled(_enabled);
+
     if (dxUpRightTab == nullptr)
     {   // createUIDX() has not run yet; initDXAssistant() will call us again
         logEvent(Q_FUNC_INFO, "END - No UI yet", Debug);
@@ -5419,6 +5425,25 @@ void MainWindow::slotDXAssistantLogSpot(const DXSpot &_spot)
     DXSpot spot = _spot;
     clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     slotQRZReturnPressed();   // Logs the QSO immediately, without user interaction
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantEnabledChanged(const bool _enabled)
+{   // The "DX A" button of the DXCluster widget: same setting the Setup
+    // dialog writes, so it is persisted here too and survives a restart.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (dxAssistantEnabled == _enabled)
+        return;
+
+    dxAssistantEnabled = _enabled;
+
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("DXAssistant");
+    settings.setValue("enabled", QVariant(dxAssistantEnabled));
+    settings.endGroup();
+
+    // Builds the engine and adds the tab, or drops the tab when disabling
+    initDXAssistant();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
