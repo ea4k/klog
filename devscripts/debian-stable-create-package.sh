@@ -83,6 +83,16 @@ if [ -z "$CPACK_DEB" ]; then
     exit 1
 fi
 
+# --- Check the translations made it into the package ---
+# The .qm files are installed into /usr/share/klog/translations, which is where
+# KLog looks for them. If LinguistTools is missing they are silently skipped,
+# and KLog would be shipped in English only.
+if ! dpkg-deb -c "$CPACK_DEB" | grep -q "share/klog/translations/klog_.*\.qm"; then
+    echo "ERROR: $CPACK_DEB contains no KLog translation files"
+    echo "       Check that Qt6 LinguistTools (lrelease) is available."
+    exit 1
+fi
+
 FINAL_NAME="klog_${KLOG_VERSION}_debian-stable_${ARCH}.deb"
 mv "$CPACK_DEB" "$DEVSCRIPTS_DIR/${FINAL_NAME}"
 

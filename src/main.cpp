@@ -134,13 +134,18 @@ void loadTranslations(QApplication &app, QTranslator &myappTranslator)
         }
     }
 
+    // Name the folder KLog expects, so the user knows where to drop the file.
+    const QString translationsDir = searchPaths.isEmpty()
+                                        ? QString()
+                                        : QDir::toNativeSeparators(QDir(searchPaths.first()).absolutePath());
+
     QMessageBox::warning(nullptr,
                          "KLog",
                          QString("No translation files for your language were found. "
                                  "KLog will be shown in English.\n"
                                  "If you have the %1 file for your language, "
-                                 "copy it to the translations folder and restart KLog.")
-                             .arg(fileName));
+                                 "copy it to the %2 folder and restart KLog.")
+                             .arg(fileName, translationsDir));
 }
 
 

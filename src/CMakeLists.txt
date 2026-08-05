@@ -368,8 +368,12 @@ endif()
 if(APPLE)
     install(TARGETS klog BUNDLE DESTINATION .)
     set_source_files_properties(${KLOG_DOC} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-    set_source_files_properties(${QM_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/translations)
-    target_sources(klog PRIVATE ${QM_FILES})
+    # The .qm files travel inside the bundle, in Contents/Resources/translations,
+    # which is where Utilities::getTranslationSearchPaths() looks for them.
+    if(QM_FILES)
+        set_source_files_properties(${QM_FILES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources/translations)
+        target_sources(klog PRIVATE ${QM_FILES})
+    endif()
     set_target_properties(klog PROPERTIES
            # OUTPUT_NAME controls the .app bundle name visible in the DMG and Finder.
            # Without this the bundle inherits the target name "klog" (lowercase).
@@ -391,7 +395,11 @@ elseif(WIN32)
        RUNTIME DESTINATION .
    )
    install(FILES ${KLOG_DOC} DESTINATION .)
-   install(FILES ${QM_FILES} DESTINATION translations)
+   # Guarded like the Linux branch: without LinguistTools QM_FILES is empty and
+   # install(FILES) with no file is a configuration error.
+   if(QM_FILES)
+       install(FILES ${QM_FILES} DESTINATION translations)
+   endif()
 else()
    # =========================================================================
     # Linux / Unix install — FHS + Debian Policy compliant
