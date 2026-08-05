@@ -5444,6 +5444,19 @@ void MainWindow::slotDXAssistantEnabledChanged(const bool _enabled)
 
     // Builds the engine and adds the tab, or drops the tab when disabling
     initDXAssistant();
+
+    // Enabling from the button is a deliberate "I want to see it now", so the
+    // new tab is brought to the front. Startup and the Setup dialog go through
+    // initDXAssistant() alone and leave the current tab where the user left it.
+    if (_enabled && (dxClusterAssistant != nullptr) && (dxUpRightTab != nullptr))
+    {
+        const int tabIndex = dxUpRightTab->indexOf(dxClusterAssistant);
+        if (tabIndex >= 0)
+        {
+            dxUpRightTab->setCurrentIndex(tabIndex);
+            dxClusterAssistant->setFocus();
+        }
+    }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
