@@ -233,11 +233,13 @@ private slots:
     void slotShowStats();
 
     // <DX-ASSISTANT>
-    void slotShowDXClusterAssistant();
     void slotDXAssistantNewSpot(const DXSpot &_spot);
     void slotDXAssistantRecalculate();
     void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
     void slotDXAssistantLogSpot(const DXSpot &_spot);
+    void slotDXAssistantEnabledChanged(const bool _enabled);   // "DX A" button
+    void slotDXAssistantQSY(const DXSpot &_spot);
+    void slotDXAssistantSpotsToMap(const QList<DXSpot> &_spots);
     // </DX-ASSISTANT>
 
     void slotWorldReload(const bool _b);
@@ -355,6 +357,8 @@ private:
     bool showWSJTXDuplicatedMSG(const QSO &_qso);  //Shows an error if the QSO received from WSJTX is dupe.
     void startServices();
     void initDXAssistant();
+    void reconfigureDXAssistantUI(const bool _enabled);  // Adds/removes the DX Assistant tab
+    void syncDXAssistantState();   // Pushes the current band and rig state to the widget
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -610,7 +614,6 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
     QAction *showMapAct;
-    QAction *dxClusterAssistantAct;
 
     QStringList bands;
     QStringList modes;
@@ -660,7 +663,7 @@ private:
     // </CLUSTER>
 
     // <DX-ASSISTANT>
-    DXClusterAssistant *dxClusterAssistant;   // Lazy-created on first Tools->DX Assistant
+    DXClusterAssistant *dxClusterAssistant;   // Tab of dxUpRightTab; created when the feature is enabled
     DXAssistantEngine *dxAssistantEngine;
     ClubLogMostWanted *clubLogMostWanted;
     QString myContinent;                      // Derived once at startup from the station callsign

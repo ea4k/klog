@@ -123,7 +123,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     dxAssistantEnabledCheckbox->setChecked(false);
     dxAssistantClubLogMWCheckbox->setChecked(false);
     dxAssistantEnabledCheckbox->setText(tr("Enable DX Assistant"));
-    dxAssistantEnabledCheckbox->setToolTip(tr("Shows a prioritised list of DXCluster spots scored against your own log (Tools->DX Assistant)."));
+    dxAssistantEnabledCheckbox->setToolTip(tr("Adds a DX Assistant tab showing a prioritised list of DXCluster spots scored against your own log."));
     dxAssistantClubLogMWCheckbox->setText(tr("Enable ClubLog Most Wanted integration"));
     dxAssistantClubLogMWCheckbox->setToolTip(tr("Downloads the ClubLog Most Wanted list monthly and uses it to break ties between spots with the same score."));
 

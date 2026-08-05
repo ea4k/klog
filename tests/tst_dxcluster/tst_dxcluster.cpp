@@ -63,6 +63,7 @@
  */
 
 #include <QtTest>
+#include <QSignalSpy>
 #include "../../src/awards.h"
 #include "../../src/dataproxy_sqlite.h"
 #include "../../src/dxcluster/dxcluster.h"
@@ -142,6 +143,12 @@ private slots:
     void test_buildAuthSequence_callsignOnly();
     void test_buildAuthSequence_callsignAndPassword();
     void test_buildAuthSequence_emptyCallsign();
+
+    // P) "DX A" button — toggles the DX Assistant from the DXCluster widget
+    void test_dxAssistantButtonIsCheckableAndOffByDefault();
+    void test_dxAssistantButtonEmitsTheNewStateWhenClicked();
+    void test_setDXAssistantEnabledDoesNotEmitBack();
+    void test_dxAssistantButtonTextAndToolTip();
 
 private:
     // Helper: build an EntityStatus with the given QSOStatus and bandId=-1.
@@ -737,6 +744,63 @@ void tst_DXCluster::test_buildAuthSequence_emptyCallsign()
     // Empty callsign → nothing should be sent (connection stays unauthenticated).
     const QString result = DXClusterWidget::buildAuthSequence("", "somepassword");
     QVERIFY(result.isEmpty());
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// P) "DX A" button
+//    The DX Assistant setting lives in MainWindow, so the button only reports
+//    the state the user asked for and accepts the state it is told. The
+//    no-echo property matters: MainWindow refreshes the button from inside
+//    the very handler the button triggers.
+// ─────────────────────────────────────────────────────────────────────────────
+
+void tst_DXCluster::test_dxAssistantButtonIsCheckableAndOffByDefault()
+{
+    QVERIFY(widget->dxAssistantButton != nullptr);
+    QVERIFY2(widget->dxAssistantButton->isCheckable(),
+             "The button must be checkable so it shows whether the assistant is on");
+    QVERIFY2(!widget->dxAssistantButton->isChecked(),
+             "The DX Assistant is off by default");
+}
+
+void tst_DXCluster::test_dxAssistantButtonEmitsTheNewStateWhenClicked()
+{
+    widget->setDXAssistantEnabled(false);
+    QSignalSpy spy(widget, &DXClusterWidget::dxAssistantEnabledChanged);
+    QVERIFY(spy.isValid());
+
+    widget->dxAssistantButton->click();
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy.at(0).at(0).toBool(), true);
+    QVERIFY(widget->dxAssistantButton->isChecked());
+
+    widget->dxAssistantButton->click();
+    QCOMPARE(spy.count(), 2);
+    QCOMPARE(spy.at(1).at(0).toBool(), false);
+    QVERIFY(!widget->dxAssistantButton->isChecked());
+}
+
+void tst_DXCluster::test_setDXAssistantEnabledDoesNotEmitBack()
+{
+    widget->setDXAssistantEnabled(false);
+    QSignalSpy spy(widget, &DXClusterWidget::dxAssistantEnabledChanged);
+
+    widget->setDXAssistantEnabled(true);
+    QVERIFY(widget->dxAssistantButton->isChecked());
+    widget->setDXAssistantEnabled(false);
+    QVERIFY(!widget->dxAssistantButton->isChecked());
+
+    QVERIFY2(spy.count() == 0,
+             "Refreshing the button from MainWindow must not look like a user click");
+}
+
+void tst_DXCluster::test_dxAssistantButtonTextAndToolTip()
+{
+    // The tooltip is assigned in init(), so this needs its own widget
+    DXClusterWidget local(awards, world);
+    local.init();
+    QCOMPARE(local.dxAssistantButton->text(), QString("DX A"));
+    QCOMPARE(local.dxAssistantButton->toolTip(), QString("Enable/Disable DX Assistant"));
 }
 
 QTEST_MAIN(tst_DXCluster)

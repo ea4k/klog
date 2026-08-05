@@ -77,7 +77,16 @@ private slots:
     void test_HiddenCallFiltersRow();
     void test_BandFilterHidesRows();
     void test_ContinentFilterHidesRows();
+    void test_SpotterMyDXCCFilterHidesRows();
+    void test_SpotterMyDXCCInactiveWithoutUserEntity();
+    void test_StatusFilterHidesRows();
+    void test_DXCCFilterHidesRows();
+    void test_DXCCsInViewListsHeldEntities();
+    void test_FollowMyBandShowsOnlyTheCurrentBand();
+    void test_FollowMyBandOverridesTheBandCheckboxes();
     void test_ClearHiddenSpotsRestoresRows();
+    void test_ClearAllEmptiesTheListAndTheHiddenCalls();
+    void test_ShownSpotsFollowsTheViewFilters();
 
     // Expiry
     void test_TTLRemovesOldSpots();
@@ -89,6 +98,8 @@ private slots:
     void test_BandToBeUsesManagedSpotScores();
     void test_BandToBeFollowsHiddenSpots();
     void test_BandToBeFollowsBandFilter();
+    void test_BandToBeFollowsStatusFilter();
+    void test_BandToBeFollowsDXCCFilter();
     void test_BandToBeFollowsWorkedQSO();
     void test_BandToBeUsesScoreNotPriority();
     void test_BandToBeFollowsExpiredSpot();
@@ -100,6 +111,10 @@ private slots:
 
     // Columns
     void test_DefaultHiddenColumns();
+
+    // Embedding (the widget lives in a tab of MainWindow's dxUpRightTab)
+    void test_IsNotATopLevelWindowWhenParented();
+    void test_EmbedsAndDetachesAsATabPage();
 
 private:
     DXSpot makeSpot(const QString &_call, int _bandId, int _score,
@@ -159,7 +174,13 @@ void tst_DXClusterAssistant::cleanup()
     widget->bandActivity.clear();
     widget->hiddenCalls.clear();
     widget->disabledBands.clear();
-    widget->onlyMyContinentSpotters = false;
+    widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+    widget->disabledStatuses.clear();
+    widget->disabledDXCCs.clear();
+    widget->followMyBand = false;
+    widget->currentBandId = -1;
+    widget->rigConnected = false;
+    engine->setUserDXCC(-1);
     widget->setTTL(DXClusterAssistant::SPOT_TTL_MINUTES);
     widget->maxSpots = DXClusterAssistant::MAX_SPOTS_DEFAULT;
     widget->applyViewFilters();
@@ -367,13 +388,192 @@ void tst_DXClusterAssistant::test_ContinentFilterHidesRows()
     widget->addOrUpdateSpot(makeSpot("EA2BBB", band20, 800, "NA", 0, "K1ABC"));
     QCOMPARE(visibleRows(), 2);
 
-    widget->onlyMyContinentSpotters = true;   // Engine's user continent is EU
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyContinent;   // Engine's user continent is EU
     widget->applyViewFilters();
     QCOMPARE(visibleRows(), 1);
 
-    widget->onlyMyContinentSpotters = false;
+    widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
     widget->applyViewFilters();
     QCOMPARE(visibleRows(), 2);
+}
+
+void tst_DXClusterAssistant::test_SpotterMyDXCCFilterHidesRows()
+{
+    engine->setUserDXCC(281);   // Spain
+
+    DXSpot local = makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ");
+    local.setSpotterDXCC(281);
+    widget->addOrUpdateSpot(local);
+
+    DXSpot foreign = makeSpot("EA2BBB", band20, 800, "EU", 0, "F5ABC");
+    foreign.setSpotterDXCC(227);   // France: same continent, different entity
+    widget->addOrUpdateSpot(foreign);
+    QCOMPARE(visibleRows(), 2);
+
+    // My continent keeps both: they are both European spotters
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyContinent;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 2);
+
+    // My DXCC is stricter: only the spot from my own entity survives
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyDXCC;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+
+    engine->setUserDXCC(-1);
+}
+
+void tst_DXClusterAssistant::test_SpotterMyDXCCInactiveWithoutUserEntity()
+{
+    // An unknown user entity leaves the My DXCC filter inactive rather than
+    // hiding every spot for a reason the user cannot see.
+    engine->setUserDXCC(-1);
+
+    DXSpot spot = makeSpot("EA1AAA", band20, 1100, "EU", 0, "F5ABC");
+    spot.setSpotterDXCC(227);
+    widget->addOrUpdateSpot(spot);
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyDXCC;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+}
+
+void tst_DXClusterAssistant::test_StatusFilterHidesRows()
+{
+    DXSpot atno = makeSpot("EA1AAA", band20, 1100);   // makeSpot sets ATNO
+    widget->addOrUpdateSpot(atno);
+
+    DXSpot workedSpot = makeSpot("EA2BBB", band20, 400);
+    workedSpot.setStatusBand(worked);
+    workedSpot.setQSOStatus(worked);
+    widget->addOrUpdateSpot(workedSpot);
+    QCOMPARE(visibleRows(), 2);
+
+    widget->disabledStatuses.insert(static_cast<int>(worked));
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+
+    widget->disabledStatuses.insert(static_cast<int>(ATNO));
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 0);
+
+    widget->disabledStatuses.clear();
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 2);
+}
+
+void tst_DXClusterAssistant::test_DXCCFilterHidesRows()
+{
+    DXSpot spain = makeSpot("EA1AAA", band20, 1100);
+    spain.setDXCC(281);
+    widget->addOrUpdateSpot(spain);
+
+    DXSpot france = makeSpot("F5ABC", band20, 800);
+    france.setDXCC(227);
+    widget->addOrUpdateSpot(france);
+    QCOMPARE(visibleRows(), 2);
+
+    widget->disabledDXCCs.insert(227);
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+
+    widget->disabledDXCCs.clear();
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 2);
+}
+
+void tst_DXClusterAssistant::test_DXCCsInViewListsHeldEntities()
+{
+    DXSpot spain = makeSpot("EA1AAA", band20, 1100);
+    spain.setDXCC(281);
+    widget->addOrUpdateSpot(spain);
+
+    DXSpot france = makeSpot("F5ABC", band20, 800);
+    france.setDXCC(227);
+    widget->addOrUpdateSpot(france);
+
+    QList<int> entities = widget->dxccsInView();
+    QCOMPARE(entities.count(), 2);
+    QVERIFY(entities.contains(281));
+    QVERIFY(entities.contains(227));
+
+    // A filtered-out entity stays listed, otherwise it could never be
+    // switched back on from the menu.
+    widget->disabledDXCCs.insert(227);
+    widget->applyViewFilters();
+    QVERIFY(widget->dxccsInView().contains(227));
+}
+
+void tst_DXClusterAssistant::test_FollowMyBandShowsOnlyTheCurrentBand()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+    QCOMPARE(visibleRows(), 2);
+
+    widget->setCurrentBand(band20);
+    widget->followMyBand = true;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+
+    // Working a different band moves the view with the rig
+    widget->setCurrentBand(band40);
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->shownSpots().count(), 1);
+    QCOMPARE(widget->shownSpots().first().getBandId(), band40);
+}
+
+void tst_DXClusterAssistant::test_FollowMyBandOverridesTheBandCheckboxes()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+
+    // 20M filtered out by hand, but the rig is on 20M: following the rig wins
+    widget->disabledBands.insert(band20);
+    widget->setCurrentBand(band20);
+    widget->followMyBand = true;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->shownSpots().first().getBandId(), band20);
+
+    // Switching the follow off hands control back to the checkboxes
+    widget->followMyBand = false;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->shownSpots().first().getBandId(), band40);
+}
+
+void tst_DXClusterAssistant::test_ClearAllEmptiesTheListAndTheHiddenCalls()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+    widget->hideSpotCall("EA1AAA");
+    widget->registerBandActivity(makeSpot("EA3CCC", band20, 500));
+    QVERIFY(widget->model->spotCount() > 0);
+    QVERIFY(!widget->hiddenCalls.isEmpty());
+
+    widget->clearAll();
+    QCOMPARE(widget->model->spotCount(), 0);
+    QCOMPARE(visibleRows(), 0);
+    QVERIFY2(widget->hiddenCalls.isEmpty(),
+             "Clear all must forget the hidden calls, otherwise they could never come back");
+    QVERIFY(widget->bandActivity.isEmpty());
+
+    // The view filters are settings, not data: they survive
+    QCOMPARE(widget->maxSpots, 25);
+}
+
+void tst_DXClusterAssistant::test_ShownSpotsFollowsTheViewFilters()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+    QCOMPARE(widget->shownSpots().count(), 2);
+
+    widget->disabledBands.insert(band40);
+    widget->applyViewFilters();
+
+    QList<DXSpot> shown = widget->shownSpots();
+    QCOMPARE(shown.count(), 1);
+    QCOMPARE(shown.first().getDxCall(), QString("EA1AAA"));
 }
 
 void tst_DXClusterAssistant::test_ClearHiddenSpotsRestoresRows()
@@ -453,7 +653,7 @@ void tst_DXClusterAssistant::test_MostActiveBandIgnoresViewFilters()
              "View filters must not affect Most active band");
 
     // Neither must the continent filter
-    widget->onlyMyContinentSpotters = true;
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyContinent;
     widget->applyViewFilters();
     QVERIFY(widget->mostActiveBandLabel->text().contains(expected));
 }
@@ -502,6 +702,47 @@ void tst_DXClusterAssistant::test_BandToBeFollowsBandFilter()
     widget->applyViewFilters();
     QVERIFY2(widget->bandToBeLabel->text().contains(name20),
              "A filtered-out band must not be proposed as the band to be");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsStatusFilter()
+{
+    // 40M wins only thanks to a single high-value spot, and that spot is the
+    // only Worked one: filtering Worked out must move the band to be.
+    addScored("EA1AAA", band20, 500);
+    addScored("EA2BBB", band20, 500);
+    DXSpot workedSpot = makeSpot("EA3CCC", band40, 1200);
+    workedSpot.setStatusBand(worked);
+    workedSpot.setQSOStatus(worked);
+    widget->addOrUpdateSpot(workedSpot);
+
+    QString name20 = dataProxy->getNameFromBandId(band20);
+    QString name40 = dataProxy->getNameFromBandId(band40);
+    QVERIFY(widget->bandToBeLabel->text().contains(name40));
+
+    widget->disabledStatuses.insert(static_cast<int>(worked));
+    widget->applyViewFilters();
+    QVERIFY2(widget->bandToBeLabel->text().contains(name20),
+             "A status filtered out of the view must not feed the band to be");
+}
+
+void tst_DXClusterAssistant::test_BandToBeFollowsDXCCFilter()
+{
+    DXSpot spain = makeSpot("EA1AAA", band20, 500);
+    spain.setDXCC(281);
+    widget->addOrUpdateSpot(spain);
+
+    DXSpot france = makeSpot("F5ABC", band40, 1200);
+    france.setDXCC(227);
+    widget->addOrUpdateSpot(france);
+
+    QString name20 = dataProxy->getNameFromBandId(band20);
+    QString name40 = dataProxy->getNameFromBandId(band40);
+    QVERIFY(widget->bandToBeLabel->text().contains(name40));
+
+    widget->disabledDXCCs.insert(227);
+    widget->applyViewFilters();
+    QVERIFY2(widget->bandToBeLabel->text().contains(name20),
+             "An entity filtered out of the view must not feed the band to be");
 }
 
 void tst_DXClusterAssistant::test_BandToBeFollowsWorkedQSO()
@@ -653,6 +894,42 @@ void tst_DXClusterAssistant::test_DefaultHiddenColumns()
              "Mode must be hidden by default");
     // Priority is the first column
     QCOMPARE(static_cast<int>(DXAssistantSpotModel::ColPriority), 0);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Embedding
+// ─────────────────────────────────────────────────────────────────────────────
+
+void tst_DXClusterAssistant::test_IsNotATopLevelWindowWhenParented()
+{
+    // The widget must set no window flags of its own: given a parent it has
+    // to behave as a plain child widget so it can be put inside a tab.
+    QWidget host;
+    DXClusterAssistant embedded(awards, world, dataProxy, Q_FUNC_INFO, &host);
+    QVERIFY(embedded.init());
+    QVERIFY2(!embedded.isWindow(), "The DX Assistant must not be a top-level window");
+    QCOMPARE(embedded.parentWidget(), &host);
+}
+
+void tst_DXClusterAssistant::test_EmbedsAndDetachesAsATabPage()
+{
+    QTabWidget tabWidget;
+    DXClusterAssistant *embedded = new DXClusterAssistant(awards, world, dataProxy,
+                                                          Q_FUNC_INFO, &tabWidget);
+    QVERIFY(embedded->init());
+
+    const int index = tabWidget.addTab(embedded, "DX Assistant");
+    QCOMPARE(tabWidget.indexOf(embedded), index);
+    QCOMPARE(tabWidget.widget(index), static_cast<QWidget *>(embedded));
+    QCOMPARE(tabWidget.tabText(index), QString("DX Assistant"));
+
+    // Disabling the feature only removes the tab; the page survives, which is
+    // what lets MainWindow bring back the spots it holds when re-enabled.
+    tabWidget.removeTab(index);
+    QCOMPARE(tabWidget.indexOf(embedded), -1);
+    QCOMPARE(tabWidget.count(), 0);
+    embedded->setParent(nullptr);
+    delete embedded;
 }
 
 QTEST_MAIN(tst_DXClusterAssistant)

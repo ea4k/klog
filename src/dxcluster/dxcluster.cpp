@@ -52,6 +52,7 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
     inputCommand = new QLineEdit;
     sendButton = new QPushButton;
     clearButton = new QPushButton;
+    dxAssistantButton = new QPushButton;
 
     inputCommand->setDisabled(true);
     inputCommand->setToolTip(tr("Click on Connect to connect to the DX-Cluster server"));
@@ -60,11 +61,15 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
 
     sendButton->setText(tr("Connect"));
     clearButton->setText(tr("Clear"));
+    dxAssistantButton->setText(tr("DX A"));
+    // Checkable so the button itself shows whether the assistant is on
+    dxAssistantButton->setCheckable(true);
 
     QHBoxLayout *bottonLayout = new QHBoxLayout;
     bottonLayout->addWidget(inputCommand);
     bottonLayout->addWidget(sendButton);
     bottonLayout->addWidget(clearButton);
+    bottonLayout->addWidget(dxAssistantButton);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(dxClusterListWidget);
@@ -90,6 +95,10 @@ DXClusterWidget::DXClusterWidget(Awards *awards, World *injectedWorld, QWidget *
 
 
     connect(clearButton, SIGNAL(clicked()), this, SLOT(slotClusterClearLineInput()) );
+    // clicked() and not toggled(): setDXAssistantEnabled() must be able to
+    // refresh the button without echoing the change back to MainWindow.
+    connect(dxAssistantButton, &QPushButton::clicked,
+            this, &DXClusterWidget::dxAssistantEnabledChanged);
      //TESTADDSPOT();
        //qDebug() << "DXClusterWidget::DXClusterWidget2 - END" ;
 }
@@ -143,10 +152,19 @@ void DXClusterWidget::init()
     Utilities util(Q_FUNC_INFO);
     saveSpotsFile->setFileName(util.getSaveSpotsLogFile());
     clearButton->setToolTip(tr("Clears the DXCluster command line."));
+    dxAssistantButton->setToolTip(tr("Enable/Disable DX Assistant"));
     dxClusterSpotItem * item = new dxClusterSpotItem(dxClusterListWidget, tr("Click on connect to connect to the DX-Cluster"), awards->getDefaultColor());
     Q_UNUSED(item);
     createActions ();
     //TODO: Check how to add an item in a different way
+}
+
+void DXClusterWidget::setDXAssistantEnabled(const bool _enabled)
+{
+    if (dxAssistantButton == nullptr)
+        return;
+    // clicked() only fires on user interaction, so this never loops back
+    dxAssistantButton->setChecked(_enabled);
 }
 
 void DXClusterWidget::setMyQRZ(const QString &_qrz)

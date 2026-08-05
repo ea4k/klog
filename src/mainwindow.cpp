@@ -245,6 +245,7 @@ void MainWindow::init_variables()
     aboutDialog  = nullptr;
     tipsDialog   = nullptr;
     statsWidget  = nullptr;
+    dxUpRightTab = nullptr;   // Created in createUIDX(); hosts the DX Assistant tab
     dxClusterAssistant = nullptr;
     dxAssistantEngine  = nullptr;
     clubLogMostWanted  = nullptr;
@@ -484,7 +485,7 @@ void MainWindow::init()
     createUI();
     //qInfo() << "[KLOG-TIMING] init() 08 - createUI():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-    initDXAssistant();   // Needs the settings (readSettingsFile) and the Tools menu (createUI)
+    initDXAssistant();   // Needs the settings (readSettingsFile) and the UI (createUI)
 
     slotClearButtonClicked(Q_FUNC_INFO);
     infoWidget->showInfo(-1);
@@ -650,6 +651,8 @@ void MainWindow::createActionsCommon(){
     //CLUSTER
     connect(dxClusterWidget.get(), SIGNAL(dxspotclicked(DXSpot)), this, SLOT(slotAnalyzeDxClusterSignal(DXSpot) ) );
     connect(dxClusterWidget.get(), SIGNAL(dxspotArrived(DXSpot)), this, SLOT(slotDXClusterSpotArrived(DXSpot) ) );
+    connect(dxClusterWidget.get(), &DXClusterWidget::dxAssistantEnabledChanged,
+            this, &MainWindow::slotDXAssistantEnabledChanged);
     connect(mapWindow, &MapWindowWidget::spotDoubleClicked, this, &MainWindow::slotMapSpotDoubleClicked);
     connect(mapWindow, &MapWindowWidget::editQSORequested, this, &MainWindow::qsoToEdit);
 
@@ -976,6 +979,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
+    syncDXAssistantState();   // "Follow my band" tracks the band in use
 
     if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
     {
@@ -1025,6 +1029,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentModeShown = dataProxy->getIdFromModeName(_m);
     currentBand = currentBandShown;
     currentMode = currentModeShown;
+    syncDXAssistantState();   // "Follow my band" tracks the band in use
     infoWidget->setCurrentMode(currentModeShown);
     if (manageMode)
     {
@@ -2680,11 +2685,6 @@ void MainWindow::createMenusCommon()
     connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
     showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    dxClusterAssistantAct = new QAction (tr("DX Assistant"), this);
-    toolMenu->addAction(dxClusterAssistantAct);
-    connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
-    dxClusterAssistantAct->setToolTip(tr("Show the DX Assistant - prioritised list of workable spots."));
-
 
      //qDebug() << "MainWindow::createMenusCommon before" ;
     //toolMenu->addSeparator();
@@ -3419,6 +3419,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
                 const bool ok = watcher->result();
                 watcher->deleteLater();
                 hamlibActive = ok;
+                syncDXAssistantState();   // Gates "QSY to this freq"
                 if (ok)
                 {
                     hamlib->startPolling();
@@ -3436,6 +3437,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         {
             hamlib->init(false);
             hamlibActive = false;
+            syncDXAssistantState();   // Gates "QSY to this freq"
         }
     }
 
@@ -3612,6 +3614,7 @@ void MainWindow::slotInitHamlib()
         watcher->deleteLater();
 
         hamlibActive = ok;
+        syncDXAssistantState();   // Gates "QSY to this freq"
         if (ok)
         {
             // Timer must be started on the main thread (QTimer affinity).
@@ -3662,6 +3665,7 @@ void MainWindow::slotHamlibRigDisconnected()
     logEvent(Q_FUNC_INFO, "Rig disconnected", Warning);
    //qDebug() << Q_FUNC_INFO ;
     hamlibActive = false;
+    syncDXAssistantState();   // Gates "QSY to this freq"
 
     QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Warning);
@@ -3791,15 +3795,18 @@ void MainWindow::initDXAssistant()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
-    // The menu action is always visible; clicking it while the feature is
-    // disabled explains how to enable it (slotShowDXClusterAssistant).
+    // The feature is off by default; the tab appears only once it is
+    // enabled in Setup, in the DXCluster page.
     if (!dxAssistantEnabled)
     {   // Already-created objects stay idle: the slots guard on the flag
+        reconfigureDXAssistantUI(false);   // Drops the tab if it was there
         logEvent(Q_FUNC_INFO, "END - Disabled in settings", Debug);
         return;
     }
 
     myContinent = world->getQRZContinentShortName(mainQRZ);
+    // Feeds the DX Assistant "My DXCC" spotter filter; -1 disables it
+    const int myDXCC = world->getQRZARRLId(mainQRZ);
 
     if (clubLogMostWantedEnabled && (clubLogMostWanted == nullptr))
     {
@@ -3845,10 +3852,79 @@ void MainWindow::initDXAssistant()
         dxAssistantEngine->setUserContinent(myContinent);
         dxAssistantEngine->setMostWanted(mostWantedInUse);
     }
+    dxAssistantEngine->setUserDXCC(myDXCC);
+    reconfigureDXAssistantUI(true);   // Creates the widget and shows its tab
     if (dxClusterAssistant != nullptr)
         dxClusterAssistant->setEngine(dxAssistantEngine);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+// Keeps the DX Assistant tab of dxUpRightTab in sync with the enabled flag.
+// The widget itself is never destroyed once created: disabling the feature
+// only removes its tab, so re-enabling it brings back the spots it holds.
+void MainWindow::reconfigureDXAssistantUI(const bool _enabled)
+{
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    // The "DX A" button follows the setting wherever it was changed from:
+    // this button, the Setup dialog, or the config file at startup.
+    dxClusterWidget->setDXAssistantEnabled(_enabled);
+
+    if (dxUpRightTab == nullptr)
+    {   // createUIDX() has not run yet; initDXAssistant() will call us again
+        logEvent(Q_FUNC_INFO, "END - No UI yet", Debug);
+        return;
+    }
+
+    if (!_enabled)
+    {
+        if (dxClusterAssistant != nullptr)
+        {
+            const int tabIndex = dxUpRightTab->indexOf(dxClusterAssistant);
+            if (tabIndex >= 0)
+                dxUpRightTab->removeTab(tabIndex);
+            // removeTab() does not reparent the page: adopt it explicitly so
+            // it does not linger on top of the tab widget.
+            dxClusterAssistant->setParent(this);
+            dxClusterAssistant->hide();
+        }
+        logEvent(Q_FUNC_INFO, "END - Disabled", Debug);
+        return;
+    }
+
+    if (dxClusterAssistant == nullptr)
+    {
+        dxClusterAssistant = new DXClusterAssistant(&awards, world, dataProxy,
+                                                    Q_FUNC_INFO, this);
+        dxClusterAssistant->init();
+        dxClusterAssistant->setColors(newOneColor, neededColor, workedColor);
+        connect(dxClusterAssistant, SIGNAL(spotSendToUI(DXSpot)),
+                this, SLOT(slotDXAssistantSendSpotToUI(DXSpot)));
+        connect(dxClusterAssistant, SIGNAL(spotLogDirectly(DXSpot)),
+                this, SLOT(slotDXAssistantLogSpot(DXSpot)));
+        connect(dxClusterAssistant, SIGNAL(spotQSY(DXSpot)),
+                this, SLOT(slotDXAssistantQSY(DXSpot)));
+        connect(dxClusterAssistant, &DXClusterAssistant::spotsSendToMap,
+                this, &MainWindow::slotDXAssistantSpotsToMap);
+    }
+    syncDXAssistantState();
+
+    if (dxUpRightTab->indexOf(dxClusterAssistant) < 0)
+    {   // addTab() takes care of the page visibility; no explicit show()
+        dxUpRightTab->addTab(dxClusterAssistant, tr("DX Assistant"));
+    }
+
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+// The widget cannot reach MainWindow's state, so the two things its menu
+// depends on are pushed in whenever they change.
+void MainWindow::syncDXAssistantState()
+{
+    if (dxClusterAssistant == nullptr)
+        return;
+    dxClusterAssistant->setCurrentBand(currentBand);
+    dxClusterAssistant->setRigConnected(hamlibActive);
 }
 
 void MainWindow::checkIfNewBandOrMode()
@@ -5313,39 +5389,10 @@ void MainWindow::slotShowStats()
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
-void MainWindow::slotShowDXClusterAssistant()
-{
-    logEvent(Q_FUNC_INFO, "Start", Devel);
-    if (!dxAssistantEnabled)
-    {
-        QMessageBox::information(this, tr("KLog - DX Assistant"),
-                                 tr("The DX Assistant is not enabled.\n\n"
-                                    "To start receiving a prioritised list of workable spots, "
-                                    "enable it in Setup, in the DXCluster page "
-                                    "(check 'Enable DX Assistant')."));
-        return;
-    }
-    if (!dxClusterAssistant)
-    {   // Lazy-init, created on first Tools->DX Assistant (like StatisticsWidget)
-        dxClusterAssistant = new DXClusterAssistant(&awards, world, dataProxy,
-                                                    Q_FUNC_INFO, this);
-        dxClusterAssistant->init();
-        dxClusterAssistant->setEngine(dxAssistantEngine);
-        dxClusterAssistant->setColors(newOneColor, neededColor, workedColor);
-        connect(dxClusterAssistant, SIGNAL(spotSendToUI(DXSpot)),
-                this, SLOT(slotDXAssistantSendSpotToUI(DXSpot)));
-        connect(dxClusterAssistant, SIGNAL(spotLogDirectly(DXSpot)),
-                this, SLOT(slotDXAssistantLogSpot(DXSpot)));
-    }
-    dxClusterAssistant->show();
-    dxClusterAssistant->raise();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
 void MainWindow::slotDXAssistantNewSpot(const DXSpot &_spot)
 {
     // Called for every arriving DXCluster spot; scoring only makes sense
-    // once the assistant window exists to show the result.
+    // once the assistant tab exists to show the result.
     if (!dxAssistantEnabled || (dxAssistantEngine == nullptr) || (dxClusterAssistant == nullptr))
         return;
 
@@ -5378,6 +5425,87 @@ void MainWindow::slotDXAssistantLogSpot(const DXSpot &_spot)
     DXSpot spot = _spot;
     clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     slotQRZReturnPressed();   // Logs the QSO immediately, without user interaction
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantEnabledChanged(const bool _enabled)
+{   // The "DX A" button of the DXCluster widget: same setting the Setup
+    // dialog writes, so it is persisted here too and survives a restart.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (dxAssistantEnabled == _enabled)
+        return;
+
+    dxAssistantEnabled = _enabled;
+
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    settings.beginGroup("DXAssistant");
+    settings.setValue("enabled", QVariant(dxAssistantEnabled));
+    settings.endGroup();
+
+    // Builds the engine and adds the tab, or drops the tab when disabling
+    initDXAssistant();
+
+    // Enabling from the button is a deliberate "I want to see it now", so the
+    // new tab is brought to the front. Startup and the Setup dialog go through
+    // initDXAssistant() alone and leave the current tab where the user left it.
+    if (_enabled && (dxClusterAssistant != nullptr) && (dxUpRightTab != nullptr))
+    {
+        const int tabIndex = dxUpRightTab->indexOf(dxClusterAssistant);
+        if (tabIndex >= 0)
+        {
+            dxUpRightTab->setCurrentIndex(tabIndex);
+            dxClusterAssistant->setFocus();
+        }
+    }
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantQSY(const DXSpot &_spot)
+{   // Tune the radio only: the QSO entry form is deliberately left alone so
+    // the operator can listen before committing to the spot.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!hamlibActive || manualMode)
+    {   // The menu entry is offered only with a rig connected, but the state
+        // may have changed while the menu was open.
+        logEvent(Q_FUNC_INFO, "END - No rig to tune", Debug);
+        return;
+    }
+    DXSpot spot = _spot;
+    hamlib->setFreq(spot.getFrequency(), false);
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantSpotsToMap(const QList<DXSpot> &_spots)
+{   // Explicit user request: unlike the automatic cluster feed, this ignores
+    // the "send spots to map" preference and opens the map.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    Locator locator;
+    for (const DXSpot &spot : _spots)
+    {
+        DXSpot sp = spot;
+        QString dxGrid = world->getQRZLocator(sp.getDxCall());
+        if (dxGrid.isEmpty() || !locator.isValidLocator(dxGrid))
+            dxGrid = world->getLocator(world->getQRZARRLId(sp.getDxCall()));
+        if (dxGrid.isEmpty() || !locator.isValidLocator(dxGrid))
+        {
+            logEvent(Q_FUNC_INFO, "No valid locator for " + sp.getDxCall(), Warning);
+            continue;
+        }
+        // Colour by what the spot is worth to the operator, matching the
+        // colours the DX Assistant table already uses.
+        QColor spotColor = defaultColor;
+        switch (sp.getStatusBand())
+        {
+        case ATNO:   spotColor = newOneColor; break;
+        case needed: spotColor = neededColor; break;
+        case worked: spotColor = workedColor; break;
+        default:     break;
+        }
+        mapWindow->addMarker(locator.getLocatorCoordinate(dxGrid), sp.getDxCall(),
+                             spotColor, sp.getFrequency().toDouble());
+    }
+    mapWindow->show();
+    mapWindow->raise();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

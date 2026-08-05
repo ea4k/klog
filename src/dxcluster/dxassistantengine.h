@@ -94,6 +94,11 @@ public:
     void setUserContinent(const QString &_continent);
     QString getUserContinent() const;
 
+    // The user's own entity, used by the DX Assistant "My DXCC" spotter
+    // filter. Not part of the scoring: -1 simply disables that filter.
+    void setUserDXCC(int _dxcc);
+    int getUserDXCC() const;
+
     void setMostWanted(ClubLogMostWanted *_mostWanted);   // May be null: rank 0
 
     void setCheckMode(bool _check);   // Runtime switch behind DX_ASSISTANT_CHECK_MODE
@@ -116,6 +121,7 @@ private:
     DataProxy_SQLite *dataProxy;
     ClubLogMostWanted *mostWanted;
     QString userContinent;
+    int userDXCC = -1;
     bool checkMode;
 };
 
