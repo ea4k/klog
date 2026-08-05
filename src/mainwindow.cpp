@@ -310,6 +310,8 @@ void MainWindow::init_variables()
     udpLoggedLocator = "";
     udpLoggedCall = "";
     udpSavedRealTime = true;
+    wsjtxLastSpotKey = "";
+    wsjtxLastSpotDateTime = QDateTime();
 
     UDPServerStart = false;   // By default the UDP server is started
 
@@ -5404,6 +5406,45 @@ void MainWindow::slotDXAssistantNewSpot(const DXSpot &_spot)
         dxClusterAssistant->addOrUpdateSpot(spot);
 }
 
+void MainWindow::checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const double _freq,
+                                               const QString &_mode, const QString &_spotter)
+{
+    // A station arriving from WSJT-X and shown in the UI deserves the same
+    // treatment as a DXCluster spot: it is scored by the DX Assistant engine
+    // and, if it is worth working, it shows up in the DX Assistant tab.
+    if (!dxAssistantEnabled || (dxAssistantEngine == nullptr) || (dxClusterAssistant == nullptr))
+        return;
+    if (_dxCall.isEmpty() || (_freq <= 0.0))
+        return;
+
+    // WSJT-X repeats its status message about once per second while the same
+    // station is selected. Feeding every one of them would flood the raw
+    // activity tally behind "Most active band", so the spot is only handed
+    // over when the station changes or often enough to keep the entry from
+    // ageing out of the list while WSJT-X is still showing it.
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    const QString spotKey = _dxCall.toUpper() + "-" + QString::number(_freq, 'f', 6);
+    if ((spotKey == wsjtxLastSpotKey) && wsjtxLastSpotDateTime.isValid() &&
+        (wsjtxLastSpotDateTime.secsTo(now) < WSJTX_SPOT_REFRESH_SECONDS))
+        return;
+    wsjtxLastSpotKey = spotKey;
+    wsjtxLastSpotDateTime = now;
+
+    DXSpot spot;
+    spot.clear();
+    spot.setDXCall(_dxCall.toUpper());
+    Frequency freq;
+    freq.fromDouble(_freq, MHz);
+    spot.setFrequency(freq);
+    spot.setMode(_mode);
+    // We heard the DX ourselves, so the local station is the spotter: that
+    // also gives the spot the same-continent bonus it deserves.
+    spot.setSpotter(_spotter.isEmpty() ? stationCallsign : _spotter);
+    spot.setComment("WSJT-X");
+    spot.setDateTime(now);
+    slotDXAssistantNewSpot(spot);
+}
+
 void MainWindow::slotDXAssistantRecalculate()
 {
     // Called after Awards update or ClubLog list refresh
@@ -6413,6 +6454,10 @@ void MainWindow::slotWSJXstatusFromUDPServer(const int _type, const QString &_dx
                 myDataTabWidget->setMyLocator(_de_grid);
 
             myDataTabWidget->setStationCallsign(_de_call.toUpper());
+
+            // The station is now shown in the UI: check it against the DX
+            // Assistant, exactly as KLog does with the DXCluster spots.
+            checkWSJTXSpotWithDXAssistant(_dxcall, _freq, _mode, _de_call);
 
      //TODO: Check what to do with _de_call -> Check if _de_call == station callsign and update if needed.
      //TODO: Check what to do with _de_grid -> Check if _de_grid == My Grid and update if needed.
