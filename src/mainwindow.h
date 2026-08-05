@@ -359,6 +359,10 @@ private:
     void initDXAssistant();
     void reconfigureDXAssistantUI(const bool _enabled);  // Adds/removes the DX Assistant tab
     void syncDXAssistantState();   // Pushes the current band and rig state to the widget
+    // A station WSJT-X puts in the UI is a spot like any other: it is turned
+    // into a DXSpot and scored by the very same engine the DXCluster uses.
+    void checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const double _freq,
+                                       const QString &_mode, const QString &_spotter);
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -669,6 +673,11 @@ private:
     QString myContinent;                      // Derived once at startup from the station callsign
     bool dxAssistantEnabled;
     bool clubLogMostWantedEnabled;
+    // WSJT-X repeats its status message about once per second while the same
+    // station is selected: these throttle what reaches the DX Assistant.
+    static constexpr int WSJTX_SPOT_REFRESH_SECONDS = 60;
+    QString wsjtxLastSpotKey;        // Callsign+frequency last fed to the assistant
+    QDateTime wsjtxLastSpotDateTime; // When it was fed, in UTC
     // </DX-ASSISTANT>
 
     // </UI>
