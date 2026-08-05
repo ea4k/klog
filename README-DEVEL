@@ -239,12 +239,15 @@ Here is the list of tests to be done before releasing new software:
 
 9.1 ADDING TRANSLATIONS
 
-To add a new translation add the new language file to the klog.pro file following the sintax:
+To add a new translation, create src/translations/klog_<code>.ts and add it to the
+KLOG_TS_FILES list in src/CMakeLists.txt following the sintax:
 
-TRANSLATIONS = KLog_es.ts \
-    klog_fr.ts
+set(KLOG_TS_FILES
+    translations/klog_ca.ts
+    translations/klog_fr.ts
+)
 
-Being es, fr, the ISO codes naming the language.
+Being ca, fr, the ISO codes naming the language.
 
 After a translation is added, you also need to update the aboutdialog.cpp to include a new Translator line.
 
@@ -255,8 +258,14 @@ Translators should work in the *.ts files.
 9.2 UPDATING TRANSLATIONS
 
 Update translations:
-  Run: lupdate -verbose klog.pro
+  Run: lupdate src/ -no-obsolete -ts src/translations/*.ts
   in the klog directory to update the language files
+
+The build compiles the *.ts files into *.qm (build/src/klog_*.qm). Each package
+then puts them where KLog looks for them (Utilities::getTranslationSearchPaths):
+  Linux  : /usr/share/klog/translations/
+  macOS  : KLog.app/Contents/Resources/translations/
+  Windows: the translations folder next to klog.exe
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
@@ -265,11 +274,27 @@ Update translations:
 Before deploying, translations should be updated.
 
 
+All the packages are built by the scripts in devscripts/. They build with CMake
+and take care of the deployment (Qt runtime, translations, ...), so there is
+nothing to copy by hand.
+
 9.1 DEPLOYING ON LINUX
+
+    .deb package (CPack):
+        cd devscripts
+        bash debian-stable-create-package.sh     (or raspbian-create-package.sh)
+
+    Source tarball:
+        ./devscripts/package-sources.sh
 
 9.2 DEPLOYING ON macOS
 
-    Build KLog with QTCreator
+    cd devscripts
+    ./macos-create-arm.sh        (or ./macos-create-intel.sh)
+
+    The script builds, checks that the translations are in the bundle, runs
+    macdeployqt6 and produces devscripts/KLog-[VERSION]-arm64.dmg.
+
     If you can't run KLog due to missing libTIFF/LibJPEG/libPNG/libGIF chec this URL:
     https://stackoverflow.com/questions/35509731/dyld-symbol-not-found-cg-jpeg-resync-to-restart
     Try this in the shell:
@@ -279,17 +304,17 @@ Before deploying, translations should be updated.
         $ sudo ln -sf libTIFF.dylib /usr/local/lib/libTIFF.dylib
         $ sudo ln -sf libGIF.dylib /usr/local/lib/libGIF.dylib
 
-    Run the following command from the build directory:
-        mv klog.app KLog.app
-        create new folder in KLog.app/Contents/PlugIns/sqldrivers
-        copy $QT_DIR/plugins/sqldrivers/libqsqlite.dylib to the new folder (/Developer/Applications/Qt/plugins/)
-        create new folder: KLog.app/Contents/MacOs/translations
-        copy the *.qm (translation) files into KLog.app/Contents/MacOS/translations
-        macdeployqt KLog.app/ -dmg
-        mv KLog.dmg KLog-[VERSION].dmg
-
 9.3 DEPLOYING ON WINDOWS
     Currently using an Open Source Licence of: BitRock InstallBuilder
+
+    cd devscripts
+    win64-create-package.bat
+
+    The script builds, stages klog.exe, the OpenSSL and Hamlib DLLs, the Qt
+    runtime (windeployqt6) and the KLog translations into src\release, and then
+    builds the installer from build-win64.xml, which packs src\release.
+    Anything KLog needs at runtime has to be in src\release or it will not
+    reach the installation folder.
 
 9.4 ICON
     Follow this link for all the OS:

@@ -65,6 +65,16 @@ echo "[2/4] Configuring with CMake..."
 echo "[3/4] Building..."
 "$CMAKE_BIN" --build "$PROJECT_DIR/build" -j 4
 
+# --- Check the translations made it into the bundle ---
+# CMake copies build/src/klog_*.qm into Contents/Resources/translations, which is
+# where KLog looks for them. If LinguistTools is missing they are silently
+# skipped, and KLog would be shipped in English only.
+if ! ls "$APP/Contents/Resources/translations"/klog_*.qm >/dev/null 2>&1; then
+    echo "ERROR: No KLog translations in $APP/Contents/Resources/translations"
+    echo "       Check that Qt6 LinguistTools (lrelease) is available."
+    exit 1
+fi
+
 # --- Deploy Qt into the bundle and create DMG ---
 echo "[4/4] Deploying Qt and creating DMG..."
 
