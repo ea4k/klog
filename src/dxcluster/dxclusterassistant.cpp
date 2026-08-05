@@ -28,7 +28,11 @@ email                : jaime@robles.es
 #include "../world.h"
 #include "../dataproxy_sqlite.h"
 
+#include <QActionGroup>
+#include <QClipboard>
 #include <QDesktopServices>
+#include <QGuiApplication>
+#include <QMenu>
 #include <QUrl>
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -111,15 +115,25 @@ QSOStatus DXAssistantSpotModel::effectiveStatus(const DXSpot &_spot) const
     }
 }
 
-QString DXAssistantSpotModel::statusText(const DXSpot &_spot) const
+QSOStatus DXAssistantSpotModel::statusOf(const DXSpot &_spot) const
 {
-    switch (effectiveStatus(_spot))
+    return effectiveStatus(_spot);
+}
+
+QString DXAssistantSpotModel::statusName(QSOStatus _status)
+{
+    switch (_status)
     {
     case ATNO:   return tr("ATNO");
     case needed: return tr("Needed");
     case worked: return tr("Worked");
     default:     return QString();
     }
+}
+
+QString DXAssistantSpotModel::statusText(const DXSpot &_spot) const
+{
+    return statusName(effectiveStatus(_spot));
 }
 
 QVariant DXAssistantSpotModel::sortValue(const DXSpot &_spot, int _column) const
@@ -162,6 +176,15 @@ QVariant DXAssistantSpotModel::data(const QModelIndex &index, int role) const
 
     if (role == SpotterContinentRole)
         return spot.getSpotterContinent();
+
+    if (role == SpotterDXCCRole)
+        return spot.getSpotterDXCC();
+
+    if (role == StatusRole)
+        return static_cast<int>(effectiveStatus(spot));
+
+    if (role == DXCCRole)
+        return spot.getDXCC();
 
     if (role == Qt::ToolTipRole)
     {   // Exact UTC arrival time of the spot
@@ -338,9 +361,14 @@ void DXAssistantSpotModel::removeOlderThan(int _minutes)
 DXAssistantProxyModel::DXAssistantProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
-    hiddenCalls     = nullptr;
-    disabledBands   = nullptr;
-    onlyMyContinent = false;
+    hiddenCalls      = nullptr;
+    disabledBands    = nullptr;
+    disabledStatuses = nullptr;
+    disabledDXCCs    = nullptr;
+    spotterFilter    = SpotterAll;
+    userDXCC         = -1;
+    followBand       = false;
+    currentBandId    = -1;
     setSortRole(DXAssistantSpotModel::SortRole);
 }
 
@@ -356,10 +384,31 @@ void DXAssistantProxyModel::setDisabledBands(const QSet<int> *_bands)
     invalidateFilter();
 }
 
-void DXAssistantProxyModel::setOnlyContinent(bool _enabled, const QString &_continent)
+void DXAssistantProxyModel::setDisabledStatuses(const QSet<int> *_statuses)
 {
-    onlyMyContinent = _enabled;
-    userContinent   = _continent;
+    disabledStatuses = _statuses;
+    invalidateFilter();
+}
+
+void DXAssistantProxyModel::setDisabledDXCCs(const QSet<int> *_dxccs)
+{
+    disabledDXCCs = _dxccs;
+    invalidateFilter();
+}
+
+void DXAssistantProxyModel::setSpotterFilter(SpotterFilter _filter, const QString &_continent,
+                                             int _dxcc)
+{
+    spotterFilter = _filter;
+    userContinent = _continent;
+    userDXCC      = _dxcc;
+    invalidateFilter();
+}
+
+void DXAssistantProxyModel::setFollowBand(bool _follow, int _bandId)
+{
+    followBand    = _follow;
+    currentBandId = _bandId;
     invalidateFilter();
 }
 
@@ -373,16 +422,45 @@ bool DXAssistantProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &s
         if (hiddenCalls->contains(call))
             return false;
     }
-    if (disabledBands != nullptr)
+    // "Follow my band" replaces the per-band checkboxes while it is active:
+    // the rig decides which band is shown.
+    if (followBand && (currentBandId > 0))
+    {
+        int bandId = sourceModel()->data(idx, DXAssistantSpotModel::BandIdRole).toInt();
+        if (bandId != currentBandId)
+            return false;
+    }
+    else if (disabledBands != nullptr)
     {
         int bandId = sourceModel()->data(idx, DXAssistantSpotModel::BandIdRole).toInt();
         if (disabledBands->contains(bandId))
             return false;
     }
-    if (onlyMyContinent && !userContinent.isEmpty())
+    if (disabledStatuses != nullptr)
+    {
+        int status = sourceModel()->data(idx, DXAssistantSpotModel::StatusRole).toInt();
+        if (disabledStatuses->contains(status))
+            return false;
+    }
+    if (disabledDXCCs != nullptr)
+    {
+        int dxcc = sourceModel()->data(idx, DXAssistantSpotModel::DXCCRole).toInt();
+        if (disabledDXCCs->contains(dxcc))
+            return false;
+    }
+    // An unknown reference (no continent / no entity for the station) leaves
+    // the spotter filter inactive: better to show a spot than to hide it for
+    // a reason the user cannot see.
+    if ((spotterFilter == SpotterMyContinent) && !userContinent.isEmpty())
     {
         QString continent = sourceModel()->data(idx, DXAssistantSpotModel::SpotterContinentRole).toString();
         if (continent != userContinent)
+            return false;
+    }
+    else if ((spotterFilter == SpotterMyDXCC) && (userDXCC > 0))
+    {
+        int dxcc = sourceModel()->data(idx, DXAssistantSpotModel::SpotterDXCCRole).toInt();
+        if (dxcc != userDXCC)
             return false;
     }
     return true;
@@ -430,13 +508,15 @@ DXClusterAssistant::DXClusterAssistant(Awards *_awards, World *_world,
     model      = nullptr;
     proxy      = nullptr;
     tableView  = nullptr;
-    clearHiddenButton = nullptr;
     mostActiveBandLabel = nullptr;
     bandToBeLabel = nullptr;
     ttlTimer   = nullptr;
     ttlMinutes = SPOT_TTL_MINUTES;
     maxSpots   = MAX_SPOTS_DEFAULT;
-    onlyMyContinentSpotters = false;
+    spotterFilter = DXAssistantProxyModel::SpotterAll;
+    followMyBand  = false;
+    currentBandId = -1;
+    rigConnected  = false;
 
     // No window flags: the widget lives as a tab page of the main window.
     // The title is kept for accessibility and for any future undocking.
@@ -461,6 +541,8 @@ bool DXClusterAssistant::createUI()
     proxy->setSourceModel(model);
     proxy->setHiddenCalls(&hiddenCalls);
     proxy->setDisabledBands(&disabledBands);
+    proxy->setDisabledStatuses(&disabledStatuses);
+    proxy->setDisabledDXCCs(&disabledDXCCs);
 
     tableView = new QTableView(this);
     tableView->setModel(proxy);
@@ -483,19 +565,9 @@ bool DXClusterAssistant::createUI()
     connect(tableView, &QTableView::doubleClicked,
             this, &DXClusterAssistant::slotDoubleClicked);
     connect(tableView, &QTableView::customContextMenuRequested,
-            this, &DXClusterAssistant::slotContextMenu);
+            this, &DXClusterAssistant::slotTableContextMenu);
     connect(tableView->horizontalHeader(), &QHeaderView::customContextMenuRequested,
             this, &DXClusterAssistant::slotHeaderContextMenu);
-
-    clearHiddenButton = new QPushButton(tr("Clear hidden spots"), this);
-    clearHiddenButton->setToolTip(tr("Show again all the spots hidden during this session."));
-    clearHiddenButton->setEnabled(false);
-    connect(clearHiddenButton, &QPushButton::clicked,
-            this, &DXClusterAssistant::slotClearHiddenClicked);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addStretch();
-    buttonLayout->addWidget(clearHiddenButton);
 
     // Summary bar pinned above the spot table (#796 / #860)
     mostActiveBandLabel = new QLabel(this);
@@ -508,10 +580,11 @@ bool DXClusterAssistant::createUI()
     summaryLayout->addStretch();
     summaryLayout->addWidget(bandToBeLabel);
 
+    // No button row: everything lives in the context menu, so the table gets
+    // the whole panel below the summary bar.
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addLayout(summaryLayout);
     layout->addWidget(tableView);
-    layout->addLayout(buttonLayout);
     setLayout(layout);
 
     updateBandSummary();
@@ -528,6 +601,20 @@ bool DXClusterAssistant::createUI()
 void DXClusterAssistant::setEngine(DXAssistantEngine *_engine)
 {
     engine = _engine;
+}
+
+void DXClusterAssistant::setCurrentBand(int _bandId)
+{
+    if (currentBandId == _bandId)
+        return;
+    currentBandId = _bandId;
+    if (followMyBand)      // Only then does the new band change what is shown
+        applyViewFilters();
+}
+
+void DXClusterAssistant::setRigConnected(bool _connected)
+{
+    rigConnected = _connected;
 }
 
 void DXClusterAssistant::setColors(const QColor &_newOne, const QColor &_needed, const QColor &_worked)
@@ -732,8 +819,33 @@ void DXClusterAssistant::clearHiddenSpots()
     hiddenCalls.clear();
     if (proxy != nullptr)
         proxy->invalidate();
-    updateClearHiddenButton();
     updateBandSummary();
+}
+
+void DXClusterAssistant::clearAll()
+{
+    if (model != nullptr)
+        model->clearSpots();
+    hiddenCalls.clear();
+    bandActivity.clear();
+    if (proxy != nullptr)
+        proxy->invalidate();
+    updateBandSummary();
+}
+
+QList<DXSpot> DXClusterAssistant::shownSpots() const
+{
+    QList<DXSpot> spots;
+    if ((proxy == nullptr) || (model == nullptr))
+        return spots;
+
+    for (int row = 0; row < proxy->rowCount(); row++)
+    {
+        QModelIndex sourceIndex = proxy->mapToSource(proxy->index(row, 0));
+        if (sourceIndex.isValid())
+            spots.append(model->spotAt(sourceIndex.row()));
+    }
+    return spots;
 }
 
 void DXClusterAssistant::slotTimerTick()
@@ -764,45 +876,70 @@ void DXClusterAssistant::slotDoubleClicked(const QModelIndex &_index)
         emit spotSendToUI(spot);
 }
 
-void DXClusterAssistant::slotContextMenu(const QPoint &_pos)
+void DXClusterAssistant::slotTableContextMenu(const QPoint &_pos)
 {
     DXSpot spot;
-    if (!spotForProxyIndex(tableView->indexAt(_pos), spot))
-        return;
-
-    QMenu menu(this);
-
-    QAction *sendToUIAct = menu.addAction(tr("Send to UI"));
-    sendToUIAct->setToolTip(tr("Fill the QSO entry form with this spot."));
-
-    QAction *logDirectlyAct = menu.addAction(tr("Log this QSO"));
-    logDirectlyAct->setToolTip(tr("Add this QSO to the log immediately."));
-
-    QAction *hideAct = menu.addAction(tr("Hide this spot"));
-    hideAct->setToolTip(tr("Hide this callsign for the rest of the session."));
-
-    QAction *qrzAct = menu.addAction(tr("Look up on QRZ.com"));
-    qrzAct->setToolTip(tr("Open this callsign's page on QRZ.com."));
-
-    QAction *chosen = menu.exec(tableView->viewport()->mapToGlobal(_pos));
-    if (chosen == sendToUIAct)
-        emit spotSendToUI(spot);
-    else if (chosen == logDirectlyAct)
-        emit spotLogDirectly(spot);
-    else if (chosen == hideAct)
-        hideSpotCall(spot.getDxCall());
-    else if (chosen == qrzAct)
-        QDesktopServices::openUrl(QUrl(QStringLiteral("https://www.qrz.com/db/") + spot.getDxCall()));
+    bool hasSpot = spotForProxyIndex(tableView->indexAt(_pos), spot);
+    showContextMenu(tableView->viewport()->mapToGlobal(_pos),
+                    tableView->columnAt(_pos.x()), spot, hasSpot);
 }
 
 void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
 {
-    if ((tableView == nullptr) || (model == nullptr))
+    if (tableView == nullptr)
+        return;
+    QHeaderView *header = tableView->horizontalHeader();
+    // The header carries no spot: the Spot submenu is shown disabled so the
+    // menu stays identical wherever the user opened it.
+    showContextMenu(header->mapToGlobal(_pos), header->logicalIndexAt(_pos),
+                    DXSpot(), false);
+}
+
+QList<int> DXClusterAssistant::dxccsInView() const
+{
+    // Entities currently held by the widget, plus the ones already filtered
+    // out (so the user can always switch them back on), sorted by name.
+    QSet<int> entities = disabledDXCCs;
+    if (model != nullptr)
+    {
+        for (int i = 0; i < model->spotCount(); i++)
+        {
+            int dxcc = model->spotAt(i).getDXCC();
+            if (dxcc > 0)
+                entities.insert(dxcc);
+        }
+    }
+
+    QList<int> sorted = entities.values();
+    World *w = world;
+    std::sort(sorted.begin(), sorted.end(), [w](int _a, int _b)
+    {
+        if (w == nullptr)
+            return _a < _b;
+        return w->getEntityName(_a).localeAwareCompare(w->getEntityName(_b)) < 0;
+    });
+    return sorted;
+}
+
+void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
+                                         const DXSpot &_spot, bool _hasSpot)
+{
+    if ((tableView == nullptr) || (model == nullptr) || (proxy == nullptr))
         return;
 
-    QHeaderView *header = tableView->horizontalHeader();
-    int clickedColumn = header->logicalIndexAt(_pos);
+    QMenu menu(this);
 
+    // 1 - Copy Callsign: the one action worth reaching without a submenu
+    QAction *copyCallAct = menu.addAction(tr("Copy Callsign"));
+    copyCallAct->setToolTip(tr("Copy the DX callsign of this spot to the clipboard."));
+    copyCallAct->setEnabled(_hasSpot);
+
+    menu.addSeparator();
+
+    // 2 - Filters: everything that shapes what the table shows
+    QMenu *filtersMenu = menu.addMenu(tr("Filters"));
+
+    // 2.1 - Columns
     int visibleColumns = 0;
     QList<int> hiddenColumns;
     for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
@@ -813,18 +950,19 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
             visibleColumns++;
     }
 
-    QMenu menu(this);
+    QMenu *columnsMenu = filtersMenu->addMenu(tr("Columns"));
 
-    // 1 - Hide this column (never allow hiding the last visible one)
-    QAction *hideColumnAct = menu.addAction(tr("Hide this column"));
-    hideColumnAct->setEnabled((clickedColumn >= 0) && (visibleColumns > 1));
+    // Never allow hiding the last visible column
+    QAction *hideColumnAct = columnsMenu->addAction(tr("Hide this column"));
+    hideColumnAct->setEnabled((_column >= 0) && !tableView->isColumnHidden(_column)
+                              && (visibleColumns > 1));
 
-    // 2 - Show columns (only offered while something is hidden)
     QAction *showAllColumnsAct = nullptr;
     QHash<QAction *, int> showColumnActions;
+    QMenu *showColumnsMenu = columnsMenu->addMenu(tr("Show"));
+    showColumnsMenu->setEnabled(!hiddenColumns.isEmpty());
     if (!hiddenColumns.isEmpty())
     {
-        QMenu *showColumnsMenu = menu.addMenu(tr("Show columns"));
         showAllColumnsAct = showColumnsMenu->addAction(tr("All"));
         showColumnsMenu->addSeparator();
         for (int column : hiddenColumns)
@@ -835,15 +973,21 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
         }
     }
 
-    // 3 - Filter bands: every band present in the list plus the ones already
-    // filtered out, checkable to enable/disable each one
+    // 2.2 - Bands: "Follow my band" first, then every band present in the
+    // list plus the ones already filtered out, checkable one by one.
+    QMenu *bandsMenu = filtersMenu->addMenu(tr("Bands"));
+    QAction *followBandAct = bandsMenu->addAction(tr("Follow my band"));
+    followBandAct->setCheckable(true);
+    followBandAct->setChecked(followMyBand);
+    followBandAct->setToolTip(tr("Show only the spots on the band you are working on."));
+    bandsMenu->addSeparator();
+
     QSet<int> menuBands = disabledBands;
     for (int i = 0; i < model->spotCount(); i++)
         menuBands.insert(model->spotAt(i).getBandId());
     QList<int> sortedBands = menuBands.values();
     std::sort(sortedBands.begin(), sortedBands.end());
 
-    QMenu *bandsMenu = menu.addMenu(tr("Filter bands"));
     QHash<QAction *, int> bandActions;
     for (int bandId : sortedBands)
     {
@@ -854,17 +998,31 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
         QAction *act = bandsMenu->addAction(bandName);
         act->setCheckable(true);
         act->setChecked(!disabledBands.contains(bandId));
+        // While following the rig the per-band choices do not apply
+        act->setEnabled(!followMyBand);
         bandActions.insert(act, bandId);
     }
-    bandsMenu->setEnabled(!bandActions.isEmpty());
 
-    // 4 - Spotter continent toggle
-    QAction *continentAct = menu.addAction(onlyMyContinentSpotters
-                                               ? tr("Show all DX spotters")
-                                               : tr("Only my continent DX spotters"));
+    // 2.3 - Spotter: where the spotting station must be. Exclusive choice.
+    QMenu *spotterMenu = filtersMenu->addMenu(tr("Spotter"));
+    QActionGroup *spotterGroup = new QActionGroup(spotterMenu);
+    spotterGroup->setExclusive(true);
+    const QList<QPair<DXAssistantProxyModel::SpotterFilter, QString>> spotterOptions =
+        { {DXAssistantProxyModel::SpotterMyContinent, tr("My continent")},
+          {DXAssistantProxyModel::SpotterMyDXCC,      tr("My DXCC")},
+          {DXAssistantProxyModel::SpotterAll,         tr("ALL")} };
+    QHash<QAction *, int> spotterActions;
+    for (const auto &option : spotterOptions)
+    {
+        QAction *act = spotterMenu->addAction(option.second);
+        act->setCheckable(true);
+        act->setChecked(spotterFilter == option.first);
+        spotterGroup->addAction(act);
+        spotterActions.insert(act, static_cast<int>(option.first));
+    }
 
-    // 5 - Max age for spots
-    QMenu *ageMenu = menu.addMenu(tr("Max age for spots"));
+    // 2.4 - Age: how long a spot stays in the list
+    QMenu *ageMenu = filtersMenu->addMenu(tr("Age"));
     const QList<QPair<int, QString>> ageOptions =
         { {15, tr("15 minutes")}, {30, tr("30 minutes")},
           {60, tr("1 hour")},     {120, tr("2 hours")} };
@@ -877,8 +1035,8 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
         ageActions.insert(act, option.first);
     }
 
-    // 6 - Max number of spots
-    QMenu *maxSpotsMenu = menu.addMenu(tr("Max number of spots"));
+    // 2.5 - Number of spots the widget manages
+    QMenu *maxSpotsMenu = filtersMenu->addMenu(tr("Number spots"));
     const QList<int> maxSpotsOptions = { 10, 25, 50, 75, 100, 200, 500 };
     QHash<QAction *, int> maxSpotsActions;
     for (int option : maxSpotsOptions)
@@ -889,13 +1047,85 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
         maxSpotsActions.insert(act, option);
     }
 
-    QAction *chosen = menu.exec(header->mapToGlobal(_pos));
+    // 2.6 - Status: the ATNO/Needed/Worked triple the Status column shows
+    QMenu *statusMenu = filtersMenu->addMenu(tr("Status"));
+    const QList<QSOStatus> statusOptions = { ATNO, needed, worked };
+    QHash<QAction *, int> statusActions;
+    for (QSOStatus status : statusOptions)
+    {
+        QAction *act = statusMenu->addAction(DXAssistantSpotModel::statusName(status));
+        act->setCheckable(true);
+        act->setChecked(!disabledStatuses.contains(static_cast<int>(status)));
+        statusActions.insert(act, static_cast<int>(status));
+    }
+
+    // 2.7 - DXCC: the entities currently in the DX Assistant
+    QMenu *dxccMenu = filtersMenu->addMenu(tr("DXCC"));
+    QHash<QAction *, int> dxccActions;
+    for (int dxcc : dxccsInView())
+    {
+        QString name = (world != nullptr) ? world->getEntityName(dxcc) : QString();
+        if (name.isEmpty())
+            name = QString::number(dxcc);
+        QAction *act = dxccMenu->addAction(name);
+        act->setCheckable(true);
+        act->setChecked(!disabledDXCCs.contains(dxcc));
+        dxccActions.insert(act, dxcc);
+    }
+    dxccMenu->setEnabled(!dxccActions.isEmpty());
+
+    // 3 - Spot: the actions that need a spot under the cursor. Opened from
+    // the header there is none, so the whole submenu is disabled.
+    QMenu *spotMenu = menu.addMenu(tr("Spot"));
+    spotMenu->setEnabled(_hasSpot);
+
+    QAction *sendToUIAct = spotMenu->addAction(tr("Send to UI"));
+    sendToUIAct->setToolTip(tr("Fill the QSO entry form with this spot."));
+
+    QAction *logDirectlyAct = spotMenu->addAction(tr("Log this QSO"));
+    logDirectlyAct->setToolTip(tr("Add this QSO to the log immediately."));
+
+    // Offered only with a radio connected: without one there is nothing to tune
+    QAction *qsyAct = nullptr;
+    if (rigConnected)
+    {
+        qsyAct = spotMenu->addAction(tr("QSY to this freq"));
+        qsyAct->setToolTip(tr("Tune the radio to the frequency of this spot."));
+    }
+
+    QAction *hideAct = spotMenu->addAction(tr("Hide this spot"));
+    hideAct->setToolTip(tr("Hide this callsign for the rest of the session."));
+
+    QAction *qrzAct = spotMenu->addAction(tr("Look up on QRZ.com"));
+    qrzAct->setToolTip(tr("Open this callsign's page on QRZ.com."));
+
+    menu.addSeparator();
+
+    // 4 - Whole-list actions
+    QAction *clearAllAct = menu.addAction(tr("Clear all"));
+    clearAllAct->setToolTip(tr("Remove every spot and show again the ones hidden this session."));
+    clearAllAct->setEnabled((model->spotCount() > 0) || !hiddenCalls.isEmpty());
+
+    QAction *showToMapAct = menu.addAction(tr("Show to map"));
+    showToMapAct->setToolTip(tr("Plot the spots currently shown on the map."));
+    showToMapAct->setEnabled(proxy->rowCount() > 0);
+
+    QAction *refreshAct = menu.addAction(tr("Refresh"));
+    refreshAct->setToolTip(tr("Score every spot again against your log."));
+
+    QAction *chosen = menu.exec(_globalPos);
     if (chosen == nullptr)
         return;
 
-    if (chosen == hideColumnAct)
+    DXSpot spot(_spot);
+
+    if (chosen == copyCallAct)
     {
-        tableView->setColumnHidden(clickedColumn, true);
+        QGuiApplication::clipboard()->setText(spot.getDxCall());
+    }
+    else if (chosen == hideColumnAct)
+    {
+        tableView->setColumnHidden(_column, true);
     }
     else if ((showAllColumnsAct != nullptr) && (chosen == showAllColumnsAct))
     {
@@ -906,6 +1136,11 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
     {
         tableView->setColumnHidden(showColumnActions.value(chosen), false);
     }
+    else if (chosen == followBandAct)
+    {
+        followMyBand = !followMyBand;
+        applyViewFilters();
+    }
     else if (bandActions.contains(chosen))
     {
         int bandId = bandActions.value(chosen);
@@ -915,9 +1150,10 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
             disabledBands.insert(bandId);
         applyViewFilters();
     }
-    else if (chosen == continentAct)
+    else if (spotterActions.contains(chosen))
     {
-        onlyMyContinentSpotters = !onlyMyContinentSpotters;
+        spotterFilter = static_cast<DXAssistantProxyModel::SpotterFilter>(
+            spotterActions.value(chosen));
         applyViewFilters();
     }
     else if (ageActions.contains(chosen))
@@ -928,14 +1164,67 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
     {
         setMaxSpots(maxSpotsActions.value(chosen));
     }
+    else if (statusActions.contains(chosen))
+    {
+        int status = statusActions.value(chosen);
+        if (disabledStatuses.contains(status))
+            disabledStatuses.remove(status);
+        else
+            disabledStatuses.insert(status);
+        applyViewFilters();
+    }
+    else if (dxccActions.contains(chosen))
+    {
+        int dxcc = dxccActions.value(chosen);
+        if (disabledDXCCs.contains(dxcc))
+            disabledDXCCs.remove(dxcc);
+        else
+            disabledDXCCs.insert(dxcc);
+        applyViewFilters();
+    }
+    else if (chosen == clearAllAct)
+    {
+        clearAll();
+    }
+    else if (chosen == showToMapAct)
+    {
+        emit spotsSendToMap(shownSpots());
+    }
+    else if (chosen == refreshAct)
+    {
+        recalculateAll();   // Re-scores every spot; no-op without an engine
+        if (model != nullptr)
+        {
+            model->removeOlderThan(ttlMinutes);
+            model->refreshAges();
+        }
+        pruneBandActivity();
+        updateBandSummary();
+    }
+    else if (_hasSpot)
+    {
+        if (chosen == sendToUIAct)
+            emit spotSendToUI(spot);
+        else if (chosen == logDirectlyAct)
+            emit spotLogDirectly(spot);
+        else if ((qsyAct != nullptr) && (chosen == qsyAct))
+            emit spotQSY(spot);
+        else if (chosen == hideAct)
+            hideSpotCall(spot.getDxCall());
+        else if (chosen == qrzAct)
+            QDesktopServices::openUrl(QUrl(QStringLiteral("https://www.qrz.com/db/") + spot.getDxCall()));
+    }
 }
+
 
 void DXClusterAssistant::applyViewFilters()
 {
     if (proxy != nullptr)
     {
         QString userContinent = (engine != nullptr) ? engine->getUserContinent() : QString();
-        proxy->setOnlyContinent(onlyMyContinentSpotters, userContinent);
+        int userDXCC = (engine != nullptr) ? engine->getUserDXCC() : -1;
+        proxy->setSpotterFilter(spotterFilter, userContinent, userDXCC);
+        proxy->setFollowBand(followMyBand, currentBandId);
         proxy->invalidate();
     }
     updateBandSummary();
@@ -946,12 +1235,30 @@ bool DXClusterAssistant::spotIsShown(DXSpot _spot) const
     // Mirror of DXAssistantProxyModel::filterAcceptsRow
     if (hiddenCalls.contains(_spot.getDxCall()))
         return false;
-    if (disabledBands.contains(_spot.getBandId()))
+    if (followMyBand && (currentBandId > 0))
+    {
+        if (_spot.getBandId() != currentBandId)
+            return false;
+    }
+    else if (disabledBands.contains(_spot.getBandId()))
+    {
         return false;
-    if (onlyMyContinentSpotters && (engine != nullptr))
+    }
+    if (disabledDXCCs.contains(_spot.getDXCC()))
+        return false;
+    if ((model != nullptr)
+        && disabledStatuses.contains(static_cast<int>(model->statusOf(_spot))))
+        return false;
+    if ((spotterFilter == DXAssistantProxyModel::SpotterMyContinent) && (engine != nullptr))
     {
         QString userContinent = engine->getUserContinent();
         if (!userContinent.isEmpty() && (_spot.getSpotterContinent() != userContinent))
+            return false;
+    }
+    else if ((spotterFilter == DXAssistantProxyModel::SpotterMyDXCC) && (engine != nullptr))
+    {
+        int userDXCC = engine->getUserDXCC();
+        if ((userDXCC > 0) && (_spot.getSpotterDXCC() != userDXCC))
             return false;
     }
     return true;
@@ -964,17 +1271,5 @@ void DXClusterAssistant::hideSpotCall(const QString &_call)
     hiddenCalls.insert(_call);
     if (proxy != nullptr)
         proxy->invalidate();
-    updateClearHiddenButton();
     updateBandSummary();
-}
-
-void DXClusterAssistant::slotClearHiddenClicked()
-{
-    clearHiddenSpots();
-}
-
-void DXClusterAssistant::updateClearHiddenButton()
-{
-    if (clearHiddenButton != nullptr)
-        clearHiddenButton->setEnabled(!hiddenCalls.isEmpty());
 }

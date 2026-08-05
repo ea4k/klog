@@ -977,6 +977,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     currentModeShown = dataProxy->getIdFromModeName(mainQSOEntryWidget->getMode());
     currentBand = currentBandShown;
     currentMode = currentModeShown;
+    syncDXAssistantState();   // "Follow my band" tracks the band in use
 
     if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
     {
@@ -1026,6 +1027,7 @@ void MainWindow::slotModeChanged (const QString &_m)
     currentModeShown = dataProxy->getIdFromModeName(_m);
     currentBand = currentBandShown;
     currentMode = currentModeShown;
+    syncDXAssistantState();   // "Follow my band" tracks the band in use
     infoWidget->setCurrentMode(currentModeShown);
     if (manageMode)
     {
@@ -3420,6 +3422,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
                 const bool ok = watcher->result();
                 watcher->deleteLater();
                 hamlibActive = ok;
+                syncDXAssistantState();   // Gates "QSY to this freq"
                 if (ok)
                 {
                     hamlib->startPolling();
@@ -3437,6 +3440,7 @@ void MainWindow::slotSetupDialogFinished (const int _s)
         {
             hamlib->init(false);
             hamlibActive = false;
+            syncDXAssistantState();   // Gates "QSY to this freq"
         }
     }
 
@@ -3613,6 +3617,7 @@ void MainWindow::slotInitHamlib()
         watcher->deleteLater();
 
         hamlibActive = ok;
+        syncDXAssistantState();   // Gates "QSY to this freq"
         if (ok)
         {
             // Timer must be started on the main thread (QTimer affinity).
@@ -3663,6 +3668,7 @@ void MainWindow::slotHamlibRigDisconnected()
     logEvent(Q_FUNC_INFO, "Rig disconnected", Warning);
    //qDebug() << Q_FUNC_INFO ;
     hamlibActive = false;
+    syncDXAssistantState();   // Gates "QSY to this freq"
 
     QMessageBox msgBox(this);
     msgBox.setIcon(QMessageBox::Warning);
@@ -3802,6 +3808,8 @@ void MainWindow::initDXAssistant()
     }
 
     myContinent = world->getQRZContinentShortName(mainQRZ);
+    // Feeds the DX Assistant "My DXCC" spotter filter; -1 disables it
+    const int myDXCC = world->getQRZARRLId(mainQRZ);
 
     if (clubLogMostWantedEnabled && (clubLogMostWanted == nullptr))
     {
@@ -3847,6 +3855,7 @@ void MainWindow::initDXAssistant()
         dxAssistantEngine->setUserContinent(myContinent);
         dxAssistantEngine->setMostWanted(mostWantedInUse);
     }
+    dxAssistantEngine->setUserDXCC(myDXCC);
     reconfigureDXAssistantUI(true);   // Creates the widget and shows its tab
     if (dxClusterAssistant != nullptr)
         dxClusterAssistant->setEngine(dxAssistantEngine);
@@ -3892,7 +3901,12 @@ void MainWindow::reconfigureDXAssistantUI(const bool _enabled)
                 this, SLOT(slotDXAssistantSendSpotToUI(DXSpot)));
         connect(dxClusterAssistant, SIGNAL(spotLogDirectly(DXSpot)),
                 this, SLOT(slotDXAssistantLogSpot(DXSpot)));
+        connect(dxClusterAssistant, SIGNAL(spotQSY(DXSpot)),
+                this, SLOT(slotDXAssistantQSY(DXSpot)));
+        connect(dxClusterAssistant, &DXClusterAssistant::spotsSendToMap,
+                this, &MainWindow::slotDXAssistantSpotsToMap);
     }
+    syncDXAssistantState();
 
     if (dxUpRightTab->indexOf(dxClusterAssistant) < 0)
     {   // addTab() takes care of the page visibility; no explicit show()
@@ -3900,6 +3914,16 @@ void MainWindow::reconfigureDXAssistantUI(const bool _enabled)
     }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+// The widget cannot reach MainWindow's state, so the two things its menu
+// depends on are pushed in whenever they change.
+void MainWindow::syncDXAssistantState()
+{
+    if (dxClusterAssistant == nullptr)
+        return;
+    dxClusterAssistant->setCurrentBand(currentBand);
+    dxClusterAssistant->setRigConnected(hamlibActive);
 }
 
 void MainWindow::checkIfNewBandOrMode()
@@ -5427,6 +5451,55 @@ void MainWindow::slotDXAssistantLogSpot(const DXSpot &_spot)
     DXSpot spot = _spot;
     clusterSpotToLog(spot.getDxCall(), spot.getFrequency());
     slotQRZReturnPressed();   // Logs the QSO immediately, without user interaction
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantQSY(const DXSpot &_spot)
+{   // Tune the radio only: the QSO entry form is deliberately left alone so
+    // the operator can listen before committing to the spot.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    if (!hamlibActive || manualMode)
+    {   // The menu entry is offered only with a rig connected, but the state
+        // may have changed while the menu was open.
+        logEvent(Q_FUNC_INFO, "END - No rig to tune", Debug);
+        return;
+    }
+    DXSpot spot = _spot;
+    hamlib->setFreq(spot.getFrequency(), false);
+    logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::slotDXAssistantSpotsToMap(const QList<DXSpot> &_spots)
+{   // Explicit user request: unlike the automatic cluster feed, this ignores
+    // the "send spots to map" preference and opens the map.
+    logEvent(Q_FUNC_INFO, "Start", Devel);
+    Locator locator;
+    for (const DXSpot &spot : _spots)
+    {
+        DXSpot sp = spot;
+        QString dxGrid = world->getQRZLocator(sp.getDxCall());
+        if (dxGrid.isEmpty() || !locator.isValidLocator(dxGrid))
+            dxGrid = world->getLocator(world->getQRZARRLId(sp.getDxCall()));
+        if (dxGrid.isEmpty() || !locator.isValidLocator(dxGrid))
+        {
+            logEvent(Q_FUNC_INFO, "No valid locator for " + sp.getDxCall(), Warning);
+            continue;
+        }
+        // Colour by what the spot is worth to the operator, matching the
+        // colours the DX Assistant table already uses.
+        QColor spotColor = defaultColor;
+        switch (sp.getStatusBand())
+        {
+        case ATNO:   spotColor = newOneColor; break;
+        case needed: spotColor = neededColor; break;
+        case worked: spotColor = workedColor; break;
+        default:     break;
+        }
+        mapWindow->addMarker(locator.getLocatorCoordinate(dxGrid), sp.getDxCall(),
+                             spotColor, sp.getFrequency().toDouble());
+    }
+    mapWindow->show();
+    mapWindow->raise();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

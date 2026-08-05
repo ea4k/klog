@@ -238,6 +238,8 @@ private slots:
     void slotDXAssistantRecalculate();
     void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
     void slotDXAssistantLogSpot(const DXSpot &_spot);
+    void slotDXAssistantQSY(const DXSpot &_spot);
+    void slotDXAssistantSpotsToMap(const QList<DXSpot> &_spots);
     // </DX-ASSISTANT>
 
     void slotWorldReload(const bool _b);
@@ -356,6 +358,7 @@ private:
     void startServices();
     void initDXAssistant();
     void reconfigureDXAssistantUI(const bool _enabled);  // Adds/removes the DX Assistant tab
+    void syncDXAssistantState();   // Pushes the current band and rig state to the widget
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);

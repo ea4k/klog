@@ -90,6 +90,9 @@ public:
     void setSpotterContinent(const QString &_c);
     QString getSpotterContinent();
 
+    void setSpotterDXCC(int _dxcc);
+    int getSpotterDXCC();
+
     void setScore(int _score);
     int getScore();
 
@@ -123,6 +126,7 @@ private:
     int         dxcc             = -1;
     int         bandId           = -1;
     QString     spotterContinent;        // Short name: "EU", "NA", ... empty if unknown
+    int         spotterDXCC      = -1;   // ARRL id of the spotter; -1 if unknown
 
     // Scoring (populated by DXAssistantEngine; -1 = not yet scored / discard)
     int         score            = -1;

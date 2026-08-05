@@ -68,13 +68,15 @@ public:
         ColumnCount
     };
 
-    // SortRole carries the raw sortable value; CallRole the DX callsign
-    // (used by the proxy filter to hide spots); BandIdRole and
-    // SpotterContinentRole feed the band and continent view filters.
+    // SortRole carries the raw sortable value; every other role feeds one of
+    // the view filters the proxy applies (see DXAssistantProxyModel).
     static constexpr int SortRole = Qt::UserRole;
     static constexpr int CallRole = Qt::UserRole + 1;
     static constexpr int BandIdRole = Qt::UserRole + 2;
     static constexpr int SpotterContinentRole = Qt::UserRole + 3;
+    static constexpr int SpotterDXCCRole = Qt::UserRole + 4;
+    static constexpr int StatusRole = Qt::UserRole + 5;   // effectiveStatus()
+    static constexpr int DXCCRole = Qt::UserRole + 6;
 
     explicit DXAssistantSpotModel(World *_world, QObject *parent = nullptr);
 
@@ -85,6 +87,9 @@ public:
                         int role = Qt::DisplayRole) const override;
 
     void setColors(const QColor &_newOne, const QColor &_needed, const QColor &_worked);
+
+    QSOStatus statusOf(const DXSpot &_spot) const;   // The status the view shows
+    static QString statusName(QSOStatus _status);    // Translated label for the menu
 
     int indexOf(const QString &_call, int _bandId) const;
     DXSpot spotAt(int _row) const;
@@ -110,18 +115,32 @@ private:
     QColor newOneColor, neededColor, workedColor;
 };
 
-// Proxy: hides per-session hidden calls and breaks score ties with the
-// ClubLog Most Wanted rank (lower rank first; unranked entities last).
+// Proxy: applies every view filter (hidden calls, bands, spotter origin,
+// status and DXCC) and breaks score ties with the ClubLog Most Wanted rank
+// (lower rank first; unranked entities last).
 class DXAssistantProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     friend class tst_DXClusterAssistant;
 
 public:
+    // Where the spotter must be for the spot to be shown.
+    enum SpotterFilter
+    {
+        SpotterAll = 0,      // Any spotter (default)
+        SpotterMyContinent,  // Only spotters on the user's continent
+        SpotterMyDXCC        // Only spotters in the user's own entity
+    };
+
     explicit DXAssistantProxyModel(QObject *parent = nullptr);
     void setHiddenCalls(const QSet<QString> *_calls);
     void setDisabledBands(const QSet<int> *_bands);
-    void setOnlyContinent(bool _enabled, const QString &_continent);
+    void setDisabledStatuses(const QSet<int> *_statuses);
+    void setDisabledDXCCs(const QSet<int> *_dxccs);
+    void setSpotterFilter(SpotterFilter _filter, const QString &_continent, int _dxcc);
+    // "Follow my band": show only the band the operator is working on. It
+    // overrides the per-band checkboxes while active.
+    void setFollowBand(bool _follow, int _bandId);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
@@ -131,8 +150,13 @@ private:
     int tieBreakValue(const QModelIndex &index) const;
     const QSet<QString> *hiddenCalls;
     const QSet<int> *disabledBands;
-    bool onlyMyContinent;
+    const QSet<int> *disabledStatuses;
+    const QSet<int> *disabledDXCCs;
+    SpotterFilter spotterFilter;
     QString userContinent;
+    int userDXCC;
+    bool followBand;
+    int currentBandId;
 };
 
 class DXClusterAssistant : public QWidget
@@ -157,6 +181,11 @@ public:
 
     static constexpr int MAX_SPOTS_DEFAULT = 25;   // Cap on managed spots
 
+    // The band the operator is working on, for the "Follow my band" filter
+    void setCurrentBand(int _bandId);
+    // Whether a radio is connected: "QSY to this freq" is offered only then
+    void setRigConnected(bool _connected);
+
     void addOrUpdateSpot(const DXSpot &_spot);
     // Called for EVERY spot arriving from the DXCluster, including the ones
     // the engine discards (already confirmed, unresolvable, over the cap):
@@ -166,28 +195,42 @@ public:
     void setTTL(int _minutes);
     void setMaxSpots(int _max);
     void clearHiddenSpots();
+    // "Clear all": drop every spot and forget the calls hidden this session,
+    // so the list starts from scratch. The view filters are user settings and
+    // are deliberately left untouched.
+    void clearAll();
     void updateBandSummary();   // Refresh "Most active band" / "Band to be"
+
+    QList<DXSpot> shownSpots() const;   // The spots the view is showing, in view order
 
 signals:
     void spotSendToUI(const DXSpot &_spot);    // Fill the main QSO entry form
     void spotLogDirectly(const DXSpot &_spot); // Add QSO straight to the log
+    void spotQSY(const DXSpot &_spot);         // Tune the radio to the spot frequency
+    void spotsSendToMap(const QList<DXSpot> &_spots);   // Plot the shown spots
 
 private slots:
     void slotTimerTick();
     void slotDoubleClicked(const QModelIndex &_index);
-    void slotContextMenu(const QPoint &_pos);
-    void slotHeaderContextMenu(const QPoint &_pos);
-    void slotClearHiddenClicked();
+    void slotTableContextMenu(const QPoint &_pos);    // Right-click on a row
+    void slotHeaderContextMenu(const QPoint &_pos);   // Right-click on the header
 
 private:
     bool createUI();
+    // Both right-click slots funnel here: there is a single menu, and the
+    // entries that do not apply to the click are disabled rather than
+    // dropped, so the menu looks the same wherever it was opened from.
+    // _column is the column under the cursor (-1 if none) and _spot is the
+    // spot under the cursor, valid only when _hasSpot is true.
+    void showContextMenu(const QPoint &_globalPos, int _column,
+                         const DXSpot &_spot, bool _hasSpot);
     void hideSpotCall(const QString &_call);
     bool spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const;
-    void updateClearHiddenButton();
     void applyViewFilters();          // Push filter state to the proxy and refresh the summary
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
+    QList<int> dxccsInView() const;   // Entities currently held, sorted by name
 
     Awards *awards;
     World *world;
@@ -197,15 +240,19 @@ private:
     DXAssistantSpotModel *model;
     DXAssistantProxyModel *proxy;
     QTableView *tableView;
-    QPushButton *clearHiddenButton;
     QLabel *mostActiveBandLabel;   // Band with most spots: raw cluster activity (#860)
     QLabel *bandToBeLabel;         // Band with highest cumulative score (#796)
     QTimer *ttlTimer;
 
     QSet<QString> hiddenCalls;   // Per-session only; never persisted to disk
     QSet<int> disabledBands;     // Bands the user filtered out of the view
+    QSet<int> disabledStatuses;  // QSOStatus values filtered out of the view
+    QSet<int> disabledDXCCs;     // Entities filtered out of the view
     QHash<int, QList<QDateTime>> bandActivity;   // bandId -> raw spot arrival times
-    bool onlyMyContinentSpotters;
+    DXAssistantProxyModel::SpotterFilter spotterFilter;
+    bool followMyBand;      // Filter to the band the operator is working on
+    int currentBandId;      // Pushed in by MainWindow through setCurrentBand()
+    bool rigConnected;      // Gates the "QSY to this freq" entry
     int ttlMinutes;
     int maxSpots;
 };

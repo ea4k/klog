@@ -49,6 +49,7 @@ DXSpot::DXSpot(const DXSpot& other)
     dxcc             = other.dxcc;
     bandId           = other.bandId;
     spotterContinent = other.spotterContinent;
+    spotterDXCC      = other.spotterDXCC;
     score            = other.score;
     statusBand       = other.statusBand;
     mostWantedRank   = other.mostWantedRank;
@@ -69,6 +70,7 @@ void DXSpot::clear()
     dxcc             = -1;
     bandId           = -1;
     spotterContinent.clear();
+    spotterDXCC      = -1;
     score            = -1;
     statusBand       = unknown;
     mostWantedRank   = 0;
@@ -91,6 +93,7 @@ void DXSpot::operator=(DXSpot const &_other)
     dxcc             = _other.dxcc;
     bandId           = _other.bandId;
     spotterContinent = _other.spotterContinent;
+    spotterDXCC      = _other.spotterDXCC;
     score            = _other.score;
     statusBand       = _other.statusBand;
     mostWantedRank   = _other.mostWantedRank;
@@ -183,6 +186,9 @@ int DXSpot::getBandId(){return bandId;}
 
 void DXSpot::setSpotterContinent(const QString &_c){spotterContinent = _c;}
 QString DXSpot::getSpotterContinent(){return spotterContinent;}
+
+void DXSpot::setSpotterDXCC(int _dxcc){spotterDXCC = _dxcc;}
+int DXSpot::getSpotterDXCC(){return spotterDXCC;}
 
 void DXSpot::setScore(int _score){score = _score;}
 int DXSpot::getScore(){return score;}

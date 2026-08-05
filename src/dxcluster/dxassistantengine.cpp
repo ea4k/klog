@@ -53,6 +53,16 @@ QString DXAssistantEngine::getUserContinent() const
     return userContinent;
 }
 
+void DXAssistantEngine::setUserDXCC(int _dxcc)
+{
+    userDXCC = _dxcc;
+}
+
+int DXAssistantEngine::getUserDXCC() const
+{
+    return userDXCC;
+}
+
 void DXAssistantEngine::setMostWanted(ClubLogMostWanted *_mostWanted)
 {
     mostWanted = _mostWanted;
@@ -89,9 +99,15 @@ bool DXAssistantEngine::score(DXSpot &spot) const
     }
 
     if (spot.getSpotter().isEmpty())
+    {
         spot.setSpotterContinent(QString());
+        spot.setSpotterDXCC(-1);
+    }
     else
+    {
         spot.setSpotterContinent(world->getQRZContinentShortName(spot.getSpotter()));
+        spot.setSpotterDXCC(world->getQRZARRLId(spot.getSpotter()));
+    }
 
     return rescore(spot);
 }
