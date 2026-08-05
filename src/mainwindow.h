@@ -233,7 +233,6 @@ private slots:
     void slotShowStats();
 
     // <DX-ASSISTANT>
-    void slotShowDXClusterAssistant();
     void slotDXAssistantNewSpot(const DXSpot &_spot);
     void slotDXAssistantRecalculate();
     void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
@@ -614,7 +613,6 @@ private:
     QAction *qslSentRequestedAct;
     QAction *qslRecRequestedAct;
     QAction *showMapAct;
-    QAction *dxClusterAssistantAct;
 
     QStringList bands;
     QStringList modes;

@@ -485,7 +485,7 @@ void MainWindow::init()
     createUI();
     //qInfo() << "[KLOG-TIMING] init() 08 - createUI():" << initTimer.elapsed() << "ms"; initTimer.restart();
 
-    initDXAssistant();   // Needs the settings (readSettingsFile) and the Tools menu (createUI)
+    initDXAssistant();   // Needs the settings (readSettingsFile) and the UI (createUI)
 
     slotClearButtonClicked(Q_FUNC_INFO);
     infoWidget->showInfo(-1);
@@ -2683,11 +2683,6 @@ void MainWindow::createMenusCommon()
     connect(showMapAct, SIGNAL(triggered()), this, SLOT(slotShowMap()));
     showMapAct->setToolTip(tr("Show the statistics of your radio activity."));
 
-    dxClusterAssistantAct = new QAction (tr("DX Assistant"), this);
-    toolMenu->addAction(dxClusterAssistantAct);
-    connect(dxClusterAssistantAct, SIGNAL(triggered()), this, SLOT(slotShowDXClusterAssistant()));
-    dxClusterAssistantAct->setToolTip(tr("Go to the DX Assistant tab - prioritised list of workable spots."));
-
 
      //qDebug() << "MainWindow::createMenusCommon before" ;
     //toolMenu->addSeparator();
@@ -3798,8 +3793,8 @@ void MainWindow::initDXAssistant()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
 
-    // The menu action is always visible; clicking it while the feature is
-    // disabled explains how to enable it (slotShowDXClusterAssistant).
+    // The feature is off by default; the tab appears only once it is
+    // enabled in Setup, in the DXCluster page.
     if (!dxAssistantEnabled)
     {   // Already-created objects stay idle: the slots guard on the flag
         reconfigureDXAssistantUI(false);   // Drops the tab if it was there
@@ -5385,33 +5380,6 @@ void MainWindow::slotShowStats()
     if (!statsWidget)
         statsWidget = new StatisticsWidget(dataProxy);
     statsWidget->show();
-    logEvent(Q_FUNC_INFO, "END", Debug);
-}
-
-void MainWindow::slotShowDXClusterAssistant()
-{
-    logEvent(Q_FUNC_INFO, "Start", Devel);
-    if (!dxAssistantEnabled)
-    {
-        QMessageBox::information(this, tr("KLog - DX Assistant"),
-                                 tr("The DX Assistant is not enabled.\n\n"
-                                    "To start receiving a prioritised list of workable spots, "
-                                    "enable it in Setup, in the DXCluster page "
-                                    "(check 'Enable DX Assistant')."));
-        return;
-    }
-    if (dxClusterAssistant == nullptr)
-    {   // Normally already created by initDXAssistant(); this covers the
-        // case where the tab was never built (e.g. no engine yet).
-        reconfigureDXAssistantUI(true);
-        if (dxClusterAssistant != nullptr)
-            dxClusterAssistant->setEngine(dxAssistantEngine);
-    }
-    // The DX Assistant is a tab of the upper-right tab widget: bring it to
-    // the front instead of opening a separate window.
-    const int tabIndex = dxUpRightTab->indexOf(dxClusterAssistant);
-    if (tabIndex >= 0)
-        dxUpRightTab->setCurrentIndex(tabIndex);
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 
