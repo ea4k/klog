@@ -101,6 +101,19 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
+rem --- Deploy the KLog translations ---
+rem :: qt_add_translations compiles the .ts files into build\src\klog_*.qm.
+rem :: windeployqt6 only deploys the Qt translations (qt_*.qm), so the KLog ones
+rem :: have to be copied by hand into the translations folder next to klog.exe,
+rem :: which is where KLog looks for them (Utilities::getTranslationSearchPaths).
+echo Deploying KLog translations...
+if not exist src\release\translations mkdir src\release\translations
+copy /Y build\src\klog_*.qm src\release\translations\
+if %errorlevel% neq 0 (
+    echo ERROR: No KLog translation files ^(klog_*.qm^) found in build\src
+    exit /b 1
+)
+
 rem --- [4/4] Build installer ---
 echo [4/4] Building installer package...
 cd devscripts
