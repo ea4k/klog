@@ -234,6 +234,9 @@ private slots:
 
     // <DX-ASSISTANT>
     void slotDXAssistantNewSpot(const DXSpot &_spot);
+    // Every station WSJT-X decodes, straight from the UDP server
+    void slotWSJTXStationDecoded(const QString &_dxCall, const double _freq, const QString &_mode,
+                                 const int _snr, const bool _callingCQ, const QDateTime &_dateTime);
     void slotDXAssistantRecalculate();
     void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
     void slotDXAssistantLogSpot(const DXSpot &_spot);
@@ -359,10 +362,14 @@ private:
     void initDXAssistant();
     void reconfigureDXAssistantUI(const bool _enabled);  // Adds/removes the DX Assistant tab
     void syncDXAssistantState();   // Pushes the current band and rig state to the widget
-    // A station WSJT-X puts in the UI is a spot like any other: it is turned
-    // into a DXSpot and scored by the very same engine the DXCluster uses.
+    // Scores a spot, whatever its source, and hands it to the DX Assistant
+    void feedDXAssistantWithSpot(const DXSpot &_spot);
+    // A station WSJT-X hears is a spot like any other: it is turned into a
+    // DXSpot and scored by the very same engine the DXCluster uses.
     void checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const double _freq,
-                                       const QString &_mode, const QString &_spotter);
+                                       const QString &_mode, const QString &_spotter,
+                                       const QString &_comment, const QDateTime &_dateTime);
+    bool wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _freq);
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -673,11 +680,15 @@ private:
     QString myContinent;                      // Derived once at startup from the station callsign
     bool dxAssistantEnabled;
     bool clubLogMostWantedEnabled;
-    // WSJT-X repeats its status message about once per second while the same
-    // station is selected: these throttle what reaches the DX Assistant.
+    // Where the spots the DX Assistant scores are allowed to come from
+    bool dxAssistantSourceDXCluster;
+    bool dxAssistantSourceWSJTX;
+    // WSJT-X repeats its status message about once per second and decodes the
+    // same station once per transmission period: rescoring every one of them
+    // would hit the database for nothing, so a station is only handed over to
+    // the assistant once per minute.
     static constexpr int WSJTX_SPOT_REFRESH_SECONDS = 60;
-    QString wsjtxLastSpotKey;        // Callsign+frequency last fed to the assistant
-    QDateTime wsjtxLastSpotDateTime; // When it was fed, in UTC
+    QHash<QString, QDateTime> wsjtxCheckedSpots;   // Callsign+frequency -> when it was scored
     // </DX-ASSISTANT>
 
     // </UI>

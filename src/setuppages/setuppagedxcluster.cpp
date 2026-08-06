@@ -127,11 +127,34 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     dxAssistantClubLogMWCheckbox->setText(tr("Enable ClubLog Most Wanted integration"));
     dxAssistantClubLogMWCheckbox->setToolTip(tr("Downloads the ClubLog Most Wanted list monthly and uses it to break ties between spots with the same score."));
 
+    // The DX Assistant scores whatever reaches it, and it can be fed by the
+    // DXCluster, by the stations WSJT-X hears, or by both.
+    dxAssistantSourceDXClusterCheckbox = new QCheckBox;
+    dxAssistantSourceWSJTXCheckbox = new QCheckBox;
+    dxAssistantSourceDXClusterCheckbox->setAutoExclusive(false);
+    dxAssistantSourceWSJTXCheckbox->setAutoExclusive(false);
+    dxAssistantSourceDXClusterCheckbox->setChecked(true);
+    dxAssistantSourceWSJTXCheckbox->setChecked(true);
+    dxAssistantSourceDXClusterCheckbox->setText(tr("DXCluster"));
+    dxAssistantSourceDXClusterCheckbox->setToolTip(tr("The spots arriving from the DXCluster are scored and shown in the DX Assistant."));
+    dxAssistantSourceWSJTXCheckbox->setText(tr("WSJT-X"));
+    dxAssistantSourceWSJTXCheckbox->setToolTip(tr("The stations WSJT-X decodes are scored and shown in the DX Assistant.") + "\n" +
+                                               tr("It needs the UDP Server to be started, in the UDP page."));
+
+    QGroupBox *dxAssistantSourcesGroupBox = new QGroupBox(tr("Spot sources"));
+    dxAssistantSourcesGroupBox->setToolTip(tr("Select where the spots analysed by the DX Assistant come from."));
+    QHBoxLayout *dxAssistantSourcesLayout = new QHBoxLayout;
+    dxAssistantSourcesLayout->addWidget(dxAssistantSourceDXClusterCheckbox);
+    dxAssistantSourcesLayout->addWidget(dxAssistantSourceWSJTXCheckbox);
+    dxAssistantSourcesLayout->addStretch(1);
+    dxAssistantSourcesGroupBox->setLayout(dxAssistantSourcesLayout);
+
     QGroupBox *dxAssistantGroupBox = new QGroupBox(tr("DX Assistant"));
 
     QVBoxLayout *dxAssistantVBoxLayout = new QVBoxLayout;
     dxAssistantVBoxLayout->addWidget(dxAssistantEnabledCheckbox);
     dxAssistantVBoxLayout->addWidget(dxAssistantClubLogMWCheckbox);
+    dxAssistantVBoxLayout->addWidget(dxAssistantSourcesGroupBox);
     dxAssistantVBoxLayout->addStretch(1);
     dxAssistantGroupBox->setLayout(dxAssistantVBoxLayout);
 
@@ -166,6 +189,7 @@ SetupPageDxCluster::SetupPageDxCluster(QWidget *parent)  : QWidget(parent)
     setLayout(mainLayout);
 
     createActions();
+    slotDXAssistantEnabledClicked();
 
        //qDebug() << "SetupPageDxCluster::SetupPageDxCluster - END";
 }
@@ -194,6 +218,18 @@ void SetupPageDxCluster::createActions()
        //qDebug() << "SetupPageDxCluster::createActions";
     connect(addClusterButton, SIGNAL(clicked()), this, SLOT(slotAddButtonClicked()) );
     connect(deleteClusterButton, SIGNAL(clicked()), this, SLOT(slotDeleteButtonClicked()) );
+    connect(dxAssistantEnabledCheckbox, SIGNAL(clicked()), this, SLOT(slotDXAssistantEnabledClicked()) );
+}
+
+void SetupPageDxCluster::slotDXAssistantEnabledClicked()
+{
+    // What the DX Assistant does with the spots is meaningless while it is
+    // disabled, but the options keep their value so they come back as they
+    // were left when it is enabled again.
+    const bool enabled = dxAssistantEnabledCheckbox->isChecked();
+    dxAssistantClubLogMWCheckbox->setEnabled(enabled);
+    dxAssistantSourceDXClusterCheckbox->setEnabled(enabled);
+    dxAssistantSourceWSJTXCheckbox->setEnabled(enabled);
 }
 
 void SetupPageDxCluster::slotAddButtonClicked()
@@ -382,6 +418,8 @@ void SetupPageDxCluster::saveSettings()
     settings.beginGroup ("DXAssistant");
     settings.setValue ("enabled", QVariant((dxAssistantEnabledCheckbox->isChecked())));
     settings.setValue ("clublogMostWantedEnabled", QVariant((dxAssistantClubLogMWCheckbox->isChecked())));
+    settings.setValue ("sourceDXCluster", QVariant((dxAssistantSourceDXClusterCheckbox->isChecked())));
+    settings.setValue ("sourceWSJTX", QVariant((dxAssistantSourceWSJTXCheckbox->isChecked())));
     settings.endGroup ();
 }
 
@@ -436,5 +474,8 @@ void SetupPageDxCluster::loadSettings()
     settings.beginGroup ("DXAssistant");
     dxAssistantEnabledCheckbox->setChecked (settings.value("enabled", false).toBool ());
     dxAssistantClubLogMWCheckbox->setChecked (settings.value("clublogMostWantedEnabled", false).toBool ());
+    dxAssistantSourceDXClusterCheckbox->setChecked (settings.value("sourceDXCluster", true).toBool ());
+    dxAssistantSourceWSJTXCheckbox->setChecked (settings.value("sourceWSJTX", true).toBool ());
     settings.endGroup ();
+    slotDXAssistantEnabledClicked();    // The options follow the enabled flag
 }

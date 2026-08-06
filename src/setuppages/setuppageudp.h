@@ -28,6 +28,7 @@
 
 #include <QObject>
 #include <QtWidgets>
+#include <QHostAddress>
 #include <QNetworkInterface>
 #include "../utilities.h"
 
@@ -46,6 +47,7 @@ public:
     void setUDPServerPort(const int _t);
     void setTimeout(const int _t);
     void setNetworkInterface(const QString &_t);
+    void setMultiCastAddress(const QString &_t);
 
     QString getLogFromWSJTx();
     QString getAutoLogFromWSJTx();
@@ -54,6 +56,7 @@ public:
     QString getUDPServer();
     //int getTimeout();
     QString getNetworkInterface();
+    QString getMultiCastAddress();
     void saveSettings();
     void loadSettings();
 
@@ -67,6 +70,7 @@ private:
     QSpinBox *UDPServerPortSpinBox;
     QSpinBox *miliSecsSpinBox;
     QComboBox *networkInterfacesComboBox;
+    QLineEdit *multiCastAddressLineEdit;
 
     int defaultport, defaultTimer;
     Utilities *util;
