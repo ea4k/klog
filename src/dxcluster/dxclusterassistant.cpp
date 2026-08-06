@@ -190,6 +190,11 @@ QVariant DXAssistantSpotModel::data(const QModelIndex &index, int role) const
     {   // Exact UTC arrival time of the spot
         if (index.column() == ColAge)
             return tr("Received at %1 UTC").arg(spot.getDateTime().toUTC().toString("HH:mm"));
+        // What the spot came with: the comment of a DXCluster spot or, for a
+        // station heard locally, that it was WSJT-X who decoded it
+        if (((index.column() == ColDXCall) || (index.column() == ColSpotter)) &&
+            !spot.getComment().isEmpty())
+            return spot.getComment();
         return QVariant();
     }
 

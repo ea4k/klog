@@ -37,6 +37,7 @@ SetupPageUDP::SetupPageUDP(QWidget *parent) : QWidget(parent)
     UDPServerPortSpinBox = new QSpinBox;
     miliSecsSpinBox = new QSpinBox;
     networkInterfacesComboBox = new QComboBox;
+    multiCastAddressLineEdit = new QLineEdit;
     //qDebug() << "SetupPageUDP::SetupPageUDP: 1";
     util = new Utilities(Q_FUNC_INFO);
 
@@ -110,6 +111,19 @@ void SetupPageUDP::createUI()
     networkIfacesLayout->addWidget(networkInterfaceLabel);
     networkIfacesLayout->addWidget(networkInterfacesComboBox);
 
+    QString multiCastTip = tr("Multicast group address WSJT-X is sending the datagrams to.") + "\n" +
+                           tr("Leave it empty unless WSJT-X is configured to use multicast, needed to share the datagrams with other programs.");
+    multiCastAddressLineEdit->setPlaceholderText(tr("Not used"));
+    multiCastAddressLineEdit->setToolTip(multiCastTip);
+    QLabel *multiCastLabel = new QLabel(tr("Multicast address"));
+    multiCastLabel->setBuddy(multiCastAddressLineEdit);
+    multiCastLabel->setToolTip(multiCastTip);
+    multiCastLabel->setAlignment(Qt::AlignCenter);
+
+    QHBoxLayout *multiCastLayout = new QHBoxLayout;
+    multiCastLayout->addWidget(multiCastLabel);
+    multiCastLayout->addWidget(multiCastAddressLineEdit);
+
     miliSecsSpinBox->setMinimum(0);
     miliSecsSpinBox->setMaximum(30000);
     miliSecsSpinBox->setValue(defaultTimer);
@@ -131,6 +145,7 @@ void SetupPageUDP::createUI()
     gridLayout->addLayout(networkIfacesLayout, 0, 0);
     gridLayout->addLayout(UDPPortLayout, 0, 1);
     gridLayout->addLayout(UDPTimeLayout, 1, 0);
+    gridLayout->addLayout(multiCastLayout, 1, 1);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(UDPServerCheckBox);
@@ -336,6 +351,21 @@ void SetupPageUDP::setNetworkInterface(const QString &_t)
     }
 }
 
+QString SetupPageUDP::getMultiCastAddress()
+{
+    QHostAddress address(multiCastAddressLineEdit->text().trimmed());
+    // Only a real multicast group is stored: anything else would silently
+    // stop the UDP server from receiving anything at all.
+    if (address.isNull() || !address.isMulticast())
+        return QString();
+    return address.toString();
+}
+
+void SetupPageUDP::setMultiCastAddress(const QString &_t)
+{
+    multiCastAddressLineEdit->setText(_t.trimmed());
+}
+
 void SetupPageUDP::saveSettings()
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -343,6 +373,7 @@ void SetupPageUDP::saveSettings()
     settings.beginGroup ("UDPServer");
     settings.setValue ("UDPServer", QVariant((UDPServerCheckBox->isChecked())));
     settings.setValue ("UDPNetworkInterface", getNetworkInterface());
+    settings.setValue ("UDPMultiCastAddress", getMultiCastAddress());
     settings.setValue ("UDPServerPort", getUDPServerPort());
     settings.setValue ("LogFromWSJTX", QVariant((logFromWSJTXCheckbox->isChecked())));
     settings.setValue ("LogAutoFromWSJTX", QVariant((logAutomaticallyWSJTXCheckbox->isChecked())));
@@ -358,6 +389,7 @@ void SetupPageUDP::loadSettings()
     settings.beginGroup ("UDPServer");
     setUDPServer (settings.value("UDPServer").toBool ());
     setNetworkInterface (settings.value("UDPNetworkInterface").toString ());
+    setMultiCastAddress (settings.value("UDPMultiCastAddress").toString ());
     setUDPServerPort (settings.value("UDPServerPort").toInt ());
     setUDPServer (settings.value("UDPServer").toBool ());
     setLogFromWSJTx(settings.value("LogFromWSJTX").toBool ());

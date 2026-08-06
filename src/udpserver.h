@@ -27,6 +27,7 @@
  *****************************************************************************/
 
 #include <QDataStream>
+#include <QDateTime>
 #include <QHostAddress>
 #include <QNetworkInterface>
 #include <QObject>
@@ -58,9 +59,21 @@ enum Type
                                 // immediately before here
 };
 
+// What KLog could make out of one of the lines WSJT-X decodes, like
+// "CQ EA4K IN80" or "EA4K W1AW -15": who transmitted it and whether that
+// station is calling CQ (and is therefore ready to be worked right now).
+struct WSJTXDecodedStation
+{
+    QString call;             // Station that transmitted the decoded message
+    bool    callingCQ = false;
+
+    bool isEmpty() const { return call.isEmpty(); }
+};
+
 class UDPServer : public QObject
 {
     Q_OBJECT
+    friend class tst_UDPServer;
 
 public:
     explicit UDPServer(QObject *parent = nullptr);
@@ -72,7 +85,12 @@ public:
     //void setAddress(const QString &_address);
     void setPort(const int _port);
     void setNetworkInterface(const QString &_t);
+    void setMultiCastAddress(const QString &_address);
     void loadSettings();
+
+    // Extracts the station behind one of the messages WSJT-X decodes. It is
+    // static and public so it can be tested without a socket.
+    static WSJTXDecodedStation stationFromDecodedText(const QString &_message);
 
 private:
     void readPendingDatagrams();
@@ -81,6 +99,8 @@ private:
     void leaveMultiCastGroup();
     void joinMultiCastGroup();
     bool startNow(quint16 _port, QHostAddress const& _multicast_group_address);
+    void requestReplay();       // Asks WSJT-X to resend the decodes it is showing
+    static QString modeFromDecodeChar(const QString &_mode);
 
     QNetworkInterface networkInterface;
     QUdpSocket *socketServer;
@@ -90,6 +110,20 @@ private:
     int port;
     bool logging, realtime;
     bool haveNetworkInterface;
+
+    // The decodes only carry the offset from the dial frequency, so the data
+    // of the last Status message is kept to make sense of them.
+    double dialFrequency;       // In MHz, 0.0 until the first Status arrives
+    QString dialMode;           // Mode WSJT-X is running, as it names it
+    QString wsjtxCallsign;      // Station callsign WSJT-X is operating with
+
+    // Where the WSJT-X instance we are listening to can be reached, needed to
+    // ask it for a replay of the decodes it is currently showing.
+    QHostAddress clientAddress;
+    quint16 clientPort;
+    QByteArray clientId;
+    quint32 clientSchema;
+    bool replayRequested;
 
     Utilities *util;
 
@@ -108,6 +142,13 @@ signals:
                         const QString dx_grid, const QString sub_mode);
 
     void logged(const QSO &qso);
+
+    // A station decoded by WSJT-X. The frequency is the dial frequency of the
+    // last Status message plus the audio offset of the decode, in MHz, and
+    // the date & time are those of the decode itself: a replay of the WSJT-X
+    // window brings decodes that may be several minutes old.
+    void stationDecoded(const QString &_dxCall, const double _freq, const QString &_mode,
+                        const int _snr, const bool _callingCQ, const QDateTime &_dateTime);
 
     void clearSignal(QString _func);
 
