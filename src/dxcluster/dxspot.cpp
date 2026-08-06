@@ -53,6 +53,7 @@ DXSpot::DXSpot(const DXSpot& other)
     score            = other.score;
     statusBand       = other.statusBand;
     mostWantedRank   = other.mostWantedRank;
+    source           = other.source;
     hidden           = other.hidden;
 }
 
@@ -74,6 +75,7 @@ void DXSpot::clear()
     score            = -1;
     statusBand       = unknown;
     mostWantedRank   = 0;
+    source           = SpotSourceUnknown;
     hidden           = false;
 }
 
@@ -97,6 +99,7 @@ void DXSpot::operator=(DXSpot const &_other)
     score            = _other.score;
     statusBand       = _other.statusBand;
     mostWantedRank   = _other.mostWantedRank;
+    source           = _other.source;
     hidden           = _other.hidden;
 }
 
@@ -201,3 +204,6 @@ int DXSpot::getMostWantedRank(){return mostWantedRank;}
 
 void DXSpot::setHidden(bool _h){hidden = _h;}
 bool DXSpot::getHidden(){return hidden;}
+
+void DXSpot::setSource(SpotSource _source){source = _source;}
+SpotSource DXSpot::getSource(){return source;}

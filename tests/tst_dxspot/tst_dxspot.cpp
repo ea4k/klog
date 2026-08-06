@@ -123,6 +123,7 @@ void tst_DXSpot::test_DXAssistantFields()
     QVERIFY2(spot1.getScore() == -1, "score default not working");
     QVERIFY2(spot1.getStatusBand() == unknown, "statusBand default not working");
     QVERIFY2(spot1.getMostWantedRank() == 0, "mostWantedRank default not working");
+    QVERIFY2(spot1.getSource() == SpotSourceUnknown, "source default not working");
     QVERIFY2(!spot1.getHidden(), "hidden default not working");
 
     // Setters/getters
@@ -144,6 +145,9 @@ void tst_DXSpot::test_DXAssistantFields()
     spot1.setMostWantedRank(42);
     QVERIFY2(spot1.getMostWantedRank() == 42, "mostWantedRank not working");
 
+    spot1.setSource(SpotSourceWSJTX);
+    QVERIFY2(spot1.getSource() == SpotSourceWSJTX, "source not working");
+
     spot1.setHidden(true);
     QVERIFY2(spot1.getHidden(), "hidden not working");
 
@@ -155,6 +159,7 @@ void tst_DXSpot::test_DXAssistantFields()
     QVERIFY2(spot1.getScore() == -1, "score not reset by clear");
     QVERIFY2(spot1.getStatusBand() == unknown, "statusBand not reset by clear");
     QVERIFY2(spot1.getMostWantedRank() == 0, "mostWantedRank not reset by clear");
+    QVERIFY2(spot1.getSource() == SpotSourceUnknown, "source not reset by clear");
     QVERIFY2(!spot1.getHidden(), "hidden not reset by clear");
 }
 
@@ -167,6 +172,7 @@ void tst_DXSpot::test_DXAssistantFieldsCopy()
     spot1.setScore(800);
     spot1.setStatusBand(worked);
     spot1.setMostWantedRank(7);
+    spot1.setSource(SpotSourceDXCluster);
     spot1.setHidden(true);
 
     // Copy constructor
@@ -177,6 +183,7 @@ void tst_DXSpot::test_DXAssistantFieldsCopy()
     QVERIFY2(spot2.getScore() == 800, "score not copied by copy constructor");
     QVERIFY2(spot2.getStatusBand() == worked, "statusBand not copied by copy constructor");
     QVERIFY2(spot2.getMostWantedRank() == 7, "mostWantedRank not copied by copy constructor");
+    QVERIFY2(spot2.getSource() == SpotSourceDXCluster, "source not copied by copy constructor");
     QVERIFY2(spot2.getHidden(), "hidden not copied by copy constructor");
 
     // Assignment operator
@@ -188,6 +195,7 @@ void tst_DXSpot::test_DXAssistantFieldsCopy()
     QVERIFY2(spot3.getScore() == 800, "score not copied by operator=");
     QVERIFY2(spot3.getStatusBand() == worked, "statusBand not copied by operator=");
     QVERIFY2(spot3.getMostWantedRank() == 7, "mostWantedRank not copied by operator=");
+    QVERIFY2(spot3.getSource() == SpotSourceDXCluster, "source not copied by operator=");
     QVERIFY2(spot3.getHidden(), "hidden not copied by operator=");
 }
 

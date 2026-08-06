@@ -81,6 +81,8 @@ private slots:
     void test_SpotterMyDXCCInactiveWithoutUserEntity();
     void test_StatusFilterHidesRows();
     void test_DXCCFilterHidesRows();
+    void test_SourceFilterHidesRows();
+    void test_SourceColumnShowsWhereTheSpotCameFrom();
     void test_DXCCsInViewListsHeldEntities();
     void test_FollowMyBandShowsOnlyTheCurrentBand();
     void test_FollowMyBandOverridesTheBandCheckboxes();
@@ -177,6 +179,7 @@ void tst_DXClusterAssistant::cleanup()
     widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
     widget->disabledStatuses.clear();
     widget->disabledDXCCs.clear();
+    widget->disabledSources.clear();
     widget->followMyBand = false;
     widget->currentBandId = -1;
     widget->rigConnected = false;
@@ -460,6 +463,53 @@ void tst_DXClusterAssistant::test_StatusFilterHidesRows()
     widget->disabledStatuses.clear();
     widget->applyViewFilters();
     QCOMPARE(visibleRows(), 2);
+}
+
+void tst_DXClusterAssistant::test_SourceFilterHidesRows()
+{
+    DXSpot fromCluster = makeSpot("EA1AAA", band20, 1100);
+    fromCluster.setSource(SpotSourceDXCluster);
+    widget->addOrUpdateSpot(fromCluster);
+
+    DXSpot fromWSJTX = makeSpot("EA2BBB", band20, 800);
+    fromWSJTX.setSource(SpotSourceWSJTX);
+    widget->addOrUpdateSpot(fromWSJTX);
+    QCOMPARE(visibleRows(), 2);
+
+    widget->disabledSources.insert(static_cast<int>(SpotSourceWSJTX));
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->proxy->data(widget->proxy->index(0, DXAssistantSpotModel::ColDXCall),
+                                 Qt::DisplayRole).toString(), QString("EA1AAA"));
+
+    widget->disabledSources.insert(static_cast<int>(SpotSourceDXCluster));
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 0);
+
+    widget->disabledSources.clear();
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 2);
+}
+
+void tst_DXClusterAssistant::test_SourceColumnShowsWhereTheSpotCameFrom()
+{
+    DXSpot fromWSJTX = makeSpot("EA2BBB", band20, 800);
+    fromWSJTX.setSource(SpotSourceWSJTX);
+    widget->addOrUpdateSpot(fromWSJTX);
+
+    QCOMPARE(widget->model->data(widget->model->index(0, DXAssistantSpotModel::ColSource),
+                                 Qt::DisplayRole).toString(),
+             DXAssistantSpotModel::sourceName(SpotSourceWSJTX));
+    QCOMPARE(widget->model->data(widget->model->index(0, DXAssistantSpotModel::ColSource),
+                                 DXAssistantSpotModel::SourceRole).toInt(),
+             static_cast<int>(SpotSourceWSJTX));
+    // A spot of unknown origin still shows something in the column
+    widget->model->clearSpots();
+    widget->addOrUpdateSpot(makeSpot("EA3CCC", band20, 500));
+    QVERIFY(!widget->model->data(widget->model->index(0, DXAssistantSpotModel::ColSource),
+                                 Qt::DisplayRole).toString().isEmpty());
+    QVERIFY(!widget->model->headerData(DXAssistantSpotModel::ColSource, Qt::Horizontal,
+                                       Qt::DisplayRole).toString().isEmpty());
 }
 
 void tst_DXClusterAssistant::test_DXCCFilterHidesRows()

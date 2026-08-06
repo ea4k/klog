@@ -373,8 +373,10 @@ void UDPServer::parse(const QByteArray &msg)
             WSJTXDecodedStation station = stationFromDecodedText(QString::fromUtf8(message));
             if (station.isEmpty())      // Free text, telemetry or a hashed call
                 break;
-            if (station.call == wsjtxCallsign)  // Ourselves, heard back
+            if (station.caller == wsjtxCallsign)  // Ourselves, heard back
                 break;
+            if (station.remoteStation == wsjtxCallsign)
+                station.remoteStation.clear();    // Being called: that one is us
 
             // The decode carries the audio offset only; the RF frequency is
             // the dial frequency of the last Status message plus that offset.
@@ -390,8 +392,8 @@ void UDPServer::parse(const QByteArray &msg)
             if (when > QDateTime::currentDateTimeUtc())
                 when = when.addDays(-1);
 
-            emit stationDecoded(station.call, decodedFrequency, decodedMode, snr,
-                                station.callingCQ, when);
+            emit stationDecoded(station.caller, station.remoteStation, decodedFrequency,
+                                decodedMode, snr, station.callingCQ, when);
         }
         break;
         case Clear:
@@ -565,9 +567,9 @@ QString UDPServer::modeFromDecodeChar(const QString &_mode)
 
 WSJTXDecodedStation UDPServer::stationFromDecodedText(const QString &_message)
 {
-    // The station to spot is the one that transmitted the message, which in
-    // every standard WSJT-X message is either the one calling CQ or the one
-    // right after the callsign being called:
+    // The caller, the station that transmitted the message, is in every
+    // standard WSJT-X message either the one calling CQ or the one right
+    // after the callsign it is calling, which is the remote station:
     //      "CQ EA4K IN80" / "CQ DX EA4K" / "CQ POTA EA4K IN80"
     //      "W1AW EA4K -15" / "W1AW EA4K RR73" / "<W1AW> PJ4/EA4K R+03"
     //      "W1AW RR73; K1ABC <KH1/KH7Z> -08"   (DXpedition mode: the fox)
@@ -593,24 +595,31 @@ WSJTXDecodedStation UDPServer::stationFromDecodedText(const QString &_message)
     {
         // The directive between CQ and the callsign is optional and may be a
         // continent, a contest or a region ("CQ DX", "CQ EU", "CQ TEST"): the
-        // callsign is simply the first token that is one.
+        // callsign is simply the first token that is one. Nobody is being
+        // called, so there is no remote station.
         for (int i = 1; (i < tokens.count()) && (i < 3); i++)
         {
-            station.call = callFromToken(tokens.at(i));
-            if (!station.call.isEmpty())
+            station.caller = callFromToken(tokens.at(i));
+            if (!station.caller.isEmpty())
                 break;
         }
-        station.callingCQ = !station.call.isEmpty();
+        station.callingCQ = !station.caller.isEmpty();
         return station;
     }
 
     if ((tokens.count() > 3) && tokens.at(1).startsWith("RR73;"))
-    {   // DXpedition mode: the fox is the station between brackets
-        station.call = callFromToken(tokens.at(3));
-        return station;
+    {   // DXpedition mode: the fox is the station between brackets and the
+        // message is addressed to the hound it is answering first.
+        station.caller = callFromToken(tokens.at(3));
     }
-
-    station.call = callFromToken(tokens.at(1));
+    else
+    {
+        station.caller = callFromToken(tokens.at(1));
+    }
+    // The remote station is only worth reporting when the caller is: it is
+    // the caller who heard it, so it is the caller who vouches for it.
+    if (!station.caller.isEmpty())
+        station.remoteStation = callFromToken(tokens.at(0));
     return station;
 }
 

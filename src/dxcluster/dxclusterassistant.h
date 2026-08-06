@@ -63,6 +63,7 @@ public:
         ColMode,
         ColStatus,
         ColSpotter,
+        ColSource,         // DXCluster, WSJT-X, ...
         ColAge,
         ColMWRank,
         ColumnCount
@@ -77,6 +78,7 @@ public:
     static constexpr int SpotterDXCCRole = Qt::UserRole + 4;
     static constexpr int StatusRole = Qt::UserRole + 5;   // effectiveStatus()
     static constexpr int DXCCRole = Qt::UserRole + 6;
+    static constexpr int SourceRole = Qt::UserRole + 7;   // SpotSource of the spot
 
     explicit DXAssistantSpotModel(World *_world, QObject *parent = nullptr);
 
@@ -90,6 +92,7 @@ public:
 
     QSOStatus statusOf(const DXSpot &_spot) const;   // The status the view shows
     static QString statusName(QSOStatus _status);    // Translated label for the menu
+    static QString sourceName(SpotSource _source);   // Shown in the Source column
 
     int indexOf(const QString &_call, int _bandId) const;
     DXSpot spotAt(int _row) const;
@@ -137,6 +140,7 @@ public:
     void setDisabledBands(const QSet<int> *_bands);
     void setDisabledStatuses(const QSet<int> *_statuses);
     void setDisabledDXCCs(const QSet<int> *_dxccs);
+    void setDisabledSources(const QSet<int> *_sources);
     void setSpotterFilter(SpotterFilter _filter, const QString &_continent, int _dxcc);
     // "Follow my band": show only the band the operator is working on. It
     // overrides the per-band checkboxes while active.
@@ -152,6 +156,7 @@ private:
     const QSet<int> *disabledBands;
     const QSet<int> *disabledStatuses;
     const QSet<int> *disabledDXCCs;
+    const QSet<int> *disabledSources;
     SpotterFilter spotterFilter;
     QString userContinent;
     int userDXCC;
@@ -248,6 +253,7 @@ private:
     QSet<int> disabledBands;     // Bands the user filtered out of the view
     QSet<int> disabledStatuses;  // QSOStatus values filtered out of the view
     QSet<int> disabledDXCCs;     // Entities filtered out of the view
+    QSet<int> disabledSources;   // SpotSource values filtered out of the view
     QHash<int, QList<QDateTime>> bandActivity;   // bandId -> raw spot arrival times
     DXAssistantProxyModel::SpotterFilter spotterFilter;
     bool followMyBand;      // Filter to the band the operator is working on

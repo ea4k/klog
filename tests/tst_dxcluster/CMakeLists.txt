@@ -4,7 +4,7 @@ project(tst_dxcluster)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Network Test Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Concurrent Core Network Sql Test Widgets)
 set(CMAKE_AUTOMOC ON)
 
 file(GLOB TEST_SOURCES "*.cpp")

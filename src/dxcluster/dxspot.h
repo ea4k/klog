@@ -105,6 +105,9 @@ public:
     void setHidden(bool _h);
     bool getHidden();
 
+    void setSource(SpotSource _source);
+    SpotSource getSource();
+
 signals:
 
 private:
@@ -132,6 +135,9 @@ private:
     int         score            = -1;
     QSOStatus   statusBand       = unknown;  // Status on this band, mode-agnostic
     int         mostWantedRank   = 0;        // 0 = not in top-N most-wanted list
+
+    // Where the spot came from: the DXCluster, WSJT-X, ...
+    SpotSource  source           = SpotSourceUnknown;
 
     // UI state (used by DXClusterAssistant only)
     bool        hidden           = false;    // Per-session; never persisted to disk

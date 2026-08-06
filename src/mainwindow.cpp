@@ -5446,6 +5446,7 @@ void MainWindow::checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const dou
     // also gives the spot the same-continent bonus it deserves.
     spot.setSpotter(_spotter.isEmpty() ? stationCallsign : _spotter);
     spot.setComment(_comment);
+    spot.setSource(SpotSourceWSJTX);
     spot.setDateTime(_dateTime.isValid() ? _dateTime.toUTC() : QDateTime::currentDateTimeUtc());
     feedDXAssistantWithSpot(spot);
 }
@@ -5478,15 +5479,21 @@ bool MainWindow::wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _f
     return false;
 }
 
-void MainWindow::slotWSJTXStationDecoded(const QString &_dxCall, const double _freq, const QString &_mode,
-                                         const int _snr, const bool _callingCQ, const QDateTime &_dateTime)
+void MainWindow::slotWSJTXStationDecoded(const QString &_caller, const QString &_remoteStation,
+                                         const double _freq, const QString &_mode, const int _snr,
+                                         const bool _callingCQ, const QDateTime &_dateTime)
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
-    // Every line WSJT-X decodes is a station we are hearing ourselves: the
-    // most local spot there is, and the reason the DX Assistant can tell what
-    // is worth working on the band being monitored without waiting for the
-    // DXCluster to report it.
-    if (_dxCall == stationCallsign.toUpper())
+    // A decoded line gives up to two spots, and they are not the same thing:
+    //
+    // - The caller transmitted the message and we decoded it here, so we
+    //   heard it ourselves and we are its spotter. The SNR is its signal.
+    // - The remote station is the one being called. We did not hear it: its
+    //   callsign was simply read out of the message, and it was the caller
+    //   who heard it, so the caller is its spotter, exactly as a DXCluster
+    //   spot names the station that reported the DX.
+    const QString myCall = stationCallsign.toUpper();
+    if (_caller == myCall)
     {
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return;
@@ -5497,8 +5504,13 @@ void MainWindow::slotWSJTXStationDecoded(const QString &_dxCall, const double _f
     // strong it is being heard.
     QString comment = _callingCQ ? QString("WSJT-X CQ") : QString("WSJT-X");
     comment.append(QString(" %1 dB").arg(_snr));
+    checkWSJTXSpotWithDXAssistant(_caller, _freq, _mode, stationCallsign, comment, _dateTime);
 
-    checkWSJTXSpotWithDXAssistant(_dxCall, _freq, _mode, stationCallsign, comment, _dateTime);
+    if (!_remoteStation.isEmpty() && (_remoteStation != myCall))
+    {   // Heard by the caller, not by us: no SNR of our own to report
+        checkWSJTXSpotWithDXAssistant(_remoteStation, _freq, _mode, _caller,
+                                      tr("WSJT-X, worked by %1").arg(_caller), _dateTime);
+    }
     logEvent(Q_FUNC_INFO, "END", Debug);
 }
 

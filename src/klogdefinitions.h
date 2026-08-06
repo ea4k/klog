@@ -56,6 +56,8 @@ enum WJTXStatus {NewContinent, NewContinentInBand, NewContinentInMode,
                  NewCall, NewCallInBand, NewCallInMode };
 
 enum MouseClicks {NoClick, RightClick, SingleClick, DoubleClick};
+// Where a spot came from. Used by the DX Assistant to show and filter by it.
+enum SpotSource {SpotSourceUnknown, SpotSourceDXCluster, SpotSourceWSJTX};
 //enum DataTableHash {WorldData, BandData, ModeData};                 // Used by World & DataProxy to select the table to build a Hash
 
 //struct EntityData { // Used to pass a list of data from World to dxccstatuswidget

@@ -685,6 +685,7 @@ DXSpot DXClusterWidget::readItem(const QString _stringSpot)
     DXSpot spot;
     spot.clear();
     spot.setDateTime(QDateTime::currentDateTimeUtc());
+    spot.setSource(SpotSourceDXCluster);   // Read from the cluster stream
 
     QStringList fields = _stringSpot.split(" ");
 
