@@ -606,12 +606,7 @@ bool DXClusterAssistant::createUI()
     tableView->setContextMenuPolicy(Qt::CustomContextMenu);
     tableView->verticalHeader()->setVisible(false);
     tableView->horizontalHeader()->setStretchLastSection(true);
-    // Hidden by default: the Priority column condenses the score and the MW
-    // rank, and most cluster spots carry no mode. All three can be brought
-    // back through the header's Show columns menu.
-    tableView->setColumnHidden(DXAssistantSpotModel::ColScore, true);
-    tableView->setColumnHidden(DXAssistantSpotModel::ColMWRank, true);
-    tableView->setColumnHidden(DXAssistantSpotModel::ColMode, true);
+    applyDefaultColumns();
     tableView->horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(tableView, &QTableView::doubleClicked,
@@ -924,6 +919,60 @@ void DXClusterAssistant::clearAll()
     updateBandSummary();
 }
 
+// Hidden when the table is first built: the Priority column already condenses
+// the score and the MW rank, and most cluster spots carry no mode. All three
+// can be brought back through the Columns entry of the context menu.
+bool DXClusterAssistant::isDefaultHiddenColumn(int _column)
+{
+    return (_column == DXAssistantSpotModel::ColScore)
+        || (_column == DXAssistantSpotModel::ColMWRank)
+        || (_column == DXAssistantSpotModel::ColMode);
+}
+
+void DXClusterAssistant::applyDefaultColumns()
+{
+    if (tableView == nullptr)
+        return;
+    for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
+        tableView->setColumnHidden(i, isDefaultHiddenColumn(i));
+}
+
+bool DXClusterAssistant::filtersAreDefault() const
+{
+    if (!disabledBands.isEmpty() || !disabledStatuses.isEmpty()
+        || !disabledDXCCs.isEmpty() || !disabledSources.isEmpty())
+        return false;
+    if (followMyBand || (spotterFilter != DXAssistantProxyModel::SpotterAll))
+        return false;
+    if ((ttlMinutes != SPOT_TTL_MINUTES) || (maxSpots != MAX_SPOTS_DEFAULT))
+        return false;
+    if (tableView != nullptr)
+    {
+        for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
+        {
+            if (tableView->isColumnHidden(i) != isDefaultHiddenColumn(i))
+                return false;
+        }
+    }
+    return true;
+}
+
+void DXClusterAssistant::resetAllFilters()
+{
+    disabledBands.clear();
+    disabledStatuses.clear();
+    disabledDXCCs.clear();
+    disabledSources.clear();
+    spotterFilter = DXAssistantProxyModel::SpotterAll;
+    followMyBand  = false;
+    applyDefaultColumns();
+    // Through the setters: going back to the default cap trims a list that
+    // grew past it, and the default age drops whatever is already older.
+    setMaxSpots(MAX_SPOTS_DEFAULT);
+    setTTL(SPOT_TTL_MINUTES);
+    applyViewFilters();
+}
+
 QList<DXSpot> DXClusterAssistant::shownSpots() const
 {
     QList<DXSpot> spots;
@@ -1070,7 +1119,15 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
     // 2 - Filters: everything that shapes what the table shows
     QMenu *filtersMenu = menu.addMenu(tr("Filters"));
 
-    // 2.1 - Columns
+    // 2.1 - Reset all: back to the list the DX Assistant starts with, without
+    // walking every submenu back. Greyed out while nothing is filtered, so the
+    // menu tells at a glance whether the list is being narrowed down.
+    QAction *resetFiltersAct = filtersMenu->addAction(tr("Reset all"));
+    resetFiltersAct->setToolTip(tr("Remove all filtering and put every filter back to its default."));
+    resetFiltersAct->setEnabled(!filtersAreDefault());
+    filtersMenu->addSeparator();
+
+    // 2.2 - Columns
     int visibleColumns = 0;
     QList<int> hiddenColumns;
     for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
@@ -1104,7 +1161,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         }
     }
 
-    // 2.2 - Bands: "Follow my band" first, then every band present in the
+    // 2.3 - Bands: "Follow my band" first, then every band present in the
     // list plus the ones already filtered out, checkable one by one.
     QMenu *bandsMenu = filtersMenu->addMenu(tr("Bands"));
     QAction *followBandAct = bandsMenu->addAction(tr("Follow my band"));
@@ -1134,7 +1191,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         bandActions.insert(act, bandId);
     }
 
-    // 2.3 - Spotter: who the spotting station must be, or where. Exclusive
+    // 2.4 - Spotter: who the spotting station must be, or where. Exclusive
     // choice, from the narrowest to the widest.
     QMenu *spotterMenu = filtersMenu->addMenu(tr("Spotter"));
     QActionGroup *spotterGroup = new QActionGroup(spotterMenu);
@@ -1154,7 +1211,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         spotterActions.insert(act, static_cast<int>(option.first));
     }
 
-    // 2.4 - Age: how long a spot stays in the list
+    // 2.5 - Age: how long a spot stays in the list
     QMenu *ageMenu = filtersMenu->addMenu(tr("Age"));
     const QList<QPair<int, QString>> ageOptions =
         { {15, tr("15 minutes")}, {30, tr("30 minutes")},
@@ -1168,7 +1225,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         ageActions.insert(act, option.first);
     }
 
-    // 2.5 - Number of spots the widget manages
+    // 2.6 - Number of spots the widget manages
     QMenu *maxSpotsMenu = filtersMenu->addMenu(tr("Number spots"));
     const QList<int> maxSpotsOptions = { 10, 25, 50, 75, 100, 200, 500 };
     QHash<QAction *, int> maxSpotsActions;
@@ -1180,7 +1237,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         maxSpotsActions.insert(act, option);
     }
 
-    // 2.6 - Status: the ATNO/Needed/Worked triple the Status column shows
+    // 2.7 - Status: the ATNO/Needed/Worked triple the Status column shows
     QMenu *statusMenu = filtersMenu->addMenu(tr("Status"));
     const QList<QSOStatus> statusOptions = { ATNO, needed, worked };
     QHash<QAction *, int> statusActions;
@@ -1192,7 +1249,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         statusActions.insert(act, static_cast<int>(status));
     }
 
-    // 2.7 - Source: where the spots come from, one entry per source KLog can
+    // 2.8 - Source: where the spots come from, one entry per source KLog can
     // be fed from, whether or not it is currently feeding it.
     QMenu *sourceMenu = filtersMenu->addMenu(tr("Source"));
     const QList<SpotSource> sourceOptions = { SpotSourceDXCluster, SpotSourceWSJTX };
@@ -1205,7 +1262,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         sourceActions.insert(act, static_cast<int>(source));
     }
 
-    // 2.8 - DXCC: the entities currently in the DX Assistant
+    // 2.9 - DXCC: the entities currently in the DX Assistant
     QMenu *dxccMenu = filtersMenu->addMenu(tr("DXCC"));
     QHash<QAction *, int> dxccActions;
     for (int dxcc : dxccsInView())
@@ -1274,6 +1331,10 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
     else if (chosen == copyCallAct)
     {
         QGuiApplication::clipboard()->setText(spot.getDxCall());
+    }
+    else if (chosen == resetFiltersAct)
+    {
+        resetAllFilters();
     }
     else if (chosen == hideColumnAct)
     {

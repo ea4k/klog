@@ -94,6 +94,9 @@ private slots:
     void test_FollowMyBandOverridesTheBandCheckboxes();
     void test_ClearHiddenSpotsRestoresRows();
     void test_ClearAllEmptiesTheListAndTheHiddenCalls();
+    void test_ResetAllFiltersShowsEverythingAgain();
+    void test_ResetAllFiltersKeepsTheSpotsAndTheHiddenCalls();
+    void test_FiltersAreDefaultTracksEveryFilter();
     void test_ShownSpotsFollowsTheViewFilters();
 
     // Expiry
@@ -195,6 +198,7 @@ void tst_DXClusterAssistant::cleanup()
     engine->setUserDXCC(-1);
     widget->setTTL(DXClusterAssistant::SPOT_TTL_MINUTES);
     widget->maxSpots = DXClusterAssistant::MAX_SPOTS_DEFAULT;
+    widget->applyDefaultColumns();
     widget->applyViewFilters();
 }
 
@@ -777,6 +781,107 @@ void tst_DXClusterAssistant::test_ClearAllEmptiesTheListAndTheHiddenCalls()
 
     // The view filters are settings, not data: they survive
     QCOMPARE(widget->maxSpots, 25);
+}
+
+void tst_DXClusterAssistant::test_ResetAllFiltersShowsEverythingAgain()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+
+    // Every filter of the menu turned against the two spots at once
+    widget->disabledBands.insert(band20);
+    widget->disabledBands.insert(band40);
+    widget->disabledStatuses.insert(static_cast<int>(ATNO));
+    widget->disabledDXCCs.insert(100);
+    widget->disabledSources.insert(static_cast<int>(SpotSourceDXCluster));
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->followMyBand  = true;
+    widget->setCurrentBand(band20);
+    widget->setTTL(15);
+    widget->setMaxSpots(500);
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColDXCall, true);
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColMode, false);
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 0);
+
+    widget->resetAllFilters();
+
+    QCOMPARE(visibleRows(), 2);
+    QVERIFY(widget->disabledBands.isEmpty());
+    QVERIFY(widget->disabledStatuses.isEmpty());
+    QVERIFY(widget->disabledDXCCs.isEmpty());
+    QVERIFY(widget->disabledSources.isEmpty());
+    QCOMPARE(static_cast<int>(widget->spotterFilter),
+             static_cast<int>(DXAssistantProxyModel::SpotterAll));
+    QCOMPARE(widget->followMyBand, false);
+    QCOMPARE(widget->ttlMinutes, DXClusterAssistant::SPOT_TTL_MINUTES);
+    QCOMPARE(widget->maxSpots, DXClusterAssistant::MAX_SPOTS_DEFAULT);
+    // The columns come back to the set the widget starts with, both ways
+    QVERIFY2(!widget->tableView->isColumnHidden(DXAssistantSpotModel::ColDXCall),
+             "Reset all must show again a column hidden by hand");
+    QVERIFY2(widget->tableView->isColumnHidden(DXAssistantSpotModel::ColMode),
+             "Reset all must hide again a column shown by hand");
+}
+
+void tst_DXClusterAssistant::test_ResetAllFiltersKeepsTheSpotsAndTheHiddenCalls()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+    widget->hideSpotCall("EA1AAA");
+    widget->registerBandActivity(makeSpot("EA3CCC", band20, 500));
+
+    widget->resetAllFilters();
+
+    // Spots and hidden calls are data, not filters: "Clear all" owns those
+    QCOMPARE(widget->model->spotCount(), 2);
+    QVERIFY2(widget->hiddenCalls.contains("EA1AAA"),
+             "Reset all must not bring back the spots hidden this session");
+    QCOMPARE(visibleRows(), 1);
+    QVERIFY(!widget->bandActivity.isEmpty());
+}
+
+void tst_DXClusterAssistant::test_FiltersAreDefaultTracksEveryFilter()
+{
+    // Nothing touched yet: "Reset all" has nothing to do and is greyed out
+    QVERIFY(widget->filtersAreDefault());
+
+    widget->disabledBands.insert(band20);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledBands.clear();
+
+    widget->disabledStatuses.insert(static_cast<int>(worked));
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledStatuses.clear();
+
+    widget->disabledDXCCs.insert(100);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledDXCCs.clear();
+
+    widget->disabledSources.insert(static_cast<int>(SpotSourceWSJTX));
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledSources.clear();
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyDXCC;
+    QVERIFY(!widget->filtersAreDefault());
+    widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+
+    widget->followMyBand = true;
+    QVERIFY(!widget->filtersAreDefault());
+    widget->followMyBand = false;
+
+    widget->setTTL(15);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->setTTL(DXClusterAssistant::SPOT_TTL_MINUTES);
+
+    widget->setMaxSpots(50);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->setMaxSpots(DXClusterAssistant::MAX_SPOTS_DEFAULT);
+
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColSpotter, true);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColSpotter, false);
+
+    QVERIFY(widget->filtersAreDefault());
 }
 
 void tst_DXClusterAssistant::test_ShownSpotsFollowsTheViewFilters()

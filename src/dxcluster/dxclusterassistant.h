@@ -219,6 +219,11 @@ public:
     // so the list starts from scratch. The view filters are user settings and
     // are deliberately left untouched.
     void clearAll();
+    // "Reset all": the mirror image of clearAll(). Every entry of the Filters
+    // menu goes back to the value the DX Assistant starts with, so a list
+    // narrowed down step by step opens up again in one go. The spots and the
+    // calls hidden this session are data, not filters, and are left alone.
+    void resetAllFilters();
     void updateBandSummary();   // Refresh "Most active band" / "Band to be"
     // Push the filter state to the proxy and refresh the summary. Public so
     // MainWindow can ask for it after changing something the filters read
@@ -254,6 +259,11 @@ private:
     bool spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const;
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit
+    // Columns the table starts with hidden, and the way back to that state
+    static bool isDefaultHiddenColumn(int _column);
+    void applyDefaultColumns();
+    // Whether every filter is already at its default: greys out "Reset all"
+    bool filtersAreDefault() const;
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
     bool spotIsTooOld(DXSpot _spot) const;  // Already past the configured max age
     int spotterProximity(DXSpot _spot) const;   // One of SpotterProximity
