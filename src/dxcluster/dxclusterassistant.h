@@ -255,6 +255,7 @@ private:
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
+    bool spotIsTooOld(DXSpot _spot) const;  // Already past the configured max age
     int spotterProximity(DXSpot _spot) const;   // One of SpotterProximity
     QList<int> dxccsInView() const;   // Entities currently held, sorted by name
 

@@ -47,6 +47,7 @@ private slots:
     void test_StationFromDecodedTextDXpedition();
     void test_StationFromDecodedTextNotAStation();
     void test_ModeFromDecodeChar();
+    void test_DecodeDateTimeUsesTheUTCDate();
     void test_ParseDecodeDatagram();
     void test_ParseDecodeDatagramWithoutStatus();
     void test_ParseLowConfidenceDecodeDatagram();
@@ -217,6 +218,30 @@ void tst_UDPServer::test_ModeFromDecodeChar()
     QCOMPARE(UDPServer::modeFromDecodeChar("FT8"), QString("FT8"));
 }
 
+void tst_UDPServer::test_DecodeDateTimeUsesTheUTCDate()
+{
+    // Half past midnight UTC, which for an operator west of Greenwich is
+    // still the day before: the date of a decode is the UTC one, or every
+    // one of them would be filed a day out and look hours old.
+    const QDateTime nowUtc(QDate(2026, 3, 15), QTime(0, 30, 0), QTimeZone::UTC);
+
+    QCOMPARE(UDPServer::decodeDateTime(QTime(0, 29, 15), nowUtc),
+             QDateTime(QDate(2026, 3, 15), QTime(0, 29, 15), QTimeZone::UTC));
+
+    // A decode from just before midnight belongs to the day before, and not
+    // to a few minutes into the future
+    QCOMPARE(UDPServer::decodeDateTime(QTime(23, 58, 45), nowUtc),
+             QDateTime(QDate(2026, 3, 14), QTime(23, 58, 45), QTimeZone::UTC));
+
+    // Whatever the time of day, a decode is never in the future and never
+    // older than a day
+    const QDateTime midday(QDate(2026, 3, 15), QTime(12, 0, 0), QTimeZone::UTC);
+    QCOMPARE(UDPServer::decodeDateTime(QTime(11, 59, 0), midday),
+             QDateTime(QDate(2026, 3, 15), QTime(11, 59), QTimeZone::UTC));
+    QCOMPARE(UDPServer::decodeDateTime(QTime(12, 1, 0), midday),
+             QDateTime(QDate(2026, 3, 14), QTime(12, 1), QTimeZone::UTC));
+}
+
 void tst_UDPServer::test_ParseDecodeDatagram()
 {
     UDPServer server;
@@ -235,7 +260,13 @@ void tst_UDPServer::test_ParseDecodeDatagram()
     QCOMPARE(arguments.at(3).toString(), QString("FT8"));
     QCOMPARE(arguments.at(4).toInt(), -12);
     QCOMPARE(arguments.at(5).toBool(), true);
-    QCOMPARE(arguments.at(6).toDateTime().time(), QTime(12, 34, 15));
+    // WSJT-X gives the time of the decode in UTC and nothing else: the date
+    // has to put it in the last 24 hours, wherever the operator is
+    const QDateTime decodedAt = arguments.at(6).toDateTime();
+    const QDateTime nowUtc = QDateTime::currentDateTimeUtc();
+    QCOMPARE(decodedAt.time(), QTime(12, 34, 15));
+    QVERIFY2(decodedAt <= nowUtc, "A decode cannot have been made in the future");
+    QVERIFY2(decodedAt > nowUtc.addDays(-1), "A decode made today cannot be a day old");
 
     // An exchange brings both stations: the one we decoded and the one it is
     // calling, whose callsign we only read out of the message

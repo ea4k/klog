@@ -97,6 +97,8 @@ private slots:
     void test_ShownSpotsFollowsTheViewFilters();
 
     // Expiry
+    void test_SpotOlderThanTheTTLIsNeverAdded();
+    void test_OldDuplicateDoesNotRefreshTheAge();
     void test_TTLRemovesOldSpots();
     void test_DefaultTTLIs30Minutes();
 
@@ -807,14 +809,63 @@ void tst_DXClusterAssistant::test_ClearHiddenSpotsRestoresRows()
 // Expiry
 // ─────────────────────────────────────────────────────────────────────────────
 
+void tst_DXClusterAssistant::test_SpotOlderThanTheTTLIsNeverAdded()
+{
+    // WSJT-X answers the replay request with everything its band activity
+    // window is showing, which after a while of monitoring is mostly history:
+    // a spot already past the age the user allows never enters the list.
+    DXSpot ancient = makeSpot("EA1AAA", band20, 1100);
+    ancient.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 200));
+    widget->addOrUpdateSpot(ancient);
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    // Just inside the age it is still worth showing
+    DXSpot borderline = makeSpot("EA2BBB", band20, 800);
+    borderline.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 29));
+    widget->addOrUpdateSpot(borderline);
+    QCOMPARE(widget->model->spotCount(), 1);
+
+    // It is the configured age that decides, not a fixed one
+    widget->setTTL(15);
+    QCOMPARE(widget->model->spotCount(), 0);   // The 29 min one is now over it
+
+    DXSpot twentyMinutes = makeSpot("EA3CCC", band20, 500);
+    twentyMinutes.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 20));
+    widget->addOrUpdateSpot(twentyMinutes);
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    DXSpot tenMinutes = makeSpot("EA4DDD", band20, 500);
+    tenMinutes.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 10));
+    widget->addOrUpdateSpot(tenMinutes);
+    QCOMPARE(widget->model->spotCount(), 1);
+}
+
+void tst_DXClusterAssistant::test_OldDuplicateDoesNotRefreshTheAge()
+{
+    addScored("EA1AAA", band20, 1100);
+    const QDateTime stored = widget->model->spotAt(0).getDateTime();
+
+    // An over-age report of a station already listed does not touch its age
+    // either, or a replayed decode would age out an entry that is fresh.
+    DXSpot old = makeSpot("EA1AAA", band20, 1100);
+    old.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 90));
+    widget->addOrUpdateSpot(old);
+
+    QCOMPARE(widget->model->spotCount(), 1);
+    QCOMPARE(widget->model->spotAt(0).getDateTime(), stored);
+}
+
 void tst_DXClusterAssistant::test_TTLRemovesOldSpots()
 {
-    DXSpot fresh = makeSpot("EA1AAA", band20, 1100);
-    DXSpot old   = makeSpot("EA2BBB", band20, 800);
-    old.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 45));   // 45 min ago
-    widget->addOrUpdateSpot(fresh);
-    widget->addOrUpdateSpot(old);
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band20, 800);
     QCOMPARE(widget->model->spotCount(), 2);
+
+    // Spots over the age can no longer be added, they can only grow old in
+    // the list, so this one is aged where it already sits
+    DXSpot aged = widget->model->spotAt(1);
+    aged.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-60 * 45));   // 45 min ago
+    widget->model->replaceSpot(1, aged);
 
     widget->slotTimerTick();   // TTL is 30 minutes
     QCOMPARE(widget->model->spotCount(), 1);

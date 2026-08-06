@@ -6,6 +6,8 @@ TBD - 2.6
 - New feature: The sources feeding the DX Assistant, DXCluster and WSJT-X, can be enabled and disabled independently in Setup, in the DXCluster page.
 - New feature: The DX Assistant has a Source column showing where each spot came from, and the context menu can filter the list by source.
 - New feature: A "My call" option in the Spotter filter of the DX Assistant shows only the spots your own station reported, the ones you heard yourself.
+- Bugfix: The DX Assistant showed spots older than the configured maximum age, most visibly at startup, when WSJT-X replies to KLog with every decode its band activity window holds. A spot already past that age is no longer added to the list.
+- Bugfix: The decodes coming from WSJT-X were dated with the local date and the UTC time, so west of Greenwich every one of them was filed a day out and shown as hours old.
 - Enhancement: Several spots can be selected in the DX Assistant and hidden in one go. Hiding now opens the context menu, above Copy Callsign, and reads "Hide these spots" when more than one is selected.
 - Enhancement: When the DX Assistant already holds a station on a band and the same station is reported again, the entry only changes hands if the new spotter is closer to you (other continent, your continent, your DXCC, yourself). Otherwise only its age is refreshed, so the spotter, the comment and the source of the best report are no longer overwritten by a more distant one.
 - Enhancement: A decoded WSJT-X line spots both stations: the one transmitting, with your own callsign as the spotter because you heard it yourself, and the one being called, with the transmitting station as its spotter.

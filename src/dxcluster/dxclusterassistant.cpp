@@ -684,6 +684,9 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     if (spot.getScore() < 0)
         return;   // Discarded by the engine (confirmed / unresolvable)
 
+    if (spotIsTooOld(spot))
+        return;   // Already past the age the user allows: never worth showing
+
     if (hiddenCalls.contains(spot.getDxCall()))
         return;   // Hidden this session: silently dropped
 
@@ -714,6 +717,19 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     existing.setDateTime(spot.getDateTime());
     model->replaceSpot(row, existing);
     updateBandSummary();
+}
+
+bool DXClusterAssistant::spotIsTooOld(DXSpot _spot) const
+{
+    // Mirror of DXAssistantSpotModel::removeOlderThan: a spot the very next
+    // TTL sweep would drop has no business entering the list, not even to
+    // refresh an entry already there. WSJT-X in particular replies to the
+    // replay request with everything its band activity window is showing,
+    // which after a few hours of monitoring is mostly history.
+    const QDateTime when = _spot.getDateTime();
+    if (!when.isValid())
+        return false;   // Undated: treated as just arrived, as it always was
+    return when.secsTo(QDateTime::currentDateTimeUtc()) > qint64(ttlMinutes) * 60;
 }
 
 int DXClusterAssistant::spotterProximity(DXSpot _spot) const

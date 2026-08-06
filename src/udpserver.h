@@ -108,6 +108,8 @@ private:
     bool startNow(quint16 _port, QHostAddress const& _multicast_group_address);
     void requestReplay();       // Asks WSJT-X to resend the decodes it is showing
     static QString modeFromDecodeChar(const QString &_mode);
+    // When a decode was made, out of the UTC time WSJT-X gives for it
+    static QDateTime decodeDateTime(const QTime &_time, const QDateTime &_nowUtc);
 
     QNetworkInterface networkInterface;
     QUdpSocket *socketServer;
