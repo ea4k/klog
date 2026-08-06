@@ -386,11 +386,7 @@ void UDPServer::parse(const QByteArray &msg)
             if (decodedMode.isEmpty())
                 decodedMode = dialMode;
 
-            // WSJT-X only tells the time of the decode: a replay may bring
-            // decodes from just before midnight while it is already past it.
-            QDateTime when = QDateTime(QDate::currentDate(), time, QTimeZone::UTC);
-            if (when > QDateTime::currentDateTimeUtc())
-                when = when.addDays(-1);
+            const QDateTime when = decodeDateTime(time, QDateTime::currentDateTimeUtc());
 
             emit stationDecoded(station.caller, station.remoteStation, decodedFrequency,
                                 decodedMode, snr, station.callingCQ, when);
@@ -541,6 +537,19 @@ void UDPServer::requestReplay()
     out << quint32(0xadbccbda) << clientSchema << quint32(Replay) << clientId;
     socketServer->writeDatagram(datagram, clientAddress, clientPort);
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+QDateTime UDPServer::decodeDateTime(const QTime &_time, const QDateTime &_nowUtc)
+{
+    // WSJT-X only tells the time of the decode, in UTC, so the date has to be
+    // the UTC one too: taking the local date would put every decode a day out
+    // west of Greenwich. A replay also brings decodes from just before
+    // midnight while it is already past it, and those belong to the day
+    // before, which is what makes them look like they came from the future.
+    QDateTime when(_nowUtc.date(), _time, QTimeZone::UTC);
+    if (when > _nowUtc)
+        when = when.addDays(-1);
+    return when;
 }
 
 QString UDPServer::modeFromDecodeChar(const QString &_mode)
