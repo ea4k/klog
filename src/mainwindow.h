@@ -362,6 +362,8 @@ private:
     void initDXAssistant();
     void reconfigureDXAssistantUI(const bool _enabled);  // Adds/removes the DX Assistant tab
     void syncDXAssistantState();   // Pushes the current band and rig state to the widget
+    // Scores a spot, whatever its source, and hands it to the DX Assistant
+    void feedDXAssistantWithSpot(const DXSpot &_spot);
     // A station WSJT-X hears is a spot like any other: it is turned into a
     // DXSpot and scored by the very same engine the DXCluster uses.
     void checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const double _freq,
@@ -678,6 +680,9 @@ private:
     QString myContinent;                      // Derived once at startup from the station callsign
     bool dxAssistantEnabled;
     bool clubLogMostWantedEnabled;
+    // Where the spots the DX Assistant scores are allowed to come from
+    bool dxAssistantSourceDXCluster;
+    bool dxAssistantSourceWSJTX;
     // WSJT-X repeats its status message about once per second and decodes the
     // same station once per transmission period: rescoring every one of them
     // would hit the database for nothing, so a station is only handed over to

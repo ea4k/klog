@@ -251,6 +251,8 @@ void MainWindow::init_variables()
     clubLogMostWanted  = nullptr;
     dxAssistantEnabled = false;
     clubLogMostWantedEnabled = false;
+    dxAssistantSourceDXCluster = true;   // Both sources feed it unless the
+    dxAssistantSourceWSJTX = true;       // user says otherwise in Setup
     myContinent = QString();
     QRZCOMAutoCheckAct->setCheckable(true);
     QRZCOMAutoCheckAct->setChecked(false);
@@ -5394,8 +5396,17 @@ void MainWindow::slotShowStats()
 
 void MainWindow::slotDXAssistantNewSpot(const DXSpot &_spot)
 {
-    // Called for every arriving DXCluster spot; scoring only makes sense
-    // once the assistant tab exists to show the result.
+    // Called for every arriving DXCluster spot, one of the two sources the
+    // user can pick in Setup.
+    if (!dxAssistantSourceDXCluster)
+        return;
+    feedDXAssistantWithSpot(_spot);
+}
+
+void MainWindow::feedDXAssistantWithSpot(const DXSpot &_spot)
+{
+    // Scoring only makes sense once the assistant tab exists to show the
+    // result.
     if (!dxAssistantEnabled || (dxAssistantEngine == nullptr) || (dxClusterAssistant == nullptr))
         return;
 
@@ -5413,7 +5424,10 @@ void MainWindow::checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const dou
 {
     // A station arriving from WSJT-X deserves the same treatment as a
     // DXCluster spot: it is scored by the DX Assistant engine and, if it is
-    // worth working, it shows up in the DX Assistant tab.
+    // worth working, it shows up in the DX Assistant tab. WSJT-X is the other
+    // source the user can pick in Setup.
+    if (!dxAssistantSourceWSJTX)
+        return;
     if (!dxAssistantEnabled || (dxAssistantEngine == nullptr) || (dxClusterAssistant == nullptr))
         return;
     if (_dxCall.isEmpty() || (_freq <= 0.0))
@@ -5433,7 +5447,7 @@ void MainWindow::checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const dou
     spot.setSpotter(_spotter.isEmpty() ? stationCallsign : _spotter);
     spot.setComment(_comment);
     spot.setDateTime(_dateTime.isValid() ? _dateTime.toUTC() : QDateTime::currentDateTimeUtc());
-    slotDXAssistantNewSpot(spot);
+    feedDXAssistantWithSpot(spot);
 }
 
 bool MainWindow::wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _freq)
@@ -7043,6 +7057,8 @@ bool MainWindow::loadSettings()
     settings.beginGroup ("DXAssistant");
     dxAssistantEnabled = settings.value("enabled", false).toBool();
     clubLogMostWantedEnabled = settings.value("clublogMostWantedEnabled", false).toBool();
+    dxAssistantSourceDXCluster = settings.value("sourceDXCluster", true).toBool();
+    dxAssistantSourceWSJTX = settings.value("sourceWSJTX", true).toBool();
     settings.endGroup ();
 
     eQSLTabWidget->loadSettings();
