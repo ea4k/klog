@@ -60,14 +60,21 @@ enum Type
 };
 
 // What KLog could make out of one of the lines WSJT-X decodes, like
-// "CQ EA4K IN80" or "EA4K W1AW -15": who transmitted it and whether that
-// station is calling CQ (and is therefore ready to be worked right now).
+// "CQ EA4K IN80" or "W1AW EA4K -15".
+//
+// The caller is the station transmitting the message: we decoded it here, so
+// we heard it ourselves. The remote station is the one being called: its
+// callsign is only read out of the message, it was the caller who heard it,
+// not us. Both are on the air and both are worth knowing about, but they are
+// not known with the same authority, and that is what tells them apart when
+// the spots are built.
 struct WSJTXDecodedStation
 {
-    QString call;             // Station that transmitted the decoded message
+    QString caller;           // Station that transmitted the decoded message
+    QString remoteStation;    // Station being called; empty when calling CQ
     bool    callingCQ = false;
 
-    bool isEmpty() const { return call.isEmpty(); }
+    bool isEmpty() const { return caller.isEmpty(); }
 };
 
 class UDPServer : public QObject
@@ -143,12 +150,14 @@ signals:
 
     void logged(const QSO &qso);
 
-    // A station decoded by WSJT-X. The frequency is the dial frequency of the
-    // last Status message plus the audio offset of the decode, in MHz, and
-    // the date & time are those of the decode itself: a replay of the WSJT-X
-    // window brings decodes that may be several minutes old.
-    void stationDecoded(const QString &_dxCall, const double _freq, const QString &_mode,
-                        const int _snr, const bool _callingCQ, const QDateTime &_dateTime);
+    // A line decoded by WSJT-X: the station that transmitted it and, unless it
+    // was calling CQ, the station it was calling. The frequency is the dial
+    // frequency of the last Status message plus the audio offset of the
+    // decode, in MHz, and the date & time are those of the decode itself: a
+    // replay of the WSJT-X window brings decodes that may be minutes old.
+    void stationDecoded(const QString &_caller, const QString &_remoteStation,
+                        const double _freq, const QString &_mode, const int _snr,
+                        const bool _callingCQ, const QDateTime &_dateTime);
 
     void clearSignal(QString _func);
 

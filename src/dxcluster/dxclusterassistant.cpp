@@ -89,6 +89,7 @@ QVariant DXAssistantSpotModel::headerData(int section, Qt::Orientation orientati
     case ColMode:      return tr("Mode");
     case ColStatus:    return tr("Status");
     case ColSpotter:   return tr("Spotter");
+    case ColSource:    return tr("Source");
     case ColAge:       return tr("Age");
     case ColMWRank:    return tr("MW Rank");
     default:           return QVariant();
@@ -136,6 +137,16 @@ QString DXAssistantSpotModel::statusText(const DXSpot &_spot) const
     return statusName(effectiveStatus(_spot));
 }
 
+QString DXAssistantSpotModel::sourceName(SpotSource _source)
+{
+    switch (_source)
+    {
+    case SpotSourceDXCluster: return tr("DXCluster");
+    case SpotSourceWSJTX:     return tr("WSJT-X");
+    default:                  return QString();
+    }
+}
+
 QVariant DXAssistantSpotModel::sortValue(const DXSpot &_spot, int _column) const
 {
     DXSpot spot(_spot);
@@ -150,6 +161,7 @@ QVariant DXAssistantSpotModel::sortValue(const DXSpot &_spot, int _column) const
     case ColMode:      return spot.getMode();
     case ColStatus:    return static_cast<int>(effectiveStatus(spot));
     case ColSpotter:   return spot.getSpotter();
+    case ColSource:    return sourceName(spot.getSource());
     case ColAge:       return spot.getDateTime().secsTo(QDateTime::currentDateTimeUtc());
     case ColMWRank:    // Unranked entities (0) must sort after any ranked one
         return (spot.getMostWantedRank() > 0) ? spot.getMostWantedRank()
@@ -185,6 +197,9 @@ QVariant DXAssistantSpotModel::data(const QModelIndex &index, int role) const
 
     if (role == DXCCRole)
         return spot.getDXCC();
+
+    if (role == SourceRole)
+        return static_cast<int>(spot.getSource());
 
     if (role == Qt::ToolTipRole)
     {   // Exact UTC arrival time of the spot
@@ -230,6 +245,11 @@ QVariant DXAssistantSpotModel::data(const QModelIndex &index, int role) const
         return statusText(spot);
     case ColSpotter:
         return spot.getSpotter();
+    case ColSource:
+    {
+        const QString name = sourceName(spot.getSource());
+        return name.isEmpty() ? QStringLiteral("---") : name;
+    }
     case ColAge:
     {
         qint64 minutes = spot.getDateTime().secsTo(QDateTime::currentDateTimeUtc()) / 60;
@@ -370,6 +390,7 @@ DXAssistantProxyModel::DXAssistantProxyModel(QObject *parent)
     disabledBands    = nullptr;
     disabledStatuses = nullptr;
     disabledDXCCs    = nullptr;
+    disabledSources  = nullptr;
     spotterFilter    = SpotterAll;
     userDXCC         = -1;
     followBand       = false;
@@ -398,6 +419,12 @@ void DXAssistantProxyModel::setDisabledStatuses(const QSet<int> *_statuses)
 void DXAssistantProxyModel::setDisabledDXCCs(const QSet<int> *_dxccs)
 {
     disabledDXCCs = _dxccs;
+    invalidateFilter();
+}
+
+void DXAssistantProxyModel::setDisabledSources(const QSet<int> *_sources)
+{
+    disabledSources = _sources;
     invalidateFilter();
 }
 
@@ -451,6 +478,12 @@ bool DXAssistantProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &s
     {
         int dxcc = sourceModel()->data(idx, DXAssistantSpotModel::DXCCRole).toInt();
         if (disabledDXCCs->contains(dxcc))
+            return false;
+    }
+    if (disabledSources != nullptr)
+    {
+        int source = sourceModel()->data(idx, DXAssistantSpotModel::SourceRole).toInt();
+        if (disabledSources->contains(source))
             return false;
     }
     // An unknown reference (no continent / no entity for the station) leaves
@@ -548,6 +581,7 @@ bool DXClusterAssistant::createUI()
     proxy->setDisabledBands(&disabledBands);
     proxy->setDisabledStatuses(&disabledStatuses);
     proxy->setDisabledDXCCs(&disabledDXCCs);
+    proxy->setDisabledSources(&disabledSources);
 
     tableView = new QTableView(this);
     tableView->setModel(proxy);
@@ -1064,7 +1098,20 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         statusActions.insert(act, static_cast<int>(status));
     }
 
-    // 2.7 - DXCC: the entities currently in the DX Assistant
+    // 2.7 - Source: where the spots come from, one entry per source KLog can
+    // be fed from, whether or not it is currently feeding it.
+    QMenu *sourceMenu = filtersMenu->addMenu(tr("Source"));
+    const QList<SpotSource> sourceOptions = { SpotSourceDXCluster, SpotSourceWSJTX };
+    QHash<QAction *, int> sourceActions;
+    for (SpotSource source : sourceOptions)
+    {
+        QAction *act = sourceMenu->addAction(DXAssistantSpotModel::sourceName(source));
+        act->setCheckable(true);
+        act->setChecked(!disabledSources.contains(static_cast<int>(source)));
+        sourceActions.insert(act, static_cast<int>(source));
+    }
+
+    // 2.8 - DXCC: the entities currently in the DX Assistant
     QMenu *dxccMenu = filtersMenu->addMenu(tr("DXCC"));
     QHash<QAction *, int> dxccActions;
     for (int dxcc : dxccsInView())
@@ -1178,6 +1225,15 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
             disabledStatuses.insert(status);
         applyViewFilters();
     }
+    else if (sourceActions.contains(chosen))
+    {
+        int source = sourceActions.value(chosen);
+        if (disabledSources.contains(source))
+            disabledSources.remove(source);
+        else
+            disabledSources.insert(source);
+        applyViewFilters();
+    }
     else if (dxccActions.contains(chosen))
     {
         int dxcc = dxccActions.value(chosen);
@@ -1250,6 +1306,8 @@ bool DXClusterAssistant::spotIsShown(DXSpot _spot) const
         return false;
     }
     if (disabledDXCCs.contains(_spot.getDXCC()))
+        return false;
+    if (disabledSources.contains(static_cast<int>(_spot.getSource())))
         return false;
     if ((model != nullptr)
         && disabledStatuses.contains(static_cast<int>(model->statusOf(_spot))))

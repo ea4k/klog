@@ -234,9 +234,10 @@ private slots:
 
     // <DX-ASSISTANT>
     void slotDXAssistantNewSpot(const DXSpot &_spot);
-    // Every station WSJT-X decodes, straight from the UDP server
-    void slotWSJTXStationDecoded(const QString &_dxCall, const double _freq, const QString &_mode,
-                                 const int _snr, const bool _callingCQ, const QDateTime &_dateTime);
+    // Every line WSJT-X decodes, straight from the UDP server
+    void slotWSJTXStationDecoded(const QString &_caller, const QString &_remoteStation,
+                                 const double _freq, const QString &_mode, const int _snr,
+                                 const bool _callingCQ, const QDateTime &_dateTime);
     void slotDXAssistantRecalculate();
     void slotDXAssistantSendSpotToUI(const DXSpot &_spot);
     void slotDXAssistantLogSpot(const DXSpot &_spot);

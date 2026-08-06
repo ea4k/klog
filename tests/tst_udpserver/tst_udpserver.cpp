@@ -42,6 +42,7 @@ private slots:
     void test_StationFromDecodedTextCQ();
     void test_StationFromDecodedTextCQWithDirective();
     void test_StationFromDecodedTextExchange();
+    void test_StationFromDecodedTextCQHasNoRemoteStation();
     void test_StationFromDecodedTextCompoundCalls();
     void test_StationFromDecodedTextDXpedition();
     void test_StationFromDecodedTextNotAStation();
@@ -102,69 +103,86 @@ QByteArray tst_UDPServer::statusDatagram(const quint64 _frequency, const QString
 void tst_UDPServer::test_StationFromDecodedTextCQ()
 {
     WSJTXDecodedStation station = UDPServer::stationFromDecodedText("CQ EA4K IN80");
-    QCOMPARE(station.call, QString("EA4K"));
+    QCOMPARE(station.caller, QString("EA4K"));
     QCOMPARE(station.callingCQ, true);
     QCOMPARE(station.isEmpty(), false);
 
     station = UDPServer::stationFromDecodedText("CQ W1AW");
-    QCOMPARE(station.call, QString("W1AW"));
+    QCOMPARE(station.caller, QString("W1AW"));
     QCOMPARE(station.callingCQ, true);
 
     // A decode may arrive with the hint markers WSJT-X adds to the line
     station = UDPServer::stationFromDecodedText("CQ EA4K IN80          a1");
-    QCOMPARE(station.call, QString("EA4K"));
+    QCOMPARE(station.caller, QString("EA4K"));
     QCOMPARE(station.callingCQ, true);
 
     station = UDPServer::stationFromDecodedText("QRZ EA4K IN80");
-    QCOMPARE(station.call, QString("EA4K"));
+    QCOMPARE(station.caller, QString("EA4K"));
     QCOMPARE(station.callingCQ, true);
 }
 
 void tst_UDPServer::test_StationFromDecodedTextCQWithDirective()
 {
     WSJTXDecodedStation station = UDPServer::stationFromDecodedText("CQ DX EA4K IN80");
-    QCOMPARE(station.call, QString("EA4K"));
+    QCOMPARE(station.caller, QString("EA4K"));
     QCOMPARE(station.callingCQ, true);
 
     station = UDPServer::stationFromDecodedText("CQ EU EA4K IN80");
-    QCOMPARE(station.call, QString("EA4K"));
+    QCOMPARE(station.caller, QString("EA4K"));
 
     station = UDPServer::stationFromDecodedText("CQ TEST W1AW FN31");
-    QCOMPARE(station.call, QString("W1AW"));
+    QCOMPARE(station.caller, QString("W1AW"));
 
     station = UDPServer::stationFromDecodedText("CQ POTA EA4K");
-    QCOMPARE(station.call, QString("EA4K"));
+    QCOMPARE(station.caller, QString("EA4K"));
 }
 
 void tst_UDPServer::test_StationFromDecodedTextExchange()
 {
-    // The station transmitting is the second one: the first is being called
+    // The station transmitting is the second one: the first is the remote
+    // station it is calling, which we are not hearing ourselves
     WSJTXDecodedStation station = UDPServer::stationFromDecodedText("EA4K W1AW -15");
-    QCOMPARE(station.call, QString("W1AW"));
+    QCOMPARE(station.caller, QString("W1AW"));
+    QCOMPARE(station.remoteStation, QString("EA4K"));
     QCOMPARE(station.callingCQ, false);
 
     station = UDPServer::stationFromDecodedText("EA4K W1AW RR73");
-    QCOMPARE(station.call, QString("W1AW"));
+    QCOMPARE(station.caller, QString("W1AW"));
+    QCOMPARE(station.remoteStation, QString("EA4K"));
 
     station = UDPServer::stationFromDecodedText("EA4K W1AW R+03");
-    QCOMPARE(station.call, QString("W1AW"));
+    QCOMPARE(station.caller, QString("W1AW"));
+    QCOMPARE(station.remoteStation, QString("EA4K"));
 
     // A hashed callsign KLog cannot resolve is not a station to spot
     station = UDPServer::stationFromDecodedText("<...> W1AW -15");
-    QCOMPARE(station.call, QString("W1AW"));
+    QCOMPARE(station.caller, QString("W1AW"));
+    QCOMPARE(station.remoteStation.isEmpty(), true);
     station = UDPServer::stationFromDecodedText("EA4K <...> -15");
     QCOMPARE(station.isEmpty(), true);
+    QCOMPARE(station.remoteStation.isEmpty(), true);
+}
+
+void tst_UDPServer::test_StationFromDecodedTextCQHasNoRemoteStation()
+{
+    // Nobody is being called, so there is only the station calling CQ
+    WSJTXDecodedStation station = UDPServer::stationFromDecodedText("CQ EA4K IN80");
+    QCOMPARE(station.caller, QString("EA4K"));
+    QCOMPARE(station.remoteStation.isEmpty(), true);
+
+    station = UDPServer::stationFromDecodedText("CQ DX EA4K IN80");
+    QCOMPARE(station.remoteStation.isEmpty(), true);
 }
 
 void tst_UDPServer::test_StationFromDecodedTextCompoundCalls()
 {
     WSJTXDecodedStation station = UDPServer::stationFromDecodedText("CQ EA4K/P");
-    QCOMPARE(station.call, QString("EA4K/P"));
+    QCOMPARE(station.caller, QString("EA4K/P"));
     QCOMPARE(station.callingCQ, true);
 
     // WSJT-X sends a known non standard callsign between brackets
     station = UDPServer::stationFromDecodedText("W1AW <PJ4/EA4K> R+03");
-    QCOMPARE(station.call, QString("PJ4/EA4K"));
+    QCOMPARE(station.caller, QString("PJ4/EA4K"));
     QCOMPARE(station.callingCQ, false);
 }
 
@@ -172,7 +190,8 @@ void tst_UDPServer::test_StationFromDecodedTextDXpedition()
 {
     // DXpedition (fox & hound) mode: the fox is the one between brackets
     WSJTXDecodedStation station = UDPServer::stationFromDecodedText("W1AW RR73; EA4K <KH1/KH7Z> -08");
-    QCOMPARE(station.call, QString("KH1/KH7Z"));
+    QCOMPARE(station.caller, QString("KH1/KH7Z"));
+    QCOMPARE(station.remoteStation, QString("W1AW"));
     QCOMPARE(station.callingCQ, false);
 }
 
@@ -210,16 +229,33 @@ void tst_UDPServer::test_ParseDecodeDatagram()
     QCOMPARE(spy.count(), 1);
     QList<QVariant> arguments = spy.takeFirst();
     QCOMPARE(arguments.at(0).toString(), QString("W1AW"));
+    QCOMPARE(arguments.at(1).toString(), QString());   // Calling CQ: no remote station
     // 14.074 MHz dial + 1500 Hz of audio offset
-    QCOMPARE(arguments.at(1).toDouble(), 14.0755);
-    QCOMPARE(arguments.at(2).toString(), QString("FT8"));
-    QCOMPARE(arguments.at(3).toInt(), -12);
-    QCOMPARE(arguments.at(4).toBool(), true);
-    QCOMPARE(arguments.at(5).toDateTime().time(), QTime(12, 34, 15));
+    QCOMPARE(arguments.at(2).toDouble(), 14.0755);
+    QCOMPARE(arguments.at(3).toString(), QString("FT8"));
+    QCOMPARE(arguments.at(4).toInt(), -12);
+    QCOMPARE(arguments.at(5).toBool(), true);
+    QCOMPARE(arguments.at(6).toDateTime().time(), QTime(12, 34, 15));
+
+    // An exchange brings both stations: the one we decoded and the one it is
+    // calling, whose callsign we only read out of the message
+    server.parse(decodeDatagram("K1ABC W1AW -15", "~", -12, 1500));
+    QCOMPARE(spy.count(), 1);
+    arguments = spy.takeFirst();
+    QCOMPARE(arguments.at(0).toString(), QString("W1AW"));
+    QCOMPARE(arguments.at(1).toString(), QString("K1ABC"));
+    QCOMPARE(arguments.at(5).toBool(), false);
 
     // Our own callsign, as WSJT-X knows it, is never spotted
     server.parse(decodeDatagram("CQ EA4K IN80", "~", -12, 1500));
     QCOMPARE(spy.count(), 0);
+
+    // ... not even when it is the one being called
+    server.parse(decodeDatagram("EA4K W1AW -15", "~", -12, 1500));
+    QCOMPARE(spy.count(), 1);
+    arguments = spy.takeFirst();
+    QCOMPARE(arguments.at(0).toString(), QString("W1AW"));
+    QCOMPARE(arguments.at(1).toString(), QString());
 }
 
 void tst_UDPServer::test_ParseDecodeDatagramWithoutStatus()
