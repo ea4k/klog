@@ -599,7 +599,9 @@ bool DXClusterAssistant::createUI()
     tableView->setSortingEnabled(true);
     tableView->sortByColumn(DXAssistantSpotModel::ColScore, Qt::DescendingOrder);
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    // Several spots can be picked at once, so a batch of them can be hidden
+    // in one go rather than one right-click at a time.
+    tableView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     tableView->setContextMenuPolicy(Qt::CustomContextMenu);
     tableView->verticalHeader()->setVisible(false);
@@ -951,10 +953,38 @@ void DXClusterAssistant::slotDoubleClicked(const QModelIndex &_index)
 
 void DXClusterAssistant::slotTableContextMenu(const QPoint &_pos)
 {
+    const QModelIndex clicked = tableView->indexAt(_pos);
+    // Right-clicking outside the selection works on the row under the cursor,
+    // as everywhere else: the menu must never act on rows the user cannot see
+    // it is about to act on.
+    if (clicked.isValid() && (tableView->selectionModel() != nullptr)
+        && !tableView->selectionModel()->isRowSelected(clicked.row(), clicked.parent()))
+    {
+        tableView->selectionModel()->select(clicked,
+                                            QItemSelectionModel::ClearAndSelect |
+                                            QItemSelectionModel::Rows);
+        tableView->setCurrentIndex(clicked);
+    }
+
     DXSpot spot;
-    bool hasSpot = spotForProxyIndex(tableView->indexAt(_pos), spot);
+    bool hasSpot = spotForProxyIndex(clicked, spot);
     showContextMenu(tableView->viewport()->mapToGlobal(_pos),
                     tableView->columnAt(_pos.x()), spot, hasSpot);
+}
+
+QList<DXSpot> DXClusterAssistant::selectedSpots() const
+{
+    QList<DXSpot> spots;
+    if ((tableView == nullptr) || (tableView->selectionModel() == nullptr))
+        return spots;
+
+    for (const QModelIndex &index : tableView->selectionModel()->selectedRows())
+    {
+        DXSpot spot;
+        if (spotForProxyIndex(index, spot))
+            spots.append(spot);
+    }
+    return spots;
 }
 
 void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
@@ -1002,7 +1032,19 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
 
     QMenu menu(this);
 
-    // 1 - Copy Callsign: the one action worth reaching without a submenu
+    // 1 - Hiding spots is what the operator does most often, so it opens the
+    // menu. It works on the whole selection: several spots can be picked and
+    // dropped from the list in one go.
+    const QList<DXSpot> selection = selectedSpots();
+    const bool severalSpots = (selection.count() > 1);
+    QAction *hideAct = menu.addAction(severalSpots ? tr("Hide these spots")
+                                                   : tr("Hide this spot"));
+    hideAct->setToolTip(severalSpots
+                        ? tr("Hide these callsigns for the rest of the session.")
+                        : tr("Hide this callsign for the rest of the session."));
+    hideAct->setEnabled(_hasSpot);
+
+    // 2 - Copy Callsign: the other action worth reaching without a submenu
     QAction *copyCallAct = menu.addAction(tr("Copy Callsign"));
     copyCallAct->setToolTip(tr("Copy the DX callsign of this spot to the clipboard."));
     copyCallAct->setEnabled(_hasSpot);
@@ -1181,9 +1223,6 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         qsyAct->setToolTip(tr("Tune the radio to the frequency of this spot."));
     }
 
-    QAction *hideAct = spotMenu->addAction(tr("Hide this spot"));
-    hideAct->setToolTip(tr("Hide this callsign for the rest of the session."));
-
     QAction *qrzAct = spotMenu->addAction(tr("Look up on QRZ.com"));
     qrzAct->setToolTip(tr("Open this callsign's page on QRZ.com."));
 
@@ -1207,7 +1246,16 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
 
     DXSpot spot(_spot);
 
-    if (chosen == copyCallAct)
+    if (chosen == hideAct)
+    {
+        QStringList calls;
+        for (DXSpot selected : selection)
+            calls.append(selected.getDxCall());
+        if (calls.isEmpty())
+            calls.append(spot.getDxCall());   // Nothing selected: the one clicked
+        hideSpotCalls(calls);
+    }
+    else if (chosen == copyCallAct)
     {
         QGuiApplication::clipboard()->setText(spot.getDxCall());
     }
@@ -1306,8 +1354,6 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
             emit spotLogDirectly(spot);
         else if ((qsyAct != nullptr) && (chosen == qsyAct))
             emit spotQSY(spot);
-        else if (chosen == hideAct)
-            hideSpotCall(spot.getDxCall());
         else if (chosen == qrzAct)
             QDesktopServices::openUrl(QUrl(QStringLiteral("https://www.qrz.com/db/") + spot.getDxCall()));
     }
@@ -1372,9 +1418,24 @@ bool DXClusterAssistant::spotIsShown(DXSpot _spot) const
 
 void DXClusterAssistant::hideSpotCall(const QString &_call)
 {
-    if (_call.isEmpty())
+    hideSpotCalls(QStringList(_call));
+}
+
+void DXClusterAssistant::hideSpotCalls(const QStringList &_calls)
+{
+    // A batch of spots is hidden in one go: the view is only rebuilt once,
+    // however many of them the user picked.
+    bool hidden = false;
+    for (const QString &call : _calls)
+    {
+        if (call.isEmpty())
+            continue;
+        hiddenCalls.insert(call);
+        hidden = true;
+    }
+    if (!hidden)
         return;
-    hiddenCalls.insert(_call);
+
     if (proxy != nullptr)
         proxy->invalidate();
     updateBandSummary();

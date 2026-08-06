@@ -249,6 +249,8 @@ private:
     void showContextMenu(const QPoint &_globalPos, int _column,
                          const DXSpot &_spot, bool _hasSpot);
     void hideSpotCall(const QString &_call);
+    void hideSpotCalls(const QStringList &_calls);   // Hides a whole selection at once
+    QList<DXSpot> selectedSpots() const;   // The spots the user has picked in the table
     bool spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const;
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit

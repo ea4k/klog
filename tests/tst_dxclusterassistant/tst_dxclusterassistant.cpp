@@ -76,6 +76,8 @@ private slots:
 
     // View filters
     void test_HiddenCallFiltersRow();
+    void test_HideSeveralCallsAtOnce();
+    void test_SeveralSpotsCanBeSelected();
     void test_BandFilterHidesRows();
     void test_ContinentFilterHidesRows();
     void test_SpotterMyDXCCFilterHidesRows();
@@ -430,6 +432,49 @@ void tst_DXClusterAssistant::test_HiddenCallFiltersRow()
     widget->hideSpotCall("EA1AAA");
     QCOMPARE(visibleRows(), 1);
     QCOMPARE(widget->model->spotCount(), 2);   // Still managed, just not shown
+}
+
+void tst_DXClusterAssistant::test_HideSeveralCallsAtOnce()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band20, 800);
+    addScored("EA3CCC", band40, 500);
+    QCOMPARE(visibleRows(), 3);
+
+    widget->hideSpotCalls(QStringList() << "EA1AAA" << "EA3CCC");
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->model->spotCount(), 3);   // Still managed, just not shown
+
+    // An empty callsign in the batch is simply skipped
+    widget->hideSpotCalls(QStringList() << QString() << "EA2BBB");
+    QCOMPARE(visibleRows(), 0);
+
+    widget->clearHiddenSpots();
+    QCOMPARE(visibleRows(), 3);
+}
+
+void tst_DXClusterAssistant::test_SeveralSpotsCanBeSelected()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band20, 800);
+    addScored("EA3CCC", band40, 500);
+
+    // The table has to allow picking more than one spot for the batch hiding
+    QCOMPARE(widget->tableView->selectionMode(), QAbstractItemView::ExtendedSelection);
+    QCOMPARE(widget->selectedSpots().count(), 0);
+
+    widget->tableView->selectRow(0);
+    widget->tableView->selectionModel()->select(widget->proxy->index(1, 0),
+                                                QItemSelectionModel::Select |
+                                                QItemSelectionModel::Rows);
+    QList<DXSpot> selected = widget->selectedSpots();
+    QCOMPARE(selected.count(), 2);
+
+    QStringList calls;
+    for (DXSpot spot : selected)
+        calls.append(spot.getDxCall());
+    widget->hideSpotCalls(calls);
+    QCOMPARE(visibleRows(), 1);
 }
 
 void tst_DXClusterAssistant::test_BandFilterHidesRows()
