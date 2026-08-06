@@ -71,7 +71,8 @@ private slots:
     void test_DiscardedSpotNeverAdded();
     void test_HiddenCallNeverAdded();
     void test_DuplicateReplacedBySameContinentSpotter();
-    void test_DuplicateKeepsScoreOtherwise();
+    void test_DuplicateKeepsTheClosestSpotter();
+    void test_DuplicateFollowsTheSpotterProximityLadder();
 
     // View filters
     void test_HiddenCallFiltersRow();
@@ -79,6 +80,9 @@ private slots:
     void test_ContinentFilterHidesRows();
     void test_SpotterMyDXCCFilterHidesRows();
     void test_SpotterMyDXCCInactiveWithoutUserEntity();
+    void test_SpotterMyCallFilterKeepsOnlyMySpots();
+    void test_SpotterMyCallInactiveWithoutMyCallsign();
+    void test_ShownSpotsFollowTheSpotterMyCallFilter();
     void test_StatusFilterHidesRows();
     void test_DXCCFilterHidesRows();
     void test_SourceFilterHidesRows();
@@ -177,6 +181,7 @@ void tst_DXClusterAssistant::cleanup()
     widget->hiddenCalls.clear();
     widget->disabledBands.clear();
     widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+    engine->setUserCallsign(QString());
     widget->disabledStatuses.clear();
     widget->disabledDXCCs.clear();
     widget->disabledSources.clear();
@@ -344,15 +349,72 @@ void tst_DXClusterAssistant::test_DuplicateReplacedBySameContinentSpotter()
     QCOMPARE(widget->model->spotAt(0).getSpotterContinent(), QString("EU"));
 }
 
-void tst_DXClusterAssistant::test_DuplicateKeepsScoreOtherwise()
+void tst_DXClusterAssistant::test_DuplicateKeepsTheClosestSpotter()
 {
-    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ"));
-    // A spot from another continent must not downgrade the stored one
-    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 950, "NA", 0, "K1ABC"));
+    DXSpot stored = makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ");
+    stored.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-600));
+    widget->addOrUpdateSpot(stored);
+
+    // A spot from another continent must not downgrade the stored one: only
+    // the age is refreshed, because the station is still being heard
+    DXSpot farther = makeSpot("EA1AAA", band20, 950, "NA", 0, "K1ABC");
+    farther.setComment("From the cluster");
+    widget->addOrUpdateSpot(farther);
 
     QCOMPARE(widget->model->spotCount(), 1);
-    QCOMPARE(widget->model->spotAt(0).getScore(), 1100);   // Original score kept
-    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("K1ABC"));  // Metadata refreshed
+    QCOMPARE(widget->model->spotAt(0).getScore(), 1100);                 // Original score kept
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA7XYZ"));  // ... and its spotter
+    QCOMPARE(widget->model->spotAt(0).getSpotterContinent(), QString("EU"));
+    QVERIFY(widget->model->spotAt(0).getComment() != QString("From the cluster"));
+    QVERIFY(widget->model->spotAt(0).getDateTime().secsTo(QDateTime::currentDateTimeUtc()) < 5);
+}
+
+void tst_DXClusterAssistant::test_DuplicateFollowsTheSpotterProximityLadder()
+{
+    // Other continent < My continent < My DXCC < My call
+    engine->setUserDXCC(281);          // Spain
+    engine->setUserCallsign("EA4K");
+
+    DXSpot elsewhere = makeSpot("EA1AAA", band20, 1000, "NA", 0, "K1ABC");
+    elsewhere.setSpotterDXCC(291);
+    widget->addOrUpdateSpot(elsewhere);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("K1ABC"));
+
+    // My continent takes over from another continent
+    DXSpot myContinent = makeSpot("EA1AAA", band20, 1100, "EU", 0, "F5ABC");
+    myContinent.setSpotterDXCC(227);   // France
+    widget->addOrUpdateSpot(myContinent);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("F5ABC"));
+
+    // My DXCC takes over from my continent
+    DXSpot myDXCC = makeSpot("EA1AAA", band20, 1200, "EU", 0, "EA7XYZ");
+    myDXCC.setSpotterDXCC(281);
+    widget->addOrUpdateSpot(myDXCC);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA7XYZ"));
+
+    // Another spotter in my own entity brings nothing closer: it stays
+    DXSpot anotherMyDXCC = makeSpot("EA1AAA", band20, 1300, "EU", 0, "EA5WWW");
+    anotherMyDXCC.setSpotterDXCC(281);
+    widget->addOrUpdateSpot(anotherMyDXCC);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA7XYZ"));
+    QCOMPARE(widget->model->spotAt(0).getScore(), 1200);
+
+    // Hearing it ourselves always wins
+    DXSpot mine = makeSpot("EA1AAA", band20, 900, "EU", 0, "EA4K");
+    mine.setSpotterDXCC(281);
+    mine.setSource(SpotSourceWSJTX);
+    widget->addOrUpdateSpot(mine);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA4K"));
+    QCOMPARE(widget->model->spotAt(0).getScore(), 900);
+    QCOMPARE(widget->model->spotAt(0).getSource(), SpotSourceWSJTX);
+
+    // ... and nothing takes the entry away from us afterwards
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1500, "EU", 0, "EA7XYZ"));
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA4K"));
+    QCOMPARE(widget->model->spotAt(0).getSource(), SpotSourceWSJTX);
+
+    engine->setUserDXCC(-1);
+    engine->setUserCallsign(QString());
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -439,6 +501,64 @@ void tst_DXClusterAssistant::test_SpotterMyDXCCInactiveWithoutUserEntity()
     widget->spotterFilter = DXAssistantProxyModel::SpotterMyDXCC;
     widget->applyViewFilters();
     QCOMPARE(visibleRows(), 1);
+}
+
+void tst_DXClusterAssistant::test_SpotterMyCallFilterKeepsOnlyMySpots()
+{
+    engine->setUserCallsign("EA4K");
+
+    // Heard here: the WSJT-X decodes are spotted with our own callsign
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA4K"));
+    // Reported by somebody else, whether by the cluster or by another station
+    widget->addOrUpdateSpot(makeSpot("EA2BBB", band20, 800, "EU", 0, "EA7XYZ"));
+    QCOMPARE(visibleRows(), 2);
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->proxy->data(widget->proxy->index(0, DXAssistantSpotModel::ColDXCall),
+                                 Qt::DisplayRole).toString(), QString("EA1AAA"));
+
+    // The callsign is matched whatever its case
+    engine->setUserCallsign("ea4k");
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 2);
+
+    engine->setUserCallsign(QString());
+}
+
+void tst_DXClusterAssistant::test_SpotterMyCallInactiveWithoutMyCallsign()
+{
+    // Without a callsign the filter is left inactive rather than hiding every
+    // spot for a reason the user cannot see, as My DXCC does.
+    engine->setUserCallsign(QString());
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ"));
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+}
+
+void tst_DXClusterAssistant::test_ShownSpotsFollowTheSpotterMyCallFilter()
+{
+    // "Show to map" and the band summary use spotIsShown(), which mirrors the
+    // rules of the proxy filter and has to agree with it.
+    engine->setUserCallsign("EA4K");
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA4K"));
+    widget->addOrUpdateSpot(makeSpot("EA2BBB", band20, 800, "EU", 0, "EA7XYZ"));
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->applyViewFilters();
+
+    QList<DXSpot> shown = widget->shownSpots();
+    QCOMPARE(shown.count(), 1);
+    QCOMPARE(shown.first().getDxCall(), QString("EA1AAA"));
+
+    engine->setUserCallsign(QString());
 }
 
 void tst_DXClusterAssistant::test_StatusFilterHidesRows()

@@ -3858,6 +3858,9 @@ void MainWindow::initDXAssistant()
         dxAssistantEngine->setMostWanted(mostWantedInUse);
     }
     dxAssistantEngine->setUserDXCC(myDXCC);
+    // Feeds the "My call" spotter filter: the spots KLog heard itself carry
+    // the station callsign in use, and fall back to the one in the user data.
+    dxAssistantEngine->setUserCallsign(stationCallsign.isEmpty() ? mainQRZ : stationCallsign);
     reconfigureDXAssistantUI(true);   // Creates the widget and shows its tab
     if (dxClusterAssistant != nullptr)
         dxClusterAssistant->setEngine(dxAssistantEngine);
@@ -5432,7 +5435,10 @@ void MainWindow::checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const dou
         return;
     if (_dxCall.isEmpty() || (_freq <= 0.0))
         return;
-    if (wsjtxSpotAlreadyChecked(_dxCall, _freq))
+    // We heard the DX ourselves, so the local station is the spotter: that
+    // also gives the spot the same-continent bonus it deserves.
+    const QString spotter = _spotter.isEmpty() ? stationCallsign : _spotter;
+    if (wsjtxSpotAlreadyChecked(_dxCall, _freq, spotter))
         return;
 
     DXSpot spot;
@@ -5442,16 +5448,15 @@ void MainWindow::checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const dou
     freq.fromDouble(_freq, MHz);
     spot.setFrequency(freq);
     spot.setMode(_mode);
-    // We heard the DX ourselves, so the local station is the spotter: that
-    // also gives the spot the same-continent bonus it deserves.
-    spot.setSpotter(_spotter.isEmpty() ? stationCallsign : _spotter);
+    spot.setSpotter(spotter);
     spot.setComment(_comment);
     spot.setSource(SpotSourceWSJTX);
     spot.setDateTime(_dateTime.isValid() ? _dateTime.toUTC() : QDateTime::currentDateTimeUtc());
     feedDXAssistantWithSpot(spot);
 }
 
-bool MainWindow::wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _freq)
+bool MainWindow::wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _freq,
+                                         const QString &_spotter)
 {
     // WSJT-X keeps repeating the same station: while its status message says
     // the same one about once per second, its decodes bring the ones on the
@@ -5462,9 +5467,12 @@ bool MainWindow::wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _f
     const QDateTime now = QDateTime::currentDateTimeUtc();
     // The assistant holds one entry per callsign and band, and each decode of
     // the same station comes with a slightly different audio offset, so the
-    // band is what identifies the spot, not the exact frequency.
+    // band is what identifies the spot, not the exact frequency. The spotter
+    // is part of the key because a station reported by somebody closer to us
+    // is a different report, and one that may take the entry over.
     const QString spotKey = _dxCall.toUpper() + "-" +
-                            QString::number(dataProxy->getBandIdFromFreq(Frequency(_freq, MHz)));
+                            QString::number(dataProxy->getBandIdFromFreq(Frequency(_freq, MHz))) +
+                            "-" + _spotter.toUpper();
 
     const QDateTime lastCheck = wsjtxCheckedSpots.value(spotKey);
     if (lastCheck.isValid() && (lastCheck.secsTo(now) < WSJTX_SPOT_REFRESH_SECONDS))
@@ -6016,6 +6024,14 @@ void MainWindow::defineStationCallsign()
     }
     dxClusterWidget->setMyQRZ(stationCallsign);
     adifLoTWExportWidget->setDefaultStationCallsign(stationCallsign);
+    // The station callsign also decides what the "My call" spotter filter of
+    // the DX Assistant considers ours, and it changes with the log in use.
+    if (dxAssistantEngine != nullptr)
+    {
+        dxAssistantEngine->setUserCallsign(stationCallsign);
+        if (dxClusterAssistant != nullptr)
+            dxClusterAssistant->applyViewFilters();
+    }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
        //qDebug() << Q_FUNC_INFO << ": " << stationCallsign << " - END" ;

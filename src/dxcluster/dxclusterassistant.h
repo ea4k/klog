@@ -79,6 +79,7 @@ public:
     static constexpr int StatusRole = Qt::UserRole + 5;   // effectiveStatus()
     static constexpr int DXCCRole = Qt::UserRole + 6;
     static constexpr int SourceRole = Qt::UserRole + 7;   // SpotSource of the spot
+    static constexpr int SpotterRole = Qt::UserRole + 8;  // Callsign of the spotter
 
     explicit DXAssistantSpotModel(World *_world, QObject *parent = nullptr);
 
@@ -127,12 +128,13 @@ class DXAssistantProxyModel : public QSortFilterProxyModel
     friend class tst_DXClusterAssistant;
 
 public:
-    // Where the spotter must be for the spot to be shown.
+    // Who the spotter must be, or where, for the spot to be shown.
     enum SpotterFilter
     {
         SpotterAll = 0,      // Any spotter (default)
         SpotterMyContinent,  // Only spotters on the user's continent
-        SpotterMyDXCC        // Only spotters in the user's own entity
+        SpotterMyDXCC,       // Only spotters in the user's own entity
+        SpotterMyCall        // Only what the user spotted: heard here
     };
 
     explicit DXAssistantProxyModel(QObject *parent = nullptr);
@@ -141,7 +143,8 @@ public:
     void setDisabledStatuses(const QSet<int> *_statuses);
     void setDisabledDXCCs(const QSet<int> *_dxccs);
     void setDisabledSources(const QSet<int> *_sources);
-    void setSpotterFilter(SpotterFilter _filter, const QString &_continent, int _dxcc);
+    void setSpotterFilter(SpotterFilter _filter, const QString &_continent, int _dxcc,
+                          const QString &_callsign = QString());
     // "Follow my band": show only the band the operator is working on. It
     // overrides the per-band checkboxes while active.
     void setFollowBand(bool _follow, int _bandId);
@@ -160,6 +163,7 @@ private:
     SpotterFilter spotterFilter;
     QString userContinent;
     int userDXCC;
+    QString userCallsign;
     bool followBand;
     int currentBandId;
 };
@@ -171,6 +175,17 @@ class DXClusterAssistant : public QWidget
 
 public:
     static constexpr int SPOT_TTL_MINUTES = 30;   // Future: loaded from QSettings
+
+    // How close to the operator the station that reported a spot is. When two
+    // spots of the same station on the same band meet, the one from the
+    // closest spotter is the one that stays.
+    enum SpotterProximity
+    {
+        SpotterElsewhere = 0,   // Another continent, or nothing known about it
+        SpotterInMyContinent,
+        SpotterInMyDXCC,
+        SpotterIsMe             // We heard the DX ourselves
+    };
 
     explicit DXClusterAssistant(Awards *_awards, World *_world,
                                 DataProxy_SQLite *_dataProxy,
@@ -205,6 +220,10 @@ public:
     // are deliberately left untouched.
     void clearAll();
     void updateBandSummary();   // Refresh "Most active band" / "Band to be"
+    // Push the filter state to the proxy and refresh the summary. Public so
+    // MainWindow can ask for it after changing something the filters read
+    // from the engine, like the station callsign behind "My call".
+    void applyViewFilters();
 
     QList<DXSpot> shownSpots() const;   // The spots the view is showing, in view order
 
@@ -231,10 +250,10 @@ private:
                          const DXSpot &_spot, bool _hasSpot);
     void hideSpotCall(const QString &_call);
     bool spotForProxyIndex(const QModelIndex &_index, DXSpot &_spot) const;
-    void applyViewFilters();          // Push filter state to the proxy and refresh the summary
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
+    int spotterProximity(DXSpot _spot) const;   // One of SpotterProximity
     QList<int> dxccsInView() const;   // Entities currently held, sorted by name
 
     Awards *awards;

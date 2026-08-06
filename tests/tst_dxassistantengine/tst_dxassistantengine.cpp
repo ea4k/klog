@@ -90,6 +90,7 @@ private slots:
     void test_UnknownDXCCIsDiscarded();
     void test_InvalidBandIsDiscarded();
     void test_EmptySpotterGetsPenalty();
+    void test_UserCallsignIsKeptUpperCased();
 
 private:
     DXSpot makeSpot(int dxcc, int bandId, const QString &continent) const;
@@ -397,6 +398,19 @@ void tst_DXAssistantEngine::test_EmptySpotterGetsPenalty()
     QCOMPARE(spot.getScore(), DXAssistantEngine::SCORE_ATNO
                                   + DXAssistantEngine::SCORE_DIFF_CONTINENT_PENALTY);
     QVERIFY(spot.getSpotterContinent().isEmpty());
+}
+
+void tst_DXAssistantEngine::test_UserCallsignIsKeptUpperCased()
+{
+    // Feeds the "My call" spotter filter of the DX Assistant, which compares
+    // it against the spotter of every spot: it is stored ready to compare.
+    QVERIFY(engine->getUserCallsign().isEmpty());
+
+    engine->setUserCallsign(" ea4k ");
+    QCOMPARE(engine->getUserCallsign(), QString("EA4K"));
+
+    engine->setUserCallsign(QString());
+    QVERIFY(engine->getUserCallsign().isEmpty());
 }
 
 QTEST_MAIN(tst_DXAssistantEngine)
