@@ -694,26 +694,49 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
         return;
     }
 
-    // Duplicate (same call+band): replace only if the new spotter is "more
-    // positive" — same continent as the user while the existing one is not.
+    // Duplicate (same call+band): the report that stays is the one from the
+    // closest spotter, so the arriving spot only takes the entry over when it
+    // climbs the proximity ladder. Everything it carries goes with it: the
+    // score it was given, the comment describing what that spotter heard and
+    // the source it came from all belong to the same report.
     DXSpot existing = model->spotAt(row);
-    QString userContinent = (engine != nullptr) ? engine->getUserContinent() : QString();
-    bool newSame = !userContinent.isEmpty() && (spot.getSpotterContinent() == userContinent);
-    bool oldSame = !userContinent.isEmpty() && (existing.getSpotterContinent() == userContinent);
-
-    if (newSame && !oldSame)
+    if (spotterProximity(spot) > spotterProximity(existing))
     {
         model->replaceSpot(row, spot);
         updateBandSummary();
         return;
     }
 
+    // Otherwise nothing new was learnt about the station beyond the fact that
+    // it is still being heard, which is what the age says.
     existing.setDateTime(spot.getDateTime());
-    existing.setSpotter(spot.getSpotter());
-    existing.setSpotterContinent(spot.getSpotterContinent());
-    existing.setComment(spot.getComment());
     model->replaceSpot(row, existing);
     updateBandSummary();
+}
+
+int DXClusterAssistant::spotterProximity(DXSpot _spot) const
+{
+    // How close to the operator the station that reported a spot is. Being
+    // the operator beats being in the same entity, which beats being in the
+    // same continent, which beats anything else: the closer the spotter, the
+    // more the report is worth, and the more likely the DX is workable from
+    // here right now.
+    if (engine == nullptr)
+        return SpotterElsewhere;
+
+    const QString userCallsign = engine->getUserCallsign();
+    if (!userCallsign.isEmpty() && (_spot.getSpotter().toUpper() == userCallsign))
+        return SpotterIsMe;
+
+    const int userDXCC = engine->getUserDXCC();
+    if ((userDXCC > 0) && (_spot.getSpotterDXCC() == userDXCC))
+        return SpotterInMyDXCC;
+
+    const QString userContinent = engine->getUserContinent();
+    if (!userContinent.isEmpty() && (_spot.getSpotterContinent() == userContinent))
+        return SpotterInMyContinent;
+
+    return SpotterElsewhere;
 }
 
 void DXClusterAssistant::registerBandActivity(DXSpot _spot)

@@ -6,6 +6,7 @@ TBD - 2.6
 - New feature: The sources feeding the DX Assistant, DXCluster and WSJT-X, can be enabled and disabled independently in Setup, in the DXCluster page.
 - New feature: The DX Assistant has a Source column showing where each spot came from, and the context menu can filter the list by source.
 - New feature: A "My call" option in the Spotter filter of the DX Assistant shows only the spots your own station reported, the ones you heard yourself.
+- Enhancement: When the DX Assistant already holds a station on a band and the same station is reported again, the entry only changes hands if the new spotter is closer to you (other continent, your continent, your DXCC, yourself). Otherwise only its age is refreshed, so the spotter, the comment and the source of the best report are no longer overwritten by a more distant one.
 - Enhancement: A decoded WSJT-X line spots both stations: the one transmitting, with your own callsign as the spotter because you heard it yourself, and the one being called, with the transmitting station as its spotter.
 - Enhancement: The UDP server can join a multicast group, so it can share the WSJT-X datagrams with other programs like JTAlert or GridTracker. The group is set in Setup, in the UDP page.
 - Enhancement: The stations WSJT-X sends to KLog are checked against the DX Assistant just like the DXCluster spots, so they are scored and listed with the rest of the spots.

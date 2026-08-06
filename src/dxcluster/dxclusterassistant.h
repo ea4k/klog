@@ -176,6 +176,17 @@ class DXClusterAssistant : public QWidget
 public:
     static constexpr int SPOT_TTL_MINUTES = 30;   // Future: loaded from QSettings
 
+    // How close to the operator the station that reported a spot is. When two
+    // spots of the same station on the same band meet, the one from the
+    // closest spotter is the one that stays.
+    enum SpotterProximity
+    {
+        SpotterElsewhere = 0,   // Another continent, or nothing known about it
+        SpotterInMyContinent,
+        SpotterInMyDXCC,
+        SpotterIsMe             // We heard the DX ourselves
+    };
+
     explicit DXClusterAssistant(Awards *_awards, World *_world,
                                 DataProxy_SQLite *_dataProxy,
                                 const QString &_parentFunction,
@@ -242,6 +253,7 @@ private:
     void enforceMaxSpots();           // Evict the lowest-value spots over the cap
     void pruneBandActivity();         // Drop raw-activity entries past the age limit
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
+    int spotterProximity(DXSpot _spot) const;   // One of SpotterProximity
     QList<int> dxccsInView() const;   // Entities currently held, sorted by name
 
     Awards *awards;

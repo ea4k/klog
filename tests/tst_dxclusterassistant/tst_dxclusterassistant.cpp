@@ -71,7 +71,8 @@ private slots:
     void test_DiscardedSpotNeverAdded();
     void test_HiddenCallNeverAdded();
     void test_DuplicateReplacedBySameContinentSpotter();
-    void test_DuplicateKeepsScoreOtherwise();
+    void test_DuplicateKeepsTheClosestSpotter();
+    void test_DuplicateFollowsTheSpotterProximityLadder();
 
     // View filters
     void test_HiddenCallFiltersRow();
@@ -348,15 +349,72 @@ void tst_DXClusterAssistant::test_DuplicateReplacedBySameContinentSpotter()
     QCOMPARE(widget->model->spotAt(0).getSpotterContinent(), QString("EU"));
 }
 
-void tst_DXClusterAssistant::test_DuplicateKeepsScoreOtherwise()
+void tst_DXClusterAssistant::test_DuplicateKeepsTheClosestSpotter()
 {
-    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ"));
-    // A spot from another continent must not downgrade the stored one
-    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 950, "NA", 0, "K1ABC"));
+    DXSpot stored = makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ");
+    stored.setDateTime(QDateTime::currentDateTimeUtc().addSecs(-600));
+    widget->addOrUpdateSpot(stored);
+
+    // A spot from another continent must not downgrade the stored one: only
+    // the age is refreshed, because the station is still being heard
+    DXSpot farther = makeSpot("EA1AAA", band20, 950, "NA", 0, "K1ABC");
+    farther.setComment("From the cluster");
+    widget->addOrUpdateSpot(farther);
 
     QCOMPARE(widget->model->spotCount(), 1);
-    QCOMPARE(widget->model->spotAt(0).getScore(), 1100);   // Original score kept
-    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("K1ABC"));  // Metadata refreshed
+    QCOMPARE(widget->model->spotAt(0).getScore(), 1100);                 // Original score kept
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA7XYZ"));  // ... and its spotter
+    QCOMPARE(widget->model->spotAt(0).getSpotterContinent(), QString("EU"));
+    QVERIFY(widget->model->spotAt(0).getComment() != QString("From the cluster"));
+    QVERIFY(widget->model->spotAt(0).getDateTime().secsTo(QDateTime::currentDateTimeUtc()) < 5);
+}
+
+void tst_DXClusterAssistant::test_DuplicateFollowsTheSpotterProximityLadder()
+{
+    // Other continent < My continent < My DXCC < My call
+    engine->setUserDXCC(281);          // Spain
+    engine->setUserCallsign("EA4K");
+
+    DXSpot elsewhere = makeSpot("EA1AAA", band20, 1000, "NA", 0, "K1ABC");
+    elsewhere.setSpotterDXCC(291);
+    widget->addOrUpdateSpot(elsewhere);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("K1ABC"));
+
+    // My continent takes over from another continent
+    DXSpot myContinent = makeSpot("EA1AAA", band20, 1100, "EU", 0, "F5ABC");
+    myContinent.setSpotterDXCC(227);   // France
+    widget->addOrUpdateSpot(myContinent);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("F5ABC"));
+
+    // My DXCC takes over from my continent
+    DXSpot myDXCC = makeSpot("EA1AAA", band20, 1200, "EU", 0, "EA7XYZ");
+    myDXCC.setSpotterDXCC(281);
+    widget->addOrUpdateSpot(myDXCC);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA7XYZ"));
+
+    // Another spotter in my own entity brings nothing closer: it stays
+    DXSpot anotherMyDXCC = makeSpot("EA1AAA", band20, 1300, "EU", 0, "EA5WWW");
+    anotherMyDXCC.setSpotterDXCC(281);
+    widget->addOrUpdateSpot(anotherMyDXCC);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA7XYZ"));
+    QCOMPARE(widget->model->spotAt(0).getScore(), 1200);
+
+    // Hearing it ourselves always wins
+    DXSpot mine = makeSpot("EA1AAA", band20, 900, "EU", 0, "EA4K");
+    mine.setSpotterDXCC(281);
+    mine.setSource(SpotSourceWSJTX);
+    widget->addOrUpdateSpot(mine);
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA4K"));
+    QCOMPARE(widget->model->spotAt(0).getScore(), 900);
+    QCOMPARE(widget->model->spotAt(0).getSource(), SpotSourceWSJTX);
+
+    // ... and nothing takes the entry away from us afterwards
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1500, "EU", 0, "EA7XYZ"));
+    QCOMPARE(widget->model->spotAt(0).getSpotter(), QString("EA4K"));
+    QCOMPARE(widget->model->spotAt(0).getSource(), SpotSourceWSJTX);
+
+    engine->setUserDXCC(-1);
+    engine->setUserCallsign(QString());
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

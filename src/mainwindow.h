@@ -370,7 +370,8 @@ private:
     void checkWSJTXSpotWithDXAssistant(const QString &_dxCall, const double _freq,
                                        const QString &_mode, const QString &_spotter,
                                        const QString &_comment, const QDateTime &_dateTime);
-    bool wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _freq);
+    bool wsjtxSpotAlreadyChecked(const QString &_dxCall, const double _freq,
+                                 const QString &_spotter);
     void backupCurrentQSO();
     void restoreCurrentQSO(const bool restoreConfig);
     void showMessageToEnableTheOnlineService(const OnLineProvider _service);
@@ -689,7 +690,7 @@ private:
     // would hit the database for nothing, so a station is only handed over to
     // the assistant once per minute.
     static constexpr int WSJTX_SPOT_REFRESH_SECONDS = 60;
-    QHash<QString, QDateTime> wsjtxCheckedSpots;   // Callsign+frequency -> when it was scored
+    QHash<QString, QDateTime> wsjtxCheckedSpots;   // Callsign+band+spotter -> when it was scored
     // </DX-ASSISTANT>
 
     // </UI>
