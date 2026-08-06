@@ -1,4 +1,4 @@
-TBD - 2.5.4
+TBD - 2.6
 - New feature: DX Assistant, a tab in the upper-right panel (enable it in Setup, in the DXCluster page) showing a live, prioritised list of DXCluster spots scored against your own log, with a Priority column, per-session spot hiding, band/spotter-continent filters, configurable max age and max number of spots (Closes #1009, #1010, #1011, #1012, #1013, #1014, #1015, #1016, #1017, #1018)
 - New feature: The DX Assistant shows the most active band and the "band to be" (Closes #796, #860, #1019)
 - Enhancement: A "DX A" button in the DXCluster widget, next to Clear, enables and disables the DX Assistant without going through Setup.
