@@ -201,6 +201,9 @@ QVariant DXAssistantSpotModel::data(const QModelIndex &index, int role) const
     if (role == SourceRole)
         return static_cast<int>(spot.getSource());
 
+    if (role == SpotterRole)
+        return spot.getSpotter();
+
     if (role == Qt::ToolTipRole)
     {   // Exact UTC arrival time of the spot
         if (index.column() == ColAge)
@@ -392,6 +395,7 @@ DXAssistantProxyModel::DXAssistantProxyModel(QObject *parent)
     disabledDXCCs    = nullptr;
     disabledSources  = nullptr;
     spotterFilter    = SpotterAll;
+    userCallsign     = QString();
     userDXCC         = -1;
     followBand       = false;
     currentBandId    = -1;
@@ -429,11 +433,12 @@ void DXAssistantProxyModel::setDisabledSources(const QSet<int> *_sources)
 }
 
 void DXAssistantProxyModel::setSpotterFilter(SpotterFilter _filter, const QString &_continent,
-                                             int _dxcc)
+                                             int _dxcc, const QString &_callsign)
 {
     spotterFilter = _filter;
     userContinent = _continent;
     userDXCC      = _dxcc;
+    userCallsign  = _callsign.trimmed().toUpper();
     invalidateFilter();
 }
 
@@ -499,6 +504,12 @@ bool DXAssistantProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &s
     {
         int dxcc = sourceModel()->data(idx, DXAssistantSpotModel::SpotterDXCCRole).toInt();
         if (dxcc != userDXCC)
+            return false;
+    }
+    else if ((spotterFilter == SpotterMyCall) && !userCallsign.isEmpty())
+    {   // Only what we spotted ourselves, and nothing we were told about
+        QString spotter = sourceModel()->data(idx, DXAssistantSpotModel::SpotterRole).toString();
+        if (spotter.toUpper() != userCallsign)
             return false;
     }
     return true;
@@ -1042,13 +1053,15 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         bandActions.insert(act, bandId);
     }
 
-    // 2.3 - Spotter: where the spotting station must be. Exclusive choice.
+    // 2.3 - Spotter: who the spotting station must be, or where. Exclusive
+    // choice, from the narrowest to the widest.
     QMenu *spotterMenu = filtersMenu->addMenu(tr("Spotter"));
     QActionGroup *spotterGroup = new QActionGroup(spotterMenu);
     spotterGroup->setExclusive(true);
     const QList<QPair<DXAssistantProxyModel::SpotterFilter, QString>> spotterOptions =
-        { {DXAssistantProxyModel::SpotterMyContinent, tr("My continent")},
+        { {DXAssistantProxyModel::SpotterMyCall,      tr("My call")},
           {DXAssistantProxyModel::SpotterMyDXCC,      tr("My DXCC")},
+          {DXAssistantProxyModel::SpotterMyContinent, tr("My continent")},
           {DXAssistantProxyModel::SpotterAll,         tr("ALL")} };
     QHash<QAction *, int> spotterActions;
     for (const auto &option : spotterOptions)
@@ -1284,7 +1297,8 @@ void DXClusterAssistant::applyViewFilters()
     {
         QString userContinent = (engine != nullptr) ? engine->getUserContinent() : QString();
         int userDXCC = (engine != nullptr) ? engine->getUserDXCC() : -1;
-        proxy->setSpotterFilter(spotterFilter, userContinent, userDXCC);
+        QString userCallsign = (engine != nullptr) ? engine->getUserCallsign() : QString();
+        proxy->setSpotterFilter(spotterFilter, userContinent, userDXCC, userCallsign);
         proxy->setFollowBand(followMyBand, currentBandId);
         proxy->invalidate();
     }
@@ -1322,6 +1336,12 @@ bool DXClusterAssistant::spotIsShown(DXSpot _spot) const
     {
         int userDXCC = engine->getUserDXCC();
         if ((userDXCC > 0) && (_spot.getSpotterDXCC() != userDXCC))
+            return false;
+    }
+    else if ((spotterFilter == DXAssistantProxyModel::SpotterMyCall) && (engine != nullptr))
+    {
+        QString userCallsign = engine->getUserCallsign();
+        if (!userCallsign.isEmpty() && (_spot.getSpotter().toUpper() != userCallsign))
             return false;
     }
     return true;

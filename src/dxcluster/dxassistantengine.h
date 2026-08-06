@@ -99,6 +99,12 @@ public:
     void setUserDXCC(int _dxcc);
     int getUserDXCC() const;
 
+    // The user's own callsign, used by the DX Assistant "My call" spotter
+    // filter to tell the spots the user heard from the ones reported by
+    // somebody else. Not part of the scoring either: empty disables it.
+    void setUserCallsign(const QString &_callsign);
+    QString getUserCallsign() const;
+
     void setMostWanted(ClubLogMostWanted *_mostWanted);   // May be null: rank 0
 
     void setCheckMode(bool _check);   // Runtime switch behind DX_ASSISTANT_CHECK_MODE
@@ -122,6 +128,7 @@ private:
     ClubLogMostWanted *mostWanted;
     QString userContinent;
     int userDXCC = -1;
+    QString userCallsign;
     bool checkMode;
 };
 

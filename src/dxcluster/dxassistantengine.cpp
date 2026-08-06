@@ -63,6 +63,16 @@ int DXAssistantEngine::getUserDXCC() const
     return userDXCC;
 }
 
+void DXAssistantEngine::setUserCallsign(const QString &_callsign)
+{
+    userCallsign = _callsign.trimmed().toUpper();
+}
+
+QString DXAssistantEngine::getUserCallsign() const
+{
+    return userCallsign;
+}
+
 void DXAssistantEngine::setMostWanted(ClubLogMostWanted *_mostWanted)
 {
     mostWanted = _mostWanted;

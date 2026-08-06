@@ -79,6 +79,9 @@ private slots:
     void test_ContinentFilterHidesRows();
     void test_SpotterMyDXCCFilterHidesRows();
     void test_SpotterMyDXCCInactiveWithoutUserEntity();
+    void test_SpotterMyCallFilterKeepsOnlyMySpots();
+    void test_SpotterMyCallInactiveWithoutMyCallsign();
+    void test_ShownSpotsFollowTheSpotterMyCallFilter();
     void test_StatusFilterHidesRows();
     void test_DXCCFilterHidesRows();
     void test_SourceFilterHidesRows();
@@ -177,6 +180,7 @@ void tst_DXClusterAssistant::cleanup()
     widget->hiddenCalls.clear();
     widget->disabledBands.clear();
     widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+    engine->setUserCallsign(QString());
     widget->disabledStatuses.clear();
     widget->disabledDXCCs.clear();
     widget->disabledSources.clear();
@@ -439,6 +443,64 @@ void tst_DXClusterAssistant::test_SpotterMyDXCCInactiveWithoutUserEntity()
     widget->spotterFilter = DXAssistantProxyModel::SpotterMyDXCC;
     widget->applyViewFilters();
     QCOMPARE(visibleRows(), 1);
+}
+
+void tst_DXClusterAssistant::test_SpotterMyCallFilterKeepsOnlyMySpots()
+{
+    engine->setUserCallsign("EA4K");
+
+    // Heard here: the WSJT-X decodes are spotted with our own callsign
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA4K"));
+    // Reported by somebody else, whether by the cluster or by another station
+    widget->addOrUpdateSpot(makeSpot("EA2BBB", band20, 800, "EU", 0, "EA7XYZ"));
+    QCOMPARE(visibleRows(), 2);
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+    QCOMPARE(widget->proxy->data(widget->proxy->index(0, DXAssistantSpotModel::ColDXCall),
+                                 Qt::DisplayRole).toString(), QString("EA1AAA"));
+
+    // The callsign is matched whatever its case
+    engine->setUserCallsign("ea4k");
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 2);
+
+    engine->setUserCallsign(QString());
+}
+
+void tst_DXClusterAssistant::test_SpotterMyCallInactiveWithoutMyCallsign()
+{
+    // Without a callsign the filter is left inactive rather than hiding every
+    // spot for a reason the user cannot see, as My DXCC does.
+    engine->setUserCallsign(QString());
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA7XYZ"));
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 1);
+}
+
+void tst_DXClusterAssistant::test_ShownSpotsFollowTheSpotterMyCallFilter()
+{
+    // "Show to map" and the band summary use spotIsShown(), which mirrors the
+    // rules of the proxy filter and has to agree with it.
+    engine->setUserCallsign("EA4K");
+    widget->addOrUpdateSpot(makeSpot("EA1AAA", band20, 1100, "EU", 0, "EA4K"));
+    widget->addOrUpdateSpot(makeSpot("EA2BBB", band20, 800, "EU", 0, "EA7XYZ"));
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->applyViewFilters();
+
+    QList<DXSpot> shown = widget->shownSpots();
+    QCOMPARE(shown.count(), 1);
+    QCOMPARE(shown.first().getDxCall(), QString("EA1AAA"));
+
+    engine->setUserCallsign(QString());
 }
 
 void tst_DXClusterAssistant::test_StatusFilterHidesRows()

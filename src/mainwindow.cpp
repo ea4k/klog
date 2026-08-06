@@ -3858,6 +3858,9 @@ void MainWindow::initDXAssistant()
         dxAssistantEngine->setMostWanted(mostWantedInUse);
     }
     dxAssistantEngine->setUserDXCC(myDXCC);
+    // Feeds the "My call" spotter filter: the spots KLog heard itself carry
+    // the station callsign in use, and fall back to the one in the user data.
+    dxAssistantEngine->setUserCallsign(stationCallsign.isEmpty() ? mainQRZ : stationCallsign);
     reconfigureDXAssistantUI(true);   // Creates the widget and shows its tab
     if (dxClusterAssistant != nullptr)
         dxClusterAssistant->setEngine(dxAssistantEngine);
@@ -6016,6 +6019,14 @@ void MainWindow::defineStationCallsign()
     }
     dxClusterWidget->setMyQRZ(stationCallsign);
     adifLoTWExportWidget->setDefaultStationCallsign(stationCallsign);
+    // The station callsign also decides what the "My call" spotter filter of
+    // the DX Assistant considers ours, and it changes with the log in use.
+    if (dxAssistantEngine != nullptr)
+    {
+        dxAssistantEngine->setUserCallsign(stationCallsign);
+        if (dxClusterAssistant != nullptr)
+            dxClusterAssistant->applyViewFilters();
+    }
 
     logEvent(Q_FUNC_INFO, "END", Debug);
        //qDebug() << Q_FUNC_INFO << ": " << stationCallsign << " - END" ;
