@@ -578,7 +578,7 @@ void SetupDialog::readActiveModes (const QStringList &actives)
     }
 
     modes.clear();
-    modes = dataProxy->getModesInLog(-1);
+    modes = dataProxy->getSubModesInLog(-1);   // The submodes worked, not just their parent mode
     modes << _amodes;
     modes.removeDuplicates();
     logEvent(Q_FUNC_INFO, "END", Debug);
@@ -694,7 +694,7 @@ void SetupDialog::checkIfNewBandOrMode()
         //qDebug() << "SetupDialog::checkIfNewBandOrMode -5";
 
     _items.clear();
-    _items << dataProxy->getModesInLog(-1);
+    _items << dataProxy->getSubModesInLog(-1);   // The submodes worked, not just their parent mode
     _items << bandModePage->getModes();
     _items.removeDuplicates();
     bandModePage->setActiveModes(_items);

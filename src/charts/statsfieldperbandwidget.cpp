@@ -51,9 +51,13 @@ void StatsFieldPerBandWidget::createUI()
     QString allString = tr("All");
     modeComboBox->clear ();
     modeComboBox->addItem (allString);
-    modeComboBox->addItems (dataProxy->getModesInLog (-1));
-
-    dataProxy->getModesInLog (-1);
+    // Modes and submodes: picking a mode filters its whole group (SSB brings USB and LSB),
+    // picking a submode filters just that one.
+    QStringList modesAndSubmodes = dataProxy->getModesInLog (-1);
+    modesAndSubmodes << dataProxy->getSubModesInLog (-1);
+    modesAndSubmodes.removeDuplicates ();
+    modesAndSubmodes.sort ();
+    modeComboBox->addItems (modesAndSubmodes);
 
     tableWidget = new QTableWidget(this);
     tableWidget->setRowCount(0);
