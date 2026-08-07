@@ -969,7 +969,7 @@ bool DataBase::updateToLatest()
 /*
  * With the DB updates, the function that is called from here should be also updated.
  * The updateXXX are recursive calls that calls the previous one.
- * Update float DBVersionf = 0.028f; in database.h to the latest version!
+ * Update float DBVersionf = 0.029f; in database.h to the latest version!
  * To rebuild the Mode table and add new modes
  */
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -980,7 +980,7 @@ bool DataBase::updateToLatest()
         //return false;
     }
     //qDebug() << Q_FUNC_INFO << " - Let's update!";
-    return updateTo028();
+    return updateTo029();
 }
 
 
@@ -2393,18 +2393,18 @@ bool DataBase::updateTableLogs()
 
 bool DataBase::updateModeIdFromSubModeId()
 {// Updates the log with the new mode IDs in each QSO:
-    // STEP-1: Get the modeid and QSOid from the log
-    // STEP-2: uses the modeid to get the name of the mode in the mode table (the old one)
-    // STEP-3: uses the name of the mode in the modetemp table (the new one) to get the new ID
-    // STEP-4: Updates the new ID in the QSO in the log
-    //TODO: Optimize this function
+    // STEP-1: Get the modeid, submode and QSOid from the log
+    // STEP-2: uses those ids to get the names of the mode/submode in the mode table (the old one)
+    // STEP-3: uses those names in the modetemp table (the new one) to get the new IDs
+    // STEP-4: Updates the new IDs in the QSO in the log
+    // Both modeid and submode point to the mode table, so both have to be remapped whenever
+    // that table is rebuilt or they would end up pointing to the wrong mode.
 
     //qDebug() << Q_FUNC_INFO ;
     bool cancel = false;
     bool alreadyCancelled = false;
     QString modetxt = QString();
     QString sq = QString();
-    bool sqlOk2 = false;
     bool sqlOk3 = false;
     int modeFound = -1;
     int id = -1;
@@ -2446,7 +2446,24 @@ bool DataBase::updateModeIdFromSubModeId()
     while (qMode.next())
         modeIDs.insert(qMode.value(0).toString(), qMode.value(1).toInt());
 
-    sqlOk = query.exec("SELECT modeid, id FROM log ORDER BY modeid");                                                   // STEP-1
+    // Old id -> submode name, so STEP-2 is a hash lookup instead of a reverse search
+    QHash<int, QString> oldIdToSubmode;
+    for (auto it = modeIDs.cbegin(); it != modeIDs.cend(); ++it)
+        oldIdToSubmode.insert(it.value(), it.key());
+
+    // Submode name -> new id, so STEP-3 needs no query per QSO
+    QHash<QString, int> newModeIDs;
+    QSqlQuery qNewMode;
+    if (!qNewMode.exec("SELECT submode, id FROM modetemp"))
+    {
+        queryErrorManagement(Q_FUNC_INFO, qNewMode.lastError().databaseText(),
+                             qNewMode.lastError().text(), qNewMode.lastQuery());
+        return false;
+    }
+    while (qNewMode.next())
+        newModeIDs.insert(qNewMode.value(0).toString(), qNewMode.value(1).toInt());
+
+    sqlOk = query.exec("SELECT modeid, id, submode FROM log ORDER BY modeid");                                          // STEP-1
 
     if (sqlOk)
     {
@@ -2468,56 +2485,41 @@ bool DataBase::updateModeIdFromSubModeId()
 
                 modeFound = (query.value(0)).toInt();
                 id = (query.value(1)).toInt();
+                const int oldSubModeId = (query.value(2)).toInt();
                      //qDebug() << Q_FUNC_INFO << ": (STEP-1) modeFound (numb): " << QString::number(modeFound) ;
-                modetxt = modeIDs.key(modeFound);
-                //modetxt = getModeNameFromNumber(modeFound, false);   //TODO: Create a QHash to speed this up                                                   //STEP-2
+                modetxt = oldIdToSubmode.value(modeFound);                                                              // STEP-2
 
                      //qDebug() << Q_FUNC_INFO << ": (STEP-2) mode found (txt): " << modetxt ;
 
-                //TODO The following query can be executed in: getModeIdFromSubMode()
+                // log.submode is remapped together with log.modeid: both are ids of the mode
+                // table and would dangle otherwise. QSOs older than the submode column fall
+                // back to the mode, which is all that was ever stored for them.
+                const QString subModeTxt = oldIdToSubmode.value(oldSubModeId > 0 ? oldSubModeId : modeFound);
 
-                sq = QString("SELECT id FROM modetemp WHERE submode='%1'").arg(modetxt);                                // STEP-3
-                QSqlQuery query2;
-                sqlOk2 = query2.exec(sq);
+                const int newModeId    = newModeIDs.value(modetxt, -1);                                                 // STEP-3
+                const int newSubModeId = newModeIDs.value(subModeTxt, -1);
 
-                if (sqlOk2)
+                if (newModeId > 0)
                 {
-                         //qDebug() << Q_FUNC_INFO << ": (STEP-3) sqlOK2 TRUE" ;
-                    if (query2.next())
-                    {
-                        if (query2.isValid())
-                        {
-                            modeFound = query2.value(0).toInt();
-                            query2.finish();
-                            sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(modeFound).arg(id);           // STEP-4
-                            sqlOk3 = execQuery(Q_FUNC_INFO, sq);
+                    if (newSubModeId > 0)
+                        sq = QString ("UPDATE log SET modeid='%1', submode='%2' WHERE id='%3'")                          // STEP-4
+                                 .arg(newModeId).arg(newSubModeId).arg(id);
+                    else
+                        sq = QString ("UPDATE log SET modeid='%1' WHERE id='%2'").arg(newModeId).arg(id);
+                    sqlOk3 = execQuery(Q_FUNC_INFO, sq);
 
-                            if (sqlOk3)
-                            {
-                                //qDebug() << Q_FUNC_INFO << ": (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(modeFound) <<"/"<< modetxt ;
-                            }
-                            else
-                            {
-                                // queryErrorManagement(Q_FUNC_INFO, query3.lastError().databaseText(), query3.lastError().nativeErrorCode(), query3.lastQuery());
-                                //qDebug() << Q_FUNC_INFO << ": (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  ;
-                            }
-                        }
-                        else
-                        {
-                            query2.finish();
-                                 //qDebug() << Q_FUNC_INFO << ": (STEP-3) query2 not valid "   ;
-                        }
+                    if (sqlOk3)
+                    {
+                        //qDebug() << Q_FUNC_INFO << ": (STEP-4) ID: " << QString::number(id) << " updated to: " << QString::number(newModeId) <<"/"<< modetxt ;
                     }
                     else
                     {
-                          //qDebug() << Q_FUNC_INFO << ": query2 not next "   ;
+                        //qDebug() << Q_FUNC_INFO << ": (STEP-4) ID: " << QString::number(id) << " NOT updated-2"  ;
                     }
                 }
                 else
                 {
-                    queryErrorManagement(Q_FUNC_INFO, query2.lastError().databaseText(), query2.lastError().nativeErrorCode(), query2.lastQuery());
-                    query2.finish();
-                         //qDebug() << Q_FUNC_INFO << ": ID: " << QString::number(id) << " NOT updated-1"  ;
+                         //qDebug() << Q_FUNC_INFO << ": ID: " << QString::number(id) << " NOT updated-1, mode not found: " << modetxt ;
                 }
             }
 
@@ -4595,6 +4597,39 @@ bool DataBase::updateTo028()
         return false;
 
     return updateDBVersion(softVersion, "0.028");
+}
+
+bool DataBase::updateTo029()
+{
+    // Updates the DB to 0.029:
+    // log.submode was declared but never written, so the submode of every QSO was lost.
+    // Fill it in for the existing QSOs pointing it to the mode row already referenced by
+    // log.modeid. In DBs coming from old KLog versions, modeid may point to a real submode
+    // row (USB, C4FM...) and this recovers that information; in newer ones modeid points to
+    // the parent mode and submode simply becomes equal to the mode, which is all that was
+    // ever stored for those QSOs.
+    // log.submode is declared VARCHAR but holds mode ids, as its foreign key already stated;
+    // SQLite applies numeric affinity when comparing it against mode.id, so the joins work.
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
+    latestReaded = getDBVersion();
+    if (latestReaded >= 0.029f)
+    {
+        //qDebug() << Q_FUNC_INFO << " - I am in 029" ;
+        return true;
+    }
+
+    if (!updateTo028())
+        return false;
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!execQuery(Q_FUNC_INFO, "UPDATE log SET submode = modeid "
+                                "WHERE submode IS NULL OR TRIM(submode) = '' OR submode = '0'"))
+        return false;
+
+    return updateDBVersion(softVersion, "0.029");
 }
 
 int DataBase::getNumberOfQsos(const int _logNumber)

@@ -444,6 +444,16 @@ QString DataProxy_SQLite::getNameFromSubMode (const QString &_sm)
     return m_cache.getModeNameFromSubmode(_sm);
 }
 
+int DataProxy_SQLite::getSubModeIdFromQSO(const QSO &_qso)
+{
+    // log.modeid holds the id of the parent mode while log.submode holds the id of the
+    // submode actually worked (C4FM, USB, FT4...). Both point to the mode table, where
+    // every mode also has a row repeating its own name as submode (SSB/SSB, CW/CW...),
+    // so this lookup resolves even when no specific submode is known.
+    const QString subMode = _qso.getSubmode().isEmpty() ? _qso.getMode() : _qso.getSubmode();
+    return getIdFromModeName(subMode);
+}
+
 QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
 {
     // Returns all mode IDs that share the same parent mode as _modeId
@@ -2620,6 +2630,7 @@ QSqlQuery DataProxy_SQLite::getPreparedQuery(const QString &_s, const QSO &_qso)
     query.bindValue(":bandid", getIdFromBandName(_qso.getBand()));
     //query.bindValue(":modeid", _qso.getModeIdFromModeName());
     query.bindValue(":modeid", getIdFromModeName(_qso.getMode()));
+    query.bindValue(":submode", getSubModeIdFromQSO(_qso));
     query.bindValue(":cqz", _qso.getCQZone());
     query.bindValue(":ituz", _qso.getItuZone());
     query.bindValue(":dxcc", _qso.getDXCC());
@@ -2807,7 +2818,6 @@ QSqlQuery DataProxy_SQLite::getPreparedQuery(const QString &_s, const QSO &_qso)
         query.bindValue(":stx", _qso.getStx());
     query.bindValue(":state", _qso.getState());
     query.bindValue(":station_callsign", _qso.getStationCallsign());
-    // query.bindValue(":submode", _qso.getModeIdFromModeName());
 
     query.bindValue(":swl", util.boolToCharToSQLite (_qso.getSwl()));
     if (adif.isValidUKSMG(_qso.getUksmg()))
@@ -2858,6 +2868,7 @@ void DataProxy_SQLite::bindQSOValues(QSqlQuery &query, const QSO &_qso)
     query.bindValue(":bandid", getIdFromBandName(_qso.getBand()));
     //query.bindValue(":modeid", _qso.getModeIdFromModeName());
     query.bindValue(":modeid", getIdFromModeName(_qso.getMode()));
+    query.bindValue(":submode", getSubModeIdFromQSO(_qso));
     query.bindValue(":cqz", _qso.getCQZone());
     query.bindValue(":ituz", _qso.getItuZone());
     query.bindValue(":dxcc", _qso.getDXCC());
@@ -3045,7 +3056,6 @@ void DataProxy_SQLite::bindQSOValues(QSqlQuery &query, const QSO &_qso)
         query.bindValue(":stx", _qso.getStx());
     query.bindValue(":state", _qso.getState());
     query.bindValue(":station_callsign", _qso.getStationCallsign());
-    // query.bindValue(":submode", _qso.getModeIdFromModeName());
 
     query.bindValue(":swl", util.boolToCharToSQLite (_qso.getSwl()));
     if (adif.isValidUKSMG(_qso.getUksmg()))
@@ -3083,15 +3093,18 @@ QSO DataProxy_SQLite::fromDB(const int _qsoId)
     if (_qsoId<1)
         return QSO();
 
+    // The submode is read from log.submode; QSOs logged before that column was populated
+    // fall back to the mode pointed at by log.modeid, which in old DBs may itself be a submode.
     QString queryString = "SELECT log.*, "
                           "t_band.name AS band_name, "
                           "t_band_rx.name AS bandrx_name, "
                           "t_mode.name AS mode_name, "
-                          "t_mode.submode AS submode_name "
+                          "COALESCE(t_submode.submode, t_mode.submode) AS submode_name "
                           "FROM log "
                           "LEFT JOIN band AS t_band ON log.bandid = t_band.id "
                           "LEFT JOIN band AS t_band_rx ON log.band_rx = t_band_rx.id "
                           "LEFT JOIN mode AS t_mode ON log.modeid = t_mode.id "
+                          "LEFT JOIN mode AS t_submode ON log.submode = t_submode.id "
                           "WHERE log.id = :idQSO";
 
 
@@ -8477,12 +8490,14 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setFreqRX((aux.toDouble()));
 
     aux = getADIFValueFromRec(rec, "modeid");
-    // qString aux2 = getSubModeFromId(aux.toInt());
+    const int recModeId = aux.toInt();
+    qso.setMode(getSubModeFromId(recModeId));   // setMode derives the parent mode by itself
 
-    qso.setMode(getSubModeFromId(aux.toInt()));
-
+    // The submode is taken from log.submode. QSOs logged before that column was populated
+    // fall back to log.modeid, which in old DBs may itself point to a submode row.
     aux = getADIFValueFromRec(rec, "submode");
-    qso.setSubmode(getSubModeFromId(aux.toInt()));
+    const int recSubModeId = aux.toInt();
+    qso.setSubmode(getSubModeFromId(recSubModeId > 0 ? recSubModeId : recModeId));
 
     qso.setPropMode(getADIFValueFromRec(rec, "prop_mode"));
     qso.setSatName(getADIFValueFromRec(rec, "sat_name"));

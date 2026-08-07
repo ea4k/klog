@@ -1011,6 +1011,18 @@ bool QSO::setMode(const QString &_c)
     return false;
 }
 
+bool QSO::setModeFromADIF(const QString &_c)
+{
+    // ADIF does not mandate any order between the MODE and SUBMODE fields. If SUBMODE has
+    // already been read, a MODE naming that very group must not overwrite it: a record with
+    // <SUBMODE:4>C4FM before <MODE:12>DIGITALVOICE has to keep C4FM as the submode.
+    // Setting the mode from the UI keeps using setMode(), where picking the parent mode
+    // deliberately clears any previously selected submode.
+    if (haveSubMode && !submode.isEmpty() && (adif->getModeFromSubmode(submode) == _c))
+        return true;
+    return setMode(_c);
+}
+
 QString QSO::getMode() const { return mode; }
 
 bool QSO::setDate(const QDate &_c)
@@ -3352,7 +3364,16 @@ bool QSO::setSubmode(const QString &_c)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
     //qDebug() << Q_FUNC_INFO << ": " << _c;
-    return setMode(_c);
+    // Every mode is also a valid submode of itself (SSB/SSB, CW/CW...), so a plain mode
+    // name is accepted here and simply results in mode == submode.
+    if (!adif->isValidSubMode(_c))
+        return false;
+
+    submode = _c;
+    haveSubMode = true;
+    mode = adif->getModeFromSubmode(submode);
+    haveMode = true;
+    return true;
 }
 
 QString QSO::getSubmode() const { return submode; }
@@ -3630,7 +3651,7 @@ void QSO::InitializeHash() {
         {"LOTW_QSL_RCVD", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSL_RCVD)},
         {"LOTW_QSL_SENT", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setLoTWQSL_SENT)},
         {"MAX_BURSTS", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMaxBursts)},
-        {"MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMode)},
+        {"MODE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setModeFromADIF)},
         {"MS_SHOWER", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMsShower)},
         {"MY_ALTITUDE", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyAltitude)},
         {"MY_ANTENNA", decltype(std::mem_fn(&QSO::decltype_function))(&QSO::setMyAntenna)},
