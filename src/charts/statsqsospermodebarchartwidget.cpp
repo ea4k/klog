@@ -86,7 +86,9 @@ void StatsQSOsPerModeBarChartWidget::prepareChart(const int _log)
     progress.setWindowModality(Qt::WindowModal);
 
        //qDebug() << "StatsQSOsPerModeBarChartWidget::prepareChart: SelectedGrapth-1: MODES ";
-     categories.append(dataProxy->getModesInLog(_log));
+     // One bar per submode worked, so FT4 is not counted as MFSK nor USB as SSB. The labels
+     // keep saying "mode" because that is the word used when talking to the user.
+     categories.append(dataProxy->getSubModesInLog(_log));
      categoriesElem = tr("Modes");
      categoriesTitle = tr("QSOs per mode distribution");
 
