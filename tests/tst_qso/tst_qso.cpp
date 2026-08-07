@@ -317,11 +317,46 @@ void tst_QSO::test_Constructor()
 
 void  tst_QSO::test_ModeManagement()
 {
+    qso->clear();
     qso->setMode("FM");
     qso->setSubmode("FM");
-    //qDebug() << Q_FUNC_INFO << "Mode: " << qso->getMode();
-    //qDebug() << Q_FUNC_INFO << "Submode: " << qso->getSubmode();
-    //qDebug() << Q_FUNC_INFO << qso->getModeIdFromModeName();
+    QCOMPARE(qso->getMode(), QString("FM"));
+    QCOMPARE(qso->getSubmode(), QString("FM"));
+
+    // A submode keeps its own identity and derives the parent mode
+    qso->clear();
+    QVERIFY(qso->setMode("C4FM"));
+    QCOMPARE(qso->getMode(), QString("DIGITALVOICE"));
+    QCOMPARE(qso->getSubmode(), QString("C4FM"));
+
+    qso->clear();
+    QVERIFY(qso->setSubmode("USB"));
+    QCOMPARE(qso->getMode(), QString("SSB"));
+    QCOMPARE(qso->getSubmode(), QString("USB"));
+
+    // Picking the parent mode in the UI clears the previously selected submode
+    qso->clear();
+    QVERIFY(qso->setMode("USB"));
+    QVERIFY(qso->setMode("SSB"));
+    QCOMPARE(qso->getMode(), QString("SSB"));
+    QCOMPARE(qso->getSubmode(), QString("SSB"));
+
+    // ADIF does not fix the order of MODE and SUBMODE: a MODE naming the group of the
+    // submode already read must not overwrite it
+    qso->clear();
+    QVERIFY(qso->setSubmode("C4FM"));
+    QVERIFY(qso->setModeFromADIF("DIGITALVOICE"));
+    QCOMPARE(qso->getMode(), QString("DIGITALVOICE"));
+    QCOMPARE(qso->getSubmode(), QString("C4FM"));
+
+    // ... but a MODE of another group does replace it
+    QVERIFY(qso->setModeFromADIF("CW"));
+    QCOMPARE(qso->getMode(), QString("CW"));
+    QCOMPARE(qso->getSubmode(), QString("CW"));
+
+    // Unknown modes are rejected
+    QVERIFY(!qso->setMode("NOTAMODE"));
+    QVERIFY(!qso->setSubmode("NOTAMODE"));
 }
 
 

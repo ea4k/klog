@@ -209,9 +209,18 @@ bool LogModel::setColumns(const QStringList &_columns)
         setRelation(nameCol, QSqlRelation("band", "id", "name"));
     }
 
+    // The Mode column shows the parent mode (mode.name) and the Submode column the submode
+    // actually worked (mode.submode), so each one carries its own data. mode.name resolves to
+    // the parent even for old QSOs whose modeid points to a submode row.
     if (_columns.contains("modeid"))
     {
         nameCol = rec.indexOf("modeid");
+        setRelation(nameCol, QSqlRelation("mode", "id", "name"));
+    }
+
+    if (_columns.contains("submode"))
+    {
+        nameCol = rec.indexOf("submode");
         setRelation(nameCol, QSqlRelation("mode", "id", "submode"));
     }
 

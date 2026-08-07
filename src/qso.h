@@ -73,6 +73,7 @@ public:
     bool setBand(const QString &_c);
     QString getBand() const;
     bool setMode(const QString &_c);
+    bool setModeFromADIF(const QString &_c);  // As setMode, but keeps an already read SUBMODE
     QString getMode() const;
 
     bool setDateTimeOn(const QDateTime &_c);

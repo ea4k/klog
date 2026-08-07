@@ -86,6 +86,7 @@ public:
 
     int getIdFromModeName(const QString& _modeName);
     int getIdFromBandName(const QString& _bandName);
+    int getSubModeIdFromQSO(const QSO &_qso);   // mode table id of the submode to store in log.submode
     //int getSubModeIdFromSubMode(const QString &_subModeName);
 
     bool isValidMode(const QString& _modeName);
