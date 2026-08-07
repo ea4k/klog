@@ -95,7 +95,7 @@ copy /Y "%OPENSSL_DIR%\bin\*.dll" src\release\
 copy /Y "%HAMLIB_DIR%\bin\*.dll" src\release\
 
 rem --- Deploy Qt runtime ---
-windeployqt6 --dir src\release --release --compiler-runtime --qmldir src\qml src\release\klog.exe
+windeployqt6 --dir src\release --release --compiler-runtime --no-translations --qmldir src\qml src\release\klog.exe
 if %errorlevel% neq 0 (
     echo ERROR: windeployqt6 failed
     exit /b 1
