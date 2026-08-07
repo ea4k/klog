@@ -1191,6 +1191,19 @@ void MainWindow::actionsJustAfterAddingOneQSO(const QSO& _qso)
         }
         //awards.setAwards(lastId);
     }
+    // The spot that led to this QSO has served its purpose, so it leaves the
+    // DX Assistant. This runs after awards.setAwards() above, whose
+    // recalculation only drops the spots that became confirmed: a station
+    // merely worked scores on and would otherwise stay in the list.
+    if (dxClusterAssistant != nullptr)
+    {
+        const QString modeOfQSO = _qso.getSubmode().isEmpty() ? _qso.getMode()
+                                                              : _qso.getSubmode();
+        dxClusterAssistant->removeSpotsOfLoggedQSO(_qso.getCall(),
+                                                   dataProxy->getIdFromBandName(_qso.getBand()),
+                                                   modeOfQSO);
+    }
+
     logWindow->refresh();
     //awards.updateDXCCStatus(-1);
     dxccStatusWidget->refresh();

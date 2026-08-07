@@ -6,6 +6,7 @@ TBD - 2.6
 - New feature: The sources feeding the DX Assistant, DXCluster and WSJT-X, can be enabled and disabled independently in Setup, in the DXCluster page.
 - New feature: The DX Assistant has a Source column showing where each spot came from, and the context menu can filter the list by source.
 - New feature: A "My call" option in the Spotter filter of the DX Assistant shows only the spots your own station reported, the ones you heard yourself.
+- Enhancement: Logging a QSO removes from the DX Assistant the spot that led to it, so a station just worked stops being offered. The station and the band decide, plus the mode when the QSO and the spot both carry one; the frequency is not compared, as a QSO is rarely worked exactly where the station was spotted. The same station on another band stays in the list.
 - Enhancement: A "Reset all" entry at the top of the Filters menu of the DX Assistant removes all filtering in one step, putting the bands, spotter, age, number of spots, status, source, DXCC and the columns back to their defaults. It is greyed out while nothing is filtered.
 - Bugfix: The DX Assistant showed spots older than the configured maximum age, most visibly at startup, when WSJT-X replies to KLog with every decode its band activity window holds. A spot already past that age is no longer added to the list.
 - Bugfix: The decodes coming from WSJT-X were dated with the local date and the UTC time, so west of Greenwich every one of them was filed a day out and shown as hours old.

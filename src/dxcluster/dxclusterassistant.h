@@ -212,6 +212,13 @@ public:
     // feeds the raw activity tally behind "Most active band".
     void registerBandActivity(DXSpot _spot);
     void recalculateAll();      // Called after QSO logged or Most Wanted updated
+    // A QSO has just reached the log: the spot that led to it, if the list is
+    // still holding it, has done its job and goes. The station and the band
+    // decide, plus the mode when the QSO and the spot both carry one; the
+    // frequency is not compared, as the QSO is rarely worked exactly where the
+    // station was spotted. Returns how many spots were dropped.
+    int removeSpotsOfLoggedQSO(const QString &_call, int _bandId,
+                               const QString &_mode = QString());
     void setTTL(int _minutes);
     void setMaxSpots(int _max);
     void clearHiddenSpots();
@@ -264,6 +271,9 @@ private:
     void applyDefaultColumns();
     // Whether every filter is already at its default: greys out "Reset all"
     bool filtersAreDefault() const;
+    // Parent mode of a mode or submode ("USB" -> "SSB"), empty when the mode
+    // is missing or KLog does not know it: the two are then not comparable
+    QString modeFamily(const QString &_mode) const;
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
     bool spotIsTooOld(DXSpot _spot) const;  // Already past the configured max age
     int spotterProximity(DXSpot _spot) const;   // One of SpotterProximity

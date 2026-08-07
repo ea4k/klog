@@ -799,6 +799,50 @@ void DXClusterAssistant::recalculateAll()
     updateBandSummary();
 }
 
+QString DXClusterAssistant::modeFamily(const QString &_mode) const
+{
+    if (_mode.isEmpty() || (dataProxy == nullptr))
+        return QString();
+    // Submodes answer with the mode they belong to, so a QSO logged as USB and
+    // a spot reported as SSB are the same mode. A mode KLog does not know
+    // answers with nothing, and then the mode simply does not take part.
+    return dataProxy->getNameFromSubMode(_mode).toUpper();
+}
+
+int DXClusterAssistant::removeSpotsOfLoggedQSO(const QString &_call, int _bandId,
+                                               const QString &_mode)
+{
+    const QString call = _call.trimmed().toUpper();
+    if ((model == nullptr) || call.isEmpty() || (_bandId < 0))
+        return 0;
+
+    const QString qsoMode = modeFamily(_mode);
+
+    int removed = 0;
+    for (int row = model->spotCount() - 1; row >= 0; row--)
+    {
+        DXSpot spot = model->spotAt(row);
+        if ((spot.getDxCall().toUpper() != call) || (spot.getBandId() != _bandId))
+            continue;
+        // The mode only tells two spots apart when both sides know theirs: a
+        // DXCluster spot usually carries none, and then the band is the whole
+        // answer, which is what the operator means by "I have worked it".
+        const QString spotMode = modeFamily(spot.getMode());
+        if (!qsoMode.isEmpty() && !spotMode.isEmpty() && (qsoMode != spotMode))
+            continue;
+        model->removeSpotAt(row);
+        removed++;
+    }
+
+    if (removed > 0)
+    {
+        if (proxy != nullptr)
+            proxy->invalidate();
+        updateBandSummary();
+    }
+    return removed;
+}
+
 void DXClusterAssistant::updateBandSummary()
 {
     if ((mostActiveBandLabel == nullptr) || (bandToBeLabel == nullptr) || (model == nullptr))
