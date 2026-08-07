@@ -49,6 +49,7 @@ private slots:
     void test_InitialData();
     void test_Bands();
     void test_Modes();
+    void test_ModeNotInTheList();
     void test_QSOData();
     void test_QRZSignalEmittedAfterClearAndResameCall();
     void test_QRZSignalDebounce();
@@ -145,6 +146,24 @@ void tst_MainQSOEntryWidget::test_Modes()
 {
     QVERIFY (mainQSOEntryWidget->isModeExisting ("SSB") == true);
     QVERIFY (mainQSOEntryWidget->isModeExisting ("PSK") == false);
+}
+
+void tst_MainQSOEntryWidget::test_ModeNotInTheList()
+{
+    // A QSO worked on a submode the user did not pick in Setup must not be silently turned
+    // into another mode when it is opened: the submode is added to the list and selected.
+    QVERIFY (mainQSOEntryWidget->isModeExisting ("C4FM") == false);
+    QVERIFY (mainQSOEntryWidget->setMode ("C4FM") == true);
+    QVERIFY (mainQSOEntryWidget->isModeExisting ("C4FM") == true);
+    QCOMPARE (mainQSOEntryWidget->getMode(), QString("C4FM"));
+
+    // The modes that were already in the list are kept
+    QVERIFY (mainQSOEntryWidget->isModeExisting ("SSB") == true);
+    QVERIFY (mainQSOEntryWidget->isModeExisting ("USB") == true);
+
+    // Something that is not a mode at all is still rejected
+    QVERIFY (mainQSOEntryWidget->setMode ("NOTAMODE") == false);
+    QVERIFY (mainQSOEntryWidget->setMode ("") == false);
 }
 
 void tst_MainQSOEntryWidget::test_QSOData()
