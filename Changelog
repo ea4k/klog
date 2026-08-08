@@ -20,6 +20,7 @@ TBD - 2.6
 - Bugfix: Fix BAND_RX export when RX band is empty (TNX YL3GBC)
 - Bugfix: Apply the same BAND_RX guard (skip empty, "0" and same-as-BAND values) to the Club Log real-time upload, which also fixes 2-character RX bands (6m/4m/2m) being dropped.
 - Maintenance: The ADIF file is now always produced by a single serializer (QSO::getADIF); removed the unused per-destination ADIF writers and moved the BAND/BAND_RX "0" check into Adif::getADIFField() so it is enforced in one single place.
+- New feature: KLog can be packaged as a snap, so it can be installed on any GNU/Linux distribution with snapd regardless of the Qt version that distribution ships. The recipe is in snap/snapcraft.yaml, the build script in devscripts/snap-create-package.sh, and INSTALL-snap covers installing it, the interfaces that have to be connected for CAT control and printing, and where the logbook lives. A logbook already in ~/.klog is copied into the snap the first time it runs.
 
 July 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.

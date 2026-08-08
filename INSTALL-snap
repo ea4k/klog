@@ -1,0 +1,284 @@
+Installing and building the KLog snap package
+=============================================
+
+A snap is a self-contained package: it carries Qt6, Hamlib and everything
+else KLog needs, so it installs on any GNU/Linux distribution with snapd
+regardless of which Qt version that distribution ships.
+
+If you have any suggestion for this file, please contact me. (Contact
+details in the AUTHORS file).
+
+
+1. Installing
+-------------
+
+From the Snap Store, once the package has been published:
+
+    sudo snap install klog
+
+From a locally built or downloaded file:
+
+    sudo snap install --dangerous klog_2.6-alpha_amd64.snap
+
+("--dangerous" is only needed because a local file is not signed by the
+store; it says nothing about the package itself.)
+
+Then run it from your application menu, or from a terminal with:
+
+    klog
+
+
+2. Connecting the interfaces
+----------------------------
+
+A snap only gets the permissions it asks for. Most of the ones KLog uses
+(the desktop session, the network, your home directory, removable media)
+are connected automatically when you install it. Three are not, because
+snapd never connects them without being asked:
+
+  * CAT control over a USB adapter or a built-in USB radio interface:
+
+        sudo snap connect klog:raw-usb
+
+  * CAT control over a serial port. First find the slot for your radio:
+
+        snap interface serial-port
+
+    and then connect it, using the slot name from that listing:
+
+        sudo snap connect klog:serial-port <slot>
+
+    On most desktop distributions snapd creates one slot per USB-serial
+    adapter as you plug it in, so the slot only exists while the radio is
+    connected.
+
+  * Printing the log:
+
+        sudo snap connect klog:cups-control
+
+You can see the state of every interface at any time with:
+
+    snap connections klog
+
+
+3. Where the logbook lives
+--------------------------
+
+A strictly confined snap gets its own home directory, so KLog's data
+directory is:
+
+    ~/snap/klog/current/.klog
+
+not ~/.klog. The logbook, the settings and the downloaded cty.dat all live
+there, and snapd includes it in "snap save" snapshots.
+
+The first time you run the snap, if you already have a ~/.klog from a .deb
+or from a KLog you built yourself, it is copied into the snap's own
+directory so your log is there waiting for you. The original ~/.klog is
+never modified, and the copy only happens when the snap has no logbook of
+its own yet. To start from an empty logbook instead:
+
+    KLOG_SNAP_NO_MIGRATE=1 klog
+
+Note that the two copies are independent from that point on. If you keep
+using both the .deb and the snap, they will drift apart.
+
+
+4. Known limitations of the snap
+--------------------------------
+
+  * Signing a LoTW upload calls the external TQSL program. A strictly
+    confined snap cannot run programs installed on the host, so the
+    "sign and upload to LoTW" button does not work from the snap. Export
+    the ADIF file and sign it with TQSL outside KLog, or use the .deb.
+
+  * Serial ports only become visible after the serial-port interface has
+    been connected, so the port list in Setup -> Hamlib will be empty
+    until you do that.
+
+
+5. Building the snap
+--------------------
+
+Install the tooling (LXD is the build backend snapcraft uses by default):
+
+    sudo snap install snapcraft --classic
+    sudo snap install lxd
+    sudo lxd init --auto
+    sudo usermod -a -G lxd "$USER"
+
+Log out and back in so the group membership takes effect, then either run
+the helper script:
+
+    cd devscripts
+    bash snap-create-package.sh
+
+or call snapcraft directly from the top of the source tree:
+
+    snapcraft pack
+
+Either way you end up with klog_<version>_<arch>.snap. The helper script
+additionally checks that the translations made it into the package and
+moves the result into devscripts/, next to the other packages.
+
+The recipe is snap/snapcraft.yaml and the run-time wrapper it installs is
+snap/local/klog-launch.
+
+Note that the build host does not need any Qt6 or Hamlib development
+package. snapcraft builds inside an LXD container running Ubuntu 26.04 and
+installs the build dependencies in there, which is also why a Debian stable
+machine can produce this package.
+
+5.1 Building it on Jenkins
+---------------------------
+
+devscripts/jenkins/Jenkinsfile.snap drives the build on the debian-stable
+agent, in the same shape as the other platform jobs: power the VM on, build,
+verify, upload to the NAS, power it off. Create the job as "klog-snap" with
+Pipeline script from SCM and that file as the script path.
+
+It uses the same credentials as klog-debian-stable (esxi-ssh, esxi-host,
+esxi-vmid-debian-stable, nas-host, nas-user, nas-password), so there is
+nothing new to add to Jenkins.
+
+Set the agent up once, as root:
+
+    apt install snapd squashfs-tools
+    ln -s /var/lib/snapd/snap /snap      # Debian needs this for classic snaps
+    snap install snapcraft --classic
+    snap install lxd
+    lxd init --auto
+    usermod -aG lxd jenkins              # the user the Jenkins agent runs as
+
+Then restart the Jenkins agent, otherwise it keeps the group list it started
+with and snapcraft cannot reach LXD. Check it worked with:
+
+    sudo -u jenkins lxc list
+
+The pipeline has a Preflight stage that tests exactly this and stops with
+the missing command if anything is not in place, rather than failing later
+in the middle of a build.
+
+Two things to expect on the first run: it is slow, because LXD has to fetch
+the Ubuntu 26.04 image and snapcraft the core26 and mesa-2604 snaps, and the
+VM needs enough disk for that (allow around 15 GB free). The Build stage has
+a 90 minute timeout for this reason.
+
+klog-snap is deliberately not part of the klog-all orchestrator for now, so
+run it on its own with Build Now.
+
+Should it be added there later, keep in mind that it shares the VM with
+klog-debian-stable and the two must never run at the same time: each powers
+the machine off when it finishes, so in parallel the first to end would pull
+the VM out from under the other. Chain them inside the existing "Debian
+stable" stage rather than adding a parallel branch, or give the snap build
+an agent of its own.
+
+
+6. Why the recipe uses base: core26
+-----------------------------------
+
+KLog links against Qt6 Location for the map window. Upstream Qt dropped
+QtLocation for Qt 6.0 to 6.4 and only brought it back in 6.5, so it is
+simply not in the Ubuntu 24.04 archive that core24 snaps are built from -
+there is no qt6-location-dev or libqt6location6 package there at all.
+
+The KDE neon snapcraft extensions do provide a recent Qt, but they
+explicitly do not ship QtCharts, which KLog needs for the statistics
+widgets, so they would mean building Qt modules from source inside the
+recipe.
+
+Ubuntu 26.04, which core26 is built from, carries the full Qt 6.10.2 set -
+Charts, Location, Positioning, SerialPort, Quick - as well as Hamlib 4.6.5.
+Every dependency therefore comes from the distribution archive: nothing is
+built from source and no third-party apt repository is involved.
+
+The base is what KLog is built and run against, not what you have to be
+running. snapd downloads the core26 base snap as a dependency, so the
+package installs and runs the same on Ubuntu 22.04 or 24.04, on Debian,
+Fedora, Arch or anywhere else snapd is available. That is the whole point
+of picking the newest LTS base: KLog gets a current Qt everywhere, without
+asking anyone to upgrade their distribution. core26 is also as far as this
+can go - snap bases are only made from LTS releases, so there is no core
+base for Ubuntu 26.10 or any other interim release.
+
+core26 does not have a GNOME or KDE desktop extension yet, so the work
+those extensions normally do for a Qt application (Qt plugin and QML
+search paths, fontconfig, the XDG data directories) is done by
+snap/local/klog-launch. Hardware accelerated graphics for the QtQuick map
+comes from the "gpu" extension. Once a desktop extension supports
+core26, most of that wrapper can be dropped.
+
+
+7. Publishing to the Snap Store
+-------------------------------
+
+Building the snap needs no Snap Store account at all. Everything in this
+section is only about publishing it.
+
+7.1 Logging in on a machine with no keyring
+-------------------------------------------
+
+"snapcraft login" keeps its token in the system keyring, so on a build
+server, in a container, or over SSH it fails with:
+
+    No keyring found to store or retrieve credentials from.
+
+"snapcraft export-login" does not use the keyring. It asks for the same
+email, password and second factor and writes the credentials out instead of
+storing them, which is the supported way to authenticate on a headless
+machine:
+
+    snapcraft export-login ~/.klog-snap-credentials
+    export SNAPCRAFT_STORE_CREDENTIALS="$(cat ~/.klog-snap-credentials)"
+    snapcraft whoami
+
+Every snapcraft command run in that shell is then authenticated. The
+credentials file is as good as a password: keep it at mode 600 and out of
+the source tree.
+
+Do the first export without --snaps. Credentials can only be restricted to
+a snap that already exists, so that flag cannot be used until the name has
+been registered.
+
+If you would rather have a working keyring on that machine:
+
+    sudo apt install gnome-keyring
+    dbus-run-session -- bash
+    gnome-keyring-daemon --unlock      # type a password, then Ctrl-D
+    snapcraft login
+
+which only lasts for that D-Bus session.
+
+7.2 The registered name
+------------------------
+
+The name "klog" is already registered in the Snap Store to the KLog
+account, and that is the name snap/snapcraft.yaml builds under, so there is
+nothing to do here. It is kept for the record that a name is registered
+once, by the account that will own it, with:
+
+    snapcraft register <name>
+
+or through https://snapcraft.io/account/register-snap, which needs no
+working CLI login.
+
+7.3 Uploading
+--------------
+
+    snapcraft upload --release=edge klog_<version>_<arch>.snap
+
+.github/workflows/snap.yml builds the snap on every push and uploads it as
+a workflow artifact. On a v* tag it also attaches the .snap to the GitHub
+release, and publishes it to the Snap Store if the repository has a
+SNAPCRAFT_STORE_CREDENTIALS secret. Once the name is registered, create the
+narrow credentials for that secret with:
+
+    snapcraft export-login --snaps=klog \
+        --acls package_access,package_push,package_update,package_release -
+
+The trailing "-" writes them to the terminal so they can be pasted into the
+GitHub secret rather than left in a file.
+
+
+73

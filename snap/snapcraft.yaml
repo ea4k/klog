@@ -1,0 +1,254 @@
+#***************************************************************************
+#                              snapcraft.yaml
+#                             -------------------
+#    begin                : aug 2026
+#    copyright            : (C) 2026 by Jaime Robles
+#    email                : jaime@robles.es
+#
+#*****************************************************************************
+# * This file is part of KLog.                                               *
+# *                                                                           *
+# *    KLog is free software: you can redistribute it and/or modify           *
+# *    it under the terms of the GNU General Public License as published by   *
+# *    the Free Software Foundation, either version 3 of the License, or      *
+# *    (at your option) any later version.                                    *
+# *                                                                           *
+# *    KLog is distributed in the hope that it will be useful,                *
+# *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+# *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+# *    GNU General Public License for more details.                           *
+# *                                                                           *
+# *    You should have received a copy of the GNU General Public License      *
+# *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+# *                                                                           *
+#*****************************************************************************/
+#
+# Build with:   snapcraft            (see devscripts/snap-create-package.sh)
+# Install with: sudo snap install --dangerous ./klog_*.snap
+#
+# Why base: core26
+# ----------------
+# KLog links against Qt6 Location (the world map in the Map window). QtLocation
+# was dropped upstream for Qt 6.0-6.4 and only came back in Qt 6.5, so it is
+# absent from the Ubuntu 24.04 archive that core24 is built from - there is no
+# qt6-location-dev/libqt6location6 there at all. The KDE neon extensions are
+# not an option either: they explicitly do not ship QtCharts, which KLog also
+# needs for the statistics widgets. Ubuntu 26.04 (core26) carries the complete
+# Qt 6.10.2 set - Charts, Location, Positioning, SerialPort, Quick - plus
+# Hamlib 4.6.5, so every dependency comes from the distribution archive with
+# nothing built from source and no third-party apt repositories.
+#
+# The base says what KLog is built and run against, not what the user has to
+# be running: snapd pulls the core26 base snap in as a dependency, so this
+# installs just as well on Ubuntu 22.04, Debian, Fedora or Arch. Snap bases
+# only exist for LTS releases, so core26 is the newest one available.
+#
+# core26 has no GNOME/KDE desktop extension yet, so the desktop plumbing the
+# extension would normally do (Qt plugin/QML search paths, fontconfig, XDG
+# data dirs) is done by snap/local/klog-launch instead. Hardware accelerated
+# graphics, needed by the QtQuick map, comes from the "gpu" extension.
+
+name: klog
+adopt-info: klog
+base: core26
+license: GPL-3.0-or-later
+summary: Ham radio DX logging program
+description: |
+  KLog is a free (as in freedom) hamradio logging program for GNU/Linux,
+  macOS and Windows.
+
+  It provides general purpose DX logging support:
+
+    * QSO logging with DXCC, WAZ, ITU zone and grid locator tracking
+    * ADIF import and export
+    * Statistics and charts (QSOs per band, mode, year, continent, DXCC ...)
+    * DX cluster client with a DX assistant
+    * eQSL, LoTW, ClubLog and QRZ.com logbook integration
+    * Satellite QSO support
+    * CAT control through Hamlib
+    * A UDP server that logs QSOs sent by WSJT-X and compatible programs
+
+  The logbook lives in ~/snap/klog/current/.klog. On first run the snap copies
+  an existing ~/.klog logbook (from a .deb or a self-built KLog) into that
+  location so nothing is lost when moving to the snap; set
+  KLOG_SNAP_NO_MIGRATE=1 to skip that.
+
+  Some interfaces are not connected automatically and are needed for CAT
+  control and printing:
+
+    sudo snap connect klog:raw-usb
+    sudo snap connect klog:serial-port <slot>
+    sudo snap connect klog:cups-control
+
+  See INSTALL-snap in the source tree for the details.
+
+# The store icon. The .desktop entry gets its own icon path at build time.
+icon: src/img/klog_256x256.png
+
+website: https://github.com/ea4k/klog
+source-code: https://github.com/ea4k/klog
+issues: https://github.com/ea4k/klog/issues
+contact: jaime@robles.es
+
+# "grade" says whether the revision may be released to the stable channel, not
+# whether the KLog release itself is stable. Pre-releases are published to the
+# edge/beta channels; the grade does not need to change for that.
+grade: stable
+confinement: strict
+compression: lzo
+
+platforms:
+  amd64:
+  arm64:
+
+apps:
+  klog:
+    command: usr/bin/klog
+    command-chain:
+      - bin/klog-launch
+    desktop: usr/share/applications/io.github.ea4k.klog.desktop
+    common-id: io.github.ea4k.klog
+    # Mesa userspace drivers for the QtQuick map. On core26 this pulls in the
+    # mesa-2604 provider snap through the gpu-2604 content interface.
+    extensions:
+      - gpu
+    plugs:
+      # Desktop session: windowing, clipboard, notifications, xdg-open for the
+      # "look this callsign up on QRZ.com" links, and the host font set.
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - unity7
+      - opengl
+      # cty.dat and satellite data downloads, DX cluster telnet sessions and
+      # the eQSL/LoTW/ClubLog/QRZ.com web services.
+      - network
+      # UDP server listening for WSJT-X (default port 2237).
+      - network-bind
+      # ADIF/Cabrillo import and export outside the snap's own directory.
+      - home
+      - removable-media
+      # Hamlib CAT control over a serial or USB-serial link. Neither of these
+      # connects automatically; see INSTALL-snap.
+      - serial-port
+      - raw-usb
+      # Printing the log. Manual connection.
+      - cups-control
+
+parts:
+  klog:
+    plugin: cmake
+    source: .
+    source-type: local
+    cmake-parameters:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DBUILD_TESTING=OFF
+      # Defaults to ON in CMakeLists.txt; there are no tests in this build.
+      - -DKLOG_COVERAGE=OFF
+    build-packages:
+      - build-essential
+      - cmake
+      - pkg-config
+      # Hamlib, found through pkg-config by cmake/FindHamlib.cmake.
+      - libhamlib-dev
+      # Qt6 modules KLog links against, in the order find_package() asks for
+      # them: Charts Concurrent Core Gui Location Network Positioning
+      # PrintSupport Qml Quick QuickWidgets SerialPort Sql Widgets.
+      - qt6-base-dev
+      - qt6-charts-dev
+      - qt6-declarative-dev
+      - qt6-declarative-private-dev
+      - qt6-location-dev
+      - qt6-positioning-dev
+      - qt6-serialport-dev
+      # LinguistTools (cmake config) and lrelease/lupdate, for qt_add_translations().
+      - qt6-tools-dev
+      - qt6-tools-dev-tools
+      - qt6-l10n-tools
+      - libgl1-mesa-dev
+      - libxkbcommon-dev
+      - libudev-dev
+    stage-packages:
+      # Only the leaf libraries are listed; apt pulls libqt6core6t64,
+      # libqt6gui6, libqt6widgets6, libqt6network6, libqt6qml6, libqt6quick6
+      # and the rest of the dependency tree in automatically.
+      - libqt6charts6
+      - libqt6location6
+      - libqt6positioning6
+      - libqt6printsupport6
+      - libqt6quickwidgets6
+      - libqt6serialport6
+      - libqt6svg6
+      # Qt plugins are dlopen()ed, so they are never pulled in as a dependency
+      # and have to be requested by hand.
+      - libqt6sql6-sqlite       # the logbook is a SQLite database
+      - qt6-qpa-plugins         # xcb platform plugin
+      - qt6-wayland             # wayland platform plugin
+      - qt6-location-plugins    # OSM geoservices plugin used by the map
+      - qt6-image-formats-plugins
+      - qt6-translations-l10n   # translations of Qt's own standard dialogs
+      # QML modules imported by src/widgets/map/*.qml.
+      - qml6-module-qtlocation
+      - qml6-module-qtpositioning
+      - qml6-module-qtquick
+      - qml6-module-qtquick-controls
+      - qml6-module-qtquick-layouts
+      - qml6-module-qtquick-shapes
+      - qml6-module-qtquick-templates
+      - qml6-module-qtquick-window
+      - libhamlib4t64
+      # The desktop interface bind-mounts /usr/share/fonts and the fontconfig
+      # cache from the host into the snap, but fontconfig itself is not in the
+      # base, so the configuration it needs has to be staged here.
+      - fontconfig
+      - libxcb-cursor0
+    override-pull: |
+      craftctl default
+      # Keep the snap version in step with APP_PKGVERSION in CMakeLists.txt.
+      version="$(sed -n 's/^set(APP_PKGVERSION[[:space:]]*"\(.*\)").*/\1/p' \
+                 "${CRAFT_PART_SRC}/CMakeLists.txt" | head -1)"
+      if [ -z "$version" ]; then
+          echo "ERROR: could not read APP_PKGVERSION from CMakeLists.txt" >&2
+          exit 1
+      fi
+      craftctl set version="$version"
+    override-build: |
+      craftctl default
+
+      desktop="${CRAFT_PART_INSTALL}/usr/share/applications/io.github.ea4k.klog.desktop"
+      # "Icon=klog" resolves through the icon theme, which is not set up inside
+      # the snap. Point it at the file the install rules put in the snap.
+      sed -i 's|^Icon=klog$|Icon=${SNAP}/usr/share/pixmaps/klog.png|' "$desktop"
+      if ! grep -q '^Icon=\${SNAP}/usr/share/pixmaps/klog.png$' "$desktop"; then
+          echo "ERROR: failed to rewrite Icon= in $desktop" >&2
+          exit 1
+      fi
+
+      # The .qm files are silently skipped when LinguistTools is missing, which
+      # would ship an English-only KLog. Same check as the .deb build script.
+      if ! ls "${CRAFT_PART_INSTALL}"/usr/share/klog/translations/klog_*.qm >/dev/null 2>&1; then
+          echo "ERROR: no translations were built into the snap" >&2
+          exit 1
+      fi
+
+  # Command-chain wrapper: Qt search paths, fontconfig and the one-time
+  # logbook migration. Kept out of the klog part so a rebuild of the wrapper
+  # does not rebuild KLog.
+  launcher:
+    plugin: dump
+    source: snap/local
+    organize:
+      klog-launch: bin/klog-launch
+    stage:
+      - bin/klog-launch
+    override-build: |
+      craftctl default
+      chmod 755 "${CRAFT_PART_INSTALL}/klog-launch"
+
+layout:
+  # QLibraryInfo has /usr/share/qt6 compiled in, which inside the snap would be
+  # the (empty) core26 base. Qt's own translations live there.
+  /usr/share/qt6:
+    bind: $SNAP/usr/share/qt6

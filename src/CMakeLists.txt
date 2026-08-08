@@ -222,6 +222,7 @@ set(KLOG_DOC
    ../COPYING
    ../INSTALL-es.txt
    ../INSTALL-linux
+   ../INSTALL-snap
    ../INSTALL.txt
    ../NEWS
    ../README
