@@ -1,0 +1,78 @@
+name: Build Snap package
+
+on:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-snap:
+    name: Build snap
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # snapcraft reads snap/snapcraft.yaml, builds against core26 in an LXD
+      # container and leaves klog_<version>_<arch>.snap in the workspace.
+      - name: Build snap
+        id: snapcraft
+        uses: snapcore/action-build@v1
+
+      - name: Check the package contents
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y squashfs-tools
+          SNAP="${{ steps.snapcraft.outputs.snap }}"
+          echo "Built: $SNAP"
+          # Translations are silently skipped when LinguistTools is missing,
+          # which would ship an English-only KLog.
+          unsquashfs -l "$SNAP" | grep -q "usr/share/klog/translations/klog_.*\.qm" \
+            || { echo "ERROR: no translations in the snap"; exit 1; }
+          # The map window needs the QtLocation QML module and the OSM plugin.
+          unsquashfs -l "$SNAP" | grep -q "qt6/qml/QtLocation" \
+            || { echo "ERROR: QtLocation QML module missing"; exit 1; }
+          unsquashfs -l "$SNAP" | grep -q "qt6/plugins/geoservices" \
+            || { echo "ERROR: geoservices plugins missing"; exit 1; }
+          # The logbook is a SQLite database.
+          unsquashfs -l "$SNAP" | grep -q "qt6/plugins/sqldrivers/libqsqlite" \
+            || { echo "ERROR: Qt SQLite driver missing"; exit 1; }
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: KLog-snap-package
+          path: ${{ steps.snapcraft.outputs.snap }}
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.snapcraft.outputs.snap }}
+          name: KLog ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'RC') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Publishing to the Snap Store needs the SNAPCRAFT_STORE_CREDENTIALS
+      # secret, created with:  snapcraft export-login --snaps=klog \
+      #   --acls package_access,package_push,package_update,package_release -
+      # The step is skipped while the secret is not configured.
+      - name: Publish to the Snap Store
+        if: startsWith(github.ref, 'refs/tags/v') && env.SNAPCRAFT_STORE_CREDENTIALS != ''
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        with:
+          snap: ${{ steps.snapcraft.outputs.snap }}
+          release: ${{ (contains(github.ref_name, 'RC') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta')) && 'beta' || 'stable' }}
