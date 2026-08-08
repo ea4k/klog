@@ -200,22 +200,18 @@ If you would rather have a working keyring on that machine:
 
 which only lasts for that D-Bus session.
 
-7.2 Registering the name
--------------------------
+7.2 The registered name
+------------------------
 
-The name has to be registered once, by the account that will own it,
-either from the CLI once you are authenticated:
+The name "klog" is already registered in the Snap Store to the KLog
+account, and that is the name snap/snapcraft.yaml builds under, so there is
+nothing to do here. It is kept for the record that a name is registered
+once, by the account that will own it, with:
 
-    snapcraft register klog
+    snapcraft register <name>
 
-or through the web form, which needs no working CLI login and tells you
-straight away whether the name is free:
-
-    https://snapcraft.io/account/register-snap
-
-If the name is already taken by an unrelated project, either request a
-transfer through the store's dispute process or change the "name:" field
-in snap/snapcraft.yaml (klog-hamradio, for example) before registering.
+or through https://snapcraft.io/account/register-snap, which needs no
+working CLI login.
 
 7.3 Uploading
 --------------
