@@ -34,9 +34,14 @@
 # qt6-location-dev/libqt6location6 there at all. The KDE neon extensions are
 # not an option either: they explicitly do not ship QtCharts, which KLog also
 # needs for the statistics widgets. Ubuntu 26.04 (core26) carries the complete
-# Qt 6.10 set - Charts, Location, Positioning, SerialPort, Quick - plus Hamlib,
-# so every dependency comes from the distribution archive with nothing built
-# from source and no third-party apt repositories.
+# Qt 6.10.2 set - Charts, Location, Positioning, SerialPort, Quick - plus
+# Hamlib 4.6.5, so every dependency comes from the distribution archive with
+# nothing built from source and no third-party apt repositories.
+#
+# The base says what KLog is built and run against, not what the user has to
+# be running: snapd pulls the core26 base snap in as a dependency, so this
+# installs just as well on Ubuntu 22.04, Debian, Fedora or Arch. Snap bases
+# only exist for LTS releases, so core26 is the newest one available.
 #
 # core26 has no GNOME/KDE desktop extension yet, so the desktop plumbing the
 # extension would normally do (Qt plugin/QML search paths, fontconfig, XDG

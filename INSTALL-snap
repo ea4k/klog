@@ -138,10 +138,19 @@ explicitly do not ship QtCharts, which KLog needs for the statistics
 widgets, so they would mean building Qt modules from source inside the
 recipe.
 
-Ubuntu 26.04, which core26 is built from, carries the full Qt 6.10 set -
-Charts, Location, Positioning, SerialPort, Quick - as well as Hamlib.
+Ubuntu 26.04, which core26 is built from, carries the full Qt 6.10.2 set -
+Charts, Location, Positioning, SerialPort, Quick - as well as Hamlib 4.6.5.
 Every dependency therefore comes from the distribution archive: nothing is
 built from source and no third-party apt repository is involved.
+
+The base is what KLog is built and run against, not what you have to be
+running. snapd downloads the core26 base snap as a dependency, so the
+package installs and runs the same on Ubuntu 22.04 or 24.04, on Debian,
+Fedora, Arch or anywhere else snapd is available. That is the whole point
+of picking the newest LTS base: KLog gets a current Qt everywhere, without
+asking anyone to upgrade their distribution. core26 is also as far as this
+can go - snap bases are only made from LTS releases, so there is no core
+base for Ubuntu 26.10 or any other interim release.
 
 core26 does not have a GNOME or KDE desktop extension yet, so the work
 those extensions normally do for a Qt application (Qt plugin and QML
