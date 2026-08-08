@@ -50,9 +50,16 @@ pipeline {
                     }
                 }
 
+                // Both jobs use the debian-stable VM, so they run one after the
+                // other: in parallel they would fight over it and the first to
+                // finish would power the VM off under the other.
                 stage('Debian stable') {
                     steps {
                         build job: 'klog-debian-stable',
+                              wait: true,
+                              propagate: true
+
+                        build job: 'klog-snap',
                               wait: true,
                               propagate: true
                     }

@@ -124,6 +124,51 @@ moves the result into devscripts/, next to the other packages.
 The recipe is snap/snapcraft.yaml and the run-time wrapper it installs is
 snap/local/klog-launch.
 
+Note that the build host does not need any Qt6 or Hamlib development
+package. snapcraft builds inside an LXD container running Ubuntu 26.04 and
+installs the build dependencies in there, which is also why a Debian stable
+machine can produce this package.
+
+5.1 Building it on Jenkins
+---------------------------
+
+devscripts/jenkins/Jenkinsfile.snap drives the build on the debian-stable
+agent, in the same shape as the other platform jobs: power the VM on, build,
+verify, upload to the NAS, power it off. Create the job as "klog-snap" with
+Pipeline script from SCM and that file as the script path.
+
+It uses the same credentials as klog-debian-stable (esxi-ssh, esxi-host,
+esxi-vmid-debian-stable, nas-host, nas-user, nas-password), so there is
+nothing new to add to Jenkins.
+
+Set the agent up once, as root:
+
+    apt install snapd squashfs-tools
+    ln -s /var/lib/snapd/snap /snap      # Debian needs this for classic snaps
+    snap install snapcraft --classic
+    snap install lxd
+    lxd init --auto
+    usermod -aG lxd jenkins              # the user the Jenkins agent runs as
+
+Then restart the Jenkins agent, otherwise it keeps the group list it started
+with and snapcraft cannot reach LXD. Check it worked with:
+
+    sudo -u jenkins lxc list
+
+The pipeline has a Preflight stage that tests exactly this and stops with
+the missing command if anything is not in place, rather than failing later
+in the middle of a build.
+
+Two things to expect on the first run: it is slow, because LXD has to fetch
+the Ubuntu 26.04 image and snapcraft the core26 and mesa-2604 snaps, and the
+VM needs enough disk for that (allow around 15 GB free). The Build stage has
+a 90 minute timeout for this reason.
+
+Because klog-snap and klog-debian-stable share that one VM, they must never
+run at the same time — the first to finish would power the machine off under
+the other. Jenkinsfile.all therefore runs them one after the other inside its
+"Debian stable" stage instead of in parallel.
+
 
 6. Why the recipe uses base: core26
 -----------------------------------

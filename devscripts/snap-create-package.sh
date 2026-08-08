@@ -56,19 +56,51 @@ fi
 echo "Building KLog $KLOG_VERSION snap package"
 
 # --- Check the toolchain is there ---
+# Snap binaries live in /snap/bin, which is only added to PATH by a login
+# shell. Jenkins and other CI runners use non-login shells.
+case ":$PATH:" in
+    *:/snap/bin:*) ;;
+    *) PATH="/snap/bin:$PATH"; export PATH ;;
+esac
+
 if ! command -v snapcraft >/dev/null 2>&1; then
     echo "ERROR: snapcraft not found. Install it with:"
     echo "         sudo snap install snapcraft --classic"
+    echo "       On Debian, classic snaps also need:"
+    echo "         sudo ln -s /var/lib/snapd/snap /snap"
     exit 1
+fi
+
+# KLog builds against core26, so snapcraft needs a container to build in: the
+# host itself is only usable with --destructive-mode, and only if the host is
+# Ubuntu 26.04. LXD is snapcraft's default backend for core22 and newer.
+export SNAPCRAFT_BUILD_ENVIRONMENT="${SNAPCRAFT_BUILD_ENVIRONMENT:-lxd}"
+
+if [ "$SNAPCRAFT_BUILD_ENVIRONMENT" = "lxd" ]; then
+    if ! command -v lxc >/dev/null 2>&1; then
+        echo "ERROR: LXD not found. Install and initialise it with:"
+        echo "         sudo snap install lxd"
+        echo "         sudo lxd init --auto"
+        exit 1
+    fi
+    if ! lxc list >/dev/null 2>&1; then
+        echo "ERROR: cannot talk to LXD as $(id -un). Add the user to the group:"
+        echo "         sudo usermod -aG lxd $(id -un)"
+        echo "       then log out and back in (or restart the CI agent) so the"
+        echo "       new group takes effect."
+        exit 1
+    fi
 fi
 
 ARCH=$(dpkg --print-architecture 2>/dev/null || uname -m)
 echo "Architecture: $ARCH"
+echo "Build backend: $SNAPCRAFT_BUILD_ENVIRONMENT"
 
 # --- Clean previous build ---
 echo "[1/3] Cleaning..."
 rm -f "$DEVSCRIPTS_DIR"/klog_*.snap
-(cd "$PROJECT_DIR" && snapcraft clean)
+# Nothing to clean on a fresh checkout, and that is not an error.
+(cd "$PROJECT_DIR" && snapcraft clean) || true
 
 # --- Build ---
 echo "[2/3] Building the snap (this pulls the core26 and mesa-2604 snaps the"
