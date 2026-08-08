@@ -164,10 +164,15 @@ the Ubuntu 26.04 image and snapcraft the core26 and mesa-2604 snaps, and the
 VM needs enough disk for that (allow around 15 GB free). The Build stage has
 a 90 minute timeout for this reason.
 
-Because klog-snap and klog-debian-stable share that one VM, they must never
-run at the same time — the first to finish would power the machine off under
-the other. Jenkinsfile.all therefore runs them one after the other inside its
-"Debian stable" stage instead of in parallel.
+klog-snap is deliberately not part of the klog-all orchestrator for now, so
+run it on its own with Build Now.
+
+Should it be added there later, keep in mind that it shares the VM with
+klog-debian-stable and the two must never run at the same time: each powers
+the machine off when it finishes, so in parallel the first to end would pull
+the VM out from under the other. Chain them inside the existing "Debian
+stable" stage rather than adding a parallel branch, or give the snap build
+an agent of its own.
 
 
 6. Why the recipe uses base: core26
