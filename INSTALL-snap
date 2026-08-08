@@ -163,26 +163,76 @@ core26, most of that wrapper can be dropped.
 7. Publishing to the Snap Store
 -------------------------------
 
-The name has to be registered once, by the account that will own it:
+Building the snap needs no Snap Store account at all. Everything in this
+section is only about publishing it.
 
+7.1 Logging in on a machine with no keyring
+-------------------------------------------
+
+"snapcraft login" keeps its token in the system keyring, so on a build
+server, in a container, or over SSH it fails with:
+
+    No keyring found to store or retrieve credentials from.
+
+"snapcraft export-login" does not use the keyring. It asks for the same
+email, password and second factor and writes the credentials out instead of
+storing them, which is the supported way to authenticate on a headless
+machine:
+
+    snapcraft export-login ~/.klog-snap-credentials
+    export SNAPCRAFT_STORE_CREDENTIALS="$(cat ~/.klog-snap-credentials)"
+    snapcraft whoami
+
+Every snapcraft command run in that shell is then authenticated. The
+credentials file is as good as a password: keep it at mode 600 and out of
+the source tree.
+
+Do the first export without --snaps. Credentials can only be restricted to
+a snap that already exists, so that flag cannot be used until the name has
+been registered.
+
+If you would rather have a working keyring on that machine:
+
+    sudo apt install gnome-keyring
+    dbus-run-session -- bash
+    gnome-keyring-daemon --unlock      # type a password, then Ctrl-D
     snapcraft login
+
+which only lasts for that D-Bus session.
+
+7.2 Registering the name
+-------------------------
+
+The name has to be registered once, by the account that will own it,
+either from the CLI once you are authenticated:
+
     snapcraft register klog
+
+or through the web form, which needs no working CLI login and tells you
+straight away whether the name is free:
+
+    https://snapcraft.io/account/register-snap
 
 If the name is already taken by an unrelated project, either request a
 transfer through the store's dispute process or change the "name:" field
 in snap/snapcraft.yaml (klog-hamradio, for example) before registering.
 
-Uploading a build:
+7.3 Uploading
+--------------
 
     snapcraft upload --release=edge klog_<version>_<arch>.snap
 
 .github/workflows/snap.yml builds the snap on every push and uploads it as
 a workflow artifact. On a v* tag it also attaches the .snap to the GitHub
 release, and publishes it to the Snap Store if the repository has a
-SNAPCRAFT_STORE_CREDENTIALS secret, created with:
+SNAPCRAFT_STORE_CREDENTIALS secret. Once the name is registered, create the
+narrow credentials for that secret with:
 
     snapcraft export-login --snaps=klog \
         --acls package_access,package_push,package_update,package_release -
+
+The trailing "-" writes them to the terminal so they can be pasted into the
+GitHub secret rather than left in a file.
 
 
 73
