@@ -1,4 +1,10 @@
 cmake_minimum_required(VERSION 3.22)
+
+# Set default build type
+if(NOT CMAKE_BUILD_TYPE AND NOT "$ENV{CMAKE_BUILD_TYPE}")
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build.")
+endif()
+
 project(KLog VERSION 2.6 LANGUAGES CXX)
 set(APP_PKGVERSION "2.6-alpha")
 
@@ -48,11 +54,6 @@ elseif(APPLE)
     message(STATUS "Operating System: macOS")
 elseif(UNIX)
     message(STATUS "Operating System: Linux/Unix")
-endif()
-
-# Set default build type
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
 endif()
 
 # Find required Qt6 modules
@@ -158,5 +159,3 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
 endif()
 
 include(CPack)
-
-
