@@ -12,7 +12,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_compile_definitions(KLOG_USE_VERSION_H)
 
 # Disallow in-source builds
-if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
   message(FATAL_ERROR "In-source builds are not allowed. Use: cmake -S . -B build")
 endif()
 
@@ -24,9 +24,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set build output directories for binaries and libraries
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${KLog_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${KLog_BINARY_DIR}/lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${KLog_BINARY_DIR}/lib")
 
 # Ensure consistency across multi-config generators (MSVC, Xcode)
 foreach(cfg IN ITEMS Debug Release RelWithDebInfo MinSizeRel)
@@ -37,13 +37,13 @@ foreach(cfg IN ITEMS Debug Release RelWithDebInfo MinSizeRel)
 endforeach()
 
 # Generate version.h into the build directory
-file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/src")
+file(MAKE_DIRECTORY "${KLog_BINARY_DIR}/src")
 set(APP_VERSION "${PROJECT_VERSION}")
 
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in"
-  "${CMAKE_BINARY_DIR}/src/version.h"
+  "${KLog_BINARY_DIR}/src/version.h"
   @ONLY
 )
 
