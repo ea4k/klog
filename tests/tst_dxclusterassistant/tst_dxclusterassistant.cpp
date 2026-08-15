@@ -107,6 +107,11 @@ private slots:
     void test_LoggedQSORemovesTheSpotWhenEitherModeIsMissing();
     void test_LoggedQSOOfAStationNotListedChangesNothing();
     void test_LoggedQSOUpdatesTheBandSummary();
+    void test_WorkedStationIsNotSpottedAgainThisSession();
+    void test_WorkedStationStillArrivesOnAnotherBand();
+    void test_WorkedStationStillArrivesOnAnotherMode();
+    void test_WorkedBeforeBeingSpottedKeepsTheSpotOut();
+    void test_ClearAllForgetsTheWorkedStations();
 
     // Expiry
     void test_SpotOlderThanTheTTLIsNeverAdded();
@@ -195,6 +200,7 @@ void tst_DXClusterAssistant::cleanup()
     widget->model->clearSpots();
     widget->bandActivity.clear();
     widget->hiddenCalls.clear();
+    widget->workedQSOs.clear();
     widget->disabledBands.clear();
     widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
     engine->setUserCallsign(QString());
@@ -1020,6 +1026,81 @@ void tst_DXClusterAssistant::test_LoggedQSOUpdatesTheBandSummary()
     QCOMPARE(widget->removeSpotsOfLoggedQSO("EA3CCC", band40), 1);
     QVERIFY2(widget->bandToBeLabel->text().contains(name20),
              "Band to be must be recalculated when a worked spot leaves the list");
+}
+
+void tst_DXClusterAssistant::test_WorkedStationIsNotSpottedAgainThisSession()
+{
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 1);
+
+    // The DXCluster goes on reporting a station for as long as it is active:
+    // putting it back would undo what logging the QSO just did
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    // Another station on that band is not affected
+    addScored("EA2BBB", band20, 800);
+    QVERIFY(widget->model->indexOf("EA2BBB", band20) >= 0);
+}
+
+void tst_DXClusterAssistant::test_WorkedStationStillArrivesOnAnotherBand()
+{
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 0);
+
+    addScored("EA1AAA", band20, 1100);   // Worked band: kept out
+    addScored("EA1AAA", band40, 900);    // A band still to work: welcome
+
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+    QVERIFY2(widget->model->indexOf("EA1AAA", band40) >= 0,
+             "Working a station on one band must not keep it out of the others");
+}
+
+void tst_DXClusterAssistant::test_WorkedStationStillArrivesOnAnotherMode()
+{
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20, "CW"), 0);
+
+    DXSpot cw = makeSpot("EA1AAA", band20, 1100);
+    cw.setMode("CW");
+    widget->addOrUpdateSpot(cw);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+
+    // The same station on the same band but another mode is still needed
+    DXSpot ssb = makeSpot("EA1AAA", band20, 1100);
+    ssb.setMode("SSB");
+    widget->addOrUpdateSpot(ssb);
+    QVERIFY(widget->model->indexOf("EA1AAA", band20) >= 0);
+
+    // And a spot carrying no mode is kept out: with only one mode known there
+    // is nothing to tell them apart, the same rule the removal follows
+    widget->model->clearSpots();
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+}
+
+void tst_DXClusterAssistant::test_WorkedBeforeBeingSpottedKeepsTheSpotOut()
+{
+    // The station was worked without any spot of it ever arriving: the report
+    // that turns up a minute later is just as unwanted
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 0);
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->model->spotCount(), 0);
+}
+
+void tst_DXClusterAssistant::test_ClearAllForgetsTheWorkedStations()
+{
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 1);
+
+    widget->clearAll();
+
+    // Clear all starts the list from scratch, so a station worked this
+    // session can be listed again, exactly as a hidden call can
+    addScored("EA1AAA", band20, 1100);
+    QVERIFY2(widget->model->indexOf("EA1AAA", band20) >= 0,
+             "Clear all must forget the worked stations, otherwise they could never come back");
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -217,14 +217,17 @@ public:
     // decide, plus the mode when the QSO and the spot both carry one; the
     // frequency is not compared, as the QSO is rarely worked exactly where the
     // station was spotted. Returns how many spots were dropped.
+    // The station is also remembered for the rest of the session, so the next
+    // report of it on that band is not put back in the list: the DXCluster
+    // keeps spotting a station long after it has been worked.
     int removeSpotsOfLoggedQSO(const QString &_call, int _bandId,
                                const QString &_mode = QString());
     void setTTL(int _minutes);
     void setMaxSpots(int _max);
     void clearHiddenSpots();
-    // "Clear all": drop every spot and forget the calls hidden this session,
-    // so the list starts from scratch. The view filters are user settings and
-    // are deliberately left untouched.
+    // "Clear all": drop every spot and forget the calls hidden this session
+    // and the QSOs worked in it, so the list starts from scratch. The view
+    // filters are user settings and are deliberately left untouched.
     void clearAll();
     // "Reset all": the mirror image of clearAll(). Every entry of the Filters
     // menu goes back to the value the DX Assistant starts with, so a list
@@ -274,10 +277,22 @@ private:
     // Parent mode of a mode or submode ("USB" -> "SSB"), empty when the mode
     // is missing or KLog does not know it: the two are then not comparable
     QString modeFamily(const QString &_mode) const;
+    // Whether that station on that band has already been worked this session.
+    // _mode is a mode family, as modeFamily() returns it.
+    bool alreadyWorked(const QString &_call, int _bandId, const QString &_mode) const;
     bool spotIsShown(DXSpot _spot) const;   // Same rules the proxy filter applies
     bool spotIsTooOld(DXSpot _spot) const;  // Already past the configured max age
     int spotterProximity(DXSpot _spot) const;   // One of SpotterProximity
     QList<int> dxccsInView() const;   // Entities currently held, sorted by name
+
+    // A QSO logged this session: what it takes to recognise a later spot of
+    // it. mode is a mode family, empty when the QSO carried no mode.
+    struct WorkedQSO
+    {
+        QString call;
+        int     bandId;
+        QString mode;
+    };
 
     Awards *awards;
     World *world;
@@ -292,6 +307,7 @@ private:
     QTimer *ttlTimer;
 
     QSet<QString> hiddenCalls;   // Per-session only; never persisted to disk
+    QList<WorkedQSO> workedQSOs; // Worked this session; never persisted either
     QSet<int> disabledBands;     // Bands the user filtered out of the view
     QSet<int> disabledStatuses;  // QSOStatus values filtered out of the view
     QSet<int> disabledDXCCs;     // Entities filtered out of the view

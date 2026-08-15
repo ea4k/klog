@@ -685,6 +685,12 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
     if (hiddenCalls.contains(spot.getDxCall()))
         return;   // Hidden this session: silently dropped
 
+    // Already worked on this band this session: the DXCluster goes on
+    // reporting a station for as long as it is active, and putting it back in
+    // the list would undo what logging the QSO just did.
+    if (alreadyWorked(spot.getDxCall(), spot.getBandId(), modeFamily(spot.getMode())))
+        return;
+
     int row = model->indexOf(spot.getDxCall(), spot.getBandId());
     if (row < 0)
     {
@@ -809,6 +815,23 @@ QString DXClusterAssistant::modeFamily(const QString &_mode) const
     return dataProxy->getNameFromSubMode(_mode).toUpper();
 }
 
+bool DXClusterAssistant::alreadyWorked(const QString &_call, int _bandId,
+                                       const QString &_mode) const
+{
+    const QString call = _call.trimmed().toUpper();
+    for (const WorkedQSO &worked : workedQSOs)
+    {
+        if ((worked.call != call) || (worked.bandId != _bandId))
+            continue;
+        // Same rule the removal uses: the mode only tells them apart when the
+        // QSO and the spot both carry one
+        if (!worked.mode.isEmpty() && !_mode.isEmpty() && (worked.mode != _mode))
+            continue;
+        return true;
+    }
+    return false;
+}
+
 int DXClusterAssistant::removeSpotsOfLoggedQSO(const QString &_call, int _bandId,
                                                const QString &_mode)
 {
@@ -817,6 +840,12 @@ int DXClusterAssistant::removeSpotsOfLoggedQSO(const QString &_call, int _bandId
         return 0;
 
     const QString qsoMode = modeFamily(_mode);
+
+    // Remembered for the rest of the session, whether or not the station is
+    // in the list right now: it may well be spotted again in a minute, and it
+    // may equally have been worked before any spot of it arrived.
+    if (!alreadyWorked(call, _bandId, qsoMode))
+        workedQSOs.append(WorkedQSO{call, _bandId, qsoMode});
 
     int removed = 0;
     for (int row = model->spotCount() - 1; row >= 0; row--)
@@ -957,6 +986,7 @@ void DXClusterAssistant::clearAll()
     if (model != nullptr)
         model->clearSpots();
     hiddenCalls.clear();
+    workedQSOs.clear();   // Otherwise a station worked this session could never come back
     bandActivity.clear();
     if (proxy != nullptr)
         proxy->invalidate();
@@ -1347,8 +1377,9 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
 
     // 4 - Whole-list actions
     QAction *clearAllAct = menu.addAction(tr("Clear all"));
-    clearAllAct->setToolTip(tr("Remove every spot and show again the ones hidden this session."));
-    clearAllAct->setEnabled((model->spotCount() > 0) || !hiddenCalls.isEmpty());
+    clearAllAct->setToolTip(tr("Remove every spot and list again the ones hidden or worked this session."));
+    clearAllAct->setEnabled((model->spotCount() > 0) || !hiddenCalls.isEmpty()
+                            || !workedQSOs.isEmpty());
 
     QAction *showToMapAct = menu.addAction(tr("Show to map"));
     showToMapAct->setToolTip(tr("Plot the spots currently shown on the map."));
