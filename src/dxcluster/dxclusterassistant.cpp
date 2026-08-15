@@ -606,12 +606,7 @@ bool DXClusterAssistant::createUI()
     tableView->setContextMenuPolicy(Qt::CustomContextMenu);
     tableView->verticalHeader()->setVisible(false);
     tableView->horizontalHeader()->setStretchLastSection(true);
-    // Hidden by default: the Priority column condenses the score and the MW
-    // rank, and most cluster spots carry no mode. All three can be brought
-    // back through the header's Show columns menu.
-    tableView->setColumnHidden(DXAssistantSpotModel::ColScore, true);
-    tableView->setColumnHidden(DXAssistantSpotModel::ColMWRank, true);
-    tableView->setColumnHidden(DXAssistantSpotModel::ColMode, true);
+    applyDefaultColumns();
     tableView->horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(tableView, &QTableView::doubleClicked,
@@ -689,6 +684,12 @@ void DXClusterAssistant::addOrUpdateSpot(const DXSpot &_spot)
 
     if (hiddenCalls.contains(spot.getDxCall()))
         return;   // Hidden this session: silently dropped
+
+    // Already worked on this band this session: the DXCluster goes on
+    // reporting a station for as long as it is active, and putting it back in
+    // the list would undo what logging the QSO just did.
+    if (alreadyWorked(spot.getDxCall(), spot.getBandId(), modeFamily(spot.getMode())))
+        return;
 
     int row = model->indexOf(spot.getDxCall(), spot.getBandId());
     if (row < 0)
@@ -802,6 +803,73 @@ void DXClusterAssistant::recalculateAll()
             model->removeSpotAt(i);   // Just confirmed (or no longer resolvable)
     }
     updateBandSummary();
+}
+
+QString DXClusterAssistant::modeFamily(const QString &_mode) const
+{
+    if (_mode.isEmpty() || (dataProxy == nullptr))
+        return QString();
+    // Submodes answer with the mode they belong to, so a QSO logged as USB and
+    // a spot reported as SSB are the same mode. A mode KLog does not know
+    // answers with nothing, and then the mode simply does not take part.
+    return dataProxy->getNameFromSubMode(_mode).toUpper();
+}
+
+bool DXClusterAssistant::alreadyWorked(const QString &_call, int _bandId,
+                                       const QString &_mode) const
+{
+    const QString call = _call.trimmed().toUpper();
+    for (const WorkedQSO &worked : workedQSOs)
+    {
+        if ((worked.call != call) || (worked.bandId != _bandId))
+            continue;
+        // Same rule the removal uses: the mode only tells them apart when the
+        // QSO and the spot both carry one
+        if (!worked.mode.isEmpty() && !_mode.isEmpty() && (worked.mode != _mode))
+            continue;
+        return true;
+    }
+    return false;
+}
+
+int DXClusterAssistant::removeSpotsOfLoggedQSO(const QString &_call, int _bandId,
+                                               const QString &_mode)
+{
+    const QString call = _call.trimmed().toUpper();
+    if ((model == nullptr) || call.isEmpty() || (_bandId < 0))
+        return 0;
+
+    const QString qsoMode = modeFamily(_mode);
+
+    // Remembered for the rest of the session, whether or not the station is
+    // in the list right now: it may well be spotted again in a minute, and it
+    // may equally have been worked before any spot of it arrived.
+    if (!alreadyWorked(call, _bandId, qsoMode))
+        workedQSOs.append(WorkedQSO{call, _bandId, qsoMode});
+
+    int removed = 0;
+    for (int row = model->spotCount() - 1; row >= 0; row--)
+    {
+        DXSpot spot = model->spotAt(row);
+        if ((spot.getDxCall().toUpper() != call) || (spot.getBandId() != _bandId))
+            continue;
+        // The mode only tells two spots apart when both sides know theirs: a
+        // DXCluster spot usually carries none, and then the band is the whole
+        // answer, which is what the operator means by "I have worked it".
+        const QString spotMode = modeFamily(spot.getMode());
+        if (!qsoMode.isEmpty() && !spotMode.isEmpty() && (qsoMode != spotMode))
+            continue;
+        model->removeSpotAt(row);
+        removed++;
+    }
+
+    if (removed > 0)
+    {
+        if (proxy != nullptr)
+            proxy->invalidate();
+        updateBandSummary();
+    }
+    return removed;
 }
 
 void DXClusterAssistant::updateBandSummary()
@@ -918,10 +986,65 @@ void DXClusterAssistant::clearAll()
     if (model != nullptr)
         model->clearSpots();
     hiddenCalls.clear();
+    workedQSOs.clear();   // Otherwise a station worked this session could never come back
     bandActivity.clear();
     if (proxy != nullptr)
         proxy->invalidate();
     updateBandSummary();
+}
+
+// Hidden when the table is first built: the Priority column already condenses
+// the score and the MW rank, and most cluster spots carry no mode. All three
+// can be brought back through the Columns entry of the context menu.
+bool DXClusterAssistant::isDefaultHiddenColumn(int _column)
+{
+    return (_column == DXAssistantSpotModel::ColScore)
+        || (_column == DXAssistantSpotModel::ColMWRank)
+        || (_column == DXAssistantSpotModel::ColMode);
+}
+
+void DXClusterAssistant::applyDefaultColumns()
+{
+    if (tableView == nullptr)
+        return;
+    for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
+        tableView->setColumnHidden(i, isDefaultHiddenColumn(i));
+}
+
+bool DXClusterAssistant::filtersAreDefault() const
+{
+    if (!disabledBands.isEmpty() || !disabledStatuses.isEmpty()
+        || !disabledDXCCs.isEmpty() || !disabledSources.isEmpty())
+        return false;
+    if (followMyBand || (spotterFilter != DXAssistantProxyModel::SpotterAll))
+        return false;
+    if ((ttlMinutes != SPOT_TTL_MINUTES) || (maxSpots != MAX_SPOTS_DEFAULT))
+        return false;
+    if (tableView != nullptr)
+    {
+        for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
+        {
+            if (tableView->isColumnHidden(i) != isDefaultHiddenColumn(i))
+                return false;
+        }
+    }
+    return true;
+}
+
+void DXClusterAssistant::resetAllFilters()
+{
+    disabledBands.clear();
+    disabledStatuses.clear();
+    disabledDXCCs.clear();
+    disabledSources.clear();
+    spotterFilter = DXAssistantProxyModel::SpotterAll;
+    followMyBand  = false;
+    applyDefaultColumns();
+    // Through the setters: going back to the default cap trims a list that
+    // grew past it, and the default age drops whatever is already older.
+    setMaxSpots(MAX_SPOTS_DEFAULT);
+    setTTL(SPOT_TTL_MINUTES);
+    applyViewFilters();
 }
 
 QList<DXSpot> DXClusterAssistant::shownSpots() const
@@ -1070,7 +1193,15 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
     // 2 - Filters: everything that shapes what the table shows
     QMenu *filtersMenu = menu.addMenu(tr("Filters"));
 
-    // 2.1 - Columns
+    // 2.1 - Reset all: back to the list the DX Assistant starts with, without
+    // walking every submenu back. Greyed out while nothing is filtered, so the
+    // menu tells at a glance whether the list is being narrowed down.
+    QAction *resetFiltersAct = filtersMenu->addAction(tr("Reset all"));
+    resetFiltersAct->setToolTip(tr("Remove all filtering and put every filter back to its default."));
+    resetFiltersAct->setEnabled(!filtersAreDefault());
+    filtersMenu->addSeparator();
+
+    // 2.2 - Columns
     int visibleColumns = 0;
     QList<int> hiddenColumns;
     for (int i = 0; i < DXAssistantSpotModel::ColumnCount; i++)
@@ -1104,7 +1235,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         }
     }
 
-    // 2.2 - Bands: "Follow my band" first, then every band present in the
+    // 2.3 - Bands: "Follow my band" first, then every band present in the
     // list plus the ones already filtered out, checkable one by one.
     QMenu *bandsMenu = filtersMenu->addMenu(tr("Bands"));
     QAction *followBandAct = bandsMenu->addAction(tr("Follow my band"));
@@ -1134,7 +1265,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         bandActions.insert(act, bandId);
     }
 
-    // 2.3 - Spotter: who the spotting station must be, or where. Exclusive
+    // 2.4 - Spotter: who the spotting station must be, or where. Exclusive
     // choice, from the narrowest to the widest.
     QMenu *spotterMenu = filtersMenu->addMenu(tr("Spotter"));
     QActionGroup *spotterGroup = new QActionGroup(spotterMenu);
@@ -1154,7 +1285,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         spotterActions.insert(act, static_cast<int>(option.first));
     }
 
-    // 2.4 - Age: how long a spot stays in the list
+    // 2.5 - Age: how long a spot stays in the list
     QMenu *ageMenu = filtersMenu->addMenu(tr("Age"));
     const QList<QPair<int, QString>> ageOptions =
         { {15, tr("15 minutes")}, {30, tr("30 minutes")},
@@ -1168,7 +1299,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         ageActions.insert(act, option.first);
     }
 
-    // 2.5 - Number of spots the widget manages
+    // 2.6 - Number of spots the widget manages
     QMenu *maxSpotsMenu = filtersMenu->addMenu(tr("Number spots"));
     const QList<int> maxSpotsOptions = { 10, 25, 50, 75, 100, 200, 500 };
     QHash<QAction *, int> maxSpotsActions;
@@ -1180,7 +1311,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         maxSpotsActions.insert(act, option);
     }
 
-    // 2.6 - Status: the ATNO/Needed/Worked triple the Status column shows
+    // 2.7 - Status: the ATNO/Needed/Worked triple the Status column shows
     QMenu *statusMenu = filtersMenu->addMenu(tr("Status"));
     const QList<QSOStatus> statusOptions = { ATNO, needed, worked };
     QHash<QAction *, int> statusActions;
@@ -1192,7 +1323,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         statusActions.insert(act, static_cast<int>(status));
     }
 
-    // 2.7 - Source: where the spots come from, one entry per source KLog can
+    // 2.8 - Source: where the spots come from, one entry per source KLog can
     // be fed from, whether or not it is currently feeding it.
     QMenu *sourceMenu = filtersMenu->addMenu(tr("Source"));
     const QList<SpotSource> sourceOptions = { SpotSourceDXCluster, SpotSourceWSJTX };
@@ -1205,7 +1336,7 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
         sourceActions.insert(act, static_cast<int>(source));
     }
 
-    // 2.8 - DXCC: the entities currently in the DX Assistant
+    // 2.9 - DXCC: the entities currently in the DX Assistant
     QMenu *dxccMenu = filtersMenu->addMenu(tr("DXCC"));
     QHash<QAction *, int> dxccActions;
     for (int dxcc : dxccsInView())
@@ -1246,8 +1377,9 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
 
     // 4 - Whole-list actions
     QAction *clearAllAct = menu.addAction(tr("Clear all"));
-    clearAllAct->setToolTip(tr("Remove every spot and show again the ones hidden this session."));
-    clearAllAct->setEnabled((model->spotCount() > 0) || !hiddenCalls.isEmpty());
+    clearAllAct->setToolTip(tr("Remove every spot and list again the ones hidden or worked this session."));
+    clearAllAct->setEnabled((model->spotCount() > 0) || !hiddenCalls.isEmpty()
+                            || !workedQSOs.isEmpty());
 
     QAction *showToMapAct = menu.addAction(tr("Show to map"));
     showToMapAct->setToolTip(tr("Plot the spots currently shown on the map."));
@@ -1274,6 +1406,10 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
     else if (chosen == copyCallAct)
     {
         QGuiApplication::clipboard()->setText(spot.getDxCall());
+    }
+    else if (chosen == resetFiltersAct)
+    {
+        resetAllFilters();
     }
     else if (chosen == hideColumnAct)
     {

@@ -94,7 +94,24 @@ private slots:
     void test_FollowMyBandOverridesTheBandCheckboxes();
     void test_ClearHiddenSpotsRestoresRows();
     void test_ClearAllEmptiesTheListAndTheHiddenCalls();
+    void test_ResetAllFiltersShowsEverythingAgain();
+    void test_ResetAllFiltersKeepsTheSpotsAndTheHiddenCalls();
+    void test_FiltersAreDefaultTracksEveryFilter();
     void test_ShownSpotsFollowsTheViewFilters();
+
+    // A logged QSO drops the spot that led to it
+    void test_LoggedQSORemovesTheSpotOfThatBandOnly();
+    void test_LoggedQSOIgnoresTheFrequencyOfTheSpot();
+    void test_LoggedQSOKeepsASpotOfAnotherMode();
+    void test_LoggedQSOMatchesTheModeThroughItsSubmode();
+    void test_LoggedQSORemovesTheSpotWhenEitherModeIsMissing();
+    void test_LoggedQSOOfAStationNotListedChangesNothing();
+    void test_LoggedQSOUpdatesTheBandSummary();
+    void test_WorkedStationIsNotSpottedAgainThisSession();
+    void test_WorkedStationStillArrivesOnAnotherBand();
+    void test_WorkedStationStillArrivesOnAnotherMode();
+    void test_WorkedBeforeBeingSpottedKeepsTheSpotOut();
+    void test_ClearAllForgetsTheWorkedStations();
 
     // Expiry
     void test_SpotOlderThanTheTTLIsNeverAdded();
@@ -183,6 +200,7 @@ void tst_DXClusterAssistant::cleanup()
     widget->model->clearSpots();
     widget->bandActivity.clear();
     widget->hiddenCalls.clear();
+    widget->workedQSOs.clear();
     widget->disabledBands.clear();
     widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
     engine->setUserCallsign(QString());
@@ -195,6 +213,7 @@ void tst_DXClusterAssistant::cleanup()
     engine->setUserDXCC(-1);
     widget->setTTL(DXClusterAssistant::SPOT_TTL_MINUTES);
     widget->maxSpots = DXClusterAssistant::MAX_SPOTS_DEFAULT;
+    widget->applyDefaultColumns();
     widget->applyViewFilters();
 }
 
@@ -779,6 +798,107 @@ void tst_DXClusterAssistant::test_ClearAllEmptiesTheListAndTheHiddenCalls()
     QCOMPARE(widget->maxSpots, 25);
 }
 
+void tst_DXClusterAssistant::test_ResetAllFiltersShowsEverythingAgain()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+
+    // Every filter of the menu turned against the two spots at once
+    widget->disabledBands.insert(band20);
+    widget->disabledBands.insert(band40);
+    widget->disabledStatuses.insert(static_cast<int>(ATNO));
+    widget->disabledDXCCs.insert(100);
+    widget->disabledSources.insert(static_cast<int>(SpotSourceDXCluster));
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyCall;
+    widget->followMyBand  = true;
+    widget->setCurrentBand(band20);
+    widget->setTTL(15);
+    widget->setMaxSpots(500);
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColDXCall, true);
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColMode, false);
+    widget->applyViewFilters();
+    QCOMPARE(visibleRows(), 0);
+
+    widget->resetAllFilters();
+
+    QCOMPARE(visibleRows(), 2);
+    QVERIFY(widget->disabledBands.isEmpty());
+    QVERIFY(widget->disabledStatuses.isEmpty());
+    QVERIFY(widget->disabledDXCCs.isEmpty());
+    QVERIFY(widget->disabledSources.isEmpty());
+    QCOMPARE(static_cast<int>(widget->spotterFilter),
+             static_cast<int>(DXAssistantProxyModel::SpotterAll));
+    QCOMPARE(widget->followMyBand, false);
+    QCOMPARE(widget->ttlMinutes, DXClusterAssistant::SPOT_TTL_MINUTES);
+    QCOMPARE(widget->maxSpots, DXClusterAssistant::MAX_SPOTS_DEFAULT);
+    // The columns come back to the set the widget starts with, both ways
+    QVERIFY2(!widget->tableView->isColumnHidden(DXAssistantSpotModel::ColDXCall),
+             "Reset all must show again a column hidden by hand");
+    QVERIFY2(widget->tableView->isColumnHidden(DXAssistantSpotModel::ColMode),
+             "Reset all must hide again a column shown by hand");
+}
+
+void tst_DXClusterAssistant::test_ResetAllFiltersKeepsTheSpotsAndTheHiddenCalls()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA2BBB", band40, 800);
+    widget->hideSpotCall("EA1AAA");
+    widget->registerBandActivity(makeSpot("EA3CCC", band20, 500));
+
+    widget->resetAllFilters();
+
+    // Spots and hidden calls are data, not filters: "Clear all" owns those
+    QCOMPARE(widget->model->spotCount(), 2);
+    QVERIFY2(widget->hiddenCalls.contains("EA1AAA"),
+             "Reset all must not bring back the spots hidden this session");
+    QCOMPARE(visibleRows(), 1);
+    QVERIFY(!widget->bandActivity.isEmpty());
+}
+
+void tst_DXClusterAssistant::test_FiltersAreDefaultTracksEveryFilter()
+{
+    // Nothing touched yet: "Reset all" has nothing to do and is greyed out
+    QVERIFY(widget->filtersAreDefault());
+
+    widget->disabledBands.insert(band20);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledBands.clear();
+
+    widget->disabledStatuses.insert(static_cast<int>(worked));
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledStatuses.clear();
+
+    widget->disabledDXCCs.insert(100);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledDXCCs.clear();
+
+    widget->disabledSources.insert(static_cast<int>(SpotSourceWSJTX));
+    QVERIFY(!widget->filtersAreDefault());
+    widget->disabledSources.clear();
+
+    widget->spotterFilter = DXAssistantProxyModel::SpotterMyDXCC;
+    QVERIFY(!widget->filtersAreDefault());
+    widget->spotterFilter = DXAssistantProxyModel::SpotterAll;
+
+    widget->followMyBand = true;
+    QVERIFY(!widget->filtersAreDefault());
+    widget->followMyBand = false;
+
+    widget->setTTL(15);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->setTTL(DXClusterAssistant::SPOT_TTL_MINUTES);
+
+    widget->setMaxSpots(50);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->setMaxSpots(DXClusterAssistant::MAX_SPOTS_DEFAULT);
+
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColSpotter, true);
+    QVERIFY(!widget->filtersAreDefault());
+    widget->tableView->setColumnHidden(DXAssistantSpotModel::ColSpotter, false);
+
+    QVERIFY(widget->filtersAreDefault());
+}
+
 void tst_DXClusterAssistant::test_ShownSpotsFollowsTheViewFilters()
 {
     addScored("EA1AAA", band20, 1100);
@@ -803,6 +923,184 @@ void tst_DXClusterAssistant::test_ClearHiddenSpotsRestoresRows()
     widget->clearHiddenSpots();
     QCOMPARE(visibleRows(), 2);
     QVERIFY(widget->hiddenCalls.isEmpty());
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// A logged QSO drops the spot that led to it
+// ─────────────────────────────────────────────────────────────────────────────
+
+void tst_DXClusterAssistant::test_LoggedQSORemovesTheSpotOfThatBandOnly()
+{
+    addScored("EA1AAA", band20, 1100);
+    addScored("EA1AAA", band40, 900);
+    addScored("EA2BBB", band20, 800);
+    QCOMPARE(widget->model->spotCount(), 3);
+
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 1);
+
+    QCOMPARE(widget->model->spotCount(), 2);
+    QCOMPARE(visibleRows(), 2);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+    QVERIFY2(widget->model->indexOf("EA1AAA", band40) >= 0,
+             "The same station on another band is still worth working");
+    QVERIFY(widget->model->indexOf("EA2BBB", band20) >= 0);
+
+    // However the callsign of the QSO is cased
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("ea1aaa", band40), 1);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band40), -1);
+}
+
+void tst_DXClusterAssistant::test_LoggedQSOIgnoresTheFrequencyOfTheSpot()
+{
+    DXSpot spot = makeSpot("EA1AAA", band20, 1100);
+    spot.setFrequency(Frequency(14025.0, KHz));
+    widget->addOrUpdateSpot(spot);
+
+    // The station was spotted on 14025 and worked 5 kHz up, as it usually goes
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 1);
+    QCOMPARE(widget->model->spotCount(), 0);
+}
+
+void tst_DXClusterAssistant::test_LoggedQSOKeepsASpotOfAnotherMode()
+{
+    DXSpot spot = makeSpot("EA1AAA", band20, 1100);
+    spot.setMode("CW");
+    widget->addOrUpdateSpot(spot);
+
+    // Worked on SSB: the same station on CW on that band is still needed
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20, "SSB"), 0);
+    QVERIFY(widget->model->indexOf("EA1AAA", band20) >= 0);
+
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20, "CW"), 1);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+}
+
+void tst_DXClusterAssistant::test_LoggedQSOMatchesTheModeThroughItsSubmode()
+{
+    DXSpot spot = makeSpot("EA1AAA", band20, 1100);
+    spot.setMode("SSB");
+    widget->addOrUpdateSpot(spot);
+
+    // The QSO carries the submode KLog logs, the spot the mode it belongs to
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20, "USB"), 1);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+}
+
+void tst_DXClusterAssistant::test_LoggedQSORemovesTheSpotWhenEitherModeIsMissing()
+{
+    // A DXCluster spot usually carries no mode: the band is the whole answer
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20, "FT8"), 1);
+
+    // And the other way round: a QSO with no mode drops the spot whatever
+    // mode the spot was reported on
+    DXSpot spot = makeSpot("EA2BBB", band20, 900);
+    spot.setMode("CW");
+    widget->addOrUpdateSpot(spot);
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA2BBB", band20), 1);
+    QCOMPARE(widget->model->spotCount(), 0);
+}
+
+void tst_DXClusterAssistant::test_LoggedQSOOfAStationNotListedChangesNothing()
+{
+    addScored("EA1AAA", band20, 1100);
+
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA9ZZZ", band20), 0);   // Never spotted
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band40), 0);   // Another band
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", -1), 0);       // Band unknown
+    QCOMPARE(widget->removeSpotsOfLoggedQSO(QString(), band20), 0);  // No callsign
+    QCOMPARE(widget->model->spotCount(), 1);
+}
+
+void tst_DXClusterAssistant::test_LoggedQSOUpdatesTheBandSummary()
+{
+    // 40M is the band to be, thanks only to that one high-value spot
+    addScored("EA1AAA", band20, 500);
+    addScored("EA2BBB", band20, 500);
+    addScored("EA3CCC", band40, 1200);
+    const QString name20 = dataProxy->getNameFromBandId(band20);
+    const QString name40 = dataProxy->getNameFromBandId(band40);
+    QVERIFY(widget->bandToBeLabel->text().contains(name40));
+
+    // Working it takes its value out of the picture: 20M becomes the band to be
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA3CCC", band40), 1);
+    QVERIFY2(widget->bandToBeLabel->text().contains(name20),
+             "Band to be must be recalculated when a worked spot leaves the list");
+}
+
+void tst_DXClusterAssistant::test_WorkedStationIsNotSpottedAgainThisSession()
+{
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 1);
+
+    // The DXCluster goes on reporting a station for as long as it is active:
+    // putting it back would undo what logging the QSO just did
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    // Another station on that band is not affected
+    addScored("EA2BBB", band20, 800);
+    QVERIFY(widget->model->indexOf("EA2BBB", band20) >= 0);
+}
+
+void tst_DXClusterAssistant::test_WorkedStationStillArrivesOnAnotherBand()
+{
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 0);
+
+    addScored("EA1AAA", band20, 1100);   // Worked band: kept out
+    addScored("EA1AAA", band40, 900);    // A band still to work: welcome
+
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+    QVERIFY2(widget->model->indexOf("EA1AAA", band40) >= 0,
+             "Working a station on one band must not keep it out of the others");
+}
+
+void tst_DXClusterAssistant::test_WorkedStationStillArrivesOnAnotherMode()
+{
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20, "CW"), 0);
+
+    DXSpot cw = makeSpot("EA1AAA", band20, 1100);
+    cw.setMode("CW");
+    widget->addOrUpdateSpot(cw);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+
+    // The same station on the same band but another mode is still needed
+    DXSpot ssb = makeSpot("EA1AAA", band20, 1100);
+    ssb.setMode("SSB");
+    widget->addOrUpdateSpot(ssb);
+    QVERIFY(widget->model->indexOf("EA1AAA", band20) >= 0);
+
+    // And a spot carrying no mode is kept out: with only one mode known there
+    // is nothing to tell them apart, the same rule the removal follows
+    widget->model->clearSpots();
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->model->indexOf("EA1AAA", band20), -1);
+}
+
+void tst_DXClusterAssistant::test_WorkedBeforeBeingSpottedKeepsTheSpotOut()
+{
+    // The station was worked without any spot of it ever arriving: the report
+    // that turns up a minute later is just as unwanted
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 0);
+    QCOMPARE(widget->model->spotCount(), 0);
+
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->model->spotCount(), 0);
+}
+
+void tst_DXClusterAssistant::test_ClearAllForgetsTheWorkedStations()
+{
+    addScored("EA1AAA", band20, 1100);
+    QCOMPARE(widget->removeSpotsOfLoggedQSO("EA1AAA", band20), 1);
+
+    widget->clearAll();
+
+    // Clear all starts the list from scratch, so a station worked this
+    // session can be listed again, exactly as a hidden call can
+    addScored("EA1AAA", band20, 1100);
+    QVERIFY2(widget->model->indexOf("EA1AAA", band20) >= 0,
+             "Clear all must forget the worked stations, otherwise they could never come back");
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
