@@ -84,6 +84,11 @@ pipeline {
                     string(credentialsId: 'nas-password', variable: 'NAS_PASS')
                 ]) {
                     sh '''
+                        # Remove older arm64 DMGs first; smbclient put never
+                        # overwrites/removes files of other versions on its own.
+                        smbclient //"$NAS_HOST"/Local \
+                            -U "$NAS_USER"%"$NAS_PASS" \
+                            -c "del Subir/${APP_NAME}-*-arm64.dmg" || true
                         smbclient //"$NAS_HOST"/Local \
                             -U "$NAS_USER"%"$NAS_PASS" \
                             -c "put devscripts/${DMG_NAME} Subir/${DMG_NAME}"
