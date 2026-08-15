@@ -2868,6 +2868,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         msgBox.setInformativeText(aux);
         msgBox.exec();
         logWindow->refresh();
+        logWindow->scrollToTop();
         dxccStatusWidget->refresh();
         //TODO: Add the QSOs to the widget and show showAdifImportWidget->show();
     }
@@ -4934,6 +4935,7 @@ void MainWindow::slotADIFImport(){
     {
         updateQSLRecAndSent();
         logWindow->refresh();
+        logWindow->scrollToTop();
        //qDebug() << Q_FUNC_INFO << " -3";
         m_adifImporting = true;
         checkIfNewBandOrMode();
