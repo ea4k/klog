@@ -18,10 +18,11 @@ on:
 # Set the Job #
 ###############
 jobs:
-   permissions:
+  permissions:
       actions: read-all
       contents: read
-    build:
+
+  build:
     # Name the Job
     name: SAST
 
@@ -36,7 +37,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
 
       #####################
       # Run Deploy script #
