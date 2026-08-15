@@ -52,6 +52,8 @@ private slots:
     void test_primarySubdivisions();
     void test_qsosCache();
     void test_addQSO();
+    void test_submodeRoundTrip_data();
+    void test_submodeRoundTrip();
     void test_bandClassification_data();
     void test_bandClassification();
 
@@ -317,6 +319,54 @@ void tst_DataProxy::test_addQSO()
 
     int id = dataProxy->addQSO(qso);
     QVERIFY2(id > 0, qPrintable(QString("addQSO returned %1").arg(id)));
+}
+
+void tst_DataProxy::test_submodeRoundTrip_data()
+{
+    QTest::addColumn<QString>("entered");          // What the user picks in the mode combobox
+    QTest::addColumn<QString>("expectedMode");
+    QTest::addColumn<QString>("expectedSubmode");
+    QTest::addColumn<int>("minute");               // Keeps every row a different QSO
+
+    QTest::newRow("C4FM") << "C4FM" << "DIGITALVOICE" << "C4FM" << 1;
+    QTest::newRow("USB")  << "USB"  << "SSB"          << "USB"  << 2;
+    QTest::newRow("LSB")  << "LSB"  << "SSB"          << "LSB"  << 3;
+    QTest::newRow("FT4")  << "FT4"  << "MFSK"         << "FT4"  << 4;
+    QTest::newRow("JT9C") << "JT9C" << "JT9"          << "JT9C" << 5;
+    QTest::newRow("SSB")  << "SSB"  << "SSB"          << "SSB"  << 6;
+    QTest::newRow("CW")   << "CW"   << "CW"           << "CW"   << 7;
+}
+
+void tst_DataProxy::test_submodeRoundTrip()
+{
+    // The submode must survive the trip to the DB and back (issue #1062)
+    QFETCH(QString, entered);
+    QFETCH(QString, expectedMode);
+    QFETCH(QString, expectedSubmode);
+    QFETCH(int, minute);
+
+    QSO qso;
+    qso.clear();
+    qso.setCall("EA4K");
+    qso.setDateTimeOn(QDateTime(QDate(2024, 3, 28), QTime(10, minute, 0), QTimeZone::UTC));
+    qso.setBand("10M");
+    qso.setMode(entered);
+    qso.setLogId(1);
+
+    const int id = dataProxy->addQSO(qso);
+    QVERIFY2(id > 0, qPrintable(QString("addQSO returned %1 for %2").arg(id).arg(entered)));
+
+    // The mode goes to log.modeid and the submode to log.submode, each one on its own column.
+    // Every mode has a row repeating its own name as submode, so modeid resolves to the mode.
+    QSqlQuery q;
+    QVERIFY(q.exec(QString("SELECT modeid, submode FROM log WHERE id=%1").arg(id)));
+    QVERIFY(q.next());
+    QCOMPARE(dataProxy->getSubModeFromId(q.value(0).toInt()), expectedMode);
+    QCOMPARE(dataProxy->getSubModeFromId(q.value(1).toInt()), expectedSubmode);
+
+    const QSO stored = dataProxy->fromDB(id);
+    QCOMPARE(stored.getMode(), expectedMode);
+    QCOMPARE(stored.getSubmode(), expectedSubmode);
 }
 
 void tst_DataProxy::test_bandClassification_data()

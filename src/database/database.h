@@ -44,7 +44,7 @@
 #include "../klogdefinitions.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.028f; // This is the latest version of the DB.
+const float DBVersionf = 0.029f; // This is the latest version of the DB.
 
 class DataBase : public QObject
 {
@@ -150,6 +150,7 @@ private:
     bool updateTo026(); // KLog-2.4: Recreates entity to make UTC a real & add new ADIF fields
     bool updateTo027(); // KLog-2.4.2: Recreates entity to make UTC a real & add new ADIF fields
     bool updateTo028(); // KLog-2.4.3: Adds FT2 submode
+    bool updateTo029(); // KLog-2.4.3: Populates log.submode, that was never written
 
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
