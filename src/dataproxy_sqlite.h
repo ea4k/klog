@@ -109,6 +109,7 @@ public:
     QStringList getModesIDs();
     QStringList getBandsInLog(const int _log);
     QStringList getModesInLog(const int _log);
+    QStringList getSubModesInLog(const int _log);   // The submodes worked, not just their parent mode
     int getMostUsedBand(const int _log);
     int getMostUsedMode(const int _log);
 
@@ -118,6 +119,9 @@ public:
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
     QList<int> getModeGroupIds(const int _modeId); // Returns all mode IDs sharing the same parent mode
+    QList<int> getModeIdsForFilter(const QString &_mode); // Mode -> whole group, submode -> just itself
+    QString getSubModeIdCSV(const QString &_mode);        // Those ids, ready for an SQL IN clause
+    QString getSubModeFilterSQL(const QString &_mode);    // " AND submode IN (...) ", empty if no filter
     // qString getNameFromSubMode (const QString &_sm); // DEPRECATED
     bool isModeDeprecated (const QString &_sm);
 

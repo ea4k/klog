@@ -623,8 +623,7 @@ void MainQSOEntryWidget::setModes(const QStringList &_modes)
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug() << Q_FUNC_INFO;
 
-    modes.clear();
-    modes = _modes;
+    modes = _modes;   // No clear() before: it would empty _modes when the caller passes 'modes'
     modes.removeDuplicates();
     modes.sort();
     modeComboBox->clear();
@@ -727,22 +726,34 @@ bool MainQSOEntryWidget::setBand(const QString &_band)
 
 bool MainQSOEntryWidget::setMode(const QString &_mode)
 {
-    //TODO: If the mode is not already selected, add the mode automatically.
     logEvent (Q_FUNC_INFO, "Start" + _mode, Debug);
    //qDebug() << Q_FUNC_INFO << ":  " << _mode;
-    if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
+    if (_mode.isEmpty())
     {
-       //qDebug() << Q_FUNC_INFO << " -  NOT found";
         logEvent (Q_FUNC_INFO, "END-1", Debug);
         return false;
     }
-    else
+
+    if (modeComboBox->findText(_mode, Qt::MatchCaseSensitive) < 0)
     {
-       //qDebug() << Q_FUNC_INFO << " -  Updated";
-        modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
-        logEvent (Q_FUNC_INFO, "END-2", Debug);
-        return true;
+       //qDebug() << Q_FUNC_INFO << " -  NOT found, adding it";
+        // The QSO uses a mode the user did not select in Setup, typically a submode coming
+        // from an imported QSO. Leaving the combobox as it was would show a different mode
+        // and that wrong mode would be the one saved back, so the mode is added to the list.
+        if (!dataProxy->isValidMode(_mode))
+        {
+            logEvent (Q_FUNC_INFO, "END-2", Debug);
+            return false;
+        }
+        QStringList newModes = modes;
+        newModes << _mode;
+        setModes(newModes);   // Sorts and removes duplicates, and rebuilds the combobox
     }
+
+   //qDebug() << Q_FUNC_INFO << " -  Updated";
+    modeComboBox->setCurrentIndex(modeComboBox->findText(_mode, Qt::MatchCaseSensitive));
+    logEvent (Q_FUNC_INFO, "END-3", Debug);
+    return true;
 }
 
 bool MainQSOEntryWidget::setQRZ(const QString &_qrz)

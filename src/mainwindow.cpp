@@ -3961,7 +3961,7 @@ void MainWindow::checkIfNewBandOrMode()
       //qDebug() << Q_FUNC_INFO << " - 1 " << QTime::currentTime().toString("hh:mm:ss") ;
     QStringList bandsInLog = dataProxy->getBandsInLog(currentLog);
       //qDebug() << Q_FUNC_INFO << " - 2 " << QTime::currentTime().toString("hh:mm:ss") ;
-    QStringList modesInLog = dataProxy->getModesInLog(currentLog);
+    QStringList modesInLog = dataProxy->getSubModesInLog(currentLog);   // Submodes, so imported QSOs find their mode
       //qDebug() << Q_FUNC_INFO << " - 3 " << QTime::currentTime().toString("hh:mm:ss") ;
     QStringList qsTemp;
     qsTemp.clear();
@@ -4120,7 +4120,8 @@ void MainWindow::readActiveModes (const QStringList actives)
     QStringList __modes;
     __modes.clear();
     __modes = actives;
-    __modes << dataProxy->getModesInLog(currentLog);
+    // The submodes worked, so a QSO imported on C4FM or FT4 finds its mode in the list
+    __modes << dataProxy->getSubModesInLog(currentLog);
     __modes.removeDuplicates();
     modes.clear();
 
