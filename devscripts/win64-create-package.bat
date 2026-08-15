@@ -52,8 +52,12 @@ if defined _KLOGVER set KLOGDEVELVERSION=%_KLOGVER:~1,-2%
 
 echo Building KLog %KLOGDEVELVERSION%
 
-rem --- Clean previous installer from devscripts ---
-del klog-*win64*.exe 2>nul
+rem --- Expose the version to the Jenkinsfile so it can archive/upload the ---
+rem --- exact installer filename instead of a broad "*win64*.exe" glob.    ---
+echo %KLOGDEVELVERSION%> version.txt
+
+rem --- Clean previous installers from devscripts (any leftover version) ---
+del /Q KLog-*-win64.exe 2>nul
 
 rem --- Go to project root ---
 cd ..
