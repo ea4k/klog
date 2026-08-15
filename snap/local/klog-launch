@@ -1,0 +1,114 @@
+#!/bin/bash
+#***************************************************************************
+#                              klog-launch
+#                             -------------------
+#    begin                : aug 2026
+#    copyright            : (C) 2026 by Jaime Robles
+#    email                : jaime@robles.es
+#
+#*****************************************************************************
+# * This file is part of KLog.                                               *
+# *                                                                           *
+# *    KLog is free software: you can redistribute it and/or modify           *
+# *    it under the terms of the GNU General Public License as published by   *
+# *    the Free Software Foundation, either version 3 of the License, or      *
+# *    (at your option) any later version.                                    *
+# *                                                                           *
+# *    KLog is distributed in the hope that it will be useful,                *
+# *    but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+# *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+# *    GNU General Public License for more details.                           *
+# *                                                                           *
+# *    You should have received a copy of the GNU General Public License      *
+# *    along with KLog.  If not, see <https://www.gnu.org/licenses/>.         *
+# *                                                                           *
+#*****************************************************************************/
+#
+# command-chain wrapper for the KLog snap.
+#
+# core26 has no GNOME/KDE snapcraft extension yet, so the environment those
+# extensions would normally set up for a Qt application is set up here: plugin
+# and QML search paths, the library path for the staged Qt, fontconfig and the
+# XDG data directories. It also performs the one-time logbook migration
+# described in INSTALL-snap.
+#
+# A command-chain entry must exec the next command in the chain, so this script
+# always ends with `exec "$@"`.
+
+set -u
+
+# ---------------------------------------------------------------------------
+# Multiarch directory of the staged libraries (x86_64-linux-gnu,
+# aarch64-linux-gnu, ...). Derived at run time so the snap stays
+# architecture independent.
+# ---------------------------------------------------------------------------
+arch_triplet=""
+for dir in "$SNAP"/usr/lib/*-linux-gnu*; do
+    if [ -d "$dir/qt6" ]; then
+        arch_triplet="${dir##*/}"
+        break
+    fi
+done
+
+if [ -z "$arch_triplet" ]; then
+    echo "klog: no Qt6 directory found under $SNAP/usr/lib - broken snap?" >&2
+    exec "$@"
+fi
+
+qt_libdir="$SNAP/usr/lib/$arch_triplet"
+
+# ---------------------------------------------------------------------------
+# Qt runtime. The plugins (xcb/wayland platform, sqlite driver, OSM
+# geoservices, image formats) and the QML modules used by the map window are
+# dlopen()ed, so Qt has to be told where they are.
+# ---------------------------------------------------------------------------
+export QT_PLUGIN_PATH="$qt_libdir/qt6/plugins${QT_PLUGIN_PATH:+:$QT_PLUGIN_PATH}"
+export QML_IMPORT_PATH="$qt_libdir/qt6/qml${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}"
+export QML2_IMPORT_PATH="$QML_IMPORT_PATH"
+
+# Prepended, never replaced: the gpu extension has already put the host's
+# Mesa userspace drivers on the path and those must stay reachable.
+export LD_LIBRARY_PATH="$qt_libdir:$SNAP/usr/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+# ---------------------------------------------------------------------------
+# Desktop data: the .desktop entry, the icon and KLog's own .qm translations
+# live under $SNAP/usr/share.
+# ---------------------------------------------------------------------------
+export XDG_DATA_DIRS="$SNAP/usr/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+
+# The desktop interface bind-mounts the host font directories into the snap;
+# fontconfig itself is staged, and this is its configuration.
+if [ -f "$SNAP/etc/fonts/fonts.conf" ]; then
+    export FONTCONFIG_PATH="$SNAP/etc/fonts"
+    export FONTCONFIG_FILE="$SNAP/etc/fonts/fonts.conf"
+fi
+
+# ---------------------------------------------------------------------------
+# One-time logbook migration.
+#
+# Under strict confinement HOME is $SNAP_USER_DATA (~/snap/klog/current), so
+# KLog's QDir::homePath()+"/.klog" resolves inside the snap and a logbook made
+# by the .deb or by a self-built KLog would appear to have vanished. Copy it
+# across on the first run. The copy is only made when the snap has no logbook
+# of its own yet, and the original is never touched.
+#
+# Set KLOG_SNAP_NO_MIGRATE=1 to start with an empty logbook instead.
+# ---------------------------------------------------------------------------
+if [ -z "${KLOG_SNAP_NO_MIGRATE:-}" ] &&
+   [ -n "${SNAP_REAL_HOME:-}" ] &&
+   [ -n "${HOME:-}" ] &&
+   [ "$SNAP_REAL_HOME" != "$HOME" ] &&
+   [ ! -e "$HOME/.klog" ] &&
+   [ -d "$SNAP_REAL_HOME/.klog" ]; then
+    if cp -a "$SNAP_REAL_HOME/.klog" "$HOME/.klog.migrating" 2>/dev/null &&
+       mv "$HOME/.klog.migrating" "$HOME/.klog" 2>/dev/null; then
+        echo "klog: copied the logbook from $SNAP_REAL_HOME/.klog to $HOME/.klog" >&2
+        echo "klog: the original was left untouched; the snap uses its own copy from now on" >&2
+    else
+        rm -rf "$HOME/.klog.migrating"
+        echo "klog: could not copy $SNAP_REAL_HOME/.klog, starting with an empty logbook" >&2
+        echo "klog: is the home interface connected? (snap connect klog:home)" >&2
+    fi
+fi
+
+exec "$@"

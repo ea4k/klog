@@ -4,6 +4,8 @@ Please read:
 
  INSTALL-linux.txt for linux installations.
 
+ INSTALL-snap for the snap package (any linux distribution with snapd).
+
  INSTALL-macOS.txt for macOS installations.
 
  INSTALL-win.txt for Windows installations.

@@ -36,6 +36,19 @@ The Telegram chat group in Spanish:
 ## Install
 Read the INSTALL.txt for installation purposes.
 
+On GNU/Linux KLog can also be built and installed as a snap package, which
+bundles Qt6 and Hamlib and therefore runs on any distribution with snapd
+regardless of the Qt version that distribution ships:
+
+```
+snapcraft pack
+sudo snap install --dangerous klog_*.snap
+```
+
+Once the package is published in the Snap Store, `sudo snap install klog` will
+be all that is needed. See [INSTALL-snap](INSTALL-snap) for the interfaces you
+have to connect for CAT control and printing, and for where the logbook lives.
+
 Please send all your suggestions & bug reports.
 
 I hope you enjoy KLog!
