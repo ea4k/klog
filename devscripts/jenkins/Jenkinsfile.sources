@@ -81,6 +81,11 @@ pipeline {
                     string(credentialsId: 'nas-password', variable: 'NAS_PASS')
                 ]) {
                     sh '''
+                        # Remove older source tarballs first; smbclient put never
+                        # overwrites/removes files of other versions on its own.
+                        smbclient //"$NAS_HOST"/Local \
+                            -U "$NAS_USER"%"$NAS_PASS" \
+                            -c "del Subir/${APP_NAME}-*.tar.gz" || true
                         smbclient //"$NAS_HOST"/Local \
                             -U "$NAS_USER"%"$NAS_PASS" \
                             -c "put ${ARCHIVE_NAME} Subir/${ARCHIVE_NAME}"
