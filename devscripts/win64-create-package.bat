@@ -95,6 +95,9 @@ copy /Y "%OPENSSL_DIR%\bin\*.dll" src\release\
 copy /Y "%HAMLIB_DIR%\bin\*.dll" src\release\
 
 rem --- Deploy Qt runtime ---
+rem :: --no-translations: KLog never installs a Qt base translator (see
+rem :: loadTranslations() in main.cpp, it only loads klog_*.qm), so the qt_*.qm
+rem :: files windeployqt6 would deploy are unused and must not be packaged.
 windeployqt6 --dir src\release --release --compiler-runtime --no-translations --qmldir src\qml src\release\klog.exe
 if %errorlevel% neq 0 (
     echo ERROR: windeployqt6 failed
@@ -103,9 +106,9 @@ if %errorlevel% neq 0 (
 
 rem --- Deploy the KLog translations ---
 rem :: qt_add_translations compiles the .ts files into build\src\klog_*.qm.
-rem :: windeployqt6 only deploys the Qt translations (qt_*.qm), so the KLog ones
-rem :: have to be copied by hand into the translations folder next to klog.exe,
-rem :: which is where KLog looks for them (Utilities::getTranslationSearchPaths).
+rem :: windeployqt6 does not deploy them, so the KLog ones have to be copied by
+rem :: hand into the translations folder next to klog.exe, which is where KLog
+rem :: looks for them (Utilities::getTranslationSearchPaths).
 echo Deploying KLog translations...
 if not exist src\release\translations mkdir src\release\translations
 copy /Y build\src\klog_*.qm src\release\translations\
