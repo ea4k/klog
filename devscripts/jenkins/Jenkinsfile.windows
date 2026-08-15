@@ -106,9 +106,9 @@ pipeline {
             steps {
                 bat '''
                     echo === Installer file ===
-                    dir devscripts\%EXE_NAME%
+                    dir devscripts\\%EXE_NAME%
                     echo === SHA256 checksum ===
-                    powershell -Command "Get-FileHash devscripts\%EXE_NAME% -Algorithm SHA256 | Format-List"
+                    powershell -Command "Get-FileHash devscripts\\%EXE_NAME% -Algorithm SHA256 | Format-List"
                 '''
             }
         }
@@ -118,8 +118,8 @@ pipeline {
             steps {
                 bat '''
                     powershell -Command ^
-                        "(Get-FileHash 'devscripts\%EXE_NAME%' -Algorithm SHA256).Hash + '  devscripts\%EXE_NAME%'" ^
-                        > "devscripts\%EXE_NAME%.sha256"
+                        "(Get-FileHash 'devscripts\\%EXE_NAME%' -Algorithm SHA256).Hash + '  devscripts\\%EXE_NAME%'" ^
+                        > "devscripts\\%EXE_NAME%.sha256"
                 '''
                 archiveArtifacts artifacts: "devscripts/${env.EXE_NAME}, devscripts/${env.EXE_NAME}.sha256",
                                  fingerprint: true
