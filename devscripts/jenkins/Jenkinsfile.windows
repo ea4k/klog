@@ -127,6 +127,18 @@ pipeline {
             }
         }
 
+        stage('Clean workspace') {
+            // Wipe the win64-devel workspace now, while the VM is still up, so
+            // the next build starts from nothing and can't inherit leftover
+            // installers from this run. A post{cleanup{}} block can't do this
+            // here: it would run after "Shutdown VM" below, when the agent is
+            // no longer reachable.
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Upload to NAS') {
             agent { label 'built-in' }
             steps {
