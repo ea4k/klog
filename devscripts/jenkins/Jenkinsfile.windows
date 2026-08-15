@@ -88,7 +88,16 @@ pipeline {
                     cd devscripts
                     call win64-create-package.bat
                 '''
-                stash name: 'exe-windows', includes: 'devscripts\\*win64*.exe'
+                script {
+                    // The win64-devel workspace is never wiped between builds, so
+                    // devscripts can still contain installers from older runs even
+                    // after the .bat's own cleanup. Pin everything below to the
+                    // exact file this build just produced instead of a "*win64*"
+                    // glob, so stale versions never get archived or re-uploaded.
+                    env.WIN_VERSION = readFile('devscripts/version.txt').trim()
+                    env.EXE_NAME = "KLog-${env.WIN_VERSION}-win64.exe"
+                }
+                stash name: 'exe-windows', includes: "devscripts/${env.EXE_NAME}"
             }
         }
 
@@ -97,9 +106,9 @@ pipeline {
             steps {
                 bat '''
                     echo === Installer file ===
-                    dir devscripts\\*win64*.exe
+                    dir devscripts\%EXE_NAME%
                     echo === SHA256 checksum ===
-                    powershell -Command "Get-FileHash devscripts\\*win64*.exe -Algorithm SHA256 | Format-List"
+                    powershell -Command "Get-FileHash devscripts\%EXE_NAME% -Algorithm SHA256 | Format-List"
                 '''
             }
         }
@@ -108,15 +117,25 @@ pipeline {
             agent { label "${AGENT_LABEL}" }
             steps {
                 bat '''
-                    for %%f in (devscripts\\*win64*.exe) do (
-                        powershell -Command ^
-                            "(Get-FileHash '%%f' -Algorithm SHA256).Hash + '  %%f'" ^
-                            > "%%f.sha256"
-                    )
+                    powershell -Command ^
+                        "(Get-FileHash 'devscripts\%EXE_NAME%' -Algorithm SHA256).Hash + '  devscripts\%EXE_NAME%'" ^
+                        > "devscripts\%EXE_NAME%.sha256"
                 '''
-                archiveArtifacts artifacts: 'devscripts\\*win64*.exe, devscripts\\*.sha256',
+                archiveArtifacts artifacts: "devscripts/${env.EXE_NAME}, devscripts/${env.EXE_NAME}.sha256",
                                  fingerprint: true
-                echo "Build successful — installer archived"
+                echo "Build successful — installer archived: ${env.EXE_NAME}"
+            }
+        }
+
+        stage('Clean workspace') {
+            // Wipe the win64-devel workspace now, while the VM is still up, so
+            // the next build starts from nothing and can't inherit leftover
+            // installers from this run. A post{cleanup{}} block can't do this
+            // here: it would run after "Shutdown VM" below, when the agent is
+            // no longer reachable.
+            agent { label "${AGENT_LABEL}" }
+            steps {
+                cleanWs()
             }
         }
 
@@ -135,12 +154,9 @@ pipeline {
                         smbclient //"$NAS_HOST"/Local \
                             -U "$NAS_USER"%"$NAS_PASS" \
                             -c "del Subir/*win64*.exe" || true
-                        for f in devscripts/*win64*.exe; do
-                            fname=$(basename "$f")
-                            smbclient //"$NAS_HOST"/Local \
-                                -U "$NAS_USER"%"$NAS_PASS" \
-                                -c "put $f Subir/$fname"
-                        done
+                        smbclient //"$NAS_HOST"/Local \
+                            -U "$NAS_USER"%"$NAS_PASS" \
+                            -c "put devscripts/$EXE_NAME Subir/$EXE_NAME"
                     '''
                 }
             }
