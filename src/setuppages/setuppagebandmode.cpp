@@ -46,6 +46,11 @@ SetupPageBandMode::SetupPageBandMode(DataProxy_SQLite *dp, QWidget *parent) : QW
     modesLabel->setText(tr("Modes"));
     modesLabel->setAlignment(Qt::AlignCenter);
 
+    // The mode list has 300+ entries (every ADIF mode and submode) inserted in their
+    // raw declaration order, e.g. FT2 and FT4 sit buried inside MFSK's ~17 submodes.
+    // Sorting alphabetically is what makes a specific one findable.
+    modesListWidget->setSortingEnabled(true);
+
     addBands(dataProxy->getBandNames());
     addModes(dataProxy->getModesAndSubmodes());
 
