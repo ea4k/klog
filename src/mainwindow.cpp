@@ -260,6 +260,7 @@ void MainWindow::init_variables()
     qrzAutoChanging = false;
     qrzcomResponseValid = false;
     changingBand = false;
+    freqDrivenBandChange = false;
     logEvents = true;
     //Default band/modes
     bands << "10M" << "15M" << "20M" << "40M" << "80M" << "160M";
@@ -986,7 +987,7 @@ void MainWindow::slotBandChanged (const QString &_b)
     currentMode = currentModeShown;
     syncDXAssistantState();   // "Follow my band" tracks the band in use
 
-    if ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0))
+    if ((!freqDrivenBandChange) && ((!isFRinBand) || (QSOTabWidget->getTXFreq()<=0)))
     {
           //qDebug() << "MainWindow::slotBandChanged: Freq is not in band or empty"  ;
           //qDebug() << "MainWindow::slotBandChanged: Band: " << mainQSOEntryWidget->getBand()  ;
@@ -6228,7 +6229,16 @@ void MainWindow::slotFreqTXChanged(const Frequency  _fr)
     }
 
     if (!changingBand)
+    {
+        // setBand() can re-enter slotBandChanged() synchronously (directly, or via the
+        // satellite tab's band combos). At that point txFreqSpinBox may still hold the
+        // frequency from before this edit, so slotBandChanged must not use it to decide
+        // whether to reset the TX frequency: the correct value is the one being applied
+        // a few lines below, via setTXFreq(_fr).
+        freqDrivenBandChange = true;
         mainQSOEntryWidget->setBand(dataProxy->getBandNameFromFreq(_fr));
+        freqDrivenBandChange = false;
+    }
 
     //qDebug() << Q_FUNC_INFO << " - 10";
     QSOTabWidget->setTXFreq (_fr);
