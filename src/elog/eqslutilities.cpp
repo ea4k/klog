@@ -81,6 +81,10 @@ void eQSLUtilities::slotQsoUploadFinished(QNetworkReply *data)
     //qDebug()<< Q_FUNC_INFO << " - Result = " << QString::number(result);
 
     const QByteArray sdata = data->readAll();
+    // QNetworkAccessManager keeps no ownership of the replies it emits with
+    // finished(): dropped here, before the several exit points below, so no
+    // upload leaves its reply and its buffer behind.
+    data->deleteLater();
     QString text = QString();
 
     if (result == QNetworkReply::NoError)

@@ -257,10 +257,36 @@ Rectangle {
 
     //Location { id: mapCenter }
 
+    // marker.qml is the same file for every spot: compiled once and kept,
+    // instead of building a new Component object on every arriving spot.
+    property var markerComponent: null
+
     function addMarker(latitude, longitude, callsign, color, frequencyMHz) {
-        var component = Qt.createComponent("qrc:///qml/marker.qml")
+        // The DXCluster reports an active station again and again for as long
+        // as it is on the air. One pin per station is what the map is meant to
+        // show, so a station already on it is refreshed in place: otherwise a
+        // busy cluster piles up thousands of map items, each holding its own
+        // scene graph, that are only released when they age out.
+        var call = callsign || ""
+        if (call.length > 0) {
+            for (var m = 0; m < root.spotMarkers.length; m++) {
+                var known = root.spotMarkers[m]
+                if (known.item && known.item.text === call) {
+                    known.item.coordinate  = QtPositioning.coordinate(latitude, longitude)
+                    known.item.markerColor = color        || "#FF0000"
+                    known.item.frequency   = frequencyMHz || 0.0
+                    known.addedAt          = Date.now()   // Heard again: expiry restarts
+                    return
+                }
+            }
+        }
+
+        if (root.markerComponent === null)
+            root.markerComponent = Qt.createComponent("qrc:///qml/marker.qml")
+        var component = root.markerComponent
         if (component.status !== Component.Ready) {
             console.warn("addMarker: failed to load marker.qml:", component.errorString())
+            root.markerComponent = null
             return
         }
         var item = component.createObject(map, {

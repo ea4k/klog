@@ -25,9 +25,13 @@
  *****************************************************************************/
 #include "mapwindowwidget.h"
 
+// Qt::Window keeps the map as a separate window while the parent takes
+// ownership of it: the constructor used to drop the parent altogether, so the
+// map (and with it the QML engine and its scene graph, by far the heaviest
+// object KLog builds) was never destroyed.
 MapWindowWidget::MapWindowWidget(DataProxy_SQLite *dp, QWidget *parent)
+    : QWidget(parent, Qt::Window)
 {
-    Q_UNUSED(parent);
     //qDebug() << Q_FUNC_INFO;
     dataProxy = dp;
     // Initialize colors to safe defaults here so that setColors() calls that

@@ -159,6 +159,10 @@ void eLogQrzLog::slotManagerLogFinished(QNetworkReply *data)
     //qDebug()<< "eLogQrzLog::slotManagerLogFinished - Result Text = " << text;
     showDebugLog (Q_FUNC_INFO, "Text: " + text);
     emit showMessage(text);
+    // QNetworkAccessManager does not delete the replies it hands to the
+    // finished() slot: without this every upload leaks the reply and the
+    // buffer holding its answer.
+    data->deleteLater();
     showDebugLog (Q_FUNC_INFO, "END");
 }
 
@@ -488,9 +492,11 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
    //qDebug() << Q_FUNC_INFO << " - 00010";
     if (result == QNetworkReply::NoError)
     {
-        // qXmlStreamReader reader(sdata);
-        reader = new QXmlStreamReader(sdata);
-        parseXMLAnswer(*reader);
+        // The reader lives just as long as the answer it is parsing: kept as a
+        // member and allocated with new, every callsign looked up on QRZ.com
+        // leaked one reader and the copy of the answer it holds.
+        QXmlStreamReader reader(sdata);
+        parseXMLAnswer(reader);
     }
     else
     {
@@ -503,6 +509,8 @@ void eLogQrzLog::slotManagerFinished(QNetworkReply *data)
 
     emit showMessage(text);
     showDebugLog (Q_FUNC_INFO, "Text: " + text);
+    // The reply is ours to dispose of once the answer has been read
+    data->deleteLater();
     showDebugLog (Q_FUNC_INFO, "END");
 }
 

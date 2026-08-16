@@ -467,7 +467,7 @@ void LoTWUtilities::slotDownloadProgress(qint64 bytesRead) {
 void LoTWUtilities::slotReadyRead()
 {
     //qDebug() << Q_FUNC_INFO << ":  " << reply->readLine();
-    if (file)
+    if (file && reply)
     {
         file->write(reply->readAll());
     }
@@ -487,9 +487,12 @@ void LoTWUtilities::slotFinished()
              //delete file;
              //file = nullptr;
          }
-         //reply->deleteLater();
          pDialog->cancel();
          reply->close();
+         // The reply belongs to us, not to the manager, and nothing uses it
+         // once the download has ended
+         reply->deleteLater();
+         reply = nullptr;
          //qDebug() << Q_FUNC_INFO << ":  - END Canceled";
          return;
      }
@@ -535,7 +538,10 @@ void LoTWUtilities::slotFinished()
         if (ret == QMessageBox::Yes)
         {
             url = newUrl;
-            //reply->deleteLater();
+            // startRequest() overwrites the member: the reply that has just
+            // finished has to go first or the redirection leaks it
+            reply->deleteLater();
+            reply = nullptr;
             file->open(QIODevice::WriteOnly); /* Flawfinder: ignore */
             file->resize(0);
             startRequest(url);
@@ -547,6 +553,8 @@ void LoTWUtilities::slotFinished()
     {
         //qDebug() << Q_FUNC_INFO << ": :  " ;
     }
+    reply->deleteLater();
+    reply = nullptr;
     //qDebug() << "LoTWUtilities::slotReadyRead - Going to parse ...";
     parseDownloadedFile(file->fileName());
     //qDebug() << "LoTWUtilities::slotReadyRead - END";
@@ -556,7 +564,8 @@ void LoTWUtilities::slotCancelDownload()
 {
      //qDebug() << Q_FUNC_INFO << ":  - Start";
     downloadAborted = true;
-    reply->abort();
+    if (reply)
+        reply->abort();
      //qDebug() << Q_FUNC_INFO << ":  - END";
 }
 
