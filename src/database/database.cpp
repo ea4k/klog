@@ -969,7 +969,7 @@ bool DataBase::updateToLatest()
 /*
  * With the DB updates, the function that is called from here should be also updated.
  * The updateXXX are recursive calls that calls the previous one.
- * Update float DBVersionf = 0.029f; in database.h to the latest version!
+ * Update float DBVersionf = 0.030f; in database.h to the latest version!
  * To rebuild the Mode table and add new modes
  */
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -980,7 +980,7 @@ bool DataBase::updateToLatest()
         //return false;
     }
     //qDebug() << Q_FUNC_INFO << " - Let's update!";
-    return updateTo029();
+    return updateTo030();
 }
 
 
@@ -4630,6 +4630,32 @@ bool DataBase::updateTo029()
         return false;
 
     return updateDBVersion(softVersion, "0.029");
+}
+
+bool DataBase::updateTo030()
+{
+    // Updates the DB to 0.030:
+    // Adds the OFDM mode (RIBBIT_PIX, RIBBIT_SMS submodes) and the FREEDATA submode
+    // of DYNAMIC, both new in ADIF 3.1.7.
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
+    latestReaded = getDBVersion();
+    if (latestReaded >= 0.030f)
+    {
+        //qDebug() << Q_FUNC_INFO << " - I am in 030" ;
+        return true;
+    }
+
+    if (!updateTo029())
+        return false;
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!updateTheModeTableAndSyncLog())
+        return false;
+
+    return updateDBVersion(softVersion, "0.030");
 }
 
 int DataBase::getNumberOfQsos(const int _logNumber)
