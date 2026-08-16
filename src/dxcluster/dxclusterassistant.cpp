@@ -1131,8 +1131,7 @@ void DXClusterAssistant::slotHeaderContextMenu(const QPoint &_pos)
     if (tableView == nullptr)
         return;
     QHeaderView *header = tableView->horizontalHeader();
-    // The header carries no spot: the Spot submenu is shown disabled so the
-    // menu stays identical wherever the user opened it.
+    // The header carries no spot, so the Spot submenu is left out entirely.
     showContextMenu(header->mapToGlobal(_pos), header->logicalIndexAt(_pos),
                     DXSpot(), false);
 }
@@ -1351,27 +1350,33 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
     }
     dxccMenu->setEnabled(!dxccActions.isEmpty());
 
-    // 3 - Spot: the actions that need a spot under the cursor. Opened from
-    // the header there is none, so the whole submenu is disabled.
-    QMenu *spotMenu = menu.addMenu(tr("Spot"));
-    spotMenu->setEnabled(_hasSpot);
-
-    QAction *sendToUIAct = spotMenu->addAction(tr("Send to UI"));
-    sendToUIAct->setToolTip(tr("Fill the QSO entry form with this spot."));
-
-    QAction *logDirectlyAct = spotMenu->addAction(tr("Log this QSO"));
-    logDirectlyAct->setToolTip(tr("Add this QSO to the log immediately."));
-
-    // Offered only with a radio connected: without one there is nothing to tune
+    // 3 - Spot: the actions that need a spot under the cursor. With none
+    // there (opened from the header, or clicked/double-clicked on empty
+    // table space) the whole submenu is left out rather than shown disabled.
+    QAction *sendToUIAct = nullptr;
+    QAction *logDirectlyAct = nullptr;
     QAction *qsyAct = nullptr;
-    if (rigConnected)
+    QAction *qrzAct = nullptr;
+    if (_hasSpot)
     {
-        qsyAct = spotMenu->addAction(tr("QSY to this freq"));
-        qsyAct->setToolTip(tr("Tune the radio to the frequency of this spot."));
-    }
+        QMenu *spotMenu = menu.addMenu(tr("Spot"));
 
-    QAction *qrzAct = spotMenu->addAction(tr("Look up on QRZ.com"));
-    qrzAct->setToolTip(tr("Open this callsign's page on QRZ.com."));
+        sendToUIAct = spotMenu->addAction(tr("Send to UI"));
+        sendToUIAct->setToolTip(tr("Fill the QSO entry form with this spot."));
+
+        logDirectlyAct = spotMenu->addAction(tr("Log this QSO"));
+        logDirectlyAct->setToolTip(tr("Add this QSO to the log immediately."));
+
+        // Offered only with a radio connected: without one there is nothing to tune
+        if (rigConnected)
+        {
+            qsyAct = spotMenu->addAction(tr("QSY to this freq"));
+            qsyAct->setToolTip(tr("Tune the radio to the frequency of this spot."));
+        }
+
+        qrzAct = spotMenu->addAction(tr("Look up on QRZ.com"));
+        qrzAct->setToolTip(tr("Open this callsign's page on QRZ.com."));
+    }
 
     menu.addSeparator();
 
