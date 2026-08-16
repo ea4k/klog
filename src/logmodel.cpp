@@ -65,6 +65,26 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
     if (role != Qt::DisplayRole)
         return QSqlRelationalTableModel::data(index, role);
 
+    // Display the submode actually worked in the visible Mode column.
+    const QSqlRecord schema = QSqlDatabase::database().record("log");
+    if (index.column() == schema.indexOf("modeid"))
+    {
+        const int submodeColumn = schema.indexOf("submode");
+        if (submodeColumn >= 0)
+        {
+            const QVariant raw = QSqlRelationalTableModel::data(
+                this->index(index.row(), submodeColumn), role);
+            if (relation(submodeColumn).isValid() && !raw.toString().isEmpty())
+                return raw;
+
+            bool ok = false;
+            const int submodeId = raw.toInt(&ok);
+            const QString name = ok ? dataProxy->getSubModeFromId(submodeId) : QString();
+            if (!name.isEmpty())
+                return name;
+        }
+    }
+
     QString columnName = this->record().fieldName(index.column());
     if (columnName == "band_rx")
     {
