@@ -1202,7 +1202,6 @@ bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
 {
     logEvent (Q_FUNC_INFO, "Start", Debug);
    //qDebug()<< Q_FUNC_INFO;
-    Q_UNUSED(object);
     if (!(event->type() == QEvent::Paint ))
     {
           //qDebug() << Q_FUNC_INFO << ": " << QString::number(event->type ());
@@ -1230,7 +1229,11 @@ bool MainQSOEntryWidget::eventFilter(QObject *object, QEvent *event)
         }
     }
     logEvent (Q_FUNC_INFO, "END", Debug);
-    return QWidget::event(event);
+    // An event filter answers "did I swallow this event?". QWidget::event()
+    // does something else entirely: it delivers the event to *this* widget,
+    // whatever object it was really meant for, and hands back whether that
+    // widget accepted it. Everything not handled above is simply let through.
+    return QWidget::eventFilter(object, event);
 }
 
 void MainQSOEntryWidget::setFocusToOK()

@@ -2549,7 +2549,16 @@ void MainWindow::createMenusCommon()
     exitAct = new QAction(tr("E&xit"), this);
     fileMenu->addAction(exitAct);
     //exitAct->setMenuRole(QAction::QuitRole);
-    exitAct->setShortcut(Qt::CTRL | Qt::Key_X);
+    // Ctrl+X is the system Cut everywhere, and on macOS Qt::CTRL is the Command
+    // key, so Exit was claiming Cmd+X. Worse, the text of this action gives it
+    // QuitRole by Qt's heuristic, so on macOS it becomes the native "Quit KLog"
+    // entry and that is the shortcut the user sees there.
+    // QKeySequence::Quit is Cmd+Q on macOS and Ctrl+Q on the Unix desktops;
+    // Windows has no standard binding for it, so Ctrl+Q is set explicitly.
+    QKeySequence quitSequence(QKeySequence::Quit);
+    if (quitSequence.isEmpty())
+        quitSequence = QKeySequence(Qt::CTRL | Qt::Key_Q);
+    exitAct->setShortcut(quitSequence);
     //connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(slotFileClose()));
 
