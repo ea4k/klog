@@ -112,6 +112,13 @@ void StatsQSOsPerYearBarChartWidget::prepareChart(const int _log)
     //chart->createDefaultAxes();
     //series->attachAxis(axis);
     chart->addAxis(axis, Qt::AlignBottom);
-    chartView->setChart (chart);
+    // QChartView::setChart() takes ownership of the new chart but only
+    // *releases* the previous one, it does not delete it. Without this the
+    // whole chart (series, axes and sets) leaks on every refresh, and the
+    // chart is rebuilt every time the user changes the statistic or the log.
+    QChart *previousChart = chartView->chart();
+    chartView->setChart(chart);
+    if (previousChart != nullptr)
+        previousChart->deleteLater();
     //chart->setAxisX(axis, series);
 }

@@ -113,8 +113,6 @@ private:
     bool logged;
     QUrl serviceUrl;
 
-    QXmlStreamReader *reader;
-
     OnlineMessageWidget *onlineMessage;
     //bool useQSOStationCallsign;
 };

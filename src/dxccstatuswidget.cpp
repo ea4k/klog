@@ -623,8 +623,6 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
     QList<int> qsos;
     qsos.clear();
 
-    QTableWidgetItem * it = new QTableWidgetItem(0);
-
     //qDebug() << Q_FUNC_INFO << ": - Columns: " << QString::number(columns) ;
 
     if (item)
@@ -646,9 +644,6 @@ void DXCCStatusWidget::slotItemDoubleClicked(QTableWidgetItem  * item )
             //qDebug() << Q_FUNC_INFO << ": - column header: " << (dxccView->horizontalHeaderItem(i))->text();
             //entityName = (dxccView->item(row,i))->text() ;
               //qDebug() << Q_FUNC_INFO << ": - item: " ;
-
-            it->setText(dxccView->item(row,i)->text());
-            //qDebug() << Q_FUNC_INFO << ": - column-txt: "  << it->text();
 
             QString band = dxccView->horizontalHeaderItem(i)->text();
             //qDebug() << Q_FUNC_INFO << ": band: " << band;

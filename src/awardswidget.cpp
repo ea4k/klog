@@ -53,7 +53,8 @@ AwardsWidget::AwardsWidget(DataProxy_SQLite *dp, World *injectedWorld, QWidget *
     yearlyLabelN = new QLabel();
     yearlyScoreLabelN = new QLabel();
 
-    recalculateAwardsButton = new QPushButton;
+    // recalculateAwardsButton is created in createUI(), where it gets its text
+    // and its parent. Allocating it here as well would just leak that object.
     includeModeForNeededCheckBox = new QCheckBox;
     dataProxy = dp;
     world = injectedWorld;

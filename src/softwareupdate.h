@@ -78,7 +78,7 @@ private:
     int OSVersion;
     QUrl *url;
 
-    // qNetworkAccessManager *manager;
+    QNetworkAccessManager *manager;
     QNetworkRequest request;
 
     SoftwareUpdateDialog *updateDialog;

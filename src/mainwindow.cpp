@@ -3186,7 +3186,7 @@ void MainWindow::slotHelpAboutAction()
 
     logEvent(Q_FUNC_INFO, "Start", Devel);
     if (!aboutDialog)
-        aboutDialog = new AboutDialog(softwareVersion, pkgVersion);
+        aboutDialog = new AboutDialog(softwareVersion, pkgVersion, this);
     aboutDialog->exec();
     logEvent(Q_FUNC_INFO, "END", Debug);
     //helpAboutDialog->exec();
@@ -5408,7 +5408,13 @@ void MainWindow::slotShowStats()
 {
     logEvent(Q_FUNC_INFO, "Start", Devel);
     if (!statsWidget)
+    {
         statsWidget = new StatisticsWidget(dataProxy);
+        // Parented so it is destroyed with the main window, but kept as a
+        // top level window: without an owner the whole statistics panel (16
+        // chart widgets) was never freed.
+        statsWidget->setParent(this, Qt::Window);
+    }
     statsWidget->show();
     logEvent(Q_FUNC_INFO, "END", Debug);
 }

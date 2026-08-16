@@ -43,10 +43,15 @@ MapWidget::MapWidget(QWidget *parent)
 MapWidget::~MapWidget()
 {
     if (m_quickView || m_quickWidget) {
+        // Drop the QML scene first so its objects are gone before the view
+        // itself is destroyed with the rest of the children.
         if (m_quickView)   m_quickView->setSource(QUrl());
         else               m_quickWidget->setSource(QUrl());
         qmlEngine()->collectGarbage();
-        QCoreApplication::processEvents();
+        // No processEvents() here: this destructor runs while the widget tree
+        // is being torn down (the map window is owned by the main window), and
+        // spinning the event loop at that point delivers events to objects
+        // that are half destroyed.
     }
 }
 

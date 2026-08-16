@@ -31,6 +31,7 @@ SoftwareUpdate::SoftwareUpdate(const QString &_klogVersion, QWidget *parent) : Q
       //qDebug() << "SoftwareUpdate::SoftwareUpdate(): " << _klogVersion;
     util = new Utilities(Q_FUNC_INFO);
     updateDialog = new SoftwareUpdateDialog(parent);
+    manager = nullptr;
     latestVersion = "0.0";
     repositoryFound = false;
     url = new QUrl;
@@ -95,6 +96,7 @@ void SoftwareUpdate::slotDownloadFinished(QNetworkReply *reply)
     if (url.toString().length()< QString("https://api.github.com/repos/ea4k/klog/releases/latest").length())
     {
         //qDebug() << Q_FUNC_INFO << ": URL too short" ;
+        reply->deleteLater();
         return;
     }
     QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
@@ -278,12 +280,22 @@ void SoftwareUpdate::connectToURL(const QString &_url)
 {
     // This is where the connection takes place.... so first connection may be the main URL but it launches connection after redirections
     //qDebug() << "SoftwareUpdate::connectToURL: " << _url;
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    manager->get(QNetworkRequest(QUrl(_url)));
+    // One manager for the whole object: a new one per call (and per
+    // redirection) piled up on the parent until KLog was closed.
+    if (manager == nullptr)
+    {
+        manager = new QNetworkAccessManager(this);
+        connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
+    }
+
+    // A single request, the member one: it carries the User-Agent header that
+    // setHeader() prepares. The previous code fired two GETs, one with the URL
+    // but no header and one with the header but no URL, and the reply of the
+    // headerless one was never disposed of.
+    request.setUrl(QUrl(_url));
     QNetworkReply *reply = manager->get(request);
 
     connect(reply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
-    connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(slotDownloadFinished(QNetworkReply*)));
     //qDebug() << "SoftwareUpdate::conectToURL - END";
 }
 
