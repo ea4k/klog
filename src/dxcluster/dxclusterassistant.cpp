@@ -1172,22 +1172,26 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
 
     // 1 - Hiding spots is what the operator does most often, so it opens the
     // menu. It works on the whole selection: several spots can be picked and
-    // dropped from the list in one go.
+    // dropped from the list in one go. Left out entirely without a spot
+    // under the cursor, same as the Spot submenu below.
     const QList<DXSpot> selection = selectedSpots();
     const bool severalSpots = (selection.count() > 1);
-    QAction *hideAct = menu.addAction(severalSpots ? tr("Hide these spots")
-                                                   : tr("Hide this spot"));
-    hideAct->setToolTip(severalSpots
-                        ? tr("Hide these callsigns for the rest of the session.")
-                        : tr("Hide this callsign for the rest of the session."));
-    hideAct->setEnabled(_hasSpot);
+    QAction *hideAct = nullptr;
+    QAction *copyCallAct = nullptr;
+    if (_hasSpot)
+    {
+        hideAct = menu.addAction(severalSpots ? tr("Hide these spots")
+                                              : tr("Hide this spot"));
+        hideAct->setToolTip(severalSpots
+                            ? tr("Hide these callsigns for the rest of the session.")
+                            : tr("Hide this callsign for the rest of the session."));
 
-    // 2 - Copy Callsign: the other action worth reaching without a submenu
-    QAction *copyCallAct = menu.addAction(tr("Copy Callsign"));
-    copyCallAct->setToolTip(tr("Copy the DX callsign of this spot to the clipboard."));
-    copyCallAct->setEnabled(_hasSpot);
+        // 2 - Copy Callsign: the other action worth reaching without a submenu
+        copyCallAct = menu.addAction(tr("Copy Callsign"));
+        copyCallAct->setToolTip(tr("Copy the DX callsign of this spot to the clipboard."));
 
-    menu.addSeparator();
+        menu.addSeparator();
+    }
 
     // 2 - Filters: everything that shapes what the table shows
     QMenu *filtersMenu = menu.addMenu(tr("Filters"));
@@ -1380,15 +1384,21 @@ void DXClusterAssistant::showContextMenu(const QPoint &_globalPos, int _column,
 
     menu.addSeparator();
 
-    // 4 - Whole-list actions
-    QAction *clearAllAct = menu.addAction(tr("Clear all"));
-    clearAllAct->setToolTip(tr("Remove every spot and list again the ones hidden or worked this session."));
-    clearAllAct->setEnabled((model->spotCount() > 0) || !hiddenCalls.isEmpty()
-                            || !workedQSOs.isEmpty());
+    // 4 - Whole-list actions: left out, not just disabled, when there is
+    // nothing for them to act on.
+    QAction *clearAllAct = nullptr;
+    if ((model->spotCount() > 0) || !hiddenCalls.isEmpty() || !workedQSOs.isEmpty())
+    {
+        clearAllAct = menu.addAction(tr("Clear all"));
+        clearAllAct->setToolTip(tr("Remove every spot and list again the ones hidden or worked this session."));
+    }
 
-    QAction *showToMapAct = menu.addAction(tr("Show to map"));
-    showToMapAct->setToolTip(tr("Plot the spots currently shown on the map."));
-    showToMapAct->setEnabled(proxy->rowCount() > 0);
+    QAction *showToMapAct = nullptr;
+    if (proxy->rowCount() > 0)
+    {
+        showToMapAct = menu.addAction(tr("Show to map"));
+        showToMapAct->setToolTip(tr("Plot the spots currently shown on the map."));
+    }
 
     QAction *refreshAct = menu.addAction(tr("Refresh"));
     refreshAct->setToolTip(tr("Score every spot again against your log."));
