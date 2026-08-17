@@ -547,13 +547,13 @@ void MainWindowSatTab::slotSatBandTXComboBoxChanged()
 
         double upLink = tmpFreq.toDouble();
         double downLink;
-        if (dataProxy->isThisFreqInBand(tmpBand,dataProxy->getSatelliteUplink(getSatName(),1)), MHz )
+        if (dataProxy->isThisFreqInBand(tmpBand,dataProxy->getSatelliteUplink(getSatName(),1)))
         {
             upLink = (dataProxy->getSatelliteUplink(getSatName(),1)).toDouble();
             downLink = (dataProxy->getSatelliteDownlink(getSatName(),1)).toDouble();
             updateRXFreq(downLink);
         }
-        else if (dataProxy->isThisFreqInBand(tmpBand,dataProxy->getSatelliteUplink(getSatName(),0)), MHz )
+        else if (dataProxy->isThisFreqInBand(tmpBand,dataProxy->getSatelliteUplink(getSatName(),0)))
         {
             upLink = (dataProxy->getSatelliteUplink(getSatName(),0)).toDouble();
             downLink = (dataProxy->getSatelliteDownlink(getSatName(),1)).toDouble();
