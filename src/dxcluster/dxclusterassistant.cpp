@@ -809,10 +809,19 @@ QString DXClusterAssistant::modeFamily(const QString &_mode) const
 {
     if (_mode.isEmpty() || (dataProxy == nullptr))
         return QString();
-    // Submodes answer with the mode they belong to, so a QSO logged as USB and
-    // a spot reported as SSB are the same mode. A mode KLog does not know
-    // answers with nothing, and then the mode simply does not take part.
-    return dataProxy->getNameFromSubMode(_mode).toUpper();
+    // Compares by the actual submode (e.g. FT4), not by collapsing to the ADIF parent
+    // mode (e.g. MFSK): FT2 and FT4 are both MFSK but are operationally different
+    // digital modes, and grouping them together made KLog treat a spot on one as
+    // already worked just because the other had been logged (klog#1123). Voice
+    // sidebands are the one case where that coarser grouping is genuinely correct: a
+    // QSO logged as USB and a spot reported as SSB are the same contact.
+    // A mode KLog does not know answers with nothing, and then the mode simply does
+    // not take part in the comparison (same as before).
+    static const QSet<QString> sidebandSynonyms = {QStringLiteral("USB"), QStringLiteral("LSB"), QStringLiteral("SSB")};
+    if (!dataProxy->isValidMode(_mode))
+        return QString();
+    const QString subMode = _mode.toUpper();
+    return sidebandSynonyms.contains(subMode) ? QStringLiteral("SSB") : subMode;
 }
 
 bool DXClusterAssistant::alreadyWorked(const QString &_call, int _bandId,
