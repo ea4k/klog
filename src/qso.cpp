@@ -1797,23 +1797,17 @@ int QSO::getKlogDxcc() const
 bool QSO::setPropMode(const QString &_c)
 {
     qDebug() << Q_FUNC_INFO << ": " << _c;
-    qDebug() << Q_FUNC_INFO << " - SAT_MODE: " << getSatMode();
-    qDebug() << Q_FUNC_INFO << " - SAT_NAME: " << getSatName();
-    ////Utilities util(Q_FUNC_INFO);
-    if (!util->isValidPropMode (_c))
+    if (!util->isValidPropMode(_c))
     {
-        //qDebug() << Q_FUNC_INFO << " - Not valid!";
         propMode = QString();
         return false;
     }
     if ((_c.toUpper() == "SAT") && satName.isEmpty())
     {
-        // Propagation mode SAT is only valid when a satellite name is set
-        //qDebug() << Q_FUNC_INFO << " - SAT without satName: rejected";
+        // Propagation mode SAT requires a satellite name to be set
         propMode = QString();
         return false;
     }
-    //qDebug() << Q_FUNC_INFO << " - OK END";
     propMode = _c.toUpper();
     return true;
 }
@@ -2143,7 +2137,6 @@ bool QSO::getKeepSatTab() const{return keepSat;}
 bool QSO::setSatName(const QString &_c)
 {
     qDebug() << Q_FUNC_INFO << ": " << _c;
-    qDebug() << Q_FUNC_INFO << "PROP_MODE: " << _c;
     if (!_c.isEmpty())
     {
         satName = _c;
@@ -2154,8 +2147,7 @@ bool QSO::setSatName(const QString &_c)
         satName = QString();
         if (propMode == "SAT")
         {
-            // No satellite means propagation mode can't stay SAT
-            setPropMode(QString());
+            setPropMode(QString());   // no satellite -> no SAT prop mode
         }
         return false;
     }

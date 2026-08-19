@@ -485,7 +485,7 @@ public:
 
 signals:
     void debugLog (QString _func, QString _msg, DebugLogLevel _level);
-    void  getModeSignal (QString submode);   // Request the mode to be filled for a given submode
+    void getModeSignal (QString submode);   // Request the mode to be filled for a given submode
     void queryError(QString functionFailed, QString errorCodeS, QString nativeError, QString failedQuery); // To alert about any failed query execution
 
 private:
