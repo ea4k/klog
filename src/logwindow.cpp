@@ -123,6 +123,26 @@ void LogWindow::retoreColumsOrder()
         for (int i = 0; i < columnCount; ++i) {
             columnOrder.append(i);
         }
+
+        // Place Mode ADIF (modeid) and Mode (submode) right after Band, since
+        // their physical schema order does not match the order users expect to see.
+        QSqlRecord logRecord = QSqlDatabase::database().record("log");
+        int bandCol = logRecord.indexOf("bandid");
+        if (bandCol >= 0) {
+            QList<int> modeCols;
+            int modeCol = logRecord.indexOf("modeid");
+            int submodeCol = logRecord.indexOf("submode");
+            if (modeCol >= 0)
+                modeCols << modeCol;
+            if (submodeCol >= 0)
+                modeCols << submodeCol;
+
+            for (int c : modeCols)
+                columnOrder.removeOne(c);
+            int insertPos = columnOrder.indexOf(bandCol) + 1;
+            for (int i = 0; i < modeCols.size(); ++i)
+                columnOrder.insert(insertPos + i, modeCols.at(i));
+        }
     }
 
     // Temporarily disable updates for smoother reordering

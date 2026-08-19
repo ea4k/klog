@@ -211,6 +211,11 @@ void SearchWindow::setColumnsToDX()
 
     columns = rec.indexOf("modeid");
     treeView->setColumnHidden(columns, false);
+    searchModel->setHeaderData(columns, Qt::Horizontal,tr("Mode ADIF"));
+    searchModel->setRelation(columns, QSqlRelation("mode", "id", "name"));
+
+    columns = rec.indexOf("submode");
+    treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("Mode"));
     searchModel->setRelation(columns, QSqlRelation("mode", "id", "submode"));
     searchModel->setModeIdColumn(columns);

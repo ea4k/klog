@@ -60,8 +60,24 @@ void SetupPageLogView::init()
     Utilities util(Q_FUNC_INFO);
     QStringList humanList;
     QString aux;
-    foreach(aux, dataProxy->getFields())
-        humanList.append(util.getLogColumnName(aux));
+
+    // Place Mode ADIF (modeid) and Mode (submode) right after Band: their physical
+    // schema order does not match the order users expect to configure/see them in.
+    QStringList fields = dataProxy->getFields();
+    QStringList modeFields;
+    if (fields.removeOne("modeid"))
+        modeFields << "modeid";
+    if (fields.removeOne("submode"))
+        modeFields << "submode";
+    if (!modeFields.isEmpty())
+    {
+        int insertPos = fields.indexOf("bandid") + 1;
+        for (int i = 0; i < modeFields.size(); ++i)
+            fields.insert(insertPos + i, modeFields.at(i));
+    }
+
+    foreach(aux, fields)
+        humanList.append(util.getLogColumnNameForSettings(aux));
 
     addFields(humanList);
     if (fieldsListWidget->count ()<1)
@@ -72,7 +88,7 @@ void SetupPageLogView::init()
        aux.clear();
 
        foreach(aux, defaultList)
-           humanList.append(util.getLogColumnName(aux));
+           humanList.append(util.getLogColumnNameForSettings(aux));
 
         setActiveFields(humanList);
     }
@@ -178,7 +194,7 @@ void SetupPageLogView::loadSettings()
     QStringList humanLogNames;
     QString aux;
     foreach(aux, fields)
-        humanLogNames.append(util.getLogColumnName(aux));
+        humanLogNames.append(util.getLogColumnNameForSettings(aux));
     setActiveFields(humanLogNames);
     initialFields = humanLogNames;
    //qDebug() << Q_FUNC_INFO << " - END";

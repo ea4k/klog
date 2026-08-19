@@ -1614,9 +1614,24 @@ QString Utilities::getLogColumnName(const QString &_column)
     return _column;
 }
 
+QString Utilities::getLogColumnNameForSettings(const QString &_column)
+{
+    // The log view keeps the "Mode" label simple, but in the field selector we
+    // clarify that this field is ADIF's submode, since that is what hams call "Mode".
+    if (_column == "submode")
+    {
+        return QObject::tr("Mode (ADIF submode)");
+    }
+    return getLogColumnName(_column);
+}
+
 QString Utilities::getLogColumnDBName(const QString &_column)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _column;
+    if (_column == QObject::tr("Mode (ADIF submode)"))
+    {
+        return "submode";
+    }
     QString aux = columnNames.key(_column);
     if (!aux.isEmpty())
     {
