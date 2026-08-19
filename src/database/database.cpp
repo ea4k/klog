@@ -598,7 +598,10 @@ bool DataBase::createTableLog(bool temp)
              "marked VARCHAR(1), "
              "lognumber INTEGER NOT NULL, "
 
-             "UNIQUE (call, qso_date, bandid, modeid, lognumber), "
+             // Keyed on submode (the specific submode worked, e.g. FT4), not modeid (the ADIF
+             // parent mode, e.g. MFSK): modeid is shared by every submode of the same ADIF
+             // family, so keying on it collapses genuinely different QSOs (see issue #1119).
+             "UNIQUE (call, qso_date, bandid, submode, lognumber), "
              "FOREIGN KEY (qsl_rcvd_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_sent_via) REFERENCES qsl_via_enumeration, "
              "FOREIGN KEY (qsl_rcvd) REFERENCES qsl_rec_status, "
@@ -969,7 +972,7 @@ bool DataBase::updateToLatest()
 /*
  * With the DB updates, the function that is called from here should be also updated.
  * The updateXXX are recursive calls that calls the previous one.
- * Update float DBVersionf = 0.030f; in database.h to the latest version!
+ * Update float DBVersionf = 0.031f; in database.h to the latest version!
  * To rebuild the Mode table and add new modes
  */
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -980,7 +983,7 @@ bool DataBase::updateToLatest()
         //return false;
     }
     //qDebug() << Q_FUNC_INFO << " - Let's update!";
-    return updateTo030();
+    return updateTo031();
 }
 
 
@@ -4656,6 +4659,40 @@ bool DataBase::updateTo030()
         return false;
 
     return updateDBVersion(softVersion, "0.030");
+}
+
+bool DataBase::updateTo031()
+{
+    // Updates the DB to 0.031:
+    // log's UNIQUE constraint was keyed on modeid (the ADIF parent mode, e.g. MFSK)
+    // instead of submode (the specific submode worked, e.g. FT4). Since modeid is
+    // shared by every submode of the same ADIF family, two genuinely different QSOs
+    // (same call/band/timestamp/log, different submode) could collide on INSERT and
+    // the second one would be silently dropped as an "expected duplicate".
+    // Recreating the table picks up the fixed constraint from createTableLog().
+    // Existing data cannot violate the new (finer-grained) constraint: any two rows
+    // that would collide on submode already shared the same modeid, so they could
+    // never have coexisted under the old constraint in the first place.
+    // See https://github.com/ea4k/klog/issues/1119
+
+    //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
+
+    latestReaded = getDBVersion();
+    if (latestReaded >= 0.031f)
+    {
+        //qDebug() << Q_FUNC_INFO << " - I am in 031" ;
+        return true;
+    }
+
+    if (!updateTo030())
+        return false;
+
+    // Now I am in the previous version and I can update the DB.
+
+    if (!recreateTableLog())
+        return false;
+
+    return updateDBVersion(softVersion, "0.031");
 }
 
 int DataBase::getNumberOfQsos(const int _logNumber)
