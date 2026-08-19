@@ -3104,11 +3104,14 @@ void DataProxy_SQLite::bindQSOValues(QSqlQuery &query, const QSO &_qso)
     query.bindValue(":rig", _qso.getRig ());
     if (adif.isValidPower(_qso.getRXPwr()))
         query.bindValue(":rx_pwr", _qso.getRXPwr());
-    if (_qso.getPropMode() == "SAT")
-    {
-        query.bindValue(":sat_mode", _qso.getSatMode());
-        query.bindValue(":sat_name", _qso.getSatName());
-    }
+    // m_insertQuery/m_updateQuery are prepared once and reused for every
+    // QSO, so a placeholder that isn't rebound here keeps whatever value
+    // was bound the last time this query object was executed - it must
+    // always be (re)bound, even to empty, or a QSO that stops being SAT
+    // would silently keep (or inherit from a previous unrelated QSO) a
+    // stale sat_mode/sat_name in the DB.
+    query.bindValue(":sat_mode", _qso.getSatMode());
+    query.bindValue(":sat_name", _qso.getSatName());
     if (adif.isValidSFI(_qso.getSFI()))
         query.bindValue(":sfi", _qso.getSFI());
     query.bindValue(":sig", _qso.getSIG());
