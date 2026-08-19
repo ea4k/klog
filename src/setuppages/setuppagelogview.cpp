@@ -67,7 +67,7 @@ void SetupPageLogView::init()
     if (fieldsListWidget->count ()<1)
     {
        //qDebug() << Q_FUNC_INFO << " - No fields in the widget, populating with default ones";
-       QStringList defaultList = {"qso_date", "call", "rst_sent", "rst_rcvd", "bandid", "modeid", "comment"};
+       QStringList defaultList = {"qso_date", "call", "rst_sent", "rst_rcvd", "bandid", "submode", "comment"};
        humanList.clear();
        aux.clear();
 

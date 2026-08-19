@@ -500,7 +500,7 @@ QStringList Utilities::getDefaultLogFields()
 {
     QStringList fields;
     fields.clear();
-    fields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "submode" << "comment";
+    fields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "submode" << "comment";
     return fields;
 }
 
