@@ -81,19 +81,24 @@ QStringList LogModeDelegate::comboItemsFor(const QModelIndex &index, const QStri
 
 QWidget *LogModeDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (index.column() == subModeColumn())
-    {
-        QComboBox *combo = new QComboBox(parent);
-        combo->addItems(comboItemsFor(index, activeSubModes));
-        return combo;
-    }
-    if (index.column() == modeIdColumn())
-    {
-        QComboBox *combo = new QComboBox(parent);
-        combo->addItems(comboItemsFor(index, activeParentModes()));
-        return combo;
-    }
-    return QSqlRelationalDelegate::createEditor(parent, option, index);
+    const bool isSubMode = index.column() == subModeColumn();
+    const bool isModeId = index.column() == modeIdColumn();
+    if (!isSubMode && !isModeId)
+        return QSqlRelationalDelegate::createEditor(parent, option, index);
+
+    QComboBox *combo = new QComboBox(parent);
+    combo->addItems(comboItemsFor(index, isSubMode ? activeSubModes : activeParentModes()));
+    // Commit and close as soon as the user picks an item. Without this, the Mode
+    // ADIF/Mode sync only happens once the editor loses focus, which reads as if the
+    // pick "didn't take" until the user clicks elsewhere.
+    // const_cast: createEditor() is const (it's an interface requirement), but emitting
+    // these signals doesn't touch any delegate state -- it just notifies the view.
+    LogModeDelegate *self = const_cast<LogModeDelegate *>(this);
+    connect(combo, &QComboBox::activated, self, [self, combo]() {
+        emit self->commitData(combo);
+        emit self->closeEditor(combo);
+    });
+    return combo;
 }
 
 void LogModeDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
@@ -220,6 +225,11 @@ void LogWindow::createUI()
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
     logView->horizontalHeader ()->setSectionsMovable (true);
+    // Double-click is reserved for opening the QSO edit dialog (slotDoubleClickLog).
+    // Now that cells have a working delegate, leaving DoubleClicked as an edit trigger
+    // would also start inline editing on the same click, fighting with the dialog.
+    // Inline editing is still reachable via F2/Enter or typing on a selected cell.
+    logView->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
     // Without a relational delegate, relational columns (band, mode ADIF, mode,
     // country...) fall back to the default delegate, which edits/writes the raw foreign
     // key id instead of showing a combobox of the related values -- inline edits on those
