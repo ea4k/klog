@@ -207,13 +207,28 @@ void SearchWindow::setColumnsToDX()
     treeView->setColumnHidden(columns, false);
     searchModel->setRelation(columns, QSqlRelation("band", "id", "name"));
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("Band"));
+    int bandCol = columns;
 
+    // Mode ADIF (the real ADIF mode, e.g. MFSK) is only shown here when the user
+    // opted to see it in the log view settings; by default only Mode (the
+    // flattened submode hams actually call "mode", e.g. FT4) is shown.
+    QSettings settings(util->getCfgFile(), QSettings::IniFormat);
+    bool showModeADIF = dataProxy->filterValidFields(settings.value("LogViewFields").toStringList()).contains("modeid");
 
-    columns = rec.indexOf("modeid");
+    int modeCol = rec.indexOf("modeid");
+    if (showModeADIF)
+    {
+        treeView->setColumnHidden(modeCol, false);
+        searchModel->setHeaderData(modeCol, Qt::Horizontal,tr("Mode ADIF"));
+        searchModel->setRelation(modeCol, QSqlRelation("mode", "id", "name"));
+    }
+
+    columns = rec.indexOf("submode");
     treeView->setColumnHidden(columns, false);
     searchModel->setHeaderData(columns, Qt::Horizontal,tr("Mode"));
     searchModel->setRelation(columns, QSqlRelation("mode", "id", "submode"));
     searchModel->setModeIdColumn(columns);
+    int submodeCol = columns;
 
     columns = rec.indexOf("qsl_sent");
     treeView->setColumnHidden(columns, false);
@@ -238,6 +253,16 @@ void SearchWindow::setColumnsToDX()
     //columns = rec.indexOf("id");
 
     //treeView->setColumnHidden(columns, false);
+
+    // Place Mode ADIF (if shown) and Mode right after Band, matching the log view's order.
+    QHeaderView *header = treeView->header();
+    int nextVisual = header->visualIndex(bandCol) + 1;
+    if (showModeADIF)
+    {
+        header->moveSection(header->visualIndex(modeCol), nextVisual);
+        ++nextVisual;
+    }
+    header->moveSection(header->visualIndex(submodeCol), nextVisual);
 }
 
 void SearchWindow::refresh()

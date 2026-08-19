@@ -159,6 +159,7 @@ public:
 
     // Translate the LOG table fields into human readable
     QString getLogColumnName(const QString &_column);
+    QString getLogColumnNameForSettings(const QString &_column);
     QString getLogColumnDBName(const QString &_column);
 
     // Creates the ADIF DATE & TIME formats

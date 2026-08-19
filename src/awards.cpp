@@ -200,7 +200,9 @@ int Awards::getWAZWorked(const int _logNumber, const QList<int> &modeIds)
     {
         QStringList parts;
         for (int id : modeIds) parts << QString::number(id);
-        modeFilter = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+        // submode, not modeid: modeid is the ADIF parent mode, shared by every submode
+        // of that family (klog#1122).
+        modeFilter = QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
     }
     QSqlQuery query;
     QString stringQuery;
@@ -246,7 +248,9 @@ int Awards::getWAZConfirmed(const int _logNumber, const QList<int> &modeIds)
     {
         QStringList parts;
         for (int id : modeIds) parts << QString::number(id);
-        modeFilter = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+        // submode, not modeid: modeid is the ADIF parent mode, shared by every submode
+        // of that family (klog#1122).
+        modeFilter = QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
     }
     QSqlQuery query;
     QString stringQuery;
@@ -590,13 +594,18 @@ bool Awards::updateDXCCStatus(const int _logNumber)
     QSqlQuery query;
     QString stringQuery = QString();
 
+    // Grouped/keyed by submode, not modeid: modeid is the ADIF parent mode (e.g. MFSK),
+    // shared by every submode of that family, so keying the DXCC/mode status by it made
+    // e.g. a confirmed FT8 QSO also read as "confirmed" for FT4 on the same DXCC/band,
+    // and everywhere that compares by the actual submode (see getQSOStatus() callers)
+    // never matched at all, always reporting "needed". See klog#1121.
     if (_logNumber>=0)
     {
-        stringQuery = QString("SELECT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, lognumber, MIN(id) as id FROM log WHERE lognumber = :lognumber GROUP BY dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
+        stringQuery = QString("SELECT dxcc, bandid, submode, qsl_rcvd, lotw_qsl_rcvd, lognumber, MIN(id) as id FROM log WHERE lognumber = :lognumber GROUP BY dxcc, bandid, submode, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
     }
     else
     {
-        stringQuery = QString("SELECT dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd, lognumber, MIN(id) as id FROM log GROUP BY dxcc, bandid, modeid, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
+        stringQuery = QString("SELECT dxcc, bandid, submode, qsl_rcvd, lotw_qsl_rcvd, lognumber, MIN(id) as id FROM log GROUP BY dxcc, bandid, submode, qsl_rcvd, lotw_qsl_rcvd ORDER BY dxcc;");
     }
     if (_logNumber>=0)
     {
@@ -682,7 +691,7 @@ EntityStatus Awards::extractEntityStatus(QSqlQuery &query) {
     EntityStatus ent;
     ent.dxcc = query.value(rec.indexOf("dxcc")).toInt();
     ent.bandId = query.value(rec.indexOf("bandid")).toInt();
-    ent.modeId = query.value(rec.indexOf("modeid")).toInt();
+    ent.modeId = query.value(rec.indexOf("submode")).toInt();
     ent.status = getStatus(query, rec);
     ent.qsoId = query.value(rec.indexOf("id")).toInt();
     ent.logId = query.value(rec.indexOf("lognumber")).toInt();

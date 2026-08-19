@@ -26,7 +26,132 @@
 
 #include "logwindow.h"
 #include <QElapsedTimer>
+#include <QComboBox>
 
+LogModeDelegate::LogModeDelegate(DataProxy_SQLite *_dataProxy, QObject *parent)
+    : QSqlRelationalDelegate(parent), dataProxy(_dataProxy)
+{
+}
+
+void LogModeDelegate::setActiveSubModes(const QStringList &_subModes)
+{
+    activeSubModes = _subModes;
+}
+
+int LogModeDelegate::modeIdColumn() const
+{
+    if (m_modeIdColumn < 0)
+        m_modeIdColumn = QSqlDatabase::database().record("log").indexOf("modeid");
+    return m_modeIdColumn;
+}
+
+int LogModeDelegate::subModeColumn() const
+{
+    if (m_subModeColumn < 0)
+        m_subModeColumn = QSqlDatabase::database().record("log").indexOf("submode");
+    return m_subModeColumn;
+}
+
+QStringList LogModeDelegate::activeParentModes() const
+{
+    QStringList parents;
+    for (const QString &subMode : std::as_const(activeSubModes))
+    {
+        const QString parent = dataProxy->getNameFromSubMode(subMode);
+        if (!parent.isEmpty())
+            parents << parent;
+    }
+    parents.removeDuplicates();
+    parents.sort();
+    return parents;
+}
+
+// Active items plus the cell's current value, so opening the editor on a QSO logged
+// with a mode the user has since disabled does not silently change it.
+QStringList LogModeDelegate::comboItemsFor(const QModelIndex &index, const QStringList &_baseItems) const
+{
+    QStringList items = _baseItems;
+    const QString current = index.model()->data(index, Qt::DisplayRole).toString();
+    if (!current.isEmpty() && !items.contains(current, Qt::CaseInsensitive))
+        items << current;
+    items.removeDuplicates();
+    items.sort();
+    return items;
+}
+
+QWidget *LogModeDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    const bool isSubMode = index.column() == subModeColumn();
+    const bool isModeId = index.column() == modeIdColumn();
+    if (!isSubMode && !isModeId)
+        return QSqlRelationalDelegate::createEditor(parent, option, index);
+
+    QComboBox *combo = new QComboBox(parent);
+    combo->addItems(comboItemsFor(index, isSubMode ? activeSubModes : activeParentModes()));
+    // Commit and close as soon as the user picks an item. Without this, the Mode
+    // ADIF/Mode sync only happens once the editor loses focus, which reads as if the
+    // pick "didn't take" until the user clicks elsewhere.
+    // const_cast: createEditor() is const (it's an interface requirement), but emitting
+    // these signals doesn't touch any delegate state -- it just notifies the view.
+    LogModeDelegate *self = const_cast<LogModeDelegate *>(this);
+    connect(combo, &QComboBox::activated, self, [self, combo]() {
+        emit self->commitData(combo);
+        emit self->closeEditor(combo);
+    });
+    return combo;
+}
+
+void LogModeDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    if (index.column() == subModeColumn() || index.column() == modeIdColumn())
+    {
+        if (QComboBox *combo = qobject_cast<QComboBox *>(editor))
+        {
+            const QString current = index.model()->data(index, Qt::DisplayRole).toString();
+            const int i = combo->findText(current, Qt::MatchFixedString);
+            if (i >= 0)
+                combo->setCurrentIndex(i);
+            return;
+        }
+    }
+    QSqlRelationalDelegate::setEditorData(editor, index);
+}
+
+void LogModeDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    QComboBox *combo = qobject_cast<QComboBox *>(editor);
+
+    // Picking a submode also updates Mode ADIF to that submode's parent (e.g. picking
+    // FT4 sets the parent mode to MFSK), since the two columns must stay consistent.
+    if (combo && index.column() == subModeColumn())
+    {
+        const int newSubModeId = dataProxy->getIdFromModeName(combo->currentText());
+        if (newSubModeId <= 0)
+            return;
+        model->setData(index, newSubModeId);
+
+        const QString parentName = dataProxy->getNameFromModeId(newSubModeId);
+        const int parentId = dataProxy->getIdFromModeName(parentName);
+        if (parentId > 0)
+            model->setData(index.siblingAtColumn(modeIdColumn()), parentId);
+        return;
+    }
+
+    // Picking a parent mode resets the submode to the mode-table row that stands for
+    // "just this mode" (its submode field repeats its own name), since the previous
+    // submode may no longer belong to the newly selected parent family.
+    if (combo && index.column() == modeIdColumn())
+    {
+        const int genericId = dataProxy->getIdFromModeName(combo->currentText());
+        if (genericId <= 0)
+            return;
+        model->setData(index, genericId);
+        model->setData(index.siblingAtColumn(subModeColumn()), genericId);
+        return;
+    }
+
+    QSqlRelationalDelegate::setModelData(editor, model, index);
+}
 
 LogWindow::LogWindow(Awards *awards, QWidget *parent)
     : QWidget(parent),
@@ -43,6 +168,10 @@ LogWindow::LogWindow(Awards *awards, QWidget *parent)
 
     currentLog = -1;
     m_blockWidthSave = false;
+    m_lastClickedRow = -1;
+    m_editClickTimer = new QTimer(this);
+    m_editClickTimer->setSingleShot(true);
+    connect(m_editClickTimer, &QTimer::timeout, this, &LogWindow::slotEditPendingCell);
 
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
@@ -75,6 +204,12 @@ void LogWindow::refreshColumns()
     setColumnsOfLog(columns);
 }
 
+void LogWindow::setActiveModes(const QStringList &_subModes)
+{
+    if (modeDelegate)
+        modeDelegate->setActiveSubModes(_subModes);
+}
+
 void LogWindow::sortColumn(const int _c)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -94,6 +229,22 @@ void LogWindow::createUI()
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
     logView->horizontalHeader ()->setSectionsMovable (true);
+    // Click gestures on the log grid: 1st click selects the row (default behaviour);
+    // a further click on an already-selected row edits that cell -- but deferred by
+    // slotLogViewClicked/m_editClickTimer rather than the built-in SelectedClicked
+    // trigger, so a double-click on an already-selected row (2nd click looks identical
+    // to "click again to edit") can still cancel it and open the QSO edit dialog
+    // (slotDoubleClickLog) instead. DoubleClicked is deliberately NOT an edit trigger.
+    logView->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
+    connect(logView, &QTableView::clicked, this, &LogWindow::slotLogViewClicked);
+    // Without a relational delegate, relational columns (band, mode ADIF, mode,
+    // country...) fall back to the default delegate, which edits/writes the raw foreign
+    // key id instead of showing a combobox of the related values -- inline edits on those
+    // columns silently fail and the view reverts to the previous value. LogModeDelegate
+    // additionally restricts the Mode ADIF/Mode comboboxes to the active modes and keeps
+    // the two columns in sync with each other.
+    modeDelegate = new LogModeDelegate(dataProxy, logView);
+    logView->setItemDelegate(modeDelegate);
     //logView->setDragDropMode (QAbstractItemView::InternalMove);
     //logView->setDropIndicatorShown (true);
     //retoreColumsOrder();
@@ -107,10 +258,17 @@ void LogWindow::createUI()
 
 void LogWindow::retoreColumsOrder()
 {
-    // Retrieve stored column order from settings
+    // Retrieve stored column order from settings. Stored as a QStringList (like
+    // ColumnWidths below) rather than QVariant::fromValue<QList<int>>: QList<int> is not
+    // a type QVariant knows how to (de)serialize on its own, which produced a
+    // "QVariant::load: unknown user type with name QList<int>" warning on every startup
+    // without ever actually restoring a custom order (the size-mismatch fallback below
+    // silently absorbed the failed load).
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    QList<int> columnOrder = settings.value("ColumnOrder").value<QList<int>>();
+    QList<int> columnOrder;
+    for (const QString &value : settings.value("ColumnOrder").toStringList())
+        columnOrder.append(value.toInt());
     settings.endGroup();
 
     QHeaderView *header = logView->horizontalHeader();
@@ -122,6 +280,26 @@ void LogWindow::retoreColumsOrder()
         columnOrder.clear();
         for (int i = 0; i < columnCount; ++i) {
             columnOrder.append(i);
+        }
+
+        // Place Mode ADIF (modeid) and Mode (submode) right after Band, since
+        // their physical schema order does not match the order users expect to see.
+        QSqlRecord logRecord = QSqlDatabase::database().record("log");
+        int bandCol = logRecord.indexOf("bandid");
+        if (bandCol >= 0) {
+            QList<int> modeCols;
+            int modeCol = logRecord.indexOf("modeid");
+            int submodeCol = logRecord.indexOf("submode");
+            if (modeCol >= 0)
+                modeCols << modeCol;
+            if (submodeCol >= 0)
+                modeCols << submodeCol;
+
+            for (int c : modeCols)
+                columnOrder.removeOne(c);
+            int insertPos = columnOrder.indexOf(bandCol) + 1;
+            for (int i = 0; i < modeCols.size(); ++i)
+                columnOrder.insert(insertPos + i, modeCols.at(i));
         }
     }
 
@@ -157,6 +335,11 @@ void LogWindow::createlogPanel(const int _currentLog)
     QElapsedTimer _t; _t.start();
     m_blockWidthSave = true;
     currentLog = _currentLog;
+    // Row indices are about to be replaced by the reload below; forget any pending
+    // deferred edit and last-clicked-row tracking so a stale row number can't be
+    // mistaken for "already selected" in the freshly loaded log.
+    m_editClickTimer->stop();
+    m_lastClickedRow = -1;
 
     // createlogModel sets sort to qso_date DESC before select(), so only ONE
     // SQL query is issued here. Do NOT call sortColumn() or sortByColumn() after
@@ -431,6 +614,11 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 {
     //qDebug() << Q_FUNC_INFO << " - Start Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column());
 
+    // This double-click's first press already looked like "click an already-selected
+    // row" to slotLogViewClicked() and armed a deferred cell edit -- cancel it, this is
+    // a double-click, so it opens the QSO edit dialog instead.
+    m_editClickTimer->stop();
+
     int row = index.row();
     // qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
@@ -447,6 +635,32 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
     //logModel->select();
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void LogWindow::slotLogViewClicked(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    if (index.row() != m_lastClickedRow)
+    {
+        // First click on this row: just select it, same as any other row.
+        m_lastClickedRow = index.row();
+        return;
+    }
+
+    // A further click on the row the previous click already landed on: this either
+    // means "edit this cell", or it's the first half of a double-click on that same
+    // row. Defer starting the editor by the system's double-click interval; a genuine
+    // double-click cancels it in slotDoubleClickLog() before it fires.
+    m_pendingEditIndex = index;
+    m_editClickTimer->start(qApp->doubleClickInterval());
+}
+
+void LogWindow::slotEditPendingCell()
+{
+    if (m_pendingEditIndex.isValid())
+        logView->edit(m_pendingEditIndex);
 }
 
 bool LogWindow::isQSLReceived(const int _qsoId)
@@ -878,10 +1092,15 @@ void LogWindow::saveColumnOrder()
         columnOrder.append(header->logicalIndex(i));
     }
 
-    // Save order to settings
+    // Save order to settings, as a QStringList -- see retoreColumsOrder() for why not
+    // QVariant::fromValue<QList<int>>.
+    QStringList columnOrderStrings;
+    for (int column : std::as_const(columnOrder))
+        columnOrderStrings.append(QString::number(column));
+
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    settings.setValue("ColumnOrder", QVariant::fromValue(columnOrder));
+    settings.setValue("ColumnOrder", columnOrderStrings);
     settings.endGroup();
 }
 

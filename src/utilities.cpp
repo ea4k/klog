@@ -500,7 +500,7 @@ QStringList Utilities::getDefaultLogFields()
 {
     QStringList fields;
     fields.clear();
-    fields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "modeid" << "submode" << "comment";
+    fields << "qso_date" << "call" << "rst_sent" << "rst_rcvd" << "bandid" << "submode" << "comment";
     return fields;
 }
 
@@ -1463,7 +1463,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("rst_rcvd", QObject::tr("RSTrx"));
     columnNames.insert("bandid", QObject::tr("Band"));
     columnNames.insert("comment", QObject::tr("Comment"));
-    columnNames.insert("modeid", QObject::tr("Mode"));
+    columnNames.insert("modeid", QObject::tr("Mode ADIF"));
     columnNames.insert("cqz", QObject::tr("CQz"));
     columnNames.insert("ituz", QObject::tr("ITUz"));
     columnNames.insert("dxcc", QObject::tr("DXCC"));
@@ -1589,7 +1589,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("stx_string", QObject::tr("STX String"));
     columnNames.insert("state", QObject::tr("State"));
     columnNames.insert("station_callsign", QObject::tr("Station Callsign"));
-    columnNames.insert("submode", QObject::tr("Submode"));
+    columnNames.insert("submode", QObject::tr("Mode"));
     columnNames.insert("swl", QObject::tr("SWL", "Do not translate if unsure, common hamradio term."));
     columnNames.insert("uksmg", QObject::tr("UKSMG"));
     columnNames.insert("usaca_counties", QObject::tr("USACA counties"));
@@ -1614,9 +1614,24 @@ QString Utilities::getLogColumnName(const QString &_column)
     return _column;
 }
 
+QString Utilities::getLogColumnNameForSettings(const QString &_column)
+{
+    // The log view keeps the "Mode" label simple, but in the field selector we
+    // clarify that this field is ADIF's submode, since that is what hams call "Mode".
+    if (_column == "submode")
+    {
+        return QObject::tr("Mode (ADIF submode)");
+    }
+    return getLogColumnName(_column);
+}
+
 QString Utilities::getLogColumnDBName(const QString &_column)
 {
     //qDebug() << QString("%1-%2").arg(Q_FUNC_INFO).arg(parentName) << ": " << _column;
+    if (_column == QObject::tr("Mode (ADIF submode)"))
+    {
+        return "submode";
+    }
     QString aux = columnNames.key(_column);
     if (!aux.isEmpty())
     {

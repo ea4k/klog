@@ -36,10 +36,40 @@
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
 #include <QDesktopServices>
+#include <QTimer>
+#include <QPersistentModelIndex>
 #include "dataproxy_sqlite.h"
 #include "logmodel.h"
 #include "awards.h"
 #include "utilities.h"
+
+// Edits the log grid's Mode ADIF (modeid) and Mode (submode) columns with comboboxes
+// restricted to the user's active modes, keeping the two columns in sync: picking a
+// submode updates the parent mode to match, and picking a parent mode resets the
+// submode to the row that stands for "just this mode, no specific submode".
+class LogModeDelegate : public QSqlRelationalDelegate
+{
+    Q_OBJECT
+
+public:
+    explicit LogModeDelegate(DataProxy_SQLite *_dataProxy, QObject *parent = nullptr);
+    void setActiveSubModes(const QStringList &_subModes);
+
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+
+private:
+    int modeIdColumn() const;
+    int subModeColumn() const;
+    QStringList activeParentModes() const;
+    QStringList comboItemsFor(const QModelIndex &index, const QStringList &_baseItems) const;
+
+    DataProxy_SQLite *dataProxy;
+    QStringList activeSubModes;
+    mutable int m_modeIdColumn = -1;
+    mutable int m_subModeColumn = -1;
+};
 
 class LogWindow : public  QWidget
 {
@@ -65,6 +95,7 @@ public:
     void sortColumn(const int _c);
     void setColumns(const QStringList &_columns);
     void refreshColumns();
+    void setActiveModes(const QStringList &_subModes);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
@@ -106,6 +137,8 @@ private slots:
     void slotQSOsQRZUploadFromLog();
     void slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
     void slotOnSectionResized(int logicalIndex, int oldSize, int newSize);
+    void slotLogViewClicked(const QModelIndex &index);
+    void slotEditPendingCell();
 
 private:
     void createUI();
@@ -135,6 +168,14 @@ private:
 
     QTableView *logView;
     QLabel *logLabel;
+    LogModeDelegate *modeDelegate;
+
+    // Disambiguates "click a cell already on the selected row" (start editing) from the
+    // first half of a double-click (open the QSO edit dialog instead): the edit is
+    // deferred by doubleClickInterval() and cancelled if a double-click follows.
+    QTimer *m_editClickTimer;
+    QPersistentModelIndex m_pendingEditIndex;
+    int m_lastClickedRow;
 
     QAction *delQSOFromLogAct;
     QAction *qsoToEditFromLogAct;

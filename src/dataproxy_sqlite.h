@@ -119,6 +119,7 @@ public:
     QString getSubModeFromId (const int _id);
     QString getNameFromSubMode (const QString &_sm); // Checks if a submode is deprecated TODO: CHeck if really needed
     QList<int> getModeGroupIds(const int _modeId); // Returns all mode IDs sharing the same parent mode
+    QList<int> getSidebandGroupIds(const int _modeId); // Like getModeGroupIds(), but only for USB/LSB/SSB
     QList<int> getModeIdsForFilter(const QString &_mode); // Mode -> whole group, submode -> just itself
     QString getSubModeIdCSV(const QString &_mode);        // Those ids, ready for an SQL IN clause
     QString getSubModeFilterSQL(const QString &_mode);    // " AND submode IN (...) ", empty if no filter
@@ -410,8 +411,7 @@ public:
     int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
     inline int findDuplicateId(const QSO &qso, int marginSeconds)
     {
-        int modeId = getIdFromModeName(qso.getSubmode().isEmpty() ? qso.getMode() : qso.getSubmode());
-        return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), modeId, marginSeconds);
+        return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), getSubModeIdFromQSO(qso), marginSeconds);
     }
 
     //QHash<QString, int> getHashTableData(const DataTableHash _data);

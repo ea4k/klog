@@ -44,7 +44,7 @@
 #include "../klogdefinitions.h"
 
 class QSqlRelationalTableModel;
-const float DBVersionf = 0.030f; // This is the latest version of the DB.
+const float DBVersionf = 0.031f; // This is the latest version of the DB.
 
 class DataBase : public QObject
 {
@@ -152,6 +152,7 @@ private:
     bool updateTo028(); // KLog-2.4.3: Adds FT2 submode
     bool updateTo029(); // KLog-2.4.3: Populates log.submode, that was never written
     bool updateTo030(); // Adds OFDM mode (RIBBIT_PIX, RIBBIT_SMS) and FREEDATA submode from ADIF 3.1.7
+    bool updateTo031(); // Fixes log's UNIQUE constraint to key on submode instead of modeid (issue #1119)
 
     bool updateTableLog(const int _version);
     bool updateDBVersion(QString _softV, QString _dbV);
@@ -161,6 +162,7 @@ private:
     //bool updateLog(); // Updates the log table
     bool recreateTableLog();
     bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
+    bool createLogIndexes(); // Indexes bandid/modeid/submode/lognumber on the "log" table.
     bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
     bool createTableEntity(const bool NoTmp);
     bool recreateTableEntity();

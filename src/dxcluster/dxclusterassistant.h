@@ -274,8 +274,10 @@ private:
     void applyDefaultColumns();
     // Whether every filter is already at its default: greys out "Reset all"
     bool filtersAreDefault() const;
-    // Parent mode of a mode or submode ("USB" -> "SSB"), empty when the mode
-    // is missing or KLog does not know it: the two are then not comparable
+    // Normalizes a mode/submode for "is this the same mode" comparisons: the submode
+    // itself (e.g. "FT4"), except voice sidebands which fold to "SSB" ("USB" -> "SSB").
+    // Empty when the mode is missing or KLog does not know it: the two are then not
+    // comparable.
     QString modeFamily(const QString &_mode) const;
     // Whether that station on that band has already been worked this session.
     // _mode is a mode family, as modeFamily() returns it.

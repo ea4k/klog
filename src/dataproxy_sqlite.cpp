@@ -34,10 +34,14 @@
 
 static QString buildModeInClause(const QList<int> &modeIds)
 {
+    // Filters on submode, not modeid: modeid is the ADIF parent mode (e.g. MFSK), shared
+    // by every submode of that family, so filtering "by the current mode" actually
+    // included every submode of its whole family (e.g. FT4 also pulling in FT2, FST4,
+    // JS8, Q65...) instead of just the one the caller asked for. See klog#1122.
     if (modeIds.isEmpty()) return QString();
     QStringList parts;
     for (int id : modeIds) parts << QString::number(id);
-    return QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+    return QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
 }
 
 //#include <QDebug>
@@ -505,6 +509,26 @@ QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
 
     QList<int> ids;
     QSqlQuery query(QString("SELECT id FROM mode WHERE name='%1'").arg(parentMode));
+    while (query.next())
+        ids << query.value(0).toInt();
+    return ids.isEmpty() ? (QList<int>() << _modeId) : ids;
+}
+
+QList<int> DataProxy_SQLite::getSidebandGroupIds(const int _modeId)
+{
+    // Unlike getModeGroupIds(), only groups the one family where that is actually
+    // correct: USB/LSB/SSB are the same contact in practice. getModeGroupIds() groups
+    // by shared ADIF parent instead, which for any other family lumps together
+    // operationally distinct modes (e.g. FT2 and FT4, both MFSK) that should not be
+    // treated as interchangeable for DXCC/award status. See klog#1121.
+    ensureCacheReady();
+    static const QSet<QString> sidebandSynonyms = {QStringLiteral("USB"), QStringLiteral("LSB"), QStringLiteral("SSB")};
+    const QString subMode = m_cache.getModeFromId(_modeId).submode.toUpper();
+    if (!sidebandSynonyms.contains(subMode))
+        return QList<int>() << _modeId;
+
+    QList<int> ids;
+    QSqlQuery query(QStringLiteral("SELECT id FROM mode WHERE submode IN ('USB','LSB','SSB')"));
     while (query.next())
         ids << query.value(0).toInt();
     return ids.isEmpty() ? (QList<int>() << _modeId) : ids;
@@ -3647,7 +3671,10 @@ int DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 {
    //qDebug() << Q_FUNC_INFO << " - 000";
     int bandId = getIdFromBandName(_qso.getBand());
-    int modeId = getIdFromModeName(_qso.getMode());
+    // Use the submode id, not the parent mode id: modeid is shared by every submode of
+    // the same ADIF family (e.g. FT2 and FT4 are both MFSK), so comparing by modeid
+    // flagged genuinely different QSOs as duplicates. See issue #1120.
+    int modeId = getSubModeIdFromQSO(_qso);
     return findDuplicateId(_qso.getCall(), _qso.getDateTimeOn(), bandId, modeId, _secs );
 }
 
@@ -9084,10 +9111,12 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
 
    if (!modeIds.isEmpty())
    {
-       // Use the provided mode IDs list (mode group, e.g. SSB includes USB/LSB/SSB)
+       // Use the provided mode IDs list (mode group, e.g. SSB includes USB/LSB/SSB),
+       // filtered on submode like the _mode branch below -- modeid (the ADIF parent
+       // mode) would pull in every submode of the whole family instead (klog#1122).
        QStringList parts;
        for (int id : modeIds) parts << QString::number(id);
-       modeString = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+       modeString = QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
    }
    else if (_mode.toUpper() != "ALL")
    {
@@ -9193,7 +9222,10 @@ DataProxy_SQLite::loadDupeCacheBG(const QString &dbPath, int logId)
             qWarning() << Q_FUNC_INFO << "failed to open DB:" << dbPath;
             return result;
         }
-        QString queryString = "SELECT id, call, qso_date, bandid, modeid FROM log";
+        // Keyed on submode, not modeid: modeid is shared by every submode of the same
+        // ADIF family (e.g. FT2 and FT4 are both MFSK), so building the cache from it
+        // flagged genuinely different QSOs as duplicates. See issue #1120.
+        QString queryString = "SELECT id, call, qso_date, bandid, submode FROM log";
         if (logId > 0)
             queryString += QString(" WHERE lognumber=%1").arg(logId);
         QSqlQuery q(bgDb);
