@@ -94,6 +94,11 @@ void LogWindow::createUI()
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
     logView->horizontalHeader ()->setSectionsMovable (true);
+    // Without this, relational columns (band, mode ADIF, mode, country...) fall back to
+    // the default delegate, which edits/writes the raw foreign key id instead of showing
+    // a combobox of the related values -- inline edits on those columns silently fail
+    // and the view reverts to the previous value.
+    logView->setItemDelegate(new QSqlRelationalDelegate(logView));
     //logView->setDragDropMode (QAbstractItemView::InternalMove);
     //logView->setDropIndicatorShown (true);
     //retoreColumsOrder();
