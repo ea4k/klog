@@ -1463,7 +1463,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("rst_rcvd", QObject::tr("RSTrx"));
     columnNames.insert("bandid", QObject::tr("Band"));
     columnNames.insert("comment", QObject::tr("Comment"));
-    columnNames.insert("modeid", QObject::tr("Mode"));
+    columnNames.insert("modeid", QObject::tr("Mode ADIF"));
     columnNames.insert("cqz", QObject::tr("CQz"));
     columnNames.insert("ituz", QObject::tr("ITUz"));
     columnNames.insert("dxcc", QObject::tr("DXCC"));
@@ -1589,7 +1589,7 @@ void Utilities::setLogColumnNames()
     columnNames.insert("stx_string", QObject::tr("STX String"));
     columnNames.insert("state", QObject::tr("State"));
     columnNames.insert("station_callsign", QObject::tr("Station Callsign"));
-    columnNames.insert("submode", QObject::tr("Submode"));
+    columnNames.insert("submode", QObject::tr("Mode"));
     columnNames.insert("swl", QObject::tr("SWL", "Do not translate if unsure, common hamradio term."));
     columnNames.insert("uksmg", QObject::tr("UKSMG"));
     columnNames.insert("usaca_counties", QObject::tr("USACA counties"));
