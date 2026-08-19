@@ -43,13 +43,10 @@
 #include "awards.h"
 #include "utilities.h"
 
-// The log grid's item delegate. Edits the Mode ADIF (modeid) and Mode (submode) columns
-// with comboboxes restricted to the user's active modes, keeping the two columns in
-// sync: picking a submode updates the parent mode to match, and picking a parent mode
-// resets the submode to the row that stands for "just this mode, no specific submode".
-// Also paints a visible border around the current cell: the log grid selects whole rows
-// (needed for the bulk QSO actions), so without this the current cell -- the one arrow
-// keys move and F2/click-again would edit -- has no visible indicator of its own.
+// Edits the log grid's Mode ADIF (modeid) and Mode (submode) columns with comboboxes
+// restricted to the user's active modes, keeping the two columns in sync: picking a
+// submode updates the parent mode to match, and picking a parent mode resets the
+// submode to the row that stands for "just this mode, no specific submode".
 class LogModeDelegate : public QSqlRelationalDelegate
 {
     Q_OBJECT
@@ -61,7 +58,6 @@ public:
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     void setEditorData(QWidget *editor, const QModelIndex &index) const override;
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
     int modeIdColumn() const;

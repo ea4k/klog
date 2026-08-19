@@ -153,23 +153,6 @@ void LogModeDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, c
     QSqlRelationalDelegate::setModelData(editor, model, index);
 }
 
-void LogModeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    QSqlRelationalDelegate::paint(painter, option, index);
-
-    // The log grid selects whole rows, so the current cell -- the one arrow keys move
-    // and a click-on-already-selected-row/F2 would edit -- needs its own visible marker,
-    // since it would otherwise look identical to every other cell in the selected row.
-    if (option.state & QStyle::State_HasFocus)
-    {
-        painter->save();
-        QPen pen(option.palette.color(QPalette::Highlight), 2);
-        painter->setPen(pen);
-        painter->drawRect(option.rect.adjusted(1, 1, -2, -2));
-        painter->restore();
-    }
-}
-
 LogWindow::LogWindow(Awards *awards, QWidget *parent)
     : QWidget(parent),
     awards(awards)
