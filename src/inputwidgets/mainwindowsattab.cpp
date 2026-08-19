@@ -47,8 +47,6 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     dataProxy = dp;
     util = new Utilities(Q_FUNC_INFO);
 
-    createUI();
-    populateSatComboBox();
     qsoToEditInProcess = false;
     modifying = false;
     updatingBands = false;
@@ -58,6 +56,13 @@ MainWindowSatTab::MainWindowSatTab(DataProxy_SQLite *dp, QWidget *parent) :
     palRed.setColor(QPalette::Text, Qt::red);
     palBlack.setColor(QPalette::Text, Qt::black);
     palWhite.setColor(QPalette::Text, Qt::white);
+
+    // createUI()/populateSatComboBox() can synchronously fire
+    // slotSatNameComboBoxChanged() (the combo box gets a current index as
+    // soon as items are added), which relies on the flags and palettes
+    // above being already set.
+    createUI();
+    populateSatComboBox();
 
     setDefaultBands(); //TODO: Check how the bands are included not to create an inconsistence with the selected (in the setup) bands
        //qDebug() << "MainWindowSatTab::MainWindowSatTab - END"  ;
@@ -187,12 +192,24 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     //qDebug() << Q_FUNC_INFO << ": " << satNameComboBox->currentText();
     int i = satNameComboBox->currentIndex();
 
-    // The "Other" name field must be editable whenever "Other" is selected,
-    // even while editing an existing QSO (modifying == true), otherwise the
-    // user has no way to type/change the satellite name.
+    // The "Other" name field must reflect the current selection - enabled
+    // and pre-filled with a red "Unknown" to draw the user's attention so
+    // they edit it, or cleared and disabled otherwise - even while editing
+    // an existing QSO (modifying == true), otherwise the user has no way
+    // to type/change the satellite name.
     bool isOtherSat = (i == 1);
     satNameLineEdit->setEnabled(isOtherSat);
     satOtherLabel->setEnabled(isOtherSat);
+    if (isOtherSat)
+    {
+        satNameLineEdit->setText(tr("Unknown"));
+        satNameLineEdit->setPalette(palRed);
+    }
+    else
+    {
+        satNameLineEdit->clear();
+        satNameLineEdit->setPalette(getDarkMode() ? palWhite : palBlack);
+    }
 
     if (modifying || (satNameComboBox->currentText().length()<4))
     {
@@ -202,8 +219,6 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     updatingSat = true;
 
     //qDebug() << Q_FUNC_INFO << ": SAT index: " << QString::number(i);
-
-    satNameLineEdit->clear();
 
     if (i == 0)
     {
@@ -234,6 +249,12 @@ void MainWindowSatTab::slotSatNameTextChanged()
     //qDebug() << Q_FUNC_INFO << ": " << satNameLineEdit->text();
     int cursor = satNameLineEdit->cursorPosition ();
     satNameLineEdit->setText((util->getClearSQLi (satNameLineEdit->text())).toUpper());
+
+    // Typing here means the user is fixing the name, so the "needs
+    // attention" red highlight (set when "Other" is first selected) no
+    // longer applies. slotSatNameComboBoxChanged() re-applies it afterwards
+    // when it is the one setting the placeholder text.
+    satNameLineEdit->setPalette(getDarkMode() ? palWhite : palBlack);
 
     if (modifying )
     {
