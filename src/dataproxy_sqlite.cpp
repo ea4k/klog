@@ -510,6 +510,26 @@ QList<int> DataProxy_SQLite::getModeGroupIds(const int _modeId)
     return ids.isEmpty() ? (QList<int>() << _modeId) : ids;
 }
 
+QList<int> DataProxy_SQLite::getSidebandGroupIds(const int _modeId)
+{
+    // Unlike getModeGroupIds(), only groups the one family where that is actually
+    // correct: USB/LSB/SSB are the same contact in practice. getModeGroupIds() groups
+    // by shared ADIF parent instead, which for any other family lumps together
+    // operationally distinct modes (e.g. FT2 and FT4, both MFSK) that should not be
+    // treated as interchangeable for DXCC/award status. See klog#1121.
+    ensureCacheReady();
+    static const QSet<QString> sidebandSynonyms = {QStringLiteral("USB"), QStringLiteral("LSB"), QStringLiteral("SSB")};
+    const QString subMode = m_cache.getModeFromId(_modeId).submode.toUpper();
+    if (!sidebandSynonyms.contains(subMode))
+        return QList<int>() << _modeId;
+
+    QList<int> ids;
+    QSqlQuery query(QStringLiteral("SELECT id FROM mode WHERE submode IN ('USB','LSB','SSB')"));
+    while (query.next())
+        ids << query.value(0).toInt();
+    return ids.isEmpty() ? (QList<int>() << _modeId) : ids;
+}
+
 //Frequency DataProxy_SQLite::getFreqFromBandId(const int _id)
 //{//getLowLimitBandFromBandId
 //    logEvent (Q_FUNC_INFO, "Start-End", Debug);
