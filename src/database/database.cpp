@@ -432,7 +432,13 @@ bool DataBase::recreateTableLog()
         return false;
     }
     //qDebug() << Q_FUNC_INFO << " - 50";
-    return execQuery(Q_FUNC_INFO, "ALTER TABLE logtemp RENAME TO log");
+    if (!execQuery(Q_FUNC_INFO, "ALTER TABLE logtemp RENAME TO log"))
+    {
+        return false;
+    }
+    // logtemp was created without indexes (see createTableLog()); now that it is "log",
+    // give it the same ones a freshly created "log" table would have.
+    return createLogIndexes();
 }
 
 bool DataBase::createTableLog(bool temp)
@@ -629,6 +635,15 @@ bool DataBase::createTableLog(bool temp)
     if (execQuery(Q_FUNC_INFO, stringQuery))
     {
         //qDebug() << Q_FUNC_INFO << ": Query OK";
+        // Only index the final "log" table, not the short-lived "logtemp" migration
+        // scratch table used by recreateTableLog(): indexes slow down its bulk INSERT
+        // for no benefit, and recreateTableLog() creates them itself after the rename
+        // (see createLogIndexes()), once "logtemp" has actually become "log".
+        if (temp && !createLogIndexes())
+        {
+            logEvent(Q_FUNC_INFO, "END-3", Debug);
+            return false;
+        }
         logEvent(Q_FUNC_INFO, "END-1", Debug);
         return true;
     }
@@ -638,6 +653,29 @@ bool DataBase::createTableLog(bool temp)
         logEvent(Q_FUNC_INFO, "END-2", Debug);
         return false;
     }
+}
+
+bool DataBase::createLogIndexes()
+{
+    // bandid/modeid/submode/lognumber back every "active bands/modes in this log" query
+    // (getBandsInLog, getModesInLog, getSubModesInLog) and the duplicate-QSO lookups --
+    // without an index each of those is a full table scan, and they run repeatedly (e.g.
+    // every time the Settings dialog opens or closes). IF NOT EXISTS: this runs both
+    // right after a fresh "log" table is created and after recreateTableLog() rebuilds
+    // it, and by design always targets the literal "log" name, never "logtemp", so a
+    // pre-existing index here just means an earlier call already did the job.
+    const QStringList indexQueries = {
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_bandid ON log (bandid)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_modeid ON log (modeid)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_submode ON log (submode)"),
+        QStringLiteral("CREATE INDEX IF NOT EXISTS idx_log_lognumber ON log (lognumber)")
+    };
+    for (const QString &indexQuery : indexQueries)
+    {
+        if (!execQuery(Q_FUNC_INFO, indexQuery))
+            return false;
+    }
+    return true;
 }
 
 bool DataBase::createDataBase()
@@ -4669,7 +4707,9 @@ bool DataBase::updateTo031()
     // shared by every submode of the same ADIF family, two genuinely different QSOs
     // (same call/band/timestamp/log, different submode) could collide on INSERT and
     // the second one would be silently dropped as an "expected duplicate".
-    // Recreating the table picks up the fixed constraint from createTableLog().
+    // Recreating the table picks up the fixed constraint from createTableLog(), which
+    // also now indexes bandid/modeid/submode/lognumber -- those queries used to be full
+    // table scans -- so this same rebuild fixes both at once.
     // Existing data cannot violate the new (finer-grained) constraint: any two rows
     // that would collide on submode already shared the same modeid, so they could
     // never have coexisted under the old constraint in the first place.

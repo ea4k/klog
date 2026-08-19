@@ -162,6 +162,7 @@ private:
     //bool updateLog(); // Updates the log table
     bool recreateTableLog();
     bool createTableLog(bool temp = false); // false creates the production DB. True a temporal one.
+    bool createLogIndexes(); // Indexes bandid/modeid/submode/lognumber on the "log" table.
     bool createTableLogs(const bool real=true); // real = true creates the production DB. False a temporal one.
     bool createTableEntity(const bool NoTmp);
     bool recreateTableEntity();
