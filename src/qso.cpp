@@ -1806,6 +1806,13 @@ bool QSO::setPropMode(const QString &_c)
         propMode = QString();
         return false;
     }
+    if ((_c.toUpper() == "SAT") && satName.isEmpty())
+    {
+        // Propagation mode SAT is only valid when a satellite name is set
+        //qDebug() << Q_FUNC_INFO << " - SAT without satName: rejected";
+        propMode = QString();
+        return false;
+    }
     //qDebug() << Q_FUNC_INFO << " - OK END";
     propMode = _c.toUpper();
     return true;
@@ -2145,6 +2152,11 @@ bool QSO::setSatName(const QString &_c)
     else
     {
         satName = QString();
+        if (propMode == "SAT")
+        {
+            // No satellite means propagation mode can't stay SAT
+            setPropMode(QString());
+        }
         return false;
     }
 }

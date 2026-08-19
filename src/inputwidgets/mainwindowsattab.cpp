@@ -185,6 +185,15 @@ void MainWindowSatTab::createUI()
 void MainWindowSatTab::slotSatNameComboBoxChanged()
 {
     //qDebug() << Q_FUNC_INFO << ": " << satNameComboBox->currentText();
+    int i = satNameComboBox->currentIndex();
+
+    // The "Other" name field must be editable whenever "Other" is selected,
+    // even while editing an existing QSO (modifying == true), otherwise the
+    // user has no way to type/change the satellite name.
+    bool isOtherSat = (i == 1);
+    satNameLineEdit->setEnabled(isOtherSat);
+    satOtherLabel->setEnabled(isOtherSat);
+
     if (modifying || (satNameComboBox->currentText().length()<4))
     {
         //qDebug() << Q_FUNC_INFO << ": Modifying: return";
@@ -192,7 +201,6 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     }
     updatingSat = true;
 
-    int i = satNameComboBox->currentIndex();
     //qDebug() << Q_FUNC_INFO << ": SAT index: " << QString::number(i);
 
     satNameLineEdit->clear();
@@ -201,24 +209,18 @@ void MainWindowSatTab::slotSatNameComboBoxChanged()
     {
         //qDebug() << Q_FUNC_INFO << ": i=0, emitting setPropModeSat - Not";
         emit setPropModeSat("Not", false);
-        satNameLineEdit->setEnabled(false);
-        satOtherLabel->setEnabled(false);
         satModeLineEdit->clear();
     }
     else if(i == 1)
     {
         //qDebug() << Q_FUNC_INFO << ": i=1, emitting setPropModeSat - SAT";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
-        satNameLineEdit->setEnabled(true);
-        satOtherLabel->setEnabled(true);
         autofillSatMode();
     }
     else
     {
         //qDebug() << Q_FUNC_INFO << ": i = else, emitting setPropModeSat - SAT";
         emit setPropModeSat("SAT", keepThisDataForNextQSOQcheckbox->isChecked());
-        satNameLineEdit->setEnabled(false);
-        satOtherLabel->setEnabled(false);
         setBandsOfSat(satNameComboBox->currentText());
        //dataProxy->getSatelliteMode(satNameComboBox->currentText())
         autofillSatMode();
@@ -305,8 +307,10 @@ QString MainWindowSatTab::getSatName()
         }
         else
         {
-            //qDebug() << Q_FUNC_INFO << ": - else return";
-            return QString();
+            // "Other" is selected but no name was typed: keep the QSO as a
+            // SAT QSO rather than silently losing the propagation mode.
+            //qDebug() << Q_FUNC_INFO << ": - else return Unknown";
+            return tr("Unknown");
         }
     }
     else
