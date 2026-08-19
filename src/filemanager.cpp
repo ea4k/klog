@@ -1008,16 +1008,12 @@ int FileManager::processQSO(QSO& qso, const QString& _stationCallsign)
     if (bandId <= 0)
         return -1;
 
-    // Validate the mode/submode: accepts submode names like "USB", "FT4" (e.g. from LoTW ADIF)
-    const QString modeToFind = qso.getSubmode().isEmpty() ? qso.getMode() : qso.getSubmode();
-    if (dataProxy->getIdFromModeName(modeToFind) <= 0)
-        return -3;
-
-    // Mode ID for duplicate cache lookup: always use the parent mode, consistent with
-    // what bindQSOValues stores in the DB (getIdFromModeName(qso.getMode())).
-    // Using the submode here caused cache misses when LoTW sends submodes (e.g. SSB+USB,
-    // MFSK+FT4) whose IDs differ from the stored parent mode ID, producing duplicate QSOs.
-    const int modeId = dataProxy->getIdFromModeName(qso.getMode());
+    // Mode ID for validation and duplicate cache lookup: the submode id, not the parent
+    // mode id. modeid is shared by every submode of the same ADIF family (e.g. FT2 and
+    // FT4 are both MFSK), so using it here caused genuinely different QSOs to be flagged
+    // as duplicates. The duplicate cache (loadDupeCacheBG) is keyed by submode too, so
+    // this stays consistent with it. See issue #1120.
+    const int modeId = dataProxy->getSubModeIdFromQSO(qso);
     if (modeId <= 0)
         return -3;
 

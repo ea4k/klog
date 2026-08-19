@@ -410,8 +410,7 @@ public:
     int findDuplicateId(const QString &call, const QDateTime &newTime, int bandId, int modeId, int marginSeconds);
     inline int findDuplicateId(const QSO &qso, int marginSeconds)
     {
-        int modeId = getIdFromModeName(qso.getSubmode().isEmpty() ? qso.getMode() : qso.getSubmode());
-        return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), modeId, marginSeconds);
+        return findDuplicateId(qso.getCall(), qso.getDateTimeOn(), getIdFromBandName(qso.getBand()), getSubModeIdFromQSO(qso), marginSeconds);
     }
 
     //QHash<QString, int> getHashTableData(const DataTableHash _data);

@@ -3644,7 +3644,10 @@ int DataProxy_SQLite::isThisQSODuplicated (const QSO &_qso, const int _secs)
 {
    //qDebug() << Q_FUNC_INFO << " - 000";
     int bandId = getIdFromBandName(_qso.getBand());
-    int modeId = getIdFromModeName(_qso.getMode());
+    // Use the submode id, not the parent mode id: modeid is shared by every submode of
+    // the same ADIF family (e.g. FT2 and FT4 are both MFSK), so comparing by modeid
+    // flagged genuinely different QSOs as duplicates. See issue #1120.
+    int modeId = getSubModeIdFromQSO(_qso);
     return findDuplicateId(_qso.getCall(), _qso.getDateTimeOn(), bandId, modeId, _secs );
 }
 
@@ -9190,7 +9193,10 @@ DataProxy_SQLite::loadDupeCacheBG(const QString &dbPath, int logId)
             qWarning() << Q_FUNC_INFO << "failed to open DB:" << dbPath;
             return result;
         }
-        QString queryString = "SELECT id, call, qso_date, bandid, modeid FROM log";
+        // Keyed on submode, not modeid: modeid is shared by every submode of the same
+        // ADIF family (e.g. FT2 and FT4 are both MFSK), so building the cache from it
+        // flagged genuinely different QSOs as duplicates. See issue #1120.
+        QString queryString = "SELECT id, call, qso_date, bandid, submode FROM log";
         if (logId > 0)
             queryString += QString(" WHERE lognumber=%1").arg(logId);
         QSqlQuery q(bgDb);

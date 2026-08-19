@@ -1171,7 +1171,8 @@ void MainWindow::actionsJustAfterAddingOneQSO(const QSO& _qso)
         {
              //qDebug() << Q_FUNC_INFO << " -  Lastid: "<< QString::number(lastId) ;
             int bandId = dataProxy->getIdFromBandName(_qso.getBand());
-            int modeId = dataProxy->getIdFromModeName(_qso.getMode());
+            // Submode id, not modeid: the duplicate cache is keyed by submode (issue #1120).
+            int modeId = dataProxy->getSubModeIdFromQSO(_qso);
             dataProxy->addDuplicateCache(lastId, _qso, bandId, modeId);
             awards.setAwards();   //Update the DXCC award status
             // Send to CLUBLOG if enabled
