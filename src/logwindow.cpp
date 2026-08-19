@@ -225,11 +225,14 @@ void LogWindow::createUI()
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
     logView->horizontalHeader ()->setSectionsMovable (true);
-    // Double-click is reserved for opening the QSO edit dialog (slotDoubleClickLog).
-    // Now that cells have a working delegate, leaving DoubleClicked as an edit trigger
-    // would also start inline editing on the same click, fighting with the dialog.
-    // Inline editing is still reachable via F2/Enter or typing on a selected cell.
-    logView->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
+    // Click gestures on the log grid: 1st click selects the row (default behaviour);
+    // a further click on an already-selected row edits that cell (SelectedClicked);
+    // double-click is reserved for opening the QSO edit dialog (slotDoubleClickLog) and
+    // is deliberately NOT an edit trigger, since a working delegate would otherwise also
+    // start inline editing on the same click, fighting with the dialog.
+    logView->setEditTriggers(QAbstractItemView::SelectedClicked
+                              | QAbstractItemView::EditKeyPressed
+                              | QAbstractItemView::AnyKeyPressed);
     // Without a relational delegate, relational columns (band, mode ADIF, mode,
     // country...) fall back to the default delegate, which edits/writes the raw foreign
     // key id instead of showing a combobox of the related values -- inline edits on those
