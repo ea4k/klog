@@ -41,6 +41,34 @@
 #include "awards.h"
 #include "utilities.h"
 
+// Edits the log grid's Mode ADIF (modeid) and Mode (submode) columns with comboboxes
+// restricted to the user's active modes, keeping the two columns in sync: picking a
+// submode updates the parent mode to match, and picking a parent mode resets the
+// submode to the row that stands for "just this mode, no specific submode".
+class LogModeDelegate : public QSqlRelationalDelegate
+{
+    Q_OBJECT
+
+public:
+    explicit LogModeDelegate(DataProxy_SQLite *_dataProxy, QObject *parent = nullptr);
+    void setActiveSubModes(const QStringList &_subModes);
+
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+    void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+
+private:
+    int modeIdColumn() const;
+    int subModeColumn() const;
+    QStringList activeParentModes() const;
+    QStringList comboItemsFor(const QModelIndex &index, const QStringList &_baseItems) const;
+
+    DataProxy_SQLite *dataProxy;
+    QStringList activeSubModes;
+    mutable int m_modeIdColumn = -1;
+    mutable int m_subModeColumn = -1;
+};
+
 class LogWindow : public  QWidget
 {
     Q_OBJECT
@@ -65,6 +93,7 @@ public:
     void sortColumn(const int _c);
     void setColumns(const QStringList &_columns);
     void refreshColumns();
+    void setActiveModes(const QStringList &_subModes);
 
 signals:
     void actionQSODoubleClicked(const int _qsoid);
@@ -135,6 +164,7 @@ private:
 
     QTableView *logView;
     QLabel *logLabel;
+    LogModeDelegate *modeDelegate;
 
     QAction *delQSOFromLogAct;
     QAction *qsoToEditFromLogAct;

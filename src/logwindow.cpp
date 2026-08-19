@@ -26,7 +26,127 @@
 
 #include "logwindow.h"
 #include <QElapsedTimer>
+#include <QComboBox>
 
+LogModeDelegate::LogModeDelegate(DataProxy_SQLite *_dataProxy, QObject *parent)
+    : QSqlRelationalDelegate(parent), dataProxy(_dataProxy)
+{
+}
+
+void LogModeDelegate::setActiveSubModes(const QStringList &_subModes)
+{
+    activeSubModes = _subModes;
+}
+
+int LogModeDelegate::modeIdColumn() const
+{
+    if (m_modeIdColumn < 0)
+        m_modeIdColumn = QSqlDatabase::database().record("log").indexOf("modeid");
+    return m_modeIdColumn;
+}
+
+int LogModeDelegate::subModeColumn() const
+{
+    if (m_subModeColumn < 0)
+        m_subModeColumn = QSqlDatabase::database().record("log").indexOf("submode");
+    return m_subModeColumn;
+}
+
+QStringList LogModeDelegate::activeParentModes() const
+{
+    QStringList parents;
+    for (const QString &subMode : std::as_const(activeSubModes))
+    {
+        const QString parent = dataProxy->getNameFromSubMode(subMode);
+        if (!parent.isEmpty())
+            parents << parent;
+    }
+    parents.removeDuplicates();
+    parents.sort();
+    return parents;
+}
+
+// Active items plus the cell's current value, so opening the editor on a QSO logged
+// with a mode the user has since disabled does not silently change it.
+QStringList LogModeDelegate::comboItemsFor(const QModelIndex &index, const QStringList &_baseItems) const
+{
+    QStringList items = _baseItems;
+    const QString current = index.model()->data(index, Qt::DisplayRole).toString();
+    if (!current.isEmpty() && !items.contains(current, Qt::CaseInsensitive))
+        items << current;
+    items.removeDuplicates();
+    items.sort();
+    return items;
+}
+
+QWidget *LogModeDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    if (index.column() == subModeColumn())
+    {
+        QComboBox *combo = new QComboBox(parent);
+        combo->addItems(comboItemsFor(index, activeSubModes));
+        return combo;
+    }
+    if (index.column() == modeIdColumn())
+    {
+        QComboBox *combo = new QComboBox(parent);
+        combo->addItems(comboItemsFor(index, activeParentModes()));
+        return combo;
+    }
+    return QSqlRelationalDelegate::createEditor(parent, option, index);
+}
+
+void LogModeDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    if (index.column() == subModeColumn() || index.column() == modeIdColumn())
+    {
+        if (QComboBox *combo = qobject_cast<QComboBox *>(editor))
+        {
+            const QString current = index.model()->data(index, Qt::DisplayRole).toString();
+            const int i = combo->findText(current, Qt::MatchFixedString);
+            if (i >= 0)
+                combo->setCurrentIndex(i);
+            return;
+        }
+    }
+    QSqlRelationalDelegate::setEditorData(editor, index);
+}
+
+void LogModeDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+{
+    QComboBox *combo = qobject_cast<QComboBox *>(editor);
+
+    // Picking a submode also updates Mode ADIF to that submode's parent (e.g. picking
+    // FT4 sets the parent mode to MFSK), since the two columns must stay consistent.
+    if (combo && index.column() == subModeColumn())
+    {
+        const int newSubModeId = dataProxy->getIdFromModeName(combo->currentText());
+        if (newSubModeId <= 0)
+            return;
+        model->setData(index, newSubModeId);
+
+        const QString parentName = dataProxy->getNameFromModeId(newSubModeId);
+        const int parentId = dataProxy->getIdFromModeName(parentName);
+        if (parentId > 0)
+            model->setData(index.siblingAtColumn(modeIdColumn()), parentId);
+        return;
+    }
+
+    // Picking a parent mode resets the submode to the mode-table row that stands for
+    // "just this mode" (its submode field repeats its own name), since the previous
+    // submode may no longer belong to the newly selected parent family.
+    if (combo && index.column() == modeIdColumn())
+    {
+        const int genericId = dataProxy->getIdFromModeName(combo->currentText());
+        if (genericId <= 0)
+            return;
+        model->setData(index, genericId);
+        model->setData(index.siblingAtColumn(subModeColumn()), genericId);
+        return;
+    }
+
+    QSqlRelationalDelegate::setModelData(editor, model, index);
+}
 
 LogWindow::LogWindow(Awards *awards, QWidget *parent)
     : QWidget(parent),
@@ -75,6 +195,12 @@ void LogWindow::refreshColumns()
     setColumnsOfLog(columns);
 }
 
+void LogWindow::setActiveModes(const QStringList &_subModes)
+{
+    if (modeDelegate)
+        modeDelegate->setActiveSubModes(_subModes);
+}
+
 void LogWindow::sortColumn(const int _c)
 {
     //qDebug() << Q_FUNC_INFO << " - Start";
@@ -94,11 +220,14 @@ void LogWindow::createUI()
     logView->setContextMenuPolicy(Qt::CustomContextMenu);
     logView->setSortingEnabled(true);
     logView->horizontalHeader ()->setSectionsMovable (true);
-    // Without this, relational columns (band, mode ADIF, mode, country...) fall back to
-    // the default delegate, which edits/writes the raw foreign key id instead of showing
-    // a combobox of the related values -- inline edits on those columns silently fail
-    // and the view reverts to the previous value.
-    logView->setItemDelegate(new QSqlRelationalDelegate(logView));
+    // Without a relational delegate, relational columns (band, mode ADIF, mode,
+    // country...) fall back to the default delegate, which edits/writes the raw foreign
+    // key id instead of showing a combobox of the related values -- inline edits on those
+    // columns silently fail and the view reverts to the previous value. LogModeDelegate
+    // additionally restricts the Mode ADIF/Mode comboboxes to the active modes and keeps
+    // the two columns in sync with each other.
+    modeDelegate = new LogModeDelegate(dataProxy, logView);
+    logView->setItemDelegate(modeDelegate);
     //logView->setDragDropMode (QAbstractItemView::InternalMove);
     //logView->setDropIndicatorShown (true);
     //retoreColumsOrder();

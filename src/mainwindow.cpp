@@ -3998,6 +3998,7 @@ void MainWindow::checkIfNewBandOrMode()
       //qDebug() << Q_FUNC_INFO << " - modes - " << QString::number(modes.length()) << " - " << QTime::currentTime().toString("hh:mm:ss") ;
     mainQSOEntryWidget->setModes(modes);
     mapWindow->setModes(modes);
+    logWindow->setActiveModes(modes);
 
 
      //qDebug() << Q_FUNC_INFO << " - setting bands"  << QTime::currentTime().toString("hh:mm:ss") ;
@@ -6614,6 +6615,7 @@ void MainWindow::addNewValidMode(const QString &_mode)
     readActiveModes (_newM);
     mainQSOEntryWidget->setModes(modes);
     mapWindow->setModes(modes);
+    logWindow->setActiveModes(modes);
 
     logEvent(Q_FUNC_INFO, "END", Debug);
         //qDebug() << "MainWindow::addNewValidMode: END"  ;
