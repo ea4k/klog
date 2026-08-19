@@ -258,10 +258,17 @@ void LogWindow::createUI()
 
 void LogWindow::retoreColumsOrder()
 {
-    // Retrieve stored column order from settings
+    // Retrieve stored column order from settings. Stored as a QStringList (like
+    // ColumnWidths below) rather than QVariant::fromValue<QList<int>>: QList<int> is not
+    // a type QVariant knows how to (de)serialize on its own, which produced a
+    // "QVariant::load: unknown user type with name QList<int>" warning on every startup
+    // without ever actually restoring a custom order (the size-mismatch fallback below
+    // silently absorbed the failed load).
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    QList<int> columnOrder = settings.value("ColumnOrder").value<QList<int>>();
+    QList<int> columnOrder;
+    for (const QString &value : settings.value("ColumnOrder").toStringList())
+        columnOrder.append(value.toInt());
     settings.endGroup();
 
     QHeaderView *header = logView->horizontalHeader();
@@ -1085,10 +1092,15 @@ void LogWindow::saveColumnOrder()
         columnOrder.append(header->logicalIndex(i));
     }
 
-    // Save order to settings
+    // Save order to settings, as a QStringList -- see retoreColumsOrder() for why not
+    // QVariant::fromValue<QList<int>>.
+    QStringList columnOrderStrings;
+    for (int column : std::as_const(columnOrder))
+        columnOrderStrings.append(QString::number(column));
+
     QSettings settings(util->getCfgFile(), QSettings::IniFormat);
     settings.beginGroup("LogWindow");
-    settings.setValue("ColumnOrder", QVariant::fromValue(columnOrder));
+    settings.setValue("ColumnOrder", columnOrderStrings);
     settings.endGroup();
 }
 
