@@ -34,10 +34,14 @@
 
 static QString buildModeInClause(const QList<int> &modeIds)
 {
+    // Filters on submode, not modeid: modeid is the ADIF parent mode (e.g. MFSK), shared
+    // by every submode of that family, so filtering "by the current mode" actually
+    // included every submode of its whole family (e.g. FT4 also pulling in FT2, FST4,
+    // JS8, Q65...) instead of just the one the caller asked for. See klog#1122.
     if (modeIds.isEmpty()) return QString();
     QStringList parts;
     for (int id : modeIds) parts << QString::number(id);
-    return QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+    return QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
 }
 
 //#include <QDebug>
@@ -9104,10 +9108,12 @@ int DataProxy_SQLite::getFieldInBand(ValidFieldsForStats _field, const QString &
 
    if (!modeIds.isEmpty())
    {
-       // Use the provided mode IDs list (mode group, e.g. SSB includes USB/LSB/SSB)
+       // Use the provided mode IDs list (mode group, e.g. SSB includes USB/LSB/SSB),
+       // filtered on submode like the _mode branch below -- modeid (the ADIF parent
+       // mode) would pull in every submode of the whole family instead (klog#1122).
        QStringList parts;
        for (int id : modeIds) parts << QString::number(id);
-       modeString = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+       modeString = QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
    }
    else if (_mode.toUpper() != "ALL")
    {

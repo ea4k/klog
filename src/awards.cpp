@@ -200,7 +200,9 @@ int Awards::getWAZWorked(const int _logNumber, const QList<int> &modeIds)
     {
         QStringList parts;
         for (int id : modeIds) parts << QString::number(id);
-        modeFilter = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+        // submode, not modeid: modeid is the ADIF parent mode, shared by every submode
+        // of that family (klog#1122).
+        modeFilter = QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
     }
     QSqlQuery query;
     QString stringQuery;
@@ -246,7 +248,9 @@ int Awards::getWAZConfirmed(const int _logNumber, const QList<int> &modeIds)
     {
         QStringList parts;
         for (int id : modeIds) parts << QString::number(id);
-        modeFilter = QString(" AND modeid IN (%1)").arg(parts.join(QLatin1Char(',')));
+        // submode, not modeid: modeid is the ADIF parent mode, shared by every submode
+        // of that family (klog#1122).
+        modeFilter = QString(" AND submode IN (%1)").arg(parts.join(QLatin1Char(',')));
     }
     QSqlQuery query;
     QString stringQuery;
