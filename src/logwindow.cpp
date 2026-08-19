@@ -168,6 +168,10 @@ LogWindow::LogWindow(Awards *awards, QWidget *parent)
 
     currentLog = -1;
     m_blockWidthSave = false;
+    m_lastClickedRow = -1;
+    m_editClickTimer = new QTimer(this);
+    m_editClickTimer->setSingleShot(true);
+    connect(m_editClickTimer, &QTimer::timeout, this, &LogWindow::slotEditPendingCell);
 
     //awards = new Awards(dataProxy, Q_FUNC_INFO);
 
@@ -226,13 +230,13 @@ void LogWindow::createUI()
     logView->setSortingEnabled(true);
     logView->horizontalHeader ()->setSectionsMovable (true);
     // Click gestures on the log grid: 1st click selects the row (default behaviour);
-    // a further click on an already-selected row edits that cell (SelectedClicked);
-    // double-click is reserved for opening the QSO edit dialog (slotDoubleClickLog) and
-    // is deliberately NOT an edit trigger, since a working delegate would otherwise also
-    // start inline editing on the same click, fighting with the dialog.
-    logView->setEditTriggers(QAbstractItemView::SelectedClicked
-                              | QAbstractItemView::EditKeyPressed
-                              | QAbstractItemView::AnyKeyPressed);
+    // a further click on an already-selected row edits that cell -- but deferred by
+    // slotLogViewClicked/m_editClickTimer rather than the built-in SelectedClicked
+    // trigger, so a double-click on an already-selected row (2nd click looks identical
+    // to "click again to edit") can still cancel it and open the QSO edit dialog
+    // (slotDoubleClickLog) instead. DoubleClicked is deliberately NOT an edit trigger.
+    logView->setEditTriggers(QAbstractItemView::EditKeyPressed | QAbstractItemView::AnyKeyPressed);
+    connect(logView, &QTableView::clicked, this, &LogWindow::slotLogViewClicked);
     // Without a relational delegate, relational columns (band, mode ADIF, mode,
     // country...) fall back to the default delegate, which edits/writes the raw foreign
     // key id instead of showing a combobox of the related values -- inline edits on those
@@ -324,6 +328,11 @@ void LogWindow::createlogPanel(const int _currentLog)
     QElapsedTimer _t; _t.start();
     m_blockWidthSave = true;
     currentLog = _currentLog;
+    // Row indices are about to be replaced by the reload below; forget any pending
+    // deferred edit and last-clicked-row tracking so a stale row number can't be
+    // mistaken for "already selected" in the freshly loaded log.
+    m_editClickTimer->stop();
+    m_lastClickedRow = -1;
 
     // createlogModel sets sort to qso_date DESC before select(), so only ONE
     // SQL query is issued here. Do NOT call sortColumn() or sortByColumn() after
@@ -598,6 +607,11 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 {
     //qDebug() << Q_FUNC_INFO << " - Start Row: " << QString::number(index.row()) << "Column: " << QString::number(index.column());
 
+    // This double-click's first press already looked like "click an already-selected
+    // row" to slotLogViewClicked() and armed a deferred cell edit -- cancel it, this is
+    // a double-click, so it opens the QSO edit dialog instead.
+    m_editClickTimer->stop();
+
     int row = index.row();
     // qsoToEdit((logModel->index(row, 0)).data(0).toInt());
     int qsoID = ((logModel->index(row, Qt::DisplayRole)).data(0)).toInt();
@@ -614,6 +628,32 @@ void LogWindow::slotDoubleClickLog(const QModelIndex & index)
 
     //logModel->select();
     //qDebug() << Q_FUNC_INFO << " - END";
+}
+
+void LogWindow::slotLogViewClicked(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    if (index.row() != m_lastClickedRow)
+    {
+        // First click on this row: just select it, same as any other row.
+        m_lastClickedRow = index.row();
+        return;
+    }
+
+    // A further click on the row the previous click already landed on: this either
+    // means "edit this cell", or it's the first half of a double-click on that same
+    // row. Defer starting the editor by the system's double-click interval; a genuine
+    // double-click cancels it in slotDoubleClickLog() before it fires.
+    m_pendingEditIndex = index;
+    m_editClickTimer->start(qApp->doubleClickInterval());
+}
+
+void LogWindow::slotEditPendingCell()
+{
+    if (m_pendingEditIndex.isValid())
+        logView->edit(m_pendingEditIndex);
 }
 
 bool LogWindow::isQSLReceived(const int _qsoId)

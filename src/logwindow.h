@@ -36,6 +36,8 @@
 #include <QSqlRecord>
 #include <QSqlRelationalDelegate>
 #include <QDesktopServices>
+#include <QTimer>
+#include <QPersistentModelIndex>
 #include "dataproxy_sqlite.h"
 #include "logmodel.h"
 #include "awards.h"
@@ -135,6 +137,8 @@ private slots:
     void slotQSOsQRZUploadFromLog();
     void slotOnSectionMoved(int logicalIndex, int oldVisualIndex, int newVisualIndex);
     void slotOnSectionResized(int logicalIndex, int oldSize, int newSize);
+    void slotLogViewClicked(const QModelIndex &index);
+    void slotEditPendingCell();
 
 private:
     void createUI();
@@ -165,6 +169,13 @@ private:
     QTableView *logView;
     QLabel *logLabel;
     LogModeDelegate *modeDelegate;
+
+    // Disambiguates "click a cell already on the selected row" (start editing) from the
+    // first half of a double-click (open the QSO edit dialog instead): the edit is
+    // deferred by doubleClickInterval() and cancelled if a double-click follows.
+    QTimer *m_editClickTimer;
+    QPersistentModelIndex m_pendingEditIndex;
+    int m_lastClickedRow;
 
     QAction *delQSOFromLogAct;
     QAction *qsoToEditFromLogAct;
