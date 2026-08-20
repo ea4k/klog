@@ -4746,7 +4746,7 @@ Frequency is not in a hamradio band!</source>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="205"/>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="334"/>
         <source>Unknown</source>
-        <translation type="unfinished">Desconocido</translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="430"/>
@@ -5234,7 +5234,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1466"/>
         <source>Mode ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo ADIF</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1483"/>
@@ -5487,7 +5487,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
         <location filename="../utilities.cpp" line="1623"/>
         <location filename="../utilities.cpp" line="1631"/>
         <source>Mode (ADIF submode)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo (submodo ADIF)</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1496"/>
@@ -5929,7 +5929,7 @@ KLog finalizará cuando pulse sobre OK.</translation>
     <message>
         <location filename="../searchwindow.cpp" line="222"/>
         <source>Mode ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo ADIF</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="245"/>
