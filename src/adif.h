@@ -86,8 +86,6 @@ public:
     bool isValidSubMode (const QString &_s) const;
     QString getModeFromSubmode(const QString &_submode) const;
     static bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
-    static QString getQSO_COMPLETEFromDB(const QString &_s);   // Translates the DB value into an ADIF value
-    int setQSO_COMPLETEToDB(const QString &_s);         // Translates the ADIF to a DB value
     static bool isValidSilentKey(const QString &_s);              // Only "Y" is shown/exported
     static bool isValidQSORandom(const bool _qsoRandom);          // Only shown/exported when explicitly false ("N")
     static bool isValidForceInit(const bool _forceInit, const QString &_propMode); // Only shown/exported when true AND PROP_MODE is EME

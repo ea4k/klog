@@ -44,6 +44,7 @@ const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
     { "my_altitude", [](const QVariant &v) { bool ok; double alt = v.toDouble(&ok); return ok && Adif::isValidAltitude(alt); } },
     { "silent_key", [](const QVariant &v) { return Adif::isValidSilentKey(v.toString()); } },
     { "qso_random", [](const QVariant &v) { bool ok; int r = v.toInt(&ok); return ok && Adif::isValidQSORandom(r != 0); } },
+    { "qso_complete", [](const QVariant &v) { return Adif::isValidQSOCompleteToExport(v.toString()); } },
     // ... add more column validators here ...
 };
 
@@ -90,16 +91,6 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
                 return name;
         }
         return QVariant();   // empty cell for no/invalid RX band, instead of a meaningless id
-    }
-
-    if (columnName == "qso_complete")
-    {
-        // The DB stores a numeric code; translate it to the ADIF value (Y/N/NIL/?) before validating
-        QVariant raw = QSqlRelationalTableModel::data(index, role);
-        const QString adifValue = Adif::getQSO_COMPLETEFromDB(raw.toString());
-        if (Adif::isValidQSOCompleteToExport(adifValue))
-            return adifValue;
-        return QVariant();
     }
 
     if (columnName == "force_init")

@@ -570,7 +570,7 @@ bool DataBase::createTableLog(bool temp)
              "qsl_rcvd_via VARCHAR(1), "
              "qsl_sent_via VARCHAR(1), "
              "qsl_via VARCHAR, "
-             "qso_complete INTEGER, "
+             "qso_complete VARCHAR(3), "  // ADIF value: Y, N, NIL or ?
              "qso_random INTEGER, "
              "qth VARCHAR, "
              "region VARCHAR, "
@@ -4714,6 +4714,13 @@ bool DataBase::updateTo031()
     // that would collide on submode already shared the same modeid, so they could
     // never have coexisted under the old constraint in the first place.
     // See https://github.com/ea4k/klog/issues/1119
+    //
+    // Also switches qso_complete from a numeric code (1=Y, 2=N, 3=NIL, 4=?) to
+    // storing the ADIF value itself, matching Adif::isValidQSO_COMPLETE's Y/N/NIL/?
+    // domain directly instead of round-tripping through Adif::setQSO_COMPLETEToDB /
+    // getQSO_COMPLETEFromDB. createTableLog() now declares the column as VARCHAR(3),
+    // so recreateTableLog() copies the old numeric codes in as text ("1".."4"), which
+    // the UPDATE below then translates to the ADIF value.
 
     //qDebug() << Q_FUNC_INFO << " latestRead: " << getDBVersion() ;
 
@@ -4730,6 +4737,10 @@ bool DataBase::updateTo031()
     // Now I am in the previous version and I can update the DB.
 
     if (!recreateTableLog())
+        return false;
+
+    if (!execQuery(Q_FUNC_INFO, "UPDATE log SET qso_complete = CASE qso_complete "
+                                "WHEN '2' THEN 'N' WHEN '3' THEN 'NIL' WHEN '4' THEN '?' ELSE 'Y' END"))
         return false;
 
     return updateDBVersion(softVersion, "0.031");

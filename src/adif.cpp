@@ -557,43 +557,6 @@ bool Adif::isValidQSO_COMPLETE(const QString &_s)
     return ((_s == "Y") || (_s == "N") || (_s == "NIL") || (_s == "?"));
 }
 
-int Adif::setQSO_COMPLETEToDB(const QString &_s)
-{
-    if (_s == "Y")
-        return 1;
-    if (_s == "N")
-        return 2;
-    if (_s == "NIL")
-        return 3;
-    return 4;
-}
-
-QString Adif::getQSO_COMPLETEFromDB(const QString &_s)
-{// Returns the ADIF QSO_COMPLETE
-    //1=Y, 2=N, 3=NIL, 4=?
-    //qDebug() << Q_FUNC_INFO << ": " << _s;
-    int i = _s.toInt();
-    switch (i)
-    {
-        case 2:
-        {
-            return "N";
-        }
-        case 3:
-        {
-            return "NIL";
-        }
-        case 4:
-        {
-            return "?";
-        }
-        default:
-        {
-            return "Y";
-        }
-    }
-}
-
 bool Adif::isValidSilentKey(const QString &_s)
 {
     return (_s == "Y");
