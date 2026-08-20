@@ -92,6 +92,16 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
         return QVariant();   // empty cell for no/invalid RX band, instead of a meaningless id
     }
 
+    if (columnName == "qso_complete")
+    {
+        // The DB stores a numeric code; translate it to the ADIF value (Y/N/NIL/?) before validating
+        QVariant raw = QSqlRelationalTableModel::data(index, role);
+        const QString adifValue = Adif::getQSO_COMPLETEFromDB(raw.toString());
+        if (Adif::isValidQSOCompleteToExport(adifValue))
+            return adifValue;
+        return QVariant();
+    }
+
     if (columnName == "force_init")
     {
         // FORCE_INIT only makes sense together with PROP_MODE=EME, so it needs the sibling column value

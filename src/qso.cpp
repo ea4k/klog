@@ -4143,7 +4143,7 @@ QString QSO::getADIFStandard()
     if (getQSL_SENT()=="Y")                // Valid case to use qslsentVia
         adifStr.append(adif->getADIFField ("qsl_sent_via", qslSenVia));
     adifStr.append(adif->getADIFField ("qsl_via", qslVia));
-    if (getQSOComplete() != "Y")
+    if (adif->isValidQSOCompleteToExport(getQSOComplete()))
         adifStr.append(adif->getADIFField ("qso_complete", getQSOComplete()));
 
     if (adif->isValidQSORandom(getQSORandom()))

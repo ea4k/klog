@@ -609,6 +609,11 @@ bool Adif::isValidForceInit(const bool _forceInit, const QString &_propMode)
     return (_forceInit && (_propMode == "EME"));
 }
 
+bool Adif::isValidQSOCompleteToExport(const QString &_s)
+{
+    return (isValidQSO_COMPLETE(_s) && (_s != "Y"));
+}
+
 bool Adif::isValidPOTA(const QString &_s)
 { //https://www.adif.org/316/ADIF_316.htm#POTARef
     // POTA reference pattern:
