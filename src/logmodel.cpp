@@ -29,15 +29,15 @@
 #include <QElapsedTimer>
 
 const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
-    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc > 0) && (dxcc <= 530)); } },
-    { "age", [](const QVariant &v) { bool ok; int age = v.toInt(&ok); return ok && age > 0.0 && age < 120.0; } },
-    { "ant_az", [](const QVariant &v) { bool ok; double az = v.toDouble(&ok); return ok && az >= 0.0 && az <= 360.0; } },
-    { "my_fists", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return (ok && (fists > 0)); } },
-    { "fists", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return (ok && (fists > 0)); } },
-    { "my_itu_zone", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return (ok && (itu >= 1) && (itu <= 90)); } },
-    { "my_cq_zone", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return (ok && (cqz >= 1) && (cqz <= 40)); } },
-    { "cqz", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return (ok && (cqz >= 1) && (cqz <= 40)); } },
-    { "ituz", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return (ok && (itu >= 1) && (itu <= 90)); } },
+    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc > 0) && Adif::isValidDXCC(dxcc)); } },
+    { "age", [](const QVariant &v) { bool ok; double age = v.toDouble(&ok); return ok && Adif::isValidAge(age); } },
+    { "ant_az", [](const QVariant &v) { bool ok; double az = v.toDouble(&ok); return ok && Adif::isValidAnt_AZ(az); } },
+    { "my_fists", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return ok && Adif::isValidFISTS(fists); } },
+    { "fists", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return ok && Adif::isValidFISTS(fists); } },
+    { "my_itu_zone", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return ok && Adif::isValidITUz(itu); } },
+    { "my_cq_zone", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return ok && Adif::isValidCQz(cqz); } },
+    { "cqz", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return ok && Adif::isValidCQz(cqz); } },
+    { "ituz", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return ok && Adif::isValidITUz(itu); } },
     // ... add more column validators here ...
 };
 
