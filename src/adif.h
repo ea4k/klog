@@ -59,7 +59,7 @@ public:
     ADIFField setPair(const QString &_pair);
     bool isValidContinent(const QString &_s);
     QStringList getContinents();
-    bool isValidFreq(const QString &_b);            //>0
+    static bool isValidFreq(const QString &_b);            //>0
     bool isValidPower(const double _b);           //>0
     bool isValidK_Index(const int _b);         //0-9
     static bool isValidCQz(const int _b);              //1-40
@@ -80,7 +80,7 @@ public:
     bool isValidUKSMG(const int _b);            //>0
     bool isValidTenTen(const int _b);            //>0
     bool isValidLogId(const int _b);            //>0
-    //bool isValidAltitude (const double _s);       // > 10000 (10000 is a default value in KLog)
+    static bool isValidAltitude(const double _b);       // >0.0 (0.0 is KLog's "not set" sentinel)
     bool isValidAntPath(const QString &_s);
     bool isValidMode (const QString &_s) const;
     bool isValidSubMode (const QString &_s) const;
@@ -88,6 +88,9 @@ public:
     bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
     QString getQSO_COMPLETEFromDB(const QString &_s);   // Translates the DB value into an ADIF value
     int setQSO_COMPLETEToDB(const QString &_s);         // Translates the ADIF to a DB value
+    static bool isValidSilentKey(const QString &_s);              // Only "Y" is shown/exported
+    static bool isValidQSORandom(const bool _qsoRandom);          // Only shown/exported when explicitly false ("N")
+    static bool isValidForceInit(const bool _forceInit, const QString &_propMode); // Only shown/exported when true AND PROP_MODE is EME
 
     bool isValidPOTA(const QString &_s);            // TODO
     bool isValidWWFF_Ref(const QString &_s);        // TODO

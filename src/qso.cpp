@@ -3967,7 +3967,7 @@ QString QSO::getADIFStandard()
     adifStr.append(adif->getADIFField ("ADDRESS",  address));
     if (age>0.0)  //Only relevant if Age >0
         adifStr.append(adif->getADIFField ("AGE",  QString::number(age)));
-    if (getAltitude() != 0)
+    if (adif->isValidAltitude(getAltitude()))
         adifStr.append(adif->getADIFField ("ALTITUDE",  QString::number(getAltitude())));
     adifStr.append(adif->getADIFField ("CNTY",  county));
     adifStr.append(adif->getADIFField ("COMMENT",  comment));
@@ -4011,12 +4011,12 @@ QString QSO::getADIFStandard()
     if ((eQSLSDate.isValid()) && (adif->isValidQSLSENT(eqsl_qsl_sent)))
         adifStr.append(adif->getADIFField ("eqsl_qslsdate", util->getADIFDateFromQDate(eQSLSDate) ));
 
-    if (fists>0)
+    if (adif->isValidFISTS(fists))
         adifStr.append(adif->getADIFField ("fists", QString::number(fists)));
 
-    if (fists_cc>0)
+    if (adif->isValidFISTS(fists_cc))
         adifStr.append(adif->getADIFField ("fists_cc", QString::number(fists_cc)));
-    if (forceInit)      // Only relevant if true
+    if (adif->isValidForceInit(forceInit, propMode))
         adifStr.append(adif->getADIFField ("force_init", adif->getADIFBoolFromBool(getForceInit()) ));
 
     //qDebug() << Q_FUNC_INFO << ": Printing FREQ: " << QString::number(freq_tx);
@@ -4064,7 +4064,7 @@ QString QSO::getADIFStandard()
         adifStr.append(adif->getADIFField ("max_bursts", QString::number(getMaxBursts()) ));
 
     adifStr.append(adif->getADIFField ("ms_shower",  ms_shower));
-    if (getMyAltitude() != 0)
+    if (adif->isValidAltitude(getMyAltitude()))
         adifStr.append(adif->getADIFField ("my_altitude",  QString::number(getMyAltitude())));
     adifStr.append(adif->getADIFField ("my_antenna", my_antenna));
     adifStr.append(adif->getADIFField ("my_arrl_sect", my_arrl_sect ));
@@ -4146,8 +4146,7 @@ QString QSO::getADIFStandard()
     if (getQSOComplete() != "Y")
         adifStr.append(adif->getADIFField ("qso_complete", getQSOComplete()));
 
-    //TODO: Check wether it makes sense to use this field for ALL QSOs or just when it is not random.
-    if (!getQSORandom())
+    if (adif->isValidQSORandom(getQSORandom()))
         adifStr.append(adif->getADIFField ("qso_random", adif->getADIFBoolFromBool(getQSORandom())));
 
     adifStr.append(adif->getADIFField ("qth", qth));
@@ -4163,7 +4162,7 @@ QString QSO::getADIFStandard()
         adifStr.append(adif->getADIFField ("sfi", QString::number(sfi)));
     adifStr.append(adif->getADIFField ("sig", sig));
     adifStr.append(adif->getADIFField ("sig_info", sig_info));
-    if (silent_key) //We only save if SK
+    if (adif->isValidSilentKey(silent_key ? "Y" : "N"))
         adifStr.append(adif->getADIFField ("silent_key", adif->getADIFBoolFromBool(silent_key)));
     adifStr.append(adif->getADIFField ("skcc", skcc));
 

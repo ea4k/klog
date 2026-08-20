@@ -542,6 +542,11 @@ bool Adif::isValidLogId(const int _b)
     return (_b>0);
 }
 
+bool Adif::isValidAltitude(const double _b)
+{
+    return (_b>0.0);
+}
+
 bool Adif::isValidAntPath(const QString &_s)
 {
     return ((_s == "G") || (_s == "O") || (_s == "S") || (_s == "L"));
@@ -587,6 +592,21 @@ QString Adif::getQSO_COMPLETEFromDB(const QString &_s)
             return "Y";
         }
     }
+}
+
+bool Adif::isValidSilentKey(const QString &_s)
+{
+    return (_s == "Y");
+}
+
+bool Adif::isValidQSORandom(const bool _qsoRandom)
+{
+    return (!_qsoRandom);
+}
+
+bool Adif::isValidForceInit(const bool _forceInit, const QString &_propMode)
+{
+    return (_forceInit && (_propMode == "EME"));
 }
 
 bool Adif::isValidPOTA(const QString &_s)

@@ -38,6 +38,12 @@ const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
     { "my_cq_zone", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return ok && Adif::isValidCQz(cqz); } },
     { "cqz", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return ok && Adif::isValidCQz(cqz); } },
     { "ituz", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return ok && Adif::isValidITUz(itu); } },
+    { "fists_cc", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return ok && Adif::isValidFISTS(fists); } },
+    { "freq_rx", [](const QVariant &v) { return Adif::isValidFreq(v.toString()); } },
+    { "altitude", [](const QVariant &v) { bool ok; double alt = v.toDouble(&ok); return ok && Adif::isValidAltitude(alt); } },
+    { "my_altitude", [](const QVariant &v) { bool ok; double alt = v.toDouble(&ok); return ok && Adif::isValidAltitude(alt); } },
+    { "silent_key", [](const QVariant &v) { return Adif::isValidSilentKey(v.toString()); } },
+    { "qso_random", [](const QVariant &v) { bool ok; int r = v.toInt(&ok); return ok && Adif::isValidQSORandom(r != 0); } },
     // ... add more column validators here ...
 };
 
@@ -84,6 +90,19 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
                 return name;
         }
         return QVariant();   // empty cell for no/invalid RX band, instead of a meaningless id
+    }
+
+    if (columnName == "force_init")
+    {
+        // FORCE_INIT only makes sense together with PROP_MODE=EME, so it needs the sibling column value
+        QVariant raw = QSqlRelationalTableModel::data(index, role);
+        bool ok = false;
+        const bool forceInitVal = (raw.toInt(&ok) != 0);
+        const int propModeCol = this->record().indexOf("prop_mode");
+        const QString propMode = (propModeCol >= 0) ? this->index(index.row(), propModeCol).data(Qt::DisplayRole).toString() : QString();
+        if (ok && Adif::isValidForceInit(forceInitVal, propMode))
+            return raw;
+        return QVariant();
     }
 
     // Validation: optionally hide invalid values for some columns
