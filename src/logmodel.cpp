@@ -29,7 +29,7 @@
 #include <QElapsedTimer>
 
 const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
-    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc >= 0) && (dxcc <= 530)); } },
+    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc > 0) && (dxcc <= 530)); } },
     { "age", [](const QVariant &v) { bool ok; int age = v.toInt(&ok); return ok && age > 0.0 && age < 120.0; } },
     { "ant_az", [](const QVariant &v) { bool ok; double az = v.toDouble(&ok); return ok && az >= 0.0 && az <= 360.0; } },
     // ... add more column validators here ...
@@ -91,6 +91,16 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
 
     // Provide a friendly fallback for relational columns that don't resolve (e.g., dxcc=0 → no match in entity)
     QVariant v = QSqlRelationalTableModel::data(index, role);
+
+    // DXCC = 0 is not a valid entity. When there is no match in "entity", QSqlRelationalTableModel
+    // falls back to the raw foreign key (0) instead of an invalid value, so it must be caught explicitly.
+    if (columnName == "dxcc") {
+        bool ok = false;
+        const int rawDxcc = v.toInt(&ok);
+        if (ok && rawDxcc == 0) {
+            return QVariant();
+        }
+    }
 
 // If this column has a relation and no display data could be resolved, return "Unknown"
 
