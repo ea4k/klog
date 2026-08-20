@@ -13,7 +13,7 @@ TBD - 2.6-RC4
 - Maintenance: The ADIF file is now always produced by a single serializer (QSO::getADIF); removed the unused per-destination ADIF writers and moved the BAND/BAND_RX "0" check into Adif::getADIFField() so it is enforced in one single place.
 - Enhancement: The Mode and Submode lists were missing the OFDM mode (RIBBIT_PIX, RIBBIT_SMS) and the FREEDATA submode of DYNAMIC, added to the ADIF specification in version 3.1.7. The DB is updated automatically on the next start.
 - Bugfix: Removing the satellite of a SAT QSO, or editing one so that no satellite is selected, no longer leaves the propagation mode set to SAT with an empty satellite name, nor keeps the old satellite name/mode in the database: the save query only rebound sat_name/sat_mode for SAT QSOs, so on the reused prepared statement a non-SAT QSO silently kept whatever value had last been bound (possibly from a different QSO). Selecting "Other" in the Satellite tab now enables the satellite name field, even while editing an existing QSO, and pre-fills it with "Unknown" shown in red so it draws the user's attention until edited; picking a real satellite or "No-SAT" instead clears and disables that field again (Closes #1117)
-- Translations: Spanish (EA4K).
+- Translations: Italian (TNX IU5HIU), Spanish (EA4K).
 
 July 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.
