@@ -16,7 +16,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="104"/>
         <source>If you want to provide support you are welcome to join the &lt;a href=https://t.me/klogdevel&gt;KLog-devel telegram group&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Se vuoi aiutare sei benvenuto e ti puoi unire a &lt;a href=https://t.me/klogdevel&gt;KLog-devel telegram group&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="105"/>
@@ -64,7 +64,7 @@
     <message>
         <location filename="../aboutdialog.cpp" line="124"/>
         <source>If KLog is still not in your language and you want to help us, you are welcome to contact us through the &lt;a href=https://t.me/klogdevel&gt;KLog-devel telegram group&lt;/a&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation>Se Klog non è ancora disponibile nella tua lingua e vuoi aiutarci, sei benvenuto e puoi contattarci tramite il &lt;a href=https://t.me/klogdevel&gt;KLog-devel telegram group&lt;/a&gt;!</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="124"/>
@@ -103,32 +103,32 @@
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="38"/>
         <source>Add Special Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi nominmativo speciale</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="41"/>
         <source>e.g. RI1ANY</source>
-        <translation type="unfinished"></translation>
+        <translation>e.s. R1ANY</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="54"/>
         <source>Override CQ Zone:</source>
-        <translation type="unfinished"></translation>
+        <translation>Forza zona CQ:</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="60"/>
         <source>Override ITU Zone:</source>
-        <translation type="unfinished"></translation>
+        <translation>Forza zona ITU:</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="85"/>
         <source>Callsign:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominativo:</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="86"/>
         <source>Entity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entity:</translation>
     </message>
 </context>
 <context>
@@ -624,92 +624,92 @@ Vuoi riprovare?</translation>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="84"/>
         <source>Priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Priorità</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="85"/>
         <source>Score</source>
-        <translation type="unfinished">Punteggio</translation>
+        <translation>Punteggio</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="86"/>
         <source>DX Call</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-Call</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="87"/>
         <source>Country</source>
-        <translation type="unfinished">Country</translation>
+        <translation>Country</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="88"/>
         <source>Freq (kHz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Freq (kHz)</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="89"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="90"/>
         <source>Status</source>
-        <translation type="unfinished">Stato</translation>
+        <translation>Stato</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="91"/>
         <source>Spotter</source>
-        <translation type="unfinished"></translation>
+        <translation>Spotter</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="92"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonte</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="93"/>
         <source>Age</source>
-        <translation type="unfinished">Età</translation>
+        <translation>Età</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="94"/>
         <source>MW Rank</source>
-        <translation type="unfinished"></translation>
+        <translation>MW Rank</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="128"/>
         <source>ATNO</source>
-        <translation type="unfinished"></translation>
+        <translation>ATNO</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="129"/>
         <source>Needed</source>
-        <translation type="unfinished">Richiesto</translation>
+        <translation>Richiesto</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="130"/>
         <source>Worked</source>
-        <translation type="unfinished">Processato</translation>
+        <translation>Lavorato</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="144"/>
         <source>DXCluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCluster</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="145"/>
         <source>WSJT-X</source>
-        <translation type="unfinished">WSJT-X</translation>
+        <translation>WSJT-X</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="210"/>
         <source>Received at %1 UTC</source>
-        <translation type="unfinished"></translation>
+        <translation>Ricevuto alle %1 UTC</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="261"/>
         <source>%1 min</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 min</translation>
     </message>
 </context>
 <context>
@@ -775,162 +775,162 @@ Vuoi riprovare?</translation>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="572"/>
         <source>DX Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistente DX</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="621"/>
         <source>The band where most DX spots are arriving right now.</source>
-        <translation type="unfinished"></translation>
+        <translation>La banda dove molti spots DX sono in arrivo giusto adesso.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="623"/>
         <source>The band where you have the most to gain, based on your log.</source>
-        <translation type="unfinished"></translation>
+        <translation>La banda dove hai il magigore guadagno, basandosi sul tuo log.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="942"/>
         <source>Most active band: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Banda più attiva: %1</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="943"/>
         <source>Band to be: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Banda da scegliere: %1</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1192"/>
         <source>Hide these spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi questi spots</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1193"/>
         <source>Hide this spot</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi questo spot</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1195"/>
         <source>Hide these callsigns for the rest of the session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi questi nominativo pe ril resto della sessione.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1196"/>
         <source>Hide this callsign for the rest of the session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi questo nominativo per il resto della sessione.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1199"/>
         <source>Copy Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia Nominativo</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1200"/>
         <source>Copy the DX callsign of this spot to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia il nominativo DX di questo spot nella clipboard.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1206"/>
         <source>Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtri</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1211"/>
         <source>Reset all</source>
-        <translation type="unfinished"></translation>
+        <translation>Annulla tutto</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1212"/>
         <source>Remove all filtering and put every filter back to its default.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuove il filtro e reimposta tutto al suo default.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1227"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Colonne</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1230"/>
         <source>Hide this column</source>
-        <translation type="unfinished"></translation>
+        <translation>Nascondi questa colonna</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1236"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1240"/>
         <source>All</source>
-        <translation type="unfinished">Tutto</translation>
+        <translation>Tutto</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1252"/>
         <source>Bands</source>
-        <translation type="unfinished">Bande</translation>
+        <translation>Bande</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1253"/>
         <source>Follow my band</source>
-        <translation type="unfinished"></translation>
+        <translation>Segui la mia banda</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1256"/>
         <source>Show only the spots on the band you are working on.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra solo gli spots sulal banda che stai lavorando.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1282"/>
         <source>Spotter</source>
-        <translation type="unfinished"></translation>
+        <translation>Spotter</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1286"/>
         <source>My call</source>
-        <translation type="unfinished"></translation>
+        <translation>Mia chiamata</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1287"/>
         <source>My DXCC</source>
-        <translation type="unfinished">Mio DXCC</translation>
+        <translation>Mio DXCC</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1288"/>
         <source>My continent</source>
-        <translation type="unfinished"></translation>
+        <translation>Mio continente</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1289"/>
         <source>ALL</source>
-        <translation type="unfinished">Tutto</translation>
+        <translation>TUTTO</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1301"/>
         <source>Age</source>
-        <translation type="unfinished">Età</translation>
+        <translation>Età</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1303"/>
         <source>15 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>15 minuti</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1303"/>
         <source>30 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>30 minuti</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1304"/>
         <source>1 hour</source>
-        <translation type="unfinished"></translation>
+        <translation>1 ora</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1304"/>
         <source>2 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>2 ore</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1315"/>
         <source>Number spots</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero di spots</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1327"/>
@@ -940,87 +940,87 @@ Vuoi riprovare?</translation>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1340"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonte</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1352"/>
         <source>DXCC</source>
-        <translation type="unfinished">DXCC</translation>
+        <translation>DXCC</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1375"/>
         <source>Spot</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1377"/>
         <source>Send to UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Manda a UI</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1378"/>
         <source>Fill the QSO entry form with this spot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Completa i campi del QSO con questo spost.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1380"/>
         <source>Log this QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Metti a Log questo QSO</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1381"/>
         <source>Add this QSO to the log immediately.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi questo QSO imemdiatamente al Log.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1386"/>
         <source>QSY to this freq</source>
-        <translation type="unfinished"></translation>
+        <translation>QSY su questa frequenza</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1387"/>
         <source>Tune the radio to the frequency of this spot.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sintonizza laa radio sulla frequenza di questo spot.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1390"/>
         <source>Look up on QRZ.com</source>
-        <translation type="unfinished"></translation>
+        <translation>Acquisisci dati da QRZ.com</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1391"/>
         <source>Open this callsign&apos;s page on QRZ.com.</source>
-        <translation type="unfinished"></translation>
+        <translation>Apre su QRZ.com la pagina di questo cominativo.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1401"/>
         <source>Clear all</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulisce tutto</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1402"/>
         <source>Remove every spot and list again the ones hidden or worked this session.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuove ogni spot e ricarica lista di nascosti o lavorati in questa sessione.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1408"/>
         <source>Show to map</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra sulal mappa</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1409"/>
         <source>Plot the spots currently shown on the map.</source>
-        <translation type="unfinished"></translation>
+        <translation>Disegna lo sport correntemente mostrato sulla mappa.</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1412"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Ripristina</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxclusterassistant.cpp" line="1413"/>
         <source>Score every spot again against your log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Assegna punteggio di nuovo relativamente al tuo log.</translation>
     </message>
 </context>
 <context>
@@ -1077,7 +1077,7 @@ Vuoi riprovare?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="64"/>
         <source>DX A</source>
-        <translation type="unfinished"></translation>
+        <translation>DX-A</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="154"/>
@@ -1087,7 +1087,7 @@ Vuoi riprovare?</translation>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="155"/>
         <source>Enable/Disable DX Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita/Disabilita assistente DX</translation>
     </message>
     <message>
         <location filename="../dxcluster/dxcluster.cpp" line="253"/>
@@ -1478,12 +1478,12 @@ QSO: </translation>
     <message>
         <location filename="../filemanager.cpp" line="870"/>
         <source>File %1/%2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>File %1/%2: %3</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="875"/>
         <source>KLog - Importing file %1/%2</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Import file in corso %1/%2</translation>
     </message>
     <message>
         <location filename="../filemanager.cpp" line="992"/>
@@ -2480,7 +2480,7 @@ Codice di errore restituito: %2</translation>
         <location filename="../mainqsoentrywidget.cpp" line="1141"/>
         <source>DUPE</source>
         <comment>Translator: DUPE is a common word for hams. Do not translate if not sure</comment>
-        <translation type="unfinished">DUPE</translation>
+        <translation>DUPE</translation>
     </message>
 </context>
 <context>
@@ -2955,22 +2955,22 @@ Vuoi che Klog provi a a connettersi automaticamente al prossimo avvio?</translat
     <message>
         <location filename="../mainwindow.cpp" line="3947"/>
         <source>DX Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Assistente DX</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4861"/>
         <source>Importing file %1/%2: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>File in import %1/%2: %3</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4904"/>
         <source>KLog - File import finished</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Import file finito</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4905"/>
         <source>The import of the ADIF file has finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;import del file ADIF è terminato.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4906"/>
@@ -2978,66 +2978,70 @@ Vuoi che Klog provi a a connettersi automaticamente al prossimo avvio?</translat
 Ignored duplicated: %2
 
 Do you want to continue importing the next file?</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO importati: %1
+Ignorati e duplicati: %2
+
+Vuoi proseguire a importare il prossimo file?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4920"/>
         <source>Import cancelled by the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Import annullato dall&apos;utente.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4926"/>
         <location filename="../mainwindow.cpp" line="4939"/>
         <source>KLog - Import finished</source>
-        <translation type="unfinished">KLog - Import terminato</translation>
+        <translation>KLog - Import terminato</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4927"/>
         <source>The ADIF import has been stopped.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;import ADIF è stato arrestato.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4928"/>
         <source>The ADIF import has finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;import ADIF è terminato.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4929"/>
         <source>Total imported QSOs: %1
 Total ignored duplicated: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>QSSO totali importati: %1
+Totale ignorati e duplicati: %2</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4933"/>
         <source>Import of %1 files finished.</source>
-        <translation type="unfinished"></translation>
+        <translation>Import di %1files finito.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4940"/>
         <source>The ADIF file import has finished.</source>
-        <translation type="unfinished">L&apos;import del Il file ADIF è terminato.</translation>
+        <translation>L&apos;import del Il file ADIF è terminato.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="4941"/>
         <source>Imported QSOs: %1
 Ignored duplicated: %2</source>
-        <translation type="unfinished">QSO importati: %1
+        <translation>QSO importati: %1
 Duplicati ignorati: %2</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5106"/>
         <source>New Locator on Sats</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo Locator su Satellite</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5107"/>
         <source>New Locator on %1 Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuovo locator su banda %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="5554"/>
         <source>WSJT-X, worked by %1</source>
-        <translation type="unfinished"></translation>
+        <translation>WSJT-X, lavorato da %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6382"/>
@@ -3487,17 +3491,17 @@ Il server UDP ha fallito a %1.</translation>
     <message>
         <location filename="../mainwindow.cpp" line="6654"/>
         <source>% - QSO Dupe</source>
-        <translation type="unfinished"></translation>
+        <translation>% - QSO duplicati</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6661"/>
         <source>% - Duplicated satellite</source>
-        <translation type="unfinished"></translation>
+        <translation>% - Duplicati su satellite</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="6688"/>
         <source>% - Show errors</source>
-        <translation type="unfinished"></translation>
+        <translation>% - Mostra errori</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="7356"/>
@@ -4490,13 +4494,13 @@ Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="81"/>
         <source>Add a comment for this QSO.</source>
-        <translation type="unfinished">Aggiungi un commento per questo QSO.</translation>
+        <translation>Aggiungi un commento per questo QSO.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="82"/>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="223"/>
         <source>Data entered in this tab will be copied into the next QSO.</source>
-        <translation type="unfinished">Tutti i dati caricati su questa maschera saranno precaricati nella maschera di inserimento del prossimo QSO.</translation>
+        <translation>I dati caricati su questa maschera saranno usati anche nel prossimo QSO.</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="86"/>
@@ -4561,12 +4565,12 @@ Vuoi marcare come Trasmesso per tutti i QSO trasferiti a LoTW?</translation>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="217"/>
         <source>Comment</source>
-        <translation type="unfinished">Commento</translation>
+        <translation>Commento</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="221"/>
         <source>Keep</source>
-        <translation type="unfinished"></translation>
+        <translation>Tieni</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowinputqso.cpp" line="469"/>
@@ -4737,7 +4741,7 @@ Questa frequenza non appartiene a bande radioamatoriali!</translation>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="205"/>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="334"/>
         <source>Unknown</source>
-        <translation type="unfinished">Sconosciuto</translation>
+        <translation>Sconosciuto</translation>
     </message>
     <message>
         <location filename="../inputwidgets/mainwindowsattab.cpp" line="430"/>
@@ -5225,7 +5229,7 @@ KLog terminerà appena cliccherai su OK.</translation>
     <message>
         <location filename="../utilities.cpp" line="1466"/>
         <source>Mode ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo ADIF</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1483"/>
@@ -5478,7 +5482,7 @@ KLog terminerà appena cliccherai su OK.</translation>
         <location filename="../utilities.cpp" line="1623"/>
         <location filename="../utilities.cpp" line="1631"/>
         <source>Mode (ADIF submode)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo (sub-modo ADIF)</translation>
     </message>
     <message>
         <location filename="../utilities.cpp" line="1496"/>
@@ -5920,7 +5924,7 @@ KLog terminerà appena cliccherai su OK.</translation>
     <message>
         <location filename="../searchwindow.cpp" line="222"/>
         <source>Mode ADIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo ADIF</translation>
     </message>
     <message>
         <location filename="../searchwindow.cpp" line="245"/>
@@ -6534,62 +6538,62 @@ Per favore aggiungi /seleziona il tipo di log che ti serve.</translation>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="125"/>
         <source>Enable DX Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita Assistente DX</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="126"/>
         <source>Adds a DX Assistant tab showing a prioritised list of DXCluster spots scored against your own log.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiunge lista priorità assistente DX di DXCluster come da punteggi sul tuo log.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="127"/>
         <source>Enable ClubLog Most Wanted integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita integrazione ClubLog dei più ricercati (most wanted)</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="128"/>
         <source>Downloads the ClubLog Most Wanted list monthly and uses it to break ties between spots with the same score.</source>
-        <translation type="unfinished"></translation>
+        <translation>Download la lista Most Wanted mensilmente per sistemare gli spots con lo stesso punteggio.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="138"/>
         <source>DXCluster</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCluster</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="139"/>
         <source>The spots arriving from the DXCluster are scored and shown in the DX Assistant.</source>
-        <translation type="unfinished"></translation>
+        <translation>I punteggi degli spots acquisiti da DXCluster sonno mostrati dall&apos;assistente DX.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="140"/>
         <source>WSJT-X</source>
-        <translation type="unfinished">WSJT-X</translation>
+        <translation>WSJT-X</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="141"/>
         <source>The stations WSJT-X decodes are scored and shown in the DX Assistant.</source>
-        <translation type="unfinished"></translation>
+        <translation>I punteggi dei nominativi trovati nelle decodifiche WSJT-X sono mostrati da assistente DX.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="142"/>
         <source>It needs the UDP Server to be started, in the UDP page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Occorre avviare il server UDP, nelle impostazioni UDP.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="144"/>
         <source>Spot sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonti spot</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="145"/>
         <source>Select where the spots analysed by the DX Assistant come from.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli la fonte delgi spot analizzati dall&apos;assistente DX.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="152"/>
         <source>DX Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Asssistente DX</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagedxcluster.cpp" line="161"/>
@@ -6873,7 +6877,7 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="205"/>
         <source>Shows the frequency read from the radio while connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra la frequenza letta dalla radio mentre connessa</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="223"/>
@@ -6913,12 +6917,12 @@ Se nessuna porta è esplicitamente indicata, la 41112 sarà usata di default:</t
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="42"/>
         <source>000.0000 / %1</source>
-        <translation type="unfinished"></translation>
+        <translation>000.0000 / %1</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="42"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppagehamlib.cpp" line="143"/>
@@ -7840,22 +7844,22 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="114"/>
         <source>Multicast group address WSJT-X is sending the datagrams to.</source>
-        <translation type="unfinished"></translation>
+        <translation>Acquisizione dati WSJT-X tramite indirizzo di gruppo Multicast.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="115"/>
         <source>Leave it empty unless WSJT-X is configured to use multicast, needed to share the datagrams with other programs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lascia vuoto a meno che WSJT-X sia configurato per usare Multicast, utile per rendere disponibile i messaggi decodificati con numerosi altri programmi.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="116"/>
         <source>Not used</source>
-        <translation type="unfinished"></translation>
+        <translation>Non usato</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="118"/>
         <source>Multicast address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo multicast</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageudp.cpp" line="130"/>
@@ -7883,7 +7887,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="71"/>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>Default di sistema</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="84"/>
@@ -7893,7 +7897,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="85"/>
         <source>Select the language of the KLog user interface. &apos;System default&apos; uses the language of the operating system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli la lingua usata dall&apos;interfacica utente di KLog. La voce &apos;default di sistema&apos; usa lo stesso linguaggio generico impostato nel sistema operativo.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="86"/>
@@ -7943,7 +7947,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="96"/>
         <source>Lang&amp;uage</source>
-        <translation type="unfinished"></translation>
+        <translation>Ling&amp;uaggio</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="97"/>
@@ -8002,12 +8006,12 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="745"/>
         <source>KLog - Language</source>
-        <translation type="unfinished"></translation>
+        <translation>KLog - Lingua</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="746"/>
         <source>The language change will take effect the next time you start KLog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il cambio di lingua usata sarà attivo al prossimo avvio di KLog.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageuserdata.cpp" line="158"/>
@@ -8223,58 +8227,58 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="454"/>
         <source>Special Callsigns</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominativi speciali</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="455"/>
         <source>Callsigns not in the CTY data that should map to a specific DXCC entity (e.g. expedition callsigns like RI1ANY for Antarctica).</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominativi non nel database CTY che dovessero appartenere a una specifica entità DXCC (e.s. nominativi di spedizione come RI1ANY per Antarctica).</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="458"/>
         <source>Callsign</source>
-        <translation type="unfinished">Nominativo</translation>
+        <translation>Nominativo</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="466"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuove</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="518"/>
         <source>Invalid Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominativo non valido</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="519"/>
         <source>&apos;%1&apos; is not a valid callsign.</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;%1&apos; non è un nominativo valido.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="525"/>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="553"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="526"/>
         <source>Could not add the special callsign. It may already exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non ho potuto aggiungere il nominativo speciale. Può già esistere.</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="541"/>
         <source>Remove Special Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuove nominativo speciale</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="542"/>
         <source>Remove &apos;%1&apos; from the special callsigns list?</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovo &apos;%1&apos; dalla lista nominativi speciali?</translation>
     </message>
     <message>
         <location filename="../setuppages/setuppageworldeditor.cpp" line="554"/>
         <source>Could not remove the special callsign &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Non ho potuto rimuovere il nominativo speciale &apos;%1&apos;.</translation>
     </message>
 </context>
 <context>
@@ -9124,7 +9128,7 @@ Il log non sarà aperto.</translation>
     <message>
         <location filename="../tipsdialog.cpp" line="175"/>
         <source>&lt;b&gt;Tip #12:&lt;/b&gt;&lt;br&gt;Do you know...&lt;br&gt;You can subscribe to &lt;a href=https://t.me/klogdevel&gt;KLog-devel telegram group&lt;/a&gt; to discuss about KLog development in English?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Suggerimento #12:&lt;/b&gt;&lt;br&gt;Sapevi che...&lt;br&gt;Puoi iscriverti a &lt;a href=https://t.me/klogdevel&gt;KLog-devel telegram group&lt;/a&gt; per discutere di sviluppo KLog in Inglese?</translation>
     </message>
     <message>
         <location filename="../tipsdialog.cpp" line="178"/>
@@ -9563,27 +9567,27 @@ Installa il plugin OSM per la tua piafttaaforma, e.s.:
     <message>
         <location filename="../qml/mapqmlfile.qml" line="812"/>
         <source>Callsign</source>
-        <translation type="unfinished">Nominativo</translation>
+        <translation>Nominativo</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="814"/>
         <source>Band</source>
-        <translation type="unfinished">Banda</translation>
+        <translation>Banda</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="816"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="873"/>
         <source>Double-click to edit  |  click ✕ to close</source>
-        <translation type="unfinished"></translation>
+        <translation>Doppio click per modificare | click singolo su X per chiudere</translation>
     </message>
     <message>
         <location filename="../qml/mapqmlfile.qml" line="874"/>
         <source>Click to pin  •  Double-click to edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Click singolo per elezionare  •  Doppio click per modificare</translation>
     </message>
 </context>
 </TS>

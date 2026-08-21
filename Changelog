@@ -16,7 +16,7 @@ TBD - 2.6-RC4
 - Bugfix: The logview showed My_DXCC, DXCC, My_FISTS, FISTS, My_ITU, ITU, My_CQZ and CQZ as 0 instead of a blank cell when the value was unset or invalid (Closes #1128)
 - Bugfix: Sanity checks for FREQ_RX, ALTITUDE, MY_ALTITUDE, SILENT_KEY (SK), QSO_RANDOM, FORCE_INIT, FISTS_CC and QSO_COMPLETE: the logview now shows a blank cell instead of a meaningless or negative value, and ADIF export skips these fields when they are unset or not meaningful (FREQ_RX is also skipped when equal to FREQ_TX; FORCE_INIT is only kept when PROP_MODE is EME; QSO_RANDOM is only kept when explicitly No; QSO_COMPLETE is only kept when it is one of Y/N/NIL/? and not the default Y).
 - Bugfix: QSO_COMPLETE read from the database while exporting to ADIF was silently discarded, so that ADIF export always used the default "Y" regardless of the QSO's actual value. The database now stores the ADIF value (Y/N/NIL/?) directly instead of an internal numeric code, removing the now unnecessary conversion that caused the bug; existing databases are converted automatically on the next start.
-- Translations: Spanish (EA4K).
+- Translations: Italian (TNX IU5HIU), Spanish (EA4K).
 
 July 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.
