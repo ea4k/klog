@@ -1796,7 +1796,7 @@ int QSO::getKlogDxcc() const
 
 bool QSO::setPropMode(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (!util->isValidPropMode(_c))
     {
         propMode = QString();
@@ -2136,7 +2136,7 @@ bool QSO::getKeepSatTab() const{return keepSat;}
 
 bool QSO::setSatName(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
     if (!_c.isEmpty())
     {
         satName = _c;
@@ -2160,8 +2160,8 @@ QString QSO::getSatName() const
 
 bool QSO::setSatMode(const QString &_c)
 {
-    qDebug() << Q_FUNC_INFO << ": " << _c;
-    qDebug() << Q_FUNC_INFO << "PROP_MODE: " << _c;
+    //qDebug() << Q_FUNC_INFO << ": " << _c;
+    //qDebug() << Q_FUNC_INFO << "PROP_MODE: " << _c;
     if (!_c.isEmpty())
     {
         if (getSatName().length()>0)
