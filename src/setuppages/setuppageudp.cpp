@@ -387,11 +387,11 @@ void SetupPageUDP::loadSettings()
 {
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("UDPServer");
-    setUDPServer (settings.value("UDPServer").toBool ());
+    setUDPServer (settings.value("UDPServer", true).toBool ());
     setNetworkInterface (settings.value("UDPNetworkInterface").toString ());
     setMultiCastAddress (settings.value("UDPMultiCastAddress").toString ());
     setUDPServerPort (settings.value("UDPServerPort").toInt ());
-    setUDPServer (settings.value("UDPServer").toBool ());
+    setUDPServer (settings.value("UDPServer", true).toBool ());
     setLogFromWSJTx(settings.value("LogFromWSJTX").toBool ());
     logAutomaticallyWSJTXCheckbox->setChecked(settings.value("LogAutoFromWSJTX").toBool ());
     realDataFromWSJTXCheckbox->setChecked(settings.value("RealTimeFromWSJTX").toBool ());

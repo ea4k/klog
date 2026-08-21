@@ -653,21 +653,21 @@ void SetupPageMisc::loadSettings(const QString &_callingFunction)
     dbWasMoved = false; // Each time we open the settings, we need to setup this flag
     QSettings settings(util->getCfgFile (), QSettings::IniFormat);
     settings.beginGroup ("Misc");
-    realTimeCheckbox->setChecked (settings.value("RealTime").toBool ());
-    showSecondsCheckBox->setChecked (settings.value("ShowSeconds").toBool ());
-    UTCCheckbox->setChecked (settings.value("UTCTime").toBool ());
+    realTimeCheckbox->setChecked (settings.value("RealTime", true).toBool ());
+    showSecondsCheckBox->setChecked (settings.value("ShowSeconds", false).toBool ());
+    UTCCheckbox->setChecked (settings.value("UTCTime", true).toBool ());
     alwaysADIFCheckBox->setChecked (settings.value("AlwaysADIF").toBool ());
     useDefaultName->setChecked (settings.value("UseDefaultName").toBool ());
     imperialCheckBox->setChecked (settings.value("ImperialSystem").toBool ());
-    sendQSLWhenRecCheckBox->setChecked (settings.value("SendQSLWhenRec").toBool ());
-    showStationCallWhenSearchCheckBox->setChecked (settings.value("ShowCallsignInSearch").toBool ());
+    sendQSLWhenRecCheckBox->setChecked (settings.value("SendQSLWhenRec", true).toBool ());
+    showStationCallWhenSearchCheckBox->setChecked (settings.value("ShowCallsignInSearch", true).toBool ());
     completeWithPreviousCheckBox->setChecked (settings.value("CompleteWithPrevious").toBool ());
-    checkNewVersionCheckBox->setChecked (settings.value("CheckNewVersions").toBool ());
+    checkNewVersionCheckBox->setChecked (settings.value("CheckNewVersions", true).toBool ());
     useDxMarathonCheckBox->setChecked (settings.value("ManageDXMarathon").toBool ());
     sendEQSLByDefaultSearchCheckBox->setChecked (settings.value("SendEQSLByDefault", true).toBool ());
     deleteAlwaysAdiFileCheckBox->setChecked (settings.value("DeleteAlwaysAdiFile").toBool ());
     checkCallsCheckBox->setChecked (settings.value("CheckValidCalls").toBool ());
-    includeModeForNeededCheckBox->setChecked (settings.value("IncludeModeForNeeded", false).toBool ());
+    includeModeForNeededCheckBox->setChecked (settings.value("IncludeModeForNeeded", true).toBool ());
     //provideCallCheckBox->setChecked (settings.value("ProvideInfo").toBool ());
 
     setDefaultFileName(settings.value("DefaultADIFFile").toString ());

@@ -2883,7 +2883,7 @@ QSqlQuery DataProxy_SQLite::getPreparedQuery(const QString &_s, const QSO &_qso)
     query.bindValue(":qsl_sent_via", _qso.getQSLSentVia());
     query.bindValue(":qsl_via", _qso.getQSLVia());
     if (adif.isValidQSO_COMPLETE(_qso.getQSOComplete()))
-        query.bindValue(":qso_complete", adif.setQSO_COMPLETEToDB(_qso.getQSOComplete()));
+        query.bindValue(":qso_complete", _qso.getQSOComplete());
     query.bindValue(":qso_random", util.boolToCharToSQLite (_qso.getQSORandom()));
     query.bindValue(":qth", _qso.getQTH());
     query.bindValue(":region", _qso.getRegion ());
@@ -3121,7 +3121,7 @@ void DataProxy_SQLite::bindQSOValues(QSqlQuery &query, const QSO &_qso)
     query.bindValue(":qsl_sent_via", _qso.getQSLSentVia());
     query.bindValue(":qsl_via", _qso.getQSLVia());
     if (adif.isValidQSO_COMPLETE(_qso.getQSOComplete()))
-        query.bindValue(":qso_complete", adif.setQSO_COMPLETEToDB(_qso.getQSOComplete()));
+        query.bindValue(":qso_complete", _qso.getQSOComplete());
     query.bindValue(":qso_random", util.boolToCharToSQLite (_qso.getQSORandom()));
     query.bindValue(":qth", _qso.getQTH());
     query.bindValue(":region", _qso.getRegion ());
@@ -3417,8 +3417,7 @@ QSO DataProxy_SQLite::fromDB(const int _qsoId)
     qso.setQSLSenVia((query.value(rec.indexOf("qsl_sent_via"))).toString());
 
     qso.setQSLVia((query.value(rec.indexOf("qsl_via"))).toString());
-    Adif adif(Q_FUNC_INFO);
-    qso.setQSOComplete(adif.getQSO_COMPLETEFromDB((query.value(rec.indexOf("qso_complete"))).toString()));
+    qso.setQSOComplete((query.value(rec.indexOf("qso_complete"))).toString());
     qso.setQSORandom(util.QStringToBool((query.value(rec.indexOf("qso_random"))).toString()));
     //qDebug() << Q_FUNC_INFO << "  - 120";
     qso.setQTH((query.value(rec.indexOf("qth"))).toString());
@@ -8767,10 +8766,8 @@ QString DataProxy_SQLite::getADIFFromQSOQuery(QSqlRecord rec, ExportMode _em, bo
     qso.setQSL_SENT(getADIFValueFromRec(rec, "qsl_sent"));
     qso.setQSLSenVia(getADIFValueFromRec(rec, "qsl_sent_via"));
     qso.setQSLVia(getADIFValueFromRec(rec, "qsl_via"));
-    Adif adif(Q_FUNC_INFO);
-    adif.getQSO_COMPLETEFromDB(getADIFValueFromRec(rec, "qso_complete"));
-        // qso.setQSOComplete(util->getADIFQSO_CompleteFromDB(getADIFValueFromRec(rec, "qso_complete")));
-        qso.setQSORandom(util->QStringToBool(getADIFValueFromRec(rec, "qso_random")));
+    qso.setQSOComplete(getADIFValueFromRec(rec, "qso_complete"));
+    qso.setQSORandom(util->QStringToBool(getADIFValueFromRec(rec, "qso_random")));
 
     qso.setQTH(getADIFValueFromRec(rec, "qth"));
     qso.setRSTTX(getADIFValueFromRec(rec, "rst_sent"));

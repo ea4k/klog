@@ -1083,7 +1083,7 @@ void MainQSOEntryWidget::selectDefaultMode(bool _init)
 
     if (defaultMode < 1)
     {
-        defaultMode = dataProxy->getIdFromModeName(getBand(0));
+        defaultMode = dataProxy->getIdFromModeName(getMode(0));
     }
     setMode(dataProxy->getSubModeFromId(defaultMode));
     //modeComboBox->setCurrentIndex(modeComboBox->findText(dataProxy->getSubModeFromId(defaultMode)));

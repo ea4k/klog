@@ -29,9 +29,22 @@
 #include <QElapsedTimer>
 
 const QMap<QString, LogModel::ValidationFunc> LogModel::s_validationRules = {
-    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc >= 0) && (dxcc <= 530)); } },
-    { "age", [](const QVariant &v) { bool ok; int age = v.toInt(&ok); return ok && age > 0.0 && age < 120.0; } },
-    { "ant_az", [](const QVariant &v) { bool ok; double az = v.toDouble(&ok); return ok && az >= 0.0 && az <= 360.0; } },
+    { "my_dxcc", [](const QVariant &v) { bool ok; int dxcc = v.toInt(&ok); return (ok && (dxcc > 0) && Adif::isValidDXCC(dxcc)); } },
+    { "age", [](const QVariant &v) { bool ok; double age = v.toDouble(&ok); return ok && Adif::isValidAge(age); } },
+    { "ant_az", [](const QVariant &v) { bool ok; double az = v.toDouble(&ok); return ok && Adif::isValidAnt_AZ(az); } },
+    { "my_fists", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return ok && Adif::isValidFISTS(fists); } },
+    { "fists", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return ok && Adif::isValidFISTS(fists); } },
+    { "my_itu_zone", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return ok && Adif::isValidITUz(itu); } },
+    { "my_cq_zone", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return ok && Adif::isValidCQz(cqz); } },
+    { "cqz", [](const QVariant &v) { bool ok; int cqz = v.toInt(&ok); return ok && Adif::isValidCQz(cqz); } },
+    { "ituz", [](const QVariant &v) { bool ok; int itu = v.toInt(&ok); return ok && Adif::isValidITUz(itu); } },
+    { "fists_cc", [](const QVariant &v) { bool ok; int fists = v.toInt(&ok); return ok && Adif::isValidFISTS(fists); } },
+    { "freq_rx", [](const QVariant &v) { return Adif::isValidFreq(v.toString()); } },
+    { "altitude", [](const QVariant &v) { bool ok; double alt = v.toDouble(&ok); return ok && Adif::isValidAltitude(alt); } },
+    { "my_altitude", [](const QVariant &v) { bool ok; double alt = v.toDouble(&ok); return ok && Adif::isValidAltitude(alt); } },
+    { "silent_key", [](const QVariant &v) { return Adif::isValidSilentKey(v.toString()); } },
+    { "qso_random", [](const QVariant &v) { bool ok; int r = v.toInt(&ok); return ok && Adif::isValidQSORandom(r != 0); } },
+    { "qso_complete", [](const QVariant &v) { return Adif::isValidQSOCompleteToExport(v.toString()); } },
     // ... add more column validators here ...
 };
 
@@ -80,6 +93,19 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
         return QVariant();   // empty cell for no/invalid RX band, instead of a meaningless id
     }
 
+    if (columnName == "force_init")
+    {
+        // FORCE_INIT only makes sense together with PROP_MODE=EME, so it needs the sibling column value
+        QVariant raw = QSqlRelationalTableModel::data(index, role);
+        bool ok = false;
+        const bool forceInitVal = (raw.toInt(&ok) != 0);
+        const int propModeCol = this->record().indexOf("prop_mode");
+        const QString propMode = (propModeCol >= 0) ? this->index(index.row(), propModeCol).data(Qt::DisplayRole).toString() : QString();
+        if (ok && Adif::isValidForceInit(forceInitVal, propMode))
+            return raw;
+        return QVariant();
+    }
+
     // Validation: optionally hide invalid values for some columns
     auto it = s_validationRules.find(columnName);
     if (it != s_validationRules.end()) {
@@ -91,6 +117,16 @@ QVariant LogModel::data(const QModelIndex &index, int role) const
 
     // Provide a friendly fallback for relational columns that don't resolve (e.g., dxcc=0 → no match in entity)
     QVariant v = QSqlRelationalTableModel::data(index, role);
+
+    // DXCC = 0 is not a valid entity. When there is no match in "entity", QSqlRelationalTableModel
+    // falls back to the raw foreign key (0) instead of an invalid value, so it must be caught explicitly.
+    if (columnName == "dxcc") {
+        bool ok = false;
+        const int rawDxcc = v.toInt(&ok);
+        if (ok && rawDxcc == 0) {
+            return QVariant();
+        }
+    }
 
 // If this column has a relation and no display data could be resolved, return "Unknown"
 

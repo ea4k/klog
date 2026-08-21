@@ -59,16 +59,16 @@ public:
     ADIFField setPair(const QString &_pair);
     bool isValidContinent(const QString &_s);
     QStringList getContinents();
-    bool isValidFreq(const QString &_b);            //>0
+    static bool isValidFreq(const QString &_b);            //>0
     bool isValidPower(const double _b);           //>0
     bool isValidK_Index(const int _b);         //0-9
-    bool isValidCQz(const int _b);              //1-40
-    bool isValidITUz(const int _b);            // 1-90
-    bool isValidDXCC(const int _b);            // 0-522
-    bool isValidAge(const double _b);             // 0-120
+    static bool isValidCQz(const int _b);              //1-40
+    static bool isValidITUz(const int _b);            // 1-90
+    static bool isValidDXCC(const int _b);            // 0-522
+    static bool isValidAge(const double _b);             // 0-120
     bool isValidDistance(const double _b);        //>0.0
     bool isValidAnt_EL(const double _b);          //>=0-360
-    bool isValidAnt_AZ(const double _b);          //>=-90-90
+    static bool isValidAnt_AZ(const double _b);          //>=-90-90
     bool isValidA_Index(const double _b);              //0-400
     bool isValidIOTA_islandID(const int _b);   //1-99999999
     bool isValidNRBursts(const int _b);        //>0
@@ -76,18 +76,20 @@ public:
     bool isValidSFI(const int _b);            //0-300
     bool isValidSTX(const int _b);            //>=0
     bool isValidSRX(const int _b);            //>=0
-    bool isValidFISTS(const int _b);            //>0
+    static bool isValidFISTS(const int _b);            //>0
     bool isValidUKSMG(const int _b);            //>0
     bool isValidTenTen(const int _b);            //>0
     bool isValidLogId(const int _b);            //>0
-    //bool isValidAltitude (const double _s);       // > 10000 (10000 is a default value in KLog)
+    static bool isValidAltitude(const double _b);       // >0.0 (0.0 is KLog's "not set" sentinel)
     bool isValidAntPath(const QString &_s);
     bool isValidMode (const QString &_s) const;
     bool isValidSubMode (const QString &_s) const;
     QString getModeFromSubmode(const QString &_submode) const;
-    bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
-    QString getQSO_COMPLETEFromDB(const QString &_s);   // Translates the DB value into an ADIF value
-    int setQSO_COMPLETEToDB(const QString &_s);         // Translates the ADIF to a DB value
+    static bool isValidQSO_COMPLETE(const QString &_s);        // "Y", "N", "NIL", "?"
+    static bool isValidSilentKey(const QString &_s);              // Only "Y" is shown/exported
+    static bool isValidQSORandom(const bool _qsoRandom);          // Only shown/exported when explicitly false ("N")
+    static bool isValidForceInit(const bool _forceInit, const QString &_propMode); // Only shown/exported when true AND PROP_MODE is EME
+    static bool isValidQSOCompleteToExport(const QString &_s);    // Valid QSO_COMPLETE value AND not "Y" (Y is the default, so only worth showing/exporting otherwise)
 
     bool isValidPOTA(const QString &_s);            // TODO
     bool isValidWWFF_Ref(const QString &_s);        // TODO
