@@ -7080,6 +7080,18 @@ bool MainWindow::loadSettings()
          //qDebug() << Q_FUNC_INFO << " - It seems it is a new version ";
          //qDebug() << Q_FUNC_INFO << QString("softwareversion: %1 / version: %2").arg(softwareVersion).arg(value);
         itIsANewversion = true;
+
+        // Users upgrading from before 2.6 have "Mode ADIF" (modeid) as their logview Mode
+        // column, from when submode had no column of its own. Now that submode is tracked
+        // separately, migrate them to the friendlier "Mode" (submode) column instead, same
+        // as what a fresh 2.6 install already defaults to. Only fires once: once migrated,
+        // the config carries "submode" and this guard no longer matches.
+        QStringList logViewFields = settings.value("LogViewFields").toStringList();
+        if (logViewFields.contains("modeid") && !logViewFields.contains("submode"))
+        {
+            logViewFields.replaceInStrings("modeid", "submode");
+            settings.setValue("LogViewFields", logViewFields);
+        }
     }
     currentLog = settings.value ("SelectedLog").toInt();
 
