@@ -48,11 +48,11 @@ export PATH="$HOME/Qt/Tools/Ninja:$QT_DIR/bin:$PATH"
 CMAKE_BIN="$HOME/Qt/Tools/CMake/CMake.app/Contents/bin/cmake"
 
 # --- Clean previous build ---
-echo "[1/4] Cleaning..."
+echo "[1/5] Cleaning..."
 rm -rf "$PROJECT_DIR/build"
 
 # --- CMake configure ---
-echo "[2/4] Configuring with CMake..."
+echo "[2/5] Configuring with CMake..."
 "$CMAKE_BIN" -S "$PROJECT_DIR" -B "$PROJECT_DIR/build" \
     -G "Ninja" \
     -DCMAKE_BUILD_TYPE=Release \
@@ -60,7 +60,7 @@ echo "[2/4] Configuring with CMake..."
     -DCMAKE_PREFIX_PATH="$QT_DIR"
 
 # --- Build ---
-echo "[3/4] Building..."
+echo "[3/5] Building..."
 "$CMAKE_BIN" --build "$PROJECT_DIR/build" -j 2
 
 # --- Bundle name must match OUTPUT_NAME set in src/CMakeLists.txt ---
@@ -77,23 +77,36 @@ if ! ls "$APP/Contents/Resources/translations"/klog_*.qm >/dev/null 2>&1; then
     exit 1
 fi
 
-# --- Deploy Qt into the bundle and create DMG ---
-echo "[4/4] Deploying Qt and creating DMG..."
+# --- Deploy Qt into the bundle ---
+echo "[4/5] Deploying Qt into the app bundle..."
+"$QT_DIR/bin/macdeployqt6" "$APP" \
+    -qmldir="$PROJECT_DIR/src/qml" \
+    -codesign="-"
 
-# Run from build/bin and pass a relative app name: macdeployqt derives the
-# DMG volume name (shown as the Finder window title when the DMG is opened)
-# from the path it's invoked with, so an absolute path leaks the build
-# machine's directory (e.g. the Jenkins workspace) into that title.
-# https://bugreports.qt.io/browse/QTBUG-60324
-(
-    cd "$PROJECT_DIR/build/bin"
-    "$QT_DIR/bin/macdeployqt6" "${APP_NAME}.app" \
-        -qmldir="$PROJECT_DIR/src/qml" \
-        -codesign="-" \
-        -dmg
-)
+# --- Build the DMG with a KLog-branded, Inkscape-style installer layout ---
+echo "[5/5] Building the DMG..."
 
-mv "$PROJECT_DIR/build/bin/${APP_NAME}.dmg" "$DEVSCRIPTS_DIR/KLog-$KLOG_VERSION-intel.dmg"
+if ! command -v create-dmg >/dev/null 2>&1; then
+    echo "ERROR: create-dmg not found. Install it with: brew install create-dmg"
+    exit 1
+fi
+
+DMG_NAME="KLog-$KLOG_VERSION-intel.dmg"
+DMG_PATH="$DEVSCRIPTS_DIR/$DMG_NAME"
+
+rm -f "$DMG_PATH"
+create-dmg \
+    --volname "KLog" \
+    --volicon "$PROJECT_DIR/src/klog.icns" \
+    --background "$DEVSCRIPTS_DIR/dmg-resources/background.png" \
+    --window-size 660 400 \
+    --icon-size 128 \
+    --icon "${APP_NAME}.app" 170 210 \
+    --hide-extension "${APP_NAME}.app" \
+    --app-drop-link 490 210 \
+    --no-internet-enable \
+    "$DMG_PATH" \
+    "$APP"
 
 echo ""
-echo "Done! KLog $KLOG_VERSION -> devscripts/KLog-$KLOG_VERSION-intel.dmg"
+echo "Done! KLog $KLOG_VERSION -> devscripts/$DMG_NAME"

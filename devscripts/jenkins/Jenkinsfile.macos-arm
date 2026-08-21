@@ -16,7 +16,8 @@
 // Requirements on the mac-arm agent:
 //   - Qt 6.10.2 installed via Qt Online Installer under ~/Qt/
 //   - Xcode and Xcode Command Line Tools installed
-//   - Homebrew available with ninja installed (brew install ninja)
+//   - Homebrew available with ninja and create-dmg installed
+//     (brew install ninja create-dmg)
 //   - Java installed (required by the Jenkins agent)
 // ─────────────────────────────────────────────────────────────────────────────
 
