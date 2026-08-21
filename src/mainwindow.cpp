@@ -3341,6 +3341,8 @@ void MainWindow::openSetup(const int _page)
             setupDialog->setModal(true);
              //qDebug() << Q_FUNC_INFO << " - 016 - " << (QTime::currentTime()).toString("HH:mm:ss");
             setupDialog->show();
+            setupDialog->raise();
+            setupDialog->activateWindow();
              //qDebug() << Q_FUNC_INFO << " - 017 - " << (QTime::currentTime()).toString("HH:mm:ss");
     // move part of this code to slotSetupDialogFinished
             logEvent(Q_FUNC_INFO, "Just after setupDialog->show", Devel);
@@ -3356,6 +3358,19 @@ void MainWindow::openSetup(const int _page)
      //qDebug() << Q_FUNC_INFO << " - 050 - " << (QTime::currentTime()).toString("HH:mm:ss");
        //qDebug() << Q_FUNC_INFO << " - END";
     logEvent(Q_FUNC_INFO, "END", Debug);
+}
+
+void MainWindow::raiseSetupDialogIfVisible()
+{
+    // On first run, openSetup() (from init()) shows setupDialog before the
+    // main window itself is shown. The subsequent mw.show() then raises the
+    // main window on top of it, leaving Settings hidden behind the main UI.
+    // Re-raise it here, once the main window is on screen, so it stays on top.
+    if (setupDialog && setupDialog->isVisible())
+    {
+        setupDialog->raise();
+        setupDialog->activateWindow();
+    }
 }
 
 void MainWindow::slotSetupDialogFinished (const int _s)

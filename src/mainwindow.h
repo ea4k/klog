@@ -144,6 +144,7 @@ public:
     void checkIfNewVersion();
     void recommendBackupIfNeeded();
     void init();
+    void raiseSetupDialogIfVisible();
     //void setPkgVersion(const QString &_pkgVersion);
     //void showNotWar();
 

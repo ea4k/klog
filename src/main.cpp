@@ -373,6 +373,7 @@ int main(int argc, char *argv[])
     QApplication::processEvents();
 
     mw.show();
+    mw.raiseSetupDialogIfVisible();
     splash.finish(&mw);
 
     return app.exec();
