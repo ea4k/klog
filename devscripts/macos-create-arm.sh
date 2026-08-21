@@ -97,11 +97,11 @@ create-dmg \
     --volname "KLog" \
     --volicon "$PROJECT_DIR/src/klog.icns" \
     --background "$DEVSCRIPTS_DIR/dmg-resources/background.png" \
-    --window-size 660 400 \
+    --window-size 400 400 \
     --icon-size 128 \
-    --icon "${APP_NAME}.app" 170 210 \
+    --icon "${APP_NAME}.app" 100 220 \
     --hide-extension "${APP_NAME}.app" \
-    --app-drop-link 490 210 \
+    --app-drop-link 300 220 \
     --no-internet-enable \
     "$DMG_PATH" \
     "$APP"
