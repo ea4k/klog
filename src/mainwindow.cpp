@@ -7210,7 +7210,7 @@ bool MainWindow::loadSettings()
     sendQSLWhenRec = (settings.value ("SendQSLWhenRec", true).toBool ());
     manageDxMarathon = (settings.value ("ManageDXMarathon", false).toBool ());
     awardsWidget->setManageDXMarathon (manageDxMarathon);
-    manageMode = (settings.value ("IncludeModeForNeeded", false).toBool ());
+    manageMode = (settings.value ("IncludeModeForNeeded", true).toBool ());
     awardsWidget->setIncludeModeForNeeded (manageMode);
     searchWidget->setShowCallInSearch(settings.value ("ShowCallsignInSearch", true).toBool ());
     checkNewVersions = settings.value ("CheckNewVersions", true).toBool ();
@@ -7284,7 +7284,7 @@ bool MainWindow::loadSettings()
 
     UDPLogServer->loadSettings ();
     settings.beginGroup ("UDPServer");
-    UDPServerStart = settings.value ("UDPServer", false).toBool ();
+    UDPServerStart = settings.value ("UDPServer", true).toBool ();
       //qDebug() << Q_FUNC_INFO << "UDPServer = " << util->boolToQString (UDPServerStart);
     //UDPLogServer->setNetworkInterface(settings.value ("UDPNetworkInterface").toString ());
     //UDPLogServer->setPort(settings.value ("UDPServerPort", 2237).toInt ());

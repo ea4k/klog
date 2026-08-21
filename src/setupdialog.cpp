@@ -591,6 +591,7 @@ void SetupDialog::setDefaults()
     logEvent(Q_FUNC_INFO, "Start", Devel);
     miscPage->setRealTime("TRUE");
     miscPage->setUTCTime("TRUE");
+    miscPage->setShowSeconds(false);
     miscPage->setImperial("FALSE"); //Metric system is the default
     miscPage->setAlwaysADIF("FALSE");
     miscPage->setSendQSLWhenRec("TRUE");
@@ -602,8 +603,9 @@ void SetupDialog::setDefaults()
     //miscPage->setLogSort("FALSE");
     miscPage->setSetEQSLByDefault("TRUE");
     miscPage->setCheckCalls (true);
+    miscPage->setIncludeModeForNeeded(true);
 
-    UDPPage->setUDPServer(false);
+    UDPPage->setUDPServer(true);
     UDPPage->setUDPServerPort(2237);
     UDPPage->setTimeout(2000);
     UDPPage->setLogFromWSJTx(false);
