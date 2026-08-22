@@ -1,4 +1,4 @@
-TBD - 2.6-RC4
+Aug 2026 - 2.6
 - New feature: DX Assistant, a tab in the upper-right panel showing a live, prioritised list of DXCluster & WSJT-X spots scored against your own log, with a Priority column, per-session spot hiding, band/spotter-continent filters, configurable max age and max number of spots (Closes #1009, #1010, #1011, #1012, #1013, #1014, #1015, #1016, #1017, #1018)
 - New feature: Every station WSJT-X decodes feeds the DX Assistant, so the band being monitored is analysed in real time without waiting for the DXCluster to report it. The spots carry the SNR and whether the station is calling CQ, and KLog asks WSJT-X for the decodes it is already showing as soon as it starts listening (Closes #1053)
 - Enhancement: The UDP server can join a multicast group, so it can share the WSJT-X datagrams with other programs like JTAlert or GridTracker. The group is set in Setup, in the UDP page.
@@ -18,7 +18,7 @@ TBD - 2.6-RC4
 - Bugfix: QSO_COMPLETE read from the database while exporting to ADIF was silently discarded, so that ADIF export always used the default "Y" regardless of the QSO's actual value. The database now stores the ADIF value (Y/N/NIL/?) directly instead of an internal numeric code, removing the now unnecessary conversion that caused the bug; existing databases are converted automatically on the next start.
 - Translations: Italian (TNX IU5HIU), Spanish (EA4K).
 
-July 2026 - 2.5.3
+Jul 2026 - 2.5.3
 - Bugfix: BandRX was not synced with FreqRX if FreqRX was not defined and BandRX was same as BandTX.
 - Bugfix: Default DXCluster server is not shown in the combobox after first installation (Closes #1043)
 - Enhancement: Color the QLineEdit that has the focus (Close #3) (TNX EA5WA)
