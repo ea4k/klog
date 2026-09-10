@@ -4842,6 +4842,23 @@ void MainWindow::slotADIFImport(){
     // Empty here means the user cancelled (or selected nothing): just abort.
     if (fileNames.isEmpty())
         return;
+
+    // WSJT-X, JTDX, MSHV and similar programs do not write QSL status fields,
+    // so imported QSOs end up with no status and never show up in the upload
+    // dialogs. Ask what the user wants.
+    bool markQueued = false;
+    {
+        QMessageBox mb(this);
+        mb.setWindowTitle(tr("KLog - ADIF import"));
+        mb.setIcon(QMessageBox::Question);
+        mb.setText(tr("Mark the imported QSOs as pending upload?"));
+        mb.setInformativeText(tr("Log files from WSJT-X, JTDX, MSHV and similar "
+            "programs do not carry QSL status fields. Unless marked as queued, "
+            "the imported QSOs will not appear in the upload dialogs."));
+        mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        mb.setDefaultButton(QMessageBox::Yes);
+        markQueued = (mb.exec() == QMessageBox::Yes);
+    }
     //qDebug() << Q_FUNC_INFO << " - CurrentLog: " << currentLog;
     int totalLoggedQSOs = 0;
     int globalImported = 0;   // Imported QSOs across all files in this batch
@@ -4945,6 +4962,17 @@ void MainWindow::slotADIFImport(){
     }
     if (totalLoggedQSOs>0)
     {
+        if (markQueued)
+        {
+            QSqlQuery q;
+            q.prepare("UPDATE log SET"
+                      " lotw_qsl_sent=CASE WHEN lotw_qsl_sent IS NULL OR lotw_qsl_sent='' THEN 'Q' ELSE lotw_qsl_sent END,"
+                      " eqsl_qsl_sent=CASE WHEN eqsl_qsl_sent IS NULL OR eqsl_qsl_sent='' THEN 'Q' ELSE eqsl_qsl_sent END,"
+                      " clublog_qso_upload_status=CASE WHEN clublog_qso_upload_status IS NULL OR clublog_qso_upload_status='' THEN 'M' ELSE clublog_qso_upload_status END "
+                      "WHERE lognumber=:log");
+            q.bindValue(":log", currentLog);
+            q.exec();
+        }
         updateQSLRecAndSent();
         logWindow->refresh();
         logWindow->scrollToTop();
