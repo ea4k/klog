@@ -8828,7 +8828,7 @@ bool DataProxy_SQLite::showInvalidCallMessage(const QString &_call){
     msgBox.setText(aux);
     msgBox.setInformativeText(tr("Exporting wrong calls may create problems in the applications you are potentially importing this logfile to. It may, however, be a good callsign that is wrongly identified by KLog as not valid."));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
     int ret = msgBox.exec();
     switch (ret) {
     case QMessageBox::Yes:
