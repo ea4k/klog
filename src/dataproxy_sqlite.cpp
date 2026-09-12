@@ -4612,7 +4612,10 @@ QStringList DataProxy_SQLite::getQSODetailsForLoTWDownload(const int _id)
     //getNameFromBandId
     QSqlQuery query; //query.setForwardOnly(true);
     // qString queryString = QString("SELECT call, qso_date, my_gridsquare, bandid, modeid FROM log WHERE id='%0'").arg(_id);
-    QString queryString = QString("SELECT call, qso_date, my_gridsquare, band.name, mode.name FROM log JOIN band ON log.bandid=band.id JOIN mode on log.modeid=mode.id WHERE log.id='%0'").arg(_id);
+    // Join on submode, not modeid: modeid is the parent ADIF mode (e.g. MFSK
+    // for both FT4 and FT8), so joining on it shows "MFSK" instead of the
+    // actual submode the QSO was made in. Same fix as the log view got.
+    QString queryString = QString("SELECT call, qso_date, my_gridsquare, band.name, mode.submode FROM log JOIN band ON log.bandid=band.id JOIN mode on log.submode=mode.id WHERE log.id='%0'").arg(_id);
 
 
     bool sqlOk = query.exec(queryString);
