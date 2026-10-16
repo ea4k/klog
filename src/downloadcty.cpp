@@ -214,7 +214,24 @@ bool DownLoadCTY::saveToDisk(const QString &filename, QIODevice *data)
         return false;
     }
 
-    file.write(data->readAll());
+    const QByteArray content = data->readAll();
+    const QByteArray head = content.left(200).trimmed().toLower();
+    if (head.startsWith("<!doctype") || head.startsWith("<html") ||
+        content.size() < 50000)
+    {
+        file.close();
+        file.remove();
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(tr("The downloaded file does not look like a country file."));
+        msgBox.setInformativeText(tr("The server returned a web page instead of the "
+            "data file, or the file was much smaller than expected. The existing "
+            "country data has been kept."));
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+        return false;
+    }
+
+    file.write(content);
     file.close();
 
     return true;
