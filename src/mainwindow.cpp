@@ -2881,6 +2881,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         logWindow->refresh();
         logWindow->scrollToTop();
         dxccStatusWidget->refresh();
+        if (awardsWidget) awardsWidget->showAwards();
         //TODO: Add the QSOs to the widget and show showAdifImportWidget->show();
     }
     else
