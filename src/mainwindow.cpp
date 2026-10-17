@@ -2881,6 +2881,7 @@ void MainWindow::slotLoTWDownloadedFileProcess(const QString &_fn)
         logWindow->refresh();
         logWindow->scrollToTop();
         dxccStatusWidget->refresh();
+        if (awardsWidget) awardsWidget->showAwards();
         //TODO: Add the QSOs to the widget and show showAdifImportWidget->show();
     }
     else
@@ -4369,9 +4370,12 @@ void MainWindow::fileExportLoTW2(const QString &_call, QList<int> _qsos)
     {
         msgBox.setIcon(QMessageBox::Question);
         msgBox.setWindowTitle(tr("KLog - LoTW"));
-        msgBox.setText(tr("TQSL finished with no error.\n\nDo you want to mark as Sent all the QSOs uploaded to LoTW?") );
+        msgBox.setText(tr("Did TQSL report a successful upload?\n\n"
+            "Answer Yes only if TQSL confirmed the QSOs reached LoTW. TQSL does "
+            "not always report a failed upload back to KLog, so marking the QSOs "
+            "as sent after a failure would hide them from the next upload."));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No );
-        msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setDefaultButton(QMessageBox::No);
         int i = msgBox.exec();
         if (i == QMessageBox::Yes)
         {
