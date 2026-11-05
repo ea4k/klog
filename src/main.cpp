@@ -24,6 +24,8 @@
  *                                                                           *
  *****************************************************************************/
 #include <QtWidgets>
+#include "profilemanager.h"
+#include "startprofiledialog.h"
 // #include <QtSql>
 #include <QTranslator>
 // #include <cstdlib>
@@ -358,6 +360,15 @@ int main(int argc, char *argv[])
 
     splash.showMessage("Creating window...");
     QApplication::processEvents();
+
+    ProfileManager profileManager;
+    QString profileErr;
+    if (!profileManager.ensureSchemaAndMigrate(&profileErr))
+        qWarning() << "Profiles:" << profileErr;
+    splash.hide();
+    const int activeProfileId = StartProfileDialog::chooseProfileOnStartup(&profileManager, &world, &dataProxy);
+    if (activeProfileId < 0)
+        return 0;
 
     MainWindow mw(&dataProxy, &world);
 
