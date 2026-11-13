@@ -150,6 +150,9 @@ private slots:
     void test_setDXAssistantEnabledDoesNotEmitBack();
     void test_dxAssistantButtonTextAndToolTip();
 
+    // Q) printSpot - regression for issue #1142
+    void test_printSpot_longDXCallKeepsColumnsAligned();
+
 private:
     // Helper: build an EntityStatus with the given QSOStatus and bandId=-1.
     // bandId=-1 guarantees that no band-based filter can interfere with the
@@ -801,6 +804,26 @@ void tst_DXCluster::test_dxAssistantButtonTextAndToolTip()
     local.init();
     QCOMPARE(local.dxAssistantButton->text(), QString("DX A"));
     QCOMPARE(local.dxAssistantButton->toolTip(), QString("Enable/Disable DX Assistant"));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Q) printSpot - regression for issue #1142
+//    The DX call column used to grow on rows with a long call, shifting the
+//    comment and time columns of that row only.
+// ─────────────────────────────────────────────────────────────────────────────
+
+void tst_DXCluster::test_printSpot_longDXCallKeepsColumnsAligned()
+{
+    widget->setDXClusterSpotConfig(true, true, true, true, true, true, true, true);
+    widget->dxClusterListWidget->clear();
+    widget->printSpot("DX de EA4K: 14025.0 IZ3WUW CQ 1429Z");
+    widget->printSpot("DX de EA4K: 14025.0 VP2V/W1ABC/MM CQ 1430Z");
+    QCOMPARE(widget->dxClusterListWidget->count(), 2);
+
+    // The newest spot is inserted on top
+    const QString longCallRow  = widget->dxClusterListWidget->item(0)->text();
+    const QString shortCallRow = widget->dxClusterListWidget->item(1)->text();
+    QCOMPARE(longCallRow.indexOf("CQ"), shortCallRow.indexOf("CQ"));
 }
 
 QTEST_MAIN(tst_DXCluster)
