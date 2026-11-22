@@ -280,6 +280,8 @@ set(CMAKE_AUTORCC ON)
 
 # Add executable
 add_executable(klog WIN32 MACOSX_BUNDLE
+    profilemanager.cpp profilemanager.h
+    startprofiledialog.cpp startprofiledialog.h
     ${KLOG_SOURCES}
     ${KLOG_HEADERS}
     ${SRC_UI}
