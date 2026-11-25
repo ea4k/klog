@@ -414,15 +414,9 @@ void DXClusterWidget::printSpot(const QString _stringSpot)
         spot.setColor(dxSpotColor);
     }
 
-    int callPad = 15;
-    if (spot.getDxCall().length()>11)
-        callPad = spot.getDxCall().length() + 3;
-    QString paddedDXCall = spot.getDxCall().leftJustified(callPad, ' ');
+    QString paddedDXCall = spot.getDxCall().leftJustified(15, ' ');
     QString paddedFreq = ((spot.getFrequency()).toQString(MHz)).rightJustified(10, ' ');
-    callPad = 10;
-    if (spot.getSpotter().length()>11)
-        callPad = spot.getSpotter().length() + 3;
-    QString paddedSpotter = QString(spot.getSpotter()+ ":").leftJustified(callPad, ' ');
+    QString paddedSpotter = QString(spot.getSpotter()+ ":").leftJustified(10, ' ');
     QString paddedComments = QString(spot.getComment()).leftJustified(28, ' ');
     QString dateformat;
     if (spot.getSHDX())
